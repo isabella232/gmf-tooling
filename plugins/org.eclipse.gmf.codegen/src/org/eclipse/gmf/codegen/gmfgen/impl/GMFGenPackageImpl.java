@@ -6,16 +6,30 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.Collection;
+import java.util.Map;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
-import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.validate.GMFValidator;
 
 /**
@@ -25,6 +39,13 @@ import org.eclipse.gmf.validate.GMFValidator;
  * @generated
  */
 public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	protected String packageFilename = "/models/gmfgen.ecore";
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1133,11 +1154,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
-	 * @see #createPackageContents()
-	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static GMFGenPackage init() {
+	public static GMFGenPackage initGen() {
 		if (isInited) return (GMFGenPackage)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI);
 
 		// Obtain or create and register package
@@ -1148,11 +1167,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		// Initialize simple dependencies
 		GenModelPackage.eINSTANCE.eClass();
 
-		// Create package meta-data objects
-		theGMFGenPackage.createPackageContents();
+		// Load packages
+		theGMFGenPackage.loadPackage();
 
-		// Initialize created meta-data
-		theGMFGenPackage.initializePackageContents();
+		// Fix loaded packages
+		theGMFGenPackage.fixPackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theGMFGenPackage.freeze();
@@ -1160,17 +1179,63 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		return theGMFGenPackage;
 	}
 
-	public void initializePackageContents() {
-		initializePackageContentsGen();
-		EValidator.Registry.INSTANCE.put(this, GMFValidator.INSTANCE);
+	// Overridden generated method to register our validator
+	public static GMFGenPackage init() {
+		GMFGenPackage p = initGen();
+		EValidator.Registry.INSTANCE.put(p, GMFValidator.INSTANCE);
+		return p;
 	}
 
-	/**
+	// Overridden generated method to ensure references in our metamodel that point to GenModel objects
+	// are resolved. For gmfgen.genmodel to generate code, dependency from EMF's GenModel should be stated
+	// in a form of 'development' URI (i.e. platform:/plugin/). Hence, eType of our EReferences is a proxy
+	// like platform:/plugin/oe.emf/GenModel.ecore#//GenClass - e.g. GenCommonBase#diagramRunTimeClass
+	// Proxies are ok for regular models, but not for 'freezed' metamodels - check ETypedElementImpl#getEType
+	// where proxies are resolved only if metamodel is not already frozen.
+	//
+	// Observed problem: GMF's annotation-based validation failed with message like "can't find ecoreClass" in
+	// constraints with "diagramRunTimeClass.ecoreClass...".
+	//
+	// Note, one can't use EcoreUtil#resolveAll to resolve the proxies, as package's resource has no ResourceSet
+	// associated and hence proxy resolution doesn't work (even if it would, platform:/plugin/ would resolve
+	// to a different GenModel instance than we had previously with generated metamodel code)
+	public void fixPackageContents() {
+		fixPackageContentsGen();
+		Map<EObject, Collection<Setting>> cr = EcoreUtil.ProxyCrossReferencer.find(this);
+		for (Collection<Setting> ss : cr.values()) {
+			for (Setting s : ss) {
+				if (!s.getEStructuralFeature().isMany() && !s.getEStructuralFeature().isDerived() && s.getEStructuralFeature().isChangeable()) {
+					EObject proxy = (EObject) s.get(false);
+					if (!proxy.eIsProxy()) {
+						continue;
+					}
+					URI proxyURI = ((InternalEObject) proxy).eProxyURI();
+					boolean isGenModel = proxyURI.segmentCount() == 4;
+					isGenModel = isGenModel && "org.eclipse.emf.codegen.ecore".equals(proxyURI.segment(1));
+					isGenModel = isGenModel && "model".equals(proxyURI.segment(2));
+					isGenModel = isGenModel && "GenModel.ecore".equals(proxyURI.segment(3));
+					if (isGenModel) {
+						EObject genModelObj = GenModelPackage.eINSTANCE.eResource().getEObject(proxyURI.fragment());
+						if (genModelObj != null) {
+							s.set(genModelObj);
+						} else {
+							System.out.println("GMFGenPackageImpl.fixPackageContents()");
+						}
+					}
+				}
+			}
+		}
+	}
+
+		/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EClass getGenEditorGenerator() {
+		if (genEditorGeneratorEClass == null) {
+			genEditorGeneratorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(0);
+		}
 		return genEditorGeneratorEClass;
 	}
 
@@ -1180,7 +1245,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Audits() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1189,7 +1254,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Metrics() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1198,7 +1263,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Diagram() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1207,7 +1272,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Plugin() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1216,7 +1281,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Editor() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(4);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1225,7 +1290,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Navigator() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1234,7 +1299,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_DiagramUpdater() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(6);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1243,7 +1308,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_PropertySheet() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1252,7 +1317,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_Application() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1261,7 +1326,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_DomainGenModel() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1270,7 +1335,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -1279,7 +1344,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_ModelID() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1288,7 +1353,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(12);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1297,7 +1362,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(13);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -1306,7 +1371,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_DomainFileExtension() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -1315,7 +1380,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_DynamicTemplates() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(15);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -1324,7 +1389,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_TemplateDirectory() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(16);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -1333,7 +1398,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorGenerator_CopyrightText() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(17);
+        return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -1342,7 +1407,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_ExpressionProviders() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(18);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -1351,7 +1416,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_ModelAccess() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(19);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -1360,7 +1425,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_LabelParsers() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(20);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -1369,7 +1434,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorGenerator_ContextMenus() {
-		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(21);
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(21);
 	}
 
 	/**
@@ -1378,6 +1443,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDiagram() {
+		if (genDiagramEClass == null) {
+			genDiagramEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(1);
+		}
 		return genDiagramEClass;
 	}
 
@@ -1387,7 +1455,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_EditorGen() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1396,7 +1464,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_DomainDiagramElement() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1405,7 +1473,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_ChildNodes() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1414,7 +1482,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_TopLevelNodes() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1423,7 +1491,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Links() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(4);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1432,7 +1500,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Compartments() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1441,7 +1509,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Palette() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(6);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1450,7 +1518,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagram_Synchronized() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenDiagram().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1459,7 +1527,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_Preferences() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(8);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1468,7 +1536,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagram_PreferencePages() {
-		return (EReference)genDiagramEClass.getEStructuralFeatures().get(9);
+        return (EReference)getGenDiagram().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1477,6 +1545,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenEditorView() {
+		if (genEditorViewEClass == null) {
+			genEditorViewEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(2);
+		}
 		return genEditorViewEClass;
 	}
 
@@ -1486,7 +1557,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenEditorView_EditorGen() {
-		return (EReference)genEditorViewEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenEditorView().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1495,7 +1566,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_PackageName() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1504,7 +1575,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ActionBarContributorClassName() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1513,7 +1584,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ClassName() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1522,7 +1593,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_IconPath() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1531,7 +1602,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_IconPathX() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1540,7 +1611,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ID() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1549,7 +1620,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_EclipseEditor() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1558,7 +1629,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenEditorView_ContextID() {
-		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getGenEditorView().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1567,6 +1638,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenPreferencePage() {
+		if (genPreferencePageEClass == null) {
+			genPreferencePageEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(3);
+		}
 		return genPreferencePageEClass;
 	}
 
@@ -1576,7 +1650,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPreferencePage_ID() {
-		return (EAttribute)genPreferencePageEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenPreferencePage().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1585,7 +1659,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPreferencePage_Name() {
-		return (EAttribute)genPreferencePageEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenPreferencePage().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1594,7 +1668,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPreferencePage_Children() {
-		return (EReference)genPreferencePageEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenPreferencePage().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1603,7 +1677,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPreferencePage_Parent() {
-		return (EReference)genPreferencePageEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenPreferencePage().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1612,6 +1686,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCustomPreferencePage() {
+		if (genCustomPreferencePageEClass == null) {
+			genCustomPreferencePageEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(4);
+		}
 		return genCustomPreferencePageEClass;
 	}
 
@@ -1621,7 +1698,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomPreferencePage_QualifiedClassName() {
-		return (EAttribute)genCustomPreferencePageEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenCustomPreferencePage().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1630,7 +1707,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomPreferencePage_GenerateBoilerplate() {
-		return (EAttribute)genCustomPreferencePageEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenCustomPreferencePage().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1639,7 +1716,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCustomPreferencePage_Preferences() {
-		return (EReference)genCustomPreferencePageEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenCustomPreferencePage().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1648,6 +1725,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenStandardPreferencePage() {
+		if (genStandardPreferencePageEClass == null) {
+			genStandardPreferencePageEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(5);
+		}
 		return genStandardPreferencePageEClass;
 	}
 
@@ -1657,7 +1737,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenStandardPreferencePage_Kind() {
-		return (EAttribute)genStandardPreferencePageEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenStandardPreferencePage().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1666,7 +1746,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenStandardPreferencePage_ClassName() {
-		return (EAttribute)genStandardPreferencePageEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenStandardPreferencePage().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1675,6 +1755,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDiagramPreferences() {
+		if (genDiagramPreferencesEClass == null) {
+			genDiagramPreferencesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(7);
+		}
 		return genDiagramPreferencesEClass;
 	}
 
@@ -1684,7 +1767,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_LineStyle() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1693,7 +1776,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_DefaultFont() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1702,7 +1785,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_FontColor() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1711,7 +1794,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_FillColor() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1720,7 +1803,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_LineColor() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(4);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1729,7 +1812,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_NoteFillColor() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1738,7 +1821,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_NoteLineColor() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(6);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1747,7 +1830,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_ShowConnectionHandles() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1756,7 +1839,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_ShowPopupBars() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1765,7 +1848,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_PromptOnDelFromModel() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -1774,7 +1857,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_PromptOnDelFromDiagram() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -1783,7 +1866,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_EnableAnimatedLayout() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1792,7 +1875,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_EnableAnimatedZoom() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(12);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1801,7 +1884,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_EnableAntiAlias() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(13);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -1810,7 +1893,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_ShowGrid() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -1819,7 +1902,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_ShowRulers() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(15);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -1828,7 +1911,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_SnapToGrid() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(16);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -1837,7 +1920,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_SnapToGeometry() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(17);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -1846,7 +1929,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_GridInFront() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(18);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -1855,7 +1938,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_RulerUnits() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(19);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -1864,7 +1947,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_GridSpacing() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(20);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -1873,7 +1956,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramPreferences_GridLineColor() {
-		return (EReference)genDiagramPreferencesEClass.getEStructuralFeatures().get(21);
+        return (EReference)getGenDiagramPreferences().getEStructuralFeatures().get(21);
 	}
 
 	/**
@@ -1882,7 +1965,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramPreferences_GridLineStyle() {
-		return (EAttribute)genDiagramPreferencesEClass.getEStructuralFeatures().get(22);
+        return (EAttribute)getGenDiagramPreferences().getEStructuralFeatures().get(22);
 	}
 
 	/**
@@ -1891,6 +1974,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenFont() {
+		if (genFontEClass == null) {
+			genFontEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(11);
+		}
 		return genFontEClass;
 	}
 
@@ -1900,6 +1986,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenStandardFont() {
+		if (genStandardFontEClass == null) {
+			genStandardFontEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(12);
+		}
 		return genStandardFontEClass;
 	}
 
@@ -1909,7 +1998,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenStandardFont_Name() {
-		return (EAttribute)genStandardFontEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenStandardFont().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1918,6 +2007,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCustomFont() {
+		if (genCustomFontEClass == null) {
+			genCustomFontEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(14);
+		}
 		return genCustomFontEClass;
 	}
 
@@ -1927,7 +2019,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomFont_Name() {
-		return (EAttribute)genCustomFontEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenCustomFont().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1936,7 +2028,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomFont_Height() {
-		return (EAttribute)genCustomFontEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenCustomFont().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1945,7 +2037,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomFont_Style() {
-		return (EAttribute)genCustomFontEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenCustomFont().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1954,6 +2046,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenColor() {
+		if (genColorEClass == null) {
+			genColorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(16);
+		}
 		return genColorEClass;
 	}
 
@@ -1963,6 +2058,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenRGBColor() {
+		if (genRGBColorEClass == null) {
+			genRGBColorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(17);
+		}
 		return genRGBColorEClass;
 	}
 
@@ -1972,7 +2070,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenRGBColor_Red() {
-		return (EAttribute)genRGBColorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenRGBColor().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1981,7 +2079,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenRGBColor_Green() {
-		return (EAttribute)genRGBColorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenRGBColor().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1990,7 +2088,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenRGBColor_Blue() {
-		return (EAttribute)genRGBColorEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenRGBColor().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1999,6 +2097,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenConstantColor() {
+		if (genConstantColorEClass == null) {
+			genConstantColorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(18);
+		}
 		return genConstantColorEClass;
 	}
 
@@ -2008,7 +2109,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenConstantColor_Name() {
-		return (EAttribute)genConstantColorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenConstantColor().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2017,6 +2118,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenPreference() {
+		if (genPreferenceEClass == null) {
+			genPreferenceEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(20);
+		}
 		return genPreferenceEClass;
 	}
 
@@ -2026,7 +2130,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPreference_Page() {
-		return (EReference)genPreferenceEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenPreference().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2035,7 +2139,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPreference_Name() {
-		return (EAttribute)genPreferenceEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenPreference().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2044,7 +2148,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPreference_Key() {
-		return (EAttribute)genPreferenceEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenPreference().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2053,7 +2157,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPreference_DefaultValue() {
-		return (EAttribute)genPreferenceEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenPreference().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2062,6 +2166,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getBatchValidation() {
+		if (batchValidationEClass == null) {
+			batchValidationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(21);
+		}
 		return batchValidationEClass;
 	}
 
@@ -2071,7 +2178,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2080,7 +2187,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2089,7 +2196,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MarkerNavigationProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2098,7 +2205,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MarkerNavigationProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2107,7 +2214,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationEnabled() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2116,7 +2223,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MetricProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2125,7 +2232,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_MetricProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2134,7 +2241,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationDecoratorProviderClassName() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2143,7 +2250,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationDecorators() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -2152,7 +2259,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_ValidationDecoratorProviderPriority() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -2161,7 +2268,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getBatchValidation_LiveValidationUIFeedback() {
-		return (EAttribute)batchValidationEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getBatchValidation().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -2170,6 +2277,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getProviderClassNames() {
+		if (providerClassNamesEClass == null) {
+			providerClassNamesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(22);
+		}
 		return providerClassNamesEClass;
 	}
 
@@ -2179,7 +2289,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ElementTypesClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2188,7 +2298,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_NotationViewProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2197,7 +2307,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_NotationViewProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2206,7 +2316,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_EditPartProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2215,7 +2325,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_EditPartProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2224,7 +2334,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ModelingAssistantProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2233,7 +2343,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ModelingAssistantProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2242,7 +2352,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_IconProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2251,7 +2361,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_IconProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -2260,7 +2370,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ParserProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -2269,7 +2379,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ParserProviderPriority() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -2278,7 +2388,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getProviderClassNames_ContributionItemProviderClassName() {
-		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)getProviderClassNames().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -2287,6 +2397,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getShortcuts() {
+		if (shortcutsEClass == null) {
+			shortcutsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(24);
+		}
 		return shortcutsEClass;
 	}
 
@@ -2296,7 +2409,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutsDecoratorProviderClassName() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2305,7 +2418,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutsDecoratorProviderPriority() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2314,7 +2427,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_CreateShortcutActionClassName() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2323,7 +2436,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_CreateShortcutDecorationsCommandClassName() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2332,7 +2445,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutPropertyTesterClassName() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2341,7 +2454,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ContainsShortcutsTo() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2350,7 +2463,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getShortcuts_ShortcutsProvidedFor() {
-		return (EAttribute)shortcutsEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getShortcuts().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2359,6 +2472,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getPackageNames() {
+		if (packageNamesEClass == null) {
+			packageNamesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(25);
+		}
 		return packageNamesEClass;
 	}
 
@@ -2368,7 +2484,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditCommandsPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2377,7 +2493,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditHelpersPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2386,7 +2502,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditPartsPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2395,7 +2511,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_EditPoliciesPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2404,7 +2520,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_PreferencesPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2413,7 +2529,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_ProvidersPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2422,7 +2538,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_ParsersPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2431,7 +2547,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPackageNames_NotationViewFactoriesPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getPackageNames().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2440,6 +2556,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getLinkConstraints() {
+		if (linkConstraintsEClass == null) {
+			linkConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(26);
+		}
 		return linkConstraintsEClass;
 	}
 
@@ -2449,6 +2568,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getEditorCandies() {
+		if (editorCandiesEClass == null) {
+			editorCandiesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(27);
+		}
 		return editorCandiesEClass;
 	}
 
@@ -2458,7 +2580,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2467,7 +2589,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardPageClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2476,7 +2598,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardIconPath() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2485,7 +2607,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardIconPathX() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2494,7 +2616,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_CreationWizardCategoryID() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2503,7 +2625,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_DiagramEditorUtilClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2512,7 +2634,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_DocumentProviderClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2521,7 +2643,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_InitDiagramFileActionClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2530,7 +2652,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_NewDiagramFileWizardClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -2539,7 +2661,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_DiagramContentInitializerClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -2548,7 +2670,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_MatchingStrategyClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -2557,7 +2679,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_VisualIDRegistryClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -2566,7 +2688,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_ElementChooserClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(12);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -2575,7 +2697,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_LoadResourceActionClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(13);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -2584,7 +2706,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditorCandies_EditingDomainID() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)getEditorCandies().getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -2593,6 +2715,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getEditPartCandies() {
+		if (editPartCandiesEClass == null) {
+			editPartCandiesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(28);
+		}
 		return editPartCandiesEClass;
 	}
 
@@ -2602,7 +2727,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_ReorientConnectionViewCommandClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2611,7 +2736,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseEditHelperClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2620,7 +2745,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_EditPartFactoryClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2629,7 +2754,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseExternalNodeLabelEditPartClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2638,7 +2763,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseItemSemanticEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2647,7 +2772,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_BaseGraphicalNodeEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2656,7 +2781,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_TextSelectionEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2665,7 +2790,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEditPartCandies_TextNonResizableEditPolicyClassName() {
-		return (EAttribute)editPartCandiesEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getEditPartCandies().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2674,6 +2799,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getMeasurementUnit() {
+		if (measurementUnitEClass == null) {
+			measurementUnitEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(29);
+		}
 		return measurementUnitEClass;
 	}
 
@@ -2683,7 +2811,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getMeasurementUnit_Units() {
-		return (EAttribute)measurementUnitEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getMeasurementUnit().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2692,6 +2820,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDiagramUpdater() {
+		if (genDiagramUpdaterEClass == null) {
+			genDiagramUpdaterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(30);
+		}
 		return genDiagramUpdaterEClass;
 	}
 
@@ -2701,7 +2832,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramUpdater_EditorGen() {
-		return (EReference)genDiagramUpdaterEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenDiagramUpdater().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2710,7 +2841,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramUpdater_DiagramUpdaterClassName() {
-		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenDiagramUpdater().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2719,7 +2850,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramUpdater_NodeDescriptorClassName() {
-		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenDiagramUpdater().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2728,7 +2859,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramUpdater_LinkDescriptorClassName() {
-		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenDiagramUpdater().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2737,7 +2868,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramUpdater_UpdateCommandClassName() {
-		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenDiagramUpdater().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2746,7 +2877,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagramUpdater_UpdateCommandID() {
-		return (EAttribute)genDiagramUpdaterEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenDiagramUpdater().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2755,6 +2886,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenPlugin() {
+		if (genPluginEClass == null) {
+			genPluginEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(31);
+		}
 		return genPluginEClass;
 	}
 
@@ -2764,7 +2898,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPlugin_EditorGen() {
-		return (EReference)genPluginEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenPlugin().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2773,7 +2907,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_ID() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2782,7 +2916,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_Name() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2791,7 +2925,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_Provider() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2800,7 +2934,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_Version() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2809,7 +2943,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_PrintingEnabled() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2818,7 +2952,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_RequiredPlugins() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2827,7 +2961,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPlugin_ActivatorClassName() {
-		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenPlugin().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -2836,6 +2970,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getDynamicModelAccess() {
+		if (dynamicModelAccessEClass == null) {
+			dynamicModelAccessEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(32);
+		}
 		return dynamicModelAccessEClass;
 	}
 
@@ -2845,7 +2982,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getDynamicModelAccess_EditorGen() {
-		return (EReference)dynamicModelAccessEClass.getEStructuralFeatures().get(0);
+        return (EReference)getDynamicModelAccess().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2854,7 +2991,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getDynamicModelAccess_PackageName() {
-		return (EAttribute)dynamicModelAccessEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getDynamicModelAccess().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2863,7 +3000,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getDynamicModelAccess_ClassName() {
-		return (EAttribute)dynamicModelAccessEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getDynamicModelAccess().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2872,6 +3009,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getElementType() {
+		if (elementTypeEClass == null) {
+			elementTypeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(52);
+		}
 		return elementTypeEClass;
 	}
 
@@ -2881,7 +3021,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getElementType_DiagramElement() {
-		return (EReference)elementTypeEClass.getEStructuralFeatures().get(0);
+        return (EReference)getElementType().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2890,7 +3030,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getElementType_UniqueIdentifier() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getElementType().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2899,7 +3039,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getElementType_DisplayName() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getElementType().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2908,7 +3048,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getElementType_DefinedExternally() {
-		return (EAttribute)elementTypeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getElementType().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2917,6 +3057,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getMetamodelType() {
+		if (metamodelTypeEClass == null) {
+			metamodelTypeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(53);
+		}
 		return metamodelTypeEClass;
 	}
 
@@ -2926,7 +3069,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getMetamodelType_EditHelperClassName() {
-		return (EAttribute)metamodelTypeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getMetamodelType().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2935,6 +3078,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getSpecializationType() {
+		if (specializationTypeEClass == null) {
+			specializationTypeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(54);
+		}
 		return specializationTypeEClass;
 	}
 
@@ -2944,7 +3090,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getSpecializationType_MetamodelType() {
-		return (EReference)specializationTypeEClass.getEStructuralFeatures().get(0);
+        return (EReference)getSpecializationType().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2953,7 +3099,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getSpecializationType_EditHelperAdviceClassName() {
-		return (EAttribute)specializationTypeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getSpecializationType().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2962,6 +3108,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getNotationType() {
+		if (notationTypeEClass == null) {
+			notationTypeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(55);
+		}
 		return notationTypeEClass;
 	}
 
@@ -2971,6 +3120,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCommonBase() {
+		if (genCommonBaseEClass == null) {
+			genCommonBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(33);
+		}
 		return genCommonBaseEClass;
 	}
 
@@ -2980,7 +3132,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_DiagramRunTimeClass() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenCommonBase().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2989,7 +3141,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_VisualID() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenCommonBase().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2998,7 +3150,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_ElementType() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenCommonBase().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3007,7 +3159,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_EditPartClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenCommonBase().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3016,7 +3168,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_ItemSemanticEditPolicyClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenCommonBase().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3025,7 +3177,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_NotationViewFactoryClassName() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenCommonBase().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3034,7 +3186,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_Viewmap() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(6);
+        return (EReference)getGenCommonBase().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3043,7 +3195,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_Styles() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(7);
+        return (EReference)getGenCommonBase().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -3052,7 +3204,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCommonBase_Behaviour() {
-		return (EReference)genCommonBaseEClass.getEStructuralFeatures().get(8);
+        return (EReference)getGenCommonBase().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -3061,7 +3213,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommonBase_SansDomain() {
-		return (EAttribute)genCommonBaseEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getGenCommonBase().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -3070,6 +3222,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getBehaviour() {
+		if (behaviourEClass == null) {
+			behaviourEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(34);
+		}
 		return behaviourEClass;
 	}
 
@@ -3079,7 +3234,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getBehaviour_Subject() {
-		return (EReference)behaviourEClass.getEStructuralFeatures().get(0);
+        return (EReference)getBehaviour().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3088,6 +3243,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getCustomBehaviour() {
+		if (customBehaviourEClass == null) {
+			customBehaviourEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(35);
+		}
 		return customBehaviourEClass;
 	}
 
@@ -3097,7 +3255,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomBehaviour_Key() {
-		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getCustomBehaviour().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3106,7 +3264,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomBehaviour_EditPolicyQualifiedClassName() {
-		return (EAttribute)customBehaviourEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getCustomBehaviour().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3115,6 +3273,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getSharedBehaviour() {
+		if (sharedBehaviourEClass == null) {
+			sharedBehaviourEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(36);
+		}
 		return sharedBehaviourEClass;
 	}
 
@@ -3124,7 +3285,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getSharedBehaviour_Delegate() {
-		return (EReference)sharedBehaviourEClass.getEStructuralFeatures().get(0);
+        return (EReference)getSharedBehaviour().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3133,6 +3294,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getOpenDiagramBehaviour() {
+		if (openDiagramBehaviourEClass == null) {
+			openDiagramBehaviourEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(37);
+		}
 		return openDiagramBehaviourEClass;
 	}
 
@@ -3142,7 +3306,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getOpenDiagramBehaviour_EditPolicyClassName() {
-		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getOpenDiagramBehaviour().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3151,7 +3315,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getOpenDiagramBehaviour_DiagramKind() {
-		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getOpenDiagramBehaviour().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3160,7 +3324,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getOpenDiagramBehaviour_EditorID() {
-		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getOpenDiagramBehaviour().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3169,7 +3333,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getOpenDiagramBehaviour_OpenAsEclipseEditor() {
-		return (EAttribute)openDiagramBehaviourEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getOpenDiagramBehaviour().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3178,6 +3342,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenContainerBase() {
+		if (genContainerBaseEClass == null) {
+			genContainerBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(38);
+		}
 		return genContainerBaseEClass;
 	}
 
@@ -3187,7 +3354,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenContainerBase_ContainedNodes() {
-		return (EReference)genContainerBaseEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenContainerBase().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3196,7 +3363,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenContainerBase_CanonicalEditPolicyClassName() {
-		return (EAttribute)genContainerBaseEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenContainerBase().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3205,6 +3372,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNode() {
+		if (genNodeEClass == null) {
+			genNodeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(40);
+		}
 		return genNodeEClass;
 	}
 
@@ -3214,7 +3384,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_Labels() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenNode().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3223,7 +3393,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_Compartments() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenNode().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3232,7 +3402,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNode_PrimaryDragEditPolicyQualifiedClassName() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenNode().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3241,7 +3411,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNode_GraphicalNodeEditPolicyClassName() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenNode().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3250,7 +3420,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNode_CreateCommandClassName() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenNode().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3259,7 +3429,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_ReorientedIncomingLinks() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(6);
+        return (EReference)getGenNode().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3268,6 +3438,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenTopLevelNode() {
+		if (genTopLevelNodeEClass == null) {
+			genTopLevelNodeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(41);
+		}
 		return genTopLevelNodeEClass;
 	}
 
@@ -3277,7 +3450,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenTopLevelNode_Diagram() {
-		return (EReference)genTopLevelNodeEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenTopLevelNode().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3286,6 +3459,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenChildNode() {
+		if (genChildNodeEClass == null) {
+			genChildNodeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(42);
+		}
 		return genChildNodeEClass;
 	}
 
@@ -3295,7 +3471,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildNode_Diagram() {
-		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenChildNode().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3304,7 +3480,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildNode_Containers() {
-		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenChildNode().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3313,6 +3489,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenChildSideAffixedNode() {
+		if (genChildSideAffixedNodeEClass == null) {
+			genChildSideAffixedNodeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(43);
+		}
 		return genChildSideAffixedNodeEClass;
 	}
 
@@ -3322,7 +3501,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildSideAffixedNode_PreferredSideName() {
-		return (EAttribute)genChildSideAffixedNodeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenChildSideAffixedNode().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3331,6 +3510,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenChildLabelNode() {
+		if (genChildLabelNodeEClass == null) {
+			genChildLabelNodeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(44);
+		}
 		return genChildLabelNodeEClass;
 	}
 
@@ -3340,7 +3522,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildLabelNode_LabelReadOnly() {
-		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenChildLabelNode().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3349,7 +3531,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenChildLabelNode_LabelElementIcon() {
-		return (EAttribute)genChildLabelNodeEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenChildLabelNode().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3358,7 +3540,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildLabelNode_LabelModelFacet() {
-		return (EReference)genChildLabelNodeEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenChildLabelNode().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3367,6 +3549,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCompartment() {
+		if (genCompartmentEClass == null) {
+			genCompartmentEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(45);
+		}
 		return genCompartmentEClass;
 	}
 
@@ -3376,7 +3561,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_Title() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenCompartment().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3385,7 +3570,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_CanCollapse() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenCompartment().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3394,7 +3579,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_HideIfEmpty() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenCompartment().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3403,7 +3588,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_NeedsTitle() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenCompartment().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3412,7 +3597,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCompartment_Diagram() {
-		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(4);
+        return (EReference)getGenCompartment().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3421,7 +3606,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCompartment_Node() {
-		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenCompartment().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3430,7 +3615,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCompartment_ListLayout() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenCompartment().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3439,7 +3624,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_ModelFacet() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNode().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3448,6 +3633,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenChildContainer() {
+		if (genChildContainerEClass == null) {
+			genChildContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(39);
+		}
 		return genChildContainerEClass;
 	}
 
@@ -3457,7 +3645,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenChildContainer_ChildNodes() {
-		return (EReference)genChildContainerEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenChildContainer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3466,6 +3654,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenLink() {
+		if (genLinkEClass == null) {
+			genLinkEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(46);
+		}
 		return genLinkEClass;
 	}
 
@@ -3475,7 +3666,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_Diagram() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenLink().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3484,7 +3675,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_ModelFacet() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenLink().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3493,7 +3684,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_Labels() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenLink().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3502,7 +3693,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_OutgoingCreationAllowed() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3511,7 +3702,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_IncomingCreationAllowed() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3520,7 +3711,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_ViewDirectionAlignedWithModel() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3529,7 +3720,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_CreationConstraints() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(6);
+        return (EReference)getGenLink().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3538,7 +3729,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_TargetReorientingAllowed() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -3547,7 +3738,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_SourceReorientingAllowed() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -3556,7 +3747,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_CreateCommandClassName() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -3565,7 +3756,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_ReorientCommandClassName() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -3574,7 +3765,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLink_TreeBranch() {
-		return (EAttribute)genLinkEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)getGenLink().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -3583,7 +3774,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_Sources() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(12);
+        return (EReference)getGenLink().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -3592,7 +3783,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLink_Targets() {
-		return (EReference)genLinkEClass.getEStructuralFeatures().get(13);
+        return (EReference)getGenLink().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -3601,6 +3792,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenLabel() {
+		if (genLabelEClass == null) {
+			genLabelEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(47);
+		}
 		return genLabelEClass;
 	}
 
@@ -3610,7 +3804,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLabel_ReadOnly() {
-		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenLabel().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3619,7 +3813,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLabel_ElementIcon() {
-		return (EAttribute)genLabelEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenLabel().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3628,7 +3822,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLabel_ModelFacet() {
-		return (EReference)genLabelEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenLabel().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3637,6 +3831,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNodeLabel() {
+		if (genNodeLabelEClass == null) {
+			genNodeLabelEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(48);
+		}
 		return genNodeLabelEClass;
 	}
 
@@ -3646,7 +3843,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNodeLabel_Node() {
-		return (EReference)genNodeLabelEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNodeLabel().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3655,6 +3852,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenExternalNodeLabel() {
+		if (genExternalNodeLabelEClass == null) {
+			genExternalNodeLabelEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(49);
+		}
 		return genExternalNodeLabelEClass;
 	}
 
@@ -3664,6 +3864,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenLinkLabel() {
+		if (genLinkLabelEClass == null) {
+			genLinkLabelEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(50);
+		}
 		return genLinkLabelEClass;
 	}
 
@@ -3673,7 +3876,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkLabel_Link() {
-		return (EReference)genLinkLabelEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenLinkLabel().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3682,7 +3885,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenLinkLabel_Alignment() {
-		return (EAttribute)genLinkLabelEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenLinkLabel().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3691,6 +3894,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getModelFacet() {
+		if (modelFacetEClass == null) {
+			modelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(56);
+		}
 		return modelFacetEClass;
 	}
 
@@ -3700,6 +3906,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getLinkModelFacet() {
+		if (linkModelFacetEClass == null) {
+			linkModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(57);
+		}
 		return linkModelFacetEClass;
 	}
 
@@ -3709,6 +3918,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getLabelModelFacet() {
+		if (labelModelFacetEClass == null) {
+			labelModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(58);
+		}
 		return labelModelFacetEClass;
 	}
 
@@ -3718,7 +3930,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getLabelModelFacet_Parser() {
-		return (EReference)labelModelFacetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getLabelModelFacet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3727,6 +3939,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getTypeModelFacet() {
+		if (typeModelFacetEClass == null) {
+			typeModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(59);
+		}
 		return typeModelFacetEClass;
 	}
 
@@ -3736,7 +3951,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_MetaClass() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getTypeModelFacet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3745,7 +3960,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ContainmentMetaFeature() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(1);
+        return (EReference)getTypeModelFacet().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3754,7 +3969,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ChildMetaFeature() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(2);
+        return (EReference)getTypeModelFacet().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3763,7 +3978,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ModelElementSelector() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(3);
+        return (EReference)getTypeModelFacet().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3772,7 +3987,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeModelFacet_ModelElementInitializer() {
-		return (EReference)typeModelFacetEClass.getEStructuralFeatures().get(4);
+        return (EReference)getTypeModelFacet().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3781,6 +3996,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getFeatureLabelModelFacet() {
+		if (featureLabelModelFacetEClass == null) {
+			featureLabelModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(62);
+		}
 		return featureLabelModelFacetEClass;
 	}
 
@@ -3790,7 +4008,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getFeatureLabelModelFacet_MetaFeatures() {
-		return (EReference)featureLabelModelFacetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getFeatureLabelModelFacet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3799,7 +4017,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getFeatureLabelModelFacet_EditableMetaFeatures() {
-		return (EReference)featureLabelModelFacetEClass.getEStructuralFeatures().get(1);
+        return (EReference)getFeatureLabelModelFacet().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3808,7 +4026,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_ViewPattern() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getFeatureLabelModelFacet().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3817,7 +4035,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_EditorPattern() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getFeatureLabelModelFacet().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3826,7 +4044,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_ViewMethod() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getFeatureLabelModelFacet().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3835,7 +4053,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_EditPattern() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getFeatureLabelModelFacet().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3844,7 +4062,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFeatureLabelModelFacet_EditMethod() {
-		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getFeatureLabelModelFacet().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -3853,6 +4071,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getDesignLabelModelFacet() {
+		if (designLabelModelFacetEClass == null) {
+			designLabelModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(64);
+		}
 		return designLabelModelFacetEClass;
 	}
 
@@ -3862,6 +4083,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getTypeLinkModelFacet() {
+		if (typeLinkModelFacetEClass == null) {
+			typeLinkModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(60);
+		}
 		return typeLinkModelFacetEClass;
 	}
 
@@ -3871,7 +4095,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeLinkModelFacet_SourceMetaFeature() {
-		return (EReference)typeLinkModelFacetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getTypeLinkModelFacet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3880,7 +4104,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getTypeLinkModelFacet_TargetMetaFeature() {
-		return (EReference)typeLinkModelFacetEClass.getEStructuralFeatures().get(1);
+        return (EReference)getTypeLinkModelFacet().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3889,6 +4113,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getFeatureLinkModelFacet() {
+		if (featureLinkModelFacetEClass == null) {
+			featureLinkModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(61);
+		}
 		return featureLinkModelFacetEClass;
 	}
 
@@ -3898,7 +4125,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getFeatureLinkModelFacet_MetaFeature() {
-		return (EReference)featureLinkModelFacetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getFeatureLinkModelFacet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3907,6 +4134,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getViewmap() {
+		if (viewmapEClass == null) {
+			viewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(71);
+		}
 		return viewmapEClass;
 	}
 
@@ -3916,7 +4146,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getViewmap_Attributes() {
-		return (EReference)viewmapEClass.getEStructuralFeatures().get(0);
+        return (EReference)getViewmap().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3925,7 +4155,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getViewmap_RequiredPluginIDs() {
-		return (EAttribute)viewmapEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getViewmap().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3934,7 +4164,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getViewmap_LayoutType() {
-		return (EAttribute)viewmapEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getViewmap().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3943,6 +4173,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getAttributes() {
+		if (attributesEClass == null) {
+			attributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(65);
+		}
 		return attributesEClass;
 	}
 
@@ -3952,6 +4185,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getColorAttributes() {
+		if (colorAttributesEClass == null) {
+			colorAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(66);
+		}
 		return colorAttributesEClass;
 	}
 
@@ -3961,7 +4197,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getColorAttributes_ForegroundColor() {
-		return (EAttribute)colorAttributesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getColorAttributes().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3970,7 +4206,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getColorAttributes_BackgroundColor() {
-		return (EAttribute)colorAttributesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getColorAttributes().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3979,6 +4215,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getStyleAttributes() {
+		if (styleAttributesEClass == null) {
+			styleAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(67);
+		}
 		return styleAttributesEClass;
 	}
 
@@ -3988,7 +4227,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getStyleAttributes_FixedFont() {
-		return (EAttribute)styleAttributesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getStyleAttributes().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3997,7 +4236,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getStyleAttributes_FixedForeground() {
-		return (EAttribute)styleAttributesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getStyleAttributes().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4006,7 +4245,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getStyleAttributes_FixedBackground() {
-		return (EAttribute)styleAttributesEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getStyleAttributes().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4015,6 +4254,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getResizeConstraints() {
+		if (resizeConstraintsEClass == null) {
+			resizeConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(68);
+		}
 		return resizeConstraintsEClass;
 	}
 
@@ -4024,7 +4266,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getResizeConstraints_ResizeHandles() {
-		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getResizeConstraints().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4033,7 +4275,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getResizeConstraints_NonResizeHandles() {
-		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getResizeConstraints().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4042,7 +4284,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getResizeConstraints_ResizeHandleNames() {
-		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getResizeConstraints().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4051,7 +4293,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getResizeConstraints_NonResizeHandleNames() {
-		return (EAttribute)resizeConstraintsEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getResizeConstraints().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4060,6 +4302,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getDefaultSizeAttributes() {
+		if (defaultSizeAttributesEClass == null) {
+			defaultSizeAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(69);
+		}
 		return defaultSizeAttributesEClass;
 	}
 
@@ -4069,7 +4314,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getDefaultSizeAttributes_Width() {
-		return (EAttribute)defaultSizeAttributesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getDefaultSizeAttributes().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4078,7 +4323,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getDefaultSizeAttributes_Height() {
-		return (EAttribute)defaultSizeAttributesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getDefaultSizeAttributes().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4087,6 +4332,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getLabelOffsetAttributes() {
+		if (labelOffsetAttributesEClass == null) {
+			labelOffsetAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(70);
+		}
 		return labelOffsetAttributesEClass;
 	}
 
@@ -4096,7 +4344,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getLabelOffsetAttributes_X() {
-		return (EAttribute)labelOffsetAttributesEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getLabelOffsetAttributes().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4105,7 +4353,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getLabelOffsetAttributes_Y() {
-		return (EAttribute)labelOffsetAttributesEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getLabelOffsetAttributes().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4114,6 +4362,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getFigureViewmap() {
+		if (figureViewmapEClass == null) {
+			figureViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(73);
+		}
 		return figureViewmapEClass;
 	}
 
@@ -4123,7 +4374,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getFigureViewmap_FigureQualifiedClassName() {
-		return (EAttribute)figureViewmapEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getFigureViewmap().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4132,6 +4383,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getSnippetViewmap() {
+		if (snippetViewmapEClass == null) {
+			snippetViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(74);
+		}
 		return snippetViewmapEClass;
 	}
 
@@ -4141,7 +4395,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getSnippetViewmap_Body() {
-		return (EAttribute)snippetViewmapEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getSnippetViewmap().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4150,6 +4404,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getInnerClassViewmap() {
+		if (innerClassViewmapEClass == null) {
+			innerClassViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(75);
+		}
 		return innerClassViewmapEClass;
 	}
 
@@ -4159,7 +4416,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getInnerClassViewmap_ClassName() {
-		return (EAttribute)innerClassViewmapEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getInnerClassViewmap().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4168,7 +4425,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getInnerClassViewmap_ClassBody() {
-		return (EAttribute)innerClassViewmapEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getInnerClassViewmap().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4177,6 +4434,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getParentAssignedViewmap() {
+		if (parentAssignedViewmapEClass == null) {
+			parentAssignedViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(76);
+		}
 		return parentAssignedViewmapEClass;
 	}
 
@@ -4186,7 +4446,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getParentAssignedViewmap_GetterName() {
-		return (EAttribute)parentAssignedViewmapEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getParentAssignedViewmap().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4195,7 +4455,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getParentAssignedViewmap_SetterName() {
-		return (EAttribute)parentAssignedViewmapEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getParentAssignedViewmap().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4204,7 +4464,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getParentAssignedViewmap_FigureQualifiedClassName() {
-		return (EAttribute)parentAssignedViewmapEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getParentAssignedViewmap().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4213,6 +4473,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getValueExpression() {
+		if (valueExpressionEClass == null) {
+			valueExpressionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(77);
+		}
 		return valueExpressionEClass;
 	}
 
@@ -4222,7 +4485,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getValueExpression_Body() {
-		return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getValueExpression().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4231,7 +4494,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getValueExpression_LangName() {
-		return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getValueExpression().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4240,7 +4503,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getValueExpression_Provider() {
-		return (EReference)valueExpressionEClass.getEStructuralFeatures().get(2);
+        return (EReference)getValueExpression().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4249,6 +4512,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenConstraint() {
+		if (genConstraintEClass == null) {
+			genConstraintEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(78);
+		}
 		return genConstraintEClass;
 	}
 
@@ -4258,6 +4524,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getPalette() {
+		if (paletteEClass == null) {
+			paletteEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(79);
+		}
 		return paletteEClass;
 	}
 
@@ -4267,7 +4536,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getPalette_Diagram() {
-		return (EReference)paletteEClass.getEStructuralFeatures().get(0);
+        return (EReference)getPalette().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4276,7 +4545,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPalette_Flyout() {
-		return (EAttribute)paletteEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getPalette().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4285,7 +4554,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getPalette_Groups() {
-		return (EReference)paletteEClass.getEStructuralFeatures().get(2);
+        return (EReference)getPalette().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4294,7 +4563,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPalette_PackageName() {
-		return (EAttribute)paletteEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getPalette().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4303,7 +4572,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPalette_FactoryClassName() {
-		return (EAttribute)paletteEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getPalette().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4312,6 +4581,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getEntryBase() {
+		if (entryBaseEClass == null) {
+			entryBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(80);
+		}
 		return entryBaseEClass;
 	}
 
@@ -4321,7 +4593,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEntryBase_Title() {
-		return (EAttribute)entryBaseEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getEntryBase().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4330,7 +4602,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEntryBase_Description() {
-		return (EAttribute)entryBaseEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getEntryBase().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4339,7 +4611,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEntryBase_LargeIconPath() {
-		return (EAttribute)entryBaseEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getEntryBase().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4348,7 +4620,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEntryBase_SmallIconPath() {
-		return (EAttribute)entryBaseEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getEntryBase().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4357,7 +4629,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getEntryBase_CreateMethodName() {
-		return (EAttribute)entryBaseEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getEntryBase().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4366,6 +4638,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getAbstractToolEntry() {
+		if (abstractToolEntryEClass == null) {
+			abstractToolEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(81);
+		}
 		return abstractToolEntryEClass;
 	}
 
@@ -4375,7 +4650,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getAbstractToolEntry_Default() {
-		return (EAttribute)abstractToolEntryEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getAbstractToolEntry().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4384,7 +4659,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getAbstractToolEntry_QualifiedToolName() {
-		return (EAttribute)abstractToolEntryEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getAbstractToolEntry().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4393,7 +4668,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getAbstractToolEntry_Properties() {
-		return (EReference)abstractToolEntryEClass.getEStructuralFeatures().get(2);
+        return (EReference)getAbstractToolEntry().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4402,6 +4677,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getToolEntry() {
+		if (toolEntryEClass == null) {
+			toolEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(82);
+		}
 		return toolEntryEClass;
 	}
 
@@ -4411,7 +4689,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolEntry_GenNodes() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(0);
+        return (EReference)getToolEntry().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4420,7 +4698,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolEntry_GenLinks() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(1);
+        return (EReference)getToolEntry().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4429,7 +4707,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolEntry_Elements() {
-		return (EReference)toolEntryEClass.getEStructuralFeatures().get(2);
+        return (EReference)getToolEntry().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4438,6 +4716,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getStandardEntry() {
+		if (standardEntryEClass == null) {
+			standardEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(83);
+		}
 		return standardEntryEClass;
 	}
 
@@ -4447,7 +4728,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getStandardEntry_Kind() {
-		return (EAttribute)standardEntryEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getStandardEntry().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4456,6 +4737,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getToolGroupItem() {
+		if (toolGroupItemEClass == null) {
+			toolGroupItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(85);
+		}
 		return toolGroupItemEClass;
 	}
 
@@ -4465,7 +4749,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolGroupItem_Group() {
-		return (EReference)toolGroupItemEClass.getEStructuralFeatures().get(0);
+        return (EReference)getToolGroupItem().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4474,6 +4758,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getSeparator() {
+		if (separatorEClass == null) {
+			separatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(86);
+		}
 		return separatorEClass;
 	}
 
@@ -4483,6 +4770,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getToolGroup() {
+		if (toolGroupEClass == null) {
+			toolGroupEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(87);
+		}
 		return toolGroupEClass;
 	}
 
@@ -4492,7 +4782,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolGroup_Palette() {
-		return (EReference)toolGroupEClass.getEStructuralFeatures().get(0);
+        return (EReference)getToolGroup().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4501,7 +4791,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getToolGroup_Stack() {
-		return (EAttribute)toolGroupEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getToolGroup().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4510,7 +4800,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getToolGroup_Collapse() {
-		return (EAttribute)toolGroupEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getToolGroup().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4519,7 +4809,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getToolGroup_Entries() {
-		return (EReference)toolGroupEClass.getEStructuralFeatures().get(3);
+        return (EReference)getToolGroup().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4528,7 +4818,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getToolGroup_ToolsOnly() {
-		return (EAttribute)toolGroupEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getToolGroup().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4537,6 +4827,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenElementInitializer() {
+		if (genElementInitializerEClass == null) {
+			genElementInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(88);
+		}
 		return genElementInitializerEClass;
 	}
 
@@ -4546,7 +4839,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenElementInitializer_TypeModelFacet() {
-		return (EReference)genElementInitializerEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenElementInitializer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4555,6 +4848,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenFeatureSeqInitializer() {
+		if (genFeatureSeqInitializerEClass == null) {
+			genFeatureSeqInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(89);
+		}
 		return genFeatureSeqInitializerEClass;
 	}
 
@@ -4564,7 +4860,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureSeqInitializer_Initializers() {
-		return (EReference)genFeatureSeqInitializerEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenFeatureSeqInitializer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4573,7 +4869,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureSeqInitializer_ElementClass() {
-		return (EReference)genFeatureSeqInitializerEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenFeatureSeqInitializer().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4582,7 +4878,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureSeqInitializer_CreatingInitializer() {
-		return (EReference)genFeatureSeqInitializerEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenFeatureSeqInitializer().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4591,6 +4887,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenFeatureValueSpec() {
+		if (genFeatureValueSpecEClass == null) {
+			genFeatureValueSpecEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(90);
+		}
 		return genFeatureValueSpecEClass;
 	}
 
@@ -4600,7 +4899,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureValueSpec_Value() {
-		return (EReference)genFeatureValueSpecEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenFeatureValueSpec().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4609,6 +4908,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenReferenceNewElementSpec() {
+		if (genReferenceNewElementSpecEClass == null) {
+			genReferenceNewElementSpecEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(91);
+		}
 		return genReferenceNewElementSpecEClass;
 	}
 
@@ -4618,7 +4920,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenReferenceNewElementSpec_NewElementInitializers() {
-		return (EReference)genReferenceNewElementSpecEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenReferenceNewElementSpec().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4627,6 +4929,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenFeatureInitializer() {
+		if (genFeatureInitializerEClass == null) {
+			genFeatureInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(92);
+		}
 		return genFeatureInitializerEClass;
 	}
 
@@ -4636,7 +4941,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureInitializer_Feature() {
-		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenFeatureInitializer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4645,7 +4950,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenFeatureInitializer_FeatureSeqInitializer() {
-		return (EReference)genFeatureInitializerEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenFeatureInitializer().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4654,6 +4959,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenLinkConstraints() {
+		if (genLinkConstraintsEClass == null) {
+			genLinkConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(93);
+		}
 		return genLinkConstraintsEClass;
 	}
 
@@ -4663,7 +4971,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkConstraints_Link() {
-		return (EReference)genLinkConstraintsEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenLinkConstraints().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4672,7 +4980,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkConstraints_SourceEnd() {
-		return (EReference)genLinkConstraintsEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenLinkConstraints().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4681,7 +4989,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkConstraints_TargetEnd() {
-		return (EReference)genLinkConstraintsEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenLinkConstraints().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4690,6 +4998,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAuditRoot() {
+		if (genAuditRootEClass == null) {
+			genAuditRootEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(94);
+		}
 		return genAuditRootEClass;
 	}
 
@@ -4699,7 +5010,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRoot_EditorGen() {
-		return (EReference)genAuditRootEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenAuditRoot().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4708,7 +5019,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRoot_Categories() {
-		return (EReference)genAuditRootEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenAuditRoot().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4717,7 +5028,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRoot_Rules() {
-		return (EReference)genAuditRootEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenAuditRoot().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4726,7 +5037,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRoot_ClientContexts() {
-		return (EReference)genAuditRootEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenAuditRoot().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4735,6 +5046,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAuditContainer() {
+		if (genAuditContainerEClass == null) {
+			genAuditContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(95);
+		}
 		return genAuditContainerEClass;
 	}
 
@@ -4744,7 +5058,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditContainer_Root() {
-		return (EReference)genAuditContainerEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenAuditContainer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4753,6 +5067,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenRuleBase() {
+		if (genRuleBaseEClass == null) {
+			genRuleBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(96);
+		}
 		return genRuleBaseEClass;
 	}
 
@@ -4762,7 +5079,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenRuleBase_Name() {
-		return (EAttribute)genRuleBaseEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenRuleBase().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4771,7 +5088,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenRuleBase_Description() {
-		return (EAttribute)genRuleBaseEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenRuleBase().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4780,7 +5097,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditContainer_Id() {
-		return (EAttribute)genAuditContainerEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenAuditContainer().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4789,7 +5106,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditContainer_Name() {
-		return (EAttribute)genAuditContainerEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenAuditContainer().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4798,7 +5115,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditContainer_Description() {
-		return (EAttribute)genAuditContainerEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenAuditContainer().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4807,7 +5124,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditContainer_Path() {
-		return (EReference)genAuditContainerEClass.getEStructuralFeatures().get(4);
+        return (EReference)getGenAuditContainer().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4816,7 +5133,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditContainer_Audits() {
-		return (EReference)genAuditContainerEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenAuditContainer().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -4825,6 +5142,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAuditRule() {
+		if (genAuditRuleEClass == null) {
+			genAuditRuleEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(97);
+		}
 		return genAuditRuleEClass;
 	}
 
@@ -4834,7 +5154,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRule_Root() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenAuditRule().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4843,7 +5163,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_Id() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenAuditRule().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4852,7 +5172,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRule_Rule() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenAuditRule().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -4861,7 +5181,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRule_Target() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenAuditRule().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -4870,7 +5190,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_Message() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenAuditRule().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -4879,7 +5199,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_Severity() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenAuditRule().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -4888,7 +5208,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_UseInLiveMode() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenAuditRule().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -4897,7 +5217,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditRule_RequiresConstraintAdapter() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenAuditRule().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -4906,7 +5226,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditRule_Category() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(8);
+        return (EReference)getGenAuditRule().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -4915,6 +5235,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenRuleTarget() {
+		if (genRuleTargetEClass == null) {
+			genRuleTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(99);
+		}
 		return genRuleTargetEClass;
 	}
 
@@ -4924,6 +5247,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDomainElementTarget() {
+		if (genDomainElementTargetEClass == null) {
+			genDomainElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(100);
+		}
 		return genDomainElementTargetEClass;
 	}
 
@@ -4933,7 +5259,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDomainElementTarget_Element() {
-		return (EReference)genDomainElementTargetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenDomainElementTarget().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4942,6 +5268,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDiagramElementTarget() {
+		if (genDiagramElementTargetEClass == null) {
+			genDiagramElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(101);
+		}
 		return genDiagramElementTargetEClass;
 	}
 
@@ -4951,7 +5280,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDiagramElementTarget_Element() {
-		return (EReference)genDiagramElementTargetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenDiagramElementTarget().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4960,6 +5289,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDomainAttributeTarget() {
+		if (genDomainAttributeTargetEClass == null) {
+			genDomainAttributeTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(102);
+		}
 		return genDomainAttributeTargetEClass;
 	}
 
@@ -4969,7 +5301,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenDomainAttributeTarget_Attribute() {
-		return (EReference)genDomainAttributeTargetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenDomainAttributeTarget().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -4978,7 +5310,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainAttributeTarget_NullAsError() {
-		return (EAttribute)genDomainAttributeTargetEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenDomainAttributeTarget().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -4987,6 +5319,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNotationElementTarget() {
+		if (genNotationElementTargetEClass == null) {
+			genNotationElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(103);
+		}
 		return genNotationElementTargetEClass;
 	}
 
@@ -4996,7 +5331,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNotationElementTarget_Element() {
-		return (EReference)genNotationElementTargetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNotationElementTarget().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5005,6 +5340,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenMetricContainer() {
+		if (genMetricContainerEClass == null) {
+			genMetricContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(104);
+		}
 		return genMetricContainerEClass;
 	}
 
@@ -5014,7 +5352,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenMetricContainer_EditorGen() {
-		return (EReference)genMetricContainerEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenMetricContainer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5023,7 +5361,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenMetricContainer_Metrics() {
-		return (EReference)genMetricContainerEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenMetricContainer().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5032,6 +5370,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenMetricRule() {
+		if (genMetricRuleEClass == null) {
+			genMetricRuleEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(105);
+		}
 		return genMetricRuleEClass;
 	}
 
@@ -5041,7 +5382,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenMetricRule_Key() {
-		return (EAttribute)genMetricRuleEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenMetricRule().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5050,7 +5391,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenMetricRule_Rule() {
-		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenMetricRule().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5059,7 +5400,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenMetricRule_Target() {
-		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenMetricRule().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5068,7 +5409,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenMetricRule_Container() {
-		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenMetricRule().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5077,7 +5418,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenMetricRule_LowLimit() {
-		return (EAttribute)genMetricRuleEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenMetricRule().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5086,7 +5427,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenMetricRule_HighLimit() {
-		return (EAttribute)genMetricRuleEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenMetricRule().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -5095,6 +5436,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAuditedMetricTarget() {
+		if (genAuditedMetricTargetEClass == null) {
+			genAuditedMetricTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(106);
+		}
 		return genAuditedMetricTargetEClass;
 	}
 
@@ -5104,7 +5448,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditedMetricTarget_Metric() {
-		return (EReference)genAuditedMetricTargetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenAuditedMetricTarget().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5113,7 +5457,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditedMetricTarget_MetricValueContext() {
-		return (EReference)genAuditedMetricTargetEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenAuditedMetricTarget().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5122,6 +5466,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAuditable() {
+		if (genAuditableEClass == null) {
+			genAuditableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(107);
+		}
 		return genAuditableEClass;
 	}
 
@@ -5131,7 +5478,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditable_ContextSelector() {
-		return (EReference)genAuditableEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenAuditable().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5140,6 +5487,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAuditContext() {
+		if (genAuditContextEClass == null) {
+			genAuditContextEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(108);
+		}
 		return genAuditContextEClass;
 	}
 
@@ -5149,7 +5499,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditContext_Root() {
-		return (EReference)genAuditContextEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenAuditContext().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5158,7 +5508,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditContext_Id() {
-		return (EAttribute)genAuditContextEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenAuditContext().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5167,7 +5517,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAuditContext_ClassName() {
-		return (EAttribute)genAuditContextEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenAuditContext().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5176,7 +5526,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenAuditContext_RuleTargets() {
-		return (EReference)genAuditContextEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenAuditContext().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5185,6 +5535,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenMeasurable() {
+		if (genMeasurableEClass == null) {
+			genMeasurableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(109);
+		}
 		return genMeasurableEClass;
 	}
 
@@ -5194,6 +5547,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenExpressionProviderContainer() {
+		if (genExpressionProviderContainerEClass == null) {
+			genExpressionProviderContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(110);
+		}
 		return genExpressionProviderContainerEClass;
 	}
 
@@ -5203,7 +5559,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenExpressionProviderContainer_ExpressionsPackageName() {
-		return (EAttribute)genExpressionProviderContainerEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenExpressionProviderContainer().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5212,7 +5568,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenExpressionProviderContainer_AbstractExpressionClassName() {
-		return (EAttribute)genExpressionProviderContainerEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenExpressionProviderContainer().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5221,7 +5577,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenExpressionProviderContainer_Providers() {
-		return (EReference)genExpressionProviderContainerEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenExpressionProviderContainer().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5230,7 +5586,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenExpressionProviderContainer_EditorGen() {
-		return (EReference)genExpressionProviderContainerEClass.getEStructuralFeatures().get(3);
+        return (EReference)getGenExpressionProviderContainer().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5239,6 +5595,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenExpressionProviderBase() {
+		if (genExpressionProviderBaseEClass == null) {
+			genExpressionProviderBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(111);
+		}
 		return genExpressionProviderBaseEClass;
 	}
 
@@ -5248,7 +5607,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenExpressionProviderBase_Expressions() {
-		return (EReference)genExpressionProviderBaseEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenExpressionProviderBase().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5257,7 +5616,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenExpressionProviderBase_Container() {
-		return (EReference)genExpressionProviderBaseEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenExpressionProviderBase().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5266,6 +5625,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenJavaExpressionProvider() {
+		if (genJavaExpressionProviderEClass == null) {
+			genJavaExpressionProviderEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(112);
+		}
 		return genJavaExpressionProviderEClass;
 	}
 
@@ -5275,7 +5637,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenJavaExpressionProvider_ThrowException() {
-		return (EAttribute)genJavaExpressionProviderEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenJavaExpressionProvider().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5284,7 +5646,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenJavaExpressionProvider_InjectExpressionBody() {
-		return (EAttribute)genJavaExpressionProviderEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenJavaExpressionProvider().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5293,6 +5655,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenExpressionInterpreter() {
+		if (genExpressionInterpreterEClass == null) {
+			genExpressionInterpreterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(113);
+		}
 		return genExpressionInterpreterEClass;
 	}
 
@@ -5302,7 +5667,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenExpressionInterpreter_Language() {
-		return (EAttribute)genExpressionInterpreterEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenExpressionInterpreter().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5311,7 +5676,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenExpressionInterpreter_ClassName() {
-		return (EAttribute)genExpressionInterpreterEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenExpressionInterpreter().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5320,6 +5685,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenLiteralExpressionProvider() {
+		if (genLiteralExpressionProviderEClass == null) {
+			genLiteralExpressionProviderEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(114);
+		}
 		return genLiteralExpressionProviderEClass;
 	}
 
@@ -5329,6 +5697,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenDomainModelNavigator() {
+		if (genDomainModelNavigatorEClass == null) {
+			genDomainModelNavigatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(116);
+		}
 		return genDomainModelNavigatorEClass;
 	}
 
@@ -5338,7 +5709,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_GenerateDomainModelNavigator() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5347,7 +5718,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainContentExtensionID() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5356,7 +5727,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainContentExtensionName() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5365,7 +5736,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainContentExtensionPriority() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5374,7 +5745,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainContentProviderClassName() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -5383,7 +5754,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainLabelProviderClassName() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5392,7 +5763,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainModelElementTesterClassName() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -5401,7 +5772,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDomainModelNavigator_DomainNavigatorItemClassName() {
-		return (EAttribute)genDomainModelNavigatorEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenDomainModelNavigator().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -5410,6 +5781,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNavigator() {
+		if (genNavigatorEClass == null) {
+			genNavigatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(117);
+		}
 		return genNavigatorEClass;
 	}
 
@@ -5419,7 +5793,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigator_EditorGen() {
-		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNavigator().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5428,7 +5802,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_ContentExtensionID() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5437,7 +5811,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_ContentExtensionName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5446,7 +5820,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_ContentExtensionPriority() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5455,7 +5829,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_LinkHelperExtensionID() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -5464,7 +5838,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_SorterExtensionID() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5473,7 +5847,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_ActionProviderID() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -5482,7 +5856,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_ContentProviderClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -5491,7 +5865,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_LabelProviderClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -5500,7 +5874,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_LinkHelperClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -5509,7 +5883,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_SorterClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -5518,7 +5892,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_ActionProviderClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -5527,7 +5901,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_AbstractNavigatorItemClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(12);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -5536,7 +5910,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_NavigatorGroupClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(13);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -5545,7 +5919,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_NavigatorItemClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -5554,7 +5928,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_UriInputTesterClassName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(15);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -5563,7 +5937,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigator_PackageName() {
-		return (EAttribute)genNavigatorEClass.getEStructuralFeatures().get(16);
+        return (EAttribute)getGenNavigator().getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -5572,7 +5946,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigator_ChildReferences() {
-		return (EReference)genNavigatorEClass.getEStructuralFeatures().get(17);
+        return (EReference)getGenNavigator().getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -5581,6 +5955,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNavigatorChildReference() {
+		if (genNavigatorChildReferenceEClass == null) {
+			genNavigatorChildReferenceEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(119);
+		}
 		return genNavigatorChildReferenceEClass;
 	}
 
@@ -5590,7 +5967,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorChildReference_Navigator() {
-		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNavigatorChildReference().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5599,7 +5976,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorChildReference_Parent() {
-		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenNavigatorChildReference().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5608,7 +5985,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorChildReference_Child() {
-		return (EReference)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenNavigatorChildReference().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5617,7 +5994,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_ReferenceType() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenNavigatorChildReference().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5626,7 +6003,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_GroupName() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenNavigatorChildReference().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -5635,7 +6012,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_GroupIcon() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenNavigatorChildReference().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5644,7 +6021,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNavigatorChildReference_HideIfEmpty() {
-		return (EAttribute)genNavigatorChildReferenceEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenNavigatorChildReference().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -5653,6 +6030,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNavigatorPath() {
+		if (genNavigatorPathEClass == null) {
+			genNavigatorPathEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(120);
+		}
 		return genNavigatorPathEClass;
 	}
 
@@ -5662,7 +6042,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorPath_Segments() {
-		return (EReference)genNavigatorPathEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNavigatorPath().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5671,6 +6051,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenNavigatorPathSegment() {
+		if (genNavigatorPathSegmentEClass == null) {
+			genNavigatorPathSegmentEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(121);
+		}
 		return genNavigatorPathSegmentEClass;
 	}
 
@@ -5680,7 +6063,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorPathSegment_Path() {
-		return (EReference)genNavigatorPathSegmentEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenNavigatorPathSegment().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5689,7 +6072,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorPathSegment_From() {
-		return (EReference)genNavigatorPathSegmentEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenNavigatorPathSegment().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5698,7 +6081,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNavigatorPathSegment_To() {
-		return (EReference)genNavigatorPathSegmentEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenNavigatorPathSegment().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5707,6 +6090,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenPropertySheet() {
+		if (genPropertySheetEClass == null) {
+			genPropertySheetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(122);
+		}
 		return genPropertySheetEClass;
 	}
 
@@ -5716,7 +6102,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPropertySheet_EditorGen() {
-		return (EReference)genPropertySheetEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenPropertySheet().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5725,7 +6111,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPropertySheet_Tabs() {
-		return (EReference)genPropertySheetEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenPropertySheet().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5734,7 +6120,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPropertySheet_PackageName() {
-		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenPropertySheet().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5743,7 +6129,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPropertySheet_ReadOnly() {
-		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenPropertySheet().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -5752,7 +6138,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPropertySheet_NeedsCaption() {
-		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenPropertySheet().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -5761,7 +6147,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPropertySheet_LabelProviderClassName() {
-		return (EAttribute)genPropertySheetEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenPropertySheet().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -5770,6 +6156,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenPropertyTab() {
+		if (genPropertyTabEClass == null) {
+			genPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(123);
+		}
 		return genPropertyTabEClass;
 	}
 
@@ -5779,7 +6168,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPropertyTab_Sheet() {
-		return (EReference)genPropertyTabEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenPropertyTab().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5788,7 +6177,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPropertyTab_ID() {
-		return (EAttribute)genPropertyTabEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenPropertyTab().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5797,7 +6186,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenPropertyTab_Label() {
-		return (EAttribute)genPropertyTabEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenPropertyTab().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -5806,6 +6195,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenStandardPropertyTab() {
+		if (genStandardPropertyTabEClass == null) {
+			genStandardPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(124);
+		}
 		return genStandardPropertyTabEClass;
 	}
 
@@ -5815,6 +6207,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCustomPropertyTab() {
+		if (genCustomPropertyTabEClass == null) {
+			genCustomPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(125);
+		}
 		return genCustomPropertyTabEClass;
 	}
 
@@ -5824,7 +6219,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomPropertyTab_ClassName() {
-		return (EAttribute)genCustomPropertyTabEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenCustomPropertyTab().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5833,7 +6228,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenCustomPropertyTab_Filter() {
-		return (EReference)genCustomPropertyTabEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenCustomPropertyTab().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5842,6 +6237,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenPropertyTabFilter() {
+		if (genPropertyTabFilterEClass == null) {
+			genPropertyTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(126);
+		}
 		return genPropertyTabFilterEClass;
 	}
 
@@ -5851,7 +6249,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenPropertyTabFilter_Tab() {
-		return (EReference)genPropertyTabFilterEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenPropertyTabFilter().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5860,6 +6258,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getTypeTabFilter() {
+		if (typeTabFilterEClass == null) {
+			typeTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(127);
+		}
 		return typeTabFilterEClass;
 	}
 
@@ -5869,7 +6270,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getTypeTabFilter_Types() {
-		return (EAttribute)typeTabFilterEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getTypeTabFilter().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5878,7 +6279,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getTypeTabFilter_GeneratedTypes() {
-		return (EAttribute)typeTabFilterEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getTypeTabFilter().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -5887,6 +6288,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getCustomTabFilter() {
+		if (customTabFilterEClass == null) {
+			customTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(129);
+		}
 		return customTabFilterEClass;
 	}
 
@@ -5896,7 +6300,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomTabFilter_ClassName() {
-		return (EAttribute)customTabFilterEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getCustomTabFilter().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5905,6 +6309,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenContributionItem() {
+		if (genContributionItemEClass == null) {
+			genContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(130);
+		}
 		return genContributionItemEClass;
 	}
 
@@ -5914,7 +6321,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenContributionItem_Owner() {
-		return (EReference)genContributionItemEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenContributionItem().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5923,6 +6330,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenSharedContributionItem() {
+		if (genSharedContributionItemEClass == null) {
+			genSharedContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(131);
+		}
 		return genSharedContributionItemEClass;
 	}
 
@@ -5932,7 +6342,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenSharedContributionItem_ActualItem() {
-		return (EReference)genSharedContributionItemEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenSharedContributionItem().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5941,6 +6351,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenGroupMarker() {
+		if (genGroupMarkerEClass == null) {
+			genGroupMarkerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(132);
+		}
 		return genGroupMarkerEClass;
 	}
 
@@ -5950,7 +6363,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenGroupMarker_GroupName() {
-		return (EAttribute)genGroupMarkerEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenGroupMarker().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5959,6 +6372,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenSeparator() {
+		if (genSeparatorEClass == null) {
+			genSeparatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(133);
+		}
 		return genSeparatorEClass;
 	}
 
@@ -5968,7 +6384,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenSeparator_GroupName() {
-		return (EAttribute)genSeparatorEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenSeparator().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5977,6 +6393,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCustomAction() {
+		if (genCustomActionEClass == null) {
+			genCustomActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(134);
+		}
 		return genCustomActionEClass;
 	}
 
@@ -5986,7 +6405,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomAction_QualifiedClassName() {
-		return (EAttribute)genCustomActionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenCustomAction().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -5995,7 +6414,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomAction_GenerateBoilerplate() {
-		return (EAttribute)genCustomActionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenCustomAction().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6004,7 +6423,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCustomAction_Name() {
-		return (EAttribute)genCustomActionEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenCustomAction().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -6013,6 +6432,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenCommandAction() {
+		if (genCommandActionEClass == null) {
+			genCommandActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(135);
+		}
 		return genCommandActionEClass;
 	}
 
@@ -6022,7 +6444,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommandAction_CommandIdentifier() {
-		return (EAttribute)genCommandActionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenCommandAction().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6031,7 +6453,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenCommandAction_Name() {
-		return (EAttribute)genCommandActionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenCommandAction().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6040,6 +6462,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenAction() {
+		if (genActionEClass == null) {
+			genActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(136);
+		}
 		return genActionEClass;
 	}
 
@@ -6049,7 +6474,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAction_QualifiedClassName() {
-		return (EAttribute)genActionEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenAction().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6058,7 +6483,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenAction_Name() {
-		return (EAttribute)genActionEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenAction().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6067,6 +6492,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getLoadResourceAction() {
+		if (loadResourceActionEClass == null) {
+			loadResourceActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(137);
+		}
 		return loadResourceActionEClass;
 	}
 
@@ -6076,6 +6504,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getInitDiagramAction() {
+		if (initDiagramActionEClass == null) {
+			initDiagramActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(138);
+		}
 		return initDiagramActionEClass;
 	}
 
@@ -6085,6 +6516,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getCreateShortcutAction() {
+		if (createShortcutActionEClass == null) {
+			createShortcutActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(139);
+		}
 		return createShortcutActionEClass;
 	}
 
@@ -6094,6 +6528,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenActionFactoryContributionItem() {
+		if (genActionFactoryContributionItemEClass == null) {
+			genActionFactoryContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(140);
+		}
 		return genActionFactoryContributionItemEClass;
 	}
 
@@ -6103,7 +6540,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenActionFactoryContributionItem_Name() {
-		return (EAttribute)genActionFactoryContributionItemEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenActionFactoryContributionItem().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6112,6 +6549,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenContributionManager() {
+		if (genContributionManagerEClass == null) {
+			genContributionManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(141);
+		}
 		return genContributionManagerEClass;
 	}
 
@@ -6121,7 +6561,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenContributionManager_ID() {
-		return (EAttribute)genContributionManagerEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenContributionManager().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6130,7 +6570,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenContributionManager_Items() {
-		return (EReference)genContributionManagerEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenContributionManager().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6139,7 +6579,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenContributionManager_EditorGen() {
-		return (EReference)genContributionManagerEClass.getEStructuralFeatures().get(2);
+        return (EReference)getGenContributionManager().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -6148,6 +6588,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenMenuManager() {
+		if (genMenuManagerEClass == null) {
+			genMenuManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(142);
+		}
 		return genMenuManagerEClass;
 	}
 
@@ -6157,7 +6600,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenMenuManager_Name() {
-		return (EAttribute)genMenuManagerEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getGenMenuManager().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6166,6 +6609,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenToolBarManager() {
+		if (genToolBarManagerEClass == null) {
+			genToolBarManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(143);
+		}
 		return genToolBarManagerEClass;
 	}
 
@@ -6175,6 +6621,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenContextMenu() {
+		if (genContextMenuEClass == null) {
+			genContextMenuEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(144);
+		}
 		return genContextMenuEClass;
 	}
 
@@ -6184,7 +6633,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenContextMenu_Context() {
-		return (EReference)genContextMenuEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenContextMenu().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6193,6 +6642,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenApplication() {
+		if (genApplicationEClass == null) {
+			genApplicationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(145);
+		}
 		return genApplicationEClass;
 	}
 
@@ -6202,7 +6654,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenApplication_EditorGen() {
-		return (EReference)genApplicationEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenApplication().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6211,7 +6663,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_ID() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6220,7 +6672,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_Title() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -6229,7 +6681,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_PackageName() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -6238,7 +6690,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_ClassName() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -6247,7 +6699,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_WorkbenchAdvisorClassName() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -6256,7 +6708,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_WorkbenchWindowAdvisorClassName() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -6265,7 +6717,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_ActionBarAdvisorClassName() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -6274,7 +6726,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_PerspectiveClassName() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -6283,7 +6735,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_PerspectiveId() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -6292,7 +6744,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenApplication_SupportFiles() {
-		return (EAttribute)genApplicationEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)getGenApplication().getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -6301,7 +6753,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenApplication_SharedContributionItems() {
-		return (EReference)genApplicationEClass.getEStructuralFeatures().get(11);
+        return (EReference)getGenApplication().getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -6310,7 +6762,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenApplication_MainMenu() {
-		return (EReference)genApplicationEClass.getEStructuralFeatures().get(12);
+        return (EReference)getGenApplication().getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -6319,7 +6771,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenApplication_MainToolBar() {
-		return (EReference)genApplicationEClass.getEStructuralFeatures().get(13);
+        return (EReference)getGenApplication().getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -6328,6 +6780,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenLinkEnd() {
+		if (genLinkEndEClass == null) {
+			genLinkEndEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(146);
+		}
 		return genLinkEndEClass;
 	}
 
@@ -6337,7 +6792,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkEnd_GenOutgoingLinks() {
-		return (EReference)genLinkEndEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenLinkEnd().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6346,7 +6801,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenLinkEnd_GenIncomingLinks() {
-		return (EReference)genLinkEndEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenLinkEnd().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6355,6 +6810,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenParsers() {
+		if (genParsersEClass == null) {
+			genParsersEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(147);
+		}
 		return genParsersEClass;
 	}
 
@@ -6364,7 +6822,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenParsers_EditorGen() {
-		return (EReference)genParsersEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenParsers().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6373,7 +6831,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenParsers_PackageName() {
-		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getGenParsers().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6382,7 +6840,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenParsers_ClassName() {
-		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getGenParsers().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -6391,7 +6849,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenParsers_ExtensibleViaService() {
-		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)getGenParsers().getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -6400,7 +6858,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenParsers_ProviderPriority() {
-		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)getGenParsers().getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -6409,7 +6867,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenParsers_Implementations() {
-		return (EReference)genParsersEClass.getEStructuralFeatures().get(5);
+        return (EReference)getGenParsers().getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -6418,7 +6876,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenParsers_ImplPackageName() {
-		return (EAttribute)genParsersEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)getGenParsers().getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -6427,6 +6885,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getGenParserImplementation() {
+		if (genParserImplementationEClass == null) {
+			genParserImplementationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(148);
+		}
 		return genParserImplementationEClass;
 	}
 
@@ -6436,7 +6897,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenParserImplementation_Holder() {
-		return (EReference)genParserImplementationEClass.getEStructuralFeatures().get(0);
+        return (EReference)getGenParserImplementation().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6445,7 +6906,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenParserImplementation_Uses() {
-		return (EReference)genParserImplementationEClass.getEStructuralFeatures().get(1);
+        return (EReference)getGenParserImplementation().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6454,6 +6915,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getPredefinedParser() {
+		if (predefinedParserEClass == null) {
+			predefinedParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(149);
+		}
 		return predefinedParserEClass;
 	}
 
@@ -6463,7 +6927,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPredefinedParser_ViewMethod() {
-		return (EAttribute)predefinedParserEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getPredefinedParser().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6472,7 +6936,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPredefinedParser_EditMethod() {
-		return (EAttribute)predefinedParserEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getPredefinedParser().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6481,7 +6945,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getPredefinedParser_ClassName() {
-		return (EAttribute)predefinedParserEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)getPredefinedParser().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -6490,6 +6954,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getCustomParser() {
+		if (customParserEClass == null) {
+			customParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(150);
+		}
 		return customParserEClass;
 	}
 
@@ -6499,7 +6966,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomParser_QualifiedName() {
-		return (EAttribute)customParserEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getCustomParser().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6508,7 +6975,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getCustomParser_GenerateBoilerplate() {
-		return (EAttribute)customParserEClass.getEStructuralFeatures().get(1);
+        return (EAttribute)getCustomParser().getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -6517,6 +6984,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EClass getExternalParser() {
+		if (externalParserEClass == null) {
+			externalParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(151);
+		}
 		return externalParserEClass;
 	}
 
@@ -6526,7 +6996,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getExternalParser_Hint() {
-		return (EAttribute)externalParserEClass.getEStructuralFeatures().get(0);
+        return (EAttribute)getExternalParser().getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -6535,6 +7005,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getStandardPreferencePages() {
+		if (standardPreferencePagesEEnum == null) {
+			standardPreferencePagesEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(6);
+		}
 		return standardPreferencePagesEEnum;
 	}
 
@@ -6544,6 +7017,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getRulerUnits() {
+		if (rulerUnitsEEnum == null) {
+			rulerUnitsEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(8);
+		}
 		return rulerUnitsEEnum;
 	}
 
@@ -6553,6 +7029,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getRouting() {
+		if (routingEEnum == null) {
+			routingEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(9);
+		}
 		return routingEEnum;
 	}
 
@@ -6562,6 +7041,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getLineStyle() {
+		if (lineStyleEEnum == null) {
+			lineStyleEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(10);
+		}
 		return lineStyleEEnum;
 	}
 
@@ -6571,6 +7053,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getJFaceFont() {
+		if (jFaceFontEEnum == null) {
+			jFaceFontEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(13);
+		}
 		return jFaceFontEEnum;
 	}
 
@@ -6580,6 +7065,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getFontStyle() {
+		if (fontStyleEEnum == null) {
+			fontStyleEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(15);
+		}
 		return fontStyleEEnum;
 	}
 
@@ -6589,6 +7077,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getDiagramColors() {
+		if (diagramColorsEEnum == null) {
+			diagramColorsEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(19);
+		}
 		return diagramColorsEEnum;
 	}
 
@@ -6598,6 +7089,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getProviderPriority() {
+		if (providerPriorityEEnum == null) {
+			providerPriorityEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(23);
+		}
 		return providerPriorityEEnum;
 	}
 
@@ -6607,6 +7101,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getLinkLabelAlignment() {
+		if (linkLabelAlignmentEEnum == null) {
+			linkLabelAlignmentEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(51);
+		}
 		return linkLabelAlignmentEEnum;
 	}
 
@@ -6616,6 +7113,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getLabelTextAccessMethod() {
+		if (labelTextAccessMethodEEnum == null) {
+			labelTextAccessMethodEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(63);
+		}
 		return labelTextAccessMethodEEnum;
 	}
 
@@ -6625,6 +7125,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getViewmapLayoutType() {
+		if (viewmapLayoutTypeEEnum == null) {
+			viewmapLayoutTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(72);
+		}
 		return viewmapLayoutTypeEEnum;
 	}
 
@@ -6634,6 +7137,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getStandardEntryKind() {
+		if (standardEntryKindEEnum == null) {
+			standardEntryKindEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(84);
+		}
 		return standardEntryKindEEnum;
 	}
 
@@ -6643,6 +7149,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getGenSeverity() {
+		if (genSeverityEEnum == null) {
+			genSeverityEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(98);
+		}
 		return genSeverityEEnum;
 	}
 
@@ -6652,6 +7161,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getGenLanguage() {
+		if (genLanguageEEnum == null) {
+			genLanguageEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(115);
+		}
 		return genLanguageEEnum;
 	}
 
@@ -6661,6 +7173,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getGenNavigatorReferenceType() {
+		if (genNavigatorReferenceTypeEEnum == null) {
+			genNavigatorReferenceTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(118);
+		}
 		return genNavigatorReferenceTypeEEnum;
 	}
 
@@ -6670,6 +7185,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EEnum getGeneratedType() {
+		if (generatedTypeEEnum == null) {
+			generatedTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(128);
+		}
 		return generatedTypeEEnum;
 	}
 
@@ -6687,2528 +7205,65 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private boolean isCreated = false;
+	private boolean isLoaded = false;
 
 	/**
-	 * Creates the meta-model objects for the package.  This method is
-	 * guarded to have no affect on any invocation but its first.
+	 * Laods the package and any sub-packages from their serialized form.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void createPackageContents() {
-		if (isCreated) return;
-		isCreated = true;
-
-		// Create classes and their features
-		genEditorGeneratorEClass = createEClass(GEN_EDITOR_GENERATOR);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__AUDITS);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__METRICS);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DIAGRAM);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PLUGIN);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EDITOR);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__NAVIGATOR);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PROPERTY_SHEET);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__APPLICATION);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ID);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY);
-		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EXPRESSION_PROVIDERS);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ACCESS);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__LABEL_PARSERS);
-		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__CONTEXT_MENUS);
-
-		genDiagramEClass = createEClass(GEN_DIAGRAM);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__EDITOR_GEN);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__CHILD_NODES);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__TOP_LEVEL_NODES);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__LINKS);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__COMPARTMENTS);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__PALETTE);
-		createEAttribute(genDiagramEClass, GEN_DIAGRAM__SYNCHRONIZED);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__PREFERENCES);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__PREFERENCE_PAGES);
-
-		genEditorViewEClass = createEClass(GEN_EDITOR_VIEW);
-		createEReference(genEditorViewEClass, GEN_EDITOR_VIEW__EDITOR_GEN);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__PACKAGE_NAME);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ACTION_BAR_CONTRIBUTOR_CLASS_NAME);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__CLASS_NAME);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH_X);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ECLIPSE_EDITOR);
-		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__CONTEXT_ID);
-
-		genPreferencePageEClass = createEClass(GEN_PREFERENCE_PAGE);
-		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__ID);
-		createEAttribute(genPreferencePageEClass, GEN_PREFERENCE_PAGE__NAME);
-		createEReference(genPreferencePageEClass, GEN_PREFERENCE_PAGE__CHILDREN);
-		createEReference(genPreferencePageEClass, GEN_PREFERENCE_PAGE__PARENT);
-
-		genCustomPreferencePageEClass = createEClass(GEN_CUSTOM_PREFERENCE_PAGE);
-		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME);
-		createEAttribute(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE);
-		createEReference(genCustomPreferencePageEClass, GEN_CUSTOM_PREFERENCE_PAGE__PREFERENCES);
-
-		genStandardPreferencePageEClass = createEClass(GEN_STANDARD_PREFERENCE_PAGE);
-		createEAttribute(genStandardPreferencePageEClass, GEN_STANDARD_PREFERENCE_PAGE__KIND);
-		createEAttribute(genStandardPreferencePageEClass, GEN_STANDARD_PREFERENCE_PAGE__CLASS_NAME);
-
-		genDiagramPreferencesEClass = createEClass(GEN_DIAGRAM_PREFERENCES);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__LINE_STYLE);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__DEFAULT_FONT);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__FONT_COLOR);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__FILL_COLOR);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__LINE_COLOR);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__NOTE_FILL_COLOR);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__NOTE_LINE_COLOR);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_CONNECTION_HANDLES);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_POPUP_BARS);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_MODEL);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_DIAGRAM);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_LAYOUT);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_ZOOM);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__ENABLE_ANTI_ALIAS);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_GRID);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SHOW_RULERS);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__RULER_UNITS);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_SPACING);
-		createEReference(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR);
-		createEAttribute(genDiagramPreferencesEClass, GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE);
-
-		genFontEClass = createEClass(GEN_FONT);
-
-		genStandardFontEClass = createEClass(GEN_STANDARD_FONT);
-		createEAttribute(genStandardFontEClass, GEN_STANDARD_FONT__NAME);
-
-		genCustomFontEClass = createEClass(GEN_CUSTOM_FONT);
-		createEAttribute(genCustomFontEClass, GEN_CUSTOM_FONT__NAME);
-		createEAttribute(genCustomFontEClass, GEN_CUSTOM_FONT__HEIGHT);
-		createEAttribute(genCustomFontEClass, GEN_CUSTOM_FONT__STYLE);
-
-		genColorEClass = createEClass(GEN_COLOR);
-
-		genRGBColorEClass = createEClass(GEN_RGB_COLOR);
-		createEAttribute(genRGBColorEClass, GEN_RGB_COLOR__RED);
-		createEAttribute(genRGBColorEClass, GEN_RGB_COLOR__GREEN);
-		createEAttribute(genRGBColorEClass, GEN_RGB_COLOR__BLUE);
-
-		genConstantColorEClass = createEClass(GEN_CONSTANT_COLOR);
-		createEAttribute(genConstantColorEClass, GEN_CONSTANT_COLOR__NAME);
-
-		genPreferenceEClass = createEClass(GEN_PREFERENCE);
-		createEReference(genPreferenceEClass, GEN_PREFERENCE__PAGE);
-		createEAttribute(genPreferenceEClass, GEN_PREFERENCE__NAME);
-		createEAttribute(genPreferenceEClass, GEN_PREFERENCE__KEY);
-		createEAttribute(genPreferenceEClass, GEN_PREFERENCE__DEFAULT_VALUE);
-
-		batchValidationEClass = createEClass(BATCH_VALIDATION);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_PROVIDER_CLASS_NAME);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_PROVIDER_PRIORITY);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_ENABLED);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__METRIC_PROVIDER_CLASS_NAME);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__METRIC_PROVIDER_PRIORITY);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATORS);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_DECORATOR_PROVIDER_PRIORITY);
-		createEAttribute(batchValidationEClass, BATCH_VALIDATION__LIVE_VALIDATION_UI_FEEDBACK);
-
-		providerClassNamesEClass = createEClass(PROVIDER_CLASS_NAMES);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_CLASS_NAME);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_PRIORITY);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_CLASS_NAME);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_PRIORITY);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_PRIORITY);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ICON_PROVIDER_PRIORITY);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__PARSER_PROVIDER_CLASS_NAME);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__PARSER_PROVIDER_PRIORITY);
-		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__CONTRIBUTION_ITEM_PROVIDER_CLASS_NAME);
-
-		shortcutsEClass = createEClass(SHORTCUTS);
-		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_CLASS_NAME);
-		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUTS_DECORATOR_PROVIDER_PRIORITY);
-		createEAttribute(shortcutsEClass, SHORTCUTS__CREATE_SHORTCUT_ACTION_CLASS_NAME);
-		createEAttribute(shortcutsEClass, SHORTCUTS__CREATE_SHORTCUT_DECORATIONS_COMMAND_CLASS_NAME);
-		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUT_PROPERTY_TESTER_CLASS_NAME);
-		createEAttribute(shortcutsEClass, SHORTCUTS__CONTAINS_SHORTCUTS_TO);
-		createEAttribute(shortcutsEClass, SHORTCUTS__SHORTCUTS_PROVIDED_FOR);
-
-		packageNamesEClass = createEClass(PACKAGE_NAMES);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_HELPERS_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__PREFERENCES_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__PARSERS_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__NOTATION_VIEW_FACTORIES_PACKAGE_NAME);
-
-		linkConstraintsEClass = createEClass(LINK_CONSTRAINTS);
-
-		editorCandiesEClass = createEClass(EDITOR_CANDIES);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH_X);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_CATEGORY_ID);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__NEW_DIAGRAM_FILE_WIZARD_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DIAGRAM_CONTENT_INITIALIZER_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__EDITING_DOMAIN_ID);
-
-		editPartCandiesEClass = createEClass(EDIT_PART_CANDIES);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_EDIT_HELPER_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__EDIT_PART_FACTORY_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__TEXT_SELECTION_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(editPartCandiesEClass, EDIT_PART_CANDIES__TEXT_NON_RESIZABLE_EDIT_POLICY_CLASS_NAME);
-
-		measurementUnitEClass = createEClass(MEASUREMENT_UNIT);
-		createEAttribute(measurementUnitEClass, MEASUREMENT_UNIT__UNITS);
-
-		genDiagramUpdaterEClass = createEClass(GEN_DIAGRAM_UPDATER);
-		createEReference(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__EDITOR_GEN);
-		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__DIAGRAM_UPDATER_CLASS_NAME);
-		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__NODE_DESCRIPTOR_CLASS_NAME);
-		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__LINK_DESCRIPTOR_CLASS_NAME);
-		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_CLASS_NAME);
-		createEAttribute(genDiagramUpdaterEClass, GEN_DIAGRAM_UPDATER__UPDATE_COMMAND_ID);
-
-		genPluginEClass = createEClass(GEN_PLUGIN);
-		createEReference(genPluginEClass, GEN_PLUGIN__EDITOR_GEN);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__ID);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__NAME);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__PROVIDER);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__VERSION);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__PRINTING_ENABLED);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__REQUIRED_PLUGINS);
-		createEAttribute(genPluginEClass, GEN_PLUGIN__ACTIVATOR_CLASS_NAME);
-
-		dynamicModelAccessEClass = createEClass(DYNAMIC_MODEL_ACCESS);
-		createEReference(dynamicModelAccessEClass, DYNAMIC_MODEL_ACCESS__EDITOR_GEN);
-		createEAttribute(dynamicModelAccessEClass, DYNAMIC_MODEL_ACCESS__PACKAGE_NAME);
-		createEAttribute(dynamicModelAccessEClass, DYNAMIC_MODEL_ACCESS__CLASS_NAME);
-
-		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
-		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
-		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__VISUAL_ID);
-		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__ELEMENT_TYPE);
-		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__EDIT_PART_CLASS_NAME);
-		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME);
-		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__VIEWMAP);
-		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__STYLES);
-		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__BEHAVIOUR);
-		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__SANS_DOMAIN);
-
-		behaviourEClass = createEClass(BEHAVIOUR);
-		createEReference(behaviourEClass, BEHAVIOUR__SUBJECT);
-
-		customBehaviourEClass = createEClass(CUSTOM_BEHAVIOUR);
-		createEAttribute(customBehaviourEClass, CUSTOM_BEHAVIOUR__KEY);
-		createEAttribute(customBehaviourEClass, CUSTOM_BEHAVIOUR__EDIT_POLICY_QUALIFIED_CLASS_NAME);
-
-		sharedBehaviourEClass = createEClass(SHARED_BEHAVIOUR);
-		createEReference(sharedBehaviourEClass, SHARED_BEHAVIOUR__DELEGATE);
-
-		openDiagramBehaviourEClass = createEClass(OPEN_DIAGRAM_BEHAVIOUR);
-		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__EDIT_POLICY_CLASS_NAME);
-		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__DIAGRAM_KIND);
-		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID);
-		createEAttribute(openDiagramBehaviourEClass, OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR);
-
-		genContainerBaseEClass = createEClass(GEN_CONTAINER_BASE);
-		createEReference(genContainerBaseEClass, GEN_CONTAINER_BASE__CONTAINED_NODES);
-		createEAttribute(genContainerBaseEClass, GEN_CONTAINER_BASE__CANONICAL_EDIT_POLICY_CLASS_NAME);
-
-		genChildContainerEClass = createEClass(GEN_CHILD_CONTAINER);
-		createEReference(genChildContainerEClass, GEN_CHILD_CONTAINER__CHILD_NODES);
-
-		genNodeEClass = createEClass(GEN_NODE);
-		createEReference(genNodeEClass, GEN_NODE__MODEL_FACET);
-		createEReference(genNodeEClass, GEN_NODE__LABELS);
-		createEReference(genNodeEClass, GEN_NODE__COMPARTMENTS);
-		createEAttribute(genNodeEClass, GEN_NODE__PRIMARY_DRAG_EDIT_POLICY_QUALIFIED_CLASS_NAME);
-		createEAttribute(genNodeEClass, GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME);
-		createEAttribute(genNodeEClass, GEN_NODE__CREATE_COMMAND_CLASS_NAME);
-		createEReference(genNodeEClass, GEN_NODE__REORIENTED_INCOMING_LINKS);
-
-		genTopLevelNodeEClass = createEClass(GEN_TOP_LEVEL_NODE);
-		createEReference(genTopLevelNodeEClass, GEN_TOP_LEVEL_NODE__DIAGRAM);
-
-		genChildNodeEClass = createEClass(GEN_CHILD_NODE);
-		createEReference(genChildNodeEClass, GEN_CHILD_NODE__DIAGRAM);
-		createEReference(genChildNodeEClass, GEN_CHILD_NODE__CONTAINERS);
-
-		genChildSideAffixedNodeEClass = createEClass(GEN_CHILD_SIDE_AFFIXED_NODE);
-		createEAttribute(genChildSideAffixedNodeEClass, GEN_CHILD_SIDE_AFFIXED_NODE__PREFERRED_SIDE_NAME);
-
-		genChildLabelNodeEClass = createEClass(GEN_CHILD_LABEL_NODE);
-		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY);
-		createEAttribute(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON);
-		createEReference(genChildLabelNodeEClass, GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET);
-
-		genCompartmentEClass = createEClass(GEN_COMPARTMENT);
-		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__TITLE);
-		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__CAN_COLLAPSE);
-		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__HIDE_IF_EMPTY);
-		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__NEEDS_TITLE);
-		createEReference(genCompartmentEClass, GEN_COMPARTMENT__DIAGRAM);
-		createEReference(genCompartmentEClass, GEN_COMPARTMENT__NODE);
-		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__LIST_LAYOUT);
-
-		genLinkEClass = createEClass(GEN_LINK);
-		createEReference(genLinkEClass, GEN_LINK__DIAGRAM);
-		createEReference(genLinkEClass, GEN_LINK__MODEL_FACET);
-		createEReference(genLinkEClass, GEN_LINK__LABELS);
-		createEAttribute(genLinkEClass, GEN_LINK__OUTGOING_CREATION_ALLOWED);
-		createEAttribute(genLinkEClass, GEN_LINK__INCOMING_CREATION_ALLOWED);
-		createEAttribute(genLinkEClass, GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL);
-		createEReference(genLinkEClass, GEN_LINK__CREATION_CONSTRAINTS);
-		createEAttribute(genLinkEClass, GEN_LINK__TARGET_REORIENTING_ALLOWED);
-		createEAttribute(genLinkEClass, GEN_LINK__SOURCE_REORIENTING_ALLOWED);
-		createEAttribute(genLinkEClass, GEN_LINK__CREATE_COMMAND_CLASS_NAME);
-		createEAttribute(genLinkEClass, GEN_LINK__REORIENT_COMMAND_CLASS_NAME);
-		createEAttribute(genLinkEClass, GEN_LINK__TREE_BRANCH);
-		createEReference(genLinkEClass, GEN_LINK__SOURCES);
-		createEReference(genLinkEClass, GEN_LINK__TARGETS);
-
-		genLabelEClass = createEClass(GEN_LABEL);
-		createEAttribute(genLabelEClass, GEN_LABEL__READ_ONLY);
-		createEAttribute(genLabelEClass, GEN_LABEL__ELEMENT_ICON);
-		createEReference(genLabelEClass, GEN_LABEL__MODEL_FACET);
-
-		genNodeLabelEClass = createEClass(GEN_NODE_LABEL);
-		createEReference(genNodeLabelEClass, GEN_NODE_LABEL__NODE);
-
-		genExternalNodeLabelEClass = createEClass(GEN_EXTERNAL_NODE_LABEL);
-
-		genLinkLabelEClass = createEClass(GEN_LINK_LABEL);
-		createEReference(genLinkLabelEClass, GEN_LINK_LABEL__LINK);
-		createEAttribute(genLinkLabelEClass, GEN_LINK_LABEL__ALIGNMENT);
-
-		elementTypeEClass = createEClass(ELEMENT_TYPE);
-		createEReference(elementTypeEClass, ELEMENT_TYPE__DIAGRAM_ELEMENT);
-		createEAttribute(elementTypeEClass, ELEMENT_TYPE__UNIQUE_IDENTIFIER);
-		createEAttribute(elementTypeEClass, ELEMENT_TYPE__DISPLAY_NAME);
-		createEAttribute(elementTypeEClass, ELEMENT_TYPE__DEFINED_EXTERNALLY);
-
-		metamodelTypeEClass = createEClass(METAMODEL_TYPE);
-		createEAttribute(metamodelTypeEClass, METAMODEL_TYPE__EDIT_HELPER_CLASS_NAME);
-
-		specializationTypeEClass = createEClass(SPECIALIZATION_TYPE);
-		createEReference(specializationTypeEClass, SPECIALIZATION_TYPE__METAMODEL_TYPE);
-		createEAttribute(specializationTypeEClass, SPECIALIZATION_TYPE__EDIT_HELPER_ADVICE_CLASS_NAME);
-
-		notationTypeEClass = createEClass(NOTATION_TYPE);
-
-		modelFacetEClass = createEClass(MODEL_FACET);
-
-		linkModelFacetEClass = createEClass(LINK_MODEL_FACET);
-
-		labelModelFacetEClass = createEClass(LABEL_MODEL_FACET);
-		createEReference(labelModelFacetEClass, LABEL_MODEL_FACET__PARSER);
-
-		typeModelFacetEClass = createEClass(TYPE_MODEL_FACET);
-		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__META_CLASS);
-		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE);
-		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__CHILD_META_FEATURE);
-		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR);
-		createEReference(typeModelFacetEClass, TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER);
-
-		typeLinkModelFacetEClass = createEClass(TYPE_LINK_MODEL_FACET);
-		createEReference(typeLinkModelFacetEClass, TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE);
-		createEReference(typeLinkModelFacetEClass, TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE);
-
-		featureLinkModelFacetEClass = createEClass(FEATURE_LINK_MODEL_FACET);
-		createEReference(featureLinkModelFacetEClass, FEATURE_LINK_MODEL_FACET__META_FEATURE);
-
-		featureLabelModelFacetEClass = createEClass(FEATURE_LABEL_MODEL_FACET);
-		createEReference(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__META_FEATURES);
-		createEReference(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDITABLE_META_FEATURES);
-		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN);
-		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDITOR_PATTERN);
-		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN);
-		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__VIEW_METHOD);
-		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDIT_METHOD);
-
-		designLabelModelFacetEClass = createEClass(DESIGN_LABEL_MODEL_FACET);
-
-		attributesEClass = createEClass(ATTRIBUTES);
-
-		colorAttributesEClass = createEClass(COLOR_ATTRIBUTES);
-		createEAttribute(colorAttributesEClass, COLOR_ATTRIBUTES__FOREGROUND_COLOR);
-		createEAttribute(colorAttributesEClass, COLOR_ATTRIBUTES__BACKGROUND_COLOR);
-
-		styleAttributesEClass = createEClass(STYLE_ATTRIBUTES);
-		createEAttribute(styleAttributesEClass, STYLE_ATTRIBUTES__FIXED_FONT);
-		createEAttribute(styleAttributesEClass, STYLE_ATTRIBUTES__FIXED_FOREGROUND);
-		createEAttribute(styleAttributesEClass, STYLE_ATTRIBUTES__FIXED_BACKGROUND);
-
-		resizeConstraintsEClass = createEClass(RESIZE_CONSTRAINTS);
-		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__RESIZE_HANDLES);
-		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES);
-		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES);
-		createEAttribute(resizeConstraintsEClass, RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES);
-
-		defaultSizeAttributesEClass = createEClass(DEFAULT_SIZE_ATTRIBUTES);
-		createEAttribute(defaultSizeAttributesEClass, DEFAULT_SIZE_ATTRIBUTES__WIDTH);
-		createEAttribute(defaultSizeAttributesEClass, DEFAULT_SIZE_ATTRIBUTES__HEIGHT);
-
-		labelOffsetAttributesEClass = createEClass(LABEL_OFFSET_ATTRIBUTES);
-		createEAttribute(labelOffsetAttributesEClass, LABEL_OFFSET_ATTRIBUTES__X);
-		createEAttribute(labelOffsetAttributesEClass, LABEL_OFFSET_ATTRIBUTES__Y);
-
-		viewmapEClass = createEClass(VIEWMAP);
-		createEReference(viewmapEClass, VIEWMAP__ATTRIBUTES);
-		createEAttribute(viewmapEClass, VIEWMAP__REQUIRED_PLUGIN_IDS);
-		createEAttribute(viewmapEClass, VIEWMAP__LAYOUT_TYPE);
-
-		figureViewmapEClass = createEClass(FIGURE_VIEWMAP);
-		createEAttribute(figureViewmapEClass, FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
-
-		snippetViewmapEClass = createEClass(SNIPPET_VIEWMAP);
-		createEAttribute(snippetViewmapEClass, SNIPPET_VIEWMAP__BODY);
-
-		innerClassViewmapEClass = createEClass(INNER_CLASS_VIEWMAP);
-		createEAttribute(innerClassViewmapEClass, INNER_CLASS_VIEWMAP__CLASS_NAME);
-		createEAttribute(innerClassViewmapEClass, INNER_CLASS_VIEWMAP__CLASS_BODY);
-
-		parentAssignedViewmapEClass = createEClass(PARENT_ASSIGNED_VIEWMAP);
-		createEAttribute(parentAssignedViewmapEClass, PARENT_ASSIGNED_VIEWMAP__GETTER_NAME);
-		createEAttribute(parentAssignedViewmapEClass, PARENT_ASSIGNED_VIEWMAP__SETTER_NAME);
-		createEAttribute(parentAssignedViewmapEClass, PARENT_ASSIGNED_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
-
-		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
-		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
-		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANG_NAME);
-		createEReference(valueExpressionEClass, VALUE_EXPRESSION__PROVIDER);
-
-		genConstraintEClass = createEClass(GEN_CONSTRAINT);
-
-		paletteEClass = createEClass(PALETTE);
-		createEReference(paletteEClass, PALETTE__DIAGRAM);
-		createEAttribute(paletteEClass, PALETTE__FLYOUT);
-		createEReference(paletteEClass, PALETTE__GROUPS);
-		createEAttribute(paletteEClass, PALETTE__PACKAGE_NAME);
-		createEAttribute(paletteEClass, PALETTE__FACTORY_CLASS_NAME);
-
-		entryBaseEClass = createEClass(ENTRY_BASE);
-		createEAttribute(entryBaseEClass, ENTRY_BASE__TITLE);
-		createEAttribute(entryBaseEClass, ENTRY_BASE__DESCRIPTION);
-		createEAttribute(entryBaseEClass, ENTRY_BASE__LARGE_ICON_PATH);
-		createEAttribute(entryBaseEClass, ENTRY_BASE__SMALL_ICON_PATH);
-		createEAttribute(entryBaseEClass, ENTRY_BASE__CREATE_METHOD_NAME);
-
-		abstractToolEntryEClass = createEClass(ABSTRACT_TOOL_ENTRY);
-		createEAttribute(abstractToolEntryEClass, ABSTRACT_TOOL_ENTRY__DEFAULT);
-		createEAttribute(abstractToolEntryEClass, ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME);
-		createEReference(abstractToolEntryEClass, ABSTRACT_TOOL_ENTRY__PROPERTIES);
-
-		toolEntryEClass = createEClass(TOOL_ENTRY);
-		createEReference(toolEntryEClass, TOOL_ENTRY__GEN_NODES);
-		createEReference(toolEntryEClass, TOOL_ENTRY__GEN_LINKS);
-		createEReference(toolEntryEClass, TOOL_ENTRY__ELEMENTS);
-
-		standardEntryEClass = createEClass(STANDARD_ENTRY);
-		createEAttribute(standardEntryEClass, STANDARD_ENTRY__KIND);
-
-		toolGroupItemEClass = createEClass(TOOL_GROUP_ITEM);
-		createEReference(toolGroupItemEClass, TOOL_GROUP_ITEM__GROUP);
-
-		separatorEClass = createEClass(SEPARATOR);
-
-		toolGroupEClass = createEClass(TOOL_GROUP);
-		createEReference(toolGroupEClass, TOOL_GROUP__PALETTE);
-		createEAttribute(toolGroupEClass, TOOL_GROUP__STACK);
-		createEAttribute(toolGroupEClass, TOOL_GROUP__COLLAPSE);
-		createEReference(toolGroupEClass, TOOL_GROUP__ENTRIES);
-		createEAttribute(toolGroupEClass, TOOL_GROUP__TOOLS_ONLY);
-
-		genElementInitializerEClass = createEClass(GEN_ELEMENT_INITIALIZER);
-		createEReference(genElementInitializerEClass, GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET);
-
-		genFeatureSeqInitializerEClass = createEClass(GEN_FEATURE_SEQ_INITIALIZER);
-		createEReference(genFeatureSeqInitializerEClass, GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS);
-		createEReference(genFeatureSeqInitializerEClass, GEN_FEATURE_SEQ_INITIALIZER__ELEMENT_CLASS);
-		createEReference(genFeatureSeqInitializerEClass, GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER);
-
-		genFeatureValueSpecEClass = createEClass(GEN_FEATURE_VALUE_SPEC);
-		createEReference(genFeatureValueSpecEClass, GEN_FEATURE_VALUE_SPEC__VALUE);
-
-		genReferenceNewElementSpecEClass = createEClass(GEN_REFERENCE_NEW_ELEMENT_SPEC);
-		createEReference(genReferenceNewElementSpecEClass, GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS);
-
-		genFeatureInitializerEClass = createEClass(GEN_FEATURE_INITIALIZER);
-		createEReference(genFeatureInitializerEClass, GEN_FEATURE_INITIALIZER__FEATURE);
-		createEReference(genFeatureInitializerEClass, GEN_FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER);
-
-		genLinkConstraintsEClass = createEClass(GEN_LINK_CONSTRAINTS);
-		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__LINK);
-		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__SOURCE_END);
-		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__TARGET_END);
-
-		genAuditRootEClass = createEClass(GEN_AUDIT_ROOT);
-		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__EDITOR_GEN);
-		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__CATEGORIES);
-		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__RULES);
-		createEReference(genAuditRootEClass, GEN_AUDIT_ROOT__CLIENT_CONTEXTS);
-
-		genAuditContainerEClass = createEClass(GEN_AUDIT_CONTAINER);
-		createEReference(genAuditContainerEClass, GEN_AUDIT_CONTAINER__ROOT);
-		createEAttribute(genAuditContainerEClass, GEN_AUDIT_CONTAINER__ID);
-		createEAttribute(genAuditContainerEClass, GEN_AUDIT_CONTAINER__NAME);
-		createEAttribute(genAuditContainerEClass, GEN_AUDIT_CONTAINER__DESCRIPTION);
-		createEReference(genAuditContainerEClass, GEN_AUDIT_CONTAINER__PATH);
-		createEReference(genAuditContainerEClass, GEN_AUDIT_CONTAINER__AUDITS);
-
-		genRuleBaseEClass = createEClass(GEN_RULE_BASE);
-		createEAttribute(genRuleBaseEClass, GEN_RULE_BASE__NAME);
-		createEAttribute(genRuleBaseEClass, GEN_RULE_BASE__DESCRIPTION);
-
-		genAuditRuleEClass = createEClass(GEN_AUDIT_RULE);
-		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__ROOT);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__ID);
-		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__RULE);
-		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__TARGET);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__MESSAGE);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__SEVERITY);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__USE_IN_LIVE_MODE);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__REQUIRES_CONSTRAINT_ADAPTER);
-		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__CATEGORY);
-
-		genRuleTargetEClass = createEClass(GEN_RULE_TARGET);
-
-		genDomainElementTargetEClass = createEClass(GEN_DOMAIN_ELEMENT_TARGET);
-		createEReference(genDomainElementTargetEClass, GEN_DOMAIN_ELEMENT_TARGET__ELEMENT);
-
-		genDiagramElementTargetEClass = createEClass(GEN_DIAGRAM_ELEMENT_TARGET);
-		createEReference(genDiagramElementTargetEClass, GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT);
-
-		genDomainAttributeTargetEClass = createEClass(GEN_DOMAIN_ATTRIBUTE_TARGET);
-		createEReference(genDomainAttributeTargetEClass, GEN_DOMAIN_ATTRIBUTE_TARGET__ATTRIBUTE);
-		createEAttribute(genDomainAttributeTargetEClass, GEN_DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR);
-
-		genNotationElementTargetEClass = createEClass(GEN_NOTATION_ELEMENT_TARGET);
-		createEReference(genNotationElementTargetEClass, GEN_NOTATION_ELEMENT_TARGET__ELEMENT);
-
-		genMetricContainerEClass = createEClass(GEN_METRIC_CONTAINER);
-		createEReference(genMetricContainerEClass, GEN_METRIC_CONTAINER__EDITOR_GEN);
-		createEReference(genMetricContainerEClass, GEN_METRIC_CONTAINER__METRICS);
-
-		genMetricRuleEClass = createEClass(GEN_METRIC_RULE);
-		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__KEY);
-		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__RULE);
-		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__TARGET);
-		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__LOW_LIMIT);
-		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__HIGH_LIMIT);
-		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__CONTAINER);
-
-		genAuditedMetricTargetEClass = createEClass(GEN_AUDITED_METRIC_TARGET);
-		createEReference(genAuditedMetricTargetEClass, GEN_AUDITED_METRIC_TARGET__METRIC);
-		createEReference(genAuditedMetricTargetEClass, GEN_AUDITED_METRIC_TARGET__METRIC_VALUE_CONTEXT);
-
-		genAuditableEClass = createEClass(GEN_AUDITABLE);
-		createEReference(genAuditableEClass, GEN_AUDITABLE__CONTEXT_SELECTOR);
-
-		genAuditContextEClass = createEClass(GEN_AUDIT_CONTEXT);
-		createEReference(genAuditContextEClass, GEN_AUDIT_CONTEXT__ROOT);
-		createEAttribute(genAuditContextEClass, GEN_AUDIT_CONTEXT__ID);
-		createEAttribute(genAuditContextEClass, GEN_AUDIT_CONTEXT__CLASS_NAME);
-		createEReference(genAuditContextEClass, GEN_AUDIT_CONTEXT__RULE_TARGETS);
-
-		genMeasurableEClass = createEClass(GEN_MEASURABLE);
-
-		genExpressionProviderContainerEClass = createEClass(GEN_EXPRESSION_PROVIDER_CONTAINER);
-		createEAttribute(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__EXPRESSIONS_PACKAGE_NAME);
-		createEAttribute(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__ABSTRACT_EXPRESSION_CLASS_NAME);
-		createEReference(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS);
-		createEReference(genExpressionProviderContainerEClass, GEN_EXPRESSION_PROVIDER_CONTAINER__EDITOR_GEN);
-
-		genExpressionProviderBaseEClass = createEClass(GEN_EXPRESSION_PROVIDER_BASE);
-		createEReference(genExpressionProviderBaseEClass, GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS);
-		createEReference(genExpressionProviderBaseEClass, GEN_EXPRESSION_PROVIDER_BASE__CONTAINER);
-
-		genJavaExpressionProviderEClass = createEClass(GEN_JAVA_EXPRESSION_PROVIDER);
-		createEAttribute(genJavaExpressionProviderEClass, GEN_JAVA_EXPRESSION_PROVIDER__THROW_EXCEPTION);
-		createEAttribute(genJavaExpressionProviderEClass, GEN_JAVA_EXPRESSION_PROVIDER__INJECT_EXPRESSION_BODY);
-
-		genExpressionInterpreterEClass = createEClass(GEN_EXPRESSION_INTERPRETER);
-		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__LANGUAGE);
-		createEAttribute(genExpressionInterpreterEClass, GEN_EXPRESSION_INTERPRETER__CLASS_NAME);
-
-		genLiteralExpressionProviderEClass = createEClass(GEN_LITERAL_EXPRESSION_PROVIDER);
-
-		genDomainModelNavigatorEClass = createEClass(GEN_DOMAIN_MODEL_NAVIGATOR);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_PRIORITY);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_CONTENT_PROVIDER_CLASS_NAME);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_LABEL_PROVIDER_CLASS_NAME);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_MODEL_ELEMENT_TESTER_CLASS_NAME);
-		createEAttribute(genDomainModelNavigatorEClass, GEN_DOMAIN_MODEL_NAVIGATOR__DOMAIN_NAVIGATOR_ITEM_CLASS_NAME);
-
-		genNavigatorEClass = createEClass(GEN_NAVIGATOR);
-		createEReference(genNavigatorEClass, GEN_NAVIGATOR__EDITOR_GEN);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_EXTENSION_ID);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_EXTENSION_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_EXTENSION_PRIORITY);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LINK_HELPER_EXTENSION_ID);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__SORTER_EXTENSION_ID);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ACTION_PROVIDER_ID);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__CONTENT_PROVIDER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LABEL_PROVIDER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__LINK_HELPER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__SORTER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ACTION_PROVIDER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__ABSTRACT_NAVIGATOR_ITEM_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_GROUP_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__NAVIGATOR_ITEM_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__URI_INPUT_TESTER_CLASS_NAME);
-		createEAttribute(genNavigatorEClass, GEN_NAVIGATOR__PACKAGE_NAME);
-		createEReference(genNavigatorEClass, GEN_NAVIGATOR__CHILD_REFERENCES);
-
-		genNavigatorChildReferenceEClass = createEClass(GEN_NAVIGATOR_CHILD_REFERENCE);
-		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR);
-		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__PARENT);
-		createEReference(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__CHILD);
-		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__REFERENCE_TYPE);
-		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_NAME);
-		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON);
-		createEAttribute(genNavigatorChildReferenceEClass, GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY);
-
-		genNavigatorPathEClass = createEClass(GEN_NAVIGATOR_PATH);
-		createEReference(genNavigatorPathEClass, GEN_NAVIGATOR_PATH__SEGMENTS);
-
-		genNavigatorPathSegmentEClass = createEClass(GEN_NAVIGATOR_PATH_SEGMENT);
-		createEReference(genNavigatorPathSegmentEClass, GEN_NAVIGATOR_PATH_SEGMENT__PATH);
-		createEReference(genNavigatorPathSegmentEClass, GEN_NAVIGATOR_PATH_SEGMENT__FROM);
-		createEReference(genNavigatorPathSegmentEClass, GEN_NAVIGATOR_PATH_SEGMENT__TO);
-
-		genPropertySheetEClass = createEClass(GEN_PROPERTY_SHEET);
-		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__EDITOR_GEN);
-		createEReference(genPropertySheetEClass, GEN_PROPERTY_SHEET__TABS);
-		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__PACKAGE_NAME);
-		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__READ_ONLY);
-		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__NEEDS_CAPTION);
-		createEAttribute(genPropertySheetEClass, GEN_PROPERTY_SHEET__LABEL_PROVIDER_CLASS_NAME);
-
-		genPropertyTabEClass = createEClass(GEN_PROPERTY_TAB);
-		createEReference(genPropertyTabEClass, GEN_PROPERTY_TAB__SHEET);
-		createEAttribute(genPropertyTabEClass, GEN_PROPERTY_TAB__ID);
-		createEAttribute(genPropertyTabEClass, GEN_PROPERTY_TAB__LABEL);
-
-		genStandardPropertyTabEClass = createEClass(GEN_STANDARD_PROPERTY_TAB);
-
-		genCustomPropertyTabEClass = createEClass(GEN_CUSTOM_PROPERTY_TAB);
-		createEAttribute(genCustomPropertyTabEClass, GEN_CUSTOM_PROPERTY_TAB__CLASS_NAME);
-		createEReference(genCustomPropertyTabEClass, GEN_CUSTOM_PROPERTY_TAB__FILTER);
-
-		genPropertyTabFilterEClass = createEClass(GEN_PROPERTY_TAB_FILTER);
-		createEReference(genPropertyTabFilterEClass, GEN_PROPERTY_TAB_FILTER__TAB);
-
-		typeTabFilterEClass = createEClass(TYPE_TAB_FILTER);
-		createEAttribute(typeTabFilterEClass, TYPE_TAB_FILTER__TYPES);
-		createEAttribute(typeTabFilterEClass, TYPE_TAB_FILTER__GENERATED_TYPES);
-
-		customTabFilterEClass = createEClass(CUSTOM_TAB_FILTER);
-		createEAttribute(customTabFilterEClass, CUSTOM_TAB_FILTER__CLASS_NAME);
-
-		genContributionItemEClass = createEClass(GEN_CONTRIBUTION_ITEM);
-		createEReference(genContributionItemEClass, GEN_CONTRIBUTION_ITEM__OWNER);
-
-		genSharedContributionItemEClass = createEClass(GEN_SHARED_CONTRIBUTION_ITEM);
-		createEReference(genSharedContributionItemEClass, GEN_SHARED_CONTRIBUTION_ITEM__ACTUAL_ITEM);
-
-		genGroupMarkerEClass = createEClass(GEN_GROUP_MARKER);
-		createEAttribute(genGroupMarkerEClass, GEN_GROUP_MARKER__GROUP_NAME);
-
-		genSeparatorEClass = createEClass(GEN_SEPARATOR);
-		createEAttribute(genSeparatorEClass, GEN_SEPARATOR__GROUP_NAME);
-
-		genCustomActionEClass = createEClass(GEN_CUSTOM_ACTION);
-		createEAttribute(genCustomActionEClass, GEN_CUSTOM_ACTION__QUALIFIED_CLASS_NAME);
-		createEAttribute(genCustomActionEClass, GEN_CUSTOM_ACTION__GENERATE_BOILERPLATE);
-		createEAttribute(genCustomActionEClass, GEN_CUSTOM_ACTION__NAME);
-
-		genCommandActionEClass = createEClass(GEN_COMMAND_ACTION);
-		createEAttribute(genCommandActionEClass, GEN_COMMAND_ACTION__COMMAND_IDENTIFIER);
-		createEAttribute(genCommandActionEClass, GEN_COMMAND_ACTION__NAME);
-
-		genActionEClass = createEClass(GEN_ACTION);
-		createEAttribute(genActionEClass, GEN_ACTION__QUALIFIED_CLASS_NAME);
-		createEAttribute(genActionEClass, GEN_ACTION__NAME);
-
-		loadResourceActionEClass = createEClass(LOAD_RESOURCE_ACTION);
-
-		initDiagramActionEClass = createEClass(INIT_DIAGRAM_ACTION);
-
-		createShortcutActionEClass = createEClass(CREATE_SHORTCUT_ACTION);
-
-		genActionFactoryContributionItemEClass = createEClass(GEN_ACTION_FACTORY_CONTRIBUTION_ITEM);
-		createEAttribute(genActionFactoryContributionItemEClass, GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__NAME);
-
-		genContributionManagerEClass = createEClass(GEN_CONTRIBUTION_MANAGER);
-		createEAttribute(genContributionManagerEClass, GEN_CONTRIBUTION_MANAGER__ID);
-		createEReference(genContributionManagerEClass, GEN_CONTRIBUTION_MANAGER__ITEMS);
-		createEReference(genContributionManagerEClass, GEN_CONTRIBUTION_MANAGER__EDITOR_GEN);
-
-		genMenuManagerEClass = createEClass(GEN_MENU_MANAGER);
-		createEAttribute(genMenuManagerEClass, GEN_MENU_MANAGER__NAME);
-
-		genToolBarManagerEClass = createEClass(GEN_TOOL_BAR_MANAGER);
-
-		genContextMenuEClass = createEClass(GEN_CONTEXT_MENU);
-		createEReference(genContextMenuEClass, GEN_CONTEXT_MENU__CONTEXT);
-
-		genApplicationEClass = createEClass(GEN_APPLICATION);
-		createEReference(genApplicationEClass, GEN_APPLICATION__EDITOR_GEN);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__ID);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__TITLE);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__PACKAGE_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__CLASS_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__WORKBENCH_ADVISOR_CLASS_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__WORKBENCH_WINDOW_ADVISOR_CLASS_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__ACTION_BAR_ADVISOR_CLASS_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__PERSPECTIVE_CLASS_NAME);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__PERSPECTIVE_ID);
-		createEAttribute(genApplicationEClass, GEN_APPLICATION__SUPPORT_FILES);
-		createEReference(genApplicationEClass, GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS);
-		createEReference(genApplicationEClass, GEN_APPLICATION__MAIN_MENU);
-		createEReference(genApplicationEClass, GEN_APPLICATION__MAIN_TOOL_BAR);
-
-		genLinkEndEClass = createEClass(GEN_LINK_END);
-		createEReference(genLinkEndEClass, GEN_LINK_END__GEN_OUTGOING_LINKS);
-		createEReference(genLinkEndEClass, GEN_LINK_END__GEN_INCOMING_LINKS);
-
-		genParsersEClass = createEClass(GEN_PARSERS);
-		createEReference(genParsersEClass, GEN_PARSERS__EDITOR_GEN);
-		createEAttribute(genParsersEClass, GEN_PARSERS__PACKAGE_NAME);
-		createEAttribute(genParsersEClass, GEN_PARSERS__CLASS_NAME);
-		createEAttribute(genParsersEClass, GEN_PARSERS__EXTENSIBLE_VIA_SERVICE);
-		createEAttribute(genParsersEClass, GEN_PARSERS__PROVIDER_PRIORITY);
-		createEReference(genParsersEClass, GEN_PARSERS__IMPLEMENTATIONS);
-		createEAttribute(genParsersEClass, GEN_PARSERS__IMPL_PACKAGE_NAME);
-
-		genParserImplementationEClass = createEClass(GEN_PARSER_IMPLEMENTATION);
-		createEReference(genParserImplementationEClass, GEN_PARSER_IMPLEMENTATION__HOLDER);
-		createEReference(genParserImplementationEClass, GEN_PARSER_IMPLEMENTATION__USES);
-
-		predefinedParserEClass = createEClass(PREDEFINED_PARSER);
-		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__VIEW_METHOD);
-		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__EDIT_METHOD);
-		createEAttribute(predefinedParserEClass, PREDEFINED_PARSER__CLASS_NAME);
-
-		customParserEClass = createEClass(CUSTOM_PARSER);
-		createEAttribute(customParserEClass, CUSTOM_PARSER__QUALIFIED_NAME);
-		createEAttribute(customParserEClass, CUSTOM_PARSER__GENERATE_BOILERPLATE);
-
-		externalParserEClass = createEClass(EXTERNAL_PARSER);
-		createEAttribute(externalParserEClass, EXTERNAL_PARSER__HINT);
-
-		// Create enums
-		standardPreferencePagesEEnum = createEEnum(STANDARD_PREFERENCE_PAGES);
-		rulerUnitsEEnum = createEEnum(RULER_UNITS);
-		routingEEnum = createEEnum(ROUTING);
-		lineStyleEEnum = createEEnum(LINE_STYLE);
-		jFaceFontEEnum = createEEnum(JFACE_FONT);
-		fontStyleEEnum = createEEnum(FONT_STYLE);
-		diagramColorsEEnum = createEEnum(DIAGRAM_COLORS);
-		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
-		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
-		labelTextAccessMethodEEnum = createEEnum(LABEL_TEXT_ACCESS_METHOD);
-		viewmapLayoutTypeEEnum = createEEnum(VIEWMAP_LAYOUT_TYPE);
-		standardEntryKindEEnum = createEEnum(STANDARD_ENTRY_KIND);
-		genSeverityEEnum = createEEnum(GEN_SEVERITY);
-		genLanguageEEnum = createEEnum(GEN_LANGUAGE);
-		genNavigatorReferenceTypeEEnum = createEEnum(GEN_NAVIGATOR_REFERENCE_TYPE);
-		generatedTypeEEnum = createEEnum(GENERATED_TYPE);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private boolean isInitialized = false;
-
-	/**
-	 * Complete the initialization of the package and its meta-model.  This
-	 * method is guarded to have no affect on any invocation but its first.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void initializePackageContentsGen() {
-		if (isInitialized) return;
-		isInitialized = true;
-
-		// Initialize package
-		setName(eNAME);
-		setNsPrefix(eNS_PREFIX);
-		setNsURI(eNS_URI);
-
-		// Obtain other dependent packages
-		GenModelPackage theGenModelPackage = (GenModelPackage)EPackage.Registry.INSTANCE.getEPackage(GenModelPackage.eNS_URI);
-
-		// Create type parameters
-
-		// Set bounds for type parameters
-
-		// Add supertypes to classes
-		genDiagramEClass.getESuperTypes().add(this.getGenContainerBase());
-		genDiagramEClass.getESuperTypes().add(this.getPackageNames());
-		genDiagramEClass.getESuperTypes().add(this.getProviderClassNames());
-		genDiagramEClass.getESuperTypes().add(this.getLinkConstraints());
-		genDiagramEClass.getESuperTypes().add(this.getEditPartCandies());
-		genDiagramEClass.getESuperTypes().add(this.getEditorCandies());
-		genDiagramEClass.getESuperTypes().add(this.getShortcuts());
-		genDiagramEClass.getESuperTypes().add(this.getBatchValidation());
-		genDiagramEClass.getESuperTypes().add(this.getMeasurementUnit());
-		genCustomPreferencePageEClass.getESuperTypes().add(this.getGenPreferencePage());
-		genStandardPreferencePageEClass.getESuperTypes().add(this.getGenPreferencePage());
-		genStandardFontEClass.getESuperTypes().add(this.getGenFont());
-		genCustomFontEClass.getESuperTypes().add(this.getGenFont());
-		genRGBColorEClass.getESuperTypes().add(this.getGenColor());
-		genConstantColorEClass.getESuperTypes().add(this.getGenColor());
-		customBehaviourEClass.getESuperTypes().add(this.getBehaviour());
-		sharedBehaviourEClass.getESuperTypes().add(this.getBehaviour());
-		openDiagramBehaviourEClass.getESuperTypes().add(this.getBehaviour());
-		genContainerBaseEClass.getESuperTypes().add(this.getGenCommonBase());
-		genChildContainerEClass.getESuperTypes().add(this.getGenContainerBase());
-		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
-		genNodeEClass.getESuperTypes().add(this.getGenLinkEnd());
-		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
-		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
-		genChildSideAffixedNodeEClass.getESuperTypes().add(this.getGenChildNode());
-		genChildLabelNodeEClass.getESuperTypes().add(this.getGenChildNode());
-		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
-		genLinkEClass.getESuperTypes().add(this.getGenCommonBase());
-		genLinkEClass.getESuperTypes().add(this.getGenLinkEnd());
-		genLabelEClass.getESuperTypes().add(this.getGenCommonBase());
-		genNodeLabelEClass.getESuperTypes().add(this.getGenLabel());
-		genExternalNodeLabelEClass.getESuperTypes().add(this.getGenNodeLabel());
-		genLinkLabelEClass.getESuperTypes().add(this.getGenLabel());
-		metamodelTypeEClass.getESuperTypes().add(this.getElementType());
-		specializationTypeEClass.getESuperTypes().add(this.getElementType());
-		notationTypeEClass.getESuperTypes().add(this.getElementType());
-		linkModelFacetEClass.getESuperTypes().add(this.getModelFacet());
-		labelModelFacetEClass.getESuperTypes().add(this.getModelFacet());
-		typeModelFacetEClass.getESuperTypes().add(this.getModelFacet());
-		typeLinkModelFacetEClass.getESuperTypes().add(this.getTypeModelFacet());
-		typeLinkModelFacetEClass.getESuperTypes().add(this.getLinkModelFacet());
-		featureLinkModelFacetEClass.getESuperTypes().add(this.getLinkModelFacet());
-		featureLabelModelFacetEClass.getESuperTypes().add(this.getLabelModelFacet());
-		designLabelModelFacetEClass.getESuperTypes().add(this.getLabelModelFacet());
-		colorAttributesEClass.getESuperTypes().add(this.getAttributes());
-		styleAttributesEClass.getESuperTypes().add(this.getAttributes());
-		resizeConstraintsEClass.getESuperTypes().add(this.getAttributes());
-		defaultSizeAttributesEClass.getESuperTypes().add(this.getAttributes());
-		labelOffsetAttributesEClass.getESuperTypes().add(this.getAttributes());
-		figureViewmapEClass.getESuperTypes().add(this.getViewmap());
-		snippetViewmapEClass.getESuperTypes().add(this.getViewmap());
-		innerClassViewmapEClass.getESuperTypes().add(this.getViewmap());
-		parentAssignedViewmapEClass.getESuperTypes().add(this.getViewmap());
-		genConstraintEClass.getESuperTypes().add(this.getValueExpression());
-		abstractToolEntryEClass.getESuperTypes().add(this.getEntryBase());
-		abstractToolEntryEClass.getESuperTypes().add(this.getToolGroupItem());
-		toolEntryEClass.getESuperTypes().add(this.getAbstractToolEntry());
-		standardEntryEClass.getESuperTypes().add(this.getAbstractToolEntry());
-		separatorEClass.getESuperTypes().add(this.getToolGroupItem());
-		toolGroupEClass.getESuperTypes().add(this.getEntryBase());
-		toolGroupEClass.getESuperTypes().add(this.getToolGroupItem());
-		genFeatureSeqInitializerEClass.getESuperTypes().add(this.getGenElementInitializer());
-		genFeatureValueSpecEClass.getESuperTypes().add(this.getGenFeatureInitializer());
-		genReferenceNewElementSpecEClass.getESuperTypes().add(this.getGenFeatureInitializer());
-		genAuditRuleEClass.getESuperTypes().add(this.getGenRuleBase());
-		genDomainElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
-		genDomainElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
-		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
-		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
-		genDomainAttributeTargetEClass.getESuperTypes().add(this.getGenAuditable());
-		genNotationElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
-		genNotationElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
-		genMetricRuleEClass.getESuperTypes().add(this.getGenRuleBase());
-		genAuditedMetricTargetEClass.getESuperTypes().add(this.getGenAuditable());
-		genAuditableEClass.getESuperTypes().add(this.getGenRuleTarget());
-		genMeasurableEClass.getESuperTypes().add(this.getGenRuleTarget());
-		genJavaExpressionProviderEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
-		genExpressionInterpreterEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
-		genLiteralExpressionProviderEClass.getESuperTypes().add(this.getGenExpressionProviderBase());
-		genNavigatorEClass.getESuperTypes().add(this.getGenDomainModelNavigator());
-		genStandardPropertyTabEClass.getESuperTypes().add(this.getGenPropertyTab());
-		genCustomPropertyTabEClass.getESuperTypes().add(this.getGenPropertyTab());
-		typeTabFilterEClass.getESuperTypes().add(this.getGenPropertyTabFilter());
-		customTabFilterEClass.getESuperTypes().add(this.getGenPropertyTabFilter());
-		genSharedContributionItemEClass.getESuperTypes().add(this.getGenContributionItem());
-		genGroupMarkerEClass.getESuperTypes().add(this.getGenContributionItem());
-		genSeparatorEClass.getESuperTypes().add(this.getGenContributionItem());
-		genCustomActionEClass.getESuperTypes().add(this.getGenContributionItem());
-		genCommandActionEClass.getESuperTypes().add(this.getGenContributionItem());
-		genActionEClass.getESuperTypes().add(this.getGenContributionItem());
-		loadResourceActionEClass.getESuperTypes().add(this.getGenAction());
-		initDiagramActionEClass.getESuperTypes().add(this.getGenAction());
-		createShortcutActionEClass.getESuperTypes().add(this.getGenAction());
-		genActionFactoryContributionItemEClass.getESuperTypes().add(this.getGenContributionItem());
-		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionManager());
-		genMenuManagerEClass.getESuperTypes().add(this.getGenContributionItem());
-		genToolBarManagerEClass.getESuperTypes().add(this.getGenContributionManager());
-		genToolBarManagerEClass.getESuperTypes().add(this.getGenContributionItem());
-		genContextMenuEClass.getESuperTypes().add(this.getGenContributionManager());
-		genLinkEndEClass.getESuperTypes().add(this.getGenCommonBase());
-		predefinedParserEClass.getESuperTypes().add(this.getGenParserImplementation());
-		customParserEClass.getESuperTypes().add(this.getGenParserImplementation());
-		externalParserEClass.getESuperTypes().add(this.getGenParserImplementation());
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(genEditorGeneratorEClass, GenEditorGenerator.class, "GenEditorGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenEditorGenerator_Audits(), this.getGenAuditRoot(), this.getGenAuditRoot_EditorGen(), "audits", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Metrics(), this.getGenMetricContainer(), this.getGenMetricContainer_EditorGen(), "metrics", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Diagram(), this.getGenDiagram(), this.getGenDiagram_EditorGen(), "diagram", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Navigator(), this.getGenNavigator(), this.getGenNavigator_EditorGen(), "navigator", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_DiagramUpdater(), this.getGenDiagramUpdater(), this.getGenDiagramUpdater_EditorGen(), "diagramUpdater", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_PropertySheet(), this.getGenPropertySheet(), this.getGenPropertySheet_EditorGen(), "propertySheet", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_Application(), this.getGenApplication(), this.getGenApplication_EditorGen(), "application", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_DomainGenModel(), theGenModelPackage.getGenModel(), null, "domainGenModel", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_PackageNamePrefix(), ecorePackage.getEString(), "packageNamePrefix", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_ModelID(), ecorePackage.getEString(), "modelID", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_SameFileForDiagramAndModel(), ecorePackage.getEBoolean(), "sameFileForDiagramAndModel", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_DiagramFileExtension(), ecorePackage.getEString(), "diagramFileExtension", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_DomainFileExtension(), ecorePackage.getEString(), "domainFileExtension", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_DynamicTemplates(), ecorePackage.getEBoolean(), "dynamicTemplates", "false", 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_TemplateDirectory(), ecorePackage.getEString(), "templateDirectory", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorGenerator_CopyrightText(), ecorePackage.getEString(), "copyrightText", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_ExpressionProviders(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_EditorGen(), "expressionProviders", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_ModelAccess(), this.getDynamicModelAccess(), this.getDynamicModelAccess_EditorGen(), "modelAccess", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_LabelParsers(), this.getGenParsers(), this.getGenParsers_EditorGen(), "labelParsers", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenEditorGenerator_ContextMenus(), this.getGenContextMenu(), null, "contextMenus", null, 0, -1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		EOperation op = addEOperation(genEditorGeneratorEClass, theGenModelPackage.getGenPackage(), "getAllDomainGenPackages", 0, -1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEBoolean(), "withUsed", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genDiagramEClass, GenDiagram.class, "GenDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenDiagram_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Diagram(), "editorGen", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_DomainDiagramElement(), theGenModelPackage.getGenClass(), null, "domainDiagramElement", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Diagram(), "childNodes", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_TopLevelNodes(), this.getGenTopLevelNode(), this.getGenTopLevelNode_Diagram(), "topLevelNodes", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_Links(), this.getGenLink(), this.getGenLink_Diagram(), "links", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_Compartments(), this.getGenCompartment(), this.getGenCompartment_Diagram(), "compartments", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagram_Synchronized(), ecorePackage.getEBoolean(), "synchronized", "true", 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_Preferences(), this.getGenDiagramPreferences(), null, "preferences", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_PreferencePages(), this.getGenPreferencePage(), null, "preferencePages", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genDiagramEClass, this.getGenNode(), "getAllNodes", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramEClass, this.getGenChildContainer(), "getAllChildContainers", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramEClass, this.getGenContainerBase(), "getAllContainers", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersPackageName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genEditorViewEClass, GenEditorView.class, "GenEditorView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenEditorView_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Editor(), "editorGen", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_ActionBarContributorClassName(), ecorePackage.getEString(), "actionBarContributorClassName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_IconPath(), ecorePackage.getEString(), "iconPath", null, 1, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_IconPathX(), ecorePackage.getEString(), "iconPathX", null, 1, 1, GenEditorView.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_EclipseEditor(), ecorePackage.getEBoolean(), "eclipseEditor", "true", 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenEditorView_ContextID(), ecorePackage.getEString(), "contextID", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genPreferencePageEClass, GenPreferencePage.class, "GenPreferencePage", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenPreferencePage_ID(), ecorePackage.getEString(), "iD", null, 1, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPreferencePage_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenPreferencePage_Children(), this.getGenPreferencePage(), this.getGenPreferencePage_Parent(), "children", null, 0, -1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenPreferencePage_Parent(), this.getGenPreferencePage(), this.getGenPreferencePage_Children(), "parent", null, 0, 1, GenPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genPreferencePageEClass, this.getGenDiagram(), "getDiagram", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genPreferencePageEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genPreferencePageEClass, ecorePackage.getEString(), "getClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genCustomPreferencePageEClass, GenCustomPreferencePage.class, "GenCustomPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenCustomPreferencePage_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCustomPreferencePage_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCustomPreferencePage_Preferences(), this.getGenPreference(), this.getGenPreference_Page(), "preferences", null, 0, -1, GenCustomPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genStandardPreferencePageEClass, GenStandardPreferencePage.class, "GenStandardPreferencePage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenStandardPreferencePage_Kind(), this.getStandardPreferencePages(), "kind", null, 1, 1, GenStandardPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenStandardPreferencePage_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenStandardPreferencePage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genDiagramPreferencesEClass, GenDiagramPreferences.class, "GenDiagramPreferences", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenDiagramPreferences_LineStyle(), this.getRouting(), "lineStyle", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_DefaultFont(), this.getGenFont(), null, "defaultFont", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_FontColor(), this.getGenColor(), null, "fontColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_FillColor(), this.getGenColor(), null, "fillColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_LineColor(), this.getGenColor(), null, "lineColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_NoteFillColor(), this.getGenColor(), null, "noteFillColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_NoteLineColor(), this.getGenColor(), null, "noteLineColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_ShowConnectionHandles(), ecorePackage.getEBoolean(), "showConnectionHandles", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_ShowPopupBars(), ecorePackage.getEBoolean(), "showPopupBars", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_PromptOnDelFromModel(), ecorePackage.getEBoolean(), "promptOnDelFromModel", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_PromptOnDelFromDiagram(), ecorePackage.getEBoolean(), "promptOnDelFromDiagram", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_EnableAnimatedLayout(), ecorePackage.getEBoolean(), "enableAnimatedLayout", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_EnableAnimatedZoom(), ecorePackage.getEBoolean(), "enableAnimatedZoom", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_EnableAntiAlias(), ecorePackage.getEBoolean(), "enableAntiAlias", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_ShowGrid(), ecorePackage.getEBoolean(), "showGrid", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_ShowRulers(), ecorePackage.getEBoolean(), "showRulers", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_SnapToGrid(), ecorePackage.getEBoolean(), "snapToGrid", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_SnapToGeometry(), ecorePackage.getEBoolean(), "snapToGeometry", "false", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_GridInFront(), ecorePackage.getEBoolean(), "gridInFront", "true", 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_RulerUnits(), this.getRulerUnits(), "rulerUnits", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_GridSpacing(), ecorePackage.getEDouble(), "gridSpacing", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagramPreferences_GridLineColor(), this.getGenColor(), null, "gridLineColor", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramPreferences_GridLineStyle(), this.getLineStyle(), "gridLineStyle", null, 0, 1, GenDiagramPreferences.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genFontEClass, GenFont.class, "GenFont", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genStandardFontEClass, GenStandardFont.class, "GenStandardFont", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenStandardFont_Name(), this.getJFaceFont(), "name", null, 0, 1, GenStandardFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genCustomFontEClass, GenCustomFont.class, "GenCustomFont", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenCustomFont_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCustomFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCustomFont_Height(), ecorePackage.getEInt(), "height", null, 0, 1, GenCustomFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCustomFont_Style(), this.getFontStyle(), "style", null, 0, 1, GenCustomFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genColorEClass, GenColor.class, "GenColor", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genRGBColorEClass, GenRGBColor.class, "GenRGBColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenRGBColor_Red(), ecorePackage.getEInt(), "red", null, 1, 1, GenRGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenRGBColor_Green(), ecorePackage.getEInt(), "green", null, 1, 1, GenRGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenRGBColor_Blue(), ecorePackage.getEInt(), "blue", null, 1, 1, GenRGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genConstantColorEClass, GenConstantColor.class, "GenConstantColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenConstantColor_Name(), this.getDiagramColors(), "name", null, 0, 1, GenConstantColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genPreferenceEClass, GenPreference.class, "GenPreference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenPreference_Page(), this.getGenCustomPreferencePage(), this.getGenCustomPreferencePage_Preferences(), "page", null, 1, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPreference_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPreference_Key(), ecorePackage.getEString(), "key", null, 0, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPreference_DefaultValue(), ecorePackage.getEString(), "defaultValue", null, 0, 1, GenPreference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(batchValidationEClass, BatchValidation.class, "BatchValidation", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBatchValidation_ValidationProviderClassName(), ecorePackage.getEString(), "validationProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_ValidationProviderPriority(), this.getProviderPriority(), "validationProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_MarkerNavigationProviderClassName(), ecorePackage.getEString(), "markerNavigationProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_MarkerNavigationProviderPriority(), this.getProviderPriority(), "markerNavigationProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_ValidationEnabled(), ecorePackage.getEBoolean(), "validationEnabled", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_MetricProviderClassName(), ecorePackage.getEString(), "metricProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_MetricProviderPriority(), this.getProviderPriority(), "metricProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_ValidationDecoratorProviderClassName(), ecorePackage.getEString(), "validationDecoratorProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_ValidationDecorators(), ecorePackage.getEBoolean(), "validationDecorators", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_ValidationDecoratorProviderPriority(), this.getProviderPriority(), "validationDecoratorProviderPriority", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getBatchValidation_LiveValidationUIFeedback(), ecorePackage.getEBoolean(), "liveValidationUIFeedback", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationDiagnosticMarkerType", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getMarkerNavigationProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getMetricProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getMetricViewID", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(batchValidationEClass, ecorePackage.getEString(), "getValidationDecoratorProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(providerClassNamesEClass, ProviderClassNames.class, "ProviderClassNames", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getProviderClassNames_ElementTypesClassName(), ecorePackage.getEString(), "elementTypesClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_NotationViewProviderClassName(), ecorePackage.getEString(), "notationViewProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_NotationViewProviderPriority(), this.getProviderPriority(), "notationViewProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_EditPartProviderClassName(), ecorePackage.getEString(), "editPartProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_EditPartProviderPriority(), this.getProviderPriority(), "editPartProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_ModelingAssistantProviderClassName(), ecorePackage.getEString(), "modelingAssistantProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_ModelingAssistantProviderPriority(), this.getProviderPriority(), "modelingAssistantProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_IconProviderClassName(), ecorePackage.getEString(), "iconProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_IconProviderPriority(), this.getProviderPriority(), "iconProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_ParserProviderClassName(), ecorePackage.getEString(), "parserProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_ParserProviderPriority(), this.getProviderPriority(), "parserProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getProviderClassNames_ContributionItemProviderClassName(), ecorePackage.getEString(), "contributionItemProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getElementTypesQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getNotationViewProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getEditPartProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getModelingAssistantProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getIconProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getParserProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getContributionItemProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(shortcutsEClass, Shortcuts.class, "Shortcuts", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getShortcuts_ShortcutsDecoratorProviderClassName(), ecorePackage.getEString(), "shortcutsDecoratorProviderClassName", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShortcuts_ShortcutsDecoratorProviderPriority(), this.getProviderPriority(), "shortcutsDecoratorProviderPriority", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShortcuts_CreateShortcutActionClassName(), ecorePackage.getEString(), "createShortcutActionClassName", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShortcuts_CreateShortcutDecorationsCommandClassName(), ecorePackage.getEString(), "createShortcutDecorationsCommandClassName", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShortcuts_ShortcutPropertyTesterClassName(), ecorePackage.getEString(), "shortcutPropertyTesterClassName", null, 0, 1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShortcuts_ContainsShortcutsTo(), ecorePackage.getEString(), "containsShortcutsTo", null, 0, -1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getShortcuts_ShortcutsProvidedFor(), ecorePackage.getEString(), "shortcutsProvidedFor", null, 0, -1, Shortcuts.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(shortcutsEClass, ecorePackage.getEString(), "getShortcutsDecoratorProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(shortcutsEClass, ecorePackage.getEString(), "getCreateShortcutActionQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(shortcutsEClass, ecorePackage.getEString(), "getCreateShortcutDecorationsCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(shortcutsEClass, ecorePackage.getEString(), "getShortcutPropertyTesterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(shortcutsEClass, ecorePackage.getEBoolean(), "generateCreateShortcutAction", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(shortcutsEClass, ecorePackage.getEBoolean(), "generateShortcutIcon", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(packageNamesEClass, PackageNames.class, "PackageNames", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPackageNames_EditCommandsPackageName(), ecorePackage.getEString(), "editCommandsPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_EditHelpersPackageName(), ecorePackage.getEString(), "editHelpersPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_EditPartsPackageName(), ecorePackage.getEString(), "editPartsPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_EditPoliciesPackageName(), ecorePackage.getEString(), "editPoliciesPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_PreferencesPackageName(), ecorePackage.getEString(), "preferencesPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_ProvidersPackageName(), ecorePackage.getEString(), "providersPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_ParsersPackageName(), ecorePackage.getEString(), "parsersPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_NotationViewFactoriesPackageName(), ecorePackage.getEString(), "notationViewFactoriesPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(linkConstraintsEClass, LinkConstraints.class, "LinkConstraints", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		addEOperation(linkConstraintsEClass, ecorePackage.getEBoolean(), "hasLinkCreationConstraints", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(linkConstraintsEClass, ecorePackage.getEString(), "getLinkCreationConstraintsClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(linkConstraintsEClass, ecorePackage.getEString(), "getLinkCreationConstraintsQualifiedClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(editorCandiesEClass, EditorCandies.class, "EditorCandies", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEditorCandies_CreationWizardClassName(), ecorePackage.getEString(), "creationWizardClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_CreationWizardPageClassName(), ecorePackage.getEString(), "creationWizardPageClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_CreationWizardIconPath(), ecorePackage.getEString(), "creationWizardIconPath", null, 1, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_CreationWizardIconPathX(), ecorePackage.getEString(), "creationWizardIconPathX", null, 1, 1, EditorCandies.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_CreationWizardCategoryID(), ecorePackage.getEString(), "creationWizardCategoryID", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_DiagramEditorUtilClassName(), ecorePackage.getEString(), "diagramEditorUtilClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_DocumentProviderClassName(), ecorePackage.getEString(), "documentProviderClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_InitDiagramFileActionClassName(), ecorePackage.getEString(), "initDiagramFileActionClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_NewDiagramFileWizardClassName(), ecorePackage.getEString(), "newDiagramFileWizardClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_DiagramContentInitializerClassName(), ecorePackage.getEString(), "diagramContentInitializerClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_MatchingStrategyClassName(), ecorePackage.getEString(), "matchingStrategyClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_VisualIDRegistryClassName(), ecorePackage.getEString(), "visualIDRegistryClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_ElementChooserClassName(), ecorePackage.getEString(), "elementChooserClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_LoadResourceActionClassName(), ecorePackage.getEString(), "loadResourceActionClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_EditingDomainID(), ecorePackage.getEString(), "editingDomainID", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getCreationWizardQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getCreationWizardPageQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getDiagramEditorUtilQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getDocumentProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getInitDiagramFileActionQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getNewDiagramFileWizardQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getDiagramContentInitializerQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getMatchingStrategyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getVisualIDRegistryQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getElementChooserQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getLoadResourceActionQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEBoolean(), "generateInitDiagramAction", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(editPartCandiesEClass, EditPartCandies.class, "EditPartCandies", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEditPartCandies_ReorientConnectionViewCommandClassName(), ecorePackage.getEString(), "reorientConnectionViewCommandClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_BaseEditHelperClassName(), ecorePackage.getEString(), "baseEditHelperClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_EditPartFactoryClassName(), ecorePackage.getEString(), "editPartFactoryClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_BaseExternalNodeLabelEditPartClassName(), ecorePackage.getEString(), "baseExternalNodeLabelEditPartClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_BaseItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "baseItemSemanticEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_BaseGraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "baseGraphicalNodeEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_TextSelectionEditPolicyClassName(), ecorePackage.getEString(), "textSelectionEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditPartCandies_TextNonResizableEditPolicyClassName(), ecorePackage.getEString(), "textNonResizableEditPolicyClassName", null, 0, 1, EditPartCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getReorientConnectionViewCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getBaseEditHelperQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getEditPartFactoryQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getBaseExternalNodeLabelEditPartQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getBaseItemSemanticEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getBaseGraphicalNodeEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getTextSelectionEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(editPartCandiesEClass, ecorePackage.getEString(), "getTextNonResizableEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(measurementUnitEClass, MeasurementUnit.class, "MeasurementUnit", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMeasurementUnit_Units(), ecorePackage.getEString(), "units", "Pixel", 0, 1, MeasurementUnit.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genDiagramUpdaterEClass, GenDiagramUpdater.class, "GenDiagramUpdater", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenDiagramUpdater_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_DiagramUpdater(), "editorGen", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramUpdater_DiagramUpdaterClassName(), ecorePackage.getEString(), "diagramUpdaterClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramUpdater_NodeDescriptorClassName(), ecorePackage.getEString(), "nodeDescriptorClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramUpdater_LinkDescriptorClassName(), ecorePackage.getEString(), "linkDescriptorClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramUpdater_UpdateCommandClassName(), ecorePackage.getEString(), "updateCommandClassName", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDiagramUpdater_UpdateCommandID(), ecorePackage.getEString(), "updateCommandID", null, 0, 1, GenDiagramUpdater.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getDiagramUpdaterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getNodeDescriptorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getLinkDescriptorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDiagramUpdaterEClass, ecorePackage.getEString(), "getUpdateCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genPluginEClass, GenPlugin.class, "GenPlugin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenPlugin_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Plugin(), "editorGen", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_Provider(), ecorePackage.getEString(), "provider", "Sample Plugin Provider, Inc", 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_Version(), ecorePackage.getEString(), "version", "1.0.0.qualifier", 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_PrintingEnabled(), ecorePackage.getEBoolean(), "printingEnabled", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_RequiredPlugins(), ecorePackage.getEString(), "requiredPlugins", null, 0, -1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPlugin_ActivatorClassName(), ecorePackage.getEString(), "activatorClassName", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genPluginEClass, ecorePackage.getEString(), "getAllRequiredPlugins", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genPluginEClass, ecorePackage.getEString(), "getActivatorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(dynamicModelAccessEClass, DynamicModelAccess.class, "DynamicModelAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDynamicModelAccess_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_ModelAccess(), "editorGen", null, 0, 1, DynamicModelAccess.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDynamicModelAccess_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, DynamicModelAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDynamicModelAccess_ClassName(), ecorePackage.getEString(), "className", "MetaModelFacility", 0, 1, DynamicModelAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(dynamicModelAccessEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCommonBase_VisualID(), ecorePackage.getEInt(), "visualID", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCommonBase_ElementType(), this.getElementType(), this.getElementType_DiagramElement(), "elementType", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCommonBase_EditPartClassName(), ecorePackage.getEString(), "editPartClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCommonBase_ItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "itemSemanticEditPolicyClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCommonBase_NotationViewFactoryClassName(), ecorePackage.getEString(), "notationViewFactoryClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCommonBase_Viewmap(), this.getViewmap(), null, "viewmap", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCommonBase_Styles(), theGenModelPackage.getGenClass(), null, "styles", null, 0, -1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCommonBase_Behaviour(), this.getBehaviour(), this.getBehaviour_Subject(), "behaviour", null, 0, -1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCommonBase_SansDomain(), ecorePackage.getEBoolean(), "sansDomain", null, 0, 1, GenCommonBase.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getEditPartQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getItemSemanticEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getNotationViewFactoryQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, this.getGenDiagram(), "getDiagram", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getClassNamePrefix", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getClassNameSuffux", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getUniqueIdentifier", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genCommonBaseEClass, this.getViewmapLayoutType(), "getLayoutType", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(behaviourEClass, Behaviour.class, "Behaviour", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBehaviour_Subject(), this.getGenCommonBase(), this.getGenCommonBase_Behaviour(), "subject", null, 0, 1, Behaviour.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(behaviourEClass, ecorePackage.getEString(), "getEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(customBehaviourEClass, CustomBehaviour.class, "CustomBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCustomBehaviour_Key(), ecorePackage.getEString(), "key", null, 1, 1, CustomBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCustomBehaviour_EditPolicyQualifiedClassName(), ecorePackage.getEString(), "editPolicyQualifiedClassName", null, 1, 1, CustomBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(sharedBehaviourEClass, SharedBehaviour.class, "SharedBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSharedBehaviour_Delegate(), this.getBehaviour(), null, "delegate", null, 1, 1, SharedBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(openDiagramBehaviourEClass, OpenDiagramBehaviour.class, "OpenDiagramBehaviour", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOpenDiagramBehaviour_EditPolicyClassName(), ecorePackage.getEString(), "editPolicyClassName", null, 1, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getOpenDiagramBehaviour_DiagramKind(), ecorePackage.getEString(), "diagramKind", null, 0, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getOpenDiagramBehaviour_EditorID(), ecorePackage.getEString(), "editorID", null, 0, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getOpenDiagramBehaviour_OpenAsEclipseEditor(), ecorePackage.getEBoolean(), "openAsEclipseEditor", "true", 0, 1, OpenDiagramBehaviour.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genContainerBaseEClass, GenContainerBase.class, "GenContainerBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenContainerBase_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerBase.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenContainerBase_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, GenContainerBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genContainerBaseEClass, this.getGenNode(), "getAssistantNodes", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genContainerBaseEClass, ecorePackage.getEBoolean(), "needsCanonicalEditPolicy", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genContainerBaseEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Containers(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genNodeEClass, GenNode.class, "GenNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNode_ModelFacet(), this.getTypeModelFacet(), null, "modelFacet", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_Labels(), this.getGenNodeLabel(), this.getGenNodeLabel_Node(), "labels", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_Compartments(), this.getGenCompartment(), this.getGenCompartment_Node(), "compartments", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNode_PrimaryDragEditPolicyQualifiedClassName(), ecorePackage.getEString(), "primaryDragEditPolicyQualifiedClassName", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNode_GraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "graphicalNodeEditPolicyClassName", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNode_CreateCommandClassName(), ecorePackage.getEString(), "createCommandClassName", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_ReorientedIncomingLinks(), this.getGenLink(), null, "reorientedIncomingLinks", null, 0, -1, GenNode.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genNodeEClass, theGenModelPackage.getGenClass(), "getDomainMetaClass", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNodeEClass, ecorePackage.getEString(), "getGraphicalNodeEditPolicyQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNodeEClass, ecorePackage.getEString(), "getCreateCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genTopLevelNodeEClass, GenTopLevelNode.class, "GenTopLevelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenTopLevelNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_TopLevelNodes(), "diagram", null, 1, 1, GenTopLevelNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenChildNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_ChildNodes(), "diagram", null, 1, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenChildNode_Containers(), this.getGenChildContainer(), this.getGenChildContainer_ChildNodes(), "containers", null, 0, -1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genChildSideAffixedNodeEClass, GenChildSideAffixedNode.class, "GenChildSideAffixedNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenChildSideAffixedNode_PreferredSideName(), ecorePackage.getEString(), "preferredSideName", "NONE", 0, 1, GenChildSideAffixedNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genChildLabelNodeEClass, GenChildLabelNode.class, "GenChildLabelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenChildLabelNode_LabelReadOnly(), ecorePackage.getEBoolean(), "labelReadOnly", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenChildLabelNode_LabelElementIcon(), ecorePackage.getEBoolean(), "labelElementIcon", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenChildLabelNode_LabelModelFacet(), this.getLabelModelFacet(), null, "labelModelFacet", null, 0, 1, GenChildLabelNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genChildLabelNodeEClass, theGenModelPackage.getGenFeature(), "getLabelMetaFeatures", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genCompartmentEClass, GenCompartment.class, "GenCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenCompartment_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCompartment_CanCollapse(), ecorePackage.getEBoolean(), "canCollapse", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCompartment_HideIfEmpty(), ecorePackage.getEBoolean(), "hideIfEmpty", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCompartment_NeedsTitle(), ecorePackage.getEBoolean(), "needsTitle", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCompartment_Diagram(), this.getGenDiagram(), this.getGenDiagram_Compartments(), "diagram", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCompartment_Node(), this.getGenNode(), this.getGenNode_Compartments(), "node", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCompartment_ListLayout(), ecorePackage.getEBoolean(), "listLayout", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genLinkEClass, GenLink.class, "GenLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenLink_Diagram(), this.getGenDiagram(), this.getGenDiagram_Links(), "diagram", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLink_ModelFacet(), this.getLinkModelFacet(), null, "modelFacet", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLink_Labels(), this.getGenLinkLabel(), this.getGenLinkLabel_Link(), "labels", null, 0, -1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_OutgoingCreationAllowed(), ecorePackage.getEBoolean(), "outgoingCreationAllowed", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_IncomingCreationAllowed(), ecorePackage.getEBoolean(), "incomingCreationAllowed", "false", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_ViewDirectionAlignedWithModel(), ecorePackage.getEBoolean(), "viewDirectionAlignedWithModel", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLink_CreationConstraints(), this.getGenLinkConstraints(), this.getGenLinkConstraints_Link(), "creationConstraints", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_TargetReorientingAllowed(), ecorePackage.getEBoolean(), "targetReorientingAllowed", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_SourceReorientingAllowed(), ecorePackage.getEBoolean(), "sourceReorientingAllowed", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_CreateCommandClassName(), ecorePackage.getEString(), "createCommandClassName", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_ReorientCommandClassName(), ecorePackage.getEString(), "reorientCommandClassName", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLink_TreeBranch(), ecorePackage.getEBoolean(), "treeBranch", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLink_Sources(), this.getGenLinkEnd(), null, "sources", null, 0, -1, GenLink.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLink_Targets(), this.getGenLinkEnd(), null, "targets", null, 0, -1, GenLink.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genLinkEClass, this.getGenCommonBase(), "getAssistantSources", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkEClass, this.getGenCommonBase(), "getAssistantTargets", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkEClass, ecorePackage.getEString(), "getCreateCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkEClass, ecorePackage.getEString(), "getReorientCommandQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genLabelEClass, GenLabel.class, "GenLabel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLabel_ElementIcon(), ecorePackage.getEBoolean(), "elementIcon", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLabel_ModelFacet(), this.getLabelModelFacet(), null, "modelFacet", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genLabelEClass, theGenModelPackage.getGenFeature(), "getMetaFeatures", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genNodeLabelEClass, GenNodeLabel.class, "GenNodeLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNodeLabel_Node(), this.getGenNode(), this.getGenNode_Labels(), "node", null, 1, 1, GenNodeLabel.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genExternalNodeLabelEClass, GenExternalNodeLabel.class, "GenExternalNodeLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genLinkLabelEClass, GenLinkLabel.class, "GenLinkLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenLinkLabel_Link(), this.getGenLink(), this.getGenLink_Labels(), "link", null, 1, 1, GenLinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenLinkLabel_Alignment(), this.getLinkLabelAlignment(), "alignment", "MIDDLE", 0, 1, GenLinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(elementTypeEClass, ElementType.class, "ElementType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getElementType_DiagramElement(), this.getGenCommonBase(), this.getGenCommonBase_ElementType(), "diagramElement", null, 1, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getElementType_UniqueIdentifier(), ecorePackage.getEString(), "uniqueIdentifier", null, 1, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getElementType_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getElementType_DefinedExternally(), ecorePackage.getEBoolean(), "definedExternally", null, 0, 1, ElementType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(metamodelTypeEClass, MetamodelType.class, "MetamodelType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getMetamodelType_EditHelperClassName(), ecorePackage.getEString(), "editHelperClassName", null, 0, 1, MetamodelType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(metamodelTypeEClass, ecorePackage.getEString(), "getEditHelperQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(metamodelTypeEClass, theGenModelPackage.getGenClass(), "getMetaClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(specializationTypeEClass, SpecializationType.class, "SpecializationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSpecializationType_MetamodelType(), this.getMetamodelType(), null, "metamodelType", null, 0, 1, SpecializationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSpecializationType_EditHelperAdviceClassName(), ecorePackage.getEString(), "editHelperAdviceClassName", null, 0, 1, SpecializationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(specializationTypeEClass, theGenModelPackage.getGenClass(), "getMetamodelClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(specializationTypeEClass, ecorePackage.getEString(), "getEditHelperAdviceQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(notationTypeEClass, NotationType.class, "NotationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(modelFacetEClass, ModelFacet.class, "ModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(linkModelFacetEClass, LinkModelFacet.class, "LinkModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getSourceType", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getTargetType", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getAssistantSourceTypes", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(linkModelFacetEClass, theGenModelPackage.getGenClass(), "getAssistantTargetTypes", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(labelModelFacetEClass, LabelModelFacet.class, "LabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLabelModelFacet_Parser(), this.getGenParserImplementation(), this.getGenParserImplementation_Uses(), "parser", null, 1, 1, LabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(typeModelFacetEClass, TypeModelFacet.class, "TypeModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeModelFacet_MetaClass(), theGenModelPackage.getGenClass(), null, "metaClass", null, 1, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeModelFacet_ContainmentMetaFeature(), theGenModelPackage.getGenFeature(), null, "containmentMetaFeature", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeModelFacet_ChildMetaFeature(), theGenModelPackage.getGenFeature(), null, "childMetaFeature", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeModelFacet_ModelElementSelector(), this.getGenConstraint(), null, "modelElementSelector", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeModelFacet_ModelElementInitializer(), this.getGenElementInitializer(), null, "modelElementInitializer", null, 0, 1, TypeModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(typeModelFacetEClass, ecorePackage.getEBoolean(), "isPhantomElement", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(typeLinkModelFacetEClass, TypeLinkModelFacet.class, "TypeLinkModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTypeLinkModelFacet_SourceMetaFeature(), theGenModelPackage.getGenFeature(), null, "sourceMetaFeature", null, 0, 1, TypeLinkModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypeLinkModelFacet_TargetMetaFeature(), theGenModelPackage.getGenFeature(), null, "targetMetaFeature", null, 1, 1, TypeLinkModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(featureLinkModelFacetEClass, FeatureLinkModelFacet.class, "FeatureLinkModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureLinkModelFacet_MetaFeature(), theGenModelPackage.getGenFeature(), null, "metaFeature", null, 1, 1, FeatureLinkModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(featureLabelModelFacetEClass, FeatureLabelModelFacet.class, "FeatureLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureLabelModelFacet_MetaFeatures(), theGenModelPackage.getGenFeature(), null, "metaFeatures", null, 1, -1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFeatureLabelModelFacet_EditableMetaFeatures(), theGenModelPackage.getGenFeature(), null, "editableMetaFeatures", null, 0, -1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelModelFacet_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelModelFacet_EditorPattern(), ecorePackage.getEString(), "editorPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelModelFacet_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelModelFacet_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFeatureLabelModelFacet_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(designLabelModelFacetEClass, DesignLabelModelFacet.class, "DesignLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(attributesEClass, Attributes.class, "Attributes", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(colorAttributesEClass, ColorAttributes.class, "ColorAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getColorAttributes_ForegroundColor(), ecorePackage.getEString(), "foregroundColor", null, 0, 1, ColorAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getColorAttributes_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, ColorAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(styleAttributesEClass, StyleAttributes.class, "StyleAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStyleAttributes_FixedFont(), ecorePackage.getEBoolean(), "fixedFont", "false", 0, 1, StyleAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStyleAttributes_FixedForeground(), ecorePackage.getEBoolean(), "fixedForeground", "false", 0, 1, StyleAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getStyleAttributes_FixedBackground(), ecorePackage.getEBoolean(), "fixedBackground", "false", 0, 1, StyleAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(resizeConstraintsEClass, ResizeConstraints.class, "ResizeConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getResizeConstraints_ResizeHandles(), ecorePackage.getEInt(), "resizeHandles", "0", 0, 1, ResizeConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getResizeConstraints_NonResizeHandles(), ecorePackage.getEInt(), "nonResizeHandles", "0", 0, 1, ResizeConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getResizeConstraints_ResizeHandleNames(), ecorePackage.getEString(), "resizeHandleNames", null, 0, -1, ResizeConstraints.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getResizeConstraints_NonResizeHandleNames(), ecorePackage.getEString(), "nonResizeHandleNames", null, 0, -1, ResizeConstraints.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		initEClass(defaultSizeAttributesEClass, DefaultSizeAttributes.class, "DefaultSizeAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDefaultSizeAttributes_Width(), ecorePackage.getEInt(), "width", "40", 0, 1, DefaultSizeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getDefaultSizeAttributes_Height(), ecorePackage.getEInt(), "height", "30", 0, 1, DefaultSizeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(labelOffsetAttributesEClass, LabelOffsetAttributes.class, "LabelOffsetAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLabelOffsetAttributes_X(), ecorePackage.getEInt(), "x", null, 0, 1, LabelOffsetAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLabelOffsetAttributes_Y(), ecorePackage.getEInt(), "y", null, 0, 1, LabelOffsetAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(viewmapEClass, Viewmap.class, "Viewmap", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getViewmap_Attributes(), this.getAttributes(), null, "attributes", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getViewmap_RequiredPluginIDs(), ecorePackage.getEString(), "requiredPluginIDs", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getViewmap_LayoutType(), this.getViewmapLayoutType(), "layoutType", "UNKNOWN", 0, 1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		op = addEOperation(viewmapEClass, this.getAttributes(), "find", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, ecorePackage.getEJavaClass(), "attributesClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(figureViewmapEClass, FigureViewmap.class, "FigureViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFigureViewmap_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 1, 1, FigureViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(snippetViewmapEClass, SnippetViewmap.class, "SnippetViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getSnippetViewmap_Body(), ecorePackage.getEString(), "body", null, 0, 1, SnippetViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(innerClassViewmapEClass, InnerClassViewmap.class, "InnerClassViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getInnerClassViewmap_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, InnerClassViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getInnerClassViewmap_ClassBody(), ecorePackage.getEString(), "classBody", null, 0, 1, InnerClassViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(parentAssignedViewmapEClass, ParentAssignedViewmap.class, "ParentAssignedViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getParentAssignedViewmap_GetterName(), ecorePackage.getEString(), "getterName", null, 1, 1, ParentAssignedViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getParentAssignedViewmap_SetterName(), ecorePackage.getEString(), "setterName", null, 0, 1, ParentAssignedViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getParentAssignedViewmap_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 0, 1, ParentAssignedViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getValueExpression_LangName(), ecorePackage.getEString(), "langName", null, 0, 1, ValueExpression.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getValueExpression_Provider(), this.getGenExpressionProviderBase(), this.getGenExpressionProviderBase_Expressions(), "provider", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(valueExpressionEClass, ecorePackage.getEString(), "getBodyString", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genConstraintEClass, GenConstraint.class, "GenConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(paletteEClass, Palette.class, "Palette", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPalette_Diagram(), this.getGenDiagram(), this.getGenDiagram_Palette(), "diagram", null, 1, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPalette_Flyout(), ecorePackage.getEBoolean(), "flyout", "true", 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPalette_Groups(), this.getToolGroup(), this.getToolGroup_Palette(), "groups", null, 1, -1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPalette_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPalette_FactoryClassName(), ecorePackage.getEString(), "factoryClassName", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(paletteEClass, ecorePackage.getEString(), "getFactoryQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(paletteEClass, ecorePackage.getEBoolean(), "definesStandardTools", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(entryBaseEClass, EntryBase.class, "EntryBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEntryBase_Title(), ecorePackage.getEString(), "title", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEntryBase_Description(), ecorePackage.getEString(), "description", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEntryBase_LargeIconPath(), ecorePackage.getEString(), "largeIconPath", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEntryBase_SmallIconPath(), ecorePackage.getEString(), "smallIconPath", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEntryBase_CreateMethodName(), ecorePackage.getEString(), "createMethodName", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(abstractToolEntryEClass, AbstractToolEntry.class, "AbstractToolEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAbstractToolEntry_Default(), ecorePackage.getEBoolean(), "default", "false", 0, 1, AbstractToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAbstractToolEntry_QualifiedToolName(), ecorePackage.getEString(), "qualifiedToolName", null, 0, 1, AbstractToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getAbstractToolEntry_Properties(), ecorePackage.getEStringToStringMapEntry(), null, "properties", null, 0, -1, AbstractToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(toolEntryEClass, ToolEntry.class, "ToolEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getToolEntry_GenNodes(), this.getGenNode(), null, "genNodes", null, 0, -1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getToolEntry_GenLinks(), this.getGenLink(), null, "genLinks", null, 0, -1, ToolEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getToolEntry_Elements(), this.getGenCommonBase(), null, "elements", null, 0, -1, ToolEntry.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		initEClass(standardEntryEClass, StandardEntry.class, "StandardEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStandardEntry_Kind(), this.getStandardEntryKind(), "kind", null, 1, 1, StandardEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(toolGroupItemEClass, ToolGroupItem.class, "ToolGroupItem", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getToolGroupItem_Group(), this.getToolGroup(), this.getToolGroup_Entries(), "group", null, 0, 1, ToolGroupItem.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(separatorEClass, Separator.class, "Separator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(toolGroupEClass, ToolGroup.class, "ToolGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getToolGroup_Palette(), this.getPalette(), this.getPalette_Groups(), "palette", null, 1, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getToolGroup_Stack(), ecorePackage.getEBoolean(), "stack", null, 0, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getToolGroup_Collapse(), ecorePackage.getEBoolean(), "collapse", null, 0, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getToolGroup_Entries(), this.getToolGroupItem(), this.getToolGroupItem_Group(), "entries", null, 1, -1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getToolGroup_ToolsOnly(), ecorePackage.getEBoolean(), "toolsOnly", null, 0, 1, ToolGroup.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		initEClass(genElementInitializerEClass, GenElementInitializer.class, "GenElementInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenElementInitializer_TypeModelFacet(), this.getTypeModelFacet(), null, "typeModelFacet", null, 1, 1, GenElementInitializer.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genFeatureSeqInitializerEClass, GenFeatureSeqInitializer.class, "GenFeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureInitializer(), this.getGenFeatureInitializer_FeatureSeqInitializer(), "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenFeatureSeqInitializer_ElementClass(), theGenModelPackage.getGenClass(), null, "elementClass", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenFeatureSeqInitializer_CreatingInitializer(), this.getGenReferenceNewElementSpec(), this.getGenReferenceNewElementSpec_NewElementInitializers(), "creatingInitializer", null, 0, 1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenFeatureValueSpec_Value(), this.getValueExpression(), null, "value", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genReferenceNewElementSpecEClass, GenReferenceNewElementSpec.class, "GenReferenceNewElementSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenReferenceNewElementSpec_NewElementInitializers(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_CreatingInitializer(), "newElementInitializers", null, 1, -1, GenReferenceNewElementSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genFeatureInitializerEClass, GenFeatureInitializer.class, "GenFeatureInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenFeatureInitializer_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenFeatureInitializer_FeatureSeqInitializer(), this.getGenFeatureSeqInitializer(), this.getGenFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, GenFeatureInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genLinkConstraintsEClass, GenLinkConstraints.class, "GenLinkConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenLinkConstraints_Link(), this.getGenLink(), this.getGenLink_CreationConstraints(), "link", null, 1, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLinkConstraints_SourceEnd(), this.getGenConstraint(), null, "sourceEnd", null, 0, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLinkConstraints_TargetEnd(), this.getGenConstraint(), null, "targetEnd", null, 0, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getLinkClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getSourceEndContextClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getTargetEndContextClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkConstraintsEClass, ecorePackage.getEString(), "getConstraintsInstanceFieldName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genLinkConstraintsEClass, ecorePackage.getEBoolean(), "isValid", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genAuditRootEClass, GenAuditRoot.class, "GenAuditRoot", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenAuditRoot_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Audits(), "editorGen", null, 1, 1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditRoot_Categories(), this.getGenAuditContainer(), this.getGenAuditContainer_Root(), "categories", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditRoot_Rules(), this.getGenAuditRule(), this.getGenAuditRule_Root(), "rules", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditRoot_ClientContexts(), this.getGenAuditContext(), this.getGenAuditContext_Root(), "clientContexts", null, 0, -1, GenAuditRoot.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genAuditContainerEClass, GenAuditContainer.class, "GenAuditContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenAuditContainer_Root(), this.getGenAuditRoot(), this.getGenAuditRoot_Categories(), "root", null, 1, 1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditContainer_Id(), ecorePackage.getEString(), "id", null, 1, 1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditContainer_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditContainer_Description(), ecorePackage.getEString(), "description", null, 0, 1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditContainer_Path(), this.getGenAuditContainer(), null, "path", null, 1, -1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditContainer_Audits(), this.getGenAuditRule(), this.getGenAuditRule_Category(), "audits", null, 0, -1, GenAuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genRuleBaseEClass, GenRuleBase.class, "GenRuleBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenRuleBase_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenRuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenRuleBase_Description(), ecorePackage.getEString(), "description", null, 0, 1, GenRuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genAuditRuleEClass, GenAuditRule.class, "GenAuditRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenAuditRule_Root(), this.getGenAuditRoot(), this.getGenAuditRoot_Rules(), "root", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_Id(), ecorePackage.getEString(), "id", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditRule_Rule(), this.getGenConstraint(), null, "rule", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditRule_Target(), this.getGenAuditable(), null, "target", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_Message(), ecorePackage.getEString(), "message", null, 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_Severity(), this.getGenSeverity(), "severity", "ERROR", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_UseInLiveMode(), ecorePackage.getEBoolean(), "useInLiveMode", "false", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_RequiresConstraintAdapter(), ecorePackage.getEBoolean(), "requiresConstraintAdapter", null, 0, 1, GenAuditRule.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditRule_Category(), this.getGenAuditContainer(), this.getGenAuditContainer_Audits(), "category", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getConstraintAdapterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getConstraintAdapterLocalClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genRuleTargetEClass, GenRuleTarget.class, "GenRuleTarget", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		addEOperation(genRuleTargetEClass, theGenModelPackage.getGenClassifier(), "getContext", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genDomainElementTargetEClass, GenDomainElementTarget.class, "GenDomainElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenDomainElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenDomainElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genDiagramElementTargetEClass, GenDiagramElementTarget.class, "GenDiagramElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenDiagramElementTarget_Element(), this.getGenCommonBase(), null, "element", null, 1, -1, GenDiagramElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genDomainAttributeTargetEClass, GenDomainAttributeTarget.class, "GenDomainAttributeTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenDomainAttributeTarget_Attribute(), theGenModelPackage.getGenFeature(), null, "attribute", null, 1, 1, GenDomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainAttributeTarget_NullAsError(), ecorePackage.getEBoolean(), "nullAsError", null, 0, 1, GenDomainAttributeTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genNotationElementTargetEClass, GenNotationElementTarget.class, "GenNotationElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNotationElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenNotationElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genMetricContainerEClass, GenMetricContainer.class, "GenMetricContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenMetricContainer_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Metrics(), "editorGen", null, 1, 1, GenMetricContainer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenMetricContainer_Metrics(), this.getGenMetricRule(), this.getGenMetricRule_Container(), "metrics", null, 1, -1, GenMetricContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genMetricRuleEClass, GenMetricRule.class, "GenMetricRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenMetricRule_Key(), ecorePackage.getEString(), "key", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenMetricRule_Rule(), this.getValueExpression(), null, "rule", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenMetricRule_Target(), this.getGenMeasurable(), null, "target", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenMetricRule_LowLimit(), ecorePackage.getEDoubleObject(), "lowLimit", null, 0, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenMetricRule_HighLimit(), ecorePackage.getEDoubleObject(), "highLimit", null, 0, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenMetricRule_Container(), this.getGenMetricContainer(), this.getGenMetricContainer_Metrics(), "container", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genAuditedMetricTargetEClass, GenAuditedMetricTarget.class, "GenAuditedMetricTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenAuditedMetricTarget_Metric(), this.getGenMetricRule(), null, "metric", null, 1, 1, GenAuditedMetricTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditedMetricTarget_MetricValueContext(), theGenModelPackage.getGenDataType(), null, "metricValueContext", null, 1, 1, GenAuditedMetricTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genAuditableEClass, GenAuditable.class, "GenAuditable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenAuditable_ContextSelector(), this.getGenAuditContext(), this.getGenAuditContext_RuleTargets(), "contextSelector", null, 0, 1, GenAuditable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genAuditableEClass, theGenModelPackage.getGenClass(), "getTargetClass", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getTargetClassModelQualifiedName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genAuditContextEClass, GenAuditContext.class, "GenAuditContext", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenAuditContext_Root(), this.getGenAuditRoot(), this.getGenAuditRoot_ClientContexts(), "root", null, 1, 1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditContext_Id(), ecorePackage.getEString(), "id", "DefaultCtx", 1, 1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditContext_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenAuditContext_RuleTargets(), this.getGenAuditable(), this.getGenAuditable_ContextSelector(), "ruleTargets", null, 0, -1, GenAuditContext.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genAuditContextEClass, ecorePackage.getEString(), "getQualifiedClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genMeasurableEClass, GenMeasurable.class, "GenMeasurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genExpressionProviderContainerEClass, GenExpressionProviderContainer.class, "GenExpressionProviderContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenExpressionProviderContainer_ExpressionsPackageName(), ecorePackage.getEString(), "expressionsPackageName", null, 0, 1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenExpressionProviderContainer_AbstractExpressionClassName(), ecorePackage.getEString(), "abstractExpressionClassName", null, 0, 1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenExpressionProviderContainer_Providers(), this.getGenExpressionProviderBase(), this.getGenExpressionProviderBase_Container(), "providers", null, 0, -1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenExpressionProviderContainer_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_ExpressionProviders(), "editorGen", null, 1, 1, GenExpressionProviderContainer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genExpressionProviderContainerEClass, ecorePackage.getEString(), "getAbstractExpressionQualifiedClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genExpressionProviderBaseEClass, GenExpressionProviderBase.class, "GenExpressionProviderBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenExpressionProviderBase_Expressions(), this.getValueExpression(), this.getValueExpression_Provider(), "expressions", null, 1, -1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenExpressionProviderBase_Container(), this.getGenExpressionProviderContainer(), this.getGenExpressionProviderContainer_Providers(), "container", null, 1, 1, GenExpressionProviderBase.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genExpressionProviderBaseEClass, this.getGenLanguage(), "getLanguage", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genJavaExpressionProviderEClass, GenJavaExpressionProvider.class, "GenJavaExpressionProvider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenJavaExpressionProvider_ThrowException(), ecorePackage.getEBoolean(), "throwException", "true", 0, 1, GenJavaExpressionProvider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenJavaExpressionProvider_InjectExpressionBody(), ecorePackage.getEBoolean(), "injectExpressionBody", "false", 0, 1, GenJavaExpressionProvider.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genExpressionInterpreterEClass, GenExpressionInterpreter.class, "GenExpressionInterpreter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenExpressionInterpreter_Language(), this.getGenLanguage(), "language", null, 1, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenExpressionInterpreter_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenExpressionInterpreter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genExpressionInterpreterEClass, ecorePackage.getEString(), "getQualifiedClassName", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		op = addEOperation(genExpressionInterpreterEClass, ecorePackage.getEString(), "getExpressionAccessor", 0, 1, IS_UNIQUE, IS_ORDERED);
-		addEParameter(op, this.getValueExpression(), "expression", 1, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genLiteralExpressionProviderEClass, GenLiteralExpressionProvider.class, "GenLiteralExpressionProvider", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genDomainModelNavigatorEClass, GenDomainModelNavigator.class, "GenDomainModelNavigator", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenDomainModelNavigator_GenerateDomainModelNavigator(), ecorePackage.getEBoolean(), "generateDomainModelNavigator", "true", 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainContentExtensionID(), ecorePackage.getEString(), "domainContentExtensionID", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainContentExtensionName(), ecorePackage.getEString(), "domainContentExtensionName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainContentExtensionPriority(), ecorePackage.getEString(), "domainContentExtensionPriority", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainContentProviderClassName(), ecorePackage.getEString(), "domainContentProviderClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainLabelProviderClassName(), ecorePackage.getEString(), "domainLabelProviderClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainModelElementTesterClassName(), ecorePackage.getEString(), "domainModelElementTesterClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenDomainModelNavigator_DomainNavigatorItemClassName(), ecorePackage.getEString(), "domainNavigatorItemClassName", null, 0, 1, GenDomainModelNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainContentProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainLabelProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainModelElementTesterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genDomainModelNavigatorEClass, ecorePackage.getEString(), "getDomainNavigatorItemQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genNavigatorEClass, GenNavigator.class, "GenNavigator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNavigator_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Navigator(), "editorGen", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_ContentExtensionID(), ecorePackage.getEString(), "contentExtensionID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_ContentExtensionName(), ecorePackage.getEString(), "contentExtensionName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_ContentExtensionPriority(), ecorePackage.getEString(), "contentExtensionPriority", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_LinkHelperExtensionID(), ecorePackage.getEString(), "linkHelperExtensionID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_SorterExtensionID(), ecorePackage.getEString(), "sorterExtensionID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_ActionProviderID(), ecorePackage.getEString(), "actionProviderID", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_ContentProviderClassName(), ecorePackage.getEString(), "contentProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_LabelProviderClassName(), ecorePackage.getEString(), "labelProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_LinkHelperClassName(), ecorePackage.getEString(), "linkHelperClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_SorterClassName(), ecorePackage.getEString(), "sorterClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_ActionProviderClassName(), ecorePackage.getEString(), "actionProviderClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_AbstractNavigatorItemClassName(), ecorePackage.getEString(), "abstractNavigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_NavigatorGroupClassName(), ecorePackage.getEString(), "navigatorGroupClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_NavigatorItemClassName(), ecorePackage.getEString(), "navigatorItemClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_UriInputTesterClassName(), ecorePackage.getEString(), "uriInputTesterClassName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigator_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigator_ChildReferences(), this.getGenNavigatorChildReference(), this.getGenNavigatorChildReference_Navigator(), "childReferences", null, 0, -1, GenNavigator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getContentProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getLabelProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getLinkHelperQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getSorterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getActionProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getAbstractNavigatorItemQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorGroupQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getNavigatorItemQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorEClass, ecorePackage.getEString(), "getUriInputTesterQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genNavigatorChildReferenceEClass, GenNavigatorChildReference.class, "GenNavigatorChildReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNavigatorChildReference_Navigator(), this.getGenNavigator(), this.getGenNavigator_ChildReferences(), "navigator", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigatorChildReference_Parent(), this.getGenCommonBase(), null, "parent", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigatorChildReference_Child(), this.getGenCommonBase(), null, "child", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigatorChildReference_ReferenceType(), this.getGenNavigatorReferenceType(), "referenceType", null, 1, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigatorChildReference_GroupName(), ecorePackage.getEString(), "groupName", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigatorChildReference_GroupIcon(), ecorePackage.getEString(), "groupIcon", null, 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNavigatorChildReference_HideIfEmpty(), ecorePackage.getEBoolean(), "hideIfEmpty", "true", 0, 1, GenNavigatorChildReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genNavigatorChildReferenceEClass, ecorePackage.getEBoolean(), "isInsideGroup", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genNavigatorChildReferenceEClass, this.getGenNavigatorPath(), "findConnectionPaths", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genNavigatorPathEClass, GenNavigatorPath.class, "GenNavigatorPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNavigatorPath_Segments(), this.getGenNavigatorPathSegment(), this.getGenNavigatorPathSegment_Path(), "segments", null, 0, -1, GenNavigatorPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genNavigatorPathSegmentEClass, GenNavigatorPathSegment.class, "GenNavigatorPathSegment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNavigatorPathSegment_Path(), this.getGenNavigatorPath(), this.getGenNavigatorPath_Segments(), "path", null, 0, 1, GenNavigatorPathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigatorPathSegment_From(), this.getGenCommonBase(), null, "from", null, 1, 1, GenNavigatorPathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNavigatorPathSegment_To(), this.getGenCommonBase(), null, "to", null, 1, 1, GenNavigatorPathSegment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genPropertySheetEClass, GenPropertySheet.class, "GenPropertySheet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenPropertySheet_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_PropertySheet(), "editorGen", null, 1, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenPropertySheet_Tabs(), this.getGenPropertyTab(), this.getGenPropertyTab_Sheet(), "tabs", null, 1, -1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPropertySheet_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPropertySheet_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPropertySheet_NeedsCaption(), ecorePackage.getEBoolean(), "needsCaption", "true", 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPropertySheet_LabelProviderClassName(), ecorePackage.getEString(), "labelProviderClassName", null, 0, 1, GenPropertySheet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genPropertySheetEClass, ecorePackage.getEString(), "getLabelProviderQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genPropertyTabEClass, GenPropertyTab.class, "GenPropertyTab", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenPropertyTab_Sheet(), this.getGenPropertySheet(), this.getGenPropertySheet_Tabs(), "sheet", null, 1, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPropertyTab_ID(), ecorePackage.getEString(), "iD", null, 1, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenPropertyTab_Label(), ecorePackage.getEString(), "label", null, 0, 1, GenPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genStandardPropertyTabEClass, GenStandardPropertyTab.class, "GenStandardPropertyTab", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genCustomPropertyTabEClass, GenCustomPropertyTab.class, "GenCustomPropertyTab", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenCustomPropertyTab_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, GenCustomPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCustomPropertyTab_Filter(), this.getGenPropertyTabFilter(), this.getGenPropertyTabFilter_Tab(), "filter", null, 0, 1, GenCustomPropertyTab.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genCustomPropertyTabEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genPropertyTabFilterEClass, GenPropertyTabFilter.class, "GenPropertyTabFilter", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenPropertyTabFilter_Tab(), this.getGenCustomPropertyTab(), this.getGenCustomPropertyTab_Filter(), "tab", null, 1, 1, GenPropertyTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(typeTabFilterEClass, TypeTabFilter.class, "TypeTabFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTypeTabFilter_Types(), ecorePackage.getEString(), "types", null, 1, -1, TypeTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTypeTabFilter_GeneratedTypes(), this.getGeneratedType(), "generatedTypes", null, 0, -1, TypeTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(typeTabFilterEClass, ecorePackage.getEString(), "getAllTypes", 1, -1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(customTabFilterEClass, CustomTabFilter.class, "CustomTabFilter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCustomTabFilter_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, CustomTabFilter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(customTabFilterEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genContributionItemEClass, GenContributionItem.class, "GenContributionItem", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenContributionItem_Owner(), this.getGenContributionManager(), this.getGenContributionManager_Items(), "owner", null, 0, 1, GenContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genSharedContributionItemEClass, GenSharedContributionItem.class, "GenSharedContributionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenSharedContributionItem_ActualItem(), this.getGenContributionItem(), null, "actualItem", null, 1, 1, GenSharedContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genGroupMarkerEClass, GenGroupMarker.class, "GenGroupMarker", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenGroupMarker_GroupName(), ecorePackage.getEString(), "groupName", null, 1, 1, GenGroupMarker.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genSeparatorEClass, GenSeparator.class, "GenSeparator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenSeparator_GroupName(), ecorePackage.getEString(), "groupName", null, 0, 1, GenSeparator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genCustomActionEClass, GenCustomAction.class, "GenCustomAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenCustomAction_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 1, 1, GenCustomAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCustomAction_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, GenCustomAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCustomAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCustomAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genCommandActionEClass, GenCommandAction.class, "GenCommandAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenCommandAction_CommandIdentifier(), ecorePackage.getEString(), "commandIdentifier", null, 1, 1, GenCommandAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCommandAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenCommandAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genActionEClass, GenAction.class, "GenAction", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenAction_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, GenAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAction_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenAction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(loadResourceActionEClass, LoadResourceAction.class, "LoadResourceAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(initDiagramActionEClass, InitDiagramAction.class, "InitDiagramAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(createShortcutActionEClass, CreateShortcutAction.class, "CreateShortcutAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genActionFactoryContributionItemEClass, GenActionFactoryContributionItem.class, "GenActionFactoryContributionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenActionFactoryContributionItem_Name(), ecorePackage.getEString(), "name", null, 1, 1, GenActionFactoryContributionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genContributionManagerEClass, GenContributionManager.class, "GenContributionManager", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenContributionManager_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenContributionManager_Items(), this.getGenContributionItem(), this.getGenContributionItem_Owner(), "items", null, 0, -1, GenContributionManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenContributionManager_EditorGen(), this.getGenEditorGenerator(), null, "editorGen", null, 1, 1, GenContributionManager.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		initEClass(genMenuManagerEClass, GenMenuManager.class, "GenMenuManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenMenuManager_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenMenuManager.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genToolBarManagerEClass, GenToolBarManager.class, "GenToolBarManager", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(genContextMenuEClass, GenContextMenu.class, "GenContextMenu", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenContextMenu_Context(), this.getGenCommonBase(), null, "context", null, 1, -1, GenContextMenu.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(genApplicationEClass, GenApplication.class, "GenApplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenApplication_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Application(), "editorGen", null, 1, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_WorkbenchAdvisorClassName(), ecorePackage.getEString(), "workbenchAdvisorClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_WorkbenchWindowAdvisorClassName(), ecorePackage.getEString(), "workbenchWindowAdvisorClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_ActionBarAdvisorClassName(), ecorePackage.getEString(), "actionBarAdvisorClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_PerspectiveClassName(), ecorePackage.getEString(), "perspectiveClassName", null, 0, 1, GenApplication.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_PerspectiveId(), ecorePackage.getEString(), "perspectiveId", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenApplication_SupportFiles(), ecorePackage.getEBoolean(), "supportFiles", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenApplication_SharedContributionItems(), this.getGenContributionItem(), null, "sharedContributionItems", null, 0, -1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenApplication_MainMenu(), this.getGenMenuManager(), null, "mainMenu", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenApplication_MainToolBar(), this.getGenToolBarManager(), null, "mainToolBar", null, 0, 1, GenApplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getWorkbenchAdvisorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getWorkbenchWindowAdvisorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getActionBarAdvisorQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		addEOperation(genApplicationEClass, ecorePackage.getEString(), "getPerspectiveQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genLinkEndEClass, GenLinkEnd.class, "GenLinkEnd", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenLinkEnd_GenOutgoingLinks(), this.getGenLink(), null, "genOutgoingLinks", null, 0, -1, GenLinkEnd.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLinkEnd_GenIncomingLinks(), this.getGenLink(), null, "genIncomingLinks", null, 0, -1, GenLinkEnd.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-
-		initEClass(genParsersEClass, GenParsers.class, "GenParsers", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenParsers_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_LabelParsers(), "editorGen", null, 1, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenParsers_PackageName(), ecorePackage.getEString(), "packageName", null, 1, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenParsers_ClassName(), ecorePackage.getEString(), "className", null, 1, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenParsers_ExtensibleViaService(), ecorePackage.getEBoolean(), "extensibleViaService", "false", 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenParsers_ProviderPriority(), this.getProviderPriority(), "providerPriority", "Lowest", 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenParsers_Implementations(), this.getGenParserImplementation(), this.getGenParserImplementation_Holder(), "implementations", null, 1, -1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenParsers_ImplPackageName(), ecorePackage.getEString(), "implPackageName", null, 0, 1, GenParsers.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genParsersEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(genParserImplementationEClass, GenParserImplementation.class, "GenParserImplementation", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenParserImplementation_Holder(), this.getGenParsers(), this.getGenParsers_Implementations(), "holder", null, 1, 1, GenParserImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenParserImplementation_Uses(), this.getLabelModelFacet(), this.getLabelModelFacet_Parser(), "uses", null, 1, -1, GenParserImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(predefinedParserEClass, PredefinedParser.class, "PredefinedParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPredefinedParser_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPredefinedParser_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPredefinedParser_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, PredefinedParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(predefinedParserEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1, IS_UNIQUE, IS_ORDERED);
-
-		initEClass(customParserEClass, CustomParser.class, "CustomParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCustomParser_QualifiedName(), ecorePackage.getEString(), "qualifiedName", null, 1, 1, CustomParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCustomParser_GenerateBoilerplate(), ecorePackage.getEBoolean(), "generateBoilerplate", "false", 0, 1, CustomParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(externalParserEClass, ExternalParser.class, "ExternalParser", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExternalParser_Hint(), ecorePackage.getEString(), "hint", null, 0, 1, ExternalParser.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		// Initialize enums and add enum literals
-		initEEnum(standardPreferencePagesEEnum, StandardPreferencePages.class, "StandardPreferencePages");
-		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.GENERAL_LITERAL);
-		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.APPEARANCE_LITERAL);
-		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.CONNECTIONS_LITERAL);
-		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.PRINTING_LITERAL);
-		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.RULERS_AND_GRID_LITERAL);
-		addEEnumLiteral(standardPreferencePagesEEnum, StandardPreferencePages.PATHMAPS_LITERAL);
-
-		initEEnum(rulerUnitsEEnum, RulerUnits.class, "RulerUnits");
-		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.INCHES_LITERAL);
-		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.CENTIMETERS_LITERAL);
-		addEEnumLiteral(rulerUnitsEEnum, RulerUnits.PIXELS_LITERAL);
-
-		initEEnum(routingEEnum, Routing.class, "Routing");
-		addEEnumLiteral(routingEEnum, Routing.MANUAL_LITERAL);
-		addEEnumLiteral(routingEEnum, Routing.RECTILINEAR_LITERAL);
-		addEEnumLiteral(routingEEnum, Routing.TREE_LITERAL);
-
-		initEEnum(lineStyleEEnum, LineStyle.class, "LineStyle");
-		addEEnumLiteral(lineStyleEEnum, LineStyle.SOLID);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DASH);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DOT);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DASHDOT);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.DASHDOTDOT);
-		addEEnumLiteral(lineStyleEEnum, LineStyle.CUSTOM);
-
-		initEEnum(jFaceFontEEnum, JFaceFont.class, "JFaceFont");
-		addEEnumLiteral(jFaceFontEEnum, JFaceFont.DEFAULT_LITERAL);
-		addEEnumLiteral(jFaceFontEEnum, JFaceFont.TEXT_LITERAL);
-		addEEnumLiteral(jFaceFontEEnum, JFaceFont.BANNER_LITERAL);
-		addEEnumLiteral(jFaceFontEEnum, JFaceFont.DIALOG_LITERAL);
-		addEEnumLiteral(jFaceFontEEnum, JFaceFont.HEADER_LITERAL);
-
-		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
-		addEEnumLiteral(fontStyleEEnum, FontStyle.NORMAL_LITERAL);
-		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD_LITERAL);
-		addEEnumLiteral(fontStyleEEnum, FontStyle.ITALIC_LITERAL);
-
-		initEEnum(diagramColorsEEnum, DiagramColors.class, "DiagramColors");
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_LIGHTEST_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_DARKER_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BUTTON_DARKEST_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIST_BACKGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIST_FOREGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_BACKGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_FOREGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_BACKGROUND_SELECTED_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.MENU_FOREGROUND_SELECTED_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_BACKGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_GRADIENT_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_FOREGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_INACTIVE_FOREGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_INACTIVE_BACKGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TITLE_INACTIVE_GRADIENT_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TOOLTIP_FOREGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.TOOLTIP_BACKGROUND_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.WHITE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIGHT_GRAY_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.GRAY_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DARK_GRAY_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BLACK_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.RED_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.ORANGE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.YELLOW_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.GREEN_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIGHT_GREEN_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DARK_GREEN_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.CYAN_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.LIGHT_BLUE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.BLUE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DARK_BLUE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_GREEN_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_RED_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_RED_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_BLUE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_BLUE_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_GRAY_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_GRAY_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_DARK_GRAY_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_YELLOW_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_DARK_YELLOW_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_LIGHT_GOLD_YELLOW_LITERAL);
-		addEEnumLiteral(diagramColorsEEnum, DiagramColors.DIAGRAM_BURGUNDY_RED_LITERAL);
-
-		initEEnum(providerPriorityEEnum, ProviderPriority.class, "ProviderPriority");
-		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.LOWEST_LITERAL);
-		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.LOW_LITERAL);
-		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.MEDIUM_LITERAL);
-		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.HIGH_LITERAL);
-		addEEnumLiteral(providerPriorityEEnum, ProviderPriority.HIGHEST_LITERAL);
-
-		initEEnum(linkLabelAlignmentEEnum, LinkLabelAlignment.class, "LinkLabelAlignment");
-		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.MIDDLE_LITERAL);
-		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.TARGET_LITERAL);
-		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.SOURCE_LITERAL);
-
-		initEEnum(labelTextAccessMethodEEnum, LabelTextAccessMethod.class, "LabelTextAccessMethod");
-		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.MESSAGE_FORMAT);
-		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.NATIVE);
-		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.REGEXP);
-		addEEnumLiteral(labelTextAccessMethodEEnum, LabelTextAccessMethod.PRINTF);
-
-		initEEnum(viewmapLayoutTypeEEnum, ViewmapLayoutType.class, "ViewmapLayoutType");
-		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.UNKNOWN_LITERAL);
-		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.XY_LAYOUT_LITERAL);
-		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.FLOW_LAYOUT_LITERAL);
-		addEEnumLiteral(viewmapLayoutTypeEEnum, ViewmapLayoutType.TOOLBAR_LAYOUT_LITERAL);
-
-		initEEnum(standardEntryKindEEnum, StandardEntryKind.class, "StandardEntryKind");
-		addEEnumLiteral(standardEntryKindEEnum, StandardEntryKind.SELECT_LITERAL);
-		addEEnumLiteral(standardEntryKindEEnum, StandardEntryKind.MARQUEE_LITERAL);
-		addEEnumLiteral(standardEntryKindEEnum, StandardEntryKind.ZOOM_LITERAL);
-
-		initEEnum(genSeverityEEnum, GenSeverity.class, "GenSeverity");
-		addEEnumLiteral(genSeverityEEnum, GenSeverity.INFO_LITERAL);
-		addEEnumLiteral(genSeverityEEnum, GenSeverity.WARNING_LITERAL);
-		addEEnumLiteral(genSeverityEEnum, GenSeverity.ERROR_LITERAL);
-
-		initEEnum(genLanguageEEnum, GenLanguage.class, "GenLanguage");
-		addEEnumLiteral(genLanguageEEnum, GenLanguage.OCL_LITERAL);
-		addEEnumLiteral(genLanguageEEnum, GenLanguage.JAVA_LITERAL);
-		addEEnumLiteral(genLanguageEEnum, GenLanguage.REGEXP_LITERAL);
-		addEEnumLiteral(genLanguageEEnum, GenLanguage.NREGEXP_LITERAL);
-		addEEnumLiteral(genLanguageEEnum, GenLanguage.LITERAL_LITERAL);
-
-		initEEnum(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.class, "GenNavigatorReferenceType");
-		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.CHILDREN_LITERAL);
-		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
-		addEEnumLiteral(genNavigatorReferenceTypeEEnum, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
-
-		initEEnum(generatedTypeEEnum, GeneratedType.class, "GeneratedType");
-		addEEnumLiteral(generatedTypeEEnum, GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL);
-
-		// Create resource
+	public void loadPackage() {
+		if (isLoaded) return;
+		isLoaded = true;
+
+		URL url = getClass().getResource(packageFilename);
+		if (url == null) {
+			throw new RuntimeException("Missing serialized package: " + packageFilename);
+		}
+		URI uri = URI.createURI(url.toString());
+		Resource resource = new EcoreResourceFactoryImpl().createResource(uri);
+		try {
+			resource.load(null);
+		}
+		catch (IOException exception) {
+			throw new WrappedException(exception);
+		}
+		initializeFromLoadedEPackage(this, (EPackage)resource.getContents().get(0));
 		createResource(eNS_URI);
-
-		// Create annotations
-		// http://www.eclipse.org/emf/2004/EmfaticAnnotationMap
-		createEmfaticAnnotationMapAnnotations();
-		// http://www.eclipse.org/gmf/2005/constraints
-		createConstraintsAnnotations();
-		// http://www.eclipse.org/gmf/2006/deprecated
-		createDeprecatedAnnotations();
-		// http://www.eclipse.org/gmf/2005/constraints/meta
-		createMetaAnnotations();
 	}
 
 	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2004/EmfaticAnnotationMap</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createEmfaticAnnotationMapAnnotations() {
-		String source = "http://www.eclipse.org/emf/2004/EmfaticAnnotationMap";		
-		addAnnotation
-		  (this, 
-		   source, 
-		   new String[] {
-			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
-			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
-			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																																																																																																							
-	}
+	private boolean isFixed = false;
 
 	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2005/constraints</b>.
+	 * Fixes up the loaded package, to make it appear as if it had been programmatically built.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createConstraintsAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints";			
-		addAnnotation
-		  (this, 
-		   source, 
-		   new String[] {
-			 "import", "http://www.eclipse.org/gmf/runtime/1.0.0/notation"
-		   });											
-		addAnnotation
-		  (getGenEditorGenerator_LabelParsers(), 
-		   source, 
-		   new String[] {
-			 "ocl", "labelParsers.oclIsUndefined() implies (diagram.getAllNodes()->forAll(labels->size()=0) and diagram.links->forAll(labels->size()=0) and not diagram.childNodes->exists(oclIsKindOf(GenChildLabelNode)))",
-			 "description", "No label may be declared without a parser"
-		   });		
-		addAnnotation
-		  (genDiagramEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Diagram\')",
-			 "description", "\'Diagram Runtime Class\' must be a notation::Diagram or sub-class"
-		   });																														
-		addAnnotation
-		  (genCommonBaseEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "styles->forAll(style|style.ecoreClass.eAllSuperTypes->including(style.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Style\'))",
-			 "description", "Each style must be a notation::Style or sub-class"
-		   });				
-		addAnnotation
-		  (getGenCommonBase_VisualID(), 
-		   source, 
-		   new String[] {
-			 "ocl", "visualID >= 0",
-			 "description", "Visual ID must be a non-negative integer"
-		   });								
-		addAnnotation
-		  (genNodeEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Node\')",
-			 "description", "Node \'Diagram Runtime Class\' must be a notation::Node or sub-class"
-		   });					
-		addAnnotation
-		  (genTopLevelNodeEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not modelFacet.containmentMetaFeature.oclIsUndefined() implies modelFacet.containmentMetaFeature.genClass.ecoreClass.isSuperTypeOf(diagram.domainDiagramElement.ecoreClass)",
-			 "description", "Top level node \'Containment Feature\' must be available in the diagram \'Domain Element\' or its super-class"
-		   });		
-		addAnnotation
-		  (genChildNodeEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not modelFacet.oclIsUndefined() implies not modelFacet.containmentMetaFeature.oclIsUndefined()",
-			 "description", "Child node must specify \'Containment Meta Feature\'"
-		   });		
-		addAnnotation
-		  (getGenChildNode_Containers(), 
-		   source, 
-		   new String[] {
-			 "ocl", "let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)",
-			 "description", "Node is referenced from multiple containers with different \'List Layout\' value"
-		   });						
-		addAnnotation
-		  (genLinkEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = \'notation\' and name = \'Edge\')",
-			 "description", "Link \'Diagram Runtime Class\' must be a notation::Edge or sub-class"
-		   });														
-		addAnnotation
-		  (genNodeLabelEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass))",
-			 "description", "Node label meta features must be owned by the node \'Meta Class\' or its super-classes"
-		   });				
-		addAnnotation
-		  (genLinkLabelEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "modelFacet.oclIsTypeOf(FeatureLabelModelFacet)=true implies link.modelFacet.oclIsTypeOf(TypeLinkModelFacet)",
-			 "description", "Feature based link labels can only be used on link with class (TypeLinkModelFacet)"
-		   });		
-		addAnnotation
-		  (genLinkLabelEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in not tl.oclIsUndefined() implies self.getMetaFeatures()->forAll(f|f.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass))",
-			 "description", "Link label meta features must be owned by the node \'Meta Class\' or its super-classes"
-		   });												
-		addAnnotation
-		  (getTypeModelFacet_ContainmentMetaFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "let r: ecore::EReference=containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference) in not containmentMetaFeature.oclIsUndefined() implies r.containment or r.eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
-			 "description", "\'Containment Meta Feature\' must reference \'Meta Class\' or its super-classes"
-		   });			
-		addAnnotation
-		  (getTypeModelFacet_ChildMetaFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not childMetaFeature.oclIsUndefined() implies childMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)",
-			 "description", "\'Child Meta Feature\' must reference \'Meta Class\' or its sub-classes"
-		   });						
-		addAnnotation
-		  (typeLinkModelFacetEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not containmentMetaFeature.oclIsUndefined()",
-			 "description", "Link \'Containment Meta Feature\' must be specified"
-		   });			
-		addAnnotation
-		  (getTypeLinkModelFacet_SourceMetaFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not sourceMetaFeature.oclIsUndefined() implies sourceMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
-			 "description", "Link \'Source Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
-		   });		
-		addAnnotation
-		  (getTypeLinkModelFacet_TargetMetaFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not targetMetaFeature.oclIsUndefined() implies targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)",
-			 "description", "Link \'Target Meta Feature\' must be owned by link \'Meta Class\' or its super-class"
-		   });			
-		addAnnotation
-		  (getFeatureLinkModelFacet_MetaFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "metaFeature.ecoreFeature.unique",
-			 "description", "All references are unique in EMF due to the current code generation"
-		   });																																						
-		addAnnotation
-		  (getGenFeatureSeqInitializer_ElementClass(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not creatingInitializer.feature.oclIsUndefined() implies creatingInitializer.feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(elementClass.ecoreClass)",
-			 "description", "\'elementClass\' must be the same as or sub-type of the containing \'GenReferenceNewElementSpec\' reference type"
-		   });		
-		addAnnotation
-		  (getGenFeatureSeqInitializer_ElementClass(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not creatingInitializer.feature.oclIsUndefined() implies not (elementClass.ecoreClass.interface or elementClass.ecoreClass.abstract)",
-			 "description", "\'elementClass\' must be a concrete EClass which is the same or sub-type of the containing \'GenReferenceNewElementSpec\' reference type"
-		   });				
-		addAnnotation
-		  (genReferenceNewElementSpecEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "feature <> null implies feature.ecoreFeature.oclIsKindOf(ecore::EReference)",
-			 "description", "\'feature\' of \'GenReferenceNewElementSpec\' must refer to ecore::EReference"
-		   });			
-		addAnnotation
-		  (getGenFeatureInitializer_Feature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "feature <> null implies not featureSeqInitializer.initializers->exists(i| i <> self and i.feature = self.feature)",
-			 "description", "The feature is already initialized by another \'GenFeatureInitializer\' in the sequence"
-		   });		
-		addAnnotation
-		  (getGenFeatureInitializer_Feature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "feature <> null implies feature.ecoreFeature.eContainingClass.isSuperTypeOf(featureSeqInitializer.elementClass.ecoreClass)",
-			 "description", "The \'feature\' of \'GenFeatureInitializer\' must be available in \'Meta Class\' of the initialized element"
-		   });			
-		addAnnotation
-		  (genLinkConstraintsEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()",
-			 "description", "Either \'sourceEnd\' or \'targetEnd\' constraint must be specified"
-		   });																							
-		addAnnotation
-		  (getGenAuditRule_Id(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not id.oclIsUndefined() implies root.rules->one(i | i.id = self.id)",
-			 "description", "Audit rule with the same ID already exists"
-		   });														
-		addAnnotation
-		  (getGenDiagramElementTarget_Element(), 
-		   source, 
-		   new String[] {
-			 "ocl", "element <> null and element->size() > 1 implies element->forAll(oclIsKindOf(GenNode))",
-			 "description", "Multiple diagram elements must be GenNode type conformant"
-		   });			
-		addAnnotation
-		  (getGenDomainAttributeTarget_Attribute(), 
-		   source, 
-		   new String[] {
-			 "ocl", "attribute.ecoreFeature.oclIsKindOf(ecore::EAttribute)",
-			 "description", "EAttribute element required for auditable domain attribute"
-		   });					
-		addAnnotation
-		  (getGenNotationElementTarget_Element(), 
-		   source, 
-		   new String[] {
-			 "ocl", "element.ecoreClass.eAllSuperTypes->including(element.ecoreClass)->one(ePackage.name = \'notation\' and name = \'View\')",
-			 "description", "\'notation::View\' or its sub-class must be set to NotationElement target"
-		   });		
-		addAnnotation
-		  (genMetricRuleEClass, 
-		   source, 
-		   new String[] {
-			 "ocl", "not lowLimit.oclIsUndefined() and not highLimit.oclIsUndefined()  implies lowLimit < highLimit",
-			 "description", "Metric value \'lowLimit\' must be smaller then \'highLimit\'"
-		   });			
-		addAnnotation
-		  (getGenMetricRule_Key(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not key.oclIsUndefined() implies container.metrics->one(i | i.key = self.key)",
-			 "description", "Metric rule with the same \'key\' already exists"
-		   });																									
-		addAnnotation
-		  (getGenSharedContributionItem_ActualItem(), 
-		   source, 
-		   new String[] {
-			 "ocl", "not actualItem.oclIsKindOf(gmfgen::GenSharedContributionItem)",
-			 "description", "Actual contribution item can\'t be a reference"
-		   });															
+	public void fixPackageContentsGen() {
+		if (isFixed) return;
+		isFixed = true;
+		fixEClassifiers();
 	}
 
 	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2006/deprecated</b>.
+	 * Sets the instance class on the given classifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void createDeprecatedAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2006/deprecated";																					
-		addAnnotation
-		  (providerClassNamesEClass.getEOperations().get(5), 
-		   source, 
-		   new String[] {
-			 "documentation", "Replaced with GenParsers"
-		   });		
-		addAnnotation
-		  (providerClassNamesEClass.getEOperations().get(6), 
-		   source, 
-		   new String[] {
-			 "documentation", "Actions are no longer contributed using ContributionItemService"
-		   });		
-		addAnnotation
-		  (getProviderClassNames_ParserProviderClassName(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Replaced with GenParsers"
-		   });		
-		addAnnotation
-		  (getProviderClassNames_ParserProviderPriority(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Replaced with GenParsers"
-		   });		
-		addAnnotation
-		  (getProviderClassNames_ContributionItemProviderClassName(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Actions are no longer contributed using ContributionItemService"
-		   });		
-		addAnnotation
-		  (shortcutsEClass.getEOperations().get(1), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use CreateShortcutAction instead"
-		   });		
-		addAnnotation
-		  (shortcutsEClass.getEOperations().get(4), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use CreateShortcutAction instead"
-		   });		
-		addAnnotation
-		  (getShortcuts_CreateShortcutActionClassName(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use CreateShortcutAction instead"
-		   });				
-		addAnnotation
-		  (getPackageNames_ParsersPackageName(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Replaced with GenParsers"
-		   });			
-		addAnnotation
-		  (linkConstraintsEClass.getEOperations().get(0), 
-		   source, 
-		   new String[] {
-			 "documentation", "LinkCreationConstants should be generated if diagram has any links"
-		   });				
-		addAnnotation
-		  (editorCandiesEClass.getEOperations().get(4), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use InitDiagramAction instead"
-		   });		
-		addAnnotation
-		  (editorCandiesEClass.getEOperations().get(10), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use LoadResourceAction instead"
-		   });		
-		addAnnotation
-		  (editorCandiesEClass.getEOperations().get(11), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use InitDiagramAction instead"
-		   });		
-		addAnnotation
-		  (getEditorCandies_InitDiagramFileActionClassName(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use InitDiagramAction instead"
-		   });		
-		addAnnotation
-		  (getEditorCandies_LoadResourceActionClassName(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Use LoadResourceAction instead"
-		   });																																																																						
-		addAnnotation
-		  (getFeatureLabelModelFacet_ViewMethod(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Replaced with GenParsers and PredefinedParser"
-		   });		
-		addAnnotation
-		  (getFeatureLabelModelFacet_EditMethod(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Replaced with GenParsers and PredefinedParser"
-		   });																																																																																																																											
-	}
-
-	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2005/constraints/meta</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																																																																
-		addAnnotation
-		  (getTypeModelFacet_ModelElementSelector(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "metaClass.ecoreClass"
-		   });																															
-		addAnnotation
-		  (valueExpressionEClass, 
-		   source, 
-		   new String[] {
-			 "def", "ValueSpec"
-		   });				
-		addAnnotation
-		  (getValueExpression_Body(), 
-		   source, 
-		   new String[] {
-			 "def", "body"
-		   });		
-		addAnnotation
-		  (getValueExpression_LangName(), 
-		   source, 
-		   new String[] {
-			 "def", "lang"
-		   });			
-		addAnnotation
-		  (genConstraintEClass, 
-		   source, 
-		   new String[] {
-			 "def", "Constraint"
-		   });									
-		addAnnotation
-		  (getGenFeatureSeqInitializer_Initializers(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "self.elementClass"
-		   });					
-		addAnnotation
-		  (getGenFeatureValueSpec_Value(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "featureSeqInitializer.elementClass"
-		   });														
-		addAnnotation
-		  (getGenLinkConstraints_SourceEnd(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "getSourceEndContextClass().ecoreClass"
-		   });		
-		addAnnotation
-		  (getGenLinkConstraints_SourceEnd(), 
-		   source, 
-		   new String[] {
-			 "def", "variable",
-			 "name", "oppositeEnd",
-			 "type.ocl", "getTargetEndContextClass().ecoreClass"
-		   });			
-		addAnnotation
-		  (getGenLinkConstraints_TargetEnd(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "getTargetEndContextClass().ecoreClass"
-		   });		
-		addAnnotation
-		  (getGenLinkConstraints_TargetEnd(), 
-		   source, 
-		   new String[] {
-			 "def", "variable",
-			 "name", "oppositeEnd",
-			 "type.ocl", "getSourceEndContextClass().ecoreClass"
-		   });														
-		addAnnotation
-		  (getGenAuditRule_Rule(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "target.getContext()"
-		   });																							
-		addAnnotation
-		  (getGenMetricRule_Rule(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "target.getContext()"
-		   });		
-		addAnnotation
-		  (getGenMetricRule_Rule(), 
-		   source, 
-		   new String[] {
-			 "def", "type",
-			 "ocl", "\'ecore::EDoubleObject\'"
-		   });																																				
+	@Override
+	protected void fixInstanceClass(EClassifier eClassifier) {
+		if (eClassifier.getInstanceClassName() == null) {
+			eClassifier.setInstanceClassName("org.eclipse.gmf.codegen.gmfgen." + eClassifier.getName());
+			setGeneratedClassName(eClassifier);
+		}
 	}
 
 } //GMFGenPackageImpl
