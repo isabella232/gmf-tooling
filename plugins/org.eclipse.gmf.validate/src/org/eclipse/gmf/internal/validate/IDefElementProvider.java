@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,13 +8,14 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.ETypedElement;
+import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 
 public interface IDefElementProvider {
 	IStatus getStatus();
@@ -37,18 +38,8 @@ public interface IDefElementProvider {
 	}
 	
 	public interface TypeProvider extends IDefElementProvider {
-		/**
-		 * Gets typed element represented by this provider.
-		 * <p>
-		 * 
-		 * @return typed element or <code>null</code> if this provider
-		 *         represents only plain classifier without extra info on
-		 *         muliplicity, ordering, uniqueness which have impact on the
-		 *         resulting model type.
-		 */
-		ETypedElement getTypedElement(EObject context);
-		EClassifier getType(EObject context);		
-		boolean hasTypedElement();
+		EClassifier getType(EObject context);
+		boolean isAssignable(EObject context, IModelExpression expression);
 	}
 	
 	public interface StringValProvider extends IDefElementProvider {

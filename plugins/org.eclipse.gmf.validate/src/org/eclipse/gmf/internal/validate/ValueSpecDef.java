@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
@@ -16,22 +17,22 @@ import org.eclipse.gmf.internal.validate.IDefElementProvider.StringValProvider;
 import org.eclipse.gmf.internal.validate.IDefElementProvider.TypeProvider;
 
 
-public class ValueSpecDef {
-	private StringValProvider body;
-	private StringValProvider lang;
-	private TypeProvider type;
+class ValueSpecDef {
+	private final StringValProvider body;
+	private final StringValProvider lang;
+	private final TypeProvider type;
 	
 	
 	public ValueSpecDef(StringValProvider body, StringValProvider lang) {
+		this(body, lang, null);
+	}	
+		
+	public ValueSpecDef(StringValProvider body, StringValProvider lang, TypeProvider typeRestriction) {
 		if(body == null) {
 			throw new IllegalArgumentException();
 		}
 		this.body = body;
 		this.lang = lang;
-	}	
-		
-	public ValueSpecDef(StringValProvider body, StringValProvider lang, TypeProvider typeRestriction) {
-		this(body, lang);
 		this.type = typeRestriction;
 	}
 	

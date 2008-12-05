@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
@@ -15,12 +16,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.validate.IDefElementProvider.StringValProvider;
 import org.eclipse.gmf.internal.validate.IDefElementProvider.TypeProvider;
+import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 
-public class ConstraintDef extends ValueSpecDef {
+class ConstraintDef extends ValueSpecDef {
 	
 	private static final TypeProvider BOOLEAN_TYPE = 
 		new TypeProvider() {
@@ -29,13 +30,11 @@ public class ConstraintDef extends ValueSpecDef {
 			}
 			public EClassifier getType(EObject context) {						
 				return EcorePackage.eINSTANCE.getEBooleanObject();
-			}			
-			public ETypedElement getTypedElement(EObject context) {			
-				return null;
 			}
-			public boolean hasTypedElement() {			
-				return false;
+			public boolean isAssignable(EObject context, IModelExpression expression) {
+				return expression.isAssignableTo(EcorePackage.eINSTANCE.getEBooleanObject());
 			}
+
 			public String toString() {			
 				return EcorePackage.eINSTANCE.getEBooleanObject().getName();
 			}

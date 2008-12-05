@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
@@ -208,8 +209,8 @@ public class DefUtils {
 		public GenClassifierContextAdapter(IModelExpression expression) {
 			super(expression, expression.getResultType());
 			if(!isGenClassifier(expression.getResultType())) {
-				getIncompatibleTypesStatus(GenModelPackage.eINSTANCE
-						.getGenClassifier(), expression.getResultType());			
+				// FIXME? created status is not assigned anywhere!
+				getIncompatibleTypesStatus(GenModelPackage.eINSTANCE.getGenClassifier(), expression.getResultType());			
 			}
 		}
 		
@@ -324,19 +325,10 @@ public class DefUtils {
 		}
 	}	
 
-	public static class ExpresssionTypeProvider extends ExpressionBasedProvider implements TypeProvider {
+	public static class ExpressionTypeProvider extends ExpressionBasedProvider implements TypeProvider {
 		
-		public ExpresssionTypeProvider(IModelExpression expression) {
+		public ExpressionTypeProvider(IModelExpression expression) {
 			super(expression, getRequiredResultType(expression));
-		}
-		
-		public boolean hasTypedElement() {
-			if(getStatus().isOK()) {
-				EClassifier requiredType = getCanonicalEClassifier(getRequiredType());			
-				return requiredType instanceof EClass && 
-					EcorePackage.eINSTANCE.getETypedElement().isSuperTypeOf((EClass)requiredType);
-			}
-			return false;
 		}
 		
 		public EClassifier getType(EObject context) {
@@ -352,8 +344,26 @@ public class DefUtils {
 			assert false;
 			return null;
 		}
-		
-		public ETypedElement getTypedElement(EObject context) {
+
+		public boolean isAssignable(EObject context, IModelExpression expression) {
+			if (hasTypedElement()) {
+				// [artem] not sure I see connection between #hasTypedElement and #getTypedElement
+				return expression.isAssignableToElement(getTypedElement(context));
+			} else {
+				return expression.isAssignableTo(getType(context));
+			}
+		}
+
+		private boolean hasTypedElement() {
+			if(getStatus().isOK()) {
+				EClassifier requiredType = getCanonicalEClassifier(getRequiredType());			
+				return requiredType instanceof EClass && 
+					EcorePackage.eINSTANCE.getETypedElement().isSuperTypeOf((EClass)requiredType);
+			}
+			return false;
+		}
+
+		private ETypedElement getTypedElement(EObject context) {
 			if(!getStatus().isOK()) {
 				return null;
 			}			
@@ -388,15 +398,16 @@ public class DefUtils {
 			this.feature = feature;
 		}
 		
-		public boolean hasTypedElement() {
-			return true;			
-		}
-		
 		public EClassifier getType(EObject context) {
 			return getTypedElement(context).getEType();
 		}
 		
-		public ETypedElement getTypedElement(EObject context) {
+		public boolean isAssignable(EObject context, IModelExpression expression) {
+			return expression.isAssignableToElement(getTypedElement(context));
+		}
+
+		private ETypedElement getTypedElement(EObject context) {
+			// [artem] has no idea why return value is certainly ETypedElement 
 			return (ETypedElement)context.eGet(feature);
 		}
 	}
@@ -414,13 +425,9 @@ public class DefUtils {
 		public EClassifier getType(EObject resolutionContext) {		
 			return ctxProvider.getContextClassifier(resolutionContext);
 		}
-		
-		public boolean hasTypedElement() {		
-			return false;
-		}
-		
-		public ETypedElement getTypedElement(EObject context) {
-			return null;
+
+		public boolean isAssignable(EObject context, IModelExpression expression) {
+			return expression.isAssignableTo(getType(context));
 		}
 	}		
 	
