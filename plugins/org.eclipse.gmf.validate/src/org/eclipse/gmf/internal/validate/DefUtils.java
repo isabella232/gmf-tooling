@@ -519,15 +519,6 @@ public class DefUtils {
 				StatusCodes.INVALID_EXPRESSION_TYPE, message, null);		
 	}
 	
-	public static EAnnotation getAnnotationWithKey(EModelElement eModelElement, String sourceURI, String key) {
-		for (EAnnotation nextAnnotation : eModelElement.getEAnnotations()) {
-			if(sourceURI.equals(nextAnnotation.getSource()) && nextAnnotation.getDetails().containsKey(key)) {
-				return nextAnnotation;
-			}
-		}
-		return null;
-	}
-	
 	public static Map.Entry<String, String> findAnnotationDetailEntry(EModelElement eModelElement, String sourceURI, String key, String val) {
 		for (EAnnotation nextAnnotation : eModelElement.getEAnnotations()) {
 			if(sourceURI.equals(nextAnnotation.getSource()) && nextAnnotation.getDetails().containsKey(key)) {
@@ -569,26 +560,8 @@ public class DefUtils {
 		}
 		return Collections.emptyList();
 	}	
-	
-	@SuppressWarnings("unchecked")
-	public static List getAnnotationValues(EModelElement eModelElement, String sourceURI, String key) {
-		List annotations = null;
-		for (Iterator it = eModelElement.getEAnnotations().iterator(); it.hasNext();) {
-			EAnnotation nextAnnotation = (EAnnotation) it.next();
-			if(sourceURI.equals(nextAnnotation.getSource())) {
-				Object detailVal = nextAnnotation.getDetails().get(key);
-				if((detailVal != null)) {
-					if(annotations == null) {
-						annotations = new ArrayList(eModelElement.getEAnnotations().size());
-					}
-					annotations.add(detailVal);					
-				}
-			}
-		}
-		return annotations != null ? annotations : Collections.EMPTY_LIST;
-	}	
 
-	public static boolean isEcorePackageClassifier(EClassifier classifier) {
+	private static boolean isEcorePackageClassifier(EClassifier classifier) {
 		EPackage classifierPackage = classifier.getEPackage();
 		return EcorePackage.eINSTANCE == classifierPackage || 
 			(classifierPackage != null && EcorePackage.eINSTANCE.getNsURI().equals(classifierPackage.getNsURI()));
