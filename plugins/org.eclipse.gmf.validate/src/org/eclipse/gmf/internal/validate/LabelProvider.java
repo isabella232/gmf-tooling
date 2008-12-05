@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
@@ -26,7 +27,8 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 
 public class LabelProvider implements SubstitutionLabelProvider {
 	public static final SubstitutionLabelProvider INSTANCE = new LabelProvider();
-	private static final AdapterFactory ECORE_FACTORY = new EcoreItemProviderAdapterFactory();
+
+	private final AdapterFactory ecoreLabelProviderFactory = new EcoreItemProviderAdapterFactory();
 	
 	private LabelProvider() {
 		super();
@@ -70,10 +72,10 @@ public class LabelProvider implements SubstitutionLabelProvider {
 		return buf;
 	}
 	
-	private static String toDisplayName(EObject eObject) {
+	private String toDisplayName(EObject eObject) {
 		IItemLabelProvider labelAdapter = (IItemLabelProvider)EcoreUtil.getRegisteredAdapter(EcorePackage.eINSTANCE.getEAnnotation(), IItemLabelProvider.class);
 		if(labelAdapter == null) {
-			labelAdapter = (IItemLabelProvider)ECORE_FACTORY.adapt(eObject, IItemLabelProvider.class);
+			labelAdapter = (IItemLabelProvider)ecoreLabelProviderFactory.adapt(eObject, IItemLabelProvider.class);
 		}
 		String label = null;
 		try {
@@ -85,6 +87,7 @@ public class LabelProvider implements SubstitutionLabelProvider {
 		return label;
 	}
 	
+	// FIXME no real need for static LabelProvider instance, can replace uses with AbstractProvider#getLabelProvider call
 	public static final String getTextLabel(Object obj) {
 		return (obj instanceof EObject) ? INSTANCE.getObjectLabel((EObject)obj) : String.valueOf(obj);
 	}

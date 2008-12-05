@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -22,6 +22,9 @@ import org.eclipse.gmf.internal.validate.expressions.AbstractExpression;
 import org.eclipse.gmf.internal.validate.expressions.IEvaluationEnvironment;
 import org.eclipse.gmf.internal.validate.expressions.IModelExpression;
 
+/**
+ * An expression with severity and description
+ */
 public class ConstraintAdapter extends AbstractExpression {
 	private IModelExpression expression;
 	private EClassifier resultType;

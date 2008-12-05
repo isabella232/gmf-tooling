@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
@@ -25,6 +26,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -40,28 +42,12 @@ import org.eclipse.osgi.util.NLS;
 
 public class ExternModelImport {
 	private static final String DIAGNOSTIC_SOURCE = "org.eclipse.gmf.validate.imports"; //$NON-NLS-1$ 
+	private static final Object ROOT_TARGET_OBJECT_KEY = new Object(); 	
 	
-	private static final EValidator VALIDATOR = new AbstractValidator() {
-		
-		public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
-			super.validate(eClass, eObject, diagnostics, context);
-			ExternModelImport importer = getImporter(context, eObject);
-			if(eObject instanceof EAnnotation) {
-				return importer.processAnnotation((EAnnotation)eObject, diagnostics);
-			}
-			
-			EPackage ePackage = eObject.eClass().getEPackage();
-			if(!importer.hasPackageImportsProcessed(ePackage)) {
-				return importer.processAnnotations(eObject.eClass().getEPackage(), diagnostics);
-			}
-			return true;
-		}
-	};
-	
-	private ResourceSet importedModels;
-	private EPackage.Registry registry = new EPackageRegistryImpl(EPackage.Registry.INSTANCE);
-	private HashSet<URI> myProcessedMetaModels = new HashSet<URI>();
-	private HashSet<EPackage> processedPackages;
+	private final ResourceSet importedModels;
+	private final EPackage.Registry registry = new EPackageRegistryImpl(EPackage.Registry.INSTANCE);
+	private final HashSet<URI> myProcessedMetaModels = new HashSet<URI>();
+	private final HashSet<EPackage> processedPackages;
 	
 
 	private ExternModelImport(EObject validatedObject) {
@@ -74,35 +60,52 @@ public class ExternModelImport {
 		this.processedPackages = new HashSet<EPackage>();
 	}
 	
-	public static EValidator getImportValidator() {
-		return VALIDATOR;
+	public static EValidator newImportValidator() {
+		return new AbstractValidator() {
+
+			public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+				ensureRootTargetInitialized(eObject, context);		
+				return true;
+			}	
+
+			public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+				ensureRootTargetInitialized(eObject, context);
+				ExternModelImport importer = getImporter(context);
+				if(eObject instanceof EAnnotation) {
+					return importer.processAnnotation((EAnnotation)eObject, diagnostics);
+				}
+				
+				EPackage ePackage = eObject.eClass().getEPackage();
+				if(!importer.hasPackageImportsProcessed(ePackage)) {
+					return importer.processAnnotations(eObject.eClass().getEPackage(), diagnostics);
+				}
+				return true;
+			}
+
+			public boolean validate(EDataType dataType, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
+				return true;
+			}
+		};
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static ExternModelImport getImporter(Map context, EObject validatedEObject) {
-		if(context != null) {
-			Object value = context.get(ExternModelImport.class);
-			if(value == null) {
-				value = new ExternModelImport(validatedEObject);
-				context.put(ExternModelImport.class, value);
-			}
-			assert value instanceof ExternModelImport;
+	public static ExternModelImport getImporter(Map<Object, Object> context) {
+		Object value = context.get(ExternModelImport.class);
+		if(value instanceof ExternModelImport) {
 			return (ExternModelImport)value;
-		} 
-		
-		return new ExternModelImport(validatedEObject);
+		}
+		assert value == null;
+		EObject validationTarget = getRootTargetObject(context);
+		ExternModelImport importer = new ExternModelImport(validationTarget);
+		importer.initializeExternPackages(validationTarget);
+		context.put(ExternModelImport.class, importer);
+		return importer;
 	}	
 	
 	/**
 	 * @return The import package registry associated with the context or <code>null</code> if there is no such registry 
 	 */
-	public static EPackage.Registry getPackageRegistry(Map<Object, Object> context) {
-		Object value = context.get(ExternModelImport.class);
-		assert value == null || value instanceof ExternModelImport : "incorrect object registered as ExternModelImport: " + value.getClass(); //$NON-NLS-1$
-		if (value instanceof ExternModelImport) {
-			return ((ExternModelImport) value).registry;
-		}
-		return null;
+	public EPackage.Registry getPackageRegistry() {
+		return registry;
 	}
 	
 	boolean hasPackageImportsProcessed(EPackage importingPackage) {
@@ -125,9 +128,9 @@ public class ExternModelImport {
 		return true;
 	}
 	
-	public void intializeExternPackages(EObject root) {
+	public void initializeExternPackages(EObject root) {
 		Resource metaModelResource = root.eClass().getEPackage().eResource();
-		if (!myProcessedMetaModels.contains(metaModelResource.getURI())) {
+		if (metaModelResource != null && !myProcessedMetaModels.contains(metaModelResource.getURI())) {
 			for (EObject nextResourceElement : metaModelResource.getContents()) {
 				if (nextResourceElement instanceof EPackage) {
 					registerLocally((EPackage) nextResourceElement);
@@ -137,6 +140,18 @@ public class ExternModelImport {
 			myProcessedMetaModels.add(metaModelResource.getURI());
 		}
 		registerReferencedMetaModels(EcoreUtil.ExternalCrossReferencer.find(root));
+	}
+
+	static void ensureRootTargetInitialized(EObject target, Map<Object, Object> context) {
+		if(context != null && !context.containsKey(ROOT_TARGET_OBJECT_KEY)) {
+			context.put(ROOT_TARGET_OBJECT_KEY, EcoreUtil.getRootContainer(target, true)); 		
+		}
+	}
+
+	private static EObject getRootTargetObject(Map<Object, Object> context) {
+		Object rootObj = context.get(ROOT_TARGET_OBJECT_KEY);
+		assert rootObj == null || rootObj instanceof EObject;
+		return (EObject)rootObj;
 	}
 	
 	private void registerReferencedMetaModels(Map<EObject, Collection<Setting>> externalCrossReferences) {

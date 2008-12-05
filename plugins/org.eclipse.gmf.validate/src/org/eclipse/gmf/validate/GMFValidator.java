@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -8,6 +8,7 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - refactoring
  */
 package org.eclipse.gmf.validate;
 
@@ -19,29 +20,31 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EObjectValidator;
-import org.eclipse.gmf.internal.validate.AnnotatedDefinitionValidator;
 import org.eclipse.gmf.internal.validate.AnnotatedOclValidator;
 import org.eclipse.gmf.internal.validate.ExternModelImport;
 import org.eclipse.gmf.internal.validate.ValidatorChain;
 
 /**
  * Validator of GMF constraint annotations. 
+ * FIXME: though API, should be changed - no need to extend ValidatorChain, and all the fields are sort of odd
  * See <A href="package-summary.html"</A> details.
  */
 public class GMFValidator extends ValidatorChain {
 	
 	private static EValidator[] GMF_VALIDATORS = new EValidator[] { 
-		ExternModelImport.getImportValidator(),				
+		ExternModelImport.newImportValidator(),				
 		new AnnotatedOclValidator(),
 // bug #230418		new AnnotatedDefinitionValidator() 
 	};
 	
-	private static final EValidator NO_ECORE_INSTANCE = new ValidatorChain(GMF_VALIDATORS);	
-	
 	private static EValidator[] ALL_VALIDATORS = new EValidator[] { 
 		EObjectValidator.INSTANCE, 
-		NO_ECORE_INSTANCE };
+		ExternModelImport.newImportValidator(),				
+		new AnnotatedOclValidator(),
+		// bug #230418		new AnnotatedDefinitionValidator() 
+	};
 	
+	// XXX INSTANCE should rather be new GMFValidator(), and GMFValidator cons should take ALL_VALIDATORS then.
 	/**
 	 * Ecore compliant validator instance.
 	 */
@@ -92,8 +95,6 @@ public class GMFValidator extends ValidatorChain {
 		@SuppressWarnings("synthetic-access")
 		DelegateRegistry() {
 			this(null);
-			gmfValidator = GMFValidator.INSTANCE;
-			noEcoreValidator = GMFValidator.NO_ECORE_INSTANCE;
 		}
 		
 		DelegateRegistry(ValidationOptions options) {
