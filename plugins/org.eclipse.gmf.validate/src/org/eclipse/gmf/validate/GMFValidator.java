@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.gmf.internal.validate.AnnotatedDefinitionValidator;
 import org.eclipse.gmf.internal.validate.AnnotatedOclValidator;
 import org.eclipse.gmf.internal.validate.ExternModelImport;
 import org.eclipse.gmf.internal.validate.ValidatorChain;
@@ -34,14 +35,14 @@ public class GMFValidator extends ValidatorChain {
 	private static EValidator[] GMF_VALIDATORS = new EValidator[] { 
 		ExternModelImport.newImportValidator(),				
 		new AnnotatedOclValidator(),
-// bug #230418		new AnnotatedDefinitionValidator() 
+		new AnnotatedDefinitionValidator()
 	};
 	
 	private static EValidator[] ALL_VALIDATORS = new EValidator[] { 
 		EObjectValidator.INSTANCE, 
 		ExternModelImport.newImportValidator(),				
 		new AnnotatedOclValidator(),
-		// bug #230418		new AnnotatedDefinitionValidator() 
+		new AnnotatedDefinitionValidator() 
 	};
 	
 	// XXX INSTANCE should rather be new GMFValidator(), and GMFValidator cons should take ALL_VALIDATORS then.
@@ -128,7 +129,6 @@ public class GMFValidator extends ValidatorChain {
 			return createDelegator(ePackage, delegateValidator);
 		}
 		
-		@SuppressWarnings("unchecked")
 		private EValidator createDelegator(Object key, EValidator delegate) {		
 			// extend custom validator retrieved from the registry only with GMF validators
 			EValidator delegatingValidator = new ValidatorChain(new EValidator[] { delegate, getNoEcoreValidator() });
