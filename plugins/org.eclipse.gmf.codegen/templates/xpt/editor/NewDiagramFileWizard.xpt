@@ -50,7 +50,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForNewDiagramFileWizardCreationPage().descriptionKey()) FOR editorGen», 
 				«EXPAND xpt::editor::VisualIDRegistry::modelID»));
 		org.eclipse.core.runtime.IPath filePath;
-		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		String fileName = org.eclipse.emf.common.util.URI.decode(domainModelURI.trimFileExtension().lastSegment());
 		if (domainModelURI.isPlatformResource()) {
 			filePath = new org.eclipse.core.runtime.Path(domainModelURI.trimSegments(1).toPlatformString(true));
 		} else if (domainModelURI.isFile()) {
