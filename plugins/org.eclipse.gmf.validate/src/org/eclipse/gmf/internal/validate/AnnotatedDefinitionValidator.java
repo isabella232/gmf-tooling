@@ -8,12 +8,13 @@
  * 
  * Contributors: 
  *    Radek Dvorak (Borland) - initial API and implementation
- *    Artem Tikhomirov (Borland) - refactoring
+ *    Artem Tikhomirov (Borland) - [230418] non-containment contexts; refactoring
  */
 package org.eclipse.gmf.internal.validate;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -51,7 +53,8 @@ import org.eclipse.gmf.internal.validate.ocl.OCLExpressionProvider;
 import org.eclipse.osgi.util.NLS;
 
 
-// Commented out, pending [230418] "Support non-containment contexts in annotation-based validator" fix 
+// FIXME: replace all methods with Map<Object, Object> context with dedicated "ValidateSession" class
+// that keeps track of all the caching stuff
 public class AnnotatedDefinitionValidator extends AbstractValidator implements EValidator {
 	
 	public AnnotatedDefinitionValidator() {		
@@ -81,54 +84,79 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 	
 	
 	protected boolean validateModel(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
-			
-		ValueSpecDef def = getDefinition(eObject, diagnostics, context);
-		if(def == null) {
+		EReference[] constrainedFeatures = collectConstrainedFeatures(eObject.eClass());
+		if (constrainedFeatures == null || constrainedFeatures.length == 0) {
 			return true;
+		}
+		boolean result = true;
+		for (EReference sf : constrainedFeatures) {
+			if (!eObject.eIsSet(sf)) {
+				continue;
+			}
+			if (sf.isMany()) {
+				@SuppressWarnings("unchecked")
+				List<EObject> constraintObject = (List<EObject>) eObject.eGet(sf, true);
+				for (EObject o : constraintObject) {
+					result &= validateInstance(eObject, sf, o, diagnostics, context);
+				}
+			} else {
+				EObject constraintObject = (EObject) eObject.eGet(sf, true);
+				result = constraintObject != null && validateInstance(eObject, sf, constraintObject, diagnostics, context);
+			}
+		}
+		return result;
+	}
+
+	private boolean validateInstance(EObject context, EReference contextFeature, EObject constraint, DiagnosticChain diag, Map<Object, Object> validationContext) {
+		ValueSpecDef def = getDefinition(constraint.eClass(), diag, null, validationContext);
+		if(def == null) {
+			SubstitutionLabelProvider lp = getLabelProvider(validationContext);
+			String message = String.format("Object %s, supposed to be a constraint for feature %s of %s, is missing essential constraint metainformation", lp.getObjectLabel(constraint), lp.getObjectLabel(context), lp.getFeatureLabel(contextFeature));
+			diag.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, StatusCodes.INVALID_CONSTRAINT_CONTEXT, message, new Object[] {context} ));
+			return false;
 		} else if(!def.isOK()) {
 			return false;
 		}
 
-		String lang = def.createLanguage(eObject);
+		String lang = def.createLanguage(constraint);
 
 		if(!(Annotations.Meta.OCL_KEY.equals(lang) || Annotations.REGEXP_KEY.equals(lang) || Annotations.NEG_REGEXP_KEY.equals(lang))) {
 			// add support for other languages here
 			return true;
 		}
 		
-		EObject[] contexEClassEvalCtx = new EObject[1];
-		ContextData contextData = getContextBinding(eObject, contexEClassEvalCtx, context);
+		ContextData contextData = getContextBinding(context.eClass(), contextFeature, validationContext);
 		if(contextData == null) {
-			diagnostics.add(new BasicDiagnostic(
+			diag.add(new BasicDiagnostic(
 				Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 
 				StatusCodes.NO_VALUESPEC_CONTEXT_AVAILABLE, 
-				NLS.bind(Messages.def_NoContextAvailable, getLabelProvider(context).getObjectLabel(eObject)),
-				new Object[] { eObject }));			
+				NLS.bind(Messages.def_NoContextAvailable, getLabelProvider(validationContext).getObjectLabel(context)),
+				new Object[] { context }));
 			return false;			
 		}
 		
-		EClassifier contextClass = contextData.contextClass.getContextClassifier(contexEClassEvalCtx[0]);
-		if(contextClass == null) {
+		EClassifier evaluationContextClass = contextData.contextClass.getContextClassifier(context);
+		if(evaluationContextClass == null) {
 			String noCtxMessage = contextData.contextClass.getStatus().isOK() ?
-				NLS.bind(Messages.def_NoContextAvailable, getLabelProvider(context).getObjectLabel(eObject))
+				NLS.bind(Messages.def_NoContextAvailable, getLabelProvider(validationContext).getObjectLabel(context))
 				: contextData.contextClass.getStatus().getMessage();
 			
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 
+				diag.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 
 				StatusCodes.NO_VALUESPEC_CONTEXT_AVAILABLE,
-				noCtxMessage, new Object[] { eObject } ));
+				noCtxMessage, new Object[] { context } ));
 		}
 
-		String body = def.createBody(eObject);
-		if(body != null && contextClass != null) {
+		String body = def.createBody(constraint);
+		if(body != null && evaluationContextClass != null) {
 			// get real environment
 			IParseEnvironment env = null;
 			if(contextData.environment != null) {
 				env = EnvironmentProvider.createParseEnv();
-				ExternModelImport modelImports = ExternModelImport.getImporter(context);
+				ExternModelImport modelImports = ExternModelImport.getImporter(validationContext);
 				env.setImportRegistry(modelImports.getPackageRegistry());
 				for (String varName : contextData.environment.keySet()) {
 					TypeProvider typeProvider = contextData.environment.get(varName);
-					EClassifier type = typeProvider.getType(contexEClassEvalCtx[0]);
+					EClassifier type = typeProvider.getType(context);
 					if(type != null) {
 						// TODO - produce error status as no variable type is available
 						env.setVariable(varName, type);
@@ -136,32 +164,30 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 				}
 			}
 			
-			IModelExpression expression = getExpression(lang, body, contextClass, env);
+			IModelExpression expression = getExpression(lang, body, evaluationContextClass, env);
 			if(!expression.getStatus().isOK()) {
 				String message = MessageFormat.format(
 						Messages.invalidExpressionBody, 
 						new Object[] { expression.getBody(), 
 						expression.getStatus().getMessage() });				
-				diagnostics.add(new BasicDiagnostic(
+				diag.add(new BasicDiagnostic(
 					Diagnostic.ERROR, DIAGNOSTIC_SOURCE, 
 					StatusCodes.INVALID_CONSTRAINT_EXPRESSION, 
-					message, new Object[] { eObject }));				
+					message, new Object[] { context }));				
 				return false;
 			}
 			
-			EObject typeResolutionContext = eObject;
+			EObject typeResolutionContext = context;
 			// check type restriction on the given expression
 			TypeProvider typeProvider = def.getTypeRestriction();
-			if(typeProvider == null && eObject.eContainingFeature() != null) {
-				EStructuralFeature containingFeature = eObject.eContainingFeature();
-				typeProvider = getTypeInfo(containingFeature, eObject.eContainer().eClass(), diagnostics, context);
-				typeResolutionContext = eObject.eContainer();
+			if(typeProvider == null) {
+				typeProvider = getTypeInfo(contextFeature, context.eClass(), diag, validationContext);
 			}
 			if(typeProvider != null && typeProvider.getStatus().isOK() && expression.getResultType() != null) {
 				if(!typeProvider.isAssignable(typeResolutionContext, expression)) {
 					EClassifier type = typeProvider.getType(typeResolutionContext);
 					IStatus s = DefUtils.getIncompatibleTypesStatus(type, expression.getResultType());
-					diagnostics.add(DefUtils.statusToDiagnostic(s, DIAGNOSTIC_SOURCE, eObject));
+					diag.add(DefUtils.statusToDiagnostic(s, DIAGNOSTIC_SOURCE, context));
 					return false;
 				}
 			}
@@ -179,39 +205,30 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return provider.createExpression(body, context, env);
 	}
 
-	public ContextData getContextBinding(EObject eObject, EObject[] contextHolder, Map<Object, Object> context) {
-		EStructuralFeature feature = eObject.eContainingFeature();
-		if(feature != null) {
-			EObject container = eObject.eContainer();
-			ContextData contextData = getCachedCtxBinding(feature, context);
-			if(contextData != null) {
-				contextHolder[0] = container;
-				return contextData;
+	public ContextData getContextBinding(EClass contextClass, EStructuralFeature featureToConstraint, Map<Object, Object> validationContext) {
+		ContextData contextData = getCachedCtxBinding(featureToConstraint, validationContext);
+		if(contextData != null) {
+			return contextData;
+		}
+
+		ExternModelImport modelImports = ExternModelImport.getImporter(validationContext);
+		ContextProvider contextProvider = DefUtils.getContextClass(contextClass, getExpressionFactory(validationContext), featureToConstraint, modelImports.getPackageRegistry());
+		if(contextProvider != null) {
+			ContextData newContextData = new ContextData(contextProvider, getEnvProvider(featureToConstraint, getExpressionFactory(validationContext)));
+			registerCtxBinding(featureToConstraint, newContextData, validationContext);				
+
+			if(Trace.shouldTrace(DebugOptions.META_DEFINITIONS)) {
+				String msgPtn = "[context-def] {0} binding: {1}::{2}"; //$NON-NLS-1$
+				Trace.trace(MessageFormat.format(msgPtn, 
+					new Object[] { 
+						newContextData.contextClass.toString(), 
+						LabelProvider.INSTANCE.getObjectLabel(contextClass),
+						LabelProvider.INSTANCE.getFeatureLabel(featureToConstraint)
+					}));
 			}
 			
-			ContextProvider contextProvider = getContextClass(feature, context);
-			if(contextProvider != null) {
-				ContextData newContextData = new ContextData(contextProvider, getEnvProvider(feature, getExpressionFactory(context)));
-				registerCtxBinding(feature, newContextData, context);				
-				contextHolder[0] = container;
-
-				if(Trace.shouldTrace(DebugOptions.META_DEFINITIONS)) {
-					String msgPtn = "[context-def] {0} binding: {1}::{2}"; //$NON-NLS-1$
-					Trace.trace(MessageFormat.format(msgPtn, 
-						new Object[] { 
-							newContextData.contextClass.toString(), 
-							LabelProvider.INSTANCE.getObjectLabel(container.eClass()),
-							LabelProvider.INSTANCE.getObjectLabel(feature)
-						}));
-				}
-				
-				return newContextData;
-			} 
-			else if(eObject.eContainer() != null) {
-				return getContextBinding(eObject.eContainer(), contextHolder, context);
-			}
+			return newContextData;
 		}
-		contextHolder[0] = null;
 		return null;
 	}
 		
@@ -240,7 +257,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 				}
 			}
 		} else if(modelElement instanceof EClass) {
-			getDefinition((EClass)modelElement, modelElement, diagnostics, null, context);
+			getDefinition((EClass)modelElement, diagnostics, null, context);
 		}
 		
 		return true;
@@ -260,12 +277,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		return DefUtils.getContextClass(resolutionContext, getExpressionFactory(validationContext), bindFeature, modelImports.getPackageRegistry());
 	}
 
-	private static ValueSpecDef getDefinition(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
-		EClass eClass = (eObject instanceof EClass) ? (EClass) eObject : eObject.eClass();
-		return getDefinition(eClass, eObject, diagnostics, null, context);
-	}
-	
-	private static ValueSpecDef getDefinition(EClass metaClass, EObject modelElement, DiagnosticChain diagnostics, DefData data, Map<Object, Object> context) {
+	private static ValueSpecDef getDefinition(EClass metaClass, DiagnosticChain diagnostics, DefData data, Map<Object, Object> context) {
 		ValueSpecDef definition = findDefinition(metaClass, context);
 		if(definition != null) {
 			return definition;
@@ -357,7 +369,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		}
 				
 		for (EClass superClass : superTypes) {
-			ValueSpecDef inheritedDef = getDefinition(superClass, modelElement, diagnostics, data, context);
+			ValueSpecDef inheritedDef = getDefinition(superClass, diagnostics, data, context);
 			if(inheritedDef != null) {
 				if(data == null) {
 					data = new DefData();
@@ -370,9 +382,9 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		
 		if(data != null) {
 			if(data.body == null) {
-				String message = MessageFormat.format(Messages.def_MissingBodyAnnotation, new Object[] { LabelProvider.INSTANCE.getObjectLabel(modelElement) }); 
+				String message = MessageFormat.format(Messages.def_MissingBodyAnnotation, new Object[] { LabelProvider.INSTANCE.getObjectLabel(metaClass) }); 
 				// report missing body
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, StatusCodes.MISSING_VALUESPEC_BODY_ANNOTATION, message, new Object[] { modelElement }));
+				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, StatusCodes.MISSING_VALUESPEC_BODY_ANNOTATION, message, new Object[] { metaClass }));
 				return null;
 			}
 		}
@@ -533,5 +545,22 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			}
 			bindMap.put(contextDefOwner, contextData);
 		}
-	}		
+	}
+
+	// may cache features per class, but doesn't seem too expensive to calculate 'em
+	private static EReference[] collectConstrainedFeatures(EClass eClass) {
+		LinkedList<EReference> result = new LinkedList<EReference>();
+		for (EReference sf : eClass.getEAllReferences()) {
+			for (EAnnotation a: sf.getEAnnotations()) {
+				if (Annotations.CONSTRAINTS_META_URI.equals(a.getSource()) && Annotations.Meta.CONTEXT.equals(a.getDetails().get(Annotations.Meta.DEF_KEY))) {
+					result.add(sf);
+					break; // recognize no more than one def="context"
+				}
+			}
+		}
+		if (result.isEmpty()) {
+			return null;
+		}
+		return result.toArray(new EReference[result.size()]);
+	}
 }

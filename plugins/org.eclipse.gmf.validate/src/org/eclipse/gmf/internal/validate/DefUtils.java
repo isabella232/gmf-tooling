@@ -82,10 +82,8 @@ public class DefUtils {
 		}
 		
 		public String toString() {
-			StringBuffer buf = new StringBuffer();
-			buf.append("lang: ") //$NON-NLS-1$
-				.append(feature.getEContainingClass().getName()) 
-				.append("::").append(feature.getName()); //$NON-NLS-1$			
+			StringBuilder buf = new StringBuilder();
+			buf.append(feature.getEContainingClass().getName()).append("::").append(feature.getName()); //$NON-NLS-1$			
 			return buf.toString();
 		}
 		

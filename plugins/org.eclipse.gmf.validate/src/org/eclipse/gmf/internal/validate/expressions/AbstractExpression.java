@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -164,7 +164,7 @@ public abstract class AbstractExpression implements IModelExpression  {
 	}
 	
 	public String toString() {
-		return body + "context:[" + LabelProvider.INSTANCE.getObjectLabel(contextClassifier) + "] "; //$NON-NLS-1$ //$NON-NLS-2$
+		return body + " in context:[" + LabelProvider.INSTANCE.getObjectLabel(contextClassifier) + "] "; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	private boolean hasCompatibleContext(Object ctxInstance) {
