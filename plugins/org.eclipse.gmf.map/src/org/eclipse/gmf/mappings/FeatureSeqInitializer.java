@@ -50,7 +50,6 @@ public interface FeatureSeqInitializer extends ElementInitializer {
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureSeqInitializer_Initializers()
 	 * @see org.eclipse.gmf.mappings.FeatureInitializer#getFeatureSeqInitializer
 	 * @model opposite="featureSeqInitializer" containment="true" required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.elementClass'"
 	 * @generated
 	 */
 	EList<FeatureInitializer> getInitializers();

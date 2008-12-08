@@ -15,47 +15,6 @@ import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.mappings.AppearanceSteward;
-import org.eclipse.gmf.mappings.AuditContainer;
-import org.eclipse.gmf.mappings.AuditRule;
-import org.eclipse.gmf.mappings.Auditable;
-import org.eclipse.gmf.mappings.AuditedMetricTarget;
-import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildReference;
-import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.DesignLabelMapping;
-import org.eclipse.gmf.mappings.DiagramElementTarget;
-import org.eclipse.gmf.mappings.DomainAttributeTarget;
-import org.eclipse.gmf.mappings.DomainElementTarget;
-import org.eclipse.gmf.mappings.ElementInitializer;
-import org.eclipse.gmf.mappings.FeatureInitializer;
-import org.eclipse.gmf.mappings.FeatureLabelMapping;
-import org.eclipse.gmf.mappings.FeatureSeqInitializer;
-import org.eclipse.gmf.mappings.FeatureValueSpec;
-import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.LabelMapping;
-import org.eclipse.gmf.mappings.LabelTextAccessMethod;
-import org.eclipse.gmf.mappings.Language;
-import org.eclipse.gmf.mappings.LinkConstraints;
-import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.MappingEntry;
-import org.eclipse.gmf.mappings.Measurable;
-import org.eclipse.gmf.mappings.MenuOwner;
-import org.eclipse.gmf.mappings.MetricContainer;
-import org.eclipse.gmf.mappings.MetricRule;
-import org.eclipse.gmf.mappings.NeedsContainment;
-import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.NodeReference;
-import org.eclipse.gmf.mappings.NotationElementTarget;
-import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
-import org.eclipse.gmf.mappings.RuleBase;
-import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.ToolOwner;
-import org.eclipse.gmf.mappings.TopNodeReference;
-import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.mappings.*;
 import org.eclipse.gmf.tooldef.GMFToolPackage;
 import org.eclipse.gmf.validate.GMFValidator;
@@ -2118,16 +2077,16 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "lang"
-		   });						
+		   });													
 		addAnnotation
-		  (getFeatureSeqInitializer_Initializers(), 
+		  (getFeatureValueSpec_Value(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "self.elementClass"
-		   });									
+			 "ocl", "featureSeqInitializer.elementClass"
+		   });		
 		addAnnotation
-		  (featureValueSpecEClass, 
+		  (getFeatureValueSpec_Value(), 
 		   source, 
 		   new String[] {
 			 "def", "type",
@@ -2344,7 +2303,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not (sourceEnd.oclIsUndefined() and targetEnd.oclIsUndefined())",
 			 "description", "Either \'sourceEnd\' or \'targetEnd\' constraint must be specified"
-		   });																				
+		   });																			
 		addAnnotation
 		  (getFeatureSeqInitializer_ElementClass(), 
 		   source, 
@@ -2379,7 +2338,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "feature <> null implies feature.changeable",
 			 "description", "The \'feature\' of \'FeatureInitializer\' must be changeable"
-		   });				
+		   });					
 		addAnnotation
 		  (referenceNewElementSpecEClass, 
 		   source, 

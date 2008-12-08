@@ -24,7 +24,7 @@ package org.eclipse.gmf.mappings;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureValueSpec()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='type' ocl='feature'"
+ * @model
  * @generated
  */
 public interface FeatureValueSpec extends FeatureInitializer {
@@ -41,6 +41,8 @@ public interface FeatureValueSpec extends FeatureInitializer {
 	 * @see #setValue(ValueExpression)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureValueSpec_Value()
 	 * @model containment="true" required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='featureSeqInitializer.elementClass'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='type' ocl='feature'"
 	 * @generated
 	 */
 	ValueExpression getValue();
