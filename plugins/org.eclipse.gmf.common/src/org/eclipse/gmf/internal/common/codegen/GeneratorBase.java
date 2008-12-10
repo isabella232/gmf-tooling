@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -264,7 +264,6 @@ public abstract class GeneratorBase implements Runnable {
 			} else {
 				f.create(new ByteArrayInputStream(genText.getBytes(charset)), true, new SubProgressMonitor(pm, 2));
 			}
-			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (InvocationTargetException ex) {
 			handleException(ex.getCause());
 		} catch (UnexpectedBehaviourException ex) {
