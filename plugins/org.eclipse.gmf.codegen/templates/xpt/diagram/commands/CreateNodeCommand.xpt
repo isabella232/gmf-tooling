@@ -42,6 +42,9 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.c
 	}
 «ENDDEFINE»
 
+/*
+ * TODO: either use setElementToEdit, or generate downcasted version (which may be troublesome if containment and child features point to a different parent) 
+ */
 «DEFINE getElementToEdit FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment("FIXME: replace with setElementToEdit()")»
 protected org.eclipse.emf.ecore.EObject getElementToEdit() {
@@ -142,6 +145,10 @@ protected org.eclipse.emf.ecore.EObject getElementToEdit() {
 «IF containmentMetaFeature != null-»
 	«EXPAND MetaModel::DeclareAndAssign("owner", "getElementToEdit()") FOR containmentMetaFeature.genClass»
 	«EXPAND MetaModel::modifyFeature("owner", containmentMetaFeature.genClass, varName) FOR containmentMetaFeature-»
+«ELSE-»
+	//
+	// FIXME no containment feature found in the genmodel, toolsmith need to manually write code here to add «varName» to a parent
+	//
 «ENDIF»
 «IF hasExplicitChildFeature(this)-»
 	«EXPAND MetaModel::DeclareAndAssign("childHolder", "getElementToEdit()") FOR childMetaFeature.genClass»
