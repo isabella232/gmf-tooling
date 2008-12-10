@@ -111,7 +111,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 		ValueSpecDef def = getDefinition(constraint.eClass(), diag, null, validationContext);
 		if(def == null) {
 			SubstitutionLabelProvider lp = getLabelProvider(validationContext);
-			String message = String.format("Object %s, supposed to be a constraint for feature %s of %s, is missing essential constraint metainformation", lp.getObjectLabel(constraint), lp.getObjectLabel(context), lp.getFeatureLabel(contextFeature));
+			String message = String.format("Object '%s', supposed to be a constraint for feature '%s' of '%s', is missing essential constraint metainformation", lp.getObjectLabel(constraint), lp.getFeatureLabel(contextFeature), lp.getObjectLabel(context));
 			diag.add(new BasicDiagnostic(Diagnostic.ERROR, DIAGNOSTIC_SOURCE, StatusCodes.INVALID_CONSTRAINT_CONTEXT, message, new Object[] {context} ));
 			return false;
 		} else if(!def.isOK()) {
