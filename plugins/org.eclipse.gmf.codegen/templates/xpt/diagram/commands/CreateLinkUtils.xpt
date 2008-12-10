@@ -45,11 +45,11 @@
 «ENDDEFINE»
 
 «DEFINE canCreateElement(gmfgen::GenLink link) FOR gmfgen::TypeLinkModelFacet-»
-	«IF hasContainerOtherThanSource()-»
+«IF hasContainerOtherThanSource()-»
 	if (getContainer() == null) {
 		return false;
 	}
-	«ENDIF-»
+«ENDIF-»
 	return «EXPAND validatorInvocation FOR link»(«IF hasContainerOtherThanSource()»getContainer(), «ENDIF»getSource(), getTarget());
 «ENDDEFINE»
 
@@ -142,18 +142,7 @@
 «DEFINE init FOR gmfgen::TypeLinkModelFacet-»
 	this.source = source;
 	this.target = target;
-	if (request.getContainmentFeature() == null) {
-		setContainmentFeature(«EXPAND MetaModel::MetaFeature FOR containmentMetaFeature»);
-	}
-	«REM»XXX!!! 
-		FIXME - do not need to setElementToEdit unless use doDefaultElementCreation (no) and canExecute from [Create|Edit]ElementCommand (no, IMO)
-	«ENDREM»
-	«IF hasContainerOtherThanSource()-»
+«IF hasContainerOtherThanSource()-»
 	container = deduceContainer(source, target);
-	if (container != null) {
-		super.setElementToEdit(«EXPAND MetaModel::DowncastToEObject("container") FOR containmentMetaFeature.genClass»);
-	}
-	«ELSE-»
-	super.setElementToEdit(«EXPAND MetaModel::DowncastToEObject("source") FOR containmentMetaFeature.genClass»);
-	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»

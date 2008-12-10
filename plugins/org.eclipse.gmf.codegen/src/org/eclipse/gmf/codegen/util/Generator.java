@@ -156,17 +156,14 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateLinkEditPart(next);
 			generateBehaviours(next);
 			generateLinkItemSemanticEditPolicy(next);
+			if (next.getModelFacet() != null && (next.isIncomingCreationAllowed() || next.isOutgoingCreationAllowed())) {
+				generateCreateLinkCommand(next);
+			}
 			if (next.getModelFacet() instanceof TypeLinkModelFacet) {
-				if (next.isIncomingCreationAllowed() || next.isOutgoingCreationAllowed()) {
-					generateCreateLinkCommand(next);
-				}
 				if (next.isTargetReorientingAllowed() || next.isSourceReorientingAllowed()) {
 					generateReorientLinkCommand(next);
 				}
 			} else if (next.getModelFacet() instanceof FeatureLinkModelFacet) {
-				if (next.isIncomingCreationAllowed() || next.isOutgoingCreationAllowed()) {
-					generateCreateRefLinkCommand(next);
-				}
 				if (next.isTargetReorientingAllowed() || next.isSourceReorientingAllowed()) {
 					generateReorientRefLinkCommand(next);
 				}
@@ -343,10 +340,6 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateCreateLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getCreateLinkCommandEmitter(), link.getCreateCommandQualifiedClassName(), link);
-	}
-
-	private void generateCreateRefLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getCreateRefLinkCommandEmitter(), link.getCreateCommandQualifiedClassName(), link);
 	}
 
 	private void generateReorientLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {

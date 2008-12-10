@@ -112,11 +112,7 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::CreateLinkCommand"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getCreateRefLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::CreateRefLinkCommand"); //$NON-NLS-1$
+		return newXpandEmitter("xpt::diagram::commands::CreateLinkCommand::Main"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getReorientLinkCommandEmitter() throws UnexpectedBehaviourException {
