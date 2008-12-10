@@ -329,7 +329,7 @@ return result;
 «ENDDEFINE»
 
 «DEFINE addLinkDescriptor(gmfgen::GenLink genLink, String srcVar, String dstVar) FOR gmfgen::TypeLinkModelFacet-»
-result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND MetaModel::DowncastToEObject(srcVar) FOR getSourceType()», «EXPAND MetaModel::DowncastToEObject(dstVar) FOR getTargetType()», «EXPAND MetaModel::DowncastToEObject("link") FOR metaClass», «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
+result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND MetaModel::DowncastToEObject(srcVar) FOR getSourceType()», «EXPAND MetaModel::DowncastToEObject(dstVar) FOR getTargetType()», «EXPAND MetaModel::DowncastToEObject("link") FOR metaClass», «EXPAND xpt::providers::ElementTypes::accessElementType FOR genLink», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 «ENDDEFINE»
 
 «DEFINE checkLinkVisualID(gmfgen::GenLink genLink, boolean inLoop) FOR gmfgen::TypeLinkModelFacet-»
@@ -417,7 +417,7 @@ if (false == «EXPAND MetaModel::IsContainerInstance("link", metaClass) FOR conta
 
 «DEFINE getIncomingLinksByTypeMethodBody(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
 if (setting.getEStructuralFeature() == «EXPAND MetaModel::MetaFeature FOR metaFeature») {
-	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(setting.getEObject(), «EXPAND MetaModel::DowncastToEObject("target") FOR getTargetType()», «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
+	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(setting.getEObject(), «EXPAND MetaModel::DowncastToEObject("target") FOR getTargetType()», «EXPAND xpt::providers::ElementTypes::accessElementType FOR genLink», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 }
 «ENDDEFINE»
 
@@ -445,7 +445,7 @@ if (setting.getEStructuralFeature() == «EXPAND MetaModel::MetaFeature FOR metaFe
 		return result;
 	}
 	«ENDIF-»
-	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND MetaModel::DowncastToEObject("source") FOR getSourceType()», «EXPAND MetaModel::DowncastToEObject("destination") FOR getTargetType()», «genLink.getDiagram().getElementTypesQualifiedClassName()».«genLink.getUniqueIdentifier()», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
+	result.add(new «genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()»(«EXPAND MetaModel::DowncastToEObject("source") FOR getSourceType()», «EXPAND MetaModel::DowncastToEObject("destination") FOR getTargetType()», «EXPAND xpt::providers::ElementTypes::accessElementType FOR genLink», «EXPAND xpt::editor::VisualIDRegistry::visualID FOR genLink»));
 	«IF metaFeature.isListType()-»
 	}
 	«ENDIF-»

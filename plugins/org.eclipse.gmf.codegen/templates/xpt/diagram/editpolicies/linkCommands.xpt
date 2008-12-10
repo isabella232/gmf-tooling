@@ -77,7 +77,7 @@ protected org.eclipse.gef.commands.Command getCompleteCreateRelationshipCommand(
 «ENDDEFINE»
 
 «DEFINE startLinkCommands(gmfgen::GenLinkEnd linkEnd) FOR gmfgen::GenLink-»
-if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
+if («EXPAND xpt::providers::ElementTypes::accessElementType» == req.getElementType()) {
 	«IF createStartLinkCommand(this, linkEnd)-»
 	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
 		«IF createStartIncomingLinkCommand(this, linkEnd)-»
@@ -93,7 +93,7 @@ if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» =
 «ENDDEFINE»
 
 «DEFINE completeLinkCommands(gmfgen::GenLinkEnd linkEnd) FOR gmfgen::GenLink-»
-if («getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()» == req.getElementType()) {
+if («EXPAND xpt::providers::ElementTypes::accessElementType» == req.getElementType()) {
 	«IF createCompleteLinkCommand(this, linkEnd)-»
 	return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
 		«IF createCompleteOutgoingLinkCommand(this, linkEnd)-»

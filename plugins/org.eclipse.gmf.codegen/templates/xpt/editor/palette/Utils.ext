@@ -61,7 +61,3 @@ boolean needsNodeToolEntryClass(gmfgen::Palette palette) :
 boolean needsLinkToolEntryClass(gmfgen::Palette palette) :
 	collectTools(palette).typeSelect(gmfgen::ToolEntry).exists(e | !e.genLinks.isEmpty())
 ;
-
-String elementTypesClass(gmfgen::ToolEntry entry) :
-	entry.group.palette.diagram.getElementTypesQualifiedClassName()
-;

@@ -137,7 +137,7 @@ public org.eclipse.swt.graphics.Image getImage(org.eclipse.gmf.runtime.notation.
 
 «DEFINE caseImage FOR gmfgen::GenCommonBase-»
 «EXPAND xpt::Common::caseVisualID»
-	return getImage("«EXPAND key»", «IF null != elementType»«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()»«ELSE»null«ENDIF»); «EXPAND xpt::Common::nonNLS»
+	return getImage("«EXPAND key»", «IF null != elementType»«EXPAND xpt::providers::ElementTypes::accessElementType»«ELSE»null«ENDIF»);«EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 «DEFINE getImageByKey FOR gmfgen::GenNavigator-»

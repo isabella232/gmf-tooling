@@ -27,7 +27,7 @@
 
 // invokes method generated with accessorMethod_delegate2providers template
 «DEFINE accessorCall_delegate2providers(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet, String parsedElement) FOR gmfgen::GenCommonBase-»
-«getDiagram().editorGen.labelParsers.getQualifiedClassName()».getParser(«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(labelModelFacet, this) FOR labelModelFacet.parser»«ENDIF»)«-»
+«getDiagram().editorGen.labelParsers.getQualifiedClassName()».getParser(«EXPAND xpt::providers::ElementTypes::accessElementType FOR elementTypeHolder», «parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(labelModelFacet, this) FOR labelModelFacet.parser»«ENDIF»)«-»
 «ENDDEFINE»
 
 «DEFINE _parserHint(gmfgen::LabelModelFacet labelFacet, gmfgen::GenCommonBase hintHolder) FOR GenParserImplementation»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR hintHolder»«ENDDEFINE»
@@ -59,7 +59,7 @@
 // XXX do I really need GenCommonBase elementTypeHolder, why not use elementType reference directly?
 «DEFINE accessorCall_direct(gmfgen::GenCommonBase elementTypeHolder, gmfgen::LabelModelFacet labelModelFacet, String parsedElement) FOR gmfgen::GenCommonBase-»
 «IF labelModelFacet == null || { labelModelFacet.parser }.typeSelect(ExternalParser).size() == 1-»
-org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(/*«getDiagram().getElementTypesQualifiedClassName()».«elementTypeHolder.getUniqueIdentifier()», */«parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(labelModelFacet, this) FOR labelModelFacet.parser»«ENDIF»))«-»
+org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(/*«EXPAND xpt::providers::ElementTypes::accessElementType FOR elementTypeHolder», */«parsedElement», «IF labelModelFacet == null»«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»«ELSE»«EXPAND _parserHint(labelModelFacet, this) FOR labelModelFacet.parser»«ENDIF»))«-»
 «ELSE-»
 «getDiagram().editorGen.labelParsers.getQualifiedClassName()».get().«parserAccessorName(this)»()«-»
 «ENDIF-»

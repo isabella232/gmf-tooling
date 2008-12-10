@@ -212,6 +212,8 @@ public static final org.eclipse.gmf.runtime.emf.type.core.IElementType «getUniqu
 	«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE accessElementType FOR gmfgen::GenCommonBase»«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()»«ENDDEFINE»
+
 «DEFINE getElementType FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(String id) {

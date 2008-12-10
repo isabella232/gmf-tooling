@@ -61,7 +61,7 @@ public class «modelingAssistantProviderClassName»
 		if (editPart instanceof «container.getEditPartQualifiedClassName()») {
 			java.util.List types = new java.util.ArrayList();
 				«FOREACH container.getAssistantNodes() AS node-»
-			types.add(«getElementTypesQualifiedClassName()».«node.getUniqueIdentifier()»);
+			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR node»);
 				«ENDFOREACH-»
 			return types;
 		}

@@ -108,7 +108,7 @@ org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.To
 «LET genNodes.isEmpty() ? "LinkToolEntry" : "NodeToolEntry" AS toolEntryClass-»
 java.util.List/*<IElementType>*/ types = new java.util.ArrayList/*<IElementType>*/(«elements.size()»);
 «FOREACH elements AS e-»
-types.add(«elementTypesClass()».«e.getUniqueIdentifier()»);
+types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR e»);
 «ENDFOREACH-»
 «toolEntryClass» «toolVarName» = new «toolEntryClass»(«EXPAND i18nTitle», «EXPAND i18nDesc», types);
 «ENDLET-»
@@ -146,10 +146,10 @@ FIXME
 // FIXME: odd code - FOR EntryBase, while most of the template is valid for ToolEntry only!!!
 «DEFINE setSmallImage(String toolVarName, gmfgen::Palette palette) FOR gmfgen::EntryBase-»
 «IF null != smallIconPath-»
-«toolVarName».setSmallIcon(«activatorFQN(palette)».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
+«toolVarName».setSmallIcon(«activatorFQN(palette)».findImageDescriptor("«smallIconPath»"));«EXPAND xpt::Common::nonNLS»
 «ELSEIF !{this}.typeSelect(gmfgen::ToolEntry).elements.isEmpty()-»
 «LET ((gmfgen::ToolEntry) this) AS toolEntry-»
-«toolVarName».setSmallIcon(«elementTypesClass(toolEntry)».getImageDescriptor(«elementTypesClass(toolEntry)».«((GenCommonBase) toolEntry.elements.toList().first()).getUniqueIdentifier()»));
+«toolVarName».setSmallIcon(«palette.diagram.getElementTypesQualifiedClassName()».getImageDescriptor(«EXPAND xpt::providers::ElementTypes::accessElementType FOR (GenCommonBase) toolEntry.elements.first()»));
 «ENDLET-»
 «ENDIF-»
 «ENDDEFINE»

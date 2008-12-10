@@ -478,7 +478,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMARelTypesOnSource() {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		«FOREACH getAssistantOutgoingLinks(this) AS link-»
-		types.add(«getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()»);
+		types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
 		«ENDFOREACH-»
 		return types;
 	}
@@ -490,7 +490,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMARelTypesOnTarget() {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		«FOREACH getAssistantIncomingLinks(this) AS link-»
-		types.add(«getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()»);
+		types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
 		«ENDFOREACH-»
 		return types;
 	}
@@ -504,7 +504,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		«FOREACH getAssistantOutgoingLinks(this) AS link-»
 			«FOREACH selectGenNodes(link.targets) AS target-»
 		if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
-			types.add(«getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()»);
+			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
 		}
 			«ENDFOREACH-»
 		«ENDFOREACH-»
@@ -519,8 +519,8 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		«FOREACH getAssistantIncomingLinks(this) AS link-»
 			«FOREACH selectGenNodes(link.sources) AS source-»
-		if (relationshipType == «getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()») {
-			types.add(«getDiagram().getElementTypesQualifiedClassName()».«source.getUniqueIdentifier()»);
+		if (relationshipType == «EXPAND xpt::providers::ElementTypes::accessElementType FOR link») {
+			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR source»);
 		}
 			«ENDFOREACH-»
 		«ENDFOREACH-»
@@ -535,8 +535,8 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		«FOREACH getAssistantOutgoingLinks(this) AS link-»
 			«FOREACH link.targets.typeSelect(gmfgen::GenNode) AS target-»
-		if (relationshipType == «getDiagram().getElementTypesQualifiedClassName()».«link.getUniqueIdentifier()») {
-			types.add(«getDiagram().getElementTypesQualifiedClassName()».«target.getUniqueIdentifier()»);
+		if (relationshipType == «EXPAND xpt::providers::ElementTypes::accessElementType FOR link») {
+			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR target»);
 		}
 			«ENDFOREACH-»
 		«ENDFOREACH-»
@@ -568,7 +568,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «FOREACH compartments AS compartment-»
 	«IF listCompartmentHasChildren(compartment)-»
 		«FOREACH compartment.childNodes AS childNode-»
-			if (type == «getDiagram().getElementTypesQualifiedClassName()».«childNode.getUniqueIdentifier()») {
+			if (type == «EXPAND xpt::providers::ElementTypes::accessElementType FOR childNode») {
 				return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR compartment»);
 			}
 		«ENDFOREACH-»

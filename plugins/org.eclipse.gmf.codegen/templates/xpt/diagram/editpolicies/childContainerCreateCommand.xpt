@@ -29,7 +29,7 @@ protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runt
 «ENDDEFINE»
 
 «DEFINE childNodeCreateCommand(gmfgen::GenNode node) FOR gmfgen::TypeModelFacet-»
-if («node.getDiagram().getElementTypesQualifiedClassName()».«node.getUniqueIdentifier()» == req.getElementType()) {
+if («EXPAND xpt::providers::ElementTypes::accessElementType FOR node» == req.getElementType()) {
 		«IF !isPhantomElement()-»
 	if (req.getContainmentFeature() == null) {
 		req.setContainmentFeature(«IF null != containmentMetaFeature»«EXPAND MetaModel::MetaFeature FOR containmentMetaFeature»«ELSE»/* FIXME no containment feature found in the genmodel, toolsmith need to specify correct one here manually */«ENDIF»);

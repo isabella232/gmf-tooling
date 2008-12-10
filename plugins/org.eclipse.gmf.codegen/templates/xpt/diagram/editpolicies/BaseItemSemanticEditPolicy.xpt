@@ -533,5 +533,5 @@ if (target != null && («EXPAND featureBoundsConditionClause("target", getTargetT
 	«IF elementType == null-»
 		«ERROR "No element type in the passed node. Only diagram, node or link are supported in this template: " + this-»
 	«ENDIF-»
-	super(«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()»);
+	super(«EXPAND xpt::providers::ElementTypes::accessElementType»);
 «ENDDEFINE»
