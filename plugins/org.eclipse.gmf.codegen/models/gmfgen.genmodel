@@ -6,12 +6,11 @@
     modelName="GMFGen" editPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin"
     editorPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin" rootImplementsInterface=""
     featureMapWrapperInterface="" booleanFlagsField="" importerID="org.eclipse.emf.importer.ecore"
-    copyrightFields="false"
-    complianceLevel="5.0" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
+    complianceLevel="5.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
-      loadInitialization="true"
-      literalsInterface="false" extensibleProviderFactory="true" ecorePackage="gmfgen.ecore#/">
+      loadInitialization="true" literalsInterface="false" extensibleProviderFactory="true"
+      ecorePackage="gmfgen.ecore#/">
     <genEnums ecoreEnum="gmfgen.ecore#//StandardPreferencePages">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/General"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//StandardPreferencePages/Appearance"/>

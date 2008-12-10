@@ -1415,10 +1415,6 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Value specifications as initializers for individual features which should be initialized in the order given by this list"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
-        <details key="def" value="context"/>
-        <details key="ocl" value="self.elementClass"/>
-      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elementClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">

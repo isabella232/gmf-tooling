@@ -45,7 +45,6 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureSeqInitializer_Initializers()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer#getFeatureSeqInitializer
 	 * @model opposite="featureSeqInitializer" containment="true" required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.elementClass'"
 	 * @generated
 	 */
 	EList<GenFeatureInitializer> getInitializers();
