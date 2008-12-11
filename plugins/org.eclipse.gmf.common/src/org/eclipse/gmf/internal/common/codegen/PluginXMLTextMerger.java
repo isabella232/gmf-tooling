@@ -167,7 +167,7 @@ public class PluginXMLTextMerger {
 			if (!oldDoc.hasMoreExtensions()  && newDoc.hasMoreExtensions()) {
 				boolean sameStartEnd = oldDoc.getExtensionsStart() == oldDoc.getExtensionsEnd();
 				boolean afterStart = currentPosition >= oldDoc.getExtensionsStart(); 
-				if (afterStart && (sameStartEnd || currentPosition < oldDoc.getExtensionsEnd())) {
+				if (afterStart && (sameStartEnd || currentPosition <= oldDoc.getExtensionsEnd())) {
 					for (ExtensionDescriptor newED : newDoc.getExtensions()) {
 						result.append(newED.getText());
 						newED.remove();
