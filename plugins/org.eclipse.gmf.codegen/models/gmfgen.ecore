@@ -348,7 +348,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderPriority"
-        eType="#//ProviderPriority"/>
+        eType="#//ProviderPriority">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Validation action is no longer contributed as a contributionItemProvider"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderPriority"

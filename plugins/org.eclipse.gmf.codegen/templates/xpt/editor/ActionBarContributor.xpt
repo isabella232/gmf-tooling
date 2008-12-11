@@ -11,6 +11,8 @@
  */
 «IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
 
+«EXTENSION xpt::GenEditorGenerator»
+
 «DEFINE ActionBarContributor FOR gmfgen::GenEditorView-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «packageName»;
@@ -38,13 +40,23 @@ public class «actionBarContributorClassName»«EXPAND extendsList» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void init(org.eclipse.ui.IActionBars bars, org.eclipse.ui.IWorkbenchPage page) {
 		super.init(bars, page);
-		org.eclipse.jface.action.IMenuManager fileMenu = bars.getMenuManager().findMenuUsingPath("file");«EXPAND xpt::Common::nonNLS»
+		// print preview
+		org.eclipse.jface.action.IMenuManager fileMenu = bars.getMenuManager().findMenuUsingPath(org.eclipse.ui.IWorkbenchActionConstants.M_FILE);
 		«EXPAND xpt::Common::assert("fileMenu != null")-»
 «IF editorGen.plugin.printingEnabled-»
 		org.eclipse.jface.action.IAction printPreviewAction = new org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.RenderedPrintPreviewAction(new org.eclipse.gmf.runtime.diagram.ui.printing.render.actions.EnhancedPrintActionHelper());
 		fileMenu.insertBefore("print", printPreviewAction);«EXPAND xpt::Common::nonNLS»
 «ELSE-»
 		fileMenu.remove("pageSetupAction");«EXPAND xpt::Common::nonNLS»
+«ENDIF-»
+«IF editorGen.diagram.validationEnabled || editorGen.hasAudits()-»
+		org.eclipse.jface.action.IMenuManager editMenu = bars.getMenuManager().findMenuUsingPath(org.eclipse.ui.IWorkbenchActionConstants.M_EDIT);
+		«EXPAND xpt::Common::assert("editMenu != null")-»
+		org.eclipse.jface.action.IAction validateAction = new «EXPAND xpt::editor::ValidateAction::qualifiedClassName FOR editorGen.diagram»(page);
+		if (editMenu.find("validationGroup") == null) {
+			editMenu.add(new org.eclipse.jface.action.GroupMarker("validationGroup"));
+		}
+		editMenu.appendToGroup("validationGroup", validateAction);
 «ENDIF-»
 	}
 «ENDDEFINE»

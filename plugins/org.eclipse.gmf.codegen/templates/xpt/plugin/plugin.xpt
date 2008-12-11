@@ -137,21 +137,6 @@
 
 «DEFINE validation FOR gmfgen::GenDiagram-»
 «IF validationEnabled || editorGen.hasAudits()-»
-«IF validationEnabled-»
-
-   <extension id="ValidationContributionItemProvider" name="Validation"
-      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      <contributionItemProvider
-         class="«getValidationProviderQualifiedClassName()»">
-         <Priority name="«validationProviderPriority»"/>
-         <partContribution id="«editorGen.editor.iD»">
-            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
-            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
-         </partContribution>
-      </contributionItemProvider>
-   </extension>
-«ENDIF-»
 «IF null == editorGen.application-»
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">

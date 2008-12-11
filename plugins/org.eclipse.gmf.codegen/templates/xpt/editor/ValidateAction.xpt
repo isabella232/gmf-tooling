@@ -45,22 +45,16 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 }
 «ENDDEFINE»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-
+«DEFINE attributes FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String VALIDATE_ACTION_KEY = "validateAction"; «EXPAND xpt::Common::nonNLS»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor;
+	private org.eclipse.ui.IWorkbenchPage page;
 «ENDDEFINE»
 
-«DEFINE constructor FOR gmfgen::GenDiagram-»
-
+«DEFINE constructor FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public «EXPAND className»(org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor) {
-		setId(VALIDATE_ACTION_KEY);
+	public «EXPAND className»(org.eclipse.ui.IWorkbenchPage page) {
 		setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForValidateAction().messageKey()) FOR editorGen»);
-		this.workbenchPartDescriptor = workbenchPartDescriptor;
+		this.page = page;
 	}
 «ENDDEFINE»
 
@@ -68,10 +62,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void run() {
-		org.eclipse.ui.IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
+		org.eclipse.ui.IWorkbenchPart workbenchPart = page.getActivePart();
 		if (workbenchPart instanceof org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) {
-			final org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart part =
-					(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) workbenchPart;
+			final org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart part =	(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) workbenchPart;
 			try {
 				«IF editorGen.application == null-»
 				new org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation(
@@ -88,8 +81,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 				«ENDIF-»
 				.run(new org.eclipse.core.runtime.NullProgressMonitor());			
 			} catch (Exception e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Validation action failed", e); «EXPAND xpt::Common::nonNLS»
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Validation action failed", e);«EXPAND xpt::Common::nonNLS»
 			}
 		}
 	}

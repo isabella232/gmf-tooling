@@ -25,24 +25,13 @@
 package «providersPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «validationProviderClassName»
-		extends org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider {
+public class «validationProviderClassName» {
 
 	«EXPAND constraintsActive-»
 
 	«EXPAND shouldConstraintsBePrivate-»
 
 	«EXPAND runWithActiveConstraints-»
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.jface.action.IAction createAction(String actionId,
-			org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor partDescriptor) {
-		if («editorGen.editor.packageName».ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
-			return new «editorGen.editor.packageName».ValidateAction(partDescriptor);
-		}
-		return super.createAction(actionId, partDescriptor);
-	}
-
 
 	«EXPAND isInDefaultEditorContext-»
 
