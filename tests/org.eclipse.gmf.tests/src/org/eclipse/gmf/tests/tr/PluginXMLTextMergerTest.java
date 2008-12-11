@@ -369,6 +369,13 @@ public class PluginXMLTextMergerTest extends TestCase {
 		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, newXML_1 + newXML_2);
 	}
 
+	// new extension was generated, make sure it gets injected into result
+	public void testNewExtensionIsInjected() {
+		String oldXML = "<extension point=\"oeg.extpoint.one\" id=\"one\"><oldbody/></extension>";
+		String newXML_1 = "<extension point=\"oeg.extpoint.two\" id=\"two\"><newbody/></extension>" + NL;
+		internalTest_Bodies(oldXML, newXML_1 + NL + oldXML, oldXML + NL + newXML_1 /*XXX order is changed, not good but ok for now*/);
+	}
+
 	private void internalTest_Bodies(String oldFileBody, String newFileBody, String expectedFileBody) {
 		String result = myMerger.process(String.format(file, oldFileBody), String.format(file, newFileBody));
 		assertNotNull(result);
