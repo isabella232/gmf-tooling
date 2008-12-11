@@ -91,7 +91,7 @@ final int[] visualIds = new int[] {
 «DEFINE smallImage(String toolVarName) FOR gmfgen::EntryBase»null«ENDDEFINE»
 
 «DEFINE smallImage(String toolVarName) FOR gmfgen::ToolEntry-»
-«IF elements.isEmpty()»null«ELSE»«elementTypesClass()».getImageDescriptor(«EXPAND getElement FOR elements.first()»)«ENDIF-»
+«IF elements.isEmpty()»null«ELSE»«group.palette.diagram.getElementTypesQualifiedClassName()».getImageDescriptor(«EXPAND getElement FOR elements.first()»)«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getElement FOR Object»«ERROR "Unexpected type: " + this»«ENDDEFINE»
