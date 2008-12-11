@@ -49,15 +49,21 @@ public class «actionBarContributorClassName»«EXPAND extendsList» {
 «ELSE-»
 		fileMenu.remove("pageSetupAction");«EXPAND xpt::Common::nonNLS»
 «ENDIF-»
-«IF editorGen.diagram.validationEnabled || editorGen.hasAudits()-»
+«IF /*hasAudits || hasMetrics */(editorGen.diagram.validationEnabled || editorGen.hasAudits()) || (editorGen.metrics != null && editorGen.metrics.metrics.size() > 0)-»
 		org.eclipse.jface.action.IMenuManager editMenu = bars.getMenuManager().findMenuUsingPath(org.eclipse.ui.IWorkbenchActionConstants.M_EDIT);
 		«EXPAND xpt::Common::assert("editMenu != null")-»
-		org.eclipse.jface.action.IAction validateAction = new «EXPAND xpt::editor::ValidateAction::qualifiedClassName FOR editorGen.diagram»(page);
-		if (editMenu.find("validationGroup") == null) {
-			editMenu.add(new org.eclipse.jface.action.GroupMarker("validationGroup"));
+		if (editMenu.find("validationGroup") == null) {«EXPAND xpt::Common::nonNLS»
+			editMenu.add(new org.eclipse.jface.action.GroupMarker("validationGroup"));«EXPAND xpt::Common::nonNLS»
 		}
-		editMenu.appendToGroup("validationGroup", validateAction);
+«IF editorGen.diagram.validationEnabled || editorGen.hasAudits()-»
+		org.eclipse.jface.action.IAction validateAction = new «EXPAND xpt::editor::ValidateAction::qualifiedClassName FOR editorGen.diagram»(page);
+		editMenu.appendToGroup("validationGroup", validateAction);«EXPAND xpt::Common::nonNLS»
 «ENDIF-»
+«IF editorGen.metrics != null && editorGen.metrics.metrics.size() > 0-»
+		org.eclipse.jface.action.IAction metricsAction = new «editorGen.diagram.getMetricProviderQualifiedClassName()».MetricsAction(page);
+		editMenu.appendToGroup("validationGroup", metricsAction);«EXPAND xpt::Common::nonNLS»
+«ENDIF-»
+«ENDIF /*hasAudits || hasMetrics */-»
 	}
 «ENDDEFINE»
 

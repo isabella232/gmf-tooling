@@ -24,51 +24,37 @@
 package «providersPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «metricProviderClassName»
-		extends org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider {
+public class «metricProviderClassName» {
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected org.eclipse.jface.action.IAction createAction(String actionId,
-			org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor partDescriptor) {
-		if (MetricsAction.ACTION_KEY.equals(actionId)) {
-			return new MetricsAction(partDescriptor);
-		}
-		return super.createAction(actionId, partDescriptor);
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static class MetricsAction extends org.eclipse.jface.action.Action {
+	public static class MetricsAction extends org.eclipse.jface.action.Action {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public static final String ACTION_KEY = "metricsAction"; //$NON-NLS-1$
+		private org.eclipse.ui.IWorkbenchPage page;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public MetricsAction(org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor workbenchPartDescriptor) {
-			setId(ACTION_KEY);
+		public MetricsAction(org.eclipse.ui.IWorkbenchPage page) {
 			setText("Metrics");
-			this.workbenchPartDescriptor = workbenchPartDescriptor;
+			this.page = page;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		public void run() {
-			org.eclipse.ui.IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
+			org.eclipse.ui.IWorkbenchPart workbenchPart = page.getActivePart();
 			org.eclipse.ui.IViewPart metricsView = null;
 			try {
-				metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(«EXPAND resultViewID»);
+				metricsView = page.findView(«EXPAND resultViewID»);
 				if (metricsView == null) {
-					metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(«EXPAND resultViewID»);
+					metricsView = page.showView(«EXPAND resultViewID»);
 				} else {
 					if (metricsView != null && workbenchPart instanceof org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) {
 						final org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart part = (org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) workbenchPart;
 						((ResultView) metricsView).setInput(part);
 					}
-					workbenchPart.getSite().getPage().activate(metricsView);
+					page.activate(metricsView);
 				}
 			} catch (org.eclipse.ui.PartInitException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Diagram metric view failure", e); //$NON-NLS-1$
+				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Diagram metric view failure", e);«EXPAND xpt::Common::nonNLS»
 			}
 		}
 	}

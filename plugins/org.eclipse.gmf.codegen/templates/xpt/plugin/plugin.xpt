@@ -112,20 +112,7 @@
 «ENDDEFINE»
 
 «DEFINE metrics FOR gmfgen::GenMetricContainer-»
-«IF metrics.size() > 0-»
-
-	<extension id="MetricContributionItemProvider" name="Metrics"
-		point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
-        «EXPAND xpt::Common::xmlGeneratedTag»
-		<contributionItemProvider checkPluginLoaded="true" class="«editorGen.diagram.getMetricProviderQualifiedClassName()»">
-			<Priority name="«editorGen.diagram.metricProviderPriority»"/>		
-			<partContribution id="«editorGen.editor.iD»">
-				<partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
-				<partAction id="metricsAction" menubarPath="/diagramMenu/validationGroup"/>
-			</partContribution>		
-		</contributionItemProvider>
-	</extension>
-
+«IF metrics.size() > 0»
    <extension id="metrics-view" point="org.eclipse.ui.views">
       «EXPAND xpt::Common::xmlGeneratedTag»
    	  <view class="«editorGen.diagram.getMetricProviderQualifiedClassName()»$ResultView"

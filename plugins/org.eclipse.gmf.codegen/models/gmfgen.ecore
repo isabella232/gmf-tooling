@@ -350,7 +350,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderPriority"
         eType="#//ProviderPriority">
       <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Validation action is no longer contributed as a contributionItemProvider"/>
+        <details key="documentation" value="Validation action is no longer contributed via contributionItemProvider"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderClassName"
@@ -365,7 +365,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metricProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metricProviderPriority"
-        eType="#//ProviderPriority"/>
+        eType="#//ProviderPriority">
+      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+        <details key="documentation" value="Metrics action is no longer contributed via contributionItemProvider"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecoratorProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecorators" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

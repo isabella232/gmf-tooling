@@ -21,6 +21,8 @@ String exprFieldName(GenMetricRule m) : "expression" + validJavaIdentifier(m.key
 String calcMethodName(GenMetricRule m) : "calc" + validJavaIdentifier(m.key).toFirstUpper() ;
 
 //
+// FIXME duplicates xpt::navigator::Utils::asValidJavaIdentifier
+//
 // CodeGenUtil#validJavaIdentifier()
 //
 String validJavaIdentifier(String identifier) :

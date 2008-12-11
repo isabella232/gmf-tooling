@@ -74,7 +74,7 @@ public interface BatchValidation extends EObject {
 	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
 	 * @see #setValidationProviderPriority(ProviderPriority)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_ValidationProviderPriority()
-	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Validation action is no longer contributed as a contributionItemProvider'"
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Validation action is no longer contributed via contributionItemProvider'"
 	 * @generated
 	 */
 	ProviderPriority getValidationProviderPriority();
@@ -209,7 +209,7 @@ public interface BatchValidation extends EObject {
 	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
 	 * @see #setMetricProviderPriority(ProviderPriority)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_MetricProviderPriority()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Metrics action is no longer contributed via contributionItemProvider'"
 	 * @generated
 	 */
 	ProviderPriority getMetricProviderPriority();
