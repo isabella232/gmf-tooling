@@ -42,33 +42,18 @@ public class EPackageItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPol
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EClass_2001 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
-			}
 			return getGEFWrapper(new EClassCreateCommand(req));
 		}
 		if (EcoreElementTypes.EPackage_2002 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
-			}
 			return getGEFWrapper(new EPackageCreateCommand(req));
 		}
 		if (EcoreElementTypes.EAnnotation_2003 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
-			}
 			return getGEFWrapper(new EAnnotationCreateCommand(req));
 		}
 		if (EcoreElementTypes.EDataType_2004 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
-			}
 			return getGEFWrapper(new EDataTypeCreateCommand(req));
 		}
 		if (EcoreElementTypes.EEnum_2005 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
-			}
 			return getGEFWrapper(new EEnumCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

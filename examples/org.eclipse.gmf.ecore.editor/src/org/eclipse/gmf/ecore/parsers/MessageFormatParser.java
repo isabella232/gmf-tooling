@@ -9,7 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.ecore.providers;
+package org.eclipse.gmf.ecore.parsers;
 
 import java.text.FieldPosition;
 import java.text.MessageFormat;
@@ -18,7 +18,6 @@ import java.text.ParsePosition;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.ecore.parsers.AbstractParser;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.Messages;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -29,7 +28,7 @@ import org.eclipse.osgi.util.NLS;
 /**
  * @generated
  */
-public/*package-local?*/class Parser_0_0 extends AbstractParser {
+public class MessageFormatParser extends AbstractParser {
 
 	/**
 	 * @generated
@@ -59,14 +58,14 @@ public/*package-local?*/class Parser_0_0 extends AbstractParser {
 	/**
 	 * @generated
 	 */
-	public Parser_0_0(EAttribute[] features) {
+	public MessageFormatParser(EAttribute[] features) {
 		super(features);
 	}
 
 	/**
 	 * @generated
 	 */
-	public Parser_0_0(EAttribute[] features, EAttribute[] editableFeatures) {
+	public MessageFormatParser(EAttribute[] features, EAttribute[] editableFeatures) {
 		super(features, editableFeatures);
 	}
 

@@ -34,9 +34,6 @@ public class EClassAttributesItemSemanticEditPolicy extends EcoreBaseItemSemanti
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EAttribute_3001 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
-			}
 			return getGEFWrapper(new EAttributeCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

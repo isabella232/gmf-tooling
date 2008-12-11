@@ -34,9 +34,6 @@ public class EEnumEnumAnnotationsItemSemanticEditPolicy extends EcoreBaseItemSem
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EAnnotation_3003 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
-			}
 			return getGEFWrapper(new EAnnotation2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);

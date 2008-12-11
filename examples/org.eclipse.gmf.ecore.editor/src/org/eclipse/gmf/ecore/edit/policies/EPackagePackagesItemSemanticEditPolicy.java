@@ -34,9 +34,6 @@ public class EPackagePackagesItemSemanticEditPolicy extends EcoreBaseItemSemanti
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EPackage_3005 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
-			}
 			return getGEFWrapper(new EPackage2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);

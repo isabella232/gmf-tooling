@@ -34,9 +34,6 @@ public class EAnnotationDetailsItemSemanticEditPolicy extends EcoreBaseItemSeman
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (EcoreElementTypes.EStringToStringMapEntry_3008 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(EcorePackage.eINSTANCE.getEAnnotation_Details());
-			}
 			return getGEFWrapper(new EStringToStringMapEntryCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

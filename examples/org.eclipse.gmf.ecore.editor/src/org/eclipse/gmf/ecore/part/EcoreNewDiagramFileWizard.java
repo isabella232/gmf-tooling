@@ -73,7 +73,7 @@ public class EcoreNewDiagramFileWizard extends Wizard {
 		myFileCreationPage.setTitle(Messages.EcoreNewDiagramFileWizard_CreationPageTitle);
 		myFileCreationPage.setDescription(NLS.bind(Messages.EcoreNewDiagramFileWizard_CreationPageDescription, EPackageEditPart.MODEL_ID));
 		IPath filePath;
-		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		String fileName = URI.decode(domainModelURI.trimFileExtension().lastSegment());
 		if (domainModelURI.isPlatformResource()) {
 			filePath = new Path(domainModelURI.trimSegments(1).toPlatformString(true));
 		} else if (domainModelURI.isFile()) {
