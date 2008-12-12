@@ -1101,6 +1101,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ModeledViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModeledViewmapItemProvider modeledViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ModeledViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModeledViewmapAdapter() {
+		if (modeledViewmapItemProvider == null) {
+			modeledViewmapItemProvider = new ModeledViewmapItemProvider(this);
+		}
+
+		return modeledViewmapItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.Palette} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2466,6 +2489,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (snippetViewmapItemProvider != null) snippetViewmapItemProvider.dispose();
 		if (innerClassViewmapItemProvider != null) innerClassViewmapItemProvider.dispose();
 		if (parentAssignedViewmapItemProvider != null) parentAssignedViewmapItemProvider.dispose();
+		if (modeledViewmapItemProvider != null) modeledViewmapItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (genConstraintItemProvider != null) genConstraintItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();

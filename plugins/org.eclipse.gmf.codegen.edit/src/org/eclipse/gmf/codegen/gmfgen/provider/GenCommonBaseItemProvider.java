@@ -351,6 +351,11 @@ public class GenCommonBaseItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
+				 GMFGenFactory.eINSTANCE.createModeledViewmap()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour(),
 				 GMFGenFactory.eINSTANCE.createCustomBehaviour()));
 
