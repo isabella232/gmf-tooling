@@ -236,7 +236,7 @@ public class GenParsersItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((GenParsers)object).getPackageName();
+		String label = ((GenParsers)object).getClassName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenParsers_type") :
 			getString("_UI_GenParsers_type") + " " + label;
