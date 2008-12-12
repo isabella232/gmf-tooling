@@ -1293,6 +1293,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModeledViewmap" eSuperTypes="#//Viewmap">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="NOTE: Provisional API. Allows to use arbitrary model element to keep information about a figure. May (but not necessarily will) point to e.g. GMFGraph model elements. It's up to template author to handle specific kinds of figure models"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="figureModel" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Expression as a is textual statement which results in a value when evaluated in a context"/>

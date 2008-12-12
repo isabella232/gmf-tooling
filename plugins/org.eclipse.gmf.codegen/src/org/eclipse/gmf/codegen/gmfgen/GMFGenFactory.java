@@ -422,6 +422,15 @@ public interface GMFGenFactory extends EFactory {
 	ParentAssignedViewmap createParentAssignedViewmap();
 
 	/**
+	 * Returns a new object of class '<em>Modeled Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Modeled Viewmap</em>'.
+	 * @generated
+	 */
+	ModeledViewmap createModeledViewmap();
+
+	/**
 	 * Returns a new object of class '<em>Palette</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

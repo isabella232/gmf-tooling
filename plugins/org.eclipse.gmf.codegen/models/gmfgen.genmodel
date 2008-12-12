@@ -650,6 +650,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ParentAssignedViewmap/setterName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ParentAssignedViewmap/figureQualifiedClassName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ModeledViewmap">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ModeledViewmap/figureModel"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ValueExpression" labelFeature="#//gmfgen/ValueExpression/body">
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/langName"/>

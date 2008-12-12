@@ -567,6 +567,13 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.MODELED_VIEWMAP: {
+				ModeledViewmap modeledViewmap = (ModeledViewmap)theEObject;
+				T result = caseModeledViewmap(modeledViewmap);
+				if (result == null) result = caseViewmap(modeledViewmap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.VALUE_EXPRESSION: {
 				ValueExpression valueExpression = (ValueExpression)theEObject;
 				T result = caseValueExpression(valueExpression);
@@ -2040,6 +2047,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseParentAssignedViewmap(ParentAssignedViewmap object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Modeled Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Modeled Viewmap</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModeledViewmap(ModeledViewmap object) {
 		return null;
 	}
 
