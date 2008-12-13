@@ -35,7 +35,6 @@ public class OclKeywordManager {
 		OCL_KEYWORDS.add("in");
 		OCL_KEYWORDS.add("true");
 		OCL_KEYWORDS.add("false");
-		OCL_KEYWORDS.add("body");
 		OCL_KEYWORDS.add("init");
 		OCL_KEYWORDS.add("null");
 		OCL_KEYWORDS.add("Set");
@@ -74,8 +73,6 @@ public class OclKeywordManager {
 		OCL_KEYWORDS.add("Invalid");
 		OCL_KEYWORDS.add("OclMessage");
 		OCL_KEYWORDS.add("OclInvalid");
-		OCL_KEYWORDS.add("object");
-		OCL_KEYWORDS.add("var");
 		OCL_KEYWORDS.add("end");
 		OCL_KEYWORDS.add("while");
 		OCL_KEYWORDS.add("out");
@@ -93,6 +90,7 @@ public class OclKeywordManager {
 		OCL_KEYWORDS.add("configuration");
 		OCL_KEYWORDS.add("intermediate");
 		OCL_KEYWORDS.add("property");
+		OCL_KEYWORDS.add("class");
 		OCL_KEYWORDS.add("population");	
 		OCL_KEYWORDS.add("map");
 		OCL_KEYWORDS.add("new");
@@ -113,6 +111,7 @@ public class OclKeywordManager {
 		OCL_KEYWORDS.add("uses");
 		OCL_KEYWORDS.add("where");
 		OCL_KEYWORDS.add("refines");
+// was removed from QVT lexer?		
 		OCL_KEYWORDS.add("enforcing");
 		OCL_KEYWORDS.add("access");
 		OCL_KEYWORDS.add("extends");
@@ -138,7 +137,32 @@ public class OclKeywordManager {
 		OCL_KEYWORDS.add("forEach");
 		OCL_KEYWORDS.add("forOne");
 		OCL_KEYWORDS.add("compute");
+		OCL_KEYWORDS.add("Dict");
+		OCL_KEYWORDS.add("List");
+		OCL_KEYWORDS.add("break");
+		OCL_KEYWORDS.add("composes");
+		OCL_KEYWORDS.add("constructor");
+		OCL_KEYWORDS.add("continue");
+		OCL_KEYWORDS.add("datatype");
+		OCL_KEYWORDS.add("default");
+		OCL_KEYWORDS.add("derived");
+		OCL_KEYWORDS.add("do");
+		OCL_KEYWORDS.add("elif");
+		OCL_KEYWORDS.add("enum");
+		OCL_KEYWORDS.add("except");
+		OCL_KEYWORDS.add("exception");
+		OCL_KEYWORDS.add("from");
+		OCL_KEYWORDS.add("literal");
+		OCL_KEYWORDS.add("ordered");
+		OCL_KEYWORDS.add("primitive");
+		OCL_KEYWORDS.add("raise");
+		OCL_KEYWORDS.add("readonly");
 		OCL_KEYWORDS.add("references");
+		OCL_KEYWORDS.add("tag");
+		OCL_KEYWORDS.add("try");
+		OCL_KEYWORDS.add("typedef");
+		OCL_KEYWORDS.add("unlimited");
+		OCL_KEYWORDS.add("invalid");
 	}
 
 	/**
