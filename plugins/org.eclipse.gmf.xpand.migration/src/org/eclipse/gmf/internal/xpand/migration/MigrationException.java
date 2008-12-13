@@ -45,7 +45,6 @@ public class MigrationException extends Exception {
 		UNSUPPORTED_TYPE_SELECT_EXPRESSION_TRACE("Unsupported type select expression trace"),
 		UNSUPPORTED_TYPE_SELECT_EXPRESSION("Unsupported type select expression"),
 		
-		UNSUPPORTED_ASPECT("Unsupported aspect migration"), 
 		UNSUPPORTED_XPAND_RESOURCE("Unsupported xpand resource"),
 		UNSUPPORTED_XTEND_RESOURCE("Unsupported xtend resource"),
 		UNABLE_TO_APPLY_EDIT("Unable to apply edit"),

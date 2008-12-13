@@ -62,8 +62,6 @@ public class XpandMigrationFacade {
 
 	private String resourceName;
 
-	private boolean migrateAspect;
-
 	private Document document;
 
 	private MigrationExecutionContext ctx;
@@ -78,23 +76,19 @@ public class XpandMigrationFacade {
 
 	private MigrationExecutionContext rootExecutionContext;
 
-	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect, MigrationExecutionContext executionContext) {
-		this(resourceManager, xtendResourceName, migrateAspect);
+	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, MigrationExecutionContext executionContext) {
+		this(resourceManager, xtendResourceName);
 		rootExecutionContext = executionContext;
 	}
 
-	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName, boolean migrateAspect) {
+	public XpandMigrationFacade(ResourceManager resourceManager, String xtendResourceName) {
 		this.resourceManager = resourceManager;
 		resourceName = xtendResourceName;
-		this.migrateAspect = migrateAspect;
 	}
 
 	public String migrateXpandResource() throws MigrationException {
 		StringBuilder originalContent = new StringBuilder();
 		try {
-			if (migrateAspect) {
-				throw new MigrationException(Type.UNSUPPORTED_ASPECT, resourceName, "Aspect migration is not supported now");
-			}
 			Reader[] readers = resourceManager.resolveMultiple(resourceName, XpandResource.TEMPLATE_EXTENSION);
 			assert readers.length > 0;
 			Reader mainReader = readers[0];

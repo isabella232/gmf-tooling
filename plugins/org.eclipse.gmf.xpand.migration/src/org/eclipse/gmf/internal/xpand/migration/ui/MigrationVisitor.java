@@ -87,7 +87,7 @@ public class MigrationVisitor extends AbstractMigrationVisitor {
 	private InputStream migrateXpandResource(IFile srcFile) throws CoreException {
 		String templateFullName = rootManager.getTemplateFullName(srcFile);
 		ResourceManager resourceManager = rootManager.getResourceManager(srcFile);
-		XpandMigrationFacade migrationFacade = new XpandMigrationFacade(resourceManager, templateFullName, false);
+		XpandMigrationFacade migrationFacade = new XpandMigrationFacade(resourceManager, templateFullName);
 		try {
 			String updatedResourceContent = migrationFacade.migrateXpandResource();
 			return new ByteArrayInputStream(updatedResourceContent.getBytes(CHARSET));
