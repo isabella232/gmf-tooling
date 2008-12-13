@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,8 +13,6 @@ package org.eclipse.gmf.tests.validate;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EFactory;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -24,11 +22,6 @@ public class DynamicModelHelper {
 	
 	private DynamicModelHelper() {
 		super();
-	}
-	
-	public static EObject createInstance(EClass eClass) {
-		EFactory eFactory = eClass.getEPackage().getEFactoryInstance();
-		return eFactory.create(eClass);
 	}
 	
 	public static EPackage createMetaModel() {

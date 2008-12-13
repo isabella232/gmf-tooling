@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    dvorak - initial API and implementation
+ *    Artem Tikhomirov (Borland) - [230418] non-containment contexts; refactoring
  */
 package org.eclipse.gmf.tests.validate;
 
@@ -16,7 +17,6 @@ import java.util.Map;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EModelElement;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.internal.validate.Annotations;
 
@@ -60,18 +60,6 @@ public class AnnotationUtil {
 	}
 	
 
-	public static EAnnotation addLanguageDefAnnotation(EStructuralFeature langFeature) {
-		EAnnotation eAnnotation = createAnnotation(langFeature, Annotations.CONSTRAINTS_META_URI);
-		eAnnotation.getDetails().put(Annotations.Meta.DEF_KEY, Annotations.Meta.LANG);
-		return eAnnotation;
-	}
-	
-	public static EAnnotation addBodyDefAnnotation(EStructuralFeature bodyFeature) {
-		EAnnotation eAnnotation = createAnnotation(bodyFeature, Annotations.CONSTRAINTS_META_URI);
-		eAnnotation.getDetails().put(Annotations.Meta.DEF_KEY, Annotations.Meta.BODY);
-		return eAnnotation;
-	}
-	
 	public static EAnnotation addContextRefAnnotation(EModelElement contextResolutionElement, String ctxRef) {
 		EAnnotation eAnnotation = createAnnotation(contextResolutionElement, Annotations.CONSTRAINTS_META_URI);
 		eAnnotation.getDetails().put(Annotations.Meta.DEF_KEY, Annotations.Meta.CONTEXT);

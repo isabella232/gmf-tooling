@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -115,6 +115,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 
 	private PluginXMLTextMerger myMerger;
 	private boolean shouldFailOnException = true; 
+	private Pattern myNewLinePattern = Pattern.compile("\r\n");
 
 	public PluginXMLTextMergerTest(String name) {
 		super(name);
@@ -154,7 +155,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 	public void testAddEmptyOld() {
 		final String oldXML = T_0 + T_99;
 		final String newXML = T_0 + T_2 + T_99;
-		final String expectedResult = T_0 + T_2.trim() + NL + T_99;
+		final String expectedResult = T_0 + T_2.trim() + NL + NL + T_99;
 		internalTestIgnoreNewlines(oldXML, newXML, expectedResult);
 	}
 
@@ -166,7 +167,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 		final String oldContent = "<extension-point id='zzz'/>" + NL; //$NON-NLS-1$
 		final String oldXML = T_0 + oldContent + T_99;
 		final String newXML = T_0 + T_2 + T_99;
-		final String expectedResult = T_0 +  oldContent + T_2.trim() + NL + T_99;
+		final String expectedResult = T_0 +  oldContent + T_2.trim() + NL + NL + T_99;
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
@@ -208,7 +209,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 		final String oldXML = T_0 + T_1 + T_99;
 		final String newXML = T_0 + T_99;
 		//TODO: remove orphan whitespaces
-		final String expectedResult = T_0 + "   " + NL + NL + T_99; //$NON-NLS-1$
+		final String expectedResult = T_0 + "   " + NL + T_99; //$NON-NLS-1$
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
@@ -251,7 +252,7 @@ public class PluginXMLTextMergerTest extends TestCase {
 	public void testUnformatted() {
 		final String oldXML = T_7 + T_99;
 		final String newXML = T_0 + T_2 + T_99;
-		final String expectedResult = T_70 + T_71 + T_72 + T_20 + T_21 + T_22 + T_79 + T_77 + T_78 + T_79 + T_99;
+		final String expectedResult = T_70 + T_71 + T_72 + T_20 + T_21 + T_22 + T_79 + NL + T_77 + T_78 + T_79 + T_99;
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
@@ -276,6 +277,112 @@ public class PluginXMLTextMergerTest extends TestCase {
 		internalTest(oldXML, newXML, expectedResult);
 	}
 
+	private static final String file = T_0 + NL + "%s" + NL + T_99;
+	private static final String extensionNoId = "<extension point=\"oeg.extpoint\">%s</extension>" + NL;
+	private static final String extensionWithId = "<extension point=\"oeg.extpoint\" id=\"%s\">%s</extension>" + NL;
+
+	// Synopsis: GMF adds generation of a new extension, while users have had written 
+	// extensions to the same point already in their plugin.xml
+	public void testSameExtensionPointConflictNoIdentities() {
+		String oldXML = String.format(extensionNoId, "<user><manual/></user>");
+		String newXML = String.format(extensionNoId, PI + "<newbody/>");
+		// NOTE, this test might duplicate one of the above, just for sanity check
+		internalTest_Bodies(oldXML, newXML, /* sic! old content persists */ oldXML);
+	}
+
+	public void testConflictWithManuallyAddedIdentifiedExtension() {
+		String oldXML = String.format(extensionWithId, "identity", "<user><manual/></user>");
+		String newXML = String.format(extensionNoId, PI + "<newbody/>");
+		internalTest_Bodies(oldXML, newXML, oldXML + newXML + NL); // new line is subtle hack
+	}
+
+	public void testConflictWithManuallyAddedNoIdentityExtension() {
+		String oldXML = String.format(extensionNoId, "<user><manual/></user>");
+		String newXML = String.format(extensionWithId, "generated-identity", PI + "<newbody/>");
+		internalTest_Bodies(oldXML, newXML, oldXML + newXML + NL); // new line is subtle hack
+	}
+
+	public void testConflictWithManuallyAddedDistinctIdentities() {
+		String oldXML = String.format(extensionWithId, "manual-identity", "<user><manual/></user>");
+		String newXML = String.format(extensionWithId, "generated-identity", PI + "<newbody/>");
+		internalTest_Bodies(oldXML, newXML, oldXML + newXML + NL); // new line is subtle hack
+	}
+
+	public void testConflictBothGeneratedButDistinctIdentities() {
+		String oldXML_withIdentity = String.format(extensionWithId, "generated-id1", PI + "<oldbody/>");
+		String newXML = String.format(extensionWithId, "also-generated-id2", PI + "<newbody/>");
+		internalTest_Bodies(oldXML_withIdentity, newXML, newXML);
+		String oldXML_noIdentity = String.format(extensionNoId, PI + "<oldbody/>");
+		internalTest_Bodies(oldXML_noIdentity, newXML, newXML);
+	}
+
+	public void testConflicTwoGeneratedTwistIdentities() {
+		String oldXML_1 = String.format(extensionWithId, "generated-id1", PI + "<oldbody1/>");
+		String oldXML_2 = String.format(extensionWithId, "generated-id2", PI + "<oldbody2/>");
+		String newXML_1 = String.format(extensionWithId, "generated-id2", PI + "<newbody2/>");
+		String newXML_2 = String.format(extensionWithId, "generated-id1", PI + "<newbody1/>");
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, newXML_2 + newXML_1);
+	}
+
+	// Synopsis: GMF generates an extension, user adds another one for the same point,
+	// would like to have former regenerated, while latter kept intact
+	public void testTwoExtensionsSamePointOneAddedManualWithID() {
+		String oldXML_1 = String.format(extensionWithId, "manual", "<user><trash/></user>");
+		String oldXML_2 = String.format(extensionNoId, PI + "<oldbody/>");
+		String newXML = String.format(extensionNoId, PI + "<newbody/>");
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML, oldXML_1 + newXML);
+		// try different order of extensions
+		internalTest_Bodies(oldXML_2 + oldXML_1, newXML, newXML + oldXML_1);
+	}
+
+	public void testTwoExtensionsSamePointOneAddedManualNoID() {
+		String oldXML_1 = String.format(extensionNoId, "<user><trash/></user>");
+		String oldXML_2 = String.format(extensionWithId, "generated-identity", PI + "<oldbody/>");
+		String newXML = String.format(extensionWithId, "generated-identity", PI + "<newbody/>");
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML, oldXML_1 + newXML);
+		// try different order of extensions
+		internalTest_Bodies(oldXML_2 + oldXML_1, newXML, newXML + oldXML_1);
+	}
+
+	public void testTwoGeneratedExtensionsSamePointReplacedByOne() {
+		String oldXML_1 = String.format(extensionWithId, "generated-id1", PI + "<oldbody1/>");
+		// fill in some space in between
+		String oldXML_2 = "<extension point=\"different.point\"><bogus/></extension>\n";
+		String oldXML_3 = String.format(extensionWithId, "generated-id3", PI + "<oldbody3/>");
+		String newXML = String.format(extensionWithId, "generated-id3", PI + "<newbody3/>");
+		// despite the fact that we replace third extension, order is always newXML+<bogus>
+		// because first extension gets replaced with the only available new extension, and only
+		// then, when it gets to third extension, it wipes it away as no more matching extension coming.
+		// Perhaps, makes sense to modify PluginXMLTextMerger so that it looks though old descriptors
+		// for matching identity even when there's single replacement extension - and if there's matching
+		// in the old file, replace it instead of the presently processed (the one in the currentPosition)
+		internalTest_Bodies(oldXML_1 + oldXML_2 + oldXML_3, newXML, newXML + oldXML_2);
+		// try different order of extensions
+		internalTest_Bodies(oldXML_3 + oldXML_2 + oldXML_1, newXML, newXML + oldXML_2);
+	}
+
+	public void testTwoGeneratedExtensionsSamePointReplacedByTwoWithIDs() {
+		String oldXML_1 = String.format(extensionNoId, PI + "<oldbody1/>");
+		String oldXML_2 = String.format(extensionNoId, PI + "<oldbody2/>");
+		String newXML_1 = String.format(extensionWithId, "generated-id1", PI + "<newbody1/>");
+		String newXML_2 = String.format(extensionWithId, "generated-id2", PI + "<newbody2/>");
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, newXML_1 + newXML_2);
+	}
+
+	// new extension was generated, make sure it gets injected into result
+	public void testNewExtensionIsInjected() {
+		String oldXML = "<extension point=\"oeg.extpoint.one\" id=\"one\"><oldbody/></extension>";
+		String newXML_1 = "<extension point=\"oeg.extpoint.two\" id=\"two\"><newbody/></extension>" + NL;
+		internalTest_Bodies(oldXML, newXML_1 + NL + oldXML, oldXML + NL + newXML_1 /*XXX order is changed, not good but ok for now*/);
+	}
+
+	private void internalTest_Bodies(String oldFileBody, String newFileBody, String expectedFileBody) {
+		String result = myMerger.process(String.format(file, oldFileBody), String.format(file, newFileBody));
+		assertNotNull(result);
+		final String expectedResult = String.format(file, expectedFileBody);
+		assertEquals(expectedResult, result);
+	}
+
 	private void internalTest(String oldXML, String newXML, String expectedResult) {
 		String result = myMerger.process(oldXML, newXML);
 		assertNotNull(result);
@@ -285,9 +392,8 @@ public class PluginXMLTextMergerTest extends TestCase {
 	private void internalTestIgnoreNewlines(String oldXML, String newXML, String expectedResult) {
 		String result = myMerger.process(oldXML, newXML);
 		assertNotNull(result);
-		final Pattern pattern = Pattern.compile("\r\n");
-		String uniformResult = pattern.matcher(result).replaceAll("\n");
-		String uniformExpected = pattern.matcher(expectedResult).replaceAll("\n");
+		String uniformResult = myNewLinePattern.matcher(result).replaceAll("\n");
+		String uniformExpected = myNewLinePattern.matcher(expectedResult).replaceAll("\n");
 		assertEquals(uniformExpected, uniformResult);
 	}
 }

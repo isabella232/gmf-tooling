@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    dvorak - initial API and implementation
+ *    Artem Tikhomirov (Borland) - [230418] non-containment contexts; refactoring
  */
 package org.eclipse.gmf.tests.validate;
 
@@ -19,6 +20,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.internal.validate.StatusCodes;
 import org.eclipse.gmf.validate.GMFValidator;
 import org.eclipse.gmf.validate.ValidationOptions;
@@ -77,7 +79,7 @@ public class AnnotatedOclValidatorTest extends TestCase {
 		
 	public void testValidConstrainedElement() {
 		AnnotationUtil.OCL.createConstraint(eClass, "true"); //$NON-NLS-1$
-		EObject target = DynamicModelHelper.createInstance(eClass);
+		EObject target = EcoreUtil.create(eClass);
 		
 		ValidationOptions opts = new ValidationOptions();
 		opts.setReportSuccess(true);
@@ -94,7 +96,7 @@ public class AnnotatedOclValidatorTest extends TestCase {
 	
 	public void testInvalidConstrainedElement() {
 		AnnotationUtil.OCL.createConstraint(eClass, "false"); //$NON-NLS-1$
-		EObject target = DynamicModelHelper.createInstance(eClass);
+		EObject target = EcoreUtil.create(eClass);
 
 		Diagnostic status = GMFValidator.validate(target);
 		assertTrue(status.getSeverity() == Diagnostic.ERROR);

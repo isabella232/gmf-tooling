@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,9 +22,8 @@ public class AllValidateTests {
 		//$JUnit-BEGIN$
 		suite.addTestSuite(ConstraintSeverityTest.class);
 		suite.addTestSuite(OCLExpressionAdapterTest.class);
-// FIXME next two tests were commented out due to bug #230418
-//		suite.addTestSuite(ConstraintDefTest.class);		
-//		suite.addTestSuite(ValueSpecDefTest.class);		
+		suite.addTestSuite(ConstraintDefTest.class);
+		suite.addTestSuite(ValueSpecDefTest.class);
 		//$JUnit-END$
 		return suite;
 	}
