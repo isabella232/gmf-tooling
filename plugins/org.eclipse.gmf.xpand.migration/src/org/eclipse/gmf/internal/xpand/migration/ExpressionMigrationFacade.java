@@ -116,7 +116,7 @@ public class ExpressionMigrationFacade {
 			BuiltinMetaModel.List_WithoutFirst,
 			BuiltinMetaModel.List_WithoutLast
 	}));
-
+	
 	private Stack<Expression> expressionsStack = new Stack<Expression>();
 
 	private StringBuilder output = new StringBuilder();
@@ -137,12 +137,16 @@ public class ExpressionMigrationFacade {
 
 	private EClassifier rootExpressionType;
 
-	ExpressionMigrationFacade(Expression expression, EClassifier requiredType, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher, MigrationExecutionContext context) {
+	private String resourceName;
+
+	ExpressionMigrationFacade(Expression expression, EClassifier requiredType, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher,
+			MigrationExecutionContext context, String resourceName) {
 		rootExpression = expression;
 		rootExpressionType = requiredType;
 		this.typeManager = typeManager;
 		this.modelManager = modelManager;
 		this.variableDispatcher = variableDispatcher;
+		this.resourceName = resourceName;
 		ctx = context;
 		markReturnPosition();
 	}
@@ -232,7 +236,7 @@ public class ExpressionMigrationFacade {
 			} else if (expression instanceof SwitchExpression) {
 				return migrateSwitchExpression((SwitchExpression) expression);
 			} else {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, expression.getClass().getName());
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, expression, expression.getClass().getName());
 			}
 		} finally {
 			expressionsStack.pop();
@@ -346,7 +350,7 @@ public class ExpressionMigrationFacade {
 		write("object ");
 		EClassifier type = ctx.getTypeForName(constructorCall.getType().getValue());
 		if (type == null) {
-			throw new MigrationException(Type.TYPE_NOT_FOUND, constructorCall.getType().getValue());
+			throw new MigrationException(Type.TYPE_NOT_FOUND, resourceName, constructorCall.getType(), constructorCall.getType().getValue());
 		}
 
 		write(typeManager.getQvtFQName(type));
@@ -361,7 +365,7 @@ public class ExpressionMigrationFacade {
 		// for now solution is to use separate helpers for each nested chain
 		// expression
 		if (expressionsStack.size() > 1 && false == expressionsStack.peek() instanceof ChainExpression) {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Inner " + chainExpression.getClass().getName());
+			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, chainExpression, "Inner " + chainExpression.getClass().getName());
 		}
 		migrateExpression(chainExpression.getFirst());
 		write("; ");
@@ -383,7 +387,7 @@ public class ExpressionMigrationFacade {
 		} else if (booleanOperation.isImpliesOperation()) {
 			write(" implies ");
 		} else {
-			throw new MigrationException(Type.UNSUPPORTED_BOOLEAN_OPERATION, booleanOperation.getOperator());
+			throw new MigrationException(Type.UNSUPPORTED_BOOLEAN_OPERATION, resourceName, booleanOperation, booleanOperation.getOperator());
 		}
 		int rightPosition = getCurrentPosition();
 		migrateExpression(booleanOperation.getRight());
@@ -395,7 +399,7 @@ public class ExpressionMigrationFacade {
 		EClassifier migratedExpressionType = migrateExpression(cast.getTarget());
 		EClassifier type = ctx.getTypeForName(cast.getType().getValue());
 		if (type == null) {
-			throw new MigrationException(Type.TYPE_NOT_FOUND, cast.getType().getValue());
+			throw new MigrationException(Type.TYPE_NOT_FOUND, resourceName, cast.getType(), cast.getType().getValue());
 		}
 		if (BuiltinMetaModel.isCollectionType(type)) {
 			// This operation is not supported now.
@@ -412,15 +416,15 @@ public class ExpressionMigrationFacade {
 		EClassifier targetQvtType = migrateExpression(typeSelectExpression.getTarget());
 		EClassifier type = ctx.getTypeForName(typeSelectExpression.getTypeLiteral().getValue());
 		if (type == null) {
-			throw new MigrationException(Type.TYPE_NOT_FOUND, typeSelectExpression.getTypeLiteral().getValue());
+			throw new MigrationException(Type.TYPE_NOT_FOUND, resourceName, typeSelectExpression.getTypeLiteral(), typeSelectExpression.getTypeLiteral().getValue());
 		}
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(typeSelectExpression);
 		if (false == expressionTrace instanceof TypeSelectExpressionTrace) {
-			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION_TRACE, String.valueOf(expressionTrace));
+			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION_TRACE, resourceName, typeSelectExpression, expressionTrace);
 		}
 		TypeSelectExpressionTrace trace = (TypeSelectExpressionTrace) expressionTrace;
 		if (!trace.isValid()) {
-			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION, trace.toString());
+			throw new MigrationException(Type.UNSUPPORTED_TYPE_SELECT_EXPRESSION, resourceName, typeSelectExpression, trace);
 		}
 		internalMigrateTypeSelectCastingCollectionToBag(targetQvtType, typeManager.getQvtFQName(type), placeholder);
 		if (!BuiltinMetaModelExt.isListType(targetQvtType) && !BuiltinMetaModelExt.isOrderedSetType(targetQvtType)) {
@@ -462,11 +466,11 @@ public class ExpressionMigrationFacade {
 	
 	private EClassifier migrateCollectionExpression(CollectionExpression collectionExpression) throws MigrationException {
 		if (collectionExpression.getTarget() == null) {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Collection expression without target specified: " + collectionExpression.toString());
+			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, collectionExpression, "Collection expression without target specified: " + collectionExpression.toString());
 		}
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(collectionExpression);
 		if (false == expressionTrace instanceof CollectionExpressionTrace) {
-			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, String.valueOf(expressionTrace));
+			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, resourceName, collectionExpression, expressionTrace);
 		}
 		CollectionExpressionTrace trace = (CollectionExpressionTrace) expressionTrace;
 
@@ -492,9 +496,9 @@ public class ExpressionMigrationFacade {
 			break;
 		case INCORRECT_EXPRESSION_TYPE:
 		case UNDESOLVED_TARGET_TYPE:
-			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION, trace.toString());
+			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION, resourceName, collectionExpression, trace);
 		default:
-			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, "Incorrect type: " + trace.getType());
+			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, resourceName, collectionExpression, trace);
 		}
 		write("(");
 		String varName = collectionExpression.getElementName();
@@ -556,13 +560,13 @@ public class ExpressionMigrationFacade {
 	private EClassifier migrateOperationCall(OperationCall operationCall) throws MigrationException {
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
 		if (false == expressionTrace instanceof OperationCallTrace) {
-			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, operationCall, expressionTrace);
 		}
 		OperationCallTrace trace = (OperationCallTrace) expressionTrace;
 		switch (trace.getType()) {
 		case UNDESOLVED_PARAMETER_TYPE:
 		case UNDESOLVED_TARGET_TYPE:
-			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, trace.toString());
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, resourceName, operationCall, trace.toString());
 		case STATIC_EXTENSION_REF:
 			if (trace.isStaticQvtoCall()) {
 				write(modelManager.getName(operationCall, trace));
@@ -602,6 +606,8 @@ public class ExpressionMigrationFacade {
 				return internalMigrateInfixOperation(trace, operationCall);
 			} else if (isCollectionOperation(trace)) {
 				return internalMigrateCollectionOperationCall(trace, operationCall);
+			} else if (isEClassOperationOnTypeLiteral(trace, operationCall)) {
+				return internalMigrateEClassOperationOnTypeLiteral(trace, operationCall);
 			}
 			// else same as IMPLICIT_COLLECT_OPERATION_REF:
 		case IMPLICIT_COLLECT_OPERATION_REF:
@@ -630,7 +636,7 @@ public class ExpressionMigrationFacade {
 				return getTypedElementQvtType(eOperation);	
 			} else {
 				if (!BuiltinMetaModel.isParameterizedType(targetQvtType)) {
-					throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + targetQvtType.toString() + "." + operationCall.getName().getValue());
+					throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, operationCall.getTarget(), "Implicit collect is not supported for simple types: " + targetQvtType.toString() + "." + operationCall.getName().getValue());
 				}
 				convertImplicitCollectProduct(targetQvtType);
 				return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetQvtType));
@@ -669,7 +675,7 @@ public class ExpressionMigrationFacade {
 			assert operationCall.getTarget() != null;
 			EClassifier implicitCollectTargetQvtType = migrateExpression(operationCall.getTarget());
 			if (!BuiltinMetaModel.isParameterizedType(implicitCollectTargetQvtType)) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + implicitCollectTargetQvtType.toString() + "." + operationCall.getName().getValue());
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, operationCall.getTarget(), "Implicit collect is not supported for simple types: " + implicitCollectTargetQvtType.toString() + "." + operationCall.getName().getValue());
 			}
 			String iteratorName = variableDispatcher.getNextIteratorName();
 			write("->collect(");
@@ -697,10 +703,41 @@ public class ExpressionMigrationFacade {
 			convertImplicitCollectProduct(implicitCollectTargetQvtType);
 			return trace.getResultType();
 		default:
-			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, "Incorrect type: " + trace.getType());
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, operationCall, trace);
 		}
 	}
 	
+	private EClassifier internalMigrateEClassOperationOnTypeLiteral(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
+		EOperation eOperation = trace.getEOperation();
+		assert eOperation != null;
+		if ("isSuperTypeOf".equals(eOperation.getName())) {
+			assert operationCall.getParams().length == 1;
+			internalMigrateOperationCallParameters(operationCall, null);
+			write(".oclIsKindOf(");
+			Expression target = operationCall.getTarget();
+			assert target instanceof FeatureCall;
+			EClassifier type = ctx.getTypeForName(((FeatureCall) target).getName().getValue());
+			write(typeManager.getQvtFQName(type));
+			write(")");
+			return EcorePackage.eINSTANCE.getEBoolean();
+		}
+		throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, resourceName, operationCall.getName(), "Migration of operation \"" + eOperation.getName() + "\" is not supported for TypeLiteral expressions now");
+	}
+
+	private boolean isEClassOperationOnTypeLiteral(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
+		if (trace.getTargetType() == EcorePackage.eINSTANCE.getEClass()) {
+			Expression target = operationCall.getTarget();
+			if (target instanceof FeatureCall) {
+				ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(target);
+				if (false == expressionTrace instanceof FeatureCallTrace) {
+					throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, resourceName, target, expressionTrace);
+				}
+				return ((FeatureCallTrace) expressionTrace).getType() == FeatureCallTrace.Type.UNSUPPORTED_CLASSIFIER_REF;
+			}
+		}
+		return false;
+	}
+
 	private static <T> List<T> withoutFirst(List<T> parameters) {
 		assert parameters.size() > 0;
 		return parameters.subList(1, parameters.size());
@@ -745,7 +782,7 @@ public class ExpressionMigrationFacade {
 		} else if (BuiltinMetaModel.Object_NotEQ == eOperation) {
 			write(" <> ");
 		} else {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Incorrect infix operation: " + opName);
+			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, operationCall.getName(), "Incorrect infix operation: " + opName);
 		}
 		int parameterStartPosition = getCurrentPosition();
 		List<EClassifier> parameterTypes = internalMigrateOperationCallParameters(operationCall, null);
@@ -782,7 +819,7 @@ public class ExpressionMigrationFacade {
 			OperationCall operationCall = (OperationCall) expression;
 			ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
 			if (false == expressionTrace instanceof OperationCallTrace) {
-				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
+				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, expression, expressionTrace);
 			}
 			OperationCallTrace trace = (OperationCallTrace) expressionTrace;
 			if (trace.getEOperation() != null && infixOperations.contains(trace.getEOperation())) {
@@ -832,7 +869,7 @@ public class ExpressionMigrationFacade {
 			OperationCall operationCall = (OperationCall) expression;
 			ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(expression);
 			if (false == expressionTrace instanceof OperationCallTrace) {
-				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, String.valueOf(expressionTrace));
+				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, expression, expressionTrace);
 			}
 			OperationCallTrace trace = (OperationCallTrace) expressionTrace;
 			if (trace.getType() == OperationCallTrace.Type.OPERATION_REF && BuiltinMetaModel.EString_Plus_EJavaObject == trace.getEOperation()) {
@@ -1083,7 +1120,7 @@ public class ExpressionMigrationFacade {
 			} else if (BuiltinMetaModel.List_First == eOperation || BuiltinMetaModel.List_Last == eOperation) {
 				return elementType;
 			} else {
-				throw new MigrationException(Type.UNSUPPORTED_COLLECTION_OPERATION, eOperation.getName());
+				throw new MigrationException(Type.UNSUPPORTED_COLLECTION_OPERATION, resourceName, operationCall.getName(), eOperation.getName());
 			}
 		}
 	}
@@ -1246,7 +1283,7 @@ public class ExpressionMigrationFacade {
 	private EClassifier migrateFeatureCall(FeatureCall featureCall) throws MigrationException {
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(featureCall);
 		if (false == expressionTrace instanceof FeatureCallTrace) {
-			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, String.valueOf(expressionTrace));
+			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, resourceName, featureCall, expressionTrace);
 		}
 		FeatureCallTrace trace = (FeatureCallTrace) expressionTrace;
 		switch (trace.getType()) {
@@ -1261,7 +1298,7 @@ public class ExpressionMigrationFacade {
 			return variableType != null ? variableType : trace.getResultType();
 		case UNDESOLVED_TARGET_TYPE:
 		case UNSUPPORTED_CLASSIFIER_REF:
-			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL, trace.toString());
+			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL, resourceName, featureCall.getName(), trace);
 		}
 		EClassifier targetType = trace.getTargetType();
 		// featureCall.getTarget() == null for FeatureCall of implicit variable
@@ -1295,17 +1332,17 @@ public class ExpressionMigrationFacade {
 		switch (trace.getType()) {
 		case FEATURE_REF:
 			if (BuiltinMetaModel.isParameterizedType(targetType)) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Attribute call is not supported for the collection types: " + targetType.toString() + "." + featureCall.getName().getValue());
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, featureCall, "Attribute call is not supported for the collection types: " + targetType.toString() + "." + featureCall.getName().getValue());
 			}
 			return getTypedElementQvtType(trace.getFeature());
 		case IMPLICIT_COLLECT_FEATURE_REF:
 			if (!BuiltinMetaModel.isParameterizedType(targetType)) {
-				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, "Implicit collect is not supported for simple types: " + targetType.toString() + "." + featureCall.getName().getValue());
+				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, featureCall, "Implicit collect is not supported for simple types: " + targetType.toString() + "." + featureCall.getName().getValue());
 			}
 			convertImplicitCollectProduct(targetType);
 			return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetType));
 		default:
-			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, "Incorrect type: " + trace.getType());
+			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, resourceName, featureCall,trace);
 		}
 	}
 	
