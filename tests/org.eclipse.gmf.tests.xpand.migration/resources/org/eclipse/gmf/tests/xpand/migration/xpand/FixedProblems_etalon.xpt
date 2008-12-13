@@ -28,7 +28,7 @@
 «ENDDEFINE»
 
 «DEFINE defaultAttribute FOR gmfgen::AbstractToolEntry-»
-«IF default-»
+«IF _default-»
 «ENDIF-»
 «ENDDEFINE»
 

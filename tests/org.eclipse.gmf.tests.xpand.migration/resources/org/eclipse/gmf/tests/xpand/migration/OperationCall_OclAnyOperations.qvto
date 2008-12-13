@@ -36,18 +36,18 @@ helper enumeratorNotEQ(enumerator : ecore::EEnumerator, another : OclAny) : Bool
 	return enumerator <> another
 }
 
-helper enumCompareTo(enum : ecore::EEnum, another : OclAny) : Boolean {
-	return enum.xpandCompareTo(another)
+helper enumCompareTo(_enum : ecore::EEnum, another : OclAny) : Boolean {
+	return _enum.xpandCompareTo(another)
 }
 
-helper enumToString(enum : ecore::EEnum) : String {
-	return enum.repr()
+helper enumToString(_enum : ecore::EEnum) : String {
+	return _enum.repr()
 }
 
-helper enumEQ(enum : ecore::EEnum, another : OclAny) : Boolean {
-	return enum = another
+helper enumEQ(_enum : ecore::EEnum, another : OclAny) : Boolean {
+	return _enum = another
 }
 
-helper enumNotEQ(enum : ecore::EEnum, another : OclAny) : Boolean {
-	return enum <> another
+helper enumNotEQ(_enum : ecore::EEnum, another : OclAny) : Boolean {
+	return _enum <> another
 }
