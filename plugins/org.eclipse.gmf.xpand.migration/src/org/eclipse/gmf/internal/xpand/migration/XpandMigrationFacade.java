@@ -93,7 +93,7 @@ public class XpandMigrationFacade {
 		StringBuilder originalContent = new StringBuilder();
 		try {
 			if (migrateAspect) {
-				throw new MigrationException(Type.UNSUPPORTED_ASPECT, "Aspect migration is not supported now");
+				throw new MigrationException(Type.UNSUPPORTED_ASPECT, resourceName, "Aspect migration is not supported now");
 			}
 			Reader[] readers = resourceManager.resolveMultiple(resourceName, XpandResource.TEMPLATE_EXTENSION);
 			assert readers.length > 0;
@@ -102,27 +102,20 @@ public class XpandMigrationFacade {
 				originalContent.append((char) ch);
 			}
 		} catch (IOException e) {
-			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
+			throw new MigrationException(Type.RESOURCE_NOT_FOUND, resourceName, "Unable to load resource: " + resourceName);
 		}
 
 		XpandResource xpandResource = resourceManager.loadXpandResource(resourceName);
 		if (xpandResource == null) {
-			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
+			throw new MigrationException(Type.RESOURCE_NOT_FOUND, resourceName, "Unable to load resource: " + resourceName);
 		}
 		ctx = rootExecutionContext != null ? rootExecutionContext : new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext> cloneWithResource(xpandResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xpandResource.analyze(ctx, issues);
 		if (MigrationException.hasErrors(issues)) {
-			throw new MigrationException(issues);
+			throw new MigrationException(issues, resourceName);
 		}
-		// TODO: there should be more generic way to get first definition..
-		while (xpandResource instanceof CompositeXpandResource) {
-			xpandResource = ((CompositeXpandResource) xpandResource).getFirstDefinition();
-		}
-		if (false == xpandResource instanceof Template) {
-			throw new MigrationException(Type.UNSUPPORTED_XPAND_RESOURCE, "Only Template instances are supported, but loaded: " + xpandResource);
-		}
-		Template xpandTemplate = (Template) xpandResource;
+		Template xpandTemplate = getFirstTemplate(xpandResource);
 		document = new Document(originalContent.toString());
 		edit = new MultiTextEdit();
 
@@ -130,11 +123,22 @@ public class XpandMigrationFacade {
 		try {
 			edit.apply(document);
 		} catch (MalformedTreeException e) {
-			throw new MigrationException(Type.UNABLE_TO_APPLY_EDIT, e.getMessage());
+			throw new MigrationException(Type.UNABLE_TO_APPLY_EDIT, resourceName, e.getMessage());
 		} catch (BadLocationException e) {
-			throw new MigrationException(Type.UNABLE_TO_APPLY_EDIT, e.getMessage());
+			throw new MigrationException(Type.UNABLE_TO_APPLY_EDIT, resourceName, e.getMessage());
 		}
 		return document.get();
+	}
+	
+	private Template getFirstTemplate(XpandResource xpandResource) throws MigrationException {
+		// TODO: there should be more generic way to get first definition..
+		while (xpandResource instanceof CompositeXpandResource) {
+			xpandResource = ((CompositeXpandResource) xpandResource).getFirstDefinition();
+		}
+		if (false == xpandResource instanceof Template) {
+			throw new MigrationException(Type.UNSUPPORTED_XPAND_RESOURCE, resourceName, "Only Template instances are supported, but loaded: " + xpandResource);
+		}
+		return (Template) xpandResource;
 	}
 
 	private void migrate(Template xpandTemplate) throws MigrationException {
@@ -340,7 +344,7 @@ public class XpandMigrationFacade {
 	}
 
 	private void migrateExpression(Expression expression, EClassifier expectedExpressionType, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
-		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(expression, expectedExpressionType, typeManager, modelManager, variableNameDispatcher, ctx);
+		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(expression, expectedExpressionType, typeManager, modelManager, variableNameDispatcher, ctx, resourceName);
 		StringBuilder result = expressionMF.migrate();
 		replace(expression, result.toString());
 	}
