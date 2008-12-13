@@ -46,7 +46,7 @@ public class StatementAnalyzationTest extends TestCase {
     private void dumpIssues(final AnalysationIssue[] issues) {
         for (int i = 0; i < issues.length; i++) {
             final AnalysationIssue issue = issues[i];
-            String buffer = issue.getType() + " : " + issue.getMessage() + " on line " + (issue.getElement() != null ? issue.getElement().getLine()  : "");
+            String buffer = issue.getType() + " : " + issue.getMessage() + " on line " + issue.getLine();
             System.out.println(buffer);
         }
 
