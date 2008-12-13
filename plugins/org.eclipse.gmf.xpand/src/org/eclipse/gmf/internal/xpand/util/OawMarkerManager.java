@@ -50,11 +50,9 @@ public class OawMarkerManager {
 
 	private static MarkerData createMarkerData(AnalysationIssue issue) {
 		int start = -1, end = -1, line = -1;
-		if (issue.getElement() != null) {
-			start = issue.getElement().getStart() - 1;
-			end = issue.getElement().getEnd() - 1;
-			line = issue.getElement().getLine();
-		}
+		start = issue.getStart();
+		end = issue.getEnd();
+		line = issue.getLine();
 		int severity = issue.isWarningNotError() ? IMarker.SEVERITY_WARNING : IMarker.SEVERITY_ERROR;
 		return new MarkerData(issue.getMessage(), severity, start, end, line);
 	}
@@ -75,7 +73,7 @@ public class OawMarkerManager {
 			this.message = message;
 			this.severity = severity;
 			this.start = start;
-			this.end = end;
+			this.end = end == -1 ? -1 : end + 1;
 			this.line = line;
 		}
 
