@@ -17,6 +17,7 @@ import java.util.Set;
 
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
+import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
 public class MigrationException extends Exception {
 
@@ -46,6 +47,7 @@ public class MigrationException extends Exception {
 		
 		UNSUPPORTED_ASPECT("Unsupported aspect migration"), 
 		UNSUPPORTED_XPAND_RESOURCE("Unsupported xpand resource"),
+		UNSUPPORTED_XTEND_RESOURCE("Unsupported xtend resource"),
 		UNABLE_TO_APPLY_EDIT("Unable to apply edit"),
 		UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME("Unable to detect native library class name"),
 		UNSUPPORTED_NATIVE_EXTENSION_TYPE("Unsupported native extension type");
@@ -65,6 +67,14 @@ public class MigrationException extends Exception {
 	private final Type type;
 
 	private Set<AnalysationIssue> issues = Collections.emptySet();
+
+	private String resourceName;
+
+	private int lineNumber = -1;
+
+	private int startPosition;
+
+	private int endPosition;
 
 	private static final String getMessage(Set<AnalysationIssue> issues) {
 		StringBuilder result = new StringBuilder("Following analyzation issues present");
@@ -89,19 +99,47 @@ public class MigrationException extends Exception {
 		return getErrors(issues).size() > 0;
 	}
 
-	public MigrationException(Type type, String message) {
+	/**
+	 * Resource-wide Exception (position was not determined) 
+	 */
+	public MigrationException(Type type, String resourceName, String message) {
+		this(type, resourceName, null, message);
+	}
+	
+	public MigrationException(Type type, String resourceName, SyntaxElement syntaxElement, String message) {
 		super(message);
 		this.type = type;
+		this.resourceName = resourceName;
+		if (syntaxElement != null) {
+			lineNumber = syntaxElement.getLine();
+			startPosition = syntaxElement.getStart();
+			endPosition = syntaxElement.getEnd();
+		}
 	}
 
-	public MigrationException(Set<AnalysationIssue> issues) {
-		this(Type.ANALYZATION_PROBLEMS, getMessage(issues));
+	public MigrationException(Set<AnalysationIssue> issues, String resourceName) {
+		this(Type.ANALYZATION_PROBLEMS, resourceName, getMessage(issues));
 		this.issues = issues;
 	}
 
-	public MigrationException(Type type, EvaluationException e) {
+	public MigrationException(Set<AnalysationIssue> issues, String resourceName, SyntaxElement syntaxElement) {
+		this(Type.ANALYZATION_PROBLEMS, resourceName, syntaxElement, getMessage(issues));
+		this.issues = issues;
+	}
+
+	public MigrationException(Type type, String resourceName, SyntaxElement syntaxElement, EvaluationException e) {
 		super(e);
 		this.type = type;
+		this.resourceName = resourceName;
+		if (syntaxElement != null) {
+			lineNumber = syntaxElement.getLine();
+			startPosition = syntaxElement.getStart();
+			endPosition = syntaxElement.getEnd();
+		}
+	}
+	
+	public MigrationException(Type type, String resourceName, SyntaxElement syntaxElement, ExpressionAnalyzeTrace trace) {
+		this(type, resourceName, syntaxElement, String.valueOf(trace));
 	}
 
 	public Type getType() {
@@ -114,7 +152,14 @@ public class MigrationException extends Exception {
 
 	@Override
 	public String getMessage() {
-		return "[" + getType().toString() + "] - " + super.getMessage();
+		return "[" + getType().toString() + "] in " + resourceName + getPosition() + " - " + super.getMessage();
+	}
+	
+	private String getPosition() {
+		if (lineNumber != -1) {
+			return " " + lineNumber + ":" + (startPosition + 1) + " - " + lineNumber + ":" + (endPosition + 1);			
+		}
+		return "";
 	}
 
 }
