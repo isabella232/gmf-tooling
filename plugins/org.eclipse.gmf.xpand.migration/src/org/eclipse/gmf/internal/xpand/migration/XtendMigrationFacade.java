@@ -27,9 +27,11 @@ import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
+import org.eclipse.gmf.internal.xpand.util.CompositeXtendResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.CreateExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExpressionExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.JavaExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.WorkflowSlotExtensionStatement;
 import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
@@ -95,30 +97,31 @@ public class XtendMigrationFacade {
 	public StringBuilder migrateXtendResource() throws MigrationException {
 		XtendResource xtendResource = resourceManager.loadXtendResource(resourceName);
 		if (xtendResource == null) {
-			throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load resource: " + resourceName);
+			throw new MigrationException(Type.RESOURCE_NOT_FOUND, resourceName, "Unable to load resource: " + resourceName);
 		}
 		MigrationExecutionContext ctx = (rootExecutionContext != null ? rootExecutionContext : new MigrationExecutionContextImpl(resourceManager)).cloneWithResource(xtendResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xtendResource.analyze(ctx, issues);
 		if (MigrationException.hasErrors(issues)) {
-			throw new MigrationException(issues);
+			throw new MigrationException(issues, resourceName);
 		}
-
+		
+		ExtensionFile extensionFile = getFirstExtensionFile(xtendResource);
 		String shortResourceName = getLastSegment(resourceName, SyntaxConstants.NS_DELIM);
 		if (shortResourceName.length() == 0) {
-			throw new MigrationException(Type.INCORRECT_RESOURCE_NAME, resourceName);
+			throw new MigrationException(Type.INCORRECT_RESOURCE_NAME, resourceName, resourceName);
 		}
 
 		stdLibImportsManager = new StandardLibraryImports(output);
 		oclKeywordManager = new OclKeywordManager();
 		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager);
-		addLibraryImports(xtendResource, false);
-		if (xtendResource.getImportedExtensions().length > 0) {
+		addLibraryImports(extensionFile, false);
+		if (extensionFile.getImportedExtensions().length > 0) {
 			writeln("");
 		}
 
 		modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports);
-		for (String namespace : xtendResource.getImportedNamespaces()) {
+		for (String namespace : extensionFile.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
 			importedMetamodels.add(namespace);
 		}
@@ -127,7 +130,7 @@ public class XtendMigrationFacade {
 		writeln("library " + shortResourceName + ";");
 		writeln("");
 
-		for (Iterator<Extension> it = xtendResource.getExtensions().iterator(); it.hasNext();) {
+		for (Iterator<Extension> it = extensionFile.getExtensions().iterator(); it.hasNext();) {
 			Extension extension = it.next();
 			migrateExtension(extension, ctx);
 			if (it.hasNext()) {
@@ -140,6 +143,17 @@ public class XtendMigrationFacade {
 		return output;
 	}
 	
+	private ExtensionFile getFirstExtensionFile(XtendResource xtendResource) throws MigrationException {
+		// TODO: there should be more generic way to get first definition..
+		while (xtendResource instanceof CompositeXtendResource) {
+			xtendResource = ((CompositeXtendResource) xtendResource).getFirstDefinition();
+		}
+		if (false == xtendResource instanceof ExtensionFile) {
+			throw new MigrationException(Type.UNSUPPORTED_XTEND_RESOURCE, resourceName, "Only ExtensionFile instances are supported, but loaded: " + xtendResource);
+		}
+		return (ExtensionFile) xtendResource;
+	}
+
 	/**
 	 * This method should be executed only after migrateXtendResource() one
 	 */
@@ -258,7 +272,7 @@ public class XtendMigrationFacade {
 
 	private String getJavaType(EClassifier xpandType) throws MigrationException {
 		if (xpandType == BuiltinMetaModel.VOID) {
-			throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Void type is not supported for native extensions");
+			throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, resourceName, "Void type is not supported for native extensions");
 		}
 		if (xpandType == EcorePackage.eINSTANCE.getEBoolean()) {
 			return "Boolean";
@@ -279,7 +293,7 @@ public class XtendMigrationFacade {
 			}
 		}
 		
-		throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, "Metamodel types without instanceClassName set are not supported for native extensions: " + xpandType.getName());
+		throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, resourceName, "Metamodel types without instanceClassName set are not supported for native extensions: " + xpandType.getName());
 	}
 
 	private String suppressJavaLang(String instanceClassName) {
@@ -354,7 +368,7 @@ public class XtendMigrationFacade {
 				writeln("import " + extension.replaceAll(SyntaxConstants.NS_DELIM, OclCs.NAMESPACE_SEPARATOR) + ";");
 				XtendResource referencedResource = resourceManager.loadXtendResource(extension);
 				if (referencedResource == null) {
-					throw new MigrationException(Type.RESOURCE_NOT_FOUND, "Unable to load extension file: " + extension);
+					throw new MigrationException(Type.RESOURCE_NOT_FOUND, resourceName, "Unable to load extension file: " + extension);
 				}
 				addLibraryImports(referencedResource, true);
 			}
@@ -370,7 +384,7 @@ public class XtendMigrationFacade {
 		try {
 			extension.init(ctx);
 		} catch (EvaluationException e) {
-			throw new MigrationException(Type.ANALYZATION_PROBLEMS, e);
+			throw new MigrationException(Type.ANALYZATION_PROBLEMS, resourceName, extension, e);
 		}
 		
 		write("helper ");
@@ -410,7 +424,7 @@ public class XtendMigrationFacade {
 		} else if (extension instanceof WorkflowSlotExtensionStatement) {
 			migrateWorkflowSlotExtension((WorkflowSlotExtensionStatement) extension, ctx);
 		} else {
-			throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
+			throw new MigrationException(Type.UNSUPPORTED_EXTENSION, resourceName, extension, extension.getClass().getName());
 		}
 		if (selfParameterName != null) {
 			modelManager.unregisterSelfAlias(selfParameterName);
@@ -422,10 +436,10 @@ public class XtendMigrationFacade {
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		EClassifier returnType = extension.getReturnType(extension.getParameterTypes().toArray(new EClassifier[extension.getParameterNames().size()]), ctx, issues);
 		if (issues.size() > 0) {
-			throw new MigrationException(issues);
+			throw new MigrationException(issues, resourceName, extension);
 		}
 		if (returnType == null) {
-			throw new MigrationException(Type.TYPE_NOT_FOUND, extension.getReturnTypeIdentifier().getValue());
+			throw new MigrationException(Type.TYPE_NOT_FOUND, resourceName,  extension.getReturnTypeIdentifier(), extension.getReturnTypeIdentifier().getValue());
 		}
 		return returnType;
 	}
@@ -436,8 +450,8 @@ public class XtendMigrationFacade {
 		// TODO: resolve return type of ExpressionExtensionStatement using
 		// corresponding identifier here in this context and use it as a desired
 		// return type parameter
-		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), expressionAnalyzeTrace.getResultType(), typeManager,
-				modelManager, new VariableNameDispatcher(extension), ctx);
+		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), expressionAnalyzeTrace.getResultType(), typeManager, modelManager,
+				new VariableNameDispatcher(extension), ctx, resourceName);
 		StringBuilder expressionContent = expressionMigrationFacade.migrate();
 		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return "));
 	}
@@ -451,13 +465,13 @@ public class XtendMigrationFacade {
 				nativeLibraryClassName = nativeLibraryClassName.substring(nativeLibraryClassName.lastIndexOf(JavaCs.DOT) + 1);
 			}
 			if (nativeLibraryClassName.length() == 0) {
-				throw new MigrationException(Type.UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME, "Resource name: \"" + resourceName + "\"");
+				throw new MigrationException(Type.UNABLE_TO_DETECT_NATIVE_LIBRARY_CLASS_NAME, resourceName, extension, "Resource name: \"" + resourceName + "\"");
 			}
 		}
 	}
 
 	private void migrateCreateExtension(CreateExtensionStatement extension) throws MigrationException {
-		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, extension.getClass().getName());
+		throw new MigrationException(Type.UNSUPPORTED_EXTENSION, resourceName, extension, extension.getClass().getName());
 	}
 
 	private void migrateWorkflowSlotExtension(WorkflowSlotExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
