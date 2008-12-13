@@ -27,7 +27,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
  * Composes several Xtend ast trees to produce a single resource. Extensions are merged:
  * if extensions with same signatures are found, the one that comes first (i.e., from a more recent source) wins.
  */
-class CompositeXtendResource implements XtendResource {
+public class CompositeXtendResource implements XtendResource {
 	private final XtendResource[] myResources;
 	private final List<Extension> myCachedExtensions;
 
@@ -39,6 +39,10 @@ class CompositeXtendResource implements XtendResource {
 		for (XtendResource nextResource : myResources) {
 			mergeExtensions(context, nextResource.getExtensions(), myCachedExtensions, signatures);
 		}
+	}
+	
+	public XtendResource getFirstDefinition() {
+		return myResources.length == 0 ? null : myResources[0];
 	}
 
 	private void mergeExtensions(ExecutionContext context, List<Extension> extensions, List<Extension> collector, Set<DefinitionSignature> usedSignatures) {
