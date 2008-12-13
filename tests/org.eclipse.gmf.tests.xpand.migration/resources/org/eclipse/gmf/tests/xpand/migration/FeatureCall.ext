@@ -135,11 +135,7 @@ List[testModel::Child] getChildrenOfCollection(Collection[testModel::Container] 
 	param.children
 ;
 
-/*
- * Not supported by OCL/QVT
- * TODO: check it once more
- *
-ecore::EClass typeCall() :
-	ecore::EObject
+/* FeatureCall with TypeLiteral expression referencing EClass operations */
+Boolean isSuperTypeOf(ecore::EClass param) :
+	ecore::EReference.isSuperTypeOf(param)
 ;
- */

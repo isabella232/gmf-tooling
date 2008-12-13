@@ -131,3 +131,7 @@ helper getChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel:
 helper getChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
 	return param.children->asSequence()
 }
+
+helper isSuperTypeOf(param : ecore::EClass) : Boolean {
+	return param.oclIsKindOf(ecore::EReference)
+}
