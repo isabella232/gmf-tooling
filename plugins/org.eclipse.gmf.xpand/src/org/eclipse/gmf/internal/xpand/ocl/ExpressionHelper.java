@@ -37,12 +37,15 @@ import org.eclipse.ocl.lpg.ProblemHandler;
 import org.eclipse.ocl.parser.OCLProblemHandler;
 
 public class ExpressionHelper {
-
+	
 	private final OCLExpressionCS expressionCS;
-
+	private OCLExpression<EClassifier> oclExpression;
+	private EcoreEnvironment oclEnvironment;
+	
 	public ExpressionHelper(OCLExpressionCS exprCS) {
 		assert exprCS != null;
 		this.expressionCS = exprCS;
+		// TODO: determine start/end/line from CST element?
 	}
 
 	public OCLExpressionCS getCST() {
@@ -50,8 +53,8 @@ public class ExpressionHelper {
 	}
 
 	public EClassifier analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
-		EcoreEnvironment env = ctx.getOCLEnvironment();
-		OCLExpression<EClassifier> expression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
+		EcoreEnvironment env = getOCLEnvironment(ctx);
+		OCLExpression<EClassifier> expression = getOCLExpression(env);
 		handleOCLAnalyzationErrors(env.getProblemHandler(), issues);
 		return expression.getType();
 	}
@@ -72,18 +75,32 @@ public class ExpressionHelper {
 	}
 
 	public Object evaluate(ExecutionContext ctx) {
-		EcoreEnvironment env = ctx.getOCLEnvironment();
+		EcoreEnvironment env = getOCLEnvironment(ctx);
 		//
-		OCLExpression<EClassifier> expression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
+		OCLExpression<EClassifier> expression = getOCLExpression(env);
 		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) ctx.createEvaluationEnvironment();
-		QvtOperationalEvaluationVisitorImpl visitor = QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, ctx.getImportedModules());
-		defineGlobalVariables(ctx, evaluationEnv, env);
+		QvtOperationalEvaluationVisitorImpl visitor = QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, ctx.getImportedModules(), ctx.getScope().getModuleInstancemap(), ctx.getScope().getProcessedModules());
+		defineGlobalVariables(ctx, evaluationEnv);
 		Object val = visitor.visitExpression(expression);
 		clearGlobalVariables(ctx, evaluationEnv);
 		if (env.getOCLStandardLibrary().getOclInvalid() == val) {
 			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", null);
 		}
 		return val;		
+	}
+	
+	private EcoreEnvironment getOCLEnvironment(ExecutionContext ctx) {
+		if (oclEnvironment == null) {
+			oclEnvironment = ctx.getOCLEnvironment();
+		}
+		return oclEnvironment;
+	}
+	
+	private OCLExpression<EClassifier> getOCLExpression(EcoreEnvironment env) {
+		if (oclExpression == null) {
+			oclExpression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
+		}
+		return oclExpression;
 	}
 
 	private void clearGlobalVariables(ExecutionContext ctx, QvtOperationalEvaluationEnv evaluationEnv) {
@@ -97,7 +114,7 @@ public class ExpressionHelper {
 		}
 	}
 
-	private void defineGlobalVariables(ExecutionContext ctx, QvtOperationalEvaluationEnv evaluationEnv, EcoreEnvironment env) {
+	private void defineGlobalVariables(ExecutionContext ctx, QvtOperationalEvaluationEnv evaluationEnv) {
 		Scope scope = ctx.getScope();
 		Collection<String> globalVarNames = scope.getGlobalVarNames();
 		if (globalVarNames.isEmpty()) {
@@ -127,6 +144,14 @@ public class ExpressionHelper {
 			}
 		}
 		return null;
+	}
+
+	public int getStart() {
+		return expressionCS.getStartOffset();
+	}
+
+	public int getEnd() {
+		return expressionCS.getEndOffset();
 	}
 	
 }

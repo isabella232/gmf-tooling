@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -37,6 +39,7 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 
 // FIXME it's not a good idea to parse file on every proposal computation
@@ -111,6 +114,21 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 		public void refresh() throws IOException {
 		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof InputStreamCFile) {
+				InputStreamCFile other = (InputStreamCFile) obj;
+				return getFullPath().equals(other.getFullPath());
+			}
+			return super.equals(obj);
+		}
+
+		@Override
+		public int hashCode() {
+			return getFullPath().hashCode();
+		}
+		
 	}
 
 	// TODO: implement this import resolved to use resolveMultiple() method
@@ -142,6 +160,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 						return null;
 					}
 				}
+				// TODO: provide user with more detailed error message in this case?
 				assert readers.length == 1;
 				CFile cFile = new InputStreamCFile(readers[0], fullName);
 				return cFile;
@@ -158,6 +177,12 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
 
 	private QvtCompiler qvtCompiler;
+
+	private HashMap<Module, ModuleInstance> moduleInstanceMap;
+
+	private HashSet<ModuleInstance> processedModules;
+
+	private QvtCompilerOptions qvtCompilerOptions;
 
 	public QvtResource loadQvtResource(String fullyQualifiedName) {
 		try {
@@ -189,16 +214,11 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
 		try {
 			Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
+			// TODO: provide user with more detailed error message in this case?
 			assert readers.length == 1;
 			CFile cFile = new InputStreamCFile(readers[0], fullyQualifiedName);
-			// TODO: use different kind of ImportResolver being able to construct
-			// referenced CFiles using ResourceManagerImpl
-			QvtCompiler qvtCompiler = getQvtCompiler();
-			QvtCompilerOptions options = new QvtCompilerOptions();
-			options.setGenerateCompletionData(true);
-			options.setShowAnnotations(false);
 			try {
-				CompiledModule module = qvtCompiler.compile(cFile, options, null).getModule();
+				CompiledModule module = getQvtCompiler().compile(cFile, getQvtCompilerOptions(), null).getModule();
 				// assert module.getModule() instanceof Library;
 				return new QvtFile(module, fullyQualifiedName);
 			} catch (MdaException e) {
@@ -222,16 +242,23 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	 * Using singleton QvtCompiler instance with "history". To prevent same
 	 * (native) libraries from being loaded twice into if (indirectly)
 	 * references by two different XpandResources.
-	 * 
-	 * TODO: add method to set qvtCompiler to null at the end of
-	 * building/template processing session to free corresponding memory
-	 * resources.
 	 */
 	private QvtCompiler getQvtCompiler() {
 		if (qvtCompiler == null) {
-			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl());	
+			// TODO: use different kind of ImportResolver being able to
+			// construct referenced CFiles using ResourceManagerImpl
+			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl());
 		}
 		return qvtCompiler;
+	}
+	
+	private QvtCompilerOptions getQvtCompilerOptions() {
+		if (qvtCompilerOptions == null) {
+			qvtCompilerOptions = new QvtCompilerOptions();
+			qvtCompilerOptions.setGenerateCompletionData(true);
+			qvtCompilerOptions.setShowAnnotations(false);
+		}
+		return qvtCompilerOptions;
 	}
 
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
@@ -364,6 +391,23 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected final void forgetAll() {
 		cachedXpand.clear();
 		cachedQvt.clear();
+		qvtCompiler = null;
+		moduleInstanceMap = null;
+		processedModules = null;
+	}
+	
+	public HashMap<Module, ModuleInstance> getModuleInstancemap() {
+		if (moduleInstanceMap == null) {
+			moduleInstanceMap = new HashMap<Module, ModuleInstance>();
+		}
+		return moduleInstanceMap;
+	}
+	
+	public HashSet<ModuleInstance> getProcessedModules() {
+		if (processedModules == null) {
+			processedModules = new HashSet<ModuleInstance>();
+		}
+		return processedModules;
 	}
 
 	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$

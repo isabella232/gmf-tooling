@@ -14,8 +14,13 @@
  */
 package org.eclipse.gmf.internal.xpand;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 
 
 /**
@@ -27,5 +32,9 @@ public interface ResourceManager {
     XpandResource loadXpandResource(String fullyQualifiedName);
     
     QvtResource loadQvtResource(String fullyQualifiedName);
+
+	HashMap<Module, ModuleInstance> getModuleInstancemap();
+
+	HashSet<ModuleInstance> getProcessedModules();
 
 }

@@ -13,6 +13,7 @@ package org.eclipse.gmf.internal.xpand.model;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 
 /**
  * @author artem
@@ -40,6 +43,8 @@ public class Scope {
     private ClassLoadContext contextClassLoader;
 
     private EvaluationListener evaluationListener;
+
+	private HashMap<Module, ModuleInstance> moduleInstanceMap;
     
     public Scope(ResourceManager resourceManager, Collection<Variable> globalVars, Output output) {
     	assert resourceManager != null;
@@ -171,5 +176,13 @@ public class Scope {
 
 	public QvtResource findExtension(String extensionName) {
 		return getResourceManager().loadQvtResource(extensionName);
+	}
+
+	public HashMap<Module, ModuleInstance> getModuleInstancemap() {
+		return getResourceManager().getModuleInstancemap();
+	}
+
+	public HashSet<ModuleInstance> getProcessedModules() {
+		return getResourceManager().getProcessedModules();
 	}
 }
