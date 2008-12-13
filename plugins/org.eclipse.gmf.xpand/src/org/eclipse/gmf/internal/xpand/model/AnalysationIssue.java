@@ -47,32 +47,33 @@ public class AnalysationIssue {
 
     private final String message;
 
-    private final SyntaxElement element;
-
     private final boolean isWarningNotError;
 
+	private final int start;
+
+	private final int end;
+
+	private final int line;
+
     public AnalysationIssue(final Type type, final String message, final SyntaxElement element) {
-    	this(type, message, element, false);
+    	this(type, message, element.getStart(), element.getEnd(), element.getLine(), false);
     }
 
-    // FIXME Hack to get over compilation issues. need to deal with absence of line information in the CST anyway.
     public AnalysationIssue(final Type type, final String message, final ExpressionHelper exprHelper) {
-    	this(type, message, null, false);
+    	this(type, message, exprHelper.getStart(), exprHelper.getEnd(), -1, false);
     }
 
-    public AnalysationIssue(final Type type, final String message, final SyntaxElement element, boolean isWarningNotError) {
+    private AnalysationIssue(final Type type, final String message, final int start, int end, int line, boolean isWarningNotError) {
         this.type = type;
         this.message = message;
-        this.element = element;
         this.isWarningNotError = isWarningNotError;
+        this.start = start;
+        this.end = end;
+        this.line = line;
     }
 
     public boolean isWarningNotError() {
     	return isWarningNotError;
-    }
-
-    public SyntaxElement getElement() {
-        return element;
     }
 
     public String getMessage() {
@@ -82,9 +83,23 @@ public class AnalysationIssue {
     public Type getType() {
         return type;
     }
+    
+    public int getStart() {
+    	return start;
+    }
+    
+    public int getEnd() {
+    	return end;
+    }
+
+    
+    public int getLine() {
+    	return line;
+    }
 
     @Override
     public String toString() {
-        return "[" + type.name + "] - " + message + " : " + element;
+        return "[" + type.name + "] - " + message;
     }
+
 }
