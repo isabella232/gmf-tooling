@@ -53,14 +53,9 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		}
 		// try file directly, to get IO/Parse exceptions, if any.
 		Reader r = new StreamConverter().toContentsReader(file);
-		loadXpandResources(new Reader[] { r }, fullyQualifiedName);
-		//
-		fullyQualifiedName = getNonAspectsTemplateName(fullyQualifiedName);
-		try {
-			return loadXpandThroughCache(fullyQualifiedName);
-		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
-		}
+		XpandResource[] loadXpandResources = loadXpandResources(new Reader[] { r }, fullyQualifiedName);
+		assert loadXpandResources.length == 1 && loadXpandResources[0] != null;
+		return loadXpandResources[0];
 	}
 
 	@Override
@@ -69,7 +64,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		// broken. Since it's expected to get compiled anyway (either prior
 		// to compilation of its use or afterwards), error messages should get
 		// into problems view sooner or later.
-		Activator.logWarn(ex.getClass().getSimpleName() + ":" + ex.getResourceName());
 	}
 
 	@Override
