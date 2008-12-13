@@ -60,7 +60,7 @@ public class OperationCallTrace extends ExpressionAnalyzeTrace {
 		for (Iterator<Extension> it = allExtensions.iterator(); it.hasNext();) {
 			Extension nextExtension = it.next();
 			if (!extension.getFileName().equals(nextExtension.getFileName()) || !extension.getName().equals(nextExtension.getName())
-					|| extension.getParameterTypes().size() != nextExtension.getParameterTypes().size()) {
+					|| extension.getParameterTypes().size() != nextExtension.getParameterTypes().size() || extension.isPrivate() ^ nextExtension.isPrivate()) {
 				it.remove();
 				continue;
 			}
