@@ -26,8 +26,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.RootManager;
-import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.XpandMigrationFacade;
 import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
@@ -86,7 +86,7 @@ public class MigrationVisitor extends AbstractMigrationVisitor {
 
 	private InputStream migrateXpandResource(IFile srcFile) throws CoreException {
 		String templateFullName = rootManager.getTemplateFullName(srcFile);
-		WorkspaceResourceManager resourceManager = rootManager.getResourceManager(srcFile);
+		ResourceManager resourceManager = rootManager.getResourceManager(srcFile);
 		XpandMigrationFacade migrationFacade = new XpandMigrationFacade(resourceManager, templateFullName, false);
 		try {
 			String updatedResourceContent = migrationFacade.migrateXpandResource();
@@ -102,7 +102,7 @@ public class MigrationVisitor extends AbstractMigrationVisitor {
 	protected void visitXtendResource(IFile resource) throws CoreException {
 		try {
 			String templateFullName = rootManager.getTemplateFullName(resource);
-			WorkspaceResourceManager resourceManager = rootManager.getResourceManager(resource);
+			ResourceManager resourceManager = rootManager.getResourceManager(resource);
 			XtendMigrationFacade migrationFacade = new XtendMigrationFacade(resourceManager, templateFullName);
 
 			IProgressMonitor subMonitor = createSubProgressMonitor("Migrating xtend extensions from " + resource.getProjectRelativePath().toString());
