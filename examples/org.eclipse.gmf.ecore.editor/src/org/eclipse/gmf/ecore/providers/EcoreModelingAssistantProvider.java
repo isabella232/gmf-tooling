@@ -51,14 +51,14 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof EClassEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(3);
 			types.add(EcoreElementTypes.EAttribute_3001);
 			types.add(EcoreElementTypes.EOperation_3002);
 			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EPackage2EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(5);
 			types.add(EcoreElementTypes.EClass_3004);
 			types.add(EcoreElementTypes.EPackage_3005);
 			types.add(EcoreElementTypes.EDataType_3006);
@@ -67,23 +67,23 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 			return types;
 		}
 		if (editPart instanceof EAnnotationEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(EcoreElementTypes.EStringToStringMapEntry_3008);
 			return types;
 		}
 		if (editPart instanceof EDataTypeEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EEnumEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(2);
 			types.add(EcoreElementTypes.EEnumLiteral_3009);
 			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EPackageEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(5);
 			types.add(EcoreElementTypes.EClass_2001);
 			types.add(EcoreElementTypes.EPackage_2002);
 			types.add(EcoreElementTypes.EAnnotation_2003);
