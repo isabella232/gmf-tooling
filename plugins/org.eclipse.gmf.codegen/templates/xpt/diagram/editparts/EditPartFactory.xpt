@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -26,20 +26,14 @@ public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFacto
 			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
 			switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
 				«EXPAND createEditPart FOR this-»
-				«FOREACH (List[gmfgen::GenNode]) {}.addAll(topLevelNodes).addAll(childNodes) AS node-»
+				«FOREACH getAllNodes() AS node-»
 					«EXPAND createEditPart FOR node-»
-				 	«FOREACH node.labels AS label-»
-						«EXPAND createEditPart FOR label-»
-				 	«ENDFOREACH-»
+					«EXPAND createEditPart FOREACH node.labels-»
 				«ENDFOREACH-»
-				«FOREACH compartments AS compartment-»
-					«EXPAND createEditPart FOR compartment-»
-				«ENDFOREACH-»
+				«EXPAND createEditPart FOREACH compartments-»
 				«FOREACH links AS link-»
 					«EXPAND createEditPart FOR link-»
-					«FOREACH link.labels AS label-»
-						«EXPAND createEditPart FOR label-»
-					«ENDFOREACH-»
+					«EXPAND createEditPart FOREACH link.labels»
 				«ENDFOREACH-»
 			}
 		}
