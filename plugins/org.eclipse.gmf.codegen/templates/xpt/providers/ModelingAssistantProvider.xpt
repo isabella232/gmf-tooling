@@ -59,7 +59,7 @@ public class «modelingAssistantProviderClassName»
 		«FOREACH getAllContainers() AS container-»
 			«IF container.getAssistantNodes().size() > 0-»
 		if (editPart instanceof «container.getEditPartQualifiedClassName()») {
-			java.util.List types = new java.util.ArrayList();
+			java.util.ArrayList types = new java.util.ArrayList(«container.getAssistantNodes().size()»);
 				«FOREACH container.getAssistantNodes() AS node-»
 			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR node»);
 				«ENDFOREACH-»
