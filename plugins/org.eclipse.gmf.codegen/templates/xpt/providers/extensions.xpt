@@ -22,8 +22,8 @@
       <viewProvider class="«getNotationViewProviderQualifiedClassName()»">
          <Priority name="«notationViewProviderPriority»"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«FOREACH getAllNodes() /*XXX can further improve selection using containerViews attribute, however, when top-node is created, provider is activated and this xml is not consulted any longer (same applies to compartments)*/ AS n SEPARATOR ","»«n.visualID»«ENDFOREACH»"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="«FOREACH links AS l SEPARATOR ","»«l.visualID»«ENDFOREACH»"/>
       </viewProvider>
    </extension>
 
@@ -31,6 +31,19 @@
       «EXPAND xpt::Common::xmlGeneratedTag»
       <editpartProvider class="«getEditPartProviderQualifiedClassName()»">
          <Priority name="«editPartProviderPriority»"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="«FOREACH getAllNodes() AS n SEPARATOR ","»«n.visualID»«ENDFOREACH»"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="«FOREACH links AS l SEPARATOR ","»«l.visualID»«ENDFOREACH»"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="«FOREACH getAllNodes().labels AS lb SEPARATOR ","»«lb.visualID»«ENDFOREACH»"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="«FOREACH compartments AS c SEPARATOR ","»«c.visualID»«ENDFOREACH»"/>
+         </object>
+         <context views="generated-nodes,generated-links,generated-labels,generated-compartments"/>
       </editpartProvider>
    </extension>
 
@@ -38,6 +51,10 @@
       «EXPAND xpt::Common::xmlGeneratedTag»
       <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
          <Priority name="«modelingAssistantProviderPriority»"/>
+«FOREACH topLevelNodes AS n-»
+         <object class="«n.getEditPartQualifiedClassName()»" id="«n.getUniqueIdentifier()»"/>
+«ENDFOREACH-»
+         <context elements="«FOREACH topLevelNodes AS n SEPARATOR ","»«n.getUniqueIdentifier()»«ENDFOREACH»"/>
       </modelingAssistantProvider>
    </extension>
 
@@ -55,12 +72,15 @@
       </ParserProvider>
    </extension>
 «ENDIF-»
-«IF generateShortcutIcon()-»
-
+«IF generateShortcutIcon()»
    <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
       <decoratorProvider class="«getShortcutsDecoratorProviderQualifiedClassName()»">
          <Priority name="«shortcutsDecoratorProviderPriority»"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="«FOREACH topLevelNodes /*generated code supports shortcuts only to top-level nodes*/ AS n SEPARATOR ","»«n.visualID»«ENDFOREACH»"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
       </decoratorProvider>
    </extension>
 «ENDIF-»
