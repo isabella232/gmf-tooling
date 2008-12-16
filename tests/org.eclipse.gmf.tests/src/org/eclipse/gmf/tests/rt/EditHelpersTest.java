@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2008 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
@@ -233,7 +233,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		}
 
 		@Override
-		protected GenProjectSetup createGenProject() throws BundleException, Exception {
+		protected GenProjectSetup createGenProject() throws BundleException {
 			return new EditHelpersProjectSetup(getGeneratorConfiguration()).init(getGenModel());
 		}
 
