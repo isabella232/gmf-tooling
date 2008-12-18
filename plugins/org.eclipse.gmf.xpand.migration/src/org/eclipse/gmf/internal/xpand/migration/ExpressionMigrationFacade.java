@@ -712,16 +712,23 @@ public class ExpressionMigrationFacade {
 		assert eOperation != null;
 		if ("isSuperTypeOf".equals(eOperation.getName())) {
 			assert operationCall.getParams().length == 1;
-			internalMigrateOperationCallParameters(operationCall, null);
-			write(".oclIsKindOf(");
-			Expression target = operationCall.getTarget();
-			assert target instanceof FeatureCall;
-			EClassifier type = ctx.getTypeForName(((FeatureCall) target).getName().getValue());
-			write(typeManager.getQvtFQName(type));
-			write(")");
-			return EcorePackage.eINSTANCE.getEBoolean();
+			Expression parameter = operationCall.getParams()[0];
+			if (parameter instanceof OperationCall) {
+				OperationCall parameterOpCall = (OperationCall) parameter;
+				if ("eClass".equals(parameterOpCall.getName().getValue()) && parameterOpCall.getTarget() != null && parameterOpCall.getParams().length == 0) {
+					migrateExpression(parameterOpCall.getTarget());
+					write(".oclIsKindOf(");
+					Expression target = operationCall.getTarget();
+					assert target instanceof FeatureCall;
+					EClassifier type = ctx.getTypeForName(((FeatureCall) target).getName().getValue());
+					write(typeManager.getQvtFQName(type));
+					write(")");
+					return EcorePackage.eINSTANCE.getEBoolean();
+				}
+			}
 		}
-		throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, resourceName, operationCall.getName(), "Migration of operation \"" + eOperation.getName() + "\" is not supported for TypeLiteral expressions now");
+		throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL, resourceName, operationCall.getName(), "Migration of operation \"" + eOperation.getName()
+				+ "\" is not supported for TypeLiteral expressions now");
 	}
 
 	private boolean isEClassOperationOnTypeLiteral(OperationCallTrace trace, OperationCall operationCall) throws MigrationException {
@@ -1222,10 +1229,10 @@ public class ExpressionMigrationFacade {
 
 	private void internalMigrateParameterCollectionToList(EClassifier parameterCollectionType) {
 		assert BuiltinMetaModel.isCollectionType(parameterCollectionType);
-		if (BuiltinMetaModelExt.isSetType(parameterCollectionType) || BuiltinMetaModelExt.isOrderedSetType(parameterCollectionType)) {
-			write("->asSequence()");
-		} else if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
+		if (BuiltinMetaModelExt.isAbstractCollectionType(parameterCollectionType)) {
 			internalMigrateCollectionToBag();
+		} 
+		if (!BuiltinMetaModelExt.isListType(parameterCollectionType)) {
 			write("->asSequence()");
 		}
 	}
@@ -1340,7 +1347,7 @@ public class ExpressionMigrationFacade {
 				throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, featureCall, "Implicit collect is not supported for simple types: " + targetType.toString() + "." + featureCall.getName().getValue());
 			}
 			convertImplicitCollectProduct(targetType);
-			return BuiltinMetaModelExt.getListType(BuiltinMetaModel.getInnerType(targetType));
+			return trace.getResultType();
 		default:
 			throw new MigrationException(Type.UNSUPPORTED_FEATURE_CALL_TRACE, resourceName, featureCall,trace);
 		}
