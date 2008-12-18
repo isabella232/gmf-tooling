@@ -85,7 +85,7 @@ public class XpandMigrationTest extends TestCase {
 	
 	public void testFixedProblems() throws IOException, MigrationException {
 		String resourceName = "FixedProblems";
-		checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false, new MigrationExecutionContextImpl(testResourceManager, GMFGenPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GMFGenPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 	
 	public void testImportedExtensions() throws IOException, MigrationException {
@@ -111,7 +111,7 @@ public class XpandMigrationTest extends TestCase {
 	
 	
 	private String checkMigration(String resourceName) throws IOException, MigrationException {
-		return checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), false), resourceName);
+		return checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName)), resourceName);
 	}
 
 	private static String getEtalonResourceName(String resourceName) {
