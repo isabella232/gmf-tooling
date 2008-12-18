@@ -24,3 +24,7 @@ Collection[ecore::EClass] getEClasses(ecore::EPackage ePackage) :
 Boolean isUnlimited(ecore::EReference eReference) :
 	eReference.upperBound > 0
 ;
+
+Collection[Object] collectionConversion(Collection[Object] parameter) :
+	{}.union(parameter.collect(e| e))
+;

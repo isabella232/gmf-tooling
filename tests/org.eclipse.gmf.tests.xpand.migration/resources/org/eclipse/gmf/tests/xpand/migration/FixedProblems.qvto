@@ -25,3 +25,7 @@ helper getEClasses(ePackage : ecore::EPackage)  : Collection(ecore::EClass) {
 helper isUnlimited(eReference : ecore::EReference) : Boolean {
 	return eReference.upperBound.oclAsType(Integer) > 0
 }
+
+helper collectionConversion(parameter : Collection(OclAny)) : Collection(OclAny) {
+	return (Sequence { })[OclAny]->union(parameter->collect(e | e)->asSequence())->asOrderedSet()->asSequence()
+}
