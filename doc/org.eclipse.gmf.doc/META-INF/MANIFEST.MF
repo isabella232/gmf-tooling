@@ -6,3 +6,4 @@ Bundle-Version: 1.2.2.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
