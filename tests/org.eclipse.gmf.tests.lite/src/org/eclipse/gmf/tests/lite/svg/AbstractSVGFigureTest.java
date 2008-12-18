@@ -16,28 +16,31 @@ import junit.framework.TestCase;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FlowLayout;
-import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.SWTGraphics;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.swt.widgets.Display;
 
 public class AbstractSVGFigureTest extends TestCase {
 
+	private static final int HEIGHT = 200;
+	private static final int WIDTH = 200;
 	public static final String BOX_URI = "platform:/plugin/org.eclipse.gmf.tests.lite/images/box.svg";
 	public static final String GROUP_URI = "platform:/plugin/org.eclipse.gmf.tests.lite/images/group.svg";
 
-	protected FigureCanvas canvas;
+	private Image image;
+	private SWTGraphics graphics;
+	protected RectangleFigure parentFigure;
+	private GC gc;
+	private LightweightSystem lws;
 
 	public AbstractSVGFigureTest(String name) {
 		super(name);
@@ -45,43 +48,36 @@ public class AbstractSVGFigureTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		Shell shell = new Shell(PlatformUI.getWorkbench().getDisplay(), SWT.NO_TRIM);
-		shell.setSize(200, 200);
-		StackLayout layout = new StackLayout();
-		shell.setLayout(layout);
-		canvas = new FigureCanvas(shell, SWT.DOUBLE_BUFFERED, new LightweightSystem() {
-
-			@Override
-			public void paint(GC gc) {
-				gc.setAntialias(SWT.OFF);
-				super.paint(gc);
-			}
-		});
-		canvas.setContents(new RectangleFigure() {
-
-			@Override
-			public void paint(Graphics graphics) {
-				graphics.setAntialias(SWT.OFF);
-				super.paint(graphics);
-			}
-		});
-		canvas.getContents().setLayoutManager(new FlowLayout());
-		canvas.getContents().setBackgroundColor(ColorConstants.yellow);
-		canvas.getContents().setForegroundColor(ColorConstants.green);
-		layout.topControl = canvas;
-		shell.open();
+		lws = new LightweightSystem();
+		lws.getRootFigure().setSize(WIDTH, HEIGHT);
+		image = new Image(Display.getDefault(), WIDTH, HEIGHT);
+		gc = new GC(image);
+		gc.setAntialias(SWT.OFF);
+		graphics = new SWTGraphics(gc);
+		parentFigure = new RectangleFigure();
+		parentFigure.setLayoutManager(new FlowLayout());
+		parentFigure.setBackgroundColor(ColorConstants.yellow);
+		parentFigure.setForegroundColor(ColorConstants.green);
+		lws.getRootFigure().add(parentFigure);
+	}
+	
+	protected IFigure getParentFigure() {
+		return parentFigure;
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		canvas.getShell().close();
+		graphics.dispose();
+		gc.dispose();
+		image.dispose();
 	}
 
 	/**
 	 * Revalidates and repaints the canvas. Should be called after changes to it and before content tests.
 	 */
-	protected void flushCanvas() {
-		canvas.getLightweightSystem().getUpdateManager().performUpdate();
+	protected void paintImage() {
+		lws.getUpdateManager().performUpdate();
+		lws.getRootFigure().paint(graphics);
 	}
 
 	protected final void dumpCanvas() {
@@ -92,49 +88,23 @@ public class AbstractSVGFigureTest extends TestCase {
 	 * Saves canvas screenshot in workspace root for postmortem inspection.
 	 */
 	protected void dumpCanvas(String filePrefix) {
-		Point size = canvas.getSize();
-		Image image = new Image(canvas.getDisplay(), size.x, size.y);
-		try {
-			GC gc = new GC(canvas);
-			gc.setAntialias(SWT.OFF);
-			try {
-				gc.copyArea(image, 0, 0);
-			} finally {
-				gc.dispose();
-			}
-			String fileName = filePrefix + ".png";
-			IPath root = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-			if (root != null) {
-				fileName = root.append(fileName).toString();
-			}
-			ImageLoader loader = new ImageLoader();
-			loader.data = new ImageData[] { image.getImageData() };
-			loader.save(fileName, SWT.IMAGE_PNG);
-		} finally {
-			image.dispose();
+		String fileName = filePrefix + ".png";
+		IPath root = ResourcesPlugin.getWorkspace().getRoot().getLocation();
+		if (root != null) {
+			fileName = root.append(fileName).toString();
 		}
+		ImageLoader loader = new ImageLoader();
+		loader.data = new ImageData[] { image.getImageData() };
+		loader.save(fileName, SWT.IMAGE_PNG);
 	}
 
 	/**
 	 * Check that canvas has the specified color at the (x,y).
 	 */
 	protected void assertColor(int x, int y, RGB expectedColor) {
-		RGB currentColor;
-		Image image = new Image(canvas.getDisplay(), 1, 1);
-		try {
-			GC gc = new GC(canvas);
-			gc.setAntialias(SWT.OFF);
-			try {
-				gc.copyArea(image, x, y);
-			} finally {
-				gc.dispose();
-			}
-			ImageData data = image.getImageData();
-			int pixel = data.getPixel(0, 0);
-			currentColor = data.palette.getRGB(pixel);
-		} finally {
-			image.dispose();
-		}
+		ImageData data = image.getImageData();
+		int pixel = data.getPixel(x, y);
+		RGB currentColor = data.palette.getRGB(pixel);
 		assertEquals(expectedColor, currentColor);
 	}
 }

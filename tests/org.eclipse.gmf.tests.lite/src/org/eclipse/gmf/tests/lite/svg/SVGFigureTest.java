@@ -15,8 +15,8 @@ import java.awt.geom.Rectangle2D;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.MarginBorder;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gmf.runtime.lite.svg.SVGFigure;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 
 public class SVGFigureTest extends AbstractSVGFigureTest {
@@ -29,10 +29,10 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 	 * Check that test canvas is available.
 	 */
 	public void testCanvasSetup() {
-		flushCanvas();
-		Point size = canvas.getSize();
-		assertEquals(size.x, 200);
-		assertEquals(size.y, 200);
+		paintImage();
+		Dimension size = getParentFigure().getSize();
+		assertEquals(size.width, 200);
+		assertEquals(size.height, 200);
 		assertColor(0, 0, ColorConstants.green.getRGB());
 		assertColor(1, 1, ColorConstants.yellow.getRGB());
 		assertColor(100, 100, ColorConstants.yellow.getRGB());
@@ -56,8 +56,8 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 		SVGFigure f = new SVGFigure();
 		f.setURI(BOX_URI);
 		f.setPreferredSize(50, 50);
-		canvas.getContents().add(f);
-		flushCanvas();
+		getParentFigure().add(f);
+		paintImage();
 		assertColor(0, 0, new RGB(0, 0, 0));
 		assertColor(1, 1, new RGB(0x66, 0x33, 0));
 		assertColor(48, 48, new RGB(0x66, 0x33, 0));
@@ -74,8 +74,8 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 		f.setURI(BOX_URI);
 		f.setPreferredSize(90, 90);
 		f.setBorder(new MarginBorder(20));
-		canvas.getContents().add(f);
-		flushCanvas();
+		getParentFigure().add(f);
+		paintImage();
 		assertColor(19, 19, ColorConstants.yellow.getRGB());
 		assertColor(20, 20, new RGB(0, 0, 0));
 		assertColor(21, 21, new RGB(0x66, 0x33, 0));
@@ -89,8 +89,8 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 		f.setURI(GROUP_URI);
 		f.setAreaOfInterest(new Rectangle2D.Float(20f, 20f, 20f, 20f));
 		f.setPreferredSize(20, 20);
-		canvas.getContents().add(f);
-		flushCanvas();
+		getParentFigure().add(f);
+		paintImage();
 		assertColor(0, 0, new RGB(0, 0, 0xFF));
 		assertColor(1, 1, new RGB(0xFF, 0, 0));
 		assertColor(18, 18, new RGB(0xFF, 0, 0));
