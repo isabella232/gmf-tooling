@@ -141,6 +141,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return getGenEssence();
 	}
 
+	public History getTrace() {
+		return myHistory;
+	}
+
 	private GenEditorGenerator getGenEssence() {
 		if (myGenModel == null) {
 			myGenModel = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
