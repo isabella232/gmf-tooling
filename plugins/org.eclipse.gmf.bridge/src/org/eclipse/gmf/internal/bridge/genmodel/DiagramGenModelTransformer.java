@@ -33,6 +33,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
@@ -46,39 +48,9 @@ import org.eclipse.gmf.internal.bridge.Knowledge;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.navigator.NavigatorHandler;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.internal.bridge.tooldef.PaletteHandler;
-import org.eclipse.gmf.mappings.AuditContainer;
-import org.eclipse.gmf.mappings.AuditRule;
-import org.eclipse.gmf.mappings.AuditedMetricTarget;
-import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildReference;
-import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.DesignLabelMapping;
-import org.eclipse.gmf.mappings.DiagramElementTarget;
-import org.eclipse.gmf.mappings.DomainAttributeTarget;
-import org.eclipse.gmf.mappings.DomainElementTarget;
-import org.eclipse.gmf.mappings.ElementInitializer;
-import org.eclipse.gmf.mappings.FeatureInitializer;
-import org.eclipse.gmf.mappings.FeatureLabelMapping;
-import org.eclipse.gmf.mappings.FeatureSeqInitializer;
-import org.eclipse.gmf.mappings.FeatureValueSpec;
-import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.LabelMapping;
-import org.eclipse.gmf.mappings.Language;
+import org.eclipse.gmf.mappings.*;
 import org.eclipse.gmf.mappings.LinkConstraints;
-import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.MappingEntry;
-import org.eclipse.gmf.mappings.MetricContainer;
-import org.eclipse.gmf.mappings.MetricRule;
-import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.NodeReference;
-import org.eclipse.gmf.mappings.NotationElementTarget;
-import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
-import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
  * Creates generation model from diagram definition.
@@ -96,7 +68,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private final Map<GenClass, ElementType> myProcessedTypes = new IdentityHashMap<GenClass, ElementType>(); // GenClass -> MetamodelType
 	private final Map<org.eclipse.gmf.mappings.ValueExpression, ValueExpression> myProcessedExpressions;
 
-	private final GenModelNamingMediator myNamingStrategy;
 	private final PaletteHandler myPaletteProcessor;
 	private final NavigatorHandler myNavigatorProcessor;
 	private final PropertySheetHandler myPropertySheetProcessor;
@@ -107,14 +78,35 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenAuditContext myDefaultAuditContext;
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
-		this(drtHelper, namingStrategy, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false);
+	public static class Parameters {
+		public final DiagramRunTimeModelHelper diagramModelHelper;
+		public final ViewmapProducer viewmaps;
+		public final VisualIdentifierDispenser vidDispenser;
+		public final boolean rcp;
+
+		public Parameters(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, VisualIdentifierDispenser vidDispenser, boolean rcp) {
+			diagramModelHelper = drtHelper;
+			this.viewmaps = viewmaps;
+			this.vidDispenser = vidDispenser;
+			this.rcp = rcp;
+		}
 	}
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy, ViewmapProducer viewmaps, VisualIdentifierDispenser visualIdD, boolean rcp) {
-		assert drtHelper != null && namingStrategy != null && viewmaps != null;
+	public DiagramGenModelTransformer() {
+		this(new BasicDiagramRunTimeModelHelper());
+	}
+
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper) {
+		this(new Parameters(drtHelper, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false));
+	}
+
+	public DiagramGenModelTransformer(Parameters opts) {
+		this(opts.diagramModelHelper, opts.viewmaps, opts.vidDispenser, opts.rcp);
+	}
+
+	private DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, VisualIdentifierDispenser visualIdD, boolean rcp) {
+		assert drtHelper != null && viewmaps != null;
 		myDRTHelper = drtHelper;
-		myNamingStrategy = namingStrategy;
 		myViewmaps = viewmaps;
 		myVisualIDs = visualIdD;
 		this.rcp = rcp;
@@ -266,10 +258,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		// XXX ask Vano, if it's reasonable to generate LoadResourceAction only when there are shortcuts?
 		getDiagramContextMenu().getItems().add(GMFGenFactory.eINSTANCE.createLoadResourceAction());
-		
-		
-		// set class names
-		myNamingStrategy.feed(getGenDiagram(), mapping);
 	}
 
 	protected void process(TopNodeReference topNode) {
@@ -282,13 +270,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
-		genNode.setViewmap(myViewmaps.create((Node) nme.getDiagramNode()));
+		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		setupElementType(genNode); 
 		myPaletteProcessor.process(nme, genNode);
 
-		// set class names
-		myNamingStrategy.feed(genNode, nme);
-		
 		processAbstractNode(nme, genNode);
 		myHistory.log(nme, genNode);
 		
@@ -386,16 +371,16 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childLabelNode.setLabelElementIcon(soleLabel.getDiagramLabel().isElementIcon());
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
-		} else if (((Node) childNodeMapping.getDiagramNode()).getAffixedParentSide() != Direction.NONE_LITERAL){
+		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL){
 			GenChildSideAffixedNode sideAffixedNode = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode(); 
-			sideAffixedNode.setViewmap(myViewmaps.create((Node) childNodeMapping.getDiagramNode()));
-			String positionConstantName = getAffixedSideAsPositionConstantsName((Node) childNodeMapping.getDiagramNode());
+			sideAffixedNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
+			String positionConstantName = getAffixedSideAsPositionConstantsName(childNodeMapping.getDiagramNode());
 			sideAffixedNode.setPreferredSideName(positionConstantName);
 			childNode = sideAffixedNode;
 			needCompartmentChildrenLabelProcessing = true;
 		} else {
 			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-			childNode.setViewmap(myViewmaps.create((Node) childNodeMapping.getDiagramNode()));
+			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 			needCompartmentChildrenLabelProcessing = true;
 		}
 		myHistory.log(childNodeMapping, childNode);
@@ -406,9 +391,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setVisualID(myVisualIDs.get(childNode));
 		setupElementType(childNode); 
-
-		// set class names
-		myNamingStrategy.feed(childNode, childNodeMapping);
 
 		myPaletteProcessor.process(childNodeMapping, childNode);
 		if (needCompartmentChildrenLabelProcessing) {
@@ -457,10 +439,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			process(childNodeRef, genChildContainer);
 		}
 		for (LabelMapping labelMapping : mapping.getLabelMappings()) {
-			GenNodeLabel label = createNodeLabel(genNode, labelMapping);
-
-			// set class names
-			myNamingStrategy.feed(label, labelMapping);
+			createNodeLabel(genNode, labelMapping);
 		}
 		for (CanvasMapping nextRelatedCanvas : mapping.getRelatedDiagrams()) {
 			OpenDiagramBehaviour openDiagramPolicy = GMFGenFactory.eINSTANCE.createOpenDiagramBehaviour();
@@ -487,8 +466,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childCompartment.setNeedsTitle(compartment.isNeedsTitle());
 		childCompartment.setTitle(compartment.getName());
 
-		// set class names
-		myNamingStrategy.feed(childCompartment, mapping);
 		return childCompartment;
 	}
 
@@ -500,17 +477,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setVisualID(myVisualIDs.get(gl));
 		myPaletteProcessor.process(lme, gl);
 		for (LabelMapping labelMapping : lme.getLabelMappings()) {
-			GenLinkLabel label = createLinkLabel(gl, labelMapping);
-
-			// set class names
-			myNamingStrategy.feed(label, labelMapping);
+			createLinkLabel(gl, labelMapping);
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 
 		setupElementType(gl);
-
-		// set class names
-		myNamingStrategy.feed(gl, lme);
 
 		gl.setViewmap(myViewmaps.create(lme.getDiagramLink()));
 
@@ -1009,7 +980,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				if (lm != null) {
 					genBase = myHistory.find(lm);
 					assert genBase != null;
-					if(genBase != null) {
+					@SuppressWarnings("null")
+					boolean isGenBaseNull = genBase == null;
+					if(!isGenBaseNull) {
 						diagramTarget.getElement().add(genBase);
 					}
 				} else {
