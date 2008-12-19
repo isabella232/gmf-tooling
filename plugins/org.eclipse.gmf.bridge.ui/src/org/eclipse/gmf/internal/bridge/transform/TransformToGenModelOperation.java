@@ -48,7 +48,6 @@ import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
@@ -56,6 +55,7 @@ import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
 
+//[artem] XXX Why it's in the bridge.ui??? 
 public class TransformToGenModelOperation {
 	
 	private URI myGMFGenModelURI;
@@ -249,12 +249,10 @@ public class TransformToGenModelOperation {
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
 			}
-			final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
-			final ViewmapProducer viewmapProducer = detectTransformationOptions();
 			final VisualIdentifierDispenserProvider idDispenser = getVisualIdDispenser();
 			idDispenser.acquire();
 
-			GenModelProducer t = createGenModelProducer(getGenModel(), drtModelHelper, viewmapProducer, idDispenser.get());
+			GenModelProducer t = createGenModelProducer(idDispenser.get());
 
 			monitor.subTask(Messages.TransformToGenModelOperation_task_generate);
 			GenEditorGenerator genEditor = t.process(getMapping(), new SubProgressMonitor(monitor, 20));
@@ -338,10 +336,13 @@ public class TransformToGenModelOperation {
 		return new VisualIdentifierDispenserProvider(getGenURI());
 	}
 
-	private GenModelProducer createGenModelProducer(GenModel domainGenModel, final DiagramRunTimeModelHelper drtModelHelper, final ViewmapProducer viewmapProducer, final VisualIdentifierDispenser idDespenser) {
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediator.Empty(), viewmapProducer, idDespenser, getOptions().getGenerateRCP());
-		if (domainGenModel != null) {
-			t.setEMFGenModel(domainGenModel);
+	private GenModelProducer createGenModelProducer(final VisualIdentifierDispenser idDespenser) {
+		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
+		final ViewmapProducer viewmapProducer = detectTransformationOptions();
+		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, idDespenser, getOptions().getGenerateRCP());
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
+		if (getGenModel() != null) {
+			t.setEMFGenModel(getGenModel());
 		}
 		return new GenModelProducer() {
 
