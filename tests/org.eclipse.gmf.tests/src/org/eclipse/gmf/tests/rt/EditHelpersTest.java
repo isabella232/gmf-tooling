@@ -302,10 +302,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 			Generator.createEMFProject(srcPath, null, Collections.<IProject> emptyList(), new NullProgressMonitor(), style, pluginVariables);
 			createManifestMF();
 			for (GenTopLevelNode node : d.getTopLevelNodes()) {
-				if (node.getElementType() == null) {
-					continue;
-				}
-				createEditHelper(node.getElementType());
+				createEditHelper(node);
 			}
 			createPluginXML(d);
 			projectsToInit.add(myBundleName);
@@ -316,12 +313,22 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/META-INF/MANIFEST.MF"), myBundleName);
 		}
 
-		public void createEditHelper(ElementType elementType) {
+		public void createEditHelper(GenTopLevelNode node) {
+			ElementType elementType = node.getElementType();
+			if (elementType == null) {
+				return ;
+			}
 			String className;
 			if (elementType instanceof MetamodelType) {
 				className = ((MetamodelType) elementType).getEditHelperClassName() + "ExternalAdvice";
 			} else if (elementType instanceof SpecializationType) {
-				className = ((SpecializationType) elementType).getEditHelperAdviceClassName() + "ExternalAdvice";
+				String adviceClassName = ((SpecializationType) elementType).getEditHelperAdviceClassName();
+				if (adviceClassName == null || adviceClassName.trim().length() ==0) {
+					// advice class name is usually empty, as we do not generate anything reasonable inside them,
+					// hence, need to identify SpecializationType differently
+					adviceClassName = node.getUniqueIdentifier();
+				}
+				className = adviceClassName + "ExternalAdvice";
 			} else {
 				return;
 			}

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,32 +16,12 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
@@ -51,7 +31,10 @@ import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediator;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
@@ -184,33 +167,16 @@ public class DiaGenSetup implements DiaGenSource {
 
 	public DiaGenSetup init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
-		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl();
+		final GenModelNamingMediator namingMediator = new GenModelNamingMediator.Empty();
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator, myViewmapProducer, new NaiveIdentifierDispenser(), false);
 		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());
+		new GenNamingMediatorImpl().traverse(t.getResult());
 		myGenDiagram = t.getResult().getDiagram();
-		namingMediator.reset();
-		NamingStrategy epns = namingMediator.getEditPart();
-		final String aNodeEPName = epns.get(mapSource.getNodeA());
-		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.get(mapSource.getNodeB());
-		final String cLinkEPName = epns.get(mapSource.getClassLink());
-		final String dLinkEPName = epns.get(mapSource.getReferenceLink());
-		for (GenTopLevelNode n : myGenDiagram.getTopLevelNodes()) {
-			if (n.getEditPartClassName().equals(aNodeEPName)) {
-				myNodeA = n;
-			}
-			if (n.getEditPartClassName().equals(bNodeEPName)) {
-				myNodeB = n;
-			}
-		}
-		for (GenLink l : myGenDiagram.getLinks()) {
-			if (l.getEditPartClassName().equals(cLinkEPName)) {
-				myLinkC = l;
-			}
-			if (l.getEditPartClassName().equals(dLinkEPName)) {
-				myLinkD = l;
-			}
-		}
+		myNodeA = t.getTrace().findTopNode(mapSource.getNodeA());
+		myNodeB = mapSource.getNodeB() == null ? null : t.getTrace().findTopNode(mapSource.getNodeB());
+		myLinkC = t.getTrace().find(mapSource.getClassLink());
+		myLinkD = t.getTrace().find(mapSource.getReferenceLink());
 		if (mapSource instanceof MapSetup) {
 			initSpecific((MapSetup) mapSource);
 		}
