@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,17 +12,18 @@
 package org.eclipse.gmf.tests.tr;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.gmf.internal.bridge.naming.ClassNamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.DefaultNamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.DesignNamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
+import org.eclipse.gmf.internal.bridge.naming.ClassGenNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.DefaultGenNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.DesignGenNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.GenNamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.internal.common.IncrementalNamesDispenser;
 import org.eclipse.gmf.internal.common.NamesDispenser;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 
-public class NamingStrategyTest extends AbstractMappingTransformerTest {
+public class NamingStrategyTest extends ConfiguredTestCase {
 	/**
 	 * Signals error for valid but not recommended name, if <code>true</code>.
 	 */
@@ -42,13 +43,13 @@ public class NamingStrategyTest extends AbstractMappingTransformerTest {
 	}
 
 	public void testDefaultEPNamingStrategy() {
-		doTest(new GenModelNamingMediatorImpl().getEditPart());
+		doTest(new GenNamingMediatorImpl().getEditPart());
 	}
 
 	public void testPrefixNameStrategy() {
-		NamingStrategy pns = new DefaultNamingStrategy(null, null, null, null);
-		pns = new DesignNamingStrategy(null, null, pns, null);
-		pns = new ClassNamingStrategy(null, null, pns, null);
+		GenNamingStrategy pns = new DefaultGenNamingStrategy(null, null, null, null);
+		pns = new DesignGenNamingStrategy(null, null, pns, null);
+		pns = new ClassGenNamingStrategy(null, null, pns, null);
 		doTest(pns);
 	}
 
@@ -59,15 +60,17 @@ public class NamingStrategyTest extends AbstractMappingTransformerTest {
 	}
  */
 
-	private void doTest(NamingStrategy strategy) {
-		final String diagramEPName = strategy.get(getCanvasMapping());
-		final String nodeEPName = strategy.get(getNodeMapping());
-		final String linkEPName = strategy.get(getLinkMapping());
+	private void doTest(GenNamingStrategy strategy) {
+		final String diagramName = strategy.get(getSetup().getGenModel().getGenDiagram());
+		final String nodeName = strategy.get(getSetup().getGenModel().getNodeA());
+		final String link1Name = strategy.get(getSetup().getGenModel().getLinkC());
+		final String link2Name = strategy.get(getSetup().getGenModel().getLinkD());
 
 		final String complianceLevel = JavaCore.VERSION_1_4;
-		assertStatus("Invalid Java class name '" + diagramEPName + " for diagram", JavaConventions.validateJavaTypeName(diagramEPName, complianceLevel, complianceLevel));
-		assertStatus("Invalid Java class name '" + nodeEPName + " for node", JavaConventions.validateJavaTypeName(nodeEPName, complianceLevel, complianceLevel));
-		assertStatus("Invalid Java class name '" + linkEPName + " for link", JavaConventions.validateJavaTypeName(linkEPName, complianceLevel, complianceLevel));
+		assertStatus("Invalid Java class name '" + diagramName + " for diagram", JavaConventions.validateJavaTypeName(diagramName, complianceLevel, complianceLevel));
+		assertStatus("Invalid Java class name '" + nodeName + " for node", JavaConventions.validateJavaTypeName(nodeName, complianceLevel, complianceLevel));
+		assertStatus("Invalid Java class name '" + link1Name + " for link", JavaConventions.validateJavaTypeName(link1Name, complianceLevel, complianceLevel));
+		assertStatus("Invalid Java class name '" + link2Name + " for link", JavaConventions.validateJavaTypeName(link2Name, complianceLevel, complianceLevel));
 	}
 
 	private void assertStatus(String message, IStatus status) {

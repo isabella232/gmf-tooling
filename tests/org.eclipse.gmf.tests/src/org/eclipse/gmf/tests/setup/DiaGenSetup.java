@@ -16,24 +16,16 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
-import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
-import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Plugin;
@@ -166,9 +158,8 @@ public class DiaGenSetup implements DiaGenSource {
 	}
 
 	public DiaGenSetup init(MapDefSource mapSource) {
-		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
-		final GenModelNamingMediator namingMediator = new GenModelNamingMediator.Empty();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator, myViewmapProducer, new NaiveIdentifierDispenser(), false);
+		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(new BasicDiagramRunTimeModelHelper(), myViewmapProducer, new NaiveIdentifierDispenser(), false);
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());
 		new GenNamingMediatorImpl().traverse(t.getResult());

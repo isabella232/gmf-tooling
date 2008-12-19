@@ -23,7 +23,6 @@ import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.tests.Utils;
@@ -56,7 +55,8 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 
 	public GenDiagram getGenDiagram() {
 		if (gen == null) {
-			DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediator.Empty(), viewmapProducer, new NaiveIdentifierDispenser(), rcp);
+			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(new BasicDiagramRunTimeModelHelper(), viewmapProducer, new NaiveIdentifierDispenser(), rcp);
+			DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 			EPackage ePackage = mapping.getDiagram().getDomainModel();
 			if (ePackage != null) {
 				t.setEMFGenModel(Utils.createGenModel(ePackage));

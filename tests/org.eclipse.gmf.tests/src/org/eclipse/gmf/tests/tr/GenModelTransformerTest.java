@@ -22,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -44,7 +43,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	protected void setUp() throws Exception {
 		super.setUp();
 		final Mapping m = getMapping();
-		myTransformer = new DiagramGenModelTransformer(myDiagramModelHelper, new GenModelNamingMediator.Empty());
+		myTransformer = new DiagramGenModelTransformer(myDiagramModelHelper);
 		myTransformer.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel()));
 		myTransformer.transform(m);
 		myTransformationResult = myTransformer.getResult();
