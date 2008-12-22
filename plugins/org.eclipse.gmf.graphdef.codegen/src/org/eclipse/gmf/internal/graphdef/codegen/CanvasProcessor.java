@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.internal.graphdef.codegen;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -30,7 +29,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.RealFigure;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
@@ -80,16 +78,14 @@ public class CanvasProcessor extends Processor {
 		myCallback = null;
 	}
 
-	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
+	@Override
+	public String[] getRequiredBundles() {
 		HashSet<String> rv = new HashSet<String>();
 		for (FigureGallery next : myInput.getFigures()) {
 			if (next.getImplementationBundle() != null && next.getImplementationBundle().trim().length() > 0) {
 				// need this for a while, though this should be done in the fqnswitch. But as I'm trying to get rid of the
 				// switch, that's a temp hack to pass through
 				rv.add(next.getImplementationBundle());
-			}
-			if (fqnSwitch != null) {
-				rv.addAll(Arrays.asList(fqnSwitch.getDependencies(next)));
 			}
 		}
 		return rv.toArray(new String[rv.size()]);

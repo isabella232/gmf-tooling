@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -16,13 +16,12 @@ import java.util.HashSet;
 
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Config;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.Processor;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator.ProcessorCallback;
 
 /**
- * Straighforwardly transforms all top-level figures from supplied galleries
+ * Straightforwardly transforms all top-level figures from supplied galleries
  * @author artem
  */
 public class GalleryProcessor extends Processor {
@@ -52,14 +51,12 @@ public class GalleryProcessor extends Processor {
 	protected void handle(FigureDescriptor next, String fqn) {
 	}
 
-	public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
+	@Override
+	public String[] getRequiredBundles() {
 		HashSet<String> rv = new HashSet<String>();
 		for (int i = 0; i < myInput.length; i++) {
 			if (myInput[i].getImplementationBundle() != null && myInput[i].getImplementationBundle().trim().length() > 0) {
 				rv.add(myInput[i].getImplementationBundle());
-			}
-			if (fqnSwitch != null) {
-				rv.addAll(Arrays.asList(fqnSwitch.getDependencies(myInput[i])));
 			}
 		}
 		return rv.toArray(new String[rv.size()]);

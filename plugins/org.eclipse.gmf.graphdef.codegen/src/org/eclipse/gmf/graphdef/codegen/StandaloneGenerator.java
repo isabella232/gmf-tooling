@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,7 +21,6 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
@@ -118,7 +117,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	public static abstract class Processor {
 		public abstract void go(ProcessorCallback callback, Config config) throws InterruptedException ;
 
-		public String[] getRequiredBundles(FigureQualifiedNameSwitch fqnSwitch) {
+		public String[] getRequiredBundles() {
 			return new String[0];
 		}
 	}
@@ -190,7 +189,7 @@ public class StandaloneGenerator extends GeneratorBase {
 	
 	protected void generatePluginStructure() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateFile(myAuxiliaryGenerators.getBuildPropertiesEmitter(), new Path("build.properties"), myArgs);
-		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), myArgs, myProcessor.getRequiredBundles(null));
+		doGenerateFile(myAuxiliaryGenerators.getManifestMFEmitter(), new Path("META-INF/MANIFEST.MF"), myArgs, myProcessor.getRequiredBundles());
 		doGenerateFile(myAuxiliaryGenerators.getPluginPropertiesEmitter(), new Path("plugin.properties"), myArgs);
 	}
 
@@ -202,7 +201,7 @@ public class StandaloneGenerator extends GeneratorBase {
 			}
 		}, myArgs);
 	}
-	
+
 	private String visitFigure(FigureDescriptor figureDescriptor) throws InterruptedException {
 		// XXX either use compilationUnitName from Util.ext or pass cu name as template argument
 		if (figureDescriptor.getName() == null) {
