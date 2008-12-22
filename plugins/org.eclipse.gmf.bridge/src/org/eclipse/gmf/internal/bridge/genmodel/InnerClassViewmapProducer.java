@@ -43,9 +43,6 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.LayoutRef;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.RealFigure;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeLiteFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 
@@ -55,16 +52,20 @@ import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	private final FigureGenerator figureGenerator;
-	private final FigureQualifiedNameSwitch fqnSwitch;
+	private final int[] figuresWithExtraRTBehaviour;
 
 	public InnerClassViewmapProducer() {
 		this(null, MapModeCodeGenStrategy.DYNAMIC, null);
 	}
 
 	public InnerClassViewmapProducer(String runtimeToken, MapModeCodeGenStrategy mapModeCodeGenStrategy, URL[] dynamicFigureTemplates) {
-		// FIXME get rid of fqnSwitch altogether
-		this.fqnSwitch = "lite".equalsIgnoreCase(runtimeToken) ? new RuntimeLiteFQNSwitch() : new RuntimeFQNSwitch();
 		figureGenerator = new FigureGenerator(runtimeToken, null, mapModeCodeGenStrategy, null, true, dynamicFigureTemplates);
+		if ("full".equalsIgnoreCase(runtimeToken)) {
+			figuresWithExtraRTBehaviour = new int[] { GMFGraphPackage.POLYLINE_CONNECTION, GMFGraphPackage.LABEL };
+			Arrays.sort(figuresWithExtraRTBehaviour);
+		} else {
+			figuresWithExtraRTBehaviour = new int[0];
+		}
 	}
 
 	@Override
@@ -148,11 +149,14 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	// if borders and layouts are from another FG, if there are FigureRefs,
 	// delegating to fqnSwitch to find out dependencies may be reasonable)
 	private void setupPluginDependencies(Viewmap viewmap, Figure figure){
-		LinkedHashSet<String> allRequired = new LinkedHashSet<String>();
 		for (FigureGallery gallery : findAllGalleriesForImport(figure)) {
-			allRequired.addAll(Arrays.asList(fqnSwitch.getDependencies(gallery)));
+			if (gallery.getImplementationBundle() != null){
+				myDependencies.add(gallery.getImplementationBundle());
+			}
 		}
-		viewmap.getRequiredPluginIDs().addAll(allRequired);
+		if (figuresWithExtraRTBehaviour.length > 0 && Arrays.binarySearch(figuresWithExtraRTBehaviour, figure.eClass().getClassifierID()) >= 0) {
+			myDependencies.add("org.eclipse.gmf.runtime.draw2d.ui"); //$NON-NLS-1$
+		}
 	}
 
 	// public to have access from tests. FIXME may need extra check for endless

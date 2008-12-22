@@ -495,7 +495,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-//	private void process(AppearanceSteward appSteward) {
+	@Override
+	protected void complete() {
+		getGenEssence().getPlugin().getRequiredPlugins().addAll(Arrays.asList(myViewmaps.dependencies()));
+	}
+
+	//	private void process(AppearanceSteward appSteward) {
 //		if (appSteward.getAppearanceStyle() == null) {
 //			return;
 //		}

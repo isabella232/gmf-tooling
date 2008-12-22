@@ -35,4 +35,9 @@ public abstract class ViewmapProducer {
 
 	public abstract Viewmap create(DiagramLabel label);
 
+	/**
+	 * 
+	 * @return collection of plug-in identifiers that viewmaps depend from
+	 */
+	public abstract String[] dependencies();
 }

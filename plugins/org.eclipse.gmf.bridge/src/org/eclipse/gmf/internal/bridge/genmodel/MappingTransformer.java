@@ -36,11 +36,16 @@ public abstract class MappingTransformer {
 		
 		process(m.getMetrics());		
 		process(m.getAudits());
+		complete();
 	}
 
 	protected abstract void process(CanvasMapping cme);
 	protected abstract void process(TopNodeReference topNode);
 	protected abstract void process(LinkMapping lme);
 	protected abstract void process(AuditContainer audits);
-	protected abstract void process(MetricContainer metrics);	
+	protected abstract void process(MetricContainer metrics);
+
+	// chances for some late after-hours work, no-op by default
+	protected void complete() {
+	}
 }

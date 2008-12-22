@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
+import java.util.LinkedHashSet;
+
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -40,8 +42,10 @@ import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
  */
 public class DefaultViewmapProducer extends ViewmapProducer {
 	private final LayoutTypeSwitch myLayoutTypeSwitch = new LayoutTypeSwitch();
+	protected final LinkedHashSet<String> myDependencies = new LinkedHashSet<String>();
 	
 	public DefaultViewmapProducer() {
+		myDependencies.add("org.eclipse.draw2d"); //$NON-NLS-1$
 	}
 
 	public Viewmap create(Canvas canvasElement) {
@@ -59,6 +63,7 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 	public Viewmap create(Connection link) {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx");
+		myDependencies.add("org.eclipse.gmf.runtime.draw2d.ui"); //$NON-NLS-1$
 		return v;
 	}
 
@@ -73,6 +78,11 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
 		return v;
+	}
+
+	@Override
+	public String[] dependencies() {
+		return myDependencies.toArray(new String[myDependencies.size()]);
 	}
 
 	protected final void setupResizeConstraints(Viewmap viewmap, Node diagramNode){
