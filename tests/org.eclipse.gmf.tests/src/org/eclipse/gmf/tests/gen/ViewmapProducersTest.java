@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -354,16 +355,20 @@ public class ViewmapProducersTest extends TestCase {
 
 		Viewmap viewmap;
 		assertNotNull(viewmap = getProducer().create(compartment));
-		assertTrue(viewmap.getRequiredPluginIDs().contains(BUNDLE));
-		assertFalse(viewmap.getRequiredPluginIDs().contains(BUNDLE2)); // sanity
+		assertTrue(viewmapOrProducerRequire(BUNDLE, viewmap));
+		assertFalse(viewmapOrProducerRequire(BUNDLE2, viewmap)); // sanity
 
 		assertNotNull(viewmap = getProducer().create(connection));
-		assertTrue(viewmap.getRequiredPluginIDs().contains(BUNDLE));
-		assertFalse(viewmap.getRequiredPluginIDs().contains(BUNDLE2)); // sanity
+		assertTrue(viewmapOrProducerRequire(BUNDLE, viewmap));
+		assertFalse(viewmapOrProducerRequire(BUNDLE2, viewmap)); // sanity
 
 		assertNotNull(viewmap = getProducer().create(node));
-		assertTrue(viewmap.getRequiredPluginIDs().contains(BUNDLE));
-		assertTrue(viewmap.getRequiredPluginIDs().contains(BUNDLE2));
+		assertTrue(viewmapOrProducerRequire(BUNDLE, viewmap));
+		assertTrue(viewmapOrProducerRequire(BUNDLE2, viewmap));
+	}
+
+	private boolean viewmapOrProducerRequire(String bundle, Viewmap viewmap) {
+		return viewmap.getRequiredPluginIDs().contains(bundle) || Arrays.asList(getProducer().dependencies()).contains(bundle);
 	}
 
 	public void testInnerViewmapProducerForNode() {
