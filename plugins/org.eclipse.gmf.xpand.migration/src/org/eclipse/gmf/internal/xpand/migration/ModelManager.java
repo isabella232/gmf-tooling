@@ -70,6 +70,10 @@ public class ModelManager {
 		return trace.getType() == FeatureCallTrace.Type.FEATURE_REF ? oclKeywordManager.getValidIdentifierValue(trace.getFeature().getName()) : oclKeywordManager.getValidIdentifierValue(featureCall
 				.getName());
 	}
+	
+	public OclKeywordManager getOclKeywordManager() {
+		return oclKeywordManager;
+	}
 
 	public void registerSelfAlias(String selfVariableAlias) {
 		selfVariableAliases.add(selfVariableAlias);
