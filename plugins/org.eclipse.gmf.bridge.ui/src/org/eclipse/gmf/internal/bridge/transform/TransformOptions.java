@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,11 +15,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 
 
 public class TransformOptions extends AbstractPreferenceInitializer {
@@ -48,50 +50,49 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 
 	private Preferences getPreferences() {
 		if (myPreferences == null) {
-			myPreferences = new Preferences();
+			myPreferences = new InstanceScope().getNode(Plugin.getPluginID());
 		}
 		return myPreferences;
 	}
 	
 	public void reset() {
-		Preferences pluginPrefs = Plugin.getDefault().getPluginPreferences();
-		copyPreferences(pluginPrefs, getPreferences());
+		for (String n : PROP_NAMES) {
+			// I assume removing a key from InstanceScope leaves us with a value from DefaultScope 
+			getPreferences().remove(n);
+		}
 	}
 	
 	public void flush() {
-		Preferences pluginPrefs = Plugin.getDefault().getPluginPreferences();
-		copyPreferences(getPreferences(), pluginPrefs);
-		Plugin.getDefault().savePluginPreferences();
-	}
-	
-	private void copyPreferences(Preferences source, Preferences target) {
-		for (String name : PROP_NAMES) {
-			target.setValue(name, source.getString(name));
+		// copied from Plugin.getDefault().savePluginPreferences();
+		try {
+			getPreferences().flush();
+		} catch (BackingStoreException ex) {
+			Plugin.log(ex);
 		}
 	}
 	
 	public boolean getGenerateRCP() {
-		return getPreferences().getBoolean(PREF_GENERATE_RCP);
+		return getPreferences().getBoolean(PREF_GENERATE_RCP, false);
 	}
 
 	public boolean getUseMapMode() {
-		return getPreferences().getBoolean(PREF_USE_MAP_MODE);
+		return getPreferences().getBoolean(PREF_USE_MAP_MODE, true);
 	}
 
 	public boolean getUseRuntimeFigures() {
-		return getPreferences().getBoolean(PREF_USE_RUNTIME_FIGURES);
+		return getPreferences().getBoolean(PREF_USE_RUNTIME_FIGURES, true);
 	}
 
 	public boolean getIgnoreMapModelValidation() {
-		return getPreferences().getBoolean(PREF_IGNORE_MAPMODEL_VALIDATION);
+		return getPreferences().getBoolean(PREF_IGNORE_MAPMODEL_VALIDATION, false);
 	}
 
 	public boolean getIgnoreGMFGenValidation() {
-		return getPreferences().getBoolean(PREF_IGNORE_GMFGEN_VALIDATION);
+		return getPreferences().getBoolean(PREF_IGNORE_GMFGEN_VALIDATION, false);
 	}
 
 	public URL getFigureTemplatesPath() {
-		final String value = getPreferences().getString(PREF_FIGURE_TEMPLATES);
+		final String value = getPreferences().get(PREF_FIGURE_TEMPLATES, null);
 		if (value == null || value.length() == 0) {
 			return null;
 		}
@@ -104,27 +105,27 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	}
 
 	public void setGenerateRCP(boolean value) {
-		getPreferences().setValue(PREF_GENERATE_RCP, value);
+		getPreferences().putBoolean(PREF_GENERATE_RCP, value);
 	}
 
 	public void setUseMapMode(boolean value) {
-		getPreferences().setValue(PREF_USE_MAP_MODE, value);
+		getPreferences().putBoolean(PREF_USE_MAP_MODE, value);
 	}
 
 	public void setUseRuntimeFigures(boolean value) {
-		getPreferences().setValue(PREF_USE_RUNTIME_FIGURES, value);
+		getPreferences().putBoolean(PREF_USE_RUNTIME_FIGURES, value);
 	}
 
 	public void setIgnoreMapModelValidation(boolean value) {
-		getPreferences().setValue(PREF_IGNORE_MAPMODEL_VALIDATION, value);
+		getPreferences().putBoolean(PREF_IGNORE_MAPMODEL_VALIDATION, value);
 	}
 
 	public void setIgnoreGMFGenValidation(boolean value) {
-		getPreferences().setValue(PREF_IGNORE_GMFGEN_VALIDATION, value);
+		getPreferences().putBoolean(PREF_IGNORE_GMFGEN_VALIDATION, value);
 	}
 
 	public void setFigureTemplatesPath(URL path) {
-		getPreferences().setValue(PREF_FIGURE_TEMPLATES, path == null ? "" : path.toString()); //$NON-NLS-1$
+		getPreferences().put(PREF_FIGURE_TEMPLATES, path == null ? "" : path.toString()); //$NON-NLS-1$
 	}
 
 	@Override
