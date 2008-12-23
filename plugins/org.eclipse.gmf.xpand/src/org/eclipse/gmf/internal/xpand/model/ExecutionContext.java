@@ -16,6 +16,8 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtExtension;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitor;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
@@ -43,6 +45,7 @@ public interface ExecutionContext {
 	EcoreEnvironment getOCLEnvironment();
 	Set<Module> getImportedModules();
 	EcoreEvaluationEnvironment createEvaluationEnvironment();
+	QvtOperationalEvaluationVisitor createEvaluationVisitor(QvtOperationalEvaluationEnv evaluationEnv);
 
 	Scope getScope();
 

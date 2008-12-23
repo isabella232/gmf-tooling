@@ -31,7 +31,11 @@ import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtExtension;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QVTParsingOptions;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
+import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitor;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitorImpl;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.m2m.internal.qvt.oml.library.Context;
 import org.eclipse.m2m.qvt.oml.runtime.util.OCLEnvironmentWithQVTAccessFactory;
@@ -238,6 +242,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
     		envFactory = new OCLEnvironmentWithQVTAccessFactory(getImportedModules(), getAllVisibleModels());
     	}
 		environment = (EcoreEnvironment) envFactory.createEnvironment();
+		QVTParsingOptions.setOption(environment, QVTParsingOptions.ENFORCE_EXPLICIT_SELF_VARIABLE, Boolean.FALSE);
 		Variable that = getImplicitVariable();
     	for (Variable v : variables.values()) {
     		if (that != v) {
@@ -290,6 +295,14 @@ public final class ExecutionContextImpl implements ExecutionContext {
     		ee.add(Environment.SELF_VARIABLE_NAME, that.getValue());
     	}
     	return ee;
+	}
+	
+	public QvtOperationalEvaluationVisitor createEvaluationVisitor(QvtOperationalEvaluationEnv evaluationEnv) {
+		for (Module module : getImportedModules()) {
+			getScope().getModuleImportHelper().addImportedModule(module);
+		}
+		return QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, getScope()
+				.getModuleImportHelper());
 	}
 
 	private String[] getImportedNamespaces() {

@@ -25,10 +25,9 @@ import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.qvtlibraries.XpandGlobalVars;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
 import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitorImpl;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitor;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
@@ -76,10 +75,9 @@ public class ExpressionHelper {
 
 	public Object evaluate(ExecutionContext ctx) {
 		EcoreEnvironment env = getOCLEnvironment(ctx);
-		//
 		OCLExpression<EClassifier> expression = getOCLExpression(env);
 		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) ctx.createEvaluationEnvironment();
-		QvtOperationalEvaluationVisitorImpl visitor = QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, ctx.getImportedModules(), ctx.getScope().getModuleInstancemap(), ctx.getScope().getProcessedModules());
+		QvtOperationalEvaluationVisitor visitor = ctx.createEvaluationVisitor(evaluationEnv);
 		defineGlobalVariables(ctx, evaluationEnv);
 		Object val = visitor.visitExpression(expression);
 		clearGlobalVariables(ctx, evaluationEnv);

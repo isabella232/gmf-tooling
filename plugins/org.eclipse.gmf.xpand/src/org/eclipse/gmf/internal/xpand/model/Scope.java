@@ -13,7 +13,6 @@ package org.eclipse.gmf.internal.xpand.model;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +23,7 @@ import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
-import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 
 /**
  * @author artem
@@ -44,8 +42,6 @@ public class Scope {
 
     private EvaluationListener evaluationListener;
 
-	private HashMap<Module, ModuleInstance> moduleInstanceMap;
-    
     public Scope(ResourceManager resourceManager, Collection<Variable> globalVars, Output output) {
     	assert resourceManager != null;
     	// FIXME output != null is only important for evaluation cases, for analyze, null is perfectly ok
@@ -178,11 +174,7 @@ public class Scope {
 		return getResourceManager().loadQvtResource(extensionName);
 	}
 
-	public HashMap<Module, ModuleInstance> getModuleInstancemap() {
-		return getResourceManager().getModuleInstancemap();
-	}
-
-	public HashSet<ModuleInstance> getProcessedModules() {
-		return getResourceManager().getProcessedModules();
+	public ImportToNonTransformCtxHelper getModuleImportHelper() {
+		return getResourceManager().getModuleImportHelper();
 	}
 }

@@ -19,14 +19,13 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
@@ -39,8 +38,10 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.qvt.oml.blackbox.LoadContext;
+import org.eclipse.m2m.qvt.oml.blackbox.ResolutionContextImpl;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
@@ -178,11 +179,9 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private QvtCompiler qvtCompiler;
 
-	private HashMap<Module, ModuleInstance> moduleInstanceMap;
-
-	private HashSet<ModuleInstance> processedModules;
-
 	private QvtCompilerOptions qvtCompilerOptions;
+
+	private ImportToNonTransformCtxHelper modulesImportHelper;
 
 	public QvtResource loadQvtResource(String fullyQualifiedName) {
 		try {
@@ -392,22 +391,14 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		cachedXpand.clear();
 		cachedQvt.clear();
 		qvtCompiler = null;
-		moduleInstanceMap = null;
-		processedModules = null;
+		modulesImportHelper = null;
 	}
 	
-	public HashMap<Module, ModuleInstance> getModuleInstancemap() {
-		if (moduleInstanceMap == null) {
-			moduleInstanceMap = new HashMap<Module, ModuleInstance>();
+	public ImportToNonTransformCtxHelper getModuleImportHelper() {
+		if (modulesImportHelper == null) {
+			modulesImportHelper = new ImportToNonTransformCtxHelper();
 		}
-		return moduleInstanceMap;
-	}
-	
-	public HashSet<ModuleInstance> getProcessedModules() {
-		if (processedModules == null) {
-			processedModules = new HashSet<ModuleInstance>();
-		}
-		return processedModules;
+		return modulesImportHelper;
 	}
 
 	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$
