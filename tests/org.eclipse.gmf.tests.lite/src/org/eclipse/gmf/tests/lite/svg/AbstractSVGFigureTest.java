@@ -17,6 +17,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FlowLayout;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.RectangleFigure;
@@ -58,6 +59,10 @@ public class AbstractSVGFigureTest extends TestCase {
 		parentFigure.setLayoutManager(new FlowLayout());
 		parentFigure.setBackgroundColor(ColorConstants.yellow);
 		parentFigure.setForegroundColor(ColorConstants.green);
+		// This line width is necessary due to the latest changes in a
+		// RectangleFigure class to get paint border fully till the end of
+		// figure
+		parentFigure.setLineWidth(2);
 		lws.getRootFigure().add(parentFigure);
 	}
 	
