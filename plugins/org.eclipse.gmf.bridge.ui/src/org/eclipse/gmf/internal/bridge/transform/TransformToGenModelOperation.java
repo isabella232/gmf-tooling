@@ -172,20 +172,21 @@ public class TransformToGenModelOperation {
 	}
 	
 	public GenModel findGenmodel() throws CoreException {
+		IStatus detect;
 		try {
 			checkMapping();
 			GenModelDetector gmd = getGenModelDetector();
-			IStatus detect = gmd.detect();
+			detect = gmd.detect();
 			if (detect.isOK()) {
 				GenModel genModel = gmd.get(getResourceSet());
 				this.myGenModel = genModel;
 				return genModel;
 			}
-			throw new CoreException(detect);
 		} catch (Exception e) {
 			IStatus error = Plugin.createError(Messages.TransformToGenModelOperation_e_mapping_invalid, e);
 			throw new CoreException(error);
 		}
+		throw new CoreException(detect);
 	}
 
 	public GenModel loadGenModel(URI uri, IProgressMonitor pm) throws CoreException {
