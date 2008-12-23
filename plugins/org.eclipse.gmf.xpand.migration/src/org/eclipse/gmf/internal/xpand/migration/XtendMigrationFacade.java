@@ -335,7 +335,7 @@ public class XtendMigrationFacade {
 	private void injectStdlibImports() {
 		StringBuilder sb = new StringBuilder();
 		for (String libraryName : stdLibImportsManager.getLibraries()) {
-			sb.append("import library ");
+			sb.append("import ");
 			sb.append(libraryName.replaceAll(SyntaxConstants.NS_DELIM, OclCs.NAMESPACE_SEPARATOR));
 			sb.append(";");
 			sb.append(ExpressionMigrationFacade.LF);
