@@ -77,7 +77,7 @@ public class LinksSessionSetup extends SessionSetup {
 	}
 
 	@Override
-	protected GenProjectSetup createGenProject() throws BundleException, Exception {
+	protected GenProjectSetup createGenProject() throws BundleException {
 		GenProjectSetup genProjectSetup = super.createGenProject();
 
 		assertValid("Test gmfmap model must be valid", EcoreUtil.getRootContainer(getMapModel().getMapping())); //$NON-NLS-1$

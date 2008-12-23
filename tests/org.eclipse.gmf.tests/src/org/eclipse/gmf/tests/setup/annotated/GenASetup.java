@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,7 +23,7 @@ import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
@@ -55,13 +55,15 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 
 	public GenDiagram getGenDiagram() {
 		if (gen == null) {
-			DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediatorImpl(), viewmapProducer, new NaiveIdentifierDispenser(), rcp);
+			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(new BasicDiagramRunTimeModelHelper(), viewmapProducer, new NaiveIdentifierDispenser(), rcp);
+			DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 			EPackage ePackage = mapping.getDiagram().getDomainModel();
 			if (ePackage != null) {
 				t.setEMFGenModel(Utils.createGenModel(ePackage));
 			}
 			t.transform(mapping);
 			gen = t.getResult();
+			new GenNamingMediatorImpl().traverse(gen);
 			saveModel(gen, "gmfgen"); //$NON-NLS-1$
 			validate(gen);
 		}

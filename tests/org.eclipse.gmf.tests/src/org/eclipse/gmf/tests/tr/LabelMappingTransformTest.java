@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,9 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
-import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.FeatureLabelMapping;
@@ -50,7 +48,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(new BasicDiagramRunTimeModelHelper(), new GenModelNamingMediator.Empty());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer();
 		t.setEMFGenModel(Utils.createGenModel(getCanvasMapping().getDomainModel()));
 		t.transform(getMapping());
 		transformationResult = t.getResult();

@@ -23,32 +23,15 @@ import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
-import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
-import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
-import org.eclipse.gmf.tests.gen.FigureCodegenTest;
-import org.eclipse.gmf.tests.gen.FigureLayoutTest;
-import org.eclipse.gmf.tests.gen.GenFeatureSeqInitializerTest;
-import org.eclipse.gmf.tests.gen.HandcodedContributionItemTest;
-import org.eclipse.gmf.tests.gen.HandcodedGMFMapItemProvidersTest;
-import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
-import org.eclipse.gmf.tests.gen.HandcodedImplTest;
-import org.eclipse.gmf.tests.gen.HandcodedPaletteTest;
-import org.eclipse.gmf.tests.gen.LabelSupportTest;
-import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
-import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
-import org.eclipse.gmf.tests.gen.OrganizeImportsPostprocessorTest;
-import org.eclipse.gmf.tests.gen.RTFigureTest;
-import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
-import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
-import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
-import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
-import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
-import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
+import org.eclipse.gmf.tests.gef.ParsersTest;
+import org.eclipse.gmf.tests.gef.ParsersTest.ParsersSetup;
+import org.eclipse.gmf.tests.gen.*;
 import org.eclipse.gmf.tests.migration.AllMigrationTests;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
+import org.eclipse.gmf.tests.rt.BundleActivationTest;
 import org.eclipse.gmf.tests.rt.EditHelpersTest;
-import org.eclipse.gmf.tests.rt.LinkChildMetaFeatureNotFromContainerTest;
 import org.eclipse.gmf.tests.rt.ElementInitializerTest;
+import org.eclipse.gmf.tests.rt.LinkChildMetaFeatureNotFromContainerTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.LinkCreationTest;
 import org.eclipse.gmf.tests.rt.LinkEcoreConstraintsTest;
@@ -83,6 +66,7 @@ public class AllTests {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
+		
 		SessionSetup.disallowSingleTestCaseUse();
 
 		/*
@@ -96,6 +80,7 @@ public class AllTests {
 			LinkChildMetaFeatureNotFromContainerTest.setup.getGeneratedPlugin();
 			LinkEcoreConstraintsTest.setup.getGeneratedPlugin();
 			EditHelpersTest.setup.getGeneratedPlugin();
+			BundleActivationTest.setup.getGeneratedPlugin();
 		} catch (final Exception e) {
 			suite.addTest(new TestCase("Session setup initialization problem") {
 				protected void runTest() throws Throwable {
@@ -157,6 +142,8 @@ public class AllTests {
 		suite.addTestSuite(LinkChildMetaFeatureNotFromContainerTest.class);
 		suite.addTestSuite(LinkEcoreConstraintsTest.class);
 
+		suite.addTestSuite(BundleActivationTest.class);
+
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
 //		suite.addTestSuite(PropertiesTest.class); #113965 
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
@@ -168,6 +155,8 @@ public class AllTests {
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 		suite.addTestSuite(EditHelpersTest.class);
+		suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
+		suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
 
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
@@ -185,7 +174,13 @@ public class AllTests {
 
 	// should be in a better namespace than AllTests suite, though
 	public static Test feed(Class<?> theClass, TestConfiguration config) {
-		TestSuite suite = new TestSuite(theClass);
+		return feed(theClass, config, null);
+	}
+	public static Test feed(Class<?> theClass, TestConfiguration config, String suffix) {
+		TestSuite suite = new TestSuite(theClass, theClass.getSimpleName());
+		if (suffix != null) {
+			suite.setName(suite.getName() + suffix);
+		}
 		if (!NeedsSetup.class.isAssignableFrom(theClass)) {
 			return suite;
 		}

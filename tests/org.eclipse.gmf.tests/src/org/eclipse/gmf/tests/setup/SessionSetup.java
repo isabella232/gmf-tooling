@@ -85,7 +85,7 @@ public class SessionSetup implements TestConfiguration {
 		return myProject;
 	}
 
-	protected GenProjectSetup createGenProject() throws BundleException, Exception {
+	protected GenProjectSetup createGenProject() throws BundleException {
 		return new GenProjectSetup(getGeneratorConfiguration()).init(getGenModel());
 	}
 

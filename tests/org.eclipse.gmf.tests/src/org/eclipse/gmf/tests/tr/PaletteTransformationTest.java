@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
@@ -56,7 +55,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	
 
 	public PaletteTransformationTest(String name) {
-		super(name);
+		super(name, new BasicDiagramRunTimeModelHelper());
 	}
 
 	protected MapDefSource initMapModel(DiaDefSource graphDef) {
@@ -225,7 +224,7 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 	}
 
 	private Palette getResultPalette() {
-		Palette palette = transformationResult.getDiagram().getPalette();
+		Palette palette = myTransformationResult.getDiagram().getPalette();
 		return palette;
 	}
 
@@ -242,9 +241,5 @@ public class PaletteTransformationTest extends GenModelTransformerTest {
 			}
 		}
 		return count;
-	}
-
-	protected DiagramRunTimeModelHelper getRTHelper() {
-		return new BasicDiagramRunTimeModelHelper();
 	}
 }

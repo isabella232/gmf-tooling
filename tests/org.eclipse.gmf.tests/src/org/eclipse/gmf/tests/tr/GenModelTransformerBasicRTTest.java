@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,15 +12,10 @@
 package org.eclipse.gmf.tests.tr;
 
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 
 public class GenModelTransformerBasicRTTest extends GenModelTransformerTest {
 
 	public GenModelTransformerBasicRTTest(String name) {
-		super(name);
-	}
-
-	protected DiagramRunTimeModelHelper getRTHelper() {
-		return new BasicDiagramRunTimeModelHelper();
+		super(name, new BasicDiagramRunTimeModelHelper());
 	}
 }
