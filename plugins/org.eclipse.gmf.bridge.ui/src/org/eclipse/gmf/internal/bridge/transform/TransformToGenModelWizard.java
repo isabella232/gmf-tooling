@@ -53,10 +53,8 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	
 	@Override
 	public void addPages() {
-		super.addPages();
-		
 		final String defaultName = "My"; //$NON-NLS-1$
-		newFileCreationPage = new GMFGenNewFileCreationPage(GMFGenNewFileCreationPage.class.getSimpleName(), mySelection);
+		newFileCreationPage = new GMFGenNewFileCreationPage(mySelection);
 		IFile file = WizardUtil.findExistingFile(mySelection, GMFGenNewFileCreationPage.EXT_GMFGEN);
 		if (file != null) {
 			newFileCreationPage.setFileName(file.getName());
