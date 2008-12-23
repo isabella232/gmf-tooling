@@ -321,7 +321,7 @@ public class ExpressionMigrationFacade {
 	}
 
 	private EClassifier migrateLetExpression(LetExpression letExpression) throws MigrationException {
-		String varName = letExpression.getVarName().getValue();
+		String varName = modelManager.getOclKeywordManager().getValidIdentifierValue(letExpression.getVarName());
 		write("let ");
 		write(varName);
 		write(" = ");
