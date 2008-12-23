@@ -77,6 +77,11 @@ public class MigrationVisitor extends AbstractMigrationVisitor {
 			folder.setDefaultCharset(CHARSET, null);
 		}
 	}
+	
+	@Override
+	protected void visitOtherResource(IFile resource) throws CoreException {
+		resource.copy(dstFolder.getFullPath().append(getRelativePath(resource)), true, createSubProgressMonitor("Copying " + resource.getProjectRelativePath().toString()));
+	}
 
 	@Override
 	protected void visitXpandResource(IFile resource) throws CoreException {

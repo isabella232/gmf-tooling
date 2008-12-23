@@ -38,6 +38,11 @@ public class ResourceCountingVisitor extends AbstractMigrationVisitor {
 	protected void visitXpandResource(IFile resource) throws CoreException {
 		numberOfFiles++;
 	}
+	
+	@Override
+	protected void visitOtherResource(IFile resource) throws CoreException {
+		numberOfFiles++;
+	}
 
 	@Override
 	protected void visitXtendResource(IFile resource) throws CoreException {

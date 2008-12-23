@@ -52,6 +52,8 @@ public abstract class AbstractMigrationVisitor implements IResourceVisitor {
 				visitXpandResource((IFile) resource);
 			} else if (XtendResource.FILE_EXTENSION.equals(extension)) {
 				visitXtendResource((IFile) resource);
+			} else {
+				visitOtherResource((IFile) resource);
 			}
 		}
 		return false;
@@ -64,6 +66,8 @@ public abstract class AbstractMigrationVisitor implements IResourceVisitor {
 	protected abstract void visitXtendResource(IFile resource) throws CoreException;
 
 	protected abstract void visitXpandResource(IFile resource) throws CoreException;
+	
+	protected abstract void visitOtherResource(IFile resource) throws CoreException;
 
 	protected abstract void visitFolder(IFolder resource) throws CoreException;
 }
