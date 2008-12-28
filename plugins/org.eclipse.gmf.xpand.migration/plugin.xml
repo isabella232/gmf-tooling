@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+<!-- Following actions are not used anymore - only project-wide migration action is available
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions.xtend"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXtendResource"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratextend"
+               label="%migrate.xtend.action"
+               menubarPath="additions">
+         </action>
+         <visibility>
+            <objectState name="extension" value="ext"/>
+         </visibility>
+      </objectContribution>
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions.xpand"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandResource"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratexpand"
+               label="%migrate.xpand.action"
+               menubarPath="additions">
+         </action>
+         <visibility>
+            <objectState name="extension" value="xpt"/>
+         </visibility>
+      </objectContribution>
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions.migrateFolder"
+            objectClass="org.eclipse.core.resources.IFolder">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandRoot"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratexpandRoot"
+               label="%migrate.xpand.root.action"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+-->      
+      <objectContribution
+            id="org.eclipse.gmf.xpand.migration.actions.migrateProject"
+            objectClass="org.eclipse.jdt.core.IJavaProject">
+         <action
+               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject"
+               enablesFor="1"
+               id="org.eclipse.gmf.xpand.migration.migratexpandProject"
+               label="%migrate.xpand.project.action"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         id="org.eclipse.gmf.xpand.oawBuilder"
+         name="%xpand.builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="false">
+         <run class="org.eclipse.gmf.internal.xpand.build.OawBuilder"/>
+      </builder>
+   </extension>
+   
+   <extension
+         id="org.eclipse.gmf.xpand.problem"
+         name="%xpand.problem"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.core.resources.textmarker"/>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+
+</plugin>
