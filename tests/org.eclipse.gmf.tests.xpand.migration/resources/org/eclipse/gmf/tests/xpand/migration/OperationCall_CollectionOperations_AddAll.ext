@@ -1,0 +1,182 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+/* addAll() */
+Collection[ecore::EClass] addAllCollectionToCollectionSameType(Collection[ecore::EClass] col, Collection[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToCollectionSuperType(Collection[ecore::EClass] col, Collection[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToCollectionSubType(Collection[ecore::EClassifier] col, Collection[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToCollectionSiblingType(Collection[ecore::EClass] col, Collection[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllCollectionToCollectionArbitraryType(Collection[ecore::EClass] col, Collection[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllCollectionToListSameType(List[ecore::EClass] col, Collection[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToListSuperType(List[ecore::EClass] col, Collection[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToListSubType(List[ecore::EClassifier] col, Collection[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToListSiblingType(List[ecore::EClass] col, Collection[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllCollectionToListArbitraryType(List[ecore::EClass] col, Collection[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllCollectionToSetSameType(Set[ecore::EClass] col, Collection[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToSetSuperType(Set[ecore::EClass] col, Collection[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToSetSubType(Set[ecore::EClassifier] col, Collection[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllCollectionToSetSiblingType(Set[ecore::EClass] col, Collection[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllCollectionToSetArbitraryType(Set[ecore::EClass] col, Collection[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllListToCollectionSameType(Collection[ecore::EClass] col, List[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToCollectionSuperType(Collection[ecore::EClass] col, List[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToCollectionSubType(Collection[ecore::EClassifier] col, List[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToCollectionSiblingType(Collection[ecore::EClass] col, List[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllListToCollectionArbitraryType(Collection[ecore::EClass] col, List[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllListToListSameType(List[ecore::EClass] col, List[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToListSuperType(List[ecore::EClass] col, List[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToListSubType(List[ecore::EClassifier] col, List[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToListSiblingType(List[ecore::EClass] col, List[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllListToListArbitraryType(List[ecore::EClass] col, List[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllListToSetSameType(Set[ecore::EClass] col, List[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToSetSuperType(Set[ecore::EClass] col, List[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToSetSubType(Set[ecore::EClassifier] col, List[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllListToSetSiblingType(Set[ecore::EClass] col, List[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllListToSetArbitraryType(Set[ecore::EClass] col, List[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllSetToCollectionSameType(Collection[ecore::EClass] col, Set[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToCollectionSuperType(Collection[ecore::EClass] col, Set[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToCollectionSubType(Collection[ecore::EClassifier] col, Set[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToCollectionSiblingType(Collection[ecore::EClass] col, Set[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllSetToCollectionArbitraryType(Collection[ecore::EClass] col, Set[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllSetToListSameType(List[ecore::EClass] col, Set[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToListSuperType(List[ecore::EClass] col, Set[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToListSubType(List[ecore::EClassifier] col, Set[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToListSiblingType(List[ecore::EClass] col, Set[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllSetToListArbitraryType(List[ecore::EClass] col, Set[Boolean] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClass] addAllSetToSetSameType(Set[ecore::EClass] col, Set[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToSetSuperType(Set[ecore::EClass] col, Set[ecore::EClassifier] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToSetSubType(Set[ecore::EClassifier] col, Set[ecore::EClass] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EClassifier] addAllSetToSetSiblingType(Set[ecore::EClass] col, Set[ecore::EDataType] addition) :
+	col.addAll(addition)
+;
+
+Collection[ecore::EJavaObject] addAllSetToSetArbitraryType(Set[ecore::EClass] col, Set[Boolean] addition) :
+	col.addAll(addition)
+;

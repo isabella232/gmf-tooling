@@ -1,0 +1,19 @@
+«DEFINE emptyFile FOR ecore::EPackage-»
+«FILE ((ecore::EClass) eClassifiers.typeSelect(ecore::EClass).first()).name-»
+«ENDFILE»	
+«ENDDEFINE»
+
+«DEFINE emptyFileWithMode FOR ecore::EPackage-»
+«FILE ((ecore::EClass) eClassifiers.typeSelect(ecore::EClass).first()).name mode-»
+«ENDFILE»	
+«ENDDEFINE»
+
+«DEFINE fileWithBody FOR ecore::EPackage-»
+«FILE 'fileName'-»
+	Start
+		«eClassifiers.typeSelect(ecore::EClass).size()»
+	OneMore
+		«eClassifiers.size()»
+	End
+«ENDFILE»	
+«ENDDEFINE»

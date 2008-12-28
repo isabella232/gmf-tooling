@@ -1,0 +1,13 @@
+library BooleanOperation;
+
+helper andOperation(left : Boolean, right : Boolean) : Boolean {
+	return left and right
+}
+
+helper orOperation(left : Boolean, right : Boolean) : Boolean {
+	return left or right
+}
+
+helper impliesOperation(left : Boolean, right : Boolean) : Boolean {
+	return left implies right
+}

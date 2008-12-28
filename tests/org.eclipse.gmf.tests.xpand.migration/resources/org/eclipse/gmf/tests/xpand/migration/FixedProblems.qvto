@@ -1,0 +1,31 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library FixedProblems;
+
+helper collectAllPackages(ePackages : Collection(ecore::EPackage)) : Sequence(ecore::EPackage) {
+	return let collector = (ePackages->collect(it | it))[ecore::EPackage]->asSequence() in collector->union(collector->collect(pkg | collectAllPackages(pkg.eSubpackages))->flatten())
+}
+
+helper convertParameterCollection(ePackage : ecore::EPackage)  : Boolean {
+	return otherExtension(ePackage.eClassifiers->asSequence())
+}
+
+helper otherExtension(eClasses : Sequence(ecore::EClassifier)) : Boolean {
+	return true
+}
+
+helper getEssentialVisualChildren(eClasses : Sequence(ecore::EClass), eOperations : Sequence(ecore::EOperation)) : Collection(ecore::ENamedElement) {
+	return ((Sequence { })[ecore::EClass]->union(eClasses))[ecore::ENamedElement]->union(eOperations)
+}
+
+helper getEClasses(ePackage : ecore::EPackage)  : Collection(ecore::EClass) {
+	return (ePackage.eClassifiers)[ecore::EClass]
+}
+
+helper isUnlimited(eReference : ecore::EReference) : Boolean {
+	return eReference.upperBound.oclAsType(Integer) > 0
+}
+
+helper collectionConversion(parameter : Collection(OclAny)) : Collection(OclAny) {
+	return (Sequence { })[OclAny]->union(parameter->collect(e | e)->asSequence())->asOrderedSet()->asSequence()
+}

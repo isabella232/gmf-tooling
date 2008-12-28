@@ -1,0 +1,10 @@
+
+library IntegerLiteral;
+
+helper positiveLiteral() : Integer {
+	return 15
+}
+
+helper negativeLiteral() :  Integer {
+	return -45
+}

@@ -1,0 +1,63 @@
+modeltype testModel uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+library ReturnCollectionTypeTransformation;
+
+helper returnOrderedAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedChildren
+}
+
+helper returnUniqueAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.uniqueChildren->asSequence()
+}
+
+helper returnOrderedUniqueAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
+}
+
+helper returnBagAsList(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.children->asSequence()
+}
+
+helper returnCollectionAsList(param : Collection(testModel::Child)) : Sequence(testModel::Child) {
+	return param->collect(it | it)->asSequence()
+}
+
+helper returnOrderedAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.orderedChildren->asOrderedSet()
+}
+
+helper returnUniqueAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper returnOrderedUniqueAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.orderedUniqueChildren
+}
+
+helper returnBagAsSet(param : testModel::Container) : Set(testModel::Child) {
+	return param.children->asSet()
+}
+
+helper returnCollectionAsSet(param : Collection(testModel::Child)) : Set(testModel::Child) {
+	return param->collect(it | it)->asSet()
+}
+
+helper returnOrderedAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.orderedChildren
+}
+
+helper returnUniqueAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper returnOrderedUniqueAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.orderedUniqueChildren
+}
+
+helper returnBagAsCollection(param : testModel::Container) : Collection(testModel::Child) {
+	return param.children
+}
+
+helper returnCollectionAsCollection(param : Collection(testModel::Child)) : Collection(testModel::Child) {
+	return param
+}

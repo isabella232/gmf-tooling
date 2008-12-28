@@ -1,0 +1,21 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean booleanNegation(Boolean boolean) :
+	!boolean
+;
+
+Boolean booleanCompareTo(Boolean boolean, ecore::EJavaObject another) :
+	boolean.compareTo(another)
+;
+
+String booleanToString(Boolean boolean) :
+	boolean.toString()
+;
+
+Boolean booleanEQ(Boolean boolean, ecore::EJavaObject another) :
+	boolean == another
+;
+
+Boolean booleanNotEQ(Boolean boolean, ecore::EJavaObject another) :
+	boolean != another
+;

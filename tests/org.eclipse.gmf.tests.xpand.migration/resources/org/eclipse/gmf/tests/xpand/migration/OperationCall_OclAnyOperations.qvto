@@ -1,0 +1,53 @@
+import library xpt.OclAnyOperations;
+
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library OperationCall_OclAnyOperations;
+
+helper objectCompareTo(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject.xpandCompareTo(another)
+}
+
+helper objectToString(eJavaObject : OclAny) : String {
+	return eJavaObject.repr()
+}
+
+helper objectEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject = another
+}
+
+helper objectNotEQ(eJavaObject : OclAny, another : OclAny) : Boolean {
+	return eJavaObject <> another
+}
+
+helper enumeratorCompareTo(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator.xpandCompareTo(another)
+}
+
+helper enumeratorToString(enumerator : ecore::EEnumerator) : String {
+	return enumerator.repr()
+}
+
+helper enumeratorEQ(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator = another
+}
+
+helper enumeratorNotEQ(enumerator : ecore::EEnumerator, another : OclAny) : Boolean {
+	return enumerator <> another
+}
+
+helper enumCompareTo(_enum : ecore::EEnum, another : OclAny) : Boolean {
+	return _enum.xpandCompareTo(another)
+}
+
+helper enumToString(_enum : ecore::EEnum) : String {
+	return _enum.repr()
+}
+
+helper enumEQ(_enum : ecore::EEnum, another : OclAny) : Boolean {
+	return _enum = another
+}
+
+helper enumNotEQ(_enum : ecore::EEnum, another : OclAny) : Boolean {
+	return _enum <> another
+}

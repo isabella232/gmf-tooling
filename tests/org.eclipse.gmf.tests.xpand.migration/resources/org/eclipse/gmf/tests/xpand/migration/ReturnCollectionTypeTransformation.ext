@@ -1,0 +1,66 @@
+/* 
+	This test has to be completed with the other cases of return type value transformation, 
+	then all the return types should be set to "Collection" in FeatureCall.ext/OperationCall.ext
+	to make those tests independent from return type transformation logic
+*/
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+List[testModel::Child] returnOrderedAsList(testModel::Container param) :
+	param.orderedChildren
+;
+
+List[testModel::Child] returnUniqueAsList(testModel::Container param) :
+	param.uniqueChildren
+;
+
+List[testModel::Child] returnOrderedUniqueAsList(testModel::Container param) :
+	param.orderedUniqueChildren
+;
+
+List[testModel::Child] returnBagAsList(testModel::Container param) :
+	param.children
+;
+
+List[testModel::Child] returnCollectionAsList(Collection[testModel::Child] param) :
+	param
+;
+
+Set[testModel::Child] returnOrderedAsSet(testModel::Container param) :
+	param.orderedChildren
+;
+
+Set[testModel::Child] returnUniqueAsSet(testModel::Container param) :
+	param.uniqueChildren
+;
+
+Set[testModel::Child] returnOrderedUniqueAsSet(testModel::Container param) :
+	param.orderedUniqueChildren
+;
+
+Set[testModel::Child] returnBagAsSet(testModel::Container param) :
+	param.children
+;
+
+Set[testModel::Child] returnCollectionAsSet(Collection[testModel::Child] param) :
+	param
+;
+
+Collection[testModel::Child] returnOrderedAsCollection(testModel::Container param) :
+	param.orderedChildren
+;
+
+Collection[testModel::Child] returnUniqueAsCollection(testModel::Container param) :
+	param.uniqueChildren
+;
+
+Collection[testModel::Child] returnOrderedUniqueAsCollection(testModel::Container param) :
+	param.orderedUniqueChildren
+;
+
+Collection[testModel::Child] returnBagAsCollection(testModel::Container param) :
+	param.children
+;
+
+Collection[testModel::Child] returnCollectionAsCollection(Collection[testModel::Child] param) :
+	param
+;

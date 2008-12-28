@@ -1,0 +1,76 @@
+import library xpt.IntegerOperations;
+import library xpt.OclAnyOperations;
+
+library OperationCall_IntegerOperations;
+
+helper integerPlusInteger(integer : Integer, parameter : Integer) : Integer  {
+	return integer + parameter
+}
+
+helper integerPlusDouble(integer : Integer, parameter : Real) : Real  {
+	return integer + parameter
+}
+
+helper integerMinusInteger(integer : Integer, parameter : Integer) : Integer  {
+	return integer - parameter
+}
+
+helper integerMinusDouble(integer : Integer, parameter : Real) : Real  {
+	return integer - parameter
+}
+
+helper integerMultInteger(integer : Integer, parameter : Integer) : Integer  {
+	return integer * parameter
+}
+
+helper integerMultDouble(integer : Integer, parameter : Real) : Real  {
+	return integer * parameter
+}
+
+helper integerDivInteger(integer : Integer, parameter : Integer) : Integer  {
+	return integer.div(parameter)
+}
+
+helper integerDivDouble(integer : Integer, parameter : Real) : Real  {
+	return integer / parameter
+}
+
+helper integerUnaryMinus(integer : Integer) : Integer  {
+	return -integer
+}
+
+helper integerGOE(integer : Integer, parameter : Integer) : Boolean  {
+	return integer >= parameter
+}
+
+helper integerLOE(integer : Integer, parameter : Integer) : Boolean  {
+	return integer <= parameter
+}
+
+helper integerLess(integer : Integer, parameter : Integer) : Boolean  {
+	return integer < parameter
+}
+
+helper integerGreater(integer : Integer, parameter : Integer) : Boolean  {
+	return integer > parameter
+}
+
+helper integerUpTo(integer : Integer, parameter : Integer) : Sequence(Integer) {
+	return integer.xpandUpTo(parameter)
+}
+
+helper integerCompareTo(integer : Integer, another : OclAny) : Boolean {
+	return integer.xpandCompareTo(another)
+}
+
+helper integerToString(integer : Integer) : String {
+	return integer.repr()
+}
+
+helper integerEQ(integer : Integer, another : OclAny) : Boolean {
+	return integer = another
+}
+
+helper integerNotEQ(integer : Integer, another : OclAny) : Boolean {
+	return integer <> another
+}

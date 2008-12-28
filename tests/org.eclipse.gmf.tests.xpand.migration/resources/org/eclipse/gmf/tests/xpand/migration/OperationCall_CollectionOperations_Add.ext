@@ -1,0 +1,61 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Collection[ecore::EClass] addToCollectionSameType(Collection[ecore::EClass] col, ecore::EClass addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToCollectionSuperType(Collection[ecore::EClass] col, ecore::EClassifier addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToCollectionSubType(Collection[ecore::EClassifier] col, ecore::EClass addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToCollectionSiblingType(Collection[ecore::EClass] col, ecore::EDataType addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EJavaObject] addToCollectionArbitraryType(Collection[ecore::EClass] col, Boolean addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClass] addToListSameType(List[ecore::EClass] col, ecore::EClass addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToListSuperType(List[ecore::EClass] col, ecore::EClassifier addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToListSubType(List[ecore::EClassifier] col, ecore::EClass addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToListSiblingType(List[ecore::EClass] col, ecore::EDataType addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EJavaObject] addToListArbitraryType(List[ecore::EClass] col, Boolean addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClass] addToSetSameType(Set[ecore::EClass] col, ecore::EClass addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToSetSuperType(Set[ecore::EClass] col, ecore::EClassifier addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToSetSubType(Set[ecore::EClassifier] col, ecore::EClass addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EClassifier] addToSetSiblingType(Set[ecore::EClass] col, ecore::EDataType addition) :
+	col.add(addition)
+;
+
+Collection[ecore::EJavaObject] addToSetArbitraryType(Set[ecore::EClass] col, Boolean addition) :
+	col.add(addition)
+;

@@ -1,0 +1,23 @@
+modeltype testModel uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+library OperationCall_CollectionOperations_ToSet;
+
+helper toSetCollection(param : Collection(testModel::Child)) : Collection(testModel::Child) {
+	return param->collect(it | it)->asSet()
+}
+
+helper toSetOrdered(param : testModel::Container) : Collection(testModel::Child) {
+	return param.orderedChildren->asOrderedSet()
+}
+
+helper toSetUnique(param : testModel::Container) : Collection(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper toSetOrderedUnique(param : testModel::Container) : Collection(testModel::Child) {
+	return param.orderedUniqueChildren
+}
+
+helper toSetBag(param : testModel::Container) : Collection(testModel::Child) {
+	return param.children->asSet()
+}

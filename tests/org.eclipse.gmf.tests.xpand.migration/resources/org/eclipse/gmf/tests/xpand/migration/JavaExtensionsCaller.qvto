@@ -1,0 +1,14 @@
+
+import library org.eclipse.gmf.tests.xpand.migration.NativeJavaExtensionsContainer;
+
+import org.eclipse.gmf.tests.xpand.migration.JavaExtensionsContainer;
+
+library JavaExtensionsCaller;
+
+helper nativeExtensionCall(parameter : String, parameter2 : Boolean) : String {
+	return simpleNativeExtension(parameter, parameter2)
+}
+
+helper nativePolyExtensionCall(parameter : OclAny, parameter2 : Boolean) : String {
+	return parameter.simpleNativePolyExtension(parameter2)
+}

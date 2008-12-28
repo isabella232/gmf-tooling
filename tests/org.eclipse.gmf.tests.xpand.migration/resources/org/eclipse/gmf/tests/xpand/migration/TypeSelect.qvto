@@ -1,0 +1,19 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library TypeSelect;
+
+helper typeSelectCall(ePackage : ecore::EPackage) : Sequence(ecore::EClass) {
+	return (ePackage.eClassifiers)[ecore::EClass]->asSequence() 
+}
+
+helper typeSelectOnList(eClassifiers : Sequence(ecore::EClassifier)) : Sequence(ecore::EClass) {
+	return (eClassifiers)[ecore::EClass]
+}
+
+helper typeSelectOnSet(eClassifiers : Set(ecore::EClassifier)) : Sequence(ecore::EClass) {
+	return (eClassifiers)[ecore::EClass]->asSequence()
+}
+
+helper typeSelectOnCollection(eClassifiers : Collection(ecore::EClassifier)) : Sequence(ecore::EClass) {
+	return (eClassifiers->collect(it | it))[ecore::EClass]->asSequence()
+}

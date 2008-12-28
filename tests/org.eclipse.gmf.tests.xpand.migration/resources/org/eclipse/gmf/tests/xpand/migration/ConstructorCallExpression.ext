@@ -1,0 +1,5 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+ecore::EClass constructorCall() :
+	new ecore::EClass
+;

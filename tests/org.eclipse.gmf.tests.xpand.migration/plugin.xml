@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel"
+            class="org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage"
+            genModel="models/MigrationTests.genmodel"/>
+   </extension>
+
+</plugin>

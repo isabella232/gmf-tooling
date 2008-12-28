@@ -1,0 +1,270 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+extension org::eclipse::gmf::tests::xpand::migration::NonPolymorphycExtensionContainer;
+
+Boolean operationCall(ecore::EClass eClass, ecore::EClass subType) :
+	eClass.isSuperTypeOf(subType)
+;
+
+ecore::EJavaObject operationWithSeveralParameters(ecore::EFactory factory, ecore::EDataType dataType, String stringValue) :
+	factory.createFromString(dataType, stringValue)
+;
+
+ecore::EClassifier operationWithExpressionAsAParameter(ecore::EPackage ePackage, String param) :
+	ePackage.getEClassifier(param.toFirstUpper())
+;
+
+Boolean anotherExtensionCall(ecore::EClass eClass, ecore::EClass subType) :
+	operationCall(eClass, subType)
+;
+
+Boolean anotherExtensionContextCall(ecore::EClass eClass, ecore::EClass subType) :
+	eClass.operationCall(subType)
+;
+
+/* OperationCall referencing other extensions with different first parameter types specified */
+Boolean polymorphycExtensionCall(ecore::EClassifier eClass, ecore::EClass subType) :
+	polymorphycExtension(eClass, subType)
+;
+
+Boolean polymorphycExtensionContextCall(ecore::EClassifier eClass, ecore::EClass subType) :
+	eClass.polymorphycExtension(subType)
+;
+
+Boolean polymorphycExtension(ecore::EClassifier eClass, ecore::EClass subType) :
+	false
+;
+
+Boolean polymorphycExtension(ecore::EClass eClass, ecore::EClass subType) :
+	eClass.isSuperTypeOf(subType)
+;
+
+Boolean nonPolymorphycExtensionCall(ecore::EClassifier eClass, ecore::EClass subType) :
+	nonPolymorphycExtension(eClass, subType)
+;
+
+Boolean nonPolymorphycExtension(ecore::EClass eClass, ecore::EClass subType) :
+	eClass.isSuperTypeOf(subType)
+;
+
+/* OperationCall referencing non-collection parameter operations with different multiplicities*/
+testModel::Child getSingletonChildOp(testModel::Container param) :
+	param.singletonChildOp()
+;
+
+testModel::Child getSingletonChildConstrainedOp(testModel::Container param) :
+	param.singletonChildConstrainedOp()
+;
+
+List[testModel::Child] getOrderedChildrenOp(testModel::Container param) :
+	param.orderedChildrenOp()
+;
+
+Set[testModel::Child] getUniqueChildrenOp(testModel::Container param) :
+	param.uniqueChildrenOp()
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOp(testModel::Container param) :
+	param.orderedUniqueChildrenOp()
+;
+
+Collection[testModel::Child] getChildrenOp(testModel::Container param) :
+	param.childrenOp()
+;
+
+/* OperationCall referencing different collection type parameter operations with 0..1 multiplicities */
+List[testModel::Child] getSingletonChildOpOfList(List[testModel::Container] param) :
+	param.singletonChildOp()
+;
+
+List[testModel::Child] getSingletonChildOpOfSet(Set[testModel::Container] param) :
+	param.singletonChildOp()
+;
+
+List[testModel::Child] getSingletonChildOpOfCollection(Collection[testModel::Container] param) :
+	param.singletonChildOp()
+;
+
+List[testModel::Child] getSingletonChildConstrainedOpOfList(List[testModel::Container] param) :
+	param.singletonChildConstrainedOp()
+;
+
+List[testModel::Child] getSingletonChildConstrainedOpOfSet(Set[testModel::Container] param) :
+	param.singletonChildConstrainedOp()
+;
+
+List[testModel::Child] getSingletonChildConstrainedOpOfCollection(Collection[testModel::Container] param) :
+	param.singletonChildConstrainedOp()
+;
+
+/* OperationCall referencing different collection type parameter operations/extensions having different collection types */
+List[testModel::Child] getOrderedChildrenOpOfList(List[testModel::Container] param) :
+	param.orderedChildrenOp()
+;
+
+List[testModel::Child] getOrderedChildrenExtOfList(List[testModel::Container] param) :
+	param.getOrderedChildrenExt()
+;
+
+List[testModel::Child] getOrderedChildrenPolyExtOfList(List[testModel::Container] param) :
+	param.getOrderedChildrenPolyExt()
+;
+
+List[testModel::Child] getOrderedChildrenOpOfSet(Set[testModel::Container] param) :
+	param.orderedChildrenOp()
+;
+
+List[testModel::Child] getOrderedChildrenExtOfSet(Set[testModel::Container] param) :
+	param.getOrderedChildrenExt()
+;
+
+List[testModel::Child] getOrderedChildrenPolyExtOfSet(Set[testModel::Container] param) :
+	param.getOrderedChildrenPolyExt()
+;
+
+List[testModel::Child] getOrderedChildrenOpOfCollection(Collection[testModel::Container] param) :
+	param.orderedChildrenOp()
+;
+
+List[testModel::Child] getOrderedChildrenExtOfCollection(Collection[testModel::Container] param) :
+	param.getOrderedChildrenExt()
+;
+
+List[testModel::Child] getOrderedChildrenPolyExtOfCollection(Collection[testModel::Container] param) :
+	param.getOrderedChildrenPolyExt()
+;
+
+List[testModel::Child] getUniqueChildrenOpOfList(List[testModel::Container] param) :
+	param.uniqueChildrenOp()
+;
+
+List[testModel::Child] getUniqueChildrenExtOfList(List[testModel::Container] param) :
+	param.getUniqueChildrenExt()
+;
+
+List[testModel::Child] getUniqueChildrenPolyExtOfList(List[testModel::Container] param) :
+	param.getUniqueChildrenPolyExt()
+;
+
+List[testModel::Child] getUniqueChildrenOpOfSet(Set[testModel::Container] param) :
+	param.uniqueChildrenOp()
+;
+
+List[testModel::Child] getUniqueChildrenExtOfSet(Set[testModel::Container] param) :
+	param.getUniqueChildrenExt()
+;
+
+List[testModel::Child] getUniqueChildrenPolyExtOfSet(Set[testModel::Container] param) :
+	param.getUniqueChildrenPolyExt()
+;
+
+List[testModel::Child] getUniqueChildrenOpOfCollection(Collection[testModel::Container] param) :
+	param.uniqueChildrenOp()
+;
+
+List[testModel::Child] getUniqueChildrenExtOfCollection(Collection[testModel::Container] param) :
+	param.getUniqueChildrenExt()
+;
+
+List[testModel::Child] getUniqueChildrenPolyExtOfCollection(Collection[testModel::Container] param) :
+	param.getUniqueChildrenPolyExt()
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOpOfList(List[testModel::Container] param) :
+	param.orderedUniqueChildrenOp()
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOpOfSet(Set[testModel::Container] param) :
+	param.orderedUniqueChildrenOp()
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOpOfCollection(Collection[testModel::Container] param) :
+	param.orderedUniqueChildrenOp()
+;
+
+List[testModel::Child] getChildrenOpOfList(List[testModel::Container] param) :
+	param.childrenOp()
+;
+
+List[testModel::Child] getChildrenExtOfList(List[testModel::Container] param, Boolean param2) :
+	param.getChildrenExt(let it = param2 : it)
+;
+
+List[testModel::Child] getChildrenPolyExtOfList(List[testModel::Container] param, Boolean param2) :
+	param.getChildrenPolyExt(let it = param2 : it)
+;
+
+List[testModel::Child] getChildrenOpOfSet(Set[testModel::Container] param) :
+	param.childrenOp()
+;
+
+List[testModel::Child] getChildrenExtOfSet(Set[testModel::Container] param, testModel::Container it) :
+	param.getChildrenExt(it.it)
+;
+
+List[testModel::Child] getChildrenPolyExtOfSet(Set[testModel::Container] param, testModel::Container it) :
+	param.getChildrenPolyExt(it.it)
+;
+
+List[testModel::Child] getChildrenOpOfCollection(Collection[testModel::Container] param) :
+	param.childrenOp()
+;
+
+List[testModel::Child] getChildrenExtOfCollection(Collection[testModel::Container] param) :
+	param.getChildrenExt(((testModel::Container) param.collect(it | it).toList().first()).it)
+;
+
+List[testModel::Child] getChildrenPolyExtOfCollection(Collection[testModel::Container] param) :
+	param.getChildrenPolyExt(((testModel::Container) param.collect(it | it).toList().first()).it)
+;
+
+/* Referenced extensions*/
+List[testModel::Child] getOrderedChildrenExt(testModel::Container param) :
+	param.orderedChildrenOp()
+;
+
+Set[testModel::Child] getUniqueChildrenExt(testModel::Container param) :
+	param.uniqueChildrenOp()
+;
+
+Collection[testModel::Child] getChildrenExt(testModel::Container param, Boolean secondParam) :
+	param.childrenOp()
+;
+
+List[testModel::Child] getOrderedChildrenPolyExt(testModel::Container param) :
+	param.orderedChildrenOp()
+;
+
+List[testModel::Child] getOrderedChildrenPolyExt(testModel::SubContainer param) :
+	null
+;
+
+Set[testModel::Child] getUniqueChildrenPolyExt(testModel::Container param) :
+	param.uniqueChildrenOp()
+;
+
+Set[testModel::Child] getUniqueChildrenPolyExt(testModel::SubContainer param) :
+	null
+;
+
+Collection[testModel::Child] getChildrenPolyExt(testModel::Container param, Boolean secondParam) :
+	param.childrenOp()
+;
+
+Collection[testModel::Child] getChildrenPolyExt(testModel::SubContainer param, Boolean secondParam) :
+	null
+;
+
+/* Inner implicit collects for extension calls*/
+List[testModel::Child] innerImplicitCollect4Extensions(List[testModel::Container] param) :
+	param.outerExtension(param.innerExtension())
+;
+
+testModel::Container innerExtension(testModel::Container param) :
+	param
+;
+
+List[testModel::Child] outerExtension(testModel::Container param, List[testModel::Container] param2) :
+	param.orderedChildrenOp()
+;

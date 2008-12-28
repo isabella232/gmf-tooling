@@ -1,0 +1,30 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+List[ecore::EPackage] collectAllPackages(Collection[ecore::EPackage] ePackages) :
+    let collector = ePackages.typeSelect(ecore::EPackage) :
+    collector.addAll(collector.collect(pkg | collectAllPackages(pkg.eSubpackages)).flatten())
+;
+
+Boolean convertParameterCollection(ecore::EPackage ePackage) :
+	otherExtension(ePackage.eClassifiers)
+;
+
+Boolean otherExtension(List[ecore::EClassifier] eClasses) :
+	true
+;
+
+Collection[ecore::ENamedElement] getEssentialVisualChildren(List[ecore::EClass] eClasses, List[ecore::EOperation] eOperations) :
+	{}.addAll(eClasses).addAll(eOperations)
+;
+
+Collection[ecore::EClass] getEClasses(ecore::EPackage ePackage) :
+	ePackage.eClassifiers.typeSelect(ecore::EClass)
+;
+
+Boolean isUnlimited(ecore::EReference eReference) :
+	eReference.upperBound > 0
+;
+
+Collection[Object] collectionConversion(Collection[Object] parameter) :
+	{}.union(parameter.collect(e| e))
+;

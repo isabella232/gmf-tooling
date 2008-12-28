@@ -1,0 +1,313 @@
+library InfixOperationsPrecenence;
+
+helper unaryMinusInt_MultInt(left : Integer, right : Integer) : Integer {
+	return -left * right
+}
+
+helper doubMul_UnaryMinusInt(left : Real, right : Integer) : Real {
+	return left * -right
+}
+
+helper unaryMinusDoub_DivInt(left : Real, right : Integer) : Real {
+	return -left / right
+}
+
+helper intDiv_UnaryMinusDoub(left : Integer, right : Real) : Real {
+	return left / -right
+}
+
+helper unaryMinusInt_PlusInt(left : Integer, right : Integer) : Integer {
+	return -left + right
+}
+
+helper doubPlus_UnaryMinusInt(left : Real, right : Integer) : Real {
+	return left + -right
+}
+
+helper unaryMinusDoub_MinusDoub(left : Real, right : Integer) : Real {
+	return -left - right
+}
+
+helper intMinus_UnaryMinusDoub(left : Integer, right : Real) : Real {
+	return left - -right
+}
+
+helper unaryMinus_LessInt(left : Integer, right : Integer) : Boolean {
+	return -left < right
+}
+
+helper intLess_UnaryMinus(left : Integer, right : Integer) : Boolean {
+	return left < -right
+}
+
+helper unaryMinus_GreaterInt(left : Integer, right : Integer) : Boolean {
+	return -left > right
+}
+
+helper intGreater_UnaryMinus(left : Integer, right : Integer) : Boolean {
+	return left > -right
+}
+
+helper unaryMinus_LessOrEqualInt(left : Integer, right : Integer) : Boolean {
+	return -left <= right
+}
+
+helper intLessOrEqual_UnaryMinus(left : Integer, right : Integer) : Boolean {
+	return left <= -right
+}
+
+helper unaryMinus_GreaterOrEqualInt(left : Integer, right : Integer) : Boolean {
+	return -left >= right
+}
+
+helper intGreaterOrEqual_UnaryMinus(left : Integer, right : Integer) : Boolean {
+	return left >= -right
+}
+
+helper unaryMinus_EqInt(left : Integer, right : Integer) : Boolean {
+	return -left = right
+}
+
+helper intEq_UnaryMinus(left : Integer, right : Integer) : Boolean {
+	return left = -right
+}
+
+helper unaryMinus_NotEqInt(left : Integer, right : Integer) : Boolean {
+	return -left <> right
+}
+
+helper intNotEq_UnaryMinus(left : Integer, right : Integer) : Boolean {
+	return left <> -right
+}
+
+helper unaryNot_AndBoolean(left : Boolean, right : Boolean) : Boolean {
+	return not left and right
+}
+
+helper booleanAnd_UnaryNot(left : Boolean, right : Boolean) : Boolean {
+	return left and not right
+}
+
+helper unaryNot_OrBoolean(left : Boolean, right : Boolean) : Boolean {
+	return not left or right
+}
+
+helper booleanOr_UnaryNot(left : Boolean, right : Boolean) : Boolean {
+	return left or not right
+}
+
+helper unaryMinus_IntMultInt(left : Integer, right : Integer) : Integer {
+	return -(left * right)
+}
+
+helper unaryMinus_IntDivInt(left : Integer, right : Integer) : Integer {
+	return -left.div(right)
+}
+
+helper unaryMinus_DoubMultInt(left : Real, right : Integer) : Real {
+	return -(left * right)
+}
+
+helper unaryMinus_DoubDivDoub(left : Real, right : Real) : Real {
+	return -(left / right)
+}
+
+helper intDivInt_PlusInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return left.div(right) + addition
+}
+
+helper intPlus_IntDivInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return addition + left.div(right)
+}
+
+helper intDivDoub_PlusInt(left : Integer, right : Real, addition : Integer) : Real {
+	return left / right + addition
+}
+
+helper intPlus_DoubDivDoub(left : Real, right : Real, addition : Integer) : Real {
+	return addition + left / right
+}
+
+helper intMultInt_MinusInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return left * right - addition
+}
+
+helper intMinus_IntMultInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return addition - left * right
+}
+
+helper intMultDoub_MinusInt(left : Integer, right : Real, addition : Integer) : Real {
+	return left * right - addition
+}
+
+helper intMinus_DoubMultDoub(left : Real, right : Real, addition : Integer) : Real {
+	return addition - left * right
+}
+
+helper unaryMinus_IntPlusInt(left : Integer, right : Integer) : Integer {
+	return -(left + right)
+}
+
+helper unaryMinus_IntPlusDoub(left : Integer, right : Real) : Real {
+	return -(left + right)
+}
+
+helper unaryMinus_IntMinusInt(left : Integer, right : Integer) : Integer {
+	return -(left - right)
+}
+
+helper unaryMinus_DoubMinusDoub(left : Integer, right : Real) : Real {
+	return -(left - right)
+}
+
+helper intMinusInt_MultInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return (left - right) * addition
+}
+
+helper intMult_IntMinusDoub(left : Integer, right : Real, addition : Integer) : Real {
+	return addition * (left - right)
+}
+
+helper doubMinusDoub_MultInt(left : Real, right : Real, addition : Integer) : Real {
+	return (left - right) * addition
+}
+
+helper intMult_DoubMinusInt(left : Real, right : Integer, addition : Integer) : Real {
+	return addition * (left - right)
+}
+
+helper intMinusInt_DivInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return left - right.div(addition)
+}
+
+helper intDiv_IntMinusDoub(left : Integer, right : Real, addition : Integer) : Real {
+	return addition / (left - right)
+}
+
+helper doubMinusDoub_DivInt(left : Real, right : Real, addition : Integer) : Real {
+	return (left - right) / addition
+}
+
+helper intDiv_DoubMinusInt(left : Real, right : Integer, addition : Integer) : Real {
+	return addition / (left - right)
+}
+
+helper unaryNot_IntGreaterInt(left : Integer, right : Integer) : Boolean {
+	return not (left > right)
+}
+
+helper unaryNot_IntLessInt(left : Integer, right : Integer) : Boolean {
+	return not (left < right)
+}
+
+helper unaryNot_IntGreaterOrEqualInt(left : Integer, right : Integer) : Boolean {
+	return not (left >= right)
+}
+
+helper unaryNot_IntLessOrEqualInt(left : Integer, right : Integer) : Boolean {
+	return not (left <= right)
+}
+
+helper booleanEqual_IntGreaterInt(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return addition = left > right
+}
+
+helper intLessInt_NoEqualBoolean(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return left < right <> addition
+}
+
+helper booleanNoEqual_IntGreaterOrEqualInt(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return addition <> left >= right
+}
+
+helper IntLessOrEqualInt_EqualBoolean(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return left <= right = addition
+}
+
+helper IntGreaterInt_AndBoolean(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return left > right and addition
+}
+
+helper booleanOr_IntLessInt(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return addition or left < right
+}
+
+helper IntGreaterOrEqualInt_OrBoolean(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return left >= right or addition
+}
+
+helper booleanAnd_IntLessOrEqualInt(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return addition and left <= right
+}
+
+helper unaryNot_IntEqualInt(left : Integer, right : Integer) : Boolean {
+	return not (left = right)
+}
+
+helper unaryNot_IntNotEqualInt(left : Integer, right : Integer) : Boolean {
+	return not (left <> right)
+}
+
+helper booleanAnd_IntEqualInt(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return addition and left = right
+}
+
+helper intEqualInt_OrBoolean(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return left = right or addition
+}
+
+helper booleanOr_IntNotEqualInt(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return addition or left <> right
+}
+
+helper intNotEqualInt_AndBoolean(left : Integer, right : Integer, addition : Boolean) : Boolean {
+	return left <> right and addition
+}
+
+helper unaryNot_BooleanAndBoolean(left : Boolean, right : Boolean) : Boolean {
+	return not (left and right)
+}
+
+helper unaryNot_BooleanOrBoolean(left : Boolean, right : Boolean) : Boolean {
+	return not (left or right)
+}
+
+helper booleanEqual_BooleanAndBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return addition = (left and right)
+}
+
+helper booleanAndBoolean_EqualBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return (left and right) = addition
+}
+
+helper booleanNotEqual_BooleanAndBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return addition <> (left and right)
+}
+
+helper booleanAndBoolean_NotEqualBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return (left and right) <> addition
+}
+
+helper booleanAndBooleanOrBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return left and right or addition
+}
+
+helper booleanAndBoolean_OrBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return left and right or addition
+}
+
+helper booleanAnd_BooleanOrBoolean(left : Boolean, right : Boolean, addition : Boolean) : Boolean {
+	return left and (right or addition)
+}
+
+helper intPlusIntPlusInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return left + right + addition
+}
+
+helper intPlusInt_PlusInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return left + right + addition
+}
+
+helper intPlus_IntPlusInt(left : Integer, right : Integer, addition : Integer) : Integer {
+	return left + (right + addition)
+}

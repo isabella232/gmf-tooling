@@ -1,0 +1,17 @@
+import library xpt.GlobalVarOperations;
+
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library WorkflowSlot;
+
+helper getObjectVariable() : OclAny {
+	return xpandGetObjectGlobalVar('ObjectVariable')
+}
+
+helper getEClassVariable() : ecore::EClass {
+	return xpandGetObjectGlobalVar('EClassVariable').oclAsType(ecore::EClass)
+}
+
+helper getStringVariable() : String {
+	return xpandGetStringGlobalVar('StringVariable')
+}

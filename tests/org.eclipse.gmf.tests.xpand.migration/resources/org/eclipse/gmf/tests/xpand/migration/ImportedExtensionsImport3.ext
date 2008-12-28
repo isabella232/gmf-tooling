@@ -1,0 +1,5 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean nonPolymorphycExtension1(ecore::EClassifier eClass, ecore::EClass subType) :
+	false
+;

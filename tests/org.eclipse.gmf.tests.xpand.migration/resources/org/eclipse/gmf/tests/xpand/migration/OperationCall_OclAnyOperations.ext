@@ -1,0 +1,49 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean objectCompareTo(ecore::EJavaObject eJavaObject, ecore::EJavaObject another) :
+	eJavaObject.compareTo(another)
+;
+
+String objectToString(ecore::EJavaObject eJavaObject) :
+	eJavaObject.toString()
+;
+
+Boolean objectEQ(ecore::EJavaObject eJavaObject, ecore::EJavaObject another) :
+	eJavaObject == another
+;
+
+Boolean objectNotEQ(ecore::EJavaObject eJavaObject, ecore::EJavaObject another) :
+	eJavaObject != another
+;
+
+Boolean enumeratorCompareTo(ecore::EEnumerator enumerator, ecore::EJavaObject another) :
+	enumerator.compareTo(another)
+;
+
+String enumeratorToString(ecore::EEnumerator enumerator) :
+	enumerator.toString()
+;
+
+Boolean enumeratorEQ(ecore::EEnumerator enumerator, ecore::EJavaObject another) :
+	enumerator == another
+;
+
+Boolean enumeratorNotEQ(ecore::EEnumerator enumerator, ecore::EJavaObject another) :
+	enumerator != another
+;
+
+Boolean enumCompareTo(ecore::EEnum enum, ecore::EJavaObject another) :
+	enum.compareTo(another)
+;
+
+String enumToString(ecore::EEnum enum) :
+	enum.toString()
+;
+
+Boolean enumEQ(ecore::EEnum enum, ecore::EJavaObject another) :
+	enum == another
+;
+
+Boolean enumNotEQ(ecore::EEnum enum, ecore::EJavaObject another) :
+	enum != another
+;

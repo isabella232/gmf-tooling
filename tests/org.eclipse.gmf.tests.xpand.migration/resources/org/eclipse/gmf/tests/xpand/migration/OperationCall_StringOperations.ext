@@ -1,0 +1,99 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+String addStringToString(String string, String parameter) :
+	string + parameter
+;
+
+List[String] addStringToStringsList(List[String] strings, String parameter) :
+	strings + parameter
+;
+
+String addObjectToString(String string, ecore::EJavaObject parameter) :
+	string + parameter
+;
+
+List[String] addObjectToStringsList(List[String] strings, ecore::EJavaObject parameter) :
+	strings + parameter
+;
+
+String stringToFirstUpper(String string) :
+	string.toFirstUpper()
+;
+
+String stringToFirstLower(String string) :
+	string.toFirstLower()
+;
+
+List[String] stringToCharList(String string) :
+	string.toCharList()
+;
+
+Boolean stringStartsWith(String string, String parameter) :
+	string.startsWith(parameter)
+;
+
+Boolean stringEndsWith(String string, String parameter) :
+	string.endsWith(parameter)
+;
+
+String stringSubString(String string, int startIndex, int endIndex) :
+	string.subString(startIndex, endIndex)
+;
+
+String stringSubString(String string, int startIndex) :
+	string.subString(startIndex)
+;
+
+String stringToUpperCase(String string) :
+	string.toUpperCase()
+;
+
+String stringToLowerCase(String string) :
+	string.toLowerCase()
+;
+
+String stringReplaceAll(String string, String pattern, String replacement) :
+	string.replaceAll(pattern, replacement)
+;
+
+String stringReplaceFirst(String string, String pattern, String replacement) :
+	string.replaceFirst(pattern, replacement)
+;
+
+List[String] stringSplit(String string, String parameter) :
+	string.split(parameter)
+;
+
+Boolean stringMatches(String string, String parameter) :
+	string.matches(parameter)
+;
+
+String stringTrim(String string) :
+	string.trim()
+;
+
+int stringLength(String string) :
+	string.length()
+;
+
+Boolean stringCompareTo(String string, ecore::EJavaObject another) :
+	string.compareTo(another)
+;
+
+String stringToString(String string) :
+	string.toString()
+;
+
+Boolean stringEQ(String string, ecore::EJavaObject another) :
+	string == another
+;
+
+Boolean stringNotEQ(String string, ecore::EJavaObject another) :
+	string != another
+;
+
+String stringLiteralsConcat() :
+	'first part|' + 
+	'second part|' + 
+	'third part'
+;

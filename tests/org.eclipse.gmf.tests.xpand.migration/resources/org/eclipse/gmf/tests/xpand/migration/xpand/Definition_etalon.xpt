@@ -1,0 +1,71 @@
+
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«DEFINE stringContext FOR String-»
+«ENDDEFINE»
+
+«AROUND stringContextAround FOR String-»
+«ENDAROUND»
+
+«DEFINE eStringContext FOR String-»
+«ENDDEFINE»
+
+«AROUND eStringContextAround FOR String-»
+«ENDAROUND»
+
+«DEFINE booleanContext FOR Boolean-»
+«ENDDEFINE»
+
+«AROUND booleanContextAround FOR Boolean-»
+«ENDAROUND»
+
+«DEFINE eBooleanContext FOR Boolean-»
+«ENDDEFINE»
+
+«AROUND eBooleanContextAround FOR Boolean-»
+«ENDAROUND»
+
+«DEFINE simpleBooleanContext FOR Boolean-»
+«ENDDEFINE»
+
+«AROUND simpleBooleanContextAround FOR Boolean-»
+«ENDAROUND»
+
+«DEFINE integerContext FOR Integer-»
+«ENDDEFINE»
+
+«AROUND integerContextAround FOR Integer-»
+«ENDAROUND»
+
+«DEFINE intContext FOR Integer-»
+«ENDDEFINE»
+
+«AROUND intContextAround FOR Integer-»
+«ENDAROUND»
+
+«DEFINE eIntContext FOR Integer-»
+«ENDDEFINE»
+
+«AROUND eIntContextAround FOR Integer-»
+«ENDAROUND»
+
+«DEFINE doubleContext FOR Real-»
+«ENDDEFINE»
+
+«AROUND doubleContextAround FOR Real-»
+«ENDAROUND»
+
+«DEFINE modelContext FOR ecore::EPackage-»
+«ENDDEFINE»
+
+«AROUND modelContextAround FOR ecore::EPackage-»
+«ENDAROUND»
+
+«DEFINE collectionContext FOR Collection(ecore::EPackage)-»
+«ENDDEFINE»
+
+«AROUND setContextAround FOR Set(ecore::EPackage)-»
+«ENDAROUND»
+
+«DEFINE listContext FOR Sequence(ecore::EPackage)-»
+«ENDDEFINE»

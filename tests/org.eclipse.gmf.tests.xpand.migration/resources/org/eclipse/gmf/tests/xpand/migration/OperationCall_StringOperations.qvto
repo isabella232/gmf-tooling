@@ -1,0 +1,100 @@
+import library xpt.StringOperations;
+import library xpt.OclAnyOperations;
+
+library OperationCall_StringOperations;
+
+helper addStringToString(string : String, parameter : String) : String {
+	return string + parameter
+}
+
+helper addStringToStringsList(strings : Sequence(String), parameter : String) : Sequence(String) {
+	return strings.+(parameter)
+}
+
+helper addObjectToString(string : String, parameter : OclAny) : String {
+	return string + parameter.repr()
+}
+
+helper addObjectToStringsList(strings : Sequence(String), parameter : OclAny) : Sequence(String) {
+	return strings.+(parameter.repr())
+}
+
+helper stringToFirstUpper(string : String) : String {
+	return string.firstToUpper()
+}
+
+helper stringToFirstLower(string : String) : String {
+	return string.xpandToFirstLower()
+}
+
+helper stringToCharList(string : String) : Sequence(String) {
+	return string.xpandToCharList()
+}
+
+helper stringStartsWith(string : String, parameter : String) : Boolean {
+	return string.xpandStartsWith(parameter)
+}
+
+helper stringEndsWith(string : String, parameter : String) : Boolean {
+	return string.xpandEndsWith(parameter)
+}
+
+helper stringSubString(string : String, startIndex : Integer, endIndex : Integer) : String {
+	return string.substring(1 + startIndex, endIndex)
+}
+
+helper stringSubString(string : String, startIndex : Integer) : String {
+	return string.xpandSubstring(startIndex)
+}
+
+helper stringToUpperCase(string : String) : String {
+	return string.toUpper()
+}
+
+helper stringToLowerCase(string : String) : String {
+	return string.toLower()
+}
+
+helper stringReplaceAll(string : String, pattern : String, replacement : String) : String {
+	return string.xpandReplaceAll(pattern, replacement)
+}
+
+helper stringReplaceFirst(string : String, pattern : String, replacement : String) : String {
+	return string.xpandReplaceFirst(pattern, replacement)
+}
+
+helper stringSplit(string : String, parameter : String) : Sequence(String) {
+	return string.xpandSplit(parameter)
+}
+
+helper stringMatches(string : String, parameter : String) : Boolean {
+	return string.xpandMatches(parameter)
+}
+
+helper stringTrim(string : String) : String {
+	return string.trim()
+}
+
+helper stringLength(string : String) : Integer {
+	return string.xpandLength()
+}
+
+helper stringCompareTo(string : String, another : OclAny) : Boolean {
+	return string.xpandCompareTo(another)
+}
+
+helper stringToString(string : String) : String {
+	return string.repr()
+}
+
+helper stringEQ(string : String, another : OclAny) : Boolean {
+	return string = another
+}
+
+helper stringNotEQ(string : String, another : OclAny) : Boolean {
+	return string <> another
+}
+
+helper stringLiteralsConcat() : String {
+	return 'first part|second part|third part'
+}

@@ -1,0 +1,17 @@
+«DEFINE expandWithParameters FOR ecore::EClass-»
+«EXPAND target1("string1", "string2")-»	
+«ENDDEFINE»
+
+«DEFINE expandForExpression FOR ecore::EPackage-»
+«EXPAND target2 FOR (ecore::EClass) eClassifiers.typeSelect(ecore::EClass).first()-»	
+«ENDDEFINE»
+
+«DEFINE expandForeachWithSeparator FOR ecore::EPackage-»
+«EXPAND target2 FOREACH eClassifiers.typeSelect(ecore::EClass) SEPARATOR "|" + eClassifiers.size()-»
+«ENDDEFINE»
+
+«DEFINE target1(String p1, String p2) FOR ecore::EClass-»
+«ENDDEFINE»
+
+«DEFINE target2 FOR ecore::EClass-»
+«ENDDEFINE»

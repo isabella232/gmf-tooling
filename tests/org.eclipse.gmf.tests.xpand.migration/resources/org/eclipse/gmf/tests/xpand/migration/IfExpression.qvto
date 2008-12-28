@@ -1,0 +1,6 @@
+
+library IfExpression;
+
+helper ifExpression(condition : Boolean, string1 : String, string2 : String) : String {
+	return (if condition then string1 else string2 endif)
+}

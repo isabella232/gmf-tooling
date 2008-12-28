@@ -1,0 +1,41 @@
+«DEFINE emptyIf FOR ecore::EPackage-»
+«IF eClassifiers.size() > 0»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE ifWithBody FOR ecore::EPackage-»
+«IF true»
+	Start
+		«"prefix1" + eClassifiers.size()»
+	Other
+		«"prefix2" + eClassifiers.size()»
+	End
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE ifWithElse FOR ecore::EPackage-»
+«IF false»
+«ELSE»
+	Start
+		«"prefix1" + eClassifiers.size()»
+	Other
+		«"prefix2" + eClassifiers.size()»
+	End
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE ifWithElseIfs FOR ecore::EPackage-»
+«IF eClassifiers.size() == 1»
+	«"1: " + eClassifiers.size()»
+«ELSEIF eClassifiers.size() == 2»
+	«"2: " + eClassifiers.size()»
+«ELSEIF eClassifiers.size() == 3»
+	«"3: " + eClassifiers.size()»
+«ELSEIF eClassifiers.size() == 4»
+	«"4: " + eClassifiers.size()»
+«ELSEIF eClassifiers.size() == 5»
+	«"5: " + eClassifiers.size()»
+«ELSE»
+	«"unlimited: " + eClassifiers.size()»
+«ENDIF»
+«ENDDEFINE»

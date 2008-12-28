@@ -1,0 +1,19 @@
+«DEFINE emptyForEach FOR ecore::EPackage-»
+«FOREACH eClassifiers.typeSelect(ecore::EClass) AS eClass-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE emptyForEachWithSeparator FOR ecore::EPackage-»
+«FOREACH eClassifiers AS eClassifier ITERATOR myIt SEPARATOR "prefix" + eClassifiers.size()-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE forEachWithBody FOR ecore::EPackage-»
+«FOREACH eClassifiers AS eClassifier-»
+	Start
+		«"prefix1" + eClassifier.eTypeParameters.size()»
+	Other
+		«"prefix2" + eClassifier.eTypeParameters.size()»
+	End
+«ENDFOREACH-»
+«ENDDEFINE»

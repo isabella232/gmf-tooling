@@ -1,0 +1,9 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+EDouble positiveLiteral() :
+	15.855
+;
+
+EDouble negativeLiteral() :
+	-45.399
+;

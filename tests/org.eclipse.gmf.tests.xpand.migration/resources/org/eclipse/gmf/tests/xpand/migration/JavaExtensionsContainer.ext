@@ -1,0 +1,25 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean anotherQuery() :
+	true
+;
+
+String simpleNativeExtension(String parameter, Boolean parameter2) :
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativeExtension(java.lang.String, java.lang.Boolean)
+;
+
+String simpleNativePolyExtension(String parameter, Boolean parameter2) :
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativePolyExtension(java.lang.String, java.lang.Boolean)
+;
+
+String simpleNativePolyExtension(Object parameter, Boolean parameter2) :
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativePolyExtension(java.lang.String, java.lang.Boolean)
+;
+
+ecore::EClass modelElementAsNativeExtensionParameter(ecore::EObject param1, ecore::EPackage param2) :
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.modelElementAsNativeExtensionParameter(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EPackage)
+;
+
+List[ecore::EClass] collectionsInNativeExtensions(Collection[ecore::EObject] param1, Set[ecore::EPackage] param2, List[Object] param3, List[ecore::EClassifier] param4) :
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.collectionsInNativeExtensions(java.util.Collection, java.util.Set, java.lang.Object.List, org.eclipse.emf.ecore.EClassifier.List)
+;

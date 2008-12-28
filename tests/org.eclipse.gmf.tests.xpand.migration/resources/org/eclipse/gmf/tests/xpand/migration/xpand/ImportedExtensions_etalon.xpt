@@ -1,0 +1,5 @@
+«EXTENSION org::eclipse::gmf::tests::xpand::migration::ImportedExtensionsImport1»
+
+«DEFINE importedString FOR String-»
+«getImportedString1(self)-»	
+«ENDDEFINE»

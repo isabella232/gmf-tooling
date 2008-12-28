@@ -1,0 +1,7 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+extension org::eclipse::gmf::tests::xpand::migration::ImportedExtensionsWReexportImport1;
+
+String getImportedString(String param) :
+	getImportedString1(param)
+;

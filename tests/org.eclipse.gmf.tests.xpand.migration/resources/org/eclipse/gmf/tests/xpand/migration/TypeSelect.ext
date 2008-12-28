@@ -1,0 +1,18 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+List[ecore::EClass] typeSelectCall(ecore::EPackage ePackage) :
+	ePackage.eClassifiers.typeSelect(ecore::EClass)
+;
+
+/* Different original collection types */
+List[ecore::EClass] typeSelectOnList(List[ecore::EClassifier] eClassifiers) :
+	eClassifiers.typeSelect(ecore::EClass)
+;
+
+List[ecore::EClass] typeSelectOnSet(Set[ecore::EClassifier] eClassifiers) :
+	eClassifiers.typeSelect(ecore::EClass)
+;
+
+List[ecore::EClass] typeSelectOnCollection(Collection[ecore::EClassifier] eClassifiers) :
+	eClassifiers.typeSelect(ecore::EClass)
+;

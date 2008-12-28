@@ -1,0 +1,141 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI/GenModel";
+import "http://www.eclipse.org/emf/2002/GenModel";
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+String featureCall(ecore::EClass eClass) :
+	eClass.name
+;
+
+genmodel::GenProviderKind enumLiteralCall() :
+	genmodel::GenProviderKind::Singleton
+;
+
+Boolean enumLiteralValueCall(genmodel::GenProviderKind otherLiteral) :
+	genmodel::GenProviderKind::Singleton.value == otherLiteral.value
+;
+
+Boolean enumLiteralLiteralCall(genmodel::GenProviderKind otherLiteral) :
+	genmodel::GenProviderKind::Singleton.literal == otherLiteral.literal
+;
+
+String enumLiteralNameCall(genmodel::GenProviderKind otherLiteral) :
+	genmodel::GenProviderKind::Singleton.name
+;
+
+/* FeatureCall referencing collection-type parameter should return it as is without any modifications*/
+List[ecore::EClass] listParameterCall(List[ecore::EClass] param) :
+	param
+;
+
+Set[ecore::EClass] setParameterCall(Set[ecore::EClass] param) :
+	param
+;
+
+Collection[ecore::EClass] collectionParameterCall(Collection[ecore::EClass] param) :
+	param
+;
+
+/* FeatureCall referencing non-collection parameter feature with different multiplicities*/
+testModel::Child getSingletonChild(testModel::Container param) :
+	param.singletonChild
+;
+
+testModel::Child getSingletonChildConstrained(testModel::Container param) :
+	param.singletonChildConstrained
+;
+
+List[testModel::Child] getOrderedChildren(testModel::Container param) :
+	param.orderedChildren
+;
+
+Set[testModel::Child] getUniqueChildren(testModel::Container param) :
+	param.uniqueChildren
+;
+
+List[testModel::Child] getOrderedUniqueChildren(testModel::Container param) :
+	param.orderedUniqueChildren
+;
+
+Collection[testModel::Child] getChildren(testModel::Container param) :
+	param.children
+;
+
+/* FeatureCall referencing different collection type parameter features with 0..1 multiplicities */
+List[testModel::Child] getSingletonChildOfList(List[testModel::Container] param) :
+	param.singletonChild
+;
+
+List[testModel::Child] getSingletonChildOfSet(Set[testModel::Container] param) :
+	param.singletonChild
+;
+
+List[testModel::Child] getSingletonChildOfCollection(Collection[testModel::Container] param) :
+	param.singletonChild
+;
+
+List[testModel::Child] getSingletonChildConstrainedOfList(List[testModel::Container] param) :
+	param.singletonChildConstrained
+;
+
+List[testModel::Child] getSingletonChildConstrainedOfSet(Set[testModel::Container] param) :
+	param.singletonChildConstrained
+;
+
+List[testModel::Child] getSingletonChildConstrainedOfCollection(Collection[testModel::Container] param) :
+	param.singletonChildConstrained
+;
+
+/* FeatureCall referencing different collection type parameter features having different collection types */
+List[testModel::Child] getOrderedChildrenOfList(List[testModel::Container] param) :
+	param.orderedChildren
+;
+
+List[testModel::Child] getOrderedChildrenOfSet(Set[testModel::Container] param) :
+	param.orderedChildren
+;
+
+List[testModel::Child] getOrderedChildrenOfCollection(Collection[testModel::Container] param) :
+	param.orderedChildren
+;
+
+List[testModel::Child] getUniqueChildrenOfList(List[testModel::Container] param) :
+	param.uniqueChildren
+;
+
+List[testModel::Child] getUniqueChildrenOfSet(Set[testModel::Container] param) :
+	param.uniqueChildren
+;
+
+List[testModel::Child] getUniqueChildrenOfCollection(Collection[testModel::Container] param) :
+	param.uniqueChildren
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOfList(List[testModel::Container] param) :
+	param.orderedUniqueChildren
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOfSet(Set[testModel::Container] param) :
+	param.orderedUniqueChildren
+;
+
+List[testModel::Child] getOrderedUniqueChildrenOfCollection(Collection[testModel::Container] param) :
+	param.orderedUniqueChildren
+;
+
+List[testModel::Child] getChildrenOfList(List[testModel::Container] param) :
+	param.children
+;
+
+List[testModel::Child] getChildrenOfSet(Set[testModel::Container] param) :
+	param.children
+;
+
+List[testModel::Child] getChildrenOfCollection(Collection[testModel::Container] param) :
+	param.children
+;
+
+/* FeatureCall with TypeLiteral expression referencing EClass operations */
+Boolean isSuperTypeOf(ecore::EClass param) :
+	ecore::EReference.isSuperTypeOf(param)
+;

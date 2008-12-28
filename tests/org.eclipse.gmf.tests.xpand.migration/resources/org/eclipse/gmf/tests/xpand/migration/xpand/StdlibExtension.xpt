@@ -1,0 +1,4 @@
+
+«DEFINE stringParameters(String param) FOR ecore::EPackage-»
+«param.toFirstLower()-»	
+«ENDDEFINE»

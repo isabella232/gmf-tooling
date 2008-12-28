@@ -1,0 +1,10 @@
+
+library BooleanLiteral;
+
+helper trueLiteral() : Boolean {
+	return true
+}
+
+helper falseLiteral() :  Boolean {
+	return false
+}

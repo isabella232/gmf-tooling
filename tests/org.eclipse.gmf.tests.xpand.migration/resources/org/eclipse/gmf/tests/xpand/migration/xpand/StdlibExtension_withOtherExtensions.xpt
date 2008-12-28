@@ -1,0 +1,9 @@
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+
+«EXTENSION AnotherExtension1»
+«EXTENSION AnotherExtension2»
+«EXTENSION AnotherExtension3   »
+
+«DEFINE stringParameters(String param) FOR ecore::EPackage-»
+«param.toFirstLower()-»	
+«ENDDEFINE»

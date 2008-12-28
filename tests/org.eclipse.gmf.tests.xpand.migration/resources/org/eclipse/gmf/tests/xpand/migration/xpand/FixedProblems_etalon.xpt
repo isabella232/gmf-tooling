@@ -1,0 +1,37 @@
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+
+«DEFINE nullLiteral FOR ecore::EPackage-»
+«null-»	
+«ENDDEFINE»
+
+«DEFINE temporaryVariables FOR Collection(ecore::EClassifier)-»
+«(self->collect(it | it))[ecore::EClass]->asSequence()»	
+«ENDDEFINE»
+
+«DEFINE booleanNot FOR ecore::EClass-»
+«IF not _abstract»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE parences FOR ecore::EClassifier-»
+«self.oclAsType(ecore::EClass).name»
+«ENDDEFINE»
+
+«DEFINE parencesAsOperationArgument FOR ecore::EClassifier-»
+«true and true»
+«ENDDEFINE»
+
+«DEFINE logicalOr FOR ecore::EClassifier-»
+«IF true or false-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE defaultAttribute FOR gmfgen::AbstractToolEntry-»
+«IF _default-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE enumLiteralName FOR gmfgen::GenSeverity-»
+«self.repr()»
+«ENDDEFINE»

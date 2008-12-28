@@ -1,0 +1,137 @@
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype testModel uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
+
+library FeatureCall;
+
+helper featureCall(eClass : ecore::EClass) : String {
+	return eClass.name
+}
+
+helper enumLiteralCall() : genModel_1::GenProviderKind {
+	return genModel_1::GenProviderKind::Singleton
+}
+
+helper enumLiteralValueCall(otherLiteral : genModel_1::GenProviderKind) : Boolean {
+	return genModel_1::GenProviderKind::Singleton = otherLiteral
+}
+
+helper enumLiteralLiteralCall(otherLiteral : genModel_1::GenProviderKind) : Boolean {
+	return genModel_1::GenProviderKind::Singleton = otherLiteral
+}
+
+helper enumLiteralNameCall(otherLiteral : genModel_1::GenProviderKind) : String {
+	return genModel_1::GenProviderKind::Singleton.repr()
+}
+
+helper listParameterCall(param : Sequence(ecore::EClass)) : Sequence(ecore::EClass) {
+	return param
+}
+
+helper setParameterCall(param : Set(ecore::EClass)) : Set(ecore::EClass) {
+	return param
+}
+
+helper collectionParameterCall(param : Collection(ecore::EClass)) : Collection(ecore::EClass) {
+	return param
+}
+
+helper getSingletonChild(param : testModel::Container) : testModel::Child {
+	return param.singletonChild
+}
+
+helper getSingletonChildConstrained(param : testModel::Container) : testModel::Child {
+	return param.singletonChildConstrained
+}
+
+helper getOrderedChildren(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedChildren
+}
+
+helper getUniqueChildren(param : testModel::Container) : Set(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper getOrderedUniqueChildren(param : testModel::Container) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
+}
+
+helper getChildren(param : testModel::Container) : Collection(testModel::Child) {
+	return param.children
+}
+
+helper getSingletonChildOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChild
+}
+
+helper getSingletonChildOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChild->asSequence()
+}
+
+helper getSingletonChildOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChild->asSequence()
+}
+
+helper getSingletonChildConstrainedOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrained
+}
+
+helper getSingletonChildConstrainedOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrained->asSequence()
+}
+
+helper getSingletonChildConstrainedOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.singletonChildConstrained->asSequence()
+}
+
+helper getOrderedChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildren
+}
+
+helper getOrderedChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildren->asSequence()
+}
+
+helper getOrderedChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedChildren->asSequence()
+}
+
+helper getUniqueChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildren
+}
+
+helper getUniqueChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildren->asSequence()
+}
+
+helper getUniqueChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.uniqueChildren->asSequence()
+}
+
+helper getOrderedUniqueChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren
+}
+
+helper getOrderedUniqueChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
+}
+
+helper getOrderedUniqueChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.orderedUniqueChildren->asSequence()
+}
+
+helper getChildrenOfList(param : Sequence(testModel::Container)) : Sequence(testModel::Child) {
+	return param.children
+}
+
+helper getChildrenOfSet(param : Set(testModel::Container)) : Sequence(testModel::Child) {
+	return param.children->asSequence()
+}
+
+helper getChildrenOfCollection(param : Collection(testModel::Container)) : Sequence(testModel::Child) {
+	return param.children->asSequence()
+}
+
+helper isSuperTypeOf(param : ecore::EClass) : Boolean {
+	return param.oclIsKindOf(ecore::EReference)
+}

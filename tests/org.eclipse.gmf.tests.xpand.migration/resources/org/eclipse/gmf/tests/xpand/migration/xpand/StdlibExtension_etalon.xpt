@@ -1,0 +1,5 @@
+«EXTENSION xpt::StringOperations»
+
+«DEFINE stringParameters(param : String) FOR ecore::EPackage-»
+«param.xpandToFirstLower()-»	
+«ENDDEFINE»
