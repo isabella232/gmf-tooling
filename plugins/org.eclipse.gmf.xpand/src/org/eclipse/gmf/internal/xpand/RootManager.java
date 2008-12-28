@@ -43,7 +43,7 @@ public class RootManager {
 	private final IFile myConfig;
 	private List<RootDescription> myRoots;
 	private List<IRootChangeListener> myListeners = new ArrayList<IRootChangeListener>(2);
-	private RootDescription myFallbackRoot;
+//	private RootDescription myFallbackRoot;
 
 	public RootManager(IProject project) {
 		myConfig = project.getFile(PROJECT_RELATIVE_PATH_TO_CONFIG_FILE);
@@ -60,8 +60,10 @@ public class RootManager {
 	}
 
 	void rootsChanged() {
-		for (RootDescription nextRootDescription : myRoots) {
-			nextRootDescription.dispose();
+		if (myRoots != null) {
+			for (RootDescription nextRootDescription : myRoots) {
+				nextRootDescription.dispose();
+			}
 		}
 		myRoots = null;
 		for (IRootChangeListener next : myListeners) {
@@ -79,15 +81,16 @@ public class RootManager {
 				return nextDescription.getManager();
 			}
 		}
-		return getFallbackRoot().getManager();
+//		return getFallbackRoot().getManager();
+		return null;
 	}
 
-	private RootDescription getFallbackRoot() {
-		if (myFallbackRoot == null) {
-			myFallbackRoot = new RootDescription(Collections.<IPath>singletonList(new Path("")));
-		}
-		return myFallbackRoot;
-	}
+//	private RootDescription getFallbackRoot() {
+//		if (myFallbackRoot == null) {
+//			myFallbackRoot = new RootDescription(Collections.<IPath>singletonList(new Path("")));
+//		}
+//		return myFallbackRoot;
+//	}
 
 	private List<RootDescription> getRoots() {
 		if (myRoots == null) {
