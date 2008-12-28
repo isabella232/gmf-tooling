@@ -20,21 +20,28 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.RootManager;
+import org.eclipse.gmf.internal.xpand.build.OawBuilder;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.migration.ExpressionMigrationFacade;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
+import org.eclipse.gmf.internal.xpand.util.OawMarkerManager;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -48,6 +55,8 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 public class MigrateXpandProject extends WorkspaceModifyOperation implements IObjectActionDelegate {
 
+	public static final String MIGRATED_ROOT_EXTENSION = "migrated";
+	
 	private static final String PLUGIN_CLOSING_TAG = "</plugin>";
 
 	private static final String PLUGIN_OPENNING_TAG = "<plugin>";
@@ -62,7 +71,13 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 
 	private static final String NATIVE_EXTENSIONS_SRC_FOLDER = ".qvtlib";
 
-	private static final String MIGRATED_ROOT_EXTENSION = "migrated";
+	private static final String NEW_BUILDER_ID = "org.eclipse.gmf.xpand.xpandBuilder";
+	
+	private static final String QVT_BUILDER_ID = "org.eclipse.m2m.qvt.oml.QvtBuilder";
+	
+	private static final String QVT_BUIDLER_SRC_CONTAINER_ARG = "src_container";
+	
+	private static final String TRANSFORMATION_NATURE_ID = "org.eclipse.m2m.qvt.oml.project.TransformationNature";
 
 	private IWorkbenchPart workbenchPart;
 
@@ -143,7 +158,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		monitor.setTaskName("Migrating Xpand project");
 		List<IFolder> xpandRoots = rootManager.getXpandRootFolders();
-		monitor.beginTask("Migrating Xpand project", xpandRoots.size() + BIG_NUMBER * xpandRoots.size() + 1);
+		monitor.beginTask("Migrating Xpand project", xpandRoots.size() + BIG_NUMBER * xpandRoots.size() + 3);
 		int totalNumberOfSteps = 0;
 		for (IFolder rootFolder : xpandRoots) {
 			// each root migration requires two additional steps
@@ -156,6 +171,64 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 			migrateXpandRoot(rootFolder, nativeLibraryDeclarations, subMonitor);
 		}
 		registerNativeLibraries(nativeLibraryDeclarations, createSubProgressMonitor(monitor, "Registering native libraries", 1));
+		switchToNewXpandBuilder(createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
+		try {
+			rootManager.saveRoots(createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
+		} catch (UnsupportedEncodingException e) {
+			throw new InvocationTargetException(e);
+		}
+	}
+
+	private void switchToNewXpandBuilder(IProgressMonitor monitor) throws CoreException, InterruptedException {
+		monitor.beginTask("Registering new Xpand builder for the project", 2);
+		IProjectDescription pd = selectedJavaProject.getProject().getDescription();
+		ArrayList<ICommand> newBuildCommands = new ArrayList<ICommand>();
+		ICommand[] buildCommands = pd.getBuildSpec();
+		boolean addNewXpandBuilder = true;
+		boolean addQVTBuilder = true;
+		for (int i = 0; i < buildCommands.length; i++) {
+			String builderName = buildCommands[i].getBuilderName();
+			if (OawBuilder.getBUILDER_ID().equals(builderName)) {
+				continue;
+			}
+			if (NEW_BUILDER_ID.equals(builderName)) {
+				addNewXpandBuilder = false;
+			}
+			if (QVT_BUILDER_ID.equals(builderName)) {
+				addQVTBuilder = false;
+			}
+			newBuildCommands.add(buildCommands[i]);
+		}
+		if (addQVTBuilder) {
+			ICommand newCommand = pd.newCommand();
+			newCommand.setBuilderName(QVT_BUILDER_ID);
+			if (rootManager.getXpandRootFolders().size() > 0) {
+				Map arguments = newCommand.getArguments();
+				if (arguments == null) {
+					arguments = new HashMap();
+				}
+				IFolder mainXpandRootFolder = rootManager.getXpandRootFolders().get(0);
+				arguments.put(QVT_BUIDLER_SRC_CONTAINER_ARG, mainXpandRootFolder instanceof IProject ? "/" : mainXpandRootFolder.getProjectRelativePath().toString());
+				newCommand.setArguments(arguments);
+			}
+			newBuildCommands.add(newCommand);
+		}
+		if (addNewXpandBuilder) {
+			ICommand newCommand = pd.newCommand();
+			newCommand.setBuilderName(NEW_BUILDER_ID);
+			newBuildCommands.add(newCommand);
+		}
+		pd.setBuildSpec(newBuildCommands.toArray(new ICommand[newBuildCommands.size()]));
+		
+		ArrayList<String> newNatureIDs = new ArrayList<String>(Arrays.asList(pd.getNatureIds()));
+		if (!newNatureIDs.contains(TRANSFORMATION_NATURE_ID)) {
+			newNatureIDs.add(TRANSFORMATION_NATURE_ID);
+			pd.setNatureIds(newNatureIDs.toArray(new String[newNatureIDs.size()]));
+		}
+		
+		OawMarkerManager.deleteMarkers(selectedJavaProject.getProject());
+		monitor.worked(1);
+		selectedJavaProject.getProject().setDescription(pd, createSubProgressMonitor(monitor, "Saving modified project description", 1));
 	}
 
 	private void registerNativeLibraries(List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -225,6 +298,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		acceptVisitor(rootFolder, visitor);
 		visitor.done();
 		nativeLibraryDeclarations.addAll(visitor.getNativeLibraryDeclarations());
+		rootManager.updateXpandRootFolder(rootFolder, templatesOutputFolder);
 	}
 
 	private int getNumberOfSteps(IFolder rootFolder, IProgressMonitor progressMonitor) throws CoreException, InterruptedException, InvocationTargetException {

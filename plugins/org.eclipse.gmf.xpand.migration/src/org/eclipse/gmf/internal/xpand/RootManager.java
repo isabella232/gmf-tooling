@@ -12,8 +12,10 @@
 package org.eclipse.gmf.internal.xpand;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,15 +31,19 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.migration.ExpressionMigrationFacade;
+import org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject;
 
 /**
  * Tracks template roots for a given project.
  */
 public class RootManager {
-	static final IPath PROJECT_RELATIVE_PATH_TO_CONFIG_FILE = new Path(".xpand-root");	//$NON-NLS-1$
+	public static final IPath PROJECT_RELATIVE_PATH_TO_CONFIG_FILE = new Path(".xpand-root");	//$NON-NLS-1$
 	private final IFile myConfig;
 	private List<RootDescription> myRoots;
 	private List<IRootChangeListener> myListeners = new ArrayList<IRootChangeListener>(2);
@@ -59,7 +65,7 @@ public class RootManager {
 		myListeners.remove(l);
 	}
 
-	void rootsChanged() {
+	public void rootsChanged() {
 		myRoots = null;
 		for (IRootChangeListener next : myListeners) {
 			next.rootsChanged(this);
@@ -217,7 +223,7 @@ public class RootManager {
 		return result;
 	}
 
-	boolean containsProject(IPath projectPath) {
+	public boolean containsProject(IPath projectPath) {
 		if (myRoots == null) {
 			return false;
 		}
@@ -229,6 +235,60 @@ public class RootManager {
 			}
 		}
 		return false;
+	}
+	
+	public void updateXpandRootFolder(IFolder rootFolder, IFolder templatesOutputFolder) {
+		RootDescription rootDescription = getRootDescription(rootFolder);
+		if (rootDescription == null) {
+			return;
+		}
+		rootDescription.updateXpandRootFolder(templatesOutputFolder.getName());
+	}
+	
+	public void saveRoots(IProgressMonitor progressMonitor) throws UnsupportedEncodingException, CoreException {
+		progressMonitor.beginTask("Saving modified Xpand roots information", 2);
+		StringBuilder sb = new StringBuilder();
+		for (RootDescription rootDescription : getRoots()) {
+			for (int i = 0; i < rootDescription.getRoots().size(); i++) {
+				if (i > 0) {
+					sb.append(",");
+				}
+				sb.append(rootDescription.getRoots().get(i).toString());
+			}
+			sb.append(ExpressionMigrationFacade.LF);
+		}
+		progressMonitor.worked(1);
+		SubProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, 1);
+		subMonitor.setTaskName("Saving Xpand root file");
+		if (myConfig.exists()) {
+			myConfig.setContents(new ByteArrayInputStream(sb.toString().getBytes(myConfig.getCharset())), IFile.FORCE | IFile.KEEP_HISTORY, subMonitor);
+		} else {
+			myConfig.create(new ByteArrayInputStream(sb.toString().getBytes(myConfig.getParent().getDefaultCharset())), true, subMonitor);
+		}
+	}
+	
+	private RootDescription getRootDescription(IFolder rootFolder) {
+		for (RootDescription rootDescription : getRoots()) {
+			IPath mainIPath = rootDescription.getMainIPath();
+			if (mainIPath == null) {
+				continue;
+			}
+			IFolder descriptionRootFolder = null;
+			if (mainIPath.isAbsolute()) {
+				assert mainIPath.segmentCount() > 1;
+				// Try workspace-relative first.
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(mainIPath.segment(0));
+				if (project.isAccessible() && project.equals(myProject)) {
+					descriptionRootFolder = myProject.getFolder(mainIPath.removeFirstSegments(1));
+				}
+			} else {
+				descriptionRootFolder = myProject.getFolder(mainIPath);
+			}
+			if (descriptionRootFolder != null && descriptionRootFolder.exists() && descriptionRootFolder.equals(rootFolder)) {
+				return rootDescription;
+			}
+		}
+		return null;
 	}
 
 	private static final List<IPath> DEFAULT_ROOTS = Collections.<IPath>singletonList(new Path("templates"));	//$NON-NLS-1$
@@ -288,5 +348,28 @@ public class RootManager {
 		public IPath getMainIPath() {
 			return myRoots.size() == 0 ? null : myRoots.get(0);
 		}
+
+		public void updateXpandRootFolder(String mainIPathNewName) {
+			for (int i = 0; i < myRoots.size(); i++) {
+				IPath nextPath = myRoots.get(i);
+				if (i == 0) {
+					myRoots.set(0, updatePath(nextPath, mainIPathNewName, null));
+				} else {
+					myRoots.set(i, updatePath(nextPath, nextPath.lastSegment(), MigrateXpandProject.MIGRATED_ROOT_EXTENSION));
+				}
+			}
+		}
+		
+		private IPath updatePath(IPath path, String newName, String newExtension) {
+			IPath result = path.removeLastSegments(1).append(newName);
+			if (newExtension != null) {
+				result = result.addFileExtension(newExtension);
+			}
+			if (path.hasTrailingSeparator()) {
+				result = result.addTrailingSeparator();
+			}
+			return result;
+		}
 	}
+
 }

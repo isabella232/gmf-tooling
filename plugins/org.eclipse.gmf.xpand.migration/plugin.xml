@@ -3,6 +3,7 @@
 <plugin>
    <extension
          point="org.eclipse.ui.popupMenus">
+<!-- Following actions are not used anymore - only project-wide migration action is available
       <objectContribution
             id="org.eclipse.gmf.xpand.migration.actions.xtend"
             objectClass="org.eclipse.core.resources.IFile">
@@ -42,6 +43,7 @@
                menubarPath="additions">
          </action>
       </objectContribution>
+-->      
       <objectContribution
             id="org.eclipse.gmf.xpand.migration.actions.migrateProject"
             objectClass="org.eclipse.jdt.core.IJavaProject">
@@ -53,6 +55,27 @@
                menubarPath="additions">
          </action>
       </objectContribution>
+   </extension>
+   
+   <extension
+         id="org.eclipse.gmf.xpand.oawBuilder"
+         name="%xpand.builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="false">
+         <run class="org.eclipse.gmf.internal.xpand.build.OawBuilder"/>
+      </builder>
+   </extension>
+   
+   <extension
+         id="org.eclipse.gmf.xpand.problem"
+         name="%xpand.problem"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>
+      <super type="org.eclipse.core.resources.textmarker"/>
+      <persistent
+            value="true">
+      </persistent>
    </extension>
 
 </plugin>
