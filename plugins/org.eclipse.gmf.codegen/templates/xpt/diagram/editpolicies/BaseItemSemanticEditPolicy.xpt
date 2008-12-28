@@ -126,6 +126,8 @@ protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundComma
 «DEFINE semanticPart FOR gmfgen::GenDiagram-»
 	«EXPAND getSemanticCommand-»
 	
+	«EXPAND addDeleteViewCommand-»
+	
 	«EXPAND getEditHelperCommand-»
 	
 	«EXPAND getContextElementType-»
@@ -197,19 +199,20 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 	org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest completedRequest = completeRequest(request);
 	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
 	semanticCommand = getEditHelperCommand(completedRequest, semanticCommand);
-	boolean shouldProceed = true;
 	if (completedRequest instanceof org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) {
-		shouldProceed = shouldProceed((org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) completedRequest);
+		org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest destroyRequest = (org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) completedRequest;
+		return shouldProceed(destroyRequest) ? addDeleteViewCommand(semanticCommand, destroyRequest) : null;
 	}
-	if (shouldProceed) {
-		if (completedRequest instanceof org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest) {
-			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-			org.eclipse.gef.commands.Command deleteViewCommand = new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(editingDomain, (org.eclipse.gmf.runtime.notation.View) getHost().getModel()));
-			semanticCommand = semanticCommand == null ? deleteViewCommand : semanticCommand.chain(deleteViewCommand);
-		}
-		return semanticCommand;
-	}
-	return null;
+	return semanticCommand;
+}
+«ENDDEFINE»
+
+«DEFINE addDeleteViewCommand FOR gmfgen::GenDiagram-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected org.eclipse.gef.commands.Command addDeleteViewCommand(org.eclipse.gef.commands.Command mainCommand, org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest completedRequest){
+		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
+		org.eclipse.gef.commands.Command deleteViewCommand = getGEFWrapper(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(editingDomain, (org.eclipse.gmf.runtime.notation.View) getHost().getModel()));
+		return mainCommand == null ? deleteViewCommand : mainCommand.chain(deleteViewCommand);
 }
 «ENDDEFINE»
 
