@@ -35,11 +35,11 @@ import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
-import org.eclipse.gmf.internal.xpand.util.OawMarkerManager;
+import org.eclipse.gmf.internal.xpand.util.XpandMarkerManager;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
-public class OawBuilder extends IncrementalProjectBuilder implements RootManager.IRootChangeListener {
+public class XpandBuilder extends IncrementalProjectBuilder implements RootManager.IRootChangeListener {
 	private RootManager myRootManager;
 
 	private WorkspaceModelRegistry modelRegistry;
@@ -50,7 +50,7 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 	private final Map<XpandResource, IFile> xpandResourcesToAnalyze = new HashMap<XpandResource, IFile>();
 
 	public static final String getBUILDER_ID() {
-		return Activator.getId() + ".oawBuilder";
+		return Activator.getId() + ".xpandBuilder";
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 	        	updateMarkers(xpandResourcesToAnalyze.get(r), issues);
 	        } catch (RuntimeException ex) {
 	        	Activator.logError(ex);
-	        	OawMarkerManager.addMarkers(xpandResourcesToAnalyze.get(r), new ParserException.ErrorLocationInfo(ex.toString()));
+	        	XpandMarkerManager.addMarkers(xpandResourcesToAnalyze.get(r), new ParserException.ErrorLocationInfo(ex.toString()));
 	        }
 		}
 		xpandResourcesToAnalyze.clear();
@@ -139,26 +139,26 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 		} catch (Exception ex) {
 			Activator.logError(ex);
 			// perhaps, depending on exception type (Core|IO) we can decide to keep old markers? 
-			OawMarkerManager.deleteMarkers(resource);
-			OawMarkerManager.addErrorMarker(resource, ex.getMessage(), -1, -1);
+			XpandMarkerManager.deleteMarkers(resource);
+			XpandMarkerManager.addErrorMarker(resource, ex.getMessage(), -1, -1);
 		}
 	}
 
 	public void handleRemovement(final IFile resource) {
-		OawMarkerManager.deleteMarkers(resource);
+		XpandMarkerManager.deleteMarkers(resource);
 		getResourceManager(resource).forget(resource);
 	}
 
 	private WorkspaceResourceManager getResourceManager(IFile file) {
 		WorkspaceResourceManager result = myRootManager.getResourceManager(file);
-		assert result != null;
+//		assert result != null;
 		return result;
 	}
 
 	protected void fullBuild(final IProgressMonitor monitor) throws CoreException {
 		Set<IProject> referencedProjects = myRootManager.getReferencedProjects();
 		referencedProjects.add(getProject());
-		OawMarkerManager.deleteMarkers(getProject());	//to delete markers from obsolete roots.
+		XpandMarkerManager.deleteMarkers(getProject());	//to delete markers from obsolete roots.
 		monitor.beginTask(null, 1 + referencedProjects.size());
 		try {
 			for (IProject next : referencedProjects) {
@@ -195,13 +195,13 @@ public class OawBuilder extends IncrementalProjectBuilder implements RootManager
 	}
 
 	private static void updateMarkers(IFile resource, Set<AnalysationIssue> issues) {
-        OawMarkerManager.deleteMarkers(resource);
-        OawMarkerManager.addMarkers(resource, issues.toArray(new AnalysationIssue[issues.size()]));
+        XpandMarkerManager.deleteMarkers(resource);
+        XpandMarkerManager.addMarkers(resource, issues.toArray(new AnalysationIssue[issues.size()]));
 	}
 
 	private static void updateMarkers(IFile resource, ErrorLocationInfo[] parsingErrors) {
-        OawMarkerManager.deleteMarkers(resource);
-        OawMarkerManager.addMarkers(resource, parsingErrors);
+        XpandMarkerManager.deleteMarkers(resource);
+        XpandMarkerManager.addMarkers(resource, parsingErrors);
 	}
 
 	private static boolean isXpand(final IFile resource) {

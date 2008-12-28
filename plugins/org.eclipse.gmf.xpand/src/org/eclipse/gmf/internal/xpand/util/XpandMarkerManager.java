@@ -24,7 +24,7 @@ import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 /**
  */
-public class OawMarkerManager {
+public class XpandMarkerManager {
 
 	public static void addMarkers(final IFile file, AnalysationIssue... issues) {
 		MarkerData[] data = new MarkerData[issues.length];
@@ -116,7 +116,7 @@ public class OawMarkerManager {
 	}
 
 	private static final String getMARKER_TYPE() {
-		return Activator.getId() + ".problem";
+		return Activator.getId() + ".xpandProblem";
 	}
 
 	private final static void internalAddMarker(final IFile file, final MarkerData... markerData) {
