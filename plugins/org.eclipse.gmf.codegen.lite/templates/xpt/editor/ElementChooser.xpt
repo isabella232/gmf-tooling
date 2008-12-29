@@ -127,7 +127,7 @@ private void setOkButtonEnabled(boolean enabled) {
 	«EXPAND xpt::Common::generatedMemberComment»
 private boolean isValidModelFile(org.eclipse.core.resources.IFile file) {
 	String fileExtension = file.getFullPath().getFileExtension();
-	return «EXPAND compareModelFileExtension FOREACH containsShortcutsTo SEPARATOR " || "»; «EXPAND xpt::Common::nonNLS({}) FOREACH containsShortcutsTo SEPARATOR " "»
+	return «EXPAND compareModelFileExtension FOREACH containsShortcutsTo SEPARATOR " || "»; «EXPAND xpt::Common::nonNLS FOR containsShortcutsTo»
 }
 «ENDDEFINE»
 
