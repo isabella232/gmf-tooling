@@ -18,13 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 /**
@@ -48,7 +49,8 @@ public class XpandTextEmitter implements TextEmitter {
 		if (globals != null && globals.size() > 0) {
 			myGlobals = new ArrayList<Variable>(globals.size());
 			for (Map.Entry<String, Object> e : globals.entrySet()) {
-				myGlobals.add(new Variable(e.getKey(), e.getValue()));
+				assert e.getValue() instanceof EObject;
+				myGlobals.add(new Variable(e.getKey(), ((EObject) e.getValue()).eClass(), e.getValue()));
 			}
 		} else {
 			myGlobals = Collections.<Variable>emptyList();
@@ -86,7 +88,7 @@ public class XpandTextEmitter implements TextEmitter {
 		return res.toArray();
 	}
 
-	private XpandExecutionContext createContext(StringBuilder result) {
+	private ExecutionContext createContext(StringBuilder result) {
 		final BufferOutput output = new BufferOutput(result);
 		return ContextFactory.createXpandContext(myResourceManager, output, myGlobals, myContext);
 	}
