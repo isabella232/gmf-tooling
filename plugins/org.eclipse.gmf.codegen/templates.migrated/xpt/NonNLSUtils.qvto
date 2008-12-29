@@ -1,0 +1,21 @@
+library NonNLSUtils;
+
+property counter : Sequence(Integer) = Sequence{};
+
+helper incrementNonNLSCounter() : OclVoid {
+	counter := counter->including(counter->size() + 1);
+	return null
+}
+
+helper resetNonNLSCounter() : OclVoid {
+	counter := Sequence {  };
+	return null
+}
+
+helper getNonNLSCounter() : Sequence(Integer) {
+	return counter;
+}
+
+helper getNonNLSCounter(collection : Collection(OclAny)) : Sequence(Integer) {
+	return collection->iterate(element : OclAny; acc : Sequence(Integer) = Sequence{} | acc->including(acc->size() + 1))
+}

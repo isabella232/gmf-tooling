@@ -1,0 +1,47 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ViewmapAttributesUtils;
+
+helper isStoringChildPositions(layoutType : genModel::ViewmapLayoutType) : Boolean {
+	return genModel::ViewmapLayoutType::XY_LAYOUT = layoutType
+}
+
+helper isFixedFont(viewmap : genModel::Viewmap) : Boolean {
+	return null <> viewmap and (viewmap.attributes)[genModel::StyleAttributes]->exists(e | e.fixedFont)
+}
+
+helper isFixedForeground(viewmap : genModel::Viewmap) : Boolean {
+	return null <> viewmap and (viewmap.attributes)[genModel::StyleAttributes]->exists(e | e.fixedForeground)
+}
+
+helper isFixedBackground(viewmap : genModel::Viewmap) : Boolean {
+	return null <> viewmap and (viewmap.attributes)[genModel::StyleAttributes]->exists(e | e.fixedBackground)
+}
+
+helper getResizeConstraints(viewmap : genModel::Viewmap) : genModel::ResizeConstraints {
+	return (if null = viewmap then null else (viewmap.attributes)[genModel::ResizeConstraints]->first().oclAsType(genModel::ResizeConstraints) endif)
+}
+
+helper getDefaultSizeAttributes(viewmap : genModel::Viewmap) : genModel::DefaultSizeAttributes {
+	return (if null = viewmap then null else (viewmap.attributes)[genModel::DefaultSizeAttributes]->first().oclAsType(genModel::DefaultSizeAttributes) endif)
+}
+
+helper defaultSizeWidth(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+	return let a = getDefaultSizeAttributes(viewmap) in (if null = a then defaultValue else a.width endif)
+}
+
+helper defaultSizeHeight(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+	return let a = getDefaultSizeAttributes(viewmap) in (if null = a then defaultValue else a.height endif)
+}
+
+helper getLabelOffsetAttributes(viewmap : genModel::Viewmap) : genModel::LabelOffsetAttributes {
+	return (if null = viewmap then null else (viewmap.attributes)[genModel::LabelOffsetAttributes]->first().oclAsType(genModel::LabelOffsetAttributes) endif)
+}
+
+helper labelOffsetX(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+	return let a = getLabelOffsetAttributes(viewmap) in (if null = a then defaultValue else a.x endif)
+}
+
+helper labelOffsetY(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+	return let a = getLabelOffsetAttributes(viewmap) in (if null = a then defaultValue else a.y endif)
+}

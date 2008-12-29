@@ -1,0 +1,31 @@
+import xpt.NativeGenModelUtils;
+
+import xpt.GenModelUtils;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Utils;
+
+helper getNodes(diagram : genModel::GenDiagram) : Sequence(genModel::GenNode) {
+	return ((Sequence {  })[genModel::GenTopLevelNode]->union(diagram.topLevelNodes->asSequence()))[genModel::GenNode]->union(diagram.childNodes->asSequence())
+}
+
+helper getElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenCommonBase) {
+	return ((Sequence { diagram })[genModel::GenContainerBase]->union(diagram.topLevelNodes->asSequence())->union(diagram.childNodes->asSequence()))[genModel::GenCommonBase]->union(diagram.links->asSequence())
+}
+
+helper hasExplicitChildFeature(facet : genModel::TypeModelFacet) : Boolean {
+	return not isDerived(facet.childMetaFeature) and facet.childMetaFeature <> facet.containmentMetaFeature
+}
+
+helper hasContainerOtherThanSource(facet : genModel::TypeLinkModelFacet) : Boolean {
+	return facet.sourceMetaFeature <> null or facet.childMetaFeature <> facet.containmentMetaFeature
+}
+
+helper allPreferencePages(genDiagram : genModel::GenDiagram) : Sequence(genModel::GenPreferencePage) {
+	return recursePages(genDiagram.preferencePages->asSequence())
+}
+
+helper recursePages(pages : Sequence(genModel::GenPreferencePage)) : Sequence(genModel::GenPreferencePage) {
+	return (if pages->isEmpty() then pages else pages->union(recursePages(pages.children))->asOrderedSet()->asSequence() endif)
+}

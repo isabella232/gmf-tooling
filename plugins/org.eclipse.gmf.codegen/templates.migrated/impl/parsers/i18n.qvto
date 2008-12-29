@@ -1,0 +1,21 @@
+library i18n;
+
+helper defaultAbstractParserClassName() : String {
+	return 'AbstractParser'
+}
+
+helper i18nKeyForAbstractParserUnexpectedValueTypeMessage() : String {
+	return defaultAbstractParserClassName() + '.UnexpectedValueType'
+}
+
+helper i18nKeyForAbstractParserWrongStringConversionMessage() : String {
+	return defaultAbstractParserClassName() + '.WrongStringConversion'
+}
+
+helper i18nKeyForAbstractParserUnknownLiteralMessage() : String {
+	return defaultAbstractParserClassName() + '.UnknownLiteral'
+}
+
+helper i18nKeyForMessageFormatParserInvalidInputError() : String {
+	return 'MessageFormatParser.InvalidInputError'
+}

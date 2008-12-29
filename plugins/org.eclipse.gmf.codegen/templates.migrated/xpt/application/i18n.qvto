@@ -1,0 +1,63 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library i18n;
+
+helper i18nKeyForDefaultFileEditorErrorDialog(app : genModel::GenApplication) : String {
+	return app.actionBarAdvisorClassName + '.DefaultFileEditor'
+}
+
+helper i18nKeyForDefaultEditorOpenErrorDialog(app : genModel::GenApplication) : String {
+	return app.actionBarAdvisorClassName + '.DefaultEditorOpenError'
+}
+
+helper i18nKeyForWindowTitle(app : genModel::GenApplication) : String {
+	return app.workbenchWindowAdvisorClassName + '.Title'
+}
+
+helper i18nKeyForAboutDialog(app : genModel::GenApplication) : String {
+	return app.actionBarAdvisorClassName + '.AboutDialog'
+}
+
+helper titleKey(dialogKey : String) : String {
+	return dialogKey + 'Title'
+}
+
+helper messageKey(dialogKey : String) : String {
+	return dialogKey + 'Message'
+}
+
+helper i18nKeyForMenu(menuManager : genModel::GenMenuManager) : String {
+	return 'ApplicationMenuName.' + menuManager.name
+}
+
+helper collectGenMenuManagers(allItems : Collection(genModel::GenContributionItem)) : Sequence(genModel::GenMenuManager) {
+	return (collectAllContributionItems(allItems))[genModel::GenMenuManager]
+}
+
+helper collectAllContributionItems(allItems : Collection(genModel::GenContributionItem)) : Sequence(genModel::GenContributionManager) {
+	return let managers = (allItems->collect(it | it))[genModel::GenContributionManager]->asSequence() in managers->union(managers->collect(item | collectAllContributionItems(item.items))->flatten())
+}
+
+helper i18nKeyForNewFileWizardFileLabel(app : genModel::GenApplication) : String {
+	return wizardNewFileCreationPageClassName(app) + '.FileLabel'
+}
+
+helper i18nKeyForNewFileWizardBrowseButton(app : genModel::GenApplication) : String {
+	return wizardNewFileCreationPageClassName(app) + '.BrowseButton'
+}
+
+helper i18nKeyForNewFileWizardSelectDialog(app : genModel::GenApplication) : String {
+	return wizardNewFileCreationPageClassName(app) + '.SelectNewFileDialog'
+}
+
+helper i18nKeyForNewFileWizardEmpty(app : genModel::GenApplication) : String {
+	return wizardNewFileCreationPageClassName(app) + '.EmptyFileNameError'
+}
+
+helper i18nKeyForNewFileWizardInvalid(app : genModel::GenApplication) : String {
+	return wizardNewFileCreationPageClassName(app) + '.InvalidFileNameError'
+}
+
+helper wizardNewFileCreationPageClassName(app : genModel::GenApplication) : String {
+	return 'WizardNewFileCreationPage'
+}

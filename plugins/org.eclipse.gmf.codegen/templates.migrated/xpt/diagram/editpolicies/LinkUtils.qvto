@@ -1,0 +1,40 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
+
+library LinkUtils;
+
+helper isTypeLink(link : genModel::GenLink) : Boolean {
+	return (Sequence { link.modelFacet })[genModel::TypeLinkModelFacet]->size() > 0
+}
+
+helper isRefLink(link : genModel::GenLink) : Boolean {
+	return (Sequence { link.modelFacet })[genModel::FeatureLinkModelFacet]->size() > 0
+}
+
+helper canBeSource(link : genModel::GenLink, linkEnd : genModel::GenLinkEnd) : Boolean {
+	return link.sources->includes(linkEnd)
+}
+
+helper canBeTarget(link : genModel::GenLink, linkEnd : genModel::GenLinkEnd) : Boolean {
+	return link.targets->includes(linkEnd)
+}
+
+helper canBeContainer(link : genModel::GenLink, metaClass : genModel_1::GenClass) : Boolean {
+	return null <> link.modelFacet and isCompatible(link.modelFacet.getContainerClass(), metaClass)
+}
+
+helper genModel::LinkModelFacet::getContainerClass() : genModel_1::GenClass {
+	return null
+}
+
+helper genModel::TypeLinkModelFacet::getContainerClass() : genModel_1::GenClass {
+	return self.childMetaFeature.genClass
+}
+
+helper genModel::FeatureLinkModelFacet::getContainerClass() : genModel_1::GenClass {
+	return self.getSourceType()
+}
+
+helper isCompatible(desiredType : genModel_1::GenClass, actualClass : genModel_1::GenClass) : Boolean {
+	return null <> desiredType and desiredType.ecoreClass.isSuperTypeOf(actualClass.ecoreClass)
+}

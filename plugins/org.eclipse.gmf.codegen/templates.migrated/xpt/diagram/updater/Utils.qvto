@@ -1,0 +1,150 @@
+import xpt.diagram.editpolicies.LinkUtils;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
+
+library Utils;
+
+helper getContainedLinksMethodNameSuffix() : String {
+	return 'Contained'
+}
+
+helper getIncomingLinksMethodNameSuffix() : String {
+	return 'Incoming'
+}
+
+helper getOutgoingLinksMethodNameSuffix() : String {
+	return 'Outgoing'
+}
+
+helper getContainedLinks(metaClass : genModel_1::GenClass, diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+	return diagram.links->select(link | canBeContainer(link, metaClass))->asSequence()
+}
+
+helper getOutgoingLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
+	return linkEnd.getDiagram().links->select(link | linkEnd.genOutgoingLinks->includes(link))->asSequence()
+}
+
+helper getIncomingLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
+	return linkEnd.getDiagram().links->select(link | linkEnd.genIncomingLinks->includes(link))->asSequence()
+}
+
+helper getAllContainedLinks(diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+	return diagram.links->select(link | not getAllSemanticElements(diagram)->select(commonBase | canBeContainer(link, commonBase.getMetaClass()))->isEmpty())->asSequence()
+}
+
+helper getAllIncomingLinks(diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+	return diagram.links->select(link | not link.targets->isEmpty())->asSequence()
+}
+
+helper getAllOutgoingLinks(diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+	return diagram.links->select(link | link.isOutgoingLink())->select(link | not link.sources->isEmpty())->asSequence()
+}
+
+helper genModel::GenLink::isOutgoingLink() : Boolean {
+	return null <> self.modelFacet and self.modelFacet.isOutgoingLink()
+}
+
+helper genModel::LinkModelFacet::isOutgoingLink() : Boolean {
+	return true
+}
+
+helper genModel::TypeLinkModelFacet::isOutgoingLink() : Boolean {
+	return null <> self.sourceMetaFeature
+}
+
+helper getAllSemanticDiagramElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenLinkEnd) {
+	return ((diagram.getAllNodes()->asSequence())[genModel::GenLinkEnd]->union(diagram.links->asSequence()))[genModel::GenLinkEnd]->select(linkEnd | null <> linkEnd.getMetaClass())
+}
+
+helper getAllSemanticElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenCommonBase) {
+	return (if null <> diagram.domainDiagramElement then (Sequence { diagram })[genModel::GenCommonBase]->union(getAllSemanticDiagramElements(diagram)) else getAllSemanticDiagramElements(diagram) endif)
+}
+
+helper genModel::GenCommonBase::getMetaClass() : genModel_1::GenClass {
+	return null
+}
+
+helper genModel::GenDiagram::getMetaClass() : genModel_1::GenClass {
+	return self.domainDiagramElement
+}
+
+helper genModel::GenNode::getMetaClass() : genModel_1::GenClass {
+	return self.modelFacet.metaClass
+}
+
+helper genModel::GenLink::getMetaClass() : genModel_1::GenClass {
+	return (if null <> self.modelFacet then self.modelFacet.getMetaClass() else null endif)
+}
+
+helper genModel::LinkModelFacet::getMetaClass() : genModel_1::GenClass {
+	return null
+}
+
+helper genModel::TypeLinkModelFacet::getMetaClass() : genModel_1::GenClass {
+	return self.metaClass
+}
+
+helper hasSemanticChildren(container : genModel::GenContainerBase) : Boolean {
+	return not container.sansDomain and not container.containedNodes->isEmpty()
+}
+
+helper genModel::GenContainerBase::getModelElementType() : genModel_1::GenClass {
+	return null
+}
+
+helper genModel::GenDiagram::getModelElementType() : genModel_1::GenClass {
+	return self.domainDiagramElement
+}
+
+helper genModel::GenCompartment::getModelElementType() : genModel_1::GenClass {
+	return self.node.getModelElementType()
+}
+
+helper genModel::GenNode::getModelElementType() : genModel_1::GenClass {
+	return self.modelFacet.metaClass
+}
+
+helper getSemanticChildrenChildFeatures(containerBase : genModel::GenContainerBase) : Set(genModel_1::GenFeature) {
+	return getNonPhantomSemanticChildren(containerBase)->collect(node | node.modelFacet.childMetaFeature)->asOrderedSet()
+}
+
+helper getSemanticChildrenContainmentFeatures(containerBase : genModel::GenContainerBase) : Set(genModel_1::GenFeature) {
+	return getNonPhantomSemanticChildren(containerBase)->collect(node | node.modelFacet.containmentMetaFeature)->asOrderedSet()
+}
+
+helper getSemanticChildren(containerBase : genModel::GenContainerBase, childMetaFeature : genModel_1::GenFeature) : Sequence(genModel::GenNode) {
+	return getNonPhantomSemanticChildren(containerBase)->select(node | node.modelFacet.childMetaFeature = childMetaFeature)
+}
+
+helper getNonPhantomSemanticChildren(containerBase : genModel::GenContainerBase) : Sequence(genModel::GenNode) {
+	return getSemanticChildren(containerBase)->select(node | not node.modelFacet.isPhantomElement())
+}
+
+helper genModel::GenContainerBase::getPhantomNodes() : Sequence(genModel::GenNode) {
+	return Sequence {  }
+}
+
+helper genModel::GenDiagram::getPhantomNodes() : Sequence(genModel::GenNode) {
+	return getSemanticChildren(self)->select(node | node.modelFacet.isPhantomElement())
+}
+
+helper getSemanticChildren(containerBase : genModel::GenContainerBase) : Sequence(genModel::GenNode) {
+	return containerBase.containedNodes->select(node | null <> node.modelFacet)->asSequence()
+}
+
+helper hasConformableSemanticChildren(containerBase : genModel::GenContainerBase) : Boolean {
+	return let childMetaClasses = getSemanticChildren(containerBase)->collect(node | node.modelFacet.metaClass) in not childMetaClasses->forAll(mc | childMetaClasses->select(mc2 | mc = mc2)->size() = 1)
+}
+
+helper genModel::LinkModelFacet::getLinkEndType(methodNameSuffix : String) : genModel_1::GenClass {
+	return null
+}
+
+helper genModel::FeatureLinkModelFacet::getLinkEndType(methodNameSuffix : String) : genModel_1::GenClass {
+	return (if getIncomingLinksMethodNameSuffix() = methodNameSuffix then self.getTargetType() else self.getSourceType() endif)
+}
+
+helper genModel::TypeLinkModelFacet::getLinkEndType(methodNameSuffix : String) : genModel_1::GenClass {
+	return (if getIncomingLinksMethodNameSuffix() = methodNameSuffix then self.getTargetType() else (if getOutgoingLinksMethodNameSuffix() = methodNameSuffix and null <> self.sourceMetaFeature then self.getSourceType() else self.containmentMetaFeature.genClass endif) endif)
+}

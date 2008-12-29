@@ -1,0 +1,18 @@
+import xpt.GlobalVarOperations;
+
+modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Facility;
+
+helper getNameToken(gp : genModel::GenPackage) : String {
+	return gp.prefix
+}
+
+helper fieldName(gp : genModel::GenPackage) : String {
+	return 'instance' + getNameToken(gp)
+}
+
+helper getDMA() : genModel_1::DynamicModelAccess {
+	return xpandGetObjectGlobalVar('DynamicModelAccess').oclAsType(genModel_1::DynamicModelAccess)
+}

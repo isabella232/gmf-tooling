@@ -1,0 +1,35 @@
+import xpt.GenEditorGenerator;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
+
+library GenAuditRoot;
+
+helper getAllTargetedModelPackages(root : genModel::GenAuditRoot) : Sequence(genModel_1::GenPackage) {
+	return root.rules->select(r | r.target <> null and r.target.getTargetClass() <> null)->collect(r | r.target.getTargetClass().genPackage)->asOrderedSet()->asSequence()
+}
+
+helper getQualifiedIdentity(ctx : genModel::GenAuditContext) : String {
+	return ctx.root.editorGen.plugin.iD + ctx.id
+}
+
+helper hasDiagramElementTargetRule(audits : genModel::GenAuditRoot) : Boolean {
+	return audits <> null and (audits.rules.target)[genModel::GenDiagramElementTarget]->size() > 0
+}
+
+helper hasAnyNotationElementTargetRule(audits : genModel::GenAuditRoot) : Boolean {
+	return audits <> null and (audits.rules.target)[genModel::GenNotationElementTarget]->size() > 0
+}
+
+helper shouldRunValidateOnDiagram(audits : genModel::GenAuditRoot) : Boolean {
+	return hasDiagramElementTargetRule(audits) or hasAnyNotationElementTargetRule(audits)
+}
+
+helper getTargetDiagramElements(ctx : genModel::GenAuditContext) : Sequence(genModel::GenCommonBase) {
+	return (ctx.ruleTargets)[genModel::GenDiagramElementTarget].element->asOrderedSet()->asSequence()
+}
+
+helper getAllTargetDiagramElements(root : genModel::GenAuditRoot) : Sequence(genModel::GenCommonBase) {
+	return root.clientContexts->collect(it | getTargetDiagramElements(it))->asOrderedSet()->asSequence()
+}
+

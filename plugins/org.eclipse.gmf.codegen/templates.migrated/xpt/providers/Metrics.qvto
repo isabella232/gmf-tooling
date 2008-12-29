@@ -1,0 +1,26 @@
+import xpt.providers.NativeMetrics;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Metrics;
+
+helper getNotationMetrics(c : genModel::GenMetricContainer) : Sequence(genModel::GenMetricRule) {
+	return c.metrics->select(m | not (Sequence { m.target })[genModel::GenNotationElementTarget]->isEmpty())->asSequence()
+}
+
+helper getDiagramMetrics(c : genModel::GenMetricContainer) : Sequence(genModel::GenMetricRule) {
+	return c.metrics->select(m | not (Sequence { m.target })[genModel::GenDiagramElementTarget]->isEmpty())->asSequence()
+}
+
+helper getDomainMetrics(c : genModel::GenMetricContainer) : Sequence(genModel::GenMetricRule) {
+	return c.metrics->select(m | not (Sequence { m.target })[genModel::GenDomainElementTarget]->isEmpty())->asSequence()
+}
+
+helper exprFieldName(m : genModel::GenMetricRule) : String {
+	return 'expression' + validJavaIdentifier(m.key).firstToUpper()
+}
+
+helper calcMethodName(m : genModel::GenMetricRule) : String {
+	return 'calc' + validJavaIdentifier(m.key).firstToUpper()
+}
+

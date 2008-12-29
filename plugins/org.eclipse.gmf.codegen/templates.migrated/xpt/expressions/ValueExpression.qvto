@@ -1,0 +1,15 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ValueExpression;
+
+helper constraintFieldName(cb : genModel::GenCommonBase) : String {
+	return cb.getUniqueIdentifier() + '_Constraint'
+}
+
+helper sourceConstraintFieldName(l : genModel::GenLink) : String {
+	return l.getUniqueIdentifier() + '_SourceExpression'
+}
+
+helper targetConstraintFieldName(l : genModel::GenLink) : String {
+	return l.getUniqueIdentifier() + '_TargetExpression'
+}

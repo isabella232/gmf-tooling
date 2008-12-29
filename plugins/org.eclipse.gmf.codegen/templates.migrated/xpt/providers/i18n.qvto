@@ -1,0 +1,15 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library i18n;
+
+helper i18nKeyForModelingAssistantProvider(diagram : genModel::GenDiagram) : String {
+	return diagram.modelingAssistantProviderClassName
+}
+
+helper titleKey(dialogKey : String) : String {
+	return dialogKey + 'Title'
+}
+
+helper messageKey(dialogKey : String) : String {
+	return dialogKey + 'Message'
+}

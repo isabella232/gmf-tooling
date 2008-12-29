@@ -1,0 +1,21 @@
+import xpt.StringOperations;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ExternalizerUtils;
+
+helper getExternalizerPackageName(generator : genModel::GenEditorGenerator) : String {
+	return generator.editor.packageName
+}
+
+helper getExternalizerClassName() : String {
+	return 'Messages'
+}
+
+helper escapeIllegalKeySymbols(key : String) : String {
+	return key.xpandReplaceAll('[=&"]', '').xpandReplaceAll('[ .]', '_')
+}
+
+helper escapeIllegalMessageSymbols(message : String) : String {
+	return message.xpandReplaceAll('!', '\\!')
+}

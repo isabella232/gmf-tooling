@@ -1,0 +1,131 @@
+import xpt.StringOperations;
+import NativeMetaModel;
+
+import xpt.GenModelUtils;
+
+modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library MetaModel;
+
+helper getQualifiedPackageInterfaceName(gp : genModel::GenPackage) : String {
+	return (if gp.genModel.suppressEMFMetaData then getQualifiedPackageClassName(gp) else getReflectionPackageName(gp) + '.' + getPackageInterfaceName(gp) endif)
+}
+
+helper getQualifiedFactoryInterfaceName(gp : genModel::GenPackage) : String {
+	return getReflectionPackageName(gp) + '.' + getPrefixedName(gp, 'Factory')
+}
+
+helper getFactoryInstanceName(gp : genModel::GenPackage) : String {
+	return (if gp.genModel.suppressEMFMetaData then 'INSTANCE' else 'eINSTANCE' endif)
+}
+
+helper getQualifiedItemProviderAdapterFactoryClassName(gp : genModel::GenPackage) : String {
+	return getQualifiedPackageName(gp, gp.providerPackageSuffix) + '.' + getItemProviderAdapterFactoryClassName(gp)
+}
+
+helper getItemProviderAdapterFactoryClassName(gp : genModel::GenPackage) : String {
+	return getPrefixedName(gp, 'ItemProviderAdapterFactory')
+}
+
+helper getQualifiedInterfaceName(gc : genModel::GenClass) : String {
+	return (if null <> gc.ecoreClass.instanceClassName then gc.ecoreClass.instanceClassName.xpandReplaceAll('\$', '\.') else getInterfacePackageName(gc.genPackage) + '.' + gc.ecoreClass.name endif)
+}
+
+helper getInterfacePackageName(gp : genModel::GenPackage) : String {
+	return getQualifiedPackageName(gp, gp.interfacePackageSuffix)
+}
+
+helper genModel::GenClassifier::getQualifiedClassName() : String {
+	return null
+}
+
+helper genModel::GenDataType::getQualifiedClassName() : String {
+	return getObjectCompatibleClassName(self.ecoreDataType)
+}
+
+helper genModel::GenEnum::getQualifiedClassName() : String {
+	return getInterfacePackageName(self.genPackage) + '.' + self.ecoreEnum.name
+}
+
+helper getClassifierAccessorName(gc : genModel::GenClassifier) : String {
+	return switch { case (gc.getEcoreClassifier().name = 'Class') 'Class_'; case (gc.getEcoreClassifier().name = 'Name') 'Name_'; else gc.getEcoreClassifier().name; }
+}
+
+helper getFeatureAccessorName(gf : genModel::GenFeature) : String {
+	return gf.genClass.ecoreClass.name + '_' + gf.ecoreFeature.name.firstToUpper()
+}
+
+helper getAccessorName(gf : genModel::GenFeature) : String {
+	return (if isMapEntryFeature(gf) then 'Typed' + gf.ecoreFeature.name.firstToUpper() else gf.ecoreFeature.name.firstToUpper() endif)
+}
+
+
+helper isMapEntry(gc : genModel::GenClass) : Boolean {
+	return 'java.util.Map.Entry' = gc.ecoreClass.instanceClassName or 'java.util.Map$Entry' = gc.ecoreClass.instanceClassName and (gc.ecoreClass.getEStructuralFeature('key') <> null and gc.ecoreClass.getEStructuralFeature('value') <> null)
+}
+
+helper parenthesizedCast(what : String, source : genModel::GenClass, target : genModel::GenClass) : String {
+	return (if needsCast(source, target) then '(' + unparenthesizedCast(what, source, target) + ')' else what endif)
+}
+
+helper unparenthesizedCast(what : String, source : genModel::GenClass, target : genModel::GenClass) : String {
+	return (if needsCast(source, target) then (if target = null then '(org.eclipse.emf.ecore.EObject)' + what else '(' + getQualifiedInterfaceName(target) + ')' + what endif) else what endif)
+}
+
+helper needsCast(source : genModel::GenClass, target : genModel::GenClass) : Boolean {
+	return (if source = target then false else (if target = null then source <> null and isExternalInterface(source) else source = null or (isExternalInterface(target) or (isExternalInterface(source) or not target.ecoreClass.isSuperTypeOf(source.ecoreClass))) endif) endif)
+}
+
+helper genModel::GenClassifier::getEcoreClassifier() : ecore::EClassifier {
+	return null
+}
+
+helper genModel::GenClass::getEcoreClassifier() : ecore::EClassifier {
+	return self.ecoreClass
+}
+
+helper genModel::GenDataType::getEcoreClassifier() : ecore::EClassifier {
+	return self.ecoreDataType
+}
+
+helper getReflectionPackageName(gp : genModel::GenPackage) : String {
+	return getQualifiedPackageName(gp, gp.metaDataPackageSuffix)
+}
+
+helper getQualifiedPackageClassName(gp : genModel::GenPackage) : String {
+	return getReflectionClassPackageName(gp) + '.' + getPackageClassName(gp)
+}
+
+helper getReflectionClassPackageName(gp : genModel::GenPackage) : String {
+	return getQualifiedPackageName(gp, (if gp.genModel.suppressInterfaces then gp.metaDataPackageSuffix else gp.classPackageSuffix endif))
+}
+
+helper getPackageClassName(gp : genModel::GenPackage) : String {
+	return (if not gp.genModel.suppressEMFMetaData and not gp.genModel.suppressInterfaces then getPackageInterfaceName(gp) + 'Impl' else getPackageInterfaceName(gp) endif)
+}
+
+helper getPackageInterfaceName(gp : genModel::GenPackage) : String {
+	return (if gp.genModel.suppressEMFMetaData and not gp.genModel.suppressInterfaces then getPrefixedName(gp, 'PackageImpl') else getPrefixedName(gp, 'Package') endif)
+}
+
+helper getPrefixedName(gp : genModel::GenPackage, name : String) : String {
+	return (if null <> gp.prefix then gp.prefix + name else name endif)
+}
+
+helper getQualifiedPackageName(gp : genModel::GenPackage, suffix : String) : String {
+	return (if isBlank(suffix) then getQualifiedPackageName(gp) else getQualifiedPackageName(gp) + '.' + suffix endif)
+}
+
+helper getQualifiedPackageName(gp : genModel::GenPackage) : String {
+	return (if isBlank(gp.basePackage) then safeName(gp.ecorePackage.name) else gp.basePackage + '.' + safeName(gp.ecorePackage.name) endif)
+}
+
+helper isMapEntryFeature(gf : genModel::GenFeature) : Boolean {
+	return isMapEntry(gf.genClass) and ('key' = gf.ecoreFeature.name or 'value' = gf.ecoreFeature.name)
+}
+
+helper isBlank(s : String) : Boolean {
+	return null = s or s.xpandLength() = 0
+}
+

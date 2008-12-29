@@ -1,0 +1,40 @@
+import xpt.NativeGenModelUtils;
+import xpt.StringOperations;
+
+modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library GenModelUtils;
+
+
+
+helper getReverse(feature : genModel::GenFeature) : genModel::GenFeature {
+	return (if isReferenceType(feature) then let eReverseFeature = feature.ecoreFeature.oclAsType(ecore::EReference).eOpposite in (if eReverseFeature <> null then let genClass = findGenClassifier(feature.genClass.genPackage.genModel, eReverseFeature.eContainingClass).oclAsType(genModel::GenClass) in (if genClass <> null then genClass.genFeatures->select(e | e.ecoreFeature = eReverseFeature)->first() else null endif) else null endif) else null endif)
+}
+
+helper getObjectCompatibleClassName(dt : ecore::EDataType) : String {
+	return (if dt.instanceClassName.xpandToCharList()->includes('.') then dt.instanceClassName else switch { case (dt.instanceClassName = 'boolean') 'java.lang.Boolean'; case (dt.instanceClassName = 'byte') 'java.lang.Byte'; case (dt.instanceClassName = 'char') 'java.lang.Character'; case (dt.instanceClassName = 'double') 'java.lang.Double'; case (dt.instanceClassName = 'float') 'java.lang.Float'; case (dt.instanceClassName = 'int') 'java.lang.Integer'; case (dt.instanceClassName = 'long') 'java.lang.Long'; case (dt.instanceClassName = 'short') 'java.lang.Short'; else 'java.lang.Object'; } endif)
+}
+
+
+
+
+helper getTypeGenClassifier(feature : genModel::GenFeature) : genModel::GenClassifier {
+	return findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType)
+}
+
+helper isExternalInterface(genClass : genModel::GenClass) : Boolean {
+	return null <> genClass.ecoreClass.instanceClassName
+}
+
+helper isContains(gf : genModel::GenFeature) : Boolean {
+	return isReferenceType(gf) and gf.ecoreFeature.oclAsType(ecore::EReference).containment
+}
+
+helper isPrimitiveType(gf : genModel::GenFeature) : Boolean {
+	return Sequence { 'boolean', 'byte', 'char', 'double', 'float', 'int', 'long', 'short' }->includes(gf.ecoreFeature.eType.instanceClassName)
+}
+
+helper isReferenceType(gf : genModel::GenFeature) : Boolean {
+	return not (Sequence { gf.ecoreFeature })[ecore::EReference]->isEmpty()
+}

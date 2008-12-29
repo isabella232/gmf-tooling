@@ -57,9 +57,9 @@ public class CodegenEmitters {
 			urls.add(getDynamicTemplatesURL(templateDirectory));
 		}
 		if (includeDynamicModelTemplates) {
-			urls.add(getTemplatesBundle().getEntry("/templates-dynmodel/")); //$NON-NLS-1$
+			urls.add(getTemplatesBundle().getEntry("/templates-dynmodel.migrated/")); //$NON-NLS-1$
 		}
-		urls.add(getTemplatesBundle().getEntry("/templates/")); //$NON-NLS-1$
+		urls.add(getTemplatesBundle().getEntry("/templates.migrated/")); //$NON-NLS-1$
 	
 		myLocations = urls.toArray(new URL[urls.size()]);
 		myResourceManager = new BundleResourceManager(myLocations);

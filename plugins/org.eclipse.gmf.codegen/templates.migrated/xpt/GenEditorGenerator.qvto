@@ -1,0 +1,7 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library GenEditorGenerator;
+
+helper hasAudits(editorGen : genModel::GenEditorGenerator) : Boolean {
+	return editorGen.audits <> null and not editorGen.audits.rules->isEmpty()
+}

@@ -1,2 +1,2 @@
-templates
-templates-dynmodel, templates/
+templates.migrated
+templates-dynmodel.migrated, templates.migrated/

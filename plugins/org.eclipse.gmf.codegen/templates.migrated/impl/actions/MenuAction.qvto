@@ -1,0 +1,11 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library MenuAction;
+
+helper hasCommandsToContribute(editorGen : genModel::GenEditorGenerator) : Boolean {
+	return not editorGen.contextMenus->isEmpty()
+}
+
+helper hasHandlersToContribute(editorGen : genModel::GenEditorGenerator) : Boolean {
+	return hasCommandsToContribute(editorGen)
+}

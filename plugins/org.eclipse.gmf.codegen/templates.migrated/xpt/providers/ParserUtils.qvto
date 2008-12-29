@@ -1,0 +1,17 @@
+import xpt.StringOperations;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ParserUtils;
+
+helper parserFieldName(element : genModel::GenCommonBase) : String {
+	return element.getUniqueIdentifier().xpandToFirstLower() + 'Parser'
+}
+
+helper parserAccessorName(element : genModel::GenCommonBase) : String {
+	return 'get' + element.getUniqueIdentifier().firstToUpper() + 'Parser'
+}
+
+helper isPatternSpecified(pattern : String) : Boolean {
+	return pattern <> null and pattern.xpandLength() > 0
+}

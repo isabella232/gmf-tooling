@@ -103,4 +103,12 @@
      </content-type>
   </extension>
 
+	<extension point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+		<library class="xpt.providers.NativeMetrics"><metamodel nsURI="http://www.eclipse.org/gmf/2008/GenModel"/><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/></library>
+		<library class="xpt.navigator.NativeUtils"><metamodel nsURI="http://www.eclipse.org/gmf/2008/GenModel"/><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/><metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/></library>
+		<library class="xpt.NativeGenModelUtils"><metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/></library>
+		<library class="xpt.NativeGenAuditRoot"><metamodel nsURI="http://www.eclipse.org/gmf/2008/GenModel"/><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/><metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/></library>
+		<library class="xpt.NativeEMFUtils"><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/></library>
+		<library class="NativeMetaModel"><metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/></library>
+	</extension>
 </plugin>

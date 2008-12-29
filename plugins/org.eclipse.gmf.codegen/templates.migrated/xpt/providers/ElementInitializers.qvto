@@ -1,0 +1,78 @@
+import xpt.GenModelUtils;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
+
+library ElementInitializers;
+
+helper genModel_1::GenClassifier::expressionResultNeedsCast() : Boolean {
+	return false
+}
+
+helper genModel_1::GenClass::expressionResultNeedsCast() : Boolean {
+	return false
+}
+
+helper genModel_1::GenDataType::expressionResultNeedsCast() : Boolean {
+	return self.isNumberObject() or self.isPrimitiveNumberType()
+}
+
+helper genModel_1::GenEnum::expressionResultNeedsCast() : Boolean {
+	return true
+}
+
+helper javaMethodName(de : genModel::GenCommonBase, valueSpec : genModel::GenFeatureValueSpec) : String {
+	return valueSpec.feature.ecoreFeature.name + '_' + de.getUniqueIdentifier()
+}
+
+helper recurseCollectValueSpec(si : genModel::GenFeatureSeqInitializer) : Sequence(genModel::GenFeatureValueSpec) {
+	return (si.initializers)[genModel::GenFeatureValueSpec]->asSequence()->union((si.initializers)[genModel::GenReferenceNewElementSpec].newElementInitializers->collect(it | recurseCollectValueSpec(it))->flatten())->asOrderedSet()->asSequence()
+}
+
+helper getSuffixes(newSuffix : Integer) : Sequence(Integer) {
+	return ((Sequence {  })[Integer]->including(newSuffix))[Integer]
+}
+
+helper getSuffixes(suffixes : Sequence(Integer), newSuffix : Integer) : Sequence(Integer) {
+	return ((Sequence {  })[Integer]->union(suffixes)->including(newSuffix))[Integer]
+}
+
+helper getVariableName(prefix : String, suffixes : Sequence(Integer)) : String {
+	return prefix + getSuffix(suffixes)
+}
+
+helper genModel_1::GenClassifier::isNumberObject() : Boolean {
+	return false
+}
+
+helper genModel_1::GenClass::isNumberObject() : Boolean {
+	return false
+}
+
+helper genModel_1::GenDataType::isNumberObject() : Boolean {
+	return Sequence { 'java.math.BigDecimal', 'java.math.BigInteger', 'java.lang.Byte', 'java.lang.Double', 'java.lang.Float', 'java.lang.Integer', 'java.lang.Long', 'java.lang.Short' }->includes(self.ecoreDataType.instanceClassName)
+}
+
+helper genModel_1::GenEnum::isNumberObject() : Boolean {
+	return false
+}
+
+helper genModel_1::GenClassifier::isPrimitiveNumberType() : Boolean {
+	return false
+}
+
+helper genModel_1::GenClass::isPrimitiveNumberType() : Boolean {
+	return false
+}
+
+helper genModel_1::GenDataType::isPrimitiveNumberType() : Boolean {
+	return Sequence { 'byte', 'double', 'float', 'int', 'long', 'short' }->includes(self.ecoreDataType.instanceClassName)
+}
+
+helper genModel_1::GenEnum::isPrimitiveNumberType() : Boolean {
+	return false
+}
+
+helper getSuffix(suffixes : Sequence(Integer)) : String {
+	return '_' + suffixes->first().repr() + (if suffixes->size() > 1 then getSuffix((let tmpVar = suffixes in if tmpVar->size() < 2 then Sequence{}[Integer] else tmpVar->subSequence(2, tmpVar->size()) endif)[Integer]) else '' endif)
+}
