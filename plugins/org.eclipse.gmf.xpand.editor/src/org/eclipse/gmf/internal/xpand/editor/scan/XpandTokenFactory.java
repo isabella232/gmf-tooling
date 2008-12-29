@@ -1,11 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.internal.xpand.editor.scan;
 
 import org.eclipse.gmf.internal.xpand.editor.ColorProvider;
@@ -39,7 +39,7 @@ import org.eclipse.swt.SWT;
 	}
 
 	public static Token newDefineToken(final ColorProvider provider) {
-		return new Token(new TextAttribute(provider.getDefineColor(), null, SWT.BOLD));
+		return new Token(new TextAttribute(provider.getDefineColor(), null, SWT.BOLD | SWT.ITALIC));
 	}
 
 	public static Token newTextToken(final ColorProvider provider) {

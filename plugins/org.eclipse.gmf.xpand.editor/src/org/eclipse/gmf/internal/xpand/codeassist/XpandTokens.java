@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.codeassist;
 
@@ -87,7 +83,7 @@ public class XpandTokens {
 
     public final static String NULL_CONST = "null";
 
-    public final static String THIS = "this";
+    public final static String THIS = "self";
 
     public final static String LET_EXPR = "let";
 

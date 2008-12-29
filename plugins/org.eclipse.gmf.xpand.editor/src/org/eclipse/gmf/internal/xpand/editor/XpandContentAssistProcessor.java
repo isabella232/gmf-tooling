@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.editor;
 
@@ -29,7 +25,7 @@ import org.eclipse.gmf.internal.xpand.codeassist.XpandTokens;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.ExpressionProposalComputer;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.ProposalFactory;
 import org.eclipse.gmf.internal.xpand.expression.codeassist.TypeProposalComputer;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
@@ -60,7 +56,7 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
 			final int additionalTextLen = Math.min(doc.getLength(), documentOffset + doc.getLineLength(doc.getLineOfOffset(documentOffset))) - documentOffset;
 			final String textPastInsertionPoint = doc.get(documentOffset, additionalTextLen);
 
-            XpandExecutionContext ctx = editor.getContext(); 
+            ExecutionContext ctx = editor.getContext(); 
 
             final XpandPartition p = FastAnalyzer.computePartition(txt);
 
@@ -68,30 +64,30 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
 				return new ICompletionProposal[0];
 			}
             List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>(20);
-            final ProposalFactory f = new ProposalFactoryImpl(documentOffset);
+            final ProposalFactory f = new ProposalFactoryImpl(documentOffset, EditorImages.get());
 
             if (p == XpandPartition.TYPE_DECLARATION) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                proposals = new TypeProposalComputer().computeProposals(txt, ctx, f);
+                proposals = new TypeProposalComputer(f).computeProposals(txt, ctx);
     			Collections.sort(proposals, comparator);
             } else if (p == XpandPartition.EXPRESSION) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
                 final String expression = txt.substring(txt.lastIndexOf(XpandTokens.LT_CHAR) + 1);
-                List<ICompletionProposal> ep = new ExpressionProposalComputer().computeProposals(expression, ctx, f);
+                List<ICompletionProposal> ep = new ExpressionProposalComputer(f).computeProposals(expression, ctx);
     			Collections.sort(ep, comparator);
 				proposals.addAll(ep);
-                List<ICompletionProposal> kp = new KeywordProposalComputer(textPastInsertionPoint).computeProposals(txt, ctx, f);
+                List<ICompletionProposal> kp = new KeywordProposalComputer(textPastInsertionPoint, f).computeProposals(txt, ctx);
     			Collections.sort(kp, comparator);
 				proposals.addAll(kp);
             } else if (p == XpandPartition.EXPAND_STATEMENT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                List<ICompletionProposal> ep = new ExpandProposalComputer().computeProposals(txt, ctx, f);
+                List<ICompletionProposal> ep = new ExpandProposalComputer(f).computeProposals(txt, ctx);
     			Collections.sort(ep, comparator);
 				proposals.addAll(ep);
                 proposals.add(new org.eclipse.jface.text.contentassist.CompletionProposal(XpandTokens.LT + XpandTokens.RT, documentOffset, 0, 1));
             } else if (p == XpandPartition.DEFAULT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                List<ICompletionProposal> sp = new StatementProposalComputer().computeProposals(txt, ctx, f);
+                List<ICompletionProposal> sp = new StatementProposalComputer(f).computeProposals(txt, ctx);
     			Collections.sort(sp, comparator);
 				proposals.addAll(sp);
                 proposals.add(new org.eclipse.jface.text.contentassist.CompletionProposal(XpandTokens.LT + XpandTokens.RT, documentOffset, 0, 1));

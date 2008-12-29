@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,17 +7,16 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
 import lpg.lpgjavaruntime.IToken;
 import lpg.lpgjavaruntime.PrsStream;
 
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionLexer;
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParsersym;
+import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
+import org.eclipse.gmf.internal.xpand.parser.XpandParsersym;
 
+@SuppressWarnings("restriction")
 public class ReverseScanner {
 
 	private String internal;
@@ -98,7 +95,7 @@ public class ReverseScanner {
 	public IToken nextToken() {
 		final String temp = internal.substring(offset);
 		final IToken tempToken = lexToTokenStream(temp).getTokenAt(1);
-		if (tempToken.getKind() == ExpressionParsersym.TK_EOF_TOKEN) {
+		if (tempToken.getKind() == XpandParsersym.TK_EOF_TOKEN) {
 			return null;
 		}
 		final String tokenText = tempToken.toString();
@@ -107,8 +104,7 @@ public class ReverseScanner {
 	}
 
 	private static PrsStream lexToTokenStream(String sequence) {
-		ExpressionLexer scanner = new ExpressionLexer(sequence.toCharArray(), "nofile");
-		;
+		XpandLexer scanner = new XpandLexer(sequence.toCharArray(), "nofile");
 		scanner.lexer(new PrsStream(scanner));
 		// there are at least bad token in the head and eof in the tail
 		assert scanner.getPrsStream().getSize() >= 2;

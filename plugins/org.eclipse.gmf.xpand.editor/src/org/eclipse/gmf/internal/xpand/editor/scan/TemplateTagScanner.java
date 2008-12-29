@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.editor.scan;
 
@@ -34,15 +30,16 @@ public class TemplateTagScanner extends RuleBasedScanner {
 
     public TemplateTagScanner(ColorProvider colorProvider) {
         final List<IRule> rules = new ArrayList<IRule>();
-        // Add rule for strings
+
         final Token string = XpandTokenFactory.newStringToken(colorProvider);
         final Token terminals = XpandTokenFactory.newTerminalsToken(colorProvider);
         final Token define = XpandTokenFactory.newDefineToken(colorProvider);
         final Token keyword = XpandTokenFactory.newKeywordsToken(colorProvider);
         final Token others = XpandTokenFactory.newOtherToken(colorProvider);
+        // FIXME add separate highlight for varaibles/parameters?
 
-        rules.add(new MultiLineRule("\"", "\"", string,'\\',true));
-        rules.add(new MultiLineRule("'", "'", string,'\\',true));
+        // Add rule for strings
+        rules.add(new MultiLineRule("'", "'", string, (char) 0,true)); // no escape char in OCL, I guess.
         // Add rule for brackets
         rules.add(new IRule() {
             public IToken evaluate(final ICharacterScanner scanner) {

@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
@@ -23,104 +19,120 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import lpg.lpgjavaruntime.IToken;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.codeassist.LazyVar;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.ExpressionFacade;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParsersym;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
+import org.eclipse.gmf.internal.xpand.parser.XpandParsersym;
+import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.ocl.ecore.CollectionType;
+import org.eclipse.ocl.lpg.AbstractFormattingHelper;
+import org.eclipse.ocl.utilities.PredefinedType;
 
+@SuppressWarnings("restriction")
 public class ExpressionProposalComputer implements ProposalComputer {
 
 	private final static Set<Integer> operators = new HashSet<Integer>();
 	static {
-		operators.add(ExpressionParsersym.TK_AND);
-		operators.add(ExpressionParsersym.TK_DIV);
-		operators.add(ExpressionParsersym.TK_DOT);
-		operators.add(ExpressionParsersym.TK_EQ);
-		operators.add(ExpressionParsersym.TK_GE);
-		operators.add(ExpressionParsersym.TK_GT);
-		operators.add(ExpressionParsersym.TK_LE);
-		operators.add(ExpressionParsersym.TK_LT);
-		operators.add(ExpressionParsersym.TK_MINUS);
-		operators.add(ExpressionParsersym.TK_MULTI);
-		operators.add(ExpressionParsersym.TK_NE);
-		operators.add(ExpressionParsersym.TK_NOT);
-		operators.add(ExpressionParsersym.TK_OR);
-		operators.add(ExpressionParsersym.TK_PLUS);
+		operators.add(XpandParsersym.TK_and);
+		operators.add(XpandParsersym.TK_DIVIDE);
+		operators.add(XpandParsersym.TK_DOT);
+		operators.add(XpandParsersym.TK_EQUAL);
+		operators.add(XpandParsersym.TK_GREATER_EQUAL);
+		operators.add(XpandParsersym.TK_GREATER);
+		operators.add(XpandParsersym.TK_LESS_EQUAL);
+		operators.add(XpandParsersym.TK_LESS);
+		operators.add(XpandParsersym.TK_MINUS);
+		operators.add(XpandParsersym.TK_MULTIPLY);
+		operators.add(XpandParsersym.TK_NOT_EQUAL);
+		operators.add(XpandParsersym.TK_not);
+		operators.add(XpandParsersym.TK_or);
+		operators.add(XpandParsersym.TK_PLUS);
 	}
 
 	private final static Set<Integer> stopper = new HashSet<Integer>();
 	static {
-		stopper.add(ExpressionParsersym.TK_LPAREN);
-		stopper.add(ExpressionParsersym.TK_COLON);
-		stopper.add(ExpressionParsersym.TK_QUESTION_MARK);
-		stopper.add(ExpressionParsersym.TK_BAR);
-		stopper.add(ExpressionParsersym.TK_LCURLY);
-		stopper.add(ExpressionParsersym.TK_COMMA);
+		stopper.add(XpandParsersym.TK_LPAREN);
+		stopper.add(XpandParsersym.TK_COLON);
+		stopper.add(XpandParsersym.TK_QUESTIONMARK);
+		stopper.add(XpandParsersym.TK_BAR);
+		stopper.add(XpandParsersym.TK_LBRACE);
+		stopper.add(XpandParsersym.TK_COMMA);
 	}
 
 	private final static Set<Integer> methodNames = new HashSet<Integer>();
 	static {
-		methodNames.add(ExpressionParsersym.TK_IDENT);
-		methodNames.add(ExpressionParsersym.TK_collect);
-		methodNames.add(ExpressionParsersym.TK_exists);
-		methodNames.add(ExpressionParsersym.TK_notExists);
-		methodNames.add(ExpressionParsersym.TK_forAll);
-		methodNames.add(ExpressionParsersym.TK_reject);
-		methodNames.add(ExpressionParsersym.TK_select);
-		methodNames.add(ExpressionParsersym.TK_typeSelect);
+		methodNames.add(XpandParsersym.TK_IDENTIFIER);
+		methodNames.add(XpandParsersym.TK_collect);
+		methodNames.add(XpandParsersym.TK_exists);
+		methodNames.add(XpandParsersym.TK_forAll);
+		methodNames.add(XpandParsersym.TK_reject);
+		methodNames.add(XpandParsersym.TK_select);
+//		methodNames.add(XpandParsersym.TK_typeSelect);
+		methodNames.add(XpandParsersym.TK_closure);
+		methodNames.add(XpandParsersym.TK_any);
+		methodNames.add(XpandParsersym.TK_one);
+		methodNames.add(XpandParsersym.TK_collectNested);
+		methodNames.add(XpandParsersym.TK_sortedBy);
+		methodNames.add(XpandParsersym.TK_isUnique);
+		methodNames.add(XpandParsersym.TK_iterate);
+		methodNames.add(XpandParsersym.TK_oclIsKindOf);
+		methodNames.add(XpandParsersym.TK_oclIsTypeOf);
+		methodNames.add(XpandParsersym.TK_oclAsType);
+		methodNames.add(XpandParsersym.TK_oclIsNew);
+		methodNames.add(XpandParsersym.TK_oclIsUndefined);
+		methodNames.add(XpandParsersym.TK_oclIsInvalid);
+		methodNames.add(XpandParsersym.TK_oclIsInState);
+		methodNames.add(XpandParsersym.TK_allInstances);
 	}
 
 	private final static Set<Integer> operands = new HashSet<Integer>();
 	static {
-		operands.add(ExpressionParsersym.TK_IDENT);
-		operands.add(ExpressionParsersym.TK_collect);
-		operands.add(ExpressionParsersym.TK_exists);
-		operands.add(ExpressionParsersym.TK_notExists);
-		operands.add(ExpressionParsersym.TK_false);
-		operands.add(ExpressionParsersym.TK_forAll);
-		operands.add(ExpressionParsersym.TK_null);
-		operands.add(ExpressionParsersym.TK_reject);
-		operands.add(ExpressionParsersym.TK_select);
-		operands.add(ExpressionParsersym.TK_true);
-		operands.add(ExpressionParsersym.TK_typeSelect);
-		operands.add(ExpressionParsersym.TK_INT_CONST);
-		operands.add(ExpressionParsersym.TK_REAL_CONST);
-		operands.add(ExpressionParsersym.TK_STRING);
+		operands.add(XpandParsersym.TK_IDENTIFIER);
+		operands.add(XpandParsersym.TK_collect);
+		operands.add(XpandParsersym.TK_exists);
+		operands.add(XpandParsersym.TK_false);
+		operands.add(XpandParsersym.TK_forAll);
+		operands.add(XpandParsersym.TK_null);
+		operands.add(XpandParsersym.TK_reject);
+		operands.add(XpandParsersym.TK_select);
+		operands.add(XpandParsersym.TK_true);
+//		operands.add(XpandParsersym.TK_typeSelect);
+		operands.add(XpandParsersym.TK_INTEGER_LITERAL);
+		operands.add(XpandParsersym.TK_REAL_LITERAL);
+		operands.add(XpandParsersym.TK_STRING_LITERAL);
 	}
 
 	private final static Map<Integer, Integer> blockTokens = new HashMap<Integer, Integer>();
 
 	static {
-		blockTokens.put(ExpressionParsersym.TK_LPAREN, ExpressionParsersym.TK_RPAREN);
-		blockTokens.put(ExpressionParsersym.TK_LCURLY, ExpressionParsersym.TK_RCURLY);
+		blockTokens.put(XpandParsersym.TK_LPAREN, XpandParsersym.TK_RPAREN);
+		blockTokens.put(XpandParsersym.TK_LBRACE, XpandParsersym.TK_RBRACE); // XXX braces as block tokens?
 	}
 
 	private ExecutionContext executionContext;
 
-	private ProposalFactory proposalFactory;
+	private final ProposalFactory proposalFactory;
 
-	public ExpressionProposalComputer() {
+	public ExpressionProposalComputer(ProposalFactory factory) {
+		assert factory != null;
+		proposalFactory = factory;
 	}
 
 	/**
 	 * @param ctx
 	 * @return
 	 */
-	public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext context, final ProposalFactory factory) {
-		this.proposalFactory = factory;
+	public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext context) {
 		try {
 			final String[] s = computePrefixAndTargetExpression(txt);
 			final String prefix = s[0];
@@ -129,37 +141,38 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			final List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
 
 			if ((prefix.length() > 0) && (expressionString == null)) {
-				proposals.addAll(new TypeProposalComputer().computeProposals(txt, executionContext, factory));
+				proposals.addAll(new TypeProposalComputer(proposalFactory).computeProposals(txt, executionContext));
 			}
 
 			EClassifier targetType = null;
 			if (expressionString != null) {
 				final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
-				targetType = new ExpressionFacade(executionContext).analyze(expressionString, issues);
+				targetType = null;// FIXME new ExpressionHelper(expressionString).analyze(executionContext, issues);
 				if (targetType == null) {
 					return Collections.emptyList();
 				}
 			}
 			if (targetType == null) {
 				// variables
-				for (Variable v : executionContext.getVisibleVariables()) {
+				for (org.eclipse.ocl.expressions.Variable<EClassifier, EParameter> v : executionContext.getOCLEnvironment().getVariables()) {
 					String varName = v.getName();
 					if (varName.toLowerCase().startsWith(prefix.toLowerCase())) {
-						final Object o = executionContext.getVariable(varName).getValue();
-						proposals.add(factory.createVariableProposal(varName, (EClassifier) o, prefix));
+						EClassifier t = v.getType();
+						String typeName = AbstractFormattingHelper.INSTANCE.formatType(t);
+						proposals.add(proposalFactory.createVariableProposal(varName, typeName, prefix));
 					}
 				}
 				// members and extensions on this
-				final Variable v = executionContext.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
+				final Variable v = executionContext.getImplicitVariable();
 				if (v != null) {
 					targetType = (EClassifier) v.getValue();
 					proposals.addAll(getAllMemberProposals(targetType, prefix));
 				}
 
-				final Set<? extends Extension> exts = executionContext.getAllExtensions();
-				for (Extension extension : exts) {
+				final Set<? extends GenericExtension> exts = executionContext.getAllExtensions();
+				for (GenericExtension extension : exts) {
 					if (extension.getName().toLowerCase().startsWith(prefix.toLowerCase())) {
-						proposals.add(factory.createExtensionProposal(extension, prefix));
+						proposals.add(proposalFactory.createExtensionProposal(extension, prefix));
 					}
 				}
 			} else {
@@ -168,78 +181,18 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			}
 			return proposals;
 		} finally {
-			proposalFactory = null;
 			executionContext = null;
 		}
 	}
 
-	private final static Pattern COL_OP = Pattern.compile("((select|collect|exists|notExists|reject|forEach)\\s*\\(\\s*(\\w+)\\s*\\|)|(\\()|(\\))");
-
-	private final static Pattern LET = Pattern.compile(".*let\\s*(\\w+)\\s*=\\s*([^:]+):([^:]*)");
-
 	protected final static ExecutionContext computeExecutionContext(final String txt, ExecutionContext ctx) {
-		final Stack<LazyVar> vars = new Stack<LazyVar>();
-		Matcher m = LET.matcher(txt);
-		while (m.find()) {
-			final LazyVar v = new LazyVar();
-			v.name = m.group(1);
-			v.forEach = false;
-			v.expression = m.group(2).trim();
-			vars.push(v);
-		}
-		m = COL_OP.matcher(txt);
-		while (m.find()) {
-			if (m.group(1) != null) {
-				final String[] s = computePrefixAndTargetExpression(txt.substring(0, m.start()));
-				final String expressionString = s[1];
-				final LazyVar v = new LazyVar();
-				v.name = m.group(3);
-				v.forEach = true;
-				v.expression = expressionString;
-				vars.push(v);
-			} else if (m.group(4) != null) {
-				vars.push(null);
-			} else if (m.group(5) != null) {
-				vars.pop();
-			} else {
-				throw new IllegalStateException("Match:" + m.group());
-			}
-		}
-		for (LazyVar v : vars) {
-			if (v != null) {
-				EClassifier targetType = null;
-				final String expressionString = v.expression;
-				if (expressionString == null) {
-					final Variable var = ctx.getVariable(ExecutionContext.IMPLICIT_VARIABLE);
-					if ((var != null) && (var.getValue() instanceof EClassifier)) {
-						EClassifier value = (EClassifier) var.getValue();
-						if (BuiltinMetaModel.isParameterizedType(value)) {
-							targetType = BuiltinMetaModel.getInnerType(value);
-						}
-					}
-				} else {
-					targetType = new ExpressionFacade(ctx).analyze(expressionString, new HashSet<AnalysationIssue>());
-					if (v.forEach) {
-						if (BuiltinMetaModel.isParameterizedType(targetType)) {
-							targetType = BuiltinMetaModel.getInnerType(targetType);
-						} else {
-							targetType = null; // XXX EJavaObject as in other
-							// code snippets?
-						}
-					}
-				}
-
-				if (targetType != null) {
-					ctx = ctx.cloneWithVariable(new Variable(v.name, targetType));
-				}
-			}
-		}
 		return ctx;
 	}
 
 	/**
 	 * @param targetType
 	 * @param prefix
+	 * @param context 
 	 * @param ctx
 	 * @param factory
 	 * @return
@@ -251,9 +204,9 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		final List<ICompletionProposal> result = new ArrayList<ICompletionProposal>();
 
 		result.addAll(internalGetAllMemberProposals(targetType, prefix, false));
-		if (BuiltinMetaModel.isParameterizedType(targetType)) {
-			result.addAll(getAllCollectionOperations(prefix, proposalFactory));
-			targetType = BuiltinMetaModel.getInnerType(targetType);
+		if (targetType instanceof CollectionType) {
+			result.addAll(getAllCollectionOperations(prefix));
+			targetType = ((CollectionType) targetType).getElementType();
 			result.addAll(internalGetAllMemberProposals(targetType, prefix, true));
 		}
 		return result;
@@ -262,63 +215,94 @@ public class ExpressionProposalComputer implements ProposalComputer {
 	private List<ICompletionProposal> internalGetAllMemberProposals(EClassifier targetType, String prefix, boolean onCollection) {
 		final List<ICompletionProposal> result = new LinkedList<ICompletionProposal>();
 		final String prefixLowerCase = prefix.toLowerCase();
-		for (EStructuralFeature f : BuiltinMetaModel.getAllFeatures(targetType)) {
+		for (EStructuralFeature f : getAllFeatures(targetType, executionContext)) {
 			if (f.getName().toLowerCase().startsWith(prefixLowerCase)) {
 				result.add(proposalFactory.createPropertyProposal(f, prefix, onCollection));
 			}
 		}
-		for (EOperation op : BuiltinMetaModel.getAllOperation(targetType)) {
+		for (EOperation op : getAllOperation(targetType, executionContext)) {
 			if (op.getName().toLowerCase().startsWith(prefixLowerCase) && Character.isJavaIdentifierStart(op.getName().charAt(0))) {
 				result.add(proposalFactory.createOperationProposal(op, prefix, onCollection));
 			}
 		}
-		for (Extension e : executionContext.getAllExtensions()) {
-			if (e.getName().toLowerCase().startsWith(prefixLowerCase) && (e.getParameterTypes().size() >= 1) && BuiltinMetaModel.isAssignableFrom(e.getParameterTypes().get(0), targetType)) {
+		for (GenericExtension e : executionContext.getAllExtensions()) {
+			if (e.getName().toLowerCase().startsWith(prefixLowerCase) && (e.getParameterTypes().size() >= 1) && BuiltinMetaModel.isAssignableFrom(executionContext, e.getParameterTypes().get(0), targetType)) {
 				result.add(proposalFactory.createExtensionOnMemberPositionProposal(e, prefix, onCollection));
 			}
 		}
 		return result;
 	}
 
-	// XXX could use ExpressionParsersym.orderedTerminalSymbols[TK_xx] to get
+	private static List<EStructuralFeature> getAllFeatures(EClassifier targetType, ExecutionContext ctx) {
+		List<EStructuralFeature> r2 = ctx.getOCLEnvironment().getTypeResolver().getAdditionalAttributes(targetType);
+		if (targetType instanceof EClass) {
+			List<EStructuralFeature> r1 = ((EClass) targetType).getEAllStructuralFeatures();
+			ArrayList<EStructuralFeature> rv = new ArrayList<EStructuralFeature>(r1.size() + r2.size());
+			rv.addAll(r1);
+			rv.addAll(r2);
+			return rv;
+		}
+		return r2;
+	}
+
+	private static List<EOperation> getAllOperation(EClassifier targetType, ExecutionContext ctx) {
+		List<EOperation> r2 = ctx.getOCLEnvironment().getTypeResolver().getAdditionalOperations(targetType);
+		if (targetType instanceof PredefinedType) {
+			PredefinedType<EOperation> t = (PredefinedType<EOperation>) targetType;
+			List<EOperation> r1 = t.oclOperations();
+			ArrayList<EOperation> rv = new ArrayList<EOperation>(r1.size() + r2.size());
+			rv.addAll(r1);
+			rv.addAll(r2);
+			return rv;
+		} else if (targetType instanceof EClass) {
+			List<EOperation> r1 = ((EClass) targetType).getEAllOperations();
+			ArrayList<EOperation> rv = new ArrayList<EOperation>(r1.size() + r2.size());
+			rv.addAll(r1);
+			rv.addAll(r2);
+			return rv;
+		}
+		return r2;
+	}
+
+	// XXX could use XpandParsersym.orderedTerminalSymbols[TK_xx] to get
 	// values like 'select', 'reject', etc
-	private static List<ICompletionProposal> getAllCollectionOperations(final String prefix, final ProposalFactory f) {
+	private List<ICompletionProposal> getAllCollectionOperations(final String prefix) {
 		final List<ICompletionProposal> result = new ArrayList<ICompletionProposal>();
 		final String marked = "expression-with-e";
 
 		String s = "select(e|" + marked + ")";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
 		s = "reject(e|" + marked + ")";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
 		s = "collect(e|" + marked + ")";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
 		s = "exists(e|" + marked + ")";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
 		s = "notExists(e|" + marked + ")";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
 		s = "forAll(e|" + marked + ")";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
 		s = "typeSelect(EClassifier)";
 		if (s.startsWith(prefix)) {
-			result.add(f.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf("EClassifier"), "EClassifier".length()));
+			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf("EClassifier"), "EClassifier".length()));
 		}
 
 		return result;
@@ -345,7 +329,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 
 			final int exprEnd = scanner.getOffset();
 			// if t is a dot there is a target expression
-			if ((t != null) && (t.getKind() == ExpressionParsersym.TK_DOT)) {
+			if ((t != null) && (t.getKind() == XpandParsersym.TK_DOT)) {
 				boolean lastWasOperator = true;
 				boolean stop = false;
 				while (!stop && ((t = scanner.previousToken()) != null)) {
@@ -356,7 +340,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 							scanner.nextToken();
 							stop = true;
 						}
-					} else if (t.getKind() == ExpressionParsersym.TK_DOT) {
+					} else if (t.getKind() == XpandParsersym.TK_DOT) {
 						if (!lastWasOperator) {
 							lastWasOperator = true;
 						} else {
@@ -378,7 +362,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 								s.pop();
 							}
 						}
-						if (t.getKind() == ExpressionParsersym.TK_RPAREN) {
+						if (t.getKind() == XpandParsersym.TK_RPAREN) {
 							// we have an unambigous syntax here
 							// a.method(with.param)
 							// but also

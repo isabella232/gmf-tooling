@@ -18,7 +18,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.gmf.internal.xpand.build.OawBuilder;
+import org.eclipse.gmf.internal.xpand.build.XpandBuilder;
 import org.eclipse.gmf.internal.xpand.editor.Activator;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.wizards.newresource.BasicNewFileResourceWizard;
@@ -54,7 +54,7 @@ public class NewTemplateFileWizard extends BasicNewFileResourceWizard {
             final ICommand[] commands = desc.getBuildSpec();
 
             for (ICommand element : commands) {
-                if (element.getBuilderName().equals(OawBuilder.getBUILDER_ID())) {
+                if (element.getBuilderName().equals(XpandBuilder.getBUILDER_ID())) {
     				return;
     			}
             }
@@ -65,7 +65,7 @@ public class NewTemplateFileWizard extends BasicNewFileResourceWizard {
 			        final ICommand[] newCommands = new ICommand[commands.length + 1];
 			        System.arraycopy(commands, 0, newCommands, 0, commands.length);
 			        final ICommand command = desc.newCommand();
-			        command.setBuilderName(OawBuilder.getBUILDER_ID());
+			        command.setBuilderName(XpandBuilder.getBUILDER_ID());
 			        newCommands[commands.length] = command;
 			        desc.setBuildSpec(newCommands);
 			        project.setDescription(desc, monitor);
