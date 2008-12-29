@@ -727,4 +727,9 @@ Contributors:
          categoryId="org.eclipse.gmf.ecore.part.EcoreDiagramEditorID"
          defaultHandler="org.eclipse.gmf.ecore.part.CreateShortcutAction"/>
    </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
 </plugin>

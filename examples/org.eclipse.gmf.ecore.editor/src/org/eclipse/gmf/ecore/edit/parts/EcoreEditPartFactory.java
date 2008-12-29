@@ -158,6 +158,7 @@ public class EcoreEditPartFactory implements EditPartFactory {
 
 			case EClassESuperTypesEditPart.VISUAL_ID:
 				return new EClassESuperTypesEditPart(view);
+
 			}
 		}
 		return createUnrecognizedEditPart(context, model);
