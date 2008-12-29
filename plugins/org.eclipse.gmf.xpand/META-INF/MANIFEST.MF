@@ -12,17 +12,44 @@ Require-Bundle: org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)";visibility:
  org.eclipse.m2m.qvt.oml.runtime;bundle-version="[1.0.100,2.0.0)",
  org.eclipse.m2m.qvt.oml.emf.util;bundle-version="[1.0.100,2.0.0)",
  org.eclipse.gmf.xpand.qvtlibrary;bundle-version="[1.0.0,2.0.0)"
-Export-Package: org.eclipse.gmf.internal.xpand;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.codegen,org.eclipse.gmf.codegen.lite,org.eclipse.gmf.common,org.eclipse.gmf.xpand.debug",
+Export-Package: org.eclipse.gmf.internal.xpand;
+  x-friends:="org.eclipse.gmf.xpand.editor,
+   org.eclipse.gmf.tests.xpand,
+   org.eclipse.gmf.graphdef.codegen,
+   org.eclipse.gmf.codegen,
+   org.eclipse.gmf.codegen.lite,
+   org.eclipse.gmf.common,
+   org.eclipse.gmf.xpand.debug,
+   org.eclipse.gmf.xpand.ant",
  org.eclipse.gmf.internal.xpand.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug",
  org.eclipse.gmf.internal.xpand.build;x-friends:="org.eclipse.gmf.xpand.editor",
  org.eclipse.gmf.internal.xpand.eval;x-friends:="org.eclipse.gmf.xpand.debug,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug",
  org.eclipse.gmf.internal.xpand.expression.parser;x-friends:="org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.editor",
- org.eclipse.gmf.internal.xpand.model;x-friends:="org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.editor,org.eclipse.gmf.common,org.eclipse.gmf.xpand.debug",
+ org.eclipse.gmf.internal.xpand.model;
+  x-friends:="org.eclipse.gmf.graphdef.codegen,
+   org.eclipse.gmf.tests.xpand,
+   org.eclipse.gmf.xpand.editor,
+   org.eclipse.gmf.common,
+   org.eclipse.gmf.xpand.debug,
+   org.eclipse.gmf.xpand.ant",
  org.eclipse.gmf.internal.xpand.ocl;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.parser;x-friends:="org.eclipse.gmf.tests.xpand",
- org.eclipse.gmf.internal.xpand.util;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.codegen,org.eclipse.gmf.codegen.lite,org.eclipse.gmf.common,org.eclipse.gmf.xpand.debug,org.eclipse.gmf.tests",
- org.eclipse.gmf.internal.xpand.xtend.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug"
+ org.eclipse.gmf.internal.xpand.util;
+  x-friends:="org.eclipse.gmf.xpand.editor,
+   org.eclipse.gmf.tests.xpand,
+   org.eclipse.gmf.graphdef.codegen,
+   org.eclipse.gmf.codegen,
+   org.eclipse.gmf.codegen.lite,
+   org.eclipse.gmf.common,
+   org.eclipse.gmf.xpand.debug,
+   org.eclipse.gmf.tests,
+   org.eclipse.gmf.xpand.ant",
+ org.eclipse.gmf.internal.xpand.xtend.ast;
+  x-friends:="org.eclipse.gmf.xpand.editor,
+   org.eclipse.gmf.tests.xpand,
+   org.eclipse.gmf.xpand.debug,
+   org.eclipse.gmf.xpand.ant"
 Bundle-Activator: org.eclipse.gmf.internal.xpand.Activator
 Bundle-Localization: plugin
 Import-Package: org.eclipse.core.filebuffers,
