@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,7 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    bblajer - initial API and implementation
+ *     bblajer - initial API and implementation
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.util;
 
@@ -19,10 +20,12 @@ import java.util.Set;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 
 /**
@@ -50,7 +53,7 @@ class CompositeXpandResource implements XpandResource {
 		myAdvices = advices == null ? NO_RESOURCES : advices;
 		ArrayList<XpandDefinition> allDefinitions = new ArrayList<XpandDefinition>();
 		HashSet<DefinitionSignature> signatures = new HashSet<DefinitionSignature>();
-		XpandExecutionContext context = ContextFactory.createXpandContext(manager);
+		ExecutionContext context = new ExecutionContextImpl(new Scope(manager, null, null));
 		//Definitions are merged in the following order: first, all advice resources from newest to oldest, then all 
 		//non-advice resources, from newest to oldest.
 		mergeDefinitions(context, myAdvices, allDefinitions, signatures);
@@ -67,7 +70,7 @@ class CompositeXpandResource implements XpandResource {
 		}
 	}
 
-	private void mergeDefinitions(XpandExecutionContext context, XpandResource[] resources, List<XpandDefinition> collector, Set<DefinitionSignature> usedSignatures) {
+	private void mergeDefinitions(ExecutionContext context, XpandResource[] resources, List<XpandDefinition> collector, Set<DefinitionSignature> usedSignatures) {
 		for (int i = 0; i < resources.length; i++) {
 			XpandResource nextResource = resources[i];
 			context = context.cloneWithResource(nextResource);
@@ -141,7 +144,7 @@ class CompositeXpandResource implements XpandResource {
 		return myImportedNamespaces;
 	}
 
-	public void analyze(XpandExecutionContext ctx, Set<AnalysationIssue> issues) {
+	public void analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
 		for (XpandResource next : myDefinitions) {
 			next.analyze(ctx, issues);
 		}

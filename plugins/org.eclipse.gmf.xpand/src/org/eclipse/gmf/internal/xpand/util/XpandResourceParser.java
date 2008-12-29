@@ -41,7 +41,7 @@ public class XpandResourceParser {
 		} catch (final Exception e) {
 			ErrorLocationInfo[] errors = extractErrors(scanner, parser);
         	if (errors.length == 0) {
-        		throw new IOException("Unexpected exception while parsing");
+        		throw new IOException("Unexpected exception while parsing:" + e.toString());
         	} else {
         		throw new ParserException(qualifiedTemplateName, errors);
         	}

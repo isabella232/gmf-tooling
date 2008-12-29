@@ -1,22 +1,29 @@
-/*******************************************************************************
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2008 committers of openArchitectureWare and others.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.internal.xpand.ast;
 
-import org.eclipse.gmf.internal.xpand.expression.ast.StringLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
+import org.eclipse.ocl.cst.StringLiteralExpCS;
 
+// XXX XpandAnalyzable to check if metamodel is accessible
 public class NamespaceImport extends SyntaxElement {
 	private final String importString;
 
-	public NamespaceImport(int start, int end, int line, StringLiteral importString) {
+	public NamespaceImport(int start, int end, int line, StringLiteralExpCS importCS) {
 		super(start, end, line);
-		this.importString = importString.getValue();
+		// FIXME for complete care, look at AbstractOCLAnalyzer#processStringEscapes
+		String quotedImport = importCS.getStringSymbol();
+		if (quotedImport.length() <= 2) {
+			importString = "";
+		} else {
+			importString = quotedImport.substring(1, quotedImport.length() -1);
+		}
 	}
 
 	public String getImportString() {

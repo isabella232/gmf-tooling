@@ -1,5 +1,5 @@
-/*******************************************************************************
- * Copyright (c) 2005, 2006 committers of openArchitectureWare and others.
+/*
+ * Copyright (c) 2005, 2008 committers of openArchitectureWare and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,20 +7,22 @@
  *
  * Contributors:
  *     committers of openArchitectureWare - initial API and implementation
- *******************************************************************************/
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
+ */
 package org.eclipse.gmf.internal.xpand.model;
 
-import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.ocl.TypeHelper;
 
 public interface XpandDefinition {
 
     XpandResource getOwner();
 
-    void evaluate(XpandExecutionContext ctx);
+    void evaluate(ExecutionContext ctx);
 
     DeclaredParameter[] getParams();
 
-    String getTargetType();
+    TypeHelper getTargetType();
 
     String getName();
 

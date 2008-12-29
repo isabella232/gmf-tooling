@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.parser;
 
@@ -33,20 +30,24 @@ import org.eclipse.gmf.internal.xpand.ast.ProtectStatement;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.ast.TextStatement;
-import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
-import org.eclipse.gmf.internal.xpand.expression.ast.StringLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
-import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionFactory;
+import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
+import org.eclipse.ocl.cst.OCLExpressionCS;
+import org.eclipse.ocl.cst.PathNameCS;
+import org.eclipse.ocl.cst.StringLiteralExpCS;
+import org.eclipse.ocl.cst.TypeCS;
+import org.eclipse.ocl.cst.VariableCS;
 
 /**
  * @author Sven Efftinge
  */
-public class XpandFactory extends ExpressionFactory {
+public class XpandFactory {
+
+	private final String fileName;
 
 	public XpandFactory(final String fileName) {
-		super(fileName);
+		this.fileName = fileName;
 	}
 
 	public Template createTemplate(final List<NamespaceImport> imports, final List<ImportDeclaration> extensions, final List<Definition> defines, final List<Advice> advices, final IToken eof) {
@@ -59,14 +60,13 @@ public class XpandFactory extends ExpressionFactory {
 		return handle(t);
 	}
 
-	public Definition createDefinition(final IToken startToken, final IToken endToken, final IToken n, final List<SyntaxElement> p, final Identifier type, final List<SyntaxElement> s) {
+	public Definition createDefinition(final IToken startToken, final IToken endToken, final IToken n, final List<VariableCS> p, final TypeCS type, final List<Statement> s) {
 		final int start = start(startToken);
 		final int end = end(endToken);
 		final int line = line(startToken);
 		final Identifier name = createIdentifier(n);
-		final DeclaredParameter[] params = p.toArray(new DeclaredParameter[p.size()]);
 		final Statement[] body = s.toArray(new Statement[s.size()]);
-		return handle(new Definition(start, end, line, name, type, params, body));
+		return handle(new Definition(start, end, line, name, type, DeclaredParameter.create(p), body));
 	}
 
 	public TextStatement createTextStatement(final IToken t, final IToken m) {
@@ -79,67 +79,87 @@ public class XpandFactory extends ExpressionFactory {
 		return handle(new TextStatement(start(m != null ? m : t), end(t), line(m != null ? m : t), text, m != null));
 	}
 
-	public ForEachStatement createForEachStatement(final IToken start, final IToken end, final Expression e, final IToken v, final Expression sep, final IToken iter, final List<SyntaxElement> s) {
+	public ForEachStatement createForEachStatement(final IToken start, final IToken end, final OCLExpressionCS e, final IToken v, final OCLExpressionCS sep, final IToken iter, final List<SyntaxElement> s) {
 		final Statement[] body = s.toArray(new Statement[s.size()]);
 		return handle(new ForEachStatement(start(start), end(end), line(start), createIdentifier(v), e, body, sep, iter != null ? createIdentifier(iter) : null));
 	}
 
-	public IfStatement createIfStatement(final IToken start, final Expression condition, final List<SyntaxElement> statements, final IfStatement elseIf) {
+	public IfStatement createIfStatement(final IToken start, final OCLExpressionCS condition, final List<SyntaxElement> statements, final IfStatement elseIf) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
 		final int end = body[body.length - 1].getEnd();
 		return handle(new IfStatement(start(start), end, line(start), condition, body, elseIf));
 	}
 
-	public LetStatement createLetStatement(final IToken start, final IToken end, final Expression e, final IToken name, final List<SyntaxElement> statements) {
+	public LetStatement createLetStatement(final IToken start, final IToken end, final OCLExpressionCS e, final IToken name, final List<SyntaxElement> statements) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
 		return handle(new LetStatement(start(start), end(end), line(start), createIdentifier(name), e, body));
 	}
 
-	public ErrorStatement createErrorStatement(final IToken start, final Expression expr) {
-		return handle(new ErrorStatement(start(start), expr.getEnd(), line(start), expr));
+	public ErrorStatement createErrorStatement(final IToken start, final OCLExpressionCS expr) {
+		return handle(new ErrorStatement(start(start), expr.getEndOffset(), line(start), expr));
 	}
 
-	public ExpressionStatement createExpressionStatement(final Expression e) {
-		return handle(new ExpressionStatement(e.getStart(), e.getEnd(), e.getLine(), e));
+	public ExpressionStatement createExpressionStatement(final OCLExpressionCS e, int lineNumber) {
+		return handle(new ExpressionStatement(e.getStartOffset(), e.getEndOffset(), lineNumber, e));
 	}
 
-	public FileStatement createFileStatement(final IToken start, final IToken end, final Expression fileName, final Identifier option, final List<SyntaxElement> statements) {
+	public FileStatement createFileStatement(final IToken start, final IToken end, final OCLExpressionCS fileName, final Identifier option, final List<SyntaxElement> statements) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
 		return handle(new FileStatement(start(start), end(end), line(start), fileName, body, option));
 	}
 
 	// FIXME disabled as token - no reason, just true/false 
-	public ProtectStatement createProtectStatement(final IToken start, final IToken end, final Expression startC, final Expression endC, final Expression id, final IToken disabled, final List<SyntaxElement> statements) {
+	public ProtectStatement createProtectStatement(final IToken start, final IToken end, final OCLExpressionCS startC, final OCLExpressionCS endC, final OCLExpressionCS id, final IToken disabled, final List<SyntaxElement> statements) {
 		final Statement[] body = statements.toArray(new Statement[statements.size()]);
 		return handle(new ProtectStatement(start(start), end(end), line(start), startC, endC, body, id, disabled != null));
 	}
 
-	public ExpandStatement createExpandStatement(final IToken start, final Identifier definition, final List<Expression> parameters, final Expression target, final boolean foreach, final Expression sep) {
-		final Expression[] params = parameters.toArray(new Expression[parameters.size()]);
-		int end = definition.getEnd();
+	public ExpandStatement createExpandStatement(final IToken start, final PathNameCS definition, final List<OCLExpressionCS> parameters, final OCLExpressionCS target, final boolean foreach, final OCLExpressionCS sep) {
+		final OCLExpressionCS[] params = parameters.toArray(new OCLExpressionCS[parameters.size()]);
+		int end = definition.getEndOffset();
 		if (sep != null) {
-			end = sep.getEnd();
+			end = sep.getEndOffset();
 		} else if (target != null) {
-			end = target.getEnd();
+			end = target.getEndOffset();
 		} else if (params.length > 0) {
-			end = params[params.length - 1].getEnd();
+			end = params[params.length - 1].getEndOffset();
 		}
 		return handle(new ExpandStatement(start(start), end, line(start), definition, target, sep, params, foreach));
 	}
 
-	public NamespaceImport createNamespaceImport(IToken start, StringLiteral namespace) {
-		return handle(new NamespaceImport(start(start), namespace.getEnd(), line(start), namespace));
+	public NamespaceImport createNamespaceImport(IToken start, StringLiteralExpCS namespace) {
+		return handle(new NamespaceImport(start(start), namespace.getEndOffset(), line(start), namespace));
 	}
 
-	public ImportDeclaration createImportDeclaration(final IToken start, final Identifier namespace) {
-		return handle(new ImportDeclaration(start(start), namespace.getEnd(), line(start), namespace));
+	public ImportDeclaration createImportDeclaration(final IToken start, final PathNameCS namespace) {
+		return handle(new ImportDeclaration(start(start), namespace.getEndOffset(), line(start), namespace));
 	}
 
-	public Advice createAround(final IToken start, final IToken end, final Identifier n, final List<SyntaxElement> p, final boolean wildparams, final Identifier t, final List<SyntaxElement> s) {
-		final DeclaredParameter[] params = p.toArray(new DeclaredParameter[p.size()]);
+	public Advice createAround(final IToken start, final IToken end, final Identifier n, final List<VariableCS> p, final boolean wildparams, final TypeCS t, final List<Statement> s) {
 		final Statement[] body = s.toArray(new Statement[s.size()]);
-		final Advice a = new Advice(start(start), end(end), line(start), n, t, params, wildparams, body);
+		final Advice a = new Advice(start(start), end(end), line(start), n, t, DeclaredParameter.create(p), wildparams, body);
 		return handle(a);
 	}
 
+	// copy from ExpressionFactory
+	private <T extends SyntaxElement> T handle(final T expr) {
+		expr.setFileName(fileName);
+		return expr;
+	}
+
+	private static int end(final IToken c) {
+		return c.getEndOffset();
+	}
+
+	private static int start(final IToken c) {
+		return c.getStartOffset();
+	}
+
+	private static int line(final IToken c) {
+		return c.getLine();
+	}
+
+	public Identifier createIdentifier(IToken name) {
+		return new Identifier(start(name), end(name), line(name), name.toString());
+	}
 }

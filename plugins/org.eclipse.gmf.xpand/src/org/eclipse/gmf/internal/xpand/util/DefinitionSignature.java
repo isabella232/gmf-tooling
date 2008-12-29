@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,9 +14,8 @@ package org.eclipse.gmf.internal.xpand.util;
 import java.util.Arrays;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
 final class DefinitionSignature {
 	private final String myName;
@@ -27,27 +26,19 @@ final class DefinitionSignature {
 		if (def == null || ctx == null) {
 			return null;
 		}
-		EClassifier type = ctx.getTypeForName(def.getTargetType());
+		EClassifier type = def.getTargetType().getTypeForName(ctx);
 		if (type == null) {
 			return null;
 		}
 		EClassifier[] args = new EClassifier[def.getParams().length];
 		for (int i = 0; i < def.getParams().length; i++) {
-			EClassifier nextArg = ctx.getTypeForName(def.getParams()[i].getType().getValue());
+			EClassifier nextArg = def.getParams()[i].getTypeForName(ctx);
 			if (nextArg == null) {
 				return null;
 			}
 			args[i] = nextArg;
 		}
 		return new DefinitionSignature(def.getName(), type, args);
-	}
-
-	public static DefinitionSignature create(ExecutionContext ctx, Extension extension) {
-		if (extension == null || ctx == null) {
-			return null;
-		}
-		extension.init(ctx);
-		return new DefinitionSignature(extension.getName(), null, extension.getParameterTypes().toArray(new EClassifier[extension.getParameterTypes().size()]));
 	}
 
 	private DefinitionSignature(String name, EClassifier type, EClassifier[] args) {

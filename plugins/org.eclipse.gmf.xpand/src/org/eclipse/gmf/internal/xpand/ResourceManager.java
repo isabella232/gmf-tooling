@@ -15,7 +15,8 @@
 package org.eclipse.gmf.internal.xpand;
 
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 
 
 /**
@@ -24,8 +25,10 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
  */
 public interface ResourceManager {
 
-    XtendResource loadXtendResource(String fullyQualifiedName);
-
     XpandResource loadXpandResource(String fullyQualifiedName);
+    
+    QvtResource loadQvtResource(String fullyQualifiedName);
+    
+    ImportToNonTransformCtxHelper getModuleImportHelper();
 
 }

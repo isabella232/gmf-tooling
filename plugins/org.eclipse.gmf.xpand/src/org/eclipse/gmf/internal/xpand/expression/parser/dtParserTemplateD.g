@@ -148,7 +148,7 @@ $Headers
             catch(NullTerminalSymbolsException e) {
             }
             catch(UnimplementedTerminalsException e) {
-                java.util.ArrayList unimplemented_symbols = e.getSymbols();
+                java.util.ArrayList<?> unimplemented_symbols = e.getSymbols();
                 System.out.println("The Lexer will not scan the following token(s):");
                 for (int i = 0; i < unimplemented_symbols.size(); i++)
                 {
@@ -211,20 +211,17 @@ $Headers
 
 $End
 
-$Import
+$Define
+	$tokenStartOffset /.getStartOffset(leftToken)./
+	$tokenEndOffset /.getEndOffset(rightToken)./
+
+$Include
 	errorHandling.g
 $End
 
-$Rules
-    /.$BeginActions./
-$End
+-- XXX EssentialOCL.g has both $Rules section with BeginActions
+-- and $Trailers with EndActions, hence no need duplicate here
 
-$Trailers
-    /.
-        $EndActions
-    }
-    ./
-$End
 
 --
 -- E N D   O F   T E M P L A T E

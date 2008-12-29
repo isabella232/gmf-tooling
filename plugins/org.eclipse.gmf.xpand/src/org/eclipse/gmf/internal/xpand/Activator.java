@@ -1,11 +1,11 @@
-/*******************************************************************************
- * Copyright (c) 2006, 2007 Eclipse.org
+/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
+ */
 package org.eclipse.gmf.internal.xpand;
 
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public class Activator extends Plugin {
 	}
 
 	public static String getId() {
-		return anInstance.getBundle().getSymbolicName();
+		return anInstance == null ? String.valueOf(anInstance) : anInstance.getBundle().getSymbolicName();
 	}
 	public static void logWarn(String message) {
 		log(new Status(IStatus.WARNING, getId(), 0, message, null));
@@ -63,7 +63,11 @@ public class Activator extends Plugin {
 		}
 	}
 	public static void log(IStatus status) {
-		anInstance.getLog().log(status);
+		if (anInstance != null) {
+			anInstance.getLog().log(status);
+		} else {
+			System.err.println(status);
+		}
 	}
 
 	private final Map<IProject, RootManager> rootManagers = new HashMap<IProject, RootManager>();

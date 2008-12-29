@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2006 Borland Software Corp.
+-- Copyright (c) 2006, 2008 Borland Software Corp.
 -- 
 -- All rights reserved. This program and the accompanying materials
 -- are made available under the terms of the Eclipse Public License v1.0
@@ -17,35 +17,26 @@
 %options filter=XpandKWLexer.g
 -- stupid endrem needs 6
 %options lalr=6
+%options include_directory="../expression/parser/;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
 $Import
-	../expression/parser/ExpressionLexer.g
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QvtOpLexer.g
 $End
 
 $Define
 	$kw_lexer_class /.XpandKWLexer./
-	$getKindMethodImpl /.public final int getKind(int i) { // Classify character at ith location
-            char c = (i >= getStreamLength() ? '\uffff' : getCharValue(i));
-            return (c < 128 // ASCII Character
-                      ? tokenKind[c]
-                      : c == '\uffff'
-                           ? Char_EOF
-                           : getNonAsciiKind(c));
-        }./
-$End
-
-$Headers
-	/.
-		private final static int getNonAsciiKind(char c) {
-			if (c == '\u00AB') {
-				return Char_LG;
-			}
-			if (c == '\u00BB') {
-				return Char_RG;
-			}
-			return Char_AfterASCII;
-		}
-./
+	$getNonASCIICharKindMethodImpl 
+	    /.if (c == '\u00AB') {
+              return Char_LG;
+          }
+          if (c == '\u00BB') {
+              return Char_RG;
+          }
+          if (c == '\u00b4') {
+              return Char_Acute; // For OCLLexer
+          }
+          return Char_AfterASCII;
+        ./
 $End
 
 $Export
@@ -96,17 +87,13 @@ $Rules
 
 	commentCharNoUpper -> AfterASCII | Digit | SpecialNotSlash | WSChar | RG | '*' | '/' | CtlCharNotWS | LowerCaseLetter | '_' 
 
-	commentCharNotE ::= commentCharNoUpper | UpperCaseLetterNotE
-	commentCharNotN ::= commentCharNoUpper | UpperCaseLetterNotN
-	commentCharNotD ::= commentCharNoUpper | UpperCaseLetterNotD
-	commentCharNotR ::= commentCharNoUpper | UpperCaseLetterNotR
-	commentCharNotM ::= commentCharNoUpper | UpperCaseLetterNotM
+	commentCharNotE ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | N | D | R | M 
+	commentCharNotN ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | D | R | M
+	commentCharNotD ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | N | R | M
+	commentCharNotR ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | N | D | M
+	commentCharNotM ::= commentCharNoUpper | UpperCaseLetterWithoutENDRM | E | N | D | R
 
-	UpperCaseLetterNotE -> A | B | C | D | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotN -> A | B | C | D | E | F | G | H | I | J | K | L | M | O | P | Q | R | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotD -> A | B | C | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotR -> A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | S | T | U | V | W | X | Y | Z
-	UpperCaseLetterNotM -> A | B | C | D | E | F | G | H | I | J | K | L | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
+	UpperCaseLetterWithoutENDRM -> A | B | C | F | G | H | I | J | K | L | O | P | Q | S | T | U | V | W | X | Y | Z
 	
 	lgPlus ::= LG | lgPlus LG
 $End

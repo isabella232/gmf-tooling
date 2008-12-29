@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,20 +7,23 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Variable;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
+import org.eclipse.ocl.cst.OCLExpressionCS;
 
 /**
  * @author Sven Efftinge
@@ -31,46 +32,44 @@ public class LetStatement extends Statement {
 
 	private final Identifier varName;
 
-	private final Expression varValue;
+	private final ExpressionHelper varValue;
 
 	private final Statement[] body;
 
-	public LetStatement(final int start, final int end, final int line, final Identifier varName, final Expression value, final Statement[] body) {
+	public LetStatement(final int start, final int end, final int line, final Identifier varName, final OCLExpressionCS value, final Statement[] body) {
 		super(start, end, line);
 		this.varName = varName;
-		this.varValue = value;
+		this.varValue = new ExpressionHelper(value);
 		this.body = body;
 	}
 
-	public Statement[] getBody() {
-		return body;
-	}
-
-	public Identifier getVarName() {
-		return varName;
-	}
-
-	public Expression getVarValue() {
-		return varValue;
-	}
-
-	public void analyze(XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
-		EClassifier t = getVarValue().analyze(ctx, issues);
-		if (t == null) {
-			t = EcorePackage.eINSTANCE.getEObject();
-		}
-		ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), t));
-		for (Statement statement : getBody()) {
+	public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
+		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), getVarType(ctx, issues), null));
+		for (Statement statement : body) {
 			statement.analyze(ctx, issues);
 		}
 	}
 
 	@Override
-	public void evaluateInternal(XpandExecutionContext ctx) {
-		ctx = ctx.cloneWithVariable(new Variable(getVarName().getValue(), getVarValue().evaluate(ctx)));
-		for (Statement statement : getBody()) {
+	public void evaluateInternal(ExecutionContext ctx) {
+		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
+		EClassifier varType = getVarType(ctx, issues);
+		if (issues.size() > 0) {
+			throw new EvaluationException("Can't evaluate LET expression: variable type cannot be defined", null);	
+		}
+		Object evaluatedVarValue = varValue.evaluate(ctx);
+		if (!BuiltinMetaModel.isAssignableFrom(ctx, varType, BuiltinMetaModel.getType(ctx, evaluatedVarValue))) {
+			throw new EvaluationException("Can't evaluate LET expression: actual variable type is not assignable to declared one", null);
+		}
+		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), varType, evaluatedVarValue));
+		for (Statement statement : body) {
 			statement.evaluate(ctx);
 		}
+	}
+	
+	private EClassifier getVarType(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
+		EClassifier t = varValue.analyze(ctx, issues);
+		return t == null ? t = EcorePackage.eINSTANCE.getEObject() : t;
 	}
 
 }

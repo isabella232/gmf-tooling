@@ -1,9 +1,13 @@
 /*
  * Copyright (c) 2006, 2008 Borland Software Corporation
+ *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.internal.xpand.util;
 
@@ -18,7 +22,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.Activator;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 
 /**
@@ -75,7 +78,7 @@ public class BundleResourceManager extends ResourceManagerImpl {
 
 	@Override
 	protected Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException {
-		final String urlPath = fullyQualifiedName.replaceAll(SyntaxConstants.NS_DELIM, "/") + '.' + extension;
+		final String urlPath = fullyQualifiedName.replaceAll(TypeNameUtil.NS_DELIM, "/") + '.' + extension;
 		ArrayList<Reader> result = new ArrayList<Reader>(paths.length);
 		for (int i = 0; i < paths.length; i++) {
 			try {

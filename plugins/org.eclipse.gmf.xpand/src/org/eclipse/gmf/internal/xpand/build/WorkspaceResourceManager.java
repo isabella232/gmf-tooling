@@ -28,13 +28,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.gmf.internal.xpand.Activator;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
@@ -47,22 +45,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		myConfiguredRoots = configuredRoots;
 	}
 
-	public XtendResource loadXtendResource(IFile file) throws CoreException, IOException, ParserException {
-		String fullyQualifiedName;
-		if (file == null || (fullyQualifiedName = toFullyQualifiedName(file)) == null) {
-			return null;
-		}
-		// try file directly, to get IO/Parse exceptions, if any.
-		Reader r = new StreamConverter().toContentsReader(file);
-		loadXtendResources(new Reader[] { r }, fullyQualifiedName);
-		//
-		try {
-			return loadXtendThroughCache(fullyQualifiedName);
-		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
-		}
-	}
-
 	public XpandResource loadXpandResource(IFile file) throws CoreException, IOException, ParserException {
 		String fullyQualifiedName;
 		if (file == null || (fullyQualifiedName = toFullyQualifiedName(file)) == null) {
@@ -70,14 +52,9 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		}
 		// try file directly, to get IO/Parse exceptions, if any.
 		Reader r = new StreamConverter().toContentsReader(file);
-		loadXpandResources(new Reader[] { r }, fullyQualifiedName);
-		//
-		fullyQualifiedName = getNonAspectsTemplateName(fullyQualifiedName);
-		try {
-			return loadXpandThroughCache(fullyQualifiedName);
-		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
-		}
+		XpandResource[] loadXpandResources = loadXpandResources(new Reader[] { r }, fullyQualifiedName);
+		assert loadXpandResources.length == 1 && loadXpandResources[0] != null;
+		return loadXpandResources[0];
 	}
 
 	@Override
@@ -86,7 +63,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		// broken. Since it's expected to get compiled anyway (either prior
 		// to compilation of its use or afterwards), error messages should get
 		// into problems view sooner or later.
-		Activator.logWarn(ex.getClass().getSimpleName() + ":" + ex.getResourceName());
 	}
 
 	@Override
@@ -102,7 +78,7 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 
 	@Override
 	protected Reader[] resolveMultiple(String fqn, String ext) throws IOException {
-		IPath fp = new Path(fqn.replaceAll(SyntaxConstants.NS_DELIM, "/")).addFileExtension(ext);
+		IPath fp = new Path(fqn.replaceAll(TypeNameUtil.NS_DELIM, "/")).addFileExtension(ext);
 		IPath[] resolutions = getResolutions(fp);
 		ArrayList<Reader> result = new ArrayList<Reader>(resolutions.length);
 		for (IPath p : getResolutions(fp)) {
@@ -177,6 +153,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	}
 
 	private static String toFullyQualifiedName(IPath filePath) {
-		return filePath.removeFileExtension().toString().replace("/", SyntaxConstants.NS_DELIM);
+		return filePath.removeFileExtension().toString().replace("/", TypeNameUtil.NS_DELIM);
 	}
 }

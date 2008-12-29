@@ -1,5 +1,5 @@
 --
--- Copyright (c) 2006 Borland Software Corp.
+-- Copyright (c) 2006, 2008 Borland Software Corp.
 -- 
 -- All rights reserved. This program and the accompanying materials
 -- are made available under the terms of the Eclipse Public License v1.0
@@ -14,9 +14,48 @@
 %options package=org.eclipse.gmf.internal.xpand.parser
 %options template=../expression/parser/KeywordTemplateD.g
 %options export_terminals=("XpandParsersym.java", "TK_")
+%options include_directory="../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
 $Import
-	../expression/parser/ExpressionKWLexer.g
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QvtOpKWLexer.g
+
+$DropRules
+	QVTKeyWord ::= t r a n s f o r m a t i o n
+	QVTKeyWord ::= i m p o r t
+	QVTKeyWord ::= l i b r a r y
+	QVTKeyWord ::= m e t a m o d e l
+	QVTKeyWord ::= m a p p i n g
+	QVTKeyWord ::= q u e r y
+	QVTKeyWord ::= h e l p e r
+	QVTKeyWord ::= e n d
+	QVTKeyWord ::= m a p
+	QVTKeyWord ::= x m a p
+	QVTKeyWord ::= o u t
+	QVTKeyWord ::= i n o u t
+	QVTKeyWord ::= m o d e l t y p e
+	QVTKeyWord ::= e x t e n d s
+	QVTKeyWord ::= a b s t r a c t
+	QVTKeyWord ::= s t a t i c
+	QVTKeyWord ::= r e s u l t
+	QVTKeyWord ::= m a i n
+	QVTKeyWord ::= r e t u r n
+	QVTKeyWord ::= r e n a m e
+	QVTKeyWord ::= d i s j u n c t s
+	QVTKeyWord ::= m e r g e s
+	QVTKeyWord ::= i n h e r i t s
+	-- next are symbols that were not dropped
+	QVTKeyWord ::= c o n f i g u r a t i o n
+		| p o p u l a t i o n
+		| i n t e r m e d i a t e
+		| p r o p e r t y
+		| l a t e
+		| l o g
+		| a s s e r t
+		| u s e s
+		| r e f i n e s
+		| e n f o r c i n g
+		| a c c e s s
+		| b l a c k b o x
 $End
 
 $Export

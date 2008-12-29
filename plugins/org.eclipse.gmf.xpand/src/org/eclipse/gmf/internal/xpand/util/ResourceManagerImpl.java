@@ -12,63 +12,260 @@
  */
 package org.eclipse.gmf.internal.xpand.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
-import org.eclipse.gmf.internal.xpand.xtend.ast.XtendResource;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtFile;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
+import org.eclipse.m2m.internal.qvt.oml.common.io.CFile;
+import org.eclipse.m2m.internal.qvt.oml.common.io.CFolder;
+import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
+import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
+import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
+import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
+import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.qvt.oml.blackbox.LoadContext;
+import org.eclipse.m2m.qvt.oml.blackbox.ResolutionContextImpl;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
-	private final Map<String, XtendResource> cachedXtend = new TreeMap<String, XtendResource>();
+
+	private final static class InputStreamCFile implements CFile {
+
+		private byte[] bytes;
+
+		private String name;
+
+		public InputStreamCFile(Reader reader, String name) throws IOException {
+			StringWriter sw = new StringWriter();
+			for (int ch = reader.read(); ch != -1; ch = reader.read()) {
+				sw.write(ch);
+			}
+			bytes = sw.toString().getBytes(getCharset());
+			this.name = name;
+		}
+
+		public void create(InputStream contents) throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public String getCharset() throws IOException {
+			return "UTF-8";
+		}
+
+		public InputStream getContents() throws IOException {
+			return new ByteArrayInputStream(bytes);
+		}
+
+		public CFolder getParent() {
+			return null;
+		}
+
+		public long getTimeStamp() {
+			return -1;
+		}
+
+		public String getUnitName() {
+			return name;
+		}
+
+		public void setContents(InputStream contents) throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public void delete() throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public boolean exists() {
+			return true;
+		}
+
+		public String getExtension() {
+			return QvtResource.FILE_EXTENSION;
+		}
+
+		public IFileStore getFileStore() throws IOException {
+			throw new UnsupportedOperationException("TODO");
+		}
+
+		public String getFullPath() {
+			return name;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void refresh() throws IOException {
+		}
+		
+		@Override
+		public boolean equals(Object obj) {
+			if (obj instanceof InputStreamCFile) {
+				InputStreamCFile other = (InputStreamCFile) obj;
+				return getFullPath().equals(other.getFullPath());
+			}
+			return super.equals(obj);
+		}
+
+		@Override
+		public int hashCode() {
+			return getFullPath().hashCode();
+		}
+		
+	}
+
+	// TODO: implement this import resolved to use resolveMultiple() method
+	private final class ImportResolverImpl implements IImportResolver {
+
+		public String getPackageName(CFolder folder) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public CFile resolveImport(String importedUnitName) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		public CFile resolveImport(CFile parentFile, String importedUnitName) {
+			try {
+				String fullName = importedUnitName.replaceAll("\\.", TypeNameUtil.NS_DELIM);
+				Reader[] readers;
+				try {
+					readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
+				} catch (FileNotFoundException e) {
+					fullName = parentFile.getUnitName();
+					fullName = fullName.substring(0, fullName.lastIndexOf(':') + 1) + importedUnitName;
+					try {
+						readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
+					} catch (FileNotFoundException ex) {
+						// File was not found. Can be a native library
+						return null;
+					}
+				}
+				// TODO: provide user with more detailed error message in this case?
+				assert readers.length == 1;
+				CFile cFile = new InputStreamCFile(readers[0], fullName);
+				return cFile;
+			} catch (IOException ex) {
+				Activator.logError(ex);
+				return null;
+			}
+		}
+
+	}
+
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
 
-	public XtendResource loadXtendResource(String fullyQualifiedName) {
+	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
+
+	private QvtCompiler qvtCompiler;
+
+	private QvtCompilerOptions qvtCompilerOptions;
+
+	private ImportToNonTransformCtxHelper modulesImportHelper;
+
+	public QvtResource loadQvtResource(String fullyQualifiedName) {
 		try {
-			return loadXtendThroughCache(fullyQualifiedName);
+			return loadQvtResourceThroughCache(fullyQualifiedName);
 		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
-		} catch (IOException ex) {
-			Activator.logError(ex);
-		} catch (ParserException ex) {
-			handleParserException(ex);
+			return null; // Missing resource is an anticipated situation, not a
+			// error that should be handled
+		} catch (IOException e) {
+			Activator.logError(e);
+		} catch (ParserException e) {
+			// TODO: check if any exceptions present here at all..
+			handleParserException(e);
 		}
 		return null;
 	}
 
-	protected XtendResource loadXtendThroughCache(String qualifiedName) throws IOException, ParserException {
-		if (hasCachedXtend(qualifiedName)) {
-			return cachedXtend.get(qualifiedName);
+	protected QvtResource loadQvtResourceThroughCache(String qualifiedName) throws IOException, ParserException {
+		if (hasCachedQvt(qualifiedName)) {
+			return cachedQvt.get(qualifiedName);
 		}
-		final XtendResource loaded = doLoadXtendResource(qualifiedName);
+		final QvtResource loaded = doLoadQvtResource(qualifiedName);
 		assert loaded != null; // this is the contract of loadXtendResource
 		if (shouldCache()) {
-			cachedXtend.put(qualifiedName, loaded);
+			cachedQvt.put(qualifiedName, loaded);
 		}
 		return loaded;
 	}
-	
-	private XtendResource doLoadXtendResource(String fullyQualifiedName) throws IOException, ParserException {
-		Reader[] rs = resolveMultiple(fullyQualifiedName, XtendResource.FILE_EXTENSION);
-		assert rs != null && rs.length > 0;
-		XtendResource[] result = loadXtendResources(rs, fullyQualifiedName);
-		if (result.length == 1) {
-			return result[0];
+
+	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
+		try {
+			Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
+			// TODO: provide user with more detailed error message in this case?
+			assert readers.length == 1;
+			CFile cFile = new InputStreamCFile(readers[0], fullyQualifiedName);
+			try {
+				CompiledModule module = getQvtCompiler().compile(cFile, getQvtCompilerOptions(), null).getModule();
+				// assert module.getModule() instanceof Library;
+				return new QvtFile(module, fullyQualifiedName);
+			} catch (MdaException e) {
+				throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
+			}
+		} catch (FileNotFoundException e) {
+			// Corresponding extension was not found. Trying to load BlackBox library.
+			List<String> compilationUnitQName = new ArrayList<String>();
+			for (StringTokenizer tokenizer = new StringTokenizer(fullyQualifiedName, TypeNameUtil.NS_DELIM, false); tokenizer.hasMoreTokens();) {
+				compilationUnitQName.add(tokenizer.nextToken());
+			}
+			List<Module> modules = getQvtCompiler().getBlackboxUnitHelper().getModules(compilationUnitQName);
+			if (modules == null) {
+				throw new FileNotFoundException(fullyQualifiedName);
+			}
+			return new QvtFile(modules, fullyQualifiedName);
 		}
-		return new CompositeXtendResource(this, result);
+	}
+
+	/**
+	 * Using singleton QvtCompiler instance with "history". To prevent same
+	 * (native) libraries from being loaded twice into if (indirectly)
+	 * references by two different XpandResources.
+	 */
+	private QvtCompiler getQvtCompiler() {
+		if (qvtCompiler == null) {
+			// TODO: use different kind of ImportResolver being able to
+			// construct referenced CFiles using ResourceManagerImpl
+			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl());
+		}
+		return qvtCompiler;
+	}
+	
+	private QvtCompilerOptions getQvtCompilerOptions() {
+		if (qvtCompilerOptions == null) {
+			qvtCompilerOptions = new QvtCompilerOptions();
+			qvtCompilerOptions.setGenerateCompletionData(true);
+			qvtCompilerOptions.setShowAnnotations(false);
+		}
+		return qvtCompilerOptions;
 	}
 
 	public XpandResource loadXpandResource(String fullyQualifiedName) {
 		try {
 			return loadXpandThroughCache(fullyQualifiedName);
 		} catch (FileNotFoundException ex) {
-			return null;	//Missing resource is an anticipated situation, not a error that should be handled
+			// Missing resource is an anticipated situation, not a error that should be handled
+			return null; 
 		} catch (IOException ex) {
 			// XXX come up with better handling
 			Activator.logWarn(ex.getMessage());
@@ -91,14 +288,16 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private XpandResource doLoadXpandResource(String fullyQualifiedName) throws IOException, ParserException {
 		Reader[] rs1 = resolveMultiple(fullyQualifiedName, XpandResource.TEMPLATE_EXTENSION);
-		assert rs1 != null && rs1.length > 0; // exception should be thrown to indicate issues with resolve
+		assert rs1 != null && rs1.length > 0; // exception should be thrown to
+												// indicate issues with resolve
 		XpandResource[] unadvised = loadXpandResources(rs1, fullyQualifiedName);
 		XpandResource[] advices = null;
 		try {
-	    	String aspectsTemplateName = getAspectsTemplateName(fullyQualifiedName);
-	    	Reader[] rs2 = resolveMultiple(aspectsTemplateName, XpandResource.TEMPLATE_EXTENSION);
-	    	// XXX relax resolveMultiple to return empty array and use length==0 here instead of exception
-	    	advices = loadXpandResources(rs2, aspectsTemplateName);
+			String aspectsTemplateName = getAspectsTemplateName(fullyQualifiedName);
+			Reader[] rs2 = resolveMultiple(aspectsTemplateName, XpandResource.TEMPLATE_EXTENSION);
+			// XXX relax resolveMultiple to return empty array and use length==0
+			// here instead of exception
+			advices = loadXpandResources(rs2, aspectsTemplateName);
 		} catch (FileNotFoundException e) {
 		} catch (IOException ex) {
 			// XXX come up with better handling
@@ -120,8 +319,9 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	/**
-	 * If the given fully-qualified name is an aspect, transforms it to its "host" fully-qualified name. Otherwise,
-	 * returns the given fully-qualified name.
+	 * If the given fully-qualified name is an aspect, transforms it to its
+	 * "host" fully-qualified name. Otherwise, returns the given fully-qualified
+	 * name.
 	 */
 	protected String getNonAspectsTemplateName(String possiblyAspectedFullyQualifiedName) {
 		if (possiblyAspectedFullyQualifiedName == null) {
@@ -136,32 +336,18 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected abstract void handleParserException(ParserException ex);
 
 	/**
-	 * Returns an array of resolutions, in the order from newest to oldest. 
-	 * This is to enable one template to partially override only a subset of parent templates.
-	 *  
-	 * @return never return <code>null</code> or an empty array, throw exception instead
-	 * @throws IOException in case resource can't be read. Throw {@link java.io.FileNotFoundException} to indicate resource was not found. 
+	 * Returns an array of resolutions, in the order from newest to oldest. This
+	 * is to enable one template to partially override only a subset of parent
+	 * templates.
+	 * 
+	 * @return never return <code>null</code> or an empty array, throw exception
+	 *         instead
+	 * @throws IOException
+	 *             in case resource can't be read. Throw
+	 *             {@link java.io.FileNotFoundException} to indicate resource
+	 *             was not found.
 	 */
 	protected abstract Reader[] resolveMultiple(String fullyQualifiedName, String extension) throws IOException;
-
-	/**
-	 * Readers get closed after parse attempt. 
-	 */
-	protected XtendResource[] loadXtendResources(Reader[] readers, String fullyQualifiedName) throws IOException, ParserException {
-		XtendResource[] result = new XtendResource[readers.length];
-		for (int i = 0; i < readers.length; i++) {
-			assert readers[i] != null;
-			try {
-				result[i] = new XtendResourceParser().parse(readers[i], fullyQualifiedName);
-				assert result[i] != null; // this is the contract of loadXpandResource
-			} finally {
-				try {
-					readers[i].close();
-				} catch (Exception ex) {/*IGNORE*/}
-			}
-		}
-		return result;
-	}
 
 	/**
 	 * Readers get closed after parse attempt.
@@ -176,7 +362,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			} finally {
 				try {
 					readers[i].close();
-				} catch (Exception ex) {/*IGNORE*/}
+				} catch (Exception ex) {/* IGNORE */
+				}
 			}
 		}
 		return result;
@@ -187,19 +374,32 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	protected final boolean hasCachedXpand(String fullyQualifiedName) {
 		return shouldCache() && cachedXpand.containsKey(fullyQualifiedName);
 	}
-	protected final boolean hasCachedXtend(String fullyQualifiedName) {
-		return shouldCache() && cachedXtend.containsKey(fullyQualifiedName);
+
+	protected final boolean hasCachedQvt(String fullyQualifiedName) {
+		return shouldCache() && cachedQvt.containsKey(fullyQualifiedName);
 	}
+
 	protected final void forgetCachedXpand(String fullyQualifiedName) {
 		cachedXpand.remove(fullyQualifiedName);
 	}
-	protected final void forgetCachedXtend(String fullyQualifiedName) {
-		cachedXtend.remove(fullyQualifiedName);
-	}
-	protected final void forgetAll() {
-		cachedXpand.clear();
-		cachedXtend.clear();
+
+	protected final void forgetCachedQvt(String fullyQualifiedName) {
+		cachedQvt.remove(fullyQualifiedName);
 	}
 
-	private static final String ASPECT_PREFIX = "aspects" + SyntaxConstants.NS_DELIM;	//$NON-NLS-1$
+	protected final void forgetAll() {
+		cachedXpand.clear();
+		cachedQvt.clear();
+		qvtCompiler = null;
+		modulesImportHelper = null;
+	}
+	
+	public ImportToNonTransformCtxHelper getModuleImportHelper() {
+		if (modulesImportHelper == null) {
+			modulesImportHelper = new ImportToNonTransformCtxHelper();
+		}
+		return modulesImportHelper;
+	}
+
+	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$
 }

@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,76 +7,94 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
 
 /**
  * @author Sven Efftinge
  */
 public class XpandFacade {
-    private XpandExecutionContext ctx = null;
+	private final Scope scope;
+	private ExecutionContext ctx;
 
-    public XpandFacade(final XpandExecutionContext ctx) {
-        this.ctx = ctx;
-    }
+	public XpandFacade(Scope scope) {
+		assert scope != null;
+		this.scope = scope;
+	}
 
-    public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
-        params = params == null ? new Object[0] : params;
-        final EClassifier targetType = BuiltinMetaModel.getType(targetObject);
-        final EClassifier[] paramTypes = new EClassifier[params.length];
-        for (int i = 0; i < paramTypes.length; i++) {
-            paramTypes[i] = BuiltinMetaModel.getType(params[i]);
-        }
+	public XpandFacade(ExecutionContext ctx) {
+		this(ctx.getScope());
+		this.ctx = ctx;
+	}
 
-        final XpandDefinition def = ctx.findDefinition(definitionName, targetType, paramTypes);
-        if (def == null)
-            throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for "
-                    + targetType.getName() + " could be found!", null);
+	public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
+		params = params == null ? new Object[0] : params;
+		final EClassifier targetType = BuiltinMetaModel.getType(getContext(), targetObject);
+		final EClassifier[] paramTypes = new EClassifier[params.length];
+		for (int i = 0; i < paramTypes.length; i++) {
+			paramTypes[i] = BuiltinMetaModel.getType(getContext(), params[i]);
+		}
 
-        ArrayList<Variable> vars = new ArrayList<Variable>(params.length + 1);
-        vars.add(new Variable(ExecutionContext.IMPLICIT_VARIABLE, targetObject));
-        for (int i = 0; i < params.length; i++) {
-            vars.add(new Variable(def.getParams()[i].getName().getValue(), params[i]));
-        }
-        ctx = ctx.cloneWithVariable(vars);
-        ctx = ctx.cloneWithResource(def.getOwner());
-        def.evaluate(ctx);
-    }
+		final XpandDefinition def = getContext().findDefinition(definitionName, targetType, paramTypes);
+		if (def == null) {
+			throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for " + targetType.getName() + " could be found!", null);
+		}
+		
+		ExecutionContext ctx = new ExecutionContextImpl(scope);
+		ctx = ctx.cloneWithResource(def.getOwner());
+		ctx = ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, def.getTargetType().getTypeForName(ctx), targetObject));
+		for (int i = 0; i < params.length; i++) {
+			DeclaredParameter declaredParameter = def.getParams()[i];
+			ctx = ctx.cloneWithVariable(new Variable(declaredParameter.getVarName(), declaredParameter.getTypeForName(ctx), params[i]));
+		}
 
-    private String getParamString(final EClassifier[] paramTypes) {
-        if (paramTypes.length == 0)
-            return "";
-        final StringBuffer buff = new StringBuffer("(");
-        for (int i = 0; i < paramTypes.length; i++) {
-            final EClassifier t = paramTypes[i];
-            buff.append(t.getName());
-            if (i + 1 < paramTypes.length) {
-                buff.append(",");
-            }
-        }
-        buff.append(")");
-        return buff.toString();
-    }
+		def.evaluate(ctx);
+	}
 
-    public AnalysationIssue[] analyze(final String templateName) {
-        final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
-        final XpandResource tpl = ctx.findTemplate(templateName);
-        tpl.analyze(ctx, issues);
-        return issues.toArray(new AnalysationIssue[issues.size()]);
-    }
+	// FIXME Actually, we don't need the whole context, just currentResource(),
+	// but that would be another story to fix.
+	private ExecutionContext getContext() {
+		if (ctx == null) {
+			ctx = new ExecutionContextImpl(scope);
+		}
+		return ctx;
+	}
+
+	private String getParamString(final EClassifier[] paramTypes) {
+		if (paramTypes.length == 0) {
+			return "";
+		}
+		final StringBuilder buff = new StringBuilder("(");
+		for (int i = 0; i < paramTypes.length; i++) {
+			final EClassifier t = paramTypes[i];
+			buff.append(t.getName());
+			if (i + 1 < paramTypes.length) {
+				buff.append(",");
+			}
+		}
+		buff.append(")");
+		return buff.toString();
+	}
+
+	public AnalysationIssue[] analyze(final String templateName) {
+		final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
+		final XpandResource tpl = scope.findTemplate(templateName);
+		tpl.analyze(new ExecutionContextImpl(scope, tpl, null), issues);
+		return issues.toArray(new AnalysationIssue[issues.size()]);
+	}
 }

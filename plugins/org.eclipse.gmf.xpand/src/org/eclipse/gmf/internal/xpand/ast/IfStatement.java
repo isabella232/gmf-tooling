@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,95 +7,90 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
-import org.eclipse.gmf.internal.xpand.expression.EvaluationException;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
+import org.eclipse.ocl.cst.OCLExpressionCS;
 
 /**
  * @author Sven Efftinge
  */
 public class IfStatement extends Statement {
 
-    private final Expression condition;
+    private final ExpressionHelper condition;
 
     private final Statement[] thenPart;
 
     private IfStatement elseIf;
 
-    public IfStatement(final int start, final int end, final int line, final Expression condition,
+    public IfStatement(final int start, final int end, final int line, final OCLExpressionCS condition,
             final Statement[] thenPart, final IfStatement elseIf) {
         super(start, end, line);
-        this.condition = condition;
+        this.condition = condition == null ? null : new ExpressionHelper(condition);
         this.thenPart = thenPart;
         this.elseIf = elseIf;
     }
 
-    public Expression getCondition() {
-        return condition;
-    }
+    /**
+	 * FIXME used in tests only, should I keep it?
+	 */
+	public ExpressionHelper getCondition() {
+		return condition;
+	}
 
-    public IfStatement getElseIf() {
-        return elseIf;
-    }
+	public IfStatement getElseIf() {
+		return elseIf;
+	}
 
     // XXX modifiable AST
     public void setElseIf(final IfStatement elseIf) {
         this.elseIf = elseIf;
     }
 
-    public Statement[] getThenPart() {
-        return thenPart;
-    }
-
-    public void analyze(final XpandExecutionContext ctx, final Set<AnalysationIssue> issues) {
+    public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {
         if (condition != null) {
-            final EClassifier conType = getCondition().analyze(ctx, issues);
-            if ((conType != null) && !BuiltinMetaModel.isAssignableFrom(EcorePackage.eINSTANCE.getEBoolean(), conType)) {
-                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected!",
-                        getCondition()));
+            final EClassifier conType = condition.analyze(ctx, issues);
+            if (conType != ctx.getOCLEnvironment().getOCLStandardLibrary().getBoolean()) {
+                issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, "Boolean expected!", condition));
             }
         }
-        for (int i = 0; i < getThenPart().length; i++) {
-            getThenPart()[i].analyze(ctx, issues);
+        for (int i = 0; i < thenPart.length; i++) {
+            thenPart[i].analyze(ctx, issues);
         }
-        if (getElseIf() != null) {
-            getElseIf().analyze(ctx, issues);
+        if (elseIf != null) {
+            elseIf.analyze(ctx, issues);
         }
     }
 
     @Override
-    public void evaluateInternal(final XpandExecutionContext ctx) {
+    public void evaluateInternal(final ExecutionContext ctx) {
         if (condition != null) {
-            final Object result = getCondition().evaluate(ctx);
+            final Object result = condition.evaluate(ctx);
             if (result == null) {
-				throw new EvaluationException("Nullevaluation!", getCondition());
+				throw new EvaluationException("Nullevaluation!", this, condition.getCST());
 			}
             if (!(result instanceof Boolean)) {
-				throw new EvaluationException("Boolean expected!", getCondition());
+				throw new EvaluationException("Boolean expected!", this, condition.getCST());
 			}
             if (((Boolean) result).booleanValue()) {
-                for (int i = 0; i < getThenPart().length; i++) {
-                    getThenPart()[i].evaluate(ctx);
+                for (int i = 0; i < thenPart.length; i++) {
+                    thenPart[i].evaluate(ctx);
                 }
-            } else if (getElseIf() != null) {
-                getElseIf().evaluate(ctx);
+            } else if (elseIf != null) {
+                elseIf.evaluate(ctx);
             }
         } else {
-            for (int i = 0; i < getThenPart().length; i++) {
-                getThenPart()[i].evaluate(ctx);
+            for (int i = 0; i < thenPart.length; i++) {
+                thenPart[i].evaluate(ctx);
             }
         }
     }
-
 }
