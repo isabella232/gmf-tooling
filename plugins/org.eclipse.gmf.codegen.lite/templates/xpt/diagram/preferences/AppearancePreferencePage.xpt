@@ -93,7 +93,7 @@ protected org.eclipse.swt.graphics.RGB «methodName»() {
 
 «DEFINE rgb FOR gmfgen::GenConstantColor-»
 «REM»TODO: support DIAGRAM_* constants«ENDREM»
-«IF this.name.value > gmfgen::DiagramColors::darkBlue.value»«ERROR "Color constant not supported: " + this»«ENDIF-»
+«IF this.name.name.startsWith("diagram")»«ERROR "Color constant not supported: " + this»«ENDIF-»
 org.eclipse.draw2d.ColorConstants.«name».getRGB()
 «ENDDEFINE»
 
