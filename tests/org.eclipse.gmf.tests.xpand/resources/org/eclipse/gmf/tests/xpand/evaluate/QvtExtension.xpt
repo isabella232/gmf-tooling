@@ -1,0 +1,110 @@
+«EXTENSION org::eclipse::gmf::tests::xpand::evaluate::QvtLibrary»
+
+«REM»
+check if QVTO is capable of Collection() context operations (Bug #243684)
+«ENDREM»
+«DEFINE collectionContextOp FOR String»
+«Sequence {'aaa', self, 'bbb'}->collectionContextOp()»
+«ENDDEFINE»
+
+«DEFINE checkStringContextInvocation(positiveAnswer:String, negativeAnswer:String) FOR String-»
+«IF self.getDummyStringContextual() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«REM»
+	[++] Next syntax doesn't work!
+«DEFINE checkStringStaticInvocation(positiveAnswer:String, negativeAnswer:String) FOR String-»
+«IF getDummyStringContextual(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkIntContextInvocation(positiveAnswer:String, negativeAnswer:String) FOR Integer-»
+«IF self.getDummyIntStatic() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+	[--] Next syntax doesn't work!
+«ENDREM»
+
+
+«DEFINE checkIntStaticInvocation(positiveAnswer:String, negativeAnswer:String) FOR Integer-»
+«IF getDummyIntStatic(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkBoolean(positiveAnswer:String, negativeAnswer:String) FOR Boolean-»
+«IF getDummyBoolean() = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«REM»
+«DEFINE checkDeployedMetaType(String positiveAnswer, String negativeAnswer) FOR EAttribute-»
+«IF getDummyUserType(self) = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+«ENDREM»
+
+«DEFINE checkCollection(positiveAnswer:String, negativeAnswer:String) FOR Collection(String)-»
+«EXPAND checkCollectionInternal(self->getDummyCollection(), positiveAnswer, negativeAnswer)-»
+«ENDDEFINE»
+
+«DEFINE checkCollectionInternal(qvtCollection:Collection(String), positiveAnswer:String, negativeAnswer:String) FOR Collection(String)-»
+«IF qvtCollection->size() = self->size() and self->includesAll(qvtCollection)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkSet(positiveAnswer:String, negativeAnswer:String) FOR Set(Boolean)-»
+«EXPAND checkSetInternal(self->getDummySet(), positiveAnswer, negativeAnswer)-»
+«ENDDEFINE»
+
+«DEFINE checkSetInternal(qvtSet:Set(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Set(Boolean)-»
+«IF qvtSet->size() = self->size() and self->includesAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkSequence(positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«EXPAND checkSequenceInternal(self->getDummySequence(), positiveAnswer, negativeAnswer)-»
+«ENDDEFINE»
+
+«DEFINE checkSequenceInternal(qvtList:Sequence(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«IF qvtList->size() = self->size() and self->includesAll(qvtList)»«EXPAND checkListInternal(qvtList, positiveAnswer, negativeAnswer)»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkListInternal(qvtList:Sequence(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«IF qvtList->size() = 1 and self->size() = 1»«IF qvtList = self»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ELSEIF qvtList->first() = self->first()»«EXPAND checkListInternal(qvtList->subSequence(2, qvtList->size()), positiveAnswer, negativeAnswer) FOR self->subSequence(2, self->size())-»
+«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkBag(positiveAnswer:String, negativeAnswer:String) FOR Sequence(Boolean)-»
+«EXPAND checkCollectionInternal(getDummyBag(), positiveAnswer, negativeAnswer)-»
+«ENDDEFINE»
+
+«DEFINE checkCollectionInternal(qvtCollection:Collection(Boolean), positiveAnswer:String, negativeAnswer:String) FOR Collection(Boolean)-»
+«IF qvtCollection->size() = self->size() and self->includesAll(qvtCollection)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkOrderedSet(positiveAnswer:String, negativeAnswer:String) FOR Set(Integer)-»
+«EXPAND checkSetInternal(getDummyOrderedSet(), positiveAnswer, negativeAnswer)-»
+«ENDDEFINE»
+
+«DEFINE checkSetInternal(qvtSet:Set(Integer), positiveAnswer:String, negativeAnswer:String) FOR Set(Integer)-»
+«IF qvtSet->size() = self->size() and self->includesAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForSelf(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«IF isOclAnyParameterUsed(self)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForParameter(positiveAnswer:String, negativeAnswer:String, param:OclAny) FOR OclAny-»
+«IF isOclAnyParameterUsed(param)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForLet(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«LET getStringAsOclAny() AS param-»
+«IF isOclAnyParameterUsed(param)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE checkQueryParametersNotPolymorphycForForeach(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«FOREACH Sequence{getStringAsOclAny()} AS param-»
+«IF isOclAnyParameterUsed(param)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE checkQueryContextPolymorphycForSelf(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
+«IF self.isStringUsed()»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
+«ENDDEFINE»
+

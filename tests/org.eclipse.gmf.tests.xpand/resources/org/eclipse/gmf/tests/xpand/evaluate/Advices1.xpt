@@ -1,10 +1,10 @@
-«AROUND *advtest* FOR Object»1«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1 FOR Object»2«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest2 FOR Object»3«targetDef.proceed()»«ENDAROUND»
-«AROUND *e2s* FOR Object»4«targetDef.proceed()»«ENDAROUND»
+«AROUND *advtest* FOR OclAny»1«targetDef.proceed()»«ENDAROUND»
+«AROUND *advtest1 FOR OclAny»2«targetDef.proceed()»«ENDAROUND»
+«AROUND *advtest2 FOR OclAny»3«targetDef.proceed()»«ENDAROUND»
+«AROUND *e2s* FOR OclAny»4«targetDef.proceed()»«ENDAROUND»
 «AROUND *advtest* FOR String»5«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1(Object x) FOR String»6«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1(Object x,*) FOR String»7«targetDef.proceed()»«ENDAROUND»
+«AROUND *advtest1(x:OclAny) FOR String»6«targetDef.proceed()»«ENDAROUND»
+«AROUND *advtest1(x:OclAny,*) FOR String»7«targetDef.proceed()»«ENDAROUND»
 «AROUND *advtest1(*) FOR String»8«targetDef.proceed()»«ENDAROUND»
 
 

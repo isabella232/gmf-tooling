@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,12 +7,10 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
-import org.eclipse.gmf.internal.xpand.expression.codeassist.TypeProposalComputer;
+import org.eclipse.gmf.internal.xpand.codeassist.ProposalFactoryImpl;
 
 import junit.framework.TestCase;
 
@@ -24,7 +20,7 @@ public class TypeProposalComputerTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        tpc = new TypeProposalComputer();
+        tpc = new TypeProposalComputer(new ProposalFactoryImpl(0, null));
     }
 
     public final void testGetPrefix() {

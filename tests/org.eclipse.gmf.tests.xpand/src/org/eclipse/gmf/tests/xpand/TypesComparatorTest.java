@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,10 +7,9 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
-package org.eclipse.gmf.tests.type.baseimpl;
+package org.eclipse.gmf.tests.xpand;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,8 +21,9 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
-import org.eclipse.gmf.internal.xpand.expression.TypesComparator;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.util.TypesComparator;
 
 /**
  * @author Sven Efftinge
@@ -37,10 +35,9 @@ public class TypesComparatorTest extends TestCase {
     EClass aType;
     EClass bType;
 
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     protected void setUp() throws Exception {
-        ec = new ExecutionContextImpl(null);
+        ec = new ExecutionContextImpl(new Scope() {} );
         aType = EcoreFactory.eINSTANCE.createEClass();
         aType.setName("TypeA");
         bType = EcoreFactory.eINSTANCE.createEClass();
@@ -49,7 +46,7 @@ public class TypesComparatorTest extends TestCase {
     }
 
     public final void testNullParams() {
-        final Comparator<List<? extends EClassifier>> c = new TypesComparator();
+        final Comparator<List<? extends EClassifier>> c = new TypesComparator(ec.getOCLEnvironment());
         try {
             c.compare(null, null);
             fail();
@@ -68,7 +65,7 @@ public class TypesComparatorTest extends TestCase {
     }
 
     public final void testSimple() {
-        final Comparator<List<? extends EClassifier>> c = new TypesComparator();
+        final Comparator<List<? extends EClassifier>> c = new TypesComparator(ec.getOCLEnvironment());
 
         assertTrue(c.compare(l(aType), l(aType)) == 0);
         assertTrue(c.compare(l(aType), l(bType)) > 0);
@@ -76,7 +73,7 @@ public class TypesComparatorTest extends TestCase {
     }
 
     public final void testComplex() {
-        final Comparator<List<? extends EClassifier>> c = new TypesComparator();
+        final Comparator<List<? extends EClassifier>> c = new TypesComparator(ec.getOCLEnvironment());
 
         assertTrue(c.compare(l(aType, aType), l(aType, aType)) == 0);
 

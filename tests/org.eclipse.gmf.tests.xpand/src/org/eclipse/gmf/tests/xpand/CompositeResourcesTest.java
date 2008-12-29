@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -7,7 +7,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    bblajer - initial API and implementation
+ *     bblajer - initial API and implementation
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.tests.xpand;
 
@@ -17,58 +18,34 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Collections;
-
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.internal.xpand.BufferOutput;
-import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
-import org.eclipse.gmf.internal.xpand.expression.TypeNameUtil;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
-import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
-import org.eclipse.gmf.internal.xpand.model.XpandExecutionContext;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
-import org.eclipse.gmf.internal.xpand.util.ParserException;
-import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 
 import junit.framework.TestCase;
 
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.model.Variable;
+import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
+import org.eclipse.gmf.internal.xpand.util.ParserException;
+import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
+import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
+
 public class CompositeResourcesTest extends TestCase {
-	private XpandExecutionContext myContext;
+	private ExecutionContext myContext;
 	private StringBuilder myBuffer;
 	private TestResourceManager myResourceManager;
+	private EClassifier oclStringType;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		myBuffer = new StringBuilder();
 		myResourceManager = new TestResourceManager();
-		myContext = ContextFactory.createXpandContext(myResourceManager, new BufferOutput(myBuffer), Collections.<Variable>emptyList());
-		myContext = myContext.cloneWithVariable(new Variable("this", ""));
-	}
-
-	public void testOverrideXtend() {
-		myResourceManager.setPrefixes((String) null);
-		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("1", myBuffer.toString());
-		myBuffer.delete(0, myBuffer.length());
-		myResourceManager.setPrefixes("override1", null);
-		definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("2", myBuffer.toString());
-	}
-
-	public void testAutomaticAdviceLoad() {
-		myResourceManager.setPrefixes("override2", null);
-		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("1added", myBuffer.toString());
-		myBuffer.delete(0, myBuffer.length());
-		myResourceManager.setPrefixes("override2", "override1", null);
-		definition = myContext.findDefinition(qualify("Overridable::test1"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
-		definition.evaluate(myContext);
-		assertEquals("2added", myBuffer.toString());
+		myContext = new ExecutionContextImpl(new Scope(myResourceManager, null, new BufferOutput(myBuffer)));
+		oclStringType = myContext.getOCLEnvironment().getOCLStandardLibrary().getString();
+		myContext = myContext.cloneWithVariable(new Variable("this", oclStringType, ""));
 	}
 
 	/**
@@ -76,24 +53,24 @@ public class CompositeResourcesTest extends TestCase {
 	 */
 	public void testRedefineInAspect() {
 		myResourceManager.setPrefixes((String) null);
-		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::testRedefineInAspect"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
+		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::testRedefineInAspect"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
 		assertEquals("testRedefineOriginal", myBuffer.toString());
 		myBuffer.delete(0, myBuffer.length());
 		myResourceManager.setPrefixes("override2", null);
-		definition = myContext.findDefinition(qualify("Overridable::testRedefineInAspect"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
+		definition = myContext.findDefinition(qualify("Overridable::testRedefineInAspect"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
 		assertEquals("testRedefineRedefined", myBuffer.toString());
 	}
 
 	public void testOverrideXpand() {
 		myResourceManager.setPrefixes((String) null);
-		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test2"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
+		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test2"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
 		assertEquals("<test4>", myBuffer.toString());
 		myBuffer.delete(0, myBuffer.length());
 		myResourceManager.setPrefixes("override3", null);
-		definition = myContext.findDefinition(qualify("Overridable::test2"), EcorePackage.eINSTANCE.getEString(), new EClassifier[0]);
+		definition = myContext.findDefinition(qualify("Overridable::test2"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
 		assertEquals("<test3>", myBuffer.toString());
 	}
@@ -121,7 +98,7 @@ public class CompositeResourcesTest extends TestCase {
 			ArrayList<Reader> result = new ArrayList<Reader>(mySuffixes.length);
 			for (int i = 0; i < mySuffixes.length; i++) {
 				String templateName = TypeNameUtil.getLastSegment(fullyQualifiedName) + "." + extension;
-				String path = TypeNameUtil.withoutLastSegment(fullyQualifiedName).replaceAll(SyntaxConstants.NS_DELIM, "/");
+				String path = TypeNameUtil.withoutLastSegment(fullyQualifiedName).replaceAll(TypeNameUtil.NS_DELIM, "/");
 				if (mySuffixes[i] != null && mySuffixes[i].length() > 0) {
 					path += "/" + mySuffixes[i];
 				}

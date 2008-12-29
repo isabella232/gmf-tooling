@@ -18,6 +18,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.eclipse.gmf.internal.xpand.editor.EditorImages;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.swt.graphics.Image;
 
@@ -29,35 +30,19 @@ public class StatementProposalComputerTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        kpc = new StatementProposalComputer();
-        f = new ProposalFactoryImpl(100) {
+        f = new ProposalFactoryImpl(100, new EditorImages() {
         	@Override
-        	protected Image getExtensionImage() {
+        	protected Image imageFromPath(String path) {
         		return null;
         	}
-        	@Override
-        	protected Image getOperationImage() {
-        		return null;
-        	}
-        	@Override
-        	protected Image getPropertyImage() {
-        		return null;
-        	}
-        	@Override
-        	protected Image getStatementImage() {
-        		return null;
-        	}
-        	@Override
-        	protected Image getTypeImage() {
-        		return null;
-        	}
-        };
+        });
+        kpc = new StatementProposalComputer(f);
         super.setUp();
     }
 
     public final void testComputeProposals1() {
         final String txt = tag("DEFINE test FOR this") + "  ";
-        final List<ICompletionProposal> p = kpc.computeProposals(txt, null, f);
+        final List<ICompletionProposal> p = kpc.computeProposals(txt, null);
         assertTrue(p.get(0).getDisplayString().startsWith(XpandTokens.ENDDEFINE));
 
         assertFalse(contains(p, XpandTokens.ELSE));
@@ -72,7 +57,7 @@ public class StatementProposalComputerTest extends TestCase {
 
     public final void testComputeProposals2() {
         final String txt = tag("DEFINE test FOR this") + "  " + tag("FILE test") + tag("IF x");
-        final List<ICompletionProposal> p = kpc.computeProposals(txt, null, f);
+        final List<ICompletionProposal> p = kpc.computeProposals(txt, null);
         assertTrue(p.get(0).getDisplayString().startsWith(XpandTokens.ENDIF));
 
         assertTrue(contains(p, XpandTokens.ELSE));
@@ -88,7 +73,7 @@ public class StatementProposalComputerTest extends TestCase {
     public final void testComputeProposals3() {
         final String txt = tag("DEFINE test FOR this") + "  " + tag("FILE test") + tag("IF x") + tag("ENDIF")
                 + tag("ENDFILE") + tag("PROTECT CSTART x CEND y ENABLED");
-        final List<ICompletionProposal> p = kpc.computeProposals(txt, null, f);
+        final List<ICompletionProposal> p = kpc.computeProposals(txt, null);
         assertTrue(p.get(0).getDisplayString().startsWith(XpandTokens.ENDPROTECT));
 
         assertFalse(contains(p, XpandTokens.ELSE));
@@ -103,7 +88,7 @@ public class StatementProposalComputerTest extends TestCase {
 
     public final void testComputeProposals4() {
         final String txt = tag("IMPORT xyz") + "  ";
-        final List<ICompletionProposal> p = kpc.computeProposals(txt, null, f);
+        final List<ICompletionProposal> p = kpc.computeProposals(txt, null);
         assertFalse(contains(p, XpandTokens.DEFINE));
         assertFalse(contains(p, XpandTokens.AROUND));
 

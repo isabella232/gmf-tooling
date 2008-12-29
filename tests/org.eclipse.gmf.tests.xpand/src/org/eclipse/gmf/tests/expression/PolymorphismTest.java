@@ -1,6 +1,4 @@
 /*
- * <copyright>
- *
  * Copyright (c) 2005-2006 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.tests.expression;
 
@@ -24,7 +20,6 @@ import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
-import org.eclipse.gmf.internal.xpand.BuiltinMetaModel.Operation;
 
 /**
  * @author Sven Efftinge
@@ -69,10 +64,12 @@ public class PolymorphismTest extends TestCase {
 		type2Class.getEOperations().add(type2SO);
 		type2Class.getEOperations().add(type2SS);
 
+		/* FIXME
 		BuiltinMetaModel.registerOperationImpl(type1SO, PolymorphismTest.class.getMethod("type1SO", String.class, Object.class));
 		BuiltinMetaModel.registerOperationImpl(type1OO, PolymorphismTest.class.getMethod("type1OO", Object.class, Object.class));
 		BuiltinMetaModel.registerOperationImpl(type2SO, PolymorphismTest.class.getMethod("type2SO", String.class, Object.class));
 		BuiltinMetaModel.registerOperationImpl(type2SS, PolymorphismTest.class.getMethod("type2SS", String.class, String.class));
+		*/
 	}
 
 	public static String type1SO(String str, Object obj) {
@@ -130,8 +127,10 @@ public class PolymorphismTest extends TestCase {
 	}
 
 	public Object executeOperation(final String name, final Object target, final Object[] params) {
-		Operation op = BuiltinMetaModel.executableOperation(name, params, target);
-		assertNotNull(op);
-		return op.evaluate();
+//		Operation op = BuiltinMetaModel.executableOperation(name, params, target);
+//		assertNotNull(op);
+//		return op.evaluate();
+		fail("FIXME");
+		return null;
 	}
 }

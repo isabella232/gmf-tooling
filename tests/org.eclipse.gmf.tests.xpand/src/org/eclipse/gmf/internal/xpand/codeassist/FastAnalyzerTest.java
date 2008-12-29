@@ -21,11 +21,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
-import org.eclipse.gmf.internal.xpand.codeassist.FastAnalyzer;
-import org.eclipse.gmf.internal.xpand.codeassist.LazyVar;
-import org.eclipse.gmf.internal.xpand.codeassist.StackElement;
-import org.eclipse.gmf.internal.xpand.codeassist.XpandTokens;
-import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
 public class FastAnalyzerTest extends TestCase {
 

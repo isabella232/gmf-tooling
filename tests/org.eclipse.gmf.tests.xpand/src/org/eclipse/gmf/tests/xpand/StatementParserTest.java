@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
+ *     Artem Tikhomirov (Borland) - Migration to OCL expressions
  */
 package org.eclipse.gmf.tests.xpand;
 
@@ -24,8 +21,8 @@ import org.eclipse.gmf.internal.xpand.ast.IfStatement;
 import org.eclipse.gmf.internal.xpand.ast.Statement;
 import org.eclipse.gmf.internal.xpand.ast.Template;
 import org.eclipse.gmf.internal.xpand.ast.TextStatement;
-import org.eclipse.gmf.internal.xpand.expression.ast.DeclaredParameter;
-import org.eclipse.gmf.internal.xpand.expression.ast.Expression;
+import org.eclipse.gmf.internal.xpand.ocl.DeclaredParameter;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 
 /**
  * *
@@ -55,29 +52,29 @@ public class StatementParserTest extends AbstractXpandTest {
 
     public final void testDoubleDefine() throws Exception {
         final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("ENDDEFINE")
-                + tag("DEFINE test2(String txt) FOR ecore::EClass") + tag("ENDDEFINE"));
+                + tag("DEFINE test2(txt:String) FOR ecore::EClass") + tag("ENDDEFINE"));
         assertEquals(2, t.getDefinitions().length);
     }
 
     public final void testMoreComplexDefine() throws Exception {
-        final Template t = parse(tag("DEFINE test(ecore::EPackage a,String b) FOR ecore::EClass")
-                + tag("FILE name+\".txt\"") + "Text und so " + tag("name") + tag("FOREACH eAllattributes AS attr")
-                + "Attribute : " + tag("attr.name") + tag("ENDFOREACH") + tag("ENDFILE") + tag("ENDDEFINE"));
+        final Template t = parse(tag("DEFINE test(a : ecore::EPackage, b : String) FOR ecore::EClass")
+                + tag("FILE name+'.txt'") + "Text und so " + tag("name") + tag("FOREACH eAllattributes AS at")
+                + "Attribute : " + tag("at.name") + tag("ENDFOREACH") + tag("ENDFILE") + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
         final Definition def = (Definition) t.getDefinitions()[0];
         assertEquals("test", def.getName());
         assertEquals(2, def.getParams().length);
         DeclaredParameter param = def.getParams()[0];
-        assertEquals("a", param.getName().getValue());
-        assertEquals("ecore::EPackage", param.getType().getValue());
+        assertEquals("a", param.getVarName());
+        assertEquals("ecore::EPackage", param.getTypeName());
         param = def.getParams()[1];
-        assertEquals("b", param.getName().getValue());
-        assertEquals("String", param.getType().getValue());
-        assertEquals("ecore::EClass", def.getType().getValue());
+        assertEquals("b", param.getVarName());
+        assertEquals("String", param.getTypeName());
+        assertEquals("ecore::EClass", def.getTargetType().getName());
         List<Statement> statements = Arrays.asList(def.getBody());
         assertEquals(3, statements.size());
         final FileStatement f = (FileStatement) statements.get(1);
-        final Expression concat = f.getTargetFileName();
+        final ExpressionHelper concat = f.getTargetFileName();
         assertNotNull(concat);
         statements = Arrays.asList(f.getBody());
         assertEquals(5, statements.size());
@@ -88,16 +85,16 @@ public class StatementParserTest extends AbstractXpandTest {
         Template t;
         final String im1 = "http://ecore/x";
         final String im2 = "zzz";
-        t = parse(tag("IMPORT \"" + im1 + '"') + tag("IMPORT \"" + im2 + '"')
+        t = parse(tag("IMPORT '" + im1 + '\'') + tag("IMPORT '" + im2 + '\'')
                 + tag("DEFINE test FOR ecore::EClass") + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
-        assertEquals(2, t.getImports().length);
-        assertEquals(im1, t.getImports()[0].getImportString());
-        assertEquals(im2, t.getImports()[1].getImportString());
+        assertEquals(2, t.getImportedNamespaces().length);
+        assertEquals(im1, t.getImportedNamespaces()[0]);
+        assertEquals(im2, t.getImportedNamespaces()[1]);
     }
 
     public final void testFileStatement() throws Exception {
-        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FILE \"test.txt\" ONCE") + tag("ENDFILE")
+        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FILE 'test.txt' ONCE") + tag("ENDFILE")
                 + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
         final FileStatement file = (FileStatement) ((Definition) t.getDefinitions()[0]).getBody()[1];
@@ -105,7 +102,7 @@ public class StatementParserTest extends AbstractXpandTest {
     }
 
     public final void testIfStatement() throws Exception {
-        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("IF !true") + tag("ELSEIF false")
+        final Template t = parse(tag("DEFINE test FOR ecore::EClass") + tag("IF not true") + tag("ELSEIF false")
                 + tag("ELSE") + tag("ENDIF") + tag("ENDDEFINE"));
         assertEquals(1, t.getDefinitions().length);
 

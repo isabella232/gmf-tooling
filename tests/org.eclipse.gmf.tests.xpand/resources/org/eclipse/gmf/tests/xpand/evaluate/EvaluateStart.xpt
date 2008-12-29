@@ -2,17 +2,17 @@
 
 «DEFINE start FOR String»
 «EXPAND define2»
-«EXPAND define1 FOR this»
-«EXPAND AnotherTemplate::define1 FOR this»
+«EXPAND define1 FOR self»
+«EXPAND AnotherTemplate::define1 FOR self»
 «ENDDEFINE»
 
 «DEFINE define1 FOR String»
-«EXPAND nested::Nested::define FOREACH this.toCharList()»
+«EXPAND nested::Nested::define FOREACH Sequence{self, self, self}»
 «ENDDEFINE»
 
 «DEFINE define2 FOR String»
-«FOREACH this.toCharList() AS c SEPARATOR ", "»
-«EXPAND nested::Nested::define FOR c»
-«trueFunc("test")»
+«FOREACH Sequence{self, self, self, self} AS c SEPARATOR ', '-»
+«EXPAND nested::Nested::define FOR c-»
+«REM» FIXME: support extensions: trueFunc('test')«ENDREM-»
 «ENDFOREACH»
 «ENDDEFINE»
