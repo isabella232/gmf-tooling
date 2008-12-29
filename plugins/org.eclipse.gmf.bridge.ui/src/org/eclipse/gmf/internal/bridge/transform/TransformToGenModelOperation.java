@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +42,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil.ExternalCrossReferencer;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
-import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
@@ -54,6 +54,8 @@ import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper;
+import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.TransfExecutionResult;
 
 //[artem] XXX Why it's in the bridge.ui??? 
 public class TransformToGenModelOperation {
@@ -253,7 +255,7 @@ public class TransformToGenModelOperation {
 			final VisualIdentifierDispenserProvider idDispenser = getVisualIdDispenser();
 			idDispenser.acquire();
 
-			GenModelProducer t = createGenModelProducer(idDispenser.get());
+			GenModelProducer t = createGenModelProducer(idDispenser);
 
 			monitor.subTask(Messages.TransformToGenModelOperation_task_generate);
 			GenEditorGenerator genEditor = t.process(getMapping(), new SubProgressMonitor(monitor, 20));
@@ -262,7 +264,9 @@ public class TransformToGenModelOperation {
 			}
 			monitor.subTask(Messages.TransformToGenModelOperation_task_reconcile);
 			if (Plugin.needsReconcile()) {
+				handlePreReconcileHooks(genEditor);
 				reconcile(genEditor);
+				handlePostReconcileHooks(genEditor);
 			}
 			GenNamingMediatorImpl namer = new GenNamingMediatorImpl();
 			namer.setMode(GenNamingMediatorImpl.Mode.COLLECT_NAMES);
@@ -289,7 +293,8 @@ public class TransformToGenModelOperation {
 				idDispenser.release();
 			}
 			return Status.OK_STATUS;
-			
+		} catch (CoreException ex) {
+			return ex.getStatus();
 		} catch (Exception ex) {
 			String message = ex.getMessage();
 			if (message == null) {
@@ -303,6 +308,29 @@ public class TransformToGenModelOperation {
 			}
 		}
 	}
+
+	protected void handlePreReconcileHooks(GenEditorGenerator result) {
+		if (getOptions().getPreReconcileTransform() != null) {
+			try {
+				URI transfURI = URI.createURI(getOptions().getPreReconcileTransform().toExternalForm());
+				new QvtoTransformationHelper(transfURI).executeTransformation(Collections.<EObject>singletonList(result), Collections.<String, Object>emptyMap(), getResourceSet());
+			} catch (CoreException ex) {
+				Plugin.log(ex);
+			}
+		}
+	}
+
+	protected void handlePostReconcileHooks(GenEditorGenerator result) {
+		if (getOptions().getPostReconcileTransform() != null) {
+			try {
+				URI transfURI = URI.createURI(getOptions().getPostReconcileTransform().toExternalForm());
+				new QvtoTransformationHelper(transfURI).executeTransformation(Collections.<EObject>singletonList(result), Collections.<String, Object>emptyMap(), getResourceSet());
+			} catch (CoreException ex) {
+				Plugin.log(ex);
+			}
+		}
+	}
+
 
 	private void checkMapping() {
 		if (getMapping() == null) {
@@ -337,26 +365,47 @@ public class TransformToGenModelOperation {
 		return new VisualIdentifierDispenserProvider(getGenURI());
 	}
 
-	private GenModelProducer createGenModelProducer(final VisualIdentifierDispenser idDespenser) {
-		final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
-		final ViewmapProducer viewmapProducer = detectTransformationOptions();
-		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, idDespenser, getOptions().getGenerateRCP());
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
-		if (getGenModel() != null) {
-			t.setEMFGenModel(getGenModel());
-		}
-		return new GenModelProducer() {
-
-			public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) {
-				progress.beginTask(null, 1);
-				try {
-					t.transform(mapping);
-					return t.getResult();
-				} finally {
-					progress.done();
+	private GenModelProducer createGenModelProducer(VisualIdentifierDispenserProvider idDespenser) {
+		if (getOptions().getMainTransformation() != null) {
+			return new GenModelProducer() {
+				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
+					progress.beginTask(null, 1);
+					try {
+						URI transfURI = URI.createURI(getOptions().getMainTransformation().toExternalForm());
+						QvtoTransformationHelper helper = new QvtoTransformationHelper(transfURI);
+						TransfExecutionResult result = helper.executeTransformation(Collections.<EObject>singletonList(mapping), Collections.<String, Object>emptyMap(), getResourceSet());
+						for (EObject r : result.getOutParameters()) {
+							if (r instanceof GenEditorGenerator) {
+								return (GenEditorGenerator) r;
+							}
+						}
+						throw new CoreException(new Status(IStatus.ERROR, Plugin.getPluginID(), "Transformation has no out parameter of GenEditorGenerator type"));
+					} finally {
+						progress.done();
+					}
 				}
+			};
+		} else {
+			final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
+			final ViewmapProducer viewmapProducer = detectTransformationOptions();
+			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, idDespenser.get(), getOptions().getGenerateRCP());
+			final DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
+			if (getGenModel() != null) {
+				t.setEMFGenModel(getGenModel());
 			}
-		};
+			return new GenModelProducer() {
+	
+				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) {
+					progress.beginTask(null, 1);
+					try {
+						t.transform(mapping);
+						return t.getResult();
+					} finally {
+						progress.done();
+					}
+				}
+			};
+		}
 	}
 
 	private void reconcile(GenEditorGenerator genBurdern) {
@@ -382,13 +431,14 @@ public class TransformToGenModelOperation {
 	}
 
 	private void save(GenEditorGenerator genBurdern) throws IOException {
+		HashMap<String, Object> saveOptions = new HashMap<String, Object>();
+		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 		try {
 			Resource gmfgenRes = getResourceSet().getResource(getGenURI(), true);
 			updateExistingResource(gmfgenRes, genBurdern);
 			// one might want to ignore dangling href on save when there are more than one
 			// content object - there are chances we don't match them during reconcile and 
 			// failed update all the references.
-			final Map<String, Object> saveOptions = getSaveOptions();
 			if (gmfgenRes.getContents().size() > 1 && Plugin.ignoreDanglingHrefOnSave()) {
 				saveOptions.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_RECORD);
 			}
@@ -396,7 +446,7 @@ public class TransformToGenModelOperation {
 		} catch (RuntimeException ex) {
 			Resource dgmmRes = getResourceSet().createResource(getGenURI(), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			dgmmRes.getContents().add(genBurdern);
-			dgmmRes.save(getSaveOptions());
+			dgmmRes.save(saveOptions);
 		}
 	}
 
@@ -453,13 +503,7 @@ public class TransformToGenModelOperation {
 		}.reconcileTree(newEditorGenerator, oldEditorGenerator);
 	}
 
-	private Map<String,Object> getSaveOptions() {
-		HashMap<String, Object> saveOptions = new HashMap<String, Object>();
-		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-		return saveOptions;
-	}
-
-	private static void subTask(IProgressMonitor monitor, int ticks, String name, String cancelMessage) throws CoreException{
+	private static void subTask(IProgressMonitor monitor, int ticks, String name, String cancelMessage) throws CoreException {
 		if (monitor == null) {
 			return;
 		}

@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006, 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,8 +23,6 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
@@ -32,11 +30,12 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Widget;
 
 /*
  * XXX: duplicates functionality of org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog
@@ -46,7 +45,14 @@ class ViewmapProducerWizardPage extends WizardPage {
     private Button generateRCPButton;
     private Button useMapModeButton;
     private Button useRuntimeFiguresButton;
-	private Text templatesPathControl;
+	private Text templatesPathText;
+	private Text qvtoFileControl;
+	private Text preReconcileTranfsormText;
+	private Text postReconcileTranfsormText;
+	private Button radioDGMT;
+	private Button radioQVT;
+	private Button preReconcileTransformBtn;
+	private Button postReconcileTransformBtn;
 
 	protected ViewmapProducerWizardPage(String pageName) {
 		super(pageName);
@@ -79,90 +85,122 @@ class ViewmapProducerWizardPage extends WizardPage {
         generateRCPButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
         SelectionListener selectionListener = new SelectionListener() {
         	public void widgetDefaultSelected(SelectionEvent e) {
-        		handleSelection(e.widget);
+        		widgetSelected(e);
         	}
-        	public void widgetSelected(SelectionEvent e) {
-        		handleSelection(e.widget);
-        	}
+
+			public void widgetSelected(SelectionEvent e) {
+				if (generateRCPButton == e.widget) {
+					getOperation().getOptions().setGenerateRCP(generateRCPButton.getSelection());
+				} else if (useMapModeButton == e.widget) {
+					getOperation().getOptions().setUseMapMode(useMapModeButton.getSelection());
+				} else if (useRuntimeFiguresButton == e.widget) {
+					getOperation().getOptions().setUseRuntimeFigures(useRuntimeFiguresButton.getSelection());
+				}
+				validatePage();
+			}
 		};
         useMapModeButton.addSelectionListener(selectionListener);
         useRuntimeFiguresButton.addSelectionListener(selectionListener);
         generateRCPButton.addSelectionListener(selectionListener);
-        createTemplatePathControl(result);
+        createAdvancedControls(result);
         Composite glue = new Composite(result, SWT.NONE);
-        glue.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        glue.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 	}
 
-	private void createTemplatePathControl(Composite result) {
+	private void createAdvancedControls(Composite result) {
 		Group parent = new Group(result, SWT.SHADOW_ETCHED_IN);
 		parent.setText("Provisional");
 		parent.setLayout(new FillLayout());
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		ExpandBar c = new ExpandBar(parent, SWT.NONE);
 		c.setBackground(parent.getBackground());
-        templatesPathControl = new Text(c, SWT.SINGLE | SWT.BORDER);
-		templatesPathControl.addModifyListener(new ModifyListener() {
-			@SuppressWarnings("synthetic-access")
-			public void modifyText(ModifyEvent e) {
+        templatesPathText = new Text(c, SWT.SINGLE | SWT.BORDER);
+		Listener modifyListener = new Listener() {
+			public void handleEvent(Event event) {
 				validatePage();
 			}
-		});
+		};
+		templatesPathText.addListener(SWT.Modify, modifyListener);
         ExpandItem item = new ExpandItem(c, SWT.NONE, 0);
         item.setText("GMFGraph dynamic templates");
-		item.setHeight(templatesPathControl.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
-		item.setControl(templatesPathControl);
+		item.setHeight(templatesPathText.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+		item.setControl(templatesPathText);
 		if (getOperation().getOptions().getFigureTemplatesPath() != null) {
 			// reveal the value to avoid confusion.
 			// FIXME extract expand bar with template path as separate control and
 			// move expand logic there (based on setInitialValue event
 			item.setExpanded(true);
 		}
-			
-	}
-
-	void handleSelection(Widget w) {
-		if (generateRCPButton.equals(w)){
-			getOperation().getOptions().setGenerateRCP(generateRCPButton.getSelection());
-		} else if (useMapModeButton.equals(w)) {
-			getOperation().getOptions().setUseMapMode(useMapModeButton.getSelection());
-		} else if (useRuntimeFiguresButton.equals(w)) {
-			getOperation().getOptions().setUseRuntimeFigures(useRuntimeFiguresButton.getSelection());
-		}
-		validatePage();
+		//
+		Composite map2genControls = new Composite(c, SWT.NONE);
+		map2genControls.setLayout(new FillLayout(SWT.VERTICAL));
+		radioDGMT = new Button(map2genControls, SWT.RADIO);
+		radioDGMT.setText("Use Java transformation");
+		radioQVT = new Button(map2genControls, SWT.RADIO);
+		radioQVT.setText("Use QVTO transformation");
+		qvtoFileControl = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
+		qvtoFileControl.addListener(SWT.Modify, modifyListener);
+		Listener l = new Listener() {
+			public void handleEvent(Event event) {
+				qvtoFileControl.setEnabled(radioQVT.getSelection());
+			}
+		};
+		radioDGMT.addListener(SWT.Selection, l);
+		radioQVT.addListener(SWT.Selection, l);
+		preReconcileTransformBtn = new Button(map2genControls, SWT.CHECK);
+		preReconcileTransformBtn.setText("Extra in-place gmfgen transformation before a reconcile step");
+		preReconcileTranfsormText = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
+		postReconcileTransformBtn = new Button(map2genControls, SWT.CHECK);
+		postReconcileTransformBtn.setText("Extra in-place gmfgen transformation after a reconcile step");
+		postReconcileTranfsormText = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
+		l = new Listener() {
+			public void handleEvent(Event event) {
+				if (event.widget == preReconcileTransformBtn) {
+					preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
+				} else if (event.widget == postReconcileTransformBtn) {
+					postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
+				}
+			}
+		};
+		preReconcileTransformBtn.addListener(SWT.Selection, l);
+		postReconcileTransformBtn.addListener(SWT.Selection, l);
+		preReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
+		postReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
+		item = new ExpandItem(c, SWT.NONE, 1);
+		item.setText("Map to Gen transformation");
+		item.setHeight(map2genControls.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+		item.setControl(map2genControls);
+		//
 	}
 	
-	private void validatePage() {
-		IStatus checkOptions = checkOptions();
-		if (checkOptions.isOK()) {
-			setMessage(null);
-			setPageComplete(true);
-		} else {
-    		setMessage(checkOptions.getMessage(), IMessageProvider.INFORMATION);
-			setPageComplete(checkOptions.getSeverity() < IStatus.WARNING);
-		}
-	}
-	
-	private IStatus checkOptions() {
+	void validatePage() {
+		setStatus(Status.OK_STATUS);
 		boolean hasLite = TransformOptions.checkLiteOptionPresent();
 		if (hasLite) {
 			if (!useRuntimeFiguresButton.getSelection() && useMapModeButton.getSelection()) {
-				return Plugin.createInfo(Messages.ViewmapProducerWizardPage_i_not_recommended);
+				setStatus(Plugin.createInfo(Messages.ViewmapProducerWizardPage_i_not_recommended));
 			}
 		}
-		if (templatesPathControl.getText().trim().length() > 0) {
+		TransformOptions options = getOperation().getOptions();
+		// safe to set option value now as they get flushed into storage only on Wizard.performFinish
+		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText));
+		options.setTransformation(checkTextFieldURI(qvtoFileControl));
+		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
+		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTranfsormText));
+	}
+
+	private URL checkTextFieldURI(Text widget) {
+		if (!widget.isEnabled()) {
+			return null;
+		}
+		if (widget.getText().trim().length() > 0) {
 			try {
-				URL res = new URL(guessAndResolvePathURL(templatesPathControl.getText().trim()));
-				// safe to set option value now as they get flushed into storage only on Wizard.performFinish
-				getOperation().getOptions().setFigureTemplatesPath(res);
+				return new URL(guessAndResolvePathURL(widget.getText().trim()));
 			} catch (MalformedURLException ex) {
-				return Plugin.createWarning(ex.getMessage());
-			}
-		} else {
-			if (getOperation().getOptions().getFigureTemplatesPath() != null) {
-				getOperation().getOptions().setFigureTemplatesPath(null);
+				setStatus(Plugin.createWarning(ex.getMessage()));
 			}
 		}
-		return Status.OK_STATUS;
+		return null;
 	}
 
 	private void initControls() {
@@ -171,13 +209,31 @@ class ViewmapProducerWizardPage extends WizardPage {
 		useRuntimeFiguresButton.setSelection(options.getUseRuntimeFigures());
 		useMapModeButton.setSelection(options.getUseMapMode());
 		if (null != options.getFigureTemplatesPath()) {
-			templatesPathControl.setText(options.getFigureTemplatesPath().toString());
+			templatesPathText.setText(options.getFigureTemplatesPath().toString());
 		}
+		radioDGMT.setSelection(options.getMainTransformation() == null);
+		radioQVT.setSelection(!radioDGMT.getSelection());
+//		qvtoFileControl.setEnabled(radioQVT.getSelection());
+		preReconcileTransformBtn.setSelection(options.getPreReconcileTransform() != null);
+//		preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
+		preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : null);
+		postReconcileTransformBtn.setSelection(options.getPostReconcileTransform() != null);
+//		postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
+		postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : null);
 	}
 
 	private TransformToGenModelOperation getOperation() {
-		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
-		return wizard.getTransformOperation();
+		return ((TransformToGenModelWizard) getWizard()).getTransformOperation();
+	}
+
+	private void setStatus(IStatus s) {
+		if (s.isOK()) {
+			setMessage(null);
+			setPageComplete(true);
+		} else {
+    		setMessage(s.getMessage(), IMessageProvider.INFORMATION);
+			setPageComplete(s.getSeverity() < IStatus.WARNING);
+		}
 	}
 
 	private static String guessAndResolvePathURL(String path) {

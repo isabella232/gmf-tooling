@@ -34,6 +34,9 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	private static final String PREF_IGNORE_MAPMODEL_VALIDATION = "ignore_mapmodel_validation"; //$NON-NLS-1$
 	private static final String PREF_IGNORE_GMFGEN_VALIDATION = "ignore_gmfgen_validation"; //$NON-NLS-1$
 	private static final String PREF_FIGURE_TEMPLATES = "dynamic_figure_templates"; //$NON-NLS-1$
+	private static final String PREF_MAIN_TRANSFORM = "main-qvto"; //$NON-NLS-1$
+	private static final String PREF_PRE_RECONCILE_TRANSFORM = "pre-reconcile-qvto"; //$NON-NLS-1$
+	private static final String PREF_POST_RECONCILE_TRANSFORM = "post-reconcile-qvto"; //$NON-NLS-1$
 	
 	private static String[] PROP_NAMES = new String[] {
 		PREF_GENERATE_RCP, 
@@ -41,7 +44,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		PREF_USE_RUNTIME_FIGURES,
 		PREF_IGNORE_MAPMODEL_VALIDATION,
 		PREF_IGNORE_GMFGEN_VALIDATION,
-		PREF_FIGURE_TEMPLATES
+		PREF_FIGURE_TEMPLATES,
+		PREF_MAIN_TRANSFORM,
+		PREF_PRE_RECONCILE_TRANSFORM,
+		PREF_POST_RECONCILE_TRANSFORM,
 		};
 
 	private Preferences myContextPrefs; // may be null
@@ -103,18 +109,25 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	}
 
 	public URL getFigureTemplatesPath() {
-		final String value = getWithContexts(PREF_FIGURE_TEMPLATES);
-		if (value == null || value.length() == 0) {
-			return null;
-		}
-		try {
-			return new URL(value);
-		} catch (MalformedURLException ex) {
-			Plugin.log(ex);
-		}
-		return null;
+		return getURL(PREF_FIGURE_TEMPLATES);
 	}
 
+	public URL getMainTransformation() {
+		return getURL(PREF_MAIN_TRANSFORM);
+	}
+
+	public URL getPreReconcileTransform() {
+		return getURL(PREF_PRE_RECONCILE_TRANSFORM);
+	}
+
+	public URL getPostReconcileTransform() {
+		return getURL(PREF_POST_RECONCILE_TRANSFORM);
+	}
+
+	//
+	//
+	//
+	
 	public void setGenerateRCP(boolean value) {
 		myInMemPrefs.put(PREF_GENERATE_RCP, Boolean.toString(value));
 	}
@@ -140,6 +153,30 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 			myInMemPrefs.remove(PREF_FIGURE_TEMPLATES);
 		} else {
 			myInMemPrefs.put(PREF_FIGURE_TEMPLATES, path.toString());
+		}
+	}
+
+	public void setTransformation(URL path) {
+		if (path == null) {
+			myInMemPrefs.remove(PREF_MAIN_TRANSFORM);
+		} else {
+			myInMemPrefs.put(PREF_MAIN_TRANSFORM, path.toString());
+		}
+	}
+
+	public void setPreReconcileTransform(URL path) {
+		if (path == null) {
+			myInMemPrefs.remove(PREF_PRE_RECONCILE_TRANSFORM);
+		} else {
+			myInMemPrefs.put(PREF_PRE_RECONCILE_TRANSFORM, path.toString());
+		}
+	}
+
+	public void setPostReconcileTransform(URL path) {
+		if (path == null) {
+			myInMemPrefs.remove(PREF_POST_RECONCILE_TRANSFORM);
+		} else {
+			myInMemPrefs.put(PREF_POST_RECONCILE_TRANSFORM, path.toString());
 		}
 	}
 
@@ -178,6 +215,19 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		String value = getWithContexts(key);
 		assert value != null; // DefaultScope should never fail ;)
 		return Boolean.parseBoolean(value);
+	}
+
+	private URL getURL(String key) {
+		final String value = getWithContexts(key);
+		if (value == null || value.length() == 0) {
+			return null;
+		}
+		try {
+			return new URL(value);
+		} catch (MalformedURLException ex) {
+			Plugin.log(ex);
+		}
+		return null;
 	}
 
 	private Preferences getGlobalPrefs() {
