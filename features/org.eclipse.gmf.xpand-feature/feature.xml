@@ -28,6 +28,7 @@ For purposes of the EPL, &quot;Program&quot; will mean the Content.
    <requires>
       <import feature="org.eclipse.emf" version="2.3.0" match="greaterOrEqual"/>
       <import feature="org.eclipse.platform" version="3.2.0" match="compatible"/>
+      <import feature="org.eclipse.m2m.qvt.oml.sdk" version="2.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
