@@ -283,7 +283,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 
 		private EditHelpersProjectSetup(GeneratorConfiguration generatorFactory) {
 			super(generatorFactory);
-			URL templatesURL = Plugin.getBundleContext().getBundle().getEntry("templates/edithelpers");
+			URL templatesURL = Plugin.getBundleContext().getBundle().getEntry("templates/edithelpers.migrated");
 			myResourceManager = new BundleResourceManager(templatesURL);
 		}
 
@@ -309,7 +309,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		}
 
 		public void createManifestMF() {
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "manifest::main", getClass().getClassLoader(), null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "manifest::_main", getClass().getClassLoader(), null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/META-INF/MANIFEST.MF"), myBundleName);
 		}
 
@@ -332,12 +332,12 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 			} else {
 				return;
 			}
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "edithelper::main", getClass().getClassLoader(), null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "edithelper::_main", getClass().getClassLoader(), null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/src/" + className + ".java"), elementType);
 		}
 
 		public void createPluginXML(GenDiagram d) {
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "plugin::main", getClass().getClassLoader(), null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "plugin::_main", getClass().getClassLoader(), null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/plugin.xml"), d);
 		}
 
