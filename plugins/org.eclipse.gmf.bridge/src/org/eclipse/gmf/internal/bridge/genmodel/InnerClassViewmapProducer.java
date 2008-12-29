@@ -60,7 +60,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 
 	public InnerClassViewmapProducer(String runtimeToken, MapModeCodeGenStrategy mapModeCodeGenStrategy, URL[] dynamicFigureTemplates) {
 		figureGenerator = new FigureGenerator(runtimeToken, null, mapModeCodeGenStrategy, null, true, dynamicFigureTemplates);
-		if ("full".equalsIgnoreCase(runtimeToken)) {
+		if (runtimeToken == null || "full".equalsIgnoreCase(runtimeToken)) {
 			figuresWithExtraRTBehaviour = new int[] { GMFGraphPackage.POLYLINE_CONNECTION, GMFGraphPackage.LABEL };
 			Arrays.sort(figuresWithExtraRTBehaviour);
 		} else {
