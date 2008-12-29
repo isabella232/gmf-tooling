@@ -63,11 +63,11 @@ private genmodel::GenFeature getLinkChildFeature(gmfgen::FeatureLinkModelFacet f
 	facet.metaFeature
 ;
 
-Collection[gmfgen::GenNode] getTypeGenLinksForFeature(gmfgen::GenCommonBase gcb, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
+Collection[gmfgen::GenLink] getTypeGenLinksForFeature(gmfgen::GenCommonBase gcb, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
 JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getTypeGenLinks(org.eclipse.gmf.codegen.gmfgen.GenCommonBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature, java.util.Collection)
 ;
 
-Collection[gmfgen::GenNode] getFeatureGenLinksForFeature(gmfgen::GenCommonBase gcb, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
+Collection[gmfgen::GenLink] getFeatureGenLinksForFeature(gmfgen::GenCommonBase gcb, genmodel::GenFeature genFeature, Collection[gmfgen::GenLink] containedLinks) :
 JAVA org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils.getFeatureGenLinks(org.eclipse.gmf.codegen.gmfgen.GenCommonBase, org.eclipse.emf.codegen.ecore.genmodel.GenFeature, java.util.Collection)
 ;
 
