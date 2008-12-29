@@ -32,7 +32,7 @@ public static int «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodNa
 		if (false == containerView instanceof org.eclipse.gmf.runtime.notation.Diagram) {
 			«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
 		}
-		if («EXPAND checkContainerDiagramModelID FOREACH shortcutModels SEPARATOR ' && '») { «EXPAND xpt::Common::nonNLS({}) FOREACH shortcutModels SEPARATOR " "»
+		if («EXPAND checkContainerDiagramModelID FOREACH shortcutModels SEPARATOR ' && '») { «EXPAND xpt::Common::nonNLS FOR shortcutModels»
 			«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
 		}
 		containerVisualID = «EXPAND xpt::editor::VisualIDRegistry::visualID»;
