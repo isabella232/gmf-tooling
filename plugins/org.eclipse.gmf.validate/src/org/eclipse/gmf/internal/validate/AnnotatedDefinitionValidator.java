@@ -124,7 +124,6 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			// add support for other languages here
 			return true;
 		}
-		
 		ContextData contextData = getContextBinding(context.eClass(), contextFeature, validationContext);
 		if(contextData == null) {
 			diag.add(new BasicDiagnostic(
@@ -211,8 +210,7 @@ public class AnnotatedDefinitionValidator extends AbstractValidator implements E
 			return contextData;
 		}
 
-		ExternModelImport modelImports = ExternModelImport.getImporter(validationContext);
-		ContextProvider contextProvider = DefUtils.getContextClass(contextClass, getExpressionFactory(validationContext), featureToConstraint, modelImports.getPackageRegistry());
+		ContextProvider contextProvider = getContextClass(featureToConstraint, validationContext);
 		if(contextProvider != null) {
 			ContextData newContextData = new ContextData(contextProvider, getEnvProvider(featureToConstraint, getExpressionFactory(validationContext)));
 			registerCtxBinding(featureToConstraint, newContextData, validationContext);				
