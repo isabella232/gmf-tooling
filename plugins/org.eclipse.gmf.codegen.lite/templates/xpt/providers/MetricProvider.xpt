@@ -17,7 +17,7 @@
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::providers::ValidationUtils»
 «EXTENSION xpt::providers::Metrics»
-«EXTENSION xpt::providers::i18n»
+«EXTENSION xpt::providers::i18n_lite»
 
 «DEFINE MetricProvider FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen»
