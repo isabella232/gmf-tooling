@@ -1,0 +1,37 @@
+import xpt.diagram.parts.Common;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library TreeEditPart;
+
+helper genModel::GenCommonBase::needsTreeEditPartAdapter() : Boolean {
+	return false
+}
+
+helper genModel::GenDiagram::needsTreeEditPartAdapter() : Boolean {
+	return true
+}
+
+helper genModel::GenNode::needsTreeEditPartAdapter() : Boolean {
+	return true
+}
+
+helper genModel::GenLink::needsTreeEditPartAdapter() : Boolean {
+	return true
+}
+
+helper genModel::GenCommonBase::needsTreeDirectEditPolicy() : Boolean {
+	return false
+}
+
+helper genModel::GenChildLabelNode::needsTreeDirectEditPolicy() : Boolean {
+	return not self.labelReadOnly
+}
+
+helper genModel::GenNode::needsTreeDirectEditPolicy() : Boolean {
+	return self.getPrimaryLabel() <> null
+}
+
+helper genModel::GenLink::needsTreeDirectEditPolicy() : Boolean {
+	return self.getPrimaryLabel() <> null
+}

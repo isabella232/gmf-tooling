@@ -1,0 +1,53 @@
+import xpt.commands.CommandUtils;
+import xpt.diagram.PhantomUtils;
+import xpt.GenModelUtils;
+
+modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library NotationModelRefresher;
+
+helper genModel_1::GenContainerBase::needsNotationModelRefresher() : Boolean {
+	return getChildNodesForNotationModelRefresher(self)->size() > 0
+}
+
+helper genModel_1::GenDiagram::needsNotationModelRefresher() : Boolean {
+	return getChildNodesForNotationModelRefresher(self)->size() > 0 or getPhantomNodes(self)->size() > 0
+}
+
+helper getChildNodesForNotationModelRefresher(gcb : genModel_1::GenContainerBase) : Collection(genModel_1::GenNode) {
+	return gcb.getChildNodes()->select(e | e.modelFacet <> null and (e.modelFacet.metaClass <> null and (not e.modelFacet.isPhantomElement() and e.modelFacet.childMetaFeature <> null)))
+}
+
+helper getConstraintsInChildren(gcb : genModel_1::GenContainerBase) : Collection(genModel_1::GenNode) {
+	return gcb.getChildNodes()->select(e | e.modelFacet <> null and (e.modelFacet.metaClass <> null and e.modelFacet.modelElementSelector <> null))
+}
+
+helper getChildFeatures(gcb : genModel_1::GenContainerBase) : Collection(genModel::GenFeature) {
+	return (Sequence {  })[genModel::GenFeature]->union(getChildNodesForNotationModelRefresher(gcb).modelFacet->asSequence().childMetaFeature)->asOrderedSet()->asSequence()
+}
+
+helper getChildFeaturesForFilter(gcb : genModel_1::GenContainerBase) : Collection(genModel::GenFeature) {
+	return (Sequence {  })[genModel::GenFeature]->union(getChildNodesForNotationModelRefresher(gcb).modelFacet->asSequence()->collect(it | childMetaFeatureForFilter(it)))->asOrderedSet()->asSequence()
+}
+
+helper childMetaFeatureForFilter(modelFacet : genModel_1::TypeModelFacet) : genModel::GenFeature {
+	return (if modelFacet.childMetaFeature.ecoreFeature._derived then modelFacet.containmentMetaFeature else modelFacet.childMetaFeature endif)
+}
+
+
+helper getAllInitableContainers(diagram : genModel_1::GenDiagram) : Collection(genModel_1::GenContainerBase) {
+	return getAllContainersWithChildren(diagram)->collect(it | it)->asSequence()->union(diagram.getAllNodes()->select(e | getInitableCompartments(e)->size() > 0)->asSequence())->asOrderedSet()->asSequence()
+}
+
+helper getAllContainersWithChildren(diagram : genModel_1::GenDiagram) : Collection(genModel_1::GenContainerBase) {
+	return diagram.getAllContainers()->select(e | e.needsNotationModelRefresher())
+}
+
+helper getInitableCompartments(node : genModel_1::GenNode) : Collection(genModel_1::GenCompartment) {
+	return node.compartments->select(e | e.needsNotationModelRefresher())
+}
+
+helper getInitableGrandChildren(gcb : genModel_1::GenContainerBase) : Collection(genModel_1::GenContainerBase) {
+	return let allInitableContainers = getAllInitableContainers(gcb.getDiagram()) in getChildNodesForNotationModelRefresher(gcb)->select(e | allInitableContainers->includes(e))
+}

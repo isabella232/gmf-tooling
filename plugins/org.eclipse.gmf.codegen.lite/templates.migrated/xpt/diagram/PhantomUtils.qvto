@@ -1,0 +1,36 @@
+import xpt.NativeGenModelUtils;
+
+import xpt.GenModelUtils;
+
+modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library PhantomUtils;
+
+helper getPhantomNodes(diagram : genModel_1::GenDiagram) : Collection(genModel_1::GenTopLevelNode) {
+	return diagram.topLevelNodes->select(e | e.modelFacet.isPhantomElement())
+}
+
+helper genModel_1::GenDiagram::getPhantomFeatures() : Collection(genModel::GenFeature) {
+	return getPhantomFeatures(self, getPhantomNodes(self))
+}
+
+helper genModel_1::GenTopLevelNode::getPhantomFeatures() : Collection(genModel::GenFeature) {
+	return getPhantomFeatures(self.getDiagram(), Sequence { self })
+}
+
+helper getPhantomFeatures(diagram : genModel_1::GenDiagram, phantomNodes : Collection(genModel_1::GenTopLevelNode)) : Collection(genModel::GenFeature) {
+	return diagram.links->select(e | e.modelFacet.isPhantomLink(phantomNodes))->collect(e | e.modelFacet.oclAsType(genModel_1::FeatureLinkModelFacet).metaFeature)
+}
+
+helper genModel_1::LinkModelFacet::isPhantomLink(diagram : genModel_1::GenDiagram) : Boolean {
+	return self.isPhantomLink(getPhantomNodes(diagram))
+}
+
+helper genModel_1::LinkModelFacet::isPhantomLink(phantoms : Collection(genModel_1::GenTopLevelNode)) : Boolean {
+	return false
+}
+
+helper genModel_1::FeatureLinkModelFacet::isPhantomLink(phantoms : Collection(genModel_1::GenTopLevelNode)) : Boolean {
+	return (if not isContains(self.metaFeature) then false else let featureType = getTypeGenClassX(self.metaFeature).ecoreClass in phantoms->select(e | featureType.isSuperTypeOf(e.modelFacet.metaClass.ecoreClass))->size() > 0 endif)
+}

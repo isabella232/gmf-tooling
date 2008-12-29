@@ -1,0 +1,67 @@
+modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library LabelController;
+
+helper genModel_1::GenCommonBase::isReadOnly() : Boolean {
+	return true
+}
+
+helper genModel_1::GenChildLabelNode::isReadOnly() : Boolean {
+	return self.labelReadOnly
+}
+
+helper genModel_1::GenLabel::isReadOnly() : Boolean {
+	return self.readOnly
+}
+
+helper genModel_1::GenCommonBase::isElementIcon() : Boolean {
+	return false
+}
+
+helper genModel_1::GenChildLabelNode::isElementIcon() : Boolean {
+	return self.labelElementIcon
+}
+
+helper genModel_1::GenLabel::isElementIcon() : Boolean {
+	return self.elementIcon
+}
+
+helper genModel_1::GenCommonBase::getLabelModelFacet() : genModel_1::LabelModelFacet {
+	return null
+}
+
+helper genModel_1::GenLabel::getLabelModelFacet() : genModel_1::LabelModelFacet {
+	return self.modelFacet
+}
+
+helper genModel_1::GenChildLabelNode::getLabelModelFacet() : genModel_1::LabelModelFacet {
+	return self.labelModelFacet
+}
+
+helper genModel_1::Viewmap::getFigureQualifiedClassName() : String {
+	return 'org.eclipse.draw2d.IFigure'
+}
+
+helper genModel_1::FigureViewmap::getFigureQualifiedClassName() : String {
+	return (if self.figureQualifiedClassName = null then 'org.eclipse.draw2d.Label' else self.figureQualifiedClassName endif)
+}
+
+helper genModel_1::ParentAssignedViewmap::getFigureQualifiedClassName() : String {
+	return (if self.figureQualifiedClassName = null then 'org.eclipse.draw2d.Label' else self.figureQualifiedClassName endif)
+}
+
+helper genModel_1::InnerClassViewmap::getFigureQualifiedClassName() : String {
+	return self.className
+}
+
+helper genModel_1::GenLabel::getLabelHostQualifiedClassName() : String {
+	return null
+}
+
+helper genModel_1::GenNodeLabel::getLabelHostQualifiedClassName() : String {
+	return self.node.getEditPartQualifiedClassName()
+}
+
+helper genModel_1::GenLinkLabel::getLabelHostQualifiedClassName() : String {
+	return self.link.getEditPartQualifiedClassName()
+}

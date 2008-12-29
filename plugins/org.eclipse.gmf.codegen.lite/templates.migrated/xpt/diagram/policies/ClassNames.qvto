@@ -1,0 +1,33 @@
+import xpt.StringOperations;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ClassNames;
+
+helper getComponentEditPolicyClassName(element : genModel::GenCommonBase) : String {
+	return getBaseName(element) + 'ComponentEditPolicy'
+}
+
+helper getLayoutEditPolicyClassName(element : genModel::GenContainerBase) : String {
+	return getBaseName(element) + 'LayoutEditPolicy'
+}
+
+helper getSideAffixedLayoutEditPolicyClassName(element : genModel::GenContainerBase) : String {
+	return getBaseName(element) + 'SideAffixedLayoutEditPolicy'
+}
+
+helper genModel::GenCommonBase::getGraphicalNodeEditPolicyClassName() : String {
+	return getBaseName(self) + 'GraphicalNodeEditPolicy'
+}
+
+helper genModel::GenNode::getGraphicalNodeEditPolicyClassName() : String {
+	return self.graphicalNodeEditPolicyClassName
+}
+
+helper getConnectionEndpointEditPolicyClassName(link : genModel::GenLink) : String {
+	return getBaseName(link) + 'EndpointEditPolicy'
+}
+
+helper getBaseName(element : genModel::GenCommonBase) : String {
+	return let editPartClassName = element.editPartClassName in (if editPartClassName.xpandEndsWith('EditPart') then editPartClassName.substring(1 + 0, editPartClassName.xpandLength() - 'EditPart'.xpandLength()) else editPartClassName endif)
+}

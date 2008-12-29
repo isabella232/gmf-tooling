@@ -1,0 +1,31 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Util;
+
+helper hasSupportedPreferencePages(pages : Collection(genModel::GenPreferencePage)) : Boolean {
+	return pages->exists(e | e.isSupported() or hasSupportedPreferencePages(e.children))
+}
+
+helper genModel::GenPreferencePage::isSupported() : Boolean {
+	return false
+}
+
+helper genModel::GenCustomPreferencePage::isSupported() : Boolean {
+	return true
+}
+
+helper genModel::GenStandardPreferencePage::isSupported() : Boolean {
+	return genModel::StandardPreferencePages::Appearance = self.kind or genModel::StandardPreferencePages::General = self.kind
+}
+
+helper hasPreferencePagesWithInitializers(pages : Collection(genModel::GenPreferencePage)) : Boolean {
+	return pages->exists(e | e.hasInitializer() or hasPreferencePagesWithInitializers(e.children))
+}
+
+helper genModel::GenPreferencePage::hasInitializer() : Boolean {
+	return false
+}
+
+helper genModel::GenStandardPreferencePage::hasInitializer() : Boolean {
+	return self.isSupported()
+}

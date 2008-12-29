@@ -1,0 +1,61 @@
+import xpt.commands.CommandUtils;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Helper;
+
+helper isXYLayout(node : genModel::GenNode) : Boolean {
+	return node.getLayoutType() = genModel::ViewmapLayoutType::XY_LAYOUT
+}
+
+helper hasDirectChildren(node : genModel::GenNode) : Boolean {
+	return node.getDirectChildren()->size() > 0
+}
+
+helper genModel::GenContainerBase::getDirectChildren() : Collection(genModel::GenNode) {
+	return self.getChildNodes()
+}
+
+helper genModel::GenNode::getDirectChildren() : Collection(genModel::GenNode) {
+	return self.childNodes->select(e | (Sequence { e })[genModel::GenChildSideAffixedNode]->size() = 0)
+}
+
+helper genModel::GenContainerBase::needsXYLayout() : Boolean {
+	return false
+}
+
+helper genModel::GenDiagram::needsXYLayout() : Boolean {
+	return true
+}
+
+helper genModel::GenCompartment::needsXYLayout() : Boolean {
+	return not self.listLayout
+}
+
+helper genModel::GenNode::needsXYLayout() : Boolean {
+	return hasDirectChildren(self) and isXYLayout(self)
+}
+
+helper genModel::GenChildLabelNode::needsXYLayout() : Boolean {
+	return false
+}
+
+helper genModel::GenContainerBase::needsXYLayout(child : genModel::GenNode) : Boolean {
+	return self.needsXYLayout()
+}
+
+helper genModel::GenContainerBase::needsXYLayout(child : genModel::GenChildSideAffixedNode) : Boolean {
+	return true
+}
+
+helper getExternalLabels(node : genModel::GenNode) : Collection(genModel::GenExternalNodeLabel) {
+	return (node.labels)[genModel::GenExternalNodeLabel]
+}
+
+helper getSideAffixedChildren(node : genModel::GenNode) : Collection(genModel::GenChildSideAffixedNode) {
+	return (node.childNodes)[genModel::GenChildSideAffixedNode]
+}
+
+helper hasSideAffixedChildren(node : genModel::GenNode) : Boolean {
+	return getSideAffixedChildren(node)->size() > 0
+}

@@ -1,0 +1,7 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Wizard;
+
+helper isRichClientPlatform(diagram : genModel::GenDiagram) : Boolean {
+	return diagram.editorGen.application <> null
+}

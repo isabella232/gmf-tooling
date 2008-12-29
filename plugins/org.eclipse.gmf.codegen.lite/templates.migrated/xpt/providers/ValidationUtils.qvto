@@ -1,0 +1,19 @@
+import xpt.GenAuditRoot;
+import xpt.GenEditorGenerator;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ValidationUtils;
+
+helper validationNeeded(diagram : genModel::GenDiagram) : Boolean {
+	return diagram.validationEnabled or hasAudits(diagram.editorGen)
+}
+
+helper getConstraintAdapterLocalClassName(rule : genModel::GenAuditRule) : String {
+	return 'Adapter' + ((rule.root.rules->indexOf(rule) - 1) + 1).repr()
+}
+
+
+helper getMetricRules(diagram : genModel::GenDiagram) : Sequence(genModel::GenMetricRule) {
+	return diagram.editorGen.metrics.metrics->select(e | e.rule <> null and (e.target <> null and e.target.getContext() <> null))->asSequence()
+}

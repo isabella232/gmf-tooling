@@ -1,0 +1,259 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library i18n;
+
+helper i18nKeyForActionBarContributorViewMenu(editor : genModel::GenEditorView) : String {
+	return editor.actionBarContributorClassName + '.viewMenu'
+}
+
+helper getOpenDiagramInViewActionPrefix(editorGen : genModel::GenEditorGenerator) : String {
+	return 'OpenDiagramIn' + editorGen.modelID + 'DiagramViewAction'
+}
+
+helper i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen : genModel::GenEditorGenerator) : String {
+	return getOpenDiagramInViewActionPrefix(editorGen) + '.errorTitle'
+}
+
+helper i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen : genModel::GenEditorGenerator) : String {
+	return getOpenDiagramInViewActionPrefix(editorGen) + '.cannotLoad'
+}
+
+helper i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen : genModel::GenEditorGenerator) : String {
+	return getOpenDiagramInViewActionPrefix(editorGen) + '.exceptionLoading'
+}
+
+helper i18nKeyForOpenDiagramInViewActionPartInitException(editorGen : genModel::GenEditorGenerator) : String {
+	return getOpenDiagramInViewActionPrefix(editorGen) + '.partInitException'
+}
+
+helper i18nKeyForEditorErrorDuringSave(editor : genModel::GenEditorView) : String {
+	return editor.className + '.errorSaving'
+}
+
+helper i18nKeyForEditorLoadDiagramLabel(editor : genModel::GenEditorView) : String {
+	return editor.className + '.LoadDiagram'
+}
+
+helper i18nKeyForEditorFailedLoadDiagramMsg(editor : genModel::GenEditorView) : String {
+	return editor.className + '.FailedToLoadDiagramMsg'
+}
+
+helper i18nKeyForEditorInvalidInputMsg(editor : genModel::GenEditorView) : String {
+	return editor.className + '.InvalidInputMsg'
+}
+
+helper i18nKeyForEditorAlignMenu(editor : genModel::GenEditorView) : String {
+	return editor.className + '.Align'
+}
+
+helper titleKey(dialogKey : String) : String {
+	return dialogKey + 'Title'
+}
+
+helper messageKey(dialogKey : String) : String {
+	return dialogKey + 'Message'
+}
+
+helper i18nKeyForDiagramEditorUtilErrorNoDescriptor(diagram : genModel::GenDiagram) : String {
+	return diagram.diagramEditorUtilClassName + '.ErrorNoDescriptor'
+}
+
+helper i18nKeyForDiagramEditorUtilErrorOpeningEditor(diagram : genModel::GenDiagram) : String {
+	return diagram.diagramEditorUtilClassName + '.ErrorOpeningEditor'
+}
+
+helper i18nKeyForDiagramEditorUtilErrorOpeningView(diagram : genModel::GenDiagram) : String {
+	return diagram.diagramEditorUtilClassName + '.ErrorOpeningView'
+}
+
+helper i18nKeyForCreationWizardWindowTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardClassName + '.WindowTitle'
+}
+
+helper i18nKeyForCreationWizardPagePageName(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.PageName'
+}
+
+helper i18nKeyForCreationWizardPageTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.Title'
+}
+
+helper i18nKeyForCreationWizardPageDescription(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.Description'
+}
+
+helper i18nKeyForCreationWizardPageResourceURILabel(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.ResourceURILabel'
+}
+
+helper i18nKeyForCreationWizardPageBrowseButtonLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.BrowseButtonLabel'
+}
+
+helper i18nKeyForCreationWizardPageDiagramFileExists(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.DiagramFileExists'
+}
+
+helper i18nKeyForCreationWizardPageIncorrectExtension(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.IncorrectExtension'
+}
+
+helper i18nKeyForCreationWizardPageModelFileExists(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.ModelFileExists'
+}
+
+helper i18nKeyForCreationWizardPageCreationFailed(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.CreationFailed'
+}
+
+helper i18nKeyForCreationWizardPageCommandLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.CommandLabel'
+}
+
+helper i18nKeyForCreationWizardPageTaskName(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.TaskName'
+}
+
+helper i18nKeyForCreationWizardPageSaveFailed(diagram : genModel::GenDiagram) : String {
+	return diagram.creationWizardPageClassName + '.SaveFailed'
+}
+
+helper i18nKeyForInitDiagramFileResourceErrorDialog(diagram : genModel::GenDiagram) : String {
+	return diagram.initDiagramFileActionClassName + '.ResourceErrorDialog'
+}
+
+helper i18nKeyForInitDiagramFileWizardTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.initDiagramFileActionClassName + '.WizardTitle'
+}
+
+helper i18nForNewDiagramFileWizardIncorrectExtension(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.IncorrectExtension'
+}
+
+helper i18nForNewDiagramFileWizardBrowseButton(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.BrowseButton'
+}
+
+helper i18nForNewDiagramFileWizardFileLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.FileLabel'
+}
+
+helper i18nForNewDiagramFileWizardNoSourceFile(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.NoSourceFile'
+}
+
+helper i18nForNewDiagramFileWizardSourceURISelectorPageName(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.SourceURISelectorPageName'
+}
+
+helper i18nForNewDiagramFileWizardSourceURISelectorPageTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.SourceURISelectorPageTitle'
+}
+
+helper i18nForNewDiagramFileWizardSourceURISelectorPageDescription(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.SourceURISelectorPageDescription'
+}
+
+helper i18nForNewDiagramFileWizardDiagramFileExists(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.DiagramFileExists'
+}
+
+helper i18nForNewDiagramFileWizardDiagramURISelectorPageName(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.DiagramURISelectorPageName'
+}
+
+helper i18nForNewDiagramFileWizardDiagramURISelectorPageTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.DiagramURISelectorPageTitle'
+}
+
+helper i18nForNewDiagramFileWizardDiagramURISelectorPageDescription(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.DiagramURISelectorPageDescription'
+}
+
+helper i18nForNewDiagramFileWizardRootElementSelectorPageName(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.RootElementSelectorPageName'
+}
+
+helper i18nForNewDiagramFileWizardRootElementSelectorPageTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.RootElementSelectorPageTitle'
+}
+
+helper i18nForNewDiagramFileWizardRootElementSelectorPageDescription(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.RootElementSelectorPageDescription'
+}
+
+helper i18nForNewDiagramFileWizardRootElementSelectorPageLabelText(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.RootElementSelectorPageLabelText'
+}
+
+helper i18nForNewDiagramFileWizardRootElementSelectorPageNoRootSelected(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.RootElementSelectorPageNoRootSelected'
+}
+
+helper i18nForNewDiagramFileWizardRootElementSelectorPageInvalidRootSelected(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.RootElementSelectorPageInvalidRootSelected'
+}
+
+helper i18nForNewDiagramFileWizardCommandLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.newDiagramFileWizardClassName + '.CommandLabel'
+}
+
+helper defaultShortcutCreationWizardName(diagram : genModel::GenDiagram) : String {
+	return 'ShortcutCreationWizard'
+}
+
+helper i18nForNewShortcutWizardSourceURISelectorPageName(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.URISelector.PageName'
+}
+
+helper i18nForNewShortcutWizardSourceURISelectorPageTitle(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.URISelector.Title'
+}
+
+helper i18nForNewShortcutWizardSourceURISelectorPageDescription(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.URISelector.Description'
+}
+
+helper i18nForNewShortcutWizardNoSourceFile(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.URISelector.NoSourceFile'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageName(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.PageName'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageTitle(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.PageTitle'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageDescription(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.Description'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageLabelText(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.LabelText'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageNoElementSelected(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.NoElementSelected'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageDuplicateShortcut(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.DuplicateShortcut'
+}
+
+helper i18nForNewShortcutWizardShortcutElementSelectorPageCannotCreateShortcut(diagram : genModel::GenDiagram) : String {
+	return defaultShortcutCreationWizardName(diagram) + '.ShortcutElementSelector.CannotCreateShortcut'
+}
+
+helper i18nForCreateShortcutActionLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.createShortcutActionClassName + '.ActionLabel'
+}
+
+helper i18nForCreateShortcutActionTooltip(diagram : genModel::GenDiagram) : String {
+	return diagram.createShortcutActionClassName + '.ActionTooltip'
+}
+
+helper i18nForCreateShortcutActionWizardWindowTitle(diagram : genModel::GenDiagram) : String {
+	return diagram.createShortcutActionClassName + '.WizardWindowTitle'
+}

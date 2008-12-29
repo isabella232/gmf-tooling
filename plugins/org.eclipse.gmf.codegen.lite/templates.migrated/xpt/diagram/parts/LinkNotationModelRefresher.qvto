@@ -1,0 +1,79 @@
+import xpt.diagram.parts.NativeLinkNotationModelRefresher;
+
+import xpt.diagram.LinkFinder;
+
+modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library LinkNotationModelRefresher;
+
+helper genModel_1::GenCommonBase::needsLinkNotationModelRefresher() : Boolean {
+	return primNeedsLinkNotationModelRefresher(self)
+}
+
+helper genModel_1::GenDiagram::needsLinkNotationModelRefresher() : Boolean {
+	return true
+}
+
+helper primNeedsLinkNotationModelRefresher(gcb : genModel_1::GenCommonBase) : Boolean {
+	return containedLinks(gcb)->size() > 0
+}
+
+helper getAffectingFeatures(gcb : genModel_1::GenCommonBase) : Collection(genModel::GenFeature) {
+	return (Sequence {  })[genModel::GenFeature]->union(containedLinks(gcb).modelFacet->asSequence()->collect(e | e.getAffectingFeatures())->flatten())->asOrderedSet()->asSequence()
+}
+
+helper genModel_1::LinkModelFacet::getAffectingFeatures() : Collection(genModel::GenFeature) {
+	return Sequence {  }
+}
+
+helper genModel_1::TypeLinkModelFacet::getAffectingFeatures() : Collection(genModel::GenFeature) {
+	return Sequence { self.childMetaFeature, self.sourceMetaFeature, self.targetMetaFeature }->select(e | e <> null)
+}
+
+helper genModel_1::FeatureLinkModelFacet::getAffectingFeatures() : Collection(genModel::GenFeature) {
+	return Sequence { self.metaFeature }
+}
+
+helper getLinkChildFeatures(gcb : genModel_1::GenCommonBase) : Collection(genModel::GenFeature) {
+	return getLinkChildFeatures(gcb, containedLinks(gcb))
+}
+
+helper getLinkChildFeatures(gcb : genModel_1::GenCommonBase, someOfContainedLinks : Collection(genModel_1::GenLink)) : Collection(genModel::GenFeature) {
+	return (Sequence {  })[genModel::GenFeature]->union(someOfContainedLinks->collect(e | e.modelFacet.getLinkChildFeature())->asSequence())->asOrderedSet()->asSequence()->select(e | e <> null)
+}
+
+helper genModel_1::LinkModelFacet::getLinkChildFeature() : genModel::GenFeature {
+	return null
+}
+
+helper genModel_1::TypeLinkModelFacet::getLinkChildFeature() : genModel::GenFeature {
+	return self.childMetaFeature
+}
+
+helper genModel_1::FeatureLinkModelFacet::getLinkChildFeature() : genModel::GenFeature {
+	return self.metaFeature
+}
+
+
+
+helper getLinkContainersWithAncestors(diagram : genModel_1::GenDiagram) : Collection(genModel_1::GenCommonBase) {
+	return buildAncestorClosure(diagram.links->collect(e | getPossibleContainers(e))->flatten())
+}
+
+
+helper genModel_1::GenCommonBase::getContainedContainers() : Collection(genModel_1::GenCommonBase) {
+	return Sequence {  }
+}
+
+helper genModel_1::GenContainerBase::getContainedContainers() : Collection(genModel_1::GenCommonBase) {
+	return self.containedNodes
+}
+
+helper genModel_1::GenNode::getContainedContainers() : Collection(genModel_1::GenCommonBase) {
+	return (((Sequence {  })[genModel_1::GenNode]->union(self.containedNodes->asSequence()))[genModel_1::GenChildContainer]->union(self.compartments->asSequence()))[genModel_1::GenCommonBase]->union(containedLinks(self)->collect(it | it)->asSequence())
+}
+
+helper genModel_1::GenLink::getContainedContainers() : Collection(genModel_1::GenCommonBase) {
+	return containedLinks(self)
+}

@@ -1,0 +1,7 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library BehaviourUtils;
+
+helper openDiagramBehaviours(e : genModel::GenCommonBase) : Sequence(genModel::OpenDiagramBehaviour) {
+	return (e.behaviour)[genModel::OpenDiagramBehaviour]->union(((e.behaviour)[genModel::SharedBehaviour].delegate)[genModel::OpenDiagramBehaviour]->asSet())->asSequence()
+}

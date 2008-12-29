@@ -51,8 +51,8 @@ public class CodegenEmitters {
 	private ResourceManager myResourceManager;
 	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
 		ArrayList<URL> templatesURI = new ArrayList<URL>(3);
-		templatesURI.add(getTemplatesBundle().getEntry("/templates/"));	//$NON-NLS-1$
-		templatesURI.add(getCodegenTemplatesBundle().getEntry("/templates/"));	//$NON-NLS-1$
+		templatesURI.add(getTemplatesBundle().getEntry("/templates.migrated/"));	//$NON-NLS-1$
+		templatesURI.add(getCodegenTemplatesBundle().getEntry("/templates.migrated/"));	//$NON-NLS-1$
 		URL dynamicTemplatesPath = getDynamicTemplatesURL(templateDirectory);
 		if (dynamicTemplatesPath != null) {
 			templatesURI.add(0, dynamicTemplatesPath);
@@ -469,7 +469,7 @@ public class CodegenEmitters {
 	}
 
 	public URL getJMergeControlFile() {
-		return getCodegenTemplatesBundle().getEntry("/templates/emf-merge.xml");
+		return getCodegenTemplatesBundle().getEntry("/templates.migrated/emf-merge.xml");
 	}
 
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {

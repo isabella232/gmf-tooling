@@ -1,0 +1,23 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library NodeEditPart;
+
+helper getInnerFixedLabels(node : genModel::GenNode) : Sequence(genModel::GenLabel) {
+	return node.labels->-((node.labels)[genModel::GenExternalNodeLabel])->select(e | (Sequence { e.oclAsType(genModel::GenLabel).viewmap })[genModel::ParentAssignedViewmap]->size() > 0)->asSequence()
+}
+
+helper getPinnedCompartments(node : genModel::GenNode) : Sequence(genModel::GenCompartment) {
+	return node.compartments->select(e | (Sequence { e.viewmap })[genModel::ParentAssignedViewmap]->size() > 0)->asSequence()
+}
+
+helper genModel::Viewmap::primaryShapeQualifiedClassName() : String {
+	return null
+}
+
+helper genModel::FigureViewmap::primaryShapeQualifiedClassName() : String {
+	return (if self.figureQualifiedClassName = null then 'org.eclipse.draw2d.RectangleFigure' else self.figureQualifiedClassName endif)
+}
+
+helper genModel::InnerClassViewmap::primaryShapeQualifiedClassName() : String {
+	return self.className
+}

@@ -1,0 +1,43 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library i18n_lite;
+
+helper i18nKeyForMarkerNavigationProviderReplaceMarkersJobName(diagram : genModel::GenDiagram) : String {
+	return diagram.markerNavigationProviderClassName + '.ReplaceMarkersJobName'
+}
+
+helper i18nKeyForValidateActionActionName(diagram : genModel::GenDiagram) : String {
+	return 'ValidateAction.ActionName'
+}
+
+helper i18nKeyForMetricsActionActionName(diagram : genModel::GenDiagram) : String {
+	return 'MetricsAction.ActionName'
+}
+
+helper i18nKeyForMetricProviderResultViewElementColumnName(diagram : genModel::GenDiagram) : String {
+	return diagram.metricProviderClassName + '.ResultViewElementColumnName'
+}
+
+helper i18nKeyForMetricProviderResultViewElementColumnTooltip(diagram : genModel::GenDiagram) : String {
+	return diagram.metricProviderClassName + '.ResultViewElementColumnTooltip'
+}
+
+helper i18nKeyForMetricProviderMetricDefToolTipLow(diagram : genModel::GenDiagram) : String {
+	return diagram.metricProviderClassName + '.MetricDefToolTipLow'
+}
+
+helper i18nKeyForMetricProviderMetricDefToolTipHigh(diagram : genModel::GenDiagram) : String {
+	return diagram.metricProviderClassName + '.MetricDefToolTipHigh'
+}
+
+helper nameKey(baseKey : String) : String {
+	return baseKey + 'Name'
+}
+
+helper descriptionKey(baseKey : String) : String {
+	return baseKey + 'Description'
+}
+
+helper i18nKeyForMetric(rule : genModel::GenMetricRule) : String {
+	return rule.container.editorGen.diagram.metricProviderClassName + '.MetricDef.' + rule.key
+}

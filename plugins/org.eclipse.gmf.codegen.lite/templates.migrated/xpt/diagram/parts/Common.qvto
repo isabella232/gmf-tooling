@@ -1,0 +1,86 @@
+import xpt.diagram.parts.NotationModelRefresher;
+import xpt.diagram.parts.LinkNotationModelRefresher;
+
+modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library Common;
+
+helper genModel_1::GenCommonBase::isSelectable() : Boolean {
+	return true
+}
+
+helper genModel_1::GenNodeLabel::isSelectable() : Boolean {
+	return false
+}
+
+helper genModel_1::GenExternalNodeLabel::isSelectable() : Boolean {
+	return true
+}
+
+helper genModel_1::GenCompartment::isSelectable() : Boolean {
+	return false
+}
+
+helper genModel_1::GenCommonBase::needsTransactionalUpdateManager() : Boolean {
+	return self.needsDomainModelRefresher() or self.needsLinkNotationModelRefresher()
+}
+
+helper genModel_1::GenDiagram::needsTransactionalUpdateManager() : Boolean {
+	return true
+}
+
+helper genModel_1::GenContainerBase::needsTransactionalUpdateManager() : Boolean {
+	return self.needsDomainModelRefresher() or (self.needsNotationModelRefresher() or self.needsLinkNotationModelRefresher())
+}
+
+helper genModel_1::GenCommonBase::needsDomainModelRefresher() : Boolean {
+	return false
+}
+
+helper genModel_1::GenLink::needsDomainModelRefresher() : Boolean {
+	return self.modelFacet.needsDomainModelRefresher()
+}
+
+helper genModel_1::LinkModelFacet::needsDomainModelRefresher() : Boolean {
+	return false
+}
+
+helper genModel_1::TypeLinkModelFacet::needsDomainModelRefresher() : Boolean {
+	return self.metaClass <> null
+}
+
+helper genModel_1::GenDiagram::needsDomainModelRefresher() : Boolean {
+	return not self.sansDomain
+}
+
+helper genModel_1::GenNode::needsDomainModelRefresher() : Boolean {
+	return not self.sansDomain
+}
+
+helper genModel_1::GenCommonBase::getPrimaryLabel() : genModel_1::GenLabel {
+	return null
+}
+
+helper genModel_1::GenNode::getPrimaryLabel() : genModel_1::GenLabel {
+	return self.labels->select(e | not e.readOnly)->first()
+}
+
+helper genModel_1::GenLink::getPrimaryLabel() : genModel_1::GenLabel {
+	return self.labels->select(e | not e.readOnly)->first()
+}
+
+helper genModel_1::GenChildLabelNode::getPrimaryLabel() : genModel_1::GenLabel {
+	return null
+}
+
+helper genModel_1::GenCommonBase::getAllLabels() : Collection(genModel_1::GenLabel) {
+	return Sequence {  }
+}
+
+helper genModel_1::GenNode::getAllLabels() : Collection(genModel_1::GenLabel) {
+	return self.labels
+}
+
+helper genModel_1::GenLink::getAllLabels() : Collection(genModel_1::GenLabel) {
+	return self.labels
+}

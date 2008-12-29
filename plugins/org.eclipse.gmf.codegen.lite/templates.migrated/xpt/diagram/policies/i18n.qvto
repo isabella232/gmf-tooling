@@ -1,0 +1,11 @@
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library i18n;
+
+helper i18nKeyForDeleteModelElementLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.editorGen.modelID + '.DeleteModelElementLabel'
+}
+
+helper i18nKeyForDeleteDiagramElementLabel(diagram : genModel::GenDiagram) : String {
+	return diagram.editorGen.modelID + '.DeleteDiagramElementLabel'
+}

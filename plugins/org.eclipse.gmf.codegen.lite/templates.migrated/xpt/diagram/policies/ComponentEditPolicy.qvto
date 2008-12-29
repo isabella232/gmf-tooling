@@ -1,0 +1,9 @@
+import xpt.diagram.LinkFinder;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+
+library ComponentEditPolicy;
+
+helper needsGetGraphicalEditPart(gcb : genModel::GenCommonBase) : Boolean {
+	return outgoingLinks(gcb)->size() > 0 or incomingLinks(gcb)->size() > 0
+}
