@@ -23,3 +23,5 @@ plugin@org.eclipse.gmf.tooldef=v20080722-1827,:pserver:anonymous@dev.eclipse.org
 plugin@org.eclipse.gmf.tooldef.edit=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit
 plugin@org.eclipse.gmf.validate=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.validate
 plugin@org.eclipse.gmf.xpand=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand
+plugin@org.eclipse.gmf.xpand.qvtlibrary=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.qvtlibrary
+plugin@org.eclipse.gmf.xpand.migration=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/plugins/org.eclipse.gmf.xpand.migration
