@@ -14,6 +14,7 @@
 «IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 «IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
 «EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::NonNLSUtils»
 
 «DEFINE copyright FOR gmfgen::GenEditorGenerator-»
 «IF copyrightText != null-»
@@ -59,9 +60,13 @@
 
 «DEFINE nonNLS FOR Object»«EXPAND nonNLS(1)»«ENDDEFINE»
 
-«DEFINE nonNLS(Collection[Object] indexes) FOR Object»«EXPAND nonNLS(indexes.add(this).size())»«ENDDEFINE»
+«DEFINE nonNLS FOR Collection[Object]»«EXPAND nonNLS FOR getNonNLSCounter(this)»«ENDDEFINE»
 
-«DEFINE nonNLS(int i) FOR Object» //$NON-NLS-«i»$«ENDDEFINE»
+«DEFINE nonNLS FOR Collection[int]»«EXPAND nonNLS FOREACH this»«ENDDEFINE»
+
+«DEFINE nonNLS(int i) FOR Object»«EXPAND nonNLS FOR i»«ENDDEFINE»
+
+«DEFINE nonNLS FOR int» //$NON-NLS-«this»$«ENDDEFINE»
 
 «DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «EXPAND xpt::editor::VisualIDRegistry::visualID»:«ENDDEFINE»
 
