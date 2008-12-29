@@ -1,0 +1,5 @@
+<plugin>
+	<extension point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+		<library class="NativeUtil"><metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition"/><metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/></library>
+	</extension>
+</plugin>

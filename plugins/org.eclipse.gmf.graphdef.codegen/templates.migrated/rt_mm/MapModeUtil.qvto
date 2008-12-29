@@ -1,0 +1,7 @@
+import xpt.GlobalVarOperations;
+
+library MapModeUtil;
+
+helper mapModeAccessor() : String {
+return xpandGetStringGlobalVar('mapModeAccessor')
+}

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
@@ -26,7 +27,7 @@ import org.eclipse.gmf.internal.graphdef.codegen.Activator;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
-import org.eclipse.gmf.internal.xpand.expression.Variable;
+import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 public class FigureGenerator implements TextEmitter {
@@ -71,13 +72,13 @@ public class FigureGenerator implements TextEmitter {
 		}
 		final ArrayList<Variable> globals = new ArrayList<Variable>();
 		if (mapModeStrategy == MapModeCodeGenStrategy.DYNAMIC) {
-			globals.add(new Variable(VAR_MM_ACCESS, mapModeAccessor == null ? "" : mapModeAccessor));
+			globals.add(new Variable(VAR_MM_ACCESS, EcorePackage.eINSTANCE.getEString(), mapModeAccessor == null ? "" : mapModeAccessor));
 		}
 		if (runtimeToken != null) {
-			globals.add(new Variable(VAR_RT_TOKEN, runtimeToken));
+			globals.add(new Variable(VAR_RT_TOKEN, EcorePackage.eINSTANCE.getEString(), runtimeToken));
 		}
 		additionalFields = new StringBuilder();
-		globals.add(new Variable(VAR_OUTPUT_FIELDS, "") {
+		globals.add(new Variable(VAR_OUTPUT_FIELDS, EcorePackage.eINSTANCE.getEString(), "") {
 			public Object getValue() {
 				return additionalFields.toString();
 			}

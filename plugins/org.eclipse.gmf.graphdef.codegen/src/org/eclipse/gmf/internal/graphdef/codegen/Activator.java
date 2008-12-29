@@ -37,7 +37,7 @@ public class Activator extends Plugin {
 
 	public static ResourceManager createResourceEngine(MapModeCodeGenStrategy strategy, URL... dynamicTemplates) {
 		try {
-			URL baseURL = instance.getBundle().getEntry("/templates/");
+			URL baseURL = instance.getBundle().getEntry("/templates.migrated/");
 			ArrayList<URL> urls = new ArrayList<URL>(3);
 			if (dynamicTemplates != null) {
 				// XXX perhaps, add strategy token to each url

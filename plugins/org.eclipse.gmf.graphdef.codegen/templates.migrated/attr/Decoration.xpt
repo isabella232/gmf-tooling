@@ -1,0 +1,53 @@
+/*
+ * Copyright (c) 2006 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'templates'»
+«EXTENSION Util»
+
+«DEFINE polylineAttrs(figureVarName : String) FOR gmfgraph::PolylineDecoration-»
+«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«EXPAND templatePoints(figureVarName)-»
+«EXPAND scale(figureVarName)-»
+«ENDDEFINE»
+
+«DEFINE polylineAttrs(figureVarName : String) FOR gmfgraph::PolygonDecoration-»
+«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«EXPAND templatePoints(figureVarName)-»
+«EXPAND scale(figureVarName)-»
+«ENDDEFINE»
+
+«DEFINE templatePoints(figureVarName : String) FOR gmfgraph::Polyline-»
+«IF not template->isEmpty()-»
+org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
+«EXPAND templatePoint('pl') FOREACH template-»
+«figureVarName».setTemplate(pl);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE templatePoint(pointListVarName : String) FOR gmfgraph::Point-»
+«pointListVarName».addPoint(«EXPAND MapMode::_map»);
+«ENDDEFINE»
+
+«DEFINE scale(figureVarName : String) FOR gmfgraph::PolylineDecoration-»
+«IF not template->isEmpty()-»
+«figureVarName».setScale(«EXPAND MapMode::_map FOR 7», «EXPAND MapMode::_map FOR 3»);
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE scale(figureVarName : String) FOR gmfgraph::PolygonDecoration-»
+«IF not template->isEmpty()-»
+«figureVarName».setScale(«EXPAND MapMode::_map FOR 7», «EXPAND MapMode::_map FOR 3»);
+«ENDIF-»
+«ENDDEFINE»

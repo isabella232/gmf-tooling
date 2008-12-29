@@ -1,0 +1,135 @@
+import xpt.GlobalVarOperations;
+import xpt.StringOperations;
+
+modeltype graphicalDefinition uses "http://www.eclipse.org/gmf/2006/GraphicalDefinition";
+
+library Util;
+
+property bordersInUse : Sequence(graphicalDefinition::CustomBorder) = Sequence {  };
+
+helper addBorder(border : graphicalDefinition::CustomBorder) : OclVoid {
+	bordersInUse := bordersInUse->including(border);
+	return null
+}
+
+helper clearBorders() : OclVoid {
+	bordersInUse := Sequence {  };
+	return null
+}
+
+helper getBordersInUse() : Sequence(graphicalDefinition::CustomBorder) {
+	return bordersInUse;
+}
+
+helper compilationUnitName(figure : graphicalDefinition::FigureDescriptor) : String {
+	return figure.name.firstToUpper()
+}
+
+helper hasSourceDecoration(figure : graphicalDefinition::PolylineConnection) : Boolean {
+	return null <> figure.sourceDecoration
+}
+
+helper requiredBundles(referencedBundles : Sequence(String)) : Sequence(String) {
+	return (if isFullRuntime() then Sequence { 'org.eclipse.core.runtime', 'org.eclipse.draw2d', 'org.eclipse.gmf.runtime.draw2d.ui' }->union(referencedBundles)->asOrderedSet()->asSequence()->asOrderedSet()->asSequence() else Sequence { 'org.eclipse.core.runtime', 'org.eclipse.draw2d' }->union(referencedBundles)->asOrderedSet()->asSequence()->asOrderedSet()->asSequence() endif)
+}
+
+helper additionalStaticFields() : String {
+return xpandGetStringGlobalVar('outputStaticFields')
+}
+
+helper hasTargetDecoration(figure : graphicalDefinition::PolylineConnection) : Boolean {
+	return null <> figure.targetDecoration
+}
+
+helper isFullRuntime() : Boolean {
+	return (if internalCheckRuntimeToken() <> null then internalCheckRuntimeToken().toLower() = 'full' else true endif)
+}
+
+helper internalCheckRuntimeToken() : String {
+return xpandGetStringGlobalVar('runtimeToken')
+}
+
+helper needsField(figure : graphicalDefinition::RealFigure) : Boolean {
+	return figure.descriptor <> null and figure.descriptor.accessors.figure->includes(figure)
+}
+
+helper figureVariableName(figure : graphicalDefinition::RealFigure, count : Integer) : String {
+	return (if needsField(figure) then figure.figureFieldName() else (if figure.name <> null and figure.name.trim().xpandLength() > 0 then figure.name.xpandToFirstLower() + count.repr() else figure.variableNameStem() + count.repr() endif) endif)
+}
+
+helper graphicalDefinition::FigureRef::nameStem() : String {
+	return self.figure.variableNameStem()
+}
+
+helper graphicalDefinition::Figure::nameStem() : String {
+	return self.variableNameStem()
+}
+
+helper graphicalDefinition::Figure::variableNameStem() : String {
+	return 'fig'
+}
+
+helper graphicalDefinition::RealFigure::variableNameStem() : String {
+	return 'fig'
+}
+
+helper graphicalDefinition::Shape::variableNameStem() : String {
+	return 'shape'
+}
+
+helper graphicalDefinition::Rectangle::variableNameStem() : String {
+	return 'rect'
+}
+
+helper graphicalDefinition::RoundedRectangle::variableNameStem() : String {
+	return 'rrect'
+}
+
+helper graphicalDefinition::Ellipse::variableNameStem() : String {
+	return 'elli'
+}
+
+helper graphicalDefinition::Polyline::variableNameStem() : String {
+	return 'polyline'
+}
+
+helper graphicalDefinition::Label::variableNameStem() : String {
+	return 'l'
+}
+
+helper graphicalDefinition::DecorationFigure::variableNameStem() : String {
+	return 'dec'
+}
+
+helper graphicalDefinition::ConnectionFigure::variableNameStem() : String {
+	return 'conn'
+}
+
+helper graphicalDefinition::RealFigure::figureFieldName() : String {
+	return figureFieldName(self.descriptor.accessors->select(a | self = a.figure)->asSequence())
+}
+
+helper figureFieldName(aaa : Sequence(graphicalDefinition::ChildAccess)) : String {
+	return aaa->collect(x | x.figureFieldName())->first()
+}
+
+helper graphicalDefinition::ChildAccess::figureFieldName() : String {
+	return 'f' + (if self.accessor.xpandStartsWith('get') and self.accessor.xpandLength() > 3 then self.accessor.xpandSubstring(3) else self.accessor endif)
+}
+
+helper borderLayoutConstant(layoutData : graphicalDefinition::BorderLayoutData) : String {
+	return switch { case (layoutData.alignment = graphicalDefinition::Alignment::BEGINNING) (if layoutData.vertical then 'TOP' else 'LEFT' endif); case (layoutData.alignment = graphicalDefinition::Alignment::END) (if layoutData.vertical then 'BOTTOM' else 'RIGHT' endif); else 'CENTER'; }
+}
+
+helper allCustomAccessors(fd : graphicalDefinition::FigureDescriptor) : Sequence(graphicalDefinition::FigureAccessor) {
+	return filterCustom(Sequence { fd.actualFigure }).customChildren
+}
+
+helper filterCustom(figures : Sequence(graphicalDefinition::Figure)) : Sequence(graphicalDefinition::CustomFigure) {
+	return (if figures->isEmpty() then Sequence {  } else (figures)[graphicalDefinition::CustomFigure]->union(filterCustom((figures)[graphicalDefinition::RealFigure].children))->asOrderedSet()->asSequence() endif)->collect(it | it)->asSequence()
+}
+
+
+helper svgPropertyType(p : graphicalDefinition::SVGProperty) : String {
+	return switch { case (p.type = graphicalDefinition::SVGPropertyType::COLOR) 'org.eclipse.swt.graphics.Color'; case (p.type = graphicalDefinition::SVGPropertyType::FLOAT) 'float'; else 'String'; }
+}
