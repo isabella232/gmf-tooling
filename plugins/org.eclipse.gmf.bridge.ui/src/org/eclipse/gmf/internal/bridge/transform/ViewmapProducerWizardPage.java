@@ -166,6 +166,9 @@ class ViewmapProducerWizardPage extends WizardPage {
 		postReconcileTransformBtn.addListener(SWT.Selection, l);
 		preReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
 		postReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
+		String hint = "Transformation should take single inout parameter of GMFGen model type, e.g.\n\nmodeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');\n\ntransformation %s(inout gmfgenModel : GMFGEN);\n\n main() {...}";
+		preReconcileTranfsormText.setToolTipText(String.format(hint, "PreReconcile"));
+		postReconcileTranfsormText.setToolTipText(String.format(hint, "PostReconcile"));
 		item = new ExpandItem(c, SWT.NONE, 1);
 		item.setText("Map to Gen transformation");
 		item.setHeight(map2genControls.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
