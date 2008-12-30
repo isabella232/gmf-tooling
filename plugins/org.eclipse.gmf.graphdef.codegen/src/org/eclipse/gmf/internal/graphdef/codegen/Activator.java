@@ -50,7 +50,7 @@ public class Activator extends Plugin {
 			urls.add(baseURL);
 			return new BundleResourceManager(urls.toArray(new URL[urls.size()]));
 		} catch (MalformedURLException ex) {
-			throw new Error();
+			throw new Error(ex);
 		}
 	}
 }
