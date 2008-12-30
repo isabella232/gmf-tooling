@@ -324,7 +324,9 @@ public class TransformToGenModelOperation {
 		if (getOptions().getPostReconcileTransform() != null) {
 			try {
 				URI transfURI = URI.createURI(getOptions().getPostReconcileTransform().toExternalForm());
-				new QvtoTransformationHelper(transfURI).executeTransformation(Collections.<EObject>singletonList(result), Collections.<String, Object>emptyMap(), getResourceSet());
+				List<EObject> in = Collections.<EObject>singletonList(result);
+				Map<String, Object> props = Collections.<String, Object>emptyMap();
+				new QvtoTransformationHelper(transfURI).executeTransformation(in, props, getResourceSet());
 			} catch (CoreException ex) {
 				Plugin.log(ex);
 			}

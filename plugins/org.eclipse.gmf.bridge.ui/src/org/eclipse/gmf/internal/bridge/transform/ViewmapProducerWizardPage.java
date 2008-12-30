@@ -183,19 +183,19 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 		TransformOptions options = getOperation().getOptions();
 		// safe to set option value now as they get flushed into storage only on Wizard.performFinish
-		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText));
-		options.setTransformation(checkTextFieldURI(qvtoFileControl));
-		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
-		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTranfsormText));
+		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText, true));
+		options.setTransformation(checkTextFieldURI(qvtoFileControl, false));
+		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText, false));
+		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTranfsormText, false));
 	}
 
-	private URL checkTextFieldURI(Text widget) {
+	private URL checkTextFieldURI(Text widget, boolean resolve) {
 		if (!widget.isEnabled()) {
 			return null;
 		}
 		if (widget.getText().trim().length() > 0) {
 			try {
-				return new URL(guessAndResolvePathURL(widget.getText().trim()));
+				return new URL(guessAndResolvePathURL(widget.getText().trim(), resolve));
 			} catch (MalformedURLException ex) {
 				setStatus(Plugin.createWarning(ex.getMessage()));
 			}
@@ -213,13 +213,13 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 		radioDGMT.setSelection(options.getMainTransformation() == null);
 		radioQVT.setSelection(!radioDGMT.getSelection());
-//		qvtoFileControl.setEnabled(radioQVT.getSelection());
+		qvtoFileControl.setEnabled(radioQVT.getSelection());
 		preReconcileTransformBtn.setSelection(options.getPreReconcileTransform() != null);
-//		preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
-		preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : null);
+		preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
+		preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : "");
 		postReconcileTransformBtn.setSelection(options.getPostReconcileTransform() != null);
-//		postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
-		postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : null);
+		postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
+		postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : "");
 	}
 
 	private TransformToGenModelOperation getOperation() {
@@ -236,9 +236,9 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 	}
 
-	private static String guessAndResolvePathURL(String path) {
+	private static String guessAndResolvePathURL(String path, boolean resolve) {
 		assert path != null;
 		URI templatesURI = path.indexOf(':') == -1 ? URI.createPlatformResourceURI(path, true) : URI.createURI(path);
-		return CommonPlugin.resolve(templatesURI).toString();
+		return resolve ? CommonPlugin.resolve(templatesURI).toString() : templatesURI.toString();
 	}
 }
