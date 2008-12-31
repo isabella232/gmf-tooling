@@ -369,13 +369,17 @@ public class TransformToGenModelOperation {
 
 	private GenModelProducer createGenModelProducer(VisualIdentifierDispenserProvider idDespenser) {
 		if (getOptions().getMainTransformation() != null) {
+			final Map<String, Object> configProps = new HashMap<String, Object>();
+			configProps.put("useMapMode", getOptions().getUseMapMode());
+			configProps.put("useFullRunTime", getOptions().getUseRuntimeFigures());
+			configProps.put("rcp", getOptions().getGenerateRCP());
 			return new GenModelProducer() {
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
 					progress.beginTask(null, 1);
 					try {
 						URI transfURI = URI.createURI(getOptions().getMainTransformation().toExternalForm());
 						QvtoTransformationHelper helper = new QvtoTransformationHelper(transfURI);
-						TransfExecutionResult result = helper.executeTransformation(Collections.<EObject>singletonList(mapping), Collections.<String, Object>emptyMap(), getResourceSet());
+						TransfExecutionResult result = helper.executeTransformation(Collections.<EObject>singletonList(mapping), configProps, getResourceSet());
 						for (EObject r : result.getOutParameters()) {
 							if (r instanceof GenEditorGenerator) {
 								return (GenEditorGenerator) r;
