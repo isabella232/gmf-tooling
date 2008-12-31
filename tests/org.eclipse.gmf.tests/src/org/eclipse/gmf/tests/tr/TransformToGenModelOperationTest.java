@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.tr;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
@@ -44,9 +46,11 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.MapDefSource;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
 
 
@@ -54,6 +58,7 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 	
 	public TransformToGenModelOperationTest(String name) {
 		super(name);
+		myDefaultSetup = SessionSetup.newInstance();
 	}
 	
 	private static String FOLDER_MODELS = "models"; //$NON-NLS-1$
@@ -150,6 +155,39 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
 		IStatus status = myOperation.executeTransformation(null);
 		assertTrue(status.isOK());
+	}
+
+	public void testPreReconcileHookOption() throws Exception {
+		URI mapURI = prepareResources();
+		loadMappingModel(mapURI);
+		// GenModelDetector#detect() should be invoked prior to #createDefaultGenModel()
+		myOperation.getGenModelDetector().detect();
+		myOperation.loadGenModel(createDefaultGenModel(mapURI), null);
+		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
+		//
+		assertNull("[sanity]", myOperation.getOptions().getPostReconcileTransform()); // no post-reconcile hook, only pre-reconcile
+		myOperation.getOptions().setPreReconcileTransform(new URL(Plugin.createURI("/transforms/PrePostReconcileHook.qvto").toString()));
+		//
+		IStatus status = myOperation.executeTransformation(null);
+		assertTrue(status.isOK());
+		GenEditorGenerator result = (GenEditorGenerator) myOperation.getResourceSet().getResource(myOperation.getGenURI(), true).getContents().get(0);
+		assertNull("PreReconcile hook is expected to clean genEditor.navigator", result.getNavigator());
+	}
+
+	public void testPostReconcileHookOption() throws Exception {
+		URI mapURI = prepareResources();
+		loadMappingModel(mapURI);
+		myOperation.getGenModelDetector().detect();
+		myOperation.loadGenModel(createDefaultGenModel(mapURI), null);
+		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
+		//
+		assertNull("[sanity]", myOperation.getOptions().getPreReconcileTransform()); // no pre-reconcile hook, only post-reconcile
+		myOperation.getOptions().setPostReconcileTransform(new URL(Plugin.createURI("/transforms/PrePostReconcileHook.qvto").toString()));
+		//
+		IStatus status = myOperation.executeTransformation(null);
+		assertTrue(status.isOK());
+		GenEditorGenerator result = (GenEditorGenerator) myOperation.getResourceSet().getResource(myOperation.getGenURI(), true).getContents().get(0);
+		assertNull("PostReconcile hook is expected to clean genEditor.navigator", result.getNavigator());
 	}
 
 	private void loadMappingModel(URI mapURI) {
