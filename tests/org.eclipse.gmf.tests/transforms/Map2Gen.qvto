@@ -1,0 +1,15 @@
+modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');
+	
+transformation Map2Gen(in mapModel : GMFMAP, out gmfgenModel : GMFGEN);
+
+-- configuration property rcp : Boolean;
+
+main(in mapRoot : GMFMAP::Mapping@mapModel, out genEditor : GMFGEN::GenEditorGenerator@gmfgenModel) {
+	genEditor := mapRoot.map process();
+}
+
+mapping GMFMAP::Mapping::process() : GMFGEN::GenEditorGenerator {
+	copyrightText := 'FROM QVTO TRANSFORMATION';
+	diagram := object GenDiagram {};
+}
