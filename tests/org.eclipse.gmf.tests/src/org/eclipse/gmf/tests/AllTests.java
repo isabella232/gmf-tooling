@@ -63,12 +63,9 @@ public class AllTests {
 
 	public static Test suite() throws Exception {
 		EMFTypePlugin.startDynamicAwareMode();
-		System.err.println("AllTests.suite():1");
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
-		System.err.println("AllTests.suite():2");
 		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
-		System.err.println("AllTests.suite():3");
 		
 		SessionSetup.disallowSingleTestCaseUse();
 
@@ -94,7 +91,6 @@ public class AllTests {
 			return suite;
 		}
 		/* [AS--] */
-		System.err.println("AllTests.suite():4");
 
 		//$JUnit-BEGIN$
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
