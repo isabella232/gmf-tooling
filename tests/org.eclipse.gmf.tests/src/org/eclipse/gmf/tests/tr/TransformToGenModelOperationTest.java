@@ -165,12 +165,16 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 		myOperation.loadGenModel(createDefaultGenModel(mapURI), null);
 		myOperation.setGenURI(createURI(FILE_EXT_GMFGEN));
 		//
+		myOperation.getOptions().setUseMapMode(false);
+		myOperation.getOptions().setUseRuntimeFigures(false);
+		myOperation.getOptions().setGenerateRCP(true);
 		myOperation.getOptions().setTransformation(new URL(Plugin.createURI("/transforms/Map2Gen.qvto").toString()));
 		//
 		IStatus status = myOperation.executeTransformation(null);
 		assertTrue(status.getMessage(), status.isOK());
 		GenEditorGenerator result = (GenEditorGenerator) myOperation.getResourceSet().getResource(myOperation.getGenURI(), true).getContents().get(0);
 		assertEquals("FROM QVTO TRANSFORMATION", result.getCopyrightText());
+		assertEquals("truefalsefalse", result.getModelID());
 	}
 
 	public void testPreReconcileHookOption() throws Exception {
