@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EPackage;
 
 class ModeltypeImports extends AbstractImportsManager {
 
+	private static final String DELIMITER = "_";
+
 	private static final String DEFAULT_ALIAS = "metaModelRef";
 
 	private boolean injectUnusedImports;
@@ -84,12 +86,15 @@ class ModeltypeImports extends AbstractImportsManager {
 			System.arraycopy(charArray, i + 1, alias, 0, charArray.length - 1 - i);
 			alias[0] = Character.toLowerCase(alias[0]);
 			aliasProposal = new String(alias);
+			if (!Character.isJavaIdentifierStart(alias[0])) {
+				aliasProposal = DELIMITER + aliasProposal;
+			}
 		} else {
 			aliasProposal = DEFAULT_ALIAS;
 		}
 		String actualAlias = aliasProposal;
 		for (int suffix = 1; modeltypeAliases.contains(actualAlias); suffix++) {
-			actualAlias = aliasProposal + "_" + suffix;
+			actualAlias = aliasProposal + DELIMITER + suffix;
 		}
 		modeltypeAliases.add(actualAlias);
 		return actualAlias;
