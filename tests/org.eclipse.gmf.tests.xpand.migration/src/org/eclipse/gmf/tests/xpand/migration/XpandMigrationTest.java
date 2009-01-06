@@ -17,7 +17,6 @@ import java.io.Reader;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.XpandMigrationFacade;
