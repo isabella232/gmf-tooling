@@ -1,6 +1,7 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI";
 import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration1.fakeURI";
+import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI/2.0";
 
 EClass getDummyEClass(ecore::EClass param) :
 	param

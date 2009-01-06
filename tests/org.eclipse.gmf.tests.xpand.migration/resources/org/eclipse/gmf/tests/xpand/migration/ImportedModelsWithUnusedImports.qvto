@@ -1,6 +1,7 @@
 modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 modeltype fakeURI uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI";
 modeltype fakeURI_1 uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration1.fakeURI";
+modeltype _0 uses "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI/2.0";
 
 library ImportedModels;
 
