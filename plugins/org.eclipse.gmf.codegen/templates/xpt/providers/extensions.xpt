@@ -31,6 +31,9 @@
       «EXPAND xpt::Common::xmlGeneratedTag»
       <editpartProvider class="«getEditPartProviderQualifiedClassName()»">
          <Priority name="«editPartProviderPriority»"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="«editorGen.modelID»"/>
+         </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
             <method name="getType()" value="«FOREACH getAllNodes() AS n SEPARATOR ","»«n.visualID»«ENDFOREACH»"/>
          </object>
@@ -43,7 +46,7 @@
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
             <method name="getType()" value="«FOREACH compartments AS c SEPARATOR ","»«c.visualID»«ENDFOREACH»"/>
          </object>
-         <context views="generated-nodes,generated-links,generated-labels,generated-compartments"/>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
       </editpartProvider>
    </extension>
 
