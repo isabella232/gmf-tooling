@@ -85,7 +85,7 @@ public class XpandMigrationTest extends TestCase {
 	
 	public void testFixedProblems() throws IOException, MigrationException {
 		String resourceName = "FixedProblems";
-		checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GMFGenPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XpandMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 	
 	public void testImportedExtensions() throws IOException, MigrationException {

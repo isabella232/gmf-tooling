@@ -1,4 +1,4 @@
-import library xpt.OclAnyOperations;
+import xpt.OclAnyOperations;
 
 modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 

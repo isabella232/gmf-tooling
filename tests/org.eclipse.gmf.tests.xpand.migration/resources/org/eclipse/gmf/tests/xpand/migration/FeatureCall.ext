@@ -1,26 +1,25 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration.fakeURI/GenModel";
-import "http://www.eclipse.org/emf/2002/GenModel";
 import "http://www.eclipse.org/gmf/2008/org.eclipse.gmf.tests.xpand.migration/testModel";
 
 String featureCall(ecore::EClass eClass) :
 	eClass.name
 ;
 
-genmodel::GenProviderKind enumLiteralCall() :
-	genmodel::GenProviderKind::Singleton
+testModel::Enumeration enumLiteralCall() :
+	testModel::Enumeration::LITERAL_0
 ;
 
-Boolean enumLiteralValueCall(genmodel::GenProviderKind otherLiteral) :
-	genmodel::GenProviderKind::Singleton.value == otherLiteral.value
+Boolean enumLiteralValueCall(testModel::Enumeration otherLiteral) :
+	testModel::Enumeration::LITERAL_0.value == otherLiteral.value
 ;
 
-Boolean enumLiteralLiteralCall(genmodel::GenProviderKind otherLiteral) :
-	genmodel::GenProviderKind::Singleton.literal == otherLiteral.literal
+Boolean enumLiteralLiteralCall(testModel::Enumeration otherLiteral) :
+	testModel::Enumeration::LITERAL_0.literal == otherLiteral.literal
 ;
 
-String enumLiteralNameCall(genmodel::GenProviderKind otherLiteral) :
-	genmodel::GenProviderKind::Singleton.name
+String enumLiteralNameCall() :
+	testModel::Enumeration::LITERAL_0.name
 ;
 
 /* FeatureCall referencing collection-type parameter should return it as is without any modifications*/
@@ -135,7 +134,7 @@ List[testModel::Child] getChildrenOfCollection(Collection[testModel::Container] 
 	param.children
 ;
 
-/* FeatureCall with TypeLiteral expression referencing EClass operations */
-Boolean isSuperTypeOf(ecore::EClass param) :
-	ecore::EReference.isSuperTypeOf(param)
+/* FeatureCall with TypeLiteral expression referencing EClass operations */ 
+Boolean isSuperTypeOf(ecore::EObject param) :
+	ecore::EReference.isSuperTypeOf(param.eClass())
 ;

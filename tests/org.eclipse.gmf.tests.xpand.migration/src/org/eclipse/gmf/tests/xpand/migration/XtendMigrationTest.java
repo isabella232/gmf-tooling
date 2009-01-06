@@ -67,7 +67,7 @@ public class XtendMigrationTest extends TestCase {
 
 	public void testFeatureCall() throws IOException, MigrationException {
 		String resourceName = "FeatureCall";
-		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 
 	public void testOperationCall() throws IOException, MigrationException {

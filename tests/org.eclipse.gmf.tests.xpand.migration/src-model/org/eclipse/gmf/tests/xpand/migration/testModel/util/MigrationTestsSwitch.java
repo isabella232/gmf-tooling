@@ -106,6 +106,12 @@ public class MigrationTestsSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case MigrationTestsPackage.DEFAULT_ATTRIBUTE_CONTAINER: {
+				DefaultAttributeContainer defaultAttributeContainer = (DefaultAttributeContainer)theEObject;
+				T result = caseDefaultAttributeContainer(defaultAttributeContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -152,6 +158,21 @@ public class MigrationTestsSwitch<T> {
 	 * @generated
 	 */
 	public T caseSubContainer(SubContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Default Attribute Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Default Attribute Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDefaultAttributeContainer(DefaultAttributeContainer object) {
 		return null;
 	}
 

@@ -8,6 +8,7 @@ package org.eclipse.gmf.tests.xpand.migration.testModel;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -245,6 +246,46 @@ public interface MigrationTestsPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.DefaultAttributeContainerImpl <em>Default Attribute Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.DefaultAttributeContainerImpl
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.MigrationTestsPackageImpl#getDefaultAttributeContainer()
+	 * @generated
+	 */
+	int DEFAULT_ATTRIBUTE_CONTAINER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Default</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_ATTRIBUTE_CONTAINER__DEFAULT = 0;
+
+	/**
+	 * The number of structural features of the '<em>Default Attribute Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_ATTRIBUTE_CONTAINER_FEATURE_COUNT = 1;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration <em>Enumeration</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.MigrationTestsPackageImpl#getEnumeration()
+	 * @generated
+	 */
+	int ENUMERATION = 4;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Container <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -350,6 +391,37 @@ public interface MigrationTestsPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSubContainer();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.tests.xpand.migration.testModel.DefaultAttributeContainer <em>Default Attribute Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Default Attribute Container</em>'.
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.DefaultAttributeContainer
+	 * @generated
+	 */
+	EClass getDefaultAttributeContainer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tests.xpand.migration.testModel.DefaultAttributeContainer#isDefault <em>Default</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default</em>'.
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.DefaultAttributeContainer#isDefault()
+	 * @see #getDefaultAttributeContainer()
+	 * @generated
+	 */
+	EAttribute getDefaultAttributeContainer_Default();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration <em>Enumeration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Enumeration</em>'.
+	 * @see org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration
+	 * @generated
+	 */
+	EEnum getEnumeration();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -458,6 +530,34 @@ public interface MigrationTestsPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SUB_CONTAINER = eINSTANCE.getSubContainer();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.DefaultAttributeContainerImpl <em>Default Attribute Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.DefaultAttributeContainerImpl
+		 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.MigrationTestsPackageImpl#getDefaultAttributeContainer()
+		 * @generated
+		 */
+		EClass DEFAULT_ATTRIBUTE_CONTAINER = eINSTANCE.getDefaultAttributeContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Default</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DEFAULT_ATTRIBUTE_CONTAINER__DEFAULT = eINSTANCE.getDefaultAttributeContainer_Default();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration <em>Enumeration</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration
+		 * @see org.eclipse.gmf.tests.xpand.migration.testModel.impl.MigrationTestsPackageImpl#getEnumeration()
+		 * @generated
+		 */
+		EEnum ENUMERATION = eINSTANCE.getEnumeration();
 
 	}
 

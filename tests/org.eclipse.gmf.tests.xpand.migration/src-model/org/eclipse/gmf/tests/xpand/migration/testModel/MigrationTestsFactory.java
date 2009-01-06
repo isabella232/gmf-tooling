@@ -53,6 +53,15 @@ public interface MigrationTestsFactory extends EFactory {
 	SubContainer createSubContainer();
 
 	/**
+	 * Returns a new object of class '<em>Default Attribute Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Default Attribute Container</em>'.
+	 * @generated
+	 */
+	DefaultAttributeContainer createDefaultAttributeContainer();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

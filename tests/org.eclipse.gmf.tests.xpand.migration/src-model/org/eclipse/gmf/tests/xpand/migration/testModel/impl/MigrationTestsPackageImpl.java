@@ -8,6 +8,7 @@ package org.eclipse.gmf.tests.xpand.migration.testModel.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -15,6 +16,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.gmf.tests.xpand.migration.testModel.Child;
 import org.eclipse.gmf.tests.xpand.migration.testModel.Container;
+import org.eclipse.gmf.tests.xpand.migration.testModel.DefaultAttributeContainer;
+import org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsFactory;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
 import org.eclipse.gmf.tests.xpand.migration.testModel.SubContainer;
@@ -46,6 +49,20 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 	 * @generated
 	 */
 	private EClass subContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass defaultAttributeContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum enumerationEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -210,6 +227,33 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDefaultAttributeContainer() {
+		return defaultAttributeContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDefaultAttributeContainer_Default() {
+		return (EAttribute)defaultAttributeContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getEnumeration() {
+		return enumerationEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public MigrationTestsFactory getMigrationTestsFactory() {
 		return (MigrationTestsFactory)getEFactoryInstance();
 	}
@@ -245,6 +289,12 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		childEClass = createEClass(CHILD);
 
 		subContainerEClass = createEClass(SUB_CONTAINER);
+
+		defaultAttributeContainerEClass = createEClass(DEFAULT_ATTRIBUTE_CONTAINER);
+		createEAttribute(defaultAttributeContainerEClass, DEFAULT_ATTRIBUTE_CONTAINER__DEFAULT);
+
+		// Create enums
+		enumerationEEnum = createEEnum(ENUMERATION);
 	}
 
 	/**
@@ -302,6 +352,14 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(subContainerEClass, SubContainer.class, "SubContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(defaultAttributeContainerEClass, DefaultAttributeContainer.class, "DefaultAttributeContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDefaultAttributeContainer_Default(), ecorePackage.getEBoolean(), "default", null, 0, 1, DefaultAttributeContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(enumerationEEnum, Enumeration.class, "Enumeration");
+		addEEnumLiteral(enumerationEEnum, Enumeration.LITERAL_0);
+		addEEnumLiteral(enumerationEEnum, Enumeration.LITERAL_1);
 
 		// Create resource
 		createResource(eNS_URI);

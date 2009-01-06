@@ -1,5 +1,5 @@
-import library xpt.StringOperations;
-import library xpt.OclAnyOperations;
+import xpt.StringOperations;
+import xpt.OclAnyOperations;
 
 library OperationCall_StringOperations;
 
