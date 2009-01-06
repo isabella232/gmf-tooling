@@ -83,29 +83,33 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 	}
 
 	public final void testForeach() throws Exception {
-		final XpandResource t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FOREACH tests AS test SEPARATOR ','") + tag("test") + tag("ENDFOREACH") + tag("ENDDEFINE"));
-		assertEquals(1, t.getDefinitions().length);
-
-		final XpandDefinition defineWithForeach = t.getDefinitions()[0];
 		// any EClass instance for 'this'
 		final Variable self = new Variable(ExecutionContext.IMPLICIT_VARIABLE, EcorePackage.eINSTANCE.getEClass(), EcorePackage.eINSTANCE.getEAnnotation());
 
 		final List<String> tests = new ArrayList<String>();
 
-		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		createDefineWithForeach().evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
 		assertEquals("", buffer.toString().trim());
 
 		tests.add("hallo");
-		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		createDefineWithForeach().evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
 		assertEquals("hallo", buffer.toString().trim());
 
 		tests.add("Du");
-		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		createDefineWithForeach().evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
 		assertEquals("hallo,Du", buffer.toString().trim());
 
 		tests.add("da");
-		defineWithForeach.evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
+		createDefineWithForeach().evaluate(createCtx(out).cloneWithVariable(self, new Variable("tests", null, tests)));
 		assertEquals("hallo,Du,da", buffer.toString().trim());
+	}
+
+	private XpandDefinition createDefineWithForeach() throws Exception {
+		final XpandResource t = parse(tag("DEFINE test FOR ecore::EClass") + tag("FOREACH tests AS test SEPARATOR ','") + tag("test") + tag("ENDFOREACH") + tag("ENDDEFINE"));
+		assertEquals(1, t.getDefinitions().length);
+
+		final XpandDefinition defineWithForeach = t.getDefinitions()[0];
+		return defineWithForeach;
 	}
 
 	public final void testMultilineText() throws Exception {
