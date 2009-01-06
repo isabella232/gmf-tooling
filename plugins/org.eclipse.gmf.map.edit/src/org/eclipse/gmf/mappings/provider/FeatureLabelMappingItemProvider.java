@@ -90,7 +90,7 @@ public class FeatureLabelMappingItemProvider
 				 false,
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection<?> getComboBoxObjects(Object object) {
 							@SuppressWarnings("unchecked")
