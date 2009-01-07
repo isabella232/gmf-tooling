@@ -1,0 +1,25 @@
+import "http://www.eclipse.org/emf/2002/Ecore";
+
+Boolean instanceofSize(ecore::EObject eObject) :
+	{eObject}.typeSelect(ecore::EClass).size() > 0
+;
+
+Boolean notInstanceofSize(ecore::EObject eObject) :
+	{eObject}.typeSelect(ecore::EClass).size() == 0
+;
+
+Boolean notInstanceofSize1(ecore::EObject eObject) :
+	{eObject}.typeSelect(ecore::EClass).size() < 1
+;
+
+Boolean instanceofIsEmpty(ecore::EObject eObject) :
+	{eObject}.typeSelect(ecore::EClass).isEmpty()
+;
+
+Boolean notInstanceofIsEmpty(ecore::EObject eObject) :
+	!{eObject}.typeSelect(ecore::EClass).isEmpty()
+;
+
+Boolean instanceofIsEmptyFalse(ecore::EObject eObject) :
+	{eObject}.typeSelect(ecore::EClass).isEmpty() == false
+;

@@ -248,6 +248,10 @@ public class XtendMigrationTest extends TestCase {
 	public void testWorkflowSlot() throws IOException, MigrationException {
 		checkMigration("WorkflowSlot");
 	}
+	
+	public void testInstanceOf() throws IOException, MigrationException {
+		checkMigration("Instanceof");
+	}
 
 	private String readStringContent(InputStreamReader reader) throws IOException {
 		StringBuilder sb = new StringBuilder();
