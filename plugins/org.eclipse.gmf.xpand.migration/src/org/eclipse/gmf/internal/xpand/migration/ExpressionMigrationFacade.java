@@ -59,7 +59,6 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 
-
 public class ExpressionMigrationFacade {
 
 	public static final String LF = System.getProperty("line.separator");
@@ -764,6 +763,17 @@ public class ExpressionMigrationFacade {
 			write("'");
 			return EcorePackage.eINSTANCE.getEString();
 		}
+		
+		// TODO: check precedence...
+		TypeSelectExpression typeSelect = getInfixInstanceOfTypeSelect(eOperation, operationCall);
+		if (typeSelect != null) {
+			return internalMigrateInstanceof(typeSelect);
+		}
+		typeSelect = getInfixNotInstanceOfTypeSelect(eOperation, operationCall);
+		if (typeSelect != null) {
+			write("not ");
+			return internalMigrateInstanceof(typeSelect);
+		}
 
 		int operationPrecedence = getPrecedence(operationCall);
 		int targetStartPosition = getCurrentPosition();
@@ -806,6 +816,85 @@ public class ExpressionMigrationFacade {
 		return getTypedElementQvtType(eOperation);
 	}
 
+	private EClassifier internalMigrateInstanceof(TypeSelectExpression typeSelect) throws MigrationException {
+		assert typeSelect.getTarget() instanceof ListLiteral;
+		ListLiteral listLiteral = (ListLiteral) typeSelect.getTarget();
+		assert listLiteral.getElements().length == 1;
+		migrateExpression(listLiteral.getElements()[0]);
+		write(".oclIsKindOf(");
+		write(typeManager.getQvtFQName(ctx.getTypeForName(typeSelect.getTypeLiteral().getValue())));
+		write(")");
+		return EcorePackage.eINSTANCE.getEBoolean();
+	}
+	
+	private TypeSelectExpression getInfixNotInstanceOfTypeSelect(EOperation eOperation, OperationCall operationCall) {
+		if (operationCall.getParams().length == 1 && operationCall.getTarget() instanceof OperationCall) {
+			Expression paramExpression = operationCall.getParams()[0];
+			OperationCall target = (OperationCall) operationCall.getTarget();
+			if (eOperation == BuiltinMetaModel.Object_EQ && paramExpression instanceof IntegerLiteral && "0".equals(((IntegerLiteral) paramExpression).getLiteralValue())
+					&& "size".equals(target.getName().getValue()) && target.getTarget() instanceof TypeSelectExpression) {
+				TypeSelectExpression result = (TypeSelectExpression) target.getTarget();
+				if (isInstanceofTypeselect(result)) {
+					return result;
+				}
+			} else if (eOperation == BuiltinMetaModel.Int_Less && paramExpression instanceof IntegerLiteral && "1".equals(((IntegerLiteral) paramExpression).getLiteralValue())
+					&& "size".equals(target.getName().getValue()) && target.getTarget() instanceof TypeSelectExpression) {
+				TypeSelectExpression result = (TypeSelectExpression) target.getTarget();
+				if (isInstanceofTypeselect(result)) {
+					return result;
+				}
+			}
+		}
+		return null;
+	}
+
+	private TypeSelectExpression getInfixInstanceOfTypeSelect(EOperation eOperation, OperationCall operationCall) {
+		if (operationCall.getTarget() instanceof OperationCall) {
+			OperationCall target = (OperationCall) operationCall.getTarget();
+			if (operationCall.getParams().length == 0) {
+				if (eOperation == BuiltinMetaModel.Boolean_NE && "isEmpty".equals(target.getName().getValue()) && target.getTarget() instanceof TypeSelectExpression) {
+					TypeSelectExpression result = (TypeSelectExpression) target.getTarget();
+					if (isInstanceofTypeselect(result)) {
+						return result;
+					}
+				}
+			} else if (operationCall.getParams().length == 1) {
+				Expression paramExpression = operationCall.getParams()[0];
+				if (eOperation == BuiltinMetaModel.Int_Greater && paramExpression instanceof IntegerLiteral && "0".equals(((IntegerLiteral) paramExpression).getLiteralValue())
+						&& "size".equals(target.getName().getValue()) && target.getTarget() instanceof TypeSelectExpression) {
+					TypeSelectExpression result = (TypeSelectExpression) target.getTarget();
+					if (isInstanceofTypeselect(result)) {
+						return result;
+					}
+				} else if (eOperation == BuiltinMetaModel.Object_EQ && paramExpression instanceof BooleanLiteral && !Boolean.valueOf(((BooleanLiteral) paramExpression).getLiteralValue())
+						&& "isEmpty".equals(target.getName().getValue()) && target.getTarget() instanceof TypeSelectExpression) {
+					TypeSelectExpression result = (TypeSelectExpression) target.getTarget();
+					if (isInstanceofTypeselect(result)) {
+						return result;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	/**
+	 * @return true if passed OperationCall represents typeSelect operation
+	 *         called for the single element list literal expression like:
+	 * 
+	 *         {<var>}.typeSelect(<TypeLiteral>)
+	 * 
+	 *         usually repressenting .oclIsKindOf() operation.
+	 */
+	private boolean isInstanceofTypeselect(TypeSelectExpression typeSelect) {
+		if (typeSelect.getTarget() instanceof ListLiteral) {
+			ListLiteral listLiteral = (ListLiteral) typeSelect.getTarget();
+			return listLiteral.getElements().length == 1;
+		}
+		return false;
+	}
+
 	/**
 	 * @param expression can be null
 	 */
@@ -829,6 +918,29 @@ public class ExpressionMigrationFacade {
 				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, expression, expressionTrace);
 			}
 			OperationCallTrace trace = (OperationCallTrace) expressionTrace;
+			if (getInfixNotInstanceOfTypeSelect(trace.getEOperation(), operationCall) != null) {
+				/*
+				 * this operation will be migrated as
+				 * 
+				 * not <var>.oclIsKindOf(<TypeLiteral>)
+				 * 
+				 * so having Boolean_NE precedence
+				 */
+				return 2;
+			}
+			
+			if (BuiltinMetaModel.Collection_IsEmpty == trace.getEOperation() && operationCall.getTarget() instanceof TypeSelectExpression
+					&& isInstanceofTypeselect((TypeSelectExpression) operationCall.getTarget())) {
+				/*
+				 * this operation will be migrated as
+				 * 
+				 * not <var>.oclIsKindOf(<TypeLiteral>)
+				 * 
+				 * so having Boolean_NE precedence
+				 */
+				return 2;
+			}
+			
 			if (trace.getEOperation() != null && infixOperations.contains(trace.getEOperation())) {
 				EOperation eOperation = trace.getEOperation();
 				if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
@@ -909,6 +1021,11 @@ public class ExpressionMigrationFacade {
 		assert BuiltinMetaModel.isCollectionType(targetType);
 		EClassifier elementType = BuiltinMetaModel.getInnerType(targetType);
 
+		if (BuiltinMetaModel.Collection_IsEmpty == eOperation && operationCall.getTarget() instanceof TypeSelectExpression && isInstanceofTypeselect((TypeSelectExpression) operationCall.getTarget())) {
+			write("not ");
+			return internalMigrateInstanceof((TypeSelectExpression) operationCall.getTarget());
+		}
+		
 		int expressionStartPosition = getCurrentPosition();
 		if (BuiltinMetaModel.Collection_Clear != eOperation && BuiltinMetaModel.List_WithoutFirst != eOperation && BuiltinMetaModel.List_WithoutLast != eOperation) {
 			EClassifier targetQvtType = internalMigrateOperationCallTarget(operationCall);
