@@ -5,21 +5,21 @@ Boolean anotherQuery() :
 ;
 
 String simpleNativeExtension(String parameter, Boolean parameter2) :
-JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativeExtension(java.lang.String, java.lang.Boolean)
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensions.simpleNativeExtension(java.lang.String, java.lang.Boolean)
 ;
 
 String simpleNativePolyExtension(String parameter, Boolean parameter2) :
-JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativePolyExtension(java.lang.String, java.lang.Boolean)
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensions.simpleNativePolyExtension(java.lang.String, java.lang.Boolean)
 ;
 
 String simpleNativePolyExtension(Object parameter, Boolean parameter2) :
-JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.simpleNativePolyExtension(java.lang.String, java.lang.Boolean)
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensions.simpleNativePolyExtension(java.lang.String, java.lang.Boolean)
 ;
 
 ecore::EClass modelElementAsNativeExtensionParameter(ecore::EObject param1, ecore::EPackage param2) :
-JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.modelElementAsNativeExtensionParameter(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EPackage)
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensions.modelElementAsNativeExtensionParameter(org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EPackage)
 ;
 
 List[ecore::EClass] collectionsInNativeExtensions(Collection[ecore::EObject] param1, Set[ecore::EPackage] param2, List[Object] param3, List[ecore::EClassifier] param4) :
-JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensionsContainer.collectionsInNativeExtensions(java.util.Collection, java.util.Set, java.lang.Object.List, org.eclipse.emf.ecore.EClassifier.List)
+JAVA org.eclipse.gmf.tests.xpand.migration.NativeExtensions.collectionsInNativeExtensions(java.util.Collection, java.util.Set, java.lang.Object.List, org.eclipse.emf.ecore.EClassifier.List)
 ;

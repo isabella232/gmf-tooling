@@ -199,7 +199,7 @@ public class XtendMigrationTest extends TestCase {
 		String classBody = facade.getNativeLibraryClassBody().toString();
 		assertNotNull(classBody);
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "java")));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "java_")));
 		StringBuilder sb = new StringBuilder();
 		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
 			if (sb.length() > 0) {
