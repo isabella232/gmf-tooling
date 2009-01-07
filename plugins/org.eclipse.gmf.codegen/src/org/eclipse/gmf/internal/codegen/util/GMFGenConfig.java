@@ -275,6 +275,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setCopier(GMFGEN.getCustomParser(), Copier.COMPLETE_COPY_WITH_CROSSREF);
 
 		setMatcher(GMFGEN.getGenContextMenu(), new VisualIDMatcher(GMFGEN.getGenContextMenu_Context()));
+		preserveIfSet(GMFGEN.getGenContextMenu(), GMFGEN.getGenContributionManager_ID());
 		setCopier(GMFGEN.getGenContextMenu(), Copier.COMPLETE_COPY_WITH_CROSSREF);
 		setMatcher(GMFGEN.getGenCustomAction(), GMFGEN.getGenCustomAction_QualifiedClassName());
 		preserveIfSet(GMFGEN.getGenCustomAction_GenerateBoilerplate());
@@ -285,6 +286,19 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setCopier(GMFGEN.getGenCommandAction(), Copier.COMPLETE_COPY_NO_CROSSREF); // copy then, if none found
 		setMatcher(GMFGEN.getGenSeparator(), GMFGEN.getGenSeparator_GroupName());
 		setMatcher(GMFGEN.getGenGroupMarker(), GMFGEN.getGenGroupMarker_GroupName());
+		
+		setMatcher(GMFGEN.getCreateShortcutAction(), ALWAYS_MATCH);
+		setMatcher(GMFGEN.getInitDiagramAction(), ALWAYS_MATCH);
+		setMatcher(GMFGEN.getLoadResourceAction(), ALWAYS_MATCH);
+		setCopier(GMFGEN.getCreateShortcutAction(), Copier.COMPLETE_COPY_NO_CROSSREF);
+		setCopier(GMFGEN.getInitDiagramAction(), Copier.COMPLETE_COPY_NO_CROSSREF);
+		setCopier(GMFGEN.getLoadResourceAction(), Copier.COMPLETE_COPY_NO_CROSSREF);
+		preserveIfSet(GMFGEN.getCreateShortcutAction(), GMFGEN.getGenAction_Name());
+		preserveIfSet(GMFGEN.getCreateShortcutAction(), GMFGEN.getGenAction_QualifiedClassName());
+		preserveIfSet(GMFGEN.getInitDiagramAction(), GMFGEN.getGenAction_Name());
+		preserveIfSet(GMFGEN.getInitDiagramAction(), GMFGEN.getGenAction_QualifiedClassName());
+		preserveIfSet(GMFGEN.getLoadResourceAction(), GMFGEN.getGenAction_Name());
+		preserveIfSet(GMFGEN.getLoadResourceAction(), GMFGEN.getGenAction_QualifiedClassName());
 	}
 
 	private void restoreOld(EClass eClass, EAttribute feature) {
