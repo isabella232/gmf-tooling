@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
+import org.eclipse.gmf.internal.xpand.editor.Activator;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
@@ -36,42 +37,48 @@ import org.eclipse.ocl.expressions.CollectionKind;
 
 public class FastAnalyzer {
 
-	private static final Pattern PARAM_PATTERN = Pattern.compile("([\\[\\]:\\w]+)\\s+([\\w]+)");
+	private final Pattern PARAM_PATTERN = Pattern.compile("([\\[\\]:\\w]+)\\s+([\\w]+)");
 
-	private final static Pattern IMPORT_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*IMPORT\\s+\"([^\"]+)\"\\s*" + XpandTokens.RT);
+	private final Pattern IMPORT_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*IMPORT\\s+'([^\"]+)'\\s*" + XpandTokens.RT);
 
-	private final static Pattern EXTENSION_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*EXTENSION\\s+([\\w\\:]+)\\s*" + XpandTokens.RT);
+	private final Pattern EXTENSION_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*EXTENSION\\s+([\\w\\:]+)\\s*" + XpandTokens.RT);
 
-	private final static Pattern INCOMPLETE_IMPORT_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*IMPORT\\s+[\\w\\:]*\\z");
+	private final Pattern INCOMPLETE_IMPORT_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*IMPORT\\s+[\\w\\:]*\\z");
 
-	private final static Pattern INCOMPLETE_EXTENSION_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*EXTENSION\\s+[\\w\\:]*\\z");
+	private final Pattern INCOMPLETE_EXTENSION_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*EXTENSION\\s+[\\w\\:]*\\z");
 
-	private final static Pattern DEFINE_PATTERN = Pattern.compile("(DEFINE|AROUND)\\s*(([\\w\\*:]+)\\s*(\\(([\\[\\]:\\w\\s\\,]*)\\*?\\s*\\))?\\s*FOR\\s*([\\[\\]:\\w\\s]+))");
+	private final Pattern DEFINE_PATTERN = Pattern.compile("(DEFINE|AROUND)\\s*(([\\w\\*:]+)\\s*(\\(([\\[\\]:\\w\\s\\,]*)\\*?\\s*\\))?\\s*FOR\\s*([\\[\\]:\\w\\s]+))");
 
-	private final static Pattern BLOCK_PATTERN = Pattern.compile(getBlockPattern());
+	private final Pattern BLOCK_PATTERN = Pattern.compile(getBlockPattern());
 
-	private final static Pattern FOREACH_PATTERN = Pattern.compile("FOREACH\\s+(.+)\\s+AS\\s+(\\w+)(\\s+ITERATOR\\s+(\\w+))?");
+	private final Pattern FOREACH_PATTERN = Pattern.compile("FOREACH\\s+(.+)\\s+AS\\s+(\\w+)(\\s+ITERATOR\\s+(\\w+))?");
 
-	private final static Pattern EXPAND_PATTERN = Pattern.compile("EXPAND\\s+([\\w:]*)\\z");
+	private final Pattern EXPAND_PATTERN = Pattern.compile("EXPAND\\s+([\\w:]*)\\z");
 
-	private final static Pattern LET_PATTERN = Pattern.compile("LET\\s+(.+)\\s+AS\\s+(\\w+)");
+	private final Pattern LET_PATTERN = Pattern.compile("LET\\s+(.+)\\s+AS\\s+(\\w+)");
 
-	private final static Pattern TYPEDECL_DEFINE_PATTERN1 = Pattern.compile("(DEFINE|AROUND)\\s*[\\w\\*:]+\\s*\\(([^\\)]*)\\z");
+	private final Pattern TYPEDECL_DEFINE_PATTERN1 = Pattern.compile("(DEFINE|AROUND)\\s*[\\w\\*:]+\\s*\\(([^\\)]*)\\z");
 
-	private final static Pattern TYPEDECL_DEFINE_PATTERN2 = Pattern.compile("(DEFINE|AROUND)\\s*[\\w\\*:]+\\s*(\\([\\[\\]:\\w\\s\\,]*\\*?\\s*\\))?\\s*FOR\\s+[^" + XpandTokens.RT + "\\s]*\\z");
+	private final Pattern TYPEDECL_DEFINE_PATTERN2 = Pattern.compile("(DEFINE|AROUND)\\s*[\\w\\*:]+\\s*(\\([\\[\\]:\\w\\s\\,]*\\*?\\s*\\))?\\s*FOR\\s+[^" + XpandTokens.RT + "\\s]*\\z");
 
-	private final static Pattern TYPEDECL_PARAM_PATTERN = Pattern.compile("(,|\\(|\\A)\\s*[\\[\\]:\\w]*\\z");
+	private final Pattern TYPEDECL_PARAM_PATTERN = Pattern.compile("(,|\\(|\\A)\\s*[\\[\\]:\\w]*\\z");
 
-	private final static Pattern TYPEDECL_TYPESELECT_PATTERN = Pattern.compile("typeSelect\\(\\s*[\\[\\]:\\w]*\\z");
-
-	private final static Pattern IN_TAG_PATTERN = Pattern.compile(XpandTokens.LT + "([^" + XpandTokens.RT + "]*)\\z");
+	private final Pattern IN_TAG_PATTERN = Pattern.compile(XpandTokens.LT + "([^" + XpandTokens.RT + "]*)\\z");
 
 	private FastAnalyzer() {
+	}
 
+	private static FastAnalyzer get() {
+		FastAnalyzer fa = Activator.findState(FastAnalyzer.class);
+		if (fa == null) {
+			fa = new FastAnalyzer();
+			Activator.putState(FastAnalyzer.class, fa);
+		}
+		return fa;
 	}
 
 	public static boolean isInExpand(final String str) {
-		return EXPAND_PATTERN.matcher(str).find();
+		return get().EXPAND_PATTERN.matcher(str).find();
 	}
 
 	public static boolean isInComment(final String str) {
@@ -91,30 +98,24 @@ public class FastAnalyzer {
 	}
 
 	public static boolean isInTypeDecl(final String str) {
-		Matcher m = IN_TAG_PATTERN.matcher(str);
+		Matcher m = get().IN_TAG_PATTERN.matcher(str);
 		if (!m.find()) {
 			return false;
 		}
 		final String tag = m.group(1);
-		m = TYPEDECL_DEFINE_PATTERN1.matcher(tag);
+		m = get().TYPEDECL_DEFINE_PATTERN1.matcher(tag);
 		if (m.find()) {
-			m = TYPEDECL_PARAM_PATTERN.matcher(m.group(2));
+			m = get().TYPEDECL_PARAM_PATTERN.matcher(m.group(2));
 			return m.find();
 		} else {
-			m = TYPEDECL_DEFINE_PATTERN2.matcher(tag);
-			if (m.find()) {
-				return true;
-			} else {
-				m = TYPEDECL_TYPESELECT_PATTERN.matcher(tag);
-				return m.find();
-			}
+			m = get().TYPEDECL_DEFINE_PATTERN2.matcher(tag);
+			return m.find();
 		}
-
 	}
 
 	private static String getBlockPattern() {
 		final String[] parts = new String[] { XpandTokens.DEFINE, XpandTokens.AROUND, XpandTokens.FOREACH, XpandTokens.LET, XpandTokens.IF, XpandTokens.FILE, XpandTokens.PROTECT };
-		final StringBuffer buff = new StringBuffer();
+		final StringBuilder buff = new StringBuilder();
 		for (int i = 0; i < parts.length; i++) {
 			final String part = parts[i];
 			buff.append(XpandTokens.LT).append("\\s*").append(part);
@@ -128,7 +129,7 @@ public class FastAnalyzer {
 	}
 
 	public final static List<String> findImports(final String template) {
-		final Matcher m = IMPORT_PATTERN.matcher(template);
+		final Matcher m = get().IMPORT_PATTERN.matcher(template);
 		final List<String> result = new ArrayList<String>();
 		while (m.find()) {
 			result.add(m.group(1));
@@ -137,7 +138,7 @@ public class FastAnalyzer {
 	}
 
 	public final static List<String> findExtensions(final String template) {
-		final Matcher m = EXTENSION_PATTERN.matcher(template);
+		final Matcher m = get().EXTENSION_PATTERN.matcher(template);
 		final List<String> result = new ArrayList<String>();
 		while (m.find()) {
 			result.add(m.group(1));
@@ -158,7 +159,7 @@ public class FastAnalyzer {
 
 		final Stack<StackElement> stack = new Stack<StackElement>();
 
-		final Matcher matcher = BLOCK_PATTERN.matcher(templatePart);
+		final Matcher matcher = get().BLOCK_PATTERN.matcher(templatePart);
 		while (matcher.find()) {
 			final String txt = matcher.group();
 			// handle variable scope
@@ -184,7 +185,7 @@ public class FastAnalyzer {
 				} else {
 					se.block = XpandTokens.DEFINE;
 				}
-				Matcher m = DEFINE_PATTERN.matcher(templatePart.substring(matcher.start()));
+				Matcher m = get().DEFINE_PATTERN.matcher(templatePart.substring(matcher.start()));
 				if (m.find()) {
 					LazyVar ctx = new LazyVar();
 					ctx.typeName = m.group(6).trim();
@@ -196,7 +197,7 @@ public class FastAnalyzer {
 						final StringTokenizer st = new StringTokenizer(params, ",");
 						while (st.hasMoreTokens()) {
 							final String param = st.nextToken();
-							m = PARAM_PATTERN.matcher(param);
+							m = get().PARAM_PATTERN.matcher(param);
 							m.find();
 							ctx = new LazyVar();
 							ctx.typeName = m.group(1).trim();
@@ -215,7 +216,7 @@ public class FastAnalyzer {
 			} else if (txt.endsWith(XpandTokens.FOREACH)) {
 				final StackElement se = new StackElement();
 				se.block = XpandTokens.FOREACH;
-				final Matcher m = FOREACH_PATTERN.matcher(templatePart.substring(matcher.start()));
+				final Matcher m = get().FOREACH_PATTERN.matcher(templatePart.substring(matcher.start()));
 				if (m.find()) {
 					LazyVar ctx = new LazyVar();
 					ctx.expression = m.group(1);
@@ -235,7 +236,7 @@ public class FastAnalyzer {
 			} else if (txt.endsWith(XpandTokens.LET)) {
 				final StackElement se = new StackElement();
 				se.block = XpandTokens.LET;
-				final Matcher m = LET_PATTERN.matcher(templatePart.substring(matcher.start()));
+				final Matcher m = get().LET_PATTERN.matcher(templatePart.substring(matcher.start()));
 				if (m.find()) {
 					final LazyVar ctx = new LazyVar();
 					ctx.expression = m.group(1);
@@ -261,12 +262,12 @@ public class FastAnalyzer {
 	}
 
 	protected static boolean isInExtensionImport(final String s) {
-		final Matcher m = INCOMPLETE_EXTENSION_PATTERN.matcher(s);
+		final Matcher m = get().INCOMPLETE_EXTENSION_PATTERN.matcher(s);
 		return m.find();
 	}
 
 	protected static boolean isInImport(final String s) {
-		final Matcher m = INCOMPLETE_IMPORT_PATTERN.matcher(s);
+		final Matcher m = get().INCOMPLETE_IMPORT_PATTERN.matcher(s);
 		return m.find();
 	}
 
@@ -370,7 +371,7 @@ public class FastAnalyzer {
 	}
 
 	public static boolean isInTag(final String str) {
-		return IN_TAG_PATTERN.matcher(str).find();
+		return get().IN_TAG_PATTERN.matcher(str).find();
 	}
 
 	// FIXME use parser and error tokens instead of this rudimentary support

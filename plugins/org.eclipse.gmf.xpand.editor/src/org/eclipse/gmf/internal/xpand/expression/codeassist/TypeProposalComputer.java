@@ -19,9 +19,9 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
-import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnv;
 import org.eclipse.ocl.lpg.FormattingHelper;
 
 public class TypeProposalComputer implements ProposalComputer {
@@ -51,7 +51,7 @@ public class TypeProposalComputer implements ProposalComputer {
         		possiblePackages.add(r);
         	}
         } else {
-        	for (Object next : ((QvtOperationalEnv) ctx.getOCLEnvironment()).getEPackageRegistry().values()) {
+        	for (Object next : ((ExecutionContextImpl) ctx).getAllVisibleModels().values()) {
         		if (next instanceof EPackage) {
         			possiblePackages.add((EPackage) next);
         		}

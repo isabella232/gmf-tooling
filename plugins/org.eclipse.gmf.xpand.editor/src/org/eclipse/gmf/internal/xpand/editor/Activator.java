@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -7,6 +7,10 @@
  * http://www.eclipse.org/legal/epl-v10.html
  */
 package org.eclipse.gmf.internal.xpand.editor;
+
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.SoftReference;
+import java.util.HashMap;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -56,7 +60,6 @@ public class Activator extends AbstractUIPlugin {
 		getDefault().getLog().log(status);
 	}
 
-	/*
 	private final HashMap<Class<?>, SoftReference<?>> myState = new HashMap<Class<?>, SoftReference<?>>();
 	private final ReferenceQueue<Object> myRefQueue = new ReferenceQueue<Object>();
 
@@ -77,7 +80,6 @@ public class Activator extends AbstractUIPlugin {
 	// for now, decided to allow replace old value (reason: why not)?
 	public static <T> void putState(Class<T> kind, T instance) {
 		assert instance != null; // XXX or allow any value?
-		getDefault().myState.put(kind, new SoftReference<Object>((Object) instance, getDefault().myRefQueue));
+		getDefault().myState.put(kind, new SoftReference<Object>(instance, getDefault().myRefQueue));
 	}
-*/
 }
