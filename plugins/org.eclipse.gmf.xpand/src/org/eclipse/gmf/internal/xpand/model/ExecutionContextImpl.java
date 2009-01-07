@@ -309,7 +309,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
 		return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();
 	}
 
-    private EPackage.Registry getAllVisibleModels() {
+    public EPackage.Registry getAllVisibleModels() {
 		String[] importedNamespaces = getImportedNamespaces();
 		assert importedNamespaces != null;
 		// TODO respect meta-models imported not only with nsURI
