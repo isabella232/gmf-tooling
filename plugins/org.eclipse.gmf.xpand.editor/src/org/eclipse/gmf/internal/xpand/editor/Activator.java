@@ -11,9 +11,12 @@ package org.eclipse.gmf.internal.xpand.editor;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -81,5 +84,20 @@ public class Activator extends AbstractUIPlugin {
 	public static <T> void putState(Class<T> kind, T instance) {
 		assert instance != null; // XXX or allow any value?
 		getDefault().myState.put(kind, new SoftReference<Object>(instance, getDefault().myRefQueue));
+	}
+
+	/**
+	 * Looks for localized value in standard bundle localization (usually, plugin.properties) file
+	 */
+	public static String getResourceString(String key) {
+		try {
+			ResourceBundle rb = Platform.getResourceBundle(getDefault().getBundle());
+			if (rb != null) {
+				return rb.getString(key);
+			}
+		} catch (MissingResourceException ex) {
+			// FALL-THROUGH, just return key
+		}
+		return key;
 	}
 }
