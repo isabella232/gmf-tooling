@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
+import org.eclipse.gmf.internal.xpand.editor.Activator;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
@@ -41,91 +42,20 @@ import org.eclipse.ocl.utilities.PredefinedType;
 @SuppressWarnings("restriction")
 public class ExpressionProposalComputer implements ProposalComputer {
 
-	private final static Set<Integer> operators = new HashSet<Integer>();
-	static {
-		operators.add(XpandParsersym.TK_and);
-		operators.add(XpandParsersym.TK_DIVIDE);
-		operators.add(XpandParsersym.TK_DOT);
-		operators.add(XpandParsersym.TK_EQUAL);
-		operators.add(XpandParsersym.TK_GREATER_EQUAL);
-		operators.add(XpandParsersym.TK_GREATER);
-		operators.add(XpandParsersym.TK_LESS_EQUAL);
-		operators.add(XpandParsersym.TK_LESS);
-		operators.add(XpandParsersym.TK_MINUS);
-		operators.add(XpandParsersym.TK_MULTIPLY);
-		operators.add(XpandParsersym.TK_NOT_EQUAL);
-		operators.add(XpandParsersym.TK_not);
-		operators.add(XpandParsersym.TK_or);
-		operators.add(XpandParsersym.TK_PLUS);
-	}
-
-	private final static Set<Integer> stopper = new HashSet<Integer>();
-	static {
-		stopper.add(XpandParsersym.TK_LPAREN);
-		stopper.add(XpandParsersym.TK_COLON);
-		stopper.add(XpandParsersym.TK_QUESTIONMARK);
-		stopper.add(XpandParsersym.TK_BAR);
-		stopper.add(XpandParsersym.TK_LBRACE);
-		stopper.add(XpandParsersym.TK_COMMA);
-	}
-
-	private final static Set<Integer> methodNames = new HashSet<Integer>();
-	static {
-		methodNames.add(XpandParsersym.TK_IDENTIFIER);
-		methodNames.add(XpandParsersym.TK_collect);
-		methodNames.add(XpandParsersym.TK_exists);
-		methodNames.add(XpandParsersym.TK_forAll);
-		methodNames.add(XpandParsersym.TK_reject);
-		methodNames.add(XpandParsersym.TK_select);
-//		methodNames.add(XpandParsersym.TK_typeSelect);
-		methodNames.add(XpandParsersym.TK_closure);
-		methodNames.add(XpandParsersym.TK_any);
-		methodNames.add(XpandParsersym.TK_one);
-		methodNames.add(XpandParsersym.TK_collectNested);
-		methodNames.add(XpandParsersym.TK_sortedBy);
-		methodNames.add(XpandParsersym.TK_isUnique);
-		methodNames.add(XpandParsersym.TK_iterate);
-		methodNames.add(XpandParsersym.TK_oclIsKindOf);
-		methodNames.add(XpandParsersym.TK_oclIsTypeOf);
-		methodNames.add(XpandParsersym.TK_oclAsType);
-		methodNames.add(XpandParsersym.TK_oclIsNew);
-		methodNames.add(XpandParsersym.TK_oclIsUndefined);
-		methodNames.add(XpandParsersym.TK_oclIsInvalid);
-		methodNames.add(XpandParsersym.TK_oclIsInState);
-		methodNames.add(XpandParsersym.TK_allInstances);
-	}
-
-	private final static Set<Integer> operands = new HashSet<Integer>();
-	static {
-		operands.add(XpandParsersym.TK_IDENTIFIER);
-		operands.add(XpandParsersym.TK_collect);
-		operands.add(XpandParsersym.TK_exists);
-		operands.add(XpandParsersym.TK_false);
-		operands.add(XpandParsersym.TK_forAll);
-		operands.add(XpandParsersym.TK_null);
-		operands.add(XpandParsersym.TK_reject);
-		operands.add(XpandParsersym.TK_select);
-		operands.add(XpandParsersym.TK_true);
-//		operands.add(XpandParsersym.TK_typeSelect);
-		operands.add(XpandParsersym.TK_INTEGER_LITERAL);
-		operands.add(XpandParsersym.TK_REAL_LITERAL);
-		operands.add(XpandParsersym.TK_STRING_LITERAL);
-	}
-
-	private final static Map<Integer, Integer> blockTokens = new HashMap<Integer, Integer>();
-
-	static {
-		blockTokens.put(XpandParsersym.TK_LPAREN, XpandParsersym.TK_RPAREN);
-		blockTokens.put(XpandParsersym.TK_LBRACE, XpandParsersym.TK_RBRACE); // XXX braces as block tokens?
-	}
-
 	private ExecutionContext executionContext;
 
 	private final ProposalFactory proposalFactory;
+	private final ExpressionSimpleAnalyzer exprAnalyzer;
 
 	public ExpressionProposalComputer(ProposalFactory factory) {
 		assert factory != null;
 		proposalFactory = factory;
+		ExpressionSimpleAnalyzer cached = Activator.findState(ExpressionSimpleAnalyzer.class);
+		if (cached == null) {
+			System.out.println("new ExpressionSimpleAnalyzer");
+			Activator.putState(ExpressionSimpleAnalyzer.class, cached = new ExpressionSimpleAnalyzer());
+		}
+		exprAnalyzer = cached;
 	}
 
 	/**
@@ -134,10 +64,10 @@ public class ExpressionProposalComputer implements ProposalComputer {
 	 */
 	public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext context) {
 		try {
-			final String[] s = computePrefixAndTargetExpression(txt);
+			final String[] s = exprAnalyzer.computePrefixAndTargetExpression(txt);
 			final String prefix = s[0];
 			final String expressionString = s[1];
-			this.executionContext = computeExecutionContext(txt, context);
+			this.executionContext = context;
 			final List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
 
 			if ((prefix.length() > 0) && (expressionString == null)) {
@@ -146,11 +76,16 @@ public class ExpressionProposalComputer implements ProposalComputer {
 
 			EClassifier targetType = null;
 			if (expressionString != null) {
+				/*
+				 * FIXME new ExpressionHelper(expressionString).analyze(executionContext, issues);
+				 * 
 				final Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
-				targetType = null;// FIXME new ExpressionHelper(expressionString).analyze(executionContext, issues);
+				targetType = null;
 				if (targetType == null) {
 					return Collections.emptyList();
 				}
+				*/
+				// HACK: FALL-THROUGH
 			}
 			if (targetType == null) {
 				// variables
@@ -165,7 +100,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 				// members and extensions on this
 				final Variable v = executionContext.getImplicitVariable();
 				if (v != null) {
-					targetType = (EClassifier) v.getValue();
+					targetType = v.getType();
 					proposals.addAll(getAllMemberProposals(targetType, prefix));
 				}
 
@@ -185,14 +120,10 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		}
 	}
 
-	protected final static ExecutionContext computeExecutionContext(final String txt, ExecutionContext ctx) {
-		return ctx;
-	}
-
 	/**
 	 * @param targetType
 	 * @param prefix
-	 * @param context 
+	 * @param context
 	 * @param ctx
 	 * @param factory
 	 * @return
@@ -226,7 +157,8 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			}
 		}
 		for (GenericExtension e : executionContext.getAllExtensions()) {
-			if (e.getName().toLowerCase().startsWith(prefixLowerCase) && (e.getParameterTypes().size() >= 1) && BuiltinMetaModel.isAssignableFrom(executionContext, e.getParameterTypes().get(0), targetType)) {
+			if (e.getName().toLowerCase().startsWith(prefixLowerCase) && (e.getParameterTypes().size() >= 1) &&
+					BuiltinMetaModel.isAssignableFrom(executionContext, e.getParameterTypes().get(0), targetType)) {
 				result.add(proposalFactory.createExtensionOnMemberPositionProposal(e, prefix, onCollection));
 			}
 		}
@@ -247,7 +179,8 @@ public class ExpressionProposalComputer implements ProposalComputer {
 
 	private static List<EOperation> getAllOperation(EClassifier targetType, ExecutionContext ctx) {
 		List<EOperation> r2 = ctx.getOCLEnvironment().getTypeResolver().getAdditionalOperations(targetType);
-		if (targetType instanceof PredefinedType) {
+		if (targetType instanceof PredefinedType<?>) {
+			@SuppressWarnings("unchecked")
 			PredefinedType<EOperation> t = (PredefinedType<EOperation>) targetType;
 			List<EOperation> r1 = t.oclOperations();
 			ArrayList<EOperation> rv = new ArrayList<EOperation>(r1.size() + r2.size());
@@ -300,7 +233,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf(marked), marked.length()));
 		}
 
-		s = "typeSelect(EClassifier)";
+		s = "[EClassifier]";
 		if (s.startsWith(prefix)) {
 			result.add(proposalFactory.createCollectionSpecificOperationProposal(s, s, prefix, s.indexOf("EClassifier"), "EClassifier".length()));
 		}
@@ -308,97 +241,174 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		return result;
 	}
 
-	/**
-	 * @param ctx
-	 * @return
-	 */
-	protected final static String[] computePrefixAndTargetExpression(final String str) {
-		final ReverseScanner scanner = new ReverseScanner(str);
-		String prefix = "";
-		final String expr = null;
+	private static class ExpressionSimpleAnalyzer {
 
-		IToken t = scanner.previousToken();
-		if (t != null) {
-			// prefix consists of identifier parts
-			if (!Character.isWhitespace(str.charAt(str.length() - 1))) {
-				if (Character.isJavaIdentifierStart(t.toString().charAt(0))) {
-					prefix = t.toString();
-					t = scanner.previousToken(); // go to operator
-				}
-			}
+		private final Set<Integer> operators = new HashSet<Integer>();
+		{
+			operators.add(XpandParsersym.TK_and);
+			operators.add(XpandParsersym.TK_DIVIDE);
+			operators.add(XpandParsersym.TK_DOT);
+			operators.add(XpandParsersym.TK_EQUAL);
+			operators.add(XpandParsersym.TK_GREATER_EQUAL);
+			operators.add(XpandParsersym.TK_GREATER);
+			operators.add(XpandParsersym.TK_LESS_EQUAL);
+			operators.add(XpandParsersym.TK_LESS);
+			operators.add(XpandParsersym.TK_MINUS);
+			operators.add(XpandParsersym.TK_MULTIPLY);
+			operators.add(XpandParsersym.TK_NOT_EQUAL);
+			operators.add(XpandParsersym.TK_not);
+			operators.add(XpandParsersym.TK_or);
+			operators.add(XpandParsersym.TK_PLUS);
+			operators.add(XpandParsersym.TK_ARROW);
+		}
 
-			final int exprEnd = scanner.getOffset();
-			// if t is a dot there is a target expression
-			if ((t != null) && (t.getKind() == XpandParsersym.TK_DOT)) {
-				boolean lastWasOperator = true;
-				boolean stop = false;
-				while (!stop && ((t = scanner.previousToken()) != null)) {
-					if (isOperand(t)) {
-						if (lastWasOperator) {
-							lastWasOperator = false;
-						} else { // two operands in sequence -> stopper!
-							scanner.nextToken();
-							stop = true;
-						}
-					} else if (t.getKind() == XpandParsersym.TK_DOT) {
-						if (!lastWasOperator) {
-							lastWasOperator = true;
-						} else {
-							// errorneous expression
-							return new String[] { prefix, expr };
-						}
-					} else if (isBlockCloser(t) && lastWasOperator) {
-						lastWasOperator = false;
-						final Stack<IToken> s = new Stack<IToken>();
-						s.push(t);
-						while (!s.isEmpty()) {
-							final IToken temp = scanner.previousToken();
-							if (temp == null) {
-								return new String[] { prefix, expr };
-							}
-							if (temp.getKind() == t.getKind()) {
-								s.push(temp);
-							} else if (isOpposite(temp, t)) {
-								s.pop();
-							}
-						}
-						if (t.getKind() == XpandParsersym.TK_RPAREN) {
-							// we have an unambigous syntax here
-							// a.method(with.param)
-							// but also
-							// anIdentifier
-							// (another.parenthesized.expressions)
-							final IToken temp = scanner.previousToken();
-							if (!isMethodName(temp)) {
-								scanner.nextToken();
-							}
-						}
-					} else {
-						scanner.nextToken(); // go one forward
-						stop = true;
+		private final Set<Integer> stopper = new HashSet<Integer>();
+		{
+			stopper.add(XpandParsersym.TK_LPAREN);
+			stopper.add(XpandParsersym.TK_COLON);
+			stopper.add(XpandParsersym.TK_QUESTIONMARK);
+			stopper.add(XpandParsersym.TK_BAR);
+			stopper.add(XpandParsersym.TK_LBRACE);
+			stopper.add(XpandParsersym.TK_COMMA);
+		}
+
+		private final Set<Integer> methodNames = new HashSet<Integer>();
+		{
+			methodNames.add(XpandParsersym.TK_IDENTIFIER);
+			methodNames.add(XpandParsersym.TK_collect);
+			methodNames.add(XpandParsersym.TK_exists);
+			methodNames.add(XpandParsersym.TK_forAll);
+			methodNames.add(XpandParsersym.TK_reject);
+			methodNames.add(XpandParsersym.TK_select);
+// methodNames.add(XpandParsersym.TK_typeSelect);
+			methodNames.add(XpandParsersym.TK_closure);
+			methodNames.add(XpandParsersym.TK_any);
+			methodNames.add(XpandParsersym.TK_one);
+			methodNames.add(XpandParsersym.TK_collectNested);
+			methodNames.add(XpandParsersym.TK_sortedBy);
+			methodNames.add(XpandParsersym.TK_isUnique);
+			methodNames.add(XpandParsersym.TK_iterate);
+			methodNames.add(XpandParsersym.TK_oclIsKindOf);
+			methodNames.add(XpandParsersym.TK_oclIsTypeOf);
+			methodNames.add(XpandParsersym.TK_oclAsType);
+			methodNames.add(XpandParsersym.TK_oclIsNew);
+			methodNames.add(XpandParsersym.TK_oclIsUndefined);
+			methodNames.add(XpandParsersym.TK_oclIsInvalid);
+			methodNames.add(XpandParsersym.TK_oclIsInState);
+			methodNames.add(XpandParsersym.TK_allInstances);
+		}
+
+		private final Set<Integer> operands = new HashSet<Integer>();
+		{
+			operands.add(XpandParsersym.TK_IDENTIFIER);
+			operands.add(XpandParsersym.TK_collect);
+			operands.add(XpandParsersym.TK_exists);
+			operands.add(XpandParsersym.TK_false);
+			operands.add(XpandParsersym.TK_forAll);
+			operands.add(XpandParsersym.TK_null);
+			operands.add(XpandParsersym.TK_reject);
+			operands.add(XpandParsersym.TK_select);
+			operands.add(XpandParsersym.TK_true);
+			operands.add(XpandParsersym.TK_self);
+// operands.add(XpandParsersym.TK_typeSelect);
+			operands.add(XpandParsersym.TK_INTEGER_LITERAL);
+			operands.add(XpandParsersym.TK_REAL_LITERAL);
+			operands.add(XpandParsersym.TK_STRING_LITERAL);
+		}
+
+		private final Map<Integer, Integer> blockTokens = new HashMap<Integer, Integer>();
+
+		{
+			blockTokens.put(XpandParsersym.TK_LPAREN, XpandParsersym.TK_RPAREN);
+			blockTokens.put(XpandParsersym.TK_LBRACE, XpandParsersym.TK_RBRACE); // XXX braces as block tokens?
+		}
+
+		String[] computePrefixAndTargetExpression(final String str) {
+			final ReverseScanner scanner = new ReverseScanner(str);
+			String prefix = "";
+
+			IToken t = scanner.previousToken();
+			if (t != null) {
+				// prefix consists of identifier parts
+				if (!Character.isWhitespace(str.charAt(str.length() - 1))) {
+					if (Character.isJavaIdentifierStart(t.toString().charAt(0))) {
+						prefix = t.toString();
+						t = scanner.previousToken(); // go to operator
 					}
 				}
-				return new String[] { prefix, str.substring(scanner.getOffset(), exprEnd).trim() };
+
+				final int exprEnd = scanner.getOffset();
+				// if t is a dot there is a target expression
+				if (t != null && (t.getKind() == XpandParsersym.TK_DOT || t.getKind() == XpandParsersym.TK_ARROW)) {
+					boolean lastWasOperator = true;
+					boolean stop = false;
+					while (!stop && (t = scanner.previousToken()) != null) {
+						if (isOperand(t)) {
+							if (lastWasOperator) {
+								lastWasOperator = false;
+							} else { // two operands in sequence -> stopper!
+								scanner.nextToken();
+								stop = true;
+							}
+						} else if (t.getKind() == XpandParsersym.TK_DOT || t.getKind() == XpandParsersym.TK_ARROW) {
+							if (!lastWasOperator) {
+								lastWasOperator = true;
+							} else {
+								// errorneous expression
+								return new String[] { prefix, null };
+							}
+						} else if (isBlockCloser(t) && lastWasOperator) {
+							lastWasOperator = false;
+							final Stack<IToken> s = new Stack<IToken>();
+							s.push(t);
+							while (!s.isEmpty()) {
+								final IToken temp = scanner.previousToken();
+								if (temp == null) {
+									return new String[] { prefix, null };
+								}
+								if (temp.getKind() == t.getKind()) {
+									s.push(temp);
+								} else if (isOpposite(temp, t)) {
+									s.pop();
+								}
+							}
+							if (t.getKind() == XpandParsersym.TK_RPAREN) {
+								// we have an unambigous syntax here
+								// a.method(with.param)
+								// but also
+								// anIdentifier
+								// (another.parenthesized.expressions)
+								final IToken temp = scanner.previousToken();
+								if (!isMethodName(temp)) {
+									scanner.nextToken();
+								}
+							}
+						} else {
+							scanner.nextToken(); // go one forward
+							stop = true;
+						}
+					}
+					return new String[] { prefix, str.substring(scanner.getOffset(), exprEnd).trim() };
+				}
 			}
+			return new String[] { prefix, null };
 		}
-		return new String[] { prefix, expr };
-	}
 
-	private final static boolean isMethodName(final IToken temp) {
-		return methodNames.contains(temp.getKind());
-	}
+		private boolean isMethodName(final IToken temp) {
+			return methodNames.contains(temp.getKind());
+		}
 
-	private final static boolean isOpposite(final IToken left, final IToken right) {
-		final Integer temp = blockTokens.get(left.getKind());
-		return (temp != null) && (right.getKind() == temp.intValue());
-	}
+		private boolean isOpposite(final IToken left, final IToken right) {
+			final Integer temp = blockTokens.get(left.getKind());
+			return (temp != null) && (right.getKind() == temp.intValue());
+		}
 
-	private final static boolean isBlockCloser(final IToken t) {
-		return blockTokens.values().contains(t.getKind());
-	}
+		private boolean isBlockCloser(final IToken t) {
+			return blockTokens.values().contains(t.getKind());
+		}
 
-	private final static boolean isOperand(final IToken t) {
-		return operands.contains(t.getKind());
+		private boolean isOperand(final IToken t) {
+			return operands.contains(t.getKind());
+		}
 	}
-
 }
