@@ -39,7 +39,7 @@ public class FastAnalyzer {
 
 	private final Pattern PARAM_PATTERN = Pattern.compile("([\\[\\]:\\w]+)\\s+([\\w]+)");
 
-	private final Pattern IMPORT_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*IMPORT\\s+'([^\"]+)'\\s*" + XpandTokens.RT);
+	private final Pattern IMPORT_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*IMPORT\\s+'([^']+)'\\s*" + XpandTokens.RT);
 
 	private final Pattern EXTENSION_PATTERN = Pattern.compile(XpandTokens.LT + "\\s*EXTENSION\\s+([\\w\\:]+)\\s*" + XpandTokens.RT);
 
@@ -130,7 +130,7 @@ public class FastAnalyzer {
 
 	public final static List<String> findImports(final String template) {
 		final Matcher m = get().IMPORT_PATTERN.matcher(template);
-		final List<String> result = new ArrayList<String>();
+		final ArrayList<String> result = new ArrayList<String>(5);
 		while (m.find()) {
 			result.add(m.group(1));
 		}
@@ -139,7 +139,7 @@ public class FastAnalyzer {
 
 	public final static List<String> findExtensions(final String template) {
 		final Matcher m = get().EXTENSION_PATTERN.matcher(template);
-		final List<String> result = new ArrayList<String>();
+		final List<String> result = new ArrayList<String>(5);
 		while (m.find()) {
 			result.add(m.group(1));
 		}

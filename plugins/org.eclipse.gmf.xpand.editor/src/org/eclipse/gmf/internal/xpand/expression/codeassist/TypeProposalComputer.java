@@ -39,7 +39,7 @@ public class TypeProposalComputer implements ProposalComputer {
 
     public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext ctx) {
         final String prefix = findPrefix(txt);
-        String[] prefixParts = prefix.split(TypeNameUtil.NS_DELIM);
+        String[] prefixParts = prefix.split(TypeNameUtil.NS_DELIM, -1);
         List<EPackage> possiblePackages = new LinkedList<EPackage>();
         // XXX how about package with artificial types (e.g. various Sequence instances)?
         if (prefixParts.length > 1) {
@@ -80,6 +80,10 @@ public class TypeProposalComputer implements ProposalComputer {
     	            }
     	            result.add(proposalFactory.createTypeProposal(insertString, displayStr.toString(), prefix));
        			}
+       		}
+       		final String pkgQualifiedName = formatter.formatQualifiedName(pkg);
+       		if (pkgQualifiedName.startsWith(prefix)) {
+       			result.add(proposalFactory.createTypeProposal(pkgQualifiedName + TypeNameUtil.NS_DELIM, pkgQualifiedName, prefix));
        		}
         }
         return result;
