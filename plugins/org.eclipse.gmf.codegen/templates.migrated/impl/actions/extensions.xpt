@@ -138,12 +138,12 @@
 «DEFINE menuCondition FOR gmfgen::GenContextMenu-»
                <and>
                   <with variable="activePartId"><equals value="«editorGen.editor.iD»"/></with>
-                  <with variable="selection"><iterate«IF context->size() > 1» operator="or"«ENDIF» ifEmpty="false">
+                  <with variable="selection"><iterate ifEmpty="false">«IF context->size() > 1»<or>«ENDIF» 
 «REM»XXX, perhaps, <adapt type="EditPart">?«ENDREM-»
-«FOREACH context->asSequence() AS de-»
+«FOREACH context AS de-»
                      <instanceof value="«de.getEditPartQualifiedClassName()»"/>
 «ENDFOREACH-»
-                  </iterate></with>
+                  «IF context->size() > 1»</or>«ENDIF»</iterate></with>
                </and>
 «ENDDEFINE»
 
