@@ -32,6 +32,7 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
+import org.eclipse.swt.graphics.Point;
 
 /**
  * @author Sven Efftinge
@@ -64,7 +65,9 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
 				return new ICompletionProposal[0];
 			}
             List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>(20);
-            final ProposalFactory f = new ProposalFactoryImpl(documentOffset, EditorImages.get());
+            Point selectedRange = viewer.getSelectedRange();
+            assert selectedRange.x == documentOffset; // just make sure my assumptions about selectedRange are correct
+            final ProposalFactory f = new ProposalFactoryImpl(documentOffset, selectedRange.y, EditorImages.get());
 
             if (p == XpandPartition.TYPE_DECLARATION) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);

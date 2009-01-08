@@ -10,7 +10,6 @@
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
@@ -31,9 +30,9 @@ public interface ProposalFactory {
 
     public ICompletionProposal createTypeProposal(String insertString, String displayString, String prefix);
 
-    public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix, int cursor, int marked);
+    public ICompletionProposal createStatementProposal(String insertString, String displayString, int cursor, int marked);
 
-    public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix);
+    public ICompletionProposal createStatementProposal(String insertString, String displayString);
 
     public ICompletionProposal createKeywordProposal(String insertString, String displayString, String prefix);
 
