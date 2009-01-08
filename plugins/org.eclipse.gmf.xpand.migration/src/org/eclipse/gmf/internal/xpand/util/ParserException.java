@@ -19,11 +19,22 @@ public class ParserException extends Exception {
 	private final ErrorLocationInfo[] errors;
 	private final String qualifiedResourceName;
 
+	private static String getMessage(ErrorLocationInfo[] errors) {
+		assert errors != null && errors.length > 0;
+		StringBuilder result = new StringBuilder();
+		for (ErrorLocationInfo errorLocationInfo : errors) {
+			result.append(errorLocationInfo.toString());
+			result.append("/n");
+		}
+		return result.toString();
+	}
+	
 	public ParserException(String qualifiedName, Collection<? extends ErrorLocationInfo> errors) {
 		this(qualifiedName, errors.toArray(new ErrorLocationInfo[errors.size()]));
 	}
 
 	public ParserException(String qualifiedName, ErrorLocationInfo... errors) {
+		super(getMessage(errors));
 		assert errors != null && errors.length > 0;
 		this.errors = errors;
 		this.qualifiedResourceName = qualifiedName;
@@ -54,6 +65,10 @@ public class ParserException extends Exception {
 			this.startColumn = startColumn;
 			this.endLine = endLine;
 			this.endColumn = endColumn;
+		}
+		
+		public String toString() {
+			return startLine + ":" + startColumn + "-" + endLine + ":" + endColumn + " - " + message;
 		}
 	}
 }
