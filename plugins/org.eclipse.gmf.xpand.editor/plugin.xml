@@ -40,16 +40,16 @@
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
-       <key
+      <key
             sequence="M1+&lt;"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            contextId="org.eclipse.ui.textEditorScope"
+            contextId="org.eclipse.gmf.xpand.editorScope"
             commandId="org.eclipse.gmf.xpand.editor.insertLT">
       </key>
       <key
             sequence="M1+&gt;"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            contextId="org.eclipse.ui.textEditorScope"
+            contextId="org.eclipse.gmf.xpand.editorScope"
             commandId="org.eclipse.gmf.xpand.editor.insertRT">
       </key>
    </extension>
@@ -69,6 +69,14 @@
 	       <description>%wizard.desc</description>
 		   <selection class="org.eclipse.core.resources.IResource"/>
 		</wizard>
-	</extension>      
+   </extension>
+
+   <extension point="org.eclipse.ui.contexts">
+      <context
+          description="%editorContext.desc"
+          id="org.eclipse.gmf.xpand.editorScope"
+          name="%editorContext.name"
+          parentId="org.eclipse.ui.textEditorScope"/>
+   </extension>      
 
 </plugin>

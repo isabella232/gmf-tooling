@@ -47,6 +47,7 @@ public class XpandEditor extends TextEditor {
         colorProvider.initializeDefaults();
         setSourceViewerConfiguration(new XpandSourceViewerConfiguration(this));
         setDocumentProvider(new XpandDocumentProvider());
+        setKeyBindingScopes(new String[] { "org.eclipse.gmf.xpand.editorScope" }); //$NON-NLS-1$
     }
 
     /*package*/ ExecutionContext getContext() {
@@ -76,7 +77,8 @@ public class XpandEditor extends TextEditor {
         addAction(aMenu, "ContentAssistTip");
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public Object getAdapter(final Class aRequired) {
         if (IContentOutlinePage.class.equals(aRequired)) {
 			// if (ivOutlinePage == null) {
