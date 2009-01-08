@@ -24,6 +24,7 @@ import org.eclipse.gmf.tests.expression.ast.ATypeModel;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.xtend.ast.ExtensionFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
 
@@ -37,6 +38,7 @@ public class ExtensionEvaluationTest extends AbstractXtendTest {
     @Override
     protected void setUp() throws Exception {
         ec = new ExecutionContextImpl(null);
+        ec.setContextClassLoader(new ClassLoadContext.Naive(this.getClass().getClassLoader()));
     }
 
     public final void testWithEverything() {
