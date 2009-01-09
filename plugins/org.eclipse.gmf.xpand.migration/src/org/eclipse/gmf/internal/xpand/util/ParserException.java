@@ -19,10 +19,11 @@ public class ParserException extends Exception {
 	private final ErrorLocationInfo[] errors;
 	private final String qualifiedResourceName;
 
-	private static String getMessage(ErrorLocationInfo[] errors) {
+	private static String getMessage(String qualifiedName, ErrorLocationInfo[] errors) {
 		assert errors != null && errors.length > 0;
-		StringBuilder result = new StringBuilder();
+		StringBuilder result = new StringBuilder("Following parser errors was reported while parsing " + qualifiedName + " resource:\n");
 		for (ErrorLocationInfo errorLocationInfo : errors) {
+			result.append("\t");
 			result.append(errorLocationInfo.toString());
 			result.append("\n");
 		}
@@ -34,7 +35,7 @@ public class ParserException extends Exception {
 	}
 
 	public ParserException(String qualifiedName, ErrorLocationInfo... errors) {
-		super(getMessage(errors));
+		super(getMessage(qualifiedName, errors));
 		assert errors != null && errors.length > 0;
 		this.errors = errors;
 		this.qualifiedResourceName = qualifiedName;
