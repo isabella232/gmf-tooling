@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.xpand.migration;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import junit.framework.TestCase;
 
@@ -100,7 +101,7 @@ public class XpandMigrationTest extends TestCase {
 		assertTrue(content.length() > 0);
 
 		StringBuilder etalon = new StringBuilder();
-		Reader reader = new InputStreamReader(testResourceManager.loadFile(getEtalonResourceName(resourceName), XpandResource.TEMPLATE_EXTENSION));
+		Reader reader = new InputStreamReader(testResourceManager.loadFile(getEtalonResourceName(resourceName), XpandResource.TEMPLATE_EXTENSION), Charset.forName("ISO-8859-1"));
 		for (int ch = reader.read(); ch != -1; ch = reader.read()) {
 			etalon.append((char) ch);
 		}

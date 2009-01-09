@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 import junit.framework.TestCase;
 
@@ -157,7 +158,7 @@ public class XtendMigrationTest extends TestCase {
 		XtendMigrationFacade migrationFacade = new XtendMigrationFacade(testResourceManager, getResourceName(resourceName));
 		String content = migrationFacade.migrateXtendResource().toString();
 		assertTrue(content.length() > 0);
-		String etalon = readStringContent(new InputStreamReader(testResourceManager.loadFile(getResourceName(resourceName), "qvto")));
+		String etalon = readStringContent(new InputStreamReader(testResourceManager.loadFile(getResourceName(resourceName), "qvto"), Charset.forName("ISO-8859-1")));
 		assertEquals(etalon, content);
 	}
 	
@@ -199,7 +200,7 @@ public class XtendMigrationTest extends TestCase {
 		String classBody = facade.getNativeLibraryClassBody().toString();
 		assertNotNull(classBody);
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "java_")));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "java_"), Charset.forName("ISO-8859-1")));
 		StringBuilder sb = new StringBuilder();
 		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
 			if (sb.length() > 0) {
@@ -219,7 +220,7 @@ public class XtendMigrationTest extends TestCase {
 		String xmlDeclaration = facade.getNativeLibraryXmlDeclaration().toString();
 		assertNotNull(xmlDeclaration);
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "xml")));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(fileName), "xml"), Charset.forName("ISO-8859-1")));
 		StringBuilder sb = new StringBuilder();
 		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
 			if (sb.length() > 0) {
@@ -292,7 +293,7 @@ public class XtendMigrationTest extends TestCase {
 		String content = facade.migrateXtendResource().toString();
 		assertTrue(content.length() > 0);
 
-		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(xtendResourceName), "qvto")));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(testResourceManager.loadFile(getResourceName(xtendResourceName), "qvto"), Charset.forName("ISO-8859-1")));
 		StringBuilder sb = new StringBuilder();
 		for (String nextLine = reader.readLine(); nextLine != null; nextLine = reader.readLine()) {
 			if (sb.length() > 0) {
