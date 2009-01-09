@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: GMF Xpand Editor Plug-in
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.xpand.editor;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: org.eclipse.gmf.internal.xpand.editor.Activator
@@ -21,5 +21,5 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.gmf.internal.xpand.codeassist;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.editor;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.codeassist;x-friends:="org.eclipse.gmf.tests.xpand"
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
