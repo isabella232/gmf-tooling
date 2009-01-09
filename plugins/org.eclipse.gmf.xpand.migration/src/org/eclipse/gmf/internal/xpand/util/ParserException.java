@@ -24,7 +24,7 @@ public class ParserException extends Exception {
 		StringBuilder result = new StringBuilder();
 		for (ErrorLocationInfo errorLocationInfo : errors) {
 			result.append(errorLocationInfo.toString());
-			result.append("/n");
+			result.append("\n");
 		}
 		return result.toString();
 	}
