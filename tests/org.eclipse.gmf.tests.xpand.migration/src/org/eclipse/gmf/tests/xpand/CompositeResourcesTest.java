@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -140,7 +141,7 @@ public class CompositeResourcesTest extends TestCase {
 			if (resourceAsStream == null) {
 				return null;
 			}
-			return new InputStreamReader(resourceAsStream);
+			return new InputStreamReader(resourceAsStream, Charset.forName("ISO-8859-1"));
 		}
 		@Override
 		protected void handleParserException(ParserException ex) {

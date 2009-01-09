@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
@@ -42,7 +43,7 @@ public class TestsResourceManager extends ResourceManagerImpl implements Resourc
 		if (inputStream == null) {
 			throw new FileNotFoundException(fullyQualifiedName);
 		}
-		return new Reader[] { new InputStreamReader(inputStream) };
+		return new Reader[] { new InputStreamReader(inputStream, Charset.forName("ISO-8859-1")) };
 	}
 
 	@Override
