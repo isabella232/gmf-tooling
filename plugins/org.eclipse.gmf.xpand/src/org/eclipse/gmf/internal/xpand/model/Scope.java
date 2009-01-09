@@ -151,11 +151,6 @@ public class Scope {
 		} else {
 			String contextNS = TypeNameUtil.withoutLastSegment(contextTemplate);
 			possibleNames = new String[] { templateName, contextNS + TypeNameUtil.NS_DELIM + templateName };
-			if (!TypeNameUtil.isQualifiedName(templateName)) {
-				// unqualified name, try relative to current template first
-				possibleNames[0] = possibleNames[1];
-				possibleNames[1] = templateName;
-			}
 		}
         for (String name : possibleNames) {
             final XpandResource tpl = getResourceManager().loadXpandResource(name);
