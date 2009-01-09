@@ -34,6 +34,8 @@ public class Activator extends AbstractUIPlugin {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		while (myRefQueue.poll() != null) ;
+		myState.clear();
 		plugin = null;
 		super.stop(context);
 	}
@@ -73,11 +75,12 @@ public class Activator extends AbstractUIPlugin {
 		if (ref == null) {
 			return null;
 		}
-		if (ref.get() == null) {
+		T rv = ref.get();
+		if (rv == null) {
 			getDefault().myState.remove(kind);
 			return null;
 		}
-		return ref.get();
+		return rv;
 	}
 
 	// for now, decided to allow replace old value (reason: why not)?
