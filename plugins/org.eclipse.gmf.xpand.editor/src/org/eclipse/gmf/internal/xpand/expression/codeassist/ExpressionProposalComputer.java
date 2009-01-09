@@ -241,7 +241,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		return result;
 	}
 
-	private static class ExpressionSimpleAnalyzer {
+	/*package-visible for tests*/ static class ExpressionSimpleAnalyzer {
 
 		private final Set<Integer> operators = new HashSet<Integer>();
 		{
