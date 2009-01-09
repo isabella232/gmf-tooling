@@ -10,10 +10,9 @@
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
-import org.eclipse.gmf.internal.xpand.parser.XpandParsersym;
-
 import junit.framework.TestCase;
-import lpg.lpgjavaruntime.IToken;
+
+import org.eclipse.gmf.internal.xpand.parser.XpandParsersym;
 
 public class ReverseScannerTest extends TestCase {
 	public final void testPreviousToken() {

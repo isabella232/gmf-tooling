@@ -20,7 +20,7 @@ public class TypeProposalComputerTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        tpc = new TypeProposalComputer(new ProposalFactoryImpl(0, null));
+        tpc = new TypeProposalComputer(new ProposalFactoryImpl(0, 0, null));
     }
 
     public final void testGetPrefix() {

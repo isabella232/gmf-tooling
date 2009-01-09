@@ -21,62 +21,69 @@ import org.eclipse.ocl.expressions.CollectionKind;
 
 public class ExpressionProposalComputerTest extends TestCase {
 
+	private ExpressionProposalComputer.ExpressionSimpleAnalyzer expressionAnalyzer;
+
+	@Override
+	protected void setUp() throws Exception {
+		expressionAnalyzer = new ExpressionProposalComputer.ExpressionSimpleAnalyzer();
+	}
+
     public final void testComputePrefixAndTargetExpression1() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("test");
         assertEquals("test", s[0]);
         assertNull(s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression2() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test.th");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("test.th");
         assertEquals("th", s[0]);
         assertEquals("test", s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression3() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test.the.computer.now");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("test.the.computer.now");
         assertEquals("now", s[0]);
         assertEquals("test.the.computer", s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression4() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test(true,\nfalse()).next");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("test(true,\nfalse()).next");
         assertEquals("next", s[0]);
         assertEquals("test(true,\nfalse())", s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression5() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("bdlfsdfows test. bla({}).");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("bdlfsdfows test. bla({}).");
         assertEquals("", s[0]);
         assertEquals("test. bla({})", s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression6() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("test(true, {false, 'hallo',stuff.");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("test(true, {false, 'hallo',stuff.");
         assertEquals("", s[0]);
         assertEquals("stuff", s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression7() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("rfq.*test");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("rfq.*test");
         assertEquals("test", s[0]);
         assertEquals(null, s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression8() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("\\x");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("\\x");
         assertEquals("x", s[0]);
         assertEquals(null, s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression9() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("FOREACH (Set[EPackage])e.all");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("FOREACH (Set[EPackage])e.all");
         assertEquals("all", s[0]);
         assertEquals("e", s[1]);
     }
 
     public final void testComputePrefixAndTargetExpression10() {
-        final String[] s = ExpressionProposalComputer.computePrefixAndTargetExpression("TEST ");
+        final String[] s = expressionAnalyzer.computePrefixAndTargetExpression("TEST ");
         assertEquals("", s[0]);
         assertEquals(null, s[1]);
     }
@@ -87,7 +94,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| true";
-        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
+//      FIXME #computeExecutionContext was no-op
+//        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(2, ctx.getOCLEnvironment().getVariables().size());
         assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
         assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
@@ -99,7 +107,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| true)";
-        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
+//      FIXME #computeExecutionContext was no-op
+//        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(1, ctx.getOCLEnvironment().getVariables().size());
         assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
     }
@@ -111,7 +120,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| Sequence{true}.collect(e|";
-        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
+//      FIXME #computeExecutionContext was no-op
+//        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(2, ctx.getOCLEnvironment().getVariables().size());
         assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
         assertEquals(oclBoolean, ctx.getOCLEnvironment().lookup("e").getType());
@@ -124,7 +134,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable("v", listOfStrings, null));
         final String s = "v.select(e| Sequence{true}.collect(b|";
-        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
+//      FIXME #computeExecutionContext was no-op
+//        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(3, ctx.getOCLEnvironment().getVariables().size());
         assertEquals(listOfStrings, ctx.getOCLEnvironment().lookup("v").getType());
         assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
@@ -138,7 +149,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, listOfStrings, null));
         final String s = "select(e| Sequence{true}.collect(b|";
-        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
+//      FIXME #computeExecutionContext was no-op
+//        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(3, ctx.getOCLEnvironment().getVariables().size());
         assertEquals(listOfStrings, ctx.getImplicitVariable().getType());
         assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());
@@ -152,7 +164,8 @@ public class ExpressionProposalComputerTest extends TestCase {
         EClassifier listOfStrings = (EClassifier) ctx.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, oclString);
         ctx = (ExecutionContextImpl) ctx.cloneWithVariable(new Variable(ExecutionContext.IMPLICIT_VARIABLE, listOfStrings, null));
         final String s = "let x = 'test' : select(e| Sequence{true}.collect(b|";
-        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
+//      FIXME #computeExecutionContext was no-op
+//        ctx = (ExecutionContextImpl) ExpressionProposalComputer.computeExecutionContext(s, ctx);
         assertEquals(4, ctx.getOCLEnvironment().getVariables().size());
         assertEquals(listOfStrings, ctx.getImplicitVariable().getType());
         assertEquals(oclString, ctx.getOCLEnvironment().lookup("e").getType());

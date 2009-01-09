@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005-2008 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,8 +7,6 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.codeassist;
 
@@ -30,7 +26,7 @@ public class StatementProposalComputerTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        f = new ProposalFactoryImpl(100, new EditorImages() {
+        f = new ProposalFactoryImpl(100, 0, new EditorImages() {
         	@Override
         	protected Image imageFromPath(String path) {
         		return null;
