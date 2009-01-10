@@ -501,7 +501,7 @@ public class ExpressionMigrationFacade {
 		}
 		write("(");
 		String varName = collectionExpression.getElementName();
-		write(varName);
+		write(modelManager.getOclKeywordManager().getValidIdentifierValue(varName));
 		pushContextWithVariable(varName, innerTargetQvtType);
 		EClassifier expressionType;
 		try {
