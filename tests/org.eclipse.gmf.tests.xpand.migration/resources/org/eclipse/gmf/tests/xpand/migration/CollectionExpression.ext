@@ -1,7 +1,7 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 
 List[String] collectCall(ecore::EPackage ePackage) :
-	ePackage.eClassifiers.collect(cl | cl.name)
+	ePackage.eClassifiers.collect(self | self.name)
 ;
 
 List[String] collectCallImplicitIterator(ecore::EPackage ePackage) :
@@ -9,7 +9,7 @@ List[String] collectCallImplicitIterator(ecore::EPackage ePackage) :
 ;
 
 List[ecore::EClassifier] selectCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
-	ePackage.eClassifiers.select(cl | cl.isInstance(javaObject))
+	ePackage.eClassifiers.select(query | query.isInstance(javaObject))
 ;
 
 List[ecore::EClassifier] selectCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
@@ -17,7 +17,7 @@ List[ecore::EClassifier] selectCallImplicitIterator(ecore::EPackage ePackage, ec
 ;
 
 List[ecore::EClassifier] rejectCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
-	ePackage.eClassifiers.reject(cl | cl.isInstance(javaObject))
+	ePackage.eClassifiers.reject(helper | helper.isInstance(javaObject))
 ;
 
 List[ecore::EClassifier] rejectCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
@@ -25,7 +25,7 @@ List[ecore::EClassifier] rejectCallImplicitIterator(ecore::EPackage ePackage, ec
 ;
 
 Boolean existsCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
-	ePackage.eClassifiers.exists(cl | cl.isInstance(javaObject))
+	ePackage.eClassifiers.exists(inout | inout.isInstance(javaObject))
 ;
 
 Boolean existsCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
@@ -33,7 +33,7 @@ Boolean existsCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject 
 ;
 
 Boolean notExistsCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
-	ePackage.eClassifiers.notExists(cl | cl.isInstance(javaObject))
+	ePackage.eClassifiers.notExists(when | when.isInstance(javaObject))
 ;
 
 Boolean notExistsCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
@@ -41,7 +41,7 @@ Boolean notExistsCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObje
 ;
 
 Boolean forAllCall(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
-	ePackage.eClassifiers.forAll(cl | cl.isInstance(javaObject))
+	ePackage.eClassifiers.forAll(var | var.isInstance(javaObject))
 ;
 
 Boolean forAllCallImplicitIterator(ecore::EPackage ePackage, ecore::EJavaObject javaObject) :
