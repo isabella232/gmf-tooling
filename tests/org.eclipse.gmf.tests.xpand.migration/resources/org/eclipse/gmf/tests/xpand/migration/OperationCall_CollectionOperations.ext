@@ -254,3 +254,23 @@ List[ecore::EJavaObject] purgeDupsOp(List[ecore::EClass] eClasses) :
 Integer indexOfOp(List[ecore::EClass] eClasses, ecore::EJavaObject param) :
 	eClasses.indexOf(param)
 ;
+
+Boolean hasNoIndexOfEqual(List[ecore::EClass] eClasses, ecore::EClass param) :
+	eClasses.indexOf(param) == -1
+;
+
+Boolean hasNoIndexOfLess(List[ecore::EClass] eClasses, ecore::EClass param) :
+	eClasses.indexOf(param) < 0
+;
+
+Boolean hasIndexOfNotEqual(List[ecore::EClass] eClasses, ecore::EClass param) :
+	eClasses.indexOf(param) != -1
+;
+
+Boolean hasIndexOfGreaterOrEqual(List[ecore::EClass] eClasses, ecore::EClass param) :
+	eClasses.indexOf(param) >= 0
+;
+
+Boolean hasIndexOfGreater(List[ecore::EClass] eClasses, ecore::EClass param) :
+	eClasses.indexOf(param) > -1
+;

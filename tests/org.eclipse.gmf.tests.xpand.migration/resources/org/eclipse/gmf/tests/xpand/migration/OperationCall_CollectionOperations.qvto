@@ -245,3 +245,23 @@ helper purgeDupsOp(eClasses : Sequence(ecore::EClass)) : Sequence(OclAny) {
 helper indexOfOp(eClasses : Sequence(ecore::EClass), param : OclAny) : Integer {
 	return ((eClasses)[OclAny]->indexOf(param) - 1)
 }
+
+helper hasNoIndexOfEqual(eClasses : Sequence(ecore::EClass), param : ecore::EClass) : Boolean {
+	return not eClasses->includes(param)
+}
+
+helper hasNoIndexOfLess(eClasses : Sequence(ecore::EClass), param : ecore::EClass) : Boolean {
+	return not eClasses->includes(param)
+}
+
+helper hasIndexOfNotEqual(eClasses : Sequence(ecore::EClass), param : ecore::EClass) : Boolean {
+	return eClasses->includes(param)
+}
+
+helper hasIndexOfGreaterOrEqual(eClasses : Sequence(ecore::EClass), param : ecore::EClass) : Boolean {
+	return eClasses->includes(param)
+}
+
+helper hasIndexOfGreater(eClasses : Sequence(ecore::EClass), param : ecore::EClass) : Boolean {
+	return eClasses->includes(param)
+}
