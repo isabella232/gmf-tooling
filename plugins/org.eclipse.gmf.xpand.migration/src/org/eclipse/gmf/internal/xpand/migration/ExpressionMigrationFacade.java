@@ -764,15 +764,24 @@ public class ExpressionMigrationFacade {
 			return EcorePackage.eINSTANCE.getEString();
 		}
 		
-		// TODO: check precedence...
 		TypeSelectExpression typeSelect = getInfixInstanceOfTypeSelect(eOperation, operationCall);
 		if (typeSelect != null) {
-			return internalMigrateInstanceof(typeSelect);
+			return internalMigrateInfixInstanceof(typeSelect);
 		}
 		typeSelect = getInfixNotInstanceOfTypeSelect(eOperation, operationCall);
 		if (typeSelect != null) {
 			write("not ");
-			return internalMigrateInstanceof(typeSelect);
+			return internalMigrateInfixInstanceof(typeSelect);
+		}
+		
+		OperationCall indexOfOperation = getInfixContains(eOperation, operationCall);
+		if (indexOfOperation != null) {
+			return internalMigrateInfixContains(indexOfOperation);
+		}
+		indexOfOperation = getInfixNotContains(eOperation, operationCall);
+		if (indexOfOperation != null) {
+			write("not ");
+			return internalMigrateInfixContains(indexOfOperation);
 		}
 
 		int operationPrecedence = getPrecedence(operationCall);
@@ -816,7 +825,65 @@ public class ExpressionMigrationFacade {
 		return getTypedElementQvtType(eOperation);
 	}
 
-	private EClassifier internalMigrateInstanceof(TypeSelectExpression typeSelect) throws MigrationException {
+	private OperationCall getInfixNotContains(EOperation eOperation, OperationCall operationCall) throws MigrationException {
+		if (operationCall.getParams().length == 1 && operationCall.getTarget() instanceof OperationCall) {
+			Integer intLiteral = getIntLiteralValue(operationCall.getParams()[0]);
+			if (intLiteral != null && ((eOperation == BuiltinMetaModel.Object_EQ && intLiteral == -1) || (eOperation == BuiltinMetaModel.Int_Less && intLiteral == 0))) {
+				return getIndexOfOpCall((OperationCall) operationCall.getTarget());
+			}
+		}
+		return null;
+	}
+
+	private Integer getIntLiteralValue(Expression expression) throws MigrationException {
+		if (expression instanceof IntegerLiteral) {
+			return new Integer(((IntegerLiteral) expression).getLiteralValue());
+		}
+		if (expression instanceof OperationCall) {
+			OperationCall operationCall = (OperationCall) expression;
+			ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
+			if (false == expressionTrace instanceof OperationCallTrace) {
+				throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, operationCall, expressionTrace);
+			}
+			if (((OperationCallTrace) expressionTrace).getEOperation() == BuiltinMetaModel.Int_Unary_Minus) {
+				assert operationCall.getTarget() instanceof IntegerLiteral;
+				return new Integer("-" + ((IntegerLiteral) operationCall.getTarget()).getLiteralValue());
+			}
+		}
+		return null;
+	}
+
+	private OperationCall getIndexOfOpCall(OperationCall operationCall) throws MigrationException {
+		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(operationCall);
+		if (false == expressionTrace instanceof OperationCallTrace) {
+			throw new MigrationException(Type.UNSUPPORTED_OPERATION_CALL_TRACE, resourceName, operationCall, expressionTrace);
+		}
+		OperationCallTrace trace = (OperationCallTrace) expressionTrace;
+		return trace.getEOperation() == BuiltinMetaModel.List_IndexOf ? operationCall : null;
+	}
+
+	private EClassifier internalMigrateInfixContains(OperationCall indexOfOperation) throws MigrationException {
+		assert indexOfOperation.getParams().length == 1;
+		EClassifier targetType = internalMigrateOperationCallTarget(indexOfOperation);
+		assert BuiltinMetaModelExt.isListType(targetType) || BuiltinMetaModelExt.isOrderedSetType(targetType);
+		write("->includes(");
+		internalMigrateOperationCallParameters(indexOfOperation, null);
+		write(")");
+		return EcorePackage.eINSTANCE.getEBoolean();
+	}
+
+	private OperationCall getInfixContains(EOperation eOperation, OperationCall operationCall) throws MigrationException {
+		if (operationCall.getParams().length == 1 && operationCall.getTarget() instanceof OperationCall) {
+			Integer intLiteral = getIntLiteralValue(operationCall.getParams()[0]);
+			if (intLiteral != null
+					&& ((eOperation == BuiltinMetaModel.Object_NotEQ && intLiteral == -1) || (eOperation == BuiltinMetaModel.Int_GreatOrEqual && intLiteral == 0) || (eOperation == BuiltinMetaModel.Int_Greater && intLiteral == -1))) {
+				return getIndexOfOpCall((OperationCall) operationCall.getTarget());
+			}
+		}
+		return null;
+	}
+
+	private EClassifier internalMigrateInfixInstanceof(TypeSelectExpression typeSelect) throws MigrationException {
 		assert typeSelect.getTarget() instanceof ListLiteral;
 		ListLiteral listLiteral = (ListLiteral) typeSelect.getTarget();
 		assert listLiteral.getElements().length == 1;
@@ -941,6 +1008,17 @@ public class ExpressionMigrationFacade {
 				return 2;
 			}
 			
+			if (getInfixNotContains(trace.getEOperation(), operationCall) != null) {
+				/*
+				 * this operation will be migrated as
+				 * 
+				 * not <var>.oclIsKindOf(<TypeLiteral>)
+				 * 
+				 * so having Boolean_NE precedence
+				 */
+				return 2;
+			}
+			
 			if (trace.getEOperation() != null && infixOperations.contains(trace.getEOperation())) {
 				EOperation eOperation = trace.getEOperation();
 				if (BuiltinMetaModel.Boolean_NE == eOperation || BuiltinMetaModel.Int_Unary_Minus == eOperation || BuiltinMetaModel.Double_Unary_Minus == eOperation) {
@@ -1023,7 +1101,7 @@ public class ExpressionMigrationFacade {
 
 		if (BuiltinMetaModel.Collection_IsEmpty == eOperation && operationCall.getTarget() instanceof TypeSelectExpression && isInstanceofTypeselect((TypeSelectExpression) operationCall.getTarget())) {
 			write("not ");
-			return internalMigrateInstanceof((TypeSelectExpression) operationCall.getTarget());
+			return internalMigrateInfixInstanceof((TypeSelectExpression) operationCall.getTarget());
 		}
 		
 		int expressionStartPosition = getCurrentPosition();
