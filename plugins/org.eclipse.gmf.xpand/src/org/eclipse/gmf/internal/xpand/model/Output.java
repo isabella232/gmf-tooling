@@ -14,6 +14,7 @@
  */
 package org.eclipse.gmf.internal.xpand.model;
 
+import org.eclipse.gmf.internal.xpand.StreamsHolder;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 
 /**
@@ -30,4 +31,5 @@ public interface Output {
 
     public void closeFile();
 
+    public StreamsHolder getNamedStreams();
 }

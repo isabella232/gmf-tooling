@@ -19,11 +19,13 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.StreamsHolder;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.qvtlibraries.XpandGlobalVars;
+import org.eclipse.gmf.internal.xpand.util.XpandStreamOperations;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
 import org.eclipse.m2m.internal.qvt.oml.evaluator.ModuleInstance;
@@ -79,14 +81,16 @@ public class ExpressionHelper {
 		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) ctx.createEvaluationEnvironment();
 		QvtOperationalEvaluationVisitor visitor = ctx.createEvaluationVisitor(evaluationEnv);
 		defineGlobalVariables(ctx, evaluationEnv);
+		initializeStreamsHolder(ctx.getScope(), ctx.getScope().getOutput().getNamedStreams(), evaluationEnv);
 		Object val = visitor.visitExpression(expression);
+		initializeStreamsHolder(ctx.getScope(), null, evaluationEnv);
 		clearGlobalVariables(ctx, evaluationEnv);
 		if (env.getOCLStandardLibrary().getOclInvalid() == val) {
 			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", null);
 		}
 		return val;		
 	}
-	
+
 	private EcoreEnvironment getOCLEnvironment(ExecutionContext ctx) {
 		if (oclEnvironment == null) {
 			oclEnvironment = ctx.getOCLEnvironment();
@@ -142,6 +146,24 @@ public class ExpressionHelper {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Initializes QVT black-box java library with the given value of the streams holder.
+	 */
+	private void initializeStreamsHolder(Scope scope, StreamsHolder namedStreams, QvtOperationalEvaluationEnv evaluationEnv) {
+		QvtResource streamOperationResource = scope.findExtension("xpt::StreamOperations");
+		if (streamOperationResource != null) {
+			for (Module module : streamOperationResource.getModules()) {
+				ModuleInstance moduleInstance = evaluationEnv.getThisOfType(module);
+				if (moduleInstance != null) {
+					XpandStreamOperations libInstance = moduleInstance.getAdapter(XpandStreamOperations.class);
+					if (libInstance != null) {
+						libInstance.streamsHolder = namedStreams;
+					}
+				}
+			}
+		}
 	}
 
 	public int getStart() {

@@ -34,4 +34,17 @@
       </content-type>
    </extension>
 
+   <extension
+         point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
+         <unit
+               name="StreamOperations"
+               namespace="xpt">
+            <library
+                  class="org.eclipse.gmf.internal.xpand.util.XpandStreamOperations">
+               <metamodel
+                     nsURI="http://www.eclipse.org/emf/2002/Ecore">
+               </metamodel>
+            </library>
+         </unit>
+   </extension>
 </plugin>
