@@ -3,9 +3,17 @@ modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 library ChainExpression;
 
 helper chainExpression(eClass : ecore::EClass, eFeature : ecore::EStructuralFeature) : String {
-	eClass.eUnset(eFeature); return eClass.name
+	return compute (tmpVar : String) {eClass.eUnset(eFeature); tmpVar = eClass.name}
 }
 
 helper nestedChainExpressions(eClass : ecore::EClass, eFeature1 : ecore::EStructuralFeature, eFeature2 : ecore::EStructuralFeature) : String {
-	eClass.eUnset(eFeature1); eClass.eUnset(eFeature2); return eClass.name
+	return compute (tmpVar : String) {eClass.eUnset(eFeature1); eClass.eUnset(eFeature2); tmpVar = eClass.name}
+}
+
+helper nestedChainExpressionsWBraces(eClass : ecore::EClass, eFeature1 : ecore::EStructuralFeature, eFeature2 : ecore::EStructuralFeature, eFeature3 : ecore::EStructuralFeature) : String {
+	return compute (tmpVar : String) {eClass.eUnset(eFeature1); compute (tmpVar_1 : OclVoid) {eClass.eUnset(eFeature2); tmpVar_1 = eClass.eUnset(eFeature3)}; tmpVar = eClass.name}
+}
+
+helper incorrectlyNestedChainExpressions(eClass : ecore::EClass, eFeature1 : ecore::EStructuralFeature, eFeature2 : ecore::EStructuralFeature, condition : Boolean) : String {
+	return (if condition then compute (tmpVar : String) {eClass.eUnset(eFeature1); tmpVar = eClass.name} else compute (tmpVar_1 : String) {eClass.eUnset(eFeature2); tmpVar_1 = eClass.name} endif)
 }

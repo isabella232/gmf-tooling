@@ -7,3 +7,11 @@ String chainExpression(ecore::EClass eClass, ecore::EStructuralFeature eFeature)
 String nestedChainExpressions(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2) :
 	eClass.eUnset(eFeature1)->eClass.eUnset(eFeature2)->eClass.name
 ;
+
+String nestedChainExpressionsWBraces(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2, ecore::EStructuralFeature eFeature3) :
+	eClass.eUnset(eFeature1)->(eClass.eUnset(eFeature2)->eClass.eUnset(eFeature3))->eClass.name
+;
+
+String incorrectlyNestedChainExpressions(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2, Boolean condition) :
+	condition ? (eClass.eUnset(eFeature1)->eClass.name) : (eClass.eUnset(eFeature2)->eClass.name)
+;
