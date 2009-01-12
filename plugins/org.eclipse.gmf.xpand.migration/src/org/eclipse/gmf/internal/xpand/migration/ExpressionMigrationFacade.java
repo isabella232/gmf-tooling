@@ -358,20 +358,30 @@ public class ExpressionMigrationFacade {
 	}
 
 	private EClassifier migrateChainExpression(ChainExpression chainExpression) throws MigrationException {
-		// TODO: currently only top-level chain expressions are supported. We
-		// have to develop a way to support inner chain expressions like:
-		// if(a.b()->c.d()->e.f) then {...} else {...}
-		// for now solution is to use separate helpers for each nested chain
-		// expression
-		if (expressionsStack.size() > 1 && false == expressionsStack.peek() instanceof ChainExpression) {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, chainExpression, "Inner " + chainExpression.getClass().getName());
+		write("compute (");
+		String varName = variableDispatcher.getNextVariableName();
+		write(varName);
+		write(" : ");
+		int typePosition = getCurrentPosition();
+		write(") {");
+		internalMigrateChainExpressionFirstArg(chainExpression.getFirst());
+		write(varName);
+		write(" = ");
+		EClassifier varType = migrateExpression(chainExpression.getNext());
+		write(typeManager.getQvtFQName(varType), typePosition);
+		write("}");
+		return varType;
+	}
+
+	private void internalMigrateChainExpressionFirstArg(Expression first) throws MigrationException {
+		if (first instanceof ChainExpression) {
+			ChainExpression innerChain = (ChainExpression) first;
+			internalMigrateChainExpressionFirstArg(innerChain.getFirst());
+			migrateExpression(innerChain.getNext());
+		} else {
+			migrateExpression(first);
 		}
-		migrateExpression(chainExpression.getFirst());
 		write("; ");
-		if (expressionsStack.size() == 1) {
-			markReturnPosition();
-		}
-		return migrateExpression(chainExpression.getNext());
 	}
 
 	private EClassifier migrateBooleanOperation(BooleanOperation booleanOperation) throws MigrationException {
@@ -1451,7 +1461,7 @@ public class ExpressionMigrationFacade {
 				type = BuiltinMetaModelExt.getBagType(type);
 			}
 		}
-		return type;
+		return type == null ? BuiltinMetaModel.VOID : type;
 	}
 
 	private void convertImplicitCollectProduct(EClassifier targetType) {
