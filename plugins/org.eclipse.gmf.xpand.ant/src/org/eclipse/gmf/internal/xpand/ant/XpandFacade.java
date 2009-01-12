@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -29,6 +30,8 @@ import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.StreamsHolder;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
@@ -39,33 +42,28 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.m2m.qvt.oml.runtime.util.OCLEnvironmentWithQVTAccessFactory;
 import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
+import org.eclipse.ocl.ecore.EcoreFactory;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCLExpression;
+import org.eclipse.ocl.ecore.OCL.Helper;
 import org.eclipse.ocl.ecore.OCL.Query;
 import org.osgi.framework.Bundle;
 
 /**
  * Redistributable API for Xpand evaluation
- * 
  * @author artem
  */
 public final class XpandFacade {
-
 	private final LinkedList<Variable> myGlobals = new LinkedList<Variable>();
-
 	private final LinkedList<URL> myLocations = new LinkedList<URL>();
-
 	private final LinkedList<String> myImportedModels = new LinkedList<String>();
-
 	private final LinkedList<String> myExtensionFiles = new LinkedList<String>();
-
-	private final LinkedList<ClassLoader> myContextLoaders = new LinkedList<ClassLoader>();
-
+	private boolean myEnforceReadOnlyNamedStreamsAfterAccess = false;
+	
 	private ExecutionContext myXpandCtx;
-
-	private ExecutionContext myXtendCtx;
-
-	private ClassLoadContext myClassLoader;
+	private BufferOutput myBufferOut;
+	private HashMap<Object, StreamsHolder> myStreamsHolders;
 
 	private final StringBuilder myOut = new StringBuilder();
 
@@ -73,12 +71,9 @@ public final class XpandFacade {
 	}
 
 	/**
-	 * Sort of copy constructor, create a new facade pre-initialized with values
+	 * Sort of copy constructor, create a new facade pre-initialized with values 
 	 * of existing one.
-	 * 
-	 * @param chain
-	 *            facade to copy settings (globals, locations, metamodels,
-	 *            extensions, loaders) from, can't be <code>null</code>.
+	 * @param chain facade to copy settings (globals, locations, metamodels, extensions, loaders) from, can't be <code>null</code>.
 	 */
 	public XpandFacade(XpandFacade chain) {
 		assert chain != null;
@@ -86,12 +81,18 @@ public final class XpandFacade {
 		myLocations.addAll(chain.myLocations);
 		myImportedModels.addAll(chain.myImportedModels);
 		myExtensionFiles.addAll(chain.myExtensionFiles);
-		myContextLoaders.addAll(chain.myContextLoaders);
 		//
 		// not necessary, but doesn't seem to hurt
-		myClassLoader = chain.myClassLoader; // read-only, stateless
 		myXpandCtx = chain.myXpandCtx; // new state is formed with cloning
-		myXtendCtx = chain.myXtendCtx;
+	}
+
+	/**
+	 * Named streams (those created by <<FILE file slotName>> syntax) may be put into a strict mode that prevents write operations
+	 * after the contents of the stream have been accessed. By default, named streams are not in strict mode.
+	 * @param value
+	 */
+	public void setEnforceReadOnlyNamedStreamsAfterAccess(boolean value) {
+		myEnforceReadOnlyNamedStreamsAfterAccess = value;
 	}
 
 	public void addGlobal(String name, Object value) {
@@ -119,80 +120,62 @@ public final class XpandFacade {
 	}
 
 	/**
-	 * Registers a class loader to load Java classes accessed from templates
-	 * and/or expressions.
-	 * 
-	 * @param loader
-	 *            ClassLoader to load classes though
+	 * Registers a class loader to load Java classes accessed from templates and/or expressions. 
+	 * @param loader ClassLoader to load classes though
+	 * @deprecated QVT-based dialect of Xpand does not use classload contexts.
 	 */
+	@Deprecated
 	public void addClassLoadContext(ClassLoader loader) {
-		assert loader != null;
-		if (loader != null) { // safety
-			myContextLoaders.add(loader);
-			clearAllContexts();
-		}
+		//do nothing
 	}
 
 	/**
-	 * Register a bundle to load Java classes from (i.e. JAVA functions in
-	 * Xtend)
-	 * 
-	 * @param bundle
-	 *            - generally obtained from
-	 *            {@link org.eclipse.core.runtime.Platform#getBundle(String)},
-	 *            should not be null.
+	 * Register a bundle to load Java classes from (i.e. JAVA functions in Xtend)
+	 * @param bundle - generally obtained from {@link org.eclipse.core.runtime.Platform#getBundle(String)}, should not be null.
+	 * @deprecated QVT-based dialect of Xpand does not use classload contexts.
 	 */
+	@Deprecated
 	public void addClassLoadContext(Bundle bundle) {
-		assert bundle != null;
-		if (bundle != null) { // safety
-			myContextLoaders.add(new BundleClassLoader(bundle));
-			clearAllContexts();
-		}
+		//do nothing
 	}
-
+	
 	public void addMetamodel(String metamodel) {
 		if (myImportedModels.contains(metamodel)) {
 			return;
 		}
 		myImportedModels.add(metamodel);
-		clearExprContext();
 	}
 
 	/**
-	 * @param extensionFile
-	 *            double-colon separated qualified name of ext file
+	 * @param extensionFile double-colon separated qualified name of qvto file
 	 */
 	public void addExtensionFile(String extensionFile) {
 		if (myExtensionFiles.contains(extensionFile)) {
 			return;
 		}
 		myExtensionFiles.add(extensionFile);
-		clearExprContext();
 	}
 
 	public <T> T evaluate(String expression, Object target) {
-		// XXX perhaps, need to check for target == null and do not set 'this'
-		// then
-		return evaluate(expression, Collections.singletonMap("this", target));
+		// XXX perhaps, need to check for target == null and do not set 'this' then
+		return evaluate(expression, Collections.singletonMap("self", target));
 	}
-
+	
 	/**
-	 * @param expression
-	 *            xtend expression to evaluate
-	 * @param context
-	 *            should not be <code>null</code>
+	 * @param expression xtend expression to evaluate
+	 * @param context should not be <code>null</code>
 	 * @return
 	 */
-	public <T> T evaluate(String expression, Map<String, ?> context) {
+	@SuppressWarnings("unchecked")
+	public <T> T evaluate(String expression, Map<String,?> context) {
 		assert context != null; // nevertheless, prevent NPE.
-
 		ResourceManager rm;
 		if (myLocations.isEmpty()) {
 			try {
 				// use current default path as root
 				// use canonicalFile to get rid of dot after it get resolved to
 				// current dir
-				rm = new BundleResourceManager(new File(".").getCanonicalFile().toURL());
+				rm = new BundleResourceManager(new File(".").getCanonicalFile().toURI().toURL());
 			} catch (IOException ex) {
 				// should not happen
 				rm = null;
@@ -201,17 +184,61 @@ public final class XpandFacade {
 			rm = new BundleResourceManager(myLocations.toArray(new URL[myLocations.size()]));
 		}
 
-		OCLEnvironmentWithQVTAccessFactory factory = new OCLEnvironmentWithQVTAccessFactory(getImportedModules(rm), getAllVisibleModels());
+		Set<Module> importedModules = getImportedModules(rm);
+		OCLEnvironmentWithQVTAccessFactory factory = new OCLEnvironmentWithQVTAccessFactory(importedModules, getAllVisibleModels());
 		OCL ocl = OCL.newInstance(factory);
+		Object thisValue = null;
+		if (context != null) {
+			for (Map.Entry<String, ?> nextEntry : context.entrySet()) {
+				String varName = nextEntry.getKey();
+				Object varValue = nextEntry.getValue();
+				if (IMPLICIT_VAR_NAME.equals(varName) || IMPLICIT_VAR_NAME_BACKWARD_COMPATIBILITY.equals(varName)) {
+					assert thisValue == null;	//prevent simultaneous this and self
+					thisValue = varValue;
+					continue;
+				}
+				EClassifier varType = BuiltinMetaModel.getType(getXpandContext(), varValue);
+    			org.eclipse.ocl.ecore.Variable oclVar = EcoreFactory.eINSTANCE.createVariable();
+    			oclVar.setName(varName);
+    			oclVar.setType(varType);
+				ocl.getEnvironment().addElement(varName, oclVar, true);
+			}
+		}
+		Helper oclHelper = ocl.createOCLHelper();
+		if (thisValue != null) {
+			oclHelper.setContext(BuiltinMetaModel.getType(getXpandContext(), thisValue));
+		} else {
+			oclHelper.setContext(ocl.getEnvironment().getOCLStandardLibrary().getOclVoid());
+		}
+
 		OCLExpression exp;
 		try {
-			exp = ocl.createOCLHelper().createQuery(expression);
+			exp = oclHelper.createQuery(expression);
 		} catch (ParserException e) {
-			e.printStackTrace();
-			return null;
+//			e.printStackTrace();
+			throw new EvaluationException(e, null);
 		}
 		Query query = ocl.createQuery(exp);
-		return (T) query.evaluate();
+		EcoreEvaluationEnvironment ee = (EcoreEvaluationEnvironment) query.getEvaluationEnvironment();
+		if (context != null) {
+	    	for (Map.Entry<String, ?> nextEntry : context.entrySet()) {
+				String varName = nextEntry.getKey();
+				Object varValue = nextEntry.getValue();
+				if (!IMPLICIT_VAR_NAME.equals(varName) && !IMPLICIT_VAR_NAME_BACKWARD_COMPATIBILITY.equals(varName)) {
+	    			ee.add(varName, varValue);
+	    		}
+	    	}
+    	}
+    	Object result;
+    	if (thisValue != null) {
+    		result = query.evaluate(thisValue);
+    	} else {
+    		result = query.evaluate();
+    	}
+    	if (result == ocl.getEnvironment().getOCLStandardLibrary().getOclInvalid()) {
+    		return null;	//XXX: or throw an exception?
+    	}
+    	return (T) result;
 	}
 
 	private Set<Module> getImportedModules(ResourceManager rm) {
@@ -254,81 +281,114 @@ public final class XpandFacade {
 		// though it's reasonable to keep original order of input elements,
 		// is it worth declaring in API?
 		LinkedHashMap<Object, String> inputToResult = new LinkedHashMap<Object, String>();
-		boolean invokeForCollection = findDefinition(templateName, target, arguments) != null;
-		if (invokeForCollection) {
-			inputToResult.put(target, xpand(templateName, (Object) target, arguments));
-			return inputToResult;
+        boolean invokeForCollection = findDefinition(templateName, target, arguments) != null;
+        if (invokeForCollection) {
+			inputToResult.put(target, xpand(templateName, (Object)target, arguments));
+	        return inputToResult;
+        }
+		myStreamsHolders = new HashMap<Object, StreamsHolder>();
+        for (Object nextInput: target) {
+        	if (nextInput == null) {
+        		continue;
+        	}
+        	String result = xpand(templateName, nextInput, arguments);
+			inputToResult.put(nextInput, result);
+			myStreamsHolders.put(nextInput, myBufferOut.getNamedStreams());
+        }
+        return inputToResult;
+	}
+
+	/**
+	 * Returns names of named streams that were created during the most recent {@link #xpand(String, Object, Object...) operation and have non-empty contents.
+	 * @return
+	 */
+	public Collection<String> getNamedStreams() {
+		assert myStreamsHolders == null;	//if invoked for several elements separately, another version of this method should be used.
+		if (myBufferOut == null) {
+			return Collections.emptyList();
 		}
-		for (Object nextInput : target) {
-			if (nextInput == null) {
-				continue;
-			}
-			inputToResult.put(nextInput, xpand(templateName, nextInput, arguments));
+		return myBufferOut.getNamedStreams().getSlotNames();
+	}
+
+	/**
+	 * Returns contents of the named stream that was created during the most recent {@link #xpand(String, Object, Object...) operation.
+	 * If the stream with the given name does not exist, the operation will throw an exception.
+	 * @param streamName
+	 * @return
+	 */
+	public String getNamedStreamContents(String streamName) {
+		assert myStreamsHolders == null;	//if invoked for several elements separately, another version of this method should be used.
+		if (myBufferOut == null) {
+			throw new UnsupportedOperationException("Stream with the given name does not exist", null);
 		}
-		return inputToResult;
+		return myBufferOut.getNamedStreams().getStreamContents(streamName);
+	}
+
+	/**
+	 * Returns names of non-empty named streams that were created during the most recent {@link #xpand(String, Collection, Object...)} operation for the given input.
+	 * @return
+	 */
+	public Collection<String> getNamedStreams(Object input) {
+		if (myStreamsHolders == null) {
+			//assume this is the input that was used during the last invocation, but do not enforce this.
+			return getNamedStreams();
+		}
+		StreamsHolder streamsHolder = myStreamsHolders.get(input);
+		if (streamsHolder == null) {
+			return Collections.emptyList();
+		}
+		return streamsHolder.getSlotNames();
+	}
+
+	/**
+	 * Returns contents of the named stream that was created during the most recent {@link #xpand(String, Collection, Object...) operation.
+	 * If the stream with the given name does not exist, the operation will throw an exception.
+	 * @param streamName
+	 * @return
+	 */
+	public String getNamedStreamContents(Object input, String streamName) {
+		if (myStreamsHolders == null) {
+			//assume this is the input that was used during the last invocation, but do not enforce this.
+			return getNamedStreamContents(streamName);
+		}
+		StreamsHolder streamsHolder = myStreamsHolders.get(input);
+		if (streamsHolder == null) {
+			throw new UnsupportedOperationException("Stream with the given name does not exist", null);
+		}
+		return streamsHolder.getStreamContents(streamName);
 	}
 
 	private XpandDefinition findDefinition(String templateName, Object target, Object[] arguments) {
 		EClassifier targetType = BuiltinMetaModel.getType(getXpandContext(), target);
 		final EClassifier[] paramTypes = new EClassifier[arguments == null ? 0 : arguments.length];
 		for (int i = 0; i < paramTypes.length; i++) {
-			paramTypes[i] = BuiltinMetaModel.getType(getXpandContext(), arguments[i]);
+		    paramTypes[i] = BuiltinMetaModel.getType(getXpandContext(), arguments[i]);
 		}
 		return getXpandContext().findDefinition(templateName, targetType, paramTypes);
 	}
 
 	private void clearAllContexts() {
 		myXpandCtx = null;
-		myXtendCtx = null;
-		myClassLoader = null;
 	}
-
-	private void clearExprContext() {
-		myXtendCtx = null;
-	}
-
+	
 	private void clearOut() {
 		myOut.setLength(200);
 		myOut.trimToSize();
 		myOut.setLength(0);
+		//To clear streams, we have no other option but to reset the xpand context
+		myXpandCtx = null;
+		myBufferOut = null;
 	}
 
 	private ExecutionContext getXpandContext() {
 		if (myXpandCtx == null) {
 			BundleResourceManager rm = new BundleResourceManager(myLocations.toArray(new URL[myLocations.size()]));
-			myXpandCtx = ContextFactory.createXpandContext(rm, new BufferOutput(myOut), new LinkedList<Variable>(myGlobals), getClassLoadContext());
+			myBufferOut = new BufferOutput(myOut, myEnforceReadOnlyNamedStreamsAfterAccess);
+			myXpandCtx = ContextFactory.createXpandContext(rm, myBufferOut, myGlobals, (ClassLoadContext) null);
 		}
 		return myXpandCtx;
 	}
 
-	private ClassLoadContext getClassLoadContext() {
-		if (myClassLoader == null) {
-			if (myContextLoaders.isEmpty()) {
-				myClassLoader = new ClassLoadContext.Naive(getClass().getClassLoader());
-			} else {
-				myClassLoader = new ClassLoadContext.Naive(myContextLoaders.toArray(new ClassLoader[myContextLoaders.size()]));
-			}
-		}
-		return myClassLoader;
-	}
-
-	private static class BundleClassLoader extends ClassLoader {
-
-		private final Bundle myBundle;
-
-		BundleClassLoader(Bundle b) {
-			assert b != null;
-			myBundle = b;
-		}
-
-		@Override
-		public Class<?> loadClass(String name) throws ClassNotFoundException {
-			return myBundle.loadClass(name);
-		}
-
-		@Override
-		protected java.net.URL findResource(String name) {
-			return myBundle.getResource(name);
-		}
-	}
+	private static final String IMPLICIT_VAR_NAME = "self";	//$NON-NLS-1$
+	private static final String IMPLICIT_VAR_NAME_BACKWARD_COMPATIBILITY = "this";	//$NON-NLS-1$
 }
