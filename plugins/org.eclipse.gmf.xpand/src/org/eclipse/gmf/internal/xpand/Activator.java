@@ -180,28 +180,11 @@ public class Activator extends Plugin {
 
 	public static ResourceSet getWorkspaceMetamodelsResourceSet() {
 		if (workspaceMetamodelRS == null) {
-			ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
-//			if (resourceSetImpl.getURIResourceMap() == null) {
-//				resourceSetImpl.setURIResourceMap(new HashMap<URI, Resource>());
-//			}
-//			for (Map.Entry<String, URI> entry : EcorePlugin.getEPackageNsURIToGenModelLocationMap().entrySet()) {
-//				EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(entry.getKey());
-//				if (ePackage != null && ePackage.eResource() != null) {
-//					// TODO: optimize!
-//					ResourceSet tmpResourceSet = new ResourceSetImpl();
-//					Resource tmpResource = tmpResourceSet.getResource(entry.getValue(), true);
-//					if (tmpResource.getContents().size() > 0 && tmpResource.getContents().get(0) instanceof GenModel) {
-//						GenModel genModel = (GenModel) tmpResource.getContents().get(0);
-//						if (genModel.getGenPackages().size() > 0) {
-//							URI ecoreResourceURI = genModel.getGenPackages().get(0).getEcorePackage().eResource().getURI();
-//							resourceSetImpl.getURIResourceMap().put(ecoreResourceURI, ePackage.eResource());
-//						}
-//					}
-//				}
-//			}
+			final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
+			resourceSetImpl.setURIResourceMap(new EPackageRegistryBasedURIResourceMap(resourceSetImpl.getURIConverter()));
 			workspaceMetamodelRS = resourceSetImpl;
 		}
 		return workspaceMetamodelRS;
 	}
-
+	
 }
