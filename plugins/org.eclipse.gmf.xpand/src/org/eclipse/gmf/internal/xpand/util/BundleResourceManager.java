@@ -98,4 +98,17 @@ public class BundleResourceManager extends ResourceManagerImpl {
 		}
 		return result.toArray(new Reader[result.size()]);
 	}
+
+	@Override
+	protected String resolveCFileFullPath(String fullyQualifiedName, String extension) {
+		final String urlPath = fullyQualifiedName.replaceAll(TypeNameUtil.NS_DELIM, "/") + '.' + extension;
+		if (paths.length > 0) {
+			try {
+				return new URL(paths[0], urlPath).toString();
+			} catch (MalformedURLException e) {
+				/* IGNORE */
+			}
+		}
+		return fullyQualifiedName + "." + extension;
+	}
 }

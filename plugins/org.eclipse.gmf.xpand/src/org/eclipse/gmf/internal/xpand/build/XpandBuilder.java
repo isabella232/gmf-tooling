@@ -58,7 +58,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 		super.startupOnInitialize();
 		myRootManager = Activator.getRootManager(getProject());
 		myRootManager.addRootChangeListener(this);
-		modelRegistry = new WorkspaceModelRegistry();
+		modelRegistry = new WorkspaceModelRegistry(Activator.getWorkspaceMetamodelsResourceSet());
 		Activator.registerModelSource(modelRegistry);
 	}
 

@@ -155,4 +155,18 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 	private static String toFullyQualifiedName(IPath filePath) {
 		return filePath.removeFileExtension().toString().replace("/", TypeNameUtil.NS_DELIM);
 	}
+
+	@Override
+	protected String resolveCFileFullPath(String fullyQualifiedName, String fileExtension) {
+		IPath fp = new Path(fullyQualifiedName.replaceAll(TypeNameUtil.NS_DELIM, "/")).addFileExtension(fileExtension);
+		IPath[] resolutions = getResolutions(fp);
+		for (IPath resolvedPath : resolutions) {
+			IFile file = resolvedPath.isAbsolute() ? ResourcesPlugin.getWorkspace().getRoot().getFile(resolvedPath) : contextProject.getFile(resolvedPath);
+			if (file.exists()) {
+				return file.getLocation().toOSString();
+			}
+		}
+		// TODO: use file located in main Path in this case?
+		return fullyQualifiedName + "." + fileExtension;
+	}
 }

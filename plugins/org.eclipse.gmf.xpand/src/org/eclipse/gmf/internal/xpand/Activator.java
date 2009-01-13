@@ -26,6 +26,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.xpand.build.MetaModelSource;
 import org.osgi.framework.BundleContext;
 
@@ -156,6 +158,7 @@ public class Activator extends Plugin {
 	};
 
 	private final Set<MetaModelSource> modelSources = new LinkedHashSet<MetaModelSource>();
+	private static ResourceSet workspaceMetamodelRS;
 	public static void registerModelSource(MetaModelSource modelSource) {
 		assert modelSource != null;
 		anInstance.modelSources.add(modelSource);
@@ -174,4 +177,31 @@ public class Activator extends Plugin {
 		}
 		return EPackage.Registry.INSTANCE.getEPackage(nsURI);
 	}
+
+	public static ResourceSet getWorkspaceMetamodelsResourceSet() {
+		if (workspaceMetamodelRS == null) {
+			ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
+//			if (resourceSetImpl.getURIResourceMap() == null) {
+//				resourceSetImpl.setURIResourceMap(new HashMap<URI, Resource>());
+//			}
+//			for (Map.Entry<String, URI> entry : EcorePlugin.getEPackageNsURIToGenModelLocationMap().entrySet()) {
+//				EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(entry.getKey());
+//				if (ePackage != null && ePackage.eResource() != null) {
+//					// TODO: optimize!
+//					ResourceSet tmpResourceSet = new ResourceSetImpl();
+//					Resource tmpResource = tmpResourceSet.getResource(entry.getValue(), true);
+//					if (tmpResource.getContents().size() > 0 && tmpResource.getContents().get(0) instanceof GenModel) {
+//						GenModel genModel = (GenModel) tmpResource.getContents().get(0);
+//						if (genModel.getGenPackages().size() > 0) {
+//							URI ecoreResourceURI = genModel.getGenPackages().get(0).getEcorePackage().eResource().getURI();
+//							resourceSetImpl.getURIResourceMap().put(ecoreResourceURI, ePackage.eResource());
+//						}
+//					}
+//				}
+//			}
+			workspaceMetamodelRS = resourceSetImpl;
+		}
+		return workspaceMetamodelRS;
+	}
+
 }

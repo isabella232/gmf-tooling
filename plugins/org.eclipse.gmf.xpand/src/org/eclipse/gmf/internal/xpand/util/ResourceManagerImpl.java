@@ -25,7 +25,6 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
@@ -40,8 +39,6 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
-import org.eclipse.m2m.qvt.oml.blackbox.LoadContext;
-import org.eclipse.m2m.qvt.oml.blackbox.ResolutionContextImpl;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
@@ -215,7 +212,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
 			// TODO: provide user with more detailed error message in this case?
 			assert readers.length == 1;
-			CFile cFile = new InputStreamCFile(readers[0], fullyQualifiedName);
+			CFile cFile = new InputStreamCFile(readers[0], resolveCFileFullPath(fullyQualifiedName, QvtResource.FILE_EXTENSION));
 			try {
 				CompiledModule module = getQvtCompiler().compile(cFile, getQvtCompilerOptions(), null).getModule();
 				// assert module.getModule() instanceof Library;
@@ -237,6 +234,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		}
 	}
 
+	abstract protected String resolveCFileFullPath(String fullyQualifiedName, String fileExtension);
+
 	/**
 	 * Using singleton QvtCompiler instance with "history". To prevent same
 	 * (native) libraries from being loaded twice into if (indirectly)
@@ -246,7 +245,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		if (qvtCompiler == null) {
 			// TODO: use different kind of ImportResolver being able to
 			// construct referenced CFiles using ResourceManagerImpl
-			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl());
+			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl(), Activator.getWorkspaceMetamodelsResourceSet());
 		}
 		return qvtCompiler;
 	}

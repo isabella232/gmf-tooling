@@ -32,7 +32,7 @@ class WorkspaceModelRegistry implements MetaModelSource {
 			this.resource = res;
 		}
 	}
-
+	
 	private final Map<String, Descriptor> pathToDescriptor = new TreeMap<String, Descriptor>();
 	private final Map<String, Descriptor> uriToDescriptor = new TreeMap<String, Descriptor>();
 
@@ -45,9 +45,13 @@ class WorkspaceModelRegistry implements MetaModelSource {
 //		System.err.println("<<< " + WorkspaceModelRegistry.class.getSimpleName());
 //	}
 	
-	public WorkspaceModelRegistry() {
+	public WorkspaceModelRegistry(ResourceSet resolutionResourceSet) {
+		resourceSet = resolutionResourceSet;
 		resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
-		
+	}
+	
+	public WorkspaceModelRegistry() {
+		this(new ResourceSetImpl());
 	}
 
 	public EPackage find(String nsURI) {
@@ -104,7 +108,7 @@ class WorkspaceModelRegistry implements MetaModelSource {
 	}
 
 	// TODO per-project?
-	private final ResourceSet resourceSet = new ResourceSetImpl();
+	private final ResourceSet resourceSet;
 
 	private Resource attemptLoad(IFile file) throws IOException {
 		URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), false);
