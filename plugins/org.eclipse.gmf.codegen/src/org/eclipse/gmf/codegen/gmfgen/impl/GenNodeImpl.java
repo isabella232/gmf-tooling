@@ -171,7 +171,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated NOT
 	 */
 	public EList<GenLink> getGenOutgoingLinks() {
-		return GenLinkEndOperations.getGenOutgoingLinks(this);
+		EList<GenLink> r = GenLinkEndOperations.getGenOutgoingLinks(this);
+		return new EcoreEList.UnmodifiableEList<GenLink>(this, GMFGenPackage.eINSTANCE.getGenLinkEnd_GenOutgoingLinks(), r.size(), r.toArray());
 	}
 
 	/**
@@ -180,7 +181,8 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated NOT
 	 */
 	public EList<GenLink> getGenIncomingLinks() {
-		return GenLinkEndOperations.getGenIncomingLinks(this);
+		EList<GenLink> r = GenLinkEndOperations.getGenIncomingLinks(this);
+		return new EcoreEList.UnmodifiableEList<GenLink>(this, GMFGenPackage.eINSTANCE.getGenLinkEnd_GenIncomingLinks(), r.size(), r.toArray());
 	}
 
 	/**

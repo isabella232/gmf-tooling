@@ -17,9 +17,11 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -279,7 +281,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated NOT
 	 */
 	public EList<GenLink> getGenOutgoingLinks() {
-		return GenLinkEndOperations.getGenOutgoingLinks(this);
+		EList<GenLink> r = GenLinkEndOperations.getGenOutgoingLinks(this);
+		return new EcoreEList.UnmodifiableEList<GenLink>(this, GMFGenPackage.eINSTANCE.getGenLinkEnd_GenOutgoingLinks(), r.size(), r.toArray());
 	}
 
 	/**
@@ -288,7 +291,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated NOT
 	 */
 	public EList<GenLink> getGenIncomingLinks() {
-		return GenLinkEndOperations.getGenIncomingLinks(this);
+		EList<GenLink> r = GenLinkEndOperations.getGenIncomingLinks(this);
+		return new EcoreEList.UnmodifiableEList<GenLink>(this, GMFGenPackage.eINSTANCE.getGenLinkEnd_GenIncomingLinks(), r.size(), r.toArray());
 	}
 
 	/**
@@ -581,13 +585,15 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated NOT
 	 */
 	public EList<GenLinkEnd> getSources() {
+		final EReference feature = GMFGenPackage.eINSTANCE.getGenLink_Sources();
 		if (getModelFacet() == null){
-			return ECollections.emptyEList();
+			return new EcoreEList.UnmodifiableEList<GenLinkEnd>(this, feature, 0, new Object[0]);
 		}
-		return getCompatibleLinkEnds(getModelFacet().getSourceType());
+		EList<GenLinkEnd> r = getCompatibleLinkEnds(getModelFacet().getSourceType());
+		return new EcoreEList.UnmodifiableEList<GenLinkEnd>(this, feature, r.size(), r.toArray());
 	}
 	
-	private EList<GenLinkEnd> getCompatibleLinkEnds(GenClass desiredType){
+	private EList<GenLinkEnd> getCompatibleLinkEnds(GenClass desiredType) {
 		if (desiredType == null){
 			return ECollections.emptyEList();
 		}
@@ -623,10 +629,12 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated NOT
 	 */
 	public EList<GenLinkEnd> getTargets() {
+		EReference feature = GMFGenPackage.eINSTANCE.getGenLink_Targets();
 		if (getModelFacet() == null){
-			return ECollections.emptyEList();
+			return new EcoreEList.UnmodifiableEList<GenLinkEnd>(this, feature, 0, new Object[0]);
 		}
-		return getCompatibleLinkEnds(getModelFacet().getTargetType());
+		EList<GenLinkEnd> r = getCompatibleLinkEnds(getModelFacet().getTargetType());
+		return new EcoreEList.UnmodifiableEList<GenLinkEnd>(this, feature, r.size(), r.toArray());
 	}
 
 	/**
