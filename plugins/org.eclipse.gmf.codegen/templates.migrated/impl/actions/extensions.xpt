@@ -56,26 +56,25 @@
       <menuContribution locationURI="«locationURI»">
 «EXPAND menuEntry(contextMenu) FOREACH items-»
       </menuContribution>
-«EXPAND menuContribution(contextMenu) FOREACH (items)[gmfgen::GenContributionManager]-»
+«EXPAND menuContribution(contextMenu) FOREACH items[gmfgen::GenContributionManager]-»
 «ENDDEFINE»
 
 
 «DEFINE commandContribution FOR gmfgen::GenContributionManager-»
-«EXPAND commandContribution FOREACH (items)[gmfgen::GenCustomAction]-»
-«EXPAND commandContribution FOREACH (items)[gmfgen::GenAction]-»
-«EXPAND commandContribution FOREACH (items)[gmfgen::GenContributionManager]-»
+«EXPAND commandContribution FOREACH items[gmfgen::GenCustomAction]-»
+«EXPAND commandContribution FOREACH items[gmfgen::GenAction]-»
+«EXPAND commandContribution FOREACH items[gmfgen::GenContributionManager]-»
 «ENDDEFINE»
 
 «DEFINE handlerContribution FOR gmfgen::GenContributionManager-»
-«EXPAND handlerContribution FOREACH (items)[gmfgen::GenCustomAction]->select(a | a.generateBoilerplate)-»
-«EXPAND handlerContribution FOREACH (items)[gmfgen::GenContributionManager]-»
+«EXPAND handlerContribution FOREACH items[gmfgen::GenCustomAction]-»
+«EXPAND handlerContribution FOREACH items[gmfgen::GenContributionManager]-»
 «ENDDEFINE»
 
 «DEFINE commandContribution FOR gmfgen::GenCustomAction-»
       <command id="«EXPAND commandIdentifier»"
          name="«name»"
-         categoryId="«owner.editorGen.editor.iD»"
-         defaultHandler="«qualifiedClassName»"/>
+         categoryId="«owner.editorGen.editor.iD»"/>
 «ENDDEFINE»
 
 «DEFINE commandContribution FOR gmfgen::GenAction-»
