@@ -25,6 +25,8 @@ import org.eclipse.gmf.internal.graphdef.codegen.Activator;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
@@ -79,7 +81,11 @@ public class FigureGenerator implements TextEmitter {
 	}
 
 	public String fqnSwitch(Figure figure) {
-		xpandFacade().evaluate("Runtime::fqn", figure, null);
+		try {
+			xpandFacade().evaluate("Runtime::fqn", figure, null);
+		} catch (AmbiguousDefinitionException e) {
+			throw new EvaluationException(e);
+		}
 		return result.toString();
 	}
 	
@@ -88,10 +94,14 @@ public class FigureGenerator implements TextEmitter {
 	 * @param figure
 	 */
 	public String go(FigureDescriptor figure) {
-		if (myIsInnerClassCode) {
-			xpandFacade().evaluate("top::Descriptor::Inner", figure, null);
-		} else {
-			xpandFacade().evaluate("top::Descriptor::Top", figure, new Object[] { packageStatement });
+		try {
+			if (myIsInnerClassCode) {
+				xpandFacade().evaluate("top::Descriptor::Inner", figure, null);
+			} else {
+				xpandFacade().evaluate("top::Descriptor::Top", figure, new Object[] { packageStatement });
+			}
+		} catch (AmbiguousDefinitionException e) {
+			throw new EvaluationException(e);
 		}
 		return result.toString();
 	}
