@@ -158,7 +158,7 @@ public class FilterUtil {
 		return eClasses;
 	}	
 
-	private static Collection<EClass> getSubtypesOf(Collection<EClass> eClasses, EClass superType) {
+	public static Collection<EClass> getSubtypesOf(Collection<EClass> eClasses, EClass superType) {
 		if (superType == null) {
 			return eClasses;
 		}
@@ -171,7 +171,7 @@ public class FilterUtil {
 		return eClasses;
 	}
 	
-	private static Collection<EClass> getConcreteEClasses(Collection<EClass> eClasses) {
+	public static Collection<EClass> getConcreteEClasses(Collection<EClass> eClasses) {
 		for (Iterator<EClass> it = eClasses.iterator(); it.hasNext();) {
 			EClass nextEClass = it.next();
 			if (nextEClass != null && (nextEClass.isAbstract() || nextEClass.isInterface())) {
@@ -182,7 +182,7 @@ public class FilterUtil {
 		return eClasses;
 	}
 
-	private static Collection<EReference> getEReferences(Collection<EReference> eReferences, boolean containmentOnly) {
+	public static Collection<EReference> getEReferences(Collection<EReference> eReferences, boolean containmentOnly) {
 		if (!containmentOnly) {
 			return eReferences;
 		}
@@ -195,7 +195,7 @@ public class FilterUtil {
 		return eReferences;
 	}
 
-	private static <T extends EStructuralFeature> Collection<T> getEStructuralFeaturesOf(Collection<T> structuralFeatures, EClass featureContainerEClass) {
+	public static <T extends EStructuralFeature> Collection<T> getEStructuralFeaturesOf(Collection<T> structuralFeatures, EClass featureContainerEClass) {
 		Collection<T> result = getValidEStructuralFeatures(structuralFeatures);
 		if (featureContainerEClass == null) {
 			return result;
@@ -209,7 +209,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static Collection<EReference> getEReferencesOfType(Collection<EReference> references, EClass referenceType) {
+	public static Collection<EReference> getEReferencesOfType(Collection<EReference> references, EClass referenceType) {
 		Collection<EReference> result = getValidEStructuralFeatures(references);
 		if (referenceType == null) {
 			return result;
@@ -223,7 +223,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static <T extends EStructuralFeature> Collection<T> getValidEStructuralFeatures(Collection<T> structuralFeatures) {
+	public static <T extends EStructuralFeature> Collection<T> getValidEStructuralFeatures(Collection<T> structuralFeatures) {
 		Collection<T> result = getValidEObjects(structuralFeatures);
 		for (Iterator<T> it = result.iterator(); it.hasNext();) {
 			EStructuralFeature nextFeature = it.next();
@@ -234,7 +234,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static <T extends EObject> Collection<T> filterValidEObjectsFrom(Collection<T> eClasses, ResourceSet resourceSet) {
+	public static <T extends EObject> Collection<T> filterValidEObjectsFrom(Collection<T> eClasses, ResourceSet resourceSet) {
 		Collection<T> result = getValidEObjects(eClasses);
 		for (Iterator<T> it = result.iterator(); it.hasNext();) {
 			EObject nextEClass = it.next();
@@ -248,7 +248,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static <T extends EObject> Collection<T> getValidEObjects(Collection<T> eObjects) {
+	public static <T extends EObject> Collection<T> getValidEObjects(Collection<T> eObjects) {
 		LinkedList<T> result = new LinkedList<T>();
 		for (T nextEObject : eObjects) {
 			if (nextEObject != null && (nextEObject.eContainer() == null)) {
@@ -259,7 +259,7 @@ public class FilterUtil {
 		return result;
 	}
 	
-	private static <T extends EObject> Collection<T> getChildrenOf(Collection<T> elements, EObject container, boolean addNull) {
+	public static <T extends EObject> Collection<T> getChildrenOf(Collection<T> elements, EObject container, boolean addNull) {
 		LinkedList<T> result = new LinkedList<T>();
 		for (T nextEObject : elements) {
 			if (nextEObject == null ? addNull : nextEObject.eContainer() == container) {
@@ -269,7 +269,7 @@ public class FilterUtil {
 		return result;
 	}
 
-	private static Collection<?> getSubClassesOf(Collection<?> instances, Class<?>[] classes) {
+	public static Collection<?> getSubClassesOf(Collection<?> instances, Class<?>[] classes) {
 		LinkedList<Object> result = new LinkedList<Object>();
 		for (Object nextInstance : instances) {
 			for (int i = 0; i < classes.length; i++) {
