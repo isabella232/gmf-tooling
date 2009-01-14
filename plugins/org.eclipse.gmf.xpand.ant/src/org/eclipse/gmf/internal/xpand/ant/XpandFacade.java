@@ -31,6 +31,7 @@ import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.StreamsHolder;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
@@ -273,7 +274,11 @@ public final class XpandFacade {
 		}
 		clearOut();
 		ExecutionContext ctx = getXpandContext();
-		new org.eclipse.gmf.internal.xpand.XpandFacade(ctx).evaluate(templateName, target, arguments);
+		try {
+			new org.eclipse.gmf.internal.xpand.XpandFacade(ctx).evaluate(templateName, target, arguments);
+		} catch (AmbiguousDefinitionException e) {
+			throw new EvaluationException(e);
+		}
 		return myOut.toString();
 	}
 
@@ -364,7 +369,11 @@ public final class XpandFacade {
 		for (int i = 0; i < paramTypes.length; i++) {
 		    paramTypes[i] = BuiltinMetaModel.getType(getXpandContext(), arguments[i]);
 		}
-		return getXpandContext().findDefinition(templateName, targetType, paramTypes);
+		try {
+			return getXpandContext().findDefinition(templateName, targetType, paramTypes);
+		} catch (AmbiguousDefinitionException e) {
+			return null;
+		}
 	}
 
 	private void clearAllContexts() {
