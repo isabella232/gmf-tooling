@@ -48,7 +48,7 @@ public class Definition extends AbstractDefinition implements XpandDefinition {
 
     @Override
     public String toString() {
-        return getOwner().getFullyQualifiedName() + TypeNameUtil.NS_DELIM + getName() + getParamString() + " FOR " + type.toString();
+        return getOwner().getFullyQualifiedName() + TypeNameUtil.NS_DELIM + getName() + getParamString() + " FOR " + type.getName();
     }
 
     private String getParamString() {
@@ -63,6 +63,6 @@ public class Definition extends AbstractDefinition implements XpandDefinition {
                 buff.append(",");
             }
         }
-        return buff.toString();
+        return buff.append(")").toString();
     }
 }

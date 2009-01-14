@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 
@@ -27,7 +28,7 @@ import org.eclipse.ocl.ecore.EcoreEnvironment;
  */
 public class PolymorphicResolver {
 
-	public static XpandDefinition filterDefinition(final HashMap<XpandDefinition, List<EClassifier>> resolvedDefs, EClassifier targetType, List<EClassifier> paramTypes, EcoreEnvironment env) {
+	public static XpandDefinition filterDefinition(final HashMap<XpandDefinition, List<EClassifier>> resolvedDefs, EClassifier targetType, List<EClassifier> paramTypes, EcoreEnvironment env) throws AmbiguousDefinitionException {
         final List<EClassifier> allParams = new ArrayList<EClassifier>();
         allParams.add(targetType);
         allParams.addAll(paramTypes);
@@ -50,8 +51,7 @@ public class PolymorphicResolver {
 	    try {
 	    	return filterWithComparator(candidateDefinition, comparator);
 	    } catch (IllegalStateException ex) {
-			throw new RuntimeException("Ambiguous definitions " + candidateDefinition.get(0).toString() + " and "
-                    + candidateDefinition.get(1).toString() + " for param types " + paramTypes);
+	    	throw new AmbiguousDefinitionException(candidateDefinition.get(0), candidateDefinition.get(1));
 	    }
 	}
 
@@ -74,4 +74,5 @@ public class PolymorphicResolver {
 			}
         }
     }
+    
 }

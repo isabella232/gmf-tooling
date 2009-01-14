@@ -38,7 +38,11 @@ public class EvaluationException extends RuntimeException {
         location = location(element) + " [" + node.getStartOffset() + ".." + node.getEndOffset() + "]";
     }
 
-    private static String location(SyntaxElement element) {
+    public EvaluationException(AmbiguousDefinitionException e) {
+    	this(e.getMessage(), null);
+	}
+
+	private static String location(SyntaxElement element) {
     	if (element == null) {
     		return "";
     	}

@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -42,7 +43,7 @@ public class XpandFacade {
 		this.ctx = ctx;
 	}
 
-	public void evaluate(final String definitionName, final Object targetObject, Object[] params) {
+	public void evaluate(final String definitionName, final Object targetObject, Object[] params) throws AmbiguousDefinitionException {
 		params = params == null ? new Object[0] : params;
 		final EClassifier targetType = BuiltinMetaModel.getType(getContext(), targetObject);
 		final EClassifier[] paramTypes = new EClassifier[params.length];

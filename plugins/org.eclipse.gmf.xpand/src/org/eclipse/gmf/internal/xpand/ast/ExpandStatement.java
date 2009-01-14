@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -90,11 +91,15 @@ public class ExpandStatement extends Statement {
         if ((targetType == null) || Arrays.asList(paramTypes).contains(null)) {
 			return;
 		}
-        final XpandDefinition def = ctx.findDefinition(definition, targetType, paramTypes);
-        if (def == null) {
-            issues.add(new AnalysationIssue(AnalysationIssue.Type.DEFINITION_NOT_FOUND,
-                    "Couldn't find definition " + definition + getParamTypeString(paramTypes)
-                            + " for type " + targetType.getName(), this));
+        try {
+	        final XpandDefinition def = ctx.findDefinition(definition, targetType, paramTypes);
+	        if (def == null) {
+	            issues.add(new AnalysationIssue(AnalysationIssue.Type.DEFINITION_NOT_FOUND,
+	                    "Couldn't find definition " + definition + getParamTypeString(paramTypes)
+	                            + " for type " + targetType.getName(), this));
+	        }
+        } catch (AmbiguousDefinitionException e) {
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.DEFINITION_NOT_FOUND, e.getMessage(), this));
         }
     }
 
@@ -107,35 +112,41 @@ public class ExpandStatement extends Statement {
         final String sep = (String) (separator != null ? separator.evaluate(ctx) : null);
         Object targetObject = null;
         XpandFacade xpandFacade = new XpandFacade(ctx);
-        if (isForeach) {
-            targetObject = target.evaluate(ctx);
-            if (!(targetObject instanceof Collection)) {
-				throw new EvaluationException("Collection expected!", this, target.getCST());
-			}
+        try {
+	        if (isForeach) {
+	            targetObject = target.evaluate(ctx);
+	            if (!(targetObject instanceof Collection)) {
+					throw new EvaluationException("Collection expected!", this, target.getCST());
+				}
+	
+	            final Collection<?> col = (Collection<?>) targetObject;
+	            for (final Iterator<?> iter = col.iterator(); iter.hasNext();) {
+	                
+					xpandFacade.evaluate(definition, iter.next(), params);
+	                if ((sep != null) && iter.hasNext()) {
+	                    ctx.getScope().getOutput().write(sep);
+	                }
+	            }
+	
+	        } else {
+	            if (target != null) {
+	                targetObject = target.evaluate(ctx);
+	            } else {
+	                final Variable var = ctx.getImplicitVariable();
+	                targetObject = var.getValue();
+	            }
+	            if (targetObject != null) {
+					xpandFacade.evaluate(definition, targetObject, params);
+	            } else {
+	            	// XXX logInfo that feature value is null or conditionally fail?
+	            	// perhaps, could check if target is feature and multiplicity of the feature is at least 1 and fail then?
+	            	// though all these checks are not template's tasks
+	            }
+	        }
+		} catch (AmbiguousDefinitionException e) {
+			throw new EvaluationException(e.getMessage(), this);
+		}
 
-            final Collection<?> col = (Collection<?>) targetObject;
-            for (final Iterator<?> iter = col.iterator(); iter.hasNext();) {
-                xpandFacade.evaluate(definition, iter.next(), params);
-                if ((sep != null) && iter.hasNext()) {
-                    ctx.getScope().getOutput().write(sep);
-                }
-            }
-
-        } else {
-            if (target != null) {
-                targetObject = target.evaluate(ctx);
-            } else {
-                final Variable var = ctx.getImplicitVariable();
-                targetObject = var.getValue();
-            }
-            if (targetObject != null) {
-                xpandFacade.evaluate(definition, targetObject, params);
-            } else {
-            	// XXX logInfo that feature value is null or conditionally fail?
-            	// perhaps, could check if target is feature and multiplicity of the feature is at least 1 and fail then?
-            	// though all these checks are not template's tasks
-            }
-        }
     }
 
     private String getParamTypeString(final EClassifier[] paramTypes) {

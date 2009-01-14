@@ -132,7 +132,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
         return allExtensions;
     }
 
-    public XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes) {
+    public XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes) throws AmbiguousDefinitionException {
         String templateName;
         boolean localCall = !TypeNameUtil.isQualifiedName(name);
         if (localCall) {
@@ -189,9 +189,10 @@ public final class ExecutionContextImpl implements ExecutionContext {
      * @param target
      * @param paramTypes
      * @return
+     * @throws AmbiguousDefinitionException 
      */
     private static XpandDefinition findDefinition(final XpandDefinition[] definitions, final String name, final EClassifier target,
-            EClassifier[] paramTypes, final ExecutionContext ctx) {
+            EClassifier[] paramTypes, final ExecutionContext ctx) throws AmbiguousDefinitionException {
         if (paramTypes == null) {
             paramTypes = new EClassifier[0];
         }

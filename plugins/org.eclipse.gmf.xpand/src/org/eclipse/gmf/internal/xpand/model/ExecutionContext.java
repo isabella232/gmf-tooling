@@ -40,7 +40,7 @@ public interface ExecutionContext {
 	Set<QvtExtension> getAllExtensions();
 
 	// may return null if no definition found
-	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes);
+	XpandDefinition findDefinition(String name, EClassifier target, EClassifier[] paramTypes) throws AmbiguousDefinitionException;
 	
 	EcoreEnvironment getOCLEnvironment();
 	Set<Module> getImportedModules();
