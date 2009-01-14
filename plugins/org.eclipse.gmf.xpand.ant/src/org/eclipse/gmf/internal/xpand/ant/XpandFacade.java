@@ -384,7 +384,7 @@ public final class XpandFacade {
 		if (myXpandCtx == null) {
 			BundleResourceManager rm = new BundleResourceManager(myLocations.toArray(new URL[myLocations.size()]));
 			myBufferOut = new BufferOutput(myOut, myEnforceReadOnlyNamedStreamsAfterAccess);
-			myXpandCtx = ContextFactory.createXpandContext(rm, myBufferOut, myGlobals, (ClassLoadContext) null);
+			myXpandCtx = ContextFactory.createXpandContext(rm, myBufferOut, myGlobals);
 		}
 		return myXpandCtx;
 	}
