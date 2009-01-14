@@ -22,6 +22,7 @@ import junit.framework.TestCase;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
@@ -74,7 +75,7 @@ public class QvtExtensions extends TestCase {
 		fail(sb.toString());
 	}
 
-	public void testContextInvocationContextualQuery() {
+	public void testContextInvocationContextualQuery() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkStringContextInvocation", "ContextString1");
 	}
 
@@ -91,40 +92,40 @@ public class QvtExtensions extends TestCase {
  */
 
 	// test if QVTO is capable of Collection() context operations (Bug #243684)
-	public void testQvtoIsCapableToDefineContextOpsToCollections() {
+	public void testQvtoIsCapableToDefineContextOpsToCollections() throws AmbiguousDefinitionException {
 		String arg = "Str";
 		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::collectionContextOp", arg, null);
 		System.err.println(buffer.toString());
 		assertEquals(arg, buffer.toString().trim());
 	}
 
-	public void testStaticInvocationStaticQuery() {
+	public void testStaticInvocationStaticQuery() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkIntStaticInvocation", 20);
 	}
 
-	public void testBooleanTypeQuery() {
+	public void testBooleanTypeQuery() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkBoolean", false);
 	}
 
 	// TODO: Plugin test configuration required to execute this kind of test.
-	public void _testDeployedMetaType() {
+	public void _testDeployedMetaType() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkDeployedMetaType", EcoreFactory.eINSTANCE.createEAttribute());
 	}
 	
-	public void testCollectionOfStrings() {
+	public void testCollectionOfStrings() throws AmbiguousDefinitionException {
 		List<String> sequence = CollectionUtil.<String>createNewSequence();
 		sequence.add("SampleString1");
 		sequence.add("SampleString2");
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkCollection", sequence);
 	}
 	
-	public void testSetOfBooleans() {
+	public void testSetOfBooleans() throws AmbiguousDefinitionException {
 		Set<Boolean> collection = new HashSet<Boolean>();
 		collection.add(true);
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkSet", collection);
 	}
 	
-	public void testSequenceOfBooleans() {
+	public void testSequenceOfBooleans() throws AmbiguousDefinitionException {
 		List<Boolean> collection = new ArrayList<Boolean>();
 		collection.add(true);
 		collection.add(false);
@@ -133,7 +134,7 @@ public class QvtExtensions extends TestCase {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkSequence", collection);
 	}
 	
-	public void testBagOfBooleans() {
+	public void testBagOfBooleans() throws AmbiguousDefinitionException {
 		List<Boolean> collection = new ArrayList<Boolean>();
 		collection.add(true);
 		collection.add(false);
@@ -142,7 +143,7 @@ public class QvtExtensions extends TestCase {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkBag", collection);
 	}
 
-	public void testOrderedSetOfIntegers() {
+	public void testOrderedSetOfIntegers() throws AmbiguousDefinitionException {
 		Set<Integer> collection = new HashSet<Integer>();
 		collection.add(1);
 		collection.add(2);
@@ -151,29 +152,29 @@ public class QvtExtensions extends TestCase {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkOrderedSet", collection);
 	}
 	
-	public void testQueryParametersNotPolymorphycForSelf() {
+	public void testQueryParametersNotPolymorphycForSelf() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForSelf", "ContextString1");
 	}
 
-	public void testQueryParametersNotPolymorphycForParameter() {
+	public void testQueryParametersNotPolymorphycForParameter() throws AmbiguousDefinitionException {
 		Object[] yes_no_string = new Object[] {YES_NO[0], YES_NO[1], "OneMoreString"};
 		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForParameter", "ContextString1", yes_no_string);
 		assertEquals(yes_no_string[0], buffer.toString());
 	}
 	
-	public void testQueryParametersNotPolymorphycForLet() {
+	public void testQueryParametersNotPolymorphycForLet() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForLet", "ContextString1");
 	}
 	
-	public void testQueryContextPolymorphycForSelf() {
+	public void testQueryContextPolymorphycForSelf() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryContextPolymorphycForSelf", "ContextString1");
 	}
 	
-	public void testQueryParametersNotPolymorphycForForeach() {
+	public void testQueryParametersNotPolymorphycForForeach() throws AmbiguousDefinitionException {
 		checkQueryCall("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQueryParametersNotPolymorphycForForeach", "ContextString1");
 	}
 
-	private void checkQueryCall(String queryName, Object selfObject) {
+	private void checkQueryCall(String queryName, Object selfObject) throws AmbiguousDefinitionException {
 		xpandFacade.evaluate(queryName, selfObject, YES_NO);
 		assertEquals(YES_NO[0], buffer.toString());
 	}

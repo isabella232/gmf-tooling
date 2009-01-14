@@ -17,12 +17,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
@@ -50,8 +52,9 @@ public class CompositeResourcesTest extends TestCase {
 
 	/**
 	 * Tests that DEFINE statements are effectively the same as AROUND without targetDef.proceed()
+	 * @throws AmbiguousDefinitionException 
 	 */
-	public void testRedefineInAspect() {
+	public void testRedefineInAspect() throws AmbiguousDefinitionException {
 		myResourceManager.setPrefixes((String) null);
 		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::testRedefineInAspect"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
@@ -63,7 +66,7 @@ public class CompositeResourcesTest extends TestCase {
 		assertEquals("testRedefineRedefined", myBuffer.toString());
 	}
 
-	public void testOverrideXpand() {
+	public void testOverrideXpand() throws AmbiguousDefinitionException {
 		myResourceManager.setPrefixes((String) null);
 		XpandDefinition definition = myContext.findDefinition(qualify("Overridable::test2"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
@@ -118,11 +121,16 @@ public class CompositeResourcesTest extends TestCase {
 			if (resourceAsStream == null) {
 				return null;
 			}
-			return new InputStreamReader(resourceAsStream);
+			return new InputStreamReader(resourceAsStream, Charset.forName("ISO-8859-1"));
 		}
 		@Override
 		protected void handleParserException(ParserException ex) {
 			fail(ex.getClass().getName());
+		}
+
+		@Override
+		protected String resolveCFileFullPath(String fullyQualifiedName, String fileExtension) {
+			return fullyQualifiedName + "." + fileExtension;
 		}
 	}
 }

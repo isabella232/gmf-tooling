@@ -15,6 +15,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 
@@ -35,22 +36,22 @@ public class PolymorphismTest extends TestCase {
 		xpandFacade = new XpandFacade(new ExecutionContextImpl(new Scope(new TestsResourceManager(), null, new BufferOutput(buffer))));
 	}
 	
-	public void testContextualPolymorphysm() {
+	public void testContextualPolymorphysm() throws AmbiguousDefinitionException {
 		checkDefinition("contextualPolymorphysm", "myString", "StringDefine");
 		checkDefinition("contextualPolymorphysm", new Object(), "OclAnyDefine");
 	}
 	
-	public void testParameterPolymorphysm() {
+	public void testParameterPolymorphysm() throws AmbiguousDefinitionException {
 		checkDefinition("parameterPolymorphysm", "myString", "StringDefine");
 		checkDefinition("parameterPolymorphysm", new Object(), "OclAnyDefine");
 	}
 	
-	public void testSecondParameterPolymorphysm() {
+	public void testSecondParameterPolymorphysm() throws AmbiguousDefinitionException {
 		checkDefinition("secondParameterPolymorphysm", "myString", "StringDefine");
 		checkDefinition("secondParameterPolymorphysm", new Object(), "OclAnyDefine");
 	}
 	
-	public void checkDefinition(String definitionName, Object targetObject, String expectedResult) {
+	public void checkDefinition(String definitionName, Object targetObject, String expectedResult) throws AmbiguousDefinitionException {
 		xpandFacade.evaluate(TEMPLATE_FILE_PREFIX + definitionName, targetObject, NO_PARAMS);
 		assertEquals(expectedResult, buffer.toString());
 		buffer.delete(0, buffer.length());

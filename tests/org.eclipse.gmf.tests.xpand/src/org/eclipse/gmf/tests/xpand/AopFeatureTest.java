@@ -15,6 +15,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
@@ -43,43 +44,43 @@ public class AopFeatureTest extends TestCase {
 		oclStringType = execCtx.getOCLEnvironment().getOCLStandardLibrary().getString();
 	}
 
-	public final void test_test1_Object() {
+	public final void test_test1_Object() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", oclAnyType, null);
 		def.evaluate(execCtx);
 		assertEquals("12", buffer.toString());
 	}
 
-	public final void test_test2_Object() {
+	public final void test_test2_Object() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest2", oclAnyType, null);
 		def.evaluate(execCtx);
 		assertEquals("13", buffer.toString());
 	}
 
-	public final void test_te2st_Object() {
+	public final void test_te2st_Object() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::te2st", oclAnyType, null);
 		def.evaluate(execCtx);
 		assertEquals("4", buffer.toString());
 	}
 
-	public final void test_test1_String() {
+	public final void test_test1_String() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", oclStringType, null);
 		def.evaluate(execCtx);
 		assertEquals("1258", buffer.toString());
 	}
 
-	public final void test_test1_StringParam_String() {
+	public final void test_test1_StringParam_String() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", oclStringType, new EClassifier[] { oclStringType });
 		def.evaluate(execCtx);
 		assertEquals("678", buffer.toString());
 	}
 
-	public final void test_test1_StringParams_String() {
+	public final void test_test1_StringParams_String() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest1", oclStringType, new EClassifier[] { oclStringType, oclStringType });
 		def.evaluate(execCtx);
 		assertEquals("78", buffer.toString());
 	}
 
-	public final void testQualifiedAspect() {
+	public final void testQualifiedAspect() throws AmbiguousDefinitionException {
 		final XpandDefinition def = execCtx.findDefinition(prefix() + "Adviced::advtest3", oclStringType, null);
 		def.evaluate(execCtx);
 		assertEquals("15qualified-test3", buffer.toString());
