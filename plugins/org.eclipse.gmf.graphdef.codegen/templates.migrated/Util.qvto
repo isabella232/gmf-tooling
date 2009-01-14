@@ -1,4 +1,5 @@
 import xpt.GlobalVarOperations;
+import xpt.StreamOperations;
 import xpt.StringOperations;
 
 modeltype graphicalDefinition uses "http://www.eclipse.org/gmf/2006/GraphicalDefinition";
@@ -34,7 +35,7 @@ helper requiredBundles(referencedBundles : Sequence(String)) : Sequence(String) 
 }
 
 helper additionalStaticFields() : String {
-return xpandGetStringGlobalVar('outputStaticFields')
+return if xpandGetStreamNames()->includes('staticFields') then xpandGetStreamContents('staticFields') else '' endif
 }
 
 helper hasTargetDecoration(figure : graphicalDefinition::PolylineConnection) : Boolean {

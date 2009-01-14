@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,8 +14,6 @@ package org.eclipse.gmf.graphdef.codegen;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -33,18 +31,15 @@ import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 public class FigureGenerator implements TextEmitter {
 
 	private static final String VAR_MM_ACCESS = "mapModeAccessor";
-	private static final String VAR_OUTPUT_FIELDS = "outputStaticFields";
 	private static final String VAR_RT_TOKEN = "runtimeToken";
 
-	private static final String SLOT_FIELDS = "staticFields";
+	private final ResourceManager resourceManager;
 
-	private final XpandFacade xpandFacade;
+	private final StringBuilder result = new StringBuilder();
 
-	private final StringBuilder result;
+	private final ArrayList<Variable> globals = new ArrayList<Variable>();
 
 	private final boolean myIsInnerClassCode;
-
-	private StringBuilder additionalFields;
 
 	private String packageStatement;
 
@@ -70,26 +65,13 @@ public class FigureGenerator implements TextEmitter {
 				throw new IllegalArgumentException("Can't use map mode accessor with identity map mode");
 			}
 		}
-		final ArrayList<Variable> globals = new ArrayList<Variable>();
 		if (mapModeStrategy == MapModeCodeGenStrategy.DYNAMIC) {
 			globals.add(new Variable(VAR_MM_ACCESS, EcorePackage.eINSTANCE.getEString(), mapModeAccessor == null ? "" : mapModeAccessor));
 		}
 		if (runtimeToken != null) {
 			globals.add(new Variable(VAR_RT_TOKEN, EcorePackage.eINSTANCE.getEString(), runtimeToken));
 		}
-		additionalFields = new StringBuilder();
-		globals.add(new Variable(VAR_OUTPUT_FIELDS, EcorePackage.eINSTANCE.getEString(), "") {
-			public Object getValue() {
-				return additionalFields.toString();
-			}
-		});
-		result = new StringBuilder(200);
-		Map<String, StringBuilder> slots = new HashMap<String, StringBuilder>();
-		slots.put(SLOT_FIELDS, additionalFields);
-		BufferOutput bufferOutput = new BufferOutput(result, slots);
-
-		ResourceManager resourceManager = Activator.createResourceEngine(mapModeStrategy, dynamicTemplates);
-		xpandFacade = new XpandFacade(ContextFactory.createXpandContext(resourceManager, bufferOutput, globals, getClass().getClassLoader()));
+		resourceManager = Activator.createResourceEngine(mapModeStrategy, dynamicTemplates);
 	}
 
 	public String getPackageName() {
@@ -97,9 +79,7 @@ public class FigureGenerator implements TextEmitter {
 	}
 
 	public String fqnSwitch(Figure figure) {
-		result.setLength(0);
-		additionalFields.setLength(0);
-		xpandFacade.evaluate("Runtime::fqn", figure, null);
+		xpandFacade().evaluate("Runtime::fqn", figure, null);
 		return result.toString();
 	}
 	
@@ -108,14 +88,19 @@ public class FigureGenerator implements TextEmitter {
 	 * @param figure
 	 */
 	public String go(FigureDescriptor figure) {
-		result.setLength(0);
-		additionalFields.setLength(0);
 		if (myIsInnerClassCode) {
-			xpandFacade.evaluate("top::Descriptor::Inner", figure, null);
+			xpandFacade().evaluate("top::Descriptor::Inner", figure, null);
 		} else {
-			xpandFacade.evaluate("top::Descriptor::Top", figure, new Object[] { packageStatement });
+			xpandFacade().evaluate("top::Descriptor::Top", figure, new Object[] { packageStatement });
 		}
 		return result.toString();
+	}
+
+	private XpandFacade xpandFacade() {
+		result.setLength(0);
+		BufferOutput bufferOutput = new BufferOutput(result);
+
+		return new XpandFacade(ContextFactory.createXpandContext(resourceManager, bufferOutput, globals));
 	}
 
 	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
