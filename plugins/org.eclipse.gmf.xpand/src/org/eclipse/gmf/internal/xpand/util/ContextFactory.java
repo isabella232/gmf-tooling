@@ -24,20 +24,27 @@ import org.eclipse.gmf.internal.xpand.model.Variable;
 public class ContextFactory {
 
 	public static ExecutionContext createXpandContext(ResourceManager resourceManager) {
-		return createXpandContext(resourceManager, null, null, (ClassLoadContext) null);
+		return createXpandContext(resourceManager, null, null);
 	}
 
 	public static ExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars) {
-		return createXpandContext(resourceManager, output, globalVars, (ClassLoadContext) null);
-	}
-
-	public static ExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoader context) {
-		return createXpandContext(resourceManager, output, globalVars, context == null ? (ClassLoadContext) null : new ClassLoadContext.Naive(context));
-	}
-
-	public static ExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoadContext context) {
 		Scope scope = new Scope(resourceManager, globalVars, output);
-		scope.setContextClassLoader(context);
 		return new ExecutionContextImpl(scope);
+	}
+
+	/**
+	 * @deprecated use {@link #createXpandContext(ResourceManager, Output, Collection)} instead. The class loaders are no longer used in QVT-based Xpand implementation.
+	 */
+	@Deprecated
+	public static ExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoader context) {
+		return createXpandContext(resourceManager, output, globalVars);
+	}
+
+	/**
+	 * @deprecated use {@link #createXpandContext(ResourceManager, Output, Collection)} instead. The class loaders are no longer used in QVT-based Xpand implementation.
+	 */
+	@Deprecated
+	public static ExecutionContext createXpandContext(ResourceManager resourceManager, Output output, Collection<Variable> globalVars, ClassLoadContext context) {
+		return createXpandContext(resourceManager, output, globalVars);
 	}
 }

@@ -38,8 +38,6 @@ public class Scope {
 
     private final List<XpandAdvice> registeredAdvices = new LinkedList<XpandAdvice>();
 
-    private ClassLoadContext contextClassLoader;
-
     private EvaluationListener evaluationListener;
 
     public Scope(ResourceManager resourceManager, Collection<Variable> globalVars, Output output) {
@@ -94,28 +92,10 @@ public class Scope {
     }
 
     /**
-     * {@link ClassLoadContext} to use in {@link #loadClass(String)}.
-     * @param classLoader loader to use or null to use default system-wide
+     * @deprecated Does nothing. QVT-based Xpand does not use class loaders, anyway
      */
+    @Deprecated
     public void setContextClassLoader(ClassLoadContext classLoadContext) {
-    	this.contextClassLoader = classLoadContext;
-    }
-
-    public Class<?> loadClass(String value) {
-    	// FIXME delegate to resourcemanager or Environment
-    	try {
-    		if (contextClassLoader != null) {
-    			Class<?> c = contextClassLoader.load(value);
-    			if (c != null) {
-    				return c;
-    			}
-    		}
-    		return Class.forName(value);
-    	} catch (ClassNotFoundException ex) {
-    		ex.getMessage();
-    		// IGNORE?
-    	}
-    	return null;
     }
 
 	public List<XpandAdvice> getAdvices() {
