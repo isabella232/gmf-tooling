@@ -23,6 +23,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
+import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
@@ -67,6 +68,8 @@ public class XpandTextEmitter implements TextEmitter {
 			return result.toString();
 		} catch (EvaluationException ex) {
 			throw new InvocationTargetException(ex);
+		} catch (AmbiguousDefinitionException e) {
+			throw new InvocationTargetException(e);
 		}
 	}
 
