@@ -18,7 +18,6 @@
 «EXTENSION xpt::diagram::parts::NotationModelRefresher»
 «EXTENSION xpt::diagram::PhantomUtils»
 «EXTENSION xpt::diagram::parts::NativeNotationModelRefresher»
-«EXTENSION xpt::NativeGenModelUtils»
 
 «DEFINE semanticChildren(viewCode : String) FOR gmfgen::GenContainerBase-»
 «IF not self.needsNotationModelRefresher()-»

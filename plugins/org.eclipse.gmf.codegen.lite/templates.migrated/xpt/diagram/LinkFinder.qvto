@@ -1,5 +1,3 @@
-import xpt.NativeGenModelUtils;
-
 import xpt.GenModelUtils;
 import xpt.commands.CommandUtils;
 import xpt.diagram.PhantomUtils;

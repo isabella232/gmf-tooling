@@ -1,5 +1,4 @@
 import xpt.diagram.parts.NativeLinkNotationModelRefresher;
-
 import xpt.diagram.LinkFinder;
 
 modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
