@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005-2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -185,7 +185,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToC.setEType(nodeLinkA2C);
 		linkToC.setUpperBound(-1);
 		linkToC.setContainment(true);
-		linkToC.setUnique(false);
 		nodeA.getEStructuralFeatures().add(linkToC);
 
 		EReference refCfromLink = EcoreFactory.eINSTANCE.createEReference();
@@ -200,7 +199,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToC2.setEType(nodeLinkA2C2);
 		linkToC2.setUpperBound(2);
 		linkToC2.setContainment(true);
-		linkToC2.setUnique(true);
 		nodeA.getEStructuralFeatures().add(linkToC2);
 
 		EReference refCfromLink2 = EcoreFactory.eINSTANCE.createEReference();
@@ -215,7 +213,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToC3.setEType(nodeLinkA2C3);
 		linkToC3.setUpperBound(1);
 		linkToC3.setContainment(true);
-		linkToC3.setUnique(false);
 		nodeA.getEStructuralFeatures().add(linkToC3);
 
 		EReference refCfromLink3 = EcoreFactory.eINSTANCE.createEReference();
@@ -230,7 +227,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToAClass.setEType(nodeLinkA2A);
 		linkToAClass.setUpperBound(-1);
 		linkToAClass.setContainment(true);
-		linkToAClass.setUnique(false);
 		nodeA.getEStructuralFeatures().add(linkToAClass);
 
 		EReference refAfromLink = EcoreFactory.eINSTANCE.createEReference();
@@ -273,7 +269,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToLink2Link.setEType(link2Link);
 		linkToLink2Link.setUpperBound(3);
 		linkToLink2Link.setContainment(true);
-		linkToLink2Link.setUnique(false);
 		nodeD.getEStructuralFeatures().add(linkToLink2Link);
 
 		EReference refLinkFromLink2Link = EcoreFactory.eINSTANCE.createEReference();
@@ -288,7 +283,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToLinkFromLink.setEType(linkFromLink);
 		linkToLinkFromLink.setUpperBound(4);
 		linkToLinkFromLink.setContainment(true);
-		linkToLinkFromLink.setUnique(false);
 		nodeLinkA2C.getEStructuralFeatures().add(linkToLinkFromLink);
 
 		EReference refLinkFromLinkFromLink = EcoreFactory.eINSTANCE.createEReference();
@@ -303,7 +297,6 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToLinkCrossLink.setEType(linkCrossLink);
 		linkToLinkCrossLink.setUpperBound(5);
 		linkToLinkCrossLink.setContainment(true);
-		linkToLinkCrossLink.setUnique(false);
 		nodeLinkA2C.getEStructuralFeatures().add(linkToLinkCrossLink);
 
 		EReference refLinkFromLinkCorssLink = EcoreFactory.eINSTANCE.createEReference();
