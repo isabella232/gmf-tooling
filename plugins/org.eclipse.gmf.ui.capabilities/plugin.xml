@@ -4,8 +4,19 @@
 
 	<extension
        point="org.eclipse.ui.activities">
+       
+    <!-- GMF Runtime elements, defined using general pattern -->
+    <activity
+    	  description="%activity.gmf.runtime.desc"
+          id="org.eclipse.gmf.runtime.activity"
+          name="%activity.gmf.runtime">
+    </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.runtime.activity"
+          pattern="org\.eclipse\.gmf\.runtime\..*/.*">
+    </activityPatternBinding>
 
-    <!-- Hide GMF Tooling elements -->
+    <!-- GMF Tooling elements, defined using specific patterns for each contribution -->
     <activity
     	  description="%activity.gmf.tooling.desc"
           id="org.eclipse.gmf.tooling.activity"
@@ -72,15 +83,15 @@
           pattern="org\.eclipse\.gmf\.ecore\.editor/org\.eclipse\.gmf\.ecore\.part\.EcoreCreationWizardID">
     </activityPatternBinding>
     
-    <!-- Hide GMF Tooling elements -->
+    <!-- GMF Xpand elements, defined using general pattern -->
     <activity
     	  description="%activity.gmf.runtime.desc"
-          id="org.eclipse.gmf.runtime.activity"
-          name="%activity.gmf.runtime">
+          id="org.eclipse.gmf.xpand.activity"
+          name="%activity.gmf.xpand">
     </activity>
     <activityPatternBinding
-          activityId="org.eclipse.gmf.runtime.activity"
-          pattern="org\.eclipse\.gmf\.runtime\..*/.*">
+          activityId="org.eclipse.gmf.xpand.activity"
+          pattern="org\.eclipse\.gmf\.xpand\..*/.*">
     </activityPatternBinding>
     
   </extension>
