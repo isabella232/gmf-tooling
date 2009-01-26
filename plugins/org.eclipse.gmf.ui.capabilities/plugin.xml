@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+	<extension
+       point="org.eclipse.ui.activities">
+
+    <!-- Hide GMF Tooling elements -->
+    <activity
+    	  description="%activity.gmf.tooling.desc"
+          id="org.eclipse.gmf.tooling.activity"
+          name="%activity.gmf.tooling">
+    </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.ecore\.editor/org\.eclipse\.gmf\.ecore\.editor\.InitDiagram">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.bridge\.ui/org\.eclipse\.gmf\.tooling\.newProjectWizard">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.bridge\.ui/org\.eclipse\.gmf\.internal\.codegen\.wizards\.GMFMapGuideModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.map\.edit/org\.eclipse\.gmf\.mappings\.presentation\.GMFMapModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.bridge\.ui/org\.eclipse\.gmf\.internal\.codegen\.wizards\.GMFGraphSimpleModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.graphdef\.edit/org\.eclipse\.gmf\.gmfgraph\.presentation\.GMFGraphModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.graphdef\.editor/org\.eclipse\.gmf\.graphdef\.editor\.part\.GMFGraphCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.map\.editor/org\.eclipse\.gmf\.map\.editor\.part\.GMFMapCreationWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.bridge\.ui/org\.eclipse\.gmf\.internal\.codegen\.wizards\.GMFGraphReconcileModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.bridge\.ui/org\.eclipse\.gmf\.internal\.codegen\.wizards\.GMFToolSimpleModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.tooldef\.edit/org\.eclipse\.gmf\.tooldef\.presentation\.GMFToolModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.bridge\.ui/org\.eclipse\.gmf\.internal\.codegen\.wizards\.GMFToolReconcileModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.codegen\.edit/org\.eclipse\.gmf\.codegen\.gmfgen\.presentation\.GMFGenModelWizardID">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.xpand\.editor/org\.eclipse\.gmf\.xpand\.wizard\.NewTemplateFileWizard">
+    </activityPatternBinding>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.tooling.activity"
+          pattern="org\.eclipse\.gmf\.ecore\.editor/org\.eclipse\.gmf\.ecore\.part\.EcoreCreationWizardID">
+    </activityPatternBinding>
+    
+    <!-- Hide GMF Tooling elements -->
+    <activity
+    	  description="%activity.gmf.runtime.desc"
+          id="org.eclipse.gmf.runtime.activity"
+          name="%activity.gmf.runtime">
+    </activity>
+    <activityPatternBinding
+          activityId="org.eclipse.gmf.runtime.activity"
+          pattern="org\.eclipse\.gmf\.runtime\..*/.*">
+    </activityPatternBinding>
+    
+  </extension>
+
+</plugin>
