@@ -38,6 +38,7 @@ import org.eclipse.gmf.tests.rt.LinkEcoreConstraintsTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.gmf.tests.setup.TestAllDerivedFeatures;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureLayoutSetup;
@@ -131,6 +132,9 @@ public class AllTests {
 		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
 		suite.addTest(feed(CodegenReconcileTest.class, sessionSetup));
+		// though it might be an overkill to check two setups, it should be fast and won't hurt.
+		suite.addTest(feed(TestAllDerivedFeatures.class, sessionSetup));
+		suite.addTest(feed(TestAllDerivedFeatures.class, sessionSetup2));
 		// fires new runtime workbench initialization
 		suite.addTestSuite(RuntimeCompilationTest.class);
 		
