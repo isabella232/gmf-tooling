@@ -377,7 +377,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 			case MigrationTestsPackage.CONTAINER__CHILDREN:
 				return getChildren();
 			case MigrationTestsPackage.CONTAINER__IT:
-				return isIt() ? Boolean.TRUE : Boolean.FALSE;
+				return isIt();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -414,7 +414,7 @@ public class ContainerImpl extends EObjectImpl implements Container {
 				getChildren().addAll((Collection<? extends Child>)newValue);
 				return;
 			case MigrationTestsPackage.CONTAINER__IT:
-				setIt(((Boolean)newValue).booleanValue());
+				setIt((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

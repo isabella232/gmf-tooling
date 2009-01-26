@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.gmf.tests.xpand.migration.testModel.Child;
-import org.eclipse.gmf.tests.xpand.migration.testModel.Container;
 import org.eclipse.gmf.tests.xpand.migration.testModel.DefaultAttributeContainer;
 import org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsFactory;
@@ -328,14 +327,14 @@ public class MigrationTestsPackageImpl extends EPackageImpl implements Migration
 		subContainerEClass.getESuperTypes().add(this.getContainer());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(containerEClass, Container.class, "Container", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getContainer_SingletonChild(), this.getChild(), null, "singletonChild", null, 0, 1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getContainer_SingletonChildConstrained(), this.getChild(), null, "singletonChildConstrained", null, 1, 1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContainer_OrderedChildren(), this.getChild(), null, "orderedChildren", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContainer_UniqueChildren(), this.getChild(), null, "uniqueChildren", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getContainer_OrderedUniqueChildren(), this.getChild(), null, "orderedUniqueChildren", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getContainer_Children(), this.getChild(), null, "children", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEAttribute(getContainer_It(), ecorePackage.getEBoolean(), "it", null, 0, 1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(containerEClass, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, "Container", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getContainer_SingletonChild(), this.getChild(), null, "singletonChild", null, 0, 1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getContainer_SingletonChildConstrained(), this.getChild(), null, "singletonChildConstrained", null, 1, 1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContainer_OrderedChildren(), this.getChild(), null, "orderedChildren", null, 0, -1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContainer_UniqueChildren(), this.getChild(), null, "uniqueChildren", null, 0, -1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getContainer_OrderedUniqueChildren(), this.getChild(), null, "orderedUniqueChildren", null, 0, -1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getContainer_Children(), this.getChild(), null, "children", null, 0, -1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getContainer_It(), ecorePackage.getEBoolean(), "it", null, 0, 1, org.eclipse.gmf.tests.xpand.migration.testModel.Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(containerEClass, this.getChild(), "singletonChildOp", 0, 1, IS_UNIQUE, IS_ORDERED);
 

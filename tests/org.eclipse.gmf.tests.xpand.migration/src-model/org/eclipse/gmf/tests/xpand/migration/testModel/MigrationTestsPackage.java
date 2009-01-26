@@ -161,7 +161,6 @@ public interface MigrationTestsPackage extends EPackage {
 	 */
 	int CHILD_FEATURE_COUNT = 0;
 
-
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.SubContainerImpl <em>Sub Container</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -244,7 +243,6 @@ public interface MigrationTestsPackage extends EPackage {
 	 */
 	int SUB_CONTAINER_FEATURE_COUNT = CONTAINER_FEATURE_COUNT + 0;
 
-
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.impl.DefaultAttributeContainerImpl <em>Default Attribute Container</em>}' class.
 	 * <!-- begin-user-doc -->
@@ -272,7 +270,6 @@ public interface MigrationTestsPackage extends EPackage {
 	 * @ordered
 	 */
 	int DEFAULT_ATTRIBUTE_CONTAINER_FEATURE_COUNT = 1;
-
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tests.xpand.migration.testModel.Enumeration <em>Enumeration</em>}' enum.

@@ -105,7 +105,7 @@ public class MigrationTestsFactoryImpl extends EFactoryImpl implements Migration
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Container createContainer() {
+	public org.eclipse.gmf.tests.xpand.migration.testModel.Container createContainer() {
 		ContainerImpl container = new ContainerImpl();
 		return container;
 	}

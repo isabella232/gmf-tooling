@@ -99,7 +99,7 @@ public class DefaultAttributeContainerImpl extends EObjectImpl implements Defaul
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case MigrationTestsPackage.DEFAULT_ATTRIBUTE_CONTAINER__DEFAULT:
-				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
+				return isDefault();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -113,7 +113,7 @@ public class DefaultAttributeContainerImpl extends EObjectImpl implements Defaul
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case MigrationTestsPackage.DEFAULT_ATTRIBUTE_CONTAINER__DEFAULT:
-				setDefault(((Boolean)newValue).booleanValue());
+				setDefault((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
