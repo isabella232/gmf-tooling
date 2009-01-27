@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005-2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.internal.xpand.codeassist;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.eclipse.gmf.internal.xpand.editor.Activator;
 import org.eclipse.gmf.internal.xpand.editor.EditorImages;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.swt.graphics.Image;
@@ -26,6 +28,9 @@ public class StatementProposalComputerTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
+    	if (Activator.getDefault() == null) {
+    		new Activator();
+    	}
         f = new ProposalFactoryImpl(100, 0, new EditorImages() {
         	@Override
         	protected Image imageFromPath(String path) {

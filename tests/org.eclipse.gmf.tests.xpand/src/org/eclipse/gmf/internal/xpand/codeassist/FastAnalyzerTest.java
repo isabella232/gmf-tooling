@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Alexander Shatalin (Borland) - initial API and implementation
  *
  * </copyright>
  */
@@ -21,9 +22,18 @@ import junit.framework.TestCase;
 
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ast.Advice;
+import org.eclipse.gmf.internal.xpand.editor.Activator;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 
 public class FastAnalyzerTest extends TestCase {
+	
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		if (Activator.getDefault() == null) {
+			new Activator();
+		}
+	}
 
     public final void testComputeStack1() {
         final String txt = tag("DEFINE test(String txt) FOR Entity") + tag("FOREACH txt.list AS c") + tag("doStuff");
@@ -183,7 +193,7 @@ public class FastAnalyzerTest extends TestCase {
     }
 
     public final void testFindImports() {
-        final List<String> imports = FastAnalyzer.findImports(tag("IMPORT \"a1\"") + tag("IMPORT \"a::b::c::d::x\""));
+        final List<String> imports = FastAnalyzer.findImports(tag("IMPORT 'a1'") + tag("IMPORT 'a::b::c::d::x'"));
         assertEquals("a1", imports.get(0));
         assertEquals("a::b::c::d::x", imports.get(1));
         assertEquals(2, imports.size());
@@ -204,8 +214,9 @@ public class FastAnalyzerTest extends TestCase {
         assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String s,String txt,")));
         assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String s) FOR ")));
         assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String s) FOR oaw")));
-        assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect(")));
-        assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect( oaw::")));
+// typeSelect is not supported by FastAnalyzer anymore.        
+//        assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect(")));
+//        assertTrue(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect( oaw::")));
 
         assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test")));
         assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String ")));
@@ -213,8 +224,9 @@ public class FastAnalyzerTest extends TestCase {
         assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String s)")));
         assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String s) FOR")));
         assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("DEFINE test(String s) FOR Test ")));
-        assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect( oaw ")));
-        assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect( oaw)")));
+// typeSelect is not supported by FastAnalyzer anymore.
+//        assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect( oaw ")));
+//        assertFalse(FastAnalyzer.isInTypeDecl(XpandTokens.LT + ("test.typeSelect( oaw)")));
 
     }
     

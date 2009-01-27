@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,6 +33,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
+import org.eclipse.ocl.expressions.CollectionKind;
 
 public class CompositeResourcesTest extends TestCase {
 	private ExecutionContext myContext;
@@ -76,6 +77,22 @@ public class CompositeResourcesTest extends TestCase {
 		definition = myContext.findDefinition(qualify("Overridable::test2"), oclStringType, new EClassifier[0]);
 		definition.evaluate(myContext);
 		assertEquals("<test3>", myBuffer.toString());
+	}
+	
+	public void testOverrideXpandWithComplexTypeParameter() throws AmbiguousDefinitionException {
+		myResourceManager.setPrefixes((String) null);
+		EClassifier stringType = myContext.getOCLEnvironment().getOCLStandardLibrary().getString();
+		EClassifier[] parameterTypes = new EClassifier[] { (EClassifier) myContext.getOCLEnvironment().getTypeResolver().resolveCollectionType(CollectionKind.SEQUENCE_LITERAL,
+				stringType) };
+		ExecutionContext executionContext = myContext.cloneWithVariable(new Variable("p", stringType, ""));
+		XpandDefinition definition = executionContext.findDefinition(qualify("Overridable::testRedefineWithParameters"), oclStringType, parameterTypes);
+		definition.evaluate(executionContext);
+		assertEquals("testRedefineOriginal", myBuffer.toString());
+		myBuffer.delete(0, myBuffer.length());
+		myResourceManager.setPrefixes("override3", null);
+		definition = executionContext.findDefinition(qualify("Overridable::testRedefineWithParameters"), oclStringType, parameterTypes);
+		definition.evaluate(executionContext);
+		assertEquals("testRedefineRedefined", myBuffer.toString());
 	}
 
 	private static String qualify(String unqualified) {

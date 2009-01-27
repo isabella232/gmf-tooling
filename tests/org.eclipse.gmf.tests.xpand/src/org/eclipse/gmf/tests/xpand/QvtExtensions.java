@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Borland Software Corp.
+ * Copyright (c) 2008, 2009 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -28,6 +28,7 @@ import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.QvtPlugin;
 import org.eclipse.ocl.util.CollectionUtil;
 
 public class QvtExtensions extends TestCase {
@@ -45,6 +46,9 @@ public class QvtExtensions extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		if (QvtPlugin.getDefault() == null) {
+			new QvtPlugin();
+		}
 		buffer = new StringBuilder();
 		resourceManager = new TestsResourceManager();
 		execCtx = new ExecutionContextImpl(new Scope(resourceManager, null, new BufferOutput(buffer)));

@@ -18,6 +18,7 @@ import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.m2m.internal.qvt.oml.QvtPlugin;
 
 public class PolymorphismTest extends TestCase {
 	
@@ -32,6 +33,9 @@ public class PolymorphismTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		if (QvtPlugin.getDefault() == null) {
+			new QvtPlugin();
+		}
 		buffer = new StringBuilder();
 		xpandFacade = new XpandFacade(new ExecutionContextImpl(new Scope(new TestsResourceManager(), null, new BufferOutput(buffer))));
 	}

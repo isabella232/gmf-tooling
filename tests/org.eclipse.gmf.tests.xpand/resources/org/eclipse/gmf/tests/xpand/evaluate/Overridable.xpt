@@ -9,3 +9,5 @@
 «DEFINE test4 FOR String»test4«ENDDEFINE»
 
 «DEFINE testRedefineInAspect FOR String»testRedefineOriginal«ENDDEFINE»
+
+«DEFINE testRedefineWithParameters(p : Sequence(String)) FOR String»testRedefineOriginal«ENDDEFINE»

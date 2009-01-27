@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 committers of openArchitectureWare and others.
+ * Copyright (c) 2005, 2009 committers of openArchitectureWare and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
+import org.eclipse.m2m.internal.qvt.oml.QvtPlugin;
 
 public class AopFeatureTest extends TestCase {
 	private ExecutionContextImpl execCtx;
@@ -32,6 +33,9 @@ public class AopFeatureTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		if (QvtPlugin.getDefault() == null) {
+			new QvtPlugin();
+		}
 
 		buffer = new StringBuilder();
 		execCtx = new ExecutionContextImpl(new Scope(new TestsResourceManager(), null, new BufferOutput(buffer)));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.tests.xpand;
 
@@ -26,6 +27,7 @@ import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.m2m.internal.qvt.oml.QvtPlugin;
 
 /**
  * FIXME move tests with parse() only to StatementParserTest 
@@ -42,6 +44,9 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		if (QvtPlugin.getDefault() == null) {
+			new QvtPlugin();
+		}
 		buffer = new StringBuilder();
 		out = new BufferOutput(buffer);
 		execCtx = createCtx(out);
