@@ -85,7 +85,7 @@
     
     <!-- GMF Xpand elements, defined using general pattern -->
     <activity
-    	  description="%activity.gmf.runtime.desc"
+    	  description="%activity.gmf.xpand.desc"
           id="org.eclipse.gmf.xpand.activity"
           name="%activity.gmf.xpand">
     </activity>
