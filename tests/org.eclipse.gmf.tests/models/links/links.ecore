@@ -27,7 +27,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="nestedNodes2" upperBound="-1"
         eType="#//Node" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Container" eSuperTypes="#//Node">
+  <eClassifiers xsi:type="ecore:EClass" name="LinkContainer" eSuperTypes="#//Node">
     <eStructuralFeatures xsi:type="ecore:EReference" name="childNodes" upperBound="-1"
         eType="#//Link" containment="true" eOpposite="#//Link/owner"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="firstChildNode" eType="#//Link"
@@ -40,7 +40,7 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="reference_Init" ordered="false"
-        unique="false" upperBound="-1" eType="#//Container">
+        unique="false" upperBound="-1" eType="#//LinkContainer">
       <eAnnotations source="doc">
         <details key="txt" value="Tested with ElementInitializer"/>
       </eAnnotations>
@@ -61,8 +61,8 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Link">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//Container"
-        eOpposite="#//Container/childNodes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//LinkContainer"
+        eOpposite="#//LinkContainer/childNodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"

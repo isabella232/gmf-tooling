@@ -107,7 +107,7 @@ public class LinksSessionSetup extends SessionSetup {
 				return modelAccess.findClass("//Root"); //$NON-NLS-1$
 			}
 			public NodeData getNodeA() {
-				EClass n = modelAccess.findClass("//Container"); //$NON-NLS-1$
+				EClass n = modelAccess.findClass("//LinkContainer"); //$NON-NLS-1$
 				EReference c = modelAccess.findReference("//Root/elements"); //$NON-NLS-1$
 				return new NodeData(n, null, c);
 			}
@@ -119,11 +119,11 @@ public class LinksSessionSetup extends SessionSetup {
 			public LinkData getLinkAsClass() {
 				EClass l = modelAccess.findClass("//Link"); //$NON-NLS-1$
 				EReference t = modelAccess.findReference("//Link/target"); //$NON-NLS-1$
-				EReference c = modelAccess.findReference("//Container/childNodes"); //$NON-NLS-1$
+				EReference c = modelAccess.findReference("//LinkContainer/childNodes"); //$NON-NLS-1$
 				return new LinkData(l, t, c);
 			}
 			public EReference getLinkAsRef() {
-				return modelAccess.findReference("//Container/referenceOnlyLink"); //$NON-NLS-1$
+				return modelAccess.findReference("//LinkContainer/referenceOnlyLink"); //$NON-NLS-1$
 			}
 		};
 		try {
@@ -232,15 +232,15 @@ public class LinksSessionSetup extends SessionSetup {
 
 		/* Setup element initializers */
 		protected void setupNodeMapping(NodeMapping nme) {
-			if("Container".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
+			if("LinkContainer".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
 				EPath ecoreModelAccess = new EPath(EcorePackage.eINSTANCE.eResource());
 				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
-					featureValOCL("//Container/enumAttr_Init", "TestEnum::LIT1"), //$NON-NLS-1$ //$NON-NLS-2$
-					featureValOCL("//Container/manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }"), //$NON-NLS-1$ //$NON-NLS-2$						
-					featureValOCL("//Container/reference_Init", "Bag { self }" ), //$NON-NLS-1$ //$NON-NLS-2$
-					featureValOCL("//Container/manyRealAttr_Init", "Sequence { 1, 1.5 }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("//LinkContainer/enumAttr_Init", "TestEnum::LIT1"), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("//LinkContainer/manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }"), //$NON-NLS-1$ //$NON-NLS-2$						
+					featureValOCL("//LinkContainer/reference_Init", "Bag { self }" ), //$NON-NLS-1$ //$NON-NLS-2$
+					featureValOCL("//LinkContainer/manyRealAttr_Init", "Sequence { 1, 1.5 }" ), //$NON-NLS-1$ //$NON-NLS-2$
 					// test complex structure creation
-					refNewElement(modelAccess.findFeature("//Container/refNewElement"), new FeatureSeqInitializer[] { //$NON-NLS-1$
+					refNewElement(modelAccess.findFeature("//LinkContainer/refNewElement"), new FeatureSeqInitializer[] { //$NON-NLS-1$
 						newElementFSeqInit(new FeatureInitDataHelper[] {
 							featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EClass'"), //$NON-NLS-1$ //$NON-NLS-2$
 							refNewElement(ecoreModelAccess.findFeature("//EClass/eStructuralFeatures"), new FeatureSeqInitializer[] { //$NON-NLS-1$
@@ -252,7 +252,7 @@ public class LinksSessionSetup extends SessionSetup {
 							refNewElement(ecoreModelAccess.findFeature("//EClass/eOperations"), new FeatureSeqInitializer[] { //$NON-NLS-1$
 									newElementFSeqInit(new FeatureInitDataHelper[] {
 										featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EOperation'"), //$NON-NLS-1$ //$NON-NLS-2$
-										featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "links::Container") //$NON-NLS-1$ //$NON-NLS-2$									
+										featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "links::LinkContainer") //$NON-NLS-1$ //$NON-NLS-2$									
 									}, null) 
 							})							
 						}, null),
@@ -441,7 +441,7 @@ public class LinksSessionSetup extends SessionSetup {
 			attrAuditContainer.getAudits().add(javaRule1);
 		
 			DomainAttributeTarget attrTarget4 = GMFMapFactory.eINSTANCE.createDomainAttributeTarget();
-			attrTarget4.setAttribute(modelAccess.findAttribute("//Container/enumAttr_Init")); //$NON-NLS-1$
+			attrTarget4.setAttribute(modelAccess.findAttribute("//LinkContainer/enumAttr_Init")); //$NON-NLS-1$
 			AuditRule javaRule2 = createAudit("audit.attributeTarget.id4", "myJavaAudit2", attrTarget4, Severity.ERROR_LITERAL, false); //$NON-NLS-1$ //$NON-NLS-2$
 			javaRule2.getRule().setLanguage(Language.JAVA_LITERAL);		
 			attrAuditContainer.getAudits().add(javaRule2);

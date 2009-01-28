@@ -79,9 +79,9 @@ public class OCLExpressionAdapterTest extends TestCase {
 		assertTrue(expression("null.oclAsType(links::Node)").isAssignableToElement(ref)); //$NON-NLS-1$
 		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Node"))); //$NON-NLS-1$		
 
-		assertTrue(expression("null.oclAsType(links::Container)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Container"))); //$NON-NLS-1$
-		assertTrue(expression("Bag { null.oclAsType(links::Container) }").isAssignableToElement(ref)); //$NON-NLS-1$
+		assertTrue(expression("null.oclAsType(links::LinkContainer)").isAssignableToElement(ref)); //$NON-NLS-1$
+		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//LinkContainer"))); //$NON-NLS-1$
+		assertTrue(expression("Bag { null.oclAsType(links::LinkContainer) }").isAssignableToElement(ref)); //$NON-NLS-1$
 		
 		assertFalse(expression("null.oclAsType(links::Root)").isAssignableToElement(ref)); //$NON-NLS-1$
 		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Root"))); //$NON-NLS-1$		
@@ -92,8 +92,8 @@ public class OCLExpressionAdapterTest extends TestCase {
 
 		assertTrue(expression("null.oclAsType(links::Node)").isAssignableToElement(ref)); //$NON-NLS-1$
 		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Node"))); //$NON-NLS-1$		
-		assertTrue(expression("null.oclAsType(links::Container)").isAssignableToElement(ref)); //$NON-NLS-1$
-		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Container"))); //$NON-NLS-1$
+		assertTrue(expression("null.oclAsType(links::LinkContainer)").isAssignableToElement(ref)); //$NON-NLS-1$
+		assertTrue(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//LinkContainer"))); //$NON-NLS-1$
 		
 		assertFalse(expression("null.oclAsType(links::Root)").isAssignableToElement(ref)); //$NON-NLS-1$
 		assertFalse(ref.getEReferenceType().isSuperTypeOf(modelAccess.findClass("//Root"))); //$NON-NLS-1$
@@ -178,7 +178,7 @@ public class OCLExpressionAdapterTest extends TestCase {
 	}
 	
 	public void testEnumerationLiteral() throws Exception {
-		EAttribute attr = modelAccess.findAttribute("//Container/enumAttr_Init"); //$NON-NLS-1$
+		EAttribute attr = modelAccess.findAttribute("//LinkContainer/enumAttr_Init"); //$NON-NLS-1$
 		assertTrue(expression("links::TestEnum::LIT1").isAssignableToElement(attr)); //$NON-NLS-1$		
 		assertFalse(expression("links::TestEnum").isAssignableToElement(attr)); //$NON-NLS-1$
 		
