@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,6 +25,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
@@ -37,7 +38,6 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
 import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 
 // FIXME it's not a good idea to parse file on every proposal computation
@@ -178,8 +178,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private QvtCompilerOptions qvtCompilerOptions;
 
-	private ImportToNonTransformCtxHelper modulesImportHelper;
-
 	public QvtResource loadQvtResource(String fullyQualifiedName) {
 		try {
 			return loadQvtResourceThroughCache(fullyQualifiedName);
@@ -245,11 +243,15 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		if (qvtCompiler == null) {
 			// TODO: use different kind of ImportResolver being able to
 			// construct referenced CFiles using ResourceManagerImpl
-			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl(), Activator.getWorkspaceMetamodelsResourceSet());
+			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl(), getMetamodelResourceSet());
 		}
 		return qvtCompiler;
 	}
 	
+	protected ResourceSet getMetamodelResourceSet() {
+		return Activator.getWorkspaceMetamodelsResourceSet();
+	}
+
 	private QvtCompilerOptions getQvtCompilerOptions() {
 		if (qvtCompilerOptions == null) {
 			qvtCompilerOptions = new QvtCompilerOptions();
@@ -390,15 +392,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		cachedXpand.clear();
 		cachedQvt.clear();
 		qvtCompiler = null;
-		modulesImportHelper = null;
 	}
 	
-	public ImportToNonTransformCtxHelper getModuleImportHelper() {
-		if (modulesImportHelper == null) {
-			modulesImportHelper = new ImportToNonTransformCtxHelper();
-		}
-		return modulesImportHelper;
-	}
-
 	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,9 +22,6 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
-import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
@@ -310,21 +307,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
 		return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();
 	}
 
-    public EPackage.Registry getAllVisibleModels() {
-		String[] importedNamespaces = getImportedNamespaces();
-		assert importedNamespaces != null;
-		// TODO respect meta-models imported not only with nsURI
-		EPackage.Registry result = new EPackageRegistryImpl();
-		for (String namespace : importedNamespaces) {
-			EPackage pkg = Activator.findMetaModel(namespace);
-			if (pkg != null) {
-				result.put(namespace, pkg);
-			}
-		}
-		if (result.isEmpty()) {
-			// hack for tests
-			result.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
-		}
-		return result;
+	public EPackage.Registry getAllVisibleModels() {
+		return getScope().createPackageRegistry(getImportedNamespaces());
 	}
 }

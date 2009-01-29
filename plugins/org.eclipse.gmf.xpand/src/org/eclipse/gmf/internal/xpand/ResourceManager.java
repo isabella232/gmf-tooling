@@ -1,7 +1,7 @@
 /*
  * <copyright>
  *
- * Copyright (c) 2005-2006 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
+ *     Alexander Shatalin (Borland) - initial API and implementation
  *
  * </copyright>
  */
@@ -16,7 +17,6 @@ package org.eclipse.gmf.internal.xpand;
 
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 
 
 /**
@@ -29,6 +29,4 @@ public interface ResourceManager {
     
     QvtResource loadQvtResource(String fullyQualifiedName);
     
-    ImportToNonTransformCtxHelper getModuleImportHelper();
-
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,6 +17,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
@@ -39,6 +42,8 @@ public class Scope {
     private final List<XpandAdvice> registeredAdvices = new LinkedList<XpandAdvice>();
 
     private EvaluationListener evaluationListener;
+
+	private ImportToNonTransformCtxHelper modulesImportHelper;
 
     public Scope(ResourceManager resourceManager, Collection<Variable> globalVars, Output output) {
     	assert resourceManager != null;
@@ -133,7 +138,7 @@ public class Scope {
 			possibleNames = new String[] { templateName, contextNS + TypeNameUtil.NS_DELIM + templateName };
 		}
         for (String name : possibleNames) {
-            final XpandResource tpl = getResourceManager().loadXpandResource(name);
+            final XpandResource tpl = findTemplate(name);
             if (tpl != null) {
 				return tpl;
 			}
@@ -142,7 +147,11 @@ public class Scope {
     }
 
 	public XpandResource findTemplate(String templateName) {
-		return getResourceManager().loadXpandResource(templateName);
+		XpandResource resource = getResourceManager().loadXpandResource(templateName);
+		if (resource instanceof StatefulResource && !((StatefulResource) resource).isInitialized()) {
+			((StatefulResource) resource).initialize(this);
+		}
+		return resource;
 	}
 
 	public QvtResource findExtension(String extensionName) {
@@ -150,6 +159,27 @@ public class Scope {
 	}
 
 	public ImportToNonTransformCtxHelper getModuleImportHelper() {
-		return getResourceManager().getModuleImportHelper();
+		if (modulesImportHelper == null) {
+			modulesImportHelper = new ImportToNonTransformCtxHelper();
+		}
+		return modulesImportHelper;
 	}
+	
+    public EPackage.Registry createPackageRegistry(String[] metamodelURIs) {
+		assert metamodelURIs != null;
+		// TODO respect meta-models imported not only with nsURI
+		EPackage.Registry result = new EPackageRegistryImpl();
+		for (String namespace : metamodelURIs) {
+			EPackage pkg = Activator.findMetaModel(namespace);
+			if (pkg != null) {
+				result.put(namespace, pkg);
+			}
+		}
+		if (result.isEmpty()) {
+			// hack for tests
+			result.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
+		}
+		return result;
+	}
+
 }

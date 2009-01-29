@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -23,6 +23,7 @@ import org.eclipse.gmf.internal.xpand.ast.Advice;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.model.Scope;
+import org.eclipse.gmf.internal.xpand.model.StatefulResource;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -34,7 +35,7 @@ import org.eclipse.gmf.internal.xpand.model.XpandResource;
  * Advice declarations are aggregated: if several advice declarations have the same signature, all are returned in the order
  * in which they are declared.
  */
-class CompositeXpandResource implements XpandResource {
+class CompositeXpandResource implements XpandResource, StatefulResource {
 	private final XpandResource[] myDefinitions;
 	private final XpandResource[] myAdvices;
 	private XpandAdvice[] myCachedAdvices;
@@ -51,23 +52,32 @@ class CompositeXpandResource implements XpandResource {
 	public CompositeXpandResource(ResourceManager manager, XpandResource[] definitions, XpandResource[] advices) {
 		myDefinitions = definitions;
 		myAdvices = advices == null ? NO_RESOURCES : advices;
+	}
+	
+	public void initialize(Scope scope) {
 		ArrayList<XpandDefinition> allDefinitions = new ArrayList<XpandDefinition>();
 		HashSet<DefinitionSignature> signatures = new HashSet<DefinitionSignature>();
-		ExecutionContext context = new ExecutionContextImpl(new Scope(manager, null, null));
-		//Definitions are merged in the following order: first, all advice resources from newest to oldest, then all 
-		//non-advice resources, from newest to oldest.
+		ExecutionContext context = new ExecutionContextImpl(scope);
+		// Definitions are merged in the following order: first, all advice
+		// resources from newest to oldest, then all
+		// non-advice resources, from newest to oldest.
 		mergeDefinitions(context, myAdvices, allDefinitions, signatures);
 		mergeDefinitions(context, myDefinitions, allDefinitions, signatures);
 		myCachedDefinitions = allDefinitions.toArray(new XpandDefinition[allDefinitions.size()]);
-		//Advice declarations are collected (without merging) in the order from oldest to newest.
-		//Only advice resources are taken into consideration.
-		if (advices != null) {
+		// Advice declarations are collected (without merging) in the order from
+		// oldest to newest.
+		// Only advice resources are taken into consideration.
+		if (myAdvices.length > 0) {
 			ArrayList<XpandAdvice> allAdvices = new ArrayList<XpandAdvice>();
 			collectAdvices(myAdvices, allAdvices);
 			myCachedAdvices = allAdvices.toArray(new XpandAdvice[allAdvices.size()]);
 		} else {
 			myCachedAdvices = NO_ADVICE;
 		}
+	}
+	
+	public boolean isInitialized() {
+		return myCachedDefinitions != null && myCachedAdvices != null;
 	}
 
 	private void mergeDefinitions(ExecutionContext context, XpandResource[] resources, List<XpandDefinition> collector, Set<DefinitionSignature> usedSignatures) {
@@ -97,10 +107,16 @@ class CompositeXpandResource implements XpandResource {
 	}
 
 	public XpandAdvice[] getAdvices() {
+		if (!isInitialized()) {
+			throw new IllegalStateException("Stateful resource " + getFullyQualifiedName() + " was not initialized");
+		}
 		return myCachedAdvices;
 	}
 
 	public XpandDefinition[] getDefinitions() {
+		if (!isInitialized()) {
+			throw new IllegalStateException("Stateful resource " + getFullyQualifiedName() + " was not initialized");
+		}
 		return myCachedDefinitions;
 	}
 
