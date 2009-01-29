@@ -208,7 +208,9 @@ public class RootManager {
 		}
 
 		void resetManager() {
-			myResourceManagerReference.clear();
+			if (myResourceManagerReference != null) {
+				myResourceManagerReference.clear();
+			}
 		}
 
 		public WorkspaceResourceManager getManager() {
