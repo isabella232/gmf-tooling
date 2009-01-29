@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,21 +11,16 @@
  */
 package org.eclipse.gmf.internal.xpand.ant;
 
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.StringTokenizer;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.TaskContainer;
 import org.apache.tools.ant.UnknownElement;
 
-public class CodegenFlowTask extends Task implements TaskContainer {
+public class CodegenFlowTask extends AbstractTemplateTask implements TaskContainer {
 
 	private final LinkedList<Task> myTasks = new LinkedList<Task>();
-	private final InputSupport myInput =  new InputSupport();
-	private String[] myTemplateRoots;
 
 	public CodegenFlowTask() {
 	}
@@ -34,19 +29,7 @@ public class CodegenFlowTask extends Task implements TaskContainer {
 		myTasks.add(task);
 	}
 
-	public void setTemplateRoot(String root) {
-		ArrayList<String> roots = new ArrayList<String>();
-		for (StringTokenizer st = new StringTokenizer(root, ";, "); st.hasMoreTokens(); ) {
-			roots.add(st.nextToken().trim());
-		}
-		myTemplateRoots = roots.toArray(new String[roots.size()]);
-	}
-
 	public void setOutputRoot(String outputRoot) {
-	}
-
-	public void setInputURI(String uri) {
-		myInput.setURI(uri);
 	}
 
 	@Override
@@ -66,7 +49,7 @@ public class CodegenFlowTask extends Task implements TaskContainer {
 			}
 			if (t instanceof InvokeTemplateTask) {
 				((InvokeTemplateTask) t).setFacade(xf);
-				((InvokeTemplateTask) t).setTemplateTarget(myInput);
+				((InvokeTemplateTask) t).setTemplateTarget(getInput());
 			}
 		}
 		ps.worked(2);
@@ -81,15 +64,4 @@ public class CodegenFlowTask extends Task implements TaskContainer {
 		}
 	}
 
-	protected XpandFacade createFacade() throws BuildException {
-		try {
-			XpandFacade xf = new XpandFacade();
-			for (String r : myTemplateRoots) {
-				xf.addLocation(r);
-			}
-			return xf;
-		} catch (MalformedURLException ex) {
-			throw new BuildException(ex, getLocation());
-		}
-	}
 }

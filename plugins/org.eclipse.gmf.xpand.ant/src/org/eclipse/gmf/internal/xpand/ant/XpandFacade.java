@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,10 +22,14 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
@@ -34,11 +38,11 @@ import org.eclipse.gmf.internal.xpand.StreamsHolder;
 import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.ExecutionContextImpl;
+import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
-import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.m2m.qvt.oml.runtime.util.OCLEnvironmentWithQVTAccessFactory;
@@ -56,6 +60,9 @@ import org.osgi.framework.Bundle;
  * @author artem
  */
 public final class XpandFacade {
+	private static final String IMPLICIT_VAR_NAME = "self";	//$NON-NLS-1$
+	private static final String IMPLICIT_VAR_NAME_BACKWARD_COMPATIBILITY = "this";	//$NON-NLS-1$
+	
 	private final LinkedList<Variable> myGlobals = new LinkedList<Variable>();
 	private final LinkedList<URL> myLocations = new LinkedList<URL>();
 	private final LinkedList<String> myImportedModels = new LinkedList<String>();
@@ -67,8 +74,11 @@ public final class XpandFacade {
 	private HashMap<Object, StreamsHolder> myStreamsHolders;
 
 	private final StringBuilder myOut = new StringBuilder();
+	private Map<String, URI> myMetamodelURI2LocationMap = new HashMap<String, URI>();
+	private final ResourceSet myResourceSet;
 
-	public XpandFacade() {
+	public XpandFacade(ResourceSet resourceSet) {
+		myResourceSet = resourceSet;
 	}
 
 	/**
@@ -85,6 +95,7 @@ public final class XpandFacade {
 		//
 		// not necessary, but doesn't seem to hurt
 		myXpandCtx = chain.myXpandCtx; // new state is formed with cloning
+		myResourceSet = chain.myResourceSet;
 	}
 
 	/**
@@ -118,6 +129,10 @@ public final class XpandFacade {
 		assert url != null;
 		myLocations.addLast(url);
 		clearAllContexts();
+	}
+	
+	public void registerMetamodel(String nsUri, URI location) {
+		myMetamodelURI2LocationMap.put(nsUri, location);
 	}
 
 	/**
@@ -391,13 +406,45 @@ public final class XpandFacade {
 
 	private ExecutionContext getXpandContext() {
 		if (myXpandCtx == null) {
-			BundleResourceManager rm = new BundleResourceManager(myLocations.toArray(new URL[myLocations.size()]));
+			BundleResourceManager rm = new BundleResourceManager(myLocations.toArray(new URL[myLocations.size()])) {
+
+				@Override
+				protected ResourceSet getMetamodelResourceSet() {
+					return myResourceSet;
+				}
+			};
 			myBufferOut = new BufferOutput(myOut, myEnforceReadOnlyNamedStreamsAfterAccess);
-			myXpandCtx = ContextFactory.createXpandContext(rm, myBufferOut, myGlobals);
+			Scope scope = new Scope(rm, myGlobals, myBufferOut) {
+
+				@Override
+				public Registry createPackageRegistry(String[] metamodelURIs) {
+					assert metamodelURIs != null;
+					EPackage.Registry result = new EPackageRegistryImpl();
+					for (String namespace : metamodelURIs) {
+						EPackage pkg;
+						if (myMetamodelURI2LocationMap.containsKey(namespace)) {
+							pkg = loadMainEPackage(myMetamodelURI2LocationMap.get(namespace));
+						} else {
+							pkg = EPackage.Registry.INSTANCE.getEPackage(namespace);
+						}
+						if (pkg != null) {
+							result.put(namespace, pkg);
+						}
+					}
+					return result;
+				}
+			};
+			myXpandCtx = new ExecutionContextImpl(scope);
 		}
 		return myXpandCtx;
 	}
+	
+	private EPackage loadMainEPackage(URI uri) {
+		Resource resource = myResourceSet.getResource(uri, true);
+		if (resource.getContents().size() > 0 && resource.getContents().get(0) instanceof EPackage) {
+			return (EPackage) resource.getContents().get(0);
+		}
+		return null;
+	}
 
-	private static final String IMPLICIT_VAR_NAME = "self";	//$NON-NLS-1$
-	private static final String IMPLICIT_VAR_NAME_BACKWARD_COMPATIBILITY = "this";	//$NON-NLS-1$
 }

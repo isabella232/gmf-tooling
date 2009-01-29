@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,51 +14,32 @@ package org.eclipse.gmf.internal.xpand.ant;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
- * <p>... xmlns:xpt=<em>&quot;eclipse.org/gmf/2008/xpand&quot;</em>...
+ * <p>
+ * ... xmlns:xpt=<em>&quot;eclipse.org/gmf/2008/xpand&quot;</em>...
  * <p>
  * &lt;xpt:template name=&quot;a::b::Main&quot;/&gt;
- *
+ * 
  * @author artem
  */
-public class InvokeTemplateTask extends Task {
+public class InvokeTemplateTask extends AbstractTemplateTask {
 
 	private String myTemplateName;
-	private String[] myTemplateRoots;
+
 	private String myOutFile;
+
 	private XpandFacade myFacade;
-	private final InputSupport myInput =  new InputSupport();
 
 	public void setName(String name) {
 		myTemplateName = name;
 	}
 
-	public void setBareInput(String input) {
-		myInput.setBareInput(input);
-	}
-
-	public void setInputURI(String uri) {
-		myInput.setURI(uri);
-	}
-
 	public void setOutFile(String uri) {
 		myOutFile = uri;
-	}
-
-	public void setTemplateRoot(String root) {
-		ArrayList<String> roots = new ArrayList<String>();
-		for (StringTokenizer st = new StringTokenizer(root, ";, "); st.hasMoreTokens(); ) {
-			roots.add(st.nextToken().trim());
-		}
-		myTemplateRoots = roots.toArray(new String[roots.size()]);
 	}
 
 	@Override
@@ -74,8 +55,8 @@ public class InvokeTemplateTask extends Task {
 	}
 
 	protected void doExecute() throws BuildException {
-		XpandFacade xf = createExecFacade();
-		String result = xf.xpand(myTemplateName, myInput.getTarget(), getTemplateArguments());
+		XpandFacade xf = createFacade();
+		String result = xf.xpand(myTemplateName, getInput().getTarget(), getTemplateArguments());
 		if (myOutFile == null) {
 			System.err.println(result);
 		} else {
@@ -89,15 +70,15 @@ public class InvokeTemplateTask extends Task {
 			}
 		}
 	}
-	
+
 	protected void validate() throws BuildException {
 		if (myTemplateName == null) {
 			throw new BuildException("Template name is missing", getLocation());
 		}
-		if (myInput.getTarget() == null) {
+		if (getInput().getTarget() == null) {
 			throw new BuildException("Target object is missing", getLocation());
 		}
-		if (myFacade == null && (myTemplateRoots == null || myTemplateRoots.length == 0)) {
+		if (myFacade == null && (getTemplateRoots() == null || getTemplateRoots().length == 0)) {
 			throw new BuildException("No template root specified", getLocation());
 		}
 	}
@@ -107,31 +88,19 @@ public class InvokeTemplateTask extends Task {
 	}
 
 	protected void setTemplateTarget(InputSupport input) {
-		myInput.chain(input);
+		getInput().chain(input);
 	}
 
 	protected void setFacade(XpandFacade xf) {
 		myFacade = xf;
 	}
 
-	protected XpandFacade createExecFacade() throws BuildException {
-		try {
-			if (myTemplateRoots != null && myTemplateRoots.length > 0) {
-				XpandFacade xf;
-				if (myFacade != null) {
-					xf = new XpandFacade(myFacade);
-				} else {
-					xf = new XpandFacade();
-				}
-				for (String r : myTemplateRoots) {
-					xf.addLocation(r);
-				}
-				return xf;
-			} else {
-				return myFacade == null ? new XpandFacade() : myFacade;
-			}
-		} catch (MalformedURLException ex) {
-			throw new BuildException(ex, getLocation());
+	protected XpandFacade createFacade() throws BuildException {
+		if (myFacade != null) {
+			return new XpandFacade(myFacade);
+		} else {
+			return super.createFacade();
 		}
 	}
+
 }

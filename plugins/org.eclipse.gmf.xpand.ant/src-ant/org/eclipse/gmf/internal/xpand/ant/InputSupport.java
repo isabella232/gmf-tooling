@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,8 +19,12 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 class InputSupport {
 	private String myInputURI;
 	private Object myInputObject;
-	private ResourceSetImpl myResourceSet;
+	private ResourceSet myResourceSet;
 	private InputSupport myChain;
+	
+	public InputSupport(ResourceSet resourceSet) {
+		myResourceSet = resourceSet;
+	}
 
 	public void setBareInput(String input) {
 		myInputObject = input;
