@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.editor.Activator;
-import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.Variable;
 import org.eclipse.gmf.internal.xpand.parser.XpandParsersym;
@@ -52,7 +51,6 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		proposalFactory = factory;
 		ExpressionSimpleAnalyzer cached = Activator.findState(ExpressionSimpleAnalyzer.class);
 		if (cached == null) {
-			System.out.println("new ExpressionSimpleAnalyzer");
 			Activator.putState(ExpressionSimpleAnalyzer.class, cached = new ExpressionSimpleAnalyzer());
 		}
 		exprAnalyzer = cached;
