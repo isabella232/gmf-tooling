@@ -23,6 +23,11 @@ public interface QvtResource extends XpandAnalyzable, ResourceMarker {
 
 	public static final String FILE_EXTENSION = MDAConstants.QVTO_FILE_EXTENSION;
 
+	/**
+	 * @return {@link QvtExtension}s declared in this {@link QvtResource} or
+	 *         null in case of loading errors
+	 */
 	List<QvtExtension> getExtensions();
+	
 	Set<Module> getModules();
 }

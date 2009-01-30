@@ -116,10 +116,13 @@ public final class ExecutionContextImpl implements ExecutionContext {
             for (String extension : extensions) {
             	final QvtResource qvtResource = getScope().findExtension(extension);
             	if (qvtResource == null) {
-   					throw new RuntimeException("Unable to load extension file : " + extension);
+   					continue;
             	}
         		final ExecutionContext ctx = cloneWithResource(qvtResource);
                 final List<QvtExtension> extensionList = qvtResource.getExtensions();
+                if (extensionList == null) {
+                	continue;
+                }
                 for (QvtExtension element : extensionList) {
                     element.init(ctx);
                     allExtensions.add(element);
