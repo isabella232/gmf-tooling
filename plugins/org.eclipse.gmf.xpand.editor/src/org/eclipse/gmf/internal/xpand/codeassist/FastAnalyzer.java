@@ -261,12 +261,18 @@ public class FastAnalyzer {
 		return stack;
 	}
 
-	protected static boolean isInExtensionImport(final String s) {
+	/**
+	 * is public only for testing purposes
+	 */
+	public static boolean isInExtensionImport(final String s) {
 		final Matcher m = get().INCOMPLETE_EXTENSION_PATTERN.matcher(s);
 		return m.find();
 	}
 
-	protected static boolean isInImport(final String s) {
+	/**
+	 * is public only for testing purposes
+	 */
+	public static boolean isInImport(final String s) {
 		final Matcher m = get().INCOMPLETE_IMPORT_PATTERN.matcher(s);
 		return m.find();
 	}

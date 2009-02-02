@@ -89,7 +89,10 @@ public class TypeProposalComputer implements ProposalComputer {
         return result;
     }
 
-    /*package-local for tests*/String findPrefix(final String txt) {
+	/**
+	 * is public only for testing purposes
+	 */
+    public String findPrefix(final String txt) {
         final StringBuilder result = new StringBuilder();
         int i = txt.length() - 1;
         char c = txt.charAt(i);

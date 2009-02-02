@@ -65,7 +65,10 @@ public class ReverseScanner {
 
 	}
 
-	protected String getString(final String string) {
+	/**
+	 * is public only for testing purposes
+	 */
+	public String getString(final String string) {
 		final String t = string.trim();
 		if (t.length() > 0) {
 			if (t.endsWith("\"")) {

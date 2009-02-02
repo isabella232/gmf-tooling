@@ -239,7 +239,10 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		return result;
 	}
 
-	/*package-visible for tests*/ static class ExpressionSimpleAnalyzer {
+	/**
+	 * is public only for testing purposes
+	 */
+	public static class ExpressionSimpleAnalyzer {
 
 		private final Set<Integer> operators = new HashSet<Integer>();
 		{
@@ -321,7 +324,10 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			blockTokens.put(XpandParsersym.TK_LBRACE, XpandParsersym.TK_RBRACE); // XXX braces as block tokens?
 		}
 
-		String[] computePrefixAndTargetExpression(final String str) {
+		/**
+		 * is public only for testing purposes
+		 */
+		public String[] computePrefixAndTargetExpression(final String str) {
 			final ReverseScanner scanner = new ReverseScanner(str);
 			String prefix = "";
 
