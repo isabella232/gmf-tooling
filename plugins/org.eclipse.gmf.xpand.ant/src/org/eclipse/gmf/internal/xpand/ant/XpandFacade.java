@@ -76,6 +76,7 @@ public final class XpandFacade {
 	private final StringBuilder myOut = new StringBuilder();
 	private Map<String, URI> myMetamodelURI2LocationMap = new HashMap<String, URI>();
 	private final ResourceSet myResourceSet;
+	private Map<String, URI> mySchemaLocations;
 
 	public XpandFacade(ResourceSet resourceSet) {
 		myResourceSet = resourceSet;
@@ -96,6 +97,8 @@ public final class XpandFacade {
 		// not necessary, but doesn't seem to hurt
 		myXpandCtx = chain.myXpandCtx; // new state is formed with cloning
 		myResourceSet = chain.myResourceSet;
+		myMetamodelURI2LocationMap = chain.myMetamodelURI2LocationMap;
+		mySchemaLocations = chain.mySchemaLocations;
 	}
 
 	/**
@@ -132,7 +135,13 @@ public final class XpandFacade {
 	}
 	
 	public void registerMetamodel(String nsUri, URI location) {
-		myMetamodelURI2LocationMap.put(nsUri, location);
+		if (!myMetamodelURI2LocationMap.containsKey(nsUri)) {
+			myMetamodelURI2LocationMap.put(nsUri, location);
+		}
+	}
+	
+	public void setSchemaLocations(Map<String, URI> schemaLocations) {
+		mySchemaLocations = schemaLocations;
 	}
 
 	/**
@@ -424,8 +433,16 @@ public final class XpandFacade {
 						EPackage pkg;
 						if (myMetamodelURI2LocationMap.containsKey(namespace)) {
 							pkg = loadMainEPackage(myMetamodelURI2LocationMap.get(namespace));
-						} else {
+						} else if (EPackage.Registry.INSTANCE.containsKey(namespace)) {
 							pkg = EPackage.Registry.INSTANCE.getEPackage(namespace);
+						} else {
+							URI metamodelURI = mySchemaLocations.get(namespace);
+							Resource resource = myResourceSet.getResource(metamodelURI, true);
+							if (resource.getContents().size() > 0 && resource.getContents().get(0) instanceof EPackage) {
+								pkg = (EPackage) resource.getContents().get(0);
+							} else {
+								pkg = null;
+							}
 						}
 						if (pkg != null) {
 							result.put(namespace, pkg);

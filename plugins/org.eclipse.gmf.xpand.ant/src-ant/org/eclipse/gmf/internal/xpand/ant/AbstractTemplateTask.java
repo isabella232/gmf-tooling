@@ -13,11 +13,11 @@ package org.eclipse.gmf.internal.xpand.ant;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.StringTokenizer;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.xpand.EPackageRegistryBasedURIResourceMap;
 
@@ -29,7 +29,7 @@ public abstract class AbstractTemplateTask extends Task {
 
 	private String[] myTemplateRoots;
 
-	private Collection<Metamodel> myMetamodels = new ArrayList<Metamodel>();
+	private MetamodelRegistry myMetamodelRegistry;
 
 	public AbstractTemplateTask() {
 		ResourceSetImpl resourceSet = new ResourceSetImpl();
@@ -51,19 +51,26 @@ public abstract class AbstractTemplateTask extends Task {
 	}
 
 	public void setInputURI(String uri) {
-		myInput.setURI(uri);
+		try {
+			myInput.setURI(URI.createURI(uri));
+		} catch (IllegalArgumentException ex) {
+			throw new BuildException(ex, getLocation());
+		}
 	}
 
 	public void setBareInput(String input) {
 		myInput.setBareInput(input);
 	}
 
-	protected InputSupport getInput() {
-		return myInput;
+	public void addMetamodelRegistry(MetamodelRegistry metamodelRegistry) {
+		if (myMetamodelRegistry != null) {
+			throw new BuildException("Only one metamodelregistry nested element supported", getLocation());
+		}
+		myMetamodelRegistry = metamodelRegistry;
 	}
 
-	public void addMetamodel(Metamodel metamodel) {
-		myMetamodels.add(metamodel);
+	protected InputSupport getInput() {
+		return myInput;
 	}
 
 	protected XpandFacade createFacade() throws BuildException {
@@ -81,9 +88,12 @@ public abstract class AbstractTemplateTask extends Task {
 	}
 
 	private XpandFacade registerMetamodels(XpandFacade xf) {
-		for (Metamodel metamodel : myMetamodels) {
-			xf.registerMetamodel(metamodel.getNsUri(), metamodel.getLocation());
+		if (myMetamodelRegistry != null) {
+			for (Metamodel metamodel : myMetamodelRegistry.getMetamodels()) {
+				xf.registerMetamodel(metamodel.getNsUri(), metamodel.getUri());
+			}
 		}
+		xf.setSchemaLocations(getInput().getInputSchemaLocations());
 		return xf;
 	}
 

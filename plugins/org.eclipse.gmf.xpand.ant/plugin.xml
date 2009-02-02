@@ -25,4 +25,15 @@
             name="codegen-flow"
             uri="eclipse.org/gmf/2008/xpand"/>
    </extension>
+   <extension
+         point="org.eclipse.ant.core.antTypes">
+      <antType
+            class="org.eclipse.gmf.internal.xpand.ant.MetamodelRegistry"
+            eclipseRuntime="true"
+            headless="true"
+            library="/antsupport.jar"
+            name="metamodelregistry"
+            uri="eclipse.org/gmf/2008/xpand">
+      </antType>
+   </extension>
 </plugin>

@@ -12,9 +12,10 @@
 package org.eclipse.gmf.internal.xpand.ant;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.ProjectComponent;
 import org.eclipse.emf.common.util.URI;
 
-public class Metamodel {
+public class Metamodel extends ProjectComponent {
 
 	private String myNsUri;
 
@@ -32,11 +33,11 @@ public class Metamodel {
 		try {
 			myLocation = URI.createURI(location);
 		} catch (IllegalArgumentException ex) {
-			throw new BuildException(ex);
+			throw new BuildException(ex, getLocation());
 		}
 	}
 
-	public URI getLocation() {
+	public URI getUri() {
 		return myLocation;
 	}
 
