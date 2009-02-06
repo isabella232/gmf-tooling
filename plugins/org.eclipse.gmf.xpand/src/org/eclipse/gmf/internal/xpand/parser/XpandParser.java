@@ -47,6 +47,7 @@ import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
 import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeIterateExpCS;
 import org.eclipse.m2m.internal.qvt.oml.cst.NewRuleCallExpCS;
+import org.eclipse.m2m.internal.qvt.oml.cst.TypeSpecCS;
 import org.eclipse.m2m.internal.qvt.oml.cst.temp.TempFactory;
 import org.eclipse.ocl.cst.BooleanLiteralExpCS;
 import org.eclipse.ocl.cst.CSTFactory;
@@ -301,9 +302,23 @@ private ImperativeIterateExpCS createImperativeIterateExpCS(
 
 private NewRuleCallExpCS createNewRuleCallExpCS(PathNameCS pathNameCS, List<OCLExpressionCS> arguments) {
 	NewRuleCallExpCS call = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createNewRuleCallExpCS();
-	call.setScopedIdentifier(pathNameCS);
+	call.setTypeSpecCS(createTypeSpecCS(pathNameCS, null)); //call.setScopedIdentifier(pathNameCS);
 	call.getArguments().addAll(arguments);
 	return call;
+}
+
+// FIXME this method is only temp solution until we regenerate with new ImperativeOCL.g
+private final TypeSpecCS createTypeSpecCS(TypeCS typeCS, IToken extentLocation) {
+	TypeSpecCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createTypeSpecCS();
+	result.setTypeCS(typeCS);
+	setOffsets(result, typeCS);
+	if (extentLocation != null) {
+		SimpleNameCS nameCS = createSimpleNameCS(SimpleTypeEnum.IDENTIFIER_LITERAL, extentLocation.toString());
+		setOffsets(nameCS, extentLocation);
+		result.setSimpleNameCS(nameCS);
+		result.setEndOffset(extentLocation.getEndOffset());
+	}
+	return result;
 }
 
 private boolean isTokenOfType(IToken token, int kind) {
