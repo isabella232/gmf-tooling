@@ -60,9 +60,8 @@ public class XpandEditor extends TextEditor {
     		IProject project = aFile.getProject();
     		RootManager rootManager = org.eclipse.gmf.internal.xpand.Activator.getRootManager(project);
     		RootDescription rootDescription = rootManager.getRootDescription(aFile);
-    		assert rootDescription != null;
-    		ResourceManager resourceManager = org.eclipse.gmf.internal.xpand.Activator.createWorkspaceResourceManager(project, rootDescription);
-	    	context = ContextFactory.createXpandContext(resourceManager);
+   			ResourceManager resourceManager = org.eclipse.gmf.internal.xpand.Activator.createWorkspaceResourceManager(project, rootDescription);
+   			context = ContextFactory.createXpandContext(resourceManager);
     	}
     	return context;
     }
