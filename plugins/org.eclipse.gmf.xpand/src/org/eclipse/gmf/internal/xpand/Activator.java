@@ -87,7 +87,8 @@ public class Activator extends Plugin {
 	}
 	
 	public static WorkspaceResourceManager createWorkspaceResourceManager(IProject project, RootDescription rootDescription) {
-		return new WorkspaceResourceManager(project, rootDescription.getRoots().toArray(new IPath[rootDescription.getRoots().size()]));
+		return rootDescription != null ? new WorkspaceResourceManager(project, rootDescription.getRoots().toArray(new IPath[rootDescription.getRoots().size()]))
+				: new WorkspaceResourceManager(project);
 	}
 
 	private final IResourceChangeListener myRootsTracker = new IResourceChangeListener() {

@@ -37,9 +37,19 @@ import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
 public class WorkspaceResourceManager extends ResourceManagerImpl {
+	
+	private static final IPath[] EMPTY_PATH = new IPath[0];
+	
 	private final IProject contextProject;
 	private final IPath[] myConfiguredRoots;
 
+	/**
+	 * Fall-back constructor can be used for stand alone XPand resources
+	 */
+	public WorkspaceResourceManager(IProject context) {
+		this(context, EMPTY_PATH);
+	}
+	
 	public WorkspaceResourceManager(IProject context, IPath[] configuredRoots) {
 		this.contextProject = context;
 		myConfiguredRoots = configuredRoots;

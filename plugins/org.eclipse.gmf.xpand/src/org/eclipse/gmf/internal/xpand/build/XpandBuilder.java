@@ -152,9 +152,6 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 
 	private RootDescription getRootDescription(IFile file) {
 		return myRootManager.getRootDescription(file);
-//		WorkspaceResourceManager result = myRootManager.getResourceManager(file);
-//		assert result != null;
-//		return result;
 	}
 
 	// TODO: do not build all referenced projects on building this one - only
@@ -166,7 +163,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 		monitor.beginTask(null, 1 + referencedProjects.size());
 		Map<RootDescription, Collection<IFile>> result = new HashMap<RootDescription, Collection<IFile>>();
 		try {
-			// TODO: way to optimize it - visit not al the resources in this
+			// TODO: way to optimize it - visit not all the resources in this
 			// project, but only those located below actual template roots
 			for (IProject next : referencedProjects) {
 				checkCanceled(monitor);
@@ -284,6 +281,9 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 			XpandMarkerManager.deleteMarkers(resource);
 		}
 		
+		/**
+		 * Should be called only for resources which are {@link XpandResourceVisitor#isFileOfInterest(IFile)}
+		 */
 		private void reloadResource(IFile resource) {
 			assert resource.exists();
 			// TODO: remove this if unless we do compile other resources here
