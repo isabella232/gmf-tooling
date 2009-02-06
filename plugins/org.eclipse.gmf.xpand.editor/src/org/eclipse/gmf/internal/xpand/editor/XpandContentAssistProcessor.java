@@ -57,7 +57,7 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
 			final int additionalTextLen = Math.min(doc.getLength(), documentOffset + doc.getLineLength(doc.getLineOfOffset(documentOffset))) - documentOffset;
 			final String textPastInsertionPoint = doc.get(documentOffset, additionalTextLen);
 
-            ExecutionContext ctx = editor.getContext(); 
+            ExecutionContext ctx = editor.createContext(); 
 
             final XpandPartition p = FastAnalyzer.computePartition(txt);
 

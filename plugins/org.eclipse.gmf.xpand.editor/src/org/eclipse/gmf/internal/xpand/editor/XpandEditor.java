@@ -16,7 +16,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.RootManager;
+import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
 import org.eclipse.gmf.internal.xpand.codeassist.XpandTokens;
 import org.eclipse.gmf.internal.xpand.editor.ui.InsertTextAction;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -50,11 +53,15 @@ public class XpandEditor extends TextEditor {
         setKeyBindingScopes(new String[] { "org.eclipse.gmf.xpand.editorScope" }); //$NON-NLS-1$
     }
 
-    /*package*/ ExecutionContext getContext() {
+    /*package*/ ExecutionContext createContext() {
     	if (context == null) {
     		assert getEditorInput().getAdapter(IFile.class) != null;
     		IFile aFile = (IFile) getEditorInput().getAdapter(IFile.class);
-	    	final ResourceManager resourceManager = org.eclipse.gmf.internal.xpand.Activator.getResourceManager(aFile);
+    		IProject project = aFile.getProject();
+    		RootManager rootManager = org.eclipse.gmf.internal.xpand.Activator.getRootManager(project);
+    		RootDescription rootDescription = rootManager.getRootDescription(aFile);
+    		assert rootDescription != null;
+    		ResourceManager resourceManager = org.eclipse.gmf.internal.xpand.Activator.createWorkspaceResourceManager(project, rootDescription);
 	    	context = ContextFactory.createXpandContext(resourceManager);
     	}
     	return context;
