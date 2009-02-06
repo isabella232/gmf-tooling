@@ -1,17 +1,33 @@
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');
 	
-transformation Map2Gen(in mapModel : GMFMAP, out gmfgenModel : GMFGEN);
+transformation Map2Gen(in mapModel : GMFMAP, in domainGenModel : GENMODEL, out gmfgenModel : GMFGEN);
 
 configuration property rcp : Boolean;
 configuration property useMapMode : Boolean;
 configuration property useFullRunTime : Boolean;
 
-main(in mapRoot : GMFMAP::Mapping@mapModel, out genEditor : GMFGEN::GenEditorGenerator@gmfgenModel) {
-	genEditor := mapRoot.map process();
+main() {
+	var mapRoot := mapModel.rootObjects()![GMFMAP::Mapping];
+	var genEditor := mapRoot.map process();
+	// 1. (+) structure (NodeMapping -> GenNode, LinkMapping -> GenLink), labels
+	// 2. (*) visual id
+	// 3. (*) viewmaps
+	// 4. (-) navigator, actions,
+	// 5. (+) parsers
+	// 6. (+) palette
+	// 7. (*) propertysheet (without navigator item)
+	// 8. (+) diagram runtime model
+	// 9. (+) genmodel and ElementTypes (not part of the structure step?)
+	// 10. (-) Audits and Metrics
+	// 11. (+) preference pages 
 }
 
-mapping GMFMAP::Mapping::process() : GMFGEN::GenEditorGenerator {
+// 1. Can I define an imperative operation (like main), not a helper or query?
+// 2. access and new for a transformation are supported? (spec: 8.1.11 Composing Transformation)
+// 3. Dot within a comment gives codecompletion
+
+mapping GMFMAP::Mapping::process() : GMFGEN::GenEditorGenerator@gmfgenModel {
 	copyrightText := 'FROM QVTO TRANSFORMATION';
 	diagram := object GenDiagram {};
 	modelID := rcp.repr() + useMapMode.repr() + useFullRunTime.repr();
