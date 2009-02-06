@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -572,10 +572,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (mapping instanceof FeatureLabelMapping) {
 			FeatureLabelMapping flMapping = (FeatureLabelMapping) mapping;
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			for (EAttribute attr : (Collection<? extends EAttribute>) flMapping.getFeatures()) {
+			for (EAttribute attr : flMapping.getFeatures()) {
 				modelFacet.getMetaFeatures().add(findGenFeature(attr));
 			}
-			for (EAttribute attr : (Collection<? extends EAttribute>) flMapping.getEditableFeatures()) {
+			for (EAttribute attr : flMapping.getEditableFeatures()) {
 				modelFacet.getEditableMetaFeatures().add(findGenFeature(attr));
 			}
 			modelFacet.setViewPattern(flMapping.getViewPattern());
