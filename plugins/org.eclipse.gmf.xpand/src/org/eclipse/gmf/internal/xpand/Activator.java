@@ -14,7 +14,6 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -28,7 +27,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
 import org.eclipse.gmf.internal.xpand.build.MetaModelSource;
+import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin {
@@ -74,14 +75,6 @@ public class Activator extends Plugin {
 
 	private final Map<IProject, RootManager> rootManagers = new HashMap<IProject, RootManager>();
 
-	public static ResourceManager getResourceManager(final IFile file) {
-		//TODO: return a delegating resource manager to XpandEditor, to silently change context when roots change.
-		RootManager manager = getRootManager(file.getProject());
-		ResourceManager result = manager.getResourceManager(file);
-		assert result != null;
-		return result;
-	}
-
 	public static RootManager getRootManager(IProject project) {
 		synchronized(anInstance.myRootsTracker) {
 			RootManager result = anInstance.rootManagers.get(project);
@@ -91,6 +84,10 @@ public class Activator extends Plugin {
 			}
 			return result;
 		}
+	}
+	
+	public static WorkspaceResourceManager createWorkspaceResourceManager(IProject project, RootDescription rootDescription) {
+		return new WorkspaceResourceManager(project, rootDescription.getRoots().toArray(new IPath[rootDescription.getRoots().size()]));
 	}
 
 	private final IResourceChangeListener myRootsTracker = new IResourceChangeListener() {

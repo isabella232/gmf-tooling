@@ -22,7 +22,7 @@ import org.eclipse.gmf.internal.xpand.model.Variable;
  * @author artem
  */
 public class ContextFactory {
-
+	
 	public static ExecutionContext createXpandContext(ResourceManager resourceManager) {
 		return createXpandContext(resourceManager, null, null);
 	}

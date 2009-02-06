@@ -67,9 +67,18 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 
 	@Override
 	protected boolean shouldCache() {
-		// we don't cache workspace resources for now (for the sake of reducing 
-		// underemined problems that may arise), although may do this later
-		return false;
+		/*
+		 * WorkspanceResourceManager was refactored to cache all resources.
+		 * 
+		 * From now this resource manager should be:
+		 * 
+		 * 1. created
+		 * 
+		 * 2. used during the session of compilation/code completion
+		 * 
+		 * 3. forgotten to free corresponding memory resources.
+		 */
+		return true;
 	}
 
 	public void forget(IFile resource) {

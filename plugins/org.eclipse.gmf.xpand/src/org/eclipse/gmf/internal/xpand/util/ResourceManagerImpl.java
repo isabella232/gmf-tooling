@@ -66,6 +66,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			return "UTF-8";
 		}
 
+		// TODO: put more efficient implementation here - do not keep bytes
+		// forever!
 		public InputStream getContents() throws IOException {
 			return new ByteArrayInputStream(bytes);
 		}
