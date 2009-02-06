@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.bridge.transform;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -379,7 +380,10 @@ public class TransformToGenModelOperation {
 					try {
 						URI transfURI = URI.createURI(getOptions().getMainTransformation().toExternalForm());
 						QvtoTransformationHelper helper = new QvtoTransformationHelper(transfURI);
-						TransfExecutionResult result = helper.executeTransformation(Collections.<EObject>singletonList(mapping), configProps, getResourceSet());
+						ArrayList<EObject> args = new ArrayList<EObject>(5);
+						args.add(mapping);
+						args.add(getGenModel());
+						TransfExecutionResult result = helper.executeTransformation(args, configProps, getResourceSet());
 						for (EObject r : result.getOutParameters()) {
 							if (r instanceof GenEditorGenerator) {
 								return (GenEditorGenerator) r;
