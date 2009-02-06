@@ -45,16 +45,12 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private final static class InputStreamCFile implements CFile {
 
-		private byte[] bytes;
-
 		private String name;
 
-		public InputStreamCFile(Reader reader, String name) throws IOException {
-			StringWriter sw = new StringWriter();
-			for (int ch = reader.read(); ch != -1; ch = reader.read()) {
-				sw.write(ch);
-			}
-			bytes = sw.toString().getBytes(getCharset());
+		private Reader reader;
+
+		public InputStreamCFile(Reader reader, String name) {
+			this.reader = reader;
 			this.name = name;
 		}
 
@@ -66,10 +62,16 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			return "UTF-8";
 		}
 
-		// TODO: put more efficient implementation here - do not keep bytes
-		// forever!
 		public InputStream getContents() throws IOException {
-			return new ByteArrayInputStream(bytes);
+			return new ByteArrayInputStream(getBytes());
+		}
+
+		private byte[] getBytes() throws IOException {
+			StringWriter sw = new StringWriter();
+			for (int ch = reader.read(); ch != -1; ch = reader.read()) {
+				sw.write(ch);
+			}
+			return sw.toString().getBytes(getCharset());
 		}
 
 		public CFolder getParent() {
