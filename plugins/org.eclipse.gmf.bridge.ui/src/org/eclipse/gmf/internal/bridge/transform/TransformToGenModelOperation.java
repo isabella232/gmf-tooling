@@ -56,6 +56,7 @@ import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper;
+import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.ModelExtent;
 import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.TransfExecutionResult;
 
 //[artem] XXX Why it's in the bridge.ui??? 
@@ -384,9 +385,11 @@ public class TransformToGenModelOperation {
 						args.add(mapping);
 						args.add(getGenModel());
 						TransfExecutionResult result = helper.executeTransformation(args, configProps, getResourceSet());
-						for (EObject r : result.getOutParameters()) {
-							if (r instanceof GenEditorGenerator) {
-								return (GenEditorGenerator) r;
+						for (ModelExtent me : result.getOutModelExtents()) {
+							for (EObject r : me.getAllRootElements()) {
+								if (r instanceof GenEditorGenerator) {
+									return (GenEditorGenerator) r;
+								}
 							}
 						}
 						throw new CoreException(new Status(IStatus.ERROR, Plugin.getPluginID(), "Transformation has no out parameter of GenEditorGenerator type"));
