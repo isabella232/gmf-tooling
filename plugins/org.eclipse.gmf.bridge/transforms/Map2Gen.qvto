@@ -52,6 +52,8 @@ main() {
 	genEditor.plugin := object GenPlugin {};
 	genEditor.editor := object GenEditorView {};
 	genEditor.diagramUpdater := object GenDiagramUpdater {};
+	genEditor.audits := mapRoot.audits.map audits(); -- these two should go before expression providers collection
+	genEditor.metrics := mapRoot.metrics.map metrics();
 	-- FIXME allInstances HACK
 	if not GMFGEN::GenParserImplementation.allInstances()->isEmpty() then {
 		genEditor.labelParsers := object GenParsers {
@@ -66,8 +68,6 @@ main() {
 			providers += GMFGEN::GenExpressionProviderBase.allInstances();
 		}
 	} endif;
-	genEditor.audits := mapRoot.audits.map audits();
-	genEditor.metrics := mapRoot.metrics.map metrics();
 	--new DiagramRunTimeModel(domainGenModel XXX need notation.genmodel here instead, gmfgenModel).transform();
 	new PropertySheet(mapModel, gmfgenModel).transform();
 	new PreferencePages(mapModel, gmfgenModel).transform();
@@ -237,7 +237,7 @@ query GMFGEN::GenChildNode::matchChildReferenceFeatures(childNodeRef : GMFMAP::C
 	endif;
 	return containmentFeatureMatch and childrenFeatureMatch;
 } 
-mapping GMFMAP::NodeMapping::structure() : GMFGEN::GenChildNode 
+mapping GMFMAP::NodeMapping::structure() : GMFGEN::GenChildNode
 	disjuncts GMFMAP::NodeMapping::createGenChildLabelNode, GMFMAP::NodeMapping::createGenChildSideAffixedNode, GMFMAP::NodeMapping::createGenChildNode 
 {}
 
@@ -442,7 +442,7 @@ mapping GMFMAP::Constraint::structure() : GMFGEN::GenConstraint {
 	result._body := self._body;
 	result.bindToProvider(self);
 }
-mapping GMFMAP::ValueExpression::structure_ve() : GMFGEN::ValueExpression { --XXX think about naming, how to avoid conflict with GenConstraint::structure
+mapping GMFMAP::ValueExpression::structure_ve() : GMFGEN::ValueExpression { --XXX think about naming, how to avoid conflict with GenConstraint::structure - disjuncts?
 	result._body := self._body;
 	result.bindToProvider(self);
 }
@@ -624,12 +624,69 @@ query GMFTOOL::BundleImage::constructIconPath() : String {
 -- Audits
 -- *************************************************************************************
 mapping GMFMAP::AuditContainer::audits() : GMFGEN::GenAuditRoot {
+	result.categories += self.map category();
+	result.categories += self.childContainers.map category();
+	-- FIXME support nested containers
+	result.rules += self.audits.map rule();
+	result.rules += self.childContainers.audits.map rule();
+}
+mapping GMFMAP::AuditContainer::category() : GMFGEN::GenAuditContainer {
+	id := self.id;
+	name := self.name;
+	description := self.description;
+}
+mapping GMFMAP::AuditRule::rule() : GMFGEN::GenAuditRule {
+	id := self.id;
+	name := self.name;
+	message := self.message;
+	description := self.description;
+	useInLiveMode := self.useInLiveMode;
+	target := self.target.map ruleTarget();
+	rule := self.rule.map structure();
+	severity := self.severity.severity();
+}
+mapping GMFMAP::Auditable::ruleTarget() : GMFGEN::GenAuditable
+	disjuncts GMFMAP::DomainElementTarget::ruleTarget, GMFMAP::NotationElementTarget::ruleTarget, GMFMAP::DiagramElementTarget::ruleTarget
+		GMFMAP::AuditedMetricTarget::ruleTarget, GMFMAP::DomainAttributeTarget::ruleTarget
+	{} --assert (false) with log ('Uknown rule target', self);
+mapping GMFMAP::DomainElementTarget::ruleTarget() : GMFGEN::GenDomainElementTarget {
+}
+mapping GMFMAP::NotationElementTarget::ruleTarget() : GMFGEN::GenNotationElementTarget {
+}
+mapping GMFMAP::DiagramElementTarget::ruleTarget() : GMFGEN::GenDiagramElementTarget {
+}
+mapping GMFMAP::AuditedMetricTarget::ruleTarget() : GMFGEN::GenAuditedMetricTarget {
+}
+mapping GMFMAP::DomainAttributeTarget::ruleTarget() : GMFGEN::GenDomainAttributeTarget {
+}
 
+query GMFMAP::Severity::severity() : GMFGEN::GenSeverity {
+	switch  {
+		case (self = GMFMAP::Severity::INFO) return GMFGEN::GenSeverity::INFO;
+		case (self = GMFMAP::Severity::WARNING) return GMFGEN::GenSeverity::WARNING;
+		case (self = GMFMAP::Severity::ERROR) return GMFGEN::GenSeverity::ERROR;
+	};
+	assert (false) with log ('Unrecognized Severity::* value', self);
+	return null;
 }
 
 -- *************************************************************************************
 -- Metrics
 -- *************************************************************************************
 mapping GMFMAP::MetricContainer::metrics() : GMFGEN::GenMetricContainer {
+	metrics += self.metrics.map rule();
+}
 
-} 
+mapping GMFMAP::MetricRule::rule() : GMFGEN::GenMetricRule {
+	key := self.key;
+	name := self.name
+	description := self.description;
+	lowLimit := self.lowLimit;
+	highLimit := self.highLimit;
+	rule := self.rule.map structure_ve();
+	target := self.target.map ruleTarget();
+	
+}
+mapping GMFMAP::Measurable::ruleTarget() : GMFGEN::GenMeasurable
+	disjuncts GMFMAP::DomainElementTarget::ruleTarget, GMFMAP::NotationElementTarget::ruleTarget, GMFMAP::DiagramElementTarget::ruleTarget
+	{} --assert (false) with log ('Uknown rule target', self);
