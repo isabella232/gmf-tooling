@@ -66,6 +66,8 @@ main() {
 			providers += GMFGEN::GenExpressionProviderBase.allInstances();
 		}
 	} endif;
+	genEditor.audits := mapRoot.audits.map audits();
+	genEditor.metrics := mapRoot.metrics.map metrics();
 	--new DiagramRunTimeModel(domainGenModel XXX need notation.genmodel here instead, gmfgenModel).transform();
 	new PropertySheet(mapModel, gmfgenModel).transform();
 	new PreferencePages(mapModel, gmfgenModel).transform();
@@ -616,3 +618,18 @@ query GMFTOOL::BundleImage::constructIconPath() : String {
 	if self.bundle = null then return self.path endif;
 	return self.bundle + '/' + self.path;
 }
+
+
+-- *************************************************************************************
+-- Audits
+-- *************************************************************************************
+mapping GMFMAP::AuditContainer::audits() : GMFGEN::GenAuditRoot {
+
+}
+
+-- *************************************************************************************
+-- Metrics
+-- *************************************************************************************
+mapping GMFMAP::MetricContainer::metrics() : GMFGEN::GenMetricContainer {
+
+} 
