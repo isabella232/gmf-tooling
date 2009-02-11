@@ -27,8 +27,10 @@ mapping GMFMAP::CanvasMapping::navigator(genDiagram : GMFGEN::GenDiagram) : GMFG
 	childReferences += genDiagram.childNodes->collect(n | n.containers.getNode().map navigator(n));
 	childReferences += genDiagram.links.map navigator();
 	childReferences += genDiagram.links->collect(l | l.getTargetGenNodes().showLinkTargets(l));
-	childReferences += genDiagram.links->collect(l | l.getTargetGenNodes().showIncomingLinks(l));
 	childReferences += genDiagram.links->collect(l | l.getSourceGenNodes().showLinkSources(l));
+	-- Instead, may use GenLinkEnd.genOutgoingLinks/genIncomingLinks, but they seem to be less effective as they 
+	-- go through GenLink.sources/targets anyway
+	childReferences += genDiagram.links->collect(l | l.getTargetGenNodes().showIncomingLinks(l));
 	childReferences += genDiagram.links->collect(l | l.getSourceGenNodes().showOutgoingLinks(l));
 }
 
@@ -90,10 +92,19 @@ query GMFGEN::GenNode::getNode() : GMFGEN::GenNode { return self }
 query GMFGEN::GenCompartment::getNode() : GMFGEN::GenNode { return self.node }
 
 query GMFGEN::GenLink::getSourceGenNodes() : OrderedSet(GMFGEN::GenLinkEnd) {
-	if self.modelFacet.oclIsUndefined() then return self.diagram.getAllNodes() endif;
+	if self.modelFacet.oclIsUndefined() then return self.diagram.getAllPossibleLinkEnds() endif;
 	return self.sources;
 }
 query GMFGEN::GenLink::getTargetGenNodes() : OrderedSet(GMFGEN::GenLinkEnd) {
-	if self.modelFacet.oclIsUndefined() then return self.diagram.getAllNodes() endif;
+	if self.modelFacet.oclIsUndefined() then return self.diagram.getAllPossibleLinkEnds() endif;
 	return self.targets;
+}
+query GMFGEN::GenDiagram::getAllPossibleLinkEnds() : OrderedSet(GMFGEN::GenLinkEnd) {
+	-- XXX original DGMT's NavigatorHandler used getAllNodes here, which is not completely correct:
+	-- first, links can go to links, second, links can't go to GenChildLabelNode
+	var rv : OrderedSet(GMFGEN::GenLinkEnd) := OrderedSet {};
+	rv += self.topLevelNodes;
+	rv += self.childNodes - self.childNodes[GMFGEN::GenChildLabelNode]; -- child nodes, excluding labels
+	rv += self.links;
+	return rv;
 }
