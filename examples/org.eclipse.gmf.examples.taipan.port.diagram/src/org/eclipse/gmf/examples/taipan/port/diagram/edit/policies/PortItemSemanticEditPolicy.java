@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.port.diagram.edit.policies;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.commands.BuildingCreateCommand;
 import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
