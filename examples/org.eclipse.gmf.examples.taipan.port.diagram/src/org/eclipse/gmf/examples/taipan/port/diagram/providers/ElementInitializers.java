@@ -15,4 +15,5 @@ package org.eclipse.gmf.examples.taipan.port.diagram.providers;
  * @generated
  */
 public class ElementInitializers {
+
 }

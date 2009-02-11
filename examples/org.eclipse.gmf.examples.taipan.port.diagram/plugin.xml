@@ -39,6 +39,16 @@ Contributors:
          contributorClass="org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanDiagramActionBarContributor">
       </editor>
    </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.taipan.port.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
 
    <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
       <?gmfgen generated="true"?>
@@ -67,8 +77,7 @@ Contributors:
          </action>
       </objectContribution>
    </extension>
-
-   	
+	
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -108,7 +117,6 @@ Contributors:
       </GlobalActionHandlerProvider>
    </extension>
 
-   
 
    <extension point="org.eclipse.core.runtime.preferences" id="prefs">
       <?gmfgen generated="true"?>
@@ -305,17 +313,6 @@ Contributors:
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
-
-   <extension point="org.eclipse.ui.contexts" id="ui-context">
-      <?gmfgen generated="true"?>
-      <context
-         description="%context.description"
-         id="org.eclipse.gmf.examples.taipan.port.diagram.ui.diagramContext"
-         name="%context.name"
-         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
-      </context>
-   </extension>
-
    <extension point="org.eclipse.ui.commands" id="update-cmd">
       <?gmfgen generated="true"?>
       <command
@@ -325,7 +322,7 @@ Contributors:
          id="org.eclipse.gmf.examples.taipan.port.diagram.updateDiagram"
          name="%update.diagram.name"/>
    </extension>
-
+   
    <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
       <?gmfgen generated="true"?>
       <key 
@@ -334,7 +331,8 @@ Contributors:
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="F5"/>
    </extension>
-<extension point="org.eclipse.ui.menus" id="context-menus">
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
       <?gmfgen generated="true"?>
       <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
       </menuContribution>
@@ -354,7 +352,7 @@ Contributors:
       </menuContribution>
    </extension>
 
-<extension point="org.eclipse.ui.commands" id="menu-commands">
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
       <?gmfgen generated="true"?>
       <category id="org.eclipse.gmf.examples.taipan.port.diagram.part.PortDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
       <command id="org.eclipse.gmf.examples.taipan.port.diagram.LoadResourceAction"
@@ -363,9 +361,9 @@ Contributors:
          defaultHandler="org.eclipse.gmf.examples.taipan.port.diagram.part.LoadResourceAction"/>
    </extension>
 
-<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
       <?gmfgen generated="true"?>
    </extension>
 
-
+   <!-- optionally, specify keybindings -->
 </plugin>

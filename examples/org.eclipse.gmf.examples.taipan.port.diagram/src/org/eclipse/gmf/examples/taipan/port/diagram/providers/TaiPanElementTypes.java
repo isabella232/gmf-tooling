@@ -163,7 +163,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 	}
 
 	/**
-	 * Returns 'type' of the ecore object associated with the hint.
+	 * Returns type of the ecore object associated with the hint.
 	 * 
 	 * @generated
 	 */
