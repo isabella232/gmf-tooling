@@ -492,10 +492,6 @@ public class CodegenEmitters {
 		return retrieveXpand("xpt::navigator::DomainNavigatorItem::DomainNavigatorItem"); //$NON-NLS-1$
 	}
 	
-	public TextEmitter getDomainModelElementTesterEmitter() {
-		return retrieveXpand("xpt::editor::DomainModelElementTester::DomainModelElementTester"); //$NON-NLS-1$
-	}
-	
 	public TextEmitter getURIEditorInputTesterEmitter() {
 		return retrieveXpand("xpt::editor::UriEditorInputTester::UriEditorInputTester"); //$NON-NLS-1$
 	}
