@@ -641,23 +641,34 @@ mapping GMFMAP::AuditRule::rule() : GMFGEN::GenAuditRule {
 	message := self.message;
 	description := self.description;
 	useInLiveMode := self.useInLiveMode;
-	target := self.target.map ruleTarget();
+	target := self.target.map auditTarget();
 	rule := self.rule.map structure();
 	severity := self.severity.severity();
 }
-mapping GMFMAP::Auditable::ruleTarget() : GMFGEN::GenAuditable
-	disjuncts GMFMAP::DomainElementTarget::ruleTarget, GMFMAP::NotationElementTarget::ruleTarget, GMFMAP::DiagramElementTarget::ruleTarget
+mapping GMFMAP::Auditable::auditTarget() : GMFGEN::GenAuditable  
+	disjuncts GMFMAP::DomainElementTarget::ruleTarget, GMFMAP::NotationElementTarget::ruleTarget, GMFMAP::DiagramElementTarget::ruleTarget,
 		GMFMAP::AuditedMetricTarget::ruleTarget, GMFMAP::DomainAttributeTarget::ruleTarget
 	{} --assert (false) with log ('Uknown rule target', self);
 mapping GMFMAP::DomainElementTarget::ruleTarget() : GMFGEN::GenDomainElementTarget {
+	--element := self.element.findGenClass();
 }
 mapping GMFMAP::NotationElementTarget::ruleTarget() : GMFGEN::GenNotationElementTarget {
+	--element := self.element.findGenClass(); -- XXX double-check if domain's genmodel should be consulted here, not notation's
 }
 mapping GMFMAP::DiagramElementTarget::ruleTarget() : GMFGEN::GenDiagramElementTarget {
+--	element += self.element.resolveIn(GMFMAP::NodeMapping::structure, GMFGEN::GenCommonBase);
+--	element += self.element.resolveIn(GMFMAP::LinkMapping::structure, GMFGEN::GenCommonBase);
+--	element += self.element.resolveIn(GMFMAP::TopNodeReference::structure, GMFGEN::GenCommonBase);
+	element += self.element.resolve(GMFGEN::GenCommonBase);
 }
 mapping GMFMAP::AuditedMetricTarget::ruleTarget() : GMFGEN::GenAuditedMetricTarget {
+	result.metric := self.metric.map rule();
+	var resultClassifier : GENMODEL::GenClassifier := OclInvalid; --FIXME need GenDataType from ecore.genmodel
+	result.metricValueContext := resultClassifier.oclAsType(GENMODEL::GenDataType);
 }
 mapping GMFMAP::DomainAttributeTarget::ruleTarget() : GMFGEN::GenDomainAttributeTarget {
+	--attribute := self.attribute.findGenFeature();
+	--nullAsError := self.nullAsError;
 }
 
 query GMFMAP::Severity::severity() : GMFGEN::GenSeverity {
@@ -679,14 +690,14 @@ mapping GMFMAP::MetricContainer::metrics() : GMFGEN::GenMetricContainer {
 
 mapping GMFMAP::MetricRule::rule() : GMFGEN::GenMetricRule {
 	key := self.key;
-	name := self.name
+	name := self.name;
 	description := self.description;
 	lowLimit := self.lowLimit;
 	highLimit := self.highLimit;
 	rule := self.rule.map structure_ve();
-	target := self.target.map ruleTarget();
+	target := self.target.map metricTarget();
 	
 }
-mapping GMFMAP::Measurable::ruleTarget() : GMFGEN::GenMeasurable
+mapping GMFMAP::Measurable::metricTarget() : GMFGEN::GenMeasurable
 	disjuncts GMFMAP::DomainElementTarget::ruleTarget, GMFMAP::NotationElementTarget::ruleTarget, GMFMAP::DiagramElementTarget::ruleTarget
 	{} --assert (false) with log ('Uknown rule target', self);
