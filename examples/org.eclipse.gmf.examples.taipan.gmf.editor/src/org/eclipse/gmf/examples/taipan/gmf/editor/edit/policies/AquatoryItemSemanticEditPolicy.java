@@ -13,7 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.PortCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.ShipCreateCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.commands.WarshipCreateCommand;
