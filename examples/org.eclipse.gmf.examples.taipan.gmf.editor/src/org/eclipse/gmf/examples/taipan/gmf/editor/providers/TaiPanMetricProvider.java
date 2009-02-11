@@ -68,6 +68,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -77,60 +78,42 @@ import org.eclipse.ui.part.ViewPart;
 /**
  * @generated
  */
-public class TaiPanMetricProvider extends AbstractContributionItemProvider {
+public class TaiPanMetricProvider {
 
 	/**
 	 * @generated
 	 */
-	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
-		if (MetricsAction.ACTION_KEY.equals(actionId)) {
-			return new MetricsAction(partDescriptor);
-		}
-		return super.createAction(actionId, partDescriptor);
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class MetricsAction extends Action {
+	public static class MetricsAction extends Action {
 
 		/**
 		 * @generated
 		 */
-		public static final String ACTION_KEY = "metricsAction"; //$NON-NLS-1$
+		private IWorkbenchPage page;
 
 		/**
 		 * @generated
 		 */
-		private IWorkbenchPartDescriptor workbenchPartDescriptor;
-
-		/**
-		 * @generated
-		 */
-		public MetricsAction(IWorkbenchPartDescriptor workbenchPartDescriptor) {
-			setId(ACTION_KEY);
+		public MetricsAction(IWorkbenchPage page) {
 			setText("Metrics");
-			this.workbenchPartDescriptor = workbenchPartDescriptor;
+			this.page = page;
 		}
 
 		/**
 		 * @generated
 		 */
 		public void run() {
-			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
+			IWorkbenchPart workbenchPart = page.getActivePart();
 			IViewPart metricsView = null;
 			try {
-				metricsView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(
-						org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider.ResultView.VIEW_ID);
+				metricsView = page.findView(org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider.ResultView.VIEW_ID);
 				if (metricsView == null) {
-					metricsView = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(
-							org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider.ResultView.VIEW_ID);
+					metricsView = page.showView(org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider.ResultView.VIEW_ID);
 				} else {
 					if (metricsView != null && workbenchPart instanceof IDiagramWorkbenchPart) {
 						final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart) workbenchPart;
 						((ResultView) metricsView).setInput(part);
 					}
-					workbenchPart.getSite().getPage().activate(metricsView);
+					page.activate(metricsView);
 				}
 			} catch (PartInitException e) {
 				TaiPanDiagramEditorPlugin.getInstance().logError("Diagram metric view failure", e); //$NON-NLS-1$

@@ -34,9 +34,6 @@ public class WarshipSmallCargoItemSemanticEditPolicy extends TaiPanBaseItemSeman
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.SmallItems_3001 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
-			}
 			return getGEFWrapper(new SmallItemsCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

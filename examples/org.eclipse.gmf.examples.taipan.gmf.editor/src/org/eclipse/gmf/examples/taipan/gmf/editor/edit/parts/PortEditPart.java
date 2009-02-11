@@ -95,7 +95,9 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 		LayoutEditPolicy lep = new LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				if (child instanceof IBorderItemEditPart) {
+				View childView = (View) child.getModel();
+				switch (TaiPanVisualIDRegistry.getVisualID(childView)) {
+				case PortLocationEditPart.VISUAL_ID:
 					return new BorderItemSelectionEditPolicy() {
 
 						protected List createSelectionHandles() {

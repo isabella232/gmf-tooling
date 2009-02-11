@@ -40,21 +40,12 @@ public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPo
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.Port_2001 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ports());
-			}
 			return getGEFWrapper(new PortCreateCommand(req));
 		}
 		if (TaiPanElementTypes.Ship_2002 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
-			}
 			return getGEFWrapper(new ShipCreateCommand(req));
 		}
 		if (TaiPanElementTypes.Warship_2003 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
-			}
 			return getGEFWrapper(new WarshipCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

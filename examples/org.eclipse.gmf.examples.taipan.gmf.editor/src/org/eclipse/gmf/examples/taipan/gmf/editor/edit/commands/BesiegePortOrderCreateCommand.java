@@ -23,14 +23,18 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.Warship;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**
  * @generated
  */
-public class BesiegePortOrderCreateCommand extends CreateElementCommand {
+public class BesiegePortOrderCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -46,14 +50,9 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	public BesiegePortOrderCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
-		super(request);
+		super(request.getLabel(), null, request);
 		this.source = source;
 		this.target = target;
-		if (request.getContainmentFeature() == null) {
-			setContainmentFeature(TaiPanPackage.eINSTANCE.getWarship_AttackOrders());
-		}
-
-		super.setElementToEdit(source);
 	}
 
 	/**
@@ -79,38 +78,34 @@ public class BesiegePortOrderCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
-		BesiegePortOrder newElement = TaiPanFactory.eINSTANCE.createBesiegePortOrder();
-		getSource().getAttackOrders().add(newElement);
-		newElement.setPort(getTarget());
-		return newElement;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EClass getEClassToEdit() {
-		return TaiPanPackage.eINSTANCE.getWarship();
-	}
-
-	/**
-	 * @generated
-	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		return super.doExecuteWithResult(monitor, info);
+
+		BesiegePortOrder newElement = TaiPanFactory.eINSTANCE.createBesiegePortOrder();
+		getSource().getAttackOrders().add(newElement);
+		newElement.setPort(getTarget());
+		doConfigure(newElement, monitor, info);
+		((CreateElementRequest) getRequest()).setNewElement(newElement);
+		return CommandResult.newOKCommandResult(newElement);
+
 	}
 
 	/**
 	 * @generated
 	 */
-	protected ConfigureRequest createConfigureRequest() {
-		ConfigureRequest request = super.createConfigureRequest();
-		request.setParameter(CreateRelationshipRequest.SOURCE, getSource());
-		request.setParameter(CreateRelationshipRequest.TARGET, getTarget());
-		return request;
+	protected void doConfigure(BesiegePortOrder newElement, IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		IElementType elementType = ((CreateElementRequest) getRequest()).getElementType();
+		ConfigureRequest configureRequest = new ConfigureRequest(getEditingDomain(), newElement, elementType);
+		configureRequest.setClientContext(((CreateElementRequest) getRequest()).getClientContext());
+		configureRequest.addParameters(getRequest().getParameters());
+		configureRequest.setParameter(CreateRelationshipRequest.SOURCE, getSource());
+		configureRequest.setParameter(CreateRelationshipRequest.TARGET, getTarget());
+		ICommand configureCommand = elementType.getEditCommand(configureRequest);
+		if (configureCommand != null && configureCommand.canExecute()) {
+			configureCommand.execute(monitor, info);
+		}
 	}
 
 	/**

@@ -24,14 +24,18 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**
  * @generated
  */
-public class ReliableRouteCreateCommand extends CreateElementCommand {
+public class ReliableRouteCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -52,17 +56,10 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	public ReliableRouteCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
-		super(request);
+		super(request.getLabel(), null, request);
 		this.source = source;
 		this.target = target;
-		if (request.getContainmentFeature() == null) {
-			setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
-		}
-
 		container = deduceContainer(source, target);
-		if (container != null) {
-			super.setElementToEdit(container);
-		}
 	}
 
 	/**
@@ -91,40 +88,36 @@ public class ReliableRouteCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
+	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		if (!canExecute()) {
+			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+		}
+
 		Route newElement = TaiPanFactory.eINSTANCE.createRoute();
 		getContainer().getRoutes().add(newElement);
 		newElement.setSource(getSource());
 		newElement.setDestination(getTarget());
 		TaiPanElementTypes.init_Route_4002(newElement);
-		return newElement;
+		doConfigure(newElement, monitor, info);
+		((CreateElementRequest) getRequest()).setNewElement(newElement);
+		return CommandResult.newOKCommandResult(newElement);
+
 	}
 
 	/**
 	 * @generated
 	 */
-	protected EClass getEClassToEdit() {
-		return TaiPanPackage.eINSTANCE.getAquatory();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		if (!canExecute()) {
-			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
+	protected void doConfigure(Route newElement, IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		IElementType elementType = ((CreateElementRequest) getRequest()).getElementType();
+		ConfigureRequest configureRequest = new ConfigureRequest(getEditingDomain(), newElement, elementType);
+		configureRequest.setClientContext(((CreateElementRequest) getRequest()).getClientContext());
+		configureRequest.addParameters(getRequest().getParameters());
+		configureRequest.setParameter(CreateRelationshipRequest.SOURCE, getSource());
+		configureRequest.setParameter(CreateRelationshipRequest.TARGET, getTarget());
+		ICommand configureCommand = elementType.getEditCommand(configureRequest);
+		if (configureCommand != null && configureCommand.canExecute()) {
+			configureCommand.execute(monitor, info);
 		}
-		return super.doExecuteWithResult(monitor, info);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected ConfigureRequest createConfigureRequest() {
-		ConfigureRequest request = super.createConfigureRequest();
-		request.setParameter(CreateRelationshipRequest.SOURCE, getSource());
-		request.setParameter(CreateRelationshipRequest.TARGET, getTarget());
-		return request;
 	}
 
 	/**

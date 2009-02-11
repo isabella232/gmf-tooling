@@ -51,29 +51,29 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof ShipEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(TaiPanElementTypes.SmallItems_3001);
 			return types;
 		}
 		if (editPart instanceof WarshipEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(TaiPanElementTypes.SmallItems_3001);
 			return types;
 		}
 		if (editPart instanceof ShipLargeCargoEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(2);
 			types.add(TaiPanElementTypes.LargeItem_3002);
 			types.add(TaiPanElementTypes.EmptyBox_3003);
 			return types;
 		}
 		if (editPart instanceof WarshipLargeCargoEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(2);
 			types.add(TaiPanElementTypes.LargeItem_3002);
 			types.add(TaiPanElementTypes.EmptyBox_3003);
 			return types;
 		}
 		if (editPart instanceof AquatoryEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(3);
 			types.add(TaiPanElementTypes.Port_2001);
 			types.add(TaiPanElementTypes.Ship_2002);
 			types.add(TaiPanElementTypes.Warship_2003);

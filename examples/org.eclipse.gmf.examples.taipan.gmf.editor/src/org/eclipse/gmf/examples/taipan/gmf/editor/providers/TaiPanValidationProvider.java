@@ -38,7 +38,7 @@ import org.eclipse.jface.action.IAction;
 /**
  * @generated
  */
-public class TaiPanValidationProvider extends AbstractContributionItemProvider {
+public class TaiPanValidationProvider {
 
 	/**
 	 * @generated
@@ -77,16 +77,6 @@ public class TaiPanValidationProvider extends AbstractContributionItemProvider {
 		} else {
 			task.run();
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
-		if (ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
-			return new ValidateAction(partDescriptor);
-		}
-		return super.createAction(actionId, partDescriptor);
 	}
 
 	/**

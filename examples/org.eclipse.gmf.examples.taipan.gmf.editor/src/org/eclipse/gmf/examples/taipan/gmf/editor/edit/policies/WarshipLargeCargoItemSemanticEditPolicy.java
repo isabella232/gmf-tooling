@@ -35,15 +35,9 @@ public class WarshipLargeCargoItemSemanticEditPolicy extends TaiPanBaseItemSeman
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.LargeItem_3002 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
-			}
 			return getGEFWrapper(new LargeItemCreateCommand(req));
 		}
 		if (TaiPanElementTypes.EmptyBox_3003 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
-			}
 			return getGEFWrapper(new EmptyBoxCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
