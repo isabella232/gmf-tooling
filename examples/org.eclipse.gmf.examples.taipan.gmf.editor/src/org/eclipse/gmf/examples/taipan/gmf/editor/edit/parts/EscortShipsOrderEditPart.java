@@ -52,7 +52,6 @@ public class EscortShipsOrderEditPart extends ConnectionNodeEditPart implements 
 	 * 
 	 * @generated
 	 */
-
 	protected Connection createConnectionFigure() {
 		return new ThickDirectedConnection();
 	}

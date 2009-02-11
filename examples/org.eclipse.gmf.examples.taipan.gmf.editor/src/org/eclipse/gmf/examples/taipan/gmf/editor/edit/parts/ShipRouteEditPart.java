@@ -52,7 +52,6 @@ public class ShipRouteEditPart extends ConnectionNodeEditPart implements ITreeBr
 	 * 
 	 * @generated
 	 */
-
 	protected Connection createConnectionFigure() {
 		return new DirectedConnection();
 	}

@@ -548,4 +548,5 @@ public class ReliableRouteRelbEditPart extends LabelEditPart implements ITextAwa
 	protected IFigure createFigurePrim() {
 		return new WrappingLabel();
 	}
+
 }

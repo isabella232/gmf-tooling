@@ -266,18 +266,6 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 	/**
 	 * @generated
 	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		types.add(TaiPanElementTypes.ShipDestination_4001);
-		types.add(TaiPanElementTypes.Route_4002);
-		types.add(TaiPanElementTypes.Route_4003);
-		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
 	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (targetEditPart instanceof org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart) {
@@ -292,6 +280,38 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 		if (targetEditPart instanceof WarshipEditPart) {
 			types.add(TaiPanElementTypes.PortRegister_4007);
 		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == TaiPanElementTypes.Route_4002) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.Route_4003) {
+			types.add(TaiPanElementTypes.Port_2001);
+		}
+		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
+			types.add(TaiPanElementTypes.Ship_2002);
+		}
+		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
+			types.add(TaiPanElementTypes.Warship_2003);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(TaiPanElementTypes.ShipDestination_4001);
+		types.add(TaiPanElementTypes.Route_4002);
+		types.add(TaiPanElementTypes.Route_4003);
+		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
 		return types;
 	}
 
@@ -313,26 +333,6 @@ public class PortEditPart extends AbstractBorderedShapeEditPart {
 			types.add(TaiPanElementTypes.Port_2001);
 		}
 		if (relationshipType == TaiPanElementTypes.BesiegePortOrder_4005) {
-			types.add(TaiPanElementTypes.Warship_2003);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		if (relationshipType == TaiPanElementTypes.Route_4002) {
-			types.add(TaiPanElementTypes.Port_2001);
-		}
-		if (relationshipType == TaiPanElementTypes.Route_4003) {
-			types.add(TaiPanElementTypes.Port_2001);
-		}
-		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
-			types.add(TaiPanElementTypes.Ship_2002);
-		}
-		if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
 			types.add(TaiPanElementTypes.Warship_2003);
 		}
 		return types;

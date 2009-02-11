@@ -73,67 +73,54 @@ public class TaiPanElementTypes extends ElementInitializers {
 	 * @generated
 	 */
 	public static final IElementType Aquatory_1000 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType Port_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType Ship_2002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType Warship_2003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Warship_2003"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType SmallItems_3001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_3001"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType LargeItem_3002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_3002"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType EmptyBox_3003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_3003"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType ShipDestination_4001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType Route_4002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType Route_4003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType ShipRoute_4004 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipRoute_4004"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType BesiegePortOrder_4005 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.BesiegePortOrder_4005"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
 	public static final IElementType EscortShipsOrder_4006 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipsOrder_4006"); //$NON-NLS-1$
-
 	/**
 	 * @generated
 	 */
@@ -236,7 +223,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 	}
 
 	/**
-	 * Returns 'type' of the ecore object associated with the hint.
+	 * Returns type of the ecore object associated with the hint.
 	 * 
 	 * @generated
 	 */

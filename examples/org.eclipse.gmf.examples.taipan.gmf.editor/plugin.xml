@@ -77,8 +77,7 @@ Contributors:
          </action>
       </objectContribution>
    </extension>
-
-   	
+	
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
@@ -118,8 +117,7 @@ Contributors:
       </GlobalActionHandlerProvider>
    </extension>
 
-   
-   
+
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders" id="markers-navigation">
       <?gmfgen generated="true"?>
       <MarkerNavigationProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMarkerNavigationProvider">
@@ -143,8 +141,6 @@ Contributors:
          <context decoratorTargets="PRIMARY_VIEW"/>
       </decoratorProvider>
    </extension>
-
-	
 
    <extension id="metrics-view" point="org.eclipse.ui.views">
       <?gmfgen generated="true"?>
@@ -585,7 +581,8 @@ Contributors:
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="F5"/>
    </extension>
-<extension point="org.eclipse.ui.menus" id="context-menus">
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
       <?gmfgen generated="true"?>
       <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
       </menuContribution>
@@ -605,7 +602,7 @@ Contributors:
       </menuContribution>
    </extension>
 
-<extension point="org.eclipse.ui.commands" id="menu-commands">
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
       <?gmfgen generated="true"?>
       <category id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
       <command id="org.eclipse.gmf.examples.taipan.gmf.editor.LoadResourceAction"
@@ -614,8 +611,9 @@ Contributors:
          defaultHandler="org.eclipse.gmf.examples.taipan.gmf.editor.part.LoadResourceAction"/>
    </extension>
 
-<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
       <?gmfgen generated="true"?>
    </extension>
 
+   <!-- optionally, specify keybindings -->
 </plugin>

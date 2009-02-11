@@ -169,6 +169,13 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
+		return getContentPane();
+	}
+
+	/**
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 		return result;
@@ -177,7 +184,8 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model so you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */
@@ -191,10 +199,9 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * Default implementation treats passed figure as content pane. Respects layout one may have set for generated figure.
-	 * 
-	 * @param nodeShape
-	 *            instance of generated figure class
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
 	 * @generated
 	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
@@ -255,13 +262,6 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
-		return getContentPane();
-	}
-
-	/**
-	 * @generated
-	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(TaiPanVisualIDRegistry.getType(ShipNameEditPart.VISUAL_ID));
 	}
@@ -278,21 +278,32 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
-		types.add(TaiPanElementTypes.PortRegister_4007);
+		if (targetEditPart instanceof PortEditPart) {
+			types.add(TaiPanElementTypes.ShipDestination_4001);
+		}
 		return types;
 	}
 
 	/**
 	 * @generated
 	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		if (targetEditPart instanceof PortEditPart) {
-			types.add(TaiPanElementTypes.ShipDestination_4001);
+		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
+			types.add(TaiPanElementTypes.Port_2001);
 		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
+		types.add(TaiPanElementTypes.PortRegister_4007);
 		return types;
 	}
 
@@ -322,17 +333,6 @@ public class ShipEditPart extends ShapeNodeEditPart {
 			}
 		}
 		return super.getTargetEditPart(request);
-	}
-
-	/**
-	 * @generated
-	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
-			types.add(TaiPanElementTypes.Port_2001);
-		}
-		return types;
 	}
 
 	/**

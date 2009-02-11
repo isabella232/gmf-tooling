@@ -548,4 +548,5 @@ public class UnreliableRouteRelbEditPart extends LabelEditPart implements ITextA
 	protected IFigure createFigurePrim() {
 		return new WrappingLabel();
 	}
+
 }

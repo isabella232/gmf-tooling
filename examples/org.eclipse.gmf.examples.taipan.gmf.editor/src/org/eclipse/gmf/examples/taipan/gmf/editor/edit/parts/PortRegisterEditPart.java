@@ -52,7 +52,6 @@ public class PortRegisterEditPart extends ConnectionNodeEditPart implements ITre
 	 * 
 	 * @generated
 	 */
-
 	protected Connection createConnectionFigure() {
 		return new DashedConnection();
 	}

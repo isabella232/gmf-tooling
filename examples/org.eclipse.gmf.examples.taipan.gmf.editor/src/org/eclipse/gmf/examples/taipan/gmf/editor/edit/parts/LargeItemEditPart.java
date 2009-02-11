@@ -116,12 +116,12 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemArticleEditPart) {
-			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleLabel());
-			return true;
-		}
 		if (childEditPart instanceof LargeItemWeightEditPart) {
 			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightLabel());
+			return true;
+		}
+		if (childEditPart instanceof LargeItemArticleEditPart) {
+			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleLabel());
 			return true;
 		}
 		return false;
@@ -131,10 +131,10 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemArticleEditPart) {
+		if (childEditPart instanceof LargeItemWeightEditPart) {
 			return true;
 		}
-		if (childEditPart instanceof LargeItemWeightEditPart) {
+		if (childEditPart instanceof LargeItemArticleEditPart) {
 			return true;
 		}
 		return false;

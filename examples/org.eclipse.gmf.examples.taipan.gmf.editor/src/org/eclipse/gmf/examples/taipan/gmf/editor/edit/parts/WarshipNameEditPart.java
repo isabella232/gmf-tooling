@@ -553,4 +553,5 @@ public class WarshipNameEditPart extends CompartmentEditPart implements ITextAwa
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

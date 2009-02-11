@@ -90,7 +90,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * Extended request data key to hold editpart visual id.
 	 * Add visual id of edited editpart to extended data of the request
 	 * so command switch can decide what kind of diagram element is being edited.
-	 * It is done in those cases when it's not possible to deduce diagram
+	 * It is done in those cases when its not possible to deduce diagram
 	 * element kind from domain element.
 	 * 
 	 * @generated
@@ -368,12 +368,10 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated
 		 */
 		private static TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
-
 		/**
 		 * @generated
 		 */
 		private static TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
-
 		/**
 		 * @generated
 		 */
@@ -544,7 +542,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		public static boolean canExistPortRegister_4007(Port source, Ship target) {
 			return true;
 		}
-
 	}
 
 }

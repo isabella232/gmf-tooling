@@ -557,4 +557,5 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	protected IFigure createFigurePrim() {
 		return new WrappingLabel();
 	}
+
 }

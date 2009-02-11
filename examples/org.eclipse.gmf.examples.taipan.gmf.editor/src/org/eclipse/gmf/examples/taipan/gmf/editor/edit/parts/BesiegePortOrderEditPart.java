@@ -52,7 +52,6 @@ public class BesiegePortOrderEditPart extends ConnectionNodeEditPart implements 
 	 * 
 	 * @generated
 	 */
-
 	protected Connection createConnectionFigure() {
 		return new ArrowConnection();
 	}

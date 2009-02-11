@@ -557,4 +557,5 @@ public class LargeItemArticleEditPart extends CompartmentEditPart implements ITe
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

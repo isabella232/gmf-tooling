@@ -230,14 +230,6 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	}
 
 	/**
-	 * Utility method that consults ParserService
-	 * @generated
-	 */
-	public static IParser getParser(IElementType type, EObject object, String parserHint) {
-		return ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
-	}
-
-	/**
 	 * @generated
 	 */
 	protected IParser getParser(int visualID) {
@@ -264,6 +256,14 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			return getRouteReliability_6005Parser();
 		}
 		return null;
+	}
+
+	/**
+	 * Utility method that consults ParserService
+	 * @generated
+	 */
+	public static IParser getParser(IElementType type, EObject object, String parserHint) {
+		return ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
 	}
 
 	/**

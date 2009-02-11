@@ -38,20 +38,51 @@ public abstract class TaiPanAbstractExpression {
 	/**
 	 * @generated
 	 */
-	protected TaiPanAbstractExpression(String body, EClassifier context) {
-		myBody = body;
-		myContext = context;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void setStatus(int severity, String message, Throwable throwable) {
 		String pluginID = TaiPanDiagramEditorPlugin.ID;
 		this.status = new Status(severity, pluginID, -1, (message != null) ? message : "", throwable); //$NON-NLS-1$
 		if (!this.status.isOK()) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Expression problem:" + message + "body:" + body(), throwable); //$NON-NLS-1$ //$NON-NLS-2$
 		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public IStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @generated
+	 */
+	private final String myBody;
+
+	/**
+	 * @generated
+	 */
+	public String body() {
+		return myBody;
+	}
+
+	/**
+	 * @generated
+	 */
+	private final EClassifier myContext;
+
+	/**
+	 * @generated
+	 */
+	public EClassifier context() {
+		return myContext;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected TaiPanAbstractExpression(String body, EClassifier context) {
+		myBody = body;
+		myContext = context;
 	}
 
 	/**
@@ -125,34 +156,4 @@ public abstract class TaiPanAbstractExpression {
 		return value;
 	}
 
-	/**
-	 * @generated
-	 */
-	public IStatus getStatus() {
-		return status;
-	}
-
-	/**
-	 * @generated
-	 */
-	private final String myBody;
-
-	/**
-	 * @generated
-	 */
-	public String body() {
-		return myBody;
-	}
-
-	/**
-	 * @generated
-	 */
-	private final EClassifier myContext;
-
-	/**
-	 * @generated
-	 */
-	public EClassifier context() {
-		return myContext;
-	}
 }

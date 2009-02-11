@@ -87,7 +87,6 @@ public class ReliableRouteEditPart extends ConnectionNodeEditPart implements ITr
 	 * 
 	 * @generated
 	 */
-
 	protected Connection createConnectionFigure() {
 		return new PolylineConnectionEx();
 	}

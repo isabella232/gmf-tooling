@@ -553,4 +553,5 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

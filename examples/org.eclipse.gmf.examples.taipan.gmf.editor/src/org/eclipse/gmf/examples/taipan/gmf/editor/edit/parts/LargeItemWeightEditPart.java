@@ -553,4 +553,5 @@ public class LargeItemWeightEditPart extends CompartmentEditPart implements ITex
 		// Parent should assign one using setLabel() method
 		return null;
 	}
+
 }

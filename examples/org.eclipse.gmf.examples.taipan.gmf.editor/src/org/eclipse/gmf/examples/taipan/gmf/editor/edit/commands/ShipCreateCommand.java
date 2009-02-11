@@ -39,6 +39,7 @@ public class ShipCreateCommand extends EditElementCommand {
 	}
 
 	/**
+	 * FIXME: replace with setElementToEdit()
 	 * @generated
 	 */
 	protected EObject getElementToEdit() {
@@ -85,4 +86,5 @@ public class ShipCreateCommand extends EditElementCommand {
 			configureCommand.execute(monitor, info);
 		}
 	}
+
 }

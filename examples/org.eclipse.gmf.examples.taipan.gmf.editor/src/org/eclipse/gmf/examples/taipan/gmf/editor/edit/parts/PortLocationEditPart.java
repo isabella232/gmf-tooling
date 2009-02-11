@@ -555,4 +555,5 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	protected IFigure createFigurePrim() {
 		return new WrappingLabel();
 	}
+
 }

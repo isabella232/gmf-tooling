@@ -198,6 +198,166 @@ public class TaiPanMetricProvider {
 	/**
 	 * @generated
 	 */
+	private static class ElementMetrics {
+
+		/**
+		 * @generated
+		 */
+		final Metric[] metrics;
+
+		/**
+		 * @generated
+		 */
+		final String targetElementQName;
+
+		/**
+		 * @generated
+		 */
+		final Image elementImage;
+
+		/**
+		 * @generated
+		 */
+		String diagramElementID;
+
+		/**
+		 * @generated
+		 */
+		ElementMetrics(EObject target, String name, Metric[] metrics) {
+			assert metrics.length > 0;
+			assert name != null;
+			this.metrics = metrics;
+			this.targetElementQName = name;
+			EClass imageTarget = target.eClass();
+			if (target instanceof View) {
+				View viewTarget = (View) target;
+				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) { //$NON-NLS-1$
+					imageTarget = viewTarget.getElement().eClass();
+				}
+			}
+			this.elementImage = TaiPanElementTypes.getImage(imageTarget);
+		}
+
+		/**
+		 * @generated
+		 */
+		Metric getMetricByKey(String key) {
+			for (int i = 0; i < metrics.length; i++) {
+				if (metrics[i].key.equals(key)) {
+					return metrics[i];
+				}
+			}
+			return null;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class Metric implements Comparable {
+
+		/**
+		 * @generated
+		 */
+		final String key;
+
+		/**
+		 * @generated
+		 */
+		final Double value;
+
+		/**
+		 * @generated
+		 */
+		final Double lowLimit;
+
+		/**
+		 * @generated
+		 */
+		final Double highLimit;
+
+		/**
+		 * @generated
+		 */
+		final String displayValue;
+
+		/**
+		 * @generated
+		 */
+		Metric(String key, Double value) {
+			this(key, value, null, null);
+		}
+
+		/**
+		 * @generated
+		 */
+		Metric(String key, Double value, Double low, Double high) {
+			assert key != null;
+			this.key = key;
+			this.value = value;
+			this.lowLimit = low;
+			this.highLimit = high;
+			this.displayValue = (value != null) ? NumberFormat.getInstance().format(value) : "null"; //$NON-NLS-1$
+		}
+
+		/**
+		 * @generated
+		 */
+		public int compareTo(Object other) {
+			Metric otherMetric = (Metric) other;
+			if (value != null && otherMetric.value != null) {
+				return (value.longValue() < otherMetric.value.longValue()) ? -1 : (value.longValue() == otherMetric.value.longValue() ? 0 : 1);
+			}
+			return (value == null && otherMetric.value == null) ? 0 : (value == null) ? -1 : 1;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private static String[] getMetricKeys() {
+		return new String[] { "RouteRelb", "ShipLoad" };
+	}
+
+	/**
+	 * @generated
+	 */
+	private static String[] getMetricToolTips() {
+		return new String[] { "Route Reliability" + '\n' + "Safety of the route." + '\n' + "low: 0.1" + "high: 0.9",
+				"Ship Load" + '\n' + "Quantity of items loaded on ship." + '\n' + "low: 1.0" + "high: 5.0" };
+	}
+
+	/**
+	 * @generated
+	 */
+	private static TaiPanAbstractExpression expressionRouteRelb;
+
+	/**
+	 * @generated
+	 */
+	public static Double calcRouteRelb(Route target) {
+		if (expressionRouteRelb == null) {
+			expressionRouteRelb = TaiPanOCLFactory.getExpression("reliability", TaiPanPackage.eINSTANCE.getRoute());
+		}
+		Object val = expressionRouteRelb.evaluate(target);
+		if (val instanceof Number) {
+			return val.getClass() == Double.class ? (Double) val : new Double(((Number) val).doubleValue());
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static Double calcShipLoad(Ship target) {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException("No user java implementation provided"); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class ResultView extends ViewPart implements IOpenListener {
 
 		/**
@@ -431,163 +591,7 @@ public class TaiPanMetricProvider {
 				return null;
 			}
 		}
+
 	}
 
-	/**
-	 * @generated
-	 */
-	private static class ElementMetrics {
-
-		/**
-		 * @generated
-		 */
-		final Metric[] metrics;
-
-		/**
-		 * @generated
-		 */
-		final String targetElementQName;
-
-		/**
-		 * @generated
-		 */
-		final Image elementImage;
-
-		/**
-		 * @generated
-		 */
-		String diagramElementID;
-
-		/**
-		 * @generated
-		 */
-		ElementMetrics(EObject target, String name, Metric[] metrics) {
-			assert metrics.length > 0;
-			assert name != null;
-			this.metrics = metrics;
-			this.targetElementQName = name;
-			EClass imageTarget = target.eClass();
-			if (target instanceof View) {
-				View viewTarget = (View) target;
-				if ("".equals(viewTarget.getType()) && viewTarget.getElement() != null) { //$NON-NLS-1$
-					imageTarget = viewTarget.getElement().eClass();
-				}
-			}
-			this.elementImage = TaiPanElementTypes.getImage(imageTarget);
-		}
-
-		/**
-		 * @generated
-		 */
-		Metric getMetricByKey(String key) {
-			for (int i = 0; i < metrics.length; i++) {
-				if (metrics[i].key.equals(key)) {
-					return metrics[i];
-				}
-			}
-			return null;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static class Metric implements Comparable {
-
-		/**
-		 * @generated
-		 */
-		final String key;
-
-		/**
-		 * @generated
-		 */
-		final Double value;
-
-		/**
-		 * @generated
-		 */
-		final Double lowLimit;
-
-		/**
-		 * @generated
-		 */
-		final Double highLimit;
-
-		/**
-		 * @generated
-		 */
-		final String displayValue;
-
-		/**
-		 * @generated
-		 */
-		Metric(String key, Double value) {
-			this(key, value, null, null);
-		}
-
-		/**
-		 * @generated
-		 */
-		Metric(String key, Double value, Double low, Double high) {
-			assert key != null;
-			this.key = key;
-			this.value = value;
-			this.lowLimit = low;
-			this.highLimit = high;
-			this.displayValue = (value != null) ? NumberFormat.getInstance().format(value) : "null"; //$NON-NLS-1$
-		}
-
-		/**
-		 * @generated
-		 */
-		public int compareTo(Object other) {
-			Metric otherMetric = (Metric) other;
-			if (value != null && otherMetric.value != null) {
-				return (value.longValue() < otherMetric.value.longValue()) ? -1 : (value.longValue() == otherMetric.value.longValue() ? 0 : 1);
-			}
-			return (value == null && otherMetric.value == null) ? 0 : (value == null) ? -1 : 1;
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private static String[] getMetricKeys() {
-		return new String[] { "RouteRelb", "ShipLoad" };
-	}
-
-	/**
-	 * @generated
-	 */
-	private static String[] getMetricToolTips() {
-		return new String[] { "Route Reliability" + '\n' + "Safety of the route." + '\n' + "low: 0.1" + "high: 0.9",
-				"Ship Load" + '\n' + "Quantity of items loaded on ship." + '\n' + "low: 1.0" + "high: 5.0" };
-	}
-
-	/**
-	 * @generated
-	 */
-	private static TaiPanAbstractExpression expressionRouteRelb;
-
-	/**
-	 * @generated
-	 */
-	public static Double calcRouteRelb(Route target) {
-		if (expressionRouteRelb == null) {
-			expressionRouteRelb = TaiPanOCLFactory.getExpression("reliability", TaiPanPackage.eINSTANCE.getRoute());
-		}
-		Object val = expressionRouteRelb.evaluate(target);
-		if (val instanceof Number) {
-			return val.getClass() == Double.class ? (Double) val : new Double(((Number) val).doubleValue());
-		}
-		return null;
-	}
-
-	/**
-	 * @generated NOT
-	 */
-	public static Double calcShipLoad(Ship target) {
-		return new Double(target.getCargo().size());
-	}
 }
