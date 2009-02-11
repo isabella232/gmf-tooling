@@ -473,10 +473,6 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::editor::MatchingStrategy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDomainModelElementTesterEmitter() {
-		return getPrimaryEmitter("xpt::editor::DomainModelElementTester"); //$NON-NLS-1$
-	}
-
 	public TextEmitter getURIEditorInputTesterEmitter() {
 		return getPrimaryEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
 	}

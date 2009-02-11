@@ -20,10 +20,6 @@
 
 	«EXPAND editorInputPropertyTester('Shortcut', 'org.eclipse.gmf.runtime.notation.View', editorGen.diagram.getShortcutPropertyTesterQualifiedClassName())-»
 «ENDIF-»
-«IF generateDomainModelNavigator and null <> editorGen.domainGenModel-»
-
-	«EXPAND editorInputPropertyTester('DomainModelElement', 'org.eclipse.emf.ecore.EObject', getDomainModelElementTesterQualifiedClassName())-»
-«ENDIF-»
 
 	«EXPAND registerBindings-»
 
@@ -90,17 +86,11 @@
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
         	      <test property="org.eclipse.core.resources.extension" value="«editorGen.domainFileExtension»"/>
                </and>
-               <and>
-                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
-                  <test property="«editorGen.plugin.iD».isDomainModelElement"/>
-               </and>
+               <instanceof value="«getDomainNavigatorItemQualifiedClassName()»"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <and>
-       	       <instanceof value="org.eclipse.emf.ecore.EObject"/>
-       	       <test property="«editorGen.plugin.iD».isDomainModelElement"/>
-       	    </and>
+            <instanceof value="«getDomainNavigatorItemQualifiedClassName()»"/>
          </possibleChildren>
       </navigatorContent>
 «ENDIF-»
