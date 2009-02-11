@@ -20,6 +20,8 @@ modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
 import PropertySheet;
 import PreferencePages;
 import Navigator;
+import Actions;
+import RichClientPlatformApp;
 
 configuration property rcp : Boolean;
 configuration property useMapMode : Boolean;
@@ -67,7 +69,9 @@ main() {
 	--new DiagramRunTimeModel(domainGenModel XXX need notation.genmodel here instead, gmfgenModel).transform();
 	new PropertySheet(mapModel, gmfgenModel).transform();
 	new PreferencePages(mapModel, gmfgenModel).transform();
+	new Actions(mapModel, gmfgenModel).transform();
 	if not rcp then new Navigator(mapModel, gmfgenModel).transform() endif;
+	if rcp then new RichClientPlatformApp(mapModel, gmfgenModel).transform() endif;
 }
 
 mapping GMFMAP::Mapping::structure() : GMFGEN::GenEditorGenerator@gmfgenModel {
@@ -85,7 +89,6 @@ mapping GMFMAP::Mapping::structure() : GMFGEN::GenEditorGenerator@gmfgenModel {
 	--diagram.getAllNodes()->forEach(n) { setupElementType(n) };
 	--diagram.links->forEach(l) { setupElementType(l) };
 	-- <end of element types>
-	
 }
 
 -- XXX review - Specialization type is created again and again - why not reuse it?
