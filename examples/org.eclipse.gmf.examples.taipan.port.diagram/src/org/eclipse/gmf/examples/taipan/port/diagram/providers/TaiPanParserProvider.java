@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart;
+import org.eclipse.gmf.examples.taipan.port.diagram.parsers.NativeParser;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -43,7 +44,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	private IParser getBuildingInfo_3001Parser() {
 		if (buildingInfo_3001Parser == null) {
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getBuilding_Info() };
-			Parser_1_1 parser = new Parser_1_1(features);
+			NativeParser parser = new NativeParser(features);
 			buildingInfo_3001Parser = parser;
 		}
 		return buildingInfo_3001Parser;

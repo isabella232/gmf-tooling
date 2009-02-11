@@ -46,7 +46,7 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof PortEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(TaiPanElementTypes.Building_2001);
 			return types;
 		}

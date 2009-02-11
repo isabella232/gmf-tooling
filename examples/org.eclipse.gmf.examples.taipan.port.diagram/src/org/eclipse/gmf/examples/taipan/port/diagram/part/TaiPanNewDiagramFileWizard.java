@@ -73,7 +73,7 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 		myFileCreationPage.setTitle(Messages.TaiPanNewDiagramFileWizard_CreationPageTitle);
 		myFileCreationPage.setDescription(NLS.bind(Messages.TaiPanNewDiagramFileWizard_CreationPageDescription, PortEditPart.MODEL_ID));
 		IPath filePath;
-		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		String fileName = URI.decode(domainModelURI.trimFileExtension().lastSegment());
 		if (domainModelURI.isPlatformResource()) {
 			filePath = new Path(domainModelURI.trimSegments(1).toPlatformString(true));
 		} else if (domainModelURI.isFile()) {

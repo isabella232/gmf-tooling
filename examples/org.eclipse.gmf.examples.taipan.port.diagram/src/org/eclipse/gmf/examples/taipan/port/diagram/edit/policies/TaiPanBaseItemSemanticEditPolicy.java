@@ -114,19 +114,20 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		IEditCommandRequest completedRequest = completeRequest(request);
 		Command semanticCommand = getSemanticCommandSwitch(completedRequest);
 		semanticCommand = getEditHelperCommand(completedRequest, semanticCommand);
-		boolean shouldProceed = true;
 		if (completedRequest instanceof DestroyRequest) {
-			shouldProceed = shouldProceed((DestroyRequest) completedRequest);
+			DestroyRequest destroyRequest = (DestroyRequest) completedRequest;
+			return shouldProceed(destroyRequest) ? addDeleteViewCommand(semanticCommand, destroyRequest) : null;
 		}
-		if (shouldProceed) {
-			if (completedRequest instanceof DestroyRequest) {
-				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-				Command deleteViewCommand = new ICommandProxy(new DeleteCommand(editingDomain, (View) getHost().getModel()));
-				semanticCommand = semanticCommand == null ? deleteViewCommand : semanticCommand.chain(deleteViewCommand);
-			}
-			return semanticCommand;
-		}
-		return null;
+		return semanticCommand;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command addDeleteViewCommand(Command mainCommand, DestroyRequest completedRequest) {
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+		Command deleteViewCommand = getGEFWrapper(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+		return mainCommand == null ? deleteViewCommand : mainCommand.chain(deleteViewCommand);
 	}
 
 	/**

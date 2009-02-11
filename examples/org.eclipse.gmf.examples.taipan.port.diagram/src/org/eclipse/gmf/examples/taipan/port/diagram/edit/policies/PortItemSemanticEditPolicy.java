@@ -38,9 +38,6 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (TaiPanElementTypes.Building_2001 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getPort_Buildings());
-			}
 			return getGEFWrapper(new BuildingCreateCommand(req));
 		}
 		return super.getCreateCommand(req);

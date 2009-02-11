@@ -87,12 +87,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate {
 			PortDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), Messages.TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
-					Messages.TaiPanInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
+			MessageDialog.openError(getShell(), Messages.InitDiagramFile_ResourceErrorDialogTitle, Messages.InitDiagramFile_ResourceErrorDialogMessage);
 			return;
 		}
 		Wizard wizard = new TaiPanNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		wizard.setWindowTitle(NLS.bind(Messages.TaiPanInitDiagramFileAction_InitDiagramFileWizardTitle, PortEditPart.MODEL_ID));
+		wizard.setWindowTitle(NLS.bind(Messages.InitDiagramFile_WizardTitle, PortEditPart.MODEL_ID));
 		TaiPanDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }
