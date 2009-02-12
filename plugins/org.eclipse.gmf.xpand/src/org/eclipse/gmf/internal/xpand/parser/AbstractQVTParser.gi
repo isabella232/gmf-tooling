@@ -25,8 +25,8 @@ $Headers
         return result;
     }
     
-    private NewRuleCallExpCS createNewRuleCallExpCS(PathNameCS pathNameCS, List<OCLExpressionCS> arguments) {
-    	NewRuleCallExpCS call = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createNewRuleCallExpCS();
+    private InstantiationExpCS createNewRuleCallExpCS(PathNameCS pathNameCS, List<OCLExpressionCS> arguments) {
+    	InstantiationExpCS call = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createInstantiationExpCS();
 		call.setTypeSpecCS(createTypeSpecCS(pathNameCS, null)); //call.setScopedIdentifier(pathNameCS);
 		call.getArguments().addAll(arguments);
     	return call;
