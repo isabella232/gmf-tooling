@@ -210,7 +210,7 @@ public class GenModelGraphAnalyzer {
 			for (GenLink nextLink : myDiagram.getLinks()) {
 				if (nextLink.getModelFacet() == null) {
 					potentialLinks.add(nextLink);
-				} else {
+				} else if (node.getModelFacet() != null) {
 					GenClass genClass = myIsInLinkDirection ? nextLink.getModelFacet().getSourceType() : nextLink.getModelFacet().getTargetType();
 					if (genClass != null && genClass.getEcoreClass().isSuperTypeOf(node.getDomainMetaClass().getEcoreClass())) {
 						potentialLinks.add(nextLink);
@@ -229,6 +229,11 @@ public class GenModelGraphAnalyzer {
 				GenClass genClass = myIsInLinkDirection ? link.getModelFacet().getTargetType() : link.getModelFacet().getSourceType();
 				if (genClass != null) {
 					for (GenNode nextNode : myDiagram.getAllNodes()) {
+						if (nextNode.getModelFacet() == null) {
+							// skipping pure design nodes - cannot be incorrect
+							// connection source/target
+							continue;
+						}
 						if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
 							potentialNodes.add(nextNode);
 						}
