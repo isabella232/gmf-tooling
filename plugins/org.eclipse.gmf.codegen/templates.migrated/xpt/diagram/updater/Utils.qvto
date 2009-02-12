@@ -54,7 +54,7 @@ helper genModel::TypeLinkModelFacet::isOutgoingLink() : Boolean {
 }
 
 helper getAllSemanticDiagramElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenLinkEnd) {
-	return ((diagram.getAllNodes()->asSequence())[genModel::GenLinkEnd]->union(diagram.links->asSequence()))[genModel::GenLinkEnd]->select(linkEnd | null <> linkEnd.getMetaClass())
+	return ((diagram.getAllNodes()->asSequence())[genModel::GenLinkEnd]->union(diagram.links->asSequence()))[genModel::GenLinkEnd]->select(linkEnd | not linkEnd.getMetaClass().oclIsUndefined())
 }
 
 helper getAllSemanticElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenCommonBase) {
