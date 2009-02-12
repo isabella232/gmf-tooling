@@ -132,6 +132,11 @@ public class NavigatorHandler {
 		}
 		Collection<GenNode> result = new LinkedHashSet<GenNode>();
 		for (GenNode nextNode : myDiagram.getAllNodes()) {
+			if (nextNode.getModelFacet() == null) {
+				// skipping pure design nodes - cannot be incorrect connection
+				// source/target
+				continue;
+			}
 			if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
 				result.add(nextNode);
 			}
