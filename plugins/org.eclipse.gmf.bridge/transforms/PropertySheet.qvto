@@ -17,10 +17,10 @@ transformation PropertySheet(in mapModel : GMFMAP, inout gmfgenModel : GMFGEN);
 main() {
 	var mapRoot := mapModel.rootObjects()![GMFMAP::Mapping];
 	var genEditor := gmfgenModel.rootObjects()![GMFGEN::GenEditorGenerator];
-	genEditor.propertySheet := mapRoot.diagram.map propertySheet();
+	genEditor.propertySheet := mapRoot.diagram.map propertySheet(genEditor);
 }
 
-mapping GMFMAP::CanvasMapping::propertySheet() : GMFGEN::GenPropertySheet {
+mapping GMFMAP::CanvasMapping::propertySheet(editorGen : GMFGEN::GenEditorGenerator) : GMFGEN::GenPropertySheet {
 	result.tabs += object GMFGEN::GenStandardPropertyTab { iD := 'appearance' };
 	result.tabs += object GMFGEN::GenStandardPropertyTab { iD := 'diagram' };
 	if not self.domainModel.oclIsUndefined() then 
@@ -29,8 +29,7 @@ mapping GMFMAP::CanvasMapping::propertySheet() : GMFGEN::GenPropertySheet {
 			label := 'Core';
 			filter := object GMFGEN::TypeTabFilter {
 				types += Sequence { 'org.eclipse.gmf.runtime.notation.View', 'org.eclipse.gef.EditPart' };
-				-- FIXME next logic from PropertySheetHandler should be supported as well:
-				-- if editorGen.navigator <> null then generatedTypes += GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL; 
+				if not editorGen.navigator.oclIsUndefined() then generatedTypes += GMFGEN::GeneratedType::abstractNavigatorItem endif; 
 			}
 		}
 	endif;

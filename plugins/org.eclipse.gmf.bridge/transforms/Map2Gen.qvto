@@ -69,10 +69,10 @@ main() {
 		}
 	} endif;
 	--new DiagramRunTimeModel(domainGenModel XXX need notation.genmodel here instead, gmfgenModel).transform();
+	if not rcp then new Navigator(mapModel, gmfgenModel).transform() endif;
 	new PropertySheet(mapModel, gmfgenModel).transform();
 	new PreferencePages(mapModel, gmfgenModel).transform();
 	new Actions(mapModel, gmfgenModel).transform();
-	if not rcp then new Navigator(mapModel, gmfgenModel).transform() endif;
 	if rcp then new RichClientPlatformApp(mapModel, gmfgenModel).transform() endif;
 }
 
