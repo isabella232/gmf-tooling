@@ -21,7 +21,7 @@ org.eclipse.draw2d.Shape
 «IF xorFill»«EXPAND xorFill(figureVarName)»«ENDIF-»
 «IF not outline»«EXPAND outline(figureVarName)»«ENDIF-»
 «IF xorOutline»«EXPAND xorOutline(figureVarName)»«ENDIF-»
-«IF lineWidth <> 1»«EXPAND lineWidth(figureVarName)»«ENDIF-»
+«REM» UNCONDITIONALLY generate setLineWidth, see bug 262383 IF lineWidth <> 1 «ENDREM»«EXPAND lineWidth(figureVarName)»«REM» ENDIF «ENDREM-»
 «IF lineKind <> gmfgraph::LineKind::LINE_SOLID»«EXPAND lineKind(figureVarName)»«ENDIF-»
 «ENDDEFINE»
 
