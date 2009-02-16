@@ -82,7 +82,7 @@ public class ElementInitializers {
 		FIXME: need cleaner appoach to provider's language switch (not to mix if == literal and polymorphism)
 «ENDREM»
 «DEFINE performInit(diagramElement : gmfgen::GenCommonBase, instanceVar : String, instanceClass : genmodel::GenClass, counters : Sequence(Integer)) FOR gmfgen::GenFeatureValueSpec-»
-«IF value.provider.getLanguage() = gmfgen::GenLanguage::literal-»
+«IF value.provider.getLanguage() = gmfgen::GenLanguage::_literal-»
 	«EXPAND MetaModel::modifyFeature(instanceVar, instanceClass, value.body) FOR feature»
 «ELSE-»
 «LET getVariableName('value', counters) AS expressionVarName-»
