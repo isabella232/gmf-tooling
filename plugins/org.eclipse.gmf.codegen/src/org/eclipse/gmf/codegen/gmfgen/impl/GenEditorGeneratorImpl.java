@@ -832,7 +832,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		String value = getPackageNamePrefixGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
 			if (getPrimaryGenPackage() == null) {
-				return "";
+				return "design.diagram";
 			}
 			return getPrimaryGenPackage().getQualifiedPackageName() + ".diagram";
 		}
