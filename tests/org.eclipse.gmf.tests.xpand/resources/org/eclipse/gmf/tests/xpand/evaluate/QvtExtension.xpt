@@ -84,6 +84,10 @@ check if QVTO is capable of Collection() context operations (Bug #243684)
 «IF qvtSet->size() = self->size() and self->includesAll(qvtSet)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE checkQVTOCLExtensions(Sequence(OclAny) input) FOR String-»
+«FOREACH input[Integer] AS i»x«ENDFOREACH-»
+«ENDDEFINE»
+
 «DEFINE checkQueryParametersNotPolymorphycForSelf(positiveAnswer:String, negativeAnswer:String) FOR OclAny-»
 «IF isOclAnyParameterUsed(self)»«positiveAnswer»«ELSE»«negativeAnswer»«ENDIF-»
 «ENDDEFINE»

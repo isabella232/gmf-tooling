@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.xpand;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -99,7 +100,6 @@ public class QvtExtensions extends TestCase {
 	public void testQvtoIsCapableToDefineContextOpsToCollections() throws AmbiguousDefinitionException {
 		String arg = "Str";
 		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::collectionContextOp", arg, null);
-		System.err.println(buffer.toString());
 		assertEquals(arg, buffer.toString().trim());
 	}
 
@@ -183,4 +183,17 @@ public class QvtExtensions extends TestCase {
 		assertEquals(YES_NO[0], buffer.toString());
 	}
 
+
+	public void testQVTOCLExtensions() throws Exception {
+		LinkedList<Object> args = new LinkedList<Object>();
+		args.add("string1");
+		args.add(10);
+		args.add("string2");
+		args.add(5l);
+		args.add("string3");
+		args.add(20);
+		args.add(4f);
+		xpandFacade.evaluate("org::eclipse::gmf::tests::xpand::evaluate::QvtExtension::checkQVTOCLExtensions", "aaa", new Object[] { args });
+		assertEquals("xx", buffer.toString().trim());
+	}
 }
