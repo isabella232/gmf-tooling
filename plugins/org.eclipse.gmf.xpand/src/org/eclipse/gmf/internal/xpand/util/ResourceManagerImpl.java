@@ -34,9 +34,9 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
 import org.eclipse.m2m.internal.qvt.oml.common.io.CFile;
 import org.eclipse.m2m.internal.qvt.oml.common.io.CFolder;
-import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
+import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
 import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
-import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
+import org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 
@@ -178,7 +178,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 
 	private final Map<String, QvtResource> cachedQvt = new TreeMap<String, QvtResource>();
 
-	private QvtCompiler qvtCompiler;
+	private QVTOCompiler qvtCompiler;
 
 	private QvtCompilerOptions qvtCompilerOptions;
 
@@ -216,9 +216,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			assert readers.length == 1;
 			CFile cFile = new InputStreamCFile(readers[0], resolveCFileFullPath(fullyQualifiedName, QvtResource.FILE_EXTENSION));
 			try {
-				CompiledModule module = getQvtCompiler().compile(cFile, getQvtCompilerOptions(), null).getModule();
-				// assert module.getModule() instanceof Library;
-				return new QvtFile(module, fullyQualifiedName);
+				CompiledUnit cu = getQvtCompiler().compile(cFile, getQvtCompilerOptions(), null);
+				return new QvtFile(cu, fullyQualifiedName);
 			} catch (MdaException e) {
 				throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
 			}
@@ -243,11 +242,11 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	 * (native) libraries from being loaded twice into if (indirectly)
 	 * references by two different XpandResources.
 	 */
-	private QvtCompiler getQvtCompiler() {
+	private QVTOCompiler getQvtCompiler() {
 		if (qvtCompiler == null) {
 			// TODO: use different kind of ImportResolver being able to
 			// construct referenced CFiles using ResourceManagerImpl
-			qvtCompiler = QvtCompiler.createCompilerWithHistory(new ImportResolverImpl(), getMetamodelResourceSet());
+			qvtCompiler = QVTOCompiler.createCompilerWithHistory(new ImportResolverImpl(), getMetamodelResourceSet());
 		}
 		return qvtCompiler;
 	}

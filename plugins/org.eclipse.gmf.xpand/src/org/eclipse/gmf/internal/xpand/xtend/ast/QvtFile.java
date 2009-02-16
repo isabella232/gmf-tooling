@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.xpand.xtend.ast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,22 +21,20 @@ import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
-import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
+import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.m2m.qvt.oml.runtime.util.NonTransformationExecutionContext;
 
 public class QvtFile implements QvtResource {
 
-	private static final QvtMessage[] NO_MESSAGES = new QvtMessage[0];
-
 	private List<QvtExtension> extensions;
 
-	private String fileName;
+	private final String fileName;
 
-	private Set<Module> modules;
+	private final Set<Module> modules;
 
-	private QvtMessage[] errors = NO_MESSAGES;
+	private QvtMessage[] errors = new QvtMessage[0];
 
 	/**
 	 * Can be used for creating QvtFile around modules came from BlackBox
@@ -48,14 +45,10 @@ public class QvtFile implements QvtResource {
 		this.modules = new LinkedHashSet<Module>(modules);
 		fileName = fullyQualifiedName;
 	}
-
-	public QvtFile(CompiledModule module, String fullyQualifiedName) {
-		if (module.getModule() != null) {
-			modules = new HashSet<Module>();
-			modules.add(module.getModule());
-		}
-		fileName = fullyQualifiedName;
-		errors = module.getErrors();
+	public QvtFile(CompiledUnit cu, String fullyQualifiedName) {
+		this(cu.getModules(), fullyQualifiedName);
+		List<QvtMessage> allErrors = cu.getErrors();
+		errors = allErrors.toArray(new QvtMessage[allErrors.size()]);
 	}
 
 	public Set<Module> getModules() {
