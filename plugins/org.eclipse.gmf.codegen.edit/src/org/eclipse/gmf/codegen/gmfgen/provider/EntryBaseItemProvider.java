@@ -67,6 +67,7 @@ public class EntryBaseItemProvider
 			addLargeIconPathPropertyDescriptor(object);
 			addSmallIconPathPropertyDescriptor(object);
 			addCreateMethodNamePropertyDescriptor(object);
+			addIdPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -182,6 +183,28 @@ public class EntryBaseItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Id feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIdPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EntryBase_id_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_id_feature", "_UI_EntryBase_type"),
+				 GMFGenPackage.eINSTANCE.getEntryBase_Id(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -212,6 +235,7 @@ public class EntryBaseItemProvider
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
+			case GMFGenPackage.ENTRY_BASE__ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
