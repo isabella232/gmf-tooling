@@ -200,7 +200,7 @@ public interface GenDomainModelNavigator extends EObject {
 	 * @return the value of the '<em>Domain Model Element Tester Class Name</em>' attribute.
 	 * @see #setDomainModelElementTesterClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDomainModelNavigator_DomainModelElementTesterClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='DomainModelElementTester class will not be generated annymore'"
 	 * @generated
 	 */
 	String getDomainModelElementTesterClassName();
@@ -261,6 +261,7 @@ public interface GenDomainModelNavigator extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='DomainModelElementTester class will not be generated annymore'"
 	 * @generated
 	 */
 	String getDomainModelElementTesterQualifiedClassName();
