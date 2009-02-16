@@ -20,6 +20,10 @@ import java.util.regex.Pattern;
 
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
+import org.eclipse.ocl.Environment;
+import org.eclipse.ocl.lpg.BasicEnvironment;
+import org.eclipse.ocl.util.OCLUtil;
+import org.eclipse.ocl.parser.OCLKWLexer;
 
 public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLexersym, RuleAction {
     private static ParseTable prs = new XpandLexerprs();
@@ -648,71 +652,111 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             }
 	 
             //
-            // Rule 326:  Token ::= QuotedName
+            // Rule 305:  Token ::= : =
             //
-            case 326: { 
-				makeToken(TK_QUOTE_STRING_LITERAL);
-	            break;
-            }
-	 
-            //
-            // Rule 327:  Token ::= : =
-            //
-            case 327: { 
+            case 305: { 
 				makeToken(TK_RESET_ASSIGN);
 	            break;
             }
 	 
             //
-            // Rule 328:  Token ::= + =
+            // Rule 306:  Token ::= + =
             //
-            case 328: { 
+            case 306: { 
 				makeToken(TK_ADD_ASSIGN);
 	            break;
             }
 	 
             //
-            // Rule 329:  Token ::= @
+            // Rule 307:  Token ::= @
             //
-            case 329: { 
+            case 307: { 
 				makeToken(TK_AT_SIGN);
 	            break;
             }
 	 
             //
-            // Rule 330:  Token ::= !
+            // Rule 308:  Token ::= !
             //
-            case 330: { 
+            case 308: { 
 				makeToken(TK_EXCLAMATION_MARK);
 	            break;
             }
 	 
             //
-            // Rule 331:  Token ::= ! =
+            // Rule 309:  Token ::= ! =
             //
-            case 331: { 
+            case 309: { 
 				makeToken(TK_NOT_EQUAL_EXEQ);
 	            break;
             }
 	 
             //
-            // Rule 335:  Token ::= LG
+            // Rule 310:  Token ::= < <
             //
-            case 335: { 
+            case 310: { 
+				makeToken(TK_STEREOTYPE_QUALIFIER_OPEN);
+	            break;
+            }
+	 
+            //
+            // Rule 311:  Token ::= > >
+            //
+            case 311: { 
+				makeToken(TK_STEREOTYPE_QUALIFIER_CLOSE);
+	            break;
+            }
+	 
+            //
+            // Rule 312:  Token ::= . . .
+            //
+            case 312: { 
+				makeToken(TK_MULTIPLICITY_RANGE);
+	            break;
+            }
+	 
+            //
+            // Rule 313:  Token ::= ~
+            //
+            case 313: { 
+				makeToken(TK_TILDE_SIGN);
+	            break;
+            }
+	 
+            //
+            // Rule 314:  Token ::= : : =
+            //
+            case 314: { 
+				makeToken(TK_COLONCOLONEQUAL);
+	            break;
+            }
+	 
+            //
+            // Rule 322:  Token ::= DoubleQuote SLNotDQOpt DoubleQuote
+            //
+            case 322: { 
+				makeToken(TK_STRING_LITERAL);
+	            break;
+            }
+	 
+            //
+            // Rule 325:  Token ::= LG
+            //
+            case 325: { 
 		makeToken(TK_LG);
 	          break;
             } 
             //
-            // Rule 336:  Token ::= RG textAny lgOpt
+            // Rule 326:  Token ::= RG textAny lgOpt
             //
-            case 336: { 
+            case 326: { 
 		makeToken(TK_TEXT);
 	          break;
             } 
             //
-            // Rule 346:  Token ::= R E M RG commentAny lgPlus E N D R E M
+            // Rule 336:  Token ::= R E M RG commentAny lgPlus E N D R E M
             //
-            case 346: { 
+            case 336: { 
 		skipToken();
 	          break;
             }

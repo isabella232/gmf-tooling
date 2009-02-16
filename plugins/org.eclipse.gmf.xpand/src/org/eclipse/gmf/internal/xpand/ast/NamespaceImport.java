@@ -18,12 +18,7 @@ public class NamespaceImport extends SyntaxElement {
 	public NamespaceImport(int start, int end, int line, StringLiteralExpCS importCS) {
 		super(start, end, line);
 		// FIXME for complete care, look at AbstractOCLAnalyzer#processStringEscapes
-		String quotedImport = importCS.getStringSymbol();
-		if (quotedImport.length() <= 2) {
-			importString = "";
-		} else {
-			importString = quotedImport.substring(1, quotedImport.length() -1);
-		}
+		importString = importCS.getStringSymbol();
 	}
 
 	public String getImportString() {

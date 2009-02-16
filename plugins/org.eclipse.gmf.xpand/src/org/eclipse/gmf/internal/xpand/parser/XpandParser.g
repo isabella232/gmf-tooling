@@ -25,8 +25,16 @@ $Globals
 	import org.eclipse.gmf.internal.xpand.ast.*;
 	import org.eclipse.ocl.cst.*;
 	import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeIterateExpCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.NewRuleCallExpCS;
 	import java.util.Collections;
+
+	/* [++] added imports */
+	import org.eclipse.m2m.internal.qvt.oml.cst.SimpleSignatureCS;
+	import org.eclipse.m2m.internal.qvt.oml.cst.ParameterDeclarationCS;
+	import org.eclipse.m2m.internal.qvt.oml.cst.DirectionKindEnum;
+	import org.eclipse.m2m.internal.qvt.oml.cst.DirectionKindCS;
+	import org.eclipse.m2m.internal.qvt.oml.cst.TypeSpecCS;
+	/* [--] added imports */
+
 	./
 $End
 
@@ -48,24 +56,19 @@ $DropRules
 	oclExpCS -> whileExpCS
 	oclExpCS -> legacyWhileExpCS
 	oclExpCS -> computeExpCS
+	oclExpCS -> newExpCS
 	loopExpCS -> iterateSwitchExpCS
 	loopExpCS -> forExpCS
 	ifExpBodyCS -> expression_block
+	oclExpressionCS -> assignStatementCS
+	oclExpressionCS ::= primaryOCLExpressionCS
+	oclExpressionCS -> returnExpCS
+	oclExpressionCS -> var_init_exp
 
 $DropSymbols
-	statementCS
-	variableInitializationCS
-	variableInitializationCSCorrect
-	assignStatementCS
-	primaryOCLExpressionCS
-	complianceKindCSOpt
-	returnExpCS
 	logExpCS logWhenExp logWhenExpOpt
 	assertExpCS assertWithLogExp assertWithLogExpOpt severityKindCS severityKindCSOpt
 	oclExpressionCSOpt 
-	statementListOpt 
-	statementList 
-	statementInnerList
 	expressionStatementCS
 	expression_block
 	switchExpCS
@@ -84,6 +87,25 @@ $DropSymbols
 	forOpCode
 	forExpDeclaratorList
 	forExpConditionOpt
+	--
+	assignStatementCS
+	primaryOCLExpressionCS
+	returnExpCS
+	var_init_group_exp
+	var_init_exp
+	expression_list
+	expression_listOpt
+	expression_semi_list
+	expression_semi_list_element
+	var_init_declarator_list
+	var_init_declarator
+	var_init_op
+	newExpCS
+	expression_statement
+	_import
+	transformation_h
+	unit_element
+	renaming
 $End
 
 -- FIXME need to fix $Notice section from EssentialOCL.g
@@ -204,7 +226,7 @@ $Rules
 			setResult(res);
 		$EndJava./
 
-	anImport ::= "IMPORT" qvtStringLiteralExpCS TEXT commentTextPairAny 
+	anImport ::= "IMPORT" stringLiteralExpCS TEXT commentTextPairAny 
 		/.$BeginJava
 			setResult(xpandFactory.createNamespaceImport(getLeftIToken(), (StringLiteralExpCS) getRhsSym(2)));
 		$EndJava./

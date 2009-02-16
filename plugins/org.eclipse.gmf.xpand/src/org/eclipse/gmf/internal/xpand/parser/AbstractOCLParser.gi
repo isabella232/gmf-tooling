@@ -314,5 +314,134 @@ $Headers
 		result.setExpression(oclExpressionCS);
 		return result;
 	}
+	
+	private String unescape(IToken stringLiteral) {
+		String rawString = stringLiteral.toString();
+		int rawStringLength = rawString.length();
+		if (rawStringLength <= 2) {
+			return ""; //$NON-NLS-1$
+		}
+		StringBuilder unescapedStringBuilder = null;
+		boolean isBackslashEscapeProcessingUsed = true; //getEnvironment().isEnabled(ParsingOptions.USE_BACKSLASH_ESCAPE_PROCESSING);
+		boolean isNonStdSQEscapingUsed = false;
+		int n = rawStringLength - 1;
+		for (int i = 1; i < n; i++) {
+			char ch = rawString.charAt(i);
+			if ((isBackslashEscapeProcessingUsed && (ch == '\\'))
+				|| ((ch == '\'') && isNonStdSQSupported())) {
+				if (unescapedStringBuilder == null) {
+					unescapedStringBuilder = new StringBuilder(rawString
+						.substring(1, i));
+				}
+				i++;
+				if (i >= n) {
+					reportError(
+						ParseErrorCodes.INVALID_CODE,
+						"", stringLiteral.getTokenIndex(), stringLiteral.getTokenIndex(), //$NON-NLS-1$
+						"String literal not properly closed");
+				}
+				char nextCh = rawString.charAt(i);
+				if (ch == '\\') {
+					switch (nextCh) {
+						case 'b' :
+							unescapedStringBuilder.append('\b');
+							break;
+						case 't' :
+							unescapedStringBuilder.append('\t');
+							break;
+						case 'n' :
+							unescapedStringBuilder.append('\n');
+							break;
+						case 'f' :
+							unescapedStringBuilder.append('\f');
+							break;
+						case 'r' :
+							unescapedStringBuilder.append('\r');
+							break;
+						case '\"' :
+							unescapedStringBuilder.append('\"');
+							break;
+						case '\'' :
+							unescapedStringBuilder.append('\'');
+							break;
+						case '\\' :
+							unescapedStringBuilder.append('\\');
+							break;
+						default :
+							// octal escape check
+							int unescapedChar = -1;
+							if ((nextCh >= '\u0030') && (nextCh <= '\u0037')) { // octal
+																				// digit
+								unescapedChar = Character
+									.getNumericValue(nextCh);
+								if (i + 1 < n) {
+									char tmpCh = rawString.charAt(i + 1);
+									if ((tmpCh >= '\u0030')
+										&& (tmpCh <= '\u0037')) { // octal digit
+										unescapedChar = 8 * unescapedChar
+											+ Character.getNumericValue(tmpCh);
+										i++;
+										if (i + 1 < n) {
+											tmpCh = rawString.charAt(i + 1);
+											if ((tmpCh >= '\u0030')
+												&& (tmpCh <= '\u0037') // octal
+																		// digit
+												&& (nextCh <= '\u0033')) { // most-significant
+																			// digit
+																			// in
+																			// range
+																			// 0..2
+												unescapedChar = 8
+													* unescapedChar
+													+ Character
+														.getNumericValue(tmpCh);
+												i++;
+											}
+										}
+									}
+								}
+								unescapedStringBuilder
+									.append((char) unescapedChar);
+							}
+							if (unescapedChar < 0) {
+								reportError(
+									ParseErrorCodes.INVALID_CODE,
+									"", stringLiteral.getTokenIndex(), stringLiteral.getTokenIndex(), //$NON-NLS-1$
+									"Invalid escape sequence (valid ones are \\b \\t \\n \\f \\r \\\" \\\' \\\\)");
+							}
+							break;
+					}
+				} else { // non-std '' escaping
+					unescapedStringBuilder.append('\'');
+					isNonStdSQEscapingUsed = true;
+					assert nextCh == '\'' : "Unexpected escape sequence in string literal: " + rawString; //$NON-NLS-1$
+				}
+			} else if (unescapedStringBuilder != null) {
+				unescapedStringBuilder.append(ch);
+			}
+		}
+		if (isNonStdSQEscapingUsed) {
+	// Should not be called - isNonStdSQSupported returns false
+			
+	//		// check settings for using non-standard closure iterator
+	//		ProblemHandler.Severity sev = getEnvironment().getValue(
+	//			ProblemOption.STRING_SINGLE_QUOTE_ESCAPE);
+	//		if ((sev != null) && (sev != ProblemHandler.Severity.OK)) {
+	//			getEnvironment().problem(
+	//				sev,
+	//				ProblemHandler.Phase.PARSER,
+	//				OCLMessages.bind(OCLMessages.NonStd_SQuote_Escape_,
+	//					stringLiteral), "STRING_LITERAL", //$NON-NLS-1$
+	//				null);
+	//		}
+		}
+		return (unescapedStringBuilder == null)
+			? rawString.substring(1, n)
+			: unescapedStringBuilder.toString();
+	}
+
+	private boolean isNonStdSQSupported() {
+		return false;
+	}
 ./
 $End
