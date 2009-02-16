@@ -121,7 +121,7 @@ public class GenAuditContextImpl extends EObjectImpl implements GenAuditContext 
 	 * @generated
 	 */
 	public GenAuditRoot getRoot() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_CONTEXT__ROOT) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_CONTEXT__ROOT) return null;
 		return (GenAuditRoot)eContainer();
 	}
 
@@ -141,7 +141,7 @@ public class GenAuditContextImpl extends EObjectImpl implements GenAuditContext 
 	 * @generated
 	 */
 	public void setRoot(GenAuditRoot newRoot) {
-		if (newRoot != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_CONTEXT__ROOT && newRoot != null)) {
+		if (newRoot != eInternalContainer() || (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_CONTEXT__ROOT && newRoot != null)) {
 			if (EcoreUtil.isAncestor(this, newRoot))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -274,7 +274,7 @@ public class GenAuditContextImpl extends EObjectImpl implements GenAuditContext 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_AUDIT_CONTEXT__ROOT:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_AUDIT_ROOT__CLIENT_CONTEXTS, GenAuditRoot.class, msgs);
 		}

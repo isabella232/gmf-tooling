@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenDomainAttributeTargetImpl.java,v 1.3 2007/04/11 08:10:23 dstadnik Exp $
+ * $Id: GenDomainAttributeTargetImpl.java,v 1.4 2009/02/16 14:04:49 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -176,7 +176,7 @@ public class GenDomainAttributeTargetImpl extends GenAuditableImpl implements Ge
 				if (resolve) return getAttribute();
 				return basicGetAttribute();
 			case GMFGenPackage.GEN_DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR:
-				return isNullAsError() ? Boolean.TRUE : Boolean.FALSE;
+				return isNullAsError();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -193,7 +193,7 @@ public class GenDomainAttributeTargetImpl extends GenAuditableImpl implements Ge
 				setAttribute((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR:
-				setNullAsError(((Boolean)newValue).booleanValue());
+				setNullAsError((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

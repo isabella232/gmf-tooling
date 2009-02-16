@@ -117,7 +117,7 @@ public class GenFeatureValueSpecImpl extends EObjectImpl implements GenFeatureVa
 	 * @generated
 	 */
 	public GenFeatureSeqInitializer getFeatureSeqInitializer() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER) return null;
 		return (GenFeatureSeqInitializer)eContainer();
 	}
 
@@ -196,7 +196,7 @@ public class GenFeatureValueSpecImpl extends EObjectImpl implements GenFeatureVa
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS, GenFeatureSeqInitializer.class, msgs);
 		}

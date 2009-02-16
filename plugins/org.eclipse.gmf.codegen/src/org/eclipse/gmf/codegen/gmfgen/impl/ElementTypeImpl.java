@@ -128,7 +128,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 * @generated
 	 */
 	public GenCommonBase getDiagramElement() {
-		if (eContainerFeatureID != GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT) return null;
+		if (eContainerFeatureID() != GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT) return null;
 		return (GenCommonBase)eContainer();
 	}
 
@@ -148,7 +148,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 * @generated
 	 */
 	public void setDiagramElement(GenCommonBase newDiagramElement) {
-		if (newDiagramElement != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT && newDiagramElement != null)) {
+		if (newDiagramElement != eInternalContainer() || (eContainerFeatureID() != GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT && newDiagramElement != null)) {
 			if (EcoreUtil.isAncestor(this, newDiagramElement))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -293,7 +293,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE, GenCommonBase.class, msgs);
 		}
@@ -315,7 +315,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 			case GMFGenPackage.ELEMENT_TYPE__DISPLAY_NAME:
 				return getDisplayName();
 			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
-				return isDefinedExternally() ? Boolean.TRUE : Boolean.FALSE;
+				return isDefinedExternally();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -338,7 +338,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 				setDisplayName((String)newValue);
 				return;
 			case GMFGenPackage.ELEMENT_TYPE__DEFINED_EXTERNALLY:
-				setDefinedExternally(((Boolean)newValue).booleanValue());
+				setDefinedExternally((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

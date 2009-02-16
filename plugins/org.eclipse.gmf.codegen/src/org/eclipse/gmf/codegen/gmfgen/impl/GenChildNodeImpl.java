@@ -67,7 +67,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * @generated
 	 */
 	public GenDiagram getDiagram() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_CHILD_NODE__DIAGRAM) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_CHILD_NODE__DIAGRAM) return null;
 		return (GenDiagram)eContainer();
 	}
 
@@ -125,7 +125,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__CHILD_NODES, GenDiagram.class, msgs);
 		}

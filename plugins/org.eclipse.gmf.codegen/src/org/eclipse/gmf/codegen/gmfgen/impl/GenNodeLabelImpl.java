@@ -53,7 +53,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	 * @generated
 	 */
 	public GenNode getNode() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_NODE_LABEL__NODE) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_NODE_LABEL__NODE) return null;
 		return (GenNode)eContainer();
 	}
 
@@ -94,7 +94,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_NODE_LABEL__NODE:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_NODE__LABELS, GenNode.class, msgs);
 		}

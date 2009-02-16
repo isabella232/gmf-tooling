@@ -214,7 +214,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -491,7 +491,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR, GenEditorGenerator.class, msgs);
 		}
@@ -521,7 +521,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return getID();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
-				return isEclipseEditor() ? Boolean.TRUE : Boolean.FALSE;
+				return isEclipseEditor();
 			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
 				return getContextID();
 		}
@@ -552,7 +552,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				setID((String)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__ECLIPSE_EDITOR:
-				setEclipseEditor(((Boolean)newValue).booleanValue());
+				setEclipseEditor((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__CONTEXT_ID:
 				setContextID((String)newValue);

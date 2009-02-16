@@ -1353,13 +1353,13 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
 				return getModelID();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
+				return isSameFileForDiagramAndModel();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
 				return getDiagramFileExtension();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
 				return getDomainFileExtension();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
-				return isDynamicTemplates() ? Boolean.TRUE : Boolean.FALSE;
+				return isDynamicTemplates();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				return getTemplateDirectory();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
@@ -1422,7 +1422,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				setModelID((String)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
+				setSameFileForDiagramAndModel((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension((String)newValue);
@@ -1431,7 +1431,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				setDomainFileExtension((String)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
-				setDynamicTemplates(((Boolean)newValue).booleanValue());
+				setDynamicTemplates((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				setTemplateDirectory((String)newValue);

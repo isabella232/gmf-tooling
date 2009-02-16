@@ -301,7 +301,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 */
 	public GenDiagram getDiagram() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_LINK__DIAGRAM) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_LINK__DIAGRAM) return null;
 		return (GenDiagram)eContainer();
 	}
 
@@ -750,7 +750,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__LINKS, GenDiagram.class, msgs);
 		}
@@ -776,23 +776,23 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__LABELS:
 				return getLabels();
 			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
-				return isOutgoingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
+				return isOutgoingCreationAllowed();
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
-				return isIncomingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
+				return isIncomingCreationAllowed();
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
-				return isViewDirectionAlignedWithModel() ? Boolean.TRUE : Boolean.FALSE;
+				return isViewDirectionAlignedWithModel();
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
 			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
-				return isTargetReorientingAllowed() ? Boolean.TRUE : Boolean.FALSE;
+				return isTargetReorientingAllowed();
 			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
-				return isSourceReorientingAllowed() ? Boolean.TRUE : Boolean.FALSE;
+				return isSourceReorientingAllowed();
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 				return getCreateCommandClassName();
 			case GMFGenPackage.GEN_LINK__REORIENT_COMMAND_CLASS_NAME:
 				return getReorientCommandClassName();
 			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
-				return isTreeBranch() ? Boolean.TRUE : Boolean.FALSE;
+				return isTreeBranch();
 			case GMFGenPackage.GEN_LINK__SOURCES:
 				return getSources();
 			case GMFGenPackage.GEN_LINK__TARGETS:
@@ -818,22 +818,22 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				getLabels().addAll((Collection<? extends GenLinkLabel>)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
-				setOutgoingCreationAllowed(((Boolean)newValue).booleanValue());
+				setOutgoingCreationAllowed((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
-				setIncomingCreationAllowed(((Boolean)newValue).booleanValue());
+				setIncomingCreationAllowed((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
-				setViewDirectionAlignedWithModel(((Boolean)newValue).booleanValue());
+				setViewDirectionAlignedWithModel((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				setCreationConstraints((GenLinkConstraints)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__TARGET_REORIENTING_ALLOWED:
-				setTargetReorientingAllowed(((Boolean)newValue).booleanValue());
+				setTargetReorientingAllowed((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__SOURCE_REORIENTING_ALLOWED:
-				setSourceReorientingAllowed(((Boolean)newValue).booleanValue());
+				setSourceReorientingAllowed((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__CREATE_COMMAND_CLASS_NAME:
 				setCreateCommandClassName((String)newValue);
@@ -842,7 +842,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				setReorientCommandClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__TREE_BRANCH:
-				setTreeBranch(((Boolean)newValue).booleanValue());
+				setTreeBranch((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

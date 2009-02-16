@@ -183,11 +183,11 @@ public class StyleAttributesImpl extends EObjectImpl implements StyleAttributes 
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_FONT:
-				return isFixedFont() ? Boolean.TRUE : Boolean.FALSE;
+				return isFixedFont();
 			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_FOREGROUND:
-				return isFixedForeground() ? Boolean.TRUE : Boolean.FALSE;
+				return isFixedForeground();
 			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_BACKGROUND:
-				return isFixedBackground() ? Boolean.TRUE : Boolean.FALSE;
+				return isFixedBackground();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -201,13 +201,13 @@ public class StyleAttributesImpl extends EObjectImpl implements StyleAttributes 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_FONT:
-				setFixedFont(((Boolean)newValue).booleanValue());
+				setFixedFont((Boolean)newValue);
 				return;
 			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_FOREGROUND:
-				setFixedForeground(((Boolean)newValue).booleanValue());
+				setFixedForeground((Boolean)newValue);
 				return;
 			case GMFGenPackage.STYLE_ATTRIBUTES__FIXED_BACKGROUND:
-				setFixedBackground(((Boolean)newValue).booleanValue());
+				setFixedBackground((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

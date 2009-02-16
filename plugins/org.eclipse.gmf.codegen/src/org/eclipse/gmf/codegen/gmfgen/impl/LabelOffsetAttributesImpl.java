@@ -141,9 +141,9 @@ public class LabelOffsetAttributesImpl extends EObjectImpl implements LabelOffse
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES__X:
-				return new Integer(getX());
+				return getX();
 			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES__Y:
-				return new Integer(getY());
+				return getY();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,10 +157,10 @@ public class LabelOffsetAttributesImpl extends EObjectImpl implements LabelOffse
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES__X:
-				setX(((Integer)newValue).intValue());
+				setX((Integer)newValue);
 				return;
 			case GMFGenPackage.LABEL_OFFSET_ATTRIBUTES__Y:
-				setY(((Integer)newValue).intValue());
+				setY((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

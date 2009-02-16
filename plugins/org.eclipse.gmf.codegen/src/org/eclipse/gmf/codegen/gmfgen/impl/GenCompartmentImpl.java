@@ -257,7 +257,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * @generated
 	 */
 	public GenDiagram getDiagram() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_COMPARTMENT__DIAGRAM) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_COMPARTMENT__DIAGRAM) return null;
 		return (GenDiagram)eContainer();
 	}
 
@@ -385,7 +385,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS, GenDiagram.class, msgs);
 		}
@@ -403,18 +403,18 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				return getTitle();
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
-				return isCanCollapse() ? Boolean.TRUE : Boolean.FALSE;
+				return isCanCollapse();
 			case GMFGenPackage.GEN_COMPARTMENT__HIDE_IF_EMPTY:
-				return isHideIfEmpty() ? Boolean.TRUE : Boolean.FALSE;
+				return isHideIfEmpty();
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
-				return isNeedsTitle() ? Boolean.TRUE : Boolean.FALSE;
+				return isNeedsTitle();
 			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				if (resolve) return getNode();
 				return basicGetNode();
 			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
-				return isListLayout() ? Boolean.TRUE : Boolean.FALSE;
+				return isListLayout();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -431,19 +431,19 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				setTitle((String)newValue);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
-				setCanCollapse(((Boolean)newValue).booleanValue());
+				setCanCollapse((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__HIDE_IF_EMPTY:
-				setHideIfEmpty(((Boolean)newValue).booleanValue());
+				setHideIfEmpty((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
-				setNeedsTitle(((Boolean)newValue).booleanValue());
+				setNeedsTitle((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				setNode((GenNode)newValue);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__LIST_LAYOUT:
-				setListLayout(((Boolean)newValue).booleanValue());
+				setListLayout((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

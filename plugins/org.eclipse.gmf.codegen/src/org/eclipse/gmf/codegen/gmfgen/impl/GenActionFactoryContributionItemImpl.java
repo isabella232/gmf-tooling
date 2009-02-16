@@ -79,7 +79,7 @@ public class GenActionFactoryContributionItemImpl extends EObjectImpl implements
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -141,7 +141,7 @@ public class GenActionFactoryContributionItemImpl extends EObjectImpl implements
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}

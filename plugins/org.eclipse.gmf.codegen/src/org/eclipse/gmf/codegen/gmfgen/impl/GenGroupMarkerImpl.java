@@ -79,7 +79,7 @@ public class GenGroupMarkerImpl extends EObjectImpl implements GenGroupMarker {
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_GROUP_MARKER__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_GROUP_MARKER__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -141,7 +141,7 @@ public class GenGroupMarkerImpl extends EObjectImpl implements GenGroupMarker {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_GROUP_MARKER__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}

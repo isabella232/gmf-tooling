@@ -139,7 +139,7 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 			case GMFGenPackage.CUSTOM_PARSER__QUALIFIED_NAME:
 				return getQualifiedName();
 			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
-				return isGenerateBoilerplate() ? Boolean.TRUE : Boolean.FALSE;
+				return isGenerateBoilerplate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,7 +156,7 @@ public class CustomParserImpl extends GenParserImplementationImpl implements Cus
 				setQualifiedName((String)newValue);
 				return;
 			case GMFGenPackage.CUSTOM_PARSER__GENERATE_BOILERPLATE:
-				setGenerateBoilerplate(((Boolean)newValue).booleanValue());
+				setGenerateBoilerplate((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

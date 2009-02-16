@@ -78,7 +78,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @generated
 	 */
 	public GenLink getLink() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_LINK_LABEL__LINK) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_LINK_LABEL__LINK) return null;
 		return (GenLink)eContainer();
 	}
 
@@ -98,7 +98,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @generated
 	 */
 	public void setLink(GenLink newLink) {
-		if (newLink != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_LINK_LABEL__LINK && newLink != null)) {
+		if (newLink != eInternalContainer() || (eContainerFeatureID() != GMFGenPackage.GEN_LINK_LABEL__LINK && newLink != null)) {
 			if (EcoreUtil.isAncestor(this, newLink))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -171,7 +171,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_LINK__LABELS, GenLink.class, msgs);
 		}

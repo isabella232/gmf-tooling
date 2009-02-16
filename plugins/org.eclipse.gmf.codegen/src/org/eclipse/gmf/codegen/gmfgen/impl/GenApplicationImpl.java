@@ -266,7 +266,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_APPLICATION__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_APPLICATION__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -658,7 +658,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_APPLICATION__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__APPLICATION, GenEditorGenerator.class, msgs);
 		}
@@ -694,7 +694,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 			case GMFGenPackage.GEN_APPLICATION__PERSPECTIVE_ID:
 				return getPerspectiveId();
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
-				return isSupportFiles() ? Boolean.TRUE : Boolean.FALSE;
+				return isSupportFiles();
 			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
 				return getSharedContributionItems();
 			case GMFGenPackage.GEN_APPLICATION__MAIN_MENU:
@@ -730,7 +730,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 				setPerspectiveId((String)newValue);
 				return;
 			case GMFGenPackage.GEN_APPLICATION__SUPPORT_FILES:
-				setSupportFiles(((Boolean)newValue).booleanValue());
+				setSupportFiles((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_APPLICATION__SHARED_CONTRIBUTION_ITEMS:
 				getSharedContributionItems().clear();

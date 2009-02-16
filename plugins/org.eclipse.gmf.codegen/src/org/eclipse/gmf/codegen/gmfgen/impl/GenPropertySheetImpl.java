@@ -156,7 +156,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -323,7 +323,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__PROPERTY_SHEET, GenEditorGenerator.class, msgs);
 		}
@@ -345,9 +345,9 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 			case GMFGenPackage.GEN_PROPERTY_SHEET__PACKAGE_NAME:
 				return getPackageName();
 			case GMFGenPackage.GEN_PROPERTY_SHEET__READ_ONLY:
-				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+				return isReadOnly();
 			case GMFGenPackage.GEN_PROPERTY_SHEET__NEEDS_CAPTION:
-				return isNeedsCaption() ? Boolean.TRUE : Boolean.FALSE;
+				return isNeedsCaption();
 			case GMFGenPackage.GEN_PROPERTY_SHEET__LABEL_PROVIDER_CLASS_NAME:
 				return getLabelProviderClassName();
 		}
@@ -371,10 +371,10 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 				setPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__READ_ONLY:
-				setReadOnly(((Boolean)newValue).booleanValue());
+				setReadOnly((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__NEEDS_CAPTION:
-				setNeedsCaption(((Boolean)newValue).booleanValue());
+				setNeedsCaption((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_PROPERTY_SHEET__LABEL_PROVIDER_CLASS_NAME:
 				setLabelProviderClassName((String)newValue);

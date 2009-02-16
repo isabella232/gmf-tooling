@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderBaseImpl.java,v 1.13 2008/05/07 13:56:01 atikhomirov Exp $
+ * $Id: GenExpressionProviderBaseImpl.java,v 1.14 2009/02/16 14:04:49 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -90,7 +90,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 * @generated
 	 */
 	public GenExpressionProviderContainer getContainer() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER) return null;
 		return (GenExpressionProviderContainer)eContainer();
 	}
 
@@ -136,7 +136,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_CONTAINER__PROVIDERS, GenExpressionProviderContainer.class, msgs);
 		}

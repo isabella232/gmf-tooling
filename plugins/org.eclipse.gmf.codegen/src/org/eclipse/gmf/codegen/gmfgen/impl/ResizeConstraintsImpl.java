@@ -184,9 +184,9 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
-				return new Integer(getResizeHandles());
+				return getResizeHandles();
 			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES:
-				return new Integer(getNonResizeHandles());
+				return getNonResizeHandles();
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLE_NAMES:
 				return getResizeHandleNames();
 			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLE_NAMES:
@@ -204,10 +204,10 @@ public class ResizeConstraintsImpl extends EObjectImpl implements ResizeConstrai
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.RESIZE_CONSTRAINTS__RESIZE_HANDLES:
-				setResizeHandles(((Integer)newValue).intValue());
+				setResizeHandles((Integer)newValue);
 				return;
 			case GMFGenPackage.RESIZE_CONSTRAINTS__NON_RESIZE_HANDLES:
-				setNonResizeHandles(((Integer)newValue).intValue());
+				setNonResizeHandles((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

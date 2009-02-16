@@ -53,7 +53,7 @@ public class SeparatorImpl extends EObjectImpl implements Separator {
 	 * @generated
 	 */
 	public ToolGroup getGroup() {
-		if (eContainerFeatureID != GMFGenPackage.SEPARATOR__GROUP) return null;
+		if (eContainerFeatureID() != GMFGenPackage.SEPARATOR__GROUP) return null;
 		return (ToolGroup)eContainer();
 	}
 
@@ -94,7 +94,7 @@ public class SeparatorImpl extends EObjectImpl implements Separator {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.SEPARATOR__GROUP:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
 		}

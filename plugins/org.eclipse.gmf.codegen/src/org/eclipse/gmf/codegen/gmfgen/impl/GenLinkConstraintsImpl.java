@@ -84,7 +84,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public GenLink getLink() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK) return null;
 		return (GenLink)eContainer();
 	}
 
@@ -104,7 +104,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public void setLink(GenLink newLink) {
-		if (newLink != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK && newLink != null)) {
+		if (newLink != eInternalContainer() || (eContainerFeatureID() != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK && newLink != null)) {
 			if (EcoreUtil.isAncestor(this, newLink))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -310,7 +310,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, GenLink.class, msgs);
 		}

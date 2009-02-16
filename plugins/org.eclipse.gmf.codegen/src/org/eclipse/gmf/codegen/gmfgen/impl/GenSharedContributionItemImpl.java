@@ -70,7 +70,7 @@ public class GenSharedContributionItemImpl extends EObjectImpl implements GenSha
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -149,7 +149,7 @@ public class GenSharedContributionItemImpl extends EObjectImpl implements GenSha
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}

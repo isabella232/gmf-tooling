@@ -75,7 +75,7 @@ public abstract class GenParserImplementationImpl extends EObjectImpl implements
 	 * @generated
 	 */
 	public GenParsers getHolder() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PARSER_IMPLEMENTATION__HOLDER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_PARSER_IMPLEMENTATION__HOLDER) return null;
 		return (GenParsers)eContainer();
 	}
 
@@ -133,7 +133,7 @@ public abstract class GenParserImplementationImpl extends EObjectImpl implements
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_PARSER_IMPLEMENTATION__HOLDER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS, GenParsers.class, msgs);
 		}

@@ -230,9 +230,9 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
-				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+				return isReadOnly();
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
-				return isElementIcon() ? Boolean.TRUE : Boolean.FALSE;
+				return isElementIcon();
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				return getModelFacet();
 		}
@@ -248,10 +248,10 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
-				setReadOnly(((Boolean)newValue).booleanValue());
+				setReadOnly((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LABEL__ELEMENT_ICON:
-				setElementIcon(((Boolean)newValue).booleanValue());
+				setElementIcon((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				setModelFacet((LabelModelFacet)newValue);

@@ -2457,7 +2457,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -3693,7 +3693,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM, GenEditorGenerator.class, msgs);
 		}
@@ -3821,7 +3821,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
 				return getMarkerNavigationProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
-				return isValidationEnabled() ? Boolean.TRUE : Boolean.FALSE;
+				return isValidationEnabled();
 			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
 				return getMetricProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_PRIORITY:
@@ -3829,11 +3829,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_CLASS_NAME:
 				return getValidationDecoratorProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
-				return isValidationDecorators() ? Boolean.TRUE : Boolean.FALSE;
+				return isValidationDecorators();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 				return getValidationDecoratorProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
-				return isLiveValidationUIFeedback() ? Boolean.TRUE : Boolean.FALSE;
+				return isLiveValidationUIFeedback();
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				return getUnits();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3852,7 +3852,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
-				return isSynchronized() ? Boolean.TRUE : Boolean.FALSE;
+				return isSynchronized();
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
 				return getPreferences();
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_PAGES:
@@ -4035,7 +4035,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				setMarkerNavigationProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
-				setValidationEnabled(((Boolean)newValue).booleanValue());
+				setValidationEnabled((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__METRIC_PROVIDER_CLASS_NAME:
 				setMetricProviderClassName((String)newValue);
@@ -4047,13 +4047,13 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				setValidationDecoratorProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATORS:
-				setValidationDecorators(((Boolean)newValue).booleanValue());
+				setValidationDecorators((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_DECORATOR_PROVIDER_PRIORITY:
 				setValidationDecoratorProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LIVE_VALIDATION_UI_FEEDBACK:
-				setLiveValidationUIFeedback(((Boolean)newValue).booleanValue());
+				setLiveValidationUIFeedback((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__UNITS:
 				setUnits((String)newValue);
@@ -4081,7 +4081,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				setPalette((Palette)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SYNCHRONIZED:
-				setSynchronized(((Boolean)newValue).booleanValue());
+				setSynchronized((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCES:
 				setPreferences((GenDiagramPreferences)newValue);

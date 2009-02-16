@@ -189,7 +189,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 * @generated
 	 */
 	public GenAuditRoot getRoot() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_RULE__ROOT) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_RULE__ROOT) return null;
 		return (GenAuditRoot)eContainer();
 	}
 
@@ -519,7 +519,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ROOT:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_AUDIT_ROOT__RULES, GenAuditRoot.class, msgs);
 		}
@@ -548,9 +548,9 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 				return getSeverity();
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
-				return isUseInLiveMode() ? Boolean.TRUE : Boolean.FALSE;
+				return isUseInLiveMode();
 			case GMFGenPackage.GEN_AUDIT_RULE__REQUIRES_CONSTRAINT_ADAPTER:
-				return isRequiresConstraintAdapter() ? Boolean.TRUE : Boolean.FALSE;
+				return isRequiresConstraintAdapter();
 			case GMFGenPackage.GEN_AUDIT_RULE__CATEGORY:
 				if (resolve) return getCategory();
 				return basicGetCategory();
@@ -582,7 +582,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 				setSeverity((GenSeverity)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
-				setUseInLiveMode(((Boolean)newValue).booleanValue());
+				setUseInLiveMode((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__CATEGORY:
 				setCategory((GenAuditContainer)newValue);

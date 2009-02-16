@@ -1154,33 +1154,33 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__NOTE_LINE_COLOR:
 				return getNoteLineColor();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_CONNECTION_HANDLES:
-				return isShowConnectionHandles() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowConnectionHandles();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_POPUP_BARS:
-				return isShowPopupBars() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowPopupBars();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_MODEL:
-				return isPromptOnDelFromModel() ? Boolean.TRUE : Boolean.FALSE;
+				return isPromptOnDelFromModel();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_DIAGRAM:
-				return isPromptOnDelFromDiagram() ? Boolean.TRUE : Boolean.FALSE;
+				return isPromptOnDelFromDiagram();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_LAYOUT:
-				return isEnableAnimatedLayout() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnableAnimatedLayout();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_ZOOM:
-				return isEnableAnimatedZoom() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnableAnimatedZoom();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__ENABLE_ANTI_ALIAS:
-				return isEnableAntiAlias() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnableAntiAlias();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_GRID:
-				return isShowGrid() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowGrid();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_RULERS:
-				return isShowRulers() ? Boolean.TRUE : Boolean.FALSE;
+				return isShowRulers();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
-				return isSnapToGrid() ? Boolean.TRUE : Boolean.FALSE;
+				return isSnapToGrid();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
-				return isSnapToGeometry() ? Boolean.TRUE : Boolean.FALSE;
+				return isSnapToGeometry();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
-				return isGridInFront() ? Boolean.TRUE : Boolean.FALSE;
+				return isGridInFront();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 				return getRulerUnits();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
-				return new Double(getGridSpacing());
+				return getGridSpacing();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
 				return getGridLineColor();
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_STYLE:
@@ -1219,46 +1219,46 @@ public class GenDiagramPreferencesImpl extends EObjectImpl implements GenDiagram
 				setNoteLineColor((GenColor)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_CONNECTION_HANDLES:
-				setShowConnectionHandles(((Boolean)newValue).booleanValue());
+				setShowConnectionHandles((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_POPUP_BARS:
-				setShowPopupBars(((Boolean)newValue).booleanValue());
+				setShowPopupBars((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_MODEL:
-				setPromptOnDelFromModel(((Boolean)newValue).booleanValue());
+				setPromptOnDelFromModel((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__PROMPT_ON_DEL_FROM_DIAGRAM:
-				setPromptOnDelFromDiagram(((Boolean)newValue).booleanValue());
+				setPromptOnDelFromDiagram((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_LAYOUT:
-				setEnableAnimatedLayout(((Boolean)newValue).booleanValue());
+				setEnableAnimatedLayout((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__ENABLE_ANIMATED_ZOOM:
-				setEnableAnimatedZoom(((Boolean)newValue).booleanValue());
+				setEnableAnimatedZoom((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__ENABLE_ANTI_ALIAS:
-				setEnableAntiAlias(((Boolean)newValue).booleanValue());
+				setEnableAntiAlias((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_GRID:
-				setShowGrid(((Boolean)newValue).booleanValue());
+				setShowGrid((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SHOW_RULERS:
-				setShowRulers(((Boolean)newValue).booleanValue());
+				setShowRulers((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GRID:
-				setSnapToGrid(((Boolean)newValue).booleanValue());
+				setSnapToGrid((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__SNAP_TO_GEOMETRY:
-				setSnapToGeometry(((Boolean)newValue).booleanValue());
+				setSnapToGeometry((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_IN_FRONT:
-				setGridInFront(((Boolean)newValue).booleanValue());
+				setGridInFront((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__RULER_UNITS:
 				setRulerUnits((RulerUnits)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_SPACING:
-				setGridSpacing(((Double)newValue).doubleValue());
+				setGridSpacing((Double)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM_PREFERENCES__GRID_LINE_COLOR:
 				setGridLineColor((GenColor)newValue);

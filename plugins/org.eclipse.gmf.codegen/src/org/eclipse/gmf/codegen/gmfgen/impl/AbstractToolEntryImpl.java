@@ -114,7 +114,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 * @generated
 	 */
 	public ToolGroup getGroup() {
-		if (eContainerFeatureID != GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP) return null;
+		if (eContainerFeatureID() != GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP) return null;
 		return (ToolGroup)eContainer();
 	}
 
@@ -211,7 +211,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
 		}
@@ -229,7 +229,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP:
 				return getGroup();
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
-				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
+				return isDefault();
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME:
 				return getQualifiedToolName();
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__PROPERTIES:
@@ -248,7 +248,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__DEFAULT:
-				setDefault(((Boolean)newValue).booleanValue());
+				setDefault((Boolean)newValue);
 				return;
 			case GMFGenPackage.ABSTRACT_TOOL_ENTRY__QUALIFIED_TOOL_NAME:
 				setQualifiedToolName((String)newValue);

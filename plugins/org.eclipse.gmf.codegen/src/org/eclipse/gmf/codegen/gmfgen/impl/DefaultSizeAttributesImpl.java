@@ -138,9 +138,9 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__WIDTH:
-				return new Integer(getWidth());
+				return getWidth();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__HEIGHT:
-				return new Integer(getHeight());
+				return getHeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,10 +154,10 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__WIDTH:
-				setWidth(((Integer)newValue).intValue());
+				setWidth((Integer)newValue);
 				return;
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__HEIGHT:
-				setHeight(((Integer)newValue).intValue());
+				setHeight((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

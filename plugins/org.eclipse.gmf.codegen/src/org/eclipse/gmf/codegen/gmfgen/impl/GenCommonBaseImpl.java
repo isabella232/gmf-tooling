@@ -573,7 +573,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				if (resolve) return getDiagramRunTimeClass();
 				return basicGetDiagramRunTimeClass();
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
-				return new Integer(getVisualID());
+				return getVisualID();
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
 				return getElementType();
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
@@ -589,7 +589,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR:
 				return getBehaviour();
 			case GMFGenPackage.GEN_COMMON_BASE__SANS_DOMAIN:
-				return isSansDomain() ? Boolean.TRUE : Boolean.FALSE;
+				return isSansDomain();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -607,7 +607,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				setDiagramRunTimeClass((GenClass)newValue);
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
+				setVisualID((Integer)newValue);
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__ELEMENT_TYPE:
 				setElementType((ElementType)newValue);

@@ -79,7 +79,7 @@ public class GenSeparatorImpl extends EObjectImpl implements GenSeparator {
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_SEPARATOR__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_SEPARATOR__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -141,7 +141,7 @@ public class GenSeparatorImpl extends EObjectImpl implements GenSeparator {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_SEPARATOR__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}

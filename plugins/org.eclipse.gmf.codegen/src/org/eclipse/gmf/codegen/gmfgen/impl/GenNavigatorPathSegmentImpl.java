@@ -78,7 +78,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 * @generated
 	 */
 	public GenNavigatorPath getPath() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH) return null;
 		return (GenNavigatorPath)eContainer();
 	}
 
@@ -195,7 +195,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_NAVIGATOR_PATH__SEGMENTS, GenNavigatorPath.class, msgs);
 		}

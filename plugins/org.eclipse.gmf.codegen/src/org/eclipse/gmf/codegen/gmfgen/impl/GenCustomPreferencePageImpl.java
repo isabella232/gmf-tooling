@@ -209,7 +209,7 @@ public class GenCustomPreferencePageImpl extends GenPreferencePageImpl implement
 			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE:
-				return isGenerateBoilerplate() ? Boolean.TRUE : Boolean.FALSE;
+				return isGenerateBoilerplate();
 			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__PREFERENCES:
 				return getPreferences();
 		}
@@ -229,7 +229,7 @@ public class GenCustomPreferencePageImpl extends GenPreferencePageImpl implement
 				setQualifiedClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__GENERATE_BOILERPLATE:
-				setGenerateBoilerplate(((Boolean)newValue).booleanValue());
+				setGenerateBoilerplate((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__PREFERENCES:
 				getPreferences().clear();

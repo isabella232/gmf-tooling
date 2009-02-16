@@ -121,7 +121,7 @@ public class GenCustomActionImpl extends EObjectImpl implements GenCustomAction 
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_CUSTOM_ACTION__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_CUSTOM_ACTION__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -225,7 +225,7 @@ public class GenCustomActionImpl extends EObjectImpl implements GenCustomAction 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_CUSTOM_ACTION__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}
@@ -245,7 +245,7 @@ public class GenCustomActionImpl extends EObjectImpl implements GenCustomAction 
 			case GMFGenPackage.GEN_CUSTOM_ACTION__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGenPackage.GEN_CUSTOM_ACTION__GENERATE_BOILERPLATE:
-				return isGenerateBoilerplate() ? Boolean.TRUE : Boolean.FALSE;
+				return isGenerateBoilerplate();
 			case GMFGenPackage.GEN_CUSTOM_ACTION__NAME:
 				return getName();
 		}
@@ -264,7 +264,7 @@ public class GenCustomActionImpl extends EObjectImpl implements GenCustomAction 
 				setQualifiedClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CUSTOM_ACTION__GENERATE_BOILERPLATE:
-				setGenerateBoilerplate(((Boolean)newValue).booleanValue());
+				setGenerateBoilerplate((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_CUSTOM_ACTION__NAME:
 				setName((String)newValue);

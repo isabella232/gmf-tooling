@@ -127,7 +127,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * @generated
 	 */
 	public ToolGroup getGroup() {
-		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__GROUP) return null;
+		if (eContainerFeatureID() != GMFGenPackage.TOOL_GROUP__GROUP) return null;
 		return (ToolGroup)eContainer();
 	}
 
@@ -137,7 +137,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * @generated
 	 */
 	public Palette getPaletteGen() {
-		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
+		if (eContainerFeatureID() != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
 		return (Palette)eContainer();
 	}
 
@@ -165,7 +165,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * @generated
 	 */
 	public void setPalette(Palette newPalette) {
-		if (newPalette != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__PALETTE && newPalette != null)) {
+		if (newPalette != eInternalContainer() || (eContainerFeatureID() != GMFGenPackage.TOOL_GROUP__PALETTE && newPalette != null)) {
 			if (EcoreUtil.isAncestor(this, newPalette))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -296,7 +296,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.TOOL_GROUP__GROUP:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TOOL_GROUP__ENTRIES, ToolGroup.class, msgs);
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
@@ -318,13 +318,13 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				return getPalette();
 			case GMFGenPackage.TOOL_GROUP__STACK:
-				return isStack() ? Boolean.TRUE : Boolean.FALSE;
+				return isStack();
 			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
-				return isCollapse() ? Boolean.TRUE : Boolean.FALSE;
+				return isCollapse();
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
 				return getEntries();
 			case GMFGenPackage.TOOL_GROUP__TOOLS_ONLY:
-				return isToolsOnly() ? Boolean.TRUE : Boolean.FALSE;
+				return isToolsOnly();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -342,10 +342,10 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				setPalette((Palette)newValue);
 				return;
 			case GMFGenPackage.TOOL_GROUP__STACK:
-				setStack(((Boolean)newValue).booleanValue());
+				setStack((Boolean)newValue);
 				return;
 			case GMFGenPackage.TOOL_GROUP__COLLAPSE:
-				setCollapse(((Boolean)newValue).booleanValue());
+				setCollapse((Boolean)newValue);
 				return;
 			case GMFGenPackage.TOOL_GROUP__ENTRIES:
 				getEntries().clear();

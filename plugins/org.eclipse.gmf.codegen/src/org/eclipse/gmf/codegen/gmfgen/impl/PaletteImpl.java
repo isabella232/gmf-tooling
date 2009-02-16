@@ -137,7 +137,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @generated
 	 */
 	public GenDiagram getDiagram() {
-		if (eContainerFeatureID != GMFGenPackage.PALETTE__DIAGRAM) return null;
+		if (eContainerFeatureID() != GMFGenPackage.PALETTE__DIAGRAM) return null;
 		return (GenDiagram)eContainer();
 	}
 
@@ -292,7 +292,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__PALETTE, GenDiagram.class, msgs);
 		}
@@ -310,7 +310,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.PALETTE__FLYOUT:
-				return isFlyout() ? Boolean.TRUE : Boolean.FALSE;
+				return isFlyout();
 			case GMFGenPackage.PALETTE__GROUPS:
 				return getGroups();
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
@@ -331,7 +331,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.PALETTE__FLYOUT:
-				setFlyout(((Boolean)newValue).booleanValue());
+				setFlyout((Boolean)newValue);
 				return;
 			case GMFGenPackage.PALETTE__GROUPS:
 				getGroups().clear();

@@ -100,7 +100,7 @@ public class GenCommandActionImpl extends EObjectImpl implements GenCommandActio
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_COMMAND_ACTION__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_COMMAND_ACTION__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -183,7 +183,7 @@ public class GenCommandActionImpl extends EObjectImpl implements GenCommandActio
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_COMMAND_ACTION__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}

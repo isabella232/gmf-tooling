@@ -98,7 +98,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 * @generated
 	 */
 	public GenPropertySheet getSheet() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PROPERTY_TAB__SHEET) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_PROPERTY_TAB__SHEET) return null;
 		return (GenPropertySheet)eContainer();
 	}
 
@@ -189,7 +189,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_PROPERTY_TAB__SHEET:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_PROPERTY_SHEET__TABS, GenPropertySheet.class, msgs);
 		}

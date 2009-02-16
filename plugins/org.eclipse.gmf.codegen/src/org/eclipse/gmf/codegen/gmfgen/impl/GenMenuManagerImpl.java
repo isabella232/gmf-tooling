@@ -78,7 +78,7 @@ public class GenMenuManagerImpl extends GenContributionManagerImpl implements Ge
 	 * @generated
 	 */
 	public GenContributionManager getOwner() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_MENU_MANAGER__OWNER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_MENU_MANAGER__OWNER) return null;
 		return (GenContributionManager)eContainer();
 	}
 
@@ -154,7 +154,7 @@ public class GenMenuManagerImpl extends GenContributionManagerImpl implements Ge
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_MENU_MANAGER__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CONTRIBUTION_MANAGER__ITEMS, GenContributionManager.class, msgs);
 		}

@@ -576,7 +576,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -1441,7 +1441,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_NAVIGATOR__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__NAVIGATOR, GenEditorGenerator.class, msgs);
 		}
@@ -1457,7 +1457,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
-				return isGenerateDomainModelNavigator() ? Boolean.TRUE : Boolean.FALSE;
+				return isGenerateDomainModelNavigator();
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
 				return getDomainContentExtensionID();
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_NAME:
@@ -1522,7 +1522,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_NAVIGATOR__GENERATE_DOMAIN_MODEL_NAVIGATOR:
-				setGenerateDomainModelNavigator(((Boolean)newValue).booleanValue());
+				setGenerateDomainModelNavigator((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR__DOMAIN_CONTENT_EXTENSION_ID:
 				setDomainContentExtensionID((String)newValue);

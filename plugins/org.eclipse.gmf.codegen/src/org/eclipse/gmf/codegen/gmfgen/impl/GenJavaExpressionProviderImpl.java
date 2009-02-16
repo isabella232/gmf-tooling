@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenJavaExpressionProviderImpl.java,v 1.5 2008/05/05 21:06:41 atikhomirov Exp $
+ * $Id: GenJavaExpressionProviderImpl.java,v 1.6 2009/02/16 14:04:49 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -135,9 +135,9 @@ public class GenJavaExpressionProviderImpl extends GenExpressionProviderBaseImpl
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER__THROW_EXCEPTION:
-				return isThrowException() ? Boolean.TRUE : Boolean.FALSE;
+				return isThrowException();
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER__INJECT_EXPRESSION_BODY:
-				return isInjectExpressionBody() ? Boolean.TRUE : Boolean.FALSE;
+				return isInjectExpressionBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -151,10 +151,10 @@ public class GenJavaExpressionProviderImpl extends GenExpressionProviderBaseImpl
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER__THROW_EXCEPTION:
-				setThrowException(((Boolean)newValue).booleanValue());
+				setThrowException((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_JAVA_EXPRESSION_PROVIDER__INJECT_EXPRESSION_BODY:
-				setInjectExpressionBody(((Boolean)newValue).booleanValue());
+				setInjectExpressionBody((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

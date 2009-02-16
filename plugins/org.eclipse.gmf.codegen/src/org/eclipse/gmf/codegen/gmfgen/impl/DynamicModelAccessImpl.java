@@ -97,7 +97,7 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -197,7 +197,7 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ACCESS, GenEditorGenerator.class, msgs);
 		}

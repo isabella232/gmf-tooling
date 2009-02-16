@@ -97,7 +97,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -187,7 +187,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, GenEditorGenerator.class, msgs);
 		}

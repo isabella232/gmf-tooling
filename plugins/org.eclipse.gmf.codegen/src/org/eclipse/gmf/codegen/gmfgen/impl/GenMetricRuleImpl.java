@@ -248,7 +248,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @generated
 	 */
 	public GenMetricContainer getContainer() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_METRIC_RULE__CONTAINER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_METRIC_RULE__CONTAINER) return null;
 		return (GenMetricContainer)eContainer();
 	}
 
@@ -268,7 +268,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 * @generated
 	 */
 	public void setContainer(GenMetricContainer newContainer) {
-		if (newContainer != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_METRIC_RULE__CONTAINER && newContainer != null)) {
+		if (newContainer != eInternalContainer() || (eContainerFeatureID() != GMFGenPackage.GEN_METRIC_RULE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -364,7 +364,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_METRIC_RULE__CONTAINER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_METRIC_CONTAINER__METRICS, GenMetricContainer.class, msgs);
 		}

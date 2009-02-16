@@ -97,7 +97,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 * @generated
 	 */
 	public GenCommonBase getSubject() {
-		if (eContainerFeatureID != GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT) return null;
+		if (eContainerFeatureID() != GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT) return null;
 		return (GenCommonBase)eContainer();
 	}
 
@@ -180,7 +180,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GenCommonBase.class, msgs);
 		}

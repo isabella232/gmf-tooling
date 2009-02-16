@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenReferenceNewElementSpecImpl.java,v 1.6 2008/04/18 14:43:23 atikhomirov Exp $
+ * $Id: GenReferenceNewElementSpecImpl.java,v 1.7 2009/02/16 14:04:49 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
@@ -113,7 +113,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 * @generated
 	 */
 	public GenFeatureSeqInitializer getFeatureSeqInitializer() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER) return null;
 		return (GenFeatureSeqInitializer)eContainer();
 	}
 
@@ -167,7 +167,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS, GenFeatureSeqInitializer.class, msgs);
 		}

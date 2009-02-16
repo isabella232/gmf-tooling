@@ -76,7 +76,7 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	 * @generated
 	 */
 	public GenCustomPropertyTab getTab() {
-		if (eContainerFeatureID != GMFGenPackage.CUSTOM_TAB_FILTER__TAB) return null;
+		if (eContainerFeatureID() != GMFGenPackage.CUSTOM_TAB_FILTER__TAB) return null;
 		return (GenCustomPropertyTab)eContainer();
 	}
 
@@ -147,7 +147,7 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.CUSTOM_TAB_FILTER__TAB:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER, GenCustomPropertyTab.class, msgs);
 		}

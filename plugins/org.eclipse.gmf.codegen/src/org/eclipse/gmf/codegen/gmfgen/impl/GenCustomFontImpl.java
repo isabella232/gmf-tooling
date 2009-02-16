@@ -186,7 +186,7 @@ public class GenCustomFontImpl extends EObjectImpl implements GenCustomFont {
 			case GMFGenPackage.GEN_CUSTOM_FONT__NAME:
 				return getName();
 			case GMFGenPackage.GEN_CUSTOM_FONT__HEIGHT:
-				return new Integer(getHeight());
+				return getHeight();
 			case GMFGenPackage.GEN_CUSTOM_FONT__STYLE:
 				return getStyle();
 		}
@@ -205,7 +205,7 @@ public class GenCustomFontImpl extends EObjectImpl implements GenCustomFont {
 				setName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CUSTOM_FONT__HEIGHT:
-				setHeight(((Integer)newValue).intValue());
+				setHeight((Integer)newValue);
 				return;
 			case GMFGenPackage.GEN_CUSTOM_FONT__STYLE:
 				setStyle((FontStyle)newValue);

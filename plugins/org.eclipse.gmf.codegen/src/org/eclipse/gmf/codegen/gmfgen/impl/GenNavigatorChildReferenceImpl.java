@@ -173,7 +173,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 * @generated
 	 */
 	public GenNavigator getNavigator() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR) return null;
 		return (GenNavigator)eContainer();
 	}
 
@@ -417,7 +417,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_NAVIGATOR__CHILD_REFERENCES, GenNavigator.class, msgs);
 		}
@@ -447,7 +447,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__GROUP_ICON:
 				return getGroupIcon();
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
-				return isHideIfEmpty() ? Boolean.TRUE : Boolean.FALSE;
+				return isHideIfEmpty();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -476,7 +476,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 				setGroupIcon((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__HIDE_IF_EMPTY:
-				setHideIfEmpty(((Boolean)newValue).booleanValue());
+				setHideIfEmpty((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

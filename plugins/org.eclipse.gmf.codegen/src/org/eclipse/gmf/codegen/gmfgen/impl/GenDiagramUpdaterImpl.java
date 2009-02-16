@@ -160,7 +160,7 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_DIAGRAM_UPDATER__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_DIAGRAM_UPDATER__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -382,7 +382,7 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_DIAGRAM_UPDATER__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_UPDATER, GenEditorGenerator.class, msgs);
 		}

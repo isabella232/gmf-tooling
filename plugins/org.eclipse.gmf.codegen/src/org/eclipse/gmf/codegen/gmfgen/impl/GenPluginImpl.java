@@ -211,7 +211,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PLUGIN__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_PLUGIN__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -533,7 +533,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN, GenEditorGenerator.class, msgs);
 		}
@@ -559,7 +559,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 			case GMFGenPackage.GEN_PLUGIN__VERSION:
 				return getVersion();
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
-				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
+				return isPrintingEnabled();
 			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
 				return getRequiredPlugins();
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
@@ -590,7 +590,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				setVersion((String)newValue);
 				return;
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
-				setPrintingEnabled(((Boolean)newValue).booleanValue());
+				setPrintingEnabled((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_PLUGIN__REQUIRED_PLUGINS:
 				getRequiredPlugins().clear();

@@ -192,7 +192,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, GenReferenceNewElementSpec.class, msgs);
 		}
@@ -318,7 +318,7 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 * @generated
 	 */
 	public GenReferenceNewElementSpec getCreatingInitializer() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
 		return (GenReferenceNewElementSpec)eContainer();
 	}
 } //GenFeatureSeqInitializerImpl

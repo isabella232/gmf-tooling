@@ -183,7 +183,7 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 	 * @generated
 	 */
 	public GenEditorGenerator getEditorGen() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PARSERS__EDITOR_GEN) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_PARSERS__EDITOR_GEN) return null;
 		return (GenEditorGenerator)eContainer();
 	}
 
@@ -391,7 +391,7 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_PARSERS__EDITOR_GEN:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS, GenEditorGenerator.class, msgs);
 		}
@@ -413,7 +413,7 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 			case GMFGenPackage.GEN_PARSERS__CLASS_NAME:
 				return getClassName();
 			case GMFGenPackage.GEN_PARSERS__EXTENSIBLE_VIA_SERVICE:
-				return isExtensibleViaService() ? Boolean.TRUE : Boolean.FALSE;
+				return isExtensibleViaService();
 			case GMFGenPackage.GEN_PARSERS__PROVIDER_PRIORITY:
 				return getProviderPriority();
 			case GMFGenPackage.GEN_PARSERS__IMPLEMENTATIONS:
@@ -440,7 +440,7 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 				setClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_PARSERS__EXTENSIBLE_VIA_SERVICE:
-				setExtensibleViaService(((Boolean)newValue).booleanValue());
+				setExtensibleViaService((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_PARSERS__PROVIDER_PRIORITY:
 				setProviderPriority((ProviderPriority)newValue);

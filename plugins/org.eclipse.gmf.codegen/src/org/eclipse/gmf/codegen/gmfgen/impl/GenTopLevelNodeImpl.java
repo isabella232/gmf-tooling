@@ -52,7 +52,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 * @generated
 	 */
 	public GenDiagram getDiagram() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM) return null;
 		return (GenDiagram)eContainer();
 	}
 
@@ -93,7 +93,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES, GenDiagram.class, msgs);
 		}

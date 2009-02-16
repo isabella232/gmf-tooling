@@ -219,9 +219,9 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
-				return isLabelReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+				return isLabelReadOnly();
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
-				return isLabelElementIcon() ? Boolean.TRUE : Boolean.FALSE;
+				return isLabelElementIcon();
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
 				return getLabelModelFacet();
 		}
@@ -237,10 +237,10 @@ public class GenChildLabelNodeImpl extends GenChildNodeImpl implements GenChildL
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_READ_ONLY:
-				setLabelReadOnly(((Boolean)newValue).booleanValue());
+				setLabelReadOnly((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_ELEMENT_ICON:
-				setLabelElementIcon(((Boolean)newValue).booleanValue());
+				setLabelElementIcon((Boolean)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE__LABEL_MODEL_FACET:
 				setLabelModelFacet((LabelModelFacet)newValue);

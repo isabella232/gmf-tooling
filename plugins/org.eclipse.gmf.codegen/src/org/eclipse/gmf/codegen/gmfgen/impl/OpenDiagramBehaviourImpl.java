@@ -140,7 +140,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	 * @generated
 	 */
 	public GenCommonBase getSubject() {
-		if (eContainerFeatureID != GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT) return null;
+		if (eContainerFeatureID() != GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT) return null;
 		return (GenCommonBase)eContainer();
 	}
 
@@ -281,7 +281,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_COMMON_BASE__BEHAVIOUR, GenCommonBase.class, msgs);
 		}
@@ -305,7 +305,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__EDITOR_ID:
 				return getEditorID();
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
-				return isOpenAsEclipseEditor() ? Boolean.TRUE : Boolean.FALSE;
+				return isOpenAsEclipseEditor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -328,7 +328,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 				setEditorID((String)newValue);
 				return;
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__OPEN_AS_ECLIPSE_EDITOR:
-				setOpenAsEclipseEditor(((Boolean)newValue).booleanValue());
+				setOpenAsEclipseEditor((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

@@ -121,7 +121,7 @@ public class GenPreferenceImpl extends EObjectImpl implements GenPreference {
 	 * @generated
 	 */
 	public GenCustomPreferencePage getPage() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PREFERENCE__PAGE) return null;
+		if (eContainerFeatureID() != GMFGenPackage.GEN_PREFERENCE__PAGE) return null;
 		return (GenCustomPreferencePage)eContainer();
 	}
 
@@ -252,7 +252,7 @@ public class GenPreferenceImpl extends EObjectImpl implements GenPreference {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.GEN_PREFERENCE__PAGE:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CUSTOM_PREFERENCE_PAGE__PREFERENCES, GenCustomPreferencePage.class, msgs);
 		}

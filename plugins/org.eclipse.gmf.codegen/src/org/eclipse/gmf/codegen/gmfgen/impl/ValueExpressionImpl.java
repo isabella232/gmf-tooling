@@ -120,7 +120,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * @generated
 	 */
 	public GenExpressionProviderBase getProvider() {
-		if (eContainerFeatureID != GMFGenPackage.VALUE_EXPRESSION__PROVIDER) return null;
+		if (eContainerFeatureID() != GMFGenPackage.VALUE_EXPRESSION__PROVIDER) return null;
 		return (GenExpressionProviderBase)eContainer();
 	}
 
@@ -170,7 +170,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGenPackage.VALUE_EXPRESSION__PROVIDER:
 				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__EXPRESSIONS, GenExpressionProviderBase.class, msgs);
 		}
