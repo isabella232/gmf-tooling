@@ -458,31 +458,31 @@ public class GMFGenEditor
 						}
 					}
 
-					ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
+					final ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
 					delta.accept(visitor);
 
 					if (!visitor.getRemovedResources().isEmpty()) {
-						removedResources.addAll(visitor.getRemovedResources());
-						if (!isDirty()) {
-							getSite().getShell().getDisplay().asyncExec
-								(new Runnable() {
-									 public void run() {
+						getSite().getShell().getDisplay().asyncExec
+							(new Runnable() {
+								 public void run() {
+									 removedResources.addAll(visitor.getRemovedResources());
+									 if (!isDirty()) {
 										 getSite().getPage().closeEditor(GMFGenEditor.this, false);
 									 }
-								 });
-						}
+								 }
+							 });
 					}
 
 					if (!visitor.getChangedResources().isEmpty()) {
-						changedResources.addAll(visitor.getChangedResources());
-						if (getSite().getPage().getActiveEditor() == GMFGenEditor.this) {
-							getSite().getShell().getDisplay().asyncExec
-								(new Runnable() {
-									 public void run() {
+						getSite().getShell().getDisplay().asyncExec
+							(new Runnable() {
+								 public void run() {
+									 changedResources.addAll(visitor.getChangedResources());
+									 if (getSite().getPage().getActiveEditor() == GMFGenEditor.this) {
 										 handleActivate();
 									 }
-								 });
-						}
+								 }
+							 });
 					}
 				}
 				catch (CoreException exception) {
@@ -716,11 +716,6 @@ public class GMFGenEditor
 		// Make sure it's okay.
 		//
 		if (theSelection != null && !theSelection.isEmpty()) {
-			// I don't know if this should be run this deferred
-			// because we might have to give the editor a chance to process the viewer update events
-			// and hence to update the views first.
-			//
-			//
 			Runnable runnable =
 				new Runnable() {
 					public void run() {
@@ -731,7 +726,7 @@ public class GMFGenEditor
 						}
 					}
 				};
-			runnable.run();
+			getSite().getShell().getDisplay().asyncExec(runnable);
 		}
 	}
 
