@@ -44,6 +44,7 @@ public class «factoryClassName» {
 	«EXPAND xpt::Common::generatedMemberComment('Creates "' + title + '" palette tool group')»
 	private org.eclipse.gef.palette.PaletteContainer «createMethodName»() {
 		«EXPAND newContainer('paletteContainer')-»
+		«EXPAND setIdentity('paletteContainer')-»
 		«EXPAND setDescription('paletteContainer', self) FOR description-»
 		«EXPAND setSmallImage('paletteContainer', palette)-»
 		«EXPAND setLargeImage('paletteContainer', palette)-»
@@ -89,6 +90,7 @@ public class «factoryClassName» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gef.palette.ToolEntry «createMethodName»() {
 		«EXPAND newEntry('entry')-»
+		«EXPAND setIdentity('entry')-»
 		«EXPAND setSmallImage('entry', group.palette)-»
 		«EXPAND setLargeImage('entry', group.palette)-»
 		«EXPAND setToolClass('entry')-»
@@ -275,4 +277,10 @@ FIXME
 			return tool;
 		}
 	}
+«ENDDEFINE»
+
+«DEFINE setIdentity(toolVarName : String) FOR gmfgen::EntryBase-»
+«IF id <> null and id.size() != 0-»
+		 «toolVarName».setId("«id»");
+«ENDIF-»
 «ENDDEFINE»

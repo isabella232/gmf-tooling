@@ -6931,13 +6931,22 @@ public interface GMFGenPackage extends EPackage {
 	int ENTRY_BASE__CREATE_METHOD_NAME = 4;
 
 	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY_BASE__ID = 5;
+
+	/**
 	 * The number of structural features of the '<em>Entry Base</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE_FEATURE_COUNT = 5;
+	int ENTRY_BASE_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.AbstractToolEntryImpl <em>Abstract Tool Entry</em>}' class.
@@ -6993,6 +7002,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int ABSTRACT_TOOL_ENTRY__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_TOOL_ENTRY__ID = ENTRY_BASE__ID;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' container reference.
@@ -7083,6 +7101,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TOOL_ENTRY__CREATE_METHOD_NAME = ABSTRACT_TOOL_ENTRY__CREATE_METHOD_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__ID = ABSTRACT_TOOL_ENTRY__ID;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' container reference.
@@ -7210,6 +7237,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int STANDARD_ENTRY__CREATE_METHOD_NAME = ABSTRACT_TOOL_ENTRY__CREATE_METHOD_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STANDARD_ENTRY__ID = ABSTRACT_TOOL_ENTRY__ID;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' container reference.
@@ -7365,6 +7401,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int TOOL_GROUP__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__ID = ENTRY_BASE__ID;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' container reference.
@@ -14756,6 +14801,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getEntryBase_CreateMethodName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getId()
+	 * @see #getEntryBase()
+	 * @generated
+	 */
+	EAttribute getEntryBase_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.AbstractToolEntry <em>Abstract Tool Entry</em>}'.

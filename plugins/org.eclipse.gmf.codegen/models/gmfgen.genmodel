@@ -675,6 +675,7 @@
       <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/largeIconPath"/>
       <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/smallIconPath"/>
       <genFeatures createChild="false" propertyCategory="Entry" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/createMethodName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/id"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//AbstractToolEntry" labelFeature="#//gmfgen/EntryBase/title">
       <genFeatures createChild="false" propertyCategory="Tool" ecoreFeature="ecore:EAttribute gmfgen.ecore#//AbstractToolEntry/default"/>

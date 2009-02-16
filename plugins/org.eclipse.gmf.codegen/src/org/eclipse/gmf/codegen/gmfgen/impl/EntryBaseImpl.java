@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getLargeIconPath <em>Large Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getSmallIconPath <em>Small Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getCreateMethodName <em>Create Method Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,6 +133,26 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * @ordered
 	 */
 	protected String createMethodName = CREATE_METHOD_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getId()
+	 * @generated
+	 * @ordered
+	 */
+	protected String id = ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -262,6 +283,34 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getIdGen() {
+		return id;
+	}
+
+	public String getId() {
+		if (getIdGen() != null) {
+			return getIdGen();
+		}
+		return getCreateMethodName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setId(String newId) {
+		String oldId = id;
+		id = newId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__ID, oldId, id));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -275,6 +324,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return getSmallIconPath();
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				return getCreateMethodName();
+			case GMFGenPackage.ENTRY_BASE__ID:
+				return getId();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -301,6 +352,9 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return;
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				setCreateMethodName((String)newValue);
+				return;
+			case GMFGenPackage.ENTRY_BASE__ID:
+				setId((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -329,6 +383,9 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.ENTRY_BASE__ID:
+				setId(ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -351,6 +408,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
+			case GMFGenPackage.ENTRY_BASE__ID:
+				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -375,6 +434,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 		result.append(smallIconPath);
 		result.append(", createMethodName: ");
 		result.append(createMethodName);
+		result.append(", id: ");
+		result.append(id);
 		result.append(')');
 		return result.toString();
 	}
@@ -385,7 +446,7 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	protected final int getEntryID() {
 		EReference r = eContainmentFeature();
 		if (r != null) {
-			if (eContainer().eGet(r) instanceof EList) {
+			if (eContainer().eGet(r) instanceof EList<?>) {
 				return 1 + ((EList<?>) eContainer().eGet(r)).indexOf(this);
 			}
 			return 1;
