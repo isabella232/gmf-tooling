@@ -83,6 +83,10 @@ public class BuiltinMetaModel {
 	}
 
 	public static EClassifier getType(ExecutionContext ctx, Object obj) {
+		return getType(ctx.getOCLEnvironment(), obj);
+	}
+
+	public static EClassifier getType(EcoreEnvironment env, Object obj) {
 		// XXX (1) not sure how Collections are handled
 		// FIXME (2) need to support own types (IteratorType and DefinitionType)
 //		if (obj instanceof Collection) {
@@ -105,15 +109,15 @@ public class BuiltinMetaModel {
 //	if (obj instanceof XpandIterator) {
 //		return ITERATOR_TYPE;
 //	}
-		if (obj instanceof Collection) {
-			EClassifier firstElementType = ((Collection<?>) obj).isEmpty() ? null : getType(ctx, ((Collection<?>) obj).iterator().next());
-			TypeResolver<EClassifier, EOperation, EStructuralFeature> tr = ctx.getOCLEnvironment().getTypeResolver();
-			OCLStandardLibrary<EClassifier> stdLib = ctx.getOCLEnvironment().getOCLStandardLibrary();
-			if (obj instanceof Set) {
+		if (obj instanceof Collection<?>) {
+			EClassifier firstElementType = ((Collection<?>) obj).isEmpty() ? null : getType(env, ((Collection<?>) obj).iterator().next());
+			TypeResolver<EClassifier, EOperation, EStructuralFeature> tr = env.getTypeResolver();
+			OCLStandardLibrary<EClassifier> stdLib = env.getOCLStandardLibrary();
+			if (obj instanceof Set<?>) {
 				// XXX odd TypeResolver - CollectionType returned is EDataType for Ecore, need to cast nevertheless
 				return (EClassifier) tr.resolveCollectionType(CollectionKind.SET_LITERAL, firstElementType == null ? stdLib.getOclVoid() : firstElementType);
 			}
-			if (obj instanceof List) {
+			if (obj instanceof List<?>) {
 				return (EClassifier) tr.resolveCollectionType(CollectionKind.SEQUENCE_LITERAL, firstElementType == null ? stdLib.getOclVoid() : firstElementType);
 			}
 			return (EClassifier) tr.resolveCollectionType(CollectionKind.COLLECTION_LITERAL, firstElementType == null ? stdLib.getOclVoid() : firstElementType);
@@ -132,7 +136,7 @@ public class BuiltinMetaModel {
 		 * instead of OclVoid if null was passed as a parameter
 		 */
 		if (obj == null) {
-			return ctx.getOCLEnvironment().getOCLStandardLibrary().getOclVoid();
+			return env.getOCLStandardLibrary().getOclVoid();
 		}
 		return EcoreEnvironmentFactory.INSTANCE.createEvaluationEnvironment().getType(obj);
 //		return TypeUtil.resolveType(ctx.getOCLEnvironment(), ee.getType(obj));
