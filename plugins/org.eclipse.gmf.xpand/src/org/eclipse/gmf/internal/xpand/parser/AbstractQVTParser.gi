@@ -5,18 +5,12 @@ $Globals
 	/.
 	import org.eclipse.m2m.internal.qvt.oml.cst.CompleteSignatureCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.LibraryImportCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.ExpressionStatementCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.TransformationHeaderCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.ModuleUsageCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.TransformationRefineCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.RenameCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.ListTypeCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.DictLiteralExpCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.DictionaryTypeCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.DictLiteralPartCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.VariableInitializationCS;
-	import org.eclipse.m2m.internal.qvt.oml.cst.InstantiationExpCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.StatementCS;
+	import org.eclipse.m2m.internal.qvt.oml.cst.ListLiteralExpCS;
 	./
 $End
 
@@ -99,48 +93,6 @@ $Headers
 		return result;
 	}
 	
-	private final ScopedNameCS createScopedNameCS(TypeCS typeCS, String name) {
-		ScopedNameCS result = TempFactory.eINSTANCE.createScopedNameCS();
-		result.setTypeCS(typeCS);
-		result.setName(name);
-		if(typeCS != null) {
-			result.setStartOffset(typeCS.getStartOffset());
-			result.setEndOffset(typeCS.getEndOffset());
-			if(name != null) {
-				result.setEndOffset(result.getEndOffset() + name.length());
-			}
-		}
-		return result;
-	}
-	
-	private final CSTNode createExpressionStatementCS(OCLExpressionCS sym) {
-		ExpressionStatementCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createExpressionStatementCS();
-		result.setOclExpressionCS(sym);
-		return result;
-	}
-	
-	private final TransformationHeaderCS createTransformationHeaderCS(EList<StringLiteralExpCS> qualifiers, 
-			PathNameCS pathNameCS, SimpleSignatureCS simpleSignatureCS, EList<ModuleUsageCS> transfUsages, 
-			TransformationRefineCS transfRefineCS) {
-				TransformationHeaderCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createTransformationHeaderCS();
-				result.getQualifiers().addAll(qualifiers);
-				result.getParameters().addAll(simpleSignatureCS.getParams());
-				result.getModuleUsages().addAll(transfUsages);
-				result.setTransformationRefineCS(transfRefineCS);
-				result.setPathNameCS(pathNameCS);
-				return result;
-	}
-	
-	private final CSTNode createRenameCS(TypeCS sym, IToken tokenText, StringLiteralExpCS sym2) {
-		RenameCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createRenameCS();
-		SimpleNameCS nameCS = createSimpleNameCS(SimpleTypeEnum.IDENTIFIER_LITERAL, tokenText.toString());
-		setOffsets(nameCS, tokenText);
-		result.setSimpleNameCS(nameCS);
-		result.setTypeCS(sym);
-		result.setOriginalName(sym2);
-		return result;
-	}
-	
 	private ListTypeCS createListTypeCS(TypeCS typeCS) {
 		ListTypeCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createListTypeCS();
 		result.setTypeCS(typeCS);
@@ -167,24 +119,6 @@ $Headers
 		return result;
 	}
 	
-	private final CSTNode createVariableInitializationCS(IToken identifier, TypeCS typeCS, OCLExpressionCS initExpressionCS, boolean withResult) {
-		VariableInitializationCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createVariableInitializationCS();
-		SimpleNameCS nameCS = createSimpleNameCS(SimpleTypeEnum.IDENTIFIER_LITERAL, identifier.toString());
-		setOffsets(nameCS, identifier);
-		result.setSimpleNameCS(nameCS);
-		result.setTypeCS(typeCS);
-		result.setOclExpressionCS(initExpressionCS);
-		result.setWithResult(withResult);
-		return result;
-	}
-	
-	private InstantiationExpCS createNewRuleCallExpCS(TypeSpecCS typeSpecCS, List<OCLExpressionCS> arguments) {
-		InstantiationExpCS call = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createInstantiationExpCS();
-		call.setTypeSpecCS(typeSpecCS);
-		call.getArguments().addAll(arguments);
-		return call;
-	}
-	
 	private final StatementCS createBreakCS() {
 		StatementCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createBreakExpCS();
 		return result;
@@ -194,17 +128,11 @@ $Headers
 		StatementCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createContinueExpCS();
 		return result;
 	}
-
-	private final int getEndOffset(int ensuredOffset, EList<? extends CSTNode>... listOpt) {
-	    int offset = ensuredOffset;
-	    for (EList<? extends CSTNode> list : listOpt) {
-	        if (list.size() == 0) {
-	            continue;
-	        }
-	        CSTNode node = list.get(list.size()-1);
-	        offset = node.getEndOffset();
-	    }
-	    return offset;
+	
+	private ListLiteralExpCS createListLiteralExpCS(EList<CollectionLiteralPartCS> collectionLiteralParts) {
+		ListLiteralExpCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createListLiteralExpCS();
+		result.getCollectionLiteralParts().addAll(collectionLiteralParts);
+		return result;
 	}
 
 	private boolean isTokenOfType(IToken token, int kind) {

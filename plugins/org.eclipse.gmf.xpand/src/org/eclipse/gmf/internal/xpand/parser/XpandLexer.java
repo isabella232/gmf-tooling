@@ -12,18 +12,21 @@
  */
 package org.eclipse.gmf.internal.xpand.parser;
 
-import lpg.lpgjavaruntime.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lpg.lpgjavaruntime.LexParser;
+import lpg.lpgjavaruntime.LexStream;
+import lpg.lpgjavaruntime.LpgLexStream;
+import lpg.lpgjavaruntime.Monitor;
+import lpg.lpgjavaruntime.ParseTable;
+import lpg.lpgjavaruntime.PrsStream;
+import lpg.lpgjavaruntime.RuleAction;
+
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
-import org.eclipse.ocl.Environment;
-import org.eclipse.ocl.lpg.BasicEnvironment;
-import org.eclipse.ocl.util.OCLUtil;
-import org.eclipse.ocl.parser.OCLKWLexer;
 
 public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLexersym, RuleAction {
     private static ParseTable prs = new XpandLexerprs();

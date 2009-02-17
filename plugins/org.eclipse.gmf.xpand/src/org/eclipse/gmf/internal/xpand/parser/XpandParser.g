@@ -27,13 +27,11 @@ $Globals
 	import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeIterateExpCS;
 	import java.util.Collections;
 
-	/* [++] added imports */
 	import org.eclipse.m2m.internal.qvt.oml.cst.SimpleSignatureCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.ParameterDeclarationCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.DirectionKindEnum;
 	import org.eclipse.m2m.internal.qvt.oml.cst.DirectionKindCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.TypeSpecCS;
-	/* [--] added imports */
 
 	./
 $End
@@ -104,8 +102,27 @@ $DropSymbols
 	expression_statement
 	_import
 	transformation_h
+	qualifier
+	qualifierList
 	unit_element
 	renaming
+	param
+	param_list
+	param_listOpt
+	colon_param_listOpt
+	complete_signature
+	simple_signature
+	simple_signatureOpt
+	param_direction 
+	param_directionOpt
+	typespec
+	typeCS2
+	scoped_identifier
+	scoped_identifier2
+	scoped_identifier_list
+	semicolonOpt
+	qualifiedNameCS
+	qvtIdentifierCS
 $End
 
 -- FIXME need to fix $Notice section from EssentialOCL.g
@@ -211,7 +228,6 @@ $Rules
 		$EndJava./
 	defineOrAroundSuffix -> defineOrAroundSeq
 
-	lgOpt -> $empty | LG
 	commentTextPairAny -> $empty | TEXT commentTextPairAny
 
 	imports ::= $empty
