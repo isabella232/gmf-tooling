@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,7 +27,7 @@ public class «elementTypesClassName» extends ElementInitializers {
 	
 	«EXPAND attributes-»
 	
-	«EXPAND elementTypeField FOREACH getElements(self)-»
+	«EXPAND elementTypeField FOREACH getAllTypedElements()-»
 	
 	«EXPAND getImageRegistry-»
 
@@ -179,7 +179,7 @@ public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.ru
 	if (elements == null) {
 		elements = new java.util.IdentityHashMap();
 		«EXPAND bindUniqueIdentifierToNamedElement(getUniqueIdentifier()) FOR domainDiagramElement-»
-		«FOREACH getNodes(self) AS node-»
+		«FOREACH getAllNodes() AS node-»
 			«EXPAND bindUniqueIdentifierToNamedElement(node.getUniqueIdentifier()) FOR node.modelFacet-»
 		«ENDFOREACH-»
 		«FOREACH links->asSequence() AS link-»
@@ -227,7 +227,7 @@ private static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType
 public static boolean isKnownElementType(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 	if (KNOWN_ELEMENT_TYPES == null) {
 		KNOWN_ELEMENT_TYPES = new java.util.HashSet();
-		«EXPAND addKnownElementType FOREACH getElements(self)-»
+		«EXPAND addKnownElementType FOREACH getAllTypedElements()-»
 	}
 	return KNOWN_ELEMENT_TYPES.contains(elementType);
 }
@@ -243,7 +243,7 @@ KNOWN_ELEMENT_TYPES.add(«getUniqueIdentifier()»);
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(int visualID) {
 		switch (visualID) {
-			«EXPAND caseElementType FOREACH getElements(self)->select(el | el.elementType <> null)-»
+			«EXPAND caseElementType FOREACH getAllTypedElements()->select(el | el.elementType <> null)-»
 		}
 		return null;
 	}

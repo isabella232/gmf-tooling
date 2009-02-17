@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2006, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
 import xpt.NativeGenModelUtils;
 
 import xpt.GenModelUtils;
@@ -6,18 +17,22 @@ modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
 
 library Utils;
 
-helper getNodes(diagram : genModel::GenDiagram) : Sequence(genModel::GenNode) {
-	return ((Sequence {  })[genModel::GenTopLevelNode]->union(diagram.topLevelNodes->asSequence()))[genModel::GenNode]->union(diagram.childNodes->asSequence())
-}
-
-helper getElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenCommonBase) {
-	return ((Sequence { diagram })[genModel::GenContainerBase]->union(diagram.topLevelNodes->asSequence())->union(diagram.childNodes->asSequence()))[genModel::GenCommonBase]->union(diagram.links->asSequence())
+-- all elements that may have element type: diagram, nodes and links
+helper GenDiagram::getAllTypedElements() : Sequence(genModel::GenCommonBase) {
+	return Sequence { self }[genModel::GenCommonBase]->union(self.getAllNodes()->asSequence())->union(self.links->asSequence());
 }
 
 helper hasExplicitChildFeature(facet : genModel::TypeModelFacet) : Boolean {
 	return not isDerived(facet.childMetaFeature) and facet.childMetaFeature <> facet.containmentMetaFeature
 }
 
+-- true when link is contained in an object other than link's source,
+-- (1) sourceMetaFeature is specified
+-- (2) childMetaFeature is not the same as containment and belongs to a different class than container
+-- for (2), consider scenario from bug #226882, container "A", that holds link "L" and link's source and target, 
+-- "N1" and "N2". "N1" has a reference to "L" which is being used as childMetaFeature. Hence, link's container, "C"
+-- is different from link's source, "N1". As nothing can prevent "C" from subclassing "N1", there's no sure way to
+-- tell if container is really different from the source or not, and we'd better assume they are different.  
 helper hasContainerOtherThanSource(facet : genModel::TypeLinkModelFacet) : Boolean {
 	return facet.sourceMetaFeature <> null or facet.childMetaFeature <> facet.containmentMetaFeature
 }

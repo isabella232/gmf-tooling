@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -91,24 +91,24 @@ protected Class getNodeViewClass(org.eclipse.core.runtime.IAdaptable semanticAda
 			// This method is called with EObjectAdapter as parameter from:
 			//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
 			//   - generated ViewFactory.decorateView() for parent element
-	«IF getElements(self)->select(e | e.elementType <> null)->size() > 0-»
+	«IF getAllTypedElements()->select(e | e.elementType <> null)->size() > 0-»
 			if (!«getEditPartQualifiedClassName()».MODEL_ID.equals(«getVisualIDRegistryQualifiedClassName()».getModelID(containerView))) {
 				return null; // foreign diagram
 			}
 			switch (visualID) {
-		«IF ((getElements(self))[gmfgen::GenNode].elementType)[gmfgen::NotationType]->size() > 0-»
-			«EXPAND caseVisualID FOREACH ((getElements(self))[gmfgen::GenNode].elementType)[gmfgen::NotationType]-»
+		«IF getAllNodes().elementType[gmfgen::NotationType]->size() > 0-»
+			«EXPAND caseVisualID FOREACH getAllNodes().elementType[gmfgen::NotationType]-»
 				break; // pure design element
 		«ENDIF-»
-		«IF ((getElements(self))[gmfgen::GenNode].elementType)[gmfgen::MetamodelType]->size() > 0 or ((getElements(self))[gmfgen::GenNode].elementType)[gmfgen::SpecializationType]->size() > 0-»
-			«EXPAND caseVisualID FOREACH ((getElements(self))[gmfgen::GenNode].elementType)[gmfgen::MetamodelType]-»
-			«EXPAND caseVisualID FOREACH ((getElements(self))[gmfgen::GenNode].elementType)[gmfgen::SpecializationType]-»
+		«IF getAllNodes().elementType[gmfgen::MetamodelType]->size() > 0 or getAllNodes().elementType[gmfgen::SpecializationType]->size() > 0-»
+			«EXPAND caseVisualID FOREACH getAllNodes().elementType[gmfgen::MetamodelType]-»
+			«EXPAND caseVisualID FOREACH getAllNodes().elementType[gmfgen::SpecializationType]-»
 				if (domainElement == null || visualID != «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement)) {
 					return null; // visual id in semantic hint should match visual id for domain element
 				}
 				break;
 		«ENDIF-»
-			«EXPAND checkChildrenVisualIDs FOREACH getElements(self)->select(e | e.elementType <> null)-»
+			«EXPAND checkChildrenVisualIDs FOREACH getAllTypedElements()->select(e | e.elementType <> null)-»
 			default:
 				return null;
 			}

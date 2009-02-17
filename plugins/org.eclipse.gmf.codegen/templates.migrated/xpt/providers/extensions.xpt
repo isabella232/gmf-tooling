@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -90,7 +90,7 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
       «EXPAND xpt::Common::xmlGeneratedTag»
-«FOREACH getElements(self) AS e-»
+«FOREACH getAllTypedElements() AS e-»
 «EXPAND elementTypeSafe FOR e.elementType-»
 «ENDFOREACH-»
    </extension>
@@ -105,7 +105,7 @@
          </enablement>
       </clientContext> 
       <binding context="«editorGen.plugin.iD».TypeContext">
-«FOREACH getElements(self) AS e-»
+«FOREACH getAllTypedElements() AS e-»
          <elementType ref="«e.elementType.uniqueIdentifier»"/>
 «ENDFOREACH-»
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
@@ -176,7 +176,7 @@
 «DEFINE i18n FOR gmfgen::GenDiagram-»
 
 # Providers
-«EXPAND internal_i18n FOREACH getElements(self).elementType»
+«EXPAND internal_i18n FOREACH getAllTypedElements().elementType»
 «ENDDEFINE»
 
 «DEFINE internal_i18n FOR gmfgen::ElementType-»
