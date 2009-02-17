@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +36,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.RootManager;
+import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
 import org.eclipse.gmf.internal.xpand.build.OawBuilder;
 import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.migration.ExpressionMigrationFacade;
@@ -54,6 +57,8 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 public class MigrateXpandProject extends WorkspaceModifyOperation implements IObjectActionDelegate {
+
+	private static final String DEFAULT_TEMPLATES_FOLDER = "templates";
 
 	public static final String MIGRATED_ROOT_EXTENSION = "migrated";
 	
@@ -81,9 +86,11 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 
 	private IWorkbenchPart workbenchPart;
 
-	private IJavaProject selectedJavaProject;
-
 	private RootManager rootManager;
+
+	private IProject selectedProject;
+
+	private BuildPropertiesManager buildPropertiesManager;
 
 	private static IProgressMonitor createSubProgressMonitor(IProgressMonitor monitor, String taskName, int numberOfTicks) throws InterruptedException {
 		if (monitor.isCanceled()) {
@@ -157,23 +164,52 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 	@Override
 	protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
 		monitor.setTaskName("Migrating Xpand project");
-		List<IFolder> xpandRoots = rootManager.getXpandRootFolders();
-		monitor.beginTask("Migrating Xpand project", xpandRoots.size() + BIG_NUMBER * xpandRoots.size() + 3);
+		List<? extends IContainer> xpandRoots = new ArrayList<IFolder>(getRootManager().getXpandRootFolders());
+		if (xpandRoots.isEmpty()) {
+			xpandRoots = Collections.singletonList(getSelectedProject());
+		}
+		monitor.beginTask("Migrating Xpand project", xpandRoots.size() + BIG_NUMBER * xpandRoots.size() + 4);
 		int totalNumberOfSteps = 0;
-		for (IFolder rootFolder : xpandRoots) {
+		for (IContainer rootContainer : xpandRoots) {
 			// each root migration requires two additional steps
-			totalNumberOfSteps += 2 + getNumberOfSteps(rootFolder, createSubProgressMonitor(monitor, "Counting xpand resources in: " + rootFolder.getName(), 1));
+			totalNumberOfSteps += 2 + getNumberOfSteps(rootContainer, createSubProgressMonitor(monitor, "Counting xpand resources in: " + rootContainer.getName(), 1));
 		}
 		IProgressMonitor subMonitor = createSubProgressMonitor(monitor, "Migrating all available xpand root folders", BIG_NUMBER * xpandRoots.size());
 		subMonitor.beginTask("Migrating all available xpand root folders", totalNumberOfSteps);
 		List<CharSequence> nativeLibraryDeclarations = new ArrayList<CharSequence>();
-		for (IFolder rootFolder : xpandRoots) {
-			migrateXpandRoot(rootFolder, nativeLibraryDeclarations, subMonitor);
+		List<RootDescription> newRootDescriptions = new ArrayList<RootDescription>();
+		for (IContainer rootContainer : xpandRoots) {
+			newRootDescriptions.add(migrateXpandRoot(rootContainer, nativeLibraryDeclarations, subMonitor));
 		}
 		registerNativeLibraries(nativeLibraryDeclarations, createSubProgressMonitor(monitor, "Registering native libraries", 1));
 		switchToNewXpandBuilder(createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
+		updateXpandRootFile(newRootDescriptions, createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
+		getBuildPropertiesManager().save(createSubProgressMonitor(monitor, "Saving build.properties", 1));
+		buildPropertiesManager = null;
+	}
+
+	private void updateXpandRootFile(List<RootDescription> rootDescriptions, IProgressMonitor monitor) throws InvocationTargetException, CoreException {
+		monitor.beginTask("Saving modified Xpand roots information", 2);
+		StringBuilder sb = new StringBuilder();
+		for (RootDescription rootDescription : rootDescriptions) {
+			for (int i = 0; i < rootDescription.getRoots().size(); i++) {
+				if (i > 0) {
+					sb.append(",");
+				}
+				sb.append(rootDescription.getRoots().get(i).toString());
+			}
+			sb.append(ExpressionMigrationFacade.LF);
+		}
+		monitor.worked(1);
+		SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1);
+		subMonitor.setTaskName("Saving Xpand root file");
+		IFile xpandRootFile = getSelectedProject().getFile(RootManager.PROJECT_RELATIVE_PATH_TO_CONFIG_FILE);
 		try {
-			rootManager.saveRoots(createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
+			if (xpandRootFile.exists()) {
+				xpandRootFile.setContents(new ByteArrayInputStream(sb.toString().getBytes(xpandRootFile.getCharset())), IFile.FORCE | IFile.KEEP_HISTORY, subMonitor);
+			} else {
+				xpandRootFile.create(new ByteArrayInputStream(sb.toString().getBytes(xpandRootFile.getParent().getDefaultCharset())), true, subMonitor);
+			}
 		} catch (UnsupportedEncodingException e) {
 			throw new InvocationTargetException(e);
 		}
@@ -181,7 +217,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 
 	private void switchToNewXpandBuilder(IProgressMonitor monitor) throws CoreException, InterruptedException {
 		monitor.beginTask("Registering new Xpand builder for the project", 2);
-		IProjectDescription pd = selectedJavaProject.getProject().getDescription();
+		IProjectDescription pd = getSelectedProject().getDescription();
 		ArrayList<ICommand> newBuildCommands = new ArrayList<ICommand>();
 		ICommand[] buildCommands = pd.getBuildSpec();
 		boolean addNewXpandBuilder = true;
@@ -202,12 +238,12 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		if (addQVTBuilder) {
 			ICommand newCommand = pd.newCommand();
 			newCommand.setBuilderName(QVT_BUILDER_ID);
-			if (rootManager.getXpandRootFolders().size() > 0) {
+			if (getRootManager().getXpandRootFolders().size() > 0) {
 				Map arguments = newCommand.getArguments();
 				if (arguments == null) {
 					arguments = new HashMap();
 				}
-				IFolder mainXpandRootFolder = rootManager.getXpandRootFolders().get(0);
+				IFolder mainXpandRootFolder = getRootManager().getXpandRootFolders().get(0);
 				arguments.put(QVT_BUIDLER_SRC_CONTAINER_ARG, mainXpandRootFolder instanceof IProject ? "/" : mainXpandRootFolder.getProjectRelativePath().toString());
 				newCommand.setArguments(arguments);
 			}
@@ -226,9 +262,9 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 			pd.setNatureIds(newNatureIDs.toArray(new String[newNatureIDs.size()]));
 		}
 		
-		OawMarkerManager.deleteMarkers(selectedJavaProject.getProject());
+		OawMarkerManager.deleteMarkers(getSelectedProject());
 		monitor.worked(1);
-		selectedJavaProject.getProject().setDescription(pd, createSubProgressMonitor(monitor, "Saving modified project description", 1));
+		getSelectedProject().setDescription(pd, createSubProgressMonitor(monitor, "Saving modified project description", 1));
 	}
 
 	private void registerNativeLibraries(List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws CoreException, InvocationTargetException, InterruptedException {
@@ -237,7 +273,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 			return;
 		}
 		progressMonitor.beginTask("Registering native libraries", 2);
-		IFile pluginXml = selectedJavaProject.getProject().getFile(PLUGIN_XML_FILE_NAME);
+		IFile pluginXml = getSelectedProject().getFile(PLUGIN_XML_FILE_NAME);
 		StringBuilder pluginXmlContent = new StringBuilder();
 		int insertPosition;
 		if (pluginXml.exists()) {
@@ -272,6 +308,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 				pluginXml.setContents(inputStream, IFile.FORCE | IFile.KEEP_HISTORY, subProgressMonitor);
 			} else {
 				pluginXml.create(inputStream, true, subProgressMonitor);
+				getBuildPropertiesManager().addBinInclude(pluginXml);
 			}
 		} catch (UnsupportedEncodingException e) {
 			throw new InvocationTargetException(e);
@@ -289,24 +326,25 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		return result.append(LF);
 	}
 
-	private void migrateXpandRoot(IFolder rootFolder, List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws InterruptedException, CoreException,
+	private RootDescription migrateXpandRoot(IContainer rootContainer, List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws InterruptedException, CoreException,
 			InvocationTargetException {
-		IFolder templatesOutputFolder = getTemplatesOutputFolder(rootFolder, createSubProgressMonitor(progressMonitor, "Calculating new templates root folder name", 1));
-		IFolder nativeExtensionsRoot = getNativeExtensionsSourceRoot(rootFolder, createSubProgressMonitor(progressMonitor, "Creating new source rolot for native extensions", 1));
+		IFolder templatesOutputFolder = getTemplatesOutputFolder(rootContainer, createSubProgressMonitor(progressMonitor, "Calculating new templates root folder name", 1));
+		IFolder nativeExtensionsRoot = getNativeExtensionsSourceRoot(rootContainer, createSubProgressMonitor(progressMonitor, "Creating new source rolot for native extensions", 1));
 
-		MigrationVisitor visitor = new MigrationVisitor(rootFolder, templatesOutputFolder, nativeExtensionsRoot, selectedJavaProject, rootManager, progressMonitor);
-		acceptVisitor(rootFolder, visitor);
+		MigrationVisitor visitor = new MigrationVisitor(rootContainer, templatesOutputFolder, nativeExtensionsRoot, getSelectedProject(), getRootManager(), getBuildPropertiesManager(), progressMonitor);
+		acceptVisitor(rootContainer, visitor);
 		visitor.done();
 		nativeLibraryDeclarations.addAll(visitor.getNativeLibraryDeclarations());
-		rootManager.updateXpandRootFolder(rootFolder, templatesOutputFolder);
+		getBuildPropertiesManager().addBinInclude(templatesOutputFolder);
+		return getRootManager().createUpdatedRootDescription(rootContainer, templatesOutputFolder);
 	}
 
-	private int getNumberOfSteps(IFolder rootFolder, IProgressMonitor progressMonitor) throws CoreException, InterruptedException, InvocationTargetException {
-		progressMonitor.beginTask("Counting xpand resources in: " + rootFolder.getName(), 1);
+	private int getNumberOfSteps(IContainer rootContainer, IProgressMonitor progressMonitor) throws CoreException, InterruptedException, InvocationTargetException {
+		progressMonitor.beginTask("Counting xpand resources in: " + rootContainer.getName(), 1);
 		ResourceCountingVisitor counter = new ResourceCountingVisitor(progressMonitor);
-		acceptVisitor(rootFolder, counter);
+		acceptVisitor(rootContainer, counter);
 		progressMonitor.done();
-		return counter.getNumberOfFiles();
+		return counter.getNumberOfSteps();
 	}
 
 	private void acceptVisitor(IResource resource, AbstractMigrationVisitor visitor) throws InterruptedException, CoreException, InvocationTargetException {
@@ -323,10 +361,18 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		}
 	}
 
-	private IFolder getTemplatesOutputFolder(IFolder rootFolder, IProgressMonitor progressMonitor) {
+	private IFolder getTemplatesOutputFolder(IContainer rootContainer, IProgressMonitor progressMonitor) {
+		assert rootContainer instanceof IFolder || rootContainer instanceof IProject;
 		progressMonitor.beginTask("Calculating new templates root folder name", 1);
-		IContainer parent = rootFolder.getParent();
-		IPath relativePathBasis = rootFolder.getProjectRelativePath().removeFirstSegments(parent.getProjectRelativePath().segmentCount());
+		IContainer parent;
+		IPath relativePathBasis;
+		if (rootContainer instanceof IFolder) {
+			parent = rootContainer.getParent();
+			relativePathBasis = rootContainer.getProjectRelativePath().removeFirstSegments(parent.getProjectRelativePath().segmentCount());
+		} else {
+			parent = rootContainer;
+			relativePathBasis = new Path(DEFAULT_TEMPLATES_FOLDER);
+		}
 		IPath relativePath = relativePathBasis.addFileExtension(MIGRATED_ROOT_EXTENSION);
 		for (int i = 1; parent.getFolder(relativePath).exists(); i++) {
 			relativePath = relativePathBasis.addFileExtension(MIGRATED_ROOT_EXTENSION + i);
@@ -335,28 +381,57 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		return parent.getFolder(relativePath);
 	}
 
-	private IFolder getNativeExtensionsSourceRoot(IFolder rootFolder, IProgressMonitor progressMonitor) throws CoreException, InterruptedException {
+	private IFolder getNativeExtensionsSourceRoot(IContainer rootContainer, IProgressMonitor progressMonitor) throws CoreException, InterruptedException {
+		assert rootContainer instanceof IFolder || rootContainer instanceof IProject;
 		progressMonitor.beginTask("Calculating source root for native extensions", 1);
-		IProject project = selectedJavaProject.getProject();
-		String folderName = rootFolder.getName() + NATIVE_EXTENSIONS_SRC_FOLDER;
-		for (int i = 1; project.getFolder(folderName).exists(); i++) {
-			folderName = rootFolder.getName() + NATIVE_EXTENSIONS_SRC_FOLDER + i;
+		String baseFolderName;
+		if (rootContainer instanceof IFolder) {
+			baseFolderName = rootContainer.getName();
+		} else {
+			baseFolderName = DEFAULT_TEMPLATES_FOLDER;
+		}
+		String folderName = baseFolderName + NATIVE_EXTENSIONS_SRC_FOLDER;
+		for (int i = 1; getSelectedProject().getFolder(folderName).exists(); i++) {
+			folderName = baseFolderName + NATIVE_EXTENSIONS_SRC_FOLDER + i;
 		}
 		progressMonitor.done();
-		return project.getFolder(folderName);
+		return getSelectedProject().getFolder(folderName);
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
+		selectedProject = null;
+		rootManager = null;
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof IJavaProject) {
-				selectedJavaProject = (IJavaProject) structuredSelection.getFirstElement();
-				rootManager = new RootManager(selectedJavaProject.getProject());
-				action.setEnabled(rootManager.hasConfig());
-				return;
+			if (structuredSelection.size() == 1) {
+				if (structuredSelection.getFirstElement() instanceof IJavaProject) {
+					IJavaProject javaProject = (IJavaProject) structuredSelection.getFirstElement();
+					selectedProject = javaProject.getProject();
+				} else if (structuredSelection.getFirstElement() instanceof IProject) {
+					selectedProject = (IProject) structuredSelection.getFirstElement();
+				}
 			}
 		}
-		action.setEnabled(false);
+		action.setEnabled(selectedProject != null);
+		return;
+	}
+	
+	private IProject getSelectedProject() {
+		return selectedProject;
+	}
+	
+	private RootManager getRootManager() {
+		if (rootManager == null) {
+			rootManager = new RootManager(getSelectedProject());	
+		}
+		return rootManager;
+	}
+	
+	private BuildPropertiesManager getBuildPropertiesManager() {
+		if (buildPropertiesManager == null) {
+			buildPropertiesManager = new BuildPropertiesManager(getSelectedProject());
+		}
+		return buildPropertiesManager;
 	}
 
 	private Shell getShell() {

@@ -119,7 +119,7 @@ public class MigrateXpandRoot implements IObjectActionDelegate {
 		ResourceCountingVisitor visitor = new ResourceCountingVisitor(monitor);
 		container.accept(visitor);
 		monitor.done();
-		return visitor.getNumberOfFiles();
+		return visitor.getNumberOfSteps();
 	}
 
 	private void reportMigrationException(XpandResourceMigrationException ex) {

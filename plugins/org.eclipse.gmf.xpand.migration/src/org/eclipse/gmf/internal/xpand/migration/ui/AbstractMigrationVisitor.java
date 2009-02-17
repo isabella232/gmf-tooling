@@ -11,8 +11,8 @@
  */
 package org.eclipse.gmf.internal.xpand.migration.ui;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
@@ -39,11 +39,8 @@ public abstract class AbstractMigrationVisitor implements IResourceVisitor {
 		if (progressMonitor.isCanceled()) {
 			throw createCoreException(new InterruptedException());
 		}
-		if (resource.getType() == IResource.PROJECT) {
-			return true;
-		}
-		if (resource instanceof IFolder) {
-			visitFolder((IFolder) resource);
+		if (resource instanceof IContainer) {
+			visitContainer((IContainer) resource);
 			return true;
 		}
 		if (resource instanceof IFile) {
@@ -69,5 +66,5 @@ public abstract class AbstractMigrationVisitor implements IResourceVisitor {
 	
 	protected abstract void visitOtherResource(IFile resource) throws CoreException;
 
-	protected abstract void visitFolder(IFolder resource) throws CoreException;
+	protected abstract void visitContainer(IContainer resource) throws CoreException;
 }

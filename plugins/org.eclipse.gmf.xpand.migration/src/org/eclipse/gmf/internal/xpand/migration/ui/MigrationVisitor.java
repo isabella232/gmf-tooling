@@ -20,6 +20,8 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -48,28 +50,33 @@ public class MigrationVisitor extends AbstractMigrationVisitor {
 	private RootManager rootManager;
 
 	private IJavaProject javaProject;
+	
+	private IProject project;
 
 	private List<CharSequence> nativeLibraryDeclarations = new ArrayList<CharSequence>();
 
+	private BuildPropertiesManager buildPropertiesManager;
+
 	public MigrationVisitor(IContainer rootContainer, IFolder templatesOutputFolder, RootManager rootManager, IProgressMonitor progressMonitor) {
-		this(rootContainer, templatesOutputFolder, null, null, rootManager, progressMonitor);
+		this(rootContainer, templatesOutputFolder, null, null, rootManager, null, progressMonitor);
 	}
 
-	public MigrationVisitor(IContainer rootContainer, IFolder templatesOutputFolder, IFolder nativeExtensionsRoot, IJavaProject javaProject, RootManager rootManager, IProgressMonitor progressMonitor) {
+	public MigrationVisitor(IContainer rootContainer, IFolder templatesOutputFolder, IFolder nativeExtensionsRoot, IProject project, RootManager rootManager, BuildPropertiesManager buildPropertiesManager, IProgressMonitor progressMonitor) {
 		super(progressMonitor);
 		rootPathSegmentCount = rootContainer.getProjectRelativePath().segmentCount();
 		dstFolder = templatesOutputFolder;
 		dstNativeExtFolder = nativeExtensionsRoot;
 		this.rootManager = rootManager;
-		this.javaProject = javaProject;
+		this.project = project;
+		this.buildPropertiesManager = buildPropertiesManager;
 	}
 
 	public List<CharSequence> getNativeLibraryDeclarations() {
 		return nativeLibraryDeclarations;
 	}
-
+	
 	@Override
-	protected void visitFolder(IFolder resource) throws CoreException {
+	protected void visitContainer(IContainer resource) throws CoreException {
 		IPath relativePath = getRelativePath(resource);
 		IFolder folder = dstFolder.getFolder(relativePath);
 		folder.create(true, true, createSubProgressMonitor("Migrating " + resource.getProjectRelativePath().toString()));
@@ -158,15 +165,39 @@ public class MigrationVisitor extends AbstractMigrationVisitor {
 	}
 
 	private IFolder getNativeExtSourcesFolder() throws CoreException {
+		assert dstNativeExtFolder != null;
 		if (!dstNativeExtFolder.exists()) {
 			dstNativeExtFolder.create(true, true, createSubProgressMonitor("Creating folder: " + dstNativeExtFolder.getName()));
-			IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
+			IClasspathEntry[] rawClasspath = getJavaProject().getRawClasspath();
 			IClasspathEntry[] newRawClasspath = new IClasspathEntry[rawClasspath.length + 1];
 			System.arraycopy(rawClasspath, 0, newRawClasspath, 0, rawClasspath.length);
 			newRawClasspath[rawClasspath.length] = JavaCore.newSourceEntry(dstNativeExtFolder.getFullPath());
-			javaProject.setRawClasspath(newRawClasspath, createSubProgressMonitor("Setting classpath"));
+			getJavaProject().setRawClasspath(newRawClasspath, createSubProgressMonitor("Setting classpath"));
+			assert buildPropertiesManager != null;
+			buildPropertiesManager.addSourceFolder(dstNativeExtFolder);
 		}
 		return dstNativeExtFolder;
+	}
+
+	private IJavaProject getJavaProject() throws CoreException {
+		if (javaProject == null) {
+            IProjectDescription descr = project.getDescription();
+            IClasspathEntry[] rawClasspath = null;
+            if (!descr.hasNature(JavaCore.NATURE_ID)) {
+            	String[] oldNatures = descr.getNatureIds();
+            	String[] newNatures = new String[oldNatures.length + 1];
+            	System.arraycopy(oldNatures, 0, newNatures, 0, oldNatures.length);
+            	newNatures[oldNatures.length] = JavaCore.NATURE_ID;
+            	descr.setNatureIds(newNatures);
+            	project.setDescription(descr, null);
+				rawClasspath = new IClasspathEntry[] { JavaCore.newLibraryEntry(JavaCore.getClasspathVariable("JRE_LIB"), null, null) };
+            }
+			javaProject = JavaCore.create(project);
+			if (rawClasspath != null) {
+				javaProject.setRawClasspath(rawClasspath, null);
+			}
+		}
+		return javaProject;
 	}
 	
 	/**
