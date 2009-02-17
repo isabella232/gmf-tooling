@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2007, 2008 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Borland) - [243151] explicit source/target for links
+ */
 import xpt.diagram.editpolicies.LinkUtils;
 import xpt.GenModelUtils;
 
@@ -29,6 +41,8 @@ helper getReroutableRefLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel
 	return getAllRelatedReroutableLinks(linkEnd)->select(link | isRefLink(link))
 }
 
+--XXX[MG]: again, it would be better to use linkEnd.incomingLinks.union(linkEnd.outgoingLinks).toList() 
+--but it will change the ordering and produce meaningless diff in the generated code
 helper getAllRelatedLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
 	return linkEnd.getDiagram().links->select(link | canBeSource(link, linkEnd) or canBeTarget(link, linkEnd))->asSequence()
 }
