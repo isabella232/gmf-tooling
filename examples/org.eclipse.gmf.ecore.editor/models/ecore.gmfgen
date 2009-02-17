@@ -990,79 +990,95 @@
     <palette>
       <groups
           title="Nodes"
-          description="Diagram Nodes">
+          description="Diagram Nodes"
+          id="top">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EClass"
             description="Create Class"
+            id="EClass"
             genNodes="//@diagram/@topLevelNodes.0 //@diagram/@childNodes.3"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EPackage"
             description="Create Package"
+            id="EPackage"
             genNodes="//@diagram/@topLevelNodes.1 //@diagram/@childNodes.4"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EAnnotation"
             description="Create Annotation"
+            id="EAnnotation"
             genNodes="//@diagram/@childNodes.2 //@diagram/@topLevelNodes.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EDataType"
             description="Create DataType"
+            id="EDataType"
             genNodes="//@diagram/@childNodes.5 //@diagram/@topLevelNodes.3"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EEnum"
             description="Create Enumeration"
+            id="EEnum"
             genNodes="//@diagram/@childNodes.6 //@diagram/@topLevelNodes.4"/>
       </groups>
       <groups
           title="Child Nodes"
-          description="Child Nodes">
+          description="Child Nodes"
+          id="child">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EAttribute"
             description="Create Attribute"
+            id="EAttribute"
             genNodes="//@diagram/@childNodes.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EOperation"
             description="Create Operation"
+            id="EOperation"
             genNodes="//@diagram/@childNodes.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Annotation details"
             description="Create Annotation details"
+            id="EAnnotationEntry"
             genNodes="//@diagram/@childNodes.7"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EEnumLiteral"
             description="Create Enumeration literal"
+            id="EEnumLiteral"
             genNodes="//@diagram/@childNodes.8"/>
       </groups>
       <groups
           title="Links"
-          description="Links">
+          description="Links"
+          id="link">
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="EAnnotation reference"
             description="Create Annotation reference link"
+            id="annotate"
             genLinks="//@diagram/@links.0"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Association"
             description="Create Association link"
+            id="associate"
             genLinks="//@diagram/@links.1"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Aggregation"
             description="Create Aggregation link"
+            id="aggregate"
             genLinks="//@diagram/@links.2"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Generalization"
             description="Create Generalization link"
+            id="generalize"
             genLinks="//@diagram/@links.3"/>
       </groups>
     </palette>
