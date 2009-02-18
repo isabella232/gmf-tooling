@@ -110,7 +110,7 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 	(but don't forget to clean corresponding Edge, if any)
 «ENDREM-»
 «IF genIncomingLinks->notEmpty()-»
-	for (Iterator it = «view».getTargetEdges().iterator(); it.hasNext();) {
+	for (java.util.Iterator it = «view».getTargetEdges().iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Edge incomingLink = (org.eclipse.gmf.runtime.notation.Edge) it.next();
 «FOREACH genIncomingLinks AS il-»
 		if («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(incomingLink) == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR il») {
@@ -123,7 +123,7 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 	}
 «ENDIF-»
 «IF genOutgoingLinks->notEmpty()-»
-	for (Iterator it = «view».getSourceEdges().iterator(); it.hasNext();) {
+	for (java.util.Iterator it = «view».getSourceEdges().iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Edge outgoingLink = (org.eclipse.gmf.runtime.notation.Edge) it.next();
 «FOREACH genOutgoingLinks AS ol-»
 		if («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(outgoingLink) == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR ol») {
