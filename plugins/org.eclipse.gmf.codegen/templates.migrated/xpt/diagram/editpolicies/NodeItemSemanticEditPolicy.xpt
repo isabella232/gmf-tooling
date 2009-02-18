@@ -47,7 +47,8 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-	org.eclipse.gmf.runtime.common.core.command.CompositeCommand cc = new org.eclipse.gmf.runtime.common.core.command.CompositeCommand(null);
+	org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand cc = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(getEditingDomain(), null);
+	cc.setTransactionNestingEnabled(false);
 	«EXPAND destroyEdges('view')-»
 	org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut");«EXPAND xpt::Common::nonNLS»
 	if (annotation == null) {
@@ -68,7 +69,7 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 «DEFINE addDestroyChildNodesCommand FOR gmfgen::GenNode-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private void addDestroyChildNodesCommand(org.eclipse.gmf.runtime.common.core.command.CompositeCommand cmd) {
+	private void addDestroyChildNodesCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 		for (java.util.Iterator it = view.getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) it.next();

@@ -50,8 +50,7 @@ element kind from domain element.
 		return super.getCommand(request);
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment('Returns visual id from request parameters.
-')»
+	«EXPAND xpt::Common::generatedMemberComment('Returns visual id from request parameters.')»
 	protected int getVisualID(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 		Object id = request.getParameter(VISUAL_ID_KEY);
 		return id instanceof Integer ? ((Integer) id).intValue() : -1;
@@ -59,20 +58,9 @@ element kind from domain element.
 
 	«EXPAND semanticPart-»
 
-	«EXPAND xpt::Common::generatedMemberComment('Returns editing domain from the host edit part.
-')»
+	«EXPAND xpt::Common::generatedMemberComment('Returns editing domain from the host edit part.')»
 	protected org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
 		return ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment('Creates command to destroy the link.
-')»
-	protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.notation.View view) {
-		org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);
-		org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest request =
-				new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(getEditingDomain(), false);
-		return editPart.getCommand(
-				new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(request, java.util.Collections.EMPTY_MAP));
 	}
 
 	«EXPAND addDestroyShortcutsCommand-»
@@ -100,11 +88,11 @@ element kind from domain element.
 
 «DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment('Clean all shortcuts to the host element from the same diagram')»
-	protected void addDestroyShortcutsCommand(org.eclipse.gmf.runtime.common.core.command.CompositeCommand cmd, org.eclipse.gmf.runtime.notation.View view) {
+	protected void addDestroyShortcutsCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd, org.eclipse.gmf.runtime.notation.View view) {
 		«EXPAND xpt::Common::_assert('view.getEAnnotation("Shortcut") == null')-»
 		for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
-			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { «EXPAND xpt::Common::nonNLS»
+			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) {«EXPAND xpt::Common::nonNLS»
 				continue;
 			}
 			cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), nextView));
@@ -146,9 +134,6 @@ element kind from domain element.
 	«EXPAND getReorientRelationshipCommand-»
 	
 	«EXPAND getGEFWrapper-»
-	«EXPAND getMSLWrapper-»
-
-	«EXPAND getSemanticElement-»
 «ENDDEFINE»
 
 «DEFINE getEditHelperCommand FOR gmfgen::GenDiagram-»
@@ -165,8 +150,7 @@ element kind from domain element.
 		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstant», null);
 		if (command != null) {
 			if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
-				org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
+				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(getEditingDomain(), command.getLabel()).compose(command);
 			}
 			return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(command);
 		}
@@ -317,21 +301,6 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.ec
 	protected final org.eclipse.gef.commands.Command getGEFWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
 		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(cmd);
 	}
-«ENDDEFINE»
-
-«DEFINE getMSLWrapper FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment('@deprecated use getGEFWrapper() instead')»
-	protected final org.eclipse.gef.commands.Command getMSLWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
-		// XXX deprecated: use getGEFWrapper() instead
-		return getGEFWrapper(cmd);
-	}
-«ENDDEFINE»
-
-«DEFINE getSemanticElement FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.emf.ecore.EObject getSemanticElement() {
-	return org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.resolveSemanticElement((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
-}
 «ENDDEFINE»
 
 
