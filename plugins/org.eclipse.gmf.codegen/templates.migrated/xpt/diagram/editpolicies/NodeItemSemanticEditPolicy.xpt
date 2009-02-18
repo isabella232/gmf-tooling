@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - [257632] do not rely on EditPart presence for element deletion
  */
  
 «REM»
@@ -45,68 +46,94 @@ public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItem
 «DEFINE getDestroyElementCommand FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
-	org.eclipse.gef.commands.CompoundCommand cc = getDestroyEdgesCommand();
-	«IF hasChildrenOrCompartments(self)-»
-	addDestroyChildNodesCommand(cc);
-	«ENDIF-»
-	addDestroyShortcutsCommand(cc);
-	«EXPAND destroySemanticElement-»
-	return cc.unwrap();
+	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
+	org.eclipse.gmf.runtime.common.core.command.CompositeCommand cc = new org.eclipse.gmf.runtime.common.core.command.CompositeCommand(null);
+	«EXPAND destroyEdges('view')-»
+	org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut");«EXPAND xpt::Common::nonNLS»
+	if (annotation == null) {
+		// there are indirectly referenced children, need extra commands: «childNodes->union(compartments.childNodes->asBag())->exists(not isDirectlyOwned(self))»
+«IF hasChildrenOrCompartments(self)-»
+		addDestroyChildNodesCommand(cc);
+«ENDIF-»
+		addDestroyShortcutsCommand(cc, view);
+		// delete host element
+		cc.add(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req));
+	} else {«REM»Here, we may play smart and don't generate else for non-toplevel nodes(which can't be shortcuts). Is it worth doing?«ENDREM»
+		cc.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), view));
+	}
+	return getGEFWrapper(cc.reduce());
 }
-«ENDDEFINE»
-
-«DEFINE destroySemanticElement FOR gmfgen::GenNode-»
-	«EXPAND fixElementToDeleteIfShortcut-»
-cc.add(getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req)));
 «ENDDEFINE»
 
 «DEFINE addDestroyChildNodesCommand FOR gmfgen::GenNode-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected void addDestroyChildNodesCommand(org.eclipse.gef.commands.CompoundCommand cmd) {
+	private void addDestroyChildNodesCommand(org.eclipse.gmf.runtime.common.core.command.CompositeCommand cmd) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-		org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «EXPAND xpt::Common::nonNLS»
-		if (annotation != null) {
-			return;
-		}
 		for (java.util.Iterator it = view.getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) it.next();
 			switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(node)) {
-			«EXPAND destroyChildNodes('node')-»
-			«IF not compartments->isEmpty()-»
-				«FOREACH compartments->asSequence() AS compartment-»
+			«EXPAND destroyChildNodes('node', self) FOREACH childNodes-»
+			«IF compartments->notEmpty()»«FOREACH compartments AS compartment-»
 			«EXPAND xpt::Common::caseVisualID FOR compartment»
 				for (java.util.Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
 					org.eclipse.gmf.runtime.notation.Node cnode = (org.eclipse.gmf.runtime.notation.Node) cit.next();
 					switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(cnode)) {
-					«EXPAND destroyChildNodes('cnode') FOR compartment-»
+					«EXPAND destroyChildNodes('cnode', self) FOREACH compartment.childNodes-»
 					}
 				}
 				break;
-				«ENDFOREACH-»
-			«ENDIF-»
+			«ENDFOREACH»«ENDIF-»
 			}
 		}
 	}
 «ENDDEFINE»
 
-«DEFINE destroyChildNodes(nodeVar : String) FOR gmfgen::GenChildContainer-»
-	«FOREACH childNodes->asSequence() AS childNode-»
-	«EXPAND xpt::Common::caseVisualID FOR childNode»
-		cmd.add(getDestroyElementCommand(«nodeVar»));
-		break;
-	«ENDFOREACH-»
+«DEFINE destroyChildNodes(nodeVar : String, gmfgen::GenNode genNode) FOR gmfgen::GenChildNode-»
+«EXPAND xpt::Common::caseVisualID»
+	«EXPAND destroyEdges(nodeVar)-»
+	cmd.add(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(getEditingDomain(), «nodeVar».getElement(), false))); // directlyOwned: «self.isDirectlyOwned(genNode)»
+	// don't need explicit deletion of «nodeVar» as parent's view deletion would clean child views as well 
+	// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), «nodeVar»));
+	break;
 «ENDDEFINE»
 
-
-«DEFINE fixElementToDeleteIfShortcut FOR gmfgen::GenTopLevelNode-»
-	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-	if (view.getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
-		req.setElementToDestroy(view);
+// @param view - Notation element for the passed node
+«DEFINE destroyEdges(String view) FOR gmfgen::GenNode-»
+«REM»
+	XXX: Though semantic editpolicy is supposed to create commands that operate with semantic elements only,
+	old code used to delegate child/link deletion to respective editparts, which in turn led to semantic commands
+	being combined with notational commands (BaseItemSemanticEditPolicy#addDeleteViewCommand()).
+	---
+	Use DiagramUpdater.get[Incoming|Outgoing]View instead, to clean links that are not present on a diagram
+	(but don't forget to clean corresponding Edge, if any)
+«ENDREM-»
+«IF genIncomingLinks->notEmpty()-»
+	for (Iterator it = «view».getTargetEdges().iterator(); it.hasNext();) {
+		org.eclipse.gmf.runtime.notation.Edge incomingLink = (org.eclipse.gmf.runtime.notation.Edge) it.next();
+«FOREACH genIncomingLinks AS il-»
+		if («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(incomingLink) == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR il») {
+			«EXPAND impl::diagram::commands::DeleteLinkCommand::newRequest('r', 'incomingLink') FOR il-»
+			cc.add(«EXPAND impl::diagram::commands::DeleteLinkCommand::newInstance('r') FOR il»);
+			cc.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), incomingLink));
+			continue;
+		}
+«ENDFOREACH-»
 	}
+«ENDIF-»
+«IF genOutgoingLinks->notEmpty()-»
+	for (Iterator it = «view».getSourceEdges().iterator(); it.hasNext();) {
+		org.eclipse.gmf.runtime.notation.Edge outgoingLink = (org.eclipse.gmf.runtime.notation.Edge) it.next();
+«FOREACH genOutgoingLinks AS ol-»
+		if («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(outgoingLink) == «EXPAND xpt::editor::VisualIDRegistry::visualID FOR ol») {
+			«EXPAND impl::diagram::commands::DeleteLinkCommand::newRequest('r', 'outgoingLink') FOR ol-»
+			cc.add(«EXPAND impl::diagram::commands::DeleteLinkCommand::newInstance('r') FOR ol»);
+			cc.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), outgoingLink));
+			continue;
+		}
+«ENDFOREACH-»
+	}
+«ENDIF-»
 «ENDDEFINE»
-
-«REM»Shortcuts supported only for top-level elements«ENDREM»
-«DEFINE fixElementToDeleteIfShortcut FOR gmfgen::GenNode»«ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»

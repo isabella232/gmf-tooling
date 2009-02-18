@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -75,20 +75,6 @@ element kind from domain element.
 				new org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper(request, java.util.Collections.EMPTY_MAP));
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment('Creates commands to destroy all host incoming and outgoing links.
-')»
-	protected org.eclipse.gef.commands.CompoundCommand getDestroyEdgesCommand() {
-		org.eclipse.gef.commands.CompoundCommand cmd = new org.eclipse.gef.commands.CompoundCommand();
-		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-		for (java.util.Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((org.eclipse.gmf.runtime.notation.Edge) it.next()));
-		}
-		for (java.util.Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((org.eclipse.gmf.runtime.notation.Edge) it.next()));
-		}
-		return cmd;
-	}
-	
 	«EXPAND addDestroyShortcutsCommand-»
 
 	«EXPAND linkConstraints-»
@@ -98,8 +84,7 @@ element kind from domain element.
 «ENDDEFINE»
 
 «DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment('Extended request data key to hold editpart visual id.
-')»
+	«EXPAND xpt::Common::generatedMemberComment('Extended request data key to hold editpart visual id.')»
 	public static final String VISUAL_ID_KEY = "visual_id"; «EXPAND xpt::Common::nonNLS»
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -114,20 +99,17 @@ element kind from domain element.
 «ENDDEFINE»
 
 «DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-protected void addDestroyShortcutsCommand(org.eclipse.gef.commands.CompoundCommand command) {
-	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-	if (view.getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
-		return;
-	}
-	for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
-		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
-		if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { «EXPAND xpt::Common::nonNLS»
-			continue;
+	«EXPAND xpt::Common::generatedMemberComment('Clean all shortcuts to the host element from the same diagram')»
+	protected void addDestroyShortcutsCommand(org.eclipse.gmf.runtime.common.core.command.CompositeCommand cmd, org.eclipse.gmf.runtime.notation.View view) {
+		«EXPAND xpt::Common::_assert('view.getEAnnotation("Shortcut") == null')-»
+		for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
+			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
+			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { «EXPAND xpt::Common::nonNLS»
+				continue;
+			}
+			cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), nextView));
 		}
-		command.add(getDestroyElementCommand(nextView));
 	}
-}
 «ENDDEFINE»
 
 «DEFINE semanticPart FOR gmfgen::GenDiagram-»

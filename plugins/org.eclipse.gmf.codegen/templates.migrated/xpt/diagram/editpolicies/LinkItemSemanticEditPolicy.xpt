@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,38 +31,28 @@ public class «itemSemanticEditPolicyClassName» extends «diagram.getBaseItemSeman
 «ENDDEFINE» 
 
 «DEFINE classBody FOR gmfgen::GenLink-»
-	«EXPAND getDestroySemanticCommand FOR modelFacet -»
+	«EXPAND getDestroySemanticCommand(self) FOR modelFacet -»
 	«IF isTypeLink(self)-»
 		«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands -»
 	«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE getDestroySemanticCommand FOR gmfgen::LinkModelFacet-»
+«DEFINE getDestroySemanticCommand(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»
 	«ERROR 'Unsupported model facet: ' + self.repr()-»
 «ENDDEFINE»
 
-«DEFINE getDestroySemanticCommand FOR gmfgen::FeatureLinkModelFacet-»
+«DEFINE getDestroySemanticCommand(gmfgen::GenLink genLink) FOR gmfgen::FeatureLinkModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
-	return getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(req)«IF isContains(metaFeature)» {
-
-		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-			org.eclipse.emf.ecore.EObject referencedObject = getReferencedObject();
-			org.eclipse.emf.ecore.resource.Resource resource = referencedObject.eResource();
-			org.eclipse.gmf.runtime.common.core.command.CommandResult result = super.doExecuteWithResult(progressMonitor, info);
-			resource.getContents().add(referencedObject);
-			return result;
-		}
-
-	}«ENDIF»);
-}
+	protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
+		return getGEFWrapper(«EXPAND impl::diagram::commands::DeleteLinkCommand::newDeleteReferenceLinkCommand(genLink, 'req')»);
+	}
 «ENDDEFINE»
 
-«DEFINE getDestroySemanticCommand FOR gmfgen::TypeLinkModelFacet-»
+«DEFINE getDestroySemanticCommand(gmfgen::GenLink genLink) FOR gmfgen::TypeLinkModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
-	return getGEFWrapper(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(req));
-}
+	protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
+		return getGEFWrapper(«EXPAND impl::diagram::commands::DeleteLinkCommand::newDeleteLinkWithClassCommand(genLink, 'req')»);
+	}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenLink»«ENDDEFINE»
