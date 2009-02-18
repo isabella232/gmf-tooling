@@ -24,7 +24,6 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.ecore.edit.helpers.EcoreBaseEditHelper;
@@ -33,6 +32,7 @@ import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
+import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -56,7 +56,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -318,36 +317,17 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * Creates commands to destroy all host incoming and outgoing links.
-	 * 
+	 * Clean all shortcuts to the host element from the same diagram
 	 * @generated
 	 */
-	protected CompoundCommand getDestroyEdgesCommand() {
-		CompoundCommand cmd = new CompoundCommand();
-		View view = (View) getHost().getModel();
-		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((Edge) it.next()));
-		}
-		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((Edge) it.next()));
-		}
-		return cmd;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addDestroyShortcutsCommand(CompoundCommand command) {
-		View view = (View) getHost().getModel();
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return;
-		}
+	protected void addDestroyShortcutsCommand(CompositeCommand cmd, View view) {
+		assert view.getEAnnotation("Shortcut") == null; //$NON-NLS-1$
 		for (Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { //$NON-NLS-1$
 				continue;
 			}
-			command.add(getDestroyElementCommand(nextView));
+			cmd.add(new DeleteCommand(getEditingDomain(), nextView));
 		}
 	}
 
