@@ -71,8 +71,8 @@ protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.
 	«EXPAND xpt::Common::generatedMemberComment»
 	private void addDestroyChildNodesCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-		for (java.util.Iterator it = view.getChildren().iterator(); it.hasNext();) {
-			org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) it.next();
+		for (java.util.Iterator nit = view.getChildren().iterator(); nit.hasNext();) {
+			org.eclipse.gmf.runtime.notation.Node node = (org.eclipse.gmf.runtime.notation.Node) nit.next();
 			switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(node)) {
 			«EXPAND destroyChildNodes('node', self) FOREACH childNodes-»
 			«IF compartments->notEmpty()»«FOREACH compartments AS compartment-»
