@@ -9,6 +9,5 @@ helper stringLiteralSingleQuoted() : String {
 }
 
 helper stringLiteralEscaped() : String {
-	return '
-	\''"'
+	return '\r\n	\\\'\"'
 }
