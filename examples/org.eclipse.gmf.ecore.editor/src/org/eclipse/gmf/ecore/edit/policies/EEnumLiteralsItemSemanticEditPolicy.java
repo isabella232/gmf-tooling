@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.ecore.edit.commands.EEnumLiteralCreateCommand;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
