@@ -38,7 +38,6 @@ public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPoli
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
 		CompositeCommand cc = new CompositeCommand(null);
-		// getDestroyEdgesCommand();
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
 			// there are indirectly referenced children, need extra commands: false

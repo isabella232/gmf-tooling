@@ -61,11 +61,10 @@ public class EEnumItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
 		CompositeCommand cc = new CompositeCommand(null);
-		// getDestroyEdgesCommand();
 		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
 			Edge incomingLink = (Edge) it.next();
 			if (EcoreVisualIDRegistry.getVisualID(incomingLink) == EAnnotationReferencesEditPart.VISUAL_ID) {
-				DestroyReferenceRequest r = new DestroyReferenceRequest(incomingLink.getSource(), null, incomingLink.getTarget(), false);
+				DestroyReferenceRequest r = new DestroyReferenceRequest(incomingLink.getSource().getElement(), null, incomingLink.getTarget().getElement(), false);
 				cc.add(new DestroyReferenceCommand(r));
 				cc.add(new DeleteCommand(getEditingDomain(), incomingLink));
 				continue;
