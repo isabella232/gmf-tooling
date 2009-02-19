@@ -31,14 +31,12 @@ Eclipse-LazyStart: true
 «ENDDEFINE»
 
 «DEFINE exportPackageHeader FOR Sequence(String)-»
-«EXPAND print FOREACH self SEPARATOR ',
-'-»
+«EXPAND print FOREACH self SEPARATOR ',\n'-»
 «ENDDEFINE»
 
 «REM»FIXME Set[String] - improve union recognition«ENDREM»
 «DEFINE requireBundleHeader FOR Collection(OclAny)-»
-«EXPAND print FOREACH (self->collect(it | it))[String]->asSequence() SEPARATOR ',
-'-»
+«EXPAND print FOREACH (self->collect(it | it))[String]->asSequence() SEPARATOR ',\n'-»
 «ENDDEFINE»
 
 «DEFINE print FOR String» «self»«ENDDEFINE»

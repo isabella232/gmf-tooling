@@ -12,7 +12,6 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'templates'»
 «EXTENSION Util»
 
 «DEFINE ClassBody(cuName : String) FOR gmfgraph::Figure»«ERROR 'abstract ClassBody(Figure)'»«ENDDEFINE»
