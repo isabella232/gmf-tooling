@@ -388,7 +388,7 @@ protected abstract Object getJavaObject(org.eclipse.swt.dnd.TransferData data);
 «ENDDEFINE»
 
 «DEFINE i18nValues FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForSavingDeletedFile(self), 'The original file "{0}" has been deleted.')-»
+«EXPAND xpt::Externalizer::messageEntry(i18nKeyForSavingDeletedFile(self), 'The original file \"{0}\" has been deleted.')-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForSaveAsProblems(self)), 'Problem During Save As...')-»
 «EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForSaveAsProblems(self)), 'Save could not be completed. Target file is already open in another editor.')-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForSaveProblems(self)), 'Save Problems')-»

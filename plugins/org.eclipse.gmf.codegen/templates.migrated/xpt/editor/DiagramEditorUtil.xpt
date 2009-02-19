@@ -236,18 +236,14 @@ public class «diagramEditorUtilClassName» {
 «ENDDEFINE»
 
 «DEFINE createInitialModelMethod FOR gmfgen::GenDiagram»
-	«EXPAND xpt::Common::generatedMemberComment('Create a new instance of domain element associated with canvas.
-<!-- begin-user-doc -->
-<!-- end-user-doc -->')»
+	«EXPAND xpt::Common::generatedMemberComment('Create a new instance of domain element associated with canvas.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->')»
 	private static «EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» createInitialModel() {
 		return «EXPAND MetaModel::NewInstance FOR domainDiagramElement»;
 	}
 «ENDDEFINE»
 
 «DEFINE attachModelMethod FOR gmfgen::GenDiagram»
-	«EXPAND xpt::Common::generatedMemberComment('Store model element in the resource.
-<!-- begin-user-doc -->
-<!-- end-user-doc -->')»
+	«EXPAND xpt::Common::generatedMemberComment('Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->')»
 	private static void attachModelToResource(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» model, org.eclipse.emf.ecore.resource.Resource resource) {
 		resource.getContents().add(«IF hasDocumentRoot(self)»createDocumentRoot(model)«ELSE»«EXPAND MetaModel::DowncastToEObject('model') FOR domainDiagramElement»«ENDIF»);
 	}

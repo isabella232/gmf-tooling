@@ -40,9 +40,9 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 	public «EXPAND className»(org.eclipse.emf.common.util.URI domainModelURI,
 			org.eclipse.emf.ecore.EObject diagramRoot,
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
-		«EXPAND xpt::Common::_assert('domainModelURI != null : "Domain model uri must be specified"')-»
-	    «EXPAND xpt::Common::_assert('diagramRoot != null : "Doagram root element must be specified"')-»
-	    «EXPAND xpt::Common::_assert('editingDomain != null : "Editing domain must be specified"')-»
+		«EXPAND xpt::Common::_assert('domainModelURI != null : \"Domain model uri must be specified\"')-»
+	    «EXPAND xpt::Common::_assert('diagramRoot != null : \"Doagram root element must be specified\"')-»
+	    «EXPAND xpt::Common::_assert('editingDomain != null : \"Editing domain must be specified\"')-»
 
 		myFileCreationPage = new «EXPAND creationPage»(«EXPAND xpt::Externalizer::accessorCall(nameKey(i18nKeyForNewDiagramFileWizardCreationPage(self))) FOR editorGen», org.eclipse.jface.viewers.StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle(«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForNewDiagramFileWizardCreationPage(self))) FOR editorGen»);

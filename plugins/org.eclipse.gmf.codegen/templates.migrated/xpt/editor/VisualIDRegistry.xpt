@@ -25,10 +25,9 @@
 package «editorGen.editor.packageName»;
 
 	«EXPAND xpt::Common::generatedClassComment(
-		'This registry is used to determine which type of visual object should be
-created for the corresponding Diagram, Node, ChildNode or Link represented
-by a domain model object.
-'	
+		'This registry is used to determine which type of visual object should be\n' + 
+		'created for the corresponding Diagram, Node, ChildNode or Link represented\n' + 
+		'by a domain model object.\n'	
 	)»
 public class «visualIDRegistryClassName» {
 
@@ -290,9 +289,8 @@ public static int «EXPAND getLinkWithClassVisualIDMethodName»(org.eclipse.emf.ec
 «DEFINE isDiagram FOR gmfgen::GenDiagram-»
 	«IF null <> domainDiagramElement-»
 		«EXPAND xpt::Common::generatedMemberComment(
-			'User can change implementation of this method to handle some specific
-situations not covered by default logic.
-'
+			'User can change implementation of this method to handle some specific\n' + 
+			'situations not covered by default logic.\n'
 		)»
 private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR domainDiagramElement» element) {
 	return true;

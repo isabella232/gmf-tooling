@@ -371,11 +371,10 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 
 «DEFINE createFigure FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment(
-		'Creates figure for this edit part.
-
-Body of this method does not depend on settings in generation model
-so you may safely remove <i>generated</i> tag and modify it.
-'
+		'Creates figure for this edit part.\n' + 
+		'\n' + 
+		'Body of this method does not depend on settings in generation model\n' + 
+		'so you may safely remove <i>generated</i> tag and modify it.\n'
 	)»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems(self)»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
@@ -389,9 +388,9 @@ so you may safely remove <i>generated</i> tag and modify it.
 
 «DEFINE setupContentPane FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment(
-		'Default implementation treats passed figure as content pane.
-Respects layout one may have set for generated figure.
-@param nodeShape instance of generated figure class'
+		'Default implementation treats passed figure as content pane.\n' + 
+		'Respects layout one may have set for generated figure.\n' + 
+		'@param nodeShape instance of generated figure class'
 	)»
 	protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
 		«IF not childNodes->isEmpty() or (not compartments->isEmpty() or not labels->-((labels)[gmfgen::GenExternalNodeLabel])->isEmpty())-»

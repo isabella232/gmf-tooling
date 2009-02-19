@@ -22,7 +22,7 @@
 «EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedClassName.xpandSplit('\.')->last()»
+public class «qualifiedClassName.xpandSplit('\\.')->last()»
 	«IF editorGen.application = null-»
 implements org.eclipse.ui.IObjectActionDelegate {
 

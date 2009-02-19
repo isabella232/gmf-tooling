@@ -113,8 +113,8 @@
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment(
-		'Default approach is to traverse ancestors of the source to find instance of container.
-Modify with appropriate logic.'
+		'Default approach is to traverse ancestors of the source to find instance of container.\n' + 
+		'Modify with appropriate logic.'
 	)»
 	private static «EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» deduceContainer(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {
 		// Find container element for the new link.

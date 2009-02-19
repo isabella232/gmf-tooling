@@ -19,7 +19,7 @@
 «EXPAND xpt::Common::packageStatement FOR qualifiedName»
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedName.xpandSplit('\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
+public class «qualifiedName.xpandSplit('\\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
 «EXPAND body»
 «EXPAND additions»
 }

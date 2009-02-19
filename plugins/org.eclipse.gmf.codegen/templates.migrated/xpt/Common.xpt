@@ -20,9 +20,7 @@
 «DEFINE copyright FOR gmfgen::GenEditorGenerator-»
 «IF copyrightText <> null-»
 /*
- * «copyrightText.xpandReplaceAll('
-', '
- * ')»
+ * «copyrightText.xpandReplaceAll('\n', '\n * ')»
  */
 «ENDIF-»
 «ENDDEFINE»
@@ -39,9 +37,7 @@
 «DEFINE generatedClassComment(comment : String) FOR OclAny-»
 /**
 «IF comment.xpandLength() > 0-»
- * «comment.xpandReplaceAll('
-', '
- * ')»
+ * «comment.xpandReplaceAll('\n', '\n * ')»
 «ENDIF-»
  * @generated
  */«ENDDEFINE»
@@ -51,9 +47,7 @@
 «DEFINE generatedMemberComment(comment : String) FOR OclAny-»
 /**
 «IF comment.xpandLength() > 0-»
- * «comment.xpandReplaceAll('
-', '
- * ')»
+ * «comment.xpandReplaceAll('\n', '\n * ')»
 «ENDIF-»
  * @generated
  */«ENDDEFINE»
@@ -87,12 +81,12 @@
 
 
 «DEFINE packageStatement FOR String-»
-«IF self.xpandSplit('\.')->size() > 1-»
-package «FOREACH let tmpVar = self.xpandSplit('\.') in if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'»«s»«ENDFOREACH»;«ENDIF-»
+«IF self.xpandSplit('\\.')->size() > 1-»
+package «FOREACH let tmpVar = self.xpandSplit('\\.') in if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'»«s»«ENDFOREACH»;«ENDIF-»
 «ENDDEFINE»
 
 // Provides handy single point to override generation of assert statements
 // TODO refactor this Common.xpt into different flavours - like CommonCodeStyle (nls, assert), CommonSnippets(pkgStmt, setCharset, getSaveOptions) and so on
 «DEFINE _assert(condition : String) FOR OclAny-»
-assert «condition»;«IF condition.xpandToCharList()->includes('"')»«EXPAND nonNLS»«ENDIF»
+assert «condition»;«IF condition.xpandToCharList()->includes('\"')»«EXPAND nonNLS»«ENDIF»
 «ENDDEFINE»

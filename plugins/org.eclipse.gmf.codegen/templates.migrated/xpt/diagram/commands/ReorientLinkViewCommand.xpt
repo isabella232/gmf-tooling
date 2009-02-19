@@ -51,9 +51,9 @@ public class «reorientConnectionViewCommandClassName»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
-		«EXPAND xpt::Common::_assert('null != edgeAdaptor : "Null child in ' + reorientConnectionViewCommandClassName + '"')-»
+		«EXPAND xpt::Common::_assert('null != edgeAdaptor : \"Null child in ' + reorientConnectionViewCommandClassName + '\"')-»
 		org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) getEdgeAdaptor().getAdapter(org.eclipse.gmf.runtime.notation.Edge.class);
-		«EXPAND xpt::Common::_assert('null != edge : "Null edge in ' + reorientConnectionViewCommandClassName + '"')-»
+		«EXPAND xpt::Common::_assert('null != edge : \"Null edge in ' + reorientConnectionViewCommandClassName + '\"')-»
 		org.eclipse.gmf.runtime.notation.View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

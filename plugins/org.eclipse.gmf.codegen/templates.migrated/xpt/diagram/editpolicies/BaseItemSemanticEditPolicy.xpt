@@ -32,12 +32,11 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 	«EXPAND _constructor-»
 
 	«EXPAND xpt::Common::generatedMemberComment(
-		'Extended request data key to hold editpart visual id.
-Add visual id of edited editpart to extended data of the request
-so command switch can decide what kind of diagram element is being edited.
-It is done in those cases when it''s not possible to deduce diagram
-element kind from domain element.
-'
+		'Extended request data key to hold editpart visual id.\n' + 
+		'Add visual id of edited editpart to extended data of the request\n' + 
+		'so command switch can decide what kind of diagram element is being edited.\n' + 
+		'It is done in those cases when it\'s not possible to deduce diagram\n' + 
+		'element kind from domain element.\n'
 	)»
 	public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
 		if (request instanceof org.eclipse.gef.requests.ReconnectRequest) {
@@ -89,7 +88,7 @@ element kind from domain element.
 «DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment('Clean all shortcuts to the host element from the same diagram')»
 	protected void addDestroyShortcutsCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd, org.eclipse.gmf.runtime.notation.View view) {
-		«EXPAND xpt::Common::_assert('view.getEAnnotation("Shortcut") == null')-»
+		«EXPAND xpt::Common::_assert('view.getEAnnotation(\"Shortcut\") == null')-»
 		for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
 			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) {«EXPAND xpt::Common::nonNLS»

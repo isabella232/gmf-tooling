@@ -13,9 +13,9 @@ helper getExternalizerClassName() : String {
 }
 
 helper escapeIllegalKeySymbols(key : String) : String {
-	return key.xpandReplaceAll('[=&"]', '').xpandReplaceAll('[ .]', '_')
+	return key.xpandReplaceAll('[=&\"]', '').xpandReplaceAll('[ .]', '_')
 }
 
 helper escapeIllegalMessageSymbols(message : String) : String {
-	return message.xpandReplaceAll('!', '\\!')
+	return message.xpandReplaceAll('!', '\\\\!')
 }

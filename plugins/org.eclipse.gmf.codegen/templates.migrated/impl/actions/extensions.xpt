@@ -94,8 +94,8 @@
       </handler>
 «ENDDEFINE»
 
-«DEFINE commandIdentifier FOR gmfgen::GenCustomAction»«owner.editorGen.plugin.iD».«qualifiedClassName.xpandSplit('\.')->last()»«ENDDEFINE»
-«DEFINE commandIdentifier FOR gmfgen::GenAction»«owner.editorGen.plugin.iD».«qualifiedClassName.xpandSplit('\.')->last()»«ENDDEFINE»
+«DEFINE commandIdentifier FOR gmfgen::GenCustomAction»«owner.editorGen.plugin.iD».«qualifiedClassName.xpandSplit('\\.')->last()»«ENDDEFINE»
+«DEFINE commandIdentifier FOR gmfgen::GenAction»«owner.editorGen.plugin.iD».«qualifiedClassName.xpandSplit('\\.')->last()»«ENDDEFINE»
 
 «DEFINE menuEntry(contextMenu : gmfgen::GenContextMenu) FOR gmfgen::GenContributionItem»«REM»NO-OP XXX or ERROR?«ENDREM»«ENDDEFINE»
 «DEFINE menuEntry(contextMenu : gmfgen::GenContextMenu) FOR gmfgen::GenSeparator-»

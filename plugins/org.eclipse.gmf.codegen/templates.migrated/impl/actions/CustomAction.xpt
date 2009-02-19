@@ -19,7 +19,7 @@
 «EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedClassName.xpandSplit('\.')->last()» extends org.eclipse.core.commands.AbstractHandler {
+public class «qualifiedClassName.xpandSplit('\\.')->last()» extends org.eclipse.core.commands.AbstractHandler {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {

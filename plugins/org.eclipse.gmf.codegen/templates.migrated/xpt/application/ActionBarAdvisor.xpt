@@ -250,7 +250,7 @@ public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.Acti
 
 «DEFINE i18nValues FOR gmfgen::GenApplication-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForDefaultFileEditorErrorDialog(self)), 'Error')-»
-«EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForDefaultFileEditorErrorDialog(self)), 'There is no editor registered for the file "{0}"')-»
+«EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForDefaultFileEditorErrorDialog(self)), 'There is no editor registered for the file \"{0}\"')-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForDefaultEditorOpenErrorDialog(self)), 'Open Editor')-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForAboutDialog(self)), 'About')-»
 «EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForAboutDialog(self)), editorGen.modelID + ' Diagram Editor')-»

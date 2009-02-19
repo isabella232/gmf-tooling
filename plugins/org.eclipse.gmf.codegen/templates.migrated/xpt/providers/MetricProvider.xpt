@@ -217,8 +217,7 @@ public class «metricProviderClassName» {
 «LET getNotationMetrics(metrics)->select(m | m.target.oclAsType(gmfgen::GenNotationElementTarget).element.ecoreClass.name = 'Diagram') AS diagramMetrics-»
 «IF not diagramMetrics->isEmpty()-»
 		row = new ElementMetrics(diagram, formatViewName(diagram), new Metric[] {
-«EXPAND metricResult('diagram', false) FOREACH diagramMetrics SEPARATOR ',
-'»
+«EXPAND metricResult('diagram', false) FOREACH diagramMetrics SEPARATOR ',\n'»
 		});
 		row.diagramElementID = diagram.eResource().getURIFragment(diagram);
 		metricsList.add(row);
@@ -365,7 +364,7 @@ public class «metricProviderClassName» {
 «DEFINE calcMethodArgs(metric : gmfgen::GenMetricRule) FOR gmfgen::GenNotationElementTarget»«EXPAND MetaModel::QualifiedClassName FOR element» target«ENDDEFINE»
 
 
-«DEFINE calcMethodBody(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionProviderBase»«ERROR 'No idea how to calculate metric''s value for ' + self.repr()»«ENDDEFINE»
+«DEFINE calcMethodBody(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionProviderBase»«ERROR 'No idea how to calculate metric\'s value for ' + self.repr()»«ENDDEFINE»
 
 «DEFINE calcMethodBody(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionInterpreter-»
 	if («exprFieldName(metric)» == null) {
@@ -411,16 +410,14 @@ public class «metricProviderClassName» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static String[] getMetricKeys() {
 		return new String[] {
-			«FOREACH metrics->asSequence() AS m SEPARATOR ',
-'»«toStringLiteral(m.key)»«ENDFOREACH»
+			«FOREACH metrics->asSequence() AS m SEPARATOR ',\n'»«toStringLiteral(m.key)»«ENDFOREACH»
 		};
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static String[] getMetricToolTips() {
 		return new String[] {
-			«FOREACH metrics->asSequence() AS m SEPARATOR ',
-'-»
+			«FOREACH metrics->asSequence() AS m SEPARATOR ',\n'-»
 «toStringLiteral((if m.name = null then m.key else m.name endif))»«IF m.description <> null» + '\n' + «toStringLiteral(m.description)» + '\n'«ENDIF»«IF null <> m.lowLimit» + «toStringLiteral('low: ' + m.lowLimit.repr())»«ENDIF»«IF null <> m.highLimit» + «toStringLiteral('high: ' + m.highLimit.repr())»«ENDIF-»
 			«ENDFOREACH»
 		};

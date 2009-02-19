@@ -111,9 +111,8 @@ if («EXPAND xpt::providers::ElementTypes::accessElementType» == req.getElementTy
 «DEFINE reorientTypeLinkCommands FOR gmfgen::GenLinkEnd-»
 
 «EXPAND xpt::Common::generatedMemberComment(
-	'Returns command to reorient EClass based link. New link target or source
-should be the domain model element associated with this node.
-'
+	'Returns command to reorient EClass based link. New link target or source\n' + 
+	'should be the domain model element associated with this node.\n'
 )»
 protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
 		org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
@@ -127,9 +126,8 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(
 «DEFINE reorientRefLinkCommands FOR gmfgen::GenLinkEnd-»
 
 «EXPAND xpt::Common::generatedMemberComment(
-	'Returns command to reorient EReference based link. New link target or source
-should be the domain model element associated with this node.
-'
+	'Returns command to reorient EReference based link. New link target or source\n' + 
+	'should be the domain model element associated with this node.\n'
 )»
 protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipCommand(
 		org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest req) {

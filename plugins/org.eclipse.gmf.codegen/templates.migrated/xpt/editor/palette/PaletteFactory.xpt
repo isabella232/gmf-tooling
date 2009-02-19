@@ -41,7 +41,7 @@ public class «factoryClassName» {
 «ENDDEFINE»
 
 «DEFINE createGroup FOR gmfgen::ToolGroup-»
-	«EXPAND xpt::Common::generatedMemberComment('Creates "' + title + '" palette tool group')»
+	«EXPAND xpt::Common::generatedMemberComment('Creates \"' + title + '\" palette tool group')»
 	private org.eclipse.gef.palette.PaletteContainer «createMethodName»() {
 		«EXPAND newContainer('paletteContainer')-»
 		«EXPAND setIdentity('paletteContainer')-»
