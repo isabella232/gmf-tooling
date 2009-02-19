@@ -18,10 +18,12 @@
 «DEFINE getRelationshipContainer FOR gmfgen::LinkModelFacet»«ENDDEFINE»
 
 «DEFINE getRelationshipContainer FOR gmfgen::TypeLinkModelFacet-»
-		«EXPAND xpt::Common::generatedMemberComment('Finds container element for the relationship of the specified type.
-Default implementation goes up by containment hierarchy starting from
-the specified element and returns the first element that is instance of
-the specified container class.')»
+		«EXPAND xpt::Common::generatedMemberComment(
+			'Finds container element for the relationship of the specified type.\n' + 
+			'Default implementation goes up by containment hierarchy starting from\n' + 
+			'the specified element and returns the first element that is instance of\n' + 
+			'the specified container class.'
+		)»
 		protected org.eclipse.emf.ecore.EObject getRelationshipContainer(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass containerClass) {
 			for (; element != null; element = element.eContainer()) {
 				if (containerClass.isSuperTypeOf(element.eClass())) {

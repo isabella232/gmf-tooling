@@ -188,8 +188,8 @@ protected abstract String validateFile(java.io.File file);
 «ENDDEFINE»
 
 «DEFINE getFileExtension FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment('Returns the file extension the opened file should conform to or <code>null</code>
-if there are no restrictions on file extension')»
+«EXPAND xpt::Common::generatedMemberComment('Returns the file extension the opened file should conform to or <code>null</code>\n' + 
+'if there are no restrictions on file extension')»
 protected abstract String getFileExtension();
 «ENDDEFINE»
 

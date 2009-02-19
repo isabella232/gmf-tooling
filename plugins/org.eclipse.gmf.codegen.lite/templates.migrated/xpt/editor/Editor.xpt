@@ -109,11 +109,11 @@ public class «className» extends org.eclipse.gmf.runtime.lite.parts.DiagramViewP
 «ENDDEFINE»
 
 «DEFINE ResourceTracker FOR gmfgen::GenEditorView-»
-	«EXPAND xpt::Common::generatedClassComment('This class listens to changes to the file system in the workspace, and
-makes the following changes: 
-<ul><li>If an open, saved file gets deleted, the editor is closed.</li>
-<li>If an open file gets renamed or moved, the editor''s
-input is changed accordingly.</li></ul>')»
+	«EXPAND xpt::Common::generatedClassComment('This class listens to changes to the file system in the workspace, and\n' + 
+'makes the following changes: \n' + 
+'<ul><li>If an open, saved file gets deleted, the editor is closed.</li>\n' + 
+'<li>If an open file gets renamed or moved, the editor\'s\n' + 
+'input is changed accordingly.</li></ul>')»
 	private class ResourceTracker implements org.eclipse.core.resources.IResourceChangeListener {
 		«EXPAND xpt::Common::generatedMemberComment»
 		public void resourceChanged(org.eclipse.core.resources.IResourceChangeEvent event) {

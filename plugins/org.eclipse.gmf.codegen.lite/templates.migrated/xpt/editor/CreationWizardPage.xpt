@@ -246,8 +246,8 @@ private org.eclipse.emf.common.util.URI getDiagramFileURI() {
 «ENDDEFINE»
 
 «DEFINE finish FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment('Performs the operations necessary to create and open the diagram
-@return boolean indicating whether the creation and opening the Diagram was successful ')»
+«EXPAND xpt::Common::generatedMemberComment('Performs the operations necessary to create and open the diagram\n' + 
+'@return boolean indicating whether the creation and opening the Diagram was successful ')»
 public boolean finish() {
 	final boolean[] result = new boolean[1];
 «IF isRichClientPlatform(self)-»
@@ -284,8 +284,8 @@ public boolean finish() {
 «ENDDEFINE»
 
 «DEFINE doFinish FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment('@param monitor the <code>org.eclipse.core.runtime.IProgressMonitor</code> to use to indicate progress and check for cancellation
-@return boolean indicating whether the diagram was created and opened successfully')»
+«EXPAND xpt::Common::generatedMemberComment('@param monitor the <code>org.eclipse.core.runtime.IProgressMonitor</code> to use to indicate progress and check for cancellation\n' + 
+'@return boolean indicating whether the diagram was created and opened successfully')»
 public boolean doFinish(org.eclipse.core.runtime.IProgressMonitor monitor) {
 	«EXPAND createdDiagramFileAttributeName» = createDiagramFile(monitor);
 	return «EXPAND createdDiagramFileAttributeName» != null;

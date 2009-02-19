@@ -187,8 +187,8 @@ protected org.eclipse.gmf.runtime.notation.Diagram createNewDiagram() {
 «ENDDEFINE»
 
 «DEFINE OpenDiagramCommandClassGetDiagramDomainElement FOR gmfgen::OpenDiagramBehaviour-»
-«EXPAND xpt::Common::generatedMemberComment('Returns the element that should be the underlying model element for the diagram.
-By default, the element associated with the edit part is returned.')»
+«EXPAND xpt::Common::generatedMemberComment('Returns the element that should be the underlying model element for the diagram.\n' + 
+'By default, the element associated with the edit part is returned.')»
 protected org.eclipse.emf.ecore.EObject getDiagramDomainElement() {
 	return ((org.eclipse.gmf.runtime.notation.View) myDiagramLink.eContainer()).getElement();
 }

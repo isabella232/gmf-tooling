@@ -107,8 +107,8 @@ case «getEditPartQualifiedClassName()».VISUAL_ID: {
 
 «DEFINE getPhantomNodesIterator FOR gmfgen::GenDiagram-»
 «IF getPhantomNodes(self)->size() > 0-»
-«EXPAND xpt::Common::generatedMemberComment('By default, returns all contents of the resource. If phantoms are known to be confined in a subset of the resource contents,
-overwriting this method (and marking it as generated NOT) will significantly improve performance.')»
+«EXPAND xpt::Common::generatedMemberComment('By default, returns all contents of the resource. If phantoms are known to be confined in a subset of the resource contents,\n' + 
+'overwriting this method (and marking it as generated NOT) will significantly improve performance.')»
 private java.util.Iterator getPhantomNodesIterator(org.eclipse.emf.ecore.resource.Resource resource) {
 	return resource.getAllContents();
 }

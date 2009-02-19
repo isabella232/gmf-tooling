@@ -276,9 +276,9 @@ public «self» getPrimaryShape() {
 «ENDDEFINE»
 
 «DEFINE setupContentPane FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedMemberComment('Default implementation treats passed figure as content pane.
-Respects layout one may have set for generated figure.
-@param nodeShape instance of generated figure class')»
+«EXPAND xpt::Common::generatedMemberComment('Default implementation treats passed figure as content pane.\n' + 
+'Respects layout one may have set for generated figure.\n' + 
+'@param nodeShape instance of generated figure class')»
 protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
 	if (nodeShape.getLayoutManager() == null) {
 		«EXPAND setLayoutManager('nodeShape', compartments->size() = 0 and isXYLayout(self))-»

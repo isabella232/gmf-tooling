@@ -181,20 +181,19 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 «ENDDEFINE»
 
 «DEFINE bundledImages FOR gmfgen::GenPlugin-»
-	«EXPAND xpt::Common::generatedMemberComment('Returns an image descriptor for the image file at the given plug-in relative path.
-
-@param path the path
-@return the image descriptor')»
+	«EXPAND xpt::Common::generatedMemberComment('Returns an image descriptor for the image file at the given plug-in relative path.\n\n' + 
+'@param path the path\n' + 
+'@return the image descriptor')»
 	public static org.eclipse.jface.resource.ImageDescriptor getBundledImageDescriptor(String path) {
 		return org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment('Respects images residing in any plug-in. If path is relative,
-then this bundle is looked up for the image, otherwise, for absolute 
-path, first segment is taken as id of plug-in with image
-
-@param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images
-@return the image descriptor')»
+	«EXPAND xpt::Common::generatedMemberComment('Respects images residing in any plug-in. If path is relative,\n' + 
+'then this bundle is looked up for the image, otherwise, for absolute \n' + 
+'path, first segment is taken as id of plug-in with image\n' + 
+'\n' + 
+'@param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images\n' + 
+'@return the image descriptor')»
 	public static org.eclipse.jface.resource.ImageDescriptor findImageDescriptor(String path) {
 		final org.eclipse.core.runtime.IPath p = new org.eclipse.core.runtime.Path(path);
 		if (p.isAbsolute() && p.segmentCount() > 1) {
@@ -204,11 +203,10 @@ path, first segment is taken as id of plug-in with image
 		} 
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment('Returns an image for the image file at the given plug-in relative path.
-Client do not need to dispose this image. Images will be disposed automatically.
-
-@param path the path
-@return image instance')»
+	«EXPAND xpt::Common::generatedMemberComment('Returns an image for the image file at the given plug-in relative path.\n' + 
+'Client do not need to dispose this image. Images will be disposed automatically.\n\n' + 
+'@param path the path\n' + 
+'@return image instance')»
 	public org.eclipse.swt.graphics.Image getBundledImage(String path) {
 		org.eclipse.swt.graphics.Image image = getImageRegistry().get(path);
 		if (image == null) {

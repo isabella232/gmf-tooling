@@ -133,11 +133,11 @@ public «EXPAND className»(org.eclipse.gmf.runtime.lite.edit.parts.update.canonic
 
 «DEFINE getConstrainedChildrenFilter FOR gmfgen::GenCommonBase-»
 «IF containedLinksWithSelector(self)->size() > 0-»
-«EXPAND xpt::Common::generatedMemberComment('TODO: Child links of this element are selected based on constraint declared in ' + getDiagram().getVisualIDRegistryQualifiedClassName() + '. 
-' + 'Since no assumptions may be made concerning the runtime behavior of the constraint, <b>any</b> non-touch notification may result in 
-' + 'notational model having to be updated.
-' + '<p/>User is encouraged to change implementation of this method to provide an optimization if it is safe to assume that not all notifications
-' + 'result in such an update.')»
+«EXPAND xpt::Common::generatedMemberComment('TODO: Child links of this element are selected based on constraint declared in ' + getDiagram().getVisualIDRegistryQualifiedClassName() + '. \n' + 
+'Since no assumptions may be made concerning the runtime behavior of the constraint, <b>any</b> non-touch notification may result in \n' + 
+'notational model having to be updated.\n' + 
+'<p/>User is encouraged to change implementation of this method to provide an optimization if it is safe to assume that not all notifications\n' + 
+'result in such an update.')»
 private org.eclipse.emf.transaction.NotificationFilter getConstrainedChildLinksFilter() {
 	return org.eclipse.emf.transaction.NotificationFilter.NOT_TOUCH;
 }
@@ -287,9 +287,11 @@ protected org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand g
 «ENDDEFINE»
 
 «DEFINE shouldCreateView FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment('Returns whether a notational edge should be created for the given domain element. 
-The generated code respects canonical style. If the canonycal style is not present, ' + (if getDiagram().synchronized then 'true' else 'false' endif) + ' is always returned. 
-' + 'User can change implementation of this method to handle a more sophisticated logic.')»
+«EXPAND xpt::Common::generatedMemberComment('Returns whether a notational edge should be created for the given domain element. \n' + 
+'The generated code respects canonical style. If the canonycal style is not present, ' + 
+(if getDiagram().synchronized then 'true' else 'false' endif) + 
+' is always returned. \n' + 
+'User can change implementation of this method to handle a more sophisticated logic.')»
 protected boolean shouldCreateView(org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.ElementDescriptor descriptor) {
 	org.eclipse.gmf.runtime.notation.CanonicalStyle style = (org.eclipse.gmf.runtime.notation.CanonicalStyle) «EXPAND xpt::diagram::parts::Common::getViewCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getCanonicalStyle());
 	if (style == null) {

@@ -102,7 +102,7 @@ public org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker getPosi
 «DEFINE behaviour FOR gmfgen::SharedBehaviour»«EXPAND behaviour FOR delegate»«ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::CustomBehaviour»
-installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.xpandStartsWith('"') and key.xpandEndsWith('"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
+installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»

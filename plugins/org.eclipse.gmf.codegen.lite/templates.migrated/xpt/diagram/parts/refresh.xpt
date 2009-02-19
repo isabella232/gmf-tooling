@@ -524,8 +524,8 @@ protected void refreshFont() {
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment('The font descriptor (created by {@link #refreshFont()}) currently assigned to the label (unless the default font is assigned).
-Whenever another non-default font is assigned to it, the previous one should be destroyed through the resource manager.')»
+«EXPAND xpt::Common::generatedMemberComment('The font descriptor (created by {@link #refreshFont()}) currently assigned to the label (unless the default font is assigned).\n' + 
+'Whenever another non-default font is assigned to it, the previous one should be destroyed through the resource manager.')»
 private org.eclipse.jface.resource.FontDescriptor createdFontDescriptor;
 «ENDIF-»
 «ENDDEFINE»
@@ -555,8 +555,8 @@ protected void refreshFontColor() {
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment('The color descriptor (created by {@link #refreshFontColor()}) currently assigned to the label.
-Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.')»
+«EXPAND xpt::Common::generatedMemberComment('The color descriptor (created by {@link #refreshFontColor()}) currently assigned to the label.\n' + 
+'Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.')»
 private org.eclipse.jface.resource.ColorDescriptor createdFontColorDescriptor;
 «ENDIF-»
 «ENDDEFINE»
@@ -586,8 +586,8 @@ protected void refreshForegroundColor() {
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment('The color descriptor (created by {@link #refreshForegroundColor()}) currently assigned to the figure.
-Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.')»
+«EXPAND xpt::Common::generatedMemberComment('The color descriptor (created by {@link #refreshForegroundColor()}) currently assigned to the figure.\n' + 
+'Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.')»
 private org.eclipse.jface.resource.ColorDescriptor createdForegroundColorDescriptor;
 «ENDIF-»
 «ENDDEFINE»
@@ -617,8 +617,8 @@ protected void refreshBackgroundColor() {
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment('The color descriptor (created by {@link #refreshBackgroundColor()}) currently assigned to the figure.
-Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.')»
+«EXPAND xpt::Common::generatedMemberComment('The color descriptor (created by {@link #refreshBackgroundColor()}) currently assigned to the figure.\n' + 
+'Whenever another color is assigned to it, the previous one should be destroyed through the resource manager.')»
 private org.eclipse.jface.resource.ColorDescriptor createdBackgroundColorDescriptor;
 «ENDIF-»
 «ENDDEFINE»
