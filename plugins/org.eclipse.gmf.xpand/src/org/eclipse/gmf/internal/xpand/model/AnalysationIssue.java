@@ -29,7 +29,9 @@ public class AnalysationIssue {
         INTERNAL_ERROR("Internal error"),
         JAVA_TYPE_NOT_FOUND("Java Type not found"),
         SYNTAX_ERROR("Syntax error"),
-        DEFINITION_NOT_FOUND("Definition not found");
+        DEFINITION_NOT_FOUND("Definition not found"),
+        EXTENSION_NOT_FOUND("Extension not found"),
+        NAMESPACE_NOT_FOUND("Namespace not found");
 
         private String name;
 

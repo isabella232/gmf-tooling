@@ -13,12 +13,14 @@ package org.eclipse.gmf.internal.xpand.ast;
 
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 
 /**
  * XXX why it's SyntaxElement? What does 'getLine()' means?
@@ -74,6 +76,20 @@ public class Template extends SyntaxElement implements XpandResource {
 		}
 		for (Advice element : advices) {
 			element.analyze(ctx, issues);
+		}
+
+		for (ImportDeclaration importDeclaration : extensions) {
+			QvtResource extension = ctx.getScope().findExtension(importDeclaration.getImportString());
+			if (extension == null) {
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.EXTENSION_NOT_FOUND, "Couldn't find " + importDeclaration.getImportString(), importDeclaration));
+			}
+		}
+		
+		Registry packageRegistry = ctx.getScope().createPackageRegistry(getImportedNamespaces());
+		for (NamespaceImport namespaceImport : imports) {
+			if (!packageRegistry.containsKey(namespaceImport.getImportString())) {
+				issues.add(new AnalysationIssue(AnalysationIssue.Type.NAMESPACE_NOT_FOUND, "Couldn't find " + namespaceImport.getImportString(), namespaceImport));
+			}
 		}
 	}
 

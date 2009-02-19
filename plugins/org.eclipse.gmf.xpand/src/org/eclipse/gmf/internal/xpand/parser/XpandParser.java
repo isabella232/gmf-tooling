@@ -733,7 +733,7 @@ private String unescape(IToken stringLiteral) {
 		return ""; //$NON-NLS-1$
 	}
 	StringBuilder unescapedStringBuilder = null;
-	boolean isBackslashEscapeProcessingUsed = false; //getEnvironment().isEnabled(ParsingOptions.USE_BACKSLASH_ESCAPE_PROCESSING);
+	boolean isBackslashEscapeProcessingUsed = true; //getEnvironment().isEnabled(ParsingOptions.USE_BACKSLASH_ESCAPE_PROCESSING);
 	boolean isNonStdSQEscapingUsed = false;
 	int n = rawStringLength - 1;
 	for (int i = 1; i < n; i++) {
