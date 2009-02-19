@@ -96,5 +96,7 @@ helper stringNotEQ(string : String, another : OclAny) : Boolean {
 }
 
 helper stringLiteralsConcat() : String {
-	return 'first part|second part|third part'
+	return 'first part|' + 
+'second part|' + 
+'third part'
 }
