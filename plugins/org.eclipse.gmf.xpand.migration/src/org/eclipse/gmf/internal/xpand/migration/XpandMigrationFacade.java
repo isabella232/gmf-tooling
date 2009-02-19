@@ -140,7 +140,7 @@ public class XpandMigrationFacade {
 		oclKeywordManager = new OclKeywordManager();
 		modelManager = new ModelManager(stdLibImportsManager, oclKeywordManager);
 		modelManager.registerSelfAlias(ExecutionContext.IMPLICIT_VARIABLE);
-		typeManager = new TypeManager();
+		typeManager = new TypeManager(oclKeywordManager);
 
 		for (NamespaceImport namespaceImport : xpandTemplate.getImports()) {
 			migrateExpression(namespaceImport.getStringLiteral(), EcorePackage.eINSTANCE.getEString(), new VariableNameDispatcher());

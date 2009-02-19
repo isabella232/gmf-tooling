@@ -33,12 +33,15 @@ public class TypeManager {
 	
 	private boolean useFQNameForPrimitiveTypes = false;
 
-	public TypeManager() {
-		modeltypeImportsManger = null;
+	private OclKeywordManager oclKeywordManager;
+
+	public TypeManager(OclKeywordManager keywordManager) {
+		this(null, keywordManager);
 	}
 	
-	public TypeManager(ModeltypeImports modelImports) {
+	public TypeManager(ModeltypeImports modelImports, OclKeywordManager keywordManager) {
 		modeltypeImportsManger = modelImports;
+		oclKeywordManager = keywordManager;
 	}
 	
 	public void setUseFQNameForPrimitiveTypes(boolean value) {
@@ -46,7 +49,8 @@ public class TypeManager {
 	}
 
 	public String getQvtFQName(EEnumLiteral literal) {
-		return getPackageName(literal.getEEnum().getEPackage()) + OclCs.PATH_SEPARATOR + literal.getEEnum().getName() + OclCs.PATH_SEPARATOR + literal.getName();
+		return getPackageName(literal.getEEnum().getEPackage()) + OclCs.PATH_SEPARATOR + oclKeywordManager.getValidIdentifierValue(literal.getEEnum().getName()) + OclCs.PATH_SEPARATOR
+				+ oclKeywordManager.getValidIdentifierValue(literal.getName());
 	}
 	
 	public String getQvtFQName(EClassifier classifier) throws MigrationException {
@@ -86,15 +90,15 @@ public class TypeManager {
 		}
 		EPackage ePackage = classifier.getEPackage();
 		assert ePackage != null;
-		return getPackageName(ePackage) + OclCs.PATH_SEPARATOR + classifier.getName();
+		return getPackageName(ePackage) + OclCs.PATH_SEPARATOR + oclKeywordManager.getValidIdentifierValue(classifier.getName());
 	}
 
 	private String getPrimitiveTypeName(String primitiveTypeName, boolean useFQNameForPrimitiveTypes) {
-		return useFQNameForPrimitiveTypes ? OCLStandardLibraryImpl.stdlibPackage.getName() + OclCs.PATH_SEPARATOR + primitiveTypeName: primitiveTypeName;
+		return useFQNameForPrimitiveTypes ? OCLStandardLibraryImpl.stdlibPackage.getName() + OclCs.PATH_SEPARATOR + primitiveTypeName : primitiveTypeName;
 	}
 
 	private String getPackageName(EPackage ePackage) {
-		return modeltypeImportsManger != null ? modeltypeImportsManger.getModeltypeAlias(ePackage) : ePackage.getName();
+		return modeltypeImportsManger != null ? modeltypeImportsManger.getModeltypeAlias(ePackage) : oclKeywordManager.getValidIdentifierValue(ePackage.getName());
 	}
 
 }

@@ -125,7 +125,7 @@ public class XtendMigrationFacade {
 			modeltypeImportsManger.registerModeltype(namespace);
 			importedMetamodels.add(namespace);
 		}
-		typeManager = new TypeManager(modeltypeImportsManger);
+		typeManager = new TypeManager(modeltypeImportsManger, oclKeywordManager);
 
 		writeln("library " + shortResourceName + ";");
 		writeln("");

@@ -235,11 +235,16 @@ public class RootManager {
 			assert rootDescription != null;
 			List<IPath> newRoots = new ArrayList<IPath>(rootDescription.getRoots());
 			for (int i = 0; i < newRoots.size(); i++) {
-				IPath nextPath = newRoots.get(i);
 				if (i == 0) {
 					newRoots.set(0, templatesOutputFolder.getProjectRelativePath());
 				} else {
-					newRoots.set(i, nextPath.addFileExtension(MigrateXpandProject.MIGRATED_ROOT_EXTENSION));
+					IPath path = newRoots.get(i);
+					IPath newPath = path.removeTrailingSeparator();
+					newPath = newPath.addFileExtension(MigrateXpandProject.MIGRATED_ROOT_EXTENSION);
+					if (path.hasTrailingSeparator()) {
+						newPath = newPath.addTrailingSeparator();
+					}
+					newRoots.set(i, newPath);
 				}
 			}
 			return new RootDescription(newRoots);

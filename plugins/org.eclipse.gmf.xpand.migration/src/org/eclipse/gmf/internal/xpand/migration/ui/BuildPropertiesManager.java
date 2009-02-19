@@ -187,8 +187,8 @@ public class BuildPropertiesManager {
 		List<String> binIncludes = getValues(buildProperties, IBuildEntry.BIN_INCLUDES);
 		for (IResource resource : binInclude) {
 			IPath projectRelativePath = resource.getProjectRelativePath();
-			if (resource instanceof IFile) {
-				projectRelativePath.addTrailingSeparator();
+			if (resource instanceof IFolder) {
+				projectRelativePath = projectRelativePath.addTrailingSeparator();
 			}
 			binIncludes.add(projectRelativePath.toString());
 		}
