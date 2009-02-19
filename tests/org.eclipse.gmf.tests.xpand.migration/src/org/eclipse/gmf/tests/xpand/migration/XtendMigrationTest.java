@@ -26,8 +26,8 @@ import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
 import org.eclipse.gmf.tests.xpand.TestsResourceManager;
 import org.eclipse.gmf.tests.xpand.migration.testModel.MigrationTestsPackage;
 import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
-import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledModule;
-import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompiler;
+import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
+import org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 
 public class XtendMigrationTest extends TestCase {
@@ -308,12 +308,12 @@ public class XtendMigrationTest extends TestCase {
 	}
 
 	private void checkQVTCompilation(String resourceName, String resourceContent) throws MdaException, UnsupportedEncodingException {
-		QvtCompiler qvtCompiler = new QvtCompiler(new ImportResolver());
+		QVTOCompiler qvtCompiler = new QVTOCompiler(new ImportResolver());
 		QvtCompilerOptions options = new QvtCompilerOptions();
 		options.setGenerateCompletionData(false);
 		options.setShowAnnotations(false);
-		CompiledModule module = qvtCompiler.compile(new CFileImpl(resourceName, resourceContent), options, null).getModule();
-		assertTrue(module.getErrors().length == 0);
+		CompiledUnit unit = qvtCompiler.compile(new CFileImpl(resourceName, resourceContent), options, null);
+		assertTrue(unit.getErrors().size() == 0);
 	}
 
 	private static String normalize(String text) {
