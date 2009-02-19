@@ -34,11 +34,9 @@ public class SVGFigureTest extends AbstractSVGFigureTest {
 		assertEquals(size.width, 200);
 		assertEquals(size.height, 200);
 		assertColor(0, 0, ColorConstants.green.getRGB());
-		assertColor(1, 1, ColorConstants.green.getRGB());
-		assertColor(2, 2, ColorConstants.yellow.getRGB());
+		assertColor(1, 1, ColorConstants.yellow.getRGB());
 		assertColor(100, 100, ColorConstants.yellow.getRGB());
-		assertColor(197, 197, ColorConstants.yellow.getRGB());
-		assertColor(198, 198, ColorConstants.green.getRGB());
+		assertColor(198, 198, ColorConstants.yellow.getRGB());
 		assertColor(199, 199, ColorConstants.green.getRGB());
 	}
 

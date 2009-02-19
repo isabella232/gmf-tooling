@@ -62,7 +62,7 @@ public class AbstractSVGFigureTest extends TestCase {
 		// This line width is necessary due to the latest changes in a
 		// RectangleFigure class to get paint border fully till the end of
 		// figure
-		parentFigure.setLineWidth(2);
+		parentFigure.setLineWidth(1);
 		lws.getRootFigure().add(parentFigure);
 	}
 	
