@@ -1,47 +1,58 @@
-modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+/*
+ * Copyright (c) 2006, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ */
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2008/GenModel";
 
 library ViewmapAttributesUtils;
 
-helper isStoringChildPositions(layoutType : genModel::ViewmapLayoutType) : Boolean {
-	return genModel::ViewmapLayoutType::XY_LAYOUT = layoutType
+helper isStoringChildPositions(layoutType : gmfgen::ViewmapLayoutType) : Boolean {
+	return gmfgen::ViewmapLayoutType::XY_LAYOUT = layoutType
 }
 
-helper isFixedFont(viewmap : genModel::Viewmap) : Boolean {
-	return null <> viewmap and (viewmap.attributes)[genModel::StyleAttributes]->exists(e | e.fixedFont)
+helper isFixedFont(viewmap : gmfgen::Viewmap) : Boolean {
+	return viewmap.attributes[gmfgen::StyleAttributes]->exists(fixedFont)
 }
 
-helper isFixedForeground(viewmap : genModel::Viewmap) : Boolean {
-	return null <> viewmap and (viewmap.attributes)[genModel::StyleAttributes]->exists(e | e.fixedForeground)
+helper isFixedForeground(viewmap : gmfgen::Viewmap) : Boolean {
+	return viewmap.attributes[gmfgen::StyleAttributes]->exists(fixedForeground)
 }
 
-helper isFixedBackground(viewmap : genModel::Viewmap) : Boolean {
-	return null <> viewmap and (viewmap.attributes)[genModel::StyleAttributes]->exists(e | e.fixedBackground)
+helper isFixedBackground(viewmap : gmfgen::Viewmap) : Boolean {
+	return viewmap.attributes[gmfgen::StyleAttributes]->exists(fixedBackground)
 }
 
-helper getResizeConstraints(viewmap : genModel::Viewmap) : genModel::ResizeConstraints {
-	return (if null = viewmap then null else (viewmap.attributes)[genModel::ResizeConstraints]->first().oclAsType(genModel::ResizeConstraints) endif)
+helper getResizeConstraints(viewmap : gmfgen::Viewmap) : gmfgen::ResizeConstraints {
+	return (if null = viewmap then null else viewmap.attributes[gmfgen::ResizeConstraints]->first() endif)
 }
 
-helper getDefaultSizeAttributes(viewmap : genModel::Viewmap) : genModel::DefaultSizeAttributes {
-	return (if null = viewmap then null else (viewmap.attributes)[genModel::DefaultSizeAttributes]->first().oclAsType(genModel::DefaultSizeAttributes) endif)
+helper getDefaultSizeAttributes(viewmap : gmfgen::Viewmap) : gmfgen::DefaultSizeAttributes {
+	return (if null = viewmap then null else viewmap.attributes[gmfgen::DefaultSizeAttributes]->first() endif)
 }
 
-helper defaultSizeWidth(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+helper defaultSizeWidth(viewmap : gmfgen::Viewmap, defaultValue : Integer) : Integer {
 	return let a = getDefaultSizeAttributes(viewmap) in (if null = a then defaultValue else a.width endif)
 }
 
-helper defaultSizeHeight(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+helper defaultSizeHeight(viewmap : gmfgen::Viewmap, defaultValue : Integer) : Integer {
 	return let a = getDefaultSizeAttributes(viewmap) in (if null = a then defaultValue else a.height endif)
 }
 
-helper getLabelOffsetAttributes(viewmap : genModel::Viewmap) : genModel::LabelOffsetAttributes {
-	return (if null = viewmap then null else (viewmap.attributes)[genModel::LabelOffsetAttributes]->first().oclAsType(genModel::LabelOffsetAttributes) endif)
+helper getLabelOffsetAttributes(viewmap : gmfgen::Viewmap) : gmfgen::LabelOffsetAttributes {
+	return (if null = viewmap then null else viewmap.attributes[gmfgen::LabelOffsetAttributes]->first() endif)
 }
 
-helper labelOffsetX(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+helper labelOffsetX(viewmap : gmfgen::Viewmap, defaultValue : Integer) : Integer {
 	return let a = getLabelOffsetAttributes(viewmap) in (if null = a then defaultValue else a.x endif)
 }
 
-helper labelOffsetY(viewmap : genModel::Viewmap, defaultValue : Integer) : Integer {
+helper labelOffsetY(viewmap : gmfgen::Viewmap, defaultValue : Integer) : Integer {
 	return let a = getLabelOffsetAttributes(viewmap) in (if null = a then defaultValue else a.y endif)
 }
