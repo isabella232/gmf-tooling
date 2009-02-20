@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.gmf.internal.xpand.StreamsHolder;
+import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
@@ -34,7 +35,6 @@ import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.expressions.OCLExpression;
-import org.eclipse.ocl.lpg.ProblemHandler;
 import org.eclipse.ocl.parser.OCLProblemHandler;
 
 public class ExpressionHelper {
@@ -42,11 +42,14 @@ public class ExpressionHelper {
 	private final OCLExpressionCS expressionCS;
 	private OCLExpression<EClassifier> oclExpression;
 	private EcoreEnvironment oclEnvironment;
+	private Diagnostic oclExpressionDiagnostic;
+	private SyntaxElement parentElement;
 	
-	public ExpressionHelper(OCLExpressionCS exprCS) {
+	public ExpressionHelper(OCLExpressionCS exprCS, SyntaxElement parentElement) {
 		assert exprCS != null;
 		this.expressionCS = exprCS;
 		// TODO: determine start/end/line from CST element?
+		this.parentElement = parentElement;
 	}
 
 	public OCLExpressionCS getCST() {
@@ -56,28 +59,26 @@ public class ExpressionHelper {
 	public EClassifier analyze(ExecutionContext ctx, Set<AnalysationIssue> issues) {
 		EcoreEnvironment env = getOCLEnvironment(ctx);
 		OCLExpression<EClassifier> expression = getOCLExpression(env);
-		handleOCLAnalyzationErrors(env.getProblemHandler(), issues);
+		handleOCLAnalyzationErrors(issues);
 		return expression.getType();
 	}
 
 	/**
-	 * Temporary method reporting errors came from QVT expression analysis.
-	 * TODO: make it working
+	 * TODO: report error message with more concrete positions (currently whole
+	 * ImperativeOCL expression will be highlighted)
 	 */
-	private void handleOCLAnalyzationErrors(ProblemHandler problemHandler, Set<AnalysationIssue> issues) {
-		if (problemHandler instanceof org.eclipse.ocl.parser.OCLProblemHandler) {
-			org.eclipse.ocl.parser.OCLProblemHandler oclProblemHandler = (OCLProblemHandler) problemHandler;
-			Diagnostic diagnostic = oclProblemHandler.getDiagnostic();
-			if (diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR) {
-				issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, diagnostic.getMessage(), this));
-			}
-			oclProblemHandler.clearDiagnostic();
+	private void handleOCLAnalyzationErrors(Set<AnalysationIssue> issues) {
+		if (getOclExpressionDiagnostic() != null) {
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.INCOMPATIBLE_TYPES, getOclExpressionDiagnostic().getMessage(), this));
 		}
 	}
 
 	public Object evaluate(ExecutionContext ctx) {
 		EcoreEnvironment env = getOCLEnvironment(ctx);
-		OCLExpression<EClassifier> expression = getOCLExpression(env);
+		OCLExpression<EClassifier> expression = getOCLExpression(env);		
+		if (getOclExpressionDiagnostic() != null) {
+			throw new EvaluationException(getOclExpressionDiagnostic().getMessage(), this);
+		}
 		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) ctx.createEvaluationEnvironment();
 		QvtOperationalEvaluationVisitor visitor = ctx.createEvaluationVisitor(evaluationEnv);
 		defineGlobalVariables(ctx, evaluationEnv);
@@ -86,7 +87,7 @@ public class ExpressionHelper {
 		initializeStreamsHolder(ctx.getScope(), null, evaluationEnv);
 		clearGlobalVariables(ctx, evaluationEnv);
 		if (env.getOCLStandardLibrary().getOclInvalid() == val) {
-			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", null);
+			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", this);
 		}
 		return val;		
 	}
@@ -100,9 +101,26 @@ public class ExpressionHelper {
 	
 	private OCLExpression<EClassifier> getOCLExpression(EcoreEnvironment env) {
 		if (oclExpression == null) {
+			OCLProblemHandler problemHandler = env.getProblemHandler() instanceof OCLProblemHandler ? (OCLProblemHandler) env.getProblemHandler() : null;
 			oclExpression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
+			if (problemHandler != null) {
+				Diagnostic diagnostic = problemHandler.getDiagnostic();
+				if (diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR) {
+					oclExpressionDiagnostic = diagnostic;
+				}
+				problemHandler.clearDiagnostic();
+			}
 		}
 		return oclExpression;
+	}
+	
+	/**
+	 * Should be called only after {@link #getOCLExpression(EcoreEnvironment)}
+	 * 
+	 * @return Diagnostic or null if expression was analyzed successfully
+	 */
+	private Diagnostic getOclExpressionDiagnostic() {
+		return oclExpressionDiagnostic;
 	}
 
 	private void clearGlobalVariables(ExecutionContext ctx, QvtOperationalEvaluationEnv evaluationEnv) {
@@ -172,6 +190,14 @@ public class ExpressionHelper {
 
 	public int getEnd() {
 		return expressionCS.getEndOffset();
+	}
+	
+	public String getFileName() {
+		return parentElement.getFileName();
+	}
+	
+	public int getLine() {
+		return parentElement.getLine();
 	}
 	
 }

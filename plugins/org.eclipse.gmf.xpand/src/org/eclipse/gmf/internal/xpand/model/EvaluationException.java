@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,7 @@
 package org.eclipse.gmf.internal.xpand.model;
 
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
-import org.eclipse.ocl.cst.CSTNode;
+import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 
 /**
  * @author Sven Efftinge
@@ -27,19 +27,47 @@ public class EvaluationException extends RuntimeException {
         super(msg);
         location = location(element);
     }
-
-    public EvaluationException(final Throwable ex, final SyntaxElement element) {
-        super(ex);
-        location = location(element);
-    }
-
-    public EvaluationException(final String msg, final SyntaxElement element, final CSTNode node) {
+    
+    // TODO: review all usages
+    public EvaluationException(final String msg) {
         super(msg);
-        location = location(element) + " [" + node.getStartOffset() + ".." + node.getEndOffset() + "]";
+        location = "";
     }
 
-    public EvaluationException(AmbiguousDefinitionException e) {
-    	this(e.getMessage(), null);
+    public EvaluationException(final Throwable ex) {
+        super(ex);
+        location = "";
+    }
+
+    public EvaluationException(final AmbiguousDefinitionException e) {
+    	super(e.getMessage());
+    	location = location(e);
+	}
+
+	public EvaluationException(final String message, ExpressionHelper expressionHelper) {
+		super(message);
+		location = location(expressionHelper);
+	}
+	
+	private String location(AmbiguousDefinitionException e) {
+		// TODO: log line number here?
+		String fileName = null;
+		if (e.getDefinition1() != null) {
+			fileName = e.getDefinition1().getOwner().getFullyQualifiedName();
+		} else if (e.getDefinition2() != null) {
+			fileName = e.getDefinition2().getOwner().getFullyQualifiedName();
+		}
+		if (fileName != null) {
+			return ":in " + fileName;
+		}
+		return "";
+	}
+
+	private static String location(ExpressionHelper expressionHelper) {
+		if (expressionHelper == null) {
+			return "";
+		}
+		return ":in " + expressionHelper.getFileName() + ", line " + expressionHelper.getLine();
 	}
 
 	private static String location(SyntaxElement element) {

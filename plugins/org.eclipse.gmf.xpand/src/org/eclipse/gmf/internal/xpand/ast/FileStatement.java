@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ public class FileStatement extends Statement {
 
     public FileStatement(final int start, final int end, final int line, final OCLExpressionCS fileNameCS, final Statement[] body, final Identifier mode) {
         super(start, end, line);
-        this.fileName = new ExpressionHelper(fileNameCS);
+        this.fileName = new ExpressionHelper(fileNameCS, this);
         this.body = body;
         this.mode = mode;
     }
@@ -66,7 +66,7 @@ public class FileStatement extends Statement {
     public void evaluateInternal(final ExecutionContext ctx) {
         final Object result = fileName.evaluate(ctx);
         if (result == null) {
-			throw new EvaluationException("Nullevaluation", this, fileName.getCST());
+			throw new EvaluationException("Nullevaluation", fileName);
 		}
         final String fileName = result.toString();
         String modeVal = null;

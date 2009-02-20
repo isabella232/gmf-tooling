@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,10 +37,10 @@ public class ProtectStatement extends Statement {
     public ProtectStatement(final int start, final int end, final int line, final OCLExpressionCS commentStart,
             final OCLExpressionCS commentEnd, final Statement[] body, final OCLExpressionCS id, final boolean disable) {
         super(start, end, line);
-        this.commentStart = new ExpressionHelper(commentStart);
-        this.commentEnd = new ExpressionHelper(commentEnd);
+        this.commentStart = new ExpressionHelper(commentStart, this);
+        this.commentEnd = new ExpressionHelper(commentEnd, this);
         this.body = body;
-        this.id = new ExpressionHelper(id);
+        this.id = new ExpressionHelper(id, this);
         this.disable = disable;
     }
 
@@ -59,15 +59,18 @@ public class ProtectStatement extends Statement {
     	// FIXME REVISIT!!!
         final String cStart = nullSave(commentStart.evaluate(ctx));
         if (cStart == null) {
-			throw new EvaluationException("NullEvaluation!", this, commentStart.getCST());
+        	// Never will be here
+			throw new EvaluationException("NullEvaluation!", commentStart);
 		}
         final String cEnd = nullSave(commentEnd.evaluate(ctx));
         if (cEnd == null) {
-			throw new EvaluationException("NullEvaluation!", this, commentEnd.getCST());
+        	// Never will be here
+			throw new EvaluationException("NullEvaluation!", commentEnd);
 		}
         final String idv = nullSave(id.evaluate(ctx));
         if (idv == null) {
-			throw new EvaluationException("NullEvaluation!", this, id.getCST());
+        	// Never will be here
+			throw new EvaluationException("NullEvaluation!", id);
 		}
 
 //        ProtectedRegion region = null;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ public class IfStatement extends Statement {
     public IfStatement(final int start, final int end, final int line, final OCLExpressionCS condition,
             final Statement[] thenPart, final IfStatement elseIf) {
         super(start, end, line);
-        this.condition = condition == null ? null : new ExpressionHelper(condition);
+        this.condition = condition == null ? null : new ExpressionHelper(condition, this);
         this.thenPart = thenPart;
         this.elseIf = elseIf;
     }
@@ -75,10 +75,10 @@ public class IfStatement extends Statement {
         if (condition != null) {
             final Object result = condition.evaluate(ctx);
             if (result == null) {
-				throw new EvaluationException("Nullevaluation!", this, condition.getCST());
+				throw new EvaluationException("Nullevaluation!", condition);
 			}
             if (!(result instanceof Boolean)) {
-				throw new EvaluationException("Boolean expected!", this, condition.getCST());
+				throw new EvaluationException("Boolean expected (was: " + result.getClass().getName() + ")!", condition);
 			}
             if (((Boolean) result).booleanValue()) {
                 for (int i = 0; i < thenPart.length; i++) {

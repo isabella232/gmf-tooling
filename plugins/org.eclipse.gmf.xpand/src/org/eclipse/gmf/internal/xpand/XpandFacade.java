@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,8 @@ public class XpandFacade {
 
 		final XpandDefinition def = getContext().findDefinition(definitionName, targetType, paramTypes);
 		if (def == null) {
-			throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for " + targetType.getName() + " could be found!", null);
+			// TODO: throw DefinitionNotFoundException from here (just like AmbiguousDefinitionException)
+			throw new EvaluationException("No Definition " + definitionName + getParamString(paramTypes) + " for " + targetType.getName() + " could be found!");
 		}
 		
 		ExecutionContext ctx = new ExecutionContextImpl(scope);

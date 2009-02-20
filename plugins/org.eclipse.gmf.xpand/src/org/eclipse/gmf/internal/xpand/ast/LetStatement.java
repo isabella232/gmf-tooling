@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ public class LetStatement extends Statement {
 	public LetStatement(final int start, final int end, final int line, final Identifier varName, final OCLExpressionCS value, final Statement[] body) {
 		super(start, end, line);
 		this.varName = varName;
-		this.varValue = new ExpressionHelper(value);
+		this.varValue = new ExpressionHelper(value, this);
 		this.body = body;
 	}
 
@@ -55,11 +55,11 @@ public class LetStatement extends Statement {
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		EClassifier varType = getVarType(ctx, issues);
 		if (issues.size() > 0) {
-			throw new EvaluationException("Can't evaluate LET expression: variable type cannot be defined", null);	
+			throw new EvaluationException("Can't evaluate LET expression: variable type cannot be defined", varValue);	
 		}
 		Object evaluatedVarValue = varValue.evaluate(ctx);
 		if (!BuiltinMetaModel.isAssignableFrom(ctx, varType, BuiltinMetaModel.getType(ctx, evaluatedVarValue))) {
-			throw new EvaluationException("Can't evaluate LET expression: actual variable type is not assignable to declared one", null);
+			throw new EvaluationException("Can't evaluate LET expression: actual variable type is not assignable to declared one", this);
 		}
 		ctx = ctx.cloneWithVariable(new Variable(varName.getValue(), varType, evaluatedVarValue));
 		for (Statement statement : body) {

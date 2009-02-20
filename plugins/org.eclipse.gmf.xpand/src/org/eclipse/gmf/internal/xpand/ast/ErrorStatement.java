@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,7 +28,7 @@ public class ErrorStatement extends Statement {
 
     public ErrorStatement(final int start, final int end, final int line, final OCLExpressionCS msg) {
         super(start, end, line);
-        message = new ExpressionHelper(msg);
+        message = new ExpressionHelper(msg, this);
     }
 
     public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {

@@ -1,6 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2008 Borland Software Corporation
- *******************************************************************************/
+/*
+ * Copyright (c) 2008, 2009 Borland Software Corporation
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *     Boris Blajer (Borland)
+ */
 package org.eclipse.gmf.internal.xpand.model;
 
 
@@ -22,11 +29,11 @@ public class XpandStreamsHolder implements StreamsHolder {
 
 	public String getStreamContents(String slotName) {
 		if (myStreams == null) {
-			throw new EvaluationException("Undefined stream " + slotName, null);
+			throw new EvaluationException("Undefined stream " + slotName);
 		}
 		StringBuilder result = myStreams.get(slotName);
 		if (result == null) {
-			throw new EvaluationException("Undefined stream " + slotName, null);
+			throw new EvaluationException("Undefined stream " + slotName);
 		}
 		setAccessed(slotName);
 		if (result.length() == 0) {

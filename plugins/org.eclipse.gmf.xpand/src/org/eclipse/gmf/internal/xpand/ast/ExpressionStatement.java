@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Stat
 
     public ExpressionStatement(final int start, final int end, final int line, final OCLExpressionCS exprCS) {
         super(start, end, line);
-        this.expression = new ExpressionHelper(exprCS);
+        this.expression = new ExpressionHelper(exprCS, this);
     }
 
     public void analyze(final ExecutionContext ctx, final Set<AnalysationIssue> issues) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,14 +49,14 @@ public class ExpandStatement extends Statement {
             final OCLExpressionCS target, final OCLExpressionCS separator, final OCLExpressionCS[] parameters, final boolean foreach) {
         super(start, end, line);
         this.definition = TypeHelper.toString(definition);
-        this.target = target == null ? null : new ExpressionHelper(target);
-        this.separator = separator == null ? null : new ExpressionHelper(separator);
+        this.target = target == null ? null : new ExpressionHelper(target, this);
+        this.separator = separator == null ? null : new ExpressionHelper(separator, this);
         if (parameters == null) {
         	this.parameters = new ExpressionHelper[0];
         } else {
         	this.parameters = new ExpressionHelper[parameters.length];
         	for (int i = 0; i < parameters.length; i++) {
-        		this.parameters[i] = new ExpressionHelper(parameters[i]);
+        		this.parameters[i] = new ExpressionHelper(parameters[i], this);
         	}
         }
         this.isForeach = foreach;
@@ -116,7 +116,7 @@ public class ExpandStatement extends Statement {
 	        if (isForeach) {
 	            targetObject = target.evaluate(ctx);
 	            if (!(targetObject instanceof Collection)) {
-					throw new EvaluationException("Collection expected!", this, target.getCST());
+					throw new EvaluationException("Collection expected (was: " + targetObject.getClass().getName() + ")!", target);
 				}
 	
 	            final Collection<?> col = (Collection<?>) targetObject;
