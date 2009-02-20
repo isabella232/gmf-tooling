@@ -12,9 +12,11 @@
 package org.eclipse.gmf.internal.xpand.migration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
@@ -389,15 +391,17 @@ public class XtendMigrationFacade {
 		
 		write("helper ");
 		// assert extension.getParameterTypes().size() > 0;
-		assert extension.getParameterNames().size() == extension.getParameterTypes().size();
-		Iterator<String> parameterNames = extension.getParameterNames().iterator();
-		Iterator<EClassifier> parameterTypes = extension.getParameterTypes().iterator();
-
+		List<String> parameterNames = extension.getParameterNames();
+		List<EClassifier> parameterTypes = extension.getParameterTypes();
+		assert parameterNames.size() == parameterTypes.size();
+		Iterator<String> parameterNamesIterator = parameterNames.iterator();
+		Iterator<EClassifier> parameterTypesIterator = parameterTypes.iterator();
+		
 		String selfParameterName = null;
 		if (!OperationCallTrace.isStaticQvtoCall(ctx, extension)) {
-			assert parameterNames.hasNext();
-			selfParameterName = parameterNames.next();
-			EClassifier selfParameterType = parameterTypes.next();
+			assert parameterNamesIterator.hasNext();
+			selfParameterName = parameterNamesIterator.next();
+			EClassifier selfParameterType = parameterTypesIterator.next();
 			write(typeManager.getQvtFQName(selfParameterType));
 			write(OclCs.PATH_SEPARATOR);
 			modelManager.registerSelfAlias(selfParameterName);
@@ -405,11 +409,11 @@ public class XtendMigrationFacade {
 		write(extension.getName());
 		write("(");
 		
-		while (parameterNames.hasNext()) {
-			write(oclKeywordManager.getValidIdentifierValue(parameterNames.next()));
+		while (parameterNamesIterator.hasNext()) {
+			write(oclKeywordManager.getValidIdentifierValue(parameterNamesIterator.next()));
 			write(" : ");
-			write(typeManager.getQvtFQName(parameterTypes.next()));
-			if (parameterNames.hasNext()) {
+			write(typeManager.getQvtFQName(parameterTypesIterator.next()));
+			if (parameterNamesIterator.hasNext()) {
 				write(", ");
 			}
 		}
@@ -445,12 +449,22 @@ public class XtendMigrationFacade {
 	}
 
 	private void migrateExpressionExtension(ExpressionExtensionStatement extension, MigrationExecutionContext ctx) throws MigrationException {
+		Map<String, EClassifier> envVariables = new HashMap<String, EClassifier>();
+		List<String> parameterNames = extension.getParameterNames();
+		List<EClassifier> parameterTypes = extension.getParameterTypes();
+		assert parameterNames.size() == parameterTypes.size();
+		Iterator<String> parameterNamesIterator = parameterNames.iterator();
+		Iterator<EClassifier> parameterTypesIterator = parameterTypes.iterator();
+		while (parameterNamesIterator.hasNext()) {
+			envVariables.put(parameterNamesIterator.next(), parameterTypesIterator.next());
+		}		
+		
 		write("\t");
 		ExpressionAnalyzeTrace expressionAnalyzeTrace = ctx.getTraces().get(extension);
 		// TODO: resolve return type of ExpressionExtensionStatement using
 		// corresponding identifier here in this context and use it as a desired
 		// return type parameter
-		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), expressionAnalyzeTrace.getResultType(), typeManager, modelManager,
+		ExpressionMigrationFacade expressionMigrationFacade = new ExpressionMigrationFacade(extension.getExpression(), expressionAnalyzeTrace.getResultType(), envVariables, typeManager, modelManager,
 				new VariableNameDispatcher(extension), ctx, resourceName);
 		StringBuilder expressionContent = expressionMigrationFacade.migrate();
 		writeln(expressionContent.insert(expressionMigrationFacade.getReturnPosition(), "return "));

@@ -14,10 +14,13 @@ package org.eclipse.gmf.internal.xpand.migration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EEnum;
@@ -138,10 +141,13 @@ public class ExpressionMigrationFacade {
 
 	private String resourceName;
 
-	ExpressionMigrationFacade(Expression expression, EClassifier requiredType, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher,
-			MigrationExecutionContext context, String resourceName) {
+	private HashMap<String, EClassifier> envVariables;
+
+	ExpressionMigrationFacade(Expression expression, EClassifier requiredType, Map<String, EClassifier> envVariables, TypeManager typeManager, ModelManager modelManager,
+			VariableNameDispatcher variableDispatcher, MigrationExecutionContext context, String resourceName) {
 		rootExpression = expression;
 		rootExpressionType = requiredType;
+		this.envVariables = new HashMap<String, EClassifier>(envVariables);
 		this.typeManager = typeManager;
 		this.modelManager = modelManager;
 		this.variableDispatcher = variableDispatcher;
@@ -151,7 +157,7 @@ public class ExpressionMigrationFacade {
 	}
 
 	StringBuilder migrate() throws MigrationException {
-		qvtContexts.push(new QvtExecutionContext());
+		qvtContexts.push(QvtExecutionContext.createNewContext(envVariables));
 		try {
 			EClassifier expressionQvtType = migrateExpression(rootExpression);
 			internalConvertTypes(expressionQvtType, rootExpressionType);
@@ -489,9 +495,6 @@ public class ExpressionMigrationFacade {
 	}
 	
 	private EClassifier migrateCollectionExpression(CollectionExpression collectionExpression) throws MigrationException {
-		if (collectionExpression.getTarget() == null) {
-			throw new MigrationException(Type.UNSUPPORTED_EXPRESSION, resourceName, collectionExpression, "Collection expression without target specified: " + collectionExpression.toString());
-		}
 		ExpressionAnalyzeTrace expressionTrace = ctx.getTraces().get(collectionExpression);
 		if (false == expressionTrace instanceof CollectionExpressionTrace) {
 			throw new MigrationException(Type.UNSUPPORTED_COLLECTION_EXPRESSION_TRACE, resourceName, collectionExpression, expressionTrace);
@@ -500,7 +503,13 @@ public class ExpressionMigrationFacade {
 
 		int placeholder = getCurrentPosition();
 		boolean hasNegation = false;
-		EClassifier targetQvtType = migrateExpression(collectionExpression.getTarget());
+		EClassifier targetQvtType;
+		if (collectionExpression.getTarget() != null) {
+			targetQvtType = migrateExpression(collectionExpression.getTarget());
+		} else {
+			write(Environment.SELF_VARIABLE_NAME);
+			targetQvtType = getEnvVariableType(ExecutionContext.IMPLICIT_VARIABLE);
+		}
 		assert BuiltinMetaModel.isCollectionType(targetQvtType);
 		EClassifier innerTargetQvtType = BuiltinMetaModel.getInnerType(targetQvtType);
 
@@ -1515,6 +1524,12 @@ public class ExpressionMigrationFacade {
 					return EcorePackage.eINSTANCE.getEString();
 				}
 			}
+			if (FeatureCallTrace.Type.IMPLICIT_COLLECT_FEATURE_REF == trace.getType()) {
+				// implicit collect call without explicitly specified target -
+				// writing "self" to make it compilable
+				write(Environment.SELF_VARIABLE_NAME);
+				write(".");
+			}
 		}
 		write(modelManager.getName(featureCall, trace));
 		assert targetType != null;
@@ -1577,9 +1592,17 @@ public class ExpressionMigrationFacade {
 	 * {@link ExecutionContext#cloneWithVariable(org.eclipse.gmf.internal.xpand.expression.Variable...)}
 	 * {@link ExecutionContext#cloneContext()}
 	 */
-	private class QvtExecutionContext extends ExecutionContextImpl {
+	private static class QvtExecutionContext extends ExecutionContextImpl {
 
-		public QvtExecutionContext() {
+		public static QvtExecutionContext createNewContext(HashMap<String, EClassifier> envVariables) {
+			QvtExecutionContext result = new QvtExecutionContext();
+			for (Entry<String, EClassifier> envVar : envVariables.entrySet()) {
+				result = result.cloneWithVariable(envVar.getKey(), envVar.getValue());
+			}
+			return result;
+		}
+
+		private QvtExecutionContext() {
 			super((ResourceManager) null);
 		}
 

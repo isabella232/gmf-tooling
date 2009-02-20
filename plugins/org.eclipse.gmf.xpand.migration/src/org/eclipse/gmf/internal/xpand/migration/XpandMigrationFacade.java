@@ -15,8 +15,11 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
@@ -143,7 +146,7 @@ public class XpandMigrationFacade {
 		typeManager = new TypeManager(oclKeywordManager);
 
 		for (NamespaceImport namespaceImport : xpandTemplate.getImports()) {
-			migrateExpression(namespaceImport.getStringLiteral(), EcorePackage.eINSTANCE.getEString(), new VariableNameDispatcher());
+			migrateExpression(namespaceImport.getStringLiteral(), EcorePackage.eINSTANCE.getEString(), Collections.<String, EClassifier> emptyMap(), new VariableNameDispatcher());
 		}
 
 		for (XpandDefinition definition : xpandTemplate.getDefinitions()) {
@@ -232,17 +235,19 @@ public class XpandMigrationFacade {
 		assert definition instanceof Definition || definition instanceof Advice;
 		migrateIdentifier(definition instanceof Definition ? ((Definition) definition).getDefName() : ((Advice) definition).getPointCut());
 
+		Map<String, EClassifier> envVariables = new HashMap<String, EClassifier>();
 		for (DeclaredParameter parameter : definition.getParams()) {
-			migrateParameter(parameter);
+			envVariables.put(parameter.getName().getValue(), migrateParameter(parameter));
 		}
 
 		Identifier targetType = definition.getType();
 		EClassifier qvtType = ctx.getTypeForName(targetType.getValue());
 		replace(targetType, typeManager.getQvtFQName(qvtType));
+		envVariables.put(ExecutionContext.IMPLICIT_VARIABLE, qvtType);
 
 		VariableNameDispatcher variableNameDispatcher = new VariableNameDispatcher(definition);
 		for (Statement statement : definition.getBody()) {
-			migrateStatement(statement, variableNameDispatcher);
+			migrateStatement(statement, variableNameDispatcher, envVariables);
 		}
 	}
 
@@ -252,13 +257,13 @@ public class XpandMigrationFacade {
 		}
 	}
 
-	private void migrateStatement(Statement statement, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
+	private void migrateStatement(Statement statement, VariableNameDispatcher variableNameDispatcher, Map<String, EClassifier> envVariables) throws MigrationException {
 		if (statement instanceof ExpressionStatement) {
 			ExpressionStatement expressionStatement = (ExpressionStatement) statement;
-			migrateExpression(expressionStatement.getExpression(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);
+			migrateExpression(expressionStatement.getExpression(), EcorePackage.eINSTANCE.getEString(), envVariables, variableNameDispatcher);
 		} else if (statement instanceof ErrorStatement) {
 			ErrorStatement errorStatement = (ErrorStatement) statement;
-			migrateExpression(errorStatement.getMessage(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);
+			migrateExpression(errorStatement.getMessage(), EcorePackage.eINSTANCE.getEString(), envVariables, variableNameDispatcher);
 		} else if (statement instanceof ExpandStatement) {
 			ExpandStatement expandStatement = (ExpandStatement) statement;
 			migrateExpandStatementDefinition(expandStatement);
@@ -267,51 +272,56 @@ public class XpandMigrationFacade {
 			ExpandAnalyzeTrace expTrace = (ExpandAnalyzeTrace) trace;
 
 			for (Expression parameter : expandStatement.getParameters()) {
-				migrateExpression(parameter, expTrace.getParameterType(parameter), variableNameDispatcher);
+				migrateExpression(parameter, expTrace.getParameterType(parameter), envVariables, variableNameDispatcher);
 			}
 			if (expandStatement.getTarget() != null) {
-				migrateExpression(expandStatement.getTarget(), expTrace.getResultType(), variableNameDispatcher);
+				migrateExpression(expandStatement.getTarget(), expTrace.getResultType(), envVariables, variableNameDispatcher);
 			}
 			if (expandStatement.getSeparator() != null) {
-				migrateExpression(expandStatement.getSeparator(), expTrace.getSeparatorType(), variableNameDispatcher);
+				migrateExpression(expandStatement.getSeparator(), expTrace.getSeparatorType(), envVariables, variableNameDispatcher);
 			}
 		} else if (statement instanceof FileStatement) {
 			FileStatement fileStatement = (FileStatement) statement;
-			migrateExpression(fileStatement.getTargetFileName(), EcorePackage.eINSTANCE.getEString(), variableNameDispatcher);
+			migrateExpression(fileStatement.getTargetFileName(), EcorePackage.eINSTANCE.getEString(), envVariables, variableNameDispatcher);
 			for (Statement bodyStatement : fileStatement.getBody()) {
-				migrateStatement(bodyStatement, variableNameDispatcher);
+				migrateStatement(bodyStatement, variableNameDispatcher, envVariables);
 			}
 		} else if (statement instanceof ForEachStatement) {
 			ForEachStatement forEach = (ForEachStatement) statement;
 			ExpressionAnalyzeTrace trace = ctx.getTraces().get(forEach);
 			assert trace instanceof ForEachAnalyzeTrace;
 			ForEachAnalyzeTrace forEachTrace = (ForEachAnalyzeTrace) trace;
-			migrateExpression(forEach.getTarget(), forEachTrace.getResultType(), variableNameDispatcher);
+			migrateExpression(forEach.getTarget(), forEachTrace.getResultType(), envVariables, variableNameDispatcher);
 			if (forEach.getSeparator() != null) {
-				migrateExpression(forEach.getSeparator(), forEachTrace.getSeparatorType(), variableNameDispatcher);
+				migrateExpression(forEach.getSeparator(), forEachTrace.getSeparatorType(), envVariables, variableNameDispatcher);
 			}
 			for (Statement bodyStatement : forEach.getBody()) {
-				migrateStatement(bodyStatement, variableNameDispatcher);
+				migrateStatement(bodyStatement, variableNameDispatcher, envVariables);
 			}
 		} else if (statement instanceof IfStatement) {
 			IfStatement ifStatement = (IfStatement) statement;
 			if (ifStatement.getCondition() != null) {
 				ExpressionAnalyzeTrace trace = ctx.getTraces().get(ifStatement);
-				migrateExpression(ifStatement.getCondition(), trace.getResultType(), variableNameDispatcher);
+				migrateExpression(ifStatement.getCondition(), trace.getResultType(), envVariables, variableNameDispatcher);
 			}
 			for (Statement thenStatement : ifStatement.getThenPart()) {
-				migrateStatement(thenStatement, variableNameDispatcher);
+				migrateStatement(thenStatement, variableNameDispatcher, envVariables);
 			}
 			if (ifStatement.getElseIf() != null) {
-				migrateStatement(ifStatement.getElseIf(), variableNameDispatcher);
+				migrateStatement(ifStatement.getElseIf(), variableNameDispatcher, envVariables);
 			}
 		} else if (statement instanceof LetStatement) {
 			LetStatement letStatement = (LetStatement) statement;
 			migrateIdentifier(letStatement.getVarName());
 			ExpressionAnalyzeTrace trace = ctx.getTraces().get(letStatement);
-			migrateExpression(letStatement.getVarValue(), trace.getResultType(), variableNameDispatcher);
-			for (Statement bodyStatement : letStatement.getBody()) {
-				migrateStatement(bodyStatement, variableNameDispatcher);
+			migrateExpression(letStatement.getVarValue(), trace.getResultType(), envVariables, variableNameDispatcher);
+			envVariables.put(letStatement.getVarName().getValue(), trace.getResultType());
+			try {
+				for (Statement bodyStatement : letStatement.getBody()) {
+					migrateStatement(bodyStatement, variableNameDispatcher, envVariables);
+				}
+			} finally {
+				envVariables.remove(letStatement.getVarName().getValue());
 			}
 		}
 	}
@@ -332,13 +342,14 @@ public class XpandMigrationFacade {
 		}
 	}
 
-	private void migrateParameter(DeclaredParameter parameter) throws MigrationException {
+	private EClassifier migrateParameter(DeclaredParameter parameter) throws MigrationException {
 		EClassifier parameterType = ctx.getTypeForName(parameter.getType().getValue());
 		replace(parameter, oclKeywordManager.getValidIdentifierValue(parameter.getName()) + " : " + typeManager.getQvtFQName(parameterType));
+		return parameterType;
 	}
 
-	private void migrateExpression(Expression expression, EClassifier expectedExpressionType, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
-		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(expression, expectedExpressionType, typeManager, modelManager, variableNameDispatcher, ctx, resourceName);
+	private void migrateExpression(Expression expression, EClassifier expectedExpressionType, Map<String, EClassifier> envVariables, VariableNameDispatcher variableNameDispatcher) throws MigrationException {
+		ExpressionMigrationFacade expressionMF = new ExpressionMigrationFacade(expression, expectedExpressionType, envVariables, typeManager, modelManager, variableNameDispatcher, ctx, resourceName);
 		StringBuilder result = expressionMF.migrate();
 		replace(expression, result.toString());
 	}
