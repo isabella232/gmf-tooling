@@ -241,7 +241,7 @@ public final class XpandFacade {
 			exp = oclHelper.createQuery(expression);
 		} catch (ParserException e) {
 //			e.printStackTrace();
-			throw new EvaluationException(e, null);
+			throw new EvaluationException(e);
 		}
 		Query query = ocl.createQuery(exp);
 		EcoreEvaluationEnvironment ee = (EcoreEvaluationEnvironment) query.getEvaluationEnvironment();
