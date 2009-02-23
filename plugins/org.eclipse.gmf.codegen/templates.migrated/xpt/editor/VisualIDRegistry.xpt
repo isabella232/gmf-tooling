@@ -278,7 +278,7 @@ public static int «EXPAND getLinkWithClassVisualIDMethodName»(org.eclipse.emf.ec
 	if (domainElement == null) {
 		«EXPAND unrecognizedVID-»
 	}
-	«EXPAND returnVisualID FOREACH links->select(link | isTypeLink(link))-»
+	«EXPAND returnVisualID FOREACH links->select(isTypeLink())-»
 	«EXPAND unrecognizedVID-»
 }
 «ENDDEFINE»

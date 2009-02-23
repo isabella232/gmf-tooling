@@ -32,9 +32,7 @@ public class «itemSemanticEditPolicyClassName» extends «diagram.getBaseItemSeman
 
 «DEFINE classBody FOR gmfgen::GenLink-»
 	«EXPAND getDestroySemanticCommand(self) FOR modelFacet -»
-	«IF isTypeLink(self)-»
-		«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands -»
-	«ENDIF-»
+	«IF isTypeLink()»«EXPAND xpt::diagram::editpolicies::linkCommands::linkCommands»«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getDestroySemanticCommand(gmfgen::GenLink genLink) FOR gmfgen::LinkModelFacet-»

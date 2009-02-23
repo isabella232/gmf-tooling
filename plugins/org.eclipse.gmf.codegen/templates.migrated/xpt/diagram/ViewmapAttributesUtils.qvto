@@ -17,16 +17,20 @@ helper isStoringChildPositions(layoutType : gmfgen::ViewmapLayoutType) : Boolean
 	return gmfgen::ViewmapLayoutType::XY_LAYOUT = layoutType
 }
 
-helper isFixedFont(viewmap : gmfgen::Viewmap) : Boolean {
-	return viewmap.attributes[gmfgen::StyleAttributes]->exists(fixedFont)
+helper gmfgen::Viewmap::isFixedFont() : Boolean {
+	return self.attributes[gmfgen::StyleAttributes]->exists(fixedFont)
 }
 
-helper isFixedForeground(viewmap : gmfgen::Viewmap) : Boolean {
-	return viewmap.attributes[gmfgen::StyleAttributes]->exists(fixedForeground)
+helper gmfgen::Viewmap::isFixedForeground() : Boolean {
+	return self.attributes[gmfgen::StyleAttributes]->exists(fixedForeground)
 }
 
-helper isFixedBackground(viewmap : gmfgen::Viewmap) : Boolean {
-	return viewmap.attributes[gmfgen::StyleAttributes]->exists(fixedBackground)
+helper gmfgen::Viewmap::isFixedBackground() : Boolean {
+	return self.attributes[gmfgen::StyleAttributes]->exists(fixedBackground)
+}
+
+helper gmfgen::Viewmap::canUseShapeStyle() : Boolean {
+	return not (self.isFixedFont() or self.isFixedForeground() or self.isFixedBackground());
 }
 
 helper getResizeConstraints(viewmap : gmfgen::Viewmap) : gmfgen::ResizeConstraints {

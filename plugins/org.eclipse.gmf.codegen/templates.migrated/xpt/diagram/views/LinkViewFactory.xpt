@@ -23,12 +23,12 @@ public class «notationViewFactoryClassName» extends org.eclipse.gmf.runtime.diag
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected java.util.List createStyles(org.eclipse.gmf.runtime.notation.View view) {
 		java.util.List styles = new java.util.ArrayList();
-		«IF not isFixedForeground(viewmap)-»
+		«IF not viewmap.isFixedForeground()-»
 		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createConnectorStyle());
 		«ELSE-»
 		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createRoutingStyle());
 		«ENDIF-»
-		«IF not isFixedFont(viewmap)-»
+		«IF not viewmap.isFixedFont()-»
 		styles.add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle());
 		«ENDIF-»
 		«EXPAND xpt::diagram::views::Utils::addCustomStyles('styles')-»

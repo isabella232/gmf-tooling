@@ -528,7 +528,7 @@
 «DEFINE getFontStyleOwnerView(viewmap : gmfgen::Viewmap) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	 private org.eclipse.gmf.runtime.notation.View getFontStyleOwnerView() {
-		«IF isFixedFont(viewmap)-»
+		«IF viewmap.isFixedFont()-»
 		return (org.eclipse.gmf.runtime.notation.View) getModel();
 		«ELSE-»
 		return getPrimaryView();

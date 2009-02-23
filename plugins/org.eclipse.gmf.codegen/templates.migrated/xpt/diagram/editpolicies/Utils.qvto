@@ -34,11 +34,11 @@ helper getAllPotentialLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel:
 }
 
 helper getReroutableTypeLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
-	return getAllRelatedReroutableLinks(linkEnd)->select(link | isTypeLink(link))
+	return getAllRelatedReroutableLinks(linkEnd)->select(isTypeLink())
 }
 
 helper getReroutableRefLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
-	return getAllRelatedReroutableLinks(linkEnd)->select(link | isRefLink(link))
+	return getAllRelatedReroutableLinks(linkEnd)->select(isRefLink())
 }
 
 --XXX[MG]: again, it would be better to use linkEnd.incomingLinks.union(linkEnd.outgoingLinks).toList() 
