@@ -77,6 +77,7 @@ import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
 import org.eclipse.gmf.runtime.notation.BasicCompartment;
 import org.eclipse.gmf.runtime.notation.BasicDecorationNode;
 import org.eclipse.gmf.runtime.notation.Connector;
+import org.eclipse.gmf.runtime.notation.DecorationNode;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.FontStyle;
@@ -212,7 +213,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 			return false; // foreign element type
 		}
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
-		if (elementTypeHint == null || !elementTypeHint.equals(op.getSemanticHint())) {
+		if (elementTypeHint == null || (op.getSemanticHint() != null && !elementTypeHint.equals(op.getSemanticHint()))) {
 			return false; // our hint is visual id and must be specified, and it should be the same as in element type
 		}
 		int visualID = EcoreVisualIDRegistry.getVisualID(elementTypeHint);
@@ -284,7 +285,9 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 	 * @generated
 	 */
 	public Edge createEdge(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
-		switch (EcoreVisualIDRegistry.getVisualID(semanticHint)) {
+		IElementType elementType = getSemanticElementType(semanticAdapter);
+		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+		switch (EcoreVisualIDRegistry.getVisualID(elementTypeHint)) {
 		case EAnnotationReferencesEditPart.VISUAL_ID:
 			return createEAnnotationReferences_4001(containerView, index, persisted, preferencesHint);
 		case EReferenceEditPart.VISUAL_ID:
@@ -742,7 +745,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 	 * @generated
 	 */
 	private Node createLabel(View owner, String hint) {
-		BasicDecorationNode rv = NotationFactory.eINSTANCE.createBasicDecorationNode();
+		DecorationNode rv = NotationFactory.eINSTANCE.createDecorationNode();
 		rv.setType(hint);
 		ViewUtil.insertChildView(owner, rv, ViewUtil.APPEND, true);
 		return rv;
