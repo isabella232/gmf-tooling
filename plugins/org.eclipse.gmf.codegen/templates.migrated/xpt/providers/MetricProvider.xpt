@@ -16,10 +16,9 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::EMFUtils»
 «EXTENSION xpt::providers::Metrics»
 «EXTENSION xpt::StringOperations»
-«EXTENSION xpt::NativeEMFUtils»
+«EXTENSION org::eclipse::gmf::internal::codegen::util::CodeGenerationUtils»
 
 «DEFINE MetricProvider FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

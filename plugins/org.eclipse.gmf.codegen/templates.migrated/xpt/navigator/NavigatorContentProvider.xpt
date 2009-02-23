@@ -13,7 +13,7 @@
 «IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::navigator::Utils»
-«EXTENSION xpt::navigator::NativeUtils»
+«EXTENSION org::eclipse::gmf::internal::codegen::util::CodeGenerationUtils»
 
 «DEFINE NavigatorContentProvider FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
@@ -388,22 +388,22 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 «DEFINE createEditingDomain FOR gmfgen::GenNavigator»org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain()«ENDDEFINE»
 
 «DEFINE initGroupVariables(navigator : gmfgen::GenNavigator, _references : Sequence(gmfgen::GenNavigatorChildReference), parentVarName : String, contextElement : gmfgen::GenCommonBase) FOR String-»
-	«navigator.getNavigatorGroupQualifiedClassName()» «asValidJavaIdentifier(self)» = new «navigator.getNavigatorGroupQualifiedClassName()»(
+	«navigator.getNavigatorGroupQualifiedClassName()» «validJavaIdentifier(self)» = new «navigator.getNavigatorGroupQualifiedClassName()»(
 	«EXPAND xpt::Externalizer::accessorCall(i18nKeyForGroup(self, contextElement)) FOR navigator.editorGen»,
 	"«getNavigatorReference(self, _references).groupIcon»", «parentVarName»); «EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
-«DEFINE addNavigatorItemsPrefix FOR gmfgen::GenNavigatorChildReference»«IF isInsideGroup()»«asValidJavaIdentifier(groupName)».addChildren(«ELSE»result.addAll(«ENDIF»createNavigatorItems(«ENDDEFINE»
+«DEFINE addNavigatorItemsPrefix FOR gmfgen::GenNavigatorChildReference»«IF isInsideGroup()»«validJavaIdentifier(groupName)».addChildren(«ELSE»result.addAll(«ENDIF»createNavigatorItems(«ENDDEFINE»
 
 «DEFINE addNavigatorItemsSuffix(parentVarName : String, isLeaf : Boolean) FOR gmfgen::GenNavigatorChildReference-»
-, «IF isInsideGroup()»«asValidJavaIdentifier(groupName)»«ELSE»«parentVarName»«ENDIF», «isLeaf»));
+, «IF isInsideGroup()»«validJavaIdentifier(groupName)»«ELSE»«parentVarName»«ENDIF», «isLeaf»));
 «ENDDEFINE»
 
 «DEFINE addGroups(_references : Sequence(gmfgen::GenNavigatorChildReference)) FOR String-»
 	«LET getNavigatorReference(self, _references) AS ref-»
 		«IF ref.hideIfEmpty-»
-			if (!«asValidJavaIdentifier(self)».isEmpty()) {«ENDIF-»
-		result.add(«asValidJavaIdentifier(self)»);
+			if (!«validJavaIdentifier(self)».isEmpty()) {«ENDIF-»
+		result.add(«validJavaIdentifier(self)»);
 		«IF ref.hideIfEmpty-»
 			}«ENDIF-»
 	«ENDLET-»

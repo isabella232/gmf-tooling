@@ -16,7 +16,6 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::EMFUtils»
 «EXTENSION xpt::GenAuditRoot»
 «EXTENSION xpt::GenEditorGenerator»
 «EXTENSION xpt::StringOperations»

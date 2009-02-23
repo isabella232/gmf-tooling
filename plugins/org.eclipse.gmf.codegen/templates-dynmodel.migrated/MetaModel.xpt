@@ -16,7 +16,7 @@
 
 «EXTENSION Facility»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::NativeGenModelUtils»
+«EXTENSION org::eclipse::gmf::internal::codegen::util::GenModelUtils»
 
 // XXX is isExternalInterface use valid here, won't all objects be just EObject?
 

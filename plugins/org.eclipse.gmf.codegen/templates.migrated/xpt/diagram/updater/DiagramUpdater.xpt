@@ -18,7 +18,7 @@
 «EXTENSION xpt::diagram::updater::Utils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::NativeGenModelUtils»
+«EXTENSION org::eclipse::gmf::internal::codegen::util::GenModelUtils»
 
 «DEFINE DiagramUpdater FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»

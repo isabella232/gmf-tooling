@@ -9,9 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-import xpt.NativeGenModelUtils;
-
-import xpt.GenModelUtils;
+import org.eclipse.gmf.internal.codegen.util.GenModelUtils;
 
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2008/GenModel";
 modeltype notation uses "http://www.eclipse.org/gmf/runtime/1.0.2/notation";

@@ -1,4 +1,4 @@
-import xpt.providers.NativeMetrics;
+import org.eclipse.gmf.internal.codegen.util.CodeGenerationUtils;
 
 modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
 

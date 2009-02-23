@@ -1,2 +1,2 @@
-templates.migrated
-templates-dynmodel.migrated, templates.migrated/
+templates.migrated, templates.nativestubs
+templates-dynmodel.migrated, templates.migrated, templates.nativestubs

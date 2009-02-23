@@ -16,8 +16,7 @@
 
 «EXTENSION MetaModel»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION NativeMetaModel»
-«EXTENSION xpt::NativeGenModelUtils»
+«EXTENSION org::eclipse::gmf::internal::codegen::util::GenModelUtils»
 
 /*
  * Does instanceof check.
