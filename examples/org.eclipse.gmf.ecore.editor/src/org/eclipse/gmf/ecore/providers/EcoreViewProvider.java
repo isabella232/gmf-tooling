@@ -11,8 +11,13 @@
  */
 package org.eclipse.gmf.ecore.providers;
 
+import java.util.ArrayList;
+
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcoreFactory;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationDetailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart;
@@ -54,109 +59,119 @@ import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotationDetailsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotationReferencesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotationSourceViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotationViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAttributeViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClass2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClassAttributesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClassClassAnnotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClassESuperTypesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClassNameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClassOperationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EClassViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataType2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataTypeDataTypeAnnotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataTypeNameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EDataTypeViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnum2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnumEnumAnnotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnumLiteralViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnumLiteralsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnumNameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EEnumViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EOperationViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage3ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackageClassesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackageDataTypesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackageEnumsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackageNameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackagePackageAnnotationsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackagePackagesViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackageViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReference2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReferenceLowerBoundUpperBound2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReferenceLowerBoundUpperBoundViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReferenceName2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReferenceNameViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EReferenceViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EStringToStringMapEntryViewFactory;
-import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
+import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
+import org.eclipse.gmf.runtime.common.core.service.IOperation;
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.core.providers.IViewProvider;
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation;
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateEdgeViewOperation;
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateNodeViewOperation;
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateViewForKindOperation;
+import org.eclipse.gmf.runtime.diagram.core.services.view.CreateViewOperation;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.IHintedType;
+import org.eclipse.gmf.runtime.notation.BasicCompartment;
+import org.eclipse.gmf.runtime.notation.BasicDecorationNode;
+import org.eclipse.gmf.runtime.notation.Connector;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.FontStyle;
+import org.eclipse.gmf.runtime.notation.Location;
+import org.eclipse.gmf.runtime.notation.MeasurementUnit;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.RelativeBendpoints;
+import org.eclipse.gmf.runtime.notation.Shape;
+import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.notation.datatype.RelativeBendpoint;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.FontData;
 
 /**
  * @generated
  */
-public class EcoreViewProvider extends AbstractViewProvider {
+public class EcoreViewProvider extends AbstractProvider implements IViewProvider {
 
 	/**
 	 * @generated
 	 */
-	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if (EPackageEditPart.MODEL_ID.equals(diagramKind) && EcoreVisualIDRegistry.getDiagramVisualID(semanticElement) != -1) {
-			return EPackageViewFactory.class;
+	public final boolean provides(IOperation operation) {
+		if (operation instanceof CreateViewForKindOperation) {
+			return provides((CreateViewForKindOperation) operation);
 		}
-		return null;
+		assert operation instanceof CreateViewOperation;
+		if (operation instanceof CreateDiagramViewOperation) {
+			return provides((CreateDiagramViewOperation) operation);
+		} else if (operation instanceof CreateEdgeViewOperation) {
+			return provides((CreateEdgeViewOperation) operation);
+		} else if (operation instanceof CreateNodeViewOperation) {
+			return provides((CreateNodeViewOperation) operation);
+		}
+		return false;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		if (containerView == null) {
-			return null;
+	protected boolean provides(CreateViewForKindOperation op) {
+		/*
+		 if (op.getViewKind() == Node.class)
+		 return getNodeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
+		 if (op.getViewKind() == Edge.class)
+		 return getEdgeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
+		 */
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean provides(CreateDiagramViewOperation op) {
+		return EPackageEditPart.MODEL_ID.equals(op.getSemanticHint()) && EcoreVisualIDRegistry.getDiagramVisualID(getSemanticElement(op.getSemanticAdapter())) != -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean provides(CreateNodeViewOperation op) {
+		if (op.getContainerView() == null) {
+			return false;
 		}
-		IElementType elementType = getSemanticElementType(semanticAdapter);
-		EObject domainElement = getSemanticElement(semanticAdapter);
+		IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
+		EObject domainElement = getSemanticElement(op.getSemanticAdapter());
 		int visualID;
-		if (semanticHint == null) {
+		if (op.getSemanticHint() == null) {
 			// Semantic hint is not specified. Can be a result of call from CanonicalEditPolicy.
 			// In this situation there should be NO elementType, visualID will be determined
 			// by VisualIDRegistry.getNodeVisualID() for domainElement.
 			if (elementType != null || domainElement == null) {
-				return null;
+				return false;
 			}
-			visualID = EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+			visualID = EcoreVisualIDRegistry.getNodeVisualID(op.getContainerView(), domainElement);
 		} else {
-			visualID = EcoreVisualIDRegistry.getVisualID(semanticHint);
+			visualID = EcoreVisualIDRegistry.getVisualID(op.getSemanticHint());
 			if (elementType != null) {
-				// Semantic hint is specified together with element type.
-				// Both parameters should describe exactly the same diagram element.
-				// In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
-				// domainElement (if specified) is the same as in element type.
 				if (!EcoreElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
-					return null; // foreign element type
+					return false; // foreign element type
 				}
 				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
-				if (!semanticHint.equals(elementTypeHint)) {
-					return null; // if semantic hint is specified it should be the same as in element type
+				if (!op.getSemanticHint().equals(elementTypeHint)) {
+					return false; // if semantic hint is specified it should be the same as in element type
 				}
-				if (domainElement != null && visualID != EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
-					return null; // visual id for node EClass should match visual id from element type
+				if (domainElement != null && visualID != EcoreVisualIDRegistry.getNodeVisualID(op.getContainerView(), domainElement)) {
+					return false; // visual id for node EClass should match visual id from element type
 				}
 			} else {
-				// Element type is not specified. Domain element should be present (except pure design elements).
-				// This method is called with EObjectAdapter as parameter from:
-				//   - ViewService.createNode(View container, EObject eObject, String type, PreferencesHint preferencesHint) 
-				//   - generated ViewFactory.decorateView() for parent element
-				if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(containerView))) {
-					return null; // foreign diagram
+				if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(op.getContainerView()))) {
+					return false; // foreign diagram
 				}
 				switch (visualID) {
 				case EClassEditPart.VISUAL_ID:
@@ -173,185 +188,586 @@ public class EcoreViewProvider extends AbstractViewProvider {
 				case EEnumEditPart.VISUAL_ID:
 				case EClass2EditPart.VISUAL_ID:
 				case EPackage3EditPart.VISUAL_ID:
-					if (domainElement == null || visualID != EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement)) {
-						return null; // visual id in semantic hint should match visual id for domain element
-					}
-					break;
-				case EClassNameEditPart.VISUAL_ID:
-				case EClassAttributesEditPart.VISUAL_ID:
-				case EClassOperationsEditPart.VISUAL_ID:
-				case EClassClassAnnotationsEditPart.VISUAL_ID:
-					if (EClassEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
-					}
-					break;
-				case EPackageNameEditPart.VISUAL_ID:
-				case EPackageClassesEditPart.VISUAL_ID:
-				case EPackagePackagesEditPart.VISUAL_ID:
-				case EPackageDataTypesEditPart.VISUAL_ID:
-				case EPackageEnumsEditPart.VISUAL_ID:
-				case EPackagePackageAnnotationsEditPart.VISUAL_ID:
-					if (EPackage2EditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
-					}
-					break;
-				case EAnnotationSourceEditPart.VISUAL_ID:
-				case EAnnotationDetailsEditPart.VISUAL_ID:
-					if (EAnnotationEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
-					}
-					break;
-				case EDataTypeNameEditPart.VISUAL_ID:
-				case EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID:
-					if (EDataTypeEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
-					}
-					break;
-				case EEnumNameEditPart.VISUAL_ID:
-				case EEnumLiteralsEditPart.VISUAL_ID:
-				case EEnumEnumAnnotationsEditPart.VISUAL_ID:
-					if (EEnumEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
-					}
-					break;
-				case EReferenceNameEditPart.VISUAL_ID:
-				case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
-					if (EReferenceEditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
-					}
-					break;
-				case EReferenceName2EditPart.VISUAL_ID:
-				case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
-					if (EReference2EditPart.VISUAL_ID != EcoreVisualIDRegistry.getVisualID(containerView) || containerView.getElement() != domainElement) {
-						return null; // wrong container
+					if (domainElement == null || visualID != EcoreVisualIDRegistry.getNodeVisualID(op.getContainerView(), domainElement)) {
+						return false; // visual id in semantic hint should match visual id for domain element
 					}
 					break;
 				default:
-					return null;
+					return false;
 				}
 			}
 		}
-		return getNodeViewClass(containerView, visualID);
+		return EClassEditPart.VISUAL_ID == visualID || EPackage2EditPart.VISUAL_ID == visualID || EAnnotationEditPart.VISUAL_ID == visualID || EDataTypeEditPart.VISUAL_ID == visualID
+				|| EEnumEditPart.VISUAL_ID == visualID || EAttributeEditPart.VISUAL_ID == visualID || EOperationEditPart.VISUAL_ID == visualID || EAnnotation2EditPart.VISUAL_ID == visualID
+				|| EClass2EditPart.VISUAL_ID == visualID || EPackage3EditPart.VISUAL_ID == visualID || EDataType2EditPart.VISUAL_ID == visualID || EEnum2EditPart.VISUAL_ID == visualID
+				|| EStringToStringMapEntryEditPart.VISUAL_ID == visualID || EEnumLiteralEditPart.VISUAL_ID == visualID;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Class getNodeViewClass(View containerView, int visualID) {
-		if (containerView == null || !EcoreVisualIDRegistry.canCreateNode(containerView, visualID)) {
-			return null;
+	protected boolean provides(CreateEdgeViewOperation op) {
+		IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
+		if (!EcoreElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
+			return false; // foreign element type
+		}
+		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
+		if (elementTypeHint == null || !elementTypeHint.equals(op.getSemanticHint())) {
+			return false; // our hint is visual id and must be specified, and it should be the same as in element type
+		}
+		int visualID = EcoreVisualIDRegistry.getVisualID(elementTypeHint);
+		EObject domainElement = getSemanticElement(op.getSemanticAdapter());
+		if (domainElement != null && visualID != EcoreVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
+			return false; // visual id for link EClass should match visual id from element type
+		}
+		return true;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Diagram createDiagram(IAdaptable semanticAdapter, String diagramKind, PreferencesHint preferencesHint) {
+		Diagram diagram = NotationFactory.eINSTANCE.createDiagram();
+		diagram.getStyles().add(NotationFactory.eINSTANCE.createDiagramStyle());
+		diagram.setType(EPackageEditPart.MODEL_ID);
+		diagram.setElement(getSemanticElement(semanticAdapter));
+		diagram.setMeasurementUnit(MeasurementUnit.PIXEL_LITERAL);
+		return diagram;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createNode(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
+		final EObject domainElement = getSemanticElement(semanticAdapter);
+		final int visualID;
+		if (semanticHint == null) {
+			visualID = EcoreVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		} else {
+			visualID = EcoreVisualIDRegistry.getVisualID(semanticHint);
 		}
 		switch (visualID) {
 		case EClassEditPart.VISUAL_ID:
-			return EClassViewFactory.class;
-		case EClassNameEditPart.VISUAL_ID:
-			return EClassNameViewFactory.class;
+			return createEClass_2001(domainElement, containerView, index, persisted, preferencesHint);
 		case EPackage2EditPart.VISUAL_ID:
-			return EPackage2ViewFactory.class;
-		case EPackageNameEditPart.VISUAL_ID:
-			return EPackageNameViewFactory.class;
+			return createEPackage_2002(domainElement, containerView, index, persisted, preferencesHint);
 		case EAnnotationEditPart.VISUAL_ID:
-			return EAnnotationViewFactory.class;
-		case EAnnotationSourceEditPart.VISUAL_ID:
-			return EAnnotationSourceViewFactory.class;
+			return createEAnnotation_2003(domainElement, containerView, index, persisted, preferencesHint);
 		case EDataTypeEditPart.VISUAL_ID:
-			return EDataTypeViewFactory.class;
-		case EDataTypeNameEditPart.VISUAL_ID:
-			return EDataTypeNameViewFactory.class;
+			return createEDataType_2004(domainElement, containerView, index, persisted, preferencesHint);
 		case EEnumEditPart.VISUAL_ID:
-			return EEnumViewFactory.class;
-		case EEnumNameEditPart.VISUAL_ID:
-			return EEnumNameViewFactory.class;
+			return createEEnum_2005(domainElement, containerView, index, persisted, preferencesHint);
 		case EAttributeEditPart.VISUAL_ID:
-			return EAttributeViewFactory.class;
+			return createEAttribute_3001(domainElement, containerView, index, persisted, preferencesHint);
 		case EOperationEditPart.VISUAL_ID:
-			return EOperationViewFactory.class;
+			return createEOperation_3002(domainElement, containerView, index, persisted, preferencesHint);
 		case EAnnotation2EditPart.VISUAL_ID:
-			return EAnnotation2ViewFactory.class;
+			return createEAnnotation_3003(domainElement, containerView, index, persisted, preferencesHint);
 		case EClass2EditPart.VISUAL_ID:
-			return EClass2ViewFactory.class;
+			return createEClass_3004(domainElement, containerView, index, persisted, preferencesHint);
 		case EPackage3EditPart.VISUAL_ID:
-			return EPackage3ViewFactory.class;
+			return createEPackage_3005(domainElement, containerView, index, persisted, preferencesHint);
 		case EDataType2EditPart.VISUAL_ID:
-			return EDataType2ViewFactory.class;
+			return createEDataType_3006(domainElement, containerView, index, persisted, preferencesHint);
 		case EEnum2EditPart.VISUAL_ID:
-			return EEnum2ViewFactory.class;
+			return createEEnum_3007(domainElement, containerView, index, persisted, preferencesHint);
 		case EStringToStringMapEntryEditPart.VISUAL_ID:
-			return EStringToStringMapEntryViewFactory.class;
+			return createEStringToStringMapEntry_3008(domainElement, containerView, index, persisted, preferencesHint);
 		case EEnumLiteralEditPart.VISUAL_ID:
-			return EEnumLiteralViewFactory.class;
-		case EClassAttributesEditPart.VISUAL_ID:
-			return EClassAttributesViewFactory.class;
-		case EClassOperationsEditPart.VISUAL_ID:
-			return EClassOperationsViewFactory.class;
-		case EClassClassAnnotationsEditPart.VISUAL_ID:
-			return EClassClassAnnotationsViewFactory.class;
-		case EPackageClassesEditPart.VISUAL_ID:
-			return EPackageClassesViewFactory.class;
-		case EPackagePackagesEditPart.VISUAL_ID:
-			return EPackagePackagesViewFactory.class;
-		case EPackageDataTypesEditPart.VISUAL_ID:
-			return EPackageDataTypesViewFactory.class;
-		case EPackageEnumsEditPart.VISUAL_ID:
-			return EPackageEnumsViewFactory.class;
-		case EPackagePackageAnnotationsEditPart.VISUAL_ID:
-			return EPackagePackageAnnotationsViewFactory.class;
-		case EAnnotationDetailsEditPart.VISUAL_ID:
-			return EAnnotationDetailsViewFactory.class;
-		case EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID:
-			return EDataTypeDataTypeAnnotationsViewFactory.class;
-		case EEnumLiteralsEditPart.VISUAL_ID:
-			return EEnumLiteralsViewFactory.class;
-		case EEnumEnumAnnotationsEditPart.VISUAL_ID:
-			return EEnumEnumAnnotationsViewFactory.class;
-		case EReferenceNameEditPart.VISUAL_ID:
-			return EReferenceNameViewFactory.class;
-		case EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID:
-			return EReferenceLowerBoundUpperBoundViewFactory.class;
-		case EReferenceName2EditPart.VISUAL_ID:
-			return EReferenceName2ViewFactory.class;
-		case EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID:
-			return EReferenceLowerBoundUpperBound2ViewFactory.class;
+			return createEEnumLiteral_3009(domainElement, containerView, index, persisted, preferencesHint);
 		}
+		// can't happen, provided #provides(CreateNodeViewOperation) is correct
 		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (!EcoreElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
-			return null; // foreign element type
+	public Edge createEdge(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
+		switch (EcoreVisualIDRegistry.getVisualID(semanticHint)) {
+		case EAnnotationReferencesEditPart.VISUAL_ID:
+			return createEAnnotationReferences_4001(containerView, index, persisted, preferencesHint);
+		case EReferenceEditPart.VISUAL_ID:
+			return createEReference_4002(containerView, index, persisted, preferencesHint);
+		case EReference2EditPart.VISUAL_ID:
+			return createEReference_4003(containerView, index, persisted, preferencesHint);
+		case EClassESuperTypesEditPart.VISUAL_ID:
+			return createEClassESuperTypes_4004(containerView, index, persisted, preferencesHint);
 		}
-		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
-		if (elementTypeHint == null) {
-			return null; // our hint is visual id and must be specified
-		}
-		if (semanticHint != null && !semanticHint.equals(elementTypeHint)) {
-			return null; // if semantic hint is specified it should be the same as in element type
-		}
-		int visualID = EcoreVisualIDRegistry.getVisualID(elementTypeHint);
-		EObject domainElement = getSemanticElement(semanticAdapter);
-		if (domainElement != null && visualID != EcoreVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
-			return null; // visual id for link EClass should match visual id from element type
-		}
-		return getEdgeViewClass(visualID);
+		// can never happen, provided #provides(CreateEdgeViewOperation) is correct
+		return null;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected Class getEdgeViewClass(int visualID) {
-		switch (visualID) {
-		case EAnnotationReferencesEditPart.VISUAL_ID:
-			return EAnnotationReferencesViewFactory.class;
-		case EReferenceEditPart.VISUAL_ID:
-			return EReferenceViewFactory.class;
-		case EReference2EditPart.VISUAL_ID:
-			return EReference2ViewFactory.class;
-		case EClassESuperTypesEditPart.VISUAL_ID:
-			return EClassESuperTypesViewFactory.class;
+	public Node createEClass_2001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
+		Node EClassName_5001 = createLabel(node, EcoreVisualIDRegistry.getType(EClassNameEditPart.VISUAL_ID));
+		createCompartment(node, EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID), true, false, true, true);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEPackage_2002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.getStyles().add(NotationFactory.eINSTANCE.createHintedDiagramLinkStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(EcoreVisualIDRegistry.getType(EPackage2EditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
+		Node EPackageName_5002 = createLabel(node, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID));
+		createCompartment(node, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EPackageEnumsEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EPackagePackageAnnotationsEditPart.VISUAL_ID), true, false, true, true);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEAnnotation_2003(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
+		Node EAnnotationSource_5003 = createLabel(node, EcoreVisualIDRegistry.getType(EAnnotationSourceEditPart.VISUAL_ID));
+		createCompartment(node, EcoreVisualIDRegistry.getType(EAnnotationDetailsEditPart.VISUAL_ID), true, false, true, true);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEDataType_2004(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
+		Node EDataTypeName_5004 = createLabel(node, EcoreVisualIDRegistry.getType(EDataTypeNameEditPart.VISUAL_ID));
+		createCompartment(node, EcoreVisualIDRegistry.getType(EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID), true, false, true, true);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEEnum_2005(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
+		Node EEnumName_5005 = createLabel(node, EcoreVisualIDRegistry.getType(EEnumNameEditPart.VISUAL_ID));
+		createCompartment(node, EcoreVisualIDRegistry.getType(EEnumLiteralsEditPart.VISUAL_ID), true, false, true, true);
+		createCompartment(node, EcoreVisualIDRegistry.getType(EEnumEnumAnnotationsEditPart.VISUAL_ID), true, false, true, true);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEAttribute_3001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEOperation_3002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EOperationEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEAnnotation_3003(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEClass_3004(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEPackage_3005(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EPackage3EditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEDataType_3006(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEEnum_3007(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEStringToStringMapEntry_3008(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EStringToStringMapEntryEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createEEnumLiteral_3009(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Node node = NotationFactory.eINSTANCE.createNode();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		node.setType(EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createEAnnotationReferences_4001(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
+		ArrayList points = new ArrayList(2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createEReference_4002(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
+		ArrayList points = new ArrayList(2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		Node EReferenceName_6001 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceNameEditPart.VISUAL_ID));
+		EReferenceName_6001.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6001 = (Location) EReferenceName_6001.getLayoutConstraint();
+		location6001.setX(0);
+		location6001.setY(40);
+		Node EReferenceLowerBoundUpperBound_6003 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID));
+		EReferenceLowerBoundUpperBound_6003.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6003 = (Location) EReferenceLowerBoundUpperBound_6003.getLayoutConstraint();
+		location6003.setX(0);
+		location6003.setY(60);
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createEReference_4003(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
+		ArrayList points = new ArrayList(2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		Node EReferenceName_6002 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID));
+		EReferenceName_6002.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6002 = (Location) EReferenceName_6002.getLayoutConstraint();
+		location6002.setX(0);
+		location6002.setY(40);
+		Node EReferenceLowerBoundUpperBound_6004 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID));
+		EReferenceLowerBoundUpperBound_6004.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6004 = (Location) EReferenceLowerBoundUpperBound_6004.getLayoutConstraint();
+		location6004.setX(0);
+		location6004.setY(60);
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createEClassESuperTypes_4004(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
+		ArrayList points = new ArrayList(2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
+		}
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	private void stampShortcut(View containerView, Node target) {
+		if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(containerView))) {
+			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
+			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", EPackageEditPart.MODEL_ID); //$NON-NLS-1$
+			target.getEAnnotations().add(shortcutAnnotation);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private Node createLabel(View owner, String hint) {
+		BasicDecorationNode rv = NotationFactory.eINSTANCE.createBasicDecorationNode();
+		rv.setType(hint);
+		ViewUtil.insertChildView(owner, rv, ViewUtil.APPEND, true);
+		return rv;
+	}
+
+	/**
+	 * @generated
+	 */
+	private Node createCompartment(View owner, String hint, boolean canCollapse, boolean hasTitle, boolean canSort, boolean canFilter) {
+		//SemanticListCompartment rv = NotationFactory.eINSTANCE.createSemanticListCompartment();
+		//rv.setShowTitle(showTitle);
+		//rv.setCollapsed(isCollapsed);
+		BasicCompartment rv = NotationFactory.eINSTANCE.createBasicCompartment();
+		if (hasTitle) {
+			TitleStyle ts = NotationFactory.eINSTANCE.createTitleStyle();
+			ts.setShowTitle(true);
+			rv.getStyles().add(ts);
+		}
+		if (canCollapse) {
+			rv.getStyles().add(NotationFactory.eINSTANCE.createDrawerStyle());
+		}
+		if (canSort) {
+			rv.getStyles().add(NotationFactory.eINSTANCE.createSortingStyle());
+		}
+		if (canFilter) {
+			rv.getStyles().add(NotationFactory.eINSTANCE.createFilteringStyle());
+		}
+		rv.setType(hint);
+		ViewUtil.insertChildView(owner, rv, ViewUtil.APPEND, true);
+		return rv;
+	}
+
+	/**
+	 * @generated
+	 */
+	private EObject getSemanticElement(IAdaptable semanticAdapter) {
+		if (semanticAdapter == null) {
+			return null;
+		}
+		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
+		if (eObject != null) {
+			return EMFCoreUtil.resolve(TransactionUtil.getEditingDomain(eObject), eObject);
 		}
 		return null;
 	}
