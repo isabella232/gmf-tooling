@@ -758,14 +758,16 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		//SemanticListCompartment rv = NotationFactory.eINSTANCE.createSemanticListCompartment();
 		//rv.setShowTitle(showTitle);
 		//rv.setCollapsed(isCollapsed);
-		BasicCompartment rv = NotationFactory.eINSTANCE.createBasicCompartment();
+		Node rv;
+		if (canCollapse) {
+			rv = NotationFactory.eINSTANCE.createBasicCompartment();
+		} else {
+			rv = NotationFactory.eINSTANCE.createDecorationNode();
+		}
 		if (hasTitle) {
 			TitleStyle ts = NotationFactory.eINSTANCE.createTitleStyle();
 			ts.setShowTitle(true);
 			rv.getStyles().add(ts);
-		}
-		if (canCollapse) {
-			rv.getStyles().add(NotationFactory.eINSTANCE.createDrawerStyle());
 		}
 		if (canSort) {
 			rv.getStyles().add(NotationFactory.eINSTANCE.createSortingStyle());
