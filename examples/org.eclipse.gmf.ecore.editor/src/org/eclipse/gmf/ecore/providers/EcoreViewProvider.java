@@ -288,9 +288,9 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		case EAnnotationReferencesEditPart.VISUAL_ID:
 			return createEAnnotationReferences_4001(containerView, index, persisted, preferencesHint);
 		case EReferenceEditPart.VISUAL_ID:
-			return createEReference_4002(containerView, index, persisted, preferencesHint);
+			return createEReference_4002(getSemanticElement(semanticAdapter), containerView, index, persisted, preferencesHint);
 		case EReference2EditPart.VISUAL_ID:
-			return createEReference_4003(containerView, index, persisted, preferencesHint);
+			return createEReference_4003(getSemanticElement(semanticAdapter), containerView, index, persisted, preferencesHint);
 		case EClassESuperTypesEditPart.VISUAL_ID:
 			return createEClassESuperTypes_4004(containerView, index, persisted, preferencesHint);
 		}
@@ -474,6 +474,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -485,6 +486,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EOperationEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -496,6 +498,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -507,6 +510,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -518,6 +522,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EPackage3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -529,6 +534,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -540,6 +546,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -551,6 +558,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EStringToStringMapEntryEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -562,6 +570,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
 		node.setType(EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
 		return node;
 	}
 
@@ -571,13 +580,15 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 	public Edge createEAnnotationReferences_4001(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		ViewUtil.insertChildView(containerView, edge, index, persisted);
 		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
 		ArrayList points = new ArrayList(2);
 		points.add(new RelativeBendpoint());
 		points.add(new RelativeBendpoint());
 		bendpoints.setPoints(points);
 		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
+		edge.setElement(null);
 		// initializePreferences
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
 
@@ -599,16 +610,18 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 	/**
 	 * @generated
 	 */
-	public Edge createEReference_4002(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+	public Edge createEReference_4002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		ViewUtil.insertChildView(containerView, edge, index, persisted);
 		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
 		ArrayList points = new ArrayList(2);
 		points.add(new RelativeBendpoint());
 		points.add(new RelativeBendpoint());
 		bendpoints.setPoints(points);
 		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
+		edge.setElement(domainElement);
 		// initializePreferences
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
 
@@ -640,16 +653,18 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 	/**
 	 * @generated
 	 */
-	public Edge createEReference_4003(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
+	public Edge createEReference_4003(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		ViewUtil.insertChildView(containerView, edge, index, persisted);
 		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
 		ArrayList points = new ArrayList(2);
 		points.add(new RelativeBendpoint());
 		points.add(new RelativeBendpoint());
 		bendpoints.setPoints(points);
 		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
+		edge.setElement(domainElement);
 		// initializePreferences
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
 
@@ -684,13 +699,15 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 	public Edge createEClassESuperTypes_4004(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
-		ViewUtil.insertChildView(containerView, edge, index, persisted);
 		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE.createRelativeBendpoints();
 		ArrayList points = new ArrayList(2);
 		points.add(new RelativeBendpoint());
 		points.add(new RelativeBendpoint());
 		bendpoints.setPoints(points);
 		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
+		edge.setElement(null);
 		// initializePreferences
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
 
