@@ -17,11 +17,11 @@ modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
 library LinkUtils;
 
 helper gmfgen::GenLink::isTypeLink() : Boolean {
-	return self.modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet)
+	return not self.modelFacet.oclIsUndefined() and self.modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet)
 }
 
 helper gmfgen::GenLink::isRefLink() : Boolean {
-	return self.modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet)
+	return not self.modelFacet.oclIsUndefined() and self.modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet)
 }
 
 helper canBeSource(link : gmfgen::GenLink, linkEnd : gmfgen::GenLinkEnd) : Boolean {
