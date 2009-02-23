@@ -1,4 +1,4 @@
-import xpt.diagram.parts.NativeLinkNotationModelRefresher;
+import org.eclipse.gmf.internal.codegen.lite.utils.SemanticSyncUtils;
 import xpt.diagram.LinkFinder;
 
 modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";

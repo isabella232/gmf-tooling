@@ -14,7 +14,7 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «EXTENSION xpt::editor::i18n»
-«EXTENSION xpt::NativeUtil»
+«EXTENSION org::eclipse::gmf::internal::codegen::util::CodeGenerationUtils»
 
 «DEFINE OpenDiagramInViewAction FOR gmfgen::GenEditorView-»
 «EXPAND xpt::Common::copyright FOR editorGen»

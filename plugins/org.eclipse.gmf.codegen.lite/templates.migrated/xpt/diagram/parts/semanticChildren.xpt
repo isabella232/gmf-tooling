@@ -17,7 +17,7 @@
 «EXTENSION xpt::commands::CommandUtils»
 «EXTENSION xpt::diagram::parts::NotationModelRefresher»
 «EXTENSION xpt::diagram::PhantomUtils»
-«EXTENSION xpt::diagram::parts::NativeNotationModelRefresher»
+«EXTENSION org::eclipse::gmf::internal::codegen::lite::utils::SemanticSyncUtils»
 
 «DEFINE semanticChildren(viewCode : String) FOR gmfgen::GenContainerBase-»
 «IF not self.needsNotationModelRefresher()-»

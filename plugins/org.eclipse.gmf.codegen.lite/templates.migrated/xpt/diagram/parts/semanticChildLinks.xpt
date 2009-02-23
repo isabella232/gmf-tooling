@@ -17,7 +17,7 @@
 «EXTENSION xpt::commands::CommandUtils»
 «EXTENSION xpt::diagram::LinkFinder»
 «EXTENSION xpt::diagram::parts::LinkNotationModelRefresher»
-«EXTENSION xpt::diagram::parts::NativeLinkNotationModelRefresher»
+«EXTENSION org::eclipse::gmf::internal::codegen::lite::utils::SemanticSyncUtils»
 
 «DEFINE semanticChildLinks(parentViewCode : String) FOR gmfgen::GenCommonBase-»
 	«LET getLinkChildFeatures(self, containedTypeModelFacetLinks(self)) AS genTypeLinkFeatures-»

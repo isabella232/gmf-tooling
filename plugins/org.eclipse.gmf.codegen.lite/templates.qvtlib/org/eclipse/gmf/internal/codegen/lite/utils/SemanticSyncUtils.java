@@ -37,6 +37,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.util.GMFGenSwitch;
+import org.eclipse.m2m.qvt.oml.blackbox.java.Operation;
+import org.eclipse.m2m.qvt.oml.blackbox.java.Operation.Kind;
+import org.eclipse.ocl.util.CollectionUtil;
 
 /**
  * This class provides static utility methods for use with Xpand templates.
@@ -44,12 +47,14 @@ import org.eclipse.gmf.codegen.gmfgen.util.GMFGenSwitch;
  * since they would have to be called several times without the possibility to cache their results.
  */
 public class SemanticSyncUtils {
+	
+	@Operation(contextual = false, kind = Kind.HELPER)
 	public static Collection<GenNode> getGenNodes(GenContainerBase genContainerBase, GenFeature genFeature) {
 		Collection<GenNode> result = getGenChildFeature2genNodeMap(genContainerBase).get(genFeature);
 		if (result == null) {
-			return Collections.emptyList();
+			return CollectionUtil.<GenNode> createNewBag(Collections.<GenNode> emptyList());
 		}
-		return result;
+		return CollectionUtil.<GenNode> createNewBag(result);
 	}
 
 	private static Map<GenFeature, Collection<GenNode>> getGenChildFeature2genNodeMap(GenContainerBase genContainerBase) {
@@ -87,20 +92,22 @@ public class SemanticSyncUtils {
 		return result;
 	}
 
-	public static Collection<GenLink> getTypeGenLinks(GenCommonBase container, GenFeature feature, Collection<GenLink> containedLinks) {
+	@Operation(contextual = false, kind = Kind.HELPER)
+	public static Collection<GenLink> getTypeGenLinksForFeature(GenCommonBase container, GenFeature feature, Collection<GenLink> containedLinks) {
 		Collection<GenLink> result = getGenChildFeature2TypeGenLinkMap(container, containedLinks).get(feature);
 		if (result == null) {
-			return Collections.emptyList();
+			return CollectionUtil.<GenLink> createNewBag(Collections.<GenLink> emptyList());
 		}
-		return result;
+		return CollectionUtil.<GenLink> createNewBag(result);
 	}
 
-	public static Collection<GenLink> getFeatureGenLinks(GenCommonBase container, GenFeature feature, Collection<GenLink> containedLinks) {
+	@Operation(contextual = false, kind = Kind.HELPER)
+	public static Collection<GenLink> getFeatureGenLinksForFeature(GenCommonBase container, GenFeature feature, Collection<GenLink> containedLinks) {
 		Collection<GenLink> result = getGenChildFeature2FeatureGenLinkMap(container, containedLinks).get(feature);
 		if (result == null) {
-			return Collections.emptyList();
+			return CollectionUtil.<GenLink> createNewBag(Collections.<GenLink> emptyList());
 		}
-		return result;
+		return CollectionUtil.<GenLink> createNewBag(result);
 	}
 
 	private static Map<GenFeature, Collection<GenLink>> getGenChildFeature2TypeGenLinkMap(GenCommonBase container, Collection<GenLink> containedLinks) {
@@ -146,12 +153,13 @@ public class SemanticSyncUtils {
 		myFeature2FeatureLinksCache.put(container, genFeature2FeatureGenLinkMap);
 	}
 
+	@Operation(contextual = false, kind = Kind.HELPER)
 	public static Collection<GenCommonBase> buildAncestorClosure(Collection<GenCommonBase> elements) {
 		Collection<GenCommonBase> result = new LinkedHashSet<GenCommonBase>(elements);
 		for(GenCommonBase next : elements) {
 			addAncestors(result, next);
 		}
-		return result;
+		return CollectionUtil.<GenCommonBase> createNewBag(result);
 	}
 
 	private static void addAncestors(Collection<GenCommonBase> result, GenCommonBase next) {
