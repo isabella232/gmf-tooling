@@ -74,8 +74,8 @@
 
 «DEFINE addShortcutAnnotation(viewVar : String) FOR gmfgen::GenDiagram-»
 	org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
-	shortcutAnnotation.setSource("Shortcut"); «EXPAND xpt::Common::nonNLS»
-	shortcutAnnotation.getDetails().put("modelID", «getEditPartQualifiedClassName()».MODEL_ID); «EXPAND xpt::Common::nonNLS»
+	shortcutAnnotation.setSource("Shortcut");«EXPAND xpt::Common::nonNLS»
+	shortcutAnnotation.getDetails().put("modelID", «EXPAND xpt::editor::VisualIDRegistry::modelID»);«EXPAND xpt::Common::nonNLS»
 	«viewVar».getEAnnotations().add(shortcutAnnotation);
 «ENDDEFINE»
 
