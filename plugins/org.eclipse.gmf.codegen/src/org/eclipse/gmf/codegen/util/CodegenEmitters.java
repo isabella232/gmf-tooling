@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -227,36 +227,6 @@ public class CodegenEmitters {
 
 	public TextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
-	}
-
-	// view factories
-
-	public TextEmitter getDiagramViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::DiagramViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::NodeViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLabelNodeViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LabelNodeViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getCompartmentViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::CompartmentViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLinkViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LinkViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getFloatingLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::FloatingLabelViewFactory"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getLabelViewFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::views::LabelViewFactory"); //$NON-NLS-1$
 	}
 
 	// updater

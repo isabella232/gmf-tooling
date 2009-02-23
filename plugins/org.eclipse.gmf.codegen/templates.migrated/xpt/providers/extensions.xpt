@@ -22,7 +22,7 @@
       <viewProvider class="«getNotationViewProviderQualifiedClassName()»">
          <Priority name="«notationViewProviderPriority»"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«FOREACH getAllNodes()->asSequence() /*XXX can further improve selection using containerViews attribute, however, when top-node is created, provider is activated and this xml is not consulted any longer (same applies to compartments)*/ AS n SEPARATOR ','»«n.visualID»«ENDFOREACH»"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«FOREACH getAllNodes()->asSequence() /*XXX can further improve selection using containerViews attribute, however, when top-node is created, provider is activated and this xml is not consulted any longer*/ AS n SEPARATOR ','»«n.visualID»«ENDFOREACH»"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="«FOREACH links->asSequence() AS l SEPARATOR ','»«l.visualID»«ENDFOREACH»"/>
       </viewProvider>
    </extension>

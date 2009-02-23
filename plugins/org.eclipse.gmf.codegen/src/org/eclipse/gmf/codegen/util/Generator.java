@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -145,13 +145,11 @@ public class Generator extends GeneratorBase implements Runnable {
 		for (GenCompartment compartment : myDiagram.getCompartments()) {
 			generateCompartmentEditPart(compartment);
 			generateCompartmentItemSemanticEditPolicy(compartment);
-			generateCompartmentViewFactory(compartment);
 			if (compartment.needsCanonicalEditPolicy()) {
 				generateChildContainerCanonicalEditPolicy(compartment);
 			}
 		}
 		for (GenLink next: myDiagram.getLinks()) {
-			generateLinkViewFactory(next);
 			generateEditSupport(next);
 			generateLinkEditPart(next);
 			generateBehaviours(next);
@@ -170,11 +168,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 			for (GenLinkLabel label : next.getLabels()) {
 				generateLinkLabelEditPart(label);
-				generateLinkLabelViewFactory(label);
 			}
 		}
 		generateEditSupport(myDiagram);
-		generateDiagramViewFactory();
 		generateDiagramEditPart();
 		generateEditPartFactory();
 		generateElementInitializers();
@@ -290,7 +286,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
-		generateNodeViewFactory(node);
 		generateNodeItemSemanticEditPolicy(node);
 		if (node.getModelFacet() != null) {
 			generateCreateNodeCommand(node);
@@ -308,16 +303,13 @@ public class Generator extends GeneratorBase implements Runnable {
 			if (label instanceof GenExternalNodeLabel) {
 				GenExternalNodeLabel extLabel = (GenExternalNodeLabel) label;
 				generateExternalNodeLabelEditPart(extLabel);
-				generateExternalNodeLabelViewFactory(extLabel);
 			} else {
 				generateNodeLabelEditPart(label);
-				generateNodeLabelViewFactory(label);
 			}
 		}
 	}
  
 	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
-		generateLabelNodeViewFactory(child);
 		generateNodeItemSemanticEditPolicy(child);
 		if (child.getModelFacet() != null) {
 			generateCreateNodeCommand(child);
@@ -614,40 +606,6 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getMarkerNavigationProviderEmitter(), myDiagram.getMarkerNavigationProviderQualifiedClassName(), myDiagram);
-	}
-
-	// notation view factories
-
-	private void generateDiagramViewFactory() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getDiagramViewFactoryEmitter(), myDiagram.getNotationViewFactoryQualifiedClassName(), myDiagram);
-	}
-
-	private void generateNodeViewFactory(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getNodeViewFactoryEmitter(), node.getNotationViewFactoryQualifiedClassName(), node);
-	}
-
-	private void generateLabelNodeViewFactory(GenChildLabelNode node) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getLabelNodeViewFactoryEmitter(), node.getNotationViewFactoryQualifiedClassName(), node);
-	}
-
-	private void generateCompartmentViewFactory(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getCompartmentViewFactoryEmitter(), compartment.getNotationViewFactoryQualifiedClassName(), compartment);
-	}
-
-	private void generateLinkViewFactory(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getLinkViewFactoryEmitter(), link.getNotationViewFactoryQualifiedClassName(), link);
-	}
-
-	private void generateNodeLabelViewFactory(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getLabelViewFactoryEmitter(), label.getNotationViewFactoryQualifiedClassName(), label);
-	}
-
-	private void generateExternalNodeLabelViewFactory(GenExternalNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getFloatingLabelViewFactoryEmitter(), label.getNotationViewFactoryQualifiedClassName(), label);
-	}
-
-	private void generateLinkLabelViewFactory(GenLinkLabel label) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getFloatingLabelViewFactoryEmitter(), label.getNotationViewFactoryQualifiedClassName(), label);
 	}
 
 	// editor
@@ -1017,8 +975,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenChildLabelNode(), 5);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLink(), 6);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenLinkLabel(), 2);
-		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCompartment(), 4);
-		c.registerFactor(GMFGenPackage.eINSTANCE.getGenDiagram(), 40);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenCompartment(), 3);
+		c.registerFactor(GMFGenPackage.eINSTANCE.getGenDiagram(), 30);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenEditorGenerator(), 2); // i18n=2
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenPlugin(), 6);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenNavigator(), 3);
