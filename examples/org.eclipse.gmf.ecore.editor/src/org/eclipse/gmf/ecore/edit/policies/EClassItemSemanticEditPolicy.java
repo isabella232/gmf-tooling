@@ -66,32 +66,32 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
-		CompositeTransactionalCommand cc = new CompositeTransactionalCommand(getEditingDomain(), null);
-		cc.setTransactionNestingEnabled(false);
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
+		cmd.setTransactionNestingEnabled(false);
 		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
 			Edge incomingLink = (Edge) it.next();
 			if (EcoreVisualIDRegistry.getVisualID(incomingLink) == EAnnotationReferencesEditPart.VISUAL_ID) {
 				DestroyReferenceRequest r = new DestroyReferenceRequest(incomingLink.getSource().getElement(), null, incomingLink.getTarget().getElement(), false);
-				cc.add(new DestroyReferenceCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				cmd.add(new DestroyReferenceCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
 				continue;
 			}
 			if (EcoreVisualIDRegistry.getVisualID(incomingLink) == EReferenceEditPart.VISUAL_ID) {
 				DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
-				cc.add(new DestroyElementCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
 				continue;
 			}
 			if (EcoreVisualIDRegistry.getVisualID(incomingLink) == EReference2EditPart.VISUAL_ID) {
 				DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
-				cc.add(new DestroyElementCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
 				continue;
 			}
 			if (EcoreVisualIDRegistry.getVisualID(incomingLink) == EClassESuperTypesEditPart.VISUAL_ID) {
 				DestroyReferenceRequest r = new DestroyReferenceRequest(incomingLink.getSource().getElement(), null, incomingLink.getTarget().getElement(), false);
-				cc.add(new DestroyReferenceCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				cmd.add(new DestroyReferenceCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
 				continue;
 			}
 		}
@@ -99,34 +99,34 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 			Edge outgoingLink = (Edge) it.next();
 			if (EcoreVisualIDRegistry.getVisualID(outgoingLink) == EReferenceEditPart.VISUAL_ID) {
 				DestroyElementRequest r = new DestroyElementRequest(outgoingLink.getElement(), false);
-				cc.add(new DestroyElementCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), outgoingLink));
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), outgoingLink));
 				continue;
 			}
 			if (EcoreVisualIDRegistry.getVisualID(outgoingLink) == EReference2EditPart.VISUAL_ID) {
 				DestroyElementRequest r = new DestroyElementRequest(outgoingLink.getElement(), false);
-				cc.add(new DestroyElementCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), outgoingLink));
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), outgoingLink));
 				continue;
 			}
 			if (EcoreVisualIDRegistry.getVisualID(outgoingLink) == EClassESuperTypesEditPart.VISUAL_ID) {
 				DestroyReferenceRequest r = new DestroyReferenceRequest(outgoingLink.getSource().getElement(), null, outgoingLink.getTarget().getElement(), false);
-				cc.add(new DestroyReferenceCommand(r));
-				cc.add(new DeleteCommand(getEditingDomain(), outgoingLink));
+				cmd.add(new DestroyReferenceCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), outgoingLink));
 				continue;
 			}
 		}
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
 			// there are indirectly referenced children, need extra commands: false
-			addDestroyChildNodesCommand(cc);
-			addDestroyShortcutsCommand(cc, view);
+			addDestroyChildNodesCommand(cmd);
+			addDestroyShortcutsCommand(cmd, view);
 			// delete host element
-			cc.add(new DestroyElementCommand(req));
+			cmd.add(new DestroyElementCommand(req));
 		} else {
-			cc.add(new DeleteCommand(getEditingDomain(), view));
+			cmd.add(new DeleteCommand(getEditingDomain(), view));
 		}
-		return getGEFWrapper(cc.reduce());
+		return getGEFWrapper(cmd.reduce());
 	}
 
 	/**
@@ -134,8 +134,8 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 */
 	private void addDestroyChildNodesCommand(ICompositeCommand cmd) {
 		View view = (View) getHost().getModel();
-		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
-			Node node = (Node) it.next();
+		for (Iterator nit = view.getChildren().iterator(); nit.hasNext();) {
+			Node node = (Node) nit.next();
 			switch (EcoreVisualIDRegistry.getVisualID(node)) {
 			case EClassAttributesEditPart.VISUAL_ID:
 				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {

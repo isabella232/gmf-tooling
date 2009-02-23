@@ -37,18 +37,18 @@ public class EEnum2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
-		CompositeTransactionalCommand cc = new CompositeTransactionalCommand(getEditingDomain(), null);
-		cc.setTransactionNestingEnabled(false);
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
+		cmd.setTransactionNestingEnabled(false);
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
 			// there are indirectly referenced children, need extra commands: false
-			addDestroyShortcutsCommand(cc, view);
+			addDestroyShortcutsCommand(cmd, view);
 			// delete host element
-			cc.add(new DestroyElementCommand(req));
+			cmd.add(new DestroyElementCommand(req));
 		} else {
-			cc.add(new DeleteCommand(getEditingDomain(), view));
+			cmd.add(new DeleteCommand(getEditingDomain(), view));
 		}
-		return getGEFWrapper(cc.reduce());
+		return getGEFWrapper(cmd.reduce());
 	}
 
 }
