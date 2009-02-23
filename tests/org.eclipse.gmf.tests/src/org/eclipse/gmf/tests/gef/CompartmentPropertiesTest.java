@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,6 +27,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * TODO: This test should be joined with the part of DiagramNodeTest concerning
@@ -45,6 +46,7 @@ public final class CompartmentPropertiesTest extends GeneratedCanvasTest {
 	
 	public CompartmentPropertiesTest(String name) {
 		super(name);
+		myDefaultSetup = SessionSetup.newInstance();
 	}
 	
 	/**
