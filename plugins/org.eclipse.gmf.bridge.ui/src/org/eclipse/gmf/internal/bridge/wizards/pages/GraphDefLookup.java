@@ -12,11 +12,9 @@
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -39,15 +37,23 @@ public class GraphDefLookup {
 		if (myCanvas.getNodes().isEmpty()) {
 			return null;
 		}
+		LinkedList<Node> candidateNodes = new LinkedList<Node>();
 		if (nm.getDomainMetaElement() != null) {
 			String name = nm.getDomainMetaElement().getName();
-			Node n = matchName(myCanvas.getNodes(), name);
-			if (n != null) {
-				return n;
+			for (Node n : myCanvas.getNodes()) {
+				if (n.getName() != null && n.getName().indexOf(name) >= 0) {
+					candidateNodes.add(n);
+				}
 			}
 		}
+		if (candidateNodes.isEmpty()) {
+			candidateNodes.addAll(myCanvas.getNodes());
+		}
+		if (candidateNodes.size() == 1) {
+			return candidateNodes.getFirst();
+		}
 		if (nm.getLabelMappings().isEmpty()) {
-L1:			for (Node n : myCanvas.getNodes()) {
+L1:			for (Node n : candidateNodes) {
 				for (DiagramLabel dl : myCanvas.getLabels()) {
 					if (n.getFigure().getAccessors().contains(dl.getAccessor())) {
 						// one of node's accessors is referenced for a label, however, 
@@ -59,7 +65,7 @@ L1:			for (Node n : myCanvas.getNodes()) {
 			}
 		} else {
 			Node candidateWithLessLabels= null, candidateWithMoreLabels = null;
-			for (Node n : myCanvas.getNodes()) {
+			for (Node n : candidateNodes) {
 				if (n.getFigure().getAccessors().size() >= nm.getLabelMappings().size()) {
 					LinkedList<DiagramLabel> labels = collectAccessingLabels(n);
 					if (labels.isEmpty()) {
@@ -86,7 +92,7 @@ L1:			for (Node n : myCanvas.getNodes()) {
 			}
 			// else - fall through, to get any
 		}
-		return myCanvas.getNodes().get(0); // take any
+		return candidateNodes.get(0); // take any
 	}
 
 	// canvas.labels->select(l | n.figure.accessors.contains(l))
@@ -137,8 +143,12 @@ L1:			for (Node n : myCanvas.getNodes()) {
 		} else if (lm.getLinkMetaFeature() != null) {
 			name = lm.getLinkMetaFeature().getEContainingClass().getName();
 		}
-		Connection c = matchName(myCanvas.getConnections(), name);
-		return c != null ? c : myCanvas.getConnections().get(0);
+		for (Connection c : myCanvas.getConnections()) {
+			if (c.getName() != null && c.getName().indexOf(name) >= 0) {
+				return c;
+			}
+		}
+		return myCanvas.getConnections().get(0);
 	}
 
 	public void assignLabels(LinkMapping lm, Connection c) {
@@ -149,14 +159,5 @@ L1:			for (Node n : myCanvas.getNodes()) {
 		for (int i = 0; i < lm.getLabelMappings().size(); i++) {
 			lm.getLabelMappings().get(i).setDiagramLabel(floating);
 		}
-	}
-
-	private static <T extends DiagramElement> T matchName(List<T> elements, String namePart) {
-		for (T next : elements) {
-			if (next.getName() != null && next.getName().indexOf(namePart) >= 0) {
-				return next;
-			}
-		}
-		return null;
 	}
 }
