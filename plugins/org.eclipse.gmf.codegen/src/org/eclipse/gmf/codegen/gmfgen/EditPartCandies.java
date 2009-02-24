@@ -173,7 +173,7 @@ public interface EditPartCandies extends EObject {
 	 * @return the value of the '<em>Base Graphical Node Edit Policy Class Name</em>' attribute.
 	 * @see #setBaseGraphicalNodeEditPolicyClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditPartCandies_BaseGraphicalNodeEditPolicyClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Not in use'"
 	 * @generated
 	 */
 	String getBaseGraphicalNodeEditPolicyClassName();
@@ -284,6 +284,7 @@ public interface EditPartCandies extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Not in use'"
 	 * @generated
 	 */
 	String getBaseGraphicalNodeEditPolicyQualifiedClassName();

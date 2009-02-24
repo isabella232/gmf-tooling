@@ -191,7 +191,7 @@ public interface GenCommonBase extends EObject {
 	 * @return the value of the '<em>Notation View Factory Class Name</em>' attribute.
 	 * @see #setNotationViewFactoryClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_NotationViewFactoryClassName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='ViewFactories are no longer generated'"
 	 * @generated
 	 */
 	String getNotationViewFactoryClassName();
@@ -315,6 +315,7 @@ public interface GenCommonBase extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='No longer in use'"
 	 * @generated
 	 */
 	String getClassNameSuffux();
@@ -358,6 +359,7 @@ public interface GenCommonBase extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
+	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='ViewFactories are no longer generated'"
 	 * @generated
 	 */
 	String getNotationViewFactoryQualifiedClassName();

@@ -225,7 +225,7 @@ public interface PackageNames extends EObject {
 	 * @return the value of the '<em>Notation View Factories Package Name</em>' attribute.
 	 * @see #setNotationViewFactoriesPackageName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPackageNames_NotationViewFactoriesPackageName()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='ViewFactories are no longer generated'"
 	 * @generated
 	 */
 	String getNotationViewFactoriesPackageName();
