@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -349,7 +349,6 @@ public class EntriesPage extends WizardPage {
 			asNodeButton.setText(Messages.mapAsNode);
 			asNodeButton.setEnabled(false);
 			asNodeButton.addListener(SWT.Selection, new Listener() {
-				@SuppressWarnings("unchecked")
 				public void handleEvent(Event event) {
 					TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
 					NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
@@ -373,7 +372,6 @@ public class EntriesPage extends WizardPage {
 			asLinkButton.setText(Messages.mapAsLink);
 			asLinkButton.setEnabled(false);
 			asLinkButton.addListener(SWT.Selection, new Listener() {
-				@SuppressWarnings("unchecked")
 				public void handleEvent(Event event) {
 					LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
 					NodeMapping nodeMapping =  selectedNode.getChild();
@@ -435,7 +433,6 @@ public class EntriesPage extends WizardPage {
 			restoreButton.setText(Messages.mapRestore);
 			restoreButton.setEnabled(false);
 			restoreButton.addListener(SWT.Selection, new Listener() {
-				@SuppressWarnings("unchecked")
 				public void handleEvent(Event event) {
 					ListDialog d = new ListDialog(getShell());
 					d.setTitle(isNodeInSelection ? Messages.mapRestoreNode : Messages.mapRestoreLink);
