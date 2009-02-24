@@ -590,7 +590,7 @@ public class GenNavigatorItemProvider
 				 getString("_UI_GenDomainModelNavigator_domainModelElementTesterClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDomainModelNavigator_domainModelElementTesterClassName_feature", "_UI_GenDomainModelNavigator_type"),
 				 GMFGenPackage.eINSTANCE.getGenDomainModelNavigator_DomainModelElementTesterClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,

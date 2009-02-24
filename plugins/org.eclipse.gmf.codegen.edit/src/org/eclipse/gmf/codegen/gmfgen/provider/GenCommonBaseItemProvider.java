@@ -177,7 +177,7 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_GenCommonBase_notationViewFactoryClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_notationViewFactoryClassName_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_NotationViewFactoryClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,

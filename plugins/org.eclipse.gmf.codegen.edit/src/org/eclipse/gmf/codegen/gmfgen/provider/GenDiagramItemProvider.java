@@ -87,7 +87,6 @@ public class GenDiagramItemProvider
 			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
-			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addTextSelectionEditPolicyClassNamePropertyDescriptor(object);
 			addTextNonResizableEditPolicyClassNamePropertyDescriptor(object);
 			addCreationWizardClassNamePropertyDescriptor(object);
@@ -320,7 +319,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_Shortcuts_createShortcutActionClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_createShortcutActionClassName_feature", "_UI_Shortcuts_type"),
 				 GMFGenPackage.eINSTANCE.getShortcuts_CreateShortcutActionClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -408,7 +407,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditorCandies_loadResourceActionClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_loadResourceActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_LoadResourceActionClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -562,7 +561,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_BatchValidation_validationProviderPriority_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationProviderPriority_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationProviderPriority(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -672,7 +671,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_BatchValidation_metricProviderPriority_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_metricProviderPriority_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MetricProviderPriority(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -826,7 +825,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_PackageNames_parsersPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_parsersPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_ParsersPackageName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -848,7 +847,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_PackageNames_notationViewFactoriesPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_notationViewFactoriesPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_NotationViewFactoriesPackageName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -936,28 +935,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditPartCandies_baseItemSemanticEditPolicyClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseItemSemanticEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseItemSemanticEditPolicyClassName(),
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 getString("_UI_ClassNamesPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Base Graphical Node Edit Policy Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseGraphicalNodeEditPolicyClassName(),
 				 true,
 				 false,
 				 false,
@@ -1156,7 +1133,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditorCandies_initDiagramFileActionClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_initDiagramFileActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_InitDiagramFileActionClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -1508,7 +1485,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_parserProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -1530,7 +1507,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_parserProviderPriority_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderPriority_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderPriority(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
@@ -1552,7 +1529,7 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_contributionItemProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_contributionItemProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ContributionItemProviderClassName(),
-				 true,
+				 false,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
