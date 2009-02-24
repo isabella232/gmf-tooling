@@ -77,7 +77,7 @@
 // viewVar must be already inserted into a diagram (view.getDiagram() should be meaningful)
 «DEFINE offset(String viewVar, x : Integer, y : Integer) FOR gmfgen::GenLabel-»
 	org.eclipse.gmf.runtime.notation.Location location«visualID» = (org.eclipse.gmf.runtime.notation.Location) «viewVar».getLayoutConstraint();
-«IF self.isPixelMapMode()-»
+«IF self.getDiagram().isPixelMapMode()-»
 	location«visualID».setX(«x»);
 	location«visualID».setY(«y»);
 «ELSE-»
