@@ -15,6 +15,8 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION xpt::diagram::editparts::Utils»
+«EXTENSION xpt::diagram::Utils»
+
 
 «DEFINE extendsListContents FOR gmfgen::GenNode-»
 «IF hasBorderItems(self)»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart«ENDIF-»
@@ -329,11 +331,11 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	«ENDIF-»
 «ENDDEFINE»
 
+// FIXME don't call getMapMode unless Diagram.units is not Pixel
 «DEFINE createNodePlate FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
-		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result =
-			new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»), getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»));
+		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result = new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(«IF getDiagram().isPixelMapMode()»«defaultSizeWidth(viewmap, 40)», «defaultSizeHeight(viewmap, 40)»«ELSE»getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»), getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»)«ENDIF»);
 		«EXPAND setupNodePlate-»
 		return result;
 	}
@@ -408,7 +410,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 					});
 				«ELSE-»
 					org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layout =new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
-					layout.setSpacing(getMapMode().DPtoLP(5));
+					layout.setSpacing(«IF getDiagram().isPixelMapMode()»5«ELSE»getMapMode().DPtoLP(5)«ENDIF»);
 					nodeShape.setLayoutManager(layout);
 				«ENDIF-»
 			}
@@ -449,7 +451,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setLineWidth(int width) {
 		if (primaryShape instanceof org.eclipse.draw2d.Shape) {
-			((org.eclipse.draw2d.Shape) primaryShape).setLineWidth(getMapMode().DPtoLP(width));
+			((org.eclipse.draw2d.Shape) primaryShape).setLineWidth(«IF getDiagram().isPixelMapMode()»width«ELSE»getMapMode().DPtoLP(width)«ENDIF»);
 		}
 	}
 «ENDDEFINE»

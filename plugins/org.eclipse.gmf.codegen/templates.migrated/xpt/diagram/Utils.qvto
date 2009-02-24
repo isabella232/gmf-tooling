@@ -56,4 +56,9 @@ helper gmfgen::GenCommonBase::hasLineStyleInCustom() : Boolean {
 
 helper gmfgen::GenCommonBase::hasFillStyleInCustom() : Boolean {
 	return self.styles->exists(s | s.ecoreClass.oclIsKindOf(notation::FillStyle));
-} 
+}
+
+-- if diagram is in pixel map mode, no reason to use getMapMode()
+helper gmfgen::GenDiagram::isPixelMapMode() : Boolean {
+	return self.units = 'Pixel';
+}
