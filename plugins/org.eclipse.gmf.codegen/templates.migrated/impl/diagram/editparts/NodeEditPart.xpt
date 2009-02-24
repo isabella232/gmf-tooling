@@ -331,7 +331,6 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	«ENDIF-»
 «ENDDEFINE»
 
-// FIXME don't call getMapMode unless Diagram.units is not Pixel
 «DEFINE createNodePlate FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
