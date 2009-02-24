@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -63,7 +63,6 @@ public class MapDefFeeder {
 		return myInputHolder.getMapping();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void feedDefaultMapping() {
 		final Hierarchy hierarchy = getHierarchy();
 		myNodeCandidates = new UniqueEList<EClass>(hierarchy.getAllClasses());
@@ -89,6 +88,7 @@ public class MapDefFeeder {
 		return myHierarchy;
 	}
 
+	@SuppressWarnings("unchecked")
 	private Strategy<EClass> createNodeFilter() {
 		// TODO add UI and instantiate strategies from descriptors
 		return new CompositeStrategy<EClass>(new AccessibleClassNodeStrategy(), new LeafNodeStrategy());
@@ -120,8 +120,9 @@ public class MapDefFeeder {
 		for (EClass eClass : candidates) {
 			NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
 			nm.setDomainMetaElement(eClass); 
-			nm.setDiagramNode(myGraphDefLookup.findSuitableNode(nm));
 			addEditFeature(nm, eClass);
+			nm.setDiagramNode(myGraphDefLookup.findSuitableNode(nm));
+			myGraphDefLookup.assignLabels(nm, nm.getDiagramNode());
 			nm.setTool(myToolDefLookup.findTool(nm));
 			TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
 			tnr.setContainmentFeature(getHierarchy().nodeBackRef(eClass)); // FIXME [containment] !!!
@@ -145,16 +146,15 @@ public class MapDefFeeder {
 				lm.setLinkMetaFeature((EReference) next);
 			}
 			lm.setDiagramLink(myGraphDefLookup.findSuitableLink(lm));
+			myGraphDefLookup.assignLabels(lm, lm.getDiagramLink());
 			lm.setTool(myToolDefLookup.findTool(lm));
 			rv.add(lm);
 		}
 		return rv;
 	}
 
-	@SuppressWarnings("unchecked")
 	private void addEditFeature(MappingEntry me, EClass class1) {
-		for (Iterator it = class1.getEAllAttributes().iterator(); it.hasNext();) {
-			EAttribute n = (EAttribute) it.next();
+		for (EAttribute n : class1.getEAllAttributes()) {
 			// EDataType at = n.getEAttributeType();
 			// at != null && at.getEPackage() != null && at.getEPackage().getNsURI().equals(EcorePackage.eNS_URI) && at.getName().equals(EcorePackage.eINSTANCE.getEString().getName())
 			if (EcorePackage.eINSTANCE.getEString().equals(n.getEType())) {
