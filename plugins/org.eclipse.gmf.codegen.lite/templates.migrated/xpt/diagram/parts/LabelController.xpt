@@ -288,7 +288,7 @@ It is thus referenced from the common activate/deactivate mechanism.
 «DEFINE activateAdditions FOR gmfgen::GenLabel-»
 «self.getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
 if (updatableParent != null) {
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	updatableParent.addExternalRefresher(fontColorRefresher);
 	updatableParent.addExternalRefresher(fontRefresher);
 «ENDIF-»
@@ -300,7 +300,7 @@ if (updatableParent != null) {
 «DEFINE deactivateAdditions FOR gmfgen::GenLabel-»
 «self.getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
 if (updatableParent != null) {
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	updatableParent.removeExternalRefresher(fontColorRefresher);
 	updatableParent.removeExternalRefresher(fontRefresher);
 «ENDIF-»

@@ -184,7 +184,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 «ENDDEFINE»
 
 «DEFINE fillColor FOR gmfgen::GenCommonBase-»
-«IF not isFixedBackground(viewmap)-»
+«IF not viewmap.isFixedBackground()-»
 Refresher backgroundColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
@@ -206,7 +206,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 «ENDDEFINE»
 
 «DEFINE lineColor FOR gmfgen::GenCommonBase-»
-«IF not isFixedForeground(viewmap)-»
+«IF not viewmap.isFixedForeground()-»
 Refresher foregroundColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
@@ -228,7 +228,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 «ENDDEFINE»
 
 «DEFINE font FOR gmfgen::GenCommonBase-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 Refresher fontRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
@@ -253,7 +253,7 @@ myRefreshersRegistry.add(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTA
 «ENDDEFINE»
 
 «DEFINE fontColor FOR gmfgen::GenCommonBase-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 Refresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
 		«EXPAND ignoreIfInactive-»
@@ -350,7 +350,7 @@ protected org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEdi
 «ENDDEFINE»
 
 «DEFINE externalFontColorRefresher FOR gmfgen::GenLabel-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 «EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher fontColorRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
@@ -371,7 +371,7 @@ private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditP
 «ENDDEFINE»
 
 «DEFINE externalFontRefresher FOR gmfgen::GenLabel-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 «EXPAND xpt::Common::generatedMemberComment»
 private org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher fontRefresher = new org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart.ExternalRefresher() {
 	public void refresh() {
@@ -475,7 +475,7 @@ if (parentFigure != null && parentFigure.getLayoutManager() != null) {
 «ENDDEFINE»
 
 «DEFINE refreshFont FOR gmfgen::GenCommonBase-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshFont() {
 	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle) «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
@@ -531,7 +531,7 @@ private org.eclipse.jface.resource.FontDescriptor createdFontDescriptor;
 «ENDDEFINE»
 
 «DEFINE refreshFontColor FOR gmfgen::GenCommonBase-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshFontColor() {
 	org.eclipse.gmf.runtime.notation.FontStyle style = (org.eclipse.gmf.runtime.notation.FontStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle());
@@ -562,7 +562,7 @@ private org.eclipse.jface.resource.ColorDescriptor createdFontColorDescriptor;
 «ENDDEFINE»
 
 «DEFINE refreshForegroundColor FOR gmfgen::GenCommonBase-»
-«IF not isFixedForeground(viewmap)-»
+«IF not viewmap.isFixedForeground()-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshForegroundColor() {
 	org.eclipse.gmf.runtime.notation.LineStyle style = (org.eclipse.gmf.runtime.notation.LineStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle());
@@ -593,7 +593,7 @@ private org.eclipse.jface.resource.ColorDescriptor createdForegroundColorDescrip
 «ENDDEFINE»
 
 «DEFINE refreshBackgroundColor FOR gmfgen::GenCommonBase-»
-«IF not isFixedBackground(viewmap)-»
+«IF not viewmap.isFixedBackground()-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected void refreshBackgroundColor() {
 	org.eclipse.gmf.runtime.notation.FillStyle style = (org.eclipse.gmf.runtime.notation.FillStyle)  «EXPAND getStyleHolderCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle());
@@ -664,13 +664,13 @@ protected void refreshVisuals() {
 	super.refreshVisuals();
 	refreshVisibility();
 	refreshBounds();
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	refreshFont();
 «ENDIF-»
-«IF not isFixedBackground(viewmap)-»
+«IF not viewmap.isFixedBackground()-»
 	refreshBackgroundColor();
 «ENDIF-»
-«IF not isFixedForeground(viewmap)-»
+«IF not viewmap.isFixedForeground()-»
 	refreshForegroundColor();
 «ENDIF-»
 «IF getDiagram().shortcutsProvidedFor->size() > 0-»
@@ -685,7 +685,7 @@ protected void refreshVisuals() {
 	super.refreshVisuals();
 	refreshVisibility();
 	refreshLabel();
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	refreshFont();
 	refreshFontColor();
 «ENDIF-»
@@ -697,7 +697,7 @@ protected void refreshVisuals() {
 protected void refreshVisuals() {
 	super.refreshVisuals();
 	refreshLabel();
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	refreshFont();
 	refreshFontColor();
 «ENDIF-»
@@ -710,10 +710,10 @@ protected void refreshVisuals() {
 	super.refreshVisuals();
 	refreshVisibility();
 	refreshBendpoints();
-«IF not isFixedBackground(viewmap)-»
+«IF not viewmap.isFixedBackground()-»
 	refreshBackgroundColor();
 «ENDIF-»
-«IF not isFixedForeground(viewmap)-»
+«IF not viewmap.isFixedForeground()-»
 	refreshForegroundColor();
 «ENDIF-»
 }

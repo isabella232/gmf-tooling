@@ -72,18 +72,18 @@ view.setType(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«get
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenNode-»
-«IF isFixedFont(viewmap) or (isFixedForeground(viewmap) or isFixedBackground(viewmap))-»
-	«IF not isFixedFont(viewmap)-»
+«IF viewmap.isFixedFont() or (viewmap.isFixedForeground() or viewmap.isFixedBackground())-»
+	«IF not viewmap.isFixedFont()-»
 	org.eclipse.gmf.runtime.notation.FontStyle fontStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle();
 	«EXPAND initFontStyle('fontStyle')-»
 	view.getStyles().add(fontStyle);
 	«ENDIF-»
-	«IF not isFixedForeground(viewmap)-»
+	«IF not viewmap.isFixedForeground()-»
 	org.eclipse.gmf.runtime.notation.LineStyle lineStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle();
 	«EXPAND initLineStyle('lineStyle')-»
 	view.getStyles().add(lineStyle);
 	«ENDIF-»
-	«IF not isFixedBackground(viewmap)-»
+	«IF not viewmap.isFixedBackground()-»
 	org.eclipse.gmf.runtime.notation.FillStyle fillStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle();
 	«EXPAND initFillStyle('fillStyle')-»
 	view.getStyles().add(fillStyle);
@@ -98,7 +98,7 @@ view.setType(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«get
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenChildLabelNode-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	org.eclipse.gmf.runtime.notation.FontStyle style = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle();
 	«EXPAND initFontStyle('style')-»
 	view.getStyles().add(style);
@@ -113,17 +113,17 @@ view.setType(«getDiagram().getVisualIDRegistryQualifiedClassName()».getType(«get
 «ENDDEFINE»
 
 «DEFINE initStyles FOR gmfgen::GenLink-»
-«IF not isFixedFont(viewmap)-»
+«IF not viewmap.isFixedFont()-»
 	org.eclipse.gmf.runtime.notation.FontStyle fontStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle();
 	«EXPAND initFontStyle('fontStyle')-»
 	view.getStyles().add(fontStyle);
 «ENDIF-»
-«IF not isFixedForeground(viewmap)-»
+«IF not viewmap.isFixedForeground()-»
 	org.eclipse.gmf.runtime.notation.LineStyle lineStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle();
 	«EXPAND initLineStyle('lineStyle')-»
 	view.getStyles().add(lineStyle);
 «ENDIF-»
-«IF not isFixedBackground(viewmap)-»
+«IF not viewmap.isFixedBackground()-»
 	org.eclipse.gmf.runtime.notation.FillStyle fillStyle = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle();
 	«EXPAND initFillStyle('fillStyle')-»
 	view.getStyles().add(fillStyle);
