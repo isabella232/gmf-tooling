@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -62,7 +62,7 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 		gv.getEditDomain().setCommandStack(new DiagramCommandStack(ded));
 
 		String epFactoryClassName = sessionSetup.getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
-		Class<?> epFactory = sessionSetup.getGenProject().getBundle().loadClass(epFactoryClassName);
+		Class<?> epFactory = sessionSetup.loadGeneratedClass(epFactoryClassName);
 		assert EditPartFactory.class.isAssignableFrom(epFactory);
 		gv.setEditPartFactory((EditPartFactory) epFactory.newInstance());
 		gv.setContents(canvas);
