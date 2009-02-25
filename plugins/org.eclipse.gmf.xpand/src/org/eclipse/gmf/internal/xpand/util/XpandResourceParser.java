@@ -46,6 +46,10 @@ public class XpandResourceParser {
         		throw new ParserException(qualifiedTemplateName, errors);
         	}
 		}
+		ErrorLocationInfo[] errors = extractErrors(scanner, parser);
+		if (errors.length > 0) {
+			throw new ParserException(qualifiedTemplateName, errors);	
+		}
 		if (tpl != null) {
 			// XXX two choices here - 
 			// (1) pass any name into parse method, do not assume it's fqn and move setFQN outside of this method
@@ -53,8 +57,7 @@ public class XpandResourceParser {
 			tpl.setFullyQualifiedName(qualifiedTemplateName);
 			return tpl;
 		}
-		ErrorLocationInfo[] errors = extractErrors(scanner, parser);
-		assert errors.length > 0 : "otherwise, no reason not to get template";
+		assert false : "no reason not to get template";
 		throw new ParserException(qualifiedTemplateName, errors);
 	}
 

@@ -130,7 +130,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 				} catch (RuntimeException ex) {
 					Activator.logError(ex);
 					XpandMarkerManager.addMarkers(xpandFile, new ParserException.ErrorLocationInfo(ex.toString()));
-	}
+				}
 
 			} catch (ParserException ex) {
 				updateMarkers(xpandFile, ex.getParsingErrors());
@@ -138,7 +138,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 				updateMarkers(xpandFile, ex);
 			} catch (CoreException ex) {
 				updateMarkers(xpandFile, ex);
-		}
+			}
 				}
 			}
 
