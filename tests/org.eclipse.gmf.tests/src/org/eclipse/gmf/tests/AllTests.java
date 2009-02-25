@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,6 +36,7 @@ import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.rt.LinkCreationTest;
 import org.eclipse.gmf.tests.rt.LinkEcoreConstraintsTest;
 import org.eclipse.gmf.tests.rt.MetricRulesTest;
+import org.eclipse.gmf.tests.rt.PaletteTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestAllDerivedFeatures;
@@ -145,6 +146,7 @@ public class AllTests {
 		suite.addTest(feed(DiagramEditorTest.class, sessionSetup));
 		suite.addTestSuite(LinkChildMetaFeatureNotFromContainerTest.class);
 		suite.addTestSuite(LinkEcoreConstraintsTest.class);
+		suite.addTest(feed(PaletteTest.class, sessionSetup));
 
 		suite.addTestSuite(BundleActivationTest.class);
 
