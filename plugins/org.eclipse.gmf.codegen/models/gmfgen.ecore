@@ -1386,7 +1386,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createMethodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Non-mandatory identification of the entry. Defaults to the same value as createMethodName, clients may override. Set to blank string if don't need the identity"/>
+        <details key="documentation" value="Non-mandatory string identification of the entry. Defaults to the quoted value of createMethodName, clients may override. Set to blank string if don't need the identity"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

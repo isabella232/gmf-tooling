@@ -281,6 +281,6 @@ FIXME
 
 «DEFINE setIdentity(toolVarName : String) FOR gmfgen::EntryBase-»
 «IF id <> null and id.size() != 0-»
-		 «toolVarName».setId("«id»");
+		 «toolVarName».setId(«id»);«IF id.isQuoted('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
 «ENDIF-»
 «ENDDEFINE»
