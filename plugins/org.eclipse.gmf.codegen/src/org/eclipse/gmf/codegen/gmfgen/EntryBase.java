@@ -169,7 +169,7 @@ public interface EntryBase extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Non-mandatory identification of the entry. Defaults to the same value as createMethodName, clients may override. Set to blank string if don't need the identity
+	 * Non-mandatory string identification of the entry. Defaults to the quoted value of createMethodName, clients may override. Set to blank string if don't need the identity
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(String)

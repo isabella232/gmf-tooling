@@ -291,7 +291,7 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 		if (getIdGen() != null) {
 			return getIdGen();
 		}
-		return getCreateMethodName();
+		return '"' + getCreateMethodName() + '"';
 	}
 
 	/**
