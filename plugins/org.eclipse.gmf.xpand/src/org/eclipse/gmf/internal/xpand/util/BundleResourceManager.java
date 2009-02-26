@@ -22,7 +22,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.eclipse.gmf.internal.xpand.Activator;
-import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
+import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 
 /**
  * Node: no support for relative paths (i.e. '..::templates::SomeTemplate.xpt')
@@ -62,10 +62,7 @@ public class BundleResourceManager extends ResourceManagerImpl {
 
 	@Override
 	protected void handleParserException(ParserException ex) {
-		Activator.logWarn(ex.getResourceName() + ":" + ex.getClass().getName());
-		for (ErrorLocationInfo ei : ex.getParsingErrors()) {
-			Activator.logWarn(ei.startLine + ":" + ei.message);
-		}
+		throw new EvaluationException(ex.toString());
 	}
 
 	private Reader createReader(String urlPath, URL baseUrl) throws MalformedURLException, IOException {

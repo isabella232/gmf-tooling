@@ -48,6 +48,9 @@ public class XpandResourceParser {
 		}
 		ErrorLocationInfo[] errors = extractErrors(scanner, parser);
 		if (errors.length > 0) {
+			// TODO: instead of throwing an exception all errors should be added
+			// into the parsed template and processed later. This will allow us
+			// executing partially parsed template.
 			throw new ParserException(qualifiedTemplateName, errors);	
 		}
 		if (tpl != null) {
