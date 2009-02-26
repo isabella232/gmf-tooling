@@ -22,6 +22,8 @@ import PreferencePages;
 import Navigator;
 import Actions;
 import RichClientPlatformApp;
+import Viewmaps;
+import Identity;
 
 configuration property rcp : Boolean;
 configuration property useMapMode : Boolean;
@@ -44,8 +46,8 @@ main() {
 	var genEditor := mapRoot.map structure();
 	var gd : GMFGEN::GenDiagram := genEditor.diagram;
 	gd.compartments += gd.getAllNodes().compartments; -- DGMT#createGenCompartment
-	visualIdentity(mapRoot, gd);
-	viewmaps(mapRoot, gd);
+	new Identity(mapModel, gmfgenModel).transform();
+	new Viewmaps(mapModel, gmfgenModel).transform();
 	-- ???genEditor.diagram.palette := mapRoot.diagram.map palette();
 	gd.palette := mapRoot.diagram.map palette();
 	genEditor.domainGenModel := mapRoot.diagram.domainModel.findGenPackage().genModel;
@@ -360,73 +362,6 @@ mapping GMFMAP::DesignLabelMapping::createLabelModelFacet() : GMFGEN::LabelModel
 	parser := this.designLabelParser;
 }
 
--- *************************************************************************************
--- Visual ID
--- *************************************************************************************
-
-helper visualIdentity(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiagram) {
-	genDiagram.visualID := 1000;
-	--5.range(1, genDiagram.topLevelNodes->size())->forEach(i) {
-	Sequence { 1..genDiagram.topLevelNodes->size() }->forEach(i) {
-		var n : GenTopLevelNode := genDiagram.topLevelNodes->at(i);
-		n.visualID := 2000 + i;
-	};
-	Sequence { 1..genDiagram.childNodes->size() }->forEach(i) {
-		var n : GenChildNode := genDiagram.childNodes->at(i);
-		n.visualID := 3000 + i;
-	};
-	Sequence { 1..genDiagram.links->size() }->forEach(i) {
-		var l : GenLink := genDiagram.links->at(i);
-		l.visualID := 4000 + i;
-	};
-	Sequence { 1..genDiagram.compartments->size() }->forEach(i) {
-		var c : GenCompartment := genDiagram.compartments->at(i);
-		c.visualID := 7000 + i;
-	};
-	Sequence { 1..genDiagram.getAllNodes().labels->size() }->forEach(i) {
-		var l : GenLabel := genDiagram.getAllNodes().labels->at(i);
-		l.visualID := 5000 + i;
-	};
-	Sequence { 1..genDiagram.links.labels->size() }->forEach(i) {
-		var l : GenLabel := genDiagram.links.labels->at(i);
-		l.visualID := 6000 + i;
-	};
-}
-
--- *************************************************************************************
--- Viewmaps
--- *************************************************************************************
-
-helper viewmaps(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiagram) {
-	genDiagram.topLevelNodes->forEach(n) {
-		n.viewmap := n.invresolveone(NodeMapping).diagramNode.map viewmap();
-	};
-	genDiagram.childNodes->forEach(n) {
-		n.viewmap := n.invresolveone(NodeMapping).diagramNode.map viewmap();
-	};
-	genDiagram.links->forEach(l) {
-		l.viewmap := l.invresolveone(LinkMapping).diagramLink.map viewmap();
-	};
-}
-
-mapping GMFGRAPH::Node::viewmap() : GMFGEN::Viewmap {
-	init {
-		result := object ModeledViewmap { figureModel := self.oclAsType(EObject); };
-	}
-}
-
-mapping GMFGRAPH::Connection::viewmap() : GMFGEN::Viewmap {
-	init {
-		result := object ModeledViewmap { figureModel := self.oclAsType(EObject); };
-	}
-}
-mapping GMFGRAPH::DiagramLabel::viewmap() : GMFGEN::Viewmap {
-	init {
-		result := object ModeledViewmap { figureModel := self.oclAsType(EObject); };
-	}
-	-- for GenLinkLabel, need to specify alignment based on AlignmentFacet
-	-- besides, need to create LabelOffsetAttributes and optionally populate it from LabelOffsetFacet
-}
 
 -- *************************************************************************************
 -- Constraints and initializers
