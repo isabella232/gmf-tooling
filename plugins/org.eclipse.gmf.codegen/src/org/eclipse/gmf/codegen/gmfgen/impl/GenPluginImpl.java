@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
@@ -472,8 +474,18 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		if(getDiagram().isValidationEnabled() || getEditorGen().hasAudits()) {
 			HashSet<String> pluginIDs = new HashSet<String>();			
 			pluginIDs.add("org.eclipse.emf.validation"); //$NON-NLS-1$
-			
+
 			if(getEditorGen().getAudits() != null) {
+				// OCL constraint parser is part of separate feature/plugin: org.eclipse.emf.validation.ocl, need to refer to it explicitly 
+				for (GenAuditRule ar : getEditorGen().getAudits().getRules()) {
+					GenConstraint constraint = ar.getRule();
+					if (constraint != null && constraint.getProvider() != null) {
+						if (GenLanguage.OCL_LITERAL.equals(constraint.getProvider().getLanguage())) {
+							pluginIDs.add("org.eclipse.emf.validation.ocl"); //$NON-NLS-1$
+							break;
+						}
+					}
+				}
 				collectGenPackagesRequiredPluginIDs(getEditorGen().getAudits().getTargetedModelPackages(), pluginIDs);
 			}			
 			return pluginIDs;
