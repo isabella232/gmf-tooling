@@ -50,15 +50,15 @@ public class StandardLibraryImports extends AbstractImportsManager {
 
 	private Set<String> usedLibraries = new LinkedHashSet<String>();
 
-	StandardLibraryImports(StringBuilder stringBuilder) {
+	public StandardLibraryImports(StringBuilder stringBuilder) {
 		super(stringBuilder);
 	}
 
-	StandardLibraryImports(int placeholder) {
+	public StandardLibraryImports(int placeholder) {
 		super(placeholder);
 	}
 
-	String[] getLibraries() {
+	public String[] getLibraries() {
 		return usedLibraries.toArray(new String[usedLibraries.size()]);
 	}
 

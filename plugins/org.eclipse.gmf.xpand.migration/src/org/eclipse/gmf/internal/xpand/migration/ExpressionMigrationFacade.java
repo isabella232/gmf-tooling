@@ -34,6 +34,7 @@ import org.eclipse.gmf.internal.xpand.BuiltinMetaModelExt;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
+import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.expression.ExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.expression.Variable;
@@ -56,6 +57,8 @@ import org.eclipse.gmf.internal.xpand.expression.ast.RealLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.StringLiteral;
 import org.eclipse.gmf.internal.xpand.expression.ast.SwitchExpression;
 import org.eclipse.gmf.internal.xpand.expression.ast.TypeSelectExpression;
+import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionLexer;
+import org.eclipse.gmf.internal.xpand.expression.parser.ExpressionParser;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException.Type;
 import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.xtend.ast.Extension;
@@ -143,8 +146,18 @@ public class ExpressionMigrationFacade {
 
 	private HashMap<String, EClassifier> envVariables;
 
-	ExpressionMigrationFacade(Expression expression, EClassifier requiredType, Map<String, EClassifier> envVariables, TypeManager typeManager, ModelManager modelManager,
-			VariableNameDispatcher variableDispatcher, MigrationExecutionContext context, String resourceName) {
+	public ExpressionMigrationFacade(String expression, EClassifier requiredType, Map<String, EClassifier> envVariables, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher,
+			MigrationExecutionContext context, String resourceName) throws MigrationException {
+		this(parseXtend(expression), requiredType, envVariables, typeManager, modelManager, variableDispatcher, context, resourceName);
+		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
+		rootExpression.analyze(ctx, issues);
+		if (MigrationException.hasErrors(issues)) {
+			throw new MigrationException(issues, resourceName);
+		}
+	}
+
+	public ExpressionMigrationFacade(Expression expression, EClassifier requiredType, Map<String, EClassifier> envVariables, TypeManager typeManager, ModelManager modelManager, VariableNameDispatcher variableDispatcher,
+			MigrationExecutionContext context, String resourceName) {
 		rootExpression = expression;
 		rootExpressionType = requiredType;
 		this.envVariables = new HashMap<String, EClassifier>(envVariables);
@@ -156,7 +169,18 @@ public class ExpressionMigrationFacade {
 		markReturnPosition();
 	}
 
-	StringBuilder migrate() throws MigrationException {
+    private static Expression parseXtend(final String expression) {
+        final ExpressionLexer scanner = new ExpressionLexer(expression.toCharArray(), "nofile");
+        final ExpressionParser parser = new ExpressionParser(scanner);
+        scanner.lexer(parser);
+        return parser.parser();
+    }
+
+    public Expression getRootExpression() {
+    	return rootExpression;
+    }
+
+    public StringBuilder migrate() throws MigrationException {
 		qvtContexts.push(QvtExecutionContext.createNewContext(envVariables));
 		try {
 			EClassifier expressionQvtType = migrateExpression(rootExpression);
