@@ -37,7 +37,7 @@ boolean hasSynchronizers(gmfgen::GenNode genNode) :
 ;
 
 List[wysiwyg::DomainPropertiesSynchronizer] getSynchronizers(gmfgen::GenNode genNode) :
-getReferencingObjects(genNode).typeSelect(wysiwyg::DomainPropertiesSynchronizer)
+getReferencingObjects((ecore::EObject) {genNode}.first()).typeSelect(wysiwyg::DomainPropertiesSynchronizer)
 ;
 
 cached genmodel::GenClass metaclass(gmfgen::GenNode genNode) :

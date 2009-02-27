@@ -19,7 +19,7 @@ import "http://www.eclipse.org/emf/2002/GenModel";
 extension xpt::EMFUtils;
 
 boolean isProxyTab(gmfgen::GenCustomPropertyTab tab) :
-!getReferencingObjects(tab).typeSelect(propsheet::CustomPropertySection).isEmpty()
+!getReferencingObjects((ecore::EObject) {tab}.first()).typeSelect(propsheet::CustomPropertySection).isEmpty()
 ;
 
 String getProxyTabSuperClassName(gmfgen::GenCustomPropertyTab tab) :
@@ -27,5 +27,5 @@ getCustomPropertySection(tab).section.className
 ;
 
 propsheet::CustomPropertySection getCustomPropertySection(gmfgen::GenCustomPropertyTab tab) :
-getReferencingObjects(tab).typeSelect(propsheet::CustomPropertySection).first()
+getReferencingObjects((ecore::EObject) {tab}.first()).typeSelect(propsheet::CustomPropertySection).first()
 ;
