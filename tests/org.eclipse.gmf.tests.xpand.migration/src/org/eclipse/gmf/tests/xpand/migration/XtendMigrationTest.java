@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2008, 2009 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
@@ -29,6 +30,9 @@ import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
+import org.eclipse.m2m.internal.qvt.oml.compiler.ResolverUtils;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 
 public class XtendMigrationTest extends TestCase {
 	
@@ -307,12 +311,19 @@ public class XtendMigrationTest extends TestCase {
 		return content;
 	}
 
-	private void checkQVTCompilation(String resourceName, String resourceContent) throws MdaException, UnsupportedEncodingException {
-		QVTOCompiler qvtCompiler = new QVTOCompiler(new ImportResolver());
+	private void checkQVTCompilation(final String resourceName, final String resourceContent) throws MdaException, UnsupportedEncodingException {		
+		UnitResolver resolver = new UnitResolver() {
+			public UnitProxy resolveUnit(String qualifiedName) {
+				URI uri = URI.createURI("platform:/plugin/foo").appendSegment(resourceName); //$NON-NLS-1$
+				return ResolverUtils.createUnitProxy(resourceName, uri, resourceContent, this);
+			}
+		};
+		
+		QVTOCompiler qvtCompiler = new QVTOCompiler(resolver);
 		QvtCompilerOptions options = new QvtCompilerOptions();
 		options.setGenerateCompletionData(false);
 		options.setShowAnnotations(false);
-		CompiledUnit unit = qvtCompiler.compile(new CFileImpl(resourceName, resourceContent), options, null);
+		CompiledUnit unit = qvtCompiler.compile(resourceName, options, null);
 		assertTrue(unit.getErrors().size() == 0);
 	}
 
