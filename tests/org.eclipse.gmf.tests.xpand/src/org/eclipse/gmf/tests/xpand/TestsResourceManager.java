@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,12 +13,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Collections;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
+import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
 
 /**
  * @author artem
@@ -56,4 +60,9 @@ public class TestsResourceManager extends ResourceManagerImpl implements Resourc
 		return fullyQualifiedName + "." + fileExtension;
 	}
 
+	@Override
+	protected UnitResolver getQVTUnitResolver() {
+		URL resource = getClass().getClassLoader().getResource("."); 
+		return BundleUnitResolver.createResolver(Collections.singletonList(resource), true); 
+	}
 }

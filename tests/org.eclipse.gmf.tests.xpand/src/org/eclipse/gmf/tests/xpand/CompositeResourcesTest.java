@@ -33,6 +33,8 @@ import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 import org.eclipse.ocl.expressions.CollectionKind;
 
 public class CompositeResourcesTest extends TestCase {
@@ -148,6 +150,15 @@ public class CompositeResourcesTest extends TestCase {
 		@Override
 		protected String resolveCFileFullPath(String fullyQualifiedName, String fileExtension) {
 			return fullyQualifiedName + "." + fileExtension;
+		}
+		
+		@Override
+		protected UnitResolver getQVTUnitResolver() { 
+			return new UnitResolver() {
+				public UnitProxy resolveUnit(String qualifiedName) {				
+					return null;
+				}
+			};
 		}
 	}
 }
