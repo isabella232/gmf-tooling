@@ -12,19 +12,12 @@
  */
 package org.eclipse.gmf.internal.xpand.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -32,147 +25,13 @@ import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtFile;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
-import org.eclipse.m2m.internal.qvt.oml.common.io.CFile;
-import org.eclipse.m2m.internal.qvt.oml.common.io.CFolder;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
-import org.eclipse.m2m.internal.qvt.oml.compiler.IImportResolver;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
-import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 
 // FIXME it's not a good idea to parse file on every proposal computation
 public abstract class ResourceManagerImpl implements ResourceManager {
-
-	private final static class InputStreamCFile implements CFile {
-
-		private String name;
-
-		private Reader reader;
-
-		public InputStreamCFile(Reader reader, String name) {
-			this.reader = reader;
-			this.name = name;
-		}
-
-		public void create(InputStream contents) throws IOException {
-			throw new UnsupportedOperationException("TODO");
-		}
-
-		public String getCharset() throws IOException {
-			return "UTF-8";
-		}
-
-		public InputStream getContents() throws IOException {
-			return new ByteArrayInputStream(getBytes());
-		}
-
-		private byte[] getBytes() throws IOException {
-			StringWriter sw = new StringWriter();
-			for (int ch = reader.read(); ch != -1; ch = reader.read()) {
-				sw.write(ch);
-			}
-			return sw.toString().getBytes(getCharset());
-		}
-
-		public CFolder getParent() {
-			return null;
-		}
-
-		public long getTimeStamp() {
-			return -1;
-		}
-
-		public String getUnitName() {
-			return name;
-		}
-
-		public void setContents(InputStream contents) throws IOException {
-			throw new UnsupportedOperationException("TODO");
-		}
-
-		public void delete() throws IOException {
-			throw new UnsupportedOperationException("TODO");
-		}
-
-		public boolean exists() {
-			return true;
-		}
-
-		public String getExtension() {
-			return QvtResource.FILE_EXTENSION;
-		}
-
-		public IFileStore getFileStore() throws IOException {
-			throw new UnsupportedOperationException("TODO");
-		}
-
-		public String getFullPath() {
-			return name;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public void refresh() throws IOException {
-		}
-		
-		@Override
-		public boolean equals(Object obj) {
-			if (obj instanceof InputStreamCFile) {
-				InputStreamCFile other = (InputStreamCFile) obj;
-				return getFullPath().equals(other.getFullPath());
-			}
-			return super.equals(obj);
-		}
-
-		@Override
-		public int hashCode() {
-			return getFullPath().hashCode();
-		}
-		
-	}
-
-	// TODO: implement this import resolved to use resolveMultiple() method
-	private final class ImportResolverImpl implements IImportResolver {
-
-		public String getPackageName(CFolder folder) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public CFile resolveImport(String importedUnitName) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		public CFile resolveImport(CFile parentFile, String importedUnitName) {
-			try {
-				String fullName = importedUnitName.replaceAll("\\.", TypeNameUtil.NS_DELIM);
-				Reader[] readers;
-				try {
-					readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
-				} catch (FileNotFoundException e) {
-					fullName = parentFile.getUnitName();
-					fullName = fullName.substring(0, fullName.lastIndexOf(':') + 1) + importedUnitName;
-					try {
-						readers = resolveMultiple(fullName, QvtResource.FILE_EXTENSION);
-					} catch (FileNotFoundException ex) {
-						// File was not found. Can be a native library
-						return null;
-					}
-				}
-				// TODO: provide user with more detailed error message in this case?
-				assert readers.length == 1;
-				CFile cFile = new InputStreamCFile(readers[0], fullName);
-				return cFile;
-			} catch (IOException ex) {
-				Activator.logError(ex);
-				return null;
-			}
-		}
-
-	}
 
 	private final Map<String, XpandResource> cachedXpand = new TreeMap<String, XpandResource>();
 
@@ -210,29 +69,18 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
-		try {
-			Reader[] readers = resolveMultiple(fullyQualifiedName, QvtResource.FILE_EXTENSION);
-			// TODO: provide user with more detailed error message in this case?
-			assert readers.length == 1;
-			CFile cFile = new InputStreamCFile(readers[0], resolveCFileFullPath(fullyQualifiedName, QvtResource.FILE_EXTENSION));
+			String compilationUnitQName = fullyQualifiedName.replace(TypeNameUtil.NS_DELIM, "."); //$NON-NLS-1$ 
+			CompiledUnit compiledUnit = null;			
 			try {
-				CompiledUnit cu = getQvtCompiler().compile(cFile, getQvtCompilerOptions(), null);
-				return new QvtFile(cu, fullyQualifiedName);
+				compiledUnit = getQvtCompiler().compile(compilationUnitQName, getQvtCompilerOptions(), null);
 			} catch (MdaException e) {
-				throw new ParserException(fullyQualifiedName, new ParserException.ErrorLocationInfo(e.toString()));
+				throw new FileNotFoundException(fullyQualifiedName);				
 			}
-		} catch (FileNotFoundException e) {
-			// Corresponding extension was not found. Trying to load BlackBox library.
-			List<String> compilationUnitQName = new ArrayList<String>();
-			for (StringTokenizer tokenizer = new StringTokenizer(fullyQualifiedName, TypeNameUtil.NS_DELIM, false); tokenizer.hasMoreTokens();) {
-				compilationUnitQName.add(tokenizer.nextToken());
-			}
-			List<Module> modules = getQvtCompiler().getBlackboxUnitHelper().getModules(compilationUnitQName);
-			if (modules == null) {
+
+			if (compiledUnit == null) {
 				throw new FileNotFoundException(fullyQualifiedName);
 			}
-			return new QvtFile(modules, fullyQualifiedName);
-		}
+			return new QvtFile(compiledUnit, fullyQualifiedName);
 	}
 
 	abstract protected String resolveCFileFullPath(String fullyQualifiedName, String fileExtension);
@@ -245,8 +93,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	private QVTOCompiler getQvtCompiler() {
 		if (qvtCompiler == null) {
 			// TODO: use different kind of ImportResolver being able to
-			// construct referenced CFiles using ResourceManagerImpl
-			qvtCompiler = QVTOCompiler.createCompilerWithHistory(new ImportResolverImpl(), getMetamodelResourceSet());
+			// construct referenced CFiles using ResourceManagerImpl	
+			qvtCompiler = QVTOCompiler.createCompilerWithHistory(getQVTUnitResolver(), getMetamodelResourceSet());
 		}
 		return qvtCompiler;
 	}
@@ -396,6 +244,8 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		cachedQvt.clear();
 		qvtCompiler = null;
 	}
+
+	protected abstract UnitResolver getQVTUnitResolver();
 	
 	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -28,11 +29,15 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
+import org.eclipse.m2m.internal.qvt.oml.project.builder.WorkspaceUnitResolver;
 import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
@@ -187,5 +192,40 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		}
 		// TODO: use file located in main Path in this case?
 		return fullyQualifiedName + "." + fileExtension;
+	}
+	
+	
+	@Override
+	protected UnitResolver getQVTUnitResolver() {
+		
+		WorkspaceUnitResolver resolver;
+		try {
+			resolver = WorkspaceUnitResolver.getResolver(contextProject);
+		} catch (CoreException e) {
+			// hm, QVTo has done bad
+			Activator.logError(e);
+			
+			return new UnitResolver() {
+					public UnitProxy resolveUnit(String qualifiedName) {				
+						return null;
+					}
+			};
+		}
+		
+		for (IPath rootPath : myConfiguredRoots) {
+			if(!rootPath.isAbsolute()) {
+				rootPath = contextProject.getFullPath().append(rootPath);
+			}
+			
+			IResource member = ResourcesPlugin.getWorkspace().getRoot().findMember(rootPath);
+			if (member != null && (member instanceof IContainer)) {
+				IContainer container = (IContainer) member;
+				if (container.exists()) {
+					resolver.addSourceContainer(container);
+				}
+			}
+		}
+
+		return resolver;
 	}
 }

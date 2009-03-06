@@ -9,6 +9,7 @@ Require-Bundle: org.eclipse.emf.ecore;bundle-version="[2.2.0,3.0.0)";visibility:
  net.sourceforge.lpg.lpgjavaruntime;bundle-version="[1.1.0,2.0.0)";visibility:=reexport,
  org.eclipse.m2m.qvt.oml;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
  org.eclipse.m2m.qvt.oml.common;bundle-version="[1.0.100,2.0.0)",
+ org.eclipse.m2m.qvt.oml.project;bundle-version="[1.0.100,2.0.0)",
  org.eclipse.m2m.qvt.oml.runtime;bundle-version="[1.0.100,2.0.0)",
  org.eclipse.m2m.qvt.oml.emf.util;bundle-version="[1.0.100,2.0.0)",
  org.eclipse.gmf.xpand.qvtlibrary;bundle-version="[1.0.0,2.0.0)"

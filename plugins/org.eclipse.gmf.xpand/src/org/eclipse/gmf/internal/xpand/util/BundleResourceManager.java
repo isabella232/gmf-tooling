@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,9 +20,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
+import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
 
 /**
  * Node: no support for relative paths (i.e. '..::templates::SomeTemplate.xpt')
@@ -107,5 +110,10 @@ public class BundleResourceManager extends ResourceManagerImpl {
 			}
 		}
 		return fullyQualifiedName + "." + extension;
+	}
+	
+	@Override
+	protected UnitResolver getQVTUnitResolver() {
+		return BundleUnitResolver.createResolver(Arrays.asList(paths), true);
 	}
 }
