@@ -207,7 +207,7 @@ helper GMFMAP::NodeMapping::processAbstractNode(inout genNode : GMFGEN::GenNode)
 		if not ch.compartment.oclIsUndefined() then genChildContainer := ch.compartment.resolveone(GMFGEN::GenCompartment) endif;
 		var childGenNode : GMFGEN::GenChildNode;
 		if ch.child.resolve(GMFGEN::GenChildNode)->isEmpty() then childGenNode := ch.createGenChildNode() else {
-			childGenNode := ch.child.resolve(GMFGEN::GenChildNode)->select(gcn | gcn.matchChildReferenceFeatures(ch))->first();
+			childGenNode := ch.child.resolve(GMFGEN::GenChildNode)->selectOne(matchChildReferenceFeatures(ch));
 			if childGenNode.oclIsUndefined() then childGenNode := ch.createGenChildNode() endif;
 		} endif;
 		if (genChildContainer.oclIsKindOf(GMFGEN::GenCompartment) and ch.child.children->size() > 0) then {
@@ -222,7 +222,6 @@ helper GMFMAP::NodeMapping::processAbstractNode(inout genNode : GMFGEN::GenNode)
 query GMFGEN::GenChildNode::matchChildReferenceFeatures(childNodeRef : GMFMAP::ChildReference) : Boolean {
 	var containmentFeatureMatch : Boolean;
 	var childrenFeatureMatch : Boolean;
-	-- FIXME modelFacet gets assigned *after* we process structure, hence this logic needs a change
 	if self.modelFacet.containmentMetaFeature.oclIsUndefined() then 
 		containmentFeatureMatch := childNodeRef.containmentFeature = null 
 	else 
