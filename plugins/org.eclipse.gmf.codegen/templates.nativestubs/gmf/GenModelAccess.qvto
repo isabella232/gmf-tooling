@@ -1,0 +1,27 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
+
+library GenModelAccess;
+
+-- similar to loadGenModel('http://www.eclipse.org/emf/2002/Ecore')
+helper loadEcoreGenModel() : GenModel { return null; }
+helper loadEcoreGenModel(EObject ctx) : GenModel { return null; }
+
+-- similar to loadGenModel('http://www.eclipse.org/gmf/runtime/1.0.2/notation')
+helper loadNotationGenModel() : GenModel { return null; }
+helper loadNotationGenModel(EObject ctx) : GenModel { return null; }
+
+-- nsURI - identifies ECore model you need GenModel for.
+helper loadGenModel(String nsURI) : GenModel { return null; }
+helper loadGenModel(String nsURI, EObject ctx) : GenModel { return null; }
