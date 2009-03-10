@@ -16,7 +16,8 @@ modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefin
 modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
 
---import DiagramRunTimeModel;
+-- import transformations. To be replaced with access keyword, once supported
+import DiagramRunTimeModel;
 import PropertySheet;
 import PreferencePages;
 import Navigator;
@@ -24,10 +25,8 @@ import Actions;
 import RichClientPlatformApp;
 import Viewmaps;
 import Identity;
-
-configuration property rcp : Boolean;
-configuration property useMapMode : Boolean;
-configuration property useFullRunTime : Boolean;
+--
+import gmf.GenModelAccess;
 
 --
 -- Next attempt to author GMFMap-to-GMFGen transformation
@@ -37,6 +36,10 @@ transformation Map2Gen(in mapModel : GMFMAP, in domainGenModel : GENMODEL, out g
 --	access transformation DiagramRunTimeModel(in GMFMAP, inout GMFGEN)
 	;
 
+configuration property rcp : Boolean;
+configuration property useMapMode : Boolean;
+configuration property useFullRunTime : Boolean;
+
 property domainGenModel : GENMODEL::GenModel = null;
 	
 main() {
@@ -44,12 +47,11 @@ main() {
 	this.domainGenModel := domainGenModel.rootObjects()![GENMODEL::GenModel];
 	--
 	var genEditor := mapRoot.map structure();
-	var gd : GMFGEN::GenDiagram := genEditor.diagram;
-	gd.compartments += gd.getAllNodes().compartments; -- DGMT#createGenCompartment
+	genEditor.diagram.compartments += genEditor.diagram.getAllNodes().compartments; -- DGMT#createGenCompartment
 	new Identity(mapModel, gmfgenModel).transform();
 	new Viewmaps(mapModel, gmfgenModel).transform();
 	-- ???genEditor.diagram.palette := mapRoot.diagram.map palette();
-	gd.palette := mapRoot.diagram.map palette();
+	genEditor.diagram.palette := mapRoot.diagram.map palette();
 	genEditor.domainGenModel := mapRoot.diagram.domainModel.findGenPackage().genModel;
 	genEditor.plugin := object GenPlugin {};
 	genEditor.editor := object GenEditorView {};
@@ -70,7 +72,9 @@ main() {
 			providers += GMFGEN::GenExpressionProviderBase.allInstances();
 		}
 	} endif;
-	--new DiagramRunTimeModel(domainGenModel XXX need notation.genmodel here instead, gmfgenModel).transform();
+--	var xx : GENMODEL := GENMODEL::createEmptyModel().oclAsType(GENMODEL);
+--	var notationGenModel@xx : GENMODEL::GenModel := loadNotationGenModel(genEditor.oclAsType(ECORE::EObject));
+--	new DiagramRunTimeModel(xx, gmfgenModel).transform();
 	if not rcp then new Navigator(mapModel, gmfgenModel).transform() endif;
 	new PropertySheet(mapModel, gmfgenModel).transform();
 	new PreferencePages(mapModel, gmfgenModel).transform();
@@ -137,8 +141,7 @@ helper GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
 	var rv = object GMFGEN::GenTopLevelNode {};
 	rv.modelFacet := self.createModelFacet();
 	setupElementType(rv);
-	var te = self.child.tool.map paletteEntry().oclAsType(ToolEntry); -- FIXME inline nested prop
-	te.genNodes += rv;
+	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += rv;
 	self.child.processAbstractNode(rv);
 	return rv;
 }
@@ -181,8 +184,7 @@ mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink {
 		gl.elementIcon := lm.diagramLabel.elementIcon;
 		gl.modelFacet := lm.map createLabelModelFacet();
 	};
-	var te = self.tool.map paletteEntry().oclAsType(ToolEntry); -- FIXME inline nested prop
-	te.genLinks += result;
+	self.tool.map paletteEntry().oclAsType(ToolEntry).genLinks += result;
 	setupElementType(result);
 	result.creationConstraints := self.creationConstraints.map structure();
 }
@@ -209,9 +211,7 @@ helper GMFMAP::NodeMapping::processAbstractNode(inout genNode : GMFGEN::GenNode)
 			if childGenNode.oclIsUndefined() then childGenNode := ch.createGenChildNode() endif;
 		} endif;
 		if (genChildContainer.oclIsKindOf(GMFGEN::GenCompartment) and ch.child.children->size() > 0) then {
-			-- FIXME inline, once can modify nested properties
-			var genCompartment := genChildContainer.oclAsType(GMFGEN::GenCompartment);
-			genCompartment.listLayout := false
+			genChildContainer.oclAsType(GMFGEN::GenCompartment).listLayout := false
 		} endif;
 		genChildContainer.childNodes += childGenNode;
 	};
@@ -263,8 +263,7 @@ mapping GMFMAP::NodeMapping::createGenChildNode() : GMFGEN::GenChildNode {
 helper GMFMAP::ChildReference::createGenChildNode() : GMFGEN::GenChildNode {
 	-- XXX perhaps, no need to keep this helper, move the code into corresponding mapping operations?
 	var rv : GMFGEN::GenChildNode = self.child.map structure();
-	var te = self.child.tool.map paletteEntry().oclAsType(ToolEntry); -- FIXME inline nested prop
-	te.genNodes += rv;
+	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += rv;
 	rv.modelFacet := self.createModelFacet();
 	setupElementType(rv);
 	return rv;
@@ -383,8 +382,7 @@ mapping GMFMAP::ValueExpression::structure_ve() : GMFGEN::ValueExpression { --XX
 }
 helper GMFGEN::ValueExpression::bindToProvider(in expression : GMFMAP::ValueExpression) {
 	if expression.language.detectGenLanguage().oclIsUndefined() then return endif; -- XXX perhaps, don't need this line, if .map would give OclInvalid
-	var exprProvider := expression.language.detectGenLanguage().map expressionProvider(); -- FIXME inline, once nested properties are fixed
-	exprProvider.expressions += self;
+	expression.language.detectGenLanguage().map expressionProvider().expressions += self;
 	return;
 }
 -- XXX actually, looks like I don't need GenLanguage - I can make most decisions based on 
@@ -477,13 +475,13 @@ mapping GMFMAP::CanvasMapping::palette() : GMFGEN::Palette
 	result.flyout := true;
 	if (self.palette._default <> null) then {
 		var te := self.palette._default.resolveone(GMFGEN::ToolEntry);
-		if te <> null then te._default := true else log ('There''s default tool specified for palette, but can''t find gmfgen counterpart') endif;
+		if te <> null then te._default := true else log ('There\'s default tool specified for palette, but can\'t find gmfgen counterpart') endif;
 	} endif;
 }
 
 mapping GMFTOOL::AbstractTool::paletteEntry() : GMFGEN::ToolGroupItem {
 	init {
-		assert (false) with log('Can''t dispatch paletteEntry() for ', self);
+		assert (false) with log('Can\'t dispatch paletteEntry() for ', self);
 	}
 }
 
@@ -630,8 +628,9 @@ mapping GMFMAP::DiagramElementTarget::ruleTarget() : GMFGEN::GenDiagramElementTa
 }
 mapping GMFMAP::AuditedMetricTarget::ruleTarget() : GMFGEN::GenAuditedMetricTarget {
 	result.metric := self.metric.map rule();
-	var resultClassifier : GENMODEL::GenClassifier := OclInvalid; --FIXME need GenDataType from ecore.genmodel
-	result.metricValueContext := resultClassifier.oclAsType(GENMODEL::GenDataType);
+	var resultClassifier := loadEcoreGenModel().genPackages->first().genClassifiers[GENMODEL::GenDataType]->selectOne(ecoreDataType.name='EDoubleObject');
+	assert (not resultClassifier.oclIsUndefined()) with log ('Troubles loading ecore.genmodel and accessing EDoubleObject');
+	result.metricValueContext := resultClassifier;
 }
 mapping GMFMAP::DomainAttributeTarget::ruleTarget() : GMFGEN::GenDomainAttributeTarget {
 	attribute := self.attribute.findGenFeature();
