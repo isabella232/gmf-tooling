@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
-import org.eclipse.gmf.internal.xpand.util.ClassLoadContext;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
@@ -94,13 +93,6 @@ public class Scope {
     // never null
     public Output getOutput() {
         return output;
-    }
-
-    /**
-     * @deprecated Does nothing. QVT-based Xpand does not use class loaders, anyway
-     */
-    @Deprecated
-    public void setContextClassLoader(ClassLoadContext classLoadContext) {
     }
 
 	public List<XpandAdvice> getAdvices() {
