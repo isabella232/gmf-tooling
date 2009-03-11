@@ -33,16 +33,14 @@ class ModeltypeImports extends AbstractImportsManager {
 
 	private Set<String> usedNsURIs = new HashSet<String>();
 
-	ModeltypeImports(StringBuilder stringBuilder, boolean injectUnusedImports) {
+	private OclKeywordManager keywordManager;
+
+	ModeltypeImports(StringBuilder stringBuilder, boolean injectUnusedImports, OclKeywordManager oclKeywordManager) {
 		super(stringBuilder);
 		this.injectUnusedImports = injectUnusedImports;
+		keywordManager = oclKeywordManager;
 	}
 	
-	ModeltypeImports(int placeholder, boolean injectUnusedImports) {
-		super(placeholder);
-		this.injectUnusedImports = injectUnusedImports;
-	}
-
 	void setInjectUnusedImports(boolean injectUnusedImports) {
 		this.injectUnusedImports = injectUnusedImports;
 	}
@@ -92,6 +90,7 @@ class ModeltypeImports extends AbstractImportsManager {
 		} else {
 			aliasProposal = DEFAULT_ALIAS;
 		}
+		aliasProposal = keywordManager.getValidIdentifierValue(aliasProposal);
 		String actualAlias = aliasProposal;
 		for (int suffix = 1; modeltypeAliases.contains(actualAlias); suffix++) {
 			actualAlias = aliasProposal + DELIMITER + suffix;

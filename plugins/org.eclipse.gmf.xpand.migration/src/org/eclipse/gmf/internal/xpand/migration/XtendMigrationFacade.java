@@ -122,7 +122,7 @@ public class XtendMigrationFacade {
 			writeln("");
 		}
 
-		modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports);
+		modeltypeImportsManger = new ModeltypeImports(output, injectUnusedImports, oclKeywordManager);
 		for (String namespace : extensionFile.getImportedNamespaces()) {
 			modeltypeImportsManger.registerModeltype(namespace);
 			importedMetamodels.add(namespace);
