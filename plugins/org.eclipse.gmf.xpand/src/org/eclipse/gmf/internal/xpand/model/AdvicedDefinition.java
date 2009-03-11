@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 committers of openArchitectureWare and others.
+ * Copyright (c) 2005, 2009 committers of openArchitectureWare and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,8 +32,7 @@ public class AdvicedDefinition implements XpandDefinition {
     }
 
     public void evaluate(final ExecutionContext ctx) {
-        final ExecutionContext ctx1 = (ExecutionContext) ctx.cloneWithVariable(new Variable(
-                Advice.DEF_VAR_NAME, BuiltinMetaModel.DEFINITION_TYPE, new XpandDefinitionWrap(definition, ctx)));
+        final ExecutionContext ctx1 = ctx.cloneWithVariable(new Variable(Advice.DEF_VAR_NAME, BuiltinMetaModel.DEFINITION_TYPE, new XpandDefinitionWrap(definition, ctx)));
         advice.evaluate(ctx1);
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -70,7 +70,7 @@ public class Template extends SyntaxElement implements XpandResource {
 	}
 
 	public void analyze(ExecutionContext ctx, final Set<AnalysationIssue> issues) {
-		ctx = (ExecutionContext) ctx.cloneWithResource(this);
+		ctx = ctx.cloneWithResource(this);
 		for (Definition element : definitions) {
 			element.analyze(ctx, issues);
 		}
