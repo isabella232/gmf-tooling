@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corp.
+ * Copyright (c) 2008, 2009 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -309,7 +309,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		}
 
 		public void createManifestMF() {
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "manifest::_main", getClass().getClassLoader(), null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "manifest::_main", null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/META-INF/MANIFEST.MF"), myBundleName);
 		}
 
@@ -332,12 +332,12 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 			} else {
 				return;
 			}
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "edithelper::_main", getClass().getClassLoader(), null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "edithelper::_main", null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/src/" + className + ".java"), elementType);
 		}
 
 		public void createPluginXML(GenDiagram d) {
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "plugin::_main", getClass().getClassLoader(), null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "plugin::_main", null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/plugin.xml"), d);
 		}
 
