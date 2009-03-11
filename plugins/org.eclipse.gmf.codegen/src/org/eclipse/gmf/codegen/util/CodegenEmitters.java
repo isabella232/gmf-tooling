@@ -672,6 +672,6 @@ public class CodegenEmitters {
 	}
 
 	protected TextEmitter newXpandEmitter(String definition) {
-		return new XpandTextEmitter(myResourceManager, definition, getClass().getClassLoader(), myGlobals);
+		return new XpandTextEmitter(myResourceManager, definition, myGlobals);
 	}
 }
