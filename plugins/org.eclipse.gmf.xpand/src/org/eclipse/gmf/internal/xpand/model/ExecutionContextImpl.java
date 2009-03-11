@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,7 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QVTParsingOptions;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEnvFactory;
 import org.eclipse.m2m.internal.qvt.oml.ast.env.QvtOperationalEvaluationEnv;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitor;
 import org.eclipse.m2m.internal.qvt.oml.evaluator.QvtOperationalEvaluationVisitorImpl;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
@@ -54,8 +56,12 @@ public final class ExecutionContextImpl implements ExecutionContext {
 
     private final ResourceMarker currentResource;
 
+    private Set<QvtExtension> allExtensions;
+
+	private ImportToNonTransformCtxHelper modulesImportHelper;
+
     public ExecutionContextImpl(Scope rootScope) {
-        this (rootScope, null, (Collection<Variable>) null);
+        this (rootScope, null, null);
     }
 
     public ExecutionContextImpl(Scope rootScope, ResourceMarker resource, Collection<Variable> variables) {
@@ -80,7 +86,10 @@ public final class ExecutionContextImpl implements ExecutionContext {
 
 	public ExecutionContext cloneWithVariable(final Variable... vars) {
         final ExecutionContextImpl result = new ExecutionContextImpl(scope, currentResource, variables.values());
+        // cached values that depend on resource only may be kept
         result.envFactory = envFactory;
+        result.allExtensions = allExtensions;
+        result.modulesImportHelper = modulesImportHelper;
     	result.environment = null; // XXX or create new, delegating?
         for (Variable v : vars) {
         	// adding to the set of original variables because of e.g. nested let statements
@@ -93,17 +102,18 @@ public final class ExecutionContextImpl implements ExecutionContext {
         if (ns == currentResource) {
         	return this;
         }
+        // XXX is it reasonable to pass variables if it's another resource?
         final ExecutionContextImpl result = new ExecutionContextImpl(scope, ns, variables.values());
     	result.envFactory = null; // need to make sure resource's imports are read into registry.
     	result.environment = null;
+    	result.allExtensions = null;
+    	result.modulesImportHelper = null;
         return result;
     }
 
     public ResourceMarker currentResource() {
         return currentResource;
     }
-
-    private Set<QvtExtension> allExtensions = null;
 
     private String[] getImportedExtensions() {
     	return currentResource == null ? new String[0] : currentResource.getImportedExtensions();
@@ -233,8 +243,6 @@ public final class ExecutionContextImpl implements ExecutionContext {
 
     private EcoreEnvironment environment;
 
-	private Set<Module> importedModules;
-
     public EcoreEnvironment getOCLEnvironment() {
     	if (environment != null) {
     		return environment;
@@ -265,23 +273,32 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	return environment;
     }
 
-	public Set<Module> getImportedModules() {
-		// It is not necessary to cache importedModules from now - they are
-		// cached in a QvtCompiler
-		if (importedModules == null) {
-			importedModules = new HashSet<Module>();
-			final String[] extensions = getImportedExtensions();
-			for (String extension : extensions) {
-				final QvtResource qvtResource = getScope().findExtension(extension);
-				if (qvtResource != null) {
-					importedModules.addAll(qvtResource.getModules());
-				}
+	public QvtOperationalEvaluationVisitor createEvaluationVisitor() {
+		// FIXME discuss with Radek why we need modulesImportHelper
+		// when there's OCLEnvironmentWithQVTAccessFactory (above) with all imports known 
+		if (modulesImportHelper == null) {
+			modulesImportHelper = new ImportToNonTransformCtxHelper();
+			for (Module module : getImportedModules()) {
+				modulesImportHelper.addImportedModule(module);
+			}
+		}
+		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) createEvaluationEnvironment();
+		return QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, modulesImportHelper);
+	}
+
+	private Set<Module> getImportedModules() {
+		LinkedHashSet<Module> importedModules = new LinkedHashSet<Module>();
+		final String[] extensions = getImportedExtensions();
+		for (String extension : extensions) {
+			final QvtResource qvtResource = getScope().findExtension(extension);
+			if (qvtResource != null) {
+				importedModules.addAll(qvtResource.getModules());
 			}
 		}
 		return importedModules;
 	}
 
-	public EcoreEvaluationEnvironment createEvaluationEnvironment() {
+	private EcoreEvaluationEnvironment createEvaluationEnvironment() {
     	if (envFactory == null) {
     		getOCLEnvironment();
     	}
@@ -298,14 +315,6 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	return ee;
 	}
 	
-	public QvtOperationalEvaluationVisitor createEvaluationVisitor(QvtOperationalEvaluationEnv evaluationEnv) {
-		for (Module module : getImportedModules()) {
-			getScope().getModuleImportHelper().addImportedModule(module);
-		}
-		return QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, getScope()
-				.getModuleImportHelper());
-	}
-
 	private String[] getImportedNamespaces() {
 		return currentResource == null ? new String[0] : currentResource.getImportedNamespaces();
 	}

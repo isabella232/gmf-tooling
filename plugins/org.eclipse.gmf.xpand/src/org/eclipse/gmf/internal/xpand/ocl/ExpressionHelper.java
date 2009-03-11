@@ -79,13 +79,13 @@ public class ExpressionHelper {
 		if (getOclExpressionDiagnostic() != null) {
 			throw new EvaluationException(getOclExpressionDiagnostic().getMessage(), this);
 		}
-		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) ctx.createEvaluationEnvironment();
-		QvtOperationalEvaluationVisitor visitor = ctx.createEvaluationVisitor(evaluationEnv);
-		defineGlobalVariables(ctx, evaluationEnv);
-		initializeStreamsHolder(ctx.getScope(), ctx.getScope().getOutput().getNamedStreams(), evaluationEnv);
+
+		QvtOperationalEvaluationVisitor visitor = ctx.createEvaluationVisitor();
+		defineGlobalVariables(ctx, visitor.getOperationalEvaluationEnv());
+		initializeStreamsHolder(ctx.getScope(), ctx.getScope().getOutput().getNamedStreams(), visitor.getOperationalEvaluationEnv());
 		Object val = visitor.visitExpression(expression);
-		initializeStreamsHolder(ctx.getScope(), null, evaluationEnv);
-		clearGlobalVariables(ctx, evaluationEnv);
+		initializeStreamsHolder(ctx.getScope(), null, visitor.getOperationalEvaluationEnv());
+		clearGlobalVariables(ctx, visitor.getOperationalEvaluationEnv());
 		if (env.getOCLStandardLibrary().getOclInvalid() == val) {
 			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", this);
 		}

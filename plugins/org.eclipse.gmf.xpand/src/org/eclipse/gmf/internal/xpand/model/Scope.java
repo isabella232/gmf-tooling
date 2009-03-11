@@ -25,7 +25,6 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
-import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 
 /**
  * @author artem
@@ -41,8 +40,6 @@ public class Scope {
     private final List<XpandAdvice> registeredAdvices = new LinkedList<XpandAdvice>();
 
     private EvaluationListener evaluationListener;
-
-	private ImportToNonTransformCtxHelper modulesImportHelper;
 
     public Scope(ResourceManager resourceManager, Collection<Variable> globalVars, Output output) {
     	assert resourceManager != null;
@@ -150,13 +147,6 @@ public class Scope {
 		return getResourceManager().loadQvtResource(extensionName);
 	}
 
-	public ImportToNonTransformCtxHelper getModuleImportHelper() {
-		if (modulesImportHelper == null) {
-			modulesImportHelper = new ImportToNonTransformCtxHelper();
-		}
-		return modulesImportHelper;
-	}
-	
     public EPackage.Registry createPackageRegistry(String[] metamodelURIs) {
 		assert metamodelURIs != null;
 		// TODO respect meta-models imported not only with nsURI
