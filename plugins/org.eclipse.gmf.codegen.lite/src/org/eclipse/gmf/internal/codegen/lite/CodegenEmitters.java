@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.codegen.lite;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -47,14 +46,14 @@ public class CodegenEmitters {
 	private static final String CODEGEN_PLUGIN_ID = "org.eclipse.gmf.codegen";	//$NON-NLS-1$
 
 	private final String[] myTemplatePath;
+	private final ResourceManager myResourceManager;
 
-	private ResourceManager myResourceManager;
-	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
+	public CodegenEmitters(boolean useBaseTemplatesOnly, String templateDirectory) {
 		ArrayList<URL> templatesURI = new ArrayList<URL>(3);
 		templatesURI.add(getTemplatesBundle().getEntry("/templates.migrated/"));	//$NON-NLS-1$
 		templatesURI.add(getCodegenTemplatesBundle().getEntry("/templates.migrated/"));	//$NON-NLS-1$
 		URL dynamicTemplatesPath = getDynamicTemplatesURL(templateDirectory);
-		if (dynamicTemplatesPath != null) {
+		if (!useBaseTemplatesOnly && dynamicTemplatesPath != null) {
 			templatesURI.add(0, dynamicTemplatesPath);
 		}
 		myResourceManager = new BundleResourceManager(templatesURI.toArray(new URL[templatesURI.size()]));
@@ -62,9 +61,6 @@ public class CodegenEmitters {
 		myTemplatePath = new String[templatesURI.size()];
 		for (int i = 0; i < templatesURI.size(); i++) {
 			myTemplatePath[i] = templatesURI.get(i).toString();
-		}
-		if (usePrecompiled) {
-			myCachedXpandEmitters = new HashMap<String, TextEmitter>();
 		}
 	}
 
@@ -569,20 +565,6 @@ public class CodegenEmitters {
     }
 
 	private TextEmitter retrieveXpand(String templateFQN) {
-		if (myCachedXpandEmitters == null) {
-			return newXpandEmitter(templateFQN);
-		}
-		TextEmitter result = myCachedXpandEmitters.get(templateFQN);
-		if (result == null) {
-			result = newXpandEmitter(templateFQN);
-			myCachedXpandEmitters.put(templateFQN, result);
-		}
-		return result;
+		return new XpandTextEmitter(myResourceManager, templateFQN);
 	}
-
-	private TextEmitter newXpandEmitter(String templateFQN) {
-		return new XpandTextEmitter(myResourceManager, templateFQN, getClass().getClassLoader());
-	}
-
-	private HashMap<String, TextEmitter> myCachedXpandEmitters;
 }
