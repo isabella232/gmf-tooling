@@ -1,6 +1,10 @@
-#Tue Apr 01 18:50:57 CEST 2008
+#Thu Feb 26 18:31:57 CET 2009
 eclipse.preferences.version=1
 encoding/templates-context=ISO-8859-1
+encoding/templates-context.migrated=ISO-8859-1
 encoding/templates-formpage=ISO-8859-1
+encoding/templates-formpage.migrated=ISO-8859-1
 encoding/templates-propsheet=ISO-8859-1
+encoding/templates-propsheet.migrated=ISO-8859-1
 encoding/templates-widget=ISO-8859-1
+encoding/templates-widget.migrated=ISO-8859-1

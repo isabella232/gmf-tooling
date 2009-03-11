@@ -1,4 +1,4 @@
-templates-widget
-templates-context
-templates-formpage, templates-context, templates-widget
-templates-propsheet, templates-formpage, templates-context, templates-widget
+templates-widget.migrated
+templates-context.migrated
+templates-formpage.migrated,templates-context.migrated,templates-widget.migrated
+templates-propsheet.migrated,templates-formpage.migrated,templates-context.migrated,templates-widget.migrated

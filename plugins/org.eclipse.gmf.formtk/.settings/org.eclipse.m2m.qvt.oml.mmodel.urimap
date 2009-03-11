@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ASCII"?>
+<uriMap:MappingContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uriMap="http:///www.eclipse.org/m2m/qvt/oml/MModelUriMap/1.0.0">
+  <mapping sourceURI="http://www.eclipse.org/gmf/2008/Context" targetURI="platform:/resource/org.eclipse.gmf.formtk/model/context.ecore"/>
+  <mapping sourceURI="http://www.eclipse.org/gmf/2008/Widget" targetURI="platform:/resource/org.eclipse.gmf.formtk/model/widget.ecore"/>
+  <mapping sourceURI="http://www.eclipse.org/gmf/2008/Binding" targetURI="platform:/resource/org.eclipse.gmf.formtk/model/binding.ecore"/>
+</uriMap:MappingContainer>

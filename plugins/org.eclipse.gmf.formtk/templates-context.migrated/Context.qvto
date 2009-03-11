@@ -1,0 +1,35 @@
+modeltype context uses "http://www.eclipse.org/gmf/2008/Context";
+
+library Context;
+
+helper filterEReference(x : Sequence(context::FeatureContext)) : Sequence(context::FeatureContext) {
+	return x->select(c | c.selector.eClass().name = 'EReference')
+}
+
+helper withoutChildren(x : Sequence(context::FeatureContext)) : Sequence(context::FeatureContext) {
+	return x->select(fc | fc.children->isEmpty())
+}
+
+helper withChildren(x : Sequence(context::FeatureContext)) : Sequence(context::FeatureContext) {
+	return x->select(fc | not fc.children->isEmpty())
+}
+
+helper context::Context::needsNullCheck() : Boolean {
+	return false
+}
+
+helper context::FeatureContext::needsNullCheck() : Boolean {
+	return self.mayBeNull() or (self.chain <> null and self.chain.needsNullCheck())
+}
+
+helper context::Context::mayBeNull() : Boolean {
+	return false
+}
+
+helper context::FeatureContext::mayBeNull() : Boolean {
+	return self.selector.eClass().name = 'EReference' and not self.selector.many
+}
+
+helper wholeChain(x : context::Context) : Sequence(context::Context) {
+	return (if x.chain = null then Sequence { x } else wholeChain(x.chain)->including(x) endif)
+}

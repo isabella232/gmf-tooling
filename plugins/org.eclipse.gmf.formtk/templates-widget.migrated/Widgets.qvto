@@ -1,0 +1,95 @@
+modeltype widget uses "http://www.eclipse.org/gmf/2008/Widget";
+
+library Widgets;
+
+helper fieldName(w : widget::Widget) : String {
+	return 'my' + w.name.firstToUpper()
+}
+
+helper widget::Composite::hasTextWidgets() : Boolean {
+	return self.children->asSequence()->hasTextWidgets()
+}
+
+helper widget::Composite::hasRadioButtons() : Boolean {
+	return self.children->asSequence()->hasRadioButtons()
+}
+
+helper widget::Composite::hasCheckBoxes() : Boolean {
+	return self.children->asSequence()->hasCheckBoxes()
+}
+
+helper widget::Composite::hasSpins() : Boolean {
+	return self.children->asSequence()->hasSpins()
+}
+
+helper widget::Composite::hasCombos() : Boolean {
+	return self.children->asSequence()->hasCombos()
+}
+
+helper Sequence(widget::Widget)::hasTextWidgets() : Boolean {
+	return not self->textWidgets()->isEmpty()
+}
+
+helper Sequence(widget::Widget)::hasRadioButtons() : Boolean {
+	return not self->radioWidgets()->isEmpty()
+}
+
+helper Sequence(widget::Widget)::hasCheckBoxes() : Boolean {
+	return not self->checkboxWidgets()->isEmpty()
+}
+
+helper Sequence(widget::Widget)::hasSpins() : Boolean {
+	return not self->spinWidgets()->isEmpty()
+}
+
+helper Sequence(widget::Widget)::hasCombos() : Boolean {
+	return not self->comboWidgets()->isEmpty()
+}
+
+helper widget::Composite::textWidgets() : Sequence(widget::TextEntry) {
+	return (allWidgets(self.children->asSequence()))[widget::TextEntry]
+}
+
+helper widget::Composite::radioWidgets() : Sequence(widget::RadioButton) {
+	return (allWidgets(self.children->asSequence()))[widget::RadioButton]
+}
+
+helper widget::Composite::checkboxWidgets() : Sequence(widget::CheckBox) {
+	return (allWidgets(self.children->asSequence()))[widget::CheckBox]
+}
+
+helper widget::Composite::spinWidgets() : Sequence(widget::Spin) {
+	return (allWidgets(self.children->asSequence()))[widget::Spin]
+}
+
+helper widget::Composite::comboWidgets() : Sequence(widget::Combo) {
+	return (allWidgets(self.children->asSequence()))[widget::Combo]
+}
+
+helper Sequence(widget::Widget)::textWidgets() : Sequence(widget::TextEntry) {
+	return (allWidgets(self))[widget::TextEntry]
+}
+
+helper Sequence(widget::Widget)::radioWidgets() : Sequence(widget::RadioButton) {
+	return (allWidgets(self))[widget::RadioButton]
+}
+
+helper Sequence(widget::Widget)::checkboxWidgets() : Sequence(widget::CheckBox) {
+	return (allWidgets(self))[widget::CheckBox]
+}
+
+helper Sequence(widget::Widget)::spinWidgets() : Sequence(widget::Spin) {
+	return (allWidgets(self))[widget::Spin]
+}
+
+helper Sequence(widget::Widget)::comboWidgets() : Sequence(widget::Combo) {
+	return (allWidgets(self))[widget::Combo]
+}
+
+helper allWidgets(w : Sequence(widget::Widget)) : Sequence(widget::Widget) {
+	return (if (w)[widget::Composite]->isEmpty() then w else w->union(allWidgets((w)[widget::Composite].children))->asOrderedSet()->asSequence() endif)
+}
+
+helper createsAnyLabel(w : Sequence(widget::Widget)) : Boolean {
+	return let aw = allWidgets(w) in not (aw)[widget::Spin]->isEmpty() or (aw)[widget::TextEntry]->exists(te | te.label <> null)
+}
