@@ -27,8 +27,8 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
+import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.Variable;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 public class FigureGenerator implements TextEmitter {
 
@@ -110,7 +110,7 @@ public class FigureGenerator implements TextEmitter {
 		result.setLength(0);
 		BufferOutput bufferOutput = new BufferOutput(result);
 
-		return new XpandFacade(ContextFactory.createXpandContext(resourceManager, bufferOutput, globals));
+		return new XpandFacade(new Scope(resourceManager, globals, bufferOutput));
 	}
 
 	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
