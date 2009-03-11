@@ -78,11 +78,11 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 
 	private static final String NEW_BUILDER_ID = "org.eclipse.gmf.xpand.xpandBuilder";
 	
-	private static final String QVT_BUILDER_ID = "org.eclipse.m2m.qvt.oml.QvtBuilder";
+	private static final String QVT_BUILDER_ID = "org.eclipse.m2m.qvt.oml.project.QVTOBuilder";
 	
 	private static final String QVT_BUIDLER_SRC_CONTAINER_ARG = "src_container";
 	
-	private static final String TRANSFORMATION_NATURE_ID = "org.eclipse.m2m.qvt.oml.project.TransformationNature";
+	private static final String TRANSFORMATION_NATURE_ID = "org.eclipse.m2m.qvt.oml.project.QVTONature";
 
 	private IWorkbenchPart workbenchPart;
 
