@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,9 +25,8 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.XpandFacade;
 import org.eclipse.gmf.internal.xpand.model.AmbiguousDefinitionException;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
-import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
+import org.eclipse.gmf.internal.xpand.model.Scope;
 import org.eclipse.gmf.internal.xpand.model.Variable;
-import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 
 /**
  * @author artem
@@ -35,18 +34,16 @@ import org.eclipse.gmf.internal.xpand.util.ContextFactory;
 public class XpandTextEmitter implements TextEmitter {
 	private final ResourceManager myResourceManager;
 	private final String myTemplateFQN;
-	private final ClassLoader myContext;
 	private final List<Variable> myGlobals;
 
-	public XpandTextEmitter(ResourceManager manager, String templateFQN, ClassLoader context) {
-		this(manager, templateFQN, context, null);
+	public XpandTextEmitter(ResourceManager manager, String templateFQN) {
+		this(manager, templateFQN, null);
 	}
 
-	public XpandTextEmitter(ResourceManager manager, String templateFQN, ClassLoader context, Map<String, Object> globals) {
+	public XpandTextEmitter(ResourceManager manager, String templateFQN, Map<String, Object> globals) {
 		assert manager != null && templateFQN != null;
 		myResourceManager = manager;
 		myTemplateFQN = templateFQN;
-		myContext = context;
 		if (globals != null && globals.size() > 0) {
 			myGlobals = new ArrayList<Variable>(globals.size());
 			for (Map.Entry<String, Object> e : globals.entrySet()) {
@@ -91,8 +88,7 @@ public class XpandTextEmitter implements TextEmitter {
 		return res.toArray();
 	}
 
-	private ExecutionContext createContext(StringBuilder result) {
-		final BufferOutput output = new BufferOutput(result);
-		return ContextFactory.createXpandContext(myResourceManager, output, myGlobals, myContext);
+	private Scope createContext(StringBuilder result) {
+		return new Scope(myResourceManager, myGlobals, new BufferOutput(result));
 	}
 }
