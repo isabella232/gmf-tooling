@@ -122,5 +122,11 @@
           <metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/>
        </library>
     </unit>
+    <unit
+          description="Access to GMF Xpand templates through QVTO"
+          name="XpandFacade"
+          namespace="xpt">
+       <library class="org.eclipse.gmf.internal.codegen.util.XpandFacadeAccess"/>
+    </unit>
   </extension>
 </plugin>
