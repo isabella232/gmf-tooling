@@ -20,7 +20,7 @@
 			<arguments>
 				<dictionary>
 					<key>src_container</key>
-					<value>templates-widget</value>
+					<value>templates-context.migrated</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>
