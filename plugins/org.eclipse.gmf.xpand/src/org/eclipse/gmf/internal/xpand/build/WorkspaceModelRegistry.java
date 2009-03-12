@@ -59,6 +59,15 @@ class WorkspaceModelRegistry implements MetaModelSource {
 		return d == null ? null : (EPackage) d.resource.getContents().get(0);
 	}
 
+	public EPackage[] all() {
+		EPackage[] rv = new EPackage[pathToDescriptor.size()];
+		int i = 0;
+		for (Descriptor d : pathToDescriptor.values()) {
+			rv[i++] = (EPackage) d.resource.getContents().get(0);
+		}
+		return rv;
+	}
+
 	public void build(IProject project, IProgressMonitor monitor) throws CoreException {
 		EcoreModelResourceVisitor visitor = new EcoreModelResourceVisitor(monitor);
 		project.accept(visitor);

@@ -5,4 +5,5 @@ import org.eclipse.emf.ecore.EPackage;
 public interface MetaModelSource {
 
 	public EPackage find(String nsURI);
+	public EPackage[] all();
 }

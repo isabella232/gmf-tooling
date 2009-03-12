@@ -25,6 +25,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
@@ -174,6 +176,51 @@ public class Activator extends Plugin {
 			}
 		}
 		return EPackage.Registry.INSTANCE.getEPackage(nsURI);
+	}
+	
+	/**
+	 * {@link EcorePlugin#computePlatformURIMap()} analog for GMF Xpand templates.
+	 * 
+	 * For mymodel.ecore file in the workspace (which defines mymodelpackage EPackage) this method returns a map with two entries:<ul>
+	 * <li> nsURI -> mymodelpackage
+	 * <li> platform:/resource/.../mymodel.ecore -> mymodelpackage 
+	 * </ul>
+	 * 
+	 * Clients that expect their templates to work with workspace (dynamic) model instances/metamodels shall make entries of the registry available in 
+	 * {@link ResourceSet} they use to load EMF object(s) they pass as template input, like that:
+	 * <code>
+	 *   ResourceSet rs = new ResourceSetImpl()
+	 *   rs.setPackageRegistry(Activator.computeWorkspaceMetaModelsMap());
+	 * </code>
+	 * alternately, if ResourceSet's PackageRegistry is of value for you, just add all entries, like:
+	 * <code>
+	 *   rs.getPackageRegistry().putAll(Activator.computeWorkspaceMetaModelsMap());
+	 * </code>
+	 * With this precautions, loading dynamic instances would result in the same metamodel, as available by nsURI, i.e.
+	 * <code>
+	 *   EObject dynamicInstance = rs.getResource(URI.createURI("platform:/resource/.../mymodelinstance.xmi"), true).getContents().get(0);
+	 *   EPackage packageByNamespaceURI = rs.getPackageRegistry().getEPackage("mymodelpackage.nsURI");
+	 *   assert dynamicInstance.eClass().getEPackage() == packageByNamespaceURI;
+	 * </code>
+	 * 
+	 * Returned map represents a snapshot, and is not updated on subsequent workspace changes. 
+	 * 
+	 * @return map of metamodels available in the workspace, accessible both with platform:/resource/ and nsURI.
+	 */
+	public static EPackage.Registry computeWorkspaceMetaModelsMap() {
+		EPackageRegistryImpl rv = new EPackageRegistryImpl();
+		if (anInstance == null) {
+			return rv;
+		}
+		for (MetaModelSource s : anInstance.modelSources) {
+			for (EPackage p : s.all()) {
+				if (p.eResource() != null && p.eResource().getURI() != null && p.eResource().getURI().isPlatformResource()) {
+					rv.put(p.getNsURI(), p);
+					rv.put(p.eResource().getURI().toString(), p);
+				}
+			}
+		}
+		return rv;
 	}
 
 	public static ResourceSet getWorkspaceMetamodelsResourceSet() {
