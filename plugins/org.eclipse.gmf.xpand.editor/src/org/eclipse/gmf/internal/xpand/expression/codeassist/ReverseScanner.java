@@ -43,6 +43,10 @@ public class ReverseScanner {
 			final String temp = internal.substring(os--, offset);
 			if (isEndOfString(temp)) {
 				final String wholeString = getString(internal.substring(0, offset));
+				if (wholeString == null) {
+					// incorrect string
+					return null;
+				}
 				offset = internal.substring(0, offset).lastIndexOf(wholeString);
 				return lexToTokenStream(wholeString).getTokenAt(1);
 			} else if (temp.trim().length() > 0) {
@@ -87,6 +91,7 @@ public class ReverseScanner {
 				}
 			}
 		}
+		// passed string is either empty or incorrect string
 		return null;
 	}
 
