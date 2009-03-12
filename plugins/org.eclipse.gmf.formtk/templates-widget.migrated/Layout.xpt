@@ -57,4 +57,4 @@ org.eclipse.jface.layout.GridDataFactory.swtDefaults()«EXPAND align FOR fd»«EXPA
 «DEFINE span FOR widget::GridData»«IF hSpan > 1 or vSpan > 1».span(«hSpan», «vSpan»)«ENDIF»«ENDDEFINE»
 «DEFINE grab FOR widget::GridData»«IF hGrab or vGrab».grab(«hGrab», «vGrab»)«ENDIF»«ENDDEFINE»
 
-«DEFINE alignLiteral FOR widget::Alignment»«IF self = 0»BEGINNING«ELSEIF self = 2»END«ELSE»«self»«ENDIF»«ENDDEFINE»
+«DEFINE alignLiteral FOR widget::Alignment»«IF self = widget::Alignment::LEFT»BEGINNING«ELSEIF self = widget::Alignment::RIGHT»END«ELSE»«self»«ENDIF»«ENDDEFINE»

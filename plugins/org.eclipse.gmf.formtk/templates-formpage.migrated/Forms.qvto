@@ -24,7 +24,7 @@ helper referenceBasedCheckBoxBindings(s : binding::Section, c : context::Conditi
 }
 
 helper getConditionAccessors(e : binding::Section) : Sequence(context::FeatureContext) {
-	return e.bindings->select(b | b.refreshCondition <> null).refreshCondition.accessor->asOrderedSet()->asSequence()
+	return (e.bindings->select(b | b.refreshCondition <> null).refreshCondition.accessor->asOrderedSet()->asSequence())[context::FeatureContext]
 }
 
 helper needsCast(inputType : ecore::EClass, x : context::FeatureContext) : Boolean {
