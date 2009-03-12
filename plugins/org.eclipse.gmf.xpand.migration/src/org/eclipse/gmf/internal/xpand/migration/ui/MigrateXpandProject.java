@@ -182,7 +182,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 			newRootDescriptions.add(migrateXpandRoot(rootContainer, nativeLibraryDeclarations, subMonitor));
 		}
 		registerNativeLibraries(nativeLibraryDeclarations, createSubProgressMonitor(monitor, "Registering native libraries", 1));
-		switchToNewXpandBuilder(createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
+		switchToNewXpandBuilder(newRootDescriptions, createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
 		updateXpandRootFile(newRootDescriptions, createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
 		getBuildPropertiesManager().save(createSubProgressMonitor(monitor, "Saving build.properties", 1));
 		buildPropertiesManager = null;
@@ -215,7 +215,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		}
 	}
 
-	private void switchToNewXpandBuilder(IProgressMonitor monitor) throws CoreException, InterruptedException {
+	private void switchToNewXpandBuilder(List<RootDescription> newRootDescriptions, IProgressMonitor monitor) throws CoreException, InterruptedException {
 		monitor.beginTask("Registering new Xpand builder for the project", 2);
 		IProjectDescription pd = getSelectedProject().getDescription();
 		ArrayList<ICommand> newBuildCommands = new ArrayList<ICommand>();
@@ -238,14 +238,16 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		if (addQVTBuilder) {
 			ICommand newCommand = pd.newCommand();
 			newCommand.setBuilderName(QVT_BUILDER_ID);
-			if (getRootManager().getXpandRootFolders().size() > 0) {
-				Map arguments = newCommand.getArguments();
-				if (arguments == null) {
-					arguments = new HashMap();
+			if (newRootDescriptions.size() > 0) {
+				IPath mainIPath = newRootDescriptions.get(0).getMainIPath();
+				if (!mainIPath.isAbsolute()) {
+					Map arguments = newCommand.getArguments();
+					if (arguments == null) {
+						arguments = new HashMap();
+					}
+					arguments.put(QVT_BUIDLER_SRC_CONTAINER_ARG, mainIPath.toString());
+					newCommand.setArguments(arguments);
 				}
-				IFolder mainXpandRootFolder = getRootManager().getXpandRootFolders().get(0);
-				arguments.put(QVT_BUIDLER_SRC_CONTAINER_ARG, mainXpandRootFolder instanceof IProject ? "/" : mainXpandRootFolder.getProjectRelativePath().toString());
-				newCommand.setArguments(arguments);
 			}
 			newBuildCommands.add(newCommand);
 		}
