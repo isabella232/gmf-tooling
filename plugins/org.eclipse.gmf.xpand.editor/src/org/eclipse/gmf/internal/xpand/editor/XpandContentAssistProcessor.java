@@ -87,7 +87,6 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
                 List<ICompletionProposal> ep = new ExpandProposalComputer(f).computeProposals(txt, ctx);
     			Collections.sort(ep, comparator);
 				proposals.addAll(ep);
-                proposals.add(new org.eclipse.jface.text.contentassist.CompletionProposal(XpandTokens.LT + XpandTokens.RT, documentOffset, 0, 1));
             } else if (p == XpandPartition.DEFAULT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
                 List<ICompletionProposal> sp = new StatementProposalComputer(f).computeProposals(txt, ctx);
