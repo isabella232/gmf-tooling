@@ -157,7 +157,7 @@ public class Activator extends Plugin {
 	};
 
 	private final Set<MetaModelSource> modelSources = new LinkedHashSet<MetaModelSource>();
-	private static ResourceSet workspaceMetamodelRS;
+
 	public static void registerModelSource(MetaModelSource modelSource) {
 		assert modelSource != null;
 		anInstance.modelSources.add(modelSource);
@@ -224,13 +224,18 @@ public class Activator extends Plugin {
 		return registry;
 	}
 
+	private ResourceSet workspaceMetamodelRS;
+
 	public static ResourceSet getWorkspaceMetamodelsResourceSet() {
-		if (workspaceMetamodelRS == null) {
-			final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
-			resourceSetImpl.setURIResourceMap(new EPackageRegistryBasedURIResourceMap(resourceSetImpl.getURIConverter()));
-			workspaceMetamodelRS = resourceSetImpl;
+		if (anInstance != null && anInstance.workspaceMetamodelRS != null) {
+			return anInstance.workspaceMetamodelRS;
 		}
-		return workspaceMetamodelRS;
+		final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
+		resourceSetImpl.setURIResourceMap(new EPackageRegistryBasedURIResourceMap(resourceSetImpl.getURIConverter()));
+		if (anInstance != null) {
+			anInstance.workspaceMetamodelRS = resourceSetImpl;
+		}
+		return resourceSetImpl;
 	}
 	
 }
