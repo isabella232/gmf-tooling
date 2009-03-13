@@ -1,55 +1,15 @@
-/**
-* <copyright>
-*
-* Copyright (c) 2005, 2008 IBM Corporation and others.
-* All rights reserved.   This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*   IBM - Initial API and implementation
-*   E.D.Willink - Elimination of some shift-reduce conflicts
-*   E.D.Willink - Remove unnecessary warning suppression
-*   E.D.Willink - 225493 Need ability to set CSTNode offsets
-*   Borland Software Corporation - Xpand integration/support
-* </copyright>
-*
-* $Id: XpandParserprs.java,v 1.9 2009/03/13 14:57:16 atikhomirov Exp $
-*/
-/**
-* <copyright>
-*
-* Copyright (c) 2006, 2007 Borland Inc.
-* All rights reserved.   This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*   Borland - Initial API and implementation
-*
-* </copyright>
-*
-* $Id: XpandParserprs.java,v 1.9 2009/03/13 14:57:16 atikhomirov Exp $
-*/
-/**
-* <copyright>
-*
-* Copyright (c) 2006, 2007 Borland Inc.
-* All rights reserved.   This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*   Borland - Initial API and implementation
-*
-* </copyright>
-*
-* $Id: XpandParserprs.java,v 1.9 2009/03/13 14:57:16 atikhomirov Exp $
-*/
-
+/*
+ * Copyright (c) 2006, 2009 Borland Software Corporation and others.
+ * All rights reserved.   This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     committers of openArchitectureWare - Xpand language syntax
+ *     Artem Tikhomirov (Borland) - LALR grammar
+ *                                - Migration to OCL expressions
+ */
 package org.eclipse.gmf.internal.xpand.parser;
 
 public class XpandParserprs implements lpg.lpgjavaruntime.ParseTable, XpandParsersym {
