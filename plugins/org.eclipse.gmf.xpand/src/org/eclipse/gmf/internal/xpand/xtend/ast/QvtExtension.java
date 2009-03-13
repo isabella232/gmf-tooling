@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
-import org.eclipse.m2m.qvt.oml.runtime.util.HelperOperationCall;
+import org.eclipse.m2m.internal.qvt.oml.runtime.util.HelperOperationCall;
 
 public class QvtExtension implements GenericExtension {
 

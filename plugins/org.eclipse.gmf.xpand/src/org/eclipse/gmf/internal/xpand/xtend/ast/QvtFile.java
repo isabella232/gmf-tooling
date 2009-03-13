@@ -24,7 +24,7 @@ import org.eclipse.m2m.internal.qvt.oml.QvtMessage;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Helper;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
-import org.eclipse.m2m.qvt.oml.runtime.util.NonTransformationExecutionContext;
+import org.eclipse.m2m.internal.qvt.oml.runtime.util.NonTransformationExecutionContext;
 
 public class QvtFile implements QvtResource {
 
