@@ -80,6 +80,21 @@ public class ExpressionHelper {
 			throw new EvaluationException(getOclExpressionDiagnostic().getMessage(), this);
 		}
 
+		// TODO: use CustomOclValidationVisitor extracted from
+		// QvtOperationalValidationVisitor once it is available.
+		
+//		// Validating AST only on evaluation time since this process can report
+//		// some errors in indirectly references .qvto files which are not
+//		// important while analyzing AST
+//		ValidationVisitor<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint, EClass, EObject> validator = new ValidationVisitor<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint, EClass, EObject>(
+//				env) {
+//		};
+//		expression.accept(validator);
+//		Diagnostic validationResults = getOCLDiagnostic(env);
+//		if (validationResults != null) {
+//			throw new EvaluationException(validationResults.getMessage(), this);
+//		}
+
 		QvtOperationalEvaluationVisitor visitor = ctx.createEvaluationVisitor();
 		defineGlobalVariables(ctx, visitor.getOperationalEvaluationEnv());
 		initializeStreamsHolder(ctx.getScope(), ctx.getScope().getOutput().getNamedStreams(), visitor.getOperationalEvaluationEnv());
@@ -101,19 +116,24 @@ public class ExpressionHelper {
 	
 	private OCLExpression<EClassifier> getOCLExpression(EcoreEnvironment env) {
 		if (oclExpression == null) {
-			OCLProblemHandler problemHandler = env.getProblemHandler() instanceof OCLProblemHandler ? (OCLProblemHandler) env.getProblemHandler() : null;
 			oclExpression = new EmbeddedQVTAnalyzer(env).analyzeExpression(expressionCS);
-			if (problemHandler != null) {
-				Diagnostic diagnostic = problemHandler.getDiagnostic();
-				if (diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR) {
-					oclExpressionDiagnostic = diagnostic;
-				}
-				problemHandler.clearDiagnostic();
-			}
+			oclExpressionDiagnostic = getOCLDiagnostic(env);
 		}
 		return oclExpression;
 	}
 	
+	private Diagnostic getOCLDiagnostic(EcoreEnvironment env) {
+		if (env.getProblemHandler() instanceof OCLProblemHandler) {
+			OCLProblemHandler oclProblemHandler = (OCLProblemHandler) env.getProblemHandler();
+			Diagnostic diagnostic = oclProblemHandler.getDiagnostic();
+			if (diagnostic != null && diagnostic.getSeverity() == Diagnostic.ERROR) {
+				return diagnostic;
+			}
+			oclProblemHandler.clearDiagnostic();
+		}
+		return null;
+	}
+
 	/**
 	 * Should be called only after {@link #getOCLExpression(EcoreEnvironment)}
 	 * 
