@@ -7,7 +7,8 @@
                name="StringOperations"
                namespace="xpt">
             <library
-                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandStringOperations">
+                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandStringOperations"
+                  name="StringOperations">
                <metamodel
                      nsURI="http://www.eclipse.org/emf/2002/Ecore">
                </metamodel>
@@ -17,7 +18,8 @@
                name="OclAnyOperations"
                namespace="xpt">
             <library
-                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandOclAnyOperations">
+                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandOclAnyOperations"
+                  name="OclAnyOperations">
                <metamodel
                      nsURI="http://www.eclipse.org/emf/2002/Ecore">
                </metamodel>
@@ -27,7 +29,8 @@
                name="IntegerOperations"
                namespace="xpt">
             <library
-                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandIntegerOperations">
+                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandIntegerOperations"
+                  name="IntegerOperations">
                <metamodel
                      nsURI="http://www.eclipse.org/emf/2002/Ecore">
                </metamodel>
@@ -37,7 +40,8 @@
                name="GlobalVarOperations"
                namespace="xpt">
             <library
-                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandGlobalVars">
+                  class="org.eclipse.gmf.internal.xpand.qvtlibraries.XpandGlobalVars"
+                  name="GlobalVarOperations">
                <metamodel
                      nsURI="http://www.eclipse.org/emf/2002/Ecore">
                </metamodel>
