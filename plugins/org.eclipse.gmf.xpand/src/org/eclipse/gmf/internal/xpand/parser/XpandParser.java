@@ -1885,8 +1885,10 @@ private String unquote(String quoted) {
 			//
 			case 130: {
 				
-				CSTNode result = createStringLiteralExpCS(unescape(getIToken((dtParser.getToken(1)))));
-				setOffsets(result, getIToken(dtParser.getToken(1)));
+				IToken literalToken = getIToken(dtParser.getToken(1));
+				StringLiteralExpCS result = createStringLiteralExpCS(literalToken.toString());
+				result.setUnescapedStringSymbol(unescape(literalToken));
+				setOffsets(result, literalToken);
 				dtParser.setSym1(result);
 	  		  break;
 			}
@@ -3031,15 +3033,17 @@ private String unquote(String quoted) {
 			//
 			case 262: {
 				
+				IToken literalToken = getIToken(dtParser.getToken(2));
 				StringLiteralExpCS result = (StringLiteralExpCS) dtParser.getSym(1);
-				result.setStringSymbol(result.getStringSymbol() +  unescape(getIToken((dtParser.getToken(2)))));
-				IToken token = getIToken(dtParser.getToken(2));
-				int tokenLine = token.getLine();
-				setOffsets(result, result, token);
-				IToken prevToken = getParseStream().getTokenAt(token.getTokenIndex() - 1);
+				result.setSymbol(result.getSymbol() +  literalToken.toString());
+				result.setStringSymbol(result.getStringSymbol() + literalToken.toString());
+				result.setUnescapedStringSymbol(result.getUnescapedStringSymbol() +  unescape(literalToken));
+				int tokenLine = literalToken.getLine();
+				setOffsets(result, result, literalToken);
+				IToken prevToken = getParseStream().getTokenAt(literalToken.getTokenIndex() - 1);
 				int prevTokenLine = prevToken.getLine();
 				if (prevTokenLine == tokenLine) {
-					reportError(lpg.lpgjavaruntime.ParseErrorCodes.INVALID_CODE, "", prevToken.getTokenIndex(), token.getTokenIndex(), "Multiline string literals must be located in different lines!"); //$NON-NLS-1$ //$NON-NLS-2$
+					reportError(lpg.lpgjavaruntime.ParseErrorCodes.INVALID_CODE, "", prevToken.getTokenIndex(), literalToken.getTokenIndex(), "Multiline string literals must be located in different lines!"); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 				dtParser.setSym1(result);
 	  		  break;
@@ -3132,14 +3136,24 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 287:  imperativeIterateExpCS ::= imperativeIteratorExpCSToken12 ( imperativeIterContents12 )
+			// Rule 278:  dictLiteralPartListCS ::= dictLiteralPartListCS qvtErrorToken
 			//
-			case 287:
+			case 278: {
+				
+				EList result = (EList)dtParser.getSym(1);
+				dtParser.setSym1(result);
+	  		  break;
+			}
+	 
+			//
+			// Rule 288:  imperativeIterateExpCS ::= imperativeIteratorExpCSToken12 ( imperativeIterContents12 )
+			//
+			case 288:
  
 			//
-			// Rule 288:  imperativeIterateExpCS ::= imperativeIteratorExpCSToken3 ( imperativeIterContents3 )
+			// Rule 289:  imperativeIterateExpCS ::= imperativeIteratorExpCSToken3 ( imperativeIterContents3 )
 			//
-			case 288: {
+			case 289: {
 				
 				String opCode = getTokenText(dtParser.getToken(1));
 				SimpleNameCS simpleNameCS = createSimpleNameCS(
@@ -3168,9 +3182,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 289:  imperativeIterateExpCS ::= imperativeIteratorExpCSToken qvtErrorToken
+			// Rule 290:  imperativeIterateExpCS ::= imperativeIteratorExpCSToken qvtErrorToken
 			//
-			case 289: {
+			case 290: {
 				
 				SimpleNameCS simpleNameCS = createSimpleNameCS(
 							SimpleTypeEnum.KEYWORD_LITERAL,
@@ -3190,9 +3204,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 290:  imperativeIterContents12 ::= oclExpressionCS
+			// Rule 291:  imperativeIterContents12 ::= oclExpressionCS
 			//
-			case 290: {
+			case 291: {
 				
 				dtParser.setSym1(new Object[] {
 						ourEmptyEList,
@@ -3203,9 +3217,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 291:  imperativeIterContents12 ::= variableListCS | oclExpressionCS
+			// Rule 292:  imperativeIterContents12 ::= variableListCS | oclExpressionCS
 			//
-			case 291: {
+			case 292: {
 				
 				dtParser.setSym1(new Object[] {
 						dtParser.getSym(1),
@@ -3216,9 +3230,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 292:  imperativeIterContents3 ::= variableListCS ; variableCS2 | oclExpressionCS
+			// Rule 293:  imperativeIterContents3 ::= variableListCS ; variableCS2 | oclExpressionCS
 			//
-			case 292: {
+			case 293: {
 				
 				dtParser.setSym1(new Object[] {
 						dtParser.getSym(1),
@@ -3229,16 +3243,16 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 293:  exclamationOpt ::= $Empty
+			// Rule 294:  exclamationOpt ::= $Empty
 			//
-			case 293:
+			case 294:
 				dtParser.setSym1(null);
 				break;
  
 			//
-			// Rule 295:  declarator_vsep ::= IDENTIFIER |
+			// Rule 296:  declarator_vsep ::= IDENTIFIER |
 			//
-			case 295: {
+			case 296: {
 				
 		CSTNode result = createVariableCS(
 					getTokenText(dtParser.getToken(1)),
@@ -3251,16 +3265,16 @@ private String unquote(String quoted) {
 			}
     	 
 			//
-			// Rule 296:  declarator_vsepOpt ::= $Empty
+			// Rule 297:  declarator_vsepOpt ::= $Empty
 			//
-			case 296:
+			case 297:
 				dtParser.setSym1(null);
 				break;
  
 			//
-			// Rule 298:  callExpCS ::= -> featureCallExpCS exclamationOpt [ declarator_vsepOpt oclExpressionCS ]
+			// Rule 299:  callExpCS ::= -> featureCallExpCS exclamationOpt [ declarator_vsepOpt oclExpressionCS ]
 			//
-			case 298: {
+			case 299: {
 				
 	        String opCode = isTokenOfType(getIToken(dtParser.getToken(3)), XpandParsersym.TK_EXCLAMATION_MARK) ?  "collectselectOne" : "collectselect"; //$NON-NLS-1$ //$NON-NLS-2$ 
 		SimpleNameCS simpleNameCS = createSimpleNameCS(
@@ -3282,9 +3296,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 299:  oclExpCS ::= oclExpCS exclamationOpt [ oclExpressionCS ]
+			// Rule 300:  oclExpCS ::= oclExpCS exclamationOpt [ oclExpressionCS ]
 			//
-			case 299: {
+			case 300: {
 				
 			        String opCode = isTokenOfType(getIToken(dtParser.getToken(2)), XpandParsersym.TK_EXCLAMATION_MARK) ?  "selectOne" : "xselect"; //$NON-NLS-1$ //$NON-NLS-2$ 
 				SimpleNameCS simpleNameCS = createSimpleNameCS(
@@ -3306,9 +3320,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 300:  dotArrowExpCS ::= dotArrowExpCS . featureCallExpCS exclamationOpt [ oclExpressionCS ]
+			// Rule 301:  dotArrowExpCS ::= dotArrowExpCS . featureCallExpCS exclamationOpt [ oclExpressionCS ]
 			//
-			case 300: {
+			case 301: {
 				
 				CallExpCS callExpCS = (CallExpCS)dtParser.getSym(3);
 				callExpCS.setSource((OCLExpressionCS)dtParser.getSym(1));
@@ -3336,9 +3350,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 301:  oclExpCS ::= break
+			// Rule 302:  oclExpCS ::= break
 			//
-			case 301: {
+			case 302: {
 				
 			OCLExpressionCS result = createBreakCS();
 			setOffsets(result, getIToken(dtParser.getToken(1)));
@@ -3347,9 +3361,9 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 302:  oclExpCS ::= continue
+			// Rule 303:  oclExpCS ::= continue
 			//
-			case 302: {
+			case 303: {
 				
 			OCLExpressionCS result = createContinueCS();
 			setOffsets(result, getIToken(dtParser.getToken(1)));
@@ -3358,17 +3372,17 @@ private String unquote(String quoted) {
 			}
 	 
 			//
-			// Rule 303:  template ::= emptyTemplate
+			// Rule 304:  template ::= emptyTemplate
 			//
-			case 303: {
+			case 304: {
 				
 		setResult(xpandFactory.createTemplate(Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, getRightIToken()));
 			  break;
 			} 
 			//
-			// Rule 306:  template ::= LG commentTextPairAny imports extensionImports defineOrAroundSeq
+			// Rule 307:  template ::= LG commentTextPairAny imports extensionImports defineOrAroundSeq
 			//
-			case 306: {
+			case 307: {
 				
 		List imports = (List) getRhsSym(3);
 		List extensionImports = (List) getRhsSym(4);
@@ -3388,18 +3402,7 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 307:  defineOrAroundSeq ::= define TEXT commentTextPairAny defineOrAroundSuffix
-			//
-			case 307: {
-				
-		List result = new LinkedList();
-		result.add(getRhsSym(1));
-		result.addAll((List) getRhsSym(4));
-		setResult(result);
-			  break;
-			} 
-			//
-			// Rule 308:  defineOrAroundSeq ::= around TEXT commentTextPairAny defineOrAroundSuffix
+			// Rule 308:  defineOrAroundSeq ::= define TEXT commentTextPairAny defineOrAroundSuffix
 			//
 			case 308: {
 				
@@ -3410,25 +3413,36 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 309:  defineOrAroundSuffix ::= $Empty
+			// Rule 309:  defineOrAroundSeq ::= around TEXT commentTextPairAny defineOrAroundSuffix
 			//
 			case 309: {
 				
-		setResult(Collections.EMPTY_LIST);
+		List result = new LinkedList();
+		result.add(getRhsSym(1));
+		result.addAll((List) getRhsSym(4));
+		setResult(result);
 			  break;
 			} 
 			//
-			// Rule 313:  imports ::= $Empty
+			// Rule 310:  defineOrAroundSuffix ::= $Empty
 			//
-			case 313: {
+			case 310: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 314:  imports ::= anImport imports
+			// Rule 314:  imports ::= $Empty
 			//
 			case 314: {
+				
+		setResult(Collections.EMPTY_LIST);
+			  break;
+			} 
+			//
+			// Rule 315:  imports ::= anImport imports
+			//
+			case 315: {
 				
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -3437,25 +3451,25 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 315:  anImport ::= IMPORT stringLiteralExpCS TEXT commentTextPairAny
+			// Rule 316:  anImport ::= IMPORT stringLiteralExpCS TEXT commentTextPairAny
 			//
-			case 315: {
+			case 316: {
 				
 		setResult(xpandFactory.createNamespaceImport(getLeftIToken(), (StringLiteralExpCS) getRhsSym(2)));
 			  break;
 			} 
 			//
-			// Rule 316:  extensionImports ::= $Empty
+			// Rule 317:  extensionImports ::= $Empty
 			//
-			case 316: {
+			case 317: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 317:  extensionImports ::= anExtensionImport extensionImports
+			// Rule 318:  extensionImports ::= anExtensionImport extensionImports
 			//
-			case 317: {
+			case 318: {
 				
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -3464,49 +3478,49 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 318:  anExtensionImport ::= EXTENSION pathNameCS TEXT commentTextPairAny
+			// Rule 319:  anExtensionImport ::= EXTENSION pathNameCS TEXT commentTextPairAny
 			//
-			case 318: {
+			case 319: {
 				
 		setResult(xpandFactory.createImportDeclaration(getLeftIToken(), (PathNameCS) getRhsSym(2)));
 			  break;
 			} 
 			//
-			// Rule 319:  around ::= AROUND pointcut FOR typeCS sequence ENDAROUND
+			// Rule 320:  around ::= AROUND pointcut FOR typeCS sequence ENDAROUND
 			//
-			case 319: {
+			case 320: {
 				
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.<VariableCS>emptyList(), false, (TypeCS) getRhsSym(4), (List) getRhsSym(5)));
 			  break;
 			} 
 			//
-			// Rule 320:  around ::= AROUND pointcut LPAREN parametersList RPAREN FOR typeCS sequence ENDAROUND
+			// Rule 321:  around ::= AROUND pointcut LPAREN parametersList RPAREN FOR typeCS sequence ENDAROUND
 			//
-			case 320: {
+			case 321: {
 				
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List<VariableCS>) getRhsSym(4), false, (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
 			  break;
 			} 
 			//
-			// Rule 321:  around ::= AROUND pointcut LPAREN parametersList COMMA MULTIPLY RPAREN FOR typeCS sequence ENDAROUND
+			// Rule 322:  around ::= AROUND pointcut LPAREN parametersList COMMA MULTIPLY RPAREN FOR typeCS sequence ENDAROUND
 			//
-			case 321: {
+			case 322: {
 				
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List<VariableCS>) getRhsSym(4), true, (TypeCS) getRhsSym(9), (List) getRhsSym(10)));
 			  break;
 			} 
 			//
-			// Rule 322:  around ::= AROUND pointcut LPAREN MULTIPLY RPAREN FOR typeCS sequence ENDAROUND
+			// Rule 323:  around ::= AROUND pointcut LPAREN MULTIPLY RPAREN FOR typeCS sequence ENDAROUND
 			//
-			case 322: {
+			case 323: {
 				
 		setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.<VariableCS>emptyList(), true, (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
 			  break;
 			} 
 			//
-			// Rule 323:  pointcut ::= MULTIPLY pointcutSuffix
+			// Rule 324:  pointcut ::= MULTIPLY pointcutSuffix
 			//
-			case 323: {
+			case 324: {
 				
 //			FIXME: may use SimpleNameCS here, though need more sophisticated code to update end position
 //			SimpleNameCS simpleNameCS = createSimpleNameCS(SimpleTypeEnum.IDENTIFIER_LITERAL, getTokenText(getRhsTokenIndex(1)));
@@ -3519,9 +3533,9 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 324:  pointcut ::= IDENTIFIER pointcutSuffix
+			// Rule 325:  pointcut ::= IDENTIFIER pointcutSuffix
 			//
-			case 324: {
+			case 325: {
 				
 		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 		if (getRhsSym(2) != null) {
@@ -3531,17 +3545,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 325:  pointcutSuffix ::= $Empty
+			// Rule 326:  pointcutSuffix ::= $Empty
 			//
-			case 325: {
+			case 326: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 327:  pointcutSuffix ::= COLONCOLON pointcutSuffix
+			// Rule 328:  pointcutSuffix ::= COLONCOLON pointcutSuffix
 			//
-			case 327: {
+			case 328: {
 				
 		Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 		if (getRhsSym(2) != null) {
@@ -3551,25 +3565,25 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 328:  define ::= DEFINE IDENTIFIER FOR typeCS sequence ENDDEFINE
+			// Rule 329:  define ::= DEFINE IDENTIFIER FOR typeCS sequence ENDDEFINE
 			//
-			case 328: {
+			case 329: {
 				
 		setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), Collections.<VariableCS>emptyList(), (TypeCS) getRhsSym(4), (List) getRhsSym(5)));
 			  break;
 			} 
 			//
-			// Rule 329:  define ::= DEFINE IDENTIFIER LPAREN parametersList RPAREN FOR typeCS sequence ENDDEFINE
+			// Rule 330:  define ::= DEFINE IDENTIFIER LPAREN parametersList RPAREN FOR typeCS sequence ENDDEFINE
 			//
-			case 329: {
+			case 330: {
 				
 		setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), (List<VariableCS>) getRhsSym(4), (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
 			  break;
 			} 
 			//
-			// Rule 330:  parametersList ::= parameter
+			// Rule 331:  parametersList ::= parameter
 			//
-			case 330: {
+			case 331: {
 				
 		VariableCS param = (VariableCS) getRhsSym(1);
 		LinkedList res = new LinkedList();
@@ -3578,9 +3592,9 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 331:  parametersList ::= parametersList , parameter
+			// Rule 332:  parametersList ::= parametersList , parameter
 			//
-			case 331: {
+			case 332: {
 				
 		VariableCS param = (VariableCS) getRhsSym(3);
 		LinkedList res = new LinkedList();
@@ -3590,9 +3604,9 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 333:  parameter ::= typeCS IDENTIFIER
+			// Rule 334:  parameter ::= typeCS IDENTIFIER
 			//
-			case 333: {
+			case 334: {
 				
 		VariableCS result = createVariableCS(getRhsIToken(2).toString(), (TypeCS) getRhsSym(1), null);
 		setOffsets(result, (TypeCS) getRhsSym(1), getRhsIToken(2));
@@ -3600,9 +3614,9 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 334:  sequence ::= text sequenceSuffix
+			// Rule 335:  sequence ::= text sequenceSuffix
 			//
-			case 334: {
+			case 335: {
 				
 		List res = new LinkedList();
 		res.addAll((List) getRhsSym(1));
@@ -3611,17 +3625,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 335:  sequenceSuffix ::= $Empty
+			// Rule 336:  sequenceSuffix ::= $Empty
 			//
-			case 335: {
+			case 336: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 336:  sequenceSuffix ::= statement text sequenceSuffix
+			// Rule 337:  sequenceSuffix ::= statement text sequenceSuffix
 			//
-			case 336: {
+			case 337: {
 				
 		List res = new LinkedList();
 		res.add(getRhsSym(1));
@@ -3631,9 +3645,9 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 343:  text ::= minusOpt TEXT textSuffix
+			// Rule 344:  text ::= minusOpt TEXT textSuffix
 			//
-			case 343: {
+			case 344: {
 				
 		List res = new LinkedList();
 		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
@@ -3642,17 +3656,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 344:  textSuffix ::= $Empty
+			// Rule 345:  textSuffix ::= $Empty
 			//
-			case 344: {
+			case 345: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 345:  textSuffix ::= minusOpt TEXT textSuffix
+			// Rule 346:  textSuffix ::= minusOpt TEXT textSuffix
 			//
-			case 345: {
+			case 346: {
 				
 		List res = new LinkedList();
 		res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
@@ -3661,73 +3675,73 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 346:  minusOpt ::= $Empty
+			// Rule 347:  minusOpt ::= $Empty
 			//
-			case 346: {
+			case 347: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 347:  minusOpt ::= MINUS
+			// Rule 348:  minusOpt ::= MINUS
 			//
-			case 347: {
+			case 348: {
 				
 		setResult(getLeftIToken());
 			  break;
 			} 
 			//
-			// Rule 351:  errorStatement ::= ERROR oclExpressionCS
+			// Rule 352:  errorStatement ::= ERROR oclExpressionCS
 			//
-			case 351: {
+			case 352: {
 				
 		setResult(xpandFactory.createErrorStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2)));
 			  break;
 			} 
 			//
-			// Rule 352:  expandStatement ::= EXPAND definitionName parameterListOpt
+			// Rule 353:  expandStatement ::= EXPAND definitionName parameterListOpt
 			//
-			case 352: {
+			case 353: {
 				
 		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), null, false, null));
 			  break;
 			} 
 			//
-			// Rule 353:  expandStatement ::= EXPAND definitionName parameterListOpt FOR oclExpressionCS
+			// Rule 354:  expandStatement ::= EXPAND definitionName parameterListOpt FOR oclExpressionCS
 			//
-			case 353: {
+			case 354: {
 				
 		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), false, null));
 			  break;
 			} 
 			//
-			// Rule 354:  expandStatement ::= EXPAND definitionName parameterListOpt FOREACH oclExpressionCS separatorOpt
+			// Rule 355:  expandStatement ::= EXPAND definitionName parameterListOpt FOREACH oclExpressionCS separatorOpt
 			//
-			case 354: {
+			case 355: {
 				
 		setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), true, (OCLExpressionCS) getRhsSym(6)));
 			  break;
 			} 
 			//
-			// Rule 355:  parameterListOpt ::= $Empty
+			// Rule 356:  parameterListOpt ::= $Empty
 			//
-			case 355: {
+			case 356: {
 				
 		setResult(Collections.EMPTY_LIST);
 			  break;
 			} 
 			//
-			// Rule 356:  parameterListOpt ::= LPAREN argumentsCS RPAREN
+			// Rule 357:  parameterListOpt ::= LPAREN argumentsCS RPAREN
 			//
-			case 356: {
+			case 357: {
 				
 		setResult(getRhsSym(2));
 			  break;
 			} 
 			//
-			// Rule 358:  expressionStmt ::= oclExpressionCS
+			// Rule 359:  expressionStmt ::= oclExpressionCS
 			//
-			case 358: {
+			case 359: {
 				
 		// XXX OCL CST doesn't keep track of line numbers, but we use them (perhaps, might refactor to stop using?)
 		int lineNumber = getLeftIToken().getLine();
@@ -3735,73 +3749,73 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 359:  fileStatement ::= FILE oclExpressionCS identOpt sequence ENDFILE
+			// Rule 360:  fileStatement ::= FILE oclExpressionCS identOpt sequence ENDFILE
 			//
-			case 359: {
+			case 360: {
 				
 		setResult(xpandFactory.createFileStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), (Identifier) getRhsSym(3), (List) getRhsSym(4)));
 			  break;
 			} 
 			//
-			// Rule 360:  identOpt ::= $Empty
+			// Rule 361:  identOpt ::= $Empty
 			//
-			case 360: {
+			case 361: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 361:  identOpt ::= IDENTIFIER
+			// Rule 362:  identOpt ::= IDENTIFIER
 			//
-			case 361: {
+			case 362: {
 				
 		setResult(xpandFactory.createIdentifier(getLeftIToken()));
 			  break;
 			} 
 			//
-			// Rule 362:  foreachStatement ::= FOREACH oclExpressionCS AS IDENTIFIER iteratorOpt separatorOpt sequence ENDFOREACH
+			// Rule 363:  foreachStatement ::= FOREACH oclExpressionCS AS IDENTIFIER iteratorOpt separatorOpt sequence ENDFOREACH
 			//
-			case 362: {
+			case 363: {
 				
 		setResult(xpandFactory.createForEachStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (OCLExpressionCS) getRhsSym(6), (IToken) getRhsSym(5), (List) getRhsSym(7)));
 			  break;
 			} 
 			//
-			// Rule 363:  iteratorOpt ::= $Empty
+			// Rule 364:  iteratorOpt ::= $Empty
 			//
-			case 363: {
+			case 364: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 364:  iteratorOpt ::= ITERATOR IDENTIFIER
+			// Rule 365:  iteratorOpt ::= ITERATOR IDENTIFIER
 			//
-			case 364: {
+			case 365: {
 				
 		setResult(getRightIToken());
 			  break;
 			} 
 			//
-			// Rule 365:  separatorOpt ::= $Empty
+			// Rule 366:  separatorOpt ::= $Empty
 			//
-			case 365: {
+			case 366: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 366:  separatorOpt ::= SEPARATOR oclExpressionCS
+			// Rule 367:  separatorOpt ::= SEPARATOR oclExpressionCS
 			//
-			case 366: {
+			case 367: {
 				
 		setResult(getRhsSym(2));
 			  break;
 			} 
 			//
-			// Rule 367:  ifStatement ::= IF oclExpressionCS sequence elseifAny elseOpt ENDIF
+			// Rule 368:  ifStatement ::= IF oclExpressionCS sequence elseifAny elseOpt ENDIF
 			//
-			case 367: {
+			case 368: {
 				
 		IfStatement i = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 		IfStatement elseIf = (IfStatement) getRhsSym(4);
@@ -3821,17 +3835,17 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 368:  elseifAny ::= $Empty
+			// Rule 369:  elseifAny ::= $Empty
 			//
-			case 368: {
+			case 369: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 369:  elseifAny ::= ELSEIF oclExpressionCS sequence elseifAny
+			// Rule 370:  elseifAny ::= ELSEIF oclExpressionCS sequence elseifAny
 			//
-			case 369: {
+			case 370: {
 				
 		IfStatement elseIf = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 		IfStatement restElseIf = (IfStatement) getRhsSym(4);
@@ -3840,49 +3854,49 @@ private String unquote(String quoted) {
 			  break;
 			} 
 			//
-			// Rule 370:  elseOpt ::= $Empty
+			// Rule 371:  elseOpt ::= $Empty
 			//
-			case 370: {
+			case 371: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 371:  elseOpt ::= ELSE sequence
+			// Rule 372:  elseOpt ::= ELSE sequence
 			//
-			case 371: {
+			case 372: {
 				
 		setResult(xpandFactory.createIfStatement(getLeftIToken(), null, (List) getRhsSym(2), null));
 			  break;
 			} 
 			//
-			// Rule 372:  letStatement ::= LET oclExpressionCS AS IDENTIFIER sequence ENDLET
+			// Rule 373:  letStatement ::= LET oclExpressionCS AS IDENTIFIER sequence ENDLET
 			//
-			case 372: {
+			case 373: {
 				
 		setResult(xpandFactory.createLetStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (List) getRhsSym(5)));
 			  break;
 			} 
 			//
-			// Rule 373:  protectStatement ::= PROTECT CSTART oclExpressionCS CEND oclExpressionCS ID oclExpressionCS disabledOpt sequence ENDPROTECT
+			// Rule 374:  protectStatement ::= PROTECT CSTART oclExpressionCS CEND oclExpressionCS ID oclExpressionCS disabledOpt sequence ENDPROTECT
 			//
-			case 373: {
+			case 374: {
 				
 		setResult(xpandFactory.createProtectStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), (OCLExpressionCS) getRhsSym(7), (IToken) getRhsSym(8), (List) getRhsSym(9)));
 			  break;
 			} 
 			//
-			// Rule 374:  disabledOpt ::= $Empty
+			// Rule 375:  disabledOpt ::= $Empty
 			//
-			case 374: {
+			case 375: {
 				
 		setResult(null);
 			  break;
 			} 
 			//
-			// Rule 375:  disabledOpt ::= DISABLE
+			// Rule 376:  disabledOpt ::= DISABLE
 			//
-			case 375: {
+			case 376: {
 				
 		setResult(getLeftIToken());
 			  break;
