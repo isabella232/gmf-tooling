@@ -166,7 +166,7 @@ public class Scope {
 	}
 
 	private ImportToNonTransformCtxHelper modulesImportHelper;
-	public ImportToNonTransformCtxHelper getImportsHelper() {
+	/*package-local*/ ImportToNonTransformCtxHelper getImportsHelper() {
 		if (modulesImportHelper == null) {
 			modulesImportHelper = new ImportToNonTransformCtxHelper();
 		}
