@@ -58,7 +58,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
 
     private Set<QvtExtension> allExtensions;
 
-	private ImportToNonTransformCtxHelper modulesImportHelper;
+//	private ImportToNonTransformCtxHelper modulesImportHelper;
 
     public ExecutionContextImpl(Scope rootScope) {
         this (rootScope, null, null);
@@ -89,7 +89,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
         // cached values that depend on resource only may be kept
         result.envFactory = envFactory;
         result.allExtensions = allExtensions;
-        result.modulesImportHelper = modulesImportHelper;
+//        result.modulesImportHelper = modulesImportHelper;
     	result.environment = null; // XXX or create new, delegating?
         for (Variable v : vars) {
         	// adding to the set of original variables because of e.g. nested let statements
@@ -107,7 +107,7 @@ public final class ExecutionContextImpl implements ExecutionContext {
     	result.envFactory = null; // need to make sure resource's imports are read into registry.
     	result.environment = null;
     	result.allExtensions = null;
-    	result.modulesImportHelper = null;
+//    	result.modulesImportHelper = null;
         return result;
     }
 
@@ -274,16 +274,12 @@ public final class ExecutionContextImpl implements ExecutionContext {
     }
 
 	public QvtOperationalEvaluationVisitor createEvaluationVisitor() {
-		// FIXME discuss with Radek why we need modulesImportHelper
-		// when there's OCLEnvironmentWithQVTAccessFactory (above) with all imports known 
-		if (modulesImportHelper == null) {
-			modulesImportHelper = new ImportToNonTransformCtxHelper();
-			for (Module module : getImportedModules()) {
-				modulesImportHelper.addImportedModule(module);
-			}
-		}
 		QvtOperationalEvaluationEnv evaluationEnv = (QvtOperationalEvaluationEnv) createEvaluationEnvironment();
-		return QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, modulesImportHelper);
+		ImportToNonTransformCtxHelper importsHelper = scope.getImportsHelper();
+		for (Module module : getImportedModules()) {
+			importsHelper.addImportedModule(module);
+		}
+		return QvtOperationalEvaluationVisitorImpl.createNonTransformationExecutionContextVisitor(QvtOperationalEnvFactory.INSTANCE.createEnvironment(), evaluationEnv, importsHelper);
 	}
 
 	private Set<Module> getImportedModules() {

@@ -25,6 +25,7 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.eval.EvaluationListener;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
+import org.eclipse.m2m.internal.qvt.oml.evaluator.ImportToNonTransformCtxHelper;
 
 /**
  * @author artem
@@ -162,6 +163,14 @@ public class Scope {
 			result.put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		}
 		return result;
+	}
+
+	private ImportToNonTransformCtxHelper modulesImportHelper;
+	public ImportToNonTransformCtxHelper getImportsHelper() {
+		if (modulesImportHelper == null) {
+			modulesImportHelper = new ImportToNonTransformCtxHelper();
+		}
+		return modulesImportHelper;
 	}
 
 }
