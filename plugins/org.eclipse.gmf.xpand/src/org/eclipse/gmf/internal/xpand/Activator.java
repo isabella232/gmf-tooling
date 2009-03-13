@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -180,47 +179,49 @@ public class Activator extends Plugin {
 	
 	/**
 	 * {@link EcorePlugin#computePlatformURIMap()} analog for GMF Xpand templates.
+	 * Fills supplied registry with metamodels available in the workspace, accessible both with platform:/resource/ and nsURI.
 	 * 
-	 * For mymodel.ecore file in the workspace (which defines mymodelpackage EPackage) this method returns a map with two entries:<ul>
+	 * <p>For mymodel.ecore file in the workspace (which defines mymodelpackage EPackage) this method produces a map with two entries:<ul>
 	 * <li> nsURI -> mymodelpackage
 	 * <li> platform:/resource/.../mymodel.ecore -> mymodelpackage 
 	 * </ul>
 	 * 
-	 * Clients that expect their templates to work with workspace (dynamic) model instances/metamodels shall make entries of the registry available in 
+	 * <p>Clients that expect their templates to work with workspace (dynamic) model instances/metamodels shall make entries of the registry available in 
 	 * {@link ResourceSet} they use to load EMF object(s) they pass as template input, like that:
-	 * <code>
-	 *   ResourceSet rs = new ResourceSetImpl()
-	 *   rs.setPackageRegistry(Activator.computeWorkspaceMetaModelsMap());
-	 * </code>
-	 * alternately, if ResourceSet's PackageRegistry is of value for you, just add all entries, like:
-	 * <code>
-	 *   rs.getPackageRegistry().putAll(Activator.computeWorkspaceMetaModelsMap());
-	 * </code>
-	 * With this precautions, loading dynamic instances would result in the same metamodel, as available by nsURI, i.e.
-	 * <code>
+	 * <pre><code>
+	 *   ResourceSet rs = new ResourceSetImpl();
+	 *   Activator.fillWorkspaceMetaModelsMap(rs.getPackageRegistry());
+	 * </code></pre>
+	 * alternately, you may supply you own PackageRegistry implementation, like:
+	 * <pre><code>
+	 *   EPackage.Registry registry = new EPackageRegistryImpl(EPackage.Registry.INSTANCE) { ... };
+	 *   rs.setPackageRegistry(Activator.fillWorkspaceMetaModelsMap(registry));
+	 * </code></pre>
+	 * With these precautions, loaded dynamic instances would result having the same metamodel, as available by nsURI, i.e.
+	 * <pre><code>
 	 *   EObject dynamicInstance = rs.getResource(URI.createURI("platform:/resource/.../mymodelinstance.xmi"), true).getContents().get(0);
 	 *   EPackage packageByNamespaceURI = rs.getPackageRegistry().getEPackage("mymodelpackage.nsURI");
 	 *   assert dynamicInstance.eClass().getEPackage() == packageByNamespaceURI;
-	 * </code>
+	 * </code></pre>
 	 * 
-	 * Returned map represents a snapshot, and is not updated on subsequent workspace changes. 
+	 * <p>Filled map represents a snapshot, and is not updated on subsequent workspace changes. 
 	 * 
-	 * @return map of metamodels available in the workspace, accessible both with platform:/resource/ and nsURI.
+	 * @param registry - map to fill with platform:/resource/... and nsURI entries for workspace metamodels
+	 * @return passed argument for convenience
 	 */
-	public static EPackage.Registry computeWorkspaceMetaModelsMap() {
-		EPackageRegistryImpl rv = new EPackageRegistryImpl();
+	public static EPackage.Registry fillWorkspaceMetaModelsMap(EPackage.Registry registry) {
 		if (anInstance == null) {
-			return rv;
+			return registry;
 		}
 		for (MetaModelSource s : anInstance.modelSources) {
 			for (EPackage p : s.all()) {
 				if (p.eResource() != null && p.eResource().getURI() != null && p.eResource().getURI().isPlatformResource()) {
-					rv.put(p.getNsURI(), p);
-					rv.put(p.eResource().getURI().toString(), p);
+					registry.put(p.getNsURI(), p);
+					registry.put(p.eResource().getURI().toString(), p);
 				}
 			}
 		}
-		return rv;
+		return registry;
 	}
 
 	public static ResourceSet getWorkspaceMetamodelsResourceSet() {

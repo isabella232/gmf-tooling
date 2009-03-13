@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,7 +58,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 		super.startupOnInitialize();
 		myRootManager = Activator.getRootManager(getProject());
 		myRootManager.addRootChangeListener(this);
-		modelRegistry = new WorkspaceModelRegistry(Activator.getWorkspaceMetamodelsResourceSet());
+		modelRegistry = new WorkspaceModelRegistry(getProject(), Activator.getWorkspaceMetamodelsResourceSet());
 		Activator.registerModelSource(modelRegistry);
 	}
 
@@ -170,7 +170,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 				next.accept(new XpandResourceVisitor(result, new SubProgressMonitor(monitor, 1)));
 			}
 			checkCanceled(monitor);
-			modelRegistry.build(getProject(), new SubProgressMonitor(monitor, 1));
+			modelRegistry.build(new SubProgressMonitor(monitor, 1));
 		} finally {
 			monitor.done();
 		}
@@ -189,7 +189,7 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 			checkCanceled(monitor);
 			projectDelta.accept(new XpandResourceVisitor(result, new SubProgressMonitor(monitor, 1)));
 			checkCanceled(monitor);
-			modelRegistry.build(getProject(), projectDelta, new SubProgressMonitor(monitor, 1));
+			modelRegistry.build(projectDelta, new SubProgressMonitor(monitor, 1));
 		} finally {
 			monitor.done();
 		}

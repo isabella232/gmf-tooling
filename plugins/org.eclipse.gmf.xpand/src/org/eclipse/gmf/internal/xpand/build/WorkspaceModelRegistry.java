@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2006, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.internal.xpand.build;
 
 import java.io.FileNotFoundException;
@@ -12,13 +23,22 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.internal.xpand.Activator;
 
+/**
+ * FIXME with the recent move of the context project knowledge into this class, there's no much value in
+ * having this registry instantiated and invoked by builder. Instead, make it workspace-wide (though may filter project
+ * based on xpandBuilder presence) and builder-independent (listen to changes, employ IResourceProxy)
+ * 
+ * @author artem
+ */
 class WorkspaceModelRegistry implements MetaModelSource {
 	private static class Descriptor {
 		final String workspacePath;
@@ -36,6 +56,10 @@ class WorkspaceModelRegistry implements MetaModelSource {
 	private final Map<String, Descriptor> pathToDescriptor = new TreeMap<String, Descriptor>();
 	private final Map<String, Descriptor> uriToDescriptor = new TreeMap<String, Descriptor>();
 
+	private final IProject project;
+	private boolean isInFullBuild;
+	private boolean doneFullBuild;
+
 //	void DEBUG_DUMP() {
 //		System.err.println(">>> " + WorkspaceModelRegistry.class.getSimpleName());
 //		for (Map.Entry<String, Descriptor> e : uriToDescriptor.entrySet()) {
@@ -45,13 +69,15 @@ class WorkspaceModelRegistry implements MetaModelSource {
 //		System.err.println("<<< " + WorkspaceModelRegistry.class.getSimpleName());
 //	}
 	
-	public WorkspaceModelRegistry(ResourceSet resolutionResourceSet) {
+	public WorkspaceModelRegistry(IProject project, ResourceSet resolutionResourceSet) {
+		assert project != null;
+		this.project = project;
 		resourceSet = resolutionResourceSet;
 		resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 	}
 	
-	public WorkspaceModelRegistry() {
-		this(new ResourceSetImpl());
+	public WorkspaceModelRegistry(IProject project) {
+		this(project, new ResourceSetImpl());
 	}
 
 	public EPackage find(String nsURI) {
@@ -60,6 +86,14 @@ class WorkspaceModelRegistry implements MetaModelSource {
 	}
 
 	public EPackage[] all() {
+		if (!doneFullBuild) {
+			try {
+				// full build never ran, need to initialize data first.
+				build(new NullProgressMonitor());
+			} catch (CoreException ex) {
+				Activator.log(ex.getStatus());
+			}
+		}
 		EPackage[] rv = new EPackage[pathToDescriptor.size()];
 		int i = 0;
 		for (Descriptor d : pathToDescriptor.values()) {
@@ -68,13 +102,26 @@ class WorkspaceModelRegistry implements MetaModelSource {
 		return rv;
 	}
 
-	public void build(IProject project, IProgressMonitor monitor) throws CoreException {
-		EcoreModelResourceVisitor visitor = new EcoreModelResourceVisitor(monitor);
-		project.accept(visitor);
-		handleCollectedData(visitor);
+	public void build(IProgressMonitor monitor) throws CoreException {
+		if (isInFullBuild) {
+			return;
+		}
+		try {
+			isInFullBuild = true;
+			EcoreModelResourceVisitor visitor = new EcoreModelResourceVisitor(monitor);
+			project.accept(visitor);
+			handleCollectedData(visitor);
+			doneFullBuild = true;
+		} finally {
+			isInFullBuild = false;
+		}
 	}
 
-	public void build(IProject project, IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
+	public void build(IResourceDelta delta, IProgressMonitor monitor) throws CoreException {
+		assert delta.getResource().getProject() == project;
+		if (isInFullBuild) {
+			return;
+		}
 		EcoreModelResourceVisitor visitor = new EcoreModelResourceVisitor(monitor);
 		delta.accept(visitor);
 		handleCollectedData(visitor);
