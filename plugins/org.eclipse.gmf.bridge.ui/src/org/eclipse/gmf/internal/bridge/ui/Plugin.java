@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -136,12 +136,13 @@ public class Plugin extends AbstractUIPlugin {
 	}
 
 	public static boolean needsReconcile() {
+		// no need to check for null, default value is true 
 		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile")); //$NON-NLS-1$
 	}
 
 	public static boolean ignoreDanglingHrefOnSave() {
 		String v = Platform.getDebugOption(getPluginID() + "/transform/ignore-dangling-on-save"); //$NON-NLS-1$
-		return !Boolean.FALSE.toString().equals(v);
+		return v != null && !Boolean.FALSE.toString().equals(v);
 	}
 	public static boolean printTransformationConsole() {
 		String v = Platform.getDebugOption(getPluginID() + "/transform/print-qvto-console"); //$NON-NLS-1$
