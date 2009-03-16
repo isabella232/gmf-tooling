@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -48,6 +48,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
@@ -384,7 +385,13 @@ public class TransformToGenModelOperation {
 						ArrayList<EObject> args = new ArrayList<EObject>(5);
 						args.add(mapping);
 						args.add(getGenModel());
+						RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
+						runtimeAccess.ensure(); 
+						args.add(runtimeAccess.genPackage() == null ? null : runtimeAccess.genPackage().getGenModel());
 						TransfExecutionResult result = helper.executeTransformation(args, configProps, getResourceSet());
+						if (Plugin.printTransformationConsole()) {
+							System.err.println(result.getConsoleOutput());
+						}
 						for (ModelExtent me : result.getOutModelExtents()) {
 							for (EObject r : me.getAllRootElements()) {
 								if (r instanceof GenEditorGenerator) {
@@ -425,7 +432,11 @@ public class TransformToGenModelOperation {
 		GenEditorGenerator old = null;
 		Resource resource = null;
 		try {
-			resource = getResourceSet().getResource(getGenURI(), true);
+			resource = getResourceSet().getResource(getGenURI(), false);
+			if (resource == null) {
+				resource = getResourceSet().createResource(getGenURI(), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
+				resource.load(getResourceSet().getLoadOptions());
+			}
 			List<EObject> contents = resource.getContents();
 			if (!contents.isEmpty() && contents.get(0) instanceof GenEditorGenerator) {
 				old = (GenEditorGenerator) contents.get(0);
@@ -433,11 +444,13 @@ public class TransformToGenModelOperation {
 			if (old != null) {
 				new Reconciler(new GMFGenConfig()).reconcileTree(genBurdern, old);
 			}
+		} catch (IOException e) {
+			// can't load resource, means no old file, IGNORE
 		} catch (RuntimeException e) {
 			Plugin.log(e);
 			old = null;
 		} finally {
-			if (resource != null) {
+			if (resource != null && resource.isLoaded()) {
 				resource.unload();
 			}
 		}
@@ -457,7 +470,7 @@ public class TransformToGenModelOperation {
 			}
 			gmfgenRes.save(saveOptions);
 		} catch (RuntimeException ex) {
-			Resource dgmmRes = getResourceSet().createResource(getGenURI(), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
+			Resource dgmmRes = getResourceSet().createResource(getGenURI(), "org.eclipse.gmf.gen" /*GMFGen contentType, defined in oeg.codegen*/); //$NON-NLS-1$
 			dgmmRes.getContents().add(genBurdern);
 			dgmmRes.save(saveOptions);
 		}
