@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.gmf.xpand.migration.templates">
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.templates.legacy/codegen.templates"
+            originalLocation="/org.eclipse.gmf.codegen/templates">
+      </xpand-root>
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.templates.legacy/codegen.templates-dynmodel"
+            originalLocation="/org.eclipse.gmf.codegen/templates-dynmodel">
+      </xpand-root>
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.templates.legacy/codegen.lite.templates"
+            originalLocation="/org.eclipse.gmf.codegen.lite/templates">
+      </xpand-root>
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.templates.legacy/graphdef.codegen.templates"
+            originalLocation="/org.eclipse.gmf.graphdef.codegen/templates">
+      </xpand-root>
+   </extension>
+
+</plugin>
