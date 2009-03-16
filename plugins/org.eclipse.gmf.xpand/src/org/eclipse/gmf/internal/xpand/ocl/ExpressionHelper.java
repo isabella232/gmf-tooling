@@ -60,7 +60,7 @@ public class ExpressionHelper {
 		EcoreEnvironment env = getOCLEnvironment(ctx);
 		OCLExpression<EClassifier> expression = getOCLExpression(env);
 		handleOCLAnalyzationErrors(issues);
-		return expression.getType();
+		return expression!= null ? expression.getType() : null;
 	}
 
 	/**
