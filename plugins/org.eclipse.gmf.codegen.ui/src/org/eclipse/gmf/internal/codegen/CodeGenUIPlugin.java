@@ -77,10 +77,6 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 		return getDefault().getBundle().getSymbolicName();
 	}
 
-	public static boolean needsReconcile() {
-		return !Boolean.FALSE.toString().equals(Platform.getDebugOption(getPluginID() + "/reconcile"));
-	}
-
 	public CodegenEmitters getEmitters(GenEditorGenerator genModel) {
 		if (emitterSource == null) {
 			emitterSource = new EmitterSource<GenEditorGenerator, CodegenEmitters>() {
