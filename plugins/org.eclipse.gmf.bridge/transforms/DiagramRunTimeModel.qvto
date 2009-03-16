@@ -20,9 +20,9 @@ main() {
 	var genEditor = gmfgenModel.rootObjects()![GMFGEN::GenEditorGenerator];
 	--
 	var notationPackage = genModel.genPackages[ecorePackage.name = 'notation'];
-	var nodeClass : GENMODEL::GenClass = notationPackage.genClasses[ecoreClass.name = 'Node']->first();
-	var linkClass : GENMODEL::GenClass = notationPackage.genClasses[ecoreClass.name = 'Edge']->first();
-	var diagramClass : GENMODEL::GenClass = notationPackage.genClasses[ecoreClass.name = 'Diagram']->first();
+	var nodeClass : GENMODEL::GenClass = notationPackage.genClasses![ecoreClass.name = 'Node'];
+	var linkClass : GENMODEL::GenClass = notationPackage.genClasses![ecoreClass.name = 'Edge'];
+	var diagramClass : GENMODEL::GenClass = notationPackage.genClasses![ecoreClass.name = 'Diagram'];
 	var labelClass : GENMODEL::GenClass = nodeClass;
 	--
 	var gd = genEditor.diagram;

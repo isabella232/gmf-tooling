@@ -23,19 +23,22 @@ import PreferencePages;
 import Navigator;
 import Actions;
 import RichClientPlatformApp;
-import Viewmaps;
+--import Viewmaps;
 import Identity;
 --
 import gmf.GenModelAccess;
 
+import xpt.XpandFacade;
+
 --
 -- Next attempt to author GMFMap-to-GMFGen transformation
 --
-transformation Map2Gen(in mapModel : GMFMAP, in domainGenModel : GENMODEL, out gmfgenModel : GMFGEN)
+transformation Map2Gen(in mapModel : GMFMAP, in domainGenModel : GENMODEL, in diagramRuntimeGenModel : GENMODEL, out gmfgenModel : GMFGEN)
 --	access transformation Structure(in GMFMAP, inout GMFGEN)
 --	access transformation DiagramRunTimeModel(in GMFMAP, inout GMFGEN)
 	;
 
+--configuration property options : Dict(String, OclAny);
 configuration property rcp : Boolean;
 configuration property useMapMode : Boolean;
 configuration property useFullRunTime : Boolean;
@@ -49,7 +52,7 @@ main() {
 	var genEditor := mapRoot.map structure();
 	genEditor.diagram.compartments += genEditor.diagram.getAllNodes().compartments; -- DGMT#createGenCompartment
 	new Identity(mapModel, gmfgenModel).transform();
-	new Viewmaps(mapModel, gmfgenModel).transform();
+	--new Viewmaps(mapModel, gmfgenModel).transform();
 	-- ???genEditor.diagram.palette := mapRoot.diagram.map palette();
 	genEditor.diagram.palette := mapRoot.diagram.map palette();
 	genEditor.domainGenModel := mapRoot.diagram.domainModel.findGenPackage().genModel;
@@ -74,7 +77,7 @@ main() {
 	} endif;
 --	var xx : GENMODEL := GENMODEL::createEmptyModel().oclAsType(GENMODEL);
 --	var notationGenModel@xx : GENMODEL::GenModel := loadNotationGenModel(genEditor.oclAsType(ECORE::EObject));
---	new DiagramRunTimeModel(xx, gmfgenModel).transform();
+	new DiagramRunTimeModel(diagramRuntimeGenModel, gmfgenModel).transform();
 	if not rcp then new Navigator(mapModel, gmfgenModel).transform() endif;
 	new PropertySheet(mapModel, gmfgenModel).transform();
 	new PreferencePages(mapModel, gmfgenModel).transform();
@@ -97,6 +100,7 @@ mapping GMFMAP::Mapping::structure() : GMFGEN::GenEditorGenerator@gmfgenModel {
 	--diagram.getAllNodes()->forEach(n) { setupElementType(n) };
 	--diagram.links->forEach(l) { setupElementType(l) };
 	-- <end of element types>
+	diagram.viewmap := self.diagram.diagramCanvas.map viewmap(); 
 }
 
 -- XXX review - Specialization type is created again and again - why not reuse it?
@@ -143,6 +147,7 @@ helper GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
 	setupElementType(rv);
 	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += rv;
 	self.child.processAbstractNode(rv);
+	rv.viewmap := self.child.diagramNode.viewmap();
 	return rv;
 }
 
@@ -183,9 +188,11 @@ mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink {
 		gl.readOnly := lm.readOnly;
 		gl.elementIcon := lm.diagramLabel.elementIcon;
 		gl.modelFacet := lm.map createLabelModelFacet();
+		gl.viewmap := lm.diagramLabel.viewmap();
 	};
 	self.tool.map paletteEntry().oclAsType(ToolEntry).genLinks += result;
 	setupElementType(result);
+	result.viewmap := self.diagramLink.viewmap();
 	result.creationConstraints := self.creationConstraints.map structure();
 }
 query EClass::findGenClass() : GENMODEL::GenClass {
@@ -247,16 +254,16 @@ mapping GMFMAP::NodeMapping::createGenChildLabelNode() : GMFGEN::GenChildLabelNo
 	labelModelFacet := soleLabel.map createLabelModelFacet();
 	labelReadOnly := soleLabel.readOnly;
 	labelElementIcon := soleLabel.diagramLabel.elementIcon;
-	-- XXX viewmap :=
+	viewmap := soleLabel.diagramLabel.viewmap();
 	 -- needCompartmentChildrenLabelProcessing = false, no need to processAbstractNode
 }
 mapping GMFMAP::NodeMapping::createGenChildSideAffixedNode() : GMFGEN::GenChildSideAffixedNode when { self.diagramNode.affixedParentSide <> GMFGRAPH::Direction::NONE} {
-	-- XXX viewmap :=
+	viewmap := self.diagramNode.viewmap();
 	preferredSideName := self.diagramNode.getAffixedSideAsPositionConstantsName();
 	self.processAbstractNode(result);
 }
 mapping GMFMAP::NodeMapping::createGenChildNode() : GMFGEN::GenChildNode {
-	-- XXX viewmap :=
+	viewmap := self.diagramNode.viewmap();
 	self.processAbstractNode(result); -- needCompartmentChildrenLabelProcessing = true
 }
 helper GMFMAP::ChildReference::createGenChildNode() : GMFGEN::GenChildNode {
@@ -298,6 +305,7 @@ mapping GMFMAP::CompartmentMapping::structure() : GMFGEN::GenCompartment {
 	result.canCollapse := self.compartment.collapsible;
 	result.needsTitle := self.compartment.needsTitle;
 	result.title := self.compartment.name;
+	result.viewmap := self.compartment.viewmap();
 }
 
 mapping GMFMAP::LabelMapping::createNodeLabel(in genNode : GMFGEN::GenNode) : GMFGEN::GenNodeLabel {
@@ -312,6 +320,7 @@ mapping GMFMAP::LabelMapping::createNodeLabel(in genNode : GMFGEN::GenNode) : GM
 	result.modelFacet := self.map createLabelModelFacet();
 	result.readOnly := self.readOnly;
 	result.elementIcon := self.diagramLabel.elementIcon;
+	result.viewmap := self.diagramLabel.viewmap();
 }
 
 -- XXX perhaps, can replace with mapping WTF::auxParser() and WTF::externalParser, to use QVTO to create instances when
@@ -666,3 +675,88 @@ mapping GMFMAP::MetricRule::rule() : GMFGEN::GenMetricRule {
 mapping GMFMAP::Measurable::metricTarget() : GMFGEN::GenMeasurable
 	disjuncts GMFMAP::DomainElementTarget::ruleTarget, GMFMAP::NotationElementTarget::ruleTarget, GMFMAP::DiagramElementTarget::ruleTarget
 	{} --assert (false) with log ('Unknown rule target', self);
+
+
+	
+-- *************************************************************************************
+-- Viewmaps
+-- *************************************************************************************
+
+property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates.migrated/'};
+
+mapping GMFGRAPH::Canvas::viewmap() : GMFGEN::Viewmap {
+	init {
+		result := object GMFGEN::FigureViewmap {
+			figureQualifiedClassName := 'org.eclipse.draw2d.FreeformLayer';
+		};
+	}
+}
+helper GMFGRAPH::Node::viewmap() : GMFGEN::Viewmap {
+	--result := object ModeledViewmap { figureModel := self.oclAsType(ECORE::EObject); };
+	var rv := self.figure.viewmap();
+	if self.figure.actualFigure.layout.oclIsKindOf(GMFGRAPH::FlowLayout) then {
+		var fl := self.figure.actualFigure.layout.oclAsType(GMFGRAPH::FlowLayout);
+		if fl.forceSingleLine then rv.layoutType := GMFGEN::ViewmapLayoutType::TOOLBAR_LAYOUT else rv.layoutType := GMFGEN::ViewmapLayoutType::FLOW_LAYOUT endif;
+	} else 
+		if self.figure.actualFigure.layout.oclIsKindOf(GMFGRAPH::XYLayout) then rv.layoutType := GMFGEN::ViewmapLayoutType::XY_LAYOUT endif
+	endif;
+	return rv;
+}
+helper GMFGRAPH::Compartment::viewmap() : GMFGEN::Viewmap {
+	-- FIXME check self.accessor, see InnerClassViewapProducer
+	if self.accessor.oclIsUndefined() then return self.figure.viewmap() endif;
+	return self.figure.viewmap(self.accessor);
+}
+helper GMFGRAPH::Connection::viewmap() : GMFGEN::Viewmap {
+	return self.figure.viewmap();
+}
+helper GMFGRAPH::DiagramLabel::viewmap() : GMFGEN::Viewmap {
+	--object ModeledViewmap { figureModel := self.oclAsType(ECORE::EObject); };
+	if self.accessor.oclIsUndefined() then return self.figure.viewmap() endif;
+	-- for GenLinkLabel, need to specify alignment based on AlignmentFacet
+	-- besides, need to create LabelOffsetAttributes and optionally populate it from LabelOffsetFacet
+	return self.figure.viewmap(self.accessor);
+}
+
+helper GMFGRAPH::FigureDescriptor::viewmap() : GMFGEN::Viewmap {
+	if self.actualFigure.isBareInstance() then 
+		return object GMFGEN::FigureViewmap {
+			figureQualifiedClassName := self.actualFigure.xpand('Runtime::fqn', templateRoots);
+		}
+	endif;
+	return object GMFGEN::InnerClassViewmap { 
+		classBody := self.xpand('top::Descriptor::Inner', templateRoots);
+		className := self.name.firstToUpper(); -- FIXME InnerClassViewmapProducer has validJavaIdentifier(capName()) 
+	};
+}
+helper GMFGRAPH::FigureDescriptor::viewmap(childAccess : GMFGRAPH::ChildAccess) : GMFGEN::Viewmap {
+	return object GMFGEN::ParentAssignedViewmap {
+		getterName := childAccess.accessor;
+		figureQualifiedClassName := childAccess.figure.xpand('Runtime::fqn', templateRoots);
+		--FIXME setupStyleAttributes
+	};
+}
+query GMFGRAPH::Figure::isBareInstance() : Boolean { return false; }
+query GMFGRAPH::RealFigure::isBareInstance() : Boolean {
+	if self.children->notEmpty() then return false endif;
+	if self.oclIsKindOf(GMFGRAPH::Label) then {
+		if self.oclAsType(GMFGRAPH::Label).text <> null then return false endif;
+	} endif;
+	if self.oclIsKindOf(GMFGRAPH::Shape) then {
+		var sh : Shape := self.oclAsType(GMFGRAPH::Shape);
+		if sh.lineWidth <> 1 then return false endif;
+		if sh.lineKind <> LineKind::LINE_SOLID then return false endif;
+		if not sh.outline or not sh.fill or sh.xorFill or sh.xorOutline then return false endif;
+	} endif;
+	if self.border <> null then return false endif;
+	if self.font <> null then return false endif;
+	if self.foregroundColor <> null then return false endif;
+	if self.backgroundColor <> null then return false endif;
+	if self.maximumSize <> null then return false endif;
+	if self.minimumSize <> null then return false endif;
+	if self.preferredSize <> null then return false endif;
+	if self.insets <> null then return false endif;
+	if self.location <> null then return false endif;
+	if self.size <> null then return false endif;
+	return true;
+}
