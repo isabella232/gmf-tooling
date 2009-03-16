@@ -29,7 +29,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.gmf.xtend.migration";
+	public static final String PLUGIN_ID = "org.eclipse.gmf.xpand.migration";
 
 	// The shared instance
 	private static Activator plugin;
@@ -193,5 +193,14 @@ public class Activator extends Plugin {
 			return false;
 		}
 	};
+
+	private LegacyTemplateRootRegistry legacyTemplateRootRegistry;
+
+	public LegacyTemplateRootRegistry getLegacyTemplateRootRegistry() {
+		if (legacyTemplateRootRegistry == null) {
+			legacyTemplateRootRegistry = new LegacyTemplateRootRegistry();
+		}
+		return legacyTemplateRootRegistry;
+	}
 
 }

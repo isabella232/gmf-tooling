@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
+import org.eclipse.gmf.internal.xpand.migration.Activator;
 import org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject;
 
 /**
@@ -233,7 +234,7 @@ public class RootManager {
 		if (rootFolder instanceof IFolder) {
 			RootDescription rootDescription = getRootDescription((IFolder) rootFolder);
 			assert rootDescription != null;
-			List<IPath> newRoots = new ArrayList<IPath>(rootDescription.getRoots());
+			List<IPath> newRoots = new ArrayList<IPath>(rootDescription.getOriginalRoots());
 			for (int i = 0; i < newRoots.size(); i++) {
 				if (i == 0) {
 					newRoots.set(0, templatesOutputFolder.getProjectRelativePath());
@@ -284,12 +285,23 @@ public class RootManager {
 	}
 
 	public class RootDescription {
+		private final List<IPath> myOriginalRoots;
 		private final List<IPath> myRoots;
 		private WorkspaceResourceManager myManager;
 		public RootDescription(List<IPath> roots) {
-			myRoots = roots;
+			myOriginalRoots = roots;
+			myRoots = new ArrayList<IPath>(roots.size());
+			for (IPath iPath : roots) {
+				myRoots.add(Activator.getDefault().getLegacyTemplateRootRegistry().getActualRoot(iPath));
+			}
+		}
+		public List<IPath> getOriginalRoots() {
+			return myOriginalRoots;
 		}
 		public List<IPath> getRoots() {
+			if (myRoots == null) {
+				
+			}
 			return myRoots;
 		}
 		public WorkspaceResourceManager getManager() {

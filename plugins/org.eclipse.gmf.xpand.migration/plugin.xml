@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+   <extension-point id="org.eclipse.gmf.xpand.migration.templates" name="Legacy templates" schema="schema/org.eclipse.gmf.xpand.migration.templates.exsd"/>
    <extension
          point="org.eclipse.ui.popupMenus">
 <!-- Following actions are not used anymore - only project-wide migration action is available

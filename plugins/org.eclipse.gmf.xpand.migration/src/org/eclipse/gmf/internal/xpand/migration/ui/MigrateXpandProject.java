@@ -192,7 +192,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		monitor.beginTask("Saving modified Xpand roots information", 2);
 		StringBuilder sb = new StringBuilder();
 		for (RootDescription rootDescription : rootDescriptions) {
-			for (int i = 0; i < rootDescription.getRoots().size(); i++) {
+			for (int i = 0; i < rootDescription.getOriginalRoots().size(); i++) {
 				if (i > 0) {
 					sb.append(",");
 				}
