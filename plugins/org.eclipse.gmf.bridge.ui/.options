@@ -1,6 +1,7 @@
 #
 # set to false to fully overwrite any existing gmfgen model, without any attempt to keep old values
 org.eclipse.gmf.bridge.ui/reconcile=true
+
 #
 # when there are content object(s) in the target .gmfgen resource in addition to GenEditorGenerator,
 # some of them may have references to GenEditorGenerator being replaced with new instance. Though we 
@@ -8,3 +9,9 @@ org.eclipse.gmf.bridge.ui/reconcile=true
 # and lead to exceptions during resource serialization. You may force to ignore such references with 
 # this option (reference will be lost and you'll need to set its value manually afterwards) 
 org.eclipse.gmf.bridge.ui/transform/ignore-dangling-on-save=false
+
+#
+# Turn this option on if you'd like to get console output of QVTO Map2Gen transformation
+# into System.err (e.g. log() statements from within Map2Gen.qvto)
+# Note, this option is likely to move to oeg.bridge plugin 
+org.eclipse.gmf.bridge.ui/transform/print-qvto-console=false

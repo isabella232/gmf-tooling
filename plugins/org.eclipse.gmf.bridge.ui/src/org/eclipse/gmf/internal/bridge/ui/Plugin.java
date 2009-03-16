@@ -143,6 +143,10 @@ public class Plugin extends AbstractUIPlugin {
 		String v = Platform.getDebugOption(getPluginID() + "/transform/ignore-dangling-on-save"); //$NON-NLS-1$
 		return !Boolean.FALSE.toString().equals(v);
 	}
+	public static boolean printTransformationConsole() {
+		String v = Platform.getDebugOption(getPluginID() + "/transform/print-qvto-console"); //$NON-NLS-1$
+		return v != null && !Boolean.FALSE.toString().equals(v);
+	}
 
 	/**
 	 * Returns an image descriptor for the image file at the given plug-in relative path.
