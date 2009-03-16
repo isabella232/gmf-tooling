@@ -459,8 +459,12 @@ public class TransformToGenModelOperation {
 	private void save(GenEditorGenerator genBurdern) throws IOException {
 		HashMap<String, Object> saveOptions = new HashMap<String, Object>();
 		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+		Resource gmfgenRes = getResourceSet().getResource(getGenURI(), false);
 		try {
-			Resource gmfgenRes = getResourceSet().getResource(getGenURI(), true);
+			if (gmfgenRes == null) {
+				gmfgenRes = getResourceSet().createResource(getGenURI(), "org.eclipse.gmf.gen" /*GMFGen contentType, defined in oeg.codegen*/); //$NON-NLS-1$
+				gmfgenRes.load(getResourceSet().getLoadOptions());
+			}
 			updateExistingResource(gmfgenRes, genBurdern);
 			// one might want to ignore dangling href on save when there are more than one
 			// content object - there are chances we don't match them during reconcile and 
@@ -469,10 +473,15 @@ public class TransformToGenModelOperation {
 				saveOptions.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_RECORD);
 			}
 			gmfgenRes.save(saveOptions);
+		} catch (IOException ex) {
+			// load failed, no file exists
+			gmfgenRes.getContents().add(genBurdern);
+			gmfgenRes.save(saveOptions);
 		} catch (RuntimeException ex) {
-			Resource dgmmRes = getResourceSet().createResource(getGenURI(), "org.eclipse.gmf.gen" /*GMFGen contentType, defined in oeg.codegen*/); //$NON-NLS-1$
-			dgmmRes.getContents().add(genBurdern);
-			dgmmRes.save(saveOptions);
+			Plugin.log(ex);
+			// save anyway, for later examination
+			gmfgenRes.getContents().add(genBurdern);
+			gmfgenRes.save(saveOptions);
 		}
 	}
 
