@@ -185,6 +185,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		switchToNewXpandBuilder(newRootDescriptions, createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
 		updateXpandRootFile(newRootDescriptions, createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
 		getBuildPropertiesManager().save(createSubProgressMonitor(monitor, "Saving build.properties", 1));
+		OawMarkerManager.deleteMarkers(getSelectedProject());
 		buildPropertiesManager = null;
 	}
 
