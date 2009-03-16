@@ -962,7 +962,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			genAudit.setSeverity(genSeverity);
 		}
 		return genAudit;
-	} 
+	}
 	
 	private GenRuleTarget createRuleTarget(EObject ruleTarget) {		
 		if (ruleTarget instanceof DomainElementTarget) {
@@ -973,6 +973,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		} else if (ruleTarget instanceof NotationElementTarget) {
 			NotationElementTarget notationTarget = (NotationElementTarget) ruleTarget;
 			GenNotationElementTarget genNotationTarget = GMFGenFactory.eINSTANCE.createGenNotationElementTarget();
+			// XXX findGenClass gives GenClass from domain model, is that what's expected here (NotationTarget)?
 			genNotationTarget.setElement(notationTarget.getElement() != null ? findGenClass(notationTarget.getElement()) : null);
 			return genNotationTarget;
 
@@ -1023,7 +1024,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			genAttrTarget.setNullAsError(attrTarget.isNullAsError());
 			return genAttrTarget;				
 		} else {
-			assert false : "Uknown rule target type"; //$NON-NLS-1$
+			assert false : "Unknown rule target type"; //$NON-NLS-1$
 		}
 		return null;
 	}
