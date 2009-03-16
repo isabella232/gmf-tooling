@@ -283,7 +283,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 
 		private EditHelpersProjectSetup(GeneratorConfiguration generatorFactory) {
 			super(generatorFactory);
-			URL templatesURL = Plugin.getBundleContext().getBundle().getEntry("templates/edithelpers.migrated");
+			URL templatesURL = Plugin.getBundleContext().getBundle().getEntry("templates/edithelpers");
 			myResourceManager = new BundleResourceManager(templatesURL);
 		}
 

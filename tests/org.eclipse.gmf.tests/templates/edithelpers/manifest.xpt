@@ -10,13 +10,13 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«DEFINE main FOR String-»
+«DEFINE _main FOR String-»
 Manifest-Version: 1.0 
 Bundle-ManifestVersion: 2
 Bundle-Name: editHelpers
-Bundle-SymbolicName: «this»;singleton:=true 
+Bundle-SymbolicName: «self»;singleton:=true 
 Bundle-Version: 1.0.0
 Bundle-ClassPath: ., bin/
 Bundle-Vendor: %providerName

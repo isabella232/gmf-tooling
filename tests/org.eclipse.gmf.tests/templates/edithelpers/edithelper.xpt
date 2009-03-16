@@ -10,9 +10,10 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«EXTENSION xpt::StringOperations»
 
-«DEFINE main FOR gmfgen::ElementType-»
+«DEFINE _main FOR gmfgen::ElementType-»
 public class «EXPAND className» extends org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice {
 
 	public org.eclipse.gmf.runtime.common.core.command.ICommand getBeforeEditCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
@@ -44,9 +45,9 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.emf.type.core.ed
 «ENDDEFINE»
 
 «DEFINE className FOR gmfgen::ElementType-»
-	«ERROR "Should never be called"-»
+	«ERROR 'Should never be called'-»
 «ENDDEFINE»
 
 «DEFINE className FOR gmfgen::MetamodelType»«editHelperClassName»ExternalAdvice«ENDDEFINE»
 
-«DEFINE className FOR gmfgen::SpecializationType»«IF editHelperAdviceClassName == null || editHelperAdviceClassName.length() ==0»«diagramElement.getUniqueIdentifier()»«ELSE»«editHelperAdviceClassName»«ENDIF»ExternalAdvice«ENDDEFINE»
+«DEFINE className FOR gmfgen::SpecializationType»«IF editHelperAdviceClassName = null or editHelperAdviceClassName.xpandLength() = 0»«diagramElement.getUniqueIdentifier()»«ELSE»«editHelperAdviceClassName»«ENDIF»ExternalAdvice«ENDDEFINE»

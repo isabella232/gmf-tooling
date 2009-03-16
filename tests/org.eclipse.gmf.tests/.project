@@ -25,7 +25,7 @@
 			<arguments>
 				<dictionary>
 					<key>src_container</key>
-					<value>templates/edithelpers.migrated</value>
+					<value>templates/edithelpers</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

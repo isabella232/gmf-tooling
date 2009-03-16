@@ -10,18 +10,18 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
 
-«DEFINE main FOR gmfgen::GenDiagram-»
+«DEFINE _main FOR gmfgen::GenDiagram-»
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
 	<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
-«EXPAND registerHelperAdvice FOREACH topLevelNodes.select(n|n.elementType != null)-»
+«EXPAND registerHelperAdvice FOREACH topLevelNodes->select(n | n.elementType <> null)-»
 	</extension>
 	<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
 		<binding context="«editorGen.plugin.iD».TypeContext">
-«EXPAND registerHelperAdviceBinding FOREACH topLevelNodes.select(n|n.elementType != null)-»
+«EXPAND registerHelperAdviceBinding FOREACH topLevelNodes->select(n | n.elementType <> null)-»
 		</binding>
 	</extension>
 </plugin>
