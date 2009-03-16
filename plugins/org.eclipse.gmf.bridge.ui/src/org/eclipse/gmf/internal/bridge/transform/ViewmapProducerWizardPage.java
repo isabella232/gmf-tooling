@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Fedorov (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) extra controls (templates, transformations)
  */
 package org.eclipse.gmf.internal.bridge.transform;
 
@@ -30,6 +31,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
@@ -53,6 +55,8 @@ class ViewmapProducerWizardPage extends WizardPage {
 	private Button radioQVT;
 	private Button preReconcileTransformBtn;
 	private Button postReconcileTransformBtn;
+	private ExpandItem myTemplatePathItem;
+	private ExpandItem myTransformsItem;
 
 	protected ViewmapProducerWizardPage(String pageName) {
 		super(pageName);
@@ -66,11 +70,18 @@ class ViewmapProducerWizardPage extends WizardPage {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout());
 		createControls(composite);
-		initControls();
-		validatePage();
 
 		setControl(composite);
 		Dialog.applyDialogFont(composite);
+	}
+
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		if (visible) {
+			initControls();
+			validatePage();
+		}
 	}
 
 	private void createControls(Composite result) {
@@ -121,16 +132,10 @@ class ViewmapProducerWizardPage extends WizardPage {
 			}
 		};
 		templatesPathText.addListener(SWT.Modify, modifyListener);
-        ExpandItem item = new ExpandItem(c, SWT.NONE, 0);
-        item.setText("GMFGraph dynamic templates");
-		item.setHeight(templatesPathText.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
-		item.setControl(templatesPathText);
-		if (getOperation().getOptions().getFigureTemplatesPath() != null) {
-			// reveal the value to avoid confusion.
-			// FIXME extract expand bar with template path as separate control and
-			// move expand logic there (based on setInitialValue event
-			item.setExpanded(true);
-		}
+        myTemplatePathItem = new ExpandItem(c, SWT.NONE, 0);
+        myTemplatePathItem.setText("GMFGraph dynamic templates");
+		myTemplatePathItem.setHeight(templatesPathText.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+		myTemplatePathItem.setControl(templatesPathText);
 		//
 		Composite map2genControls = new Composite(c, SWT.NONE);
 		map2genControls.setLayout(new FillLayout(SWT.VERTICAL));
@@ -140,11 +145,20 @@ class ViewmapProducerWizardPage extends WizardPage {
 		radioQVT.setText("Use QVTO transformation");
 		qvtoFileControl = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
 		qvtoFileControl.addListener(SWT.Modify, modifyListener);
-		Listener l = new Listener() {
-			public void handleEvent(Event event) {
-				qvtoFileControl.setEnabled(radioQVT.getSelection());
+		class EnablementListener implements Listener {
+			private final Button myControl;
+			private final Control myTarget;
+			public EnablementListener(Button control, Control target) {
+				assert control != null && target != null;
+				myControl = control;
+				myTarget = target;
 			}
+			public void handleEvent(Event event) {
+				myTarget.setEnabled(myControl.getSelection());
+			}
+			
 		};
+		EnablementListener l = new EnablementListener(radioQVT, qvtoFileControl);
 		radioDGMT.addListener(SWT.Selection, l);
 		radioQVT.addListener(SWT.Selection, l);
 		preReconcileTransformBtn = new Button(map2genControls, SWT.CHECK);
@@ -153,26 +167,17 @@ class ViewmapProducerWizardPage extends WizardPage {
 		postReconcileTransformBtn = new Button(map2genControls, SWT.CHECK);
 		postReconcileTransformBtn.setText("Extra in-place gmfgen transformation after a reconcile step");
 		postReconcileTranfsormText = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
-		l = new Listener() {
-			public void handleEvent(Event event) {
-				if (event.widget == preReconcileTransformBtn) {
-					preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
-				} else if (event.widget == postReconcileTransformBtn) {
-					postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
-				}
-			}
-		};
-		preReconcileTransformBtn.addListener(SWT.Selection, l);
-		postReconcileTransformBtn.addListener(SWT.Selection, l);
+		preReconcileTransformBtn.addListener(SWT.Selection, new EnablementListener(preReconcileTransformBtn, preReconcileTranfsormText));
+		postReconcileTransformBtn.addListener(SWT.Selection, new EnablementListener(postReconcileTransformBtn, postReconcileTranfsormText));
 		preReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
 		postReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
 		String hint = "Transformation should take single inout parameter of GMFGen model type, e.g.\n\nmodeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');\n\ntransformation %s(inout gmfgenModel : GMFGEN);\n\n main() {...}";
 		preReconcileTranfsormText.setToolTipText(String.format(hint, "PreReconcile"));
 		postReconcileTranfsormText.setToolTipText(String.format(hint, "PostReconcile"));
-		item = new ExpandItem(c, SWT.NONE, 1);
-		item.setText("Map to Gen transformation");
-		item.setHeight(map2genControls.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
-		item.setControl(map2genControls);
+		myTransformsItem = new ExpandItem(c, SWT.NONE, 1);
+		myTransformsItem.setText("Map to Gen transformation");
+		myTransformsItem.setHeight(map2genControls.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+		myTransformsItem.setControl(map2genControls);
 		//
 	}
 	
@@ -213,16 +218,25 @@ class ViewmapProducerWizardPage extends WizardPage {
 		useMapModeButton.setSelection(options.getUseMapMode());
 		if (null != options.getFigureTemplatesPath()) {
 			templatesPathText.setText(options.getFigureTemplatesPath().toString());
+			// reveal the value to avoid confusion.
+			// FIXME extract expand bar with template path as separate control and
+			// move expand logic there (based on setInitialValue event
+			myTemplatePathItem.setExpanded(true);
 		}
+
 		radioDGMT.setSelection(options.getMainTransformation() == null);
 		radioQVT.setSelection(!radioDGMT.getSelection());
 		qvtoFileControl.setEnabled(radioQVT.getSelection());
+		qvtoFileControl.setText(options.getMainTransformation() != null ? options.getMainTransformation().toString() : ""); //$NON-NLS-1$
 		preReconcileTransformBtn.setSelection(options.getPreReconcileTransform() != null);
 		preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
-		preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : "");
+		preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : ""); //$NON-NLS-1$
 		postReconcileTransformBtn.setSelection(options.getPostReconcileTransform() != null);
 		postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
-		postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : "");
+		postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : ""); //$NON-NLS-1$
+		if (radioQVT.getSelection() || preReconcileTransformBtn.getSelection() || postReconcileTransformBtn.getSelection()) {
+			myTransformsItem.setExpanded(true);
+		}
 	}
 
 	private TransformToGenModelOperation getOperation() {
@@ -241,7 +255,12 @@ class ViewmapProducerWizardPage extends WizardPage {
 
 	private static String guessAndResolvePathURL(String path, boolean resolve) {
 		assert path != null;
-		URI templatesURI = path.indexOf(':') == -1 ? URI.createPlatformResourceURI(path, true) : URI.createURI(path);
-		return resolve ? CommonPlugin.resolve(templatesURI).toString() : templatesURI.toString();
+		try {
+			URI templatesURI = path.indexOf(':') == -1 ? URI.createPlatformResourceURI(path, true) : URI.createURI(path);
+			return resolve ? CommonPlugin.resolve(templatesURI).toString() : templatesURI.toString();
+		} catch (IllegalArgumentException ex) {
+			// IGNORE. URI#validate throws IAE if path is incorrect, e.g. once user typed in "platform:" - opaquePart is illegal
+		}
+		return path;
 	}
 }

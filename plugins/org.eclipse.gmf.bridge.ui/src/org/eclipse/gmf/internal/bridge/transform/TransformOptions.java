@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -52,13 +52,21 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 
 	private Preferences myContextPrefs; // may be null
 	private Preferences myGlobalPrefs;
+	// null value indicates value was not yet accessed, to indicate value removal, use dedicated myNoValueToken 
 	private final HashMap<String,String> myInMemPrefs = new HashMap<String,String>();
+	// explicit "no-value" value to indicate absence of the key
+	// need this when global preferences have e.g. postReconcileTr set, but current transformation cleaned the option, 
+	// hence key absence in the myInMemPrefs map is non-indicative
+	private final String myNoValueToken = new String("no value"); //$NON-NLS-1$
 	
 	public TransformOptions() {
 	}
 
 	public void setContext(Preferences contextPrefs) {
-		myContextPrefs = contextPrefs;
+		if (myContextPrefs != contextPrefs) {
+			myContextPrefs = contextPrefs;
+			reset();
+		}
 	}
 
 	public void reset() {
@@ -70,14 +78,17 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 			for (String k : myInMemPrefs.keySet()) {
 				// Is it reasonable to always record last used options as global
 				// (so that next time wizard shows up, last-used options will be used, not defaults)?
-				getGlobalPrefs().put(k, myInMemPrefs.get(k));
+				String v = myInMemPrefs.get(k);
+				if (v != myNoValueToken) { // XXX might be reasonable also check for null, though should never happen
+					getGlobalPrefs().put(k, v);
+				}
 			}
 			getGlobalPrefs().flush();
 			if (myContextPrefs != null) {
 				// global preferences may change in the future, so record all values
 				for (String k : PROP_NAMES) {
 					String v = getWithContexts(k);
-					if (v != null) {
+					if (v != null && v != myNoValueToken) {
 						myContextPrefs.put(k, v);
 					}
 				}
@@ -149,35 +160,19 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	}
 
 	public void setFigureTemplatesPath(URL path) {
-		if (path == null) {
-			myInMemPrefs.remove(PREF_FIGURE_TEMPLATES);
-		} else {
-			myInMemPrefs.put(PREF_FIGURE_TEMPLATES, path.toString());
-		}
+		myInMemPrefs.put(PREF_FIGURE_TEMPLATES, path == null ? myNoValueToken : path.toString());
 	}
 
 	public void setTransformation(URL path) {
-		if (path == null) {
-			myInMemPrefs.remove(PREF_MAIN_TRANSFORM);
-		} else {
-			myInMemPrefs.put(PREF_MAIN_TRANSFORM, path.toString());
-		}
+		myInMemPrefs.put(PREF_MAIN_TRANSFORM, path == null ? myNoValueToken : path.toString());
 	}
 
 	public void setPreReconcileTransform(URL path) {
-		if (path == null) {
-			myInMemPrefs.remove(PREF_PRE_RECONCILE_TRANSFORM);
-		} else {
-			myInMemPrefs.put(PREF_PRE_RECONCILE_TRANSFORM, path.toString());
-		}
+		myInMemPrefs.put(PREF_PRE_RECONCILE_TRANSFORM, path == null ? myNoValueToken : path.toString());
 	}
 
 	public void setPostReconcileTransform(URL path) {
-		if (path == null) {
-			myInMemPrefs.remove(PREF_POST_RECONCILE_TRANSFORM);
-		} else {
-			myInMemPrefs.put(PREF_POST_RECONCILE_TRANSFORM, path.toString());
-		}
+		myInMemPrefs.put(PREF_POST_RECONCILE_TRANSFORM, path == null ? myNoValueToken : path.toString());
 	}
 
 	@Override
@@ -196,15 +191,22 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	}
 
 	private String getWithContexts(String key) {
-		if (myInMemPrefs.containsKey(key)) {
-			return myInMemPrefs.get(key);
+		String v = myInMemPrefs.get(key);
+		if (v != null && v != myNoValueToken) {
+			return v;
+		}
+		if (v == myNoValueToken) {
+			return null;
 		}
 		ArrayList<Preferences> scopes = new ArrayList<Preferences>(3);
 		if (myContextPrefs != null) {
-			// there might be no context-specific scope
+			// there may be no context-specific scope
 			scopes.add(myContextPrefs);
+		} else {
+			// respect globals only if there's no context. Otherwise (if we chain both), globals may have postRecoTr set, while context not
+			// but chaining would give us a result as if it would have been set
+			scopes.add(getGlobalPrefs());
 		}
-		scopes.add(getGlobalPrefs());
 		scopes.add(getDefaultPrefs());
 		// XXX alternative is to use default lookup order, with getString(Plugin.getPluginID, key, null, null))
 		// but seems like we don't care about other scopes than project, instance and default
