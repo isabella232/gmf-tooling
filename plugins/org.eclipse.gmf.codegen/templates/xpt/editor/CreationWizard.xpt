@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,9 +9,10 @@
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
 «EXTENSION xpt::editor::Utils»
+«EXTENSION xpt::editor::GenDiagram»
 
 «DEFINE CreationWizard FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -29,7 +30,7 @@ public class «creationWizardClassName»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «getCreationWizardPageQualifiedClassName()» diagramModelFilePage;
-	«IF isStandaloneDomainModel(self)-»
+	«IF standaloneDomainModel(self)-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «getCreationWizardPageQualifiedClassName()» domainModelFilePage;
@@ -83,7 +84,7 @@ public class «creationWizardClassName»
 		diagramModelFilePage.setTitle(«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreationWizardDiagramPage(self))) FOR editorGen»);
 		diagramModelFilePage.setDescription(«EXPAND xpt::Externalizer::accessorCall(descriptionKey(i18nKeyForCreationWizardDiagramPage(self))) FOR editorGen»);
 		addPage(diagramModelFilePage);
-	«IF isStandaloneDomainModel(self)-»
+	«IF standaloneDomainModel(self)-»
 
 		domainModelFilePage = new «getCreationWizardPageQualifiedClassName()»(
 				"DomainModelFile", getSelection(), "«editorGen.domainFileExtension»") { //$NON-NLS-1$ //$NON-NLS-2$
@@ -119,7 +120,7 @@ public class «creationWizardClassName»
 					throws InvocationTargetException, InterruptedException {
 	«ENDIF-»
 				diagram = «getDiagramEditorUtilQualifiedClassName()».createDiagram(diagramModelFilePage.getURI(),
-	«IF isStandaloneDomainModel(self)-»
+	«IF standaloneDomainModel(self)-»
 						domainModelFilePage.getURI(),
 	«ENDIF-»
 						monitor);
@@ -159,8 +160,8 @@ public class «creationWizardClassName»
 «DEFINE i18nValues FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreationWizard(self)), 'New ' + editorGen.modelID + ' Diagram')-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreationWizardDiagramPage(self)), 'Create ' + editorGen.modelID + ' Diagram')-»
-«EXPAND xpt::Externalizer::messageEntry(descriptionKey(i18nKeyForCreationWizardDiagramPage(self)), (if isStandaloneDomainModel(self) then 'Select file that will contain diagram model.' else 'Select file that will contain diagram and domain models.' endif))-»
-«IF isStandaloneDomainModel(self)-»
+«EXPAND xpt::Externalizer::messageEntry(descriptionKey(i18nKeyForCreationWizardDiagramPage(self)), (if standaloneDomainModel(self) then 'Select file that will contain diagram model.' else 'Select file that will contain diagram and domain models.' endif))-»
+«IF standaloneDomainModel(self)-»
 «EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreationWizardDomainPage(self)), 'Create ' + editorGen.modelID + ' Domain Model')-»
 «EXPAND xpt::Externalizer::messageEntry(descriptionKey(i18nKeyForCreationWizardDomainPage(self)), 'Select file that will contain domain model.')-»
 «ENDIF-»
@@ -172,7 +173,7 @@ public class «creationWizardClassName»
 	«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreationWizard(self)))-»
 	«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreationWizardDiagramPage(self)))-»
 	«EXPAND xpt::Externalizer::accessorField(descriptionKey(i18nKeyForCreationWizardDiagramPage(self)))-»
-	«IF isStandaloneDomainModel(self)-»
+	«IF standaloneDomainModel(self)-»
 	«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreationWizardDomainPage(self)))-»
 	«EXPAND xpt::Externalizer::accessorField(descriptionKey(i18nKeyForCreationWizardDomainPage(self)))-»
 	«ENDIF-»

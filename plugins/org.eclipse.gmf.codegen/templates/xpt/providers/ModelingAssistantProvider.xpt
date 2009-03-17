@@ -11,7 +11,7 @@
  *    Michael Golubev (Borland) - #244970 (GenChildLabelNode can't be link's source/target)
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
 «EXTENSION xpt::diagram::editparts::Utils»
 «EXTENSION xpt::providers::i18n»

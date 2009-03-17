@@ -13,7 +13,7 @@
 import xpt.diagram.editpolicies.LinkUtils;
 import xpt.GenModelUtils;
 
-modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library Utils;
 

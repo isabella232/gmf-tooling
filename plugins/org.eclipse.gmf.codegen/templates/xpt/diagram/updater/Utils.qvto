@@ -1,7 +1,19 @@
+/*
+ * Copyright (c) 2007, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
 import xpt.diagram.editpolicies.LinkUtils;
 
-modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
-modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
 
 library Utils;
 
@@ -17,134 +29,134 @@ helper getOutgoingLinksMethodNameSuffix() : String {
 	return 'Outgoing'
 }
 
-helper getContainedLinks(metaClass : genModel_1::GenClass, diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+helper getContainedLinks(metaClass : genmodel::GenClass, diagram : gmfgen::GenDiagram) : Sequence(gmfgen::GenLink) {
 	return diagram.links->select(link | canBeContainer(link, metaClass))->asSequence()
 }
 
-helper getOutgoingLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
+helper getOutgoingLinks(linkEnd : gmfgen::GenLinkEnd) : Sequence(gmfgen::GenLink) {
 	return linkEnd.getDiagram().links->select(link | linkEnd.genOutgoingLinks->includes(link))->asSequence()
 }
 
-helper getIncomingLinks(linkEnd : genModel::GenLinkEnd) : Sequence(genModel::GenLink) {
+helper getIncomingLinks(linkEnd : gmfgen::GenLinkEnd) : Sequence(gmfgen::GenLink) {
 	return linkEnd.getDiagram().links->select(link | linkEnd.genIncomingLinks->includes(link))->asSequence()
 }
 
-helper getAllContainedLinks(diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+helper getAllContainedLinks(diagram : gmfgen::GenDiagram) : Sequence(gmfgen::GenLink) {
 	return diagram.links->select(link | not getAllSemanticElements(diagram)->select(commonBase | canBeContainer(link, commonBase.getMetaClass()))->isEmpty())->asSequence()
 }
 
-helper getAllIncomingLinks(diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+helper getAllIncomingLinks(diagram : gmfgen::GenDiagram) : Sequence(gmfgen::GenLink) {
 	return diagram.links->select(link | not link.targets->isEmpty())->asSequence()
 }
 
-helper getAllOutgoingLinks(diagram : genModel::GenDiagram) : Sequence(genModel::GenLink) {
+helper getAllOutgoingLinks(diagram : gmfgen::GenDiagram) : Sequence(gmfgen::GenLink) {
 	return diagram.links->select(link | link.isOutgoingLink())->select(link | not link.sources->isEmpty())->asSequence()
 }
 
-helper genModel::GenLink::isOutgoingLink() : Boolean {
+helper gmfgen::GenLink::isOutgoingLink() : Boolean {
 	return null <> self.modelFacet and self.modelFacet.isOutgoingLink()
 }
 
-helper genModel::LinkModelFacet::isOutgoingLink() : Boolean {
+helper gmfgen::LinkModelFacet::isOutgoingLink() : Boolean {
 	return true
 }
 
-helper genModel::TypeLinkModelFacet::isOutgoingLink() : Boolean {
+helper gmfgen::TypeLinkModelFacet::isOutgoingLink() : Boolean {
 	return null <> self.sourceMetaFeature
 }
 
-helper getAllSemanticDiagramElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenLinkEnd) {
-	return ((diagram.getAllNodes()->asSequence())[genModel::GenLinkEnd]->union(diagram.links->asSequence()))[genModel::GenLinkEnd]->select(linkEnd | not linkEnd.getMetaClass().oclIsUndefined())
+helper getAllSemanticDiagramElements(diagram : gmfgen::GenDiagram) : Sequence(gmfgen::GenLinkEnd) {
+	return ((diagram.getAllNodes()->asSequence())[gmfgen::GenLinkEnd]->union(diagram.links->asSequence()))[gmfgen::GenLinkEnd]->select(linkEnd | not linkEnd.getMetaClass().oclIsUndefined())
 }
 
-helper getAllSemanticElements(diagram : genModel::GenDiagram) : Sequence(genModel::GenCommonBase) {
-	return (if null <> diagram.domainDiagramElement then (Sequence { diagram })[genModel::GenCommonBase]->union(getAllSemanticDiagramElements(diagram)) else getAllSemanticDiagramElements(diagram) endif)
+helper getAllSemanticElements(diagram : gmfgen::GenDiagram) : Sequence(gmfgen::GenCommonBase) {
+	return (if null <> diagram.domainDiagramElement then (Sequence { diagram })[gmfgen::GenCommonBase]->union(getAllSemanticDiagramElements(diagram)) else getAllSemanticDiagramElements(diagram) endif)
 }
 
-helper genModel::GenCommonBase::getMetaClass() : genModel_1::GenClass {
+helper gmfgen::GenCommonBase::getMetaClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel::GenDiagram::getMetaClass() : genModel_1::GenClass {
+helper gmfgen::GenDiagram::getMetaClass() : genmodel::GenClass {
 	return self.domainDiagramElement
 }
 
-helper genModel::GenNode::getMetaClass() : genModel_1::GenClass {
+helper gmfgen::GenNode::getMetaClass() : genmodel::GenClass {
 	return self.modelFacet.metaClass
 }
 
-helper genModel::GenLink::getMetaClass() : genModel_1::GenClass {
+helper gmfgen::GenLink::getMetaClass() : genmodel::GenClass {
 	return (if null <> self.modelFacet then self.modelFacet.getMetaClass() else null endif)
 }
 
-helper genModel::LinkModelFacet::getMetaClass() : genModel_1::GenClass {
+helper gmfgen::LinkModelFacet::getMetaClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel::TypeLinkModelFacet::getMetaClass() : genModel_1::GenClass {
+helper gmfgen::TypeLinkModelFacet::getMetaClass() : genmodel::GenClass {
 	return self.metaClass
 }
 
-helper hasSemanticChildren(container : genModel::GenContainerBase) : Boolean {
+helper hasSemanticChildren(container : gmfgen::GenContainerBase) : Boolean {
 	return not container.sansDomain and not container.containedNodes->isEmpty()
 }
 
-helper genModel::GenContainerBase::getModelElementType() : genModel_1::GenClass {
+helper gmfgen::GenContainerBase::getModelElementType() : genmodel::GenClass {
 	return null
 }
 
-helper genModel::GenDiagram::getModelElementType() : genModel_1::GenClass {
+helper gmfgen::GenDiagram::getModelElementType() : genmodel::GenClass {
 	return self.domainDiagramElement
 }
 
-helper genModel::GenCompartment::getModelElementType() : genModel_1::GenClass {
+helper gmfgen::GenCompartment::getModelElementType() : genmodel::GenClass {
 	return self.node.getModelElementType()
 }
 
-helper genModel::GenNode::getModelElementType() : genModel_1::GenClass {
+helper gmfgen::GenNode::getModelElementType() : genmodel::GenClass {
 	return self.modelFacet.metaClass
 }
 
-helper getSemanticChildrenChildFeatures(containerBase : genModel::GenContainerBase) : Set(genModel_1::GenFeature) {
+helper getSemanticChildrenChildFeatures(containerBase : gmfgen::GenContainerBase) : Set(genmodel::GenFeature) {
 	return getNonPhantomSemanticChildren(containerBase)->collect(node | node.modelFacet.childMetaFeature)->asOrderedSet()
 }
 
-helper getSemanticChildrenContainmentFeatures(containerBase : genModel::GenContainerBase) : Set(genModel_1::GenFeature) {
+helper getSemanticChildrenContainmentFeatures(containerBase : gmfgen::GenContainerBase) : Set(genmodel::GenFeature) {
 	return getNonPhantomSemanticChildren(containerBase)->collect(node | node.modelFacet.containmentMetaFeature)->asOrderedSet()
 }
 
-helper getSemanticChildren(containerBase : genModel::GenContainerBase, childMetaFeature : genModel_1::GenFeature) : Sequence(genModel::GenNode) {
+helper getSemanticChildren(containerBase : gmfgen::GenContainerBase, childMetaFeature : genmodel::GenFeature) : Sequence(gmfgen::GenNode) {
 	return getNonPhantomSemanticChildren(containerBase)->select(node | node.modelFacet.childMetaFeature = childMetaFeature)
 }
 
-helper getNonPhantomSemanticChildren(containerBase : genModel::GenContainerBase) : Sequence(genModel::GenNode) {
+helper getNonPhantomSemanticChildren(containerBase : gmfgen::GenContainerBase) : Sequence(gmfgen::GenNode) {
 	return getSemanticChildren(containerBase)->select(node | not node.modelFacet.isPhantomElement())
 }
 
-helper genModel::GenContainerBase::getPhantomNodes() : Sequence(genModel::GenNode) {
+helper gmfgen::GenContainerBase::getPhantomNodes() : Sequence(gmfgen::GenNode) {
 	return Sequence {  }
 }
 
-helper genModel::GenDiagram::getPhantomNodes() : Sequence(genModel::GenNode) {
+helper gmfgen::GenDiagram::getPhantomNodes() : Sequence(gmfgen::GenNode) {
 	return getSemanticChildren(self)->select(node | node.modelFacet.isPhantomElement())
 }
 
-helper getSemanticChildren(containerBase : genModel::GenContainerBase) : Sequence(genModel::GenNode) {
+helper getSemanticChildren(containerBase : gmfgen::GenContainerBase) : Sequence(gmfgen::GenNode) {
 	return containerBase.containedNodes->select(node | null <> node.modelFacet)->asSequence()
 }
 
-helper hasConformableSemanticChildren(containerBase : genModel::GenContainerBase) : Boolean {
+helper hasConformableSemanticChildren(containerBase : gmfgen::GenContainerBase) : Boolean {
 	return let childMetaClasses = getSemanticChildren(containerBase)->collect(node | node.modelFacet.metaClass) in not childMetaClasses->forAll(mc | childMetaClasses->select(mc2 | mc = mc2)->size() = 1)
 }
 
-helper genModel::LinkModelFacet::getLinkEndType(methodNameSuffix : String) : genModel_1::GenClass {
+helper gmfgen::LinkModelFacet::getLinkEndType(methodNameSuffix : String) : genmodel::GenClass {
 	return null
 }
 
-helper genModel::FeatureLinkModelFacet::getLinkEndType(methodNameSuffix : String) : genModel_1::GenClass {
+helper gmfgen::FeatureLinkModelFacet::getLinkEndType(methodNameSuffix : String) : genmodel::GenClass {
 	return (if getIncomingLinksMethodNameSuffix() = methodNameSuffix then self.getTargetType() else self.getSourceType() endif)
 }
 
-helper genModel::TypeLinkModelFacet::getLinkEndType(methodNameSuffix : String) : genModel_1::GenClass {
+helper gmfgen::TypeLinkModelFacet::getLinkEndType(methodNameSuffix : String) : genmodel::GenClass {
 	return (if getIncomingLinksMethodNameSuffix() = methodNameSuffix then self.getTargetType() else (if getOutgoingLinksMethodNameSuffix() = methodNameSuffix and null <> self.sourceMetaFeature then self.getSourceType() else self.containmentMetaFeature.genClass endif) endif)
 }

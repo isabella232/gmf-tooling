@@ -1,120 +1,128 @@
-modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+/*
+ * Copyright (c) 2007, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library Utils;
 
-helper isStandaloneDomainModel(diagram : genModel::GenDiagram) : Boolean {
-	return not diagram.editorGen.sameFileForDiagramAndModel and null <> diagram.domainDiagramElement
-}
-
-helper hasNavigator(editorView : genModel::GenEditorView) : Boolean {
+helper hasNavigator(editorView : gmfgen::GenEditorView) : Boolean {
 	return null <> editorView.editorGen.navigator
 }
 
-helper addGotoMarker(editorView : genModel::GenEditorView, implementsList : Sequence(String)) : Sequence(String) {
+helper addGotoMarker(editorView : gmfgen::GenEditorView, implementsList : Sequence(String)) : Sequence(String) {
 	return (if isIDEMode(editorView) then implementsList->including('org.eclipse.ui.ide.IGotoMarker') else implementsList endif)
 }
 
-helper isIDEMode(editorView : genModel::GenEditorView) : Boolean {
+helper isIDEMode(editorView : gmfgen::GenEditorView) : Boolean {
 	return null = editorView.editorGen.application
 }
 
-helper addReadOnlyPropSheet(editorView : genModel::GenEditorView, implementsList : Sequence(String)) : Sequence(String) {
+helper addReadOnlyPropSheet(editorView : gmfgen::GenEditorView, implementsList : Sequence(String)) : Sequence(String) {
 	return (if hasPropertySheet(editorView) and editorView.editorGen.propertySheet.readOnly then implementsList->including('org.eclipse.gmf.runtime.diagram.ui.properties.views.IReadOnlyDiagramPropertySheetPageContributor') else implementsList endif)
 }
 
-helper hasPropertySheet(editorView : genModel::GenEditorView) : Boolean {
+helper hasPropertySheet(editorView : gmfgen::GenEditorView) : Boolean {
 	return null <> editorView.editorGen.propertySheet
 }
 
-helper getEditorImplementsList(editorView : genModel::GenEditorView) : Sequence(String) {
+helper getEditorImplementsList(editorView : gmfgen::GenEditorView) : Sequence(String) {
 	return addGotoMarker(editorView, addReadOnlyPropSheet(editorView, Sequence {  }))
 }
 
-helper getContainedSemanticNodes(container : genModel::GenContainerBase) : Sequence(genModel::GenNode) {
+helper getContainedSemanticNodes(container : gmfgen::GenContainerBase) : Sequence(gmfgen::GenNode) {
 	return container.containedNodes->select(node | null <> node.modelFacet)->asSequence()
 }
 
-helper genModel::GenCommonBase::getEssentialVisualChildren() : Collection(genModel::GenCommonBase) {
+helper gmfgen::GenCommonBase::getEssentialVisualChildren() : Collection(gmfgen::GenCommonBase) {
 	return Sequence {  }
 }
 
-helper genModel::GenLink::getEssentialVisualChildren() : Collection(genModel::GenCommonBase) {
+helper gmfgen::GenLink::getEssentialVisualChildren() : Collection(gmfgen::GenCommonBase) {
 	return self.labels
 }
 
-helper genModel::GenContainerBase::getEssentialVisualChildren() : Collection(genModel::GenCommonBase) {
+helper gmfgen::GenContainerBase::getEssentialVisualChildren() : Collection(gmfgen::GenCommonBase) {
 	return self.containedNodes
 }
 
-helper genModel::GenNode::getEssentialVisualChildren() : Collection(genModel::GenCommonBase) {
-	return ((Sequence {  })[genModel::GenNodeLabel]->union(self.labels->asSequence()))[genModel::GenCommonBase]->union(self.compartments->asSequence())->union(self.containedNodes->asSequence())
+helper gmfgen::GenNode::getEssentialVisualChildren() : Collection(gmfgen::GenCommonBase) {
+	return ((Sequence {  })[gmfgen::GenNodeLabel]->union(self.labels->asSequence()))[gmfgen::GenCommonBase]->union(self.compartments->asSequence())->union(self.containedNodes->asSequence())
 }
 
-helper defaultShortcutCreationWizardClassName(diagram : genModel::GenDiagram) : String {
+helper defaultShortcutCreationWizardClassName(diagram : gmfgen::GenDiagram) : String {
 	return 'ShortcutCreationWizard'
 }
 
-helper defaultModelElementSelectionPageClassName(diagram : genModel::GenDiagram) : String {
+helper defaultModelElementSelectionPageClassName(diagram : gmfgen::GenDiagram) : String {
 	return 'ModelElementSelectionPage'
 }
 
-helper defaultValidateActionClassName(diagram : genModel::GenDiagram) : String {
+helper defaultValidateActionClassName(diagram : gmfgen::GenDiagram) : String {
 	return 'ValidateAction'
 }
 
-helper i18nKeyForDocumentProvider(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentProvider(diagram : gmfgen::GenDiagram) : String {
 	return diagram.documentProviderClassName
 }
 
-helper i18nKeyForDocumentProviderIsModifiable(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentProviderIsModifiable(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '_isModifiable'
 }
 
-helper i18nKeyForDocumentProviderHandleElementContentChanged(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentProviderHandleElementContentChanged(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '_handleElementContentChanged'
 }
 
-helper i18nKeyForDocumentProviderIncorrectInputError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentProviderIncorrectInputError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.IncorrectInputError'
 }
 
-helper i18nKeyForDocumentProviderNoDiagramInResourceError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentProviderNoDiagramInResourceError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.NoDiagramInResourceError'
 }
 
-helper i18nKeyForDocumentProviderDiagramLoadingError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentProviderDiagramLoadingError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.DiagramLoadingError'
 }
 
-helper i18nKeyForDocumentUnsynchronizedFileSaveError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentUnsynchronizedFileSaveError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.UnsynchronizedFileSaveError'
 }
 
-helper i18nKeyForDocumentSaveDiagramTask(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentSaveDiagramTask(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.SaveDiagramTask'
 }
 
-helper i18nKeyForDocumentSaveNextResourceTask(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentSaveNextResourceTask(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.SaveNextResourceTask'
 }
 
-helper i18nKeyForDocumentSaveAs(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDocumentSaveAs(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDocumentProvider(diagram) + '.SaveAsOperation'
 }
 
-helper i18nKeyForDiagramEditorUtil(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForDiagramEditorUtil(diagram : gmfgen::GenDiagram) : String {
 	return diagram.diagramEditorUtilClassName
 }
 
-helper i18nKeyForOpenModelResourceErrorDialog(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForOpenModelResourceErrorDialog(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDiagramEditorUtil(diagram) + '.OpenModelResourceErrorDialog'
 }
 
-helper i18nKeyForCreateDiagramProgressTask(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreateDiagramProgressTask(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDiagramEditorUtil(diagram) + '.CreateDiagramProgressTask'
 }
 
-helper i18nKeyForCreateDiagramCommandLabel(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreateDiagramCommandLabel(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForDiagramEditorUtil(diagram) + '.CreateDiagramCommandLabel'
 }
 
@@ -130,59 +138,59 @@ helper i18nKeyForInitDiagramOpenFileDialogTitle() : String {
 	return 'InitDiagramFile.OpenModelFileDialogTitle'
 }
 
-helper i18nKeyForNewDiagramFileWizard(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizard(diagram : gmfgen::GenDiagram) : String {
 	return diagram.newDiagramFileWizardClassName
 }
 
-helper i18nKeyForNewDiagramFileWizardCreationPage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardCreationPage(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizard(diagram) + '.CreationPage'
 }
 
-helper i18nKeyForNewDiagramFileWizardRootSelectionPage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardRootSelectionPage(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizard(diagram) + '.RootSelectionPage'
 }
 
-helper i18nKeyForNewDiagramFileWizardRootSelectionPageSelectionTitle(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardRootSelectionPageSelectionTitle(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizardRootSelectionPage(diagram) + 'SelectionTitle'
 }
 
-helper i18nKeyForNewDiagramFileWizardRootSelectionPageNoSelectionMessage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardRootSelectionPageNoSelectionMessage(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizardRootSelectionPage(diagram) + 'NoSelectionMessage'
 }
 
-helper i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardRootSelectionPageInvalidSelectionMessage(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizardRootSelectionPage(diagram) + 'InvalidSelectionMessage'
 }
 
-helper i18nKeyForNewDiagramFileWizardInitDiagramCommand(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardInitDiagramCommand(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizard(diagram) + '.InitDiagramCommand'
 }
 
-helper i18nKeyForNewDiagramFileWizardIncorrectRootError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForNewDiagramFileWizardIncorrectRootError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForNewDiagramFileWizard(diagram) + '.IncorrectRootError'
 }
 
-helper i18nKeyForSavingDeletedFile(editor : genModel::GenEditorView) : String {
+helper i18nKeyForSavingDeletedFile(editor : gmfgen::GenEditorView) : String {
 	return i18nKeyForEditor(editor) + '.SavingDeletedFile'
 }
 
-helper i18nKeyForSaveAsProblems(editor : genModel::GenEditorView) : String {
+helper i18nKeyForSaveAsProblems(editor : gmfgen::GenEditorView) : String {
 	return i18nKeyForEditor(editor) + '.SaveAsError'
 }
 
-helper i18nKeyForSaveProblems(editor : genModel::GenEditorView) : String {
+helper i18nKeyForSaveProblems(editor : gmfgen::GenEditorView) : String {
 	return i18nKeyForEditor(editor) + '.SaveError'
 }
 
-helper i18nKeyForEditor(editor : genModel::GenEditorView) : String {
+helper i18nKeyForEditor(editor : gmfgen::GenEditorView) : String {
 	return editor.className
 }
 
-helper i18nKeyForSelectModelElement(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForSelectModelElement(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForElementChooser(diagram) + '.SelectModelElement'
 }
 
-helper i18nKeyForElementChooser(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForElementChooser(diagram : gmfgen::GenDiagram) : String {
 	return diagram.elementChooserClassName
 }
 
@@ -194,47 +202,47 @@ helper i18nKeyForCreateShortcutWizard() : String {
 	return 'CreateShortcutAction.Wizard'
 }
 
-helper i18nKeyForShortcutWizardReferencedElementPage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForShortcutWizardReferencedElementPage(diagram : gmfgen::GenDiagram) : String {
 	return defaultShortcutCreationWizardClassName(diagram) + '.ReferencedElementSelectionPage'
 }
 
-helper i18nKeyForModelElementSelectionPage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForModelElementSelectionPage(diagram : gmfgen::GenDiagram) : String {
 	return defaultModelElementSelectionPageClassName(diagram)
 }
 
-helper i18nKeyForValidateAction(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForValidateAction(diagram : gmfgen::GenDiagram) : String {
 	return defaultValidateActionClassName(diagram)
 }
 
-helper i18nKeyForShortcutWizardReferencedElementPageEmptyError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForShortcutWizardReferencedElementPageEmptyError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForShortcutWizardReferencedElementPage(diagram) + 'EmptyError'
 }
 
-helper i18nKeyForShortcutWizardReferencedElementPageInvalidError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForShortcutWizardReferencedElementPageInvalidError(diagram : gmfgen::GenDiagram) : String {
 	return i18nKeyForShortcutWizardReferencedElementPage(diagram) + 'InvalidError'
 }
 
-helper i18nKeyForCreationWizard(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreationWizard(diagram : gmfgen::GenDiagram) : String {
 	return diagram.creationWizardClassName
 }
 
-helper i18nKeyForCreationWizardDiagramPage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreationWizardDiagramPage(diagram : gmfgen::GenDiagram) : String {
 	return diagram.creationWizardClassName + '.DiagramModelFilePage'
 }
 
-helper i18nKeyForCreationWizardDomainPage(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreationWizardDomainPage(diagram : gmfgen::GenDiagram) : String {
 	return diagram.creationWizardClassName + '.DomainModelFilePage'
 }
 
-helper i18nKeyForCreationWizardOpenEditorError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreationWizardOpenEditorError(diagram : gmfgen::GenDiagram) : String {
 	return diagram.creationWizardClassName + 'OpenEditorError'
 }
 
-helper i18nKeyForCreationWizardCreationError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreationWizardCreationError(diagram : gmfgen::GenDiagram) : String {
 	return diagram.creationWizardClassName + 'CreationError'
 }
 
-helper i18nKeyForCreationWizardPageExtensionError(diagram : genModel::GenDiagram) : String {
+helper i18nKeyForCreationWizardPageExtensionError(diagram : gmfgen::GenDiagram) : String {
 	return diagram.creationWizardPageClassName + 'ExtensionError'
 }
 

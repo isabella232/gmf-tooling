@@ -12,7 +12,7 @@
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" /> 
     <package 
-       uri = "http://www.eclipse.org/gmf/2008/GenModel"
+       uri = "http://www.eclipse.org/gmf/2009/GenModel"
        class = "org.eclipse.gmf.codegen.gmfgen.GMFGenPackage"
        genModel = "models/gmfgen.genmodel" />       
   </extension>
@@ -21,8 +21,10 @@
         point="org.eclipse.emf.ecore.dynamic_package">
      <resource
            location="models/gmfgen_2007.ecore"
-           uri="http://www.eclipse.org/gmf/2006/GenModel">
-     </resource>
+           uri="http://www.eclipse.org/gmf/2006/GenModel"/>
+     <resource
+           location="models/gmfgen_2008.ecore"
+           uri="http://www.eclipse.org/gmf/2008/GenModel"/>
   </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">
@@ -46,11 +48,29 @@
   </extension>
 
   <extension
-        point="org.eclipse.core.runtime.contentTypes">
+        point="org.eclipse.core.contenttype.contentTypes">
      <content-type
            base-type="org.eclipse.emf.ecore.xmi"
            file-extensions="gmfgen"
            id="org.eclipse.gmf.gen"
+           name="%contenttype.gmf"
+           priority="normal">
+        <describer
+              class="org.eclipse.emf.ecore.xmi.impl.RootXMLContentHandlerImpl$Describer">
+           <parameter
+                 name="namespace"
+                 value="http://www.eclipse.org/gmf/2009/GenModel">
+           </parameter>
+           <parameter
+                 name="kind"
+                 value="xmi">
+           </parameter>
+        </describer>
+     </content-type>
+     <content-type
+           base-type="org.eclipse.emf.ecore.xmi"
+           file-extensions="gmfgen"
+           id="org.eclipse.gmf.gen_2_1"
            name="%contenttype.gmf"
            priority="normal">
         <describer

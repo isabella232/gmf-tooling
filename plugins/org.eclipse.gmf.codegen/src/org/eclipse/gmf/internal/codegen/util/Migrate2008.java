@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.internal.common.migrate.FilteringCopier;
 
 /**
@@ -34,7 +33,8 @@ public /*package-local, but need to be visible from tests*/ class Migrate2008 {
 	private final EPackage myMetaPackage;
 	
 	public Migrate2008() {
-		myMetaPackage = GMFGenPackage.eINSTANCE;
+		//myMetaPackage = GMFGenPackage.eINSTANCE;
+		myMetaPackage = EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/gmf/2008/GenModel");
 	}
 
 	@SuppressWarnings("unchecked")

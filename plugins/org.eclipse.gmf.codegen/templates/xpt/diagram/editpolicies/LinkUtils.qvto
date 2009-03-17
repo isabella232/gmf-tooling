@@ -11,7 +11,7 @@
  *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
-modeltype gmfgen uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
 
 library LinkUtils;

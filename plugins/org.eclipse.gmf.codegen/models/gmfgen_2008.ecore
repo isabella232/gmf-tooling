@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgen"
-    nsURI="http://www.eclipse.org/gmf/2009/GenModel" nsPrefix="gmfgen">
+    nsURI="http://www.eclipse.org/gmf/2008/GenModel" nsPrefix="gmfgen">
   <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
     <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
     <details key="meta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
@@ -17,6 +17,12 @@
         <details key="documentation" value="Returns all genpackages from domain genmodel"/>
       </eAnnotations>
       <eParameters name="withUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    </eOperations>
+    <eOperations name="requiresParser" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Returns true if parser for the specified method is used by diagram editor"/>
+      </eAnnotations>
+      <eParameters name="method" eType="#//LabelTextAccessMethod"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditRoot"
         containment="true" eOpposite="#//GenAuditRoot/editorGen"/>
@@ -80,18 +86,6 @@
         <details key="documentation" value="If present, specifies dynamic access to domain model(s), without using generated Java code"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelParsers" eType="#//GenParsers"
-        containment="true" eOpposite="#//GenParsers/editorGen">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="If present, describes access to and types of parser implementations"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="labelParsers.oclIsUndefined() implies (diagram.getAllNodes()->forAll(labels->size()=0) and diagram.links->forAll(labels->size()=0) and not diagram.childNodes->exists(oclIsKindOf(GenChildLabelNode)))"/>
-        <details key="description" value="No label may be declared without a parser"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="contextMenus" upperBound="-1"
-        eType="#//GenContextMenu" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerBase #//PackageNames #//ProviderClassNames #//LinkConstraints #//EditPartCandies #//EditorCandies #//Shortcuts #//BatchValidation #//MeasurementUnit">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -152,8 +146,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPreferencePage" abstract="true">
     <eOperations name="getDiagram" eType="#//GenDiagram"/>
-    <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
@@ -164,14 +156,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenCustomPreferencePage" eSuperTypes="#//GenPreferencePage">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateBoilerplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="preferences" upperBound="-1"
-        eType="#//GenPreference" containment="true" eOpposite="#//GenPreference/page"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenStandardPreferencePage" eSuperTypes="#//GenPreferencePage">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//StandardPreferencePages"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="StandardPreferencePages">
     <eLiterals name="General"/>
@@ -319,21 +306,6 @@
     <eLiterals name="diagramLightGoldYellow" value="43"/>
     <eLiterals name="diagramBurgundyRed" value="44"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenPreference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="page" lowerBound="1" eType="#//GenCustomPreferencePage"
-        changeable="false" resolveProxies="false" eOpposite="#//GenCustomPreferencePage/preferences"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Java constant name"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Preference key, derived from constant name if not set"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BatchValidation" abstract="true" interface="true">
     <eOperations name="getValidationProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getValidationDiagnosticMarkerType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -348,11 +320,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderPriority"
-        eType="#//ProviderPriority">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Validation action is no longer contributed via contributionItemProvider"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderPriority"
@@ -365,11 +333,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metricProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metricProviderPriority"
-        eType="#//ProviderPriority">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Metrics action is no longer contributed via contributionItemProvider"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecoratorProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationDecorators" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -385,16 +349,8 @@
     <eOperations name="getEditPartProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getModelingAssistantProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getIconProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getParserProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="getContributionItemProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Actions are no longer contributed using ContributionItemService"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getParserProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getContributionItemProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementTypesClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewProviderClassName"
@@ -413,23 +369,11 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconProviderPriority" eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parserProviderClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parserProviderPriority"
-        eType="#//ProviderPriority">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="contributionItemProviderClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Actions are no longer contributed using ContributionItemService"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ProviderPriority">
     <eLiterals name="Lowest"/>
@@ -440,29 +384,17 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Shortcuts" abstract="true" interface="true">
     <eOperations name="getShortcutsDecoratorProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getCreateShortcutActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use CreateShortcutAction instead"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getCreateShortcutActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getCreateShortcutDecorationsCommandQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getShortcutPropertyTesterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="generateCreateShortcutAction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use CreateShortcutAction instead"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="generateCreateShortcutAction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eOperations name="generateShortcutIcon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortcutsDecoratorProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortcutsDecoratorProviderPriority"
         eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createShortcutActionClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use CreateShortcutAction instead"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createShortcutDecorationsCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortcutPropertyTesterClassName"
@@ -491,17 +423,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferencesPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="providersPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parsersPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parsersPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewFactoriesPackageName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="ViewFactories are no longer generated"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkConstraints" abstract="true" interface="true">
     <eOperations name="hasLinkCreationConstraints" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
@@ -529,26 +453,14 @@
     <eOperations name="getCreationWizardPageQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDiagramEditorUtilQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDocumentProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getInitDiagramFileActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use InitDiagramAction instead"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getInitDiagramFileActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getNewDiagramFileWizardQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDiagramContentInitializerQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getMatchingStrategyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getVisualIDRegistryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getElementChooserQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getLoadResourceActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use LoadResourceAction instead"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="generateInitDiagramAction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use InitDiagramAction instead"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getLoadResourceActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="generateInitDiagramAction" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationWizardClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationWizardPageClassName"
@@ -565,11 +477,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="documentProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initDiagramFileActionClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use InitDiagramAction instead"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="newDiagramFileWizardClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramContentInitializerClassName"
@@ -581,11 +489,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="elementChooserClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="loadResourceActionClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Use LoadResourceAction instead"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editingDomainID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EditPartCandies" abstract="true" interface="true">
@@ -594,11 +498,7 @@
     <eOperations name="getEditPartFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getBaseExternalNodeLabelEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getBaseItemSemanticEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getBaseGraphicalNodeEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Not in use"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getBaseGraphicalNodeEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getTextSelectionEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getTextNonResizableEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientConnectionViewCommandClassName"
@@ -612,11 +512,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="baseItemSemanticEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="baseGraphicalNodeEditPolicyClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Not in use"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="textSelectionEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="textNonResizableEditPolicyClassName"
@@ -681,18 +577,10 @@
     </eAnnotations>
     <eOperations name="getEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getItemSemanticEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getNotationViewFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="ViewFactories are no longer generated"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getNotationViewFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDiagram" eType="#//GenDiagram"/>
     <eOperations name="getClassNamePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getClassNameSuffux" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="No longer in use"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getClassNameSuffux" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getUniqueIdentifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="This unique string identifier could be used to construct unique identifiers in generated java code"/>
@@ -717,11 +605,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="itemSemanticEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewFactoryClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="ViewFactories are no longer generated"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewmap" lowerBound="1"
         eType="#//Viewmap" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="styles" upperBound="-1"
@@ -785,7 +669,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="childNodes" upperBound="-1"
         eType="#//GenChildNode" eOpposite="#//GenChildNode/containers"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenNode" abstract="true" eSuperTypes="#//GenChildContainer #//GenLinkEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="GenNode" abstract="true" eSuperTypes="#//GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="EClass mapped to Node"/>
     </eAnnotations>
@@ -887,10 +771,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="listLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase #//GenLinkEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Edge')"/>
       <details key="description" value="Link 'Diagram Runtime Class' must be a notation::Edge or sub-class"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="outgoingCreationAllowed or incomingCreationAllowed"/>
+      <details key="description" value="Either outgoingCreationAllowed or incomingCreationAllowed property should be true"/>
     </eAnnotations>
     <eOperations name="getAssistantSources" upperBound="-1" eType="#//GenCommonBase">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -934,30 +822,12 @@
         <details key="documentation" value="Specifies additional restrictions on link creation"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetReorientingAllowed"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Support link target reorienting"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceReorientingAllowed"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Support link source reorienting"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="treeBranch" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sources" upperBound="-1"
-        eType="#//GenLinkEnd" changeable="false" volatile="true" transient="true"
-        derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targets" upperBound="-1"
-        eType="#//GenLinkEnd" changeable="false" volatile="true" transient="true"
-        derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLabel" abstract="true" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1071,12 +941,11 @@
     <eOperations name="getAssistantSourceTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eOperations name="getAssistantTargetTypes" upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LabelModelFacet" eSuperTypes="#//ModelFacet">
+  <eClassifiers xsi:type="ecore:EClass" name="LabelModelFacet" abstract="true" interface="true"
+      eSuperTypes="#//ModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Model facet of labels"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parser" lowerBound="1"
-        eType="#//GenParserImplementation" eOpposite="#//GenParserImplementation/uses"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeModelFacet" eSuperTypes="#//ModelFacet">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1160,8 +1029,6 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaFeatures" lowerBound="1"
         upperBound="-1" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="editableMetaFeatures" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewPattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Pattern to produce label on diagram, depends on view method"/>
@@ -1177,16 +1044,8 @@
         <details key="documentation" value="Pattern to extract values from input text, depends on edit method; if not specified then viewPattern should be used"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers and PredefinedParser"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Replaced with GenParsers and PredefinedParser"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LabelTextAccessMethod">
     <eLiterals name="MESSAGE_FORMAT"/>
@@ -1317,13 +1176,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModeledViewmap" eSuperTypes="#//Viewmap">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="NOTE: Provisional API. Allows to use arbitrary model element to keep information about a figure. May (but not necessarily will) point to e.g. GMFGraph model elements. It's up to template author to handle specific kinds of figure models"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="figureModel" lowerBound="1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Expression as a is textual statement which results in a value when evaluated in a context"/>
@@ -1384,11 +1236,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="largeIconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="smallIconPath" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createMethodName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Non-mandatory string identification of the entry. Defaults to the quoted value of createMethodName, clients may override. Set to blank string if don't need the identity"/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractToolEntry" abstract="true" eSuperTypes="#//EntryBase #//ToolGroupItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -1458,6 +1305,10 @@
         upperBound="-1" eType="#//GenFeatureInitializer" containment="true" eOpposite="#//GenFeatureInitializer/featureSeqInitializer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Value specifications as initializers for individual features which should be initialized in the order given by this list"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="self.elementClass"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elementClass" eType="ecore:EClass platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
@@ -1912,27 +1763,17 @@
         eType="#//GenLanguage"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenLiteralExpressionProvider" eSuperTypes="#//GenExpressionProviderBase">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="GenLiteralExpressionProvider#getLanguage() == GenLanguage.LITERAL"/>
-    </eAnnotations>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="GenLanguage">
     <eLiterals name="ocl"/>
     <eLiterals name="java" value="1"/>
     <eLiterals name="regexp" value="2"/>
     <eLiterals name="nregexp" value="3"/>
-    <eLiterals name="literal" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenDomainModelNavigator" abstract="true"
       interface="true">
     <eOperations name="getDomainContentProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDomainLabelProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getDomainModelElementTesterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="DomainModelElementTester class will not be generated annymore"/>
-      </eAnnotations>
-    </eOperations>
+    <eOperations name="getDomainModelElementTesterQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDomainNavigatorItemQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateDomainModelNavigator"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
@@ -1947,11 +1788,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainLabelProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainModelElementTesterClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="DomainModelElementTester class will not be generated annymore"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="domainNavigatorItemClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -2083,13 +1920,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenContributionItem" abstract="true"
-      interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenContributionItem" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Element of UI contribution"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owner" eType="#//GenContributionManager"
         changeable="false" resolveProxies="false" eOpposite="#//GenContributionManager/items"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//GenApplication"
+        changeable="false" volatile="true" transient="true" derived="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenSharedContributionItem" eSuperTypes="#//GenContributionItem">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -2110,31 +1948,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenSeparator" eSuperTypes="#//GenContributionItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenCustomAction" eSuperTypes="#//GenContributionItem">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Action from org.eclipse.ui.actions.ActionFactory"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateBoilerplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenCommandAction" eSuperTypes="#//GenContributionItem">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="commandIdentifier" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenAction" abstract="true" eSuperTypes="#//GenContributionItem">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Action that is generated along with diagram action, i.e. there's a template that provides its implementation"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LoadResourceAction" eSuperTypes="#//GenAction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="InitDiagramAction" eSuperTypes="#//GenAction"/>
-  <eClassifiers xsi:type="ecore:EClass" name="CreateShortcutAction" eSuperTypes="#//GenAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenActionFactoryContributionItem" eSuperTypes="#//GenContributionItem">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Action from org.eclipse.ui.actions.ActionFactory"/>
@@ -2145,25 +1958,19 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenContributionManager" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenContributionManager" abstract="true"
+      eSuperTypes="#//GenContributionItem">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Group of UI contribution items"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iD" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
         eType="#//GenContributionItem" containment="true" eOpposite="#//GenContributionItem/owner"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" changeable="false" volatile="true" transient="true"
-        derived="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenMenuManager" eSuperTypes="#//GenContributionManager #//GenContributionItem">
+  <eClassifiers xsi:type="ecore:EClass" name="GenMenuManager" eSuperTypes="#//GenContributionManager">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenToolBarManager" eSuperTypes="#//GenContributionManager #//GenContributionItem"/>
-  <eClassifiers xsi:type="ecore:EClass" name="GenContextMenu" eSuperTypes="#//GenContributionManager">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" lowerBound="1"
-        upperBound="-1" eType="#//GenCommonBase"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenToolBarManager" eSuperTypes="#//GenContributionManager"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenApplication">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getWorkbenchAdvisorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -2203,78 +2010,5 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="mainToolBar" eType="#//GenToolBarManager"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenLinkEnd" abstract="true" interface="true"
-      eSuperTypes="#//GenCommonBase">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="genOutgoingLinks" upperBound="-1"
-        eType="#//GenLink" changeable="false" volatile="true" transient="true" derived="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="genIncomingLinks" upperBound="-1"
-        eType="#//GenLink" changeable="false" volatile="true" transient="true" derived="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenParsers">
-    <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Class with parser access methods. In case of using extensible ParserService, that would be provider implementation class."/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="editorGen" lowerBound="1"
-        eType="#//GenEditorGenerator" changeable="false" resolveProxies="false" eOpposite="#//GenEditorGenerator/labelParsers"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="packageName" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="extensibleViaService" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="providerPriority" eType="#//ProviderPriority"
-        defaultValueLiteral="Lowest"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="implementations" lowerBound="1"
-        upperBound="-1" eType="#//GenParserImplementation" containment="true" eOpposite="#//GenParserImplementation/holder"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Package with parser implementations, same as packageName unless set"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenParserImplementation" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="holder" lowerBound="1"
-        eType="#//GenParsers" changeable="false" resolveProxies="false" eOpposite="#//GenParsers/implementations"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="uses" lowerBound="1" upperBound="-1"
-        eType="#//LabelModelFacet" eOpposite="#//LabelModelFacet/parser"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PredefinedParser" eSuperTypes="#//GenParserImplementation">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Use one of GMF-provided parser implementations"/>
-    </eAnnotations>
-    <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Provides means to alter name of parser implementation class"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CustomParser" eSuperTypes="#//GenParserImplementation">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Handwritten or otherwise available IParser implementation"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedName" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateBoilerplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="When true, GMF generates empty implementation class suitable for further customizations"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExternalParser" eSuperTypes="#//GenParserImplementation">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Delegate to ParserService to find out"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Optionally, override hint value"/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

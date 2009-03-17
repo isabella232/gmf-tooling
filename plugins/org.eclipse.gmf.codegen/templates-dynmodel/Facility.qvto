@@ -1,18 +1,29 @@
+/*
+ * Copyright (c) 2008, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 import xpt.GlobalVarOperations;
 
-modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
-modeltype genModel_1 uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library Facility;
 
-helper getNameToken(gp : genModel::GenPackage) : String {
+helper getNameToken(gp : genmodel::GenPackage) : String {
 	return gp.prefix
 }
 
-helper fieldName(gp : genModel::GenPackage) : String {
+helper fieldName(gp : genmodel::GenPackage) : String {
 	return 'instance' + getNameToken(gp)
 }
 
-helper getDMA() : genModel_1::DynamicModelAccess {
-	return xpandGetObjectGlobalVar('DynamicModelAccess').oclAsType(genModel_1::DynamicModelAccess)
+helper getDMA() : gmfgen::DynamicModelAccess {
+	return xpandGetObjectGlobalVar('DynamicModelAccess').oclAsType(gmfgen::DynamicModelAccess)
 }

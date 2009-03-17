@@ -1,6 +1,18 @@
+/*
+ * Copyright (c) 2006, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
 import org.eclipse.gmf.internal.codegen.util.CodeGenerationUtils;
 
-modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
 modeltype genModel_1 uses "http://www.eclipse.org/emf/2002/GenModel";
 
 library Utils;
@@ -9,10 +21,12 @@ helper getMaxVisualID(navigator : genModel::GenNavigator) : Integer {
 	return (if getMaxVisualIDNavigatorNode(navigator)->size() = 1 then getMaxVisualIDNavigatorNode(navigator)->first().oclAsType(genModel::GenCommonBase).visualID else 0 endif)
 }
 
+-- MODIFIERS: private cached
 helper getMaxVisualIDNavigatorNode(navigator : genModel::GenNavigator) : Sequence(genModel::GenCommonBase) {
 	return getNavigatorNodes(navigator)->select(navigatorNode | isMaximumVisualID(navigatorNode, getNavigatorNodes(navigator)))
 }
 
+-- MODIFIERS: private
 helper isMaximumVisualID(commonBase : genModel::GenCommonBase, allNavigatorNodes : Sequence(genModel::GenCommonBase)) : Boolean {
 	return allNavigatorNodes->select(navigatorNode | navigatorNode.visualID > commonBase.visualID)->isEmpty()
 }
@@ -21,14 +35,17 @@ helper isStringFeature(feature : genModel_1::GenFeature) : Boolean {
 	return feature.ecoreFeature.eType.name = 'EString'
 }
 
+-- MODIFIERS: cached
 helper getNavigatorContainerNodes(navigator : genModel::GenNavigator) : Sequence(genModel::GenCommonBase) {
 	return getNavigatorNodes(navigator)->select(n | getChildReferencesFrom(navigator, n)->size() > 0)
 }
 
+-- MODIFIERS: cached
 helper getNavigatorContainedNodes(navigator : genModel::GenNavigator) : Sequence(genModel::GenCommonBase) {
 	return getNavigatorNodes(navigator)->select(n | getChildReferencesTo(navigator, n)->size() > 0)
 }
 
+-- MODIFIERS: private
 helper getNavigatorNodes(navigator : genModel::GenNavigator) : Sequence(genModel::GenCommonBase) {
 	return let diagram = navigator.editorGen.diagram in (((Sequence { diagram })[genModel::GenContainerBase]->union(diagram.topLevelNodes->asSequence())->union(diagram.childNodes->asSequence()))[genModel::GenCommonBase]->union(diagram.links->asSequence())->union(diagram.compartments->asSequence()))[genModel::GenCommonBase]
 }

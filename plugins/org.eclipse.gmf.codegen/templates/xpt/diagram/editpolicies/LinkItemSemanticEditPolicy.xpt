@@ -11,7 +11,7 @@
  *    Michael Golubev (Borland) - [243151] explicit source/target for links
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
 

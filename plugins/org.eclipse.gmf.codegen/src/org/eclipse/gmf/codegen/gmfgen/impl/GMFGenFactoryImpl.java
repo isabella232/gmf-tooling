@@ -31,7 +31,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public static GMFGenFactory init() {
 		try {
-			GMFGenFactory theGMFGenFactory = (GMFGenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2008/GenModel"); 
+			GMFGenFactory theGMFGenFactory = (GMFGenFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2009/GenModel"); 
 			if (theGMFGenFactory != null) {
 				return theGMFGenFactory;
 			}
