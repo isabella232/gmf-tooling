@@ -445,13 +445,21 @@ public class TransformToGenModelOperation {
 				new Reconciler(new GMFGenConfig()).reconcileTree(genBurdern, old);
 			}
 		} catch (IOException e) {
-			// can't load resource, means no old file, IGNORE
+			// can't load resource, means no old file, IGNORE the exception
 		} catch (RuntimeException e) {
 			Plugin.log(e);
 			old = null;
 		} finally {
-			if (resource != null && resource.isLoaded()) {
-				resource.unload();
+			if (resource != null) {
+				if (resource.isLoaded()) {
+					// not sure I need to unload given I'll remove the resource from resource set anyway, but it doesn't hurt? 
+					resource.unload();
+				}
+				// Need to remove created resource from resource set, not to affect further load attempts
+				// (e.g. the one in #save() method, with another content type)
+				// Another option would be use of correct content type here, but what 
+				// if loaded/reconciled model has old content type? 
+				getResourceSet().getResources().remove(resource);
 			}
 		}
 	}
