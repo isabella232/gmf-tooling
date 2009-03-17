@@ -1,4 +1,4 @@
-modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 	
 transformation PrePostReconcileHook(inout gmfgenModel : GMFGEN);
 

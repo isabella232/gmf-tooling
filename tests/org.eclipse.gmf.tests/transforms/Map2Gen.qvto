@@ -1,5 +1,5 @@
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
-modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
 
 transformation Map2Gen(in mapModel : GMFMAP, in domainGenModel : GENMODEL, in  diagramRuntumeGenModel : GENMODEL, out gmfgenModel : GMFGEN);
