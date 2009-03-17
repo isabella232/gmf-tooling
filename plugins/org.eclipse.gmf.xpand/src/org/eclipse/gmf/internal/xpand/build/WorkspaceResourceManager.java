@@ -19,6 +19,8 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -29,15 +31,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
-import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 import org.eclipse.m2m.internal.qvt.oml.project.builder.WorkspaceUnitResolver;
+import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
 import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
@@ -194,24 +195,31 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		return fullyQualifiedName + "." + fileExtension;
 	}
 	
-	
 	@Override
 	protected UnitResolver getQVTUnitResolver() {
-		
-		WorkspaceUnitResolver resolver;
-		try {
-			resolver = WorkspaceUnitResolver.getResolver(contextProject);
-		} catch (CoreException e) {
-			// hm, QVTo has done bad
-			Activator.logError(e);
-			
-			return new UnitResolver() {
-					public UnitProxy resolveUnit(String qualifiedName) {				
-						return null;
+		List<URL> bundleRootURLs = new ArrayList<URL>();
+		for (IPath rootPath : myConfiguredRoots) {
+			if (rootPath.isAbsolute()) {
+				if (!rootPath.hasTrailingSeparator()) {
+					rootPath = rootPath.addTrailingSeparator();
+				}
+				Bundle platformBundle = Platform.getBundle(rootPath.segment(0));
+				if (platformBundle != null) {
+					URL url = platformBundle.getEntry(rootPath.removeFirstSegments(1).toString());
+					if (url != null) {
+						bundleRootURLs.add(url);
 					}
-			};
+				}
+			}
 		}
 		
+		final UnitResolver bundleDelegate = BundleUnitResolver.createResolver(bundleRootURLs, true);
+		WorkspaceUnitResolver resolver = new WorkspaceUnitResolver(Collections.<IContainer>emptyList()) {
+			@Override
+			protected UnitResolver getParent() {
+				return bundleDelegate;
+			}
+		};
 		for (IPath rootPath : myConfiguredRoots) {
 			if(!rootPath.isAbsolute()) {
 				rootPath = contextProject.getFullPath().append(rootPath);
@@ -225,7 +233,6 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 				}
 			}
 		}
-
 		return resolver;
 	}
 }
