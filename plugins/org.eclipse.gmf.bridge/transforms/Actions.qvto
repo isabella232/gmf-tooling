@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
-modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2008/GenModel');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 
 transformation Actions(in mapModel : GMFMAP, inout gmfgenModel : GMFGEN);
 

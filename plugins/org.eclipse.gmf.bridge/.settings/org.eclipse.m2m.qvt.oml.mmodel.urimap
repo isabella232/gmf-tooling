@@ -2,6 +2,6 @@
 <uriMap:MappingContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uriMap="http:///www.eclipse.org/m2m/qvt/oml/MModelUriMap/1.0.0">
   <mapping sourceURI="http://www.eclipse.org/gmf/2006/mappings" targetURI="platform:/resource/org.eclipse.gmf.map/models/gmfmap.ecore"/>
   <mapping sourceURI="http://www.eclipse.org/gmf/2005/ToolDefinition" targetURI="platform:/resource/org.eclipse.gmf.tooldef/models/tooldef.ecore"/>
-  <mapping sourceURI="http://www.eclipse.org/gmf/2008/GenModel" targetURI="platform:/resource/org.eclipse.gmf.codegen/models/gmfgen.ecore"/>
+  <mapping sourceURI="http://www.eclipse.org/gmf/2009/GenModel" targetURI="platform:/resource/org.eclipse.gmf.codegen/models/gmfgen.ecore"/>
   <mapping sourceURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition" targetURI="platform:/resource/org.eclipse.gmf.graphdef/models/gmfgraph.ecore"/>
 </uriMap:MappingContainer>
