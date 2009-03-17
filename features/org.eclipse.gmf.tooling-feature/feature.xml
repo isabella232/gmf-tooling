@@ -71,7 +71,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.emf.common" version="2.3.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore.edit" version="2.3.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.map.edit" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="1.0.100" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore.editor" version="2.3.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore" version="2.3.0" match="compatible"/>
       <import plugin="org.eclipse.pde.ui" version="3.3.0" match="compatible"/>
@@ -100,8 +99,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.navigator.resources"/>
       <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="compatible"/>
       <import plugin="net.sourceforge.lpg.lpgjavaruntime" version="1.1.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.common" version="1.0.100" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.emf.util" version="1.0.100" match="compatible"/>
       <import plugin="org.eclipse.gmf.xpand.qvtlibrary" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.core.filebuffers"/>
       <import plugin="org.eclipse.core.jobs"/>
@@ -120,6 +117,10 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.ide" version="3.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.5.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.m2m.qvt.oml" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.common" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.project" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.pde.core" version="3.5.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
