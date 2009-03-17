@@ -10,7 +10,7 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2008/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
 «DEFINE MatchingStrategy FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

@@ -1,6 +1,6 @@
 import xpt.StringOperations;
 
-modeltype genModel uses "http://www.eclipse.org/gmf/2008/GenModel";
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library ClassNames;
 
