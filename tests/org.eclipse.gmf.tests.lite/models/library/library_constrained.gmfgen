@@ -2,7 +2,8 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel">
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel"
+    xsi:schemaLocation="http://www.eclipse.org/gmf/2008/GenModel ../../../../plugin/org.eclipse.gmf.codegen/models/gmfgen_2008.ecore">
   <audits>
     <categories
         id="lib"
@@ -14,11 +15,10 @@
         name="author_book_not_empty"
         description="Rule1"
         id="rule1"
+        rule="//@expressionProviders/@providers.0/@expressions.10"
         message="Author should have written something, lest he is not an author"
         severity="WARNING"
         category="//@audits/@categories.0">
-      <rule
-          body="books->notEmpty() or brochures->notEmpty()"/>
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
@@ -28,10 +28,9 @@
     <rules
         description="Rule2"
         id="rule2"
+        rule="//@expressionProviders/@providers.0/@expressions.11"
         message=""
         category="//@audits/@categories.0">
-      <rule
-          body="self &lt; 100"/>
       <target
           xsi:type="gmfgen:GenAuditedMetricTarget"
           metric="//@metrics/@metrics.1">
@@ -45,10 +44,9 @@
         name="TotalPages"
         description="Total pages"
         key="totalPages"
+        rule="//@expressionProviders/@providers.0/@expressions.8"
         lowLimit="1.0"
         highLimit="1000.0">
-      <rule
-          body="books.pages->sum()"/>
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
@@ -59,10 +57,9 @@
         name="TotalBrochurePages"
         description="Total brochure pages"
         key="totalBrochurePages"
+        rule="//@expressionProviders/@providers.0/@expressions.9"
         lowLimit="1.0"
         highLimit="100.0">
-      <rule
-          body="brochures.pages->sum()"/>
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
@@ -381,20 +378,19 @@
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
           classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.draw2d.Label();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;"/>
-      <modelFacet>
+      <modelFacet
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.0">
         <metaClass
             href="library.genmodel#//library/Book"/>
         <containmentMetaFeature
             href="library.genmodel#//library/Library/books"/>
         <childMetaFeature
             href="library.genmodel#//library/Library/books"/>
-        <modelElementSelector
-            body="pages &lt;= 150"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="100">
+              value="//@expressionProviders/@providers.0/@expressions.1">
             <feature
                 href="library.genmodel#//library/Book/pages"/>
           </initializers>
@@ -459,20 +455,19 @@
           layoutType="TOOLBAR_LAYOUT"
           className="NamedNodeRectangle"
           classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.Label fName; &#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutThis = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;layoutThis.setStretchMinorAxis(true);&#xD;&#xA;&#x9;layoutThis.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xD;&#xA;);&#xD;&#xA;&#xD;&#xA;&#x9;layoutThis.setSpacing(0);&#xD;&#xA;&#x9;layoutThis.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private void createContents(){&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;fName = new org.eclipse.draw2d.Label();&#xD;&#xA;fName.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;this.add(fName);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected boolean useLocalCoordinates() {&#xD;&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xD;&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.Label Name() {&#xD;&#xA;&#x9;&#x9;return fName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;"/>
-      <modelFacet>
+      <modelFacet
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
         <metaClass
             href="library.genmodel#//library/Book"/>
         <containmentMetaFeature
             href="library.genmodel#//library/Library/books"/>
         <childMetaFeature
             href="library.genmodel#//library/Library/books"/>
-        <modelElementSelector
-            body="pages > 150"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="200">
+              value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
                 href="library.genmodel#//library/Book/pages"/>
           </initializers>
@@ -581,15 +576,14 @@
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.PolylineConnection"/>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
         <metaClass
             href="library.genmodel#//library/Opinion"/>
         <containmentMetaFeature
             href="library.genmodel#//library/Writer/opinions"/>
         <childMetaFeature
             href="library.genmodel#//library/Writer/opinions"/>
-        <modelElementSelector
-            body="book.pages &lt;= 250"/>
         <targetMetaFeature
             href="library.genmodel#//library/Opinion/book"/>
       </modelFacet>
@@ -615,10 +609,8 @@
               href="library.genmodel#//library/Opinion/text"/>
         </modelFacet>
       </labels>
-      <creationConstraints>
-        <targetEnd
-            body="pages &lt;= 250"/>
-      </creationConstraints>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.5"/>
     </links>
     <links
         visualID="4002"
@@ -658,15 +650,14 @@
           xsi:type="gmfgen:FigureViewmap"
           figureQualifiedClassName="org.eclipse.draw2d.PolylineConnection"/>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.6">
         <metaClass
             href="library.genmodel#//library/Opinion"/>
         <containmentMetaFeature
             href="library.genmodel#//library/Writer/opinions"/>
         <childMetaFeature
             href="library.genmodel#//library/Writer/opinions"/>
-        <modelElementSelector
-            body="book.pages > 250"/>
         <targetMetaFeature
             href="library.genmodel#//library/Opinion/book"/>
       </modelFacet>
@@ -692,10 +683,8 @@
               href="library.genmodel#//library/Opinion/text"/>
         </modelFacet>
       </labels>
-      <creationConstraints>
-        <targetEnd
-            body="pages > 250"/>
-      </creationConstraints>
+      <creationConstraints
+          targetEnd="//@expressionProviders/@providers.0/@expressions.7"/>
     </links>
     <links
         visualID="4004"
@@ -1132,7 +1121,39 @@
       href="library.genmodel#/"/>
   <expressionProviders>
     <providers
-        xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@topLevelNodes.1/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@topLevelNodes.2/@modelFacet/@modelElementSelector //@diagram/@topLevelNodes.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.0/@modelFacet/@modelElementSelector //@diagram/@links.0/@creationConstraints/@targetEnd //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@creationConstraints/@targetEnd //@metrics/@metrics.0/@rule //@metrics/@metrics.1/@rule //@audits/@rules.0/@rule //@audits/@rules.1/@rule"/>
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="pages &lt;= 150"/>
+      <expressions
+          body="100"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="pages > 150"/>
+      <expressions
+          body="200"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="book.pages &lt;= 250"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="pages &lt;= 250"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="book.pages > 250"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="pages > 250"/>
+      <expressions
+          body="books.pages->sum()"/>
+      <expressions
+          body="brochures.pages->sum()"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="books->notEmpty() or brochures->notEmpty()"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self &lt; 100"/>
+    </providers>
   </expressionProviders>
 </gmfgen:GenEditorGenerator>
