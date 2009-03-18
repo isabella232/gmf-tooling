@@ -14,10 +14,8 @@ package org.eclipse.gmf.internal.xpand.build;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +29,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.gmf.internal.xpand.inactive.StreamDecoder;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
@@ -132,7 +131,8 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 				URL url = platformBundle.getEntry(p.removeFirstSegments(1).toString());
 				if (url != null) {
 					InputStream is = url.openStream();
-					return new InputStreamReader(is, Charset.forName("ISO-8859-1"));	//$NON-NLS-1$
+					// FIXME for now, go with legacy encoding as a default
+					return new StreamDecoder(is, StreamDecoder.LEGACY_ENCODING).getReader();
 				}
 			}
 		} else {

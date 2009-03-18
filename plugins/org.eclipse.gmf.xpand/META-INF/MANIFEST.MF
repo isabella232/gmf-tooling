@@ -26,6 +26,7 @@ Export-Package: org.eclipse.gmf.internal.xpand;
  org.eclipse.gmf.internal.xpand.eval;x-friends:="org.eclipse.gmf.xpand.debug,org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug",
  org.eclipse.gmf.internal.xpand.expression.parser;x-friends:="org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.editor",
+ org.eclipse.gmf.internal.xpand.inactive;x-internal:=true,
  org.eclipse.gmf.internal.xpand.model;
   x-friends:="org.eclipse.gmf.graphdef.codegen,
    org.eclipse.gmf.tests.xpand,
@@ -57,7 +58,7 @@ Import-Package: org.eclipse.core.filebuffers,
  org.eclipse.core.runtime.jobs,
  org.eclipse.jface.text,
  org.osgi.framework;version="1.3.0"
-Bundle-ActivationPolicy: lazy
+Bundle-ActivationPolicy: lazy; exclude:="org.eclipse.gmf.internal.xpand.inactive"
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.xpand.util;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.eclipse.gmf.internal.xpand.Activator;
+import org.eclipse.gmf.internal.xpand.inactive.StreamDecoder;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
@@ -73,7 +73,8 @@ public class BundleResourceManager extends ResourceManagerImpl {
 		InputStream is = u.openStream();
 		// XXX here we ignore the fact baseUrl may point to workspace location
 		// and hence charset can be derived from IFile
-		return new InputStreamReader(is, Charset.forName("ISO-8859-1"));
+		// FIXME for now, go with legacy encoding as a default
+		return new StreamDecoder(is, StreamDecoder.LEGACY_ENCODING).getReader();
 	}
 
 	@Override
