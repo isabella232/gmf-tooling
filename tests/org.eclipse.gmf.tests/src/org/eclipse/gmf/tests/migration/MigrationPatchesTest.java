@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -27,22 +28,18 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -81,9 +78,30 @@ import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.tests.Plugin;
 
 public class MigrationPatchesTest extends TestCase {
+	private EClass cGenEditorGenerator;
+	private EClass cGenDiagram;
+	private EClass cFeatureLabelModelFacet;
+	private EClass cGenAuditRoot;
+	private EClass cGenAuditContext; 
+	private EStructuralFeature rMetaFeatures;
+	private EStructuralFeature rGenNode_Labels;
+	private EStructuralFeature rModelFacet;
 
 	public MigrationPatchesTest(String name) {
 		super(name);
+	}
+
+	@Override
+	protected void setUp() throws Exception {
+		EPackage gmfgen_2008 = EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/gmf/2008/GenModel");
+		cGenEditorGenerator = (EClass) gmfgen_2008.getEClassifier("GenEditorGenerator");
+		cGenDiagram = (EClass) gmfgen_2008.getEClassifier("GenDiagram");
+		cFeatureLabelModelFacet = (EClass) gmfgen_2008.getEClassifier("FeatureLabelModelFacet");
+		cGenAuditRoot = (EClass) gmfgen_2008.getEClassifier("GenAuditRoot");
+		cGenAuditContext = (EClass) gmfgen_2008.getEClassifier("GenAuditContext");
+		rMetaFeatures = cFeatureLabelModelFacet.getEStructuralFeature("metaFeatures");
+		rGenNode_Labels = ((EClass)gmfgen_2008.getEClassifier("GenNode")).getEStructuralFeature("labels");
+		rModelFacet = ((EClass)gmfgen_2008.getEClassifier("GenLabel")).getEStructuralFeature("modelFacet");
 	}
 
 	/*
@@ -395,6 +413,8 @@ public class MigrationPatchesTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		Resource resource = loadHelper.getLoadedResource();
 		int allContentsSize = 0;
+		// FIXME what's the hell this method checks, as it can't be GenEditorGenerator any longer with
+		// recent change of GMFGen nsURI from 2008/ to 2009/
 		for (Iterator<EObject> it = resource.getAllContents(); it.hasNext();) {
 			EObject next = it.next();
 			allContentsSize++;
@@ -455,14 +475,17 @@ public class MigrationPatchesTest extends TestCase {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
 		Resource resource = loadHelper.getLoadedResource();
 		assertEquals(1, resource.getContents().size());
-		Object first = resource.getContents().get(0);
-		assertTrue(first instanceof GenEditorGenerator);
-		GenEditorGenerator genEditor = (GenEditorGenerator) first;
-		assertNotNull(genEditor.getExpressionProviders());
-		assertFalse(genEditor.getExpressionProviders().getProviders().isEmpty());
-		GenPlugin plugin = genEditor.getPlugin();
+		EObject genEditor = resource.getContents().get(0);
+		assertEquals(cGenEditorGenerator, genEditor.eClass());
+		EObject exprProviderContainer = (EObject) genEditor.eGet(cGenEditorGenerator.getEStructuralFeature("expressionProviders")); 
+		assertNotNull(exprProviderContainer);
+		List<?> providers = (List<?>) exprProviderContainer.eGet(exprProviderContainer.eClass().getEStructuralFeature("providers"));
+		assertFalse(providers.isEmpty());
+		EObject plugin = (EObject) genEditor.eGet(cGenEditorGenerator.getEStructuralFeature("plugin"));
 		assertNotNull(plugin);
-		EList<String> requiredPlugins = plugin.getRequiredPlugins();
+		EStructuralFeature rRequiredPlugins = plugin.eClass().getEStructuralFeature("requiredPlugins");
+		@SuppressWarnings("unchecked")
+		EList<String> requiredPlugins = (EList<String>) plugin.eGet(rRequiredPlugins);
 		assertEquals(3, requiredPlugins.size());
 		assertEquals("org.eclipse.fake.x1", requiredPlugins.get(0));
 		assertEquals("org.eclipse.fake.x2", requiredPlugins.get(1));
@@ -501,23 +524,23 @@ public class MigrationPatchesTest extends TestCase {
 		Resource resource = loadHelper.getLoadedResource();
 		assertEquals(1, resource.getContents().size());
 		EObject editorGen = resource.getContents().get(0);
-		assertTrue(editorGen instanceof GenEditorGenerator);
+		assertEquals(cGenEditorGenerator, editorGen.eClass());
 		assertEquals(1, editorGen.eContents().size());
 		EObject diagram = editorGen.eContents().get(0);
-		assertTrue(diagram instanceof GenDiagram);
+		assertEquals(cGenDiagram, diagram.eClass());
 		assertEquals(1, diagram.eContents().size());
-		GenTopLevelNode root = (GenTopLevelNode) diagram.eContents().get(0);
-		assertEquals(2, root.eContents().size());
-		assertEquals(2, root.getLabels().size());
+		EObject rootTLN = diagram.eContents().get(0);
+		assertEquals(2, rootTLN.eContents().size());
+		@SuppressWarnings("unchecked")
+		List<EObject> labels = (List<EObject>) rootTLN.eGet(rGenNode_Labels);
+		assertEquals(2, labels.size());
 		//
-		LabelModelFacet first = root.getLabels().get(0).getModelFacet();
-		assertTrue(first instanceof FeatureLabelModelFacet);
-		FeatureLabelModelFacet firstFeatureLabelModelFacet = (FeatureLabelModelFacet) first;
-		assertEquals(1, firstFeatureLabelModelFacet.getMetaFeatures().size());
-		LabelModelFacet second = root.getLabels().get(1).getModelFacet();
-		assertTrue(second instanceof FeatureLabelModelFacet);
-		FeatureLabelModelFacet secondFeatureLabelModelFacet = (FeatureLabelModelFacet) second;
-		assertEquals(2, secondFeatureLabelModelFacet.getMetaFeatures().size());
+		EObject first = (EObject) labels.get(0).eGet(rModelFacet);
+		assertEquals(cFeatureLabelModelFacet, first.eClass());
+		assertEquals(1, ((List<?>) first.eGet(rMetaFeatures)).size());
+		EObject second = (EObject) labels.get(1).eGet(rModelFacet);
+		assertEquals(cFeatureLabelModelFacet, second.eClass());
+		assertEquals(2, ((List<?>) second.eGet(rMetaFeatures)).size());
 	}
 
 
@@ -895,28 +918,28 @@ public class MigrationPatchesTest extends TestCase {
 		Resource resource = loadHelper.getLoadedResource();
 		
 		assertEquals(1, resource.getContents().size());
-		Object first = resource.getContents().get(0);
-		assertTrue(first instanceof GenEditorGenerator);
-		GenEditorGenerator editor = (GenEditorGenerator) first;
-		assertEquals(1, editor.eContents().size());
-		first = editor.eContents().get(0);
-		assertTrue(first instanceof GenAuditRoot);
-		GenAuditRoot root = (GenAuditRoot) first;
-		assertEquals(6, root.eContents().size());
-		
-		assertNotNull(root.getClientContexts());
-		assertFalse(root.getClientContexts().isEmpty());
-		assertEquals(2, root.getClientContexts().size());
-		
-		GenAuditContext saveMe1 = root.getClientContexts().get(0);
-		assertEquals("SaveMe1", saveMe1.getId());
-		assertFalse(saveMe1.getRuleTargets().isEmpty());
-		assertEquals(2, saveMe1.getRuleTargets().size());
+		EObject editorGen = resource.getContents().get(0);
+		assertEquals(cGenEditorGenerator, editorGen.eClass());
+		assertEquals(1, editorGen.eContents().size());
+		EObject auditRoot = editorGen.eContents().get(0);
+		assertEquals(cGenAuditRoot, auditRoot.eClass());
+		assertEquals(6, auditRoot.eContents().size());
 
-		GenAuditContext saveMe2 = root.getClientContexts().get(1);
-		assertEquals("SaveMe2", saveMe2.getId());
-		assertFalse(saveMe2.getRuleTargets().isEmpty());
-		assertEquals(1, saveMe2.getRuleTargets().size());
+		@SuppressWarnings("unchecked")
+		List<EObject> clientContexts = (List<EObject>) auditRoot.eGet(cGenAuditRoot.getEStructuralFeature("clientContexts"));
+		assertEquals(2, clientContexts.size());
+		
+		
+		EObject auditContext1 = clientContexts.get(0);
+		assertEquals(cGenAuditContext, auditContext1.eClass());
+		EStructuralFeature aId = cGenAuditContext.getEStructuralFeature("id");
+		EStructuralFeature rRuleTargets = cGenAuditContext.getEStructuralFeature("ruleTargets");
+		assertEquals("SaveMe1", auditContext1.eGet(aId));
+		assertEquals(2, ((List<?>) auditContext1.eGet(rRuleTargets)).size());
+
+		EObject auditContext2 = clientContexts.get(1);
+		assertEquals("SaveMe2", auditContext2.eGet(aId));
+		assertEquals(1, ((List<?>) auditContext2.eGet(rRuleTargets)).size());
 	}
 
 	public void testFeatureValueSpecRefactor227505() throws Exception {
