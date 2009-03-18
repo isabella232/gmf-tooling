@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,43 +11,61 @@
  */
 package org.eclipse.gmf.tests.migration;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
-import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.internal.codegen.util.Migrate2008;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 
 public class TestCustomCopier extends TestCase {
 
+	private EPackage gmfgen_2008;
+	private EClass cGenEditorGenerator;
+	private EClass cGenDiagram;
+	private EClass cGenAuditRule;
+	private EClass cGenExpressionInterpreter;
+	private EClass cGenJavaExpressionProvider;
+	private EClass cValueExpression;
+	private EClass cGenMetricRule;
+	private EEnum eGenLanguage;
+	private EClass cGenLink;
+	private EClass cGenChildNode;
+	private EClass cGenLinkConstraints;
+	private EClass cTypeModelFacet;
+	private EClass cGenFeatureSeqInitializer;
+	private EClass cGenFeatureValueSpec;
+
 	public TestCustomCopier(String name) {
 		super(name);
+	}
+
+	@Override
+	protected void setUp() throws Exception {
+		gmfgen_2008 = EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/gmf/2008/GenModel");
+		cGenEditorGenerator = (EClass) gmfgen_2008.getEClassifier("GenEditorGenerator");
+		cGenDiagram = (EClass) gmfgen_2008.getEClassifier("GenDiagram");
+		cGenAuditRule = (EClass) gmfgen_2008.getEClassifier("GenAuditRule");
+		cGenExpressionInterpreter = (EClass) gmfgen_2008.getEClassifier("GenExpressionInterpreter");
+		cGenJavaExpressionProvider = (EClass) gmfgen_2008.getEClassifier("GenJavaExpressionProvider");
+		cValueExpression = (EClass) gmfgen_2008.getEClassifier("ValueExpression");
+		cGenMetricRule = (EClass) gmfgen_2008.getEClassifier("GenMetricRule");
+		eGenLanguage = (EEnum) gmfgen_2008.getEClassifier("GenLanguage");
+		cGenLink = (EClass) gmfgen_2008.getEClassifier("GenLink");
+		cGenChildNode = (EClass) gmfgen_2008.getEClassifier("GenChildNode");
+		cGenLinkConstraints = (EClass) gmfgen_2008.getEClassifier("GenLinkConstraints");
+		cTypeModelFacet = (EClass) gmfgen_2008.getEClassifier("TypeModelFacet");
+		cGenFeatureSeqInitializer = (EClass) gmfgen_2008.getEClassifier("GenFeatureSeqInitializer");
+		cGenFeatureValueSpec = (EClass) gmfgen_2008.getEClassifier("GenFeatureValueSpec");
 	}
 
 	public void test06to08ModelTransform() throws Exception {
@@ -63,124 +81,137 @@ public class TestCustomCopier extends TestCase {
 		checkTestModel(newGenModel);
 	}
 	
-	private void checkTestModel(EObject newRoot) {
-		EPackage p = newRoot.eClass().getEPackage();
-		assertEquals("http://www.eclipse.org/gmf/2008/GenModel", p.getNsURI());
+	private void checkTestModel(EObject editorGen) throws Exception {
+		EPackage p = editorGen.eClass().getEPackage();
+		assertEquals(gmfgen_2008.getNsURI(), p.getNsURI());
 		
-		assertTrue(newRoot instanceof GenEditorGenerator);
-		GenEditorGenerator root = (GenEditorGenerator) newRoot;
+		assertEquals(cGenEditorGenerator, editorGen.eClass());
 
-		GenAuditRoot auditRoot = root.getAudits();
+		final EStructuralFeature aGenExpressionInterpreter_Language = cGenExpressionInterpreter.getEStructuralFeature("language");
+		final EStructuralFeature aValueExpression_Body = cValueExpression.getEStructuralFeature("body");
+		final EStructuralFeature rValueExpression_Provider = cValueExpression.getEStructuralFeature("provider");
+
+		EObject auditRoot = (EObject) editorGen.eGet(editorGen.eClass().getEStructuralFeature("audits"));
 		assertNotNull(auditRoot);
-		assertEquals(1, auditRoot.getRules().size());
-		GenAuditRule aud1 = auditRoot.getRules().get(0);
-		GenConstraint aud1VE = aud1.getRule();
+		@SuppressWarnings("unchecked")
+		List<EObject> auditRules = (List<EObject>) auditRoot.eGet(auditRoot.eClass().getEStructuralFeature("rules"));
+		assertEquals(1, auditRules.size());
+		EObject aud1 = auditRules.get(0);
+		EObject aud1VE = (EObject) aud1.eGet(cGenAuditRule.getEStructuralFeature("rule"));
 		assertNotNull(aud1VE);
-		assertEquals("audit1", aud1VE.getBody());
-		GenExpressionProviderBase aud1VEprov = aud1VE.getProvider();
+		assertEquals("audit1", aud1VE.eGet(aValueExpression_Body));
+		EObject aud1VEprov = (EObject) aud1VE.eGet(rValueExpression_Provider);
 		assertNotNull(aud1VEprov);
-		assertEquals(GenLanguage.OCL_LITERAL, aud1VEprov.getLanguage());
+		assertEquals(eGenLanguage.getEEnumLiteral("ocl"), aud1VEprov.eGet(aGenExpressionInterpreter_Language)); // can't invoke ExprProviderBase#getLanguage() method
 		
-		GenMetricContainer metricRoot = root.getMetrics();
-		assertNotNull(metricRoot);
-		assertEquals(1, metricRoot.getMetrics().size());
-		GenMetricRule met1 = metricRoot.getMetrics().get(0);
-		ValueExpression met1VE = met1.getRule();
+		EObject metricsContainer = (EObject) editorGen.eGet(cGenEditorGenerator.getEStructuralFeature("metrics"));
+		assertNotNull(metricsContainer);
+		@SuppressWarnings("unchecked")
+		List<EObject> metricsRules = (List<EObject>) metricsContainer.eGet(metricsContainer.eClass().getEStructuralFeature("metrics"));
+		assertEquals(1, metricsRules.size());
+		EObject met1VE = (EObject) metricsRules.get(0).eGet(cGenMetricRule.getEStructuralFeature("rule"));
 		assertNotNull(met1VE);
-		assertEquals("audit1", met1VE.getBody());
-		GenExpressionProviderBase met1VEprov = met1VE.getProvider();
+		assertEquals("audit1", met1VE.eGet(aValueExpression_Body));
+		EObject met1VEprov = (EObject) met1VE.eGet(rValueExpression_Provider);
 		assertNotNull(met1VEprov);
-		assertEquals(GenLanguage.OCL_LITERAL, met1VEprov.getLanguage());
+		assertEquals(eGenLanguage.getEEnumLiteral("ocl"), met1VEprov.eGet(aGenExpressionInterpreter_Language)); // can't invoke ExprProviderBase#getLanguage() method
 		
 		assertEquals(aud1VEprov, met1VEprov);
 		assertTrue(aud1VEprov == met1VEprov);
 		assertEquals(met1VE, aud1VE); // copy
 		assertTrue(met1VE == aud1VE);
 
-		GenDiagram diagram = root.getDiagram();
+		EObject diagram = (EObject) editorGen.eGet(cGenEditorGenerator.getEStructuralFeature("diagram"));
 		assertNotNull(diagram);
 		
-		EList<GenLink> links = diagram.getLinks();
+		@SuppressWarnings("unchecked")
+		List<EObject> links = (List<EObject>) diagram.eGet(cGenDiagram.getEStructuralFeature("links"));
 		assertEquals(2, links.size());
-		GenLink link1 = links.get(0);
+		EObject link1 = links.get(0);
 		assertNotNull(link1);
-		GenLinkConstraints csts1 = link1.getCreationConstraints();
+		EObject csts1 = (EObject) link1.eGet(cGenLink.getEStructuralFeature("creationConstraints"));
 		assertNotNull(csts1);
-		assertNull(csts1.getTargetEnd());
-		GenConstraint src1 = csts1.getSourceEnd();
+		assertNull(csts1.eGet(cGenLinkConstraints.getEStructuralFeature("targetEnd")));
+		EObject src1 = (EObject) csts1.eGet(cGenLinkConstraints.getEStructuralFeature("sourceEnd"));
 		assertNotNull(src1);
-		assertEquals("source_link1", src1.getBody());
-		GenExpressionProviderBase src1prov = src1.getProvider();
+		assertEquals("source_link1", src1.eGet(aValueExpression_Body));
+		EObject src1prov = (EObject) src1.eGet(rValueExpression_Provider);
 		assertNotNull(src1prov);
-		assertEquals(GenLanguage.NREGEXP_LITERAL, src1prov.getLanguage());
+		assertEquals(eGenLanguage.getEEnumLiteral("nregexp"), src1prov.eGet(aGenExpressionInterpreter_Language));
 		
-		GenLink link2 = links.get(1);
-		GenLinkConstraints csts2 = link2.getCreationConstraints();
+		EObject link2 = links.get(1);
+		EObject csts2 = (EObject) link2.eGet(cGenLink.getEStructuralFeature("creationConstraints"));
 		assertNotNull(csts2);
-		assertNull(csts2.getSourceEnd());
-		GenConstraint trg2 = csts2.getTargetEnd();
+		assertNull(csts2.eGet(cGenLinkConstraints.getEStructuralFeature("sourceEnd")));
+		EObject trg2 = (EObject) csts2.eGet(cGenLinkConstraints.getEStructuralFeature("targetEnd"));
 		assertNotNull(trg2);
-		assertEquals("target_link2", trg2.getBody());
-		GenExpressionProviderBase trg2prov = trg2.getProvider();
+		assertEquals("target_link2", trg2.eGet(aValueExpression_Body));
+		EObject trg2prov = (EObject) trg2.eGet(rValueExpression_Provider);
 		assertNotNull(trg2prov);
-		assertEquals(GenLanguage.JAVA_LITERAL, trg2prov.getLanguage());
+		//assertEquals(eGenLanguage.getEEnumLiteral("java"), trg2prov.getLanguage());
+		assertEquals(cGenJavaExpressionProvider, trg2prov.eClass()); // can't invoke op getLanguage(), at least check eClass
 		
-		EList<GenChildNode> nodes = diagram.getChildNodes();
+		@SuppressWarnings("unchecked")
+		List<EObject> nodes = (List<EObject>) diagram.eGet(cGenDiagram.getEStructuralFeature("childNodes"));
 		assertEquals(2, nodes.size());
-		GenChildNode node1 = nodes.get(0);
+		EObject node1 = nodes.get(0);
 		assertNotNull(node1);
-		TypeModelFacet fac1 = node1.getModelFacet();
+		EObject fac1 = (EObject) node1.eGet(cGenChildNode.getEStructuralFeature("modelFacet"));
 		assertNotNull(fac1);
-		GenConstraint node1cstr = fac1.getModelElementSelector();
+		EObject node1cstr = (EObject) fac1.eGet(cTypeModelFacet.getEStructuralFeature("modelElementSelector"));
 		assertNotNull(node1cstr);
-		assertEquals("node1", node1cstr.getBody());
-		GenExpressionProviderBase node1cstrProv = node1cstr.getProvider();
+		assertEquals("node1", node1cstr.eGet(aValueExpression_Body));
+		EObject node1cstrProv = (EObject) node1cstr.eGet(rValueExpression_Provider);
 		assertNotNull(node1cstrProv);
-		assertEquals(GenLanguage.OCL_LITERAL, node1cstrProv.getLanguage());
+		assertEquals(eGenLanguage.getEEnumLiteral("ocl"), node1cstrProv.eGet(aGenExpressionInterpreter_Language));
 		
 		assertEquals(aud1VEprov, node1cstrProv);
 		
-		GenChildNode node2 = nodes.get(1);
+		EObject node2 = nodes.get(1);
 		assertNotNull(node2);
-		TypeModelFacet fac2 = node2.getModelFacet();
+		EObject fac2 = (EObject) node2.eGet(cGenChildNode.getEStructuralFeature("modelFacet"));
 		assertNotNull(fac2);
-		GenElementInitializer ir2 = fac2.getModelElementInitializer();
-		assertTrue(ir2 instanceof GenFeatureSeqInitializer);
-		GenFeatureSeqInitializer irs2 = (GenFeatureSeqInitializer) ir2;
-		EList<GenFeatureInitializer> irs2s = irs2.getInitializers();
-		assertEquals(1, irs2s.size());
-		GenFeatureInitializer fvs1 = irs2s.get(0);
-		assertTrue(fvs1 instanceof GenFeatureValueSpec);
-		GenFeatureValueSpec fvs1c = (GenFeatureValueSpec) fvs1;
-		ValueExpression node2ve = fvs1c.getValue();
+		EObject ir2 = (EObject) fac2.eGet(cTypeModelFacet.getEStructuralFeature("modelElementInitializer"));
+		assertEquals(cGenFeatureSeqInitializer, ir2.eClass());
+		@SuppressWarnings("unchecked")
+		List<EObject> featureInitializers = (List<EObject>) ir2.eGet(cGenFeatureSeqInitializer.getEStructuralFeature("initializers"));
+		assertEquals(1, featureInitializers.size());
+		EObject fvs1 = featureInitializers.get(0);
+		assertEquals(cGenFeatureValueSpec, fvs1.eClass());
+		EObject node2ve = (EObject) fvs1.eGet(cGenFeatureValueSpec.getEStructuralFeature("value"));
 		assertNotNull(node2ve);
-		assertEquals("node2", node2ve.getBody());
-		GenExpressionProviderBase node2veProv = node2ve.getProvider();
+		assertEquals("node2", node2ve.eGet(aValueExpression_Body));
+		EObject node2veProv = (EObject) node2ve.eGet(rValueExpression_Provider);
 		assertNotNull(node2veProv);
-		assertEquals(GenLanguage.REGEXP_LITERAL, node2veProv.getLanguage());
+		assertEquals(eGenLanguage.getEEnumLiteral("regexp"), node2veProv.eGet(aGenExpressionInterpreter_Language));
 		
-		GenExpressionProviderContainer providerRoot = root.getExpressionProviders();
-		assertNotNull(providerRoot);
-		EList<GenExpressionProviderBase> providers = providerRoot.getProviders();
+		EObject exprProviderContainer = (EObject) editorGen.eGet(cGenEditorGenerator.getEStructuralFeature("expressionProviders")); 
+		assertNotNull(exprProviderContainer);
+		@SuppressWarnings("unchecked")
+		List<EObject> providers = (List<EObject>) exprProviderContainer.eGet(exprProviderContainer.eClass().getEStructuralFeature("providers"));
 		assertEquals(4, providers.size());
-		assertTrue(providers.get(0) instanceof GenExpressionInterpreter);
-		assertTrue(providers.get(1) instanceof GenExpressionInterpreter);
-		assertTrue(providers.get(2) instanceof GenExpressionInterpreter);
-		assertTrue(providers.get(3) instanceof GenJavaExpressionProvider);
-		GenExpressionInterpreter pr1 = (GenExpressionInterpreter) providers.get(0);
-		assertEquals(GenLanguage.OCL_LITERAL, pr1.getLanguage());
-		assertEquals(2, pr1.getExpressions().size());
+		assertEquals(cGenExpressionInterpreter, providers.get(0).eClass());
+		assertEquals(cGenExpressionInterpreter, providers.get(1).eClass());
+		assertEquals(cGenExpressionInterpreter, providers.get(2).eClass());
+		assertEquals(cGenJavaExpressionProvider, providers.get(3).eClass());
+
+		// feature comes from superclass, may ask either from ExprInterp or JavaExprProv
+		EStructuralFeature rGenExpressionProviderBase_Expressions = cGenExpressionInterpreter.getEStructuralFeature("expressions");
+		EObject pr1 = providers.get(0);
+		assertEquals(eGenLanguage.getEEnumLiteral("ocl"), pr1.eGet(aGenExpressionInterpreter_Language));
+		assertEquals(2, ((List<?>) pr1.eGet(rGenExpressionProviderBase_Expressions)).size());
 		
-		GenExpressionInterpreter pr2 = (GenExpressionInterpreter) providers.get(1);
-		assertEquals(GenLanguage.REGEXP_LITERAL, pr2.getLanguage());
-		assertEquals(1, pr2.getExpressions().size());
+		EObject pr2 = providers.get(1);
+		assertEquals(eGenLanguage.getEEnumLiteral("regexp"), pr2.eGet(aGenExpressionInterpreter_Language));
+		assertEquals(1, ((List<?>) pr2.eGet(rGenExpressionProviderBase_Expressions)).size());
 		
-		GenExpressionInterpreter pr3 = (GenExpressionInterpreter) providers.get(2);
-		assertEquals(GenLanguage.NREGEXP_LITERAL, pr3.getLanguage());
-		assertEquals(1, pr3.getExpressions().size());
+		EObject pr3 = providers.get(2);
+		assertEquals(eGenLanguage.getEEnumLiteral("nregexp"), pr3.eGet(aGenExpressionInterpreter_Language));
+		assertEquals(1, ((List<?>) pr3.eGet(rGenExpressionProviderBase_Expressions)).size());
 		
-		GenJavaExpressionProvider pr4 = (GenJavaExpressionProvider) providers.get(3);
-		assertEquals(GenLanguage.JAVA_LITERAL, pr4.getLanguage());
-		assertEquals(1, pr4.getExpressions().size());
+		EObject pr4 = providers.get(3);
+		// Can't invoke java methods on DynamicEObjectImpl :(
+		// assertEquals(eGenLanguage.getEEnumLiteral("java"), pr4.getClass().getMethod("getLanguage").invoke(pr4));
+		assertEquals(1, ((List<?>) pr4.eGet(rGenExpressionProviderBase_Expressions)).size());
 	}
 }
