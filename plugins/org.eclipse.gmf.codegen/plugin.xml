@@ -124,14 +124,20 @@
   </extension>
 
   <extension point="org.eclipse.m2m.qvt.oml.javaBlackboxUnits">
-	<library class="org.eclipse.gmf.internal.codegen.util.GenModelUtils">
-		<metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/>
-		<metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/>
-	</library>
-	<library class="org.eclipse.gmf.internal.codegen.util.EMFUtils">
-		<metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/>
-	</library>
-	<library class="org.eclipse.gmf.internal.codegen.util.CodeGenerationUtils"/>
+     <unit name="GenModelUtils" namespace="gmf">
+       <library class="org.eclipse.gmf.internal.codegen.util.GenModelUtils">
+             <metamodel nsURI="http://www.eclipse.org/emf/2002/GenModel"/>
+             <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/>
+       </library>
+    </unit>
+    <unit name="EMFUtils" namespace="gmf">
+       <library class="org.eclipse.gmf.internal.codegen.util.EMFUtils">
+             <metamodel nsURI="http://www.eclipse.org/emf/2002/Ecore"/>
+       </library>
+    </unit>
+    <unit name="CodeGenerationUtils" namespace="gmf">
+       <library class="org.eclipse.gmf.internal.codegen.util.CodeGenerationUtils"/>
+    </unit>
     <unit
           description="GMF utulities to access EMF GenModels"
           name="GenModelAccess"
