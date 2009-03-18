@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-import org.eclipse.gmf.internal.codegen.util.GenModelUtils;
+import gmf.GenModelUtils;
 
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";

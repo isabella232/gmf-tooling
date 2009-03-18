@@ -18,7 +18,7 @@
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::providers::Metrics»
 «EXTENSION xpt::StringOperations»
-«EXTENSION org::eclipse::gmf::internal::codegen::util::CodeGenerationUtils»
+«EXTENSION gmf::CodeGenerationUtils»
 
 «DEFINE MetricProvider FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

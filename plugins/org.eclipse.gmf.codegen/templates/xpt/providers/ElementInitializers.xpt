@@ -19,7 +19,7 @@
 
 «EXTENSION xpt::providers::ElementInitializers»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION org::eclipse::gmf::internal::codegen::util::GenModelUtils»
+«EXTENSION gmf::GenModelUtils»
 «EXTENSION xpt::StringOperations»
 
 «DEFINE ElementInitializers FOR gmfgen::GenDiagram-»

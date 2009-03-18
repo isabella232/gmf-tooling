@@ -16,7 +16,7 @@
 
 «EXTENSION MetaModel»
 «EXTENSION xpt::GenModelUtils»
-«EXTENSION org::eclipse::gmf::internal::codegen::util::GenModelUtils»
+«EXTENSION gmf::GenModelUtils»
 
 /*
  * Does instanceof check.

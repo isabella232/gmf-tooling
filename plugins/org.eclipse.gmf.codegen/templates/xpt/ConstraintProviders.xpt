@@ -13,7 +13,7 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::GenAuditRoot»
 «EXTENSION xpt::GenEditorGenerator»
-«EXTENSION org::eclipse::gmf::internal::codegen::util::CodeGenerationUtils»
+«EXTENSION gmf::CodeGenerationUtils»
 
 «DEFINE extensions FOR gmfgen::GenEditorGenerator-»
 «IF hasAudits(self)»«EXPAND extensions FOR audits»«ENDIF-»

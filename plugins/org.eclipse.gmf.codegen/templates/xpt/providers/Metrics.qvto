@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-import org.eclipse.gmf.internal.codegen.util.CodeGenerationUtils;
+import gmf.CodeGenerationUtils;
 
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
@@ -18,17 +18,17 @@ library Metrics;
 
 -- MODIFIERS: cached
 helper getNotationMetrics(c : gmfgen::GenMetricContainer) : Sequence(gmfgen::GenMetricRule) {
-	return c.metrics->select(target.oclIsKindOf(gmfgen::GenNotationElementTarget))
+	return c.metrics->asSequence()->select(target.oclIsKindOf(gmfgen::GenNotationElementTarget))
 }
 
 -- MODIFIERS: cached
 helper getDiagramMetrics(c : gmfgen::GenMetricContainer) : Sequence(gmfgen::GenMetricRule) {
-	return c.metrics->select(target.oclIsKindOf(gmfgen::GenDiagramElementTarget))
+	return c.metrics->asSequence()->select(target.oclIsKindOf(gmfgen::GenDiagramElementTarget))
 }
 
 -- MODIFIERS: cached
 helper getDomainMetrics(c : gmfgen::GenMetricContainer) : Sequence(gmfgen::GenMetricRule) {
-	return c.metrics->select(target.oclIsKindOf(gmfgen::GenDomainElementTarget))
+	return c.metrics->asSequence()->select(target.oclIsKindOf(gmfgen::GenDomainElementTarget))
 }
 
 helper exprFieldName(m : gmfgen::GenMetricRule) : String {
