@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,28 +10,28 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«DEFINE getViewCode FOR gmfgen::GenCommonBase»«ERROR 'Unexpected type'»«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Unexpected type'Â»Â«ENDDEFINEÂ»
 
-«DEFINE getViewCode FOR gmfgen::GenDiagram»(org.eclipse.gmf.runtime.notation.Diagram) getHost().getModel()«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenDiagramÂ»(org.eclipse.gmf.runtime.notation.Diagram) getHost().getModel()Â«ENDDEFINEÂ»
 
-«DEFINE getViewCode FOR gmfgen::GenChildContainer»(org.eclipse.gmf.runtime.notation.Node) getHost().getModel()«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenChildContainerÂ»(org.eclipse.gmf.runtime.notation.Node) getHost().getModel()Â«ENDDEFINEÂ»
 
-«DEFINE getViewCode FOR gmfgen::GenLink»(org.eclipse.gmf.runtime.notation.Edge) getHost().getModel()«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenLinkÂ»(org.eclipse.gmf.runtime.notation.Edge) getHost().getModel()Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramCode FOR gmfgen::GenCommonBase»«ERROR 'Unexpected type'»«ENDDEFINE»
+Â«DEFINE getDiagramCode FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Unexpected type'Â»Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramCode FOR gmfgen::GenDiagram»«EXPAND getViewCode»«ENDDEFINE»
+Â«DEFINE getDiagramCode FOR gmfgen::GenDiagramÂ»Â«EXPAND getViewCodeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramCode FOR gmfgen::GenChildContainer»(«EXPAND getViewCode»).getDiagram()«ENDDEFINE»
+Â«DEFINE getDiagramCode FOR gmfgen::GenChildContainerÂ»(Â«EXPAND getViewCodeÂ»).getDiagram()Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramCode FOR gmfgen::GenLink»(«EXPAND getViewCode»).getDiagram()«ENDDEFINE»
+Â«DEFINE getDiagramCode FOR gmfgen::GenLinkÂ»(Â«EXPAND getViewCodeÂ»).getDiagram()Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElementCode FOR gmfgen::GenCommonBase»«EXPAND getDiagramCode».getElement()«ENDDEFINE»
+Â«DEFINE getDiagramElementCode FOR gmfgen::GenCommonBaseÂ»Â«EXPAND getDiagramCodeÂ».getElement()Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElementCode FOR gmfgen::GenDiagram»(«EXPAND getDiagramCode»).getElement()«ENDDEFINE»
+Â«DEFINE getDiagramElementCode FOR gmfgen::GenDiagramÂ»(Â«EXPAND getDiagramCodeÂ»).getElement()Â«ENDDEFINEÂ»
 
-«DEFINE getCastToEditPart FOR gmfgen::GenChildContainer»(«getEditPartQualifiedClassName()») getHost()«ENDDEFINE»
+Â«DEFINE getCastToEditPart FOR gmfgen::GenChildContainerÂ»(Â«getEditPartQualifiedClassName()Â») getHost()Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,207 +10,207 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::diagram::policies::i18n»
-«EXTENSION xpt::diagram::policies::ClassNames»
-«EXTENSION xpt::diagram::policies::ComponentEditPolicy»
-«EXTENSION xpt::diagram::LinkFinder»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::diagram::policies::i18nÂ»
+Â«EXTENSION xpt::diagram::policies::ClassNamesÂ»
+Â«EXTENSION xpt::diagram::policies::ComponentEditPolicyÂ»
+Â«EXTENSION xpt::diagram::LinkFinderÂ»
 
-«DEFINE ComponentEditPolicy FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
-package «getDiagram().editPoliciesPackageName»;
+Â«DEFINE ComponentEditPolicy FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGenÂ»
+package Â«getDiagram().editPoliciesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND createDeleteCommand-»
-	«EXPAND getDeleteViewCommand-»
-	«EXPAND canDeleteView-»
-«IF needsGetGraphicalEditPart(self)-»
-	«EXPAND getGraphicalEditPart-»
-«ENDIF-»
-	«EXPAND domainModelRemoveCommand-»
-	«EXPAND getDiagramElement-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND createDeleteCommand-Â»
+	Â«EXPAND getDeleteViewCommand-Â»
+	Â«EXPAND canDeleteView-Â»
+Â«IF needsGetGraphicalEditPart(self)-Â»
+	Â«EXPAND getGraphicalEditPart-Â»
+Â«ENDIF-Â»
+	Â«EXPAND domainModelRemoveCommand-Â»
+	Â«EXPAND getDiagramElement-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand FOR gmfgen::GenCommonBase»«ERROR 'Unexpected type!'»«ENDDEFINE»
+Â«DEFINE domainModelRemoveCommand FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Unexpected type!'Â»Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand FOR gmfgen::GenNode-»
-«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand('getDiagramNode()')-»
-«ENDDEFINE»
+Â«DEFINE domainModelRemoveCommand FOR gmfgen::GenNode-Â»
+Â«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand('getDiagramNode()')-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand FOR gmfgen::GenLink-»
-«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand('getDiagramEdge()')-»
-«ENDDEFINE»
+Â«DEFINE domainModelRemoveCommand FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::commands::domainModelRemoveCommand::domainModelRemoveCommand('getDiagramEdge()')-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElement FOR gmfgen::GenCommonBase»«ERROR 'Unexpected type!'»«ENDDEFINE»
+Â«DEFINE getDiagramElement FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Unexpected type!'Â»Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElement FOR gmfgen::GenNode-»
-«EXPAND getDiagramNode-»
-«ENDDEFINE»
+Â«DEFINE getDiagramElement FOR gmfgen::GenNode-Â»
+Â«EXPAND getDiagramNode-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElement FOR gmfgen::GenLink-»
-«EXPAND getDiagramEdge-»
-«ENDDEFINE»
+Â«DEFINE getDiagramElement FOR gmfgen::GenLink-Â»
+Â«EXPAND getDiagramEdge-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE className FOR gmfgen::GenCommonBase»«getComponentEditPolicyClassName(self)»«ENDDEFINE»
-«DEFINE qualifiedClassName FOR gmfgen::GenCommonBase»«getDiagram().editPoliciesPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenCommonBaseÂ»Â«getComponentEditPolicyClassName(self)Â»Â«ENDDEFINEÂ»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenCommonBaseÂ»Â«getDiagram().editPoliciesPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenCommonBase»extends org.eclipse.gmf.runtime.lite.edit.policies.ComponentEditPolicyEx«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenCommonBaseÂ»extends org.eclipse.gmf.runtime.lite.edit.policies.ComponentEditPolicyExÂ«ENDDEFINEÂ»
 
-«DEFINE createDeleteCommand FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDeleteCommand FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command createDeleteCommand(org.eclipse.gef.requests.GroupRequest deleteRequest) {
-	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND getDiagramElementMethodName»().getDiagram().getElement());
-«LET incomingTypeLinks(self) AS incomingTypeLinks-»
-«LET outgoingNonPhantomLinks(self) AS outgoingLinks-»
-«IF incomingTypeLinks->size() > 0 or outgoingLinks->size() > 0-»
-	org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand result = new org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForDeleteModelElementLabel(getDiagram())) FOR getDiagram().editorGen»);
-«ENDIF-»
-	«EXPAND deleteIncomingLinks(incomingTypeLinks, true)-»
-	«EXPAND deleteOutgoingLinks(outgoingLinks, true)-»
-	«EXPAND createDeleteCommandPrim(true)-»
-«IF incomingTypeLinks->size() > 0 or outgoingLinks->size() > 0-»
+	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(Â«EXPAND getDiagramElementMethodNameÂ»().getDiagram().getElement());
+Â«LET incomingTypeLinks(self) AS incomingTypeLinks-Â»
+Â«LET outgoingNonPhantomLinks(self) AS outgoingLinks-Â»
+Â«IF incomingTypeLinks->size() > 0 or outgoingLinks->size() > 0-Â»
+	org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand result = new org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand(editingDomain, Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDeleteModelElementLabel(getDiagram())) FOR getDiagram().editorGenÂ»);
+Â«ENDIF-Â»
+	Â«EXPAND deleteIncomingLinks(incomingTypeLinks, true)-Â»
+	Â«EXPAND deleteOutgoingLinks(outgoingLinks, true)-Â»
+	Â«EXPAND createDeleteCommandPrim(true)-Â»
+Â«IF incomingTypeLinks->size() > 0 or outgoingLinks->size() > 0-Â»
 	result.add(cc);
 	return result;
-«ELSE-»
+Â«ELSE-Â»
 	return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, cc);
-«ENDIF-»
-«ENDLET-»
-«ENDLET-»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE deleteIncomingLinks(incomingLinks : Collection(gmfgen::GenLink), deleteFromModel : Boolean) FOR gmfgen::GenCommonBase-»
-«IF incomingLinks->size() > 0-»
+Â«DEFINE deleteIncomingLinks(incomingLinks : Collection(gmfgen::GenLink), deleteFromModel : Boolean) FOR gmfgen::GenCommonBase-Â»
+Â«IF incomingLinks->size() > 0-Â»
 	for(java.util.Iterator it = getGraphicalEditPart().getTargetConnections().iterator(); it.hasNext(); ) {
 		org.eclipse.gef.EditPart nextEditPart = (org.eclipse.gef.EditPart) it.next();
 		org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) nextEditPart.getModel();
-		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextEdge);
+		int visualID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getVisualID(nextEdge);
 		switch (visualID) {
-«FOREACH incomingLinks AS nextLink-»
-		case «nextLink.getEditPartQualifiedClassName()».VISUAL_ID:
-«ENDFOREACH-»
-			«EXPAND deleteDependentLinks(deleteFromModel)-»
+Â«FOREACH incomingLinks AS nextLink-Â»
+		case Â«nextLink.getEditPartQualifiedClassName()Â».VISUAL_ID:
+Â«ENDFOREACH-Â»
+			Â«EXPAND deleteDependentLinks(deleteFromModel)-Â»
 		}
 	}
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deleteOutgoingLinks(outgoingLinks : Collection(gmfgen::GenLink), deleteFromModel : Boolean) FOR gmfgen::GenCommonBase-»
-«IF outgoingLinks->size() > 0-»
+Â«DEFINE deleteOutgoingLinks(outgoingLinks : Collection(gmfgen::GenLink), deleteFromModel : Boolean) FOR gmfgen::GenCommonBase-Â»
+Â«IF outgoingLinks->size() > 0-Â»
 	for(java.util.Iterator it = getGraphicalEditPart().getSourceConnections().iterator(); it.hasNext(); ) {
 		org.eclipse.gef.EditPart nextEditPart = (org.eclipse.gef.EditPart) it.next();
 		org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) nextEditPart.getModel();
-		int visualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(nextEdge);
+		int visualID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getVisualID(nextEdge);
 		switch (visualID) {
-«FOREACH outgoingLinks AS nextLink-»
-		case «nextLink.getEditPartQualifiedClassName()».VISUAL_ID:
-«ENDFOREACH-»
-			«EXPAND deleteDependentLinks(deleteFromModel)-»
+Â«FOREACH outgoingLinks AS nextLink-Â»
+		case Â«nextLink.getEditPartQualifiedClassName()Â».VISUAL_ID:
+Â«ENDFOREACH-Â»
+			Â«EXPAND deleteDependentLinks(deleteFromModel)-Â»
 		}
 	}
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deleteDependentLinks(deleteFromModel : Boolean) FOR gmfgen::GenCommonBase-»
+Â«DEFINE deleteDependentLinks(deleteFromModel : Boolean) FOR gmfgen::GenCommonBase-Â»
 {
-	org.eclipse.gef.requests.GroupRequest deleteLinkRequest = new org.eclipse.gef.requests.GroupRequest(«IF deleteFromModel»org.eclipse.gef.RequestConstants.REQ_DELETE«ELSE»org.eclipse.gmf.runtime.lite.requests.RequestConstants.REQ_FORCED_DELETE_VIEW«ENDIF»);
+	org.eclipse.gef.requests.GroupRequest deleteLinkRequest = new org.eclipse.gef.requests.GroupRequest(Â«IF deleteFromModelÂ»org.eclipse.gef.RequestConstants.REQ_DELETEÂ«ELSEÂ»org.eclipse.gmf.runtime.lite.requests.RequestConstants.REQ_FORCED_DELETE_VIEWÂ«ENDIFÂ»);
 	deleteLinkRequest.setEditParts(nextEditPart);
 	result.add(nextEditPart.getCommand(deleteLinkRequest));
 	break;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getGraphicalEditPart FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getGraphicalEditPart FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.GraphicalEditPart getGraphicalEditPart() {
 	return (org.eclipse.gef.GraphicalEditPart) getHost();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDeleteCommandPrim(deleteFromModel : Boolean) FOR gmfgen::GenCommonBase»«ERROR 'UnexpectedType'»«ENDDEFINE»
+Â«DEFINE createDeleteCommandPrim(deleteFromModel : Boolean) FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'UnexpectedType'Â»Â«ENDDEFINEÂ»
 
-«DEFINE createDeleteCommandPrim(deleteFromModel : Boolean) FOR gmfgen::GenNode-»
+Â«DEFINE createDeleteCommandPrim(deleteFromModel : Boolean) FOR gmfgen::GenNode-Â»
 org.eclipse.emf.common.command.CompoundCommand cc = new org.eclipse.emf.common.command.CompoundCommand();
-«IF deleteFromModel-»
+Â«IF deleteFromModel-Â»
 cc.append(createDomainModelRemoveCommand(editingDomain));
-«ENDIF-»
-cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand((org.eclipse.gmf.runtime.notation.View) «EXPAND getDiagramElementMethodName»().eContainer(), «EXPAND getDiagramElementMethodName»()));
-«ENDDEFINE»
+Â«ENDIF-Â»
+cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand((org.eclipse.gmf.runtime.notation.View) Â«EXPAND getDiagramElementMethodNameÂ»().eContainer(), Â«EXPAND getDiagramElementMethodNameÂ»()));
+Â«ENDDEFINEÂ»
 
-«DEFINE createDeleteCommandPrim(deleteFromModel : Boolean) FOR gmfgen::GenLink-»
+Â«DEFINE createDeleteCommandPrim(deleteFromModel : Boolean) FOR gmfgen::GenLink-Â»
 org.eclipse.emf.common.command.CompoundCommand cc = new org.eclipse.emf.common.command.CompoundCommand();
-«IF deleteFromModel-»
+Â«IF deleteFromModel-Â»
 cc.append(createDomainModelRemoveCommand(editingDomain));
-«ENDIF-»
-cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalEdgeCommand(«EXPAND getDiagramElementMethodName»().getDiagram(), «EXPAND getDiagramElementMethodName»()));
-«ENDDEFINE»
+Â«ENDIF-Â»
+cc.append(new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalEdgeCommand(Â«EXPAND getDiagramElementMethodNameÂ»().getDiagram(), Â«EXPAND getDiagramElementMethodNameÂ»()));
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElementMethodName FOR gmfgen::GenCommonBase»«ERROR 'Unexpected type: ' + self.repr()»«ENDDEFINE»
-«DEFINE getDiagramElementMethodName FOR gmfgen::GenNode»getDiagramNode«ENDDEFINE»
-«DEFINE getDiagramElementMethodName FOR gmfgen::GenLink»getDiagramEdge«ENDDEFINE»
+Â«DEFINE getDiagramElementMethodName FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Unexpected type: ' + self.repr()Â»Â«ENDDEFINEÂ»
+Â«DEFINE getDiagramElementMethodName FOR gmfgen::GenNodeÂ»getDiagramNodeÂ«ENDDEFINEÂ»
+Â«DEFINE getDiagramElementMethodName FOR gmfgen::GenLinkÂ»getDiagramEdgeÂ«ENDDEFINEÂ»
 
-«DEFINE getDiagramNode FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.gmf.runtime.notation.Node «EXPAND getDiagramElementMethodName»() {
+Â«DEFINE getDiagramNode FOR gmfgen::GenNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+protected org.eclipse.gmf.runtime.notation.Node Â«EXPAND getDiagramElementMethodNameÂ»() {
 	return (org.eclipse.gmf.runtime.notation.Node) getHost().getModel();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramEdge FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.gmf.runtime.notation.Edge «EXPAND getDiagramElementMethodName»() {
+Â«DEFINE getDiagramEdge FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+protected org.eclipse.gmf.runtime.notation.Edge Â«EXPAND getDiagramElementMethodNameÂ»() {
 	return (org.eclipse.gmf.runtime.notation.Edge) getHost().getModel();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDeleteViewCommand FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDeleteViewCommand FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getDeleteViewCommand(org.eclipse.gef.requests.GroupRequest deleteRequest, boolean isForced) {
 	if (!isForced && !canDeleteView()) {
 		return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 	}
-	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND getDiagramElementMethodName»().getDiagram().getElement());
-«LET incomingLinks(self) AS incomingLinks-»
-«LET outgoingLinks(self) AS outgoingLinks-»
-«IF incomingLinks->size() > 0 or outgoingLinks->size() > 0-»
-	org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand result = new org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand(editingDomain, «EXPAND xpt::Externalizer::accessorCall(i18nKeyForDeleteDiagramElementLabel(getDiagram())) FOR getDiagram().editorGen»);
-«ENDIF-»
-	«EXPAND deleteIncomingLinks(incomingLinks, false)-»
-	«EXPAND deleteOutgoingLinks(outgoingLinks, false)-»
-	«EXPAND createDeleteCommandPrim(false)-»
-«IF incomingLinks->size() > 0 or outgoingLinks->size() > 0-»
+	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(Â«EXPAND getDiagramElementMethodNameÂ»().getDiagram().getElement());
+Â«LET incomingLinks(self) AS incomingLinks-Â»
+Â«LET outgoingLinks(self) AS outgoingLinks-Â»
+Â«IF incomingLinks->size() > 0 or outgoingLinks->size() > 0-Â»
+	org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand result = new org.eclipse.gmf.runtime.lite.commands.CompositeWrappingCommand(editingDomain, Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDeleteDiagramElementLabel(getDiagram())) FOR getDiagram().editorGenÂ»);
+Â«ENDIF-Â»
+	Â«EXPAND deleteIncomingLinks(incomingLinks, false)-Â»
+	Â«EXPAND deleteOutgoingLinks(outgoingLinks, false)-Â»
+	Â«EXPAND createDeleteCommandPrim(false)-Â»
+Â«IF incomingLinks->size() > 0 or outgoingLinks->size() > 0-Â»
 	result.add(cc);
 	return result;
-«ELSE-»
+Â«ELSE-Â»
 	return new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, cc);
-«ENDIF-»
-«ENDLET-»
-«ENDLET-»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE canDeleteView FOR gmfgen::GenCommonBase»«ERROR 'Unexpected Type: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE canDeleteView FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Unexpected Type: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE canDeleteView FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE canDeleteView FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private boolean canDeleteView() {
 	return false;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE canDeleteView FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE canDeleteView FOR gmfgen::GenNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private boolean canDeleteView() {
-	if («EXPAND getDiagramElementMethodName»().getEAnnotation("Shortcut") != null) {	«EXPAND xpt::Common::nonNLS»
+	if (Â«EXPAND getDiagramElementMethodNameÂ»().getEAnnotation("Shortcut") != null) {	Â«EXPAND xpt::Common::nonNLSÂ»
 		return true;
 	}
-	org.eclipse.gmf.runtime.notation.View parentView = (org.eclipse.gmf.runtime.notation.View) «EXPAND getDiagramElementMethodName»().eContainer();
+	org.eclipse.gmf.runtime.notation.View parentView = (org.eclipse.gmf.runtime.notation.View) Â«EXPAND getDiagramElementMethodNameÂ»().eContainer();
 	if (parentView == null) {
 		return true;
 	}
@@ -218,18 +218,18 @@ private boolean canDeleteView() {
 	if (canonicalStyle != null) {
 		return !canonicalStyle.isCanonical();
 	}
-	return «not getDiagram().synchronized»;
+	return Â«not getDiagram().synchronizedÂ»;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenCommonBase»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenCommonBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForDeleteModelElementLabel(self))-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForDeleteDiagramElementLabel(self))-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDeleteModelElementLabel(self))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDeleteDiagramElementLabel(self))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDeleteModelElementLabel(self), 'Delete Model Element')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDeleteDiagramElementLabel(self), 'Delete Diagram Element')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDeleteModelElementLabel(self), 'Delete Model Element')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDeleteDiagramElementLabel(self), 'Delete Diagram Element')-Â»
+Â«ENDDEFINEÂ»

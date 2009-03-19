@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,83 +10,83 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::diagram::parts::Common»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::diagram::parts::CommonÂ»
 
-«DEFINE EditPartFactory FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editPartsPackageName»;
+Â«DEFINE EditPartFactory FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartFactoryClassName» «EXPAND supertypes» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartFactoryClassNameÂ» Â«EXPAND supertypesÂ» {
 
-	«EXPAND externalNodeLabels-»
+	Â«EXPAND externalNodeLabels-Â»
 
-	«EXPAND createEditPart-»
+	Â«EXPAND createEditPart-Â»
 
-	«EXPAND createUnrecognizedEditPart-»
+	Â«EXPAND createUnrecognizedEditPart-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»implements org.eclipse.gef.EditPartFactory«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»implements org.eclipse.gef.EditPartFactoryÂ«ENDDEFINEÂ»
 
-«DEFINE externalNodeLabels FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";	«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE externalNodeLabels FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";	Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEditPart FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEditPart FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
 		if (model instanceof org.eclipse.gmf.runtime.notation.View) {
 			org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
-			String modelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
-			if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(modelID)) {
-«IF containsShortcutsTo->size() > 0-»
-				if («getDiagramEditorUtilQualifiedClassName()».isKnownShortcutModelID(modelID)) {
+			String modelID = Â«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCallÂ»(view);
+			if (!Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ».equals(modelID)) {
+Â«IF containsShortcutsTo->size() > 0-Â»
+				if (Â«getDiagramEditorUtilQualifiedClassName()Â».isKnownShortcutModelID(modelID)) {
 					org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProvider shortcutProvider = org.eclipse.gmf.runtime.lite.shortcuts.ShortcutProvidersRegistry.INSTANCE.getShortcutProvider(modelID);
 					if (shortcutProvider != null) {
 						return shortcutProvider.createShortcutEditPart(context, view);
 					}
 				}
-«ENDIF-»
+Â«ENDIF-Â»
 				return null;
 			}
-			int viewVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view);
+			int viewVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»(view);
 			switch (viewVisualID) {
-				«EXPAND doCreate FOREACH getAllContainers()-»
-				«EXPAND doCreate FOREACH links-»
+				Â«EXPAND doCreate FOREACH getAllContainers()-Â»
+				Â«EXPAND doCreate FOREACH links-Â»
 			}
 		}
 		return createUnrecognizedEditPart(context, model);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createUnrecognizedEditPart FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createUnrecognizedEditPart FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	 private org.eclipse.gef.EditPart createUnrecognizedEditPart(org.eclipse.gef.EditPart context, Object model) {
 	 	// Handle creation of unrecognized child node EditParts here
 	 	return null;
 	 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE doCreate FOR gmfgen::GenCommonBase-»
-«EXPAND caseVisualID-»
-«EXPAND doCreate FOREACH self.getAllLabels()-»
-«ENDDEFINE»
+Â«DEFINE doCreate FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND caseVisualID-Â»
+Â«EXPAND doCreate FOREACH self.getAllLabels()-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE caseVisualID FOR gmfgen::GenCommonBase-»
-case «EXPAND xpt::editor::VisualIDRegistry::visualID»:
-	return new «getEditPartQualifiedClassName()»(«EXPAND cast»view);
-«ENDDEFINE»
+Â«DEFINE caseVisualID FOR gmfgen::GenCommonBase-Â»
+case Â«EXPAND xpt::editor::VisualIDRegistry::visualIDÂ»:
+	return new Â«getEditPartQualifiedClassName()Â»(Â«EXPAND castÂ»view);
+Â«ENDDEFINEÂ»
 
-«DEFINE cast FOR gmfgen::GenCommonBase»«ENDDEFINE»
+Â«DEFINE cast FOR gmfgen::GenCommonBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE cast FOR gmfgen::GenDiagram»(org.eclipse.gmf.runtime.notation.Diagram) «ENDDEFINE»
+Â«DEFINE cast FOR gmfgen::GenDiagramÂ»(org.eclipse.gmf.runtime.notation.Diagram) Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

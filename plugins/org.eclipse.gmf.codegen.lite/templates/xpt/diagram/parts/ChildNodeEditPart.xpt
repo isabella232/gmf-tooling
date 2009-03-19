@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,59 +10,59 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::diagram::parts::LabelController»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::diagram::parts::LabelControllerÂ»
 
-«DEFINE ChildNodeEditPart FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE ChildNodeEditPart FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND supertypes» {
-	«EXPAND xpt::diagram::parts::Common::visualIDConstant-»
-	«EXPAND xpt::diagram::parts::Common::ctors-»
-	«EXPAND isSelectable-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND xpt::diagram::parts::Common::visualIDConstant-Â»
+	Â«EXPAND xpt::diagram::parts::Common::ctors-Â»
+	Â«EXPAND isSelectable-Â»
 
-	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
-	«EXPAND xpt::diagram::parts::Common::registerModel-»
+	Â«EXPAND xpt::diagram::parts::Common::declareViewCode-Â»
+	Â«EXPAND xpt::diagram::parts::Common::registerModel-Â»
 
-	«EXPAND createEditPolicies-»
+	Â«EXPAND createEditPolicies-Â»
 
-	«EXPAND xpt::diagram::parts::requests::performRequest-»
-	«EXPAND xpt::diagram::parts::Common::getModelChildren-»
-	«EXPAND xpt::diagram::parts::Common::getModelSourceConnections-»
-	«EXPAND xpt::diagram::parts::Common::getModelTargetConnections-»
+	Â«EXPAND xpt::diagram::parts::requests::performRequest-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getModelChildren-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getModelSourceConnections-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getModelTargetConnections-Â»
 
 
-	«EXPAND xpt::diagram::parts::Common::getAdapter-»
+	Â«EXPAND xpt::diagram::parts::Common::getAdapter-Â»
 
-	«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-»
+	Â«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-Â»
 
-	«EXPAND xpt::diagram::parts::Common::activate-»
-	«EXPAND xpt::diagram::parts::Common::deactivate-»
-	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
-	«EXPAND xpt::diagram::parts::refresh::refresher-»
-	«EXPAND xpt::diagram::parts::refresh::externalRefreshers-»
+	Â«EXPAND xpt::diagram::parts::Common::activate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::deactivate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-Â»
+	Â«EXPAND xpt::diagram::parts::refresh::refresher-Â»
+	Â«EXPAND xpt::diagram::parts::refresh::externalRefreshers-Â»
 
-	«EXPAND xpt::diagram::parts::LabelController::directEditManager-»
-	«EXPAND xpt::diagram::parts::LabelController::performDirectEdit-»
-	«EXPAND xpt::diagram::parts::LabelController::labelDisplayer-»
-	«EXPAND xpt::diagram::parts::LabelController::labelText-»
-	«EXPAND xpt::diagram::parts::LabelController::labelIcon-»
-	«EXPAND xpt::diagram::parts::LabelController::labelFigure(self) FOR viewmap-»
+	Â«EXPAND xpt::diagram::parts::LabelController::directEditManager-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::performDirectEdit-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelDisplayer-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelText-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelIcon-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelFigure(self) FOR viewmap-Â»
 
-	«EXPAND xpt::diagram::parts::Common::viewmap FOR viewmap-»
-	«EXPAND xpt::diagram::parts::TreeEditPart::TreeEditPart-»
-	«EXPAND additions-»
+	Â«EXPAND xpt::diagram::parts::Common::viewmap FOR viewmap-Â»
+	Â«EXPAND xpt::diagram::parts::TreeEditPart::TreeEditPart-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenChildLabelNode»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenChildLabelNodeÂ»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.update.IExternallyUpdatableEditPart, org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelControllerÂ«ENDDEFINEÂ»
 
-«DEFINE isSelectable FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isSelectable FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isSelectable() {
 	if (!super.isSelectable()) {
 		return false;
@@ -75,18 +75,18 @@ public boolean isSelectable() {
 	}
 	return true;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEditPolicies FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEditPolicies FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void createEditPolicies() {
-«IF not self.isReadOnly()-»
+Â«IF not self.isReadOnly()-Â»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.LabelDirectEditPolicy());
-«ENDIF-»
-	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new «EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassName»());
-	«EXPAND xpt::diagram::parts::Common::behaviour-»
+Â«ENDIF-Â»
+	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new Â«EXPAND xpt::diagram::policies::ComponentEditPolicy::qualifiedClassNameÂ»());
+	Â«EXPAND xpt::diagram::parts::Common::behaviour-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenChildLabelNode»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenChildLabelNodeÂ»Â«ENDDEFINEÂ»
 

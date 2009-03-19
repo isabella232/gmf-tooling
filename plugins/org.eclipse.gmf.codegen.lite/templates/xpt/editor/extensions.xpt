@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,71 +10,71 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE extensions FOR gmfgen::GenEditorGenerator-»
-«IF editor.eclipseEditor-»
-«EXPAND editor FOR editor-»
-«ELSE-»
-«EXPAND view FOR editor-»
-«ENDIF-»
-«IF null = application-»
-«EXPAND wizard-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE extensions FOR gmfgen::GenEditorGenerator-Â»
+Â«IF editor.eclipseEditor-Â»
+Â«EXPAND editor FOR editor-Â»
+Â«ELSE-Â»
+Â«EXPAND view FOR editor-Â»
+Â«ENDIF-Â»
+Â«IF null = application-Â»
+Â«EXPAND wizard-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE editor FOR gmfgen::GenEditorView-»
+Â«DEFINE editor FOR gmfgen::GenEditorView-Â»
    <extension point="org.eclipse.ui.editors">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
      <editor
-        id="«iD»"
+        id="Â«iDÂ»"
         name="%editorName"
-        icon="«iconPathX»"
-        extensions="«editorGen.diagramFileExtension»"
+        icon="Â«iconPathXÂ»"
+        extensions="Â«editorGen.diagramFileExtensionÂ»"
         default="true"
-        class="«getQualifiedClassName()»"
-        matchingStrategy="«editorGen.diagram.getMatchingStrategyQualifiedClassName()»"
-        contributorClass="«getActionBarContributorQualifiedClassName()»">
+        class="Â«getQualifiedClassName()Â»"
+        matchingStrategy="Â«editorGen.diagram.getMatchingStrategyQualifiedClassName()Â»"
+        contributorClass="Â«getActionBarContributorQualifiedClassName()Â»">
      </editor>
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE view FOR gmfgen::GenEditorView-»
+Â«DEFINE view FOR gmfgen::GenEditorView-Â»
    <extension point="org.eclipse.ui.views">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <view
             allowMultiple="false"
-            category="«editorGen.diagram.creationWizardCategoryID»"
-            class="«getQualifiedClassName()»"
-            icon="«iconPathX»"
-            id="«iD»"
+            category="Â«editorGen.diagram.creationWizardCategoryIDÂ»"
+            class="Â«getQualifiedClassName()Â»"
+            icon="Â«iconPathXÂ»"
+            id="Â«iDÂ»"
             name="%viewerName"/>
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE wizard FOR gmfgen::GenEditorGenerator-»
+Â«DEFINE wizard FOR gmfgen::GenEditorGenerator-Â»
    <extension point="org.eclipse.ui.newWizards">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
   	  <wizard
   	     name="%wizardName"
-  	     icon="«diagram.creationWizardIconPathX»"
-  	     category="«diagram.creationWizardCategoryID»"
-  	     class="«diagram.getCreationWizardQualifiedClassName()»"
-  	     id="«diagram.getCreationWizardQualifiedClassName()»ID">
+  	     icon="Â«diagram.creationWizardIconPathXÂ»"
+  	     category="Â«diagram.creationWizardCategoryIDÂ»"
+  	     class="Â«diagram.getCreationWizardQualifiedClassName()Â»"
+  	     id="Â«diagram.getCreationWizardQualifiedClassName()Â»ID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18n FOR gmfgen::GenEditorGenerator-»
-«IF editor.eclipseEditor-»
-editorName=«modelID» Diagram Editor
-«ELSE-»
-viewerName=«modelID» Diagram View
-«ENDIF-»
-«IF null = application-»
-wizardName=«modelID» Diagram
-newWizardDesc=Creates «modelID» diagram.
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18n FOR gmfgen::GenEditorGenerator-Â»
+Â«IF editor.eclipseEditor-Â»
+editorName=Â«modelIDÂ» Diagram Editor
+Â«ELSE-Â»
+viewerName=Â«modelIDÂ» Diagram View
+Â«ENDIF-Â»
+Â«IF null = application-Â»
+wizardName=Â«modelIDÂ» Diagram
+newWizardDesc=Creates Â«modelIDÂ» diagram.
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

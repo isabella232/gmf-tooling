@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,51 +10,51 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
 /**
  * EMF command to remove a link. Used by Reconnect*Commands and by ComponentEditPolicies.
  */
-«DEFINE domainModelRemoveCommand(edgeVar : String) FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE domainModelRemoveCommand(edgeVar : String) FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.emf.common.command.Command createDomainModelRemoveCommand(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
-	«EXPAND domainModelRemoveCommand('editingDomain', edgeVar) FOR modelFacet-»
+	Â«EXPAND domainModelRemoveCommand('editingDomain', edgeVar) FOR modelFacet-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand(domainVar : String, edgeVar : String) FOR gmfgen::LinkModelFacet-»
+Â«DEFINE domainModelRemoveCommand(domainVar : String, edgeVar : String) FOR gmfgen::LinkModelFacet-Â»
 return org.eclipse.emf.common.command.UnexecutableCommand.INSTANCE;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand(domainVar : String, edgeVar : String) FOR gmfgen::TypeLinkModelFacet-»
-«EXPAND deleteCommand(domainVar, edgeVar)-»
-«ENDDEFINE»
+Â«DEFINE domainModelRemoveCommand(domainVar : String, edgeVar : String) FOR gmfgen::TypeLinkModelFacet-Â»
+Â«EXPAND deleteCommand(domainVar, edgeVar)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand(domainVar : String, nodeVar : String) FOR gmfgen::TypeModelFacet-»
-«EXPAND deleteCommand(domainVar, nodeVar)-»
-«ENDDEFINE»
+Â«DEFINE domainModelRemoveCommand(domainVar : String, nodeVar : String) FOR gmfgen::TypeModelFacet-Â»
+Â«EXPAND deleteCommand(domainVar, nodeVar)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deleteCommand(domainVar : String, elementVar : String) FOR gmfgen::TypeModelFacet-»
-return org.eclipse.gmf.runtime.lite.commands.DestroyElementCommand.create(«domainVar», «elementVar».getElement());
-«ENDDEFINE»
+Â«DEFINE deleteCommand(domainVar : String, elementVar : String) FOR gmfgen::TypeModelFacet-Â»
+return org.eclipse.gmf.runtime.lite.commands.DestroyElementCommand.create(Â«domainVarÂ», Â«elementVarÂ».getElement());
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand(domainVar : String, edgeVar : String) FOR gmfgen::FeatureLinkModelFacet-»
-«IF isContains(metaFeature)-»
+Â«DEFINE domainModelRemoveCommand(domainVar : String, edgeVar : String) FOR gmfgen::FeatureLinkModelFacet-Â»
+Â«IF isContains(metaFeature)-Â»
 org.eclipse.emf.common.command.CompoundCommand result = new org.eclipse.emf.common.command.CompoundCommand();
-result.append(«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + '.getSource().getElement()', edgeVar + '.getTarget().getElement()') FOR metaFeature»);
-result.append(new org.eclipse.emf.edit.command.AddCommand(«domainVar», «EXPAND xpt::commands::Common::getPhantomContainmentResource FOR edgeVar».getContents(), «edgeVar».getTarget().getElement()));
+result.append(Â«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + '.getSource().getElement()', edgeVar + '.getTarget().getElement()') FOR metaFeatureÂ»);
+result.append(new org.eclipse.emf.edit.command.AddCommand(Â«domainVarÂ», Â«EXPAND xpt::commands::Common::getPhantomContainmentResource FOR edgeVarÂ».getContents(), Â«edgeVarÂ».getTarget().getElement()));
 return result;
-«ELSE-»
-return «EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + '.getSource().getElement()', edgeVar + '.getTarget().getElement()') FOR metaFeature»;
-«ENDIF-»
-«ENDDEFINE»
+Â«ELSE-Â»
+return Â«EXPAND xpt::commands::Common::unplugFeatureCommand(domainVar, edgeVar + '.getSource().getElement()', edgeVar + '.getTarget().getElement()') FOR metaFeatureÂ»;
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE domainModelRemoveCommand(nodeVar : String) FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE domainModelRemoveCommand(nodeVar : String) FOR gmfgen::GenNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.emf.common.command.Command createDomainModelRemoveCommand(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
-	«EXPAND domainModelRemoveCommand('editingDomain', nodeVar) FOR modelFacet-»
+	Â«EXPAND domainModelRemoveCommand('editingDomain', nodeVar) FOR modelFacet-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,159 +10,159 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::editor::i18n»
-«EXTENSION xpt::editor::Wizard»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::editor::i18nÂ»
+Â«EXTENSION xpt::editor::WizardÂ»
 
-«DEFINE InitDiagramFileAction FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editorGen.editor.packageName»;
+Â«DEFINE InitDiagramFileAction FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «initDiagramFileActionClassName» «EXPAND supertypes» {
-	«EXPAND selectedModelFile-»
-	«EXPAND selection-»
-	«EXPAND targetPart-»
-	«EXPAND selectionChanged-»
-	«EXPAND run-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«initDiagramFileActionClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND selectedModelFile-Â»
+	Â«EXPAND selection-Â»
+	Â«EXPAND targetPart-Â»
+	Â«EXPAND selectionChanged-Â»
+	Â«EXPAND run-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram-»
-«IF isRichClientPlatform(self)»extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegate«ELSE»implements org.eclipse.ui.IObjectActionDelegate«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagram-Â»
+Â«IF isRichClientPlatform(self)Â»extends org.eclipse.emf.common.ui.action.WorkbenchWindowActionDelegateÂ«ELSEÂ»implements org.eclipse.ui.IObjectActionDelegateÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE selectedModelFileType FOR gmfgen::GenDiagram»«IF isRichClientPlatform(self)»org.eclipse.emf.common.util.URI«ELSE»org.eclipse.core.resources.IFile«ENDIF»«ENDDEFINE»
-«DEFINE selectedModelFileName FOR gmfgen::GenDiagram»«IF isRichClientPlatform(self)»mySelectedModelFileURI«ELSE»mySelectedModelFile«ENDIF»«ENDDEFINE»
-«DEFINE selectedModelFileAsURI FOR gmfgen::GenDiagram»«IF isRichClientPlatform(self)»«EXPAND selectedModelFileName»«ELSE»org.eclipse.emf.common.util.URI.createPlatformResourceURI(«EXPAND selectedModelFileName».getFullPath().toString(), true)«ENDIF»«ENDDEFINE»
-«DEFINE selectedModelFileAsString FOR gmfgen::GenDiagram»«IF isRichClientPlatform(self)»«EXPAND selectedModelFileName».toString()«ELSE»«EXPAND selectedModelFileName».getFullPath().toString()«ENDIF»«ENDDEFINE»
+Â«DEFINE selectedModelFileType FOR gmfgen::GenDiagramÂ»Â«IF isRichClientPlatform(self)Â»org.eclipse.emf.common.util.URIÂ«ELSEÂ»org.eclipse.core.resources.IFileÂ«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE selectedModelFileName FOR gmfgen::GenDiagramÂ»Â«IF isRichClientPlatform(self)Â»mySelectedModelFileURIÂ«ELSEÂ»mySelectedModelFileÂ«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE selectedModelFileAsURI FOR gmfgen::GenDiagramÂ»Â«IF isRichClientPlatform(self)Â»Â«EXPAND selectedModelFileNameÂ»Â«ELSEÂ»org.eclipse.emf.common.util.URI.createPlatformResourceURI(Â«EXPAND selectedModelFileNameÂ».getFullPath().toString(), true)Â«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE selectedModelFileAsString FOR gmfgen::GenDiagramÂ»Â«IF isRichClientPlatform(self)Â»Â«EXPAND selectedModelFileNameÂ».toString()Â«ELSEÂ»Â«EXPAND selectedModelFileNameÂ».getFullPath().toString()Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE selectedModelFile FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-private «EXPAND selectedModelFileType» «EXPAND selectedModelFileName»;
-«ENDDEFINE»
+Â«DEFINE selectedModelFile FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private Â«EXPAND selectedModelFileTypeÂ» Â«EXPAND selectedModelFileNameÂ»;
+Â«ENDDEFINEÂ»
 
-«DEFINE selection FOR gmfgen::GenDiagram-»
-«IF not isRichClientPlatform(self)-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE selection FOR gmfgen::GenDiagram-Â»
+Â«IF not isRichClientPlatform(self)-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.jface.viewers.IStructuredSelection mySelection;
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE targetPart FOR gmfgen::GenDiagram-»
-«IF not isRichClientPlatform(self)-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE targetPart FOR gmfgen::GenDiagram-Â»
+Â«IF not isRichClientPlatform(self)-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.ui.IWorkbenchPart myPart;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void setActivePart(org.eclipse.jface.action.IAction action, org.eclipse.ui.IWorkbenchPart targetPart) {
 	myPart = targetPart;
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE selectionChanged FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE selectionChanged FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void selectionChanged(org.eclipse.jface.action.IAction action, org.eclipse.jface.viewers.ISelection selection) {
-«IF isRichClientPlatform(self)-»
+Â«IF isRichClientPlatform(self)-Â»
 	super.selectionChanged(action, selection);
-«ELSE-»
+Â«ELSE-Â»
 	mySelection = org.eclipse.jface.viewers.StructuredSelection.EMPTY;
 	action.setEnabled(false);
-«ENDIF-»
-	«EXPAND selectedModelFileName» = null;
+Â«ENDIF-Â»
+	Â«EXPAND selectedModelFileNameÂ» = null;
 	if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection == false || selection.isEmpty()) {
 		return;
 	}
 	Object firstElement = ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
-	«EXPAND defineModelFile-»
-«IF isRichClientPlatform(self)-»
+	Â«EXPAND defineModelFile-Â»
+Â«IF isRichClientPlatform(self)-Â»
 	if (mySelectedModelFileURI != null) {
 		mySelectedModelFileURI = mySelectedModelFileURI.trimFragment();
 	}
-«ELSE-»
+Â«ELSE-Â»
 	mySelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
-«ENDIF-»
+Â«ENDIF-Â»
 	action.setEnabled(true);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE defineModelFile FOR gmfgen::GenDiagram-»
-«EXPAND tryInstanceof-»
-«EXPAND tryAdaptable-»
-«ENDDEFINE»
+Â«DEFINE defineModelFile FOR gmfgen::GenDiagram-Â»
+Â«EXPAND tryInstanceof-Â»
+Â«EXPAND tryAdaptable-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE tryInstanceof FOR gmfgen::GenDiagram-»
-if («EXPAND selectedModelFileName» == null && firstElement instanceof «EXPAND selectedModelFileType») {
-	«EXPAND selectedModelFileName» = («EXPAND selectedModelFileType») firstElement;
+Â«DEFINE tryInstanceof FOR gmfgen::GenDiagram-Â»
+if (Â«EXPAND selectedModelFileNameÂ» == null && firstElement instanceof Â«EXPAND selectedModelFileTypeÂ») {
+	Â«EXPAND selectedModelFileNameÂ» = (Â«EXPAND selectedModelFileTypeÂ») firstElement;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE tryAdaptable FOR gmfgen::GenDiagram-»
-if («EXPAND selectedModelFileName» == null && firstElement instanceof org.eclipse.core.runtime.IAdaptable) {
-	«EXPAND selectedModelFileName» = («EXPAND selectedModelFileType») ((org.eclipse.core.runtime.IAdaptable) firstElement).getAdapter(«EXPAND selectedModelFileType».class);
+Â«DEFINE tryAdaptable FOR gmfgen::GenDiagram-Â»
+if (Â«EXPAND selectedModelFileNameÂ» == null && firstElement instanceof org.eclipse.core.runtime.IAdaptable) {
+	Â«EXPAND selectedModelFileNameÂ» = (Â«EXPAND selectedModelFileTypeÂ») ((org.eclipse.core.runtime.IAdaptable) firstElement).getAdapter(Â«EXPAND selectedModelFileTypeÂ».class);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE run FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void run(org.eclipse.jface.action.IAction action) {
 	org.eclipse.emf.ecore.EObject diagramRoot = null;
-	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = «EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»;
-«IF isRichClientPlatform(self)-»
+	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = Â«EXPAND xpt::editor::Common::createEditingDomain FOR editorGenÂ»;
+Â«IF isRichClientPlatform(self)-Â»
 	if (mySelectedModelFileURI != null) {
-«ENDIF-»
-«IF editorGen.sameFileForDiagramAndModel-»
+Â«ENDIF-Â»
+Â«IF editorGen.sameFileForDiagramAndModel-Â»
 		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl();
-«ELSE-»
+Â«ELSE-Â»
 		org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
-«ENDIF-»
+Â«ENDIF-Â»
 		try {
-			org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(«EXPAND selectedModelFileAsURI», true);
+			org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(Â«EXPAND selectedModelFileAsURIÂ», true);
 			diagramRoot = (org.eclipse.emf.ecore.EObject) resource.getContents().get(0);
 		} catch (org.eclipse.emf.common.util.WrappedException ex) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to load resource: " + «EXPAND selectedModelFileAsString», ex); «EXPAND xpt::Common::nonNLS»
-			org.eclipse.jface.dialogs.MessageDialog.openError(«EXPAND getShell»,
-				«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForInitDiagramFileResourceErrorDialog(self))) FOR editorGen»,
-                «EXPAND xpt::Externalizer::accessorCall(messageKey(i18nKeyForInitDiagramFileResourceErrorDialog(self))) FOR editorGen»);
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Unable to load resource: " + Â«EXPAND selectedModelFileAsStringÂ», ex); Â«EXPAND xpt::Common::nonNLSÂ»
+			org.eclipse.jface.dialogs.MessageDialog.openError(Â«EXPAND getShellÂ»,
+				Â«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForInitDiagramFileResourceErrorDialog(self))) FOR editorGenÂ»,
+                Â«EXPAND xpt::Externalizer::accessorCall(messageKey(i18nKeyForInitDiagramFileResourceErrorDialog(self))) FOR editorGenÂ»);
 			return;
 		}
-«IF isRichClientPlatform(self)-»
+Â«IF isRichClientPlatform(self)-Â»
 	}
-«ENDIF-»
-	org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName()»(«EXPAND selectedModelFileName», «EXPAND additionalWizardParameters»diagramRoot, editingDomain);
-	«EXPAND xpt::editor::Common::wizardDialogSettings('wizard', 'InitDiagramFile')-»
-	wizard.setForcePreviousAndNextButtons(«EXPAND needsForceButtons»);
+Â«ENDIF-Â»
+	org.eclipse.jface.wizard.Wizard wizard = new Â«getNewDiagramFileWizardQualifiedClassName()Â»(Â«EXPAND selectedModelFileNameÂ», Â«EXPAND additionalWizardParametersÂ»diagramRoot, editingDomain);
+	Â«EXPAND xpt::editor::Common::wizardDialogSettings('wizard', 'InitDiagramFile')-Â»
+	wizard.setForcePreviousAndNextButtons(Â«EXPAND needsForceButtonsÂ»);
 	wizard.setWindowTitle(org.eclipse.osgi.util.NLS.bind(
-	    «EXPAND xpt::Externalizer::accessorCall(i18nKeyForInitDiagramFileWizardTitle(self)) FOR editorGen»,
-	    «EXPAND xpt::editor::VisualIDRegistry::modelID»));
+	    Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForInitDiagramFileWizardTitle(self)) FOR editorGenÂ»,
+	    Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ»));
 
-    org.eclipse.jface.wizard.WizardDialog dialog = new org.eclipse.jface.wizard.WizardDialog(«EXPAND getShell», wizard);
+    org.eclipse.jface.wizard.WizardDialog dialog = new org.eclipse.jface.wizard.WizardDialog(Â«EXPAND getShellÂ», wizard);
     dialog.create();
-    «EXPAND xpt::editor::Common::setDefaultShellSize('dialog.getShell()')-»
+    Â«EXPAND xpt::editor::Common::setDefaultShellSize('dialog.getShell()')-Â»
     dialog.open();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additionalWizardParameters FOR gmfgen::GenDiagram»«IF not isRichClientPlatform(self)»myPart.getSite().getPage(), mySelection, «ENDIF»«ENDDEFINE»
+Â«DEFINE additionalWizardParameters FOR gmfgen::GenDiagramÂ»Â«IF not isRichClientPlatform(self)Â»myPart.getSite().getPage(), mySelection, Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getShell FOR gmfgen::GenDiagram»«IF isRichClientPlatform(self)»getWindow().getShell()«ELSE»myPart.getSite().getShell()«ENDIF»«ENDDEFINE»
+Â«DEFINE getShell FOR gmfgen::GenDiagramÂ»Â«IF isRichClientPlatform(self)Â»getWindow().getShell()Â«ELSEÂ»myPart.getSite().getShell()Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE needsForceButtons FOR gmfgen::GenDiagram»«IF isRichClientPlatform(self)»mySelectedModelFileURI != null«ELSE»false«ENDIF»«ENDDEFINE»
+Â«DEFINE needsForceButtons FOR gmfgen::GenDiagramÂ»Â«IF isRichClientPlatform(self)Â»mySelectedModelFileURI != nullÂ«ELSEÂ»falseÂ«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)))-»
-«EXPAND xpt::Externalizer::accessorField(messageKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)))-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForInitDiagramFileWizardTitle(self))-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(messageKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForInitDiagramFileWizardTitle(self))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)), 'Error')-»
-«EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)), 'Model file loading failed')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForInitDiagramFileWizardTitle(self), 'Initialize new {0} diagram file')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)), 'Error')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForInitDiagramFileResourceErrorDialog(self)), 'Model file loading failed')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForInitDiagramFileWizardTitle(self), 'Initialize new {0} diagram file')-Â»
+Â«ENDDEFINEÂ»

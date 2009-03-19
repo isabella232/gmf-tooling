@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,53 +10,53 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::editor::i18n»
-«EXTENSION xpt::editor::Wizard»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::editor::i18nÂ»
+Â«EXTENSION xpt::editor::WizardÂ»
 
-«DEFINE CreateShortcutAction FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE CreateShortcutAction FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «createShortcutActionClassName» «EXPAND supertypes» {
-	«EXPAND CREATE_SHORTCUT_ACTION-»
-	«EXPAND ctor-»
-	«EXPAND _init-»
-	«EXPAND calculateEnabled-»
-	«EXPAND run-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«createShortcutActionClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND CREATE_SHORTCUT_ACTION-Â»
+	Â«EXPAND ctor-Â»
+	Â«EXPAND _init-Â»
+	Â«EXPAND calculateEnabled-Â»
+	Â«EXPAND run-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gef.ui.actions.WorkbenchPartAction«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.gef.ui.actions.WorkbenchPartActionÂ«ENDDEFINEÂ»
 
-«DEFINE CREATE_SHORTCUT_ACTION FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static final String CREATE_SHORTCUT_ACTION = "CreateShortcut";	«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE CREATE_SHORTCUT_ACTION FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static final String CREATE_SHORTCUT_ACTION = "CreateShortcut";	Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctor FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «createShortcutActionClassName»(org.eclipse.ui.IWorkbenchPart part) {
+Â«DEFINE ctor FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«createShortcutActionClassNameÂ»(org.eclipse.ui.IWorkbenchPart part) {
 	super(part);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _init FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE _init FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void init() {
 	super.init();
 	setId(CREATE_SHORTCUT_ACTION);
-	setText(«EXPAND xpt::Externalizer::accessorCall(i18nForCreateShortcutActionLabel(self)) FOR editorGen»);
-	setToolTipText(«EXPAND xpt::Externalizer::accessorCall(i18nForCreateShortcutActionTooltip(self)) FOR editorGen»);
+	setText(Â«EXPAND xpt::Externalizer::accessorCall(i18nForCreateShortcutActionLabel(self)) FOR editorGenÂ»);
+	setToolTipText(Â«EXPAND xpt::Externalizer::accessorCall(i18nForCreateShortcutActionTooltip(self)) FOR editorGenÂ»);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE calculateEnabled FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE calculateEnabled FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected boolean calculateEnabled() {
 	org.eclipse.gef.GraphicalViewer graphicalViewer = (org.eclipse.gef.GraphicalViewer) getWorkbenchPart().getAdapter(org.eclipse.gef.GraphicalViewer.class);
 	if (graphicalViewer == null) {
@@ -64,24 +64,24 @@ protected boolean calculateEnabled() {
 	}
 	return graphicalViewer.getContents().getModel() instanceof org.eclipse.gmf.runtime.notation.Diagram;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE run FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void run() {
 	org.eclipse.gef.GraphicalViewer graphicalViewer = (org.eclipse.gef.GraphicalViewer) getWorkbenchPart().getAdapter(org.eclipse.gef.GraphicalViewer.class);
 	org.eclipse.gmf.runtime.notation.Diagram diagram = (org.eclipse.gmf.runtime.notation.Diagram) graphicalViewer.getContents().getModel();
 	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(diagram.getElement());
-«IF isRichClientPlatform(self)-»
-	org.eclipse.jface.wizard.Wizard wizard = new «EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName»(diagram, editingDomain, graphicalViewer);
-	«EXPAND xpt::editor::Common::wizardDialogSettings('wizard', 'CreateShortcut')-»
-	wizard.setWindowTitle(«EXPAND xpt::Externalizer::accessorCall(i18nForCreateShortcutActionWizardWindowTitle(self)) FOR editorGen»);
-    org.eclipse.jface.wizard.WizardDialog dialog = new org.eclipse.jface.wizard.WizardDialog(«EXPAND getShell», wizard);
+Â«IF isRichClientPlatform(self)-Â»
+	org.eclipse.jface.wizard.Wizard wizard = new Â«EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassNameÂ»(diagram, editingDomain, graphicalViewer);
+	Â«EXPAND xpt::editor::Common::wizardDialogSettings('wizard', 'CreateShortcut')-Â»
+	wizard.setWindowTitle(Â«EXPAND xpt::Externalizer::accessorCall(i18nForCreateShortcutActionWizardWindowTitle(self)) FOR editorGenÂ»);
+    org.eclipse.jface.wizard.WizardDialog dialog = new org.eclipse.jface.wizard.WizardDialog(Â«EXPAND getShellÂ», wizard);
     dialog.create();
-    «EXPAND xpt::editor::Common::setDefaultShellSize('dialog.getShell()')-»
+    Â«EXPAND xpt::editor::Common::setDefaultShellSize('dialog.getShell()')-Â»
     dialog.open();
-«ELSE-»
-	«getElementChooserQualifiedClassName()» elementChooser = new «getElementChooserQualifiedClassName()»(«EXPAND getShell», diagram, graphicalViewer);
+Â«ELSE-Â»
+	Â«getElementChooserQualifiedClassName()Â» elementChooser = new Â«getElementChooserQualifiedClassName()Â»(Â«EXPAND getShellÂ», diagram, graphicalViewer);
 	int result = elementChooser.open();
 	if (result != org.eclipse.jface.window.Window.OK) {
 		return;
@@ -95,27 +95,27 @@ public void run() {
 	} else {
 		new org.eclipse.gmf.runtime.lite.commands.WrappingCommand(editingDomain, createShortcutCommand).execute();
 	}
-«ENDIF-»
+Â«ENDIF-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getShell FOR gmfgen::GenDiagram»getWorkbenchPart().getSite().getShell()«ENDDEFINE»
+Â«DEFINE getShell FOR gmfgen::GenDiagramÂ»getWorkbenchPart().getSite().getShell()Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«IF generateCreateShortcutAction()-»
-«EXPAND xpt::Externalizer::accessorField(i18nForCreateShortcutActionLabel(self))-»
-«EXPAND xpt::Externalizer::accessorField(i18nForCreateShortcutActionTooltip(self))-»
-«EXPAND xpt::Externalizer::accessorField(i18nForCreateShortcutActionWizardWindowTitle(self))-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«IF generateCreateShortcutAction()-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nForCreateShortcutActionLabel(self))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nForCreateShortcutActionTooltip(self))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nForCreateShortcutActionWizardWindowTitle(self))-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«IF generateCreateShortcutAction()-»
-«EXPAND xpt::Externalizer::messageEntry(i18nForCreateShortcutActionLabel(self), 'Create sh&ortcut...')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nForCreateShortcutActionTooltip(self), 'Creates a shortcut on the diagram')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nForCreateShortcutActionWizardWindowTitle(self), 'Create shortcut')-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«IF generateCreateShortcutAction()-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nForCreateShortcutActionLabel(self), 'Create sh&ortcut...')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nForCreateShortcutActionTooltip(self), 'Creates a shortcut on the diagram')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nForCreateShortcutActionWizardWindowTitle(self), 'Create shortcut')-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 

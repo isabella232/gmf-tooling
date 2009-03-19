@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,105 +10,105 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::commands::CommandUtils»
-«EXTENSION xpt::diagram::Helper»
-«EXTENSION xpt::diagram::LinkFinder»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::commands::CommandUtilsÂ»
+Â«EXTENSION xpt::diagram::HelperÂ»
+Â«EXTENSION xpt::diagram::LinkFinderÂ»
+Â«EXTENSION xpt::diagram::ViewmapAttributesUtilsÂ»
 
-«DEFINE createNotationalNodeCommand(parentViewCode : String) FOR gmfgen::GenContainerBase-»
+Â«DEFINE createNotationalNodeCommand(parentViewCode : String) FOR gmfgen::GenContainerBase-Â»
 org.eclipse.emf.ecore.EObject domainElement = descriptor.getElement();
 int nodeVisualID = descriptor.getVisualID();
 switch (nodeVisualID) {
-«EXPAND createNotationalNodeCommandForChild(self, parentViewCode, 'domainElement') FOREACH self.getChildNodes()->select(e | e.modelFacet <> null and e.modelFacet.metaClass <> null)-»
+Â«EXPAND createNotationalNodeCommandForChild(self, parentViewCode, 'domainElement') FOREACH self.getChildNodes()->select(e | e.modelFacet <> null and e.modelFacet.metaClass <> null)-Â»
 default:
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNotationalNodeCommandForChild(parentContainer : gmfgen::GenContainerBase, parentViewCode : String, domainElementCode : String) FOR gmfgen::GenNode-»
-«EXPAND createNotationalNodeCommandForChild(parentContainer, parentViewCode, domainElementCode, 'org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand')-»
-«ENDDEFINE»
+Â«DEFINE createNotationalNodeCommandForChild(parentContainer : gmfgen::GenContainerBase, parentViewCode : String, domainElementCode : String) FOR gmfgen::GenNode-Â»
+Â«EXPAND createNotationalNodeCommandForChild(parentContainer, parentViewCode, domainElementCode, 'org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand')-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNotationalNodeCommandForChild(parentContainer : gmfgen::GenContainerBase, parentViewCode : String, domainElementCode : String, createNotationalNodeCommandFQN : String) FOR gmfgen::GenNode-»
-case «getEditPartQualifiedClassName()».VISUAL_ID:
-	if («EXPAND MetaModel::IsInstance(domainElementCode) FOR modelFacet.metaClass») {
-		return new «createNotationalNodeCommandFQN»(«parentViewCode», «domainElementCode», «EXPAND defaultConstraint(parentContainer.needsXYLayout() or (Sequence { self })[gmfgen::GenChildSideAffixedNode]->size() > 0)», «getNotationViewFactoryQualifiedClassName()».INSTANCE, false);
+Â«DEFINE createNotationalNodeCommandForChild(parentContainer : gmfgen::GenContainerBase, parentViewCode : String, domainElementCode : String, createNotationalNodeCommandFQN : String) FOR gmfgen::GenNode-Â»
+case Â«getEditPartQualifiedClassName()Â».VISUAL_ID:
+	if (Â«EXPAND MetaModel::IsInstance(domainElementCode) FOR modelFacet.metaClassÂ») {
+		return new Â«createNotationalNodeCommandFQNÂ»(Â«parentViewCodeÂ», Â«domainElementCodeÂ», Â«EXPAND defaultConstraint(parentContainer.needsXYLayout() or (Sequence { self })[gmfgen::GenChildSideAffixedNode]->size() > 0)Â», Â«getNotationViewFactoryQualifiedClassName()Â».INSTANCE, false);
 	}
 	return null;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE defaultConstraint(xyLayouted : Boolean) FOR gmfgen::GenNode-»
-«IF xyLayouted»new org.eclipse.draw2d.geometry.Rectangle(0, 0, «EXPAND xpt::commands::Common::defaultWidth», «EXPAND xpt::commands::Common::defaultHeight»)«ELSE»null«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE defaultConstraint(xyLayouted : Boolean) FOR gmfgen::GenNode-Â»
+Â«IF xyLayoutedÂ»new org.eclipse.draw2d.geometry.Rectangle(0, 0, Â«EXPAND xpt::commands::Common::defaultWidthÂ», Â«EXPAND xpt::commands::Common::defaultHeightÂ»)Â«ELSEÂ»nullÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNotationalEdgeCommand(parentDiagramCode : String) FOR gmfgen::GenCommonBase-»
-«EXPAND defineDecorator-»
-«EXPAND instantiateNotationalEdgeCommand(parentDiagramCode)-»
-«ENDDEFINE»
+Â«DEFINE createNotationalEdgeCommand(parentDiagramCode : String) FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND defineDecorator-Â»
+Â«EXPAND instantiateNotationalEdgeCommand(parentDiagramCode)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE defineDecorator FOR gmfgen::GenCommonBase-»
+Â«DEFINE defineDecorator FOR gmfgen::GenCommonBase-Â»
 org.eclipse.gmf.runtime.notation.View sourceView = getViewService().findView(linkDescriptor.getSource());
 org.eclipse.gmf.runtime.notation.View targetView = getViewService().findView(linkDescriptor.getDestination());
 org.eclipse.gmf.runtime.lite.services.IViewDecorator decorator = null;
 if (sourceView == null || targetView == null) {
 	return null;
 }
-String sourceModelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(sourceView);
-if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(sourceModelID)) {
+String sourceModelID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getModelID(sourceView);
+if (!Â«getDiagram().getEditPartQualifiedClassName()Â».MODEL_ID.equals(sourceModelID)) {
 	return null;
 }
-String targetModelID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getModelID(targetView);
-if (!«getDiagram().getEditPartQualifiedClassName()».MODEL_ID.equals(targetModelID)) {
+String targetModelID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getModelID(targetView);
+if (!Â«getDiagram().getEditPartQualifiedClassName()Â».MODEL_ID.equals(targetModelID)) {
 	return null;
 }
-	«IF needsSourceVisualID(self)-»
-int sourceVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(sourceView);
-	«ENDIF-»
-	«IF needsTargetVisualID(self)-»
-int targetVisualID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getVisualID(targetView);
-	«ENDIF-»
+	Â«IF needsSourceVisualID(self)-Â»
+int sourceVisualID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getVisualID(sourceView);
+	Â«ENDIF-Â»
+	Â«IF needsTargetVisualID(self)-Â»
+int targetVisualID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getVisualID(targetView);
+	Â«ENDIF-Â»
 switch (linkDescriptor.getVisualID()) {
-	«EXPAND createDecorator FOREACH containedLinks(self)-»
+	Â«EXPAND createDecorator FOREACH containedLinks(self)-Â»
 }
 if (decorator == null) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDecorator FOR gmfgen::GenLink-»
-case «getEditPartQualifiedClassName()».VISUAL_ID:
-«EXPAND restrictEdgeEnds('sourceVisualID', modelFacet.getSourceType()) FOR getDiagram()-»
-«EXPAND restrictEdgeEnds('targetVisualID', modelFacet.getTargetType()) FOR getDiagram()-»
-	if («EXPAND linkDescriptorCondition FOR modelFacet») {
-		decorator = «getNotationViewFactoryQualifiedClassName()».INSTANCE;
+Â«DEFINE createDecorator FOR gmfgen::GenLink-Â»
+case Â«getEditPartQualifiedClassName()Â».VISUAL_ID:
+Â«EXPAND restrictEdgeEnds('sourceVisualID', modelFacet.getSourceType()) FOR getDiagram()-Â»
+Â«EXPAND restrictEdgeEnds('targetVisualID', modelFacet.getTargetType()) FOR getDiagram()-Â»
+	if (Â«EXPAND linkDescriptorCondition FOR modelFacetÂ») {
+		decorator = Â«getNotationViewFactoryQualifiedClassName()Â».INSTANCE;
 	}
 	break;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE instantiateNotationalEdgeCommand(parentDiagramCode : String) FOR gmfgen::GenCommonBase-»
-return new org.eclipse.gmf.runtime.lite.commands.CreateNotationalEdgeCommand(«parentDiagramCode», linkDescriptor.getElement(), sourceView, targetView, decorator);
-«ENDDEFINE»
+Â«DEFINE instantiateNotationalEdgeCommand(parentDiagramCode : String) FOR gmfgen::GenCommonBase-Â»
+return new org.eclipse.gmf.runtime.lite.commands.CreateNotationalEdgeCommand(Â«parentDiagramCodeÂ», linkDescriptor.getElement(), sourceView, targetView, decorator);
+Â«ENDDEFINEÂ»
 
-«DEFINE linkDescriptorCondition FOR gmfgen::LinkModelFacet»«ERROR 'Unexpected type'»«ENDDEFINE»
+Â«DEFINE linkDescriptorCondition FOR gmfgen::LinkModelFacetÂ»Â«ERROR 'Unexpected type'Â»Â«ENDDEFINEÂ»
 
-«DEFINE linkDescriptorCondition FOR gmfgen::TypeLinkModelFacet»«EXPAND MetaModel::IsInstance('linkDescriptor.getElement()') FOR metaClass»«ENDDEFINE»
+Â«DEFINE linkDescriptorCondition FOR gmfgen::TypeLinkModelFacetÂ»Â«EXPAND MetaModel::IsInstance('linkDescriptor.getElement()') FOR metaClassÂ»Â«ENDDEFINEÂ»
 
-«DEFINE linkDescriptorCondition FOR gmfgen::FeatureLinkModelFacet»linkDescriptor.getElement() == null«ENDDEFINE»
+Â«DEFINE linkDescriptorCondition FOR gmfgen::FeatureLinkModelFacetÂ»linkDescriptor.getElement() == nullÂ«ENDDEFINEÂ»
 
-«DEFINE restrictEdgeEnds(visualIdVar : String, expectedClass : genmodel::GenClass) FOR gmfgen::GenDiagram-»
-«LET getRelatedChildLabelGenNodes(self, expectedClass) AS relatedChildLabelGenNodes-»
-«IF relatedChildLabelGenNodes->size() > 0-»
-switch («visualIdVar») {
-«FOREACH relatedChildLabelGenNodes AS nextNode-»
-case  «nextNode.getEditPartQualifiedClassName()».VISUAL_ID:
+Â«DEFINE restrictEdgeEnds(visualIdVar : String, expectedClass : genmodel::GenClass) FOR gmfgen::GenDiagram-Â»
+Â«LET getRelatedChildLabelGenNodes(self, expectedClass) AS relatedChildLabelGenNodes-Â»
+Â«IF relatedChildLabelGenNodes->size() > 0-Â»
+switch (Â«visualIdVarÂ») {
+Â«FOREACH relatedChildLabelGenNodes AS nextNode-Â»
+case  Â«nextNode.getEditPartQualifiedClassName()Â».VISUAL_ID:
 	return null;
-«ENDFOREACH-»
+Â«ENDFOREACH-Â»
 }
-«ENDIF-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 

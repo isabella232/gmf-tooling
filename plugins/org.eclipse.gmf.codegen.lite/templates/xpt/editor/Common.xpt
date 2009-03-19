@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,23 +10,23 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE createEditingDomain FOR gmfgen::GenEditorGenerator»org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()«ENDDEFINE»
+Â«DEFINE createEditingDomain FOR gmfgen::GenEditorGeneratorÂ»org.eclipse.emf.workspace.WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain()Â«ENDDEFINEÂ»
 
-«DEFINE wizardDialogSettings(wizardVarName : String, sectionName : String) FOR gmfgen::GenDiagram-»
-org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getDialogSettings();
-org.eclipse.jface.dialogs.IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection("«sectionName»"); «EXPAND xpt::Common::nonNLS»
+Â«DEFINE wizardDialogSettings(wizardVarName : String, sectionName : String) FOR gmfgen::GenDiagram-Â»
+org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getDialogSettings();
+org.eclipse.jface.dialogs.IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection("Â«sectionNameÂ»"); Â«EXPAND xpt::Common::nonNLSÂ»
 if (wizardDialogSettings == null) {
-	wizardDialogSettings = pluginDialogSettings.addNewSection("«sectionName»"); «EXPAND xpt::Common::nonNLS»
+	wizardDialogSettings = pluginDialogSettings.addNewSection("Â«sectionNameÂ»"); Â«EXPAND xpt::Common::nonNLSÂ»
 }
-«wizardVarName».setDialogSettings(wizardDialogSettings);
-«ENDDEFINE»
+Â«wizardVarNameÂ».setDialogSettings(wizardDialogSettings);
+Â«ENDDEFINEÂ»
 
-«DEFINE setDefaultShellSize(shellVar : String) FOR gmfgen::GenDiagram-»
-«shellVar».setSize(Math.max(500, «shellVar».getSize().x), 500);
-«ENDDEFINE»
+Â«DEFINE setDefaultShellSize(shellVar : String) FOR gmfgen::GenDiagram-Â»
+Â«shellVarÂ».setSize(Math.max(500, Â«shellVarÂ».getSize().x), 500);
+Â«ENDDEFINEÂ»
 

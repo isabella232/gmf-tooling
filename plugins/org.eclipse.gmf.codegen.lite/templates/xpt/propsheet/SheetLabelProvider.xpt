@@ -1,41 +1,41 @@
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+ï»¿Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE SheetLabelProvider FOR gmfgen::GenPropertySheet-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «packageName»;
+Â«DEFINE SheetLabelProvider FOR gmfgen::GenPropertySheet-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «labelProviderClassName» extends org.eclipse.jface.viewers.DecoratingLabelProvider {
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «labelProviderClassName»() {
-		super(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()), null);
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«labelProviderClassNameÂ» extends org.eclipse.jface.viewers.DecoratingLabelProvider {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«labelProviderClassNameÂ»() {
+		super(new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemProvidersAdapterFactory()), null);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getText(Object element) {
 		Object selected = unwrap(element); 
-«IF null <> editorGen.navigator and null <> editorGen.application»
-		if (selected instanceof «editorGen.navigator.getNavigatorGroupQualifiedClassName()») {
-			return ((«editorGen.navigator.getNavigatorGroupQualifiedClassName()») selected).getGroupName();
+Â«IF null <> editorGen.navigator and null <> editorGen.applicationÂ»
+		if (selected instanceof Â«editorGen.navigator.getNavigatorGroupQualifiedClassName()Â») {
+			return ((Â«editorGen.navigator.getNavigatorGroupQualifiedClassName()Â») selected).getGroupName();
 		}
-«ENDIF»
+Â«ENDIFÂ»
 		return super.getText(selected);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.swt.graphics.Image getImage(Object element) {
 		return super.getImage(unwrap(element));
 	}
 
-	«EXPAND unwrap-»
-	«EXPAND unwrapView-»
-	«EXPAND unwrapEditPart-»
+	Â«EXPAND unwrap-Â»
+	Â«EXPAND unwrapView-Â»
+	Â«EXPAND unwrapEditPart-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE unwrap FOR gmfgen::GenPropertySheet-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE unwrap FOR gmfgen::GenPropertySheet-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private Object unwrap(Object element) {
 		if (element instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 			return unwrap(((org.eclipse.jface.viewers.IStructuredSelection) element).getFirstElement());
@@ -51,21 +51,21 @@ public class «labelProviderClassName» extends org.eclipse.jface.viewers.Decorati
 		}
 		return element;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE unwrapView FOR gmfgen::GenPropertySheet-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE unwrapView FOR gmfgen::GenPropertySheet-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private Object unwrapView(org.eclipse.gmf.runtime.notation.View view) {
 		return view.getElement() == null ? view : view.getElement();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE unwrapEditPart FOR gmfgen::GenPropertySheet-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE unwrapEditPart FOR gmfgen::GenPropertySheet-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private Object unwrapEditPart(org.eclipse.gef.EditPart p) {
 		if (p.getModel() instanceof org.eclipse.gmf.runtime.notation.View) {
 			return unwrapView((org.eclipse.gmf.runtime.notation.View) p.getModel());
 		}
 		return p.getModel();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

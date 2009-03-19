@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,73 +10,73 @@
  *    Artem Tikhomirov (Borland) - refactoring (https://bugs.eclipse.org/230014)
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
 
-«DEFINE inputField FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-«IF editorGen.editor.eclipseEditor-»
+Â«DEFINE inputField FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+Â«IF editorGen.editor.eclipseEditor-Â»
 	private org.eclipse.ui.IEditorInput editorInput;
-«ELSE-»
+Â«ELSE-Â»
 	private org.eclipse.emf.common.util.URI diagramURI;
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE setInputMethod FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-void setInput(«editorGen.editor.getQualifiedClassName()» diagramPart) {
+Â«DEFINE setInputMethod FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+void setInput(Â«editorGen.editor.getQualifiedClassName()Â» diagramPart) {
 	org.eclipse.emf.ecore.resource.Resource resource = diagramPart.getDiagram().eResource();
-«IF editorGen.editor.eclipseEditor-»
+Â«IF editorGen.editor.eclipseEditor-Â»
 	this.editorInput = diagramPart.getEditorInput();
-«ELSE-»
+Â«ELSE-Â»
 	this.diagramURI = resource.getURI();
-«ENDIF-»
+Â«ENDIF-Â»
 	setTitleToolTip(resource.getURI().path());
 
 	java.util.List metrics = calculateMetrics(diagramPart);
    	adjustLayout(metrics);
    	viewer.setInput(metrics);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createPartControlMethod_refreshInput FOR gmfgen::GenEditorView-»
-«IF eclipseEditor-»
+Â«DEFINE createPartControlMethod_refreshInput FOR gmfgen::GenEditorView-Â»
+Â«IF eclipseEditor-Â»
     org.eclipse.ui.IEditorPart editor = getSite().getPage().getActiveEditor();
-    if(editor instanceof «getQualifiedClassName()») {
-		setInput((«getQualifiedClassName()») editor);
+    if(editor instanceof Â«getQualifiedClassName()Â») {
+		setInput((Â«getQualifiedClassName()Â») editor);
     }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleOpenMethod FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleOpenMethod FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void open(org.eclipse.jface.viewers.OpenEvent event) {
-«IF editorGen.editor.eclipseEditor-»
-	«editorGen.editor.getQualifiedClassName()» diagramPart;
+Â«IF editorGen.editor.eclipseEditor-Â»
+	Â«editorGen.editor.getQualifiedClassName()Â» diagramPart;
 	try {
 		if (editorInput == null) {
 			return;
 		}
-		org.eclipse.ui.IEditorPart editorPart = getSite().getPage().openEditor(editorInput, «editorGen.editor.getQualifiedClassName()».ID);
-		if(false == editorPart instanceof «editorGen.editor.getQualifiedClassName()») {
+		org.eclipse.ui.IEditorPart editorPart = getSite().getPage().openEditor(editorInput, Â«editorGen.editor.getQualifiedClassName()Â».ID);
+		if(false == editorPart instanceof Â«editorGen.editor.getQualifiedClassName()Â») {
 			return;
 		}
-		diagramPart = («editorGen.editor.getQualifiedClassName()») editorPart;
+		diagramPart = (Â«editorGen.editor.getQualifiedClassName()Â») editorPart;
 	} catch (org.eclipse.ui.PartInitException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Can't open diagram editor", e); «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Can't open diagram editor", e); Â«EXPAND xpt::Common::nonNLSÂ»
 		return;
 	}
-«ELSE-»
+Â«ELSE-Â»
 	if (diagramURI == null) {
 		return;
 	}
-	org.eclipse.ui.IViewPart viewPart = «getDiagramEditorUtilQualifiedClassName()».showView(diagramURI);
-	if(false == viewPart instanceof «editorGen.editor.getQualifiedClassName()») {
+	org.eclipse.ui.IViewPart viewPart = Â«getDiagramEditorUtilQualifiedClassName()Â».showView(diagramURI);
+	if(false == viewPart instanceof Â«editorGen.editor.getQualifiedClassName()Â») {
 		return;
 	}
-	«editorGen.editor.getQualifiedClassName()» diagramPart = («editorGen.editor.getQualifiedClassName()») viewPart;
-«ENDIF-»
+	Â«editorGen.editor.getQualifiedClassName()Â» diagramPart = (Â«editorGen.editor.getQualifiedClassName()Â») viewPart;
+Â«ENDIF-Â»
 	org.eclipse.gef.GraphicalViewer graphicalViewer = (org.eclipse.gef.GraphicalViewer) diagramPart.getAdapter(org.eclipse.gef.GraphicalViewer.class);
 	ElementMetrics selection = (ElementMetrics)((org.eclipse.jface.viewers.IStructuredSelection)event.getSelection()).getFirstElement();
 	String viewID = selection.diagramElementID;
@@ -90,5 +90,5 @@ public void open(org.eclipse.jface.viewers.OpenEvent event) {
 		}
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
  

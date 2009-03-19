@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,79 +10,79 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::providers::i18n_lite»
-«EXTENSION xpt::providers::ValidationUtils»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::providers::i18n_liteÂ»
+Â«EXTENSION xpt::providers::ValidationUtilsÂ»
+Â«EXTENSION xpt::GenAuditRootÂ»
+Â«EXTENSION xpt::GenEditorGeneratorÂ»
 
-«DEFINE className FOR gmfgen::GenDiagram»ValidateAction«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»ValidateActionÂ«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«providersPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«providersPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE actionKey FOR gmfgen::GenDiagram»«EXPAND qualifiedClassName».«EXPAND keyConstant»«ENDDEFINE»
+Â«DEFINE actionKey FOR gmfgen::GenDiagramÂ»Â«EXPAND qualifiedClassNameÂ».Â«EXPAND keyConstantÂ»Â«ENDDEFINEÂ»
 
-«DEFINE ValidateAction FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «providersPackageName»;
+Â«DEFINE ValidateAction FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND KEY-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND KEY-Â»
 
-	«EXPAND part-»
+	Â«EXPAND part-Â»
 
-	«EXPAND ctor-»
+	Â«EXPAND ctor-Â»
 
-	«EXPAND run-»
+	Â«EXPAND run-Â»
 
-	«EXPAND runValidation-»
+	Â«EXPAND runValidation-Â»
 
-	«EXPAND EMFValidation-»
+	Â«EXPAND EMFValidation-Â»
 
-	«EXPAND validate-»
+	Â«EXPAND validate-Â»
 
-	«EXPAND updateEMFStatus-»
+	Â«EXPAND updateEMFStatus-Â»
 
-	«EXPAND updateConstraintStatus-»
+	Â«EXPAND updateConstraintStatus-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.jface.action.Action«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.jface.action.ActionÂ«ENDDEFINEÂ»
 
-«DEFINE KEY FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static final String «EXPAND keyConstant» = "validateAction"; «EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE KEY FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static final String Â«EXPAND keyConstantÂ» = "validateAction"; Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE keyConstant FOR gmfgen::GenDiagram»VALIDATE_ACTION_KEY«ENDDEFINE»
+Â«DEFINE keyConstant FOR gmfgen::GenDiagramÂ»VALIDATE_ACTION_KEYÂ«ENDDEFINEÂ»
 
-«DEFINE part FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE part FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.ui.IWorkbenchPart myWorkbenchPart;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctor FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE ctor FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public ValidateAction(org.eclipse.ui.IWorkbenchPart part) {
-	setId(«EXPAND keyConstant»);
-	setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForValidateActionActionName(self)) FOR editorGen»);
+	setId(Â«EXPAND keyConstantÂ»);
+	setText(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForValidateActionActionName(self)) FOR editorGenÂ»);
 	myWorkbenchPart = part;
-	setEnabled(myWorkbenchPart instanceof «editorGen.editor.getQualifiedClassName()»);
+	setEnabled(myWorkbenchPart instanceof Â«editorGen.editor.getQualifiedClassName()Â»);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE run FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void run() {
 	if (!isEnabled()) {
 		return;
 	}
-	final «editorGen.editor.getQualifiedClassName()» part = («editorGen.editor.getQualifiedClassName()») myWorkbenchPart;
+	final Â«editorGen.editor.getQualifiedClassName()Â» part = (Â«editorGen.editor.getQualifiedClassName()Â») myWorkbenchPart;
 	try {
 		new org.eclipse.jface.operation.IRunnableWithProgress() {
 			public void run(org.eclipse.core.runtime.IProgressMonitor monitor) throws InterruptedException, java.lang.reflect.InvocationTargetException {
@@ -99,41 +99,41 @@ public void run() {
 		}
 		.run(new org.eclipse.core.runtime.NullProgressMonitor());
 	} catch (Exception e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Validation action failed", e); «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Validation action failed", e); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE runValidation FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE runValidation FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static void runValidation(org.eclipse.gmf.runtime.notation.View view, org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService service) {
 	final org.eclipse.gmf.runtime.notation.View target = view;
 	final org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService viewService = service;
 	org.eclipse.emf.transaction.TransactionalEditingDomain txDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(target);
-	«getValidationProviderQualifiedClassName()».runWithConstraints(txDomain, new Runnable() {
+	Â«getValidationProviderQualifiedClassName()Â».runWithConstraints(txDomain, new Runnable() {
 		public void run() {
 			validate(target, viewService);
 		}
 	});
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE EMFValidation FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE EMFValidation FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.emf.common.util.Diagnostic runEMFValidator(org.eclipse.gmf.runtime.notation.View target) {
 	if(target.isSetElement() && target.getElement() != null) {
 		return new org.eclipse.emf.ecore.util.Diagnostician().validate(target.getElement());
 	}
 	return org.eclipse.emf.common.util.Diagnostic.OK_INSTANCE;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE validate FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE validate FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static void validate(org.eclipse.gmf.runtime.notation.View target, org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService viewService) {
 	org.eclipse.emf.common.util.URI diagramUri = (target.getDiagram() != null) ? org.eclipse.emf.ecore.util.EcoreUtil.getURI(target.getDiagram()) : null;
 	if (diagramUri != null) {
-		org.eclipse.gmf.runtime.lite.validation.ValidationState validationState = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getValidationStateManager().getValidationState(diagramUri);
+		org.eclipse.gmf.runtime.lite.validation.ValidationState validationState = Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getValidationStateManager().getValidationState(diagramUri);
 		org.eclipse.gmf.runtime.lite.validation.IValidationStateUpdater updater = validationState.startUpdate();
 		try {
 			org.eclipse.emf.common.util.Diagnostic diagnostic = runEMFValidator(target);
@@ -145,23 +145,23 @@ private static void validate(org.eclipse.gmf.runtime.notation.View target, org.e
 				update(updater, status, viewService);
 			}
 
-«IF shouldRunValidateOnDiagram(editorGen.audits)-»
-«IF hasDiagramElementTargetRule(editorGen.audits)-»
-			validator.setTraversalStrategy(«getValidationProviderQualifiedClassName()».getNotationTraversalStrategy(validator));
-«ENDIF-»
+Â«IF shouldRunValidateOnDiagram(editorGen.audits)-Â»
+Â«IF hasDiagramElementTargetRule(editorGen.audits)-Â»
+			validator.setTraversalStrategy(Â«getValidationProviderQualifiedClassName()Â».getNotationTraversalStrategy(validator));
+Â«ENDIF-Â»
 			org.eclipse.core.runtime.IStatus status = validator.validate(target);
 			update(updater, status, viewService);
-«ENDIF-»
+Â«ENDIF-Â»
 			updater.commitChanges();
 		} catch (Exception e) {
 			updater.discardChanges();
 		}
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE updateEMFStatus FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE updateEMFStatus FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static void update(org.eclipse.gmf.runtime.lite.validation.IValidationStateUpdater updater, org.eclipse.emf.common.util.Diagnostic emfValidationStatus, org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService viewService) {
 	if (emfValidationStatus.getSeverity() == org.eclipse.emf.common.util.Diagnostic.OK) {
 		return;
@@ -185,7 +185,7 @@ private static void update(org.eclipse.gmf.runtime.lite.validation.IValidationSt
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static java.util.Set collectTargetElements(org.eclipse.emf.common.util.Diagnostic diagnostic, java.util.Set targetElementCollector, java.util.List allDiagnostics) {
 	java.util.List data = diagnostic.getData();
 	org.eclipse.emf.ecore.EObject target = null;
@@ -201,10 +201,10 @@ private static java.util.Set collectTargetElements(org.eclipse.emf.common.util.D
 	}
 	return targetElementCollector;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE updateConstraintStatus FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE updateConstraintStatus FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static void update(org.eclipse.gmf.runtime.lite.validation.IValidationStateUpdater updater, org.eclipse.core.runtime.IStatus validationStatus, org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.IViewService viewService) {
 	if (validationStatus.isOK()) {
 		return;
@@ -224,7 +224,7 @@ private static void update(org.eclipse.gmf.runtime.lite.validation.IValidationSt
 	}
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static java.util.Set collectTargetElements(org.eclipse.core.runtime.IStatus status, java.util.Set targetElementCollector, java.util.List allConstraintStatuses) {
 	if (status instanceof org.eclipse.emf.validation.model.IConstraintStatus) {
 		targetElementCollector.add(((org.eclipse.emf.validation.model.IConstraintStatus) status).getTarget());
@@ -238,18 +238,18 @@ private static java.util.Set collectTargetElements(org.eclipse.core.runtime.ISta
 	}
 	return targetElementCollector;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«IF validationNeeded(self)-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForValidateActionActionName(self))-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«IF validationNeeded(self)-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForValidateActionActionName(self))-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«IF validationNeeded(self)-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForValidateActionActionName(self), '&Validate')-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«IF validationNeeded(self)-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForValidateActionActionName(self), '&Validate')-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

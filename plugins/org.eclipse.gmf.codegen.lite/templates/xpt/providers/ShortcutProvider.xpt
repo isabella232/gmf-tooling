@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,48 +10,48 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::commands::CommandUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::commands::CommandUtilsÂ»
 
-«DEFINE className FOR gmfgen::GenDiagram»ShortcutProvider«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»ShortcutProviderÂ«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«providersPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«providersPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE ShortcutProvider FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «providersPackageName»;
+Â«DEFINE ShortcutProvider FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND createShortcutEditPart-»
-	«EXPAND getCreateShortcutCommand-»
-	«EXPAND getRefreshShortcutCommand-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND createShortcutEditPart-Â»
+	Â«EXPAND getCreateShortcutCommand-Â»
+	Â«EXPAND getRefreshShortcutCommand-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»implements org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProvider«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»implements org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProviderÂ«ENDDEFINEÂ»
 
-«DEFINE createShortcutEditPart FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createShortcutEditPart FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gef.EditPart createShortcutEditPart(org.eclipse.gef.EditPart context, org.eclipse.gmf.runtime.notation.View view) {
-	String modelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
-	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(modelID)) {
+	String modelID = Â«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCallÂ»(view);
+	if (!Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ».equals(modelID)) {
 		return null;
 	}
-	int viewVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view);
+	int viewVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»(view);
 	switch (viewVisualID) {
-		«EXPAND xpt::diagram::parts::EditPartFactory::doCreate FOREACH getAllContainers()-»
-		«EXPAND xpt::diagram::parts::EditPartFactory::doCreate FOREACH links-»
+		Â«EXPAND xpt::diagram::parts::EditPartFactory::doCreate FOREACH getAllContainers()-Â»
+		Â«EXPAND xpt::diagram::parts::EditPartFactory::doCreate FOREACH links-Â»
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCreateShortcutCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCreateShortcutCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateShortcutCommand(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
 	org.eclipse.emf.transaction.TransactionalEditingDomain elementEditingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(domainElement);
 	if (elementEditingDomain == null) {
@@ -64,26 +64,26 @@ public org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getC
 	if (!elementEditingDomain.equals(containerEditingDomain)) {
 		domainElement = containerEditingDomain.getResourceSet().getEObject(org.eclipse.emf.ecore.util.EcoreUtil.getURI(domainElement), true);
 	}
-	int visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement);
+	int visualID = Â«EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCallÂ»(containerView, domainElement);
 	switch (visualID) {
-	«EXPAND xpt::commands::createNotationalElementCommand::createNotationalNodeCommandForChild(self, 'containerView', 'domainElement', getCreateShortcutNodeCommandQualifiedClassName(self)) FOREACH topLevelNodes->select(e | e.modelFacet <> null and e.modelFacet.metaClass <> null)-»
+	Â«EXPAND xpt::commands::createNotationalElementCommand::createNotationalNodeCommandForChild(self, 'containerView', 'domainElement', getCreateShortcutNodeCommandQualifiedClassName(self)) FOREACH topLevelNodes->select(e | e.modelFacet <> null and e.modelFacet.metaClass <> null)-Â»
 	default:
 		return null;
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getRefreshShortcutCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getRefreshShortcutCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.emf.common.command.Command getRefreshShortcutCommand(org.eclipse.gmf.runtime.notation.View shortcut) {
-	String modelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(shortcut);
-	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(modelID)) {
+	String modelID = Â«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCallÂ»(shortcut);
+	if (!Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ».equals(modelID)) {
 		return null;
 	}
 	org.eclipse.emf.ecore.EObject underlyingElement = shortcut.getElement();
 	org.eclipse.gmf.runtime.notation.View parentView = (org.eclipse.gmf.runtime.notation.View) shortcut.eContainer();
-	int oldVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(shortcut);
-	int newVisualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(parentView, underlyingElement);
+	int oldVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»(shortcut);
+	int newVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCallÂ»(parentView, underlyingElement);
 	if (newVisualID == -1) {
 		return new org.eclipse.gmf.runtime.lite.commands.RemoveNotationalElementCommand(parentView, shortcut);
 	} else if (oldVisualID == newVisualID) {
@@ -97,7 +97,7 @@ public org.eclipse.emf.common.command.Command getRefreshShortcutCommand(org.ecli
 		}
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 

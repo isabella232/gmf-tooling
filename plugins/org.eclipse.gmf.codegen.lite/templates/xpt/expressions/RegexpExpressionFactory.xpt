@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,72 +10,72 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE RegexpExpressionFactory FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::copyright FOR container.editorGen»
-package «container.expressionsPackageName»;
+Â«DEFINE RegexpExpressionFactory FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::copyright FOR container.editorGenÂ»
+package Â«container.expressionsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «className» «EXPAND supertypes» {
-	«EXPAND ctor-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND ctor-Â»
 
-	«EXPAND getExpression-»
+	Â«EXPAND getExpression-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 
-	«EXPAND Expression-»
+	Â«EXPAND Expression-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenExpressionInterpreter»«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenExpressionInterpreterÂ»Â«ENDDEFINEÂ»
 
-«DEFINE ctor FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::generatedMemberComment»
-private «className»() {
+Â«DEFINE ctor FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private Â«classNameÂ»() {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getExpression FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
-	return new «EXPAND ExpressionClassName»(body, context, environment);
+Â«DEFINE getExpression FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static Â«container.getAbstractExpressionQualifiedClassName()Â» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
+	return new Â«EXPAND ExpressionClassNameÂ»(body, context, environment);
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
-public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static Â«container.getAbstractExpressionQualifiedClassName()Â» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 	return getExpression(body, context, java.util.Collections.EMPTY_MAP);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenExpressionInterpreter»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenExpressionInterpreterÂ»Â«ENDDEFINEÂ»
 
-«DEFINE ExpressionClassName FOR gmfgen::GenExpressionInterpreter»Expression«ENDDEFINE»
+Â«DEFINE ExpressionClassName FOR gmfgen::GenExpressionInterpreterÂ»ExpressionÂ«ENDDEFINEÂ»
 
-«DEFINE Expression FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::generatedClassComment»
-private static class «EXPAND ExpressionClassName» extends «container.getAbstractExpressionQualifiedClassName()» {
-	«EXPAND Expression_pattern-»
+Â«DEFINE Expression FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+private static class Â«EXPAND ExpressionClassNameÂ» extends Â«container.getAbstractExpressionQualifiedClassName()Â» {
+	Â«EXPAND Expression_pattern-Â»
 
-	«EXPAND Expression_ctor-»
+	Â«EXPAND Expression_ctor-Â»
 
-	«EXPAND Expression_doEvaluate-»
+	Â«EXPAND Expression_doEvaluate-Â»
 
-	«EXPAND Expression_additions-»
+	Â«EXPAND Expression_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE Expression_pattern FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE Expression_pattern FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private final java.util.regex.Pattern pattern;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE Expression_ctor FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «EXPAND ExpressionClassName»(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
+Â«DEFINE Expression_ctor FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«EXPAND ExpressionClassNameÂ»(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
 	super(body, context);
 	java.util.regex.Pattern p;
 	try {
@@ -86,10 +86,10 @@ public «EXPAND ExpressionClassName»(String body, org.eclipse.emf.ecore.EClassifi
 	}
 	this.pattern = p;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE Expression_doEvaluate FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE Expression_doEvaluate FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected Object doEvaluate(Object contextInstance, java.util.Map env) {
 	if (pattern == null) {
 		return null;
@@ -100,10 +100,10 @@ protected Object doEvaluate(Object contextInstance, java.util.Map env) {
 	}
 
 	java.util.regex.Matcher matcher = this.pattern.matcher(String.valueOf(contextInstance));
-	return Boolean.valueOf(«EXPAND possibleNegation»matcher.matches());
+	return Boolean.valueOf(Â«EXPAND possibleNegationÂ»matcher.matches());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE possibleNegation FOR gmfgen::GenExpressionInterpreter»«IF language <> gmfgen::GenLanguage::regexp»!«ENDIF»«ENDDEFINE»
+Â«DEFINE possibleNegation FOR gmfgen::GenExpressionInterpreterÂ»Â«IF language <> gmfgen::GenLanguage::regexpÂ»!Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE Expression_additions FOR gmfgen::GenExpressionInterpreter»«ENDDEFINE»
+Â«DEFINE Expression_additions FOR gmfgen::GenExpressionInterpreterÂ»Â«ENDDEFINEÂ»

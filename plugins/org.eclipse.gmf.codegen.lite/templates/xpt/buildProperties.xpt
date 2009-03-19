@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,29 +10,29 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE buildProperties FOR gmfgen::GenPlugin-»
-bin.includes = «EXPAND binIncludes»
-jars.compile.order = «EXPAND jarsCompileOrder»
-source.«EXPAND target» = «EXPAND source»
-output.«EXPAND target» = «EXPAND output»
-«ENDDEFINE»
+Â«DEFINE buildProperties FOR gmfgen::GenPlugin-Â»
+bin.includes = Â«EXPAND binIncludesÂ»
+jars.compile.order = Â«EXPAND jarsCompileOrderÂ»
+source.Â«EXPAND targetÂ» = Â«EXPAND sourceÂ»
+output.Â«EXPAND targetÂ» = Â«EXPAND outputÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE binIncludes FOR gmfgen::GenPlugin-»
-«EXPAND target»,\
+Â«DEFINE binIncludes FOR gmfgen::GenPlugin-Â»
+Â«EXPAND targetÂ»,\
 	META-INF/,\
 	plugin.xml,\
-	plugin.properties«-»
-«ENDDEFINE»
+	plugin.propertiesÂ«-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE jarsCompileOrder FOR gmfgen::GenPlugin»«EXPAND target»«ENDDEFINE»
+Â«DEFINE jarsCompileOrder FOR gmfgen::GenPluginÂ»Â«EXPAND targetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE target FOR gmfgen::GenPlugin».«ENDDEFINE»
+Â«DEFINE target FOR gmfgen::GenPluginÂ».Â«ENDDEFINEÂ»
 
-«DEFINE source FOR gmfgen::GenPlugin»src/«ENDDEFINE»
+Â«DEFINE source FOR gmfgen::GenPluginÂ»src/Â«ENDDEFINEÂ»
 
-«DEFINE output FOR gmfgen::GenPlugin»bin/«ENDDEFINE»
+Â«DEFINE output FOR gmfgen::GenPluginÂ»bin/Â«ENDDEFINEÂ»

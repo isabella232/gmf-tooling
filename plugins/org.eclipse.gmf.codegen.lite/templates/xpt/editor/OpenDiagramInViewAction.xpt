@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,49 +10,49 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::editor::i18n»
-«EXTENSION gmf::CodeGenerationUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::editor::i18nÂ»
+Â«EXTENSION gmf::CodeGenerationUtilsÂ»
 
-«DEFINE OpenDiagramInViewAction FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editorGen.editor.packageName»;
+Â«DEFINE OpenDiagramInViewAction FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND attrs-»
-	«EXPAND setActivePart-»
-	«EXPAND selectionChanged-»
-	«EXPAND run-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND attrs-Â»
+	Â«EXPAND setActivePart-Â»
+	Â«EXPAND selectionChanged-Â»
+	Â«EXPAND run-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenEditorView»«packageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenEditorViewÂ»Â«packageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE className FOR gmfgen::GenEditorView»«validJavaIdentifier('OpenDiagramIn' + editorGen.modelID + 'DiagramViewAction')»«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenEditorViewÂ»Â«validJavaIdentifier('OpenDiagramIn' + editorGen.modelID + 'DiagramViewAction')Â»Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenEditorView»implements org.eclipse.ui.IObjectActionDelegate«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenEditorViewÂ»implements org.eclipse.ui.IObjectActionDelegateÂ«ENDDEFINEÂ»
 
-«DEFINE attrs FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attrs FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.ui.IWorkbenchPart myPart;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.core.resources.IFile mySelectedModelFile;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setActivePart FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setActivePart FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void setActivePart(org.eclipse.jface.action.IAction action, org.eclipse.ui.IWorkbenchPart targetPart) {
 	myPart = targetPart;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE selectionChanged FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE selectionChanged FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void selectionChanged(org.eclipse.jface.action.IAction action, org.eclipse.jface.viewers.ISelection selection) {
 	mySelectedModelFile = null;
 	action.setEnabled(false);
@@ -62,54 +62,54 @@ public void selectionChanged(org.eclipse.jface.action.IAction action, org.eclips
 	mySelectedModelFile = (org.eclipse.core.resources.IFile) ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 	action.setEnabled(mySelectedModelFile != null && mySelectedModelFile.exists());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE run FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void run(org.eclipse.jface.action.IAction action) {
 	org.eclipse.gmf.runtime.notation.Diagram diagram = null;
-	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = «EXPAND createEditingDomain»;
+	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = Â«EXPAND createEditingDomainÂ»;
 	org.eclipse.emf.ecore.resource.ResourceSet resourceSet = editingDomain.getResourceSet();
 	try {
 		org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
 		if (resource.getContents().isEmpty() || false == resource.getContents().get(0) instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-			org.eclipse.jface.dialogs.MessageDialog.openError(myPart.getSite().getShell(), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen)) FOR editorGen»,
-					«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen)) FOR editorGen»);
+			org.eclipse.jface.dialogs.MessageDialog.openError(myPart.getSite().getShell(), Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen)) FOR editorGenÂ»,
+					Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen)) FOR editorGenÂ»);
 			return;
 		}
 		diagram = (org.eclipse.gmf.runtime.notation.Diagram) resource.getContents().get(0);
 	} catch (org.eclipse.emf.common.util.WrappedException ex) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-						"Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);	«EXPAND xpt::Common::nonNLS»
-		org.eclipse.jface.dialogs.MessageDialog.openError(myPart.getSite().getShell(), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen)) FOR editorGen»,
-				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen)) FOR editorGen»);
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError(
+						"Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);	Â«EXPAND xpt::Common::nonNLSÂ»
+		org.eclipse.jface.dialogs.MessageDialog.openError(myPart.getSite().getShell(), Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen)) FOR editorGenÂ»,
+				Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen)) FOR editorGenÂ»);
 		return;
 	}
 	try {
-		org.eclipse.gmf.runtime.lite.parts.DiagramViewPart part = (org.eclipse.gmf.runtime.lite.parts.DiagramViewPart) myPart.getSite().getPage().showView(«getQualifiedClassName()».ID);
+		org.eclipse.gmf.runtime.lite.parts.DiagramViewPart part = (org.eclipse.gmf.runtime.lite.parts.DiagramViewPart) myPart.getSite().getPage().showView(Â«getQualifiedClassName()Â».ID);
 		part.showDiagram(editingDomain, org.eclipse.emf.ecore.util.EcoreUtil.getURI(diagram));
 	} catch (org.eclipse.ui.PartInitException ex) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);
-		org.eclipse.jface.dialogs.MessageDialog.openError(myPart.getSite().getShell(), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen)) FOR editorGen», 
-			«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionPartInitException(editorGen)) FOR editorGen»);
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);
+		org.eclipse.jface.dialogs.MessageDialog.openError(myPart.getSite().getShell(), Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen)) FOR editorGenÂ», 
+			Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramInViewActionPartInitException(editorGen)) FOR editorGenÂ»);
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEditingDomain FOR gmfgen::GenEditorView»«EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»«ENDDEFINE»
+Â«DEFINE createEditingDomain FOR gmfgen::GenEditorViewÂ»Â«EXPAND xpt::editor::Common::createEditingDomain FOR editorGenÂ»Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenEditorView»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenEditorViewÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen))-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen))-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen))-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionPartInitException(editorGen))-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramInViewActionPartInitException(editorGen))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenEditorView-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen), 'Error')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen), 'Diagram file failed to load or is corrupted')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen), 'Diagram file failed to load')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionPartInitException(editorGen), 'Unable to open diagram')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenEditorView-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionErrorTitle(editorGen), 'Error')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionCannotLoad(editorGen), 'Diagram file failed to load or is corrupted')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionExceptionLoading(editorGen), 'Diagram file failed to load')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenDiagramInViewActionPartInitException(editorGen), 'Unable to open diagram')-Â»
+Â«ENDDEFINEÂ»

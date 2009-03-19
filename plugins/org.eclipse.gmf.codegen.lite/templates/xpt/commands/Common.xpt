@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,20 +10,20 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::diagram::ViewmapAttributesUtilsÂ»
 
-«DEFINE getRelationshipContainer FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+Â«DEFINE getRelationshipContainer FOR gmfgen::LinkModelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getRelationshipContainer FOR gmfgen::TypeLinkModelFacet-»
-		«EXPAND xpt::Common::generatedMemberComment(
+Â«DEFINE getRelationshipContainer FOR gmfgen::TypeLinkModelFacet-Â»
+		Â«EXPAND xpt::Common::generatedMemberComment(
 			'Finds container element for the relationship of the specified type.\n' + 
 			'Default implementation goes up by containment hierarchy starting from\n' + 
 			'the specified element and returns the first element that is instance of\n' + 
 			'the specified container class.'
-		)»
+		)Â»
 		protected org.eclipse.emf.ecore.EObject getRelationshipContainer(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EClass containerClass) {
 			for (; element != null; element = element.eContainer()) {
 				if (containerClass.isSuperTypeOf(element.eClass())) {
@@ -32,68 +32,68 @@
 			}
 			return null;
 		}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE featureMultiplicityComparator(ownerVar : String, ownerClass : genmodel::GenClass) FOR genmodel::GenFeature-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) = 1»«EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, false)» != null«ELSE-»
-«EXPAND MetaModel::MetaFeature».getUpperBound() > 1 && «EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, true)».size() >= «EXPAND MetaModel::MetaFeature».getUpperBound()«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE featureMultiplicityComparator(ownerVar : String, ownerClass : genmodel::GenClass) FOR genmodel::GenFeature-Â»
+Â«IF ecoreFeature.upperBound.oclAsType(Integer) = 1Â»Â«EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, false)Â» != nullÂ«ELSE-Â»
+Â«EXPAND MetaModel::MetaFeatureÂ».getUpperBound() > 1 && Â«EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, true)Â».size() >= Â«EXPAND MetaModel::MetaFeatureÂ».getUpperBound()Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE checkLinkConstraints(sourceVar : String, targetVar : String) FOR gmfgen::GenLinkConstraints-»
-	if(!«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR link.getDiagram()».«link.diagram.getLinkCreationConstraintsClassName()».canExist«link.getUniqueIdentifier()»(«sourceVar», «targetVar»)) {
+Â«DEFINE checkLinkConstraints(sourceVar : String, targetVar : String) FOR gmfgen::GenLinkConstraints-Â»
+	if(!Â«EXPAND xpt::providers::DomainElementInitializer::qualifiedClassName FOR link.getDiagram()Â».Â«link.diagram.getLinkCreationConstraintsClassName()Â».canExistÂ«link.getUniqueIdentifier()Â»(Â«sourceVarÂ», Â«targetVarÂ»)) {
 		return false;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE plugFeatureCommand(domainVar : String, containerVar : String, elementVar : String) FOR genmodel::GenFeature-»
-«IF ecoreFeature.many»org.eclipse.emf.edit.command.AddCommand«ELSE»org.eclipse.emf.edit.command.SetCommand«ENDIF».create(«domainVar», «containerVar», «EXPAND MetaModel::MetaFeature», «elementVar»)«-»
-«ENDDEFINE»
+Â«DEFINE plugFeatureCommand(domainVar : String, containerVar : String, elementVar : String) FOR genmodel::GenFeature-Â»
+Â«IF ecoreFeature.manyÂ»org.eclipse.emf.edit.command.AddCommandÂ«ELSEÂ»org.eclipse.emf.edit.command.SetCommandÂ«ENDIFÂ».create(Â«domainVarÂ», Â«containerVarÂ», Â«EXPAND MetaModel::MetaFeatureÂ», Â«elementVarÂ»)Â«-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE unplugFeatureCommand(domainVar : String, containerVar : String, elementVar : String) FOR genmodel::GenFeature-»
-«IF ecoreFeature.many-»
-org.eclipse.emf.edit.command.RemoveCommand.create(«domainVar», «containerVar», «EXPAND MetaModel::MetaFeature», «elementVar»)«-»
-«ELSE-»
-org.eclipse.emf.edit.command.SetCommand.create(«domainVar», «containerVar», «EXPAND MetaModel::MetaFeature», org.eclipse.emf.edit.command.SetCommand.UNSET_VALUE)«-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE unplugFeatureCommand(domainVar : String, containerVar : String, elementVar : String) FOR genmodel::GenFeature-Â»
+Â«IF ecoreFeature.many-Â»
+org.eclipse.emf.edit.command.RemoveCommand.create(Â«domainVarÂ», Â«containerVarÂ», Â«EXPAND MetaModel::MetaFeatureÂ», Â«elementVarÂ»)Â«-Â»
+Â«ELSE-Â»
+org.eclipse.emf.edit.command.SetCommand.create(Â«domainVarÂ», Â«containerVarÂ», Â«EXPAND MetaModel::MetaFeatureÂ», org.eclipse.emf.edit.command.SetCommand.UNSET_VALUE)Â«-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE adjustConstraint FOR gmfgen::GenNode-»
-«LET getResizeConstraints(viewmap) AS rc-»
-«LET rc = null or rc.resizeHandleNames->select(e | e = 'EAST' or e = 'WEST')->size() > 0 AS resizableWidth-»
-«LET rc = null or rc.resizeHandleNames->select(e | e = 'NORTH' or e = 'SOUTH')->size() > 0 AS resizableHeight-»
+Â«DEFINE adjustConstraint FOR gmfgen::GenNode-Â»
+Â«LET getResizeConstraints(viewmap) AS rc-Â»
+Â«LET rc = null or rc.resizeHandleNames->select(e | e = 'EAST' or e = 'WEST')->size() > 0 AS resizableWidth-Â»
+Â«LET rc = null or rc.resizeHandleNames->select(e | e = 'NORTH' or e = 'SOUTH')->size() > 0 AS resizableHeight-Â»
 		if (constraint != null) {
-	«IF resizableWidth or resizableHeight-»
-			constraint.union(new org.eclipse.draw2d.geometry.Dimension(«EXPAND defaultWidth», «EXPAND defaultHeight»));
-	«ENDIF-»
-	«IF not resizableWidth-»
-			constraint.width = «EXPAND defaultWidth»;
-	«ENDIF-»
-	«IF not resizableHeight-»
-			constraint.height = «EXPAND defaultHeight»;
-	«ENDIF-»
+	Â«IF resizableWidth or resizableHeight-Â»
+			constraint.union(new org.eclipse.draw2d.geometry.Dimension(Â«EXPAND defaultWidthÂ», Â«EXPAND defaultHeightÂ»));
+	Â«ENDIF-Â»
+	Â«IF not resizableWidth-Â»
+			constraint.width = Â«EXPAND defaultWidthÂ»;
+	Â«ENDIF-Â»
+	Â«IF not resizableHeight-Â»
+			constraint.height = Â«EXPAND defaultHeightÂ»;
+	Â«ENDIF-Â»
 		}
-«ENDLET-»
-«ENDLET-»
-«ENDLET-»
-«ENDDEFINE»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE defaultWidth FOR gmfgen::GenNode»«defaultSizeWidth(viewmap, 40)»«ENDDEFINE»
-«DEFINE defaultHeight FOR gmfgen::GenNode»«defaultSizeHeight(viewmap, 40)»«ENDDEFINE»
+Â«DEFINE defaultWidth FOR gmfgen::GenNodeÂ»Â«defaultSizeWidth(viewmap, 40)Â»Â«ENDDEFINEÂ»
+Â«DEFINE defaultHeight FOR gmfgen::GenNodeÂ»Â«defaultSizeHeight(viewmap, 40)Â»Â«ENDDEFINEÂ»
 
-«DEFINE commandNameInfix FOR gmfgen::GenNode-»
-«EXPAND commandNameInfix FOR modelFacet.metaClass»«visualID-»
-«ENDDEFINE»
+Â«DEFINE commandNameInfix FOR gmfgen::GenNode-Â»
+Â«EXPAND commandNameInfix FOR modelFacet.metaClassÂ»Â«visualID-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE commandNameInfix FOR gmfgen::GenLink-»
-«EXPAND commandNameInfix FOR modelFacet»«visualID-»
-«ENDDEFINE»
+Â«DEFINE commandNameInfix FOR gmfgen::GenLink-Â»
+Â«EXPAND commandNameInfix FOR modelFacetÂ»Â«visualID-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE commandNameInfix FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+Â«DEFINE commandNameInfix FOR gmfgen::LinkModelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE commandNameInfix FOR gmfgen::TypeLinkModelFacet»«EXPAND commandNameInfix FOR metaClass»«ENDDEFINE»
+Â«DEFINE commandNameInfix FOR gmfgen::TypeLinkModelFacetÂ»Â«EXPAND commandNameInfix FOR metaClassÂ»Â«ENDDEFINEÂ»
 
-«DEFINE commandNameInfix FOR genmodel::GenClass»«ecoreClass.name»«ENDDEFINE»
+Â«DEFINE commandNameInfix FOR genmodel::GenClassÂ»Â«ecoreClass.nameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE commandNameInfix FOR gmfgen::FeatureLinkModelFacet»«metaFeature.genClass.ecoreClass.name + '_' + metaFeature.ecoreFeature.name.firstToUpper()»«ENDDEFINE»
+Â«DEFINE commandNameInfix FOR gmfgen::FeatureLinkModelFacetÂ»Â«metaFeature.genClass.ecoreClass.name + '_' + metaFeature.ecoreFeature.name.firstToUpper()Â»Â«ENDDEFINEÂ»
 
-«DEFINE getPhantomContainmentResource FOR String»«self».getDiagram().getElement().eResource()«ENDDEFINE»
+Â«DEFINE getPhantomContainmentResource FOR StringÂ»Â«selfÂ».getDiagram().getElement().eResource()Â«ENDDEFINEÂ»

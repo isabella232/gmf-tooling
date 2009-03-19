@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,54 +11,54 @@
  *    Artem Tikhomirov (Borland) - refactored to reuse code from FullRT version.
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::providers::ValidationUtils»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::providers::ValidationUtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::GenAuditRootÂ»
+Â«EXTENSION xpt::GenEditorGeneratorÂ»
 
-«DEFINE ValidationProvider FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «providersPackageName»;
+Â«DEFINE ValidationProvider FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «validationProviderClassName» «EXPAND supertypes» {
-	«EXPAND constraintsActive-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«validationProviderClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND constraintsActive-Â»
 
-	«EXPAND shouldConstraintsBePrivate-»
+	Â«EXPAND shouldConstraintsBePrivate-Â»
 
-	«EXPAND runWithActiveConstraints-»
+	Â«EXPAND runWithActiveConstraints-Â»
 
-	«EXPAND isInDefaultEditorContext-»
+	Â«EXPAND isInDefaultEditorContext-Â»
 
-	«EXPAND selectors FOR editorGen.audits-»
+	Â«EXPAND selectors FOR editorGen.audits-Â»
 
-	«EXPAND strategy_support»
+	Â«EXPAND strategy_supportÂ»
 
-	«EXPAND constraintAdapters(self) FOR editorGen.audits-»
+	Â«EXPAND constraintAdapters(self) FOR editorGen.audits-Â»
 
-	«EXPAND additions-»
-} //«validationProviderClassName»
-«ENDDEFINE»
+	Â«EXPAND additions-Â»
+} //Â«validationProviderClassNameÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
 // override the one from FullRT
-«DEFINE constraintAdapters_formatMethod FOR gmfgen::GenAuditRoot-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE constraintAdapters_formatMethod FOR gmfgen::GenAuditRoot-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	static String formatElement(org.eclipse.emf.ecore.EObject object) {
 		if (object == null) {
 			return String.valueOf(object);
 		}
-		org.eclipse.emf.common.notify.AdapterFactory adapterFactory = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory();
+		org.eclipse.emf.common.notify.AdapterFactory adapterFactory = Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemProvidersAdapterFactory();
 		org.eclipse.emf.edit.provider.IItemLabelProvider labelProvider = (org.eclipse.emf.edit.provider.IItemLabelProvider) adapterFactory.adapt(object, org.eclipse.emf.edit.provider.IItemLabelProvider.class);
 		if (labelProvider != null) {
 			return object.eClass() + " " + labelProvider.getText(object);
 		}
 		return object.toString();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 

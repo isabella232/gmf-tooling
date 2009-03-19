@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,90 +10,90 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::providers::i18n_lite»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::providers::i18n_liteÂ»
 
-«DEFINE className FOR gmfgen::GenDiagram»MetricsAction«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»MetricsActionÂ«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«providersPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«providersPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE actionKey FOR gmfgen::GenDiagram»«EXPAND qualifiedClassName».«EXPAND keyConstant»«ENDDEFINE»
+Â«DEFINE actionKey FOR gmfgen::GenDiagramÂ»Â«EXPAND qualifiedClassNameÂ».Â«EXPAND keyConstantÂ»Â«ENDDEFINEÂ»
 
-«DEFINE MetricsAction FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «providersPackageName»;
+Â«DEFINE MetricsAction FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND KEY-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND KEY-Â»
 
-	«EXPAND part-»
+	Â«EXPAND part-Â»
 
-	«EXPAND ctor-»
+	Â«EXPAND ctor-Â»
 
-	«EXPAND run-»
+	Â«EXPAND run-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.jface.action.Action«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.jface.action.ActionÂ«ENDDEFINEÂ»
 
-«DEFINE KEY FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public static final String «EXPAND keyConstant» = "metricsAction"; «EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE KEY FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static final String Â«EXPAND keyConstantÂ» = "metricsAction"; Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE keyConstant FOR gmfgen::GenDiagram»ACTION_KEY«ENDDEFINE»
+Â«DEFINE keyConstant FOR gmfgen::GenDiagramÂ»ACTION_KEYÂ«ENDDEFINEÂ»
 
-«DEFINE part FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE part FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.ui.IWorkbenchPart myWorkbenchPart;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctor FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE ctor FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public MetricsAction(org.eclipse.ui.IWorkbenchPart workbenchPart) {
-	setId(«EXPAND keyConstant»);
-	setText(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMetricsActionActionName(self)) FOR editorGen»);
+	setId(Â«EXPAND keyConstantÂ»);
+	setText(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForMetricsActionActionName(self)) FOR editorGenÂ»);
 	myWorkbenchPart = workbenchPart;
-	setEnabled(myWorkbenchPart instanceof «editorGen.editor.getQualifiedClassName()»);
+	setEnabled(myWorkbenchPart instanceof Â«editorGen.editor.getQualifiedClassName()Â»);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE run FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void run() {
 	org.eclipse.ui.IViewPart metricsView = null;
 	try {
-		metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(«EXPAND xpt::providers::MetricProvider::resultViewID»);
+		metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().findView(Â«EXPAND xpt::providers::MetricProvider::resultViewIDÂ»);
 		if(metricsView == null) {
-			metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(«EXPAND xpt::providers::MetricProvider::resultViewID»);
-«IF editorGen.editor.eclipseEditor-»
+			metricsView = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(Â«EXPAND xpt::providers::MetricProvider::resultViewIDÂ»);
+Â«IF editorGen.editor.eclipseEditor-Â»
 		} else {
-«ELSE-»
+Â«ELSE-Â»
 		}
 		if (metricsView != null) {
-«ENDIF-»
-			final «editorGen.editor.getQualifiedClassName()» part = («editorGen.editor.getQualifiedClassName()») myWorkbenchPart;
-			((«EXPAND xpt::providers::MetricProvider::resultViewQualifiedClassName»)metricsView).setInput(part);
+Â«ENDIF-Â»
+			final Â«editorGen.editor.getQualifiedClassName()Â» part = (Â«editorGen.editor.getQualifiedClassName()Â») myWorkbenchPart;
+			((Â«EXPAND xpt::providers::MetricProvider::resultViewQualifiedClassNameÂ»)metricsView).setInput(part);
 		}
 		myWorkbenchPart.getSite().getPage().activate(metricsView);
 	} catch (org.eclipse.ui.PartInitException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Diagram metric view failure", e); «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Diagram metric view failure", e); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
 }	
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForMetricsActionActionName(self))-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForMetricsActionActionName(self))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForMetricsActionActionName(self), '&Metrics')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForMetricsActionActionName(self), '&Metrics')-Â»
+Â«ENDDEFINEÂ»
 

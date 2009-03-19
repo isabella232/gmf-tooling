@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,109 +10,109 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::commands::CommandUtils»
-«EXTENSION xpt::diagram::LinkFinder»
-«EXTENSION xpt::diagram::parts::LinkNotationModelRefresher»
-«EXTENSION gmflite::SemanticSyncUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::commands::CommandUtilsÂ»
+Â«EXTENSION xpt::diagram::LinkFinderÂ»
+Â«EXTENSION xpt::diagram::parts::LinkNotationModelRefresherÂ»
+Â«EXTENSION gmflite::SemanticSyncUtilsÂ»
 
-«DEFINE semanticChildLinks(parentViewCode : String) FOR gmfgen::GenCommonBase-»
-	«LET getLinkChildFeatures(self, containedTypeModelFacetLinks(self)) AS genTypeLinkFeatures-»
-	«LET getLinkChildFeatures(self, containedFeatureModelFacetLinks(self)) AS genFeatureLinkFeatures-»
-	«IF genTypeLinkFeatures->size() + genFeatureLinkFeatures->size() = 0-»
+Â«DEFINE semanticChildLinks(parentViewCode : String) FOR gmfgen::GenCommonBase-Â»
+	Â«LET getLinkChildFeatures(self, containedTypeModelFacetLinks(self)) AS genTypeLinkFeatures-Â»
+	Â«LET getLinkChildFeatures(self, containedFeatureModelFacetLinks(self)) AS genFeatureLinkFeatures-Â»
+	Â«IF genTypeLinkFeatures->size() + genFeatureLinkFeatures->size() = 0-Â»
 return java.util.Collections.EMPTY_LIST;
-	«ELSE-»
+	Â«ELSE-Â»
 java.util.List result = new java.util.LinkedList();
-org.eclipse.emf.ecore.EObject modelObject = «parentViewCode».getElement();
+org.eclipse.emf.ecore.EObject modelObject = Â«parentViewCodeÂ».getElement();
 org.eclipse.emf.ecore.EObject nextValue;
-		«IF genTypeLinkFeatures->size() > 0-»
+		Â«IF genTypeLinkFeatures->size() > 0-Â»
 int linkVID;
-		«ENDIF-»
-		«FOREACH genTypeLinkFeatures AS metaFeature-»
-			«LET getTypeGenLinksForFeature(self, metaFeature, containedLinks(self)) AS genLinksCollection-»
-			«IF isListType(metaFeature)-»
-for(java.util.Iterator it = «EXPAND MetaModel::getFeatureValue('modelObject', null, true) FOR metaFeature».iterator(); it.hasNext(); ) {
+		Â«ENDIF-Â»
+		Â«FOREACH genTypeLinkFeatures AS metaFeature-Â»
+			Â«LET getTypeGenLinksForFeature(self, metaFeature, containedLinks(self)) AS genLinksCollection-Â»
+			Â«IF isListType(metaFeature)-Â»
+for(java.util.Iterator it = Â«EXPAND MetaModel::getFeatureValue('modelObject', null, true) FOR metaFeatureÂ».iterator(); it.hasNext(); ) {
 	nextValue = (org.eclipse.emf.ecore.EObject) it.next();
-			«ELSE-»
-	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue('modelObject', null, false) FOR metaFeature»;
-			«ENDIF-»
-	linkVID = «getDiagram().getVisualIDRegistryQualifiedClassName()».getLinkWithClassVisualID(nextValue);
-			«LET genLinksCollection->size() > 1 AS generateSwitch-»
-			«IF generateSwitch-»
+			Â«ELSE-Â»
+	nextValue = (org.eclipse.emf.ecore.EObject) Â«EXPAND MetaModel::getFeatureValue('modelObject', null, false) FOR metaFeatureÂ»;
+			Â«ENDIF-Â»
+	linkVID = Â«getDiagram().getVisualIDRegistryQualifiedClassName()Â».getLinkWithClassVisualID(nextValue);
+			Â«LET genLinksCollection->size() > 1 AS generateSwitch-Â»
+			Â«IF generateSwitch-Â»
 	switch (linkVID) {
-			«ENDIF-»
-			«FOREACH genLinksCollection AS nextLink-»
-				«IF generateSwitch-»
-	case «nextLink.getEditPartQualifiedClassName()».VISUAL_ID: {
-				«ELSE-»
-	if («nextLink.getEditPartQualifiedClassName()».VISUAL_ID == linkVID) {
-				«ENDIF-»
-				«LET nextLink.modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).sourceMetaFeature AS sourceFeature-»
-				«IF sourceFeature <> null-»
-					«IF isListType(sourceFeature)-»
-		java.util.List sources = «EXPAND MetaModel::getFeatureValue('nextValue', null, true) FOR sourceFeature»;
+			Â«ENDIF-Â»
+			Â«FOREACH genLinksCollection AS nextLink-Â»
+				Â«IF generateSwitch-Â»
+	case Â«nextLink.getEditPartQualifiedClassName()Â».VISUAL_ID: {
+				Â«ELSE-Â»
+	if (Â«nextLink.getEditPartQualifiedClassName()Â».VISUAL_ID == linkVID) {
+				Â«ENDIF-Â»
+				Â«LET nextLink.modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).sourceMetaFeature AS sourceFeature-Â»
+				Â«IF sourceFeature <> null-Â»
+					Â«IF isListType(sourceFeature)-Â»
+		java.util.List sources = Â«EXPAND MetaModel::getFeatureValue('nextValue', null, true) FOR sourceFeatureÂ»;
 		org.eclipse.emf.ecore.EObject source = sources.size() == 1 ? (org.eclipse.emf.ecore.EObject) sources.get(0) : null;
-					«ELSE-»
-		org.eclipse.emf.ecore.EObject source = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue('nextValue', null, false) FOR sourceFeature»;
-					«ENDIF-»
-				«ELSE-»
+					Â«ELSE-Â»
+		org.eclipse.emf.ecore.EObject source = (org.eclipse.emf.ecore.EObject) Â«EXPAND MetaModel::getFeatureValue('nextValue', null, false) FOR sourceFeatureÂ»;
+					Â«ENDIF-Â»
+				Â«ELSE-Â»
 		org.eclipse.emf.ecore.EObject source = modelObject;
-				«ENDIF-»
-				«ENDLET-»
-				«LET nextLink.modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).targetMetaFeature AS targetFeature-»
-				«IF targetFeature <> null-»
-					«IF isListType(targetFeature)-»
-		java.util.List targets = «EXPAND MetaModel::getFeatureValue('nextValue', null, true) FOR targetFeature»;
+				Â«ENDIF-Â»
+				Â«ENDLET-Â»
+				Â«LET nextLink.modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).targetMetaFeature AS targetFeature-Â»
+				Â«IF targetFeature <> null-Â»
+					Â«IF isListType(targetFeature)-Â»
+		java.util.List targets = Â«EXPAND MetaModel::getFeatureValue('nextValue', null, true) FOR targetFeatureÂ»;
 		org.eclipse.emf.ecore.EObject target = targets.size() == 1 ? (org.eclipse.emf.ecore.EObject) targets.get(0) : null;
-					«ELSE-»
-		org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue('nextValue', null, false) FOR targetFeature»;
-					«ENDIF-»
-				«ELSE-»
+					Â«ELSE-Â»
+		org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) Â«EXPAND MetaModel::getFeatureValue('nextValue', null, false) FOR targetFeatureÂ»;
+					Â«ENDIF-Â»
+				Â«ELSE-Â»
 		org.eclipse.emf.ecore.EObject target = modelObject;
-				«ENDIF-»
-				«ENDLET-»
+				Â«ENDIF-Â»
+				Â«ENDLET-Â»
 		if (source != null && target != null) {
 			result.add(new org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor(source, target, nextValue, linkVID));
 		}
-				«IF generateSwitch-»
+				Â«IF generateSwitch-Â»
 		break;
 	}
-				«ELSE-»
+				Â«ELSE-Â»
 	}
-				«ENDIF-»
-			«ENDFOREACH-»
-			«IF generateSwitch-»
+				Â«ENDIF-Â»
+			Â«ENDFOREACH-Â»
+			Â«IF generateSwitch-Â»
 	}
-			«ENDIF-»
-			«IF isListType(metaFeature)-»
+			Â«ENDIF-Â»
+			Â«IF isListType(metaFeature)-Â»
 }
-			«ENDIF-»
-			«ENDLET-»
-			«ENDLET-»
-		«ENDFOREACH-»
-		«FOREACH genFeatureLinkFeatures AS metaFeature-»
-			«LET getFeatureGenLinksForFeature(self, metaFeature, containedLinks(self)) AS genLinksCollection-»
-			«IF isListType(metaFeature)-»
-for(java.util.Iterator it = «EXPAND MetaModel::getFeatureValue('modelObject', null, true) FOR metaFeature».iterator(); it.hasNext(); ) {
+			Â«ENDIF-Â»
+			Â«ENDLET-Â»
+			Â«ENDLET-Â»
+		Â«ENDFOREACH-Â»
+		Â«FOREACH genFeatureLinkFeatures AS metaFeature-Â»
+			Â«LET getFeatureGenLinksForFeature(self, metaFeature, containedLinks(self)) AS genLinksCollection-Â»
+			Â«IF isListType(metaFeature)-Â»
+for(java.util.Iterator it = Â«EXPAND MetaModel::getFeatureValue('modelObject', null, true) FOR metaFeatureÂ».iterator(); it.hasNext(); ) {
 	nextValue = (org.eclipse.emf.ecore.EObject) it.next();
-			«ELSE-»
-	nextValue = (org.eclipse.emf.ecore.EObject) «EXPAND MetaModel::getFeatureValue('modelObject', null, false) FOR metaFeature»;
-			«ENDIF-»
+			Â«ELSE-Â»
+	nextValue = (org.eclipse.emf.ecore.EObject) Â«EXPAND MetaModel::getFeatureValue('modelObject', null, false) FOR metaFeatureÂ»;
+			Â«ENDIF-Â»
 	if (nextValue != null) {
-			«FOREACH genLinksCollection AS nextLink-»
-		result.add(new org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor(modelObject, nextValue, null, «nextLink.getEditPartQualifiedClassName()».VISUAL_ID));
-			«ENDFOREACH-»
+			Â«FOREACH genLinksCollection AS nextLink-Â»
+		result.add(new org.eclipse.gmf.runtime.lite.edit.parts.update.canonical.LinkDescriptor(modelObject, nextValue, null, Â«nextLink.getEditPartQualifiedClassName()Â».VISUAL_ID));
+			Â«ENDFOREACH-Â»
 	}
-			«IF isListType(metaFeature)-»
+			Â«IF isListType(metaFeature)-Â»
 }
-			«ENDIF-»
-			«ENDLET-»
-		«ENDFOREACH-»
+			Â«ENDIF-Â»
+			Â«ENDLET-Â»
+		Â«ENDFOREACH-Â»
 return result;
-	«ENDIF-»
-	«ENDLET-»
-	«ENDLET-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+	Â«ENDLET-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»

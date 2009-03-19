@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,30 +10,30 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::providers::ValidationUtils»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::providers::ValidationUtilsÂ»
+Â«EXTENSION xpt::GenAuditRootÂ»
+Â«EXTENSION xpt::GenEditorGeneratorÂ»
 
-«DEFINE extensions FOR gmfgen::GenEditorGenerator-»
-«EXPAND markers-»
-«EXPAND metrics FOR metrics-»
-«EXPAND shortcutProviders-»
-«ENDDEFINE»
+Â«DEFINE extensions FOR gmfgen::GenEditorGenerator-Â»
+Â«EXPAND markers-Â»
+Â«EXPAND metrics FOR metrics-Â»
+Â«EXPAND shortcutProviders-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18n FOR gmfgen::GenEditorGenerator-»
-«EXPAND markersi18n-»
-«EXPAND metricsi18n FOR metrics-»
-«ENDDEFINE»
+Â«DEFINE i18n FOR gmfgen::GenEditorGenerator-Â»
+Â«EXPAND markersi18n-Â»
+Â«EXPAND metricsi18n FOR metrics-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE markers FOR gmfgen::GenEditorGenerator-»
-«IF null = application and validationNeeded(diagram)-»
+Â«DEFINE markers FOR gmfgen::GenEditorGenerator-Â»
+Â«IF null = application and validationNeeded(diagram)-Â»
    <extension
          id="diagnostic"
          name="%_UI_Diagnostic_marker"
          point="org.eclipse.core.resources.markers">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <super
             type="org.eclipse.emf.validation.problem">
       </super>
@@ -47,40 +47,40 @@
       <attribute
             name="severity"/>
    </extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE metrics FOR gmfgen::GenMetricContainer-»
-«IF metrics->size() > 0-»
+Â«DEFINE metrics FOR gmfgen::GenMetricContainer-Â»
+Â«IF metrics->size() > 0-Â»
 	<extension point="org.eclipse.ui.views">
-	    «EXPAND xpt::Common::xmlGeneratedTag»
-   		<view class="«editorGen.diagram.getMetricProviderQualifiedClassName()»$ResultView"
-			id="«editorGen.diagram.getMetricViewID()»"
+	    Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+   		<view class="Â«editorGen.diagram.getMetricProviderQualifiedClassName()Â»$ResultView"
+			id="Â«editorGen.diagram.getMetricViewID()Â»"
 			name="%UI_Metrics_View_name"/>
 	</extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE shortcutProviders FOR gmfgen::GenEditorGenerator-»
-«IF diagram.generateShortcutIcon()-»
+Â«DEFINE shortcutProviders FOR gmfgen::GenEditorGenerator-Â»
+Â«IF diagram.generateShortcutIcon()-Â»
 <extension point="org.eclipse.gmf.runtime.lite.shortcutProviders">
-	«EXPAND xpt::Common::xmlGeneratedTag»
+	Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
 	<shortcutProvider
-		class="«EXPAND xpt::providers::ShortcutProvider::qualifiedClassName FOR diagram»"
-	    modelID="«modelID»">
+		class="Â«EXPAND xpt::providers::ShortcutProvider::qualifiedClassName FOR diagramÂ»"
+	    modelID="Â«modelIDÂ»">
 	</shortcutProvider>
 </extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE markersi18n FOR gmfgen::GenEditorGenerator-»
-«IF null = application and validationNeeded(diagram)-»
-_UI_Diagnostic_marker=«modelID» Diagnostics Markers
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE markersi18n FOR gmfgen::GenEditorGenerator-Â»
+Â«IF null = application and validationNeeded(diagram)-Â»
+_UI_Diagnostic_marker=Â«modelIDÂ» Diagnostics Markers
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE metricsi18n FOR gmfgen::GenMetricContainer-»
-«IF metrics->size() > 0-»
-UI_Metrics_View_name=«editorGen.modelID» Diagram Metrics
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE metricsi18n FOR gmfgen::GenMetricContainer-Â»
+Â«IF metrics->size() > 0-Â»
+UI_Metrics_View_name=Â«editorGen.modelIDÂ» Diagram Metrics
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

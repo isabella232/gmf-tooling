@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,98 +10,98 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::editor::Utils»
-«EXTENSION xpt::editor::Wizard»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::editor::UtilsÂ»
+Â«EXTENSION xpt::editor::WizardÂ»
 
-«DEFINE ElementChooser FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE ElementChooser FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «elementChooserClassName» extends org.eclipse.jface.dialogs.Dialog {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«elementChooserClassNameÂ» extends org.eclipse.jface.dialogs.Dialog {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 
-	«EXPAND createDialogArea-»
+	Â«EXPAND createDialogArea-Â»
 
-	«EXPAND createButtonBar-»
+	Â«EXPAND createButtonBar-Â»
 
-	«EXPAND createModelBrowser-»
+	Â«EXPAND createModelBrowser-Â»
 
-	«EXPAND setOkButtonEnabled-»
+	Â«EXPAND setOkButtonEnabled-Â»
 
-	«EXPAND isValidModelFile-»
+	Â«EXPAND isValidModelFile-Â»
 
-	«EXPAND getCreateShortcutCommand-»
+	Â«EXPAND getCreateShortcutCommand-Â»
 
-	«EXPAND getCreateShortcutCommandForGivenObject-»
+	Â«EXPAND getCreateShortcutCommandForGivenObject-Â»
 
-	«EXPAND open-»
+	Â«EXPAND open-Â»
 
-	«EXPAND ModelElementsTreeContentProvider-»
+	Â«EXPAND ModelElementsTreeContentProvider-Â»
 
-	«EXPAND ModelElementsTreeLabelProvider-»
+	Â«EXPAND ModelElementsTreeLabelProvider-Â»
 
-	«EXPAND ModelFilesFilter-»
+	Â«EXPAND ModelFilesFilter-Â»
 
-	«EXPAND OkButtonEnabler-»	
+	Â«EXPAND OkButtonEnabler-Â»	
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.jface.viewers.TreeViewer myTreeViewer;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.emf.common.util.URI mySelectedModelElementURI;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gmf.runtime.notation.View myView;
 	
-	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.emf.transaction.TransactionalEditingDomain myEditingDomain = «EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»;
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private org.eclipse.emf.transaction.TransactionalEditingDomain myEditingDomain = Â«EXPAND xpt::editor::Common::createEditingDomain FOR editorGenÂ»;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gef.GraphicalViewer myGraphicalViewer;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-public «elementChooserClassName»(org.eclipse.swt.widgets.Shell parentShell, org.eclipse.gmf.runtime.notation.View view, org.eclipse.gef.GraphicalViewer graphicalViewer) {
+Â«DEFINE _constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«elementChooserClassNameÂ»(org.eclipse.swt.widgets.Shell parentShell, org.eclipse.gmf.runtime.notation.View view, org.eclipse.gef.GraphicalViewer graphicalViewer) {
 	super(parentShell);
 	setShellStyle(getShellStyle() | org.eclipse.swt.SWT.RESIZE);
 	myView = view;
 	myGraphicalViewer = graphicalViewer;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDialogArea FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDialogArea FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.swt.widgets.Control createDialogArea(org.eclipse.swt.widgets.Composite parent) {
 	org.eclipse.swt.widgets.Composite composite = (org.eclipse.swt.widgets.Composite) super.createDialogArea(parent);
-	getShell().setText(«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForSelectModelElement(self))) FOR editorGen»);
+	getShell().setText(Â«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForSelectModelElement(self))) FOR editorGenÂ»);
 	createModelBrowser(composite);
 	return composite;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createButtonBar FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createButtonBar FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.swt.widgets.Control createButtonBar(org.eclipse.swt.widgets.Composite parent) {
 	org.eclipse.swt.widgets.Control buttonBar = super.createButtonBar(parent);
 	setOkButtonEnabled(false);
 	return buttonBar;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createModelBrowser FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createModelBrowser FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private void createModelBrowser(org.eclipse.swt.widgets.Composite composite) {
 	myTreeViewer = new org.eclipse.jface.viewers.TreeViewer(composite, org.eclipse.swt.SWT.SINGLE | org.eclipse.swt.SWT.H_SCROLL | org.eclipse.swt.SWT.V_SCROLL | org.eclipse.swt.SWT.BORDER);
 	org.eclipse.swt.layout.GridData layoutData = new org.eclipse.swt.layout.GridData(org.eclipse.swt.layout.GridData.FILL_BOTH);
@@ -114,22 +114,22 @@ private void createModelBrowser(org.eclipse.swt.widgets.Composite composite) {
 	myTreeViewer.addFilter(new ModelFilesFilter());
 	myTreeViewer.addSelectionChangedListener(new OkButtonEnabler());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setOkButtonEnabled FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setOkButtonEnabled FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private void setOkButtonEnabled(boolean enabled) {
 	getButton(org.eclipse.jface.dialogs.IDialogConstants.OK_ID).setEnabled(enabled);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isValidModelFile FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isValidModelFile FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private boolean isValidModelFile(org.eclipse.core.resources.IFile file) {
 	String fileExtension = file.getFullPath().getFileExtension();
-	return «EXPAND compareModelFileExtension FOREACH containsShortcutsTo SEPARATOR ' || '»; «EXPAND xpt::Common::nonNLS FOR containsShortcutsTo->asSequence()»
+	return Â«EXPAND compareModelFileExtension FOREACH containsShortcutsTo SEPARATOR ' || 'Â»; Â«EXPAND xpt::Common::nonNLS FOR containsShortcutsTo->asSequence()Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 /**
  * NB: For the lite runtime, "containsShortcutsTo" is considered not file extension, 
@@ -137,17 +137,17 @@ private boolean isValidModelFile(org.eclipse.core.resources.IFile file) {
  * The mapping between model ID and the file extension is not predefined, but the most typical case
  * is covered here.
  */
-«DEFINE compareModelFileExtension FOR String»"«self»".equalsIgnoreCase(fileExtension)«ENDDEFINE»
+Â«DEFINE compareModelFileExtension FOR StringÂ»"Â«selfÂ»".equalsIgnoreCase(fileExtension)Â«ENDDEFINEÂ»
 
-«DEFINE getCreateShortcutCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCreateShortcutCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateShortcutCommand() {
 	final org.eclipse.emf.ecore.EObject selectedElement;
 	try {
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(myView.getElement());
 		selectedElement = editingDomain.getResourceSet().getEObject(mySelectedModelElementURI, true);
 	} catch (org.eclipse.emf.common.util.WrappedException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while loading object: " + mySelectedModelElementURI.toString(), e); «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Exception while loading object: " + mySelectedModelElementURI.toString(), e); Â«EXPAND xpt::Common::nonNLSÂ»
 		return null;
 	}
 	if (selectedElement == null) {
@@ -155,26 +155,26 @@ public org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getC
 	}
 	return getCreateShortcutCommand(selectedElement);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCreateShortcutCommandForGivenObject FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCreateShortcutCommandForGivenObject FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand getCreateShortcutCommand(org.eclipse.emf.ecore.EObject domainModelElement) {
-	«FOREACH containsShortcutsTo->asSequence() AS nextModelID ITERATOR it-»
-	«IF it.isFirstIteration()»org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProvider «ENDIF»shortcutProvider = org.eclipse.gmf.runtime.lite.shortcuts.ShortcutProvidersRegistry.INSTANCE.getShortcutProvider(«IF nextModelID = editorGen.modelID»«getEditPartQualifiedClassName()».MODEL_ID«ELSE»"«nextModelID»"«ENDIF»);«IF nextModelID <> editorGen.modelID»	«EXPAND xpt::Common::nonNLS»«ENDIF»
+	Â«FOREACH containsShortcutsTo->asSequence() AS nextModelID ITERATOR it-Â»
+	Â«IF it.isFirstIteration()Â»org.eclipse.gmf.runtime.lite.shortcuts.IShortcutProvider Â«ENDIFÂ»shortcutProvider = org.eclipse.gmf.runtime.lite.shortcuts.ShortcutProvidersRegistry.INSTANCE.getShortcutProvider(Â«IF nextModelID = editorGen.modelIDÂ»Â«getEditPartQualifiedClassName()Â».MODEL_IDÂ«ELSEÂ»"Â«nextModelIDÂ»"Â«ENDIFÂ»);Â«IF nextModelID <> editorGen.modelIDÂ»	Â«EXPAND xpt::Common::nonNLSÂ»Â«ENDIFÂ»
 	if (shortcutProvider != null) {
 		org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand result = shortcutProvider.getCreateShortcutCommand(myView, domainModelElement);
 		if (result != null && result.canExecute()) {
 			return result;
 		}
 	}
-	«ENDFOREACH-»
+	Â«ENDFOREACH-Â»
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE open FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE open FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public int open() {
 	int result = super.open();
 	for (java.util.Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
@@ -184,40 +184,40 @@ public int open() {
 	myEditingDomain.dispose();
 	return result;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ModelElementsTreeContentProvider FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE ModelElementsTreeContentProvider FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 private class ModelElementsTreeContentProvider implements org.eclipse.jface.viewers.ITreeContentProvider {
 
-	«EXPAND METCP_attributes-»
+	Â«EXPAND METCP_attributes-Â»
 	
-	«EXPAND METCP_getChildren-»
+	Â«EXPAND METCP_getChildren-Â»
 
-	«EXPAND METCP_getParent-»
+	Â«EXPAND METCP_getParent-Â»
 
-	«EXPAND METCP_hasChildren-»
+	Â«EXPAND METCP_hasChildren-Â»
 
-	«EXPAND METCP_getElements-»
+	Â«EXPAND METCP_getElements-Â»
 
-	«EXPAND METCP_dispose-»
+	Â«EXPAND METCP_dispose-Â»
 
-	«EXPAND METCP_inputChanged-»	
+	Â«EXPAND METCP_inputChanged-Â»	
 
-	«EXPAND METCP_additions-»
+	Â«EXPAND METCP_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.jface.viewers.ITreeContentProvider myWorkbenchContentProvider = new «IF null = editorGen.application»org.eclipse.ui.model.WorkbenchContentProvider«ELSE»org.eclipse.ui.model.BaseWorkbenchContentProvider«ENDIF»();
+Â«DEFINE METCP_attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private org.eclipse.jface.viewers.ITreeContentProvider myWorkbenchContentProvider = new Â«IF null = editorGen.applicationÂ»org.eclipse.ui.model.WorkbenchContentProviderÂ«ELSEÂ»org.eclipse.ui.model.BaseWorkbenchContentProviderÂ«ENDIFÂ»();
 
-	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider myAdapterFactoryContentProvier = new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory());
-«ENDDEFINE»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider myAdapterFactoryContentProvier = new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemProvidersAdapterFactory());
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_getChildren FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METCP_getChildren FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object[] getChildren(Object parentElement) {
 	Object[] result = myWorkbenchContentProvider.getChildren(parentElement);
 	if (result != null && result.length > 0) {
@@ -231,16 +231,16 @@ public Object[] getChildren(Object parentElement) {
 			org.eclipse.emf.ecore.resource.Resource modelResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(resourcePath.toString(), true), true);
 			return myAdapterFactoryContentProvier.getChildren(modelResource);
 		} catch (org.eclipse.emf.common.util.WrappedException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); «EXPAND xpt::Common::nonNLS»
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); Â«EXPAND xpt::Common::nonNLSÂ»
 		}
 		return java.util.Collections.EMPTY_LIST.toArray();
 	}
 	return myAdapterFactoryContentProvier.getChildren(parentElement);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_getParent FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METCP_getParent FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object getParent(Object element) {
 	Object parent = myWorkbenchContentProvider.getParent(element);
 	if (parent != null) {
@@ -256,132 +256,132 @@ public Object getParent(Object element) {
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_hasChildren FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METCP_hasChildren FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean hasChildren(Object element) {
 	if (element instanceof org.eclipse.core.resources.IFile) {
 		return isValidModelFile((org.eclipse.core.resources.IFile) element);
 	}
 	return myWorkbenchContentProvider.hasChildren(element) || myAdapterFactoryContentProvier.hasChildren(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_getElements FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METCP_getElements FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object[] getElements(Object inputElement) {
 	Object[] elements = myWorkbenchContentProvider.getElements(inputElement);
 	return elements;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_dispose FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METCP_dispose FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void dispose() {
 	myWorkbenchContentProvider.dispose();
 	myAdapterFactoryContentProvier.dispose();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_inputChanged FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METCP_inputChanged FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void inputChanged(org.eclipse.jface.viewers.Viewer viewer, Object oldInput, Object newInput) {
 	myWorkbenchContentProvider.inputChanged(viewer, oldInput, newInput);
 	myAdapterFactoryContentProvier.inputChanged(viewer, oldInput, newInput);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ModelElementsTreeLabelProvider FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE ModelElementsTreeLabelProvider FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 private class ModelElementsTreeLabelProvider implements org.eclipse.jface.viewers.ILabelProvider {
 
-	«EXPAND METLP_attributes-»
+	Â«EXPAND METLP_attributes-Â»
 	
-	«EXPAND METLP_getImage-»
+	Â«EXPAND METLP_getImage-Â»
 	
-	«EXPAND METLP_getText-»
+	Â«EXPAND METLP_getText-Â»
 	
-	«EXPAND METLP_addListener-»
+	Â«EXPAND METLP_addListener-Â»
 	
-	«EXPAND METLP_dispose-»
+	Â«EXPAND METLP_dispose-Â»
 	
-	«EXPAND METLP_isLabelProperty-»
+	Â«EXPAND METLP_isLabelProperty-Â»
 	
-	«EXPAND METLP_removeListener-»
+	Â«EXPAND METLP_removeListener-Â»
 
-	«EXPAND METLP_additions-»
+	Â«EXPAND METLP_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE METLP_attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private org.eclipse.ui.model.WorkbenchLabelProvider myWorkbenchLabelProvider = new org.eclipse.ui.model.WorkbenchLabelProvider();
 
-	«EXPAND xpt::Common::generatedMemberComment»
-		private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory());
-«ENDDEFINE»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+		private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemProvidersAdapterFactory());
+Â«ENDDEFINEÂ»
 		
-«DEFINE METLP_getImage FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_getImage FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.swt.graphics.Image getImage(Object element) {
 	org.eclipse.swt.graphics.Image result = myWorkbenchLabelProvider.getImage(element);
 	return result != null ? result : myAdapterFactoryLabelProvider.getImage(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METLP_getText FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_getText FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public String getText(Object element) {
 	String result = myWorkbenchLabelProvider.getText(element);
 	return result != null && result.length() > 0 ? result : myAdapterFactoryLabelProvider.getText(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METLP_addListener FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_addListener FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void addListener(org.eclipse.jface.viewers.ILabelProviderListener listener) {
 	myWorkbenchLabelProvider.addListener(listener);
 	myAdapterFactoryLabelProvider.addListener(listener);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METLP_dispose FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_dispose FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void dispose() {
 	myWorkbenchLabelProvider.dispose();
 	myAdapterFactoryLabelProvider.dispose();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METLP_isLabelProperty FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_isLabelProperty FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isLabelProperty(Object element, String property) {
 	return myWorkbenchLabelProvider.isLabelProperty(element, property) || myAdapterFactoryLabelProvider.isLabelProperty(element, property);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METLP_removeListener FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE METLP_removeListener FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void removeListener(org.eclipse.jface.viewers.ILabelProviderListener listener) {
 	myWorkbenchLabelProvider.removeListener(listener);
 	myAdapterFactoryLabelProvider.removeListener(listener);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ModelFilesFilter FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE ModelFilesFilter FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 private class ModelFilesFilter extends org.eclipse.jface.viewers.ViewerFilter {
 
-	«EXPAND MFF_select-»
+	Â«EXPAND MFF_select-Â»
 
-	«EXPAND MFF_additions-»
+	Â«EXPAND MFF_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE MFF_select FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE MFF_select FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean select(org.eclipse.jface.viewers.Viewer viewer, Object parentElement, Object element) {
 	if (element instanceof org.eclipse.core.resources.IContainer) {
 		return true;
@@ -392,22 +392,22 @@ public boolean select(org.eclipse.jface.viewers.Viewer viewer, Object parentElem
 	}
 	return true;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE OkButtonEnabler FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE OkButtonEnabler FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 private class OkButtonEnabler implements org.eclipse.jface.viewers.ISelectionChangedListener {
 
-	«EXPAND OBE_selectionChanged-»
+	Â«EXPAND OBE_selectionChanged-Â»
 
-	«EXPAND OBE_canCreateShortcutNode-»
+	Â«EXPAND OBE_canCreateShortcutNode-Â»
 
-	«EXPAND OBE_additions-»
+	Â«EXPAND OBE_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE OBE_selectionChanged FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE OBE_selectionChanged FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent event) {
 	if (event.getSelection() instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 		org.eclipse.jface.viewers.IStructuredSelection selection = (org.eclipse.jface.viewers.IStructuredSelection) event.getSelection();
@@ -430,10 +430,10 @@ public void selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent eve
 	mySelectedModelElementURI = null;
 	setOkButtonEnabled(false);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE OBE_canCreateShortcutNode FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE OBE_canCreateShortcutNode FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private boolean canCreateShortcutNode(org.eclipse.emf.ecore.EObject modelElement) {
 	if (myGraphicalViewer.getEditPartRegistry().get(modelElement) != null) {
 		return false;
@@ -441,31 +441,31 @@ private boolean canCreateShortcutNode(org.eclipse.emf.ecore.EObject modelElement
 	org.eclipse.gmf.runtime.lite.commands.CreateNotationalElementCommand command = getCreateShortcutCommand(modelElement);
 	return command != null && command.canExecute();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE METCP_additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE METCP_additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE METLP_additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE METLP_additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE MFF_additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE MFF_additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE OBE_additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE OBE_additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«IF not isRichClientPlatform(self)-»
-«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForSelectModelElement(self)), 'Select model element')-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«IF not isRichClientPlatform(self)-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForSelectModelElement(self)), 'Select model element')-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«IF not isRichClientPlatform(self)-»
-	«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForSelectModelElement(self)))-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«IF not isRichClientPlatform(self)-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForSelectModelElement(self)))-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

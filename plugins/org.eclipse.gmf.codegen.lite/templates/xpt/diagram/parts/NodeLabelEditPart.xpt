@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,58 +10,58 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::diagram::parts::LabelController»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::diagram::parts::LabelControllerÂ»
 
-«DEFINE NodeLabelEditPart FOR gmfgen::GenNodeLabel-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE NodeLabelEditPart FOR gmfgen::GenNodeLabel-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND supertypes» {
-	«EXPAND xpt::diagram::parts::Common::visualIDConstant-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND xpt::diagram::parts::Common::visualIDConstant-Â»
 
-	«EXPAND xpt::diagram::parts::Common::ctors-»
-	«EXPAND xpt::diagram::parts::Common::notSelectable-»
-	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
-	«EXPAND createEditPolicies-»
-	«EXPAND xpt::diagram::parts::refresh::refresher-»
-	«EXPAND xpt::diagram::parts::requests::performRequest-»
-	«EXPAND xpt::diagram::parts::LabelController::directEditManager-»
-	«EXPAND xpt::diagram::parts::LabelController::performDirectEdit-»
-	«EXPAND xpt::diagram::parts::LabelController::labelDisplayer-»
-	«EXPAND xpt::diagram::parts::LabelController::labelText-»
-	«EXPAND xpt::diagram::parts::LabelController::labelIcon-»
-	«EXPAND xpt::diagram::parts::LabelController::labelFigure(self) FOR viewmap-»
-	«EXPAND xpt::diagram::parts::LabelController::getUpdatableParent-»
-	«EXPAND xpt::diagram::parts::Common::activate-»
-	«EXPAND xpt::diagram::parts::Common::deactivate-»
-	«EXPAND xpt::diagram::parts::Common::viewmap FOR viewmap-»
-	«EXPAND additions-»
+	Â«EXPAND xpt::diagram::parts::Common::ctors-Â»
+	Â«EXPAND xpt::diagram::parts::Common::notSelectable-Â»
+	Â«EXPAND xpt::diagram::parts::Common::declareViewCode-Â»
+	Â«EXPAND createEditPolicies-Â»
+	Â«EXPAND xpt::diagram::parts::refresh::refresher-Â»
+	Â«EXPAND xpt::diagram::parts::requests::performRequest-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::directEditManager-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::performDirectEdit-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelDisplayer-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelText-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelIcon-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::labelFigure(self) FOR viewmap-Â»
+	Â«EXPAND xpt::diagram::parts::LabelController::getUpdatableParent-Â»
+	Â«EXPAND xpt::diagram::parts::Common::activate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::deactivate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::viewmap FOR viewmap-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenNodeLabel»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
-«DEFINE supertypes FOR gmfgen::GenExternalNodeLabel»extends org.eclipse.gmf.runtime.lite.edit.parts.labels.BaseExternalNodeLabelEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelController«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenNodeLabelÂ»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelControllerÂ«ENDDEFINEÂ»
+Â«DEFINE supertypes FOR gmfgen::GenExternalNodeLabelÂ»extends org.eclipse.gmf.runtime.lite.edit.parts.labels.BaseExternalNodeLabelEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelControllerÂ«ENDDEFINEÂ»
 
-«DEFINE createEditPolicies FOR gmfgen::GenNodeLabel-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEditPolicies FOR gmfgen::GenNodeLabel-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void createEditPolicies() {
-«EXPAND createSuperEditPolicies-»
-«IF not self.isReadOnly()-»
+Â«EXPAND createSuperEditPolicies-Â»
+Â«IF not self.isReadOnly()-Â»
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.lite.edit.policies.LabelDirectEditPolicy());
-«ENDIF-»
-	«EXPAND xpt::diagram::parts::Common::behaviour-»
+Â«ENDIF-Â»
+	Â«EXPAND xpt::diagram::parts::Common::behaviour-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNodeLabel»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNodeLabelÂ»Â«ENDDEFINEÂ»
 
-«DEFINE createSuperEditPolicies FOR gmfgen::GenNodeLabel-»
-«ENDDEFINE»
+Â«DEFINE createSuperEditPolicies FOR gmfgen::GenNodeLabel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createSuperEditPolicies FOR gmfgen::GenExternalNodeLabel-»
+Â«DEFINE createSuperEditPolicies FOR gmfgen::GenExternalNodeLabel-Â»
 super.createEditPolicies();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

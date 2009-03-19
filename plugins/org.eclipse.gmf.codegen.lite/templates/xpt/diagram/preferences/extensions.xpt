@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,93 +10,93 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::diagram::preferences::Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::diagram::preferences::UtilÂ»
 
-«DEFINE extensions FOR gmfgen::GenDiagram-»
-«EXPAND preferencePages-»
-«EXPAND preferenceInitializers-»
-«ENDDEFINE»
+Â«DEFINE extensions FOR gmfgen::GenDiagram-Â»
+Â«EXPAND preferencePages-Â»
+Â«EXPAND preferenceInitializers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferencePages FOR gmfgen::GenDiagram-»
-«IF hasSupportedPreferencePages(preferencePages)-»
+Â«DEFINE preferencePages FOR gmfgen::GenDiagram-Â»
+Â«IF hasSupportedPreferencePages(preferencePages)-Â»
    <extension point="org.eclipse.ui.preferencePages">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-«EXPAND preferencePage FOREACH preferencePages-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+Â«EXPAND preferencePage FOREACH preferencePages-Â»
    </extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferenceInitializers FOR gmfgen::GenDiagram-»
-«IF hasPreferencePagesWithInitializers(preferencePages)-»
+Â«DEFINE preferenceInitializers FOR gmfgen::GenDiagram-Â»
+Â«IF hasPreferencePagesWithInitializers(preferencePages)-Â»
    <extension point="org.eclipse.core.runtime.preferences">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-«EXPAND preferenceInitializer FOREACH preferencePages-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+Â«EXPAND preferenceInitializer FOREACH preferencePages-Â»
    </extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferencePage FOR gmfgen::GenPreferencePage-»
-«IF self.isSupported()-»
+Â«DEFINE preferencePage FOR gmfgen::GenPreferencePage-Â»
+Â«IF self.isSupported()-Â»
       <page
-            id="«iD»"
-            name="%preference.page.title.«iD»"
-«IF null <> parent-»
-            category="«parent.iD»"
-«ENDIF-»
-            class="«EXPAND qualifiedClassName»">
+            id="Â«iDÂ»"
+            name="%preference.page.title.Â«iDÂ»"
+Â«IF null <> parent-Â»
+            category="Â«parent.iDÂ»"
+Â«ENDIF-Â»
+            class="Â«EXPAND qualifiedClassNameÂ»">
       </page>
-«ENDIF-»
-«EXPAND preferencePage FOREACH children-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«EXPAND preferencePage FOREACH children-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenPreferencePage»
-«ERROR 'Unknown preference page: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenPreferencePageÂ»
+Â«ERROR 'Unknown preference page: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenCustomPreferencePage»«qualifiedClassName»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenCustomPreferencePageÂ»Â«qualifiedClassNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenStandardPreferencePage-»
-«IF gmfgen::StandardPreferencePages::General = kind-»
-«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::Appearance = kind-»
-«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR getDiagram()-»
-«REM»TODO: accept more standard preferences, do not forget to register them with Util.ext«ENDREM»«ELSE-»
-«ERROR 'Unknown preference page: ' + self.repr()»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenStandardPreferencePage-Â»
+Â«IF gmfgen::StandardPreferencePages::General = kind-Â»
+Â«EXPAND xpt::diagram::preferences::GeneralPreferencePage::qualifiedClassName FOR getDiagram()-Â»
+Â«ELSEIF gmfgen::StandardPreferencePages::Appearance = kind-Â»
+Â«EXPAND xpt::diagram::preferences::AppearancePreferencePage::qualifiedClassName FOR getDiagram()-Â»
+Â«REMÂ»TODO: accept more standard preferences, do not forget to register them with Util.extÂ«ENDREMÂ»Â«ELSE-Â»
+Â«ERROR 'Unknown preference page: ' + self.repr()Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferenceInitializer FOR gmfgen::GenPreferencePage»
-«IF self.hasInitializer()-»
-<initializer class="«EXPAND preferenceInitializerQualifiedClassName»"/>
-«ENDIF-»
-«EXPAND preferenceInitializer FOREACH children-»
-«ENDDEFINE»
+Â«DEFINE preferenceInitializer FOR gmfgen::GenPreferencePageÂ»
+Â«IF self.hasInitializer()-Â»
+<initializer class="Â«EXPAND preferenceInitializerQualifiedClassNameÂ»"/>
+Â«ENDIF-Â»
+Â«EXPAND preferenceInitializer FOREACH children-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenPreferencePage-»
-«ERROR 'Unknown preference page: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenPreferencePage-Â»
+Â«ERROR 'Unknown preference page: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenStandardPreferencePage-»
-«IF gmfgen::StandardPreferencePages::General = kind-»
-«EXPAND xpt::diagram::preferences::GeneralPreferencePage::preferenceInitializerQualifiedClassName FOR getDiagram()-»
-«ELSEIF gmfgen::StandardPreferencePages::Appearance = kind-»
-«EXPAND xpt::diagram::preferences::AppearancePreferencePage::preferenceInitializerQualifiedClassName FOR getDiagram()-»
-«REM»TODO: accept more standard preferences, do not forget to register them with Util.ext«ENDREM»«ELSE-»
-«ERROR 'Unknown preference page: ' + self.repr()»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenStandardPreferencePage-Â»
+Â«IF gmfgen::StandardPreferencePages::General = kind-Â»
+Â«EXPAND xpt::diagram::preferences::GeneralPreferencePage::preferenceInitializerQualifiedClassName FOR getDiagram()-Â»
+Â«ELSEIF gmfgen::StandardPreferencePages::Appearance = kind-Â»
+Â«EXPAND xpt::diagram::preferences::AppearancePreferencePage::preferenceInitializerQualifiedClassName FOR getDiagram()-Â»
+Â«REMÂ»TODO: accept more standard preferences, do not forget to register them with Util.extÂ«ENDREMÂ»Â«ELSE-Â»
+Â«ERROR 'Unknown preference page: ' + self.repr()Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18n FOR gmfgen::GenDiagram-»
+Â«DEFINE i18n FOR gmfgen::GenDiagram-Â»
 
 # Preferences
-«EXPAND internal_i18n FOREACH preferencePages»
-«ENDDEFINE»
+Â«EXPAND internal_i18n FOREACH preferencePagesÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE internal_i18n FOR gmfgen::GenPreferencePage-»
-«IF self.isSupported()-»
-preference.page.title.«iD»=«name»
-«ENDIF-»
-«EXPAND internal_i18n FOREACH children-»
-«ENDDEFINE»
+Â«DEFINE internal_i18n FOR gmfgen::GenPreferencePage-Â»
+Â«IF self.isSupported()-Â»
+preference.page.title.Â«iDÂ»=Â«nameÂ»
+Â«ENDIF-Â»
+Â«EXPAND internal_i18n FOREACH children-Â»
+Â«ENDDEFINEÂ»

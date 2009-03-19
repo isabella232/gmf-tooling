@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,37 +10,37 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«AROUND ODA_run FOR gmfgen::GenNavigator-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«AROUND ODA_run FOR gmfgen::GenNavigator-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void run() {
 	if (myDiagram == null) {
 		return;
 	}
 	org.eclipse.ui.IWorkbenchPage page = myViewerSite.getPage();
-«IF editorGen.editor.eclipseEditor-»
+Â«IF editorGen.editor.eclipseEditor-Â»
 	org.eclipse.ui.IEditorInput editorInput = getEditorInput();
  	try {
-		page.openEditor(editorInput, «editorGen.editor.getQualifiedClassName()».ID);
+		page.openEditor(editorInput, Â«editorGen.editor.getQualifiedClassName()Â».ID);
 	} catch (org.eclipse.ui.PartInitException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while opening diagram", e); «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Exception while opening diagram", e); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
-«ELSE-»
+Â«ELSE-Â»
 	try {
-		org.eclipse.gmf.runtime.lite.parts.DiagramViewPart diagramView = (org.eclipse.gmf.runtime.lite.parts.DiagramViewPart)page.showView(«editorGen.editor.getQualifiedClassName()».ID);
+		org.eclipse.gmf.runtime.lite.parts.DiagramViewPart diagramView = (org.eclipse.gmf.runtime.lite.parts.DiagramViewPart)page.showView(Â«editorGen.editor.getQualifiedClassName()Â».ID);
 		diagramView.showDiagram(null, org.eclipse.emf.ecore.util.EcoreUtil.getURI(myDiagram));
 	} catch (org.eclipse.ui.PartInitException e) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while opening diagram", e); «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Exception while opening diagram", e); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
-«ENDIF-»
+Â«ENDIF-Â»
 		}
-«ENDAROUND»
+Â«ENDAROUNDÂ»
 
-«AROUND ODA_getEditorInput FOR gmfgen::GenNavigator-»
-«IF editorGen.editor.eclipseEditor»«targetDef.proceed()»«ENDIF-»
-«ENDAROUND»
+Â«AROUND ODA_getEditorInput FOR gmfgen::GenNavigator-Â»
+Â«IF editorGen.editor.eclipseEditorÂ»Â«targetDef.proceed()Â»Â«ENDIF-Â»
+Â«ENDAROUNDÂ»
 

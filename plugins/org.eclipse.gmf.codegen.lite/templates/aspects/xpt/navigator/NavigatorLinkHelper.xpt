@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,13 +10,13 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«AROUND diagramEditorClassFQName FOR gmfgen::GenNavigator»org.eclipse.gmf.runtime.lite.parts.DiagramEditor«ENDAROUND»
+Â«AROUND diagramEditorClassFQName FOR gmfgen::GenNavigatorÂ»org.eclipse.gmf.runtime.lite.parts.DiagramEditorÂ«ENDAROUNDÂ»
 
-«AROUND getViewFromShortcut FOR gmfgen::GenNavigator»«ENDAROUND»
+Â«AROUND getViewFromShortcut FOR gmfgen::GenNavigatorÂ»Â«ENDAROUNDÂ»
 
-«AROUND getDiagram FOR gmfgen::GenEditorGenerator-»
+Â«AROUND getDiagram FOR gmfgen::GenEditorGenerator-Â»
 org.eclipse.gmf.runtime.notation.Diagram diagram = null;
 if (anInput instanceof org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput) {
 	diagram = ((org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput) anInput).getDiagram();
@@ -25,15 +25,15 @@ if (anInput instanceof org.eclipse.gmf.runtime.lite.parts.DiagramEditorInput) {
 	if (activeWindow != null) {
 		org.eclipse.ui.IWorkbenchPage activePage = activeWindow.getActivePage();
 		org.eclipse.ui.IEditorPart anEditor = activePage.findEditor(anInput);
-		if (anEditor instanceof «diagram.editorGen.editor.getQualifiedClassName()») {
-			diagram = ((«diagram.editorGen.editor.getQualifiedClassName()») anEditor).getDiagram();
+		if (anEditor instanceof Â«diagram.editorGen.editor.getQualifiedClassName()Â») {
+			diagram = ((Â«diagram.editorGen.editor.getQualifiedClassName()Â») anEditor).getDiagram();
 		}
 	}
 }
 if (diagram == null) {
 	return org.eclipse.jface.viewers.StructuredSelection.EMPTY;
 }
-«ENDAROUND»
+Â«ENDAROUNDÂ»
 
-«AROUND defineDiagramDocument FOR gmfgen::GenPlugin-»
-«ENDAROUND»
+Â«AROUND defineDiagramDocument FOR gmfgen::GenPlugin-Â»
+Â«ENDAROUNDÂ»

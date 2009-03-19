@@ -1,13 +1,13 @@
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+ï»¿Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE PropertySection FOR gmfgen::GenCustomPropertyTab-»
-«EXPAND xpt::Common::copyright FOR sheet.editorGen»
-package «sheet.packageName»;
+Â«DEFINE PropertySection FOR gmfgen::GenCustomPropertyTab-Â»
+Â«EXPAND xpt::Common::copyright FOR sheet.editorGenÂ»
+package Â«sheet.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «className» extends org.eclipse.gmf.runtime.lite.properties.AdvancedPropertySection {
-	«EXPAND xpt::Common::generatedMemberComment('Modify/unwrap selection.')»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«classNameÂ» extends org.eclipse.gmf.runtime.lite.properties.AdvancedPropertySection {
+	Â«EXPAND xpt::Common::generatedMemberComment('Modify/unwrap selection.')Â»
 	protected Object transformSelection(Object selected) {
 		if (selected instanceof org.eclipse.gef.EditPart) {
 			Object model = ((org.eclipse.gef.EditPart) selected).getModel();
@@ -24,9 +24,9 @@ public class «className» extends org.eclipse.gmf.runtime.lite.properties.Advance
 		}
 		return selected;
 	}
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.emf.common.notify.AdapterFactory getItemProvidersAdapterFactory() {
-		return «sheet.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory();
+		return Â«sheet.editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemProvidersAdapterFactory();
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

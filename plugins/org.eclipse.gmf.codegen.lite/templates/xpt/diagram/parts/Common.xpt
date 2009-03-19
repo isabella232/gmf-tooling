@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,25 +10,25 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::diagram::parts::Common»
-«EXTENSION xpt::diagram::Helper»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::diagram::parts::CommonÂ»
+Â«EXTENSION xpt::diagram::HelperÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE visualIDConstant FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final int VISUAL_ID = «visualID»;
-«ENDDEFINE»
+Â«DEFINE visualIDConstant FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final int VISUAL_ID = Â«visualIDÂ»;
+Â«ENDDEFINEÂ»
 
-«DEFINE modelIDConstant FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static String MODEL_ID = "«editorGen.modelID»";	«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE modelIDConstant FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static String MODEL_ID = "Â«editorGen.modelIDÂ»";	Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE registerModel FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE registerModel FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void registerModel() {
 		super.registerModel();
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getModel();
@@ -37,7 +37,7 @@
 		}
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void unregisterModel() {
 		super.unregisterModel();
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getModel();
@@ -45,304 +45,304 @@
 			getViewer().getEditPartRegistry().remove(view.getElement());
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdapter FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getAdapter FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object getAdapter(Class key) {
-	«EXPAND snapToAdapter-»
-	«EXPAND xpt::diagram::parts::TreeEditPart::getAdapterClause-»
-	«EXPAND externalChildPositionTrackerAdapter-»
-	«EXPAND getAdapterAdditions-»
+	Â«EXPAND snapToAdapter-Â»
+	Â«EXPAND xpt::diagram::parts::TreeEditPart::getAdapterClause-Â»
+	Â«EXPAND externalChildPositionTrackerAdapter-Â»
+	Â«EXPAND getAdapterAdditions-Â»
 	return super.getAdapter(key);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdapterAdditions FOR gmfgen::GenCommonBase»«ENDDEFINE»
+Â«DEFINE getAdapterAdditions FOR gmfgen::GenCommonBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE snapToAdapter FOR gmfgen::GenCommonBase»«ENDDEFINE»
+Â«DEFINE snapToAdapter FOR gmfgen::GenCommonBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE snapToAdapter FOR gmfgen::GenContainerBase-»
-«IF self.needsXYLayout()-»
+Â«DEFINE snapToAdapter FOR gmfgen::GenContainerBase-Â»
+Â«IF self.needsXYLayout()-Â»
 if (org.eclipse.gef.SnapToHelper.class == key) {
 	return new org.eclipse.gef.SnapToGrid(this);
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE externalChildPositionTrackerAdapter FOR gmfgen::GenCommonBase-»
-«ENDDEFINE»
+Â«DEFINE externalChildPositionTrackerAdapter FOR gmfgen::GenCommonBase-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE externalChildPositionTrackerAdapter FOR gmfgen::GenChildSideAffixedNode-»
+Â«DEFINE externalChildPositionTrackerAdapter FOR gmfgen::GenChildSideAffixedNode-Â»
 if (org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker.class == key) {
 	return getPositionTracker();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE externalChildPositionTracker FOR gmfgen::GenCommonBase-»
-«ENDDEFINE»
+Â«DEFINE externalChildPositionTracker FOR gmfgen::GenCommonBase-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE externalChildPositionTracker FOR gmfgen::GenChildSideAffixedNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE externalChildPositionTracker FOR gmfgen::GenChildSideAffixedNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker myPositionTracker;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker getPositionTracker() {
 	if (myPositionTracker == null) {
 		myPositionTracker = new org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker(this);
 	}
 	return myPositionTracker;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::GenCommonBase»«EXPAND behaviour FOREACH behaviour»«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::GenCommonBaseÂ»Â«EXPAND behaviour FOREACH behaviourÂ»Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::Behaviour»«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::BehaviourÂ»Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::SharedBehaviour»«EXPAND behaviour FOR delegate»«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::SharedBehaviourÂ»Â«EXPAND behaviour FOR delegateÂ»Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::CustomBehaviour»
-installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
-«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::CustomBehaviourÂ»
+installEditPolicy(Â«keyÂ», new Â«getEditPolicyQualifiedClassName()Â»()); Â«IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')Â»Â«EXPAND xpt::Common::nonNLSÂ»Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
+Â«DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-Â»
 	installEditPolicy(org.eclipse.gmf.runtime.lite.edit.policies.EditPolicyRoles.OPEN_ROLE,
-		new «getEditPolicyQualifiedClassName()»());
-«ENDDEFINE»
+		new Â«getEditPolicyQualifiedClassName()Â»());
+Â«ENDDEFINEÂ»
 
-«DEFINE viewmap FOR gmfgen::Viewmap»«ENDDEFINE»
+Â«DEFINE viewmap FOR gmfgen::ViewmapÂ»Â«ENDDEFINEÂ»
 
-«DEFINE viewmap FOR gmfgen::InnerClassViewmap-»
-«classBody-»
-«EXPAND mapModeWorkaround-»
-«ENDDEFINE»
+Â«DEFINE viewmap FOR gmfgen::InnerClassViewmap-Â»
+Â«classBody-Â»
+Â«EXPAND mapModeWorkaround-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE mapModeWorkaround FOR gmfgen::InnerClassViewmap-»
-«IF classBody.xpandMatches('.*[DL]Pto[LD]P.*')-»
-«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE mapModeWorkaround FOR gmfgen::InnerClassViewmap-Â»
+Â«IF classBody.xpandMatches('.*[DL]Pto[LD]P.*')-Â»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
 private static class MapModeWorkaround {
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public int DPtoLP(int dp) {
 		return dp;
 	}
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public int LPtoDP(int lp) {
 		return lp;
 	}
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static MapModeWorkaround INSTANCE = new MapModeWorkaround();
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private MapModeWorkaround getMapMode() {
 	return MapModeWorkaround.INSTANCE;
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE declareViewCode FOR gmfgen::GenCommonBase»«EXPAND declareViewCode('org.eclipse.gmf.runtime.notation.Node')»«ENDDEFINE»
-«DEFINE declareViewCode FOR gmfgen::GenDiagram»«EXPAND declareViewCode('org.eclipse.gmf.runtime.notation.Diagram')»«ENDDEFINE»
-«DEFINE declareViewCode FOR gmfgen::GenLink»«EXPAND declareViewCode('org.eclipse.gmf.runtime.notation.Edge')»«ENDDEFINE»
+Â«DEFINE declareViewCode FOR gmfgen::GenCommonBaseÂ»Â«EXPAND declareViewCode('org.eclipse.gmf.runtime.notation.Node')Â»Â«ENDDEFINEÂ»
+Â«DEFINE declareViewCode FOR gmfgen::GenDiagramÂ»Â«EXPAND declareViewCode('org.eclipse.gmf.runtime.notation.Diagram')Â»Â«ENDDEFINEÂ»
+Â«DEFINE declareViewCode FOR gmfgen::GenLinkÂ»Â«EXPAND declareViewCode('org.eclipse.gmf.runtime.notation.Edge')Â»Â«ENDDEFINEÂ»
 
-«DEFINE declareViewCode(expectedModelType : String) FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «expectedModelType» «EXPAND getViewCode» {
-	return («expectedModelType») getModel();
+Â«DEFINE declareViewCode(expectedModelType : String) FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«expectedModelTypeÂ» Â«EXPAND getViewCodeÂ» {
+	return (Â«expectedModelTypeÂ») getModel();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE contentPane FOR gmfgen::GenChildContainer-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE contentPane FOR gmfgen::GenChildContainer-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.draw2d.IFigure contentPane;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.draw2d.IFigure getContentPane() {
 	if (contentPane == null) {
 		return super.getContentPane();
 	}
 	return contentPane;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctors FOR gmfgen::GenCommonBase»«EXPAND ctors('org.eclipse.gmf.runtime.notation.Node')»«ENDDEFINE»
-«DEFINE ctors FOR gmfgen::GenLink»«EXPAND ctors('org.eclipse.gmf.runtime.notation.Edge')»«ENDDEFINE»
+Â«DEFINE ctors FOR gmfgen::GenCommonBaseÂ»Â«EXPAND ctors('org.eclipse.gmf.runtime.notation.Node')Â»Â«ENDDEFINEÂ»
+Â«DEFINE ctors FOR gmfgen::GenLinkÂ»Â«EXPAND ctors('org.eclipse.gmf.runtime.notation.Edge')Â»Â«ENDDEFINEÂ»
 
-«DEFINE ctors(expectedModelType : String) FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «editPartClassName»(org.eclipse.gmf.runtime.notation.View model) {
-	assert model instanceof «expectedModelType»;
+Â«DEFINE ctors(expectedModelType : String) FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View model) {
+	assert model instanceof Â«expectedModelTypeÂ»;
 	setModel(model);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «editPartClassName»(org.eclipse.gmf.runtime.notation.Diagram model) {
+Â«DEFINE ctors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.Diagram model) {
 	setModel(model);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctors FOR gmfgen::GenLinkLabel-»
-«EXPAND invokeSuperCtor-»
-«ENDDEFINE»
+Â«DEFINE ctors FOR gmfgen::GenLinkLabel-Â»
+Â«EXPAND invokeSuperCtor-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctors FOR gmfgen::GenExternalNodeLabel-»
-«EXPAND invokeSuperCtor-»
-«ENDDEFINE»
+Â«DEFINE ctors FOR gmfgen::GenExternalNodeLabel-Â»
+Â«EXPAND invokeSuperCtor-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE invokeSuperCtor FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «editPartClassName»(org.eclipse.gmf.runtime.notation.View model) {
+Â«DEFINE invokeSuperCtor FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View model) {
 	super(model);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getViewCode FOR gmfgen::GenCommonBase»getDiagramNode()«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenCommonBaseÂ»getDiagramNode()Â«ENDDEFINEÂ»
 
-«DEFINE getViewCode FOR gmfgen::GenDiagram»getDiagram()«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenDiagramÂ»getDiagram()Â«ENDDEFINEÂ»
 
-«DEFINE getViewCode FOR gmfgen::GenLink»getDiagramEdge()«ENDDEFINE»
+Â«DEFINE getViewCode FOR gmfgen::GenLinkÂ»getDiagramEdge()Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramCode FOR gmfgen::GenCommonBase»«EXPAND getViewCode».getDiagram()«ENDDEFINE»
+Â«DEFINE getDiagramCode FOR gmfgen::GenCommonBaseÂ»Â«EXPAND getViewCodeÂ».getDiagram()Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramCode FOR gmfgen::GenDiagram»«EXPAND getViewCode»«ENDDEFINE»
+Â«DEFINE getDiagramCode FOR gmfgen::GenDiagramÂ»Â«EXPAND getViewCodeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramElementCode FOR gmfgen::GenCommonBase»«EXPAND getDiagramCode».getElement()«ENDDEFINE»
+Â«DEFINE getDiagramElementCode FOR gmfgen::GenCommonBaseÂ»Â«EXPAND getDiagramCodeÂ».getElement()Â«ENDDEFINEÂ»
 
-«DEFINE getModelChildren FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelChildren FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelChildren() {
-	return «EXPAND getViewCode».getVisibleChildren();
+	return Â«EXPAND getViewCodeÂ».getVisibleChildren();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelSourceConnections FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelSourceConnections FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelSourceConnections() {
-	return «EXPAND getViewCode».getSourceEdges();
+	return Â«EXPAND getViewCodeÂ».getSourceEdges();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelTargetConnections FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelTargetConnections FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelTargetConnections() {
-	return «EXPAND getViewCode».getTargetEdges();
+	return Â«EXPAND getViewCodeÂ».getTargetEdges();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelChildren FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelChildren FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelChildren() {
 	return java.util.Collections.EMPTY_LIST;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelSourceConnections FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelSourceConnections FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelSourceConnections() {
 	return java.util.Collections.EMPTY_LIST;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelTargetConnections FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelTargetConnections FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelTargetConnections() {
 	return java.util.Collections.EMPTY_LIST;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE notSelectable FOR gmfgen::GenCommonBase-»
-«IF not self.isSelectable()-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE notSelectable FOR gmfgen::GenCommonBase-Â»
+Â«IF not self.isSelectable()-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isSelectable() {
 	return false;
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getTransactionalUpdateManager FOR gmfgen::GenCommonBase-»
-«IF self.needsTransactionalUpdateManager()-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getTransactionalUpdateManager FOR gmfgen::GenCommonBase-Â»
+Â«IF self.needsTransactionalUpdateManager()-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager getTransactionalUpdateManager() {
 	return (org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager) getViewer().getProperty(org.eclipse.gmf.runtime.lite.edit.parts.update.TransactionalUpdateManager.class.getName());
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE activate FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE activate FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void activate() {
 	super.activate();
-	«EXPAND activateAdditions-»
+	Â«EXPAND activateAdditions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivate FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE deactivate FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void deactivate() {
-	«EXPAND deactivateAdditions-»
+	Â«EXPAND deactivateAdditions-Â»
 	super.deactivate();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateAdditions FOR gmfgen::GenCommonBase»«ENDDEFINE»
-«DEFINE deactivateAdditions FOR gmfgen::GenCommonBase»«ENDDEFINE»
+Â«DEFINE activateAdditions FOR gmfgen::GenCommonBaseÂ»Â«ENDDEFINEÂ»
+Â«DEFINE deactivateAdditions FOR gmfgen::GenCommonBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE activateAdditions FOR gmfgen::GenContainerBase-»
-«EXPAND activateRefreshers-»
-«ENDDEFINE»
+Â«DEFINE activateAdditions FOR gmfgen::GenContainerBase-Â»
+Â«EXPAND activateRefreshers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateAdditions FOR gmfgen::GenContainerBase-»
-«EXPAND deactivateRefreshers-»
-«ENDDEFINE»
+Â«DEFINE deactivateAdditions FOR gmfgen::GenContainerBase-Â»
+Â«EXPAND deactivateRefreshers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateAdditions FOR gmfgen::GenDiagram-»
-«EXPAND activateRefreshers-»
-getTransactionalUpdateManager().install(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(«EXPAND getViewCode»));
-«ENDDEFINE»
+Â«DEFINE activateAdditions FOR gmfgen::GenDiagram-Â»
+Â«EXPAND activateRefreshers-Â»
+getTransactionalUpdateManager().install(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(Â«EXPAND getViewCodeÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateAdditions FOR gmfgen::GenDiagram-»
+Â«DEFINE deactivateAdditions FOR gmfgen::GenDiagram-Â»
 getTransactionalUpdateManager().uninstall();
-«EXPAND deactivateRefreshers-»
-«ENDDEFINE»
+Â«EXPAND deactivateRefreshers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateAdditions FOR gmfgen::GenChildLabelNode-»
+Â«DEFINE activateAdditions FOR gmfgen::GenChildLabelNode-Â»
 addExternalRefresher(getLabelRefresher());
-«EXPAND activateRefreshers-»
-«ENDDEFINE»
+Â«EXPAND activateRefreshers-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateAdditions FOR gmfgen::GenChildLabelNode-»
-«EXPAND deactivateRefreshers-»
+Â«DEFINE deactivateAdditions FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND deactivateRefreshers-Â»
 removeExternalRefresher(getLabelRefresher());
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateRefreshers FOR gmfgen::GenContainerBase-»
-«EXPAND xpt::diagram::parts::domainModelRefresher::activate-»
-«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
-«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
-«ENDDEFINE»
+Â«DEFINE activateRefreshers FOR gmfgen::GenContainerBase-Â»
+Â«EXPAND xpt::diagram::parts::domainModelRefresher::activate-Â»
+Â«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-Â»
+Â«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateRefreshers FOR gmfgen::GenContainerBase-»
-«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::uninstallClause-»
-«EXPAND xpt::diagram::parts::NotationModelRefresher::uninstallClause-»
-«EXPAND xpt::diagram::parts::domainModelRefresher::deactivate-»
-«ENDDEFINE»
+Â«DEFINE deactivateRefreshers FOR gmfgen::GenContainerBase-Â»
+Â«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::uninstallClause-Â»
+Â«EXPAND xpt::diagram::parts::NotationModelRefresher::uninstallClause-Â»
+Â«EXPAND xpt::diagram::parts::domainModelRefresher::deactivate-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateAdditions FOR gmfgen::GenLabel-»
-«EXPAND xpt::diagram::parts::LabelController::activateAdditions-»
-«ENDDEFINE»
+Â«DEFINE activateAdditions FOR gmfgen::GenLabel-Â»
+Â«EXPAND xpt::diagram::parts::LabelController::activateAdditions-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateAdditions FOR gmfgen::GenLabel-»
-«EXPAND xpt::diagram::parts::LabelController::deactivateAdditions-»
-«ENDDEFINE»
+Â«DEFINE deactivateAdditions FOR gmfgen::GenLabel-Â»
+Â«EXPAND xpt::diagram::parts::LabelController::deactivateAdditions-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateAdditions FOR gmfgen::GenLink-»
-«EXPAND xpt::diagram::parts::domainModelRefresher::activate-»
-«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
-«ENDDEFINE»
+Â«DEFINE activateAdditions FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::diagram::parts::domainModelRefresher::activate-Â»
+Â«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateAdditions FOR gmfgen::GenLink-»
-«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::uninstallClause-»
-«EXPAND xpt::diagram::parts::domainModelRefresher::deactivate-»
-«ENDDEFINE»
+Â«DEFINE deactivateAdditions FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::uninstallClause-Â»
+Â«EXPAND xpt::diagram::parts::domainModelRefresher::deactivate-Â»
+Â«ENDDEFINEÂ»
 

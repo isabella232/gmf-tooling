@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,67 +10,67 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE ElementTypes FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «providersPackageName»;
+Â«DEFINE ElementTypes FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «elementTypesClassName» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«elementTypesClassNameÂ» {
 
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND getImageRegistry-»
+	Â«EXPAND getImageRegistry-Â»
 
-	«EXPAND getImageRegistryKey-»
+	Â«EXPAND getImageRegistryKey-Â»
 
-	«EXPAND getProvidedImageDescriptor-»
+	Â«EXPAND getProvidedImageDescriptor-Â»
 
-	«EXPAND getNamedElementImageDescriptor-»
+	Â«EXPAND getNamedElementImageDescriptor-Â»
 
-	«EXPAND getNamedElementImage-»
+	Â«EXPAND getNamedElementImage-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private «elementTypesClassName»() {
+Â«DEFINE _constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private Â«elementTypesClassNameÂ»() {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.jface.resource.ImageRegistry imageRegistry;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE getImageRegistry FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImageRegistry FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.jface.resource.ImageRegistry getImageRegistry() {
 	if (imageRegistry == null) {
 		imageRegistry = new org.eclipse.jface.resource.ImageRegistry();
 	}
 	return imageRegistry;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getImageRegistryKey FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImageRegistryKey FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static String getImageRegistryKey(org.eclipse.emf.ecore.ENamedElement element) {
 	return element.getName();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getProvidedImageDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getProvidedImageDescriptor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 	if (element instanceof org.eclipse.emf.ecore.EStructuralFeature) {
 		org.eclipse.emf.ecore.EStructuralFeature feature = ((org.eclipse.emf.ecore.EStructuralFeature) element);
@@ -85,47 +85,47 @@ private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescri
 	if (element instanceof org.eclipse.emf.ecore.EClass) {
 		org.eclipse.emf.ecore.EClass eClass = (org.eclipse.emf.ecore.EClass) element;
 		if (!eClass.isAbstract()) {
-			return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemImageDescriptor(
+			return Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemImageDescriptor(
 				eClass.getEPackage().getEFactoryInstance().create(eClass));
 		}
 	}
 	// TODO : support structural features
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNamedElementImageDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getNamedElementImageDescriptor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 	String key = getImageRegistryKey(element);
 	org.eclipse.jface.resource.ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
 	if (imageDescriptor == null) {
-		«EXPAND loadProvidedImageDescriptor-»
+		Â«EXPAND loadProvidedImageDescriptor-Â»
 	}
 	return imageDescriptor;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram-»
+Â«DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram-Â»
 imageDescriptor = getProvidedImageDescriptor(element);
 if (imageDescriptor == null) {
 	imageDescriptor = org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor();
 }
 getImageRegistry().put(key, imageDescriptor);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNamedElementImage FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getNamedElementImage FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENamedElement element) {
 	String key = getImageRegistryKey(element);
 	org.eclipse.swt.graphics.Image image = getImageRegistry().get(key);
 	if (image == null) {
-		org.eclipse.jface.resource.ImageDescriptor «EXPAND loadProvidedImageDescriptor-»
+		org.eclipse.jface.resource.ImageDescriptor Â«EXPAND loadProvidedImageDescriptor-Â»
 		image = getImageRegistry().get(key);
 	}
 	return image;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

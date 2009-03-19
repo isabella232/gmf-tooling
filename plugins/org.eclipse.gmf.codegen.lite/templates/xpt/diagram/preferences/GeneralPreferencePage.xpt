@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,60 +10,60 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE className FOR gmfgen::GenDiagram»DiagramGeneralPreferencePage«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»DiagramGeneralPreferencePageÂ«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«preferencesPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«preferencesPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE preferenceInitializerClassName FOR gmfgen::GenDiagram»PreferenceInitializer«ENDDEFINE»
-«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenDiagram»«EXPAND qualifiedClassName»$«EXPAND preferenceInitializerClassName»«ENDDEFINE»
+Â«DEFINE preferenceInitializerClassName FOR gmfgen::GenDiagramÂ»PreferenceInitializerÂ«ENDDEFINEÂ»
+Â«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenDiagramÂ»Â«EXPAND qualifiedClassNameÂ»$Â«EXPAND preferenceInitializerClassNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE GeneralPreferencePage FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «preferencesPackageName»;
+Â«DEFINE GeneralPreferencePage FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«preferencesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND createFieldEditors-»
-	«EXPAND xpt::diagram::preferences::Common::doGetPreferenencePage-»
-	«EXPAND _init-»
-	«EXPAND PreferenceInitializer-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND createFieldEditors-Â»
+	Â«EXPAND xpt::diagram::preferences::Common::doGetPreferenencePage-Â»
+	Â«EXPAND _init-Â»
+	Â«EXPAND PreferenceInitializer-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.jface.preference.FieldEditorPreferencePage implements org.eclipse.ui.IWorkbenchPreferencePage«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.jface.preference.FieldEditorPreferencePage implements org.eclipse.ui.IWorkbenchPreferencePageÂ«ENDDEFINEÂ»
 
-«DEFINE createFieldEditors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createFieldEditors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void createFieldEditors() {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _init FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE _init FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void init(org.eclipse.ui.IWorkbench workbench) {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedClassComment»
-public static class «EXPAND preferenceInitializerClassName» «EXPAND PreferenceInitializer_supertypes» {
-	«EXPAND PreferenceInitializer_initializeDefaultPreferences-»
-	«EXPAND PreferenceInitializer_additions-»
+Â«DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public static class Â«EXPAND preferenceInitializerClassNameÂ» Â«EXPAND PreferenceInitializer_supertypesÂ» {
+	Â«EXPAND PreferenceInitializer_initializeDefaultPreferences-Â»
+	Â«EXPAND PreferenceInitializer_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_supertypes FOR gmfgen::GenDiagram»extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer«ENDDEFINE»
+Â«DEFINE PreferenceInitializer_supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializerÂ«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_initializeDefaultPreferences FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE PreferenceInitializer_initializeDefaultPreferences FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void initializeDefaultPreferences() {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE PreferenceInitializer_additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

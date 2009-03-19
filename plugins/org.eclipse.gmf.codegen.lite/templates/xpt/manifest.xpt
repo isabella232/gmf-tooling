@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,76 +10,76 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«DEFINE manifest FOR gmfgen::GenPlugin-»
-Manifest-Version: «EXPAND manifestVersion»
-Bundle-ManifestVersion: «EXPAND bundleManifestVersion»
-Bundle-Name: «EXPAND bundleName»
-Bundle-SymbolicName: «EXPAND bundleSymbolicName»
-Bundle-Version: «EXPAND bundleVersion»
-Bundle-ClassPath: «EXPAND bundleClassPath»
-Bundle-Activator: «EXPAND bundleActivator»
-Bundle-Vendor: «EXPAND bundleVendor»
-Bundle-Localization: «EXPAND bundleLocalization»
-Export-Package: «EXPAND exportedPackages»
-Require-Bundle: «EXPAND requiredBundles»
-Eclipse-LazyStart: «EXPAND eclipseLazyStart»
-«ENDDEFINE»
+Â«DEFINE manifest FOR gmfgen::GenPlugin-Â»
+Manifest-Version: Â«EXPAND manifestVersionÂ»
+Bundle-ManifestVersion: Â«EXPAND bundleManifestVersionÂ»
+Bundle-Name: Â«EXPAND bundleNameÂ»
+Bundle-SymbolicName: Â«EXPAND bundleSymbolicNameÂ»
+Bundle-Version: Â«EXPAND bundleVersionÂ»
+Bundle-ClassPath: Â«EXPAND bundleClassPathÂ»
+Bundle-Activator: Â«EXPAND bundleActivatorÂ»
+Bundle-Vendor: Â«EXPAND bundleVendorÂ»
+Bundle-Localization: Â«EXPAND bundleLocalizationÂ»
+Export-Package: Â«EXPAND exportedPackagesÂ»
+Require-Bundle: Â«EXPAND requiredBundlesÂ»
+Eclipse-LazyStart: Â«EXPAND eclipseLazyStartÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE manifestVersion FOR gmfgen::GenPlugin»1.0«ENDDEFINE»
+Â«DEFINE manifestVersion FOR gmfgen::GenPluginÂ»1.0Â«ENDDEFINEÂ»
 
-«DEFINE bundleManifestVersion FOR gmfgen::GenPlugin»2«ENDDEFINE»
+Â«DEFINE bundleManifestVersion FOR gmfgen::GenPluginÂ»2Â«ENDDEFINEÂ»
 
-«DEFINE bundleName FOR gmfgen::GenPlugin»%pluginName«ENDDEFINE»
+Â«DEFINE bundleName FOR gmfgen::GenPluginÂ»%pluginNameÂ«ENDDEFINEÂ»
 
-«DEFINE bundleSymbolicName FOR gmfgen::GenPlugin»«iD»; singleton:=true«ENDDEFINE»
+Â«DEFINE bundleSymbolicName FOR gmfgen::GenPluginÂ»Â«iDÂ»; singleton:=trueÂ«ENDDEFINEÂ»
 
-«DEFINE bundleVersion FOR gmfgen::GenPlugin»«version»«ENDDEFINE»
+Â«DEFINE bundleVersion FOR gmfgen::GenPluginÂ»Â«versionÂ»Â«ENDDEFINEÂ»
 
-«DEFINE bundleClassPath FOR gmfgen::GenPlugin».«ENDDEFINE»
+Â«DEFINE bundleClassPath FOR gmfgen::GenPluginÂ».Â«ENDDEFINEÂ»
 
-«DEFINE bundleActivator FOR gmfgen::GenPlugin»«getActivatorQualifiedClassName()»«ENDDEFINE»
+Â«DEFINE bundleActivator FOR gmfgen::GenPluginÂ»Â«getActivatorQualifiedClassName()Â»Â«ENDDEFINEÂ»
 
-«DEFINE bundleVendor FOR gmfgen::GenPlugin»%providerName«ENDDEFINE»
+Â«DEFINE bundleVendor FOR gmfgen::GenPluginÂ»%providerNameÂ«ENDDEFINEÂ»
 
-«DEFINE bundleLocalization FOR gmfgen::GenPlugin»plugin«ENDDEFINE»
+Â«DEFINE bundleLocalization FOR gmfgen::GenPluginÂ»pluginÂ«ENDDEFINEÂ»
 
-«DEFINE exportedPackages FOR gmfgen::GenPlugin-»
-«editorGen.editor.packageName-»
-«ENDDEFINE»
+Â«DEFINE exportedPackages FOR gmfgen::GenPlugin-Â»
+Â«editorGen.editor.packageName-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE requiredBundles FOR gmfgen::GenPlugin-»
+Â«DEFINE requiredBundles FOR gmfgen::GenPlugin-Â»
 org.eclipse.core.runtime,
-«IF null = editorGen.application-»
+Â«IF null = editorGen.application-Â»
  org.eclipse.core.resources,
-«IF null <> editorGen.navigator-»
+Â«IF null <> editorGen.navigator-Â»
  org.eclipse.ui.navigator,
-«IF editorGen.navigator.generateDomainModelNavigator-»
+Â«IF editorGen.navigator.generateDomainModelNavigator-Â»
  org.eclipse.core.expressions,
-«ENDIF-»
-«ENDIF-»
+Â«ENDIF-Â»
+Â«ENDIF-Â»
  org.eclipse.ui.ide,
-«ENDIF-»
-«IF null <> editorGen.propertySheet-»
+Â«ENDIF-Â»
+Â«IF null <> editorGen.propertySheet-Â»
  org.eclipse.ui.views.properties.tabbed,
-«ENDIF-»
+Â«ENDIF-Â»
  org.eclipse.jface,
  org.eclipse.ui.views,
  org.eclipse.ui.workbench,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
  org.eclipse.emf.edit.ui,
- org.eclipse.emf.workspace,«REM» XXX: introduces dependency on org.eclipse.core.resources which may be problematic for RCP*/«ENDREM»
+ org.eclipse.emf.workspace,Â«REMÂ» XXX: introduces dependency on org.eclipse.core.resources which may be problematic for RCP*/Â«ENDREMÂ»
  org.eclipse.gef;visibility:=reexport,
-«FOREACH getAllRequiredPlugins()->asSequence() AS id-»
- «id»;visibility:=reexport,
-«ENDFOREACH-»
+Â«FOREACH getAllRequiredPlugins()->asSequence() AS id-Â»
+ Â«idÂ»;visibility:=reexport,
+Â«ENDFOREACH-Â»
  org.eclipse.gmf.runtime.notation,
  org.eclipse.gmf.runtime.notation.edit,
- org.eclipse.gmf.runtime.lite«-»
-«ENDDEFINE»
+ org.eclipse.gmf.runtime.liteÂ«-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE eclipseLazyStart FOR gmfgen::GenPlugin»true«ENDDEFINE»
+Â«DEFINE eclipseLazyStart FOR gmfgen::GenPluginÂ»trueÂ«ENDDEFINEÂ»

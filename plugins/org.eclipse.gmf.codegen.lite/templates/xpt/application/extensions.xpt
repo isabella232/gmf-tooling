@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,112 +10,112 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE extensions FOR gmfgen::GenApplication-»
+Â«DEFINE extensions FOR gmfgen::GenApplication-Â»
   <extension
     point="org.eclipse.core.runtime.applications"
-    id="«iD»">
-    «EXPAND xpt::Common::xmlGeneratedTag»
+    id="Â«iDÂ»">
+    Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
     <application>
       <run
-        class="«getQualifiedClassName()»">
+        class="Â«getQualifiedClassName()Â»">
       </run>
     </application>
   </extension>
 
    <extension
     point="org.eclipse.ui.perspectives">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
     <perspective
       name="%_UI_Perspective_label"
-      class="«getPerspectiveQualifiedClassName()»"
-      id="«perspectiveId»">
+      class="Â«getPerspectiveQualifiedClassName()Â»"
+      id="Â«perspectiveIdÂ»">
     </perspective>
   </extension>
 
   <extension
     point="org.eclipse.ui.commands">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
     <command
       name="%_UI_Menu_OpenURI_label"
       description="%_UI_Menu_OpenURI_description"
       categoryId="org.eclipse.ui.category.file"
-      id="«editorGen.plugin.iD».OpenURICommand" />  
+      id="Â«editorGen.plugin.iDÂ».OpenURICommand" />  
     <command
       name="%_UI_Menu_Open_label"
       description="%_UI_Menu_Open_description"
       categoryId="org.eclipse.ui.category.file"
-      id="«editorGen.plugin.iD».OpenCommand" />  
+      id="Â«editorGen.plugin.iDÂ».OpenCommand" />  
   </extension>
 
   <extension
     point="org.eclipse.ui.bindings">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
     <key
-      commandId="«editorGen.plugin.iD».OpenURICommand"
+      commandId="Â«editorGen.plugin.iDÂ».OpenURICommand"
       sequence="M1+U"
       schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
     <key
-      commandId="«editorGen.plugin.iD».OpenCommand"
+      commandId="Â«editorGen.plugin.iDÂ».OpenCommand"
       sequence="M1+O"
       schemeId="org.eclipse.ui.defaultAcceleratorConfiguration" />
   </extension>
   <extension
     point="org.eclipse.ui.actionSets">
-     «EXPAND xpt::Common::xmlGeneratedTag»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
     <actionSet
-      label="%_UI_«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()»_ActionSet_label"
+      label="%_UI_Â«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()Â»_ActionSet_label"
       visible="true"
-      id="«editorGen.plugin.iD».ActionSet">
+      id="Â«editorGen.plugin.iDÂ».ActionSet">
       <action
         label="%_UI_Menu_About_label"
-        class="«getActionBarAdvisorQualifiedClassName()»$AboutAction"
+        class="Â«getActionBarAdvisorQualifiedClassName()Â»$AboutAction"
         menubarPath="help/additions"
-        id="«editorGen.plugin.iD».AboutAction">
+        id="Â«editorGen.plugin.iDÂ».AboutAction">
       </action>
       <action
         label="%_UI_Menu_OpenURI_label"
-        definitionId="«editorGen.plugin.iD».OpenURICommand"
-        class="«getActionBarAdvisorQualifiedClassName()»$OpenURIAction"
+        definitionId="Â«editorGen.plugin.iDÂ».OpenURICommand"
+        class="Â«getActionBarAdvisorQualifiedClassName()Â»$OpenURIAction"
         menubarPath="file/additions"
-        id="«editorGen.plugin.iD».OpenURIAction">
+        id="Â«editorGen.plugin.iDÂ».OpenURIAction">
       </action>
       <action
         label="%_UI_Menu_Open_label"
-        definitionId="«editorGen.plugin.iD».OpenCommand"
-        class="«getActionBarAdvisorQualifiedClassName()»$OpenAction"
+        definitionId="Â«editorGen.plugin.iDÂ».OpenCommand"
+        class="Â«getActionBarAdvisorQualifiedClassName()Â»$OpenAction"
         menubarPath="file/additions"
-        id="«getActionBarAdvisorQualifiedClassName()»OpenDiagramAction">
+        id="Â«getActionBarAdvisorQualifiedClassName()Â»OpenDiagramAction">
       </action>
       <action
-        label="%_UI_«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()»NewDiagramCommand"
-        class="«getActionBarAdvisorQualifiedClassName()»$NewDiagramAction"
+        label="%_UI_Â«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()Â»NewDiagramCommand"
+        class="Â«getActionBarAdvisorQualifiedClassName()Â»$NewDiagramAction"
         menubarPath="file/new/additions"
-        id="«editorGen.plugin.iD».NewDiagramAction">
+        id="Â«editorGen.plugin.iDÂ».NewDiagramAction">
       </action>
       <action
         label="%_UI_Menu_InitDiagramFile_label"
-        class="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»"
+        class="Â«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()Â»"
         menubarPath="file/additions"
-        id="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»ID">
+        id="Â«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()Â»ID">
       </action>
     </actionSet> 
   </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18n FOR gmfgen::GenApplication-»
-_UI_Application_title=«title»
-_UI_Perspective_label=«editorGen.modelID» Diagram
-_UI_Menu_OpenURI_label=Open «editorGen.modelID» Diagram &URI...
-_UI_Menu_OpenURI_description=Opens a «editorGen.modelID» diagram loading it from a URI
-_UI_Menu_Open_label=&Open «editorGen.modelID» Diagram...
-_UI_Menu_Open_description=Opens a «editorGen.modelID» diagram
-_UI_«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()»_ActionSet_label=«editorGen.modelID» Diagram Action Set 
-_UI_«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()»NewDiagramCommand=«editorGen.modelID» diagram
-_UI_Menu_About_label=«editorGen.modelID» Diagram &About...
-_UI_About_title=«editorGen.modelID» Diagram Application
-_UI_About_text=«editorGen.modelID» Diagram Application about box goes here.
-_UI_Menu_InitDiagramFile_label=Initialize «editorGen.diagramFileExtension» diagram file
-«ENDDEFINE»
+Â«DEFINE i18n FOR gmfgen::GenApplication-Â»
+_UI_Application_title=Â«titleÂ»
+_UI_Perspective_label=Â«editorGen.modelIDÂ» Diagram
+_UI_Menu_OpenURI_label=Open Â«editorGen.modelIDÂ» Diagram &URI...
+_UI_Menu_OpenURI_description=Opens a Â«editorGen.modelIDÂ» diagram loading it from a URI
+_UI_Menu_Open_label=&Open Â«editorGen.modelIDÂ» Diagram...
+_UI_Menu_Open_description=Opens a Â«editorGen.modelIDÂ» diagram
+_UI_Â«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()Â»_ActionSet_label=Â«editorGen.modelIDÂ» Diagram Action Set 
+_UI_Â«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()Â»NewDiagramCommand=Â«editorGen.modelIDÂ» diagram
+_UI_Menu_About_label=Â«editorGen.modelIDÂ» Diagram &About...
+_UI_About_title=Â«editorGen.modelIDÂ» Diagram Application
+_UI_About_text=Â«editorGen.modelIDÂ» Diagram Application about box goes here.
+_UI_Menu_InitDiagramFile_label=Initialize Â«editorGen.diagramFileExtensionÂ» diagram file
+Â«ENDDEFINEÂ»

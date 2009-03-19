@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,62 +10,62 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«DEFINE LoadResourceAction FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editorGen.editor.packageName»;
+Â«DEFINE LoadResourceAction FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «loadResourceActionClassName» implements org.eclipse.ui.IObjectActionDelegate {
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «getEditPartQualifiedClassName()» mySelectedElement;
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«loadResourceActionClassNameÂ» implements org.eclipse.ui.IObjectActionDelegate {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«getEditPartQualifiedClassName()Â» mySelectedElement;
 	
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.swt.widgets.Shell myShell;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void setActivePart(org.eclipse.jface.action.IAction action, org.eclipse.ui.IWorkbenchPart targetPart) {
 		myShell = targetPart.getSite().getShell();
 	}
 
-«EXPAND run-»
-«EXPAND selectionChanged-»
-«EXPAND getEditingDomain-»
-«EXPAND additions-»
+Â«EXPAND run-Â»
+Â«EXPAND selectionChanged-Â»
+Â«EXPAND getEditingDomain-Â»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE run FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void run(org.eclipse.jface.action.IAction action) {
 		org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog = new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(myShell, getEditingDomain());
 		loadResourceDialog.open();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getEditingDomain FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditingDomain FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.emf.edit.domain.EditingDomain getEditingDomain() {
 	return org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(mySelectedElement.getDiagram());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE selectionChanged FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE selectionChanged FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void selectionChanged(org.eclipse.jface.action.IAction action, org.eclipse.jface.viewers.ISelection selection) {
 		mySelectedElement = null;
 		if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 			org.eclipse.jface.viewers.IStructuredSelection structuredSelection = (org.eclipse.jface.viewers.IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof «getEditPartQualifiedClassName()») {
-				mySelectedElement = («getEditPartQualifiedClassName()») structuredSelection.getFirstElement();
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof Â«getEditPartQualifiedClassName()Â») {
+				mySelectedElement = (Â«getEditPartQualifiedClassName()Â») structuredSelection.getFirstElement();
 			}
 		}
 		action.setEnabled(mySelectedElement != null);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

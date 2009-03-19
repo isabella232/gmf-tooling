@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,41 +10,41 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«AROUND canCreateNode FOR gmfgen::GenDiagram»«ENDAROUND»
+Â«AROUND canCreateNode FOR gmfgen::GenDiagramÂ»Â«ENDAROUNDÂ»
 
-«AROUND getNodeVisualID FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-public static int «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
+Â«AROUND getNodeVisualID FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static int Â«EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodNameÂ»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
 	if (domainElement == null) {
-		«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
+		Â«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-Â»
 	}
-	String containerModelID = «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(containerView);
+	String containerModelID = Â«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCallÂ»(containerView);
 	int containerVisualID = -1;
-	if («EXPAND xpt::editor::VisualIDRegistry::modelID».equals(containerModelID)) {
-		containerVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(containerView);
-«LET shortcutsProvidedFor->-(Sequence { editorGen.modelID }->asSet()) AS shortcutModels-»
-	«IF shortcutModels->size() > 0-»
+	if (Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ».equals(containerModelID)) {
+		containerVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»(containerView);
+Â«LET shortcutsProvidedFor->-(Sequence { editorGen.modelID }->asSet()) AS shortcutModels-Â»
+	Â«IF shortcutModels->size() > 0-Â»
 	} else {
 		if (false == containerView instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-			«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
+			Â«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-Â»
 		}
-		if («EXPAND checkContainerDiagramModelID FOREACH shortcutModels SEPARATOR ' && '») { «EXPAND xpt::Common::nonNLS FOR shortcutModels»
-			«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
+		if (Â«EXPAND checkContainerDiagramModelID FOREACH shortcutModels SEPARATOR ' && 'Â») { Â«EXPAND xpt::Common::nonNLS FOR shortcutModelsÂ»
+			Â«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-Â»
 		}
-		containerVisualID = «EXPAND xpt::editor::VisualIDRegistry::visualID»;
-	«ENDIF-»
-«ENDLET-»
+		containerVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::visualIDÂ»;
+	Â«ENDIF-Â»
+Â«ENDLET-Â»
 	}
 	switch (containerVisualID) {
-		«EXPAND xpt::editor::VisualIDRegistry::caseDomainContainerVisualID FOREACH getAllContainers()-»
+		Â«EXPAND xpt::editor::VisualIDRegistry::caseDomainContainerVisualID FOREACH getAllContainers()-Â»
 	}
-	«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-»
+	Â«EXPAND xpt::editor::VisualIDRegistry::unrecognizedVID-Â»
 }
-«ENDAROUND»
+Â«ENDAROUNDÂ»
 
-«DEFINE checkContainerDiagramModelID FOR String»!"«self»".equals(containerModelID)«ENDDEFINE»
+Â«DEFINE checkContainerDiagramModelID FOR StringÂ»!"Â«selfÂ»".equals(containerModelID)Â«ENDDEFINEÂ»
 

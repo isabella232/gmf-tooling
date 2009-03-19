@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,83 +10,83 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE plugin FOR gmfgen::GenPlugin-»
+Â«DEFINE plugin FOR gmfgen::GenPlugin-Â»
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-«EXPAND xpt::Common::xcopyright FOR editorGen-»
+Â«EXPAND xpt::Common::xcopyright FOR editorGen-Â»
 <plugin>
-«EXPAND fileTypes-»
-«EXPAND xpt::editor::extensions::extensions FOR editorGen-»
-«EXPAND xpt::application::extensions::extensions FOR editorGen.application-»
-«EXPAND menu-»
-«EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-»
-«EXPAND xpt::propsheet::extensions::extensions FOR editorGen.propertySheet-»
-«EXPAND xpt::providers::extensions::extensions FOR editorGen-»
-«EXPAND xpt::ConstraintProviders::extensions FOR editorGen-»
-«EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-»
+Â«EXPAND fileTypes-Â»
+Â«EXPAND xpt::editor::extensions::extensions FOR editorGen-Â»
+Â«EXPAND xpt::application::extensions::extensions FOR editorGen.application-Â»
+Â«EXPAND menu-Â»
+Â«EXPAND xpt::navigator::extensions::extensions FOR editorGen.navigator-Â»
+Â«EXPAND xpt::propsheet::extensions::extensions FOR editorGen.propertySheet-Â»
+Â«EXPAND xpt::providers::extensions::extensions FOR editorGen-Â»
+Â«EXPAND xpt::ConstraintProviders::extensions FOR editorGen-Â»
+Â«EXPAND xpt::diagram::preferences::extensions::extensions FOR editorGen.diagram-Â»
 
-«EXPAND additions-»
+Â«EXPAND additions-Â»
 </plugin>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE fileTypes FOR gmfgen::GenPlugin-»
+Â«DEFINE fileTypes FOR gmfgen::GenPlugin-Â»
   <extension point="org.eclipse.team.core.fileTypes">
-    «EXPAND xpt::Common::xmlGeneratedTag»
+    Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <fileTypes
          type="text"
-         extension="«editorGen.diagramFileExtension»">
+         extension="Â«editorGen.diagramFileExtensionÂ»">
       </fileTypes>
   </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE menu FOR gmfgen::GenPlugin-»
+Â«DEFINE menu FOR gmfgen::GenPlugin-Â»
    <extension point="org.eclipse.ui.popupMenus">
-     «EXPAND xpt::Common::xmlGeneratedTag»
-«IF null = editorGen.application-»
+     Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+Â«IF null = editorGen.application-Â»
       <objectContribution
-            id="«iD».ui.objectContribution.IFile1"
-            nameFilter="*.«editorGen.domainFileExtension»"
+            id="Â«iDÂ».ui.objectContribution.IFile1"
+            nameFilter="*.Â«editorGen.domainFileExtensionÂ»"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%_UI_Menu_InitDiagramFile_label"
-               class="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»"
+               class="Â«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()Â»"
                menubarPath="additions"
                enablesFor="1"
-               id="«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()»ID">
+               id="Â«editorGen.diagram.getInitDiagramFileActionQualifiedClassName()Â»ID">
          </action>
       </objectContribution>  
-	«IF not editorGen.editor.eclipseEditor-»
+	Â«IF not editorGen.editor.eclipseEditor-Â»
       <objectContribution
-            id="«iD».ui.objectContribution.IFile2"
-            nameFilter="*.«editorGen.diagramFileExtension»"
+            id="Â«iDÂ».ui.objectContribution.IFile2"
+            nameFilter="*.Â«editorGen.diagramFileExtensionÂ»"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%_UI_Menu_OpenDiagramView_label"
-               class="«EXPAND xpt::editor::OpenDiagramInViewAction::qualifiedClassName FOR editorGen.editor»"
+               class="Â«EXPAND xpt::editor::OpenDiagramInViewAction::qualifiedClassName FOR editorGen.editorÂ»"
                menubarPath="additions"
                enablesFor="1"
-               id="«EXPAND xpt::editor::OpenDiagramInViewAction::qualifiedClassName FOR editorGen.editor»ID">
+               id="Â«EXPAND xpt::editor::OpenDiagramInViewAction::qualifiedClassName FOR editorGen.editorÂ»ID">
          </action>
       </objectContribution>
-	«ENDIF-»
-«ENDIF-»
+	Â«ENDIF-Â»
+Â«ENDIF-Â»
       <objectContribution
             adaptable="false"
-            id="«iD».ui.objectContribution.«editorGen.diagram.editPartClassName»2"
-            objectClass="«editorGen.diagram.getEditPartQualifiedClassName()»">
+            id="Â«iDÂ».ui.objectContribution.Â«editorGen.diagram.editPartClassNameÂ»2"
+            objectClass="Â«editorGen.diagram.getEditPartQualifiedClassName()Â»">
          <action
-               class="«editorGen.diagram.getLoadResourceActionQualifiedClassName()»"
+               class="Â«editorGen.diagram.getLoadResourceActionQualifiedClassName()Â»"
                enablesFor="1"
-               id="«editorGen.diagram.getLoadResourceActionQualifiedClassName()»ID"
+               id="Â«editorGen.diagram.getLoadResourceActionQualifiedClassName()Â»ID"
                label="%loadResourceActionLabel"
                menubarPath="additions">
          </action>
       </objectContribution>  
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenPlugin-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenPlugin-Â»
+Â«ENDDEFINEÂ»

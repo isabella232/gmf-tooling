@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,167 +10,167 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::providers::ValidationUtils»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::providers::ValidationUtilsÂ»
+Â«EXTENSION xpt::GenAuditRootÂ»
+Â«EXTENSION xpt::GenEditorGeneratorÂ»
 
-«DEFINE Plugin FOR gmfgen::GenPlugin-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editorGen.editor.packageName»;
+Â«DEFINE Plugin FOR gmfgen::GenPlugin-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«activatorClassNameÂ» extends org.eclipse.ui.plugin.AbstractUIPlugin {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String ID = "«iD»"; «EXPAND xpt::Common::nonNLS»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final String ID = "Â«iDÂ»"; Â«EXPAND xpt::Common::nonNLSÂ»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static «activatorClassName» instance;
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private static Â«activatorClassNameÂ» instance;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «activatorClassName»() {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«activatorClassNameÂ»() {
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
-«EXPAND initDebugOptions-»
-«EXPAND hookServices-»
+Â«EXPAND initDebugOptions-Â»
+Â«EXPAND hookServices-Â»
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void stop(org.osgi.framework.BundleContext context) throws Exception {
-«EXPAND unhookServices-»
+Â«EXPAND unhookServices-Â»
 		instance = null;
 		super.stop(context);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static «activatorClassName» getInstance() {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static Â«activatorClassNameÂ» getInstance() {
 		return instance;
 	}
 
-«EXPAND adapterFactory-»
-«EXPAND validationStateManager-»
-«EXPAND validationMarkerProvider-»
-«EXPAND itemImages-»
-«EXPAND bundledImages-»
-«EXPAND bundleString-»
-«EXPAND logging-»
-«EXPAND debugOptions-»
-«EXPAND additions-»
+Â«EXPAND adapterFactory-Â»
+Â«EXPAND validationStateManager-Â»
+Â«EXPAND validationMarkerProvider-Â»
+Â«EXPAND itemImages-Â»
+Â«EXPAND bundledImages-Â»
+Â«EXPAND bundleString-Â»
+Â«EXPAND logging-Â»
+Â«EXPAND debugOptions-Â»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE hookServices FOR gmfgen::GenPlugin-»
-«EXPAND hookAdapterFactory-»
-«EXPAND hookValidationStateManager-»
-«EXPAND hookValidationMarkerProvider-»
-«ENDDEFINE»
+Â«DEFINE hookServices FOR gmfgen::GenPlugin-Â»
+Â«EXPAND hookAdapterFactory-Â»
+Â«EXPAND hookValidationStateManager-Â»
+Â«EXPAND hookValidationMarkerProvider-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE hookAdapterFactory FOR gmfgen::GenPlugin-»
+Â«DEFINE hookAdapterFactory FOR gmfgen::GenPlugin-Â»
 		adapterFactory = createAdapterFactory();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE hookValidationStateManager FOR gmfgen::GenPlugin-»
-«IF validationNeeded(editorGen.diagram)-»
+Â«DEFINE hookValidationStateManager FOR gmfgen::GenPlugin-Â»
+Â«IF validationNeeded(editorGen.diagram)-Â»
 		myValidationStateManager = new org.eclipse.gmf.runtime.lite.validation.ValidationStateManager();
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE hookValidationMarkerProvider FOR gmfgen::GenPlugin-»
-«IF validationNeeded(editorGen.diagram) and null = editorGen.application-»
-		myMarkerNavigationProvider = new «editorGen.diagram.getMarkerNavigationProviderQualifiedClassName()»();
+Â«DEFINE hookValidationMarkerProvider FOR gmfgen::GenPlugin-Â»
+Â«IF validationNeeded(editorGen.diagram) and null = editorGen.application-Â»
+		myMarkerNavigationProvider = new Â«editorGen.diagram.getMarkerNavigationProviderQualifiedClassName()Â»();
 		myValidationStateManager.addValidationStateListener(myMarkerNavigationProvider);
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE unhookServices FOR gmfgen::GenPlugin-»
-«EXPAND unhookAdapterFactory-»
-«EXPAND unhookValidationMarkerProvider-»
-«EXPAND unhookValidationStateManager-»
-«ENDDEFINE»
+Â«DEFINE unhookServices FOR gmfgen::GenPlugin-Â»
+Â«EXPAND unhookAdapterFactory-Â»
+Â«EXPAND unhookValidationMarkerProvider-Â»
+Â«EXPAND unhookValidationStateManager-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE unhookAdapterFactory FOR gmfgen::GenPlugin-»
+Â«DEFINE unhookAdapterFactory FOR gmfgen::GenPlugin-Â»
 		adapterFactory.dispose();
 		adapterFactory = null;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE unhookValidationMarkerProvider FOR gmfgen::GenPlugin-»
-«IF validationNeeded(editorGen.diagram) and null = editorGen.application-»
+Â«DEFINE unhookValidationMarkerProvider FOR gmfgen::GenPlugin-Â»
+Â«IF validationNeeded(editorGen.diagram) and null = editorGen.application-Â»
 		myValidationStateManager.removeValidationStateListener(myMarkerNavigationProvider);
 		myMarkerNavigationProvider = null;
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE unhookValidationStateManager FOR gmfgen::GenPlugin-»
-«IF validationNeeded(editorGen.diagram)-»
+Â«DEFINE unhookValidationStateManager FOR gmfgen::GenPlugin-Â»
+Â«IF validationNeeded(editorGen.diagram)-Â»
 		myValidationStateManager = null;
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE adapterFactory FOR gmfgen::GenPlugin-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE adapterFactory FOR gmfgen::GenPlugin-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.emf.edit.provider.ComposedAdapterFactory createAdapterFactory() {
 		java.util.List factories = new java.util.ArrayList();
 		fillItemProviderFactories(factories);
 		return new org.eclipse.emf.edit.provider.ComposedAdapterFactory(factories);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void fillItemProviderFactories(java.util.List factories) {
-«EXPAND MetaModel::PopulateItemProviderFactories('factories') FOR editorGen-»
+Â«EXPAND MetaModel::PopulateItemProviderFactories('factories') FOR editorGen-Â»
 		factories.add(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		factories.add(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.common.notify.AdapterFactory getItemProvidersAdapterFactory() {
 		return adapterFactory;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE validationStateManager FOR gmfgen::GenPlugin-»
-«IF validationNeeded(editorGen.diagram)-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE validationStateManager FOR gmfgen::GenPlugin-Â»
+Â«IF validationNeeded(editorGen.diagram)-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gmf.runtime.lite.validation.ValidationStateManager myValidationStateManager;
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.lite.validation.ValidationStateManager getValidationStateManager() {
 		return myValidationStateManager;
 	}
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE validationMarkerProvider FOR gmfgen::GenPlugin-»
-«IF validationNeeded(editorGen.diagram) and null = editorGen.application-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «editorGen.diagram.getMarkerNavigationProviderQualifiedClassName()» myMarkerNavigationProvider;
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE validationMarkerProvider FOR gmfgen::GenPlugin-Â»
+Â«IF validationNeeded(editorGen.diagram) and null = editorGen.application-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«editorGen.diagram.getMarkerNavigationProviderQualifiedClassName()Â» myMarkerNavigationProvider;
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE itemImages FOR gmfgen::GenPlugin-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE itemImages FOR gmfgen::GenPlugin-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.jface.resource.ImageDescriptor getItemImageDescriptor(Object item) {
 		org.eclipse.emf.edit.provider.IItemLabelProvider labelProvider = (org.eclipse.emf.edit.provider.IItemLabelProvider) adapterFactory.adapt(item, org.eclipse.emf.edit.provider.IItemLabelProvider.class);
 		if (labelProvider != null) {
-«REM»
+Â«REMÂ»
 			// XXX dependency org.eclipse.emf.edit.ui is for ExtendedImageRegistry only. 
 			// FIXME move image registry to plugin class code
-«ENDREM-»
+Â«ENDREM-Â»
 			return org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(item));
 		}
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.swt.graphics.Image getItemImage(Object item) {
 		org.eclipse.emf.edit.provider.IItemLabelProvider labelProvider = (org.eclipse.emf.edit.provider.IItemLabelProvider) adapterFactory.adapt(item, org.eclipse.emf.edit.provider.IItemLabelProvider.class);
 		if (labelProvider != null) {
@@ -178,22 +178,22 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 		}
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE bundledImages FOR gmfgen::GenPlugin-»
-	«EXPAND xpt::Common::generatedMemberComment('Returns an image descriptor for the image file at the given plug-in relative path.\n\n' + 
+Â«DEFINE bundledImages FOR gmfgen::GenPlugin-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment('Returns an image descriptor for the image file at the given plug-in relative path.\n\n' + 
 '@param path the path\n' + 
-'@return the image descriptor')»
+'@return the image descriptor')Â»
 	public static org.eclipse.jface.resource.ImageDescriptor getBundledImageDescriptor(String path) {
 		return org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment('Respects images residing in any plug-in. If path is relative,\n' + 
+	Â«EXPAND xpt::Common::generatedMemberComment('Respects images residing in any plug-in. If path is relative,\n' + 
 'then this bundle is looked up for the image, otherwise, for absolute \n' + 
 'path, first segment is taken as id of plug-in with image\n' + 
 '\n' + 
 '@param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images\n' + 
-'@return the image descriptor')»
+'@return the image descriptor')Â»
 	public static org.eclipse.jface.resource.ImageDescriptor findImageDescriptor(String path) {
 		final org.eclipse.core.runtime.IPath p = new org.eclipse.core.runtime.Path(path);
 		if (p.isAbsolute() && p.segmentCount() > 1) {
@@ -203,10 +203,10 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 		} 
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment('Returns an image for the image file at the given plug-in relative path.\n' + 
+	Â«EXPAND xpt::Common::generatedMemberComment('Returns an image for the image file at the given plug-in relative path.\n' + 
 'Client do not need to dispose this image. Images will be disposed automatically.\n\n' + 
 '@param path the path\n' + 
-'@return image instance')»
+'@return image instance')Â»
 	public org.eclipse.swt.graphics.Image getBundledImage(String path) {
 		org.eclipse.swt.graphics.Image image = getImageRegistry().get(path);
 		if (image == null) {
@@ -215,49 +215,49 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 		}
 		return image;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE bundleString FOR gmfgen::GenPlugin-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE bundleString FOR gmfgen::GenPlugin-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getBundleString(String key) {
 		try {
 			return org.eclipse.core.runtime.Platform.getResourceBundle(getBundle()).getString(key);
 		} catch (java.util.MissingResourceException e) {
-			return "!" + key + "!";	«EXPAND xpt::Common::nonNLS»	«EXPAND xpt::Common::nonNLS(2)»
+			return "!" + key + "!";	Â«EXPAND xpt::Common::nonNLSÂ»	Â«EXPAND xpt::Common::nonNLS(2)Â»
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE logging FOR gmfgen::GenPlugin-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE logging FOR gmfgen::GenPlugin-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void logError(String error) {
 		logError(error, null);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment('@param throwable actual error or null could be passed')»
+	Â«EXPAND xpt::Common::generatedMemberComment('@param throwable actual error or null could be passed')Â»
 	public void logError(String error, Throwable throwable) {
 		if (error == null && throwable != null) {
 			error = throwable.getMessage();
 		}
-		getLog().log(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «activatorClassName».ID, org.eclipse.core.runtime.IStatus.OK, error, throwable));
+		getLog().log(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«activatorClassNameÂ».ID, org.eclipse.core.runtime.IStatus.OK, error, throwable));
 		debug(error, throwable);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void logInfo(String message) {
 		logInfo(message, null);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment('@param throwable actual error or null could be passed')»
+	Â«EXPAND xpt::Common::generatedMemberComment('@param throwable actual error or null could be passed')Â»
 	public void logInfo(String message, Throwable throwable) {
 		if (message == null && message != null) {
 			message = throwable.getMessage();
 		}
-		getLog().log(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.INFO, «activatorClassName».ID, org.eclipse.core.runtime.IStatus.OK, message, throwable));
+		getLog().log(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.INFO, Â«activatorClassNameÂ».ID, org.eclipse.core.runtime.IStatus.OK, message, throwable));
 		debug(message, throwable);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private void debug(String message, Throwable throwable) {
 		if (!isDebugging()) {
 			return;
@@ -269,32 +269,32 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 			throwable.printStackTrace();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE debugOptions FOR gmfgen::GenPlugin-»
-«EXPAND strictFontOption-»
-«ENDDEFINE»
+Â«DEFINE debugOptions FOR gmfgen::GenPlugin-Â»
+Â«EXPAND strictFontOption-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE strictFontOption FOR gmfgen::GenPlugin-»
-«EXPAND xpt::Common::generatedMemberComment»
-private static String STRICT_FONT_OPTION = ID + "/strictFont";	«EXPAND xpt::Common::nonNLS»
+Â«DEFINE strictFontOption FOR gmfgen::GenPlugin-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private static String STRICT_FONT_OPTION = ID + "/strictFont";	Â«EXPAND xpt::Common::nonNLSÂ»
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private boolean myIsStrictFont;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isStrictFont() {
 	return myIsStrictFont;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE initDebugOptions FOR gmfgen::GenPlugin-»
-«EXPAND initStrictFontOption-»
-«ENDDEFINE»
+Â«DEFINE initDebugOptions FOR gmfgen::GenPlugin-Â»
+Â«EXPAND initStrictFontOption-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE initStrictFontOption FOR gmfgen::GenPlugin-»
+Â«DEFINE initStrictFontOption FOR gmfgen::GenPlugin-Â»
 myIsStrictFont = Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(STRICT_FONT_OPTION)).booleanValue();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenPlugin-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenPlugin-Â»
+Â«ENDDEFINEÂ»

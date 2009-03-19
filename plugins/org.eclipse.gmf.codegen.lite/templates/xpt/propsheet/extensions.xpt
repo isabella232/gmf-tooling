@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,13 +10,13 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE extensions FOR gmfgen::GenPropertySheet-»
+Â«DEFINE extensions FOR gmfgen::GenPropertySheet-Â»
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      <propertyContributor contributorId="«editorGen.plugin.iD»"«IF needsCaption» labelProvider="«getLabelProviderQualifiedClassName()»"«ENDIF»>
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+      <propertyContributor contributorId="Â«editorGen.plugin.iDÂ»"Â«IF needsCaptionÂ» labelProvider="Â«getLabelProviderQualifiedClassName()Â»"Â«ENDIFÂ»>
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -24,101 +24,101 @@
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      «EXPAND xpt::Common::xmlGeneratedTag»   
-      <propertyTabs contributorId="«editorGen.plugin.iD»">
-«EXPAND tab FOREACH tabs-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»   
+      <propertyTabs contributorId="Â«editorGen.plugin.iDÂ»">
+Â«EXPAND tab FOREACH tabs-Â»
       </propertyTabs>
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
-      «EXPAND xpt::Common::xmlGeneratedTag»   
-      <propertySections contributorId="«editorGen.plugin.iD»">
-«EXPAND section FOREACH tabs-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»   
+      <propertySections contributorId="Â«editorGen.plugin.iDÂ»">
+Â«EXPAND section FOREACH tabs-Â»
       </propertySections>
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE tab FOR gmfgen::GenPropertyTab-»
-«ERROR 'Unknown property tab: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE tab FOR gmfgen::GenPropertyTab-Â»
+Â«ERROR 'Unknown property tab: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE tab FOR gmfgen::GenStandardPropertyTab-»
-«IF iD = 'appearance'-»
+Â«DEFINE tab FOR gmfgen::GenStandardPropertyTab-Â»
+Â«IF iD = 'appearance'-Â»
          <propertyTab
              category="visual"
              id="property.tab.AppearancePropertySection"
              label="%tab.appearance"/>
-«ELSEIF iD = 'diagram'-»
+Â«ELSEIF iD = 'diagram'-Â»
           <propertyTab
              category="visual"
              id="property.tab.DiagramPropertySection"
              label="%tab.diagram"/>
-«ELSEIF iD = 'advanced'-»
+Â«ELSEIF iD = 'advanced'-Â»
           <propertyTab
              category="extra"
              id="property.tab.AdvancedPropertySection"
              label="%tab.advanced"/>           
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE tab FOR gmfgen::GenCustomPropertyTab-»
+Â«DEFINE tab FOR gmfgen::GenCustomPropertyTab-Â»
           <propertyTab
-«IF iD = 'domain'-»
+Â«IF iD = 'domain'-Â»
              category="domain"
-«ELSE-»
+Â«ELSE-Â»
              category="extra"
-«ENDIF-»
-             id="property.tab.«iD»"
-             label="%tab.«iD»"/>
-«ENDDEFINE»
+Â«ENDIF-Â»
+             id="property.tab.Â«iDÂ»"
+             label="%tab.Â«iDÂ»"/>
+Â«ENDDEFINEÂ»
 
-«DEFINE section FOR gmfgen::GenPropertyTab-»
-«ERROR 'Unknown property tab: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE section FOR gmfgen::GenPropertyTab-Â»
+Â«ERROR 'Unknown property tab: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE section FOR gmfgen::GenStandardPropertyTab-»
-«IF iD = 'appearance'-»
+Â«DEFINE section FOR gmfgen::GenStandardPropertyTab-Â»
+Â«IF iD = 'appearance'-Â»
          <propertySection id="property.section.ShapeColorAndFontPropertySection"
             filter="org.eclipse.gmf.runtime.lite.properties.filters.FontColorHolderEditPartPropertySectionFilter"
             class="org.eclipse.gmf.runtime.lite.properties.ColorsAndFontsPropertySection"
             tab="property.tab.AppearancePropertySection">
          </propertySection>
-«ELSEIF iD = 'advanced'-»
+Â«ELSEIF iD = 'advanced'-Â»
          <propertySection id="property.section.AdvancedPropertySection"
             class="org.eclipse.gmf.runtime.lite.properties.AdvancedPropertySection"
             filter="org.eclipse.gmf.runtime.lite.properties.filters.EditPartPropertySectionFilter"
             tab="property.tab.AdvancedPropertySection">
          </propertySection>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE section FOR gmfgen::GenCustomPropertyTab-»
+Â«DEFINE section FOR gmfgen::GenCustomPropertyTab-Â»
          <propertySection
-            id="property.section.«iD»" 
-            tab="property.tab.«iD»"
-«EXPAND filter FOR filter-»
-            class="«getQualifiedClassName()»">
-«EXPAND input FOR filter-»
+            id="property.section.Â«iDÂ»" 
+            tab="property.tab.Â«iDÂ»"
+Â«EXPAND filter FOR filter-Â»
+            class="Â«getQualifiedClassName()Â»">
+Â«EXPAND input FOR filter-Â»
          </propertySection>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE filter FOR gmfgen::GenPropertyTabFilter»«ENDDEFINE»
+Â«DEFINE filter FOR gmfgen::GenPropertyTabFilterÂ»Â«ENDDEFINEÂ»
 
-«DEFINE filter FOR gmfgen::CustomTabFilter-»
-            filter="«getQualifiedClassName()»"
-«ENDDEFINE»
+Â«DEFINE filter FOR gmfgen::CustomTabFilter-Â»
+            filter="Â«getQualifiedClassName()Â»"
+Â«ENDDEFINEÂ»
 
-«DEFINE input FOR gmfgen::GenPropertyTabFilter»«ENDDEFINE»
+Â«DEFINE input FOR gmfgen::GenPropertyTabFilterÂ»Â«ENDDEFINEÂ»
 
-«DEFINE input FOR gmfgen::TypeTabFilter-»
-«FOREACH getAllTypes()->asSequence() AS type-»
-            <input type="«type»"/>
-«ENDFOREACH-»
-«ENDDEFINE»
-«DEFINE i18n FOR gmfgen::GenPropertySheet-»
+Â«DEFINE input FOR gmfgen::TypeTabFilter-Â»
+Â«FOREACH getAllTypes()->asSequence() AS type-Â»
+            <input type="Â«typeÂ»"/>
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
+Â«DEFINE i18n FOR gmfgen::GenPropertySheet-Â»
 
 # Property Sheet
-«FOREACH tabs->asSequence() AS tab-»
-tab.«tab.iD»=«tab.label»
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«FOREACH tabs->asSequence() AS tab-Â»
+tab.Â«tab.iDÂ»=Â«tab.labelÂ»
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»

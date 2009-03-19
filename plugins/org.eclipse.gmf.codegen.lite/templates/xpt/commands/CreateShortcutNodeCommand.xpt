@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,42 +10,42 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::commands::CommandUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::commands::CommandUtilsÂ»
 
-«DEFINE className FOR gmfgen::GenDiagram»«getCreateShortcutNodeCommandClassName(self)»«ENDDEFINE»
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«getCreateShortcutNodeCommandQualifiedClassName(self)»«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»Â«getCreateShortcutNodeCommandClassName(self)Â»Â«ENDDEFINEÂ»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«getCreateShortcutNodeCommandQualifiedClassName(self)Â»Â«ENDDEFINEÂ»
 
-«DEFINE CreateShortcutNodeCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editCommandsPackageName»;
+Â«DEFINE CreateShortcutNodeCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editCommandsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND ctor-»
-	«EXPAND addShortcutAnnotation-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND ctor-Â»
+	Â«EXPAND addShortcutAnnotation-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommand«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.gmf.runtime.lite.commands.CreateNotationalNodeCommandÂ«ENDDEFINEÂ»
 
-«DEFINE ctor FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «EXPAND className»(org.eclipse.gmf.runtime.notation.View parent, org.eclipse.emf.ecore.EObject domainElement, org.eclipse.draw2d.geometry.Rectangle constraint, org.eclipse.gmf.runtime.lite.services.IViewDecorator decorator, boolean expose) {
+Â«DEFINE ctor FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«EXPAND classNameÂ»(org.eclipse.gmf.runtime.notation.View parent, org.eclipse.emf.ecore.EObject domainElement, org.eclipse.draw2d.geometry.Rectangle constraint, org.eclipse.gmf.runtime.lite.services.IViewDecorator decorator, boolean expose) {
 	super(parent, domainElement, constraint, decorator, expose);
 	addShortcutAnnotation();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addShortcutAnnotation FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addShortcutAnnotation FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private void addShortcutAnnotation() {
-	«EXPAND xpt::Common::addShortcutAnnotation('getCreatedView()')-»
+	Â«EXPAND xpt::Common::addShortcutAnnotation('getCreatedView()')-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 

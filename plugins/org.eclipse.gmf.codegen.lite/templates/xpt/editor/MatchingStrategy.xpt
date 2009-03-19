@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,26 +10,26 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE MatchingStrategy FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE MatchingStrategy FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «matchingStrategyClassName» «EXPAND supertypes» {
-	«EXPAND matches-»
-	«EXPAND getURIFromInput-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«matchingStrategyClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND matches-Â»
+	Â«EXPAND getURIFromInput-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»implements org.eclipse.ui.IEditorMatchingStrategy«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»implements org.eclipse.ui.IEditorMatchingStrategyÂ«ENDDEFINEÂ»
 
-«DEFINE matches FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE matches FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean matches(org.eclipse.ui.IEditorReference editorRef, org.eclipse.ui.IEditorInput input) {
-	if (editorRef == null || !«editorGen.editor.getQualifiedClassName()».ID.equals(editorRef.getId())) {
+	if (editorRef == null || !Â«editorGen.editor.getQualifiedClassName()Â».ID.equals(editorRef.getId())) {
 		return false;
 	}
 	org.eclipse.emf.common.util.URI inputURI = getURIFromInput(input);
@@ -42,18 +42,18 @@ public boolean matches(org.eclipse.ui.IEditorReference editorRef, org.eclipse.ui
 		if (editorURI == null) {
 			return false;
 		}
-		«EXPAND compareURIs-»
+		Â«EXPAND compareURIs-Â»
 	} catch (org.eclipse.ui.PartInitException e) {
 		return false;
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getURIFromInput FOR gmfgen::GenDiagram-»
-«EXPAND xpt::editor::Editor::getURIFromInput FOR editorGen.editor-»
-«ENDDEFINE»
+Â«DEFINE getURIFromInput FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::editor::Editor::getURIFromInput FOR editorGen.editor-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE compareURIs FOR gmfgen::GenDiagram-»
+Â«DEFINE compareURIs FOR gmfgen::GenDiagram-Â»
 if (!editorURI.trimFragment().equals(inputURI.trimFragment())) {
 	return false;
 }
@@ -70,7 +70,7 @@ if (editorFragment != null) {
 } else {
 	return true;
 }
-org.eclipse.emf.transaction.TransactionalEditingDomain domain = «EXPAND xpt::editor::Common::createEditingDomain FOR editorGen»;
+org.eclipse.emf.transaction.TransactionalEditingDomain domain = Â«EXPAND xpt::editor::Common::createEditingDomain FOR editorGenÂ»;
 org.eclipse.emf.ecore.resource.Resource resource = domain.getResourceSet().getResource(editorURI.trimFragment(), true);
 for (java.util.Iterator it = resource.getContents().iterator(); it.hasNext(); ) {
 	org.eclipse.emf.ecore.EObject next = (org.eclipse.emf.ecore.EObject) it.next();
@@ -82,6 +82,6 @@ for (java.util.Iterator it = resource.getContents().iterator(); it.hasNext(); ) 
 	}
 }
 return false;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

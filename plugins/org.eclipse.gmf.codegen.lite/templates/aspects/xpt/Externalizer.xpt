@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,61 +10,61 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«AROUND Fields FOR gmfgen::GenEditorGenerator»
-	«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-»
-    «EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-»
-    «EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-»
-    «EXPAND xpt::navigator::NavigatorActionProvider::i18nAccessors FOR navigator-»
-    «EXPAND xpt::editor::ActionBarContributor::i18nAccessors FOR editor-»
-	«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette-»
-«IF not editor.eclipseEditor-»
-    «EXPAND xpt::editor::OpenDiagramInViewAction::i18nAccessors FOR editor-»
-«ENDIF-»
-    «EXPAND xpt::editor::Editor::i18nAccessors FOR editor-»
-    «EXPAND xpt::editor::DiagramEditorUtil::i18nAccessors FOR diagram-»
-    «EXPAND xpt::editor::CreationWizard::i18nAccessors FOR diagram-»
-    «EXPAND xpt::editor::CreationWizardPage::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::InitDiagramFileAction::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::NewDiagramFileWizard::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::URISelectorPage::i18nAccessors FOR diagram-»
-	«EXPAND xpt::providers::MarkerNavigationProvider::i18nAccessors FOR diagram-»
-	«EXPAND xpt::providers::ValidateAction::i18nAccessors FOR diagram-»
-	«EXPAND xpt::providers::MetricsAction::i18nAccessors FOR diagram-»
-	«EXPAND xpt::providers::MetricProvider::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::ModelElementSelectionPage::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::ShortcutCreationWizard::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::CreateShortcutAction::i18nAccessors FOR diagram-»
-	«EXPAND xpt::editor::ElementChooser::i18nAccessors FOR diagram-»
-	«EXPAND xpt::diagram::policies::ComponentEditPolicy::i18nAccessors FOR diagram-»
-«ENDAROUND»
+Â«AROUND Fields FOR gmfgen::GenEditorGeneratorÂ»
+	Â«EXPAND xpt::application::ActionBarAdvisor::i18nAccessors FOR application-Â»
+    Â«EXPAND xpt::application::WorkbenchWindowAdvisor::i18nAccessors FOR application-Â»
+    Â«EXPAND xpt::navigator::NavigatorContentProvider::i18nAccessors FOR navigator-Â»
+    Â«EXPAND xpt::navigator::NavigatorActionProvider::i18nAccessors FOR navigator-Â»
+    Â«EXPAND xpt::editor::ActionBarContributor::i18nAccessors FOR editor-Â»
+	Â«EXPAND xpt::editor::palette::PaletteFactory::i18nAccessors FOR diagram.palette-Â»
+Â«IF not editor.eclipseEditor-Â»
+    Â«EXPAND xpt::editor::OpenDiagramInViewAction::i18nAccessors FOR editor-Â»
+Â«ENDIF-Â»
+    Â«EXPAND xpt::editor::Editor::i18nAccessors FOR editor-Â»
+    Â«EXPAND xpt::editor::DiagramEditorUtil::i18nAccessors FOR diagram-Â»
+    Â«EXPAND xpt::editor::CreationWizard::i18nAccessors FOR diagram-Â»
+    Â«EXPAND xpt::editor::CreationWizardPage::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::InitDiagramFileAction::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::NewDiagramFileWizard::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::URISelectorPage::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::providers::MarkerNavigationProvider::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::providers::ValidateAction::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::providers::MetricsAction::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::providers::MetricProvider::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::ModelElementSelectionPage::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::ShortcutCreationWizard::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::CreateShortcutAction::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::editor::ElementChooser::i18nAccessors FOR diagram-Â»
+	Â«EXPAND xpt::diagram::policies::ComponentEditPolicy::i18nAccessors FOR diagram-Â»
+Â«ENDAROUNDÂ»
 
-«AROUND Values FOR gmfgen::GenEditorGenerator»
+Â«AROUND Values FOR gmfgen::GenEditorGeneratorÂ»
 # TODO: manually put keys and values
-«EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-»
-«EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-»
-«EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-»
-«EXPAND xpt::navigator::NavigatorActionProvider::i18nValues FOR navigator-»
-«EXPAND xpt::editor::ActionBarContributor::i18nValues FOR editor-»
-«EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette-»
-«IF not editor.eclipseEditor-»
-«EXPAND xpt::editor::OpenDiagramInViewAction::i18nValues FOR editor-»
-«ENDIF-»
-«EXPAND xpt::editor::Editor::i18nValues FOR editor-»
-«EXPAND xpt::editor::DiagramEditorUtil::i18nValues FOR diagram-»
-«EXPAND xpt::editor::CreationWizard::i18nValues FOR diagram-»
-«EXPAND xpt::editor::CreationWizardPage::i18nValues FOR diagram-»
-«EXPAND xpt::editor::InitDiagramFileAction::i18nValues FOR diagram-»
-«EXPAND xpt::editor::NewDiagramFileWizard::i18nValues FOR diagram-»
-«EXPAND xpt::editor::URISelectorPage::i18nValues FOR diagram-»
-«EXPAND xpt::providers::MarkerNavigationProvider::i18nValues FOR diagram-»
-«EXPAND xpt::providers::ValidateAction::i18nValues FOR diagram-»
-«EXPAND xpt::providers::MetricsAction::i18nValues FOR diagram-»
-«EXPAND xpt::providers::MetricProvider::i18nValues FOR diagram-»
-«EXPAND xpt::editor::ModelElementSelectionPage::i18nValues FOR diagram-»
-«EXPAND xpt::editor::ShortcutCreationWizard::i18nValues FOR diagram-»
-«EXPAND xpt::editor::CreateShortcutAction::i18nValues FOR diagram-»
-«EXPAND xpt::editor::ElementChooser::i18nValues FOR diagram-»
-«EXPAND xpt::diagram::policies::ComponentEditPolicy::i18nValues FOR diagram-»
-«ENDAROUND»
+Â«EXPAND xpt::application::ActionBarAdvisor::i18nValues FOR application-Â»
+Â«EXPAND xpt::application::WorkbenchWindowAdvisor::i18nValues FOR application-Â»
+Â«EXPAND xpt::navigator::NavigatorContentProvider::i18nValues FOR navigator-Â»
+Â«EXPAND xpt::navigator::NavigatorActionProvider::i18nValues FOR navigator-Â»
+Â«EXPAND xpt::editor::ActionBarContributor::i18nValues FOR editor-Â»
+Â«EXPAND xpt::editor::palette::PaletteFactory::i18nValues FOR diagram.palette-Â»
+Â«IF not editor.eclipseEditor-Â»
+Â«EXPAND xpt::editor::OpenDiagramInViewAction::i18nValues FOR editor-Â»
+Â«ENDIF-Â»
+Â«EXPAND xpt::editor::Editor::i18nValues FOR editor-Â»
+Â«EXPAND xpt::editor::DiagramEditorUtil::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::CreationWizard::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::CreationWizardPage::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::InitDiagramFileAction::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::NewDiagramFileWizard::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::URISelectorPage::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::providers::MarkerNavigationProvider::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::providers::ValidateAction::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::providers::MetricsAction::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::providers::MetricProvider::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::ModelElementSelectionPage::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::ShortcutCreationWizard::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::CreateShortcutAction::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::editor::ElementChooser::i18nValues FOR diagram-Â»
+Â«EXPAND xpt::diagram::policies::ComponentEditPolicy::i18nValues FOR diagram-Â»
+Â«ENDAROUNDÂ»

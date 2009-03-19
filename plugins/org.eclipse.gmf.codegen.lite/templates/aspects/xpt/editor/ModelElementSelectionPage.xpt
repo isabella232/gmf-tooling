@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,19 +10,19 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::editor::Wizard»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::editor::WizardÂ»
 
-«AROUND additions FOR gmfgen::GenDiagram-»
-«IF isRichClientPlatform(self)-»
-«EXPAND setModelResource-»
-«ENDIF-»
-«ENDAROUND»
+Â«AROUND additions FOR gmfgen::GenDiagram-Â»
+Â«IF isRichClientPlatform(self)-Â»
+Â«EXPAND setModelResource-Â»
+Â«ENDIF-Â»
+Â«ENDAROUNDÂ»
 
-«DEFINE setModelResource FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setModelResource FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void setModelResource(org.eclipse.emf.ecore.resource.Resource resource) {
 	selectedModelElement = null;
 	if (modelViewer != null) {
@@ -35,5 +35,5 @@ public void setModelResource(org.eclipse.emf.ecore.resource.Resource resource) {
 		setPageComplete(validatePage());
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,44 +10,44 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«DEFINE DiagramEditPart FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen»
-package «editPartsPackageName»;
+Â«DEFINE DiagramEditPart FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGenÂ»
+package Â«editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND supertypes» {
-	«EXPAND xpt::diagram::parts::Common::modelIDConstant-»
-	«EXPAND xpt::diagram::parts::Common::visualIDConstant-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND xpt::diagram::parts::Common::modelIDConstant-Â»
+	Â«EXPAND xpt::diagram::parts::Common::visualIDConstant-Â»
 
-	«EXPAND xpt::diagram::parts::Common::ctors-»
+	Â«EXPAND xpt::diagram::parts::Common::ctors-Â»
 
-	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
-	«EXPAND xpt::diagram::parts::Common::registerModel-»
-	«EXPAND createEditPolicies-»
-	«EXPAND createFigure-»
-	«EXPAND getDragTracker-»
-	«EXPAND xpt::diagram::parts::Common::getAdapter-»
-	«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-»
-	«EXPAND xpt::diagram::parts::Common::getModelChildren-»
-	«EXPAND xpt::diagram::parts::refresh::refresher-»
-	«EXPAND xpt::diagram::parts::Common::activate-»
-	«EXPAND xpt::diagram::parts::Common::deactivate-»
-	«EXPAND xpt::diagram::parts::NotationModelRefresher::all-»
-	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::all-»
-	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
-	«EXPAND xpt::diagram::parts::TreeEditPart::TreeEditPart-»
-	«EXPAND additions-»
+	Â«EXPAND xpt::diagram::parts::Common::declareViewCode-Â»
+	Â«EXPAND xpt::diagram::parts::Common::registerModel-Â»
+	Â«EXPAND createEditPolicies-Â»
+	Â«EXPAND createFigure-Â»
+	Â«EXPAND getDragTracker-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getAdapter-Â»
+	Â«EXPAND xpt::diagram::parts::TreeEditPart::getTreeEditPartAdapter-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getModelChildren-Â»
+	Â«EXPAND xpt::diagram::parts::refresh::refresher-Â»
+	Â«EXPAND xpt::diagram::parts::Common::activate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::deactivate-Â»
+	Â«EXPAND xpt::diagram::parts::NotationModelRefresher::all-Â»
+	Â«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::all-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-Â»
+	Â«EXPAND xpt::diagram::parts::TreeEditPart::TreeEditPart-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE createFigure FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createFigure FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.draw2d.IFigure createFigure() {
 	org.eclipse.draw2d.IFigure f = new org.eclipse.draw2d.FreeformLayer();
 	f.setBorder(new org.eclipse.draw2d.MarginBorder(5));
@@ -55,10 +55,10 @@ protected org.eclipse.draw2d.IFigure createFigure() {
 	f.setLayoutManager(new org.eclipse.draw2d.FreeformLayout());
 	return f;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDragTracker FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDragTracker FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
 	return new org.eclipse.gef.tools.MarqueeDragTracker() {
 		protected boolean handleButtonDown(int button) {
@@ -71,18 +71,18 @@ public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request reques
 		}
 	};
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEditPolicies FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEditPolicies FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void createEditPolicies() {
 	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gef.editpolicies.RootComponentEditPolicy());
-	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName»());
-	«EXPAND xpt::diagram::parts::Common::behaviour-»
-	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
-	«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-»
+	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new Â«EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassNameÂ»());
+	Â«EXPAND xpt::diagram::parts::Common::behaviour-Â»
+	Â«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-Â»
+	Â«EXPAND xpt::diagram::parts::LinkNotationModelRefresher::installClause-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

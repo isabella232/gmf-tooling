@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,37 +10,37 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::editor::palette::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::editor::palette::UtilsÂ»
 
-«AROUND Factory FOR gmfgen::Palette-»
-«EXPAND xpt::Common::copyright FOR diagram.editorGen-»
-package «packageName»;
+Â«AROUND Factory FOR gmfgen::Palette-Â»
+Â«EXPAND xpt::Common::copyright FOR diagram.editorGen-Â»
+package Â«packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «factoryClassName» {
-	«EXPAND contribute-»
-	«EXPAND xpt::editor::palette::PaletteFactory::createGroup FOREACH collectGroups(self)»
-	«EXPAND xpt::editor::palette::PaletteFactory::createEntry FOREACH collectTools(self)»
-	«IF needsNodeToolEntryClass(self)»«EXPAND xpt::editor::palette::NodeToolEntry::NodeToolEntry»«ENDIF-»
-	«IF needsLinkToolEntryClass(self)»«EXPAND xpt::editor::palette::LinkToolEntry::LinkToolEntry»«ENDIF-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«factoryClassNameÂ» {
+	Â«EXPAND contribute-Â»
+	Â«EXPAND xpt::editor::palette::PaletteFactory::createGroup FOREACH collectGroups(self)Â»
+	Â«EXPAND xpt::editor::palette::PaletteFactory::createEntry FOREACH collectTools(self)Â»
+	Â«IF needsNodeToolEntryClass(self)Â»Â«EXPAND xpt::editor::palette::NodeToolEntry::NodeToolEntryÂ»Â«ENDIF-Â»
+	Â«IF needsLinkToolEntryClass(self)Â»Â«EXPAND xpt::editor::palette::LinkToolEntry::LinkToolEntryÂ»Â«ENDIF-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDAROUND»
+Â«ENDAROUNDÂ»
 
-«DEFINE contribute FOR gmfgen::Palette-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE contribute FOR gmfgen::Palette-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void contributeToPalette(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
-«IF not definesStandardTools()-»
-	«EXPAND addStandardTools-»
-«ENDIF-»
-	«EXPAND xpt::editor::palette::PaletteFactory::addEntry('paletteRoot') FOREACH groups-»
+Â«IF not definesStandardTools()-Â»
+	Â«EXPAND addStandardTools-Â»
+Â«ENDIF-Â»
+	Â«EXPAND xpt::editor::palette::PaletteFactory::addEntry('paletteRoot') FOREACH groups-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addStandardTools FOR gmfgen::Palette-»
+Â«DEFINE addStandardTools FOR gmfgen::Palette-Â»
 org.eclipse.gef.palette.PaletteGroup controls = new org.eclipse.gef.palette.PaletteGroup("Controls");
 paletteRoot.add(controls);
 
@@ -49,60 +49,60 @@ controls.add(tool);
 paletteRoot.setDefaultEntry(tool);
 
 controls.add(new org.eclipse.gef.palette.MarqueeToolEntry());
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«AROUND addEntry(varName : String) FOR gmfgen::AbstractToolEntry-»
+Â«AROUND addEntry(varName : String) FOR gmfgen::AbstractToolEntry-Â»
 {
-	org.eclipse.gef.palette.PaletteEntry paletteEntry = «createMethodName»();
+	org.eclipse.gef.palette.PaletteEntry paletteEntry = Â«createMethodNameÂ»();
 	if (paletteEntry != null) {
-		«varName».add(paletteEntry);
-«IF _default and group.stack-»
-		«varName».setActiveEntry(paletteEntry);
-«ENDIF-»
+		Â«varNameÂ».add(paletteEntry);
+Â«IF _default and group.stack-Â»
+		Â«varNameÂ».setActiveEntry(paletteEntry);
+Â«ENDIF-Â»
 	}
 }
-«ENDAROUND»
+Â«ENDAROUNDÂ»
 
-«AROUND newEntry(toolVarName : String) FOR gmfgen::ToolEntry-»
-«IF elements->isEmpty()-»
-org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.ToolEntry(«EXPAND xpt::editor::palette::PaletteFactory::i18nTitle», «EXPAND xpt::editor::palette::PaletteFactory::i18nDesc», null, null) {};
-«ELSE-»
+Â«AROUND newEntry(toolVarName : String) FOR gmfgen::ToolEntry-Â»
+Â«IF elements->isEmpty()-Â»
+org.eclipse.gef.palette.ToolEntry Â«toolVarNameÂ» = new org.eclipse.gef.palette.ToolEntry(Â«EXPAND xpt::editor::palette::PaletteFactory::i18nTitleÂ», Â«EXPAND xpt::editor::palette::PaletteFactory::i18nDescÂ», null, null) {};
+Â«ELSE-Â»
 final int[] visualIds = new int[] {
-	«EXPAND visualID FOREACH elements SEPARATOR ','-»
+	Â«EXPAND visualID FOREACH elements SEPARATOR ','-Â»
 };
-«LET (if genNodes->isEmpty() then 'LinkToolEntry' else 'NodeToolEntry' endif) AS toolEntryClass-»
-«toolEntryClass» «toolVarName» = new «toolEntryClass»(«EXPAND xpt::editor::palette::PaletteFactory::i18nTitle», «EXPAND xpt::editor::palette::PaletteFactory::i18nDesc», visualIds);
-«ENDLET-»
-«ENDIF-»
-«ENDAROUND»
+Â«LET (if genNodes->isEmpty() then 'LinkToolEntry' else 'NodeToolEntry' endif) AS toolEntryClass-Â»
+Â«toolEntryClassÂ» Â«toolVarNameÂ» = new Â«toolEntryClassÂ»(Â«EXPAND xpt::editor::palette::PaletteFactory::i18nTitleÂ», Â«EXPAND xpt::editor::palette::PaletteFactory::i18nDescÂ», visualIds);
+Â«ENDLET-Â»
+Â«ENDIF-Â»
+Â«ENDAROUNDÂ»
 
-«DEFINE visualID FOR OclAny»«ERROR 'Unexpected Type: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE visualID FOR OclAnyÂ»Â«ERROR 'Unexpected Type: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE visualID FOR gmfgen::GenCommonBase»«EXPAND xpt::editor::VisualIDRegistry::visualID»«ENDDEFINE»
+Â«DEFINE visualID FOR gmfgen::GenCommonBaseÂ»Â«EXPAND xpt::editor::VisualIDRegistry::visualIDÂ»Â«ENDDEFINEÂ»
 
-«AROUND setSmallImage(toolVarName : String, palette : gmfgen::Palette) FOR gmfgen::EntryBase-»
-«IF null <> smallIconPath-»
-«toolVarName».setSmallIcon(«palette.activatorFQN()».findImageDescriptor("«smallIconPath»")); «EXPAND xpt::Common::nonNLS»
-«ELSE-»
-«toolVarName».setSmallIcon(«EXPAND smallImage(toolVarName)»);
-«ENDIF-»
-«ENDAROUND»
+Â«AROUND setSmallImage(toolVarName : String, palette : gmfgen::Palette) FOR gmfgen::EntryBase-Â»
+Â«IF null <> smallIconPath-Â»
+Â«toolVarNameÂ».setSmallIcon(Â«palette.activatorFQN()Â».findImageDescriptor("Â«smallIconPathÂ»")); Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ELSE-Â»
+Â«toolVarNameÂ».setSmallIcon(Â«EXPAND smallImage(toolVarName)Â»);
+Â«ENDIF-Â»
+Â«ENDAROUNDÂ»
 
-«DEFINE smallImage(toolVarName : String) FOR gmfgen::EntryBase»null«ENDDEFINE»
+Â«DEFINE smallImage(toolVarName : String) FOR gmfgen::EntryBaseÂ»nullÂ«ENDDEFINEÂ»
 
-«DEFINE smallImage(toolVarName : String) FOR gmfgen::ToolEntry-»
-«IF elements->isEmpty()»null«ELSE»«group.palette.diagram.getElementTypesQualifiedClassName()».getImageDescriptor(«EXPAND getElement FOR elements->first()»)«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE smallImage(toolVarName : String) FOR gmfgen::ToolEntry-Â»
+Â«IF elements->isEmpty()Â»nullÂ«ELSEÂ»Â«group.palette.diagram.getElementTypesQualifiedClassName()Â».getImageDescriptor(Â«EXPAND getElement FOR elements->first()Â»)Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR OclAny»«ERROR 'Unexpected type: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE getElement FOR OclAnyÂ»Â«ERROR 'Unexpected type: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR gmfgen::GenNode»«EXPAND getElement FOR modelFacet»«ENDDEFINE»
-«DEFINE getElement FOR gmfgen::GenLink»«EXPAND getElement FOR modelFacet»«ENDDEFINE»
+Â«DEFINE getElement FOR gmfgen::GenNodeÂ»Â«EXPAND getElement FOR modelFacetÂ»Â«ENDDEFINEÂ»
+Â«DEFINE getElement FOR gmfgen::GenLinkÂ»Â«EXPAND getElement FOR modelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR gmfgen::LinkModelFacet»«ERROR 'Unexpected model facet: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE getElement FOR gmfgen::LinkModelFacetÂ»Â«ERROR 'Unexpected model facet: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR gmfgen::TypeModelFacet»«EXPAND MetaModel::MetaClass FOR metaClass»«ENDDEFINE»
-«DEFINE getElement FOR gmfgen::TypeLinkModelFacet»«EXPAND MetaModel::MetaClass FOR metaClass»«ENDDEFINE»
-«DEFINE getElement FOR gmfgen::FeatureLinkModelFacet»«EXPAND MetaModel::MetaFeature FOR metaFeature»«ENDDEFINE»
+Â«DEFINE getElement FOR gmfgen::TypeModelFacetÂ»Â«EXPAND MetaModel::MetaClass FOR metaClassÂ»Â«ENDDEFINEÂ»
+Â«DEFINE getElement FOR gmfgen::TypeLinkModelFacetÂ»Â«EXPAND MetaModel::MetaClass FOR metaClassÂ»Â«ENDDEFINEÂ»
+Â«DEFINE getElement FOR gmfgen::FeatureLinkModelFacetÂ»Â«EXPAND MetaModel::MetaFeature FOR metaFeatureÂ»Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::Palette»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::PaletteÂ»Â«ENDDEFINEÂ»

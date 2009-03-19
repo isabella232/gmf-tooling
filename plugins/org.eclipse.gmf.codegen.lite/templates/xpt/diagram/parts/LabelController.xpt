@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,38 +10,38 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::diagram::parts::LabelController»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
-«EXTENSION xpt::providers::ParserUtils»
-«EXTENSION xpt::NonNLSUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::diagram::parts::LabelControllerÂ»
+Â«EXTENSION xpt::diagram::ViewmapAttributesUtilsÂ»
+Â«EXTENSION xpt::providers::ParserUtilsÂ»
+Â«EXTENSION xpt::NonNLSUtilsÂ»
 
-«DEFINE directEditManager FOR gmfgen::GenCommonBase-»
-«IF not self.isReadOnly()-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE directEditManager FOR gmfgen::GenCommonBase-Â»
+Â«IF not self.isReadOnly()-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gef.tools.DirectEditManager manager;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.tools.DirectEditManager getManager() {
 	if (manager == null) {
 		manager = new org.eclipse.gef.tools.DirectEditManager(this, org.eclipse.jface.viewers.TextCellEditor.class, new org.eclipse.gmf.runtime.lite.services.LabelCellEditorLocator(getViewer(), getLabel())) {
 			protected void initCellEditor() {
-				getCellEditor().setValue(getLabelTextDisplayer().getEditText(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()));
+				getCellEditor().setValue(getLabelTextDisplayer().getEditText(Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ».getElement()));
 			}
 		};
 	}
 	return manager;
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE performDirectEdit FOR gmfgen::GenCommonBase-»
-«IF not self.isReadOnly()-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE performDirectEdit FOR gmfgen::GenCommonBase-Â»
+Â«IF not self.isReadOnly()-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void performDirectEdit() {
-	if («getDiagram().getDiagramEditorUtilQualifiedClassName()».isReadOnly(«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()) || «getDiagram().getDiagramEditorUtilQualifiedClassName()».isReadOnly(«EXPAND xpt::diagram::parts::Common::getViewCode»)) {
+	if (Â«getDiagram().getDiagramEditorUtilQualifiedClassName()Â».isReadOnly(Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ».getElement()) || Â«getDiagram().getDiagramEditorUtilQualifiedClassName()Â».isReadOnly(Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ»)) {
 		return;
 	}
 	if (getLabelTextDisplayer() == null) {
@@ -49,98 +49,98 @@ protected void performDirectEdit() {
 	}
 	getManager().show();
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelDisplayer FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelDisplayer FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static final org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer LABEL_DISPLAYER = createLabelTextDisplayer();
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer getLabelTextDisplayer() {
 	return LABEL_DISPLAYER;
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer createLabelTextDisplayer() {
-«LET self.getLabelModelFacet() AS facet-»
-«IF facet = null-»
-«ERROR 'Unexpected type'-»
-«ELSE-»
-«EXPAND createLabelTextDisplayer(self.isReadOnly()) FOR facet-»
-«ENDIF-»
-«ENDLET-»
+Â«LET self.getLabelModelFacet() AS facet-Â»
+Â«IF facet = null-Â»
+Â«ERROR 'Unexpected type'-Â»
+Â«ELSE-Â»
+Â«EXPAND createLabelTextDisplayer(self.isReadOnly()) FOR facet-Â»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createLabelTextDisplayer(isReadOnly : Boolean) FOR gmfgen::LabelModelFacet-»
+Â«DEFINE createLabelTextDisplayer(isReadOnly : Boolean) FOR gmfgen::LabelModelFacet-Â»
 // TODO: implement this method
 // Ensure that you remove @generated or mark it @generated NOT
 return null;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createLabelTextDisplayer(isReadOnly : Boolean) FOR gmfgen::FeatureLabelModelFacet-»
-«IF viewMethod = editMethod-»
-«resetNonNLSCounter()»
-return «EXPAND instantiateLabelTextDisplayer(isReadOnly)»;«EXPAND xpt::Common::nonNLS FOR getNonNLSCounter()»
-«ELSE-»
-«resetNonNLSCounter()»
-org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer reader = «EXPAND instantiateLabelTextReader»;«EXPAND xpt::Common::nonNLS FOR getNonNLSCounter()»
-«resetNonNLSCounter()»
-org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer writer = «IF isReadOnly»null;«ELSE»«EXPAND instantiateLabelTextWriter»;«EXPAND xpt::Common::nonNLS FOR getNonNLSCounter()»«ENDIF»
+Â«DEFINE createLabelTextDisplayer(isReadOnly : Boolean) FOR gmfgen::FeatureLabelModelFacet-Â»
+Â«IF viewMethod = editMethod-Â»
+Â«resetNonNLSCounter()Â»
+return Â«EXPAND instantiateLabelTextDisplayer(isReadOnly)Â»;Â«EXPAND xpt::Common::nonNLS FOR getNonNLSCounter()Â»
+Â«ELSE-Â»
+Â«resetNonNLSCounter()Â»
+org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer reader = Â«EXPAND instantiateLabelTextReaderÂ»;Â«EXPAND xpt::Common::nonNLS FOR getNonNLSCounter()Â»
+Â«resetNonNLSCounter()Â»
+org.eclipse.gmf.runtime.lite.edit.parts.labels.ILabelTextDisplayer writer = Â«IF isReadOnlyÂ»null;Â«ELSEÂ»Â«EXPAND instantiateLabelTextWriterÂ»;Â«EXPAND xpt::Common::nonNLS FOR getNonNLSCounter()Â»Â«ENDIFÂ»
 return new org.eclipse.gmf.runtime.lite.edit.parts.labels.CompositeLabelTextDisplayer(reader, writer);
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE features FOR gmfgen::FeatureLabelModelFacet-»
-new org.eclipse.emf.ecore.EAttribute[] {«EXPAND MetaModel::MetaFeature FOREACH metaFeatures SEPARATOR ', '»}«-»
-«ENDDEFINE»
+Â«DEFINE features FOR gmfgen::FeatureLabelModelFacet-Â»
+new org.eclipse.emf.ecore.EAttribute[] {Â«EXPAND MetaModel::MetaFeature FOREACH metaFeatures SEPARATOR ', 'Â»}Â«-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE instantiateLabelTextDisplayer(isReadOnly : Boolean) FOR gmfgen::FeatureLabelModelFacet-»
-«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-»
-new org.eclipse.gmf.runtime.lite.edit.parts.labels.MessageFormatLabelTextDisplayer(«EXPAND readerPatterns»«IF not isReadOnly», «EXPAND writerPatterns»«ENDIF», «EXPAND features»)«-»
-«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::NATIVE-»
-	«IF metaFeatures->size() <> 1»«ERROR 'Unexpected features size for NATIVE label text access method'»«ENDIF-»
-new org.eclipse.gmf.runtime.lite.edit.parts.labels.NativeLabelTextDisplayer(«EXPAND features»)«-»
-«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::PRINTF-»
-new org.eclipse.gmf.runtime.lite.edit.parts.labels.PrintfLabelTextDisplayer(«EXPAND readerPatterns», «EXPAND features»)«-»
-«ELSE-»
-«ERROR 'Unexpected label text access method'-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE instantiateLabelTextDisplayer(isReadOnly : Boolean) FOR gmfgen::FeatureLabelModelFacet-Â»
+Â«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-Â»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.MessageFormatLabelTextDisplayer(Â«EXPAND readerPatternsÂ»Â«IF not isReadOnlyÂ», Â«EXPAND writerPatternsÂ»Â«ENDIFÂ», Â«EXPAND featuresÂ»)Â«-Â»
+Â«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::NATIVE-Â»
+	Â«IF metaFeatures->size() <> 1Â»Â«ERROR 'Unexpected features size for NATIVE label text access method'Â»Â«ENDIF-Â»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.NativeLabelTextDisplayer(Â«EXPAND featuresÂ»)Â«-Â»
+Â«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::PRINTF-Â»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.PrintfLabelTextDisplayer(Â«EXPAND readerPatternsÂ», Â«EXPAND featuresÂ»)Â«-Â»
+Â«ELSE-Â»
+Â«ERROR 'Unexpected label text access method'-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE instantiateLabelTextReader FOR gmfgen::FeatureLabelModelFacet»«EXPAND instantiateLabelTextDisplayer(true)»«ENDDEFINE»
+Â«DEFINE instantiateLabelTextReader FOR gmfgen::FeatureLabelModelFacetÂ»Â«EXPAND instantiateLabelTextDisplayer(true)Â»Â«ENDDEFINEÂ»
 
-«DEFINE instantiateLabelTextWriter FOR gmfgen::FeatureLabelModelFacet-»
-«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-»
-new org.eclipse.gmf.runtime.lite.edit.parts.labels.MessageFormatLabelTextDisplayer(null, null, «EXPAND writerPatterns», «EXPAND features»)«-»
-«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::NATIVE-»
-	«IF metaFeatures->size() <> 1»«ERROR 'Unexpected features size for NATIVE label text access method'»«ENDIF-»
-new org.eclipse.gmf.runtime.lite.edit.parts.labels.NativeLabelTextDisplayer(«EXPAND features»)«-»
-«ELSEIF editMethod = gmfgen::LabelTextAccessMethod::REGEXP-»
-new org.eclipse.gmf.runtime.lite.edit.parts.labels.RegexpParser(«EXPAND writerPatterns», «EXPAND features»)«-»
-«ELSE-»
-«ERROR 'Unexpected label text access method'-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE instantiateLabelTextWriter FOR gmfgen::FeatureLabelModelFacet-Â»
+Â«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT-Â»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.MessageFormatLabelTextDisplayer(null, null, Â«EXPAND writerPatternsÂ», Â«EXPAND featuresÂ»)Â«-Â»
+Â«ELSEIF viewMethod = gmfgen::LabelTextAccessMethod::NATIVE-Â»
+	Â«IF metaFeatures->size() <> 1Â»Â«ERROR 'Unexpected features size for NATIVE label text access method'Â»Â«ENDIF-Â»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.NativeLabelTextDisplayer(Â«EXPAND featuresÂ»)Â«-Â»
+Â«ELSEIF editMethod = gmfgen::LabelTextAccessMethod::REGEXP-Â»
+new org.eclipse.gmf.runtime.lite.edit.parts.labels.RegexpParser(Â«EXPAND writerPatternsÂ», Â«EXPAND featuresÂ»)Â«-Â»
+Â«ELSE-Â»
+Â«ERROR 'Unexpected label text access method'-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE readerPatterns FOR gmfgen::FeatureLabelModelFacet-»
-«EXPAND quote(viewPattern)», «EXPAND quote((if isPatternSpecified(editorPattern) then editorPattern else viewPattern endif))-»
-«ENDDEFINE»
+Â«DEFINE readerPatterns FOR gmfgen::FeatureLabelModelFacet-Â»
+Â«EXPAND quote(viewPattern)Â», Â«EXPAND quote((if isPatternSpecified(editorPattern) then editorPattern else viewPattern endif))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE writerPatterns FOR gmfgen::FeatureLabelModelFacet-»
-«EXPAND quote((if isPatternSpecified(editPattern) then editPattern else (if isPatternSpecified(editorPattern) then editorPattern else viewPattern endif) endif))-»
-«ENDDEFINE»
+Â«DEFINE writerPatterns FOR gmfgen::FeatureLabelModelFacet-Â»
+Â«EXPAND quote((if isPatternSpecified(editPattern) then editPattern else (if isPatternSpecified(editorPattern) then editorPattern else viewPattern endif) endif))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE quote(text : String) FOR gmfgen::FeatureLabelModelFacet-»
-«IF text = null»null«ELSE»"«text»"«incrementNonNLSCounter()»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE quote(text : String) FOR gmfgen::FeatureLabelModelFacet-Â»
+Â«IF text = nullÂ»nullÂ«ELSEÂ»"Â«textÂ»"Â«incrementNonNLSCounter()Â»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelText FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelText FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private String defaultText;
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void setLabelText(String text) {
 	if (text == null || text.length() == 0) {
 		text = defaultText;
@@ -148,12 +148,12 @@ public void setLabelText(String text) {
 	getLabel().setText(text);
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected String getLabelText() {
 	if (getLabelTextDisplayer() == null) {
 		return defaultText;
 	}
-	org.eclipse.emf.ecore.EObject element = «EXPAND xpt::diagram::parts::Common::getViewCode».getElement();
+	org.eclipse.emf.ecore.EObject element = Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ».getElement();
 	if (element == null) {
 		return defaultText;
 	}
@@ -163,167 +163,167 @@ protected String getLabelText() {
 	}
 	return result;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigure(label : gmfgen::GenCommonBase) FOR gmfgen::ParentAssignedViewmap-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelFigure(label : gmfgen::GenCommonBase) FOR gmfgen::ParentAssignedViewmap-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.draw2d.IFigure createFigure() {
-	// Parent should assign one using «EXPAND xpt::diagram::parts::NodeEditPart::setter» method
+	// Parent should assign one using Â«EXPAND xpt::diagram::parts::NodeEditPart::setterÂ» method
 	return null;
 }
 
-«EXPAND getLabel-»
+Â«EXPAND getLabel-Â»
 
-«EXPAND xpt::Common::generatedMemberComment»
-public void «EXPAND xpt::diagram::parts::NodeEditPart::setter»(«self.getFigureQualifiedClassName()» label) {
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public void Â«EXPAND xpt::diagram::parts::NodeEditPart::setterÂ»(Â«self.getFigureQualifiedClassName()Â» label) {
 	unregisterVisuals();
 	setFigure(label);
-	«EXPAND initDefaultText-»
+	Â«EXPAND initDefaultText-Â»
 	registerVisuals();
 	refreshVisuals();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigure(label : gmfgen::GenCommonBase) FOR gmfgen::Viewmap-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelFigure(label : gmfgen::GenCommonBase) FOR gmfgen::Viewmap-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.draw2d.IFigure createFigure() {
-	«self.getFigureQualifiedClassName()» label = createLabel();
-	«EXPAND initDefaultText-»
+	Â«self.getFigureQualifiedClassName()Â» label = createLabel();
+	Â«EXPAND initDefaultText-Â»
 	return label;
 }
 
-«EXPAND xpt::Common::generatedMemberComment»
-protected «self.getFigureQualifiedClassName()» createLabel() {
-	«EXPAND createLabel-»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+protected Â«self.getFigureQualifiedClassName()Â» createLabel() {
+	Â«EXPAND createLabel-Â»
 }
 
-«EXPAND getLabel-»
-«ENDDEFINE»
+Â«EXPAND getLabel-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createLabel FOR gmfgen::Viewmap»«ERROR 'Unexpected viewmap type: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE createLabel FOR gmfgen::ViewmapÂ»Â«ERROR 'Unexpected viewmap type: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE createLabel FOR gmfgen::FigureViewmap-»
-return new «self.getFigureQualifiedClassName()»();
-«ENDDEFINE»
+Â«DEFINE createLabel FOR gmfgen::FigureViewmap-Â»
+return new Â«self.getFigureQualifiedClassName()Â»();
+Â«ENDDEFINEÂ»
 
-«DEFINE createLabel FOR gmfgen::SnippetViewmap-»
-return «body»;
-«ENDDEFINE»
+Â«DEFINE createLabel FOR gmfgen::SnippetViewmap-Â»
+return Â«bodyÂ»;
+Â«ENDDEFINEÂ»
 
-«DEFINE createLabel FOR gmfgen::InnerClassViewmap-»
-return new «self.getFigureQualifiedClassName()»();
-«ENDDEFINE»
+Â«DEFINE createLabel FOR gmfgen::InnerClassViewmap-Â»
+return new Â«self.getFigureQualifiedClassName()Â»();
+Â«ENDDEFINEÂ»
 
-«DEFINE initDefaultText FOR gmfgen::Viewmap-»
-«IF 'org.eclipse.draw2d.Label' = self.getFigureQualifiedClassName()-»
+Â«DEFINE initDefaultText FOR gmfgen::Viewmap-Â»
+Â«IF 'org.eclipse.draw2d.Label' = self.getFigureQualifiedClassName()-Â»
 defaultText = label.getText();
-«ELSE-»
+Â«ELSE-Â»
 if (label instanceof org.eclipse.draw2d.Label) {
 	defaultText = label.getText();
 } else {
-	defaultText = "";	«EXPAND xpt::Common::nonNLS»
+	defaultText = "";	Â«EXPAND xpt::Common::nonNLSÂ»
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE initDefaultText FOR gmfgen::InnerClassViewmap-»
+Â«DEFINE initDefaultText FOR gmfgen::InnerClassViewmap-Â»
 defaultText = label.getText();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getLabel FOR gmfgen::Viewmap-»
-«EXPAND getLabelComment-»
+Â«DEFINE getLabel FOR gmfgen::Viewmap-Â»
+Â«EXPAND getLabelComment-Â»
 public org.eclipse.draw2d.Label getLabel() {
 	return (org.eclipse.draw2d.Label) getFigure();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getLabelComment FOR gmfgen::Viewmap-»
-«IF 'org.eclipse.draw2d.Label' = self.getFigureQualifiedClassName()-»
-«EXPAND xpt::Common::generatedMemberComment»
-«ELSE-»
-«EXPAND xpt::Common::generatedMemberComment('TODO: reimplement, since the figure used by this editpart may not be a Label.')»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE getLabelComment FOR gmfgen::Viewmap-Â»
+Â«IF 'org.eclipse.draw2d.Label' = self.getFigureQualifiedClassName()-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+Â«ELSE-Â»
+Â«EXPAND xpt::Common::generatedMemberComment('TODO: reimplement, since the figure used by this editpart may not be a Label.')Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getLabelComment FOR gmfgen::InnerClassViewmap-»
-«EXPAND xpt::Common::generatedMemberComment»
-«ENDDEFINE»
+Â«DEFINE getLabelComment FOR gmfgen::InnerClassViewmap-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE labelIcon FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelIcon FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.swt.graphics.Image getLabelIcon() {
-«IF self.isElementIcon()-»
-	return «getDiagram().getElementTypesQualifiedClassName()».getImage(«EXPAND getElement».eClass());
-«ELSE-»
+Â«IF self.isElementIcon()-Â»
+	return Â«getDiagram().getElementTypesQualifiedClassName()Â».getImage(Â«EXPAND getElementÂ».eClass());
+Â«ELSE-Â»
 	return null;
-«ENDIF-»
+Â«ENDIF-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR gmfgen::GenCommonBase»«EXPAND xpt::diagram::parts::Common::getViewCode».getElement()«ENDDEFINE»
+Â«DEFINE getElement FOR gmfgen::GenCommonBaseÂ»Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ».getElement()Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR gmfgen::GenLinkLabel-»
-«EXPAND getElement(link) FOR link.modelFacet-»
-«ENDDEFINE»
+Â«DEFINE getElement FOR gmfgen::GenLinkLabel-Â»
+Â«EXPAND getElement(link) FOR link.modelFacet-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getElement(link : gmfgen::GenLink) FOR gmfgen::LinkModelFacet»«ERROR 'Unexpected model facet: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE getElement(link : gmfgen::GenLink) FOR gmfgen::LinkModelFacetÂ»Â«ERROR 'Unexpected model facet: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE getElement(link : gmfgen::GenLink) FOR gmfgen::TypeLinkModelFacet»getUpdatableParent().«EXPAND xpt::diagram::parts::Common::getViewCode FOR link».getElement()«ENDDEFINE»
+Â«DEFINE getElement(link : gmfgen::GenLink) FOR gmfgen::TypeLinkModelFacetÂ»getUpdatableParent().Â«EXPAND xpt::diagram::parts::Common::getViewCode FOR linkÂ».getElement()Â«ENDDEFINEÂ»
 
-«DEFINE getElement(link : gmfgen::GenLink) FOR gmfgen::FeatureLinkModelFacet»getUpdatableParent().«EXPAND xpt::diagram::parts::Common::getViewCode FOR link».getTarget().getElement()«ENDDEFINE»
+Â«DEFINE getElement(link : gmfgen::GenLink) FOR gmfgen::FeatureLinkModelFacetÂ»getUpdatableParent().Â«EXPAND xpt::diagram::parts::Common::getViewCode FOR linkÂ».getTarget().getElement()Â«ENDDEFINEÂ»
 
-«DEFINE getUpdatableParent FOR gmfgen::GenLabel-»
-«EXPAND xpt::Common::generatedMemberComment»
-private «self.getLabelHostQualifiedClassName()» getUpdatableParent() {
-	assert getParent() instanceof «self.getLabelHostQualifiedClassName()»;
-	return («self.getLabelHostQualifiedClassName()») getParent();
+Â«DEFINE getUpdatableParent FOR gmfgen::GenLabel-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private Â«self.getLabelHostQualifiedClassName()Â» getUpdatableParent() {
+	assert getParent() instanceof Â«self.getLabelHostQualifiedClassName()Â»;
+	return (Â«self.getLabelHostQualifiedClassName()Â») getParent();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 The activate/deactivate pair for labels with updatable parents more belongs to the LabelController template.
 It is thus referenced from the common activate/deactivate mechanism.
-«ENDREM»
-«DEFINE activateAdditions FOR gmfgen::GenLabel-»
-«self.getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
+Â«ENDREMÂ»
+Â«DEFINE activateAdditions FOR gmfgen::GenLabel-Â»
+Â«self.getLabelHostQualifiedClassName()Â» updatableParent = getUpdatableParent();
 if (updatableParent != null) {
-«IF not viewmap.isFixedFont()-»
+Â«IF not viewmap.isFixedFont()-Â»
 	updatableParent.addExternalRefresher(fontColorRefresher);
 	updatableParent.addExternalRefresher(fontRefresher);
-«ENDIF-»
+Â«ENDIF-Â»
 	updatableParent.addExternalRefresher(getLabelRefresher());
-	«EXPAND activateMore-»
+	Â«EXPAND activateMore-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateAdditions FOR gmfgen::GenLabel-»
-«self.getLabelHostQualifiedClassName()» updatableParent = getUpdatableParent();
+Â«DEFINE deactivateAdditions FOR gmfgen::GenLabel-Â»
+Â«self.getLabelHostQualifiedClassName()Â» updatableParent = getUpdatableParent();
 if (updatableParent != null) {
-«IF not viewmap.isFixedFont()-»
+Â«IF not viewmap.isFixedFont()-Â»
 	updatableParent.removeExternalRefresher(fontColorRefresher);
 	updatableParent.removeExternalRefresher(fontRefresher);
-«ENDIF-»
+Â«ENDIF-Â»
 	updatableParent.removeExternalRefresher(getLabelRefresher());
-	«EXPAND deactivateMore-»
+	Â«EXPAND deactivateMore-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateMore FOR gmfgen::GenLabel»«ENDDEFINE»
-«DEFINE deactivateMore FOR gmfgen::GenLabel»«ENDDEFINE»
+Â«DEFINE activateMore FOR gmfgen::GenLabelÂ»Â«ENDDEFINEÂ»
+Â«DEFINE deactivateMore FOR gmfgen::GenLabelÂ»Â«ENDDEFINEÂ»
 
-«DEFINE activateMore FOR gmfgen::GenExternalNodeLabel-»
+Â«DEFINE activateMore FOR gmfgen::GenExternalNodeLabel-Â»
 updatableParent.addExternalRefresher(boundsRefresher);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateMore FOR gmfgen::GenExternalNodeLabel-»
+Â«DEFINE deactivateMore FOR gmfgen::GenExternalNodeLabel-Â»
 updatableParent.removeExternalRefresher(boundsRefresher);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE activateMore FOR gmfgen::GenLinkLabel-»
+Â«DEFINE activateMore FOR gmfgen::GenLinkLabel-Â»
 updatableParent.addExternalRefresher(boundsRefresher);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE deactivateMore FOR gmfgen::GenLinkLabel-»
+Â«DEFINE deactivateMore FOR gmfgen::GenLinkLabel-Â»
 updatableParent.removeExternalRefresher(boundsRefresher);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,120 +10,120 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«DEFINE CompartmentEditPart FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE CompartmentEditPart FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGenÂ»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND supertypes» {
-	«EXPAND xpt::diagram::parts::Common::visualIDConstant-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND xpt::diagram::parts::Common::visualIDConstant-Â»
 
-	«EXPAND xpt::diagram::parts::Common::ctors-»
-	«EXPAND xpt::diagram::parts::Common::notSelectable-»
-	«EXPAND getModelChildren-»
-	«EXPAND xpt::diagram::parts::Common::declareViewCode-»
-	«EXPAND createEditPolicies-»
+	Â«EXPAND xpt::diagram::parts::Common::ctors-Â»
+	Â«EXPAND xpt::diagram::parts::Common::notSelectable-Â»
+	Â«EXPAND getModelChildren-Â»
+	Â«EXPAND xpt::diagram::parts::Common::declareViewCode-Â»
+	Â«EXPAND createEditPolicies-Â»
 
-	«EXPAND createSelectionHandles-»
-	«EXPAND xpt::diagram::parts::requests::performRequest-»
-	«EXPAND getTitleName-»
-	«EXPAND createFigure-»
-	«EXPAND xpt::diagram::parts::Common::getAdapter-»
-	«EXPAND xpt::diagram::parts::Common::contentPane-»
-	«EXPAND setupCompartmentHolder-»
-	«EXPAND xpt::diagram::parts::Common::activate-»
-	«EXPAND xpt::diagram::parts::Common::deactivate-»
-	«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-»
-	«EXPAND xpt::diagram::parts::NotationModelRefresher::all-»
-	«EXPAND xpt::diagram::parts::refresh::refresher-»
-	«EXPAND additions-»
+	Â«EXPAND createSelectionHandles-Â»
+	Â«EXPAND xpt::diagram::parts::requests::performRequest-Â»
+	Â«EXPAND getTitleName-Â»
+	Â«EXPAND createFigure-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getAdapter-Â»
+	Â«EXPAND xpt::diagram::parts::Common::contentPane-Â»
+	Â«EXPAND setupCompartmentHolder-Â»
+	Â«EXPAND xpt::diagram::parts::Common::activate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::deactivate-Â»
+	Â«EXPAND xpt::diagram::parts::Common::getTransactionalUpdateManager-Â»
+	Â«EXPAND xpt::diagram::parts::NotationModelRefresher::all-Â»
+	Â«EXPAND xpt::diagram::parts::refresh::refresher-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenCompartment»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPart«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenCompartmentÂ»extends org.eclipse.gef.editparts.AbstractGraphicalEditPart implements org.eclipse.gmf.runtime.lite.edit.parts.update.IUpdatableEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE getModelChildren FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelChildren FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getModelChildren() {
-	org.eclipse.gmf.runtime.notation.DrawerStyle style = (org.eclipse.gmf.runtime.notation.DrawerStyle) «EXPAND xpt::diagram::parts::Common::getViewCode».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
+	org.eclipse.gmf.runtime.notation.DrawerStyle style = (org.eclipse.gmf.runtime.notation.DrawerStyle) Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ».getStyle(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getDrawerStyle());
 	if (style != null && style.isCollapsed()) {
 		return java.util.Collections.EMPTY_LIST;
 	}
-	return «EXPAND xpt::diagram::parts::Common::getViewCode».getVisibleChildren();
+	return Â«EXPAND xpt::diagram::parts::Common::getViewCodeÂ».getVisibleChildren();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEditPolicies FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEditPolicies FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void createEditPolicies() {
-	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new «EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassName»());
-	«EXPAND xpt::diagram::parts::Common::behaviour-»
-	«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-»
+	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new Â«EXPAND xpt::diagram::policies::LayoutEditPolicy::qualifiedClassNameÂ»());
+	Â«EXPAND xpt::diagram::parts::Common::behaviour-Â»
+	Â«EXPAND xpt::diagram::parts::NotationModelRefresher::installClause-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createSelectionHandles FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::generatedMemberComment('Returns the selection handles that should be contributed to the parent when it becomes selected.')»
+Â«DEFINE createSelectionHandles FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::generatedMemberComment('Returns the selection handles that should be contributed to the parent when it becomes selected.')Â»
 public java.util.List createSelectionHandles() {
-«IF canCollapse-»
+Â«IF canCollapse-Â»
 	return java.util.Collections.singletonList(new org.eclipse.gmf.runtime.lite.handles.CompartmentCollapseHandle(this, getTitleName()));
-«ELSE-»
+Â«ELSE-Â»
 	return java.util.Collections.singletonList(new org.eclipse.gmf.runtime.lite.handles.CompartmentNameHandle(this, getTitleName()));
-«ENDIF-»
+Â«ENDIF-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getTitleName FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getTitleName FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected String getTitleName() {
-«IF needsTitle-»
-	return "«title»";	«EXPAND xpt::Common::nonNLS»
-«ELSE-»
-	return "";	«EXPAND xpt::Common::nonNLS»
-«ENDIF-»
+Â«IF needsTitle-Â»
+	return "Â«titleÂ»";	Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ELSE-Â»
+	return "";	Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDIF-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createFigure FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createFigure FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.draw2d.IFigure createFigure() {
 	org.eclipse.draw2d.Figure result = new org.eclipse.gmf.runtime.lite.figures.CompartmentFigure();
 	result.setLayoutManager(new org.eclipse.draw2d.StackLayout());
 	org.eclipse.draw2d.ScrollPane scrollPane = new org.eclipse.draw2d.ScrollPane();
 	result.add(scrollPane);
-«IF listLayout-»
+Â«IF listLayout-Â»
 		org.eclipse.draw2d.Viewport viewport = new org.eclipse.draw2d.Viewport();
 		contentPane = new org.eclipse.draw2d.Figure();
 		contentPane.setLayoutManager(new org.eclipse.draw2d.ToolbarLayout());
-«ELSE-»
+Â«ELSE-Â»
 		org.eclipse.draw2d.Viewport viewport = new org.eclipse.draw2d.FreeformViewport();
 		contentPane = new org.eclipse.draw2d.FreeformLayer();
 		contentPane.setLayoutManager(new org.eclipse.draw2d.FreeformLayout());
-«ENDIF-»
+Â«ENDIF-Â»
 	viewport.setContents(contentPane);
 	scrollPane.setViewport(viewport);
 	return result;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupCompartmentHolder FOR gmfgen::GenCompartment-»
-«EXPAND setupCompartmentHolder FOR viewmap-»
-«ENDDEFINE»
+Â«DEFINE setupCompartmentHolder FOR gmfgen::GenCompartment-Â»
+Â«EXPAND setupCompartmentHolder FOR viewmap-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupCompartmentHolder FOR gmfgen::Viewmap»«ENDDEFINE»
+Â«DEFINE setupCompartmentHolder FOR gmfgen::ViewmapÂ»Â«ENDDEFINEÂ»
 
-«DEFINE setupCompartmentHolder FOR gmfgen::ParentAssignedViewmap-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setupCompartmentHolder FOR gmfgen::ParentAssignedViewmap-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void setupCompartmentHolder(org.eclipse.draw2d.IFigure shape) {
 	if (shape.getLayoutManager() == null) {
 		shape.setLayoutManager(new org.eclipse.draw2d.StackLayout());
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenCompartment-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenCompartment-Â»
+Â«ENDDEFINEÂ»

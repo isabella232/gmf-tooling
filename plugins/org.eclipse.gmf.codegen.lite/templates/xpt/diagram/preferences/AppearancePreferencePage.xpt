@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,96 +10,96 @@
  *    bblajer (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE className FOR gmfgen::GenDiagram»DiagramAppearancePreferencePage«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»DiagramAppearancePreferencePageÂ«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«preferencesPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«preferencesPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE preferenceInitializerClassName FOR gmfgen::GenDiagram»PreferenceInitializer«ENDDEFINE»
-«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenDiagram»«EXPAND qualifiedClassName»$«EXPAND preferenceInitializerClassName»«ENDDEFINE»
+Â«DEFINE preferenceInitializerClassName FOR gmfgen::GenDiagramÂ»PreferenceInitializerÂ«ENDDEFINEÂ»
+Â«DEFINE preferenceInitializerQualifiedClassName FOR gmfgen::GenDiagramÂ»Â«EXPAND qualifiedClassNameÂ»$Â«EXPAND preferenceInitializerClassNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE AppearancePreferencePage FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «preferencesPackageName»;
+Â«DEFINE AppearancePreferencePage FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«preferencesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» «EXPAND supertypes» {
-	«EXPAND xpt::diagram::preferences::Common::doGetPreferenencePage-»
-	«EXPAND PreferenceInitializer-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» {
+	Â«EXPAND xpt::diagram::preferences::Common::doGetPreferenencePage-Â»
+	Â«EXPAND PreferenceInitializer-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gmf.runtime.lite.preferences.ColorsAndFontsPreferencePage«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.gmf.runtime.lite.preferences.ColorsAndFontsPreferencePageÂ«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedClassComment»
-public static class «EXPAND preferenceInitializerClassName» «EXPAND PreferenceInitializer_supertypes» {
-	«EXPAND PreferenceInitializer_ctor-»
-	«EXPAND PreferenceInitializer_preferences FOR preferences-»
-	«EXPAND PreferenceInitializer_additions-»
+Â«DEFINE PreferenceInitializer FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public static class Â«EXPAND preferenceInitializerClassNameÂ» Â«EXPAND PreferenceInitializer_supertypesÂ» {
+	Â«EXPAND PreferenceInitializer_ctor-Â»
+	Â«EXPAND PreferenceInitializer_preferences FOR preferences-Â»
+	Â«EXPAND PreferenceInitializer_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_supertypes FOR gmfgen::GenDiagram»extends org.eclipse.gmf.runtime.lite.preferences.ColorsAndFontsPreferencePage.ColorsAndFontsPreferenceInitializer«ENDDEFINE»
+Â«DEFINE PreferenceInitializer_supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.gmf.runtime.lite.preferences.ColorsAndFontsPreferencePage.ColorsAndFontsPreferenceInitializerÂ«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_ctor FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
-public «EXPAND preferenceInitializerClassName»() {
-	super(«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+Â«DEFINE PreferenceInitializer_ctor FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«EXPAND preferenceInitializerClassNameÂ»() {
+	super(Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getPreferenceStore());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_preferences FOR gmfgen::GenDiagramPreferences-»
-«EXPAND getDefaultFontData FOR defaultFont-»
-«EXPAND getDefaultColor('getDefaultFontColor') FOR fontColor-»
-«EXPAND getDefaultColor('getDefaultFillColor') FOR fillColor-»
-«EXPAND getDefaultColor('getDefaultLineColor') FOR lineColor-»
-«ENDDEFINE»
+Â«DEFINE PreferenceInitializer_preferences FOR gmfgen::GenDiagramPreferences-Â»
+Â«EXPAND getDefaultFontData FOR defaultFont-Â»
+Â«EXPAND getDefaultColor('getDefaultFontColor') FOR fontColor-Â»
+Â«EXPAND getDefaultColor('getDefaultFillColor') FOR fillColor-Â»
+Â«EXPAND getDefaultColor('getDefaultLineColor') FOR lineColor-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDefaultFontData FOR gmfgen::GenFont-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDefaultFontData FOR gmfgen::GenFont-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.swt.graphics.FontData getDefaultFontData() {
-	return «EXPAND fontData»;
+	return Â«EXPAND fontDataÂ»;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE fontData FOR gmfgen::GenFont-»
-«ERROR 'Unknown font: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE fontData FOR gmfgen::GenFont-Â»
+Â«ERROR 'Unknown font: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE fontData FOR gmfgen::GenCustomFont-»
-new org.eclipse.swt.graphics.FontData("«name»", «height», org.eclipse.swt.SWT.«style»)
-«ENDDEFINE»
+Â«DEFINE fontData FOR gmfgen::GenCustomFont-Â»
+new org.eclipse.swt.graphics.FontData("Â«nameÂ»", Â«heightÂ», org.eclipse.swt.SWT.Â«styleÂ»)
+Â«ENDDEFINEÂ»
 
-«DEFINE fontData FOR gmfgen::GenStandardFont-»
-org.eclipse.jface.resource.JFaceResources.get«name»Font().getFontData()
-«ENDDEFINE»
+Â«DEFINE fontData FOR gmfgen::GenStandardFont-Â»
+org.eclipse.jface.resource.JFaceResources.getÂ«nameÂ»Font().getFontData()
+Â«ENDDEFINEÂ»
 
-«DEFINE getDefaultColor(methodName : String) FOR gmfgen::GenColor-»
-«EXPAND xpt::Common::generatedMemberComment»
-protected org.eclipse.swt.graphics.RGB «methodName»() {
-	return «EXPAND rgb»;
+Â«DEFINE getDefaultColor(methodName : String) FOR gmfgen::GenColor-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+protected org.eclipse.swt.graphics.RGB Â«methodNameÂ»() {
+	return Â«EXPAND rgbÂ»;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE rgb FOR gmfgen::GenColor-»
-«ERROR 'Unknown colour: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE rgb FOR gmfgen::GenColor-Â»
+Â«ERROR 'Unknown colour: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE rgb FOR gmfgen::GenConstantColor-»
-«REM»TODO: support DIAGRAM_* constants«ENDREM»
-«IF self.name.repr().xpandStartsWith('diagram')»«ERROR 'Color constant not supported: ' + self.repr()»«ENDIF-»
-org.eclipse.draw2d.ColorConstants.«name».getRGB()
-«ENDDEFINE»
+Â«DEFINE rgb FOR gmfgen::GenConstantColor-Â»
+Â«REMÂ»TODO: support DIAGRAM_* constantsÂ«ENDREMÂ»
+Â«IF self.name.repr().xpandStartsWith('diagram')Â»Â«ERROR 'Color constant not supported: ' + self.repr()Â»Â«ENDIF-Â»
+org.eclipse.draw2d.ColorConstants.Â«nameÂ».getRGB()
+Â«ENDDEFINEÂ»
 
-«DEFINE rgb FOR gmfgen::GenRGBColor-»
-new org.eclipse.swt.graphics.RGB(«red», «green», «blue»)
-«ENDDEFINE»
+Â«DEFINE rgb FOR gmfgen::GenRGBColor-Â»
+new org.eclipse.swt.graphics.RGB(Â«redÂ», Â«greenÂ», Â«blueÂ»)
+Â«ENDDEFINEÂ»
 
-«DEFINE PreferenceInitializer_additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE PreferenceInitializer_additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
