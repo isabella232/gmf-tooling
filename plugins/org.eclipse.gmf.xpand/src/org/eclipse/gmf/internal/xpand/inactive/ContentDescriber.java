@@ -13,10 +13,11 @@ package org.eclipse.gmf.internal.xpand.inactive;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 
 import org.eclipse.core.runtime.QualifiedName;
-import org.eclipse.core.runtime.content.IContentDescriber;
 import org.eclipse.core.runtime.content.IContentDescription;
+import org.eclipse.core.runtime.content.ITextContentDescriber;
 
 /**
  * Major difference from platform's default content describer (which uses BOM) is that we
@@ -26,7 +27,14 @@ import org.eclipse.core.runtime.content.IContentDescription;
  *   
  * @author artem
  */
-public class ContentDescriber implements IContentDescriber {
+public class ContentDescriber implements ITextContentDescriber {
+
+	public int describe(Reader contents, IContentDescription description) throws IOException {
+		// no idea what I can tell here, but if I do not implement ITextContentDescriber, attempt to save
+		// existing! UTF-8 xpt file under template folder with ISO encoding results in error "can't convert UTF to ISO"
+		// - for some stupid reason Eclipse TextEditor tries to come up with new encoding for existing file
+		return VALID;
+	}
 
 	public int describe(InputStream contents, IContentDescription description) throws IOException {
 		StreamDecoder sd = new StreamDecoder(contents, null);
