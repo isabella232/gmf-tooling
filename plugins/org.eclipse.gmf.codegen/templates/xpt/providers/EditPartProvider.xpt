@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,50 +10,50 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE EditPartProvider FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «providersPackageName»;
+Â«DEFINE EditPartProvider FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartProviderClassName»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartProviderClassNameÂ»
 		extends org.eclipse.gmf.runtime.diagram.ui.services.editpart.AbstractEditPartProvider {
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gef.EditPartFactory factory;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private boolean allowCaching;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private java.lang.ref.WeakReference cachedPart;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private java.lang.ref.WeakReference cachedView;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editPartProviderClassName»() {
-		setFactory(new «getEditPartFactoryQualifiedClassName()»());
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editPartProviderClassNameÂ»() {
+		setFactory(new Â«getEditPartFactoryQualifiedClassName()Â»());
 		setAllowCaching(true);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public final org.eclipse.gef.EditPartFactory getFactory() {
 		return factory;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setFactory(org.eclipse.gef.EditPartFactory factory) {
 		this.factory = factory;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public final boolean isAllowCaching() {
 		return allowCaching;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected synchronized void setAllowCaching(boolean allowCaching) {
 		this.allowCaching = allowCaching;
 		if (!allowCaching) {
@@ -62,7 +62,7 @@ public class «editPartProviderClassName»
 		}
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart createEditPart(
 			org.eclipse.gmf.runtime.notation.View view) {
 		org.eclipse.gef.EditPart part = factory.createEditPart(null, view);
@@ -72,7 +72,7 @@ public class «editPartProviderClassName»
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart getCachedPart(
 			org.eclipse.gmf.runtime.notation.View view) {
 		if (cachedView != null && cachedView.get() == view) {
@@ -81,7 +81,7 @@ public class «editPartProviderClassName»
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public synchronized org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart createGraphicEditPart(
 			org.eclipse.gmf.runtime.notation.View view) {
 		if (isAllowCaching()) {
@@ -95,13 +95,13 @@ public class «editPartProviderClassName»
 		return createEditPart(view);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public synchronized boolean provides(org.eclipse.gmf.runtime.common.core.service.IOperation operation) {
 		if (operation instanceof org.eclipse.gmf.runtime.diagram.ui.services.editpart.CreateGraphicEditPartOperation) {
 			org.eclipse.gmf.runtime.notation.View view =
 					((org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation) operation).getView();
-			if (!«getEditPartQualifiedClassName()».MODEL_ID.equals(
-					«getVisualIDRegistryQualifiedClassName()».getModelID(view))) {
+			if (!Â«getEditPartQualifiedClassName()Â».MODEL_ID.equals(
+					Â«getVisualIDRegistryQualifiedClassName()Â».getModelID(view))) {
 				return false;
 			}
 			if (isAllowCaching() && getCachedPart(view) != null) {
@@ -118,8 +118,8 @@ public class «editPartProviderClassName»
 		}
 		return false;
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

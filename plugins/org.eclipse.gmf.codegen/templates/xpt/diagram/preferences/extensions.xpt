@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,40 +10,40 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION xpt::diagram::Utils»
+Â«EXTENSION xpt::diagram::UtilsÂ»
 
-«DEFINE extensions FOR gmfgen::GenDiagram-»
+Â«DEFINE extensions FOR gmfgen::GenDiagram-Â»
 
    <extension point="org.eclipse.core.runtime.preferences" id="prefs">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      <initializer class="«EXPAND xpt::diagram::preferences::PreferenceInitializer::qualifiedClassName»"/>
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+      <initializer class="Â«EXPAND xpt::diagram::preferences::PreferenceInitializer::qualifiedClassNameÂ»"/>
    </extension>
 
-«IF preferencePages->size() > 0-»
+Â«IF preferencePages->size() > 0-Â»
    <extension point="org.eclipse.ui.preferencePages" id="prefpages">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-«EXPAND preferencePage FOREACH allPreferencePages(self)-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+Â«EXPAND preferencePage FOREACH allPreferencePages(self)-Â»
    </extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE preferencePage FOR gmfgen::GenPreferencePage-»
+Â«DEFINE preferencePage FOR gmfgen::GenPreferencePage-Â»
       <page
-            id="«iD»"
-            name="%prefpage.«iD»"
-«IF null <> parent-»
-            category="«parent.iD»"
-«ENDIF-»
-            class="«getQualifiedClassName()»">
+            id="Â«iDÂ»"
+            name="%prefpage.Â«iDÂ»"
+Â«IF null <> parent-Â»
+            category="Â«parent.iDÂ»"
+Â«ENDIF-Â»
+            class="Â«getQualifiedClassName()Â»">
       </page>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18n FOR gmfgen::GenDiagram»
+Â«DEFINE i18n FOR gmfgen::GenDiagramÂ»
 # Preferences
-«FOREACH allPreferencePages(self) AS p-»
-prefpage.«p.iD»=«p.name»
-«ENDFOREACH»
-«ENDDEFINE»
+Â«FOREACH allPreferencePages(self) AS p-Â»
+prefpage.Â«p.iDÂ»=Â«p.nameÂ»
+Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»

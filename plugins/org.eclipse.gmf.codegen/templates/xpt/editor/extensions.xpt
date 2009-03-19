@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,77 +10,77 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE extensions FOR gmfgen::GenEditorGenerator»
+Â«DEFINE extensions FOR gmfgen::GenEditorGeneratorÂ»
    <extension point="org.eclipse.ui.editors" id="gmf-editor">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <editor
-         id="«editor.iD»"
+         id="Â«editor.iDÂ»"
          name="%editorName"
-         icon="«editor.iconPathX»"
-         extensions="«diagramFileExtension»"
+         icon="Â«editor.iconPathXÂ»"
+         extensions="Â«diagramFileExtensionÂ»"
          default="true"
-         class="«editor.getQualifiedClassName()»"
-         matchingStrategy="«diagram.getMatchingStrategyQualifiedClassName()»"
-         contributorClass="«editor.getActionBarContributorQualifiedClassName()»">
+         class="Â«editor.getQualifiedClassName()Â»"
+         matchingStrategy="Â«diagram.getMatchingStrategyQualifiedClassName()Â»"
+         contributorClass="Â«editor.getActionBarContributorQualifiedClassName()Â»">
       </editor>
    </extension>
    
    <extension point="org.eclipse.ui.contexts" id="ui-context">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <context
          description="%context.description"
-         id="«editor.contextID»"
+         id="Â«editor.contextIDÂ»"
          name="%context.name"
          parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
       </context>
    </extension>
 
    <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
   	  <wizard
   	     name="%newWizardName"
-  	     icon="«diagram.creationWizardIconPathX»"
-  	     category="«diagram.creationWizardCategoryID»"
-  	     class="«diagram.getCreationWizardQualifiedClassName()»"
-  	     id="«diagram.getCreationWizardQualifiedClassName()»ID">
+  	     icon="Â«diagram.creationWizardIconPathXÂ»"
+  	     category="Â«diagram.creationWizardCategoryIDÂ»"
+  	     class="Â«diagram.getCreationWizardQualifiedClassName()Â»"
+  	     id="Â«diagram.getCreationWizardQualifiedClassName()Â»ID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
-«IF diagram.generateInitDiagramAction()-»
-   «IF null = application»<extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+Â«IF diagram.generateInitDiagramAction()-Â»
+   Â«IF null = applicationÂ»<extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <objectContribution
-            id="«plugin.iD».InitDiagram"
-            nameFilter="*.«domainFileExtension»"
+            id="Â«plugin.iDÂ».InitDiagram"
+            nameFilter="*.Â«domainFileExtensionÂ»"
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%initDiagramActionLabel"
-               class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+               class="Â«diagram.getInitDiagramFileActionQualifiedClassName()Â»"
                menubarPath="additions"
                enablesFor="1"
-               id="«plugin.iD».InitDiagramAction">
+               id="Â«plugin.iDÂ».InitDiagramAction">
          </action>
       </objectContribution>
    </extension>
-	«ELSE-»
+	Â«ELSE-Â»
    <extension point="org.eclipse.ui.actionSets" id="init-diagram-action">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <actionSet
             label="%initDiagramActionLabel"
             visible="true"
-            id="«plugin.iD».InitDiagram">
+            id="Â«plugin.iDÂ».InitDiagram">
          <action
                label="%initDiagramActionLabel"
-               class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+               class="Â«diagram.getInitDiagramFileActionQualifiedClassName()Â»"
                menubarPath="file/additions"
-               id="«plugin.iD».InitDiagramAction">
+               id="Â«plugin.iDÂ».InitDiagramAction">
          </action>
       </actionSet>
    </extension>
-	«ENDIF-»
-«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

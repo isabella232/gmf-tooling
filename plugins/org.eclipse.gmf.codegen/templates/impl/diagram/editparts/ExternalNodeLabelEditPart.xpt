@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,31 +11,31 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE initializer FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE initializer FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	static {
-		registerSnapBackPosition(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall», new org.eclipse.draw2d.geometry.Point(0, 0));
+		registerSnapBackPosition(Â«EXPAND xpt::editor::VisualIDRegistry::typeMethodCallÂ», new org.eclipse.draw2d.geometry.Point(0, 0));
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+Â«DEFINE _constructor FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenExternalNodeLabel-»
+Â«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenExternalNodeLabel-Â»
 	super.createDefaultEditPolicies();
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
-	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»());
-	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
-«ENDDEFINE»
+	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new Â«getDiagram().getTextSelectionEditPolicyQualifiedClassName()Â»());
+	Â«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getBorderItemLocator FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getBorderItemLocator FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.diagram.ui.figures.IBorderItemLocator getBorderItemLocator() {
 		org.eclipse.draw2d.IFigure parentFigure = getFigure().getParent();
 		if (parentFigure != null && parentFigure.getLayoutManager() != null) {
@@ -44,10 +44,10 @@
 		}
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshBounds FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshBounds FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void refreshBounds() {
 		int x = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X())).intValue();
 		int y = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y())).intValue();
@@ -55,14 +55,14 @@
 		int height = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
 		getBorderItemLocator().setConstraint(new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEventBody FOR gmfgen::GenExternalNodeLabel-»
+Â«DEFINE handleNotificationEventBody FOR gmfgen::GenExternalNodeLabel-Â»
 	Object feature = event.getFeature();
-	«EXPAND xpt::diagram::editparts::Common::handleText FOR self-»
+	Â«EXPAND xpt::diagram::editparts::Common::handleText FOR self-Â»
 	super.handleNotificationEvent(event);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createFigure FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-»
-«ENDDEFINE»
+Â«DEFINE createFigure FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-Â»
+Â«ENDDEFINEÂ»

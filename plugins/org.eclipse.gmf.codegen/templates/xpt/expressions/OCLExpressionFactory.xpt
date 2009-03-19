@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,48 +10,48 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE OCLExpressionFactory FOR gmfgen::GenExpressionInterpreter-»
-«EXPAND xpt::Common::copyright FOR container.editorGen-»
-package «container.expressionsPackageName»;
+Â«DEFINE OCLExpressionFactory FOR gmfgen::GenExpressionInterpreter-Â»
+Â«EXPAND xpt::Common::copyright FOR container.editorGen-Â»
+package Â«container.expressionsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «className» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«classNameÂ» {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «className»() {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«classNameÂ»() {
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static Â«container.getAbstractExpressionQualifiedClassName()Â» getExpression(
 			String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
 		return new Expression(body, context, environment);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static Â«container.getAbstractExpressionQualifiedClassName()Â» getExpression(
 			String body, org.eclipse.emf.ecore.EClassifier context) {
 		return getExpression(body, context, java.util.Collections.EMPTY_MAP);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static class Expression extends «container.getAbstractExpressionQualifiedClassName()» {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private static class Expression extends Â«container.getAbstractExpressionQualifiedClassName()Â» {
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private java.lang.ref.WeakReference queryRef;
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private final org.eclipse.ocl.ecore.OCL oclInstance;
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public Expression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
 			super(body, context);
 			oclInstance = org.eclipse.ocl.ecore.OCL.newInstance();
 			initCustomEnv(oclInstance.getEnvironment(), environment);
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.ocl.Query getQuery() {
 			org.eclipse.ocl.Query oclQuery = null;
 			if (this.queryRef != null) {
@@ -72,7 +72,7 @@ public class «className» {
 			return oclQuery;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected Object doEvaluate(Object context, java.util.Map env) {
 			org.eclipse.ocl.Query oclQuery = getQuery();
 			if (oclQuery == null) {
@@ -94,7 +94,7 @@ public class «className» {
 			}
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private void initExtentMap(Object context) {
 			if (!getStatus().isOK() || context == null) {
 				return;
@@ -123,7 +123,7 @@ public class «className» {
 			}
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private static void initCustomEnv(org.eclipse.ocl.Environment ecoreEnv, java.util.Map environment) {
 			for (java.util.Iterator it = environment.keySet().iterator(); it.hasNext();) {
 				String varName = (String) it.next();
@@ -132,7 +132,7 @@ public class «className» {
 			}
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private static org.eclipse.ocl.expressions.Variable createVar(
 				org.eclipse.ocl.Environment ecoreEnv, String name, org.eclipse.emf.ecore.EClassifier type) {
 			org.eclipse.ocl.expressions.Variable var = org.eclipse.ocl.ecore.EcoreFactory.eINSTANCE.createVariable();
@@ -141,8 +141,8 @@ public class «className» {
 			return var;
 		}
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenExpressionInterpreter»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenExpressionInterpreterÂ»Â«ENDDEFINEÂ»

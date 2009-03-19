@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,45 +10,45 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE UpdateCommand FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE UpdateCommand FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «updateCommandClassName» implements org.eclipse.core.commands.IHandler {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«updateCommandClassNameÂ» implements org.eclipse.core.commands.IHandler {
 
-	«EXPAND addHandlerListener-»
+	Â«EXPAND addHandlerListener-Â»
 
-	«EXPAND dispose-»
+	Â«EXPAND dispose-Â»
 
-	«EXPAND execute-»
+	Â«EXPAND execute-Â»
 
-	«EXPAND isEnabled-»
+	Â«EXPAND isEnabled-Â»
 
-	«EXPAND isHandled-»
+	Â«EXPAND isHandled-Â»
 
-	«EXPAND removeHandlerListener-»
+	Â«EXPAND removeHandlerListener-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addHandlerListener FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addHandlerListener FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void addHandlerListener(org.eclipse.core.commands.IHandlerListener handlerListener) {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE dispose FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE dispose FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void dispose() {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE execute FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE execute FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 	org.eclipse.jface.viewers.ISelection selection = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService().getSelection();
 	if (selection instanceof org.eclipse.jface.viewers.IStructuredSelection) {
@@ -68,26 +68,26 @@ public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isEnabled FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isEnabled FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isEnabled() {
 	return true;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE isHandled FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isHandled FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isHandled() {
 	return true;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE removeHandlerListener FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE removeHandlerListener FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void removeHandlerListener(org.eclipse.core.commands.IHandlerListener handlerListener) {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramUpdaterÂ»Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,29 +9,29 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::diagram::editpolicies::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::diagram::editpolicies::UtilsÂ»
 
-«DEFINE OpenDiagram FOR gmfgen::OpenDiagramBehaviour»
-«EXPAND xpt::Common::copyright FOR subject.getDiagram().editorGen-»
-package «subject.getDiagram().editPoliciesPackageName»;
+Â«DEFINE OpenDiagram FOR gmfgen::OpenDiagramBehaviourÂ»
+Â«EXPAND xpt::Common::copyright FOR subject.getDiagram().editorGen-Â»
+package Â«subject.getDiagram().editPoliciesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPolicyClassName» extends «EXPAND extendsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPolicyClassNameÂ» extends Â«EXPAND extendsListÂ» {
 
-«EXPAND getOpenCommand-»
+Â«EXPAND getOpenCommand-Â»
 
-«EXPAND openCommandClass-»
+Â«EXPAND openCommandClass-Â»
 
-«EXPAND additions-»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::OpenDiagramBehaviour»org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicy«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::OpenDiagramBehaviourÂ»org.eclipse.gmf.runtime.diagram.ui.editpolicies.OpenEditPolicyÂ«ENDDEFINEÂ»
 
-«DEFINE getOpenCommand FOR gmfgen::OpenDiagramBehaviour»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getOpenCommand FOR gmfgen::OpenDiagramBehaviourÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gef.commands.Command getOpenCommand(org.eclipse.gef.Request request) {
 		org.eclipse.gef.EditPart targetEditPart = getTargetEditPart(request);
 		if (false == targetEditPart.getModel() instanceof org.eclipse.gmf.runtime.notation.View) {
@@ -44,33 +44,33 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 		}
 		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new OpenDiagramCommand((org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle) link));
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE openCommandClass FOR gmfgen::OpenDiagramBehaviour»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE openCommandClass FOR gmfgen::OpenDiagramBehaviourÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static class OpenDiagramCommand extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private final org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle diagramFacet;
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		OpenDiagramCommand(org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle linkStyle) {
 			// editing domain is taken for original diagram, 
 			// if we open diagram from another file, we should use another editing domain
-			super(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(linkStyle), «EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenCommandName()) FOR subject.getDiagram().editorGen», null);
+			super(org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(linkStyle), Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenCommandName()) FOR subject.getDiagram().editorGenÂ», null);
 			diagramFacet = linkStyle;
 		}
 
 		// FIXME canExecute if  !(readOnly && getDiagramToOpen == null), i.e. open works on ro diagrams only when there's associated diagram already
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 			try {
 				org.eclipse.gmf.runtime.notation.Diagram diagram = getDiagramToOpen();
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput('diagram') FOR subject.getDiagram()-»
+				Â«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput('diagram') FOR subject.getDiagram()-Â»
 				org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.openEditor(editorInput, getEditorID());
 				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
@@ -79,19 +79,19 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			}
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.gmf.runtime.notation.Diagram getDiagramToOpen() {
 			return diagramFacet.getDiagramLink();
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.gmf.runtime.notation.Diagram intializeNewDiagram() throws org.eclipse.core.commands.ExecutionException {
 			org.eclipse.gmf.runtime.notation.Diagram d = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createDiagram(getDiagramDomainElement(), getDiagramKind(), getPreferencesHint());
 			if (d == null) {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind");
 			}
 			diagramFacet.setDiagramLink(d);
-			«EXPAND xpt::Common::_assert('diagramFacet.eResource() != null')-»
+			Â«EXPAND xpt::Common::_assert('diagramFacet.eResource() != null')-Â»
 			diagramFacet.eResource().getContents().add(d);
 			org.eclipse.emf.ecore.EObject container = diagramFacet.eContainer();
 			while (container instanceof org.eclipse.gmf.runtime.notation.View) {
@@ -99,18 +99,18 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 				container = container.eContainer();
 			}
 			try {
-			«IF null = subject.getDiagram().editorGen.application-»
+			Â«IF null = subject.getDiagram().editorGen.application-Â»
 				new org.eclipse.ui.actions.WorkspaceModifyOperation() {
 					protected void execute(org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException, java.lang.reflect.InvocationTargetException, InterruptedException {
 						try {
-			«ENDIF-»
+			Â«ENDIF-Â»
 				for (java.util.Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 					org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 					if (nextResource.isLoaded() && !getEditingDomain().isReadOnly(nextResource)) {
-						nextResource.save(«EXPAND xpt::Common::getSaveOptions FOR subject.getDiagram()»);
+						nextResource.save(Â«EXPAND xpt::Common::getSaveOptions FOR subject.getDiagram()Â»);
 					}
 				}
-			«IF null = subject.getDiagram().editorGen.application-»
+			Â«IF null = subject.getDiagram().editorGen.application-Â»
 						} catch (java.io.IOException ex) {
 							throw new java.lang.reflect.InvocationTargetException(ex, "Save operation failed");
 						}		
@@ -121,45 +121,45 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 			} catch (InterruptedException e) {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", e);
 			}
-			«ELSE-»
+			Â«ELSE-Â»
 			} catch (java.io.IOException ex) {
 				throw new org.eclipse.core.commands.ExecutionException("Can't create diagram of '" + getDiagramKind() + "' kind", ex);
 			}
-			«ENDIF-»
+			Â«ENDIF-Â»
 			return d;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.emf.ecore.EObject getDiagramDomainElement() {
 			// use same element as associated with EP
 			return ((org.eclipse.gmf.runtime.notation.View) diagramFacet.eContainer()).getElement();
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint getPreferencesHint() {
 			// XXX prefhint from target diagram's editor?
-			return «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR subject.getDiagram().editorGen»;
+			return Â«EXPAND xpt::plugin::Activator::preferenceHintAccess FOR subject.getDiagram().editorGenÂ»;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected String getDiagramKind() {
-			return «IF diagramKind = null»«EXPAND xpt::editor::VisualIDRegistry::modelID FOR subject.getDiagram()»«ELSE»"«diagramKind»"«ENDIF»;
+			return Â«IF diagramKind = nullÂ»Â«EXPAND xpt::editor::VisualIDRegistry::modelID FOR subject.getDiagram()Â»Â«ELSEÂ»"Â«diagramKindÂ»"Â«ENDIFÂ»;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected String getEditorID() {
-			return «IF editorID = null»«subject.getDiagram().editorGen.editor.getQualifiedClassName()».ID«ELSE»"«editorID»"«ENDIF»;
+			return Â«IF editorID = nullÂ»Â«subject.getDiagram().editorGen.editor.getQualifiedClassName()Â».IDÂ«ELSEÂ»"Â«editorIDÂ»"Â«ENDIFÂ»;
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::OpenDiagramBehaviour»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::OpenDiagramBehaviourÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenCommandName())-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenCommandName())-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenCommandName(), 'Open Diagram')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForOpenCommandName(), 'Open Diagram')-Â»
+Â«ENDDEFINEÂ»
 

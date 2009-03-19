@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,129 +10,129 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«EXTENSION xpt::diagram::updater::Utils»
-«EXTENSION xpt::GenModelUtils»
+Â«EXTENSION xpt::diagram::updater::UtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE DiagramContentInitializer FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE DiagramContentInitializer FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «diagramContentInitializerClassName» {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«diagramContentInitializerClassNameÂ» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 
-	«EXPAND initDiagramContent-»
+	Â«EXPAND initDiagramContent-Â»
 	
-	«EXPAND createChildren FOREACH getAllContainers()->select(container | not container.sansDomain)-»
+	Â«EXPAND createChildren FOREACH getAllContainers()->select(container | not container.sansDomain)-Â»
 	
-	«EXPAND createNode-»
+	Â«EXPAND createNode-Â»
 	
-	«EXPAND createLinks-»
-	«IF not (getAllContainers())[gmfgen::GenCompartment]->isEmpty()-»
+	Â«EXPAND createLinks-Â»
+	Â«IF not (getAllContainers())[gmfgen::GenCompartment]->isEmpty()-Â»
 	
-		«EXPAND getCompartment-»
-	«ENDIF-»
+		Â«EXPAND getCompartment-Â»
+	Â«ENDIF-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private java.util.Map myDomain2NotationMap = new java.util.HashMap();
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private java.util.Collection myLinkDescriptors = new java.util.LinkedList();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE initDiagramContent FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE initDiagramContent FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void initDiagramContent(org.eclipse.gmf.runtime.notation.Diagram diagram) {
-	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(diagram.getType())) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Incorrect diagram passed as a parameter: " + diagram.getType());
+	if (!Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ».equals(diagram.getType())) {
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Incorrect diagram passed as a parameter: " + diagram.getType());
 		return;
 	}
-	if («EXPAND MetaModel::NotInstance('diagram.getElement()') FOR domainDiagramElement») {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Incorrect diagram element specified: " + diagram.getElement() + " instead of «domainDiagramElement.ecoreClass.name»");
+	if (Â«EXPAND MetaModel::NotInstance('diagram.getElement()') FOR domainDiagramElementÂ») {
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Incorrect diagram element specified: " + diagram.getElement() + " instead of Â«domainDiagramElement.ecoreClass.nameÂ»");
 		return;
 	}
-	«EXPAND createChildrenMethodName»(diagram);
+	Â«EXPAND createChildrenMethodNameÂ»(diagram);
 	createLinks(diagram);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createChildrenMethodName FOR gmfgen::GenContainerBase»create«getUniqueIdentifier()»Children«ENDDEFINE»
+Â«DEFINE createChildrenMethodName FOR gmfgen::GenContainerBaseÂ»createÂ«getUniqueIdentifier()Â»ChildrenÂ«ENDDEFINEÂ»
 
-«DEFINE createChildren FOR gmfgen::GenContainerBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private void «EXPAND createChildrenMethodName»(org.eclipse.gmf.runtime.notation.View view) {
-	«EXPAND collectContainedLinks-»
-	«IF hasSemanticChildren(self)-»
-	java.util.Collection childNodeDescriptors = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(view);
+Â«DEFINE createChildren FOR gmfgen::GenContainerBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private void Â«EXPAND createChildrenMethodNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
+	Â«EXPAND collectContainedLinks-Â»
+	Â«IF hasSemanticChildren(self)-Â»
+	java.util.Collection childNodeDescriptors = Â«EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCallÂ»(view);
 	for (java.util.Iterator it = childNodeDescriptors.iterator(); it.hasNext();) {
-		createNode(view, («getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()») it.next());
+		createNode(view, (Â«getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()Â») it.next());
 	}
-	«ENDIF-»
-	«EXPAND createCompartmentsChildren-»
+	Â«ENDIF-Â»
+	Â«EXPAND createCompartmentsChildren-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE collectContainedLinks FOR gmfgen::GenContainerBase»«ENDDEFINE»
+Â«DEFINE collectContainedLinks FOR gmfgen::GenContainerBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE collectContainedLinks FOR gmfgen::GenNode-»
+Â«DEFINE collectContainedLinks FOR gmfgen::GenNode-Â»
 	myDomain2NotationMap.put(view.getElement(), view);
-	myLinkDescriptors.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getOutgoingLinksMethodCall»(view));
-«ENDDEFINE»
+	myLinkDescriptors.addAll(Â«EXPAND xpt::diagram::updater::DiagramUpdater::getOutgoingLinksMethodCallÂ»(view));
+Â«ENDDEFINEÂ»
 
-«DEFINE createCompartmentsChildren FOR gmfgen::GenContainerBase»«ENDDEFINE»
+Â«DEFINE createCompartmentsChildren FOR gmfgen::GenContainerBaseÂ»Â«ENDDEFINEÂ»
 
-«DEFINE createCompartmentsChildren FOR gmfgen::GenNode-»
-	«EXPAND callCreateCompartmentChildren FOREACH compartments»
-«ENDDEFINE»
+Â«DEFINE createCompartmentsChildren FOR gmfgen::GenNode-Â»
+	Â«EXPAND callCreateCompartmentChildren FOREACH compartmentsÂ»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 	Will be called for each compartment of GenNode for GenNode.isSansDomain() == false. 
 	if !GenNode.isSansDomain() => !GenCompartment.isSansDomain() so should not check 
 	!this.isSansDomain() here.
-«ENDREM»
-«DEFINE callCreateCompartmentChildren FOR gmfgen::GenCompartment-»
-	«EXPAND createChildrenMethodName»(getCompartment(view, «EXPAND xpt::editor::VisualIDRegistry::visualID»));
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE callCreateCompartmentChildren FOR gmfgen::GenCompartment-Â»
+	Â«EXPAND createChildrenMethodNameÂ»(getCompartment(view, Â«EXPAND xpt::editor::VisualIDRegistry::visualIDÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE createNode FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()» nodeDescriptor) {
-	final String nodeType = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('nodeDescriptor.getVisualID()')»;
-	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeType, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
+Â«DEFINE createNode FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private void createNode(org.eclipse.gmf.runtime.notation.View parentView, Â«editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()Â» nodeDescriptor) {
+	final String nodeType = Â«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('nodeDescriptor.getVisualID()')Â»;
+	org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeType, Â«EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGenÂ»);
 	switch (nodeDescriptor.getVisualID()) {
-	«EXPAND createNodeCase FOREACH getAllNodes()->select(node | not node.sansDomain)-»
+	Â«EXPAND createNodeCase FOREACH getAllNodes()->select(node | not node.sansDomain)-Â»
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNodeCase FOR gmfgen::GenContainerBase-»
-«EXPAND xpt::Common::caseVisualID»
-	«EXPAND createChildrenMethodName»(node);
+Â«DEFINE createNodeCase FOR gmfgen::GenContainerBase-Â»
+Â«EXPAND xpt::Common::caseVisualIDÂ»
+	Â«EXPAND createChildrenMethodNameÂ»(node);
 	return;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Adopt this code to work with links to links«ENDREM»
-«DEFINE createLinks FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«REMÂ»Adopt this code to work with links to linksÂ«ENDREMÂ»
+Â«DEFINE createLinks FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 	for (boolean continueLinkCreation = true; continueLinkCreation;) {
 		continueLinkCreation = false;
 		java.util.Collection additionalDescriptors = new java.util.LinkedList();
 		for (java.util.Iterator it = myLinkDescriptors.iterator(); it.hasNext();) {
-			«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») it.next();
+			Â«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()Â» nextLinkDescriptor = (Â«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()Â») it.next();
 			if (!myDomain2NotationMap.containsKey(nextLinkDescriptor.getSource()) || !myDomain2NotationMap.containsKey(nextLinkDescriptor.getDestination())) {
 				continue;
 			}
-			final String linkType = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('nextLinkDescriptor.getVisualID()')»;
-			org.eclipse.gmf.runtime.notation.Edge edge = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, linkType, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGen»);
+			final String linkType = Â«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('nextLinkDescriptor.getVisualID()')Â»;
+			org.eclipse.gmf.runtime.notation.Edge edge = org.eclipse.gmf.runtime.diagram.core.services.ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), diagram, linkType, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, true, Â«EXPAND xpt::plugin::Activator::preferenceHintAccess FOR editorGenÂ»);
 			if (edge != null) {
 				edge.setSource((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getSource()));
 				edge.setTarget((org.eclipse.gmf.runtime.notation.View) myDomain2NotationMap.get(nextLinkDescriptor.getDestination()));
@@ -142,25 +142,25 @@ private void createLinks(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 				}
 				continueLinkCreation = true;
 				switch (nextLinkDescriptor.getVisualID()) {
-	«EXPAND createLinksCase FOREACH links->select(link | null <> link.getMetaClass())-»
+	Â«EXPAND createLinksCase FOREACH links->select(link | null <> link.getMetaClass())-Â»
 				}
 			}
 		}
 		myLinkDescriptors.addAll(additionalDescriptors);
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createLinksCase FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::caseVisualID»
-	additionalDescriptors.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getOutgoingLinksMethodCall»(edge));
+Â«DEFINE createLinksCase FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::Common::caseVisualIDÂ»
+	additionalDescriptors.addAll(Â«EXPAND xpt::diagram::updater::DiagramUpdater::getOutgoingLinksMethodCallÂ»(edge));
 	break;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCompartment FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCompartment FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gmf.runtime.notation.Node getCompartment(org.eclipse.gmf.runtime.notation.View node, int visualID) {
-	String type = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('visualID')»;
+	String type = Â«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('visualID')Â»;
 	for (java.util.Iterator it = node.getChildren().iterator(); it.hasNext();) {
 		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
 		if (nextView instanceof org.eclipse.gmf.runtime.notation.Node && type.equals(nextView.getType())) {
@@ -169,6 +169,6 @@ private org.eclipse.gmf.runtime.notation.Node getCompartment(org.eclipse.gmf.run
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

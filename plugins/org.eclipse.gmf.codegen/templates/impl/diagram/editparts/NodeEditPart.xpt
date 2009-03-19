@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,73 +11,73 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
-«EXTENSION xpt::diagram::editparts::Utils»
-«EXTENSION xpt::diagram::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::diagram::ViewmapAttributesUtilsÂ»
+Â«EXTENSION xpt::diagram::editparts::UtilsÂ»
+Â«EXTENSION xpt::diagram::UtilsÂ»
 
 
-«DEFINE extendsListContents FOR gmfgen::GenNode-»
-«IF hasBorderItems(self)»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE extendsListContents FOR gmfgen::GenNode-Â»
+Â«IF hasBorderItems(self)Â»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPartÂ«ELSEÂ»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPartÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsListContents FOR gmfgen::GenChildSideAffixedNode-»
-«IF hasBorderItems(self)»org.eclipse.gmf.runtime.diagram.ui.editparts.BorderedBorderItemEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderItemEditPart«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE extendsListContents FOR gmfgen::GenChildSideAffixedNode-Â»
+Â«IF hasBorderItems(self)Â»org.eclipse.gmf.runtime.diagram.ui.editparts.BorderedBorderItemEditPartÂ«ELSEÂ»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderItemEditPartÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+Â«DEFINE _constructor FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenNode-»
-	«EXPAND installCreationRolePolicy-»
+Â«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenNode-Â»
+	Â«EXPAND installCreationRolePolicy-Â»
 	super.createDefaultEditPolicies();
-	«EXPAND installPrimaryDragEditPolicy-»
-	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-	«IF needsGraphicalNodeEditPolicy(self)-»
-		installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «getGraphicalNodeEditPolicyQualifiedClassName()»());
-	«ENDIF-»
-	«IF not childNodes->isEmpty()-»
+	Â«EXPAND installPrimaryDragEditPolicy-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-Â»
+	Â«IF needsGraphicalNodeEditPolicy(self)-Â»
+		installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new Â«getGraphicalNodeEditPolicyQualifiedClassName()Â»());
+	Â«ENDIF-Â»
+	Â«IF not childNodes->isEmpty()-Â»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
-	«ENDIF-»
-	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
+	Â«ENDIF-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-Â»
 	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
-	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	Â«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-Â»
 	// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 	// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE installCreationRolePolicy FOR gmfgen::GenNode-»
-«IF hasChildren(self) or hasChildrenInListCompartments(self)-»
-	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «EXPAND _creationEditPolicyNewInstance»);
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE installCreationRolePolicy FOR gmfgen::GenNode-Â»
+Â«IF hasChildren(self) or hasChildrenInListCompartments(self)-Â»
+	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, Â«EXPAND _creationEditPolicyNewInstanceÂ»);
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _creationEditPolicyNewInstance FOR gmfgen::GenNode»new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy()«ENDDEFINE»
+Â«DEFINE _creationEditPolicyNewInstance FOR gmfgen::GenNodeÂ»new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy()Â«ENDDEFINEÂ»
 
-«DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenNode»«ENDDEFINE»
+Â«DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenNodeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenChildSideAffixedNode-»
+Â«DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenChildSideAffixedNode-Â»
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, getPrimaryDragEditPolicy());
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createLayoutEditPolicy FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createLayoutEditPolicy FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gef.editpolicies.LayoutEditPolicy createLayoutEditPolicy() {
-		«EXPAND createLayoutEditPolicyBody-»
+		Â«EXPAND createLayoutEditPolicyBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createLayoutEditPolicyBody FOR gmfgen::GenNode-»
-	«IF gmfgen::ViewmapLayoutType::XY_LAYOUT = getLayoutType()-»
+Â«DEFINE createLayoutEditPolicyBody FOR gmfgen::GenNode-Â»
+	Â«IF gmfgen::ViewmapLayoutType::XY_LAYOUT = getLayoutType()-Â»
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«EXPAND borderItemSelectionEditPolicy-»
+				Â«EXPAND borderItemSelectionEditPolicy-Â»
 				org.eclipse.gef.EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy();
@@ -86,29 +86,29 @@
 			}
 		};
 		return lep;
-	«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT = getLayoutType()»
+	Â«ELSEIF gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT = getLayoutType()Â»
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«EXPAND borderItemSelectionEditPolicy-»
+				Â«EXPAND borderItemSelectionEditPolicy-Â»
 				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
-						return new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»();
+						return new Â«getDiagram().getTextSelectionEditPolicyQualifiedClassName()Â»();
 					}
 				}
 				return super.createChildEditPolicy(child);
 			}
 		};
 		return lep;
-	«ELSEIF gmfgen::ViewmapLayoutType::FLOW_LAYOUT = getLayoutType()»
+	Â«ELSEIF gmfgen::ViewmapLayoutType::FLOW_LAYOUT = getLayoutType()Â»
 		org.eclipse.gef.editpolicies.FlowLayoutEditPolicy lep = new org.eclipse.gef.editpolicies.FlowLayoutEditPolicy() {
 
-			«IF hasBorderItems(self)-»
+			Â«IF hasBorderItems(self)-Â»
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«EXPAND borderItemSelectionEditPolicy-»
+				Â«EXPAND borderItemSelectionEditPolicy-Â»
 				return super.createChildEditPolicy(child);
 			}
-			«ENDIF-»
+			Â«ENDIF-Â»
 
 			protected org.eclipse.gef.commands.Command createAddCommand(org.eclipse.gef.EditPart child, org.eclipse.gef.EditPart after) {
 				return null;
@@ -123,11 +123,11 @@
 			}
 		};
 		return lep;
-	«ELSE-»
+	Â«ELSE-Â»
 		org.eclipse.gef.editpolicies.LayoutEditPolicy lep = new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
 
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
-				«EXPAND borderItemSelectionEditPolicy-»
+				Â«EXPAND borderItemSelectionEditPolicy-Â»
 				org.eclipse.gef.EditPolicy result = child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new org.eclipse.gef.editpolicies.NonResizableEditPolicy();
@@ -144,30 +144,30 @@
 			}
 		};
 		return lep;
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE borderItemSelectionEditPolicy FOR gmfgen::GenNode-»
-«IF hasBorderItems(self)-»
+Â«DEFINE borderItemSelectionEditPolicy FOR gmfgen::GenNode-Â»
+Â«IF hasBorderItems(self)-Â»
 org.eclipse.gmf.runtime.notation.View childView = (org.eclipse.gmf.runtime.notation.View) child.getModel();
-switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()»(childView)) {
-«IF getExternalLabels(self)->size() > 0-»
-«FOREACH getExternalLabels(self) AS nextLabel-»
-«EXPAND xpt::Common::caseVisualID FOR nextLabel-»
-«ENDFOREACH-»
-	return «EXPAND borderItemSelectionEP»;
-«ENDIF-»
-«IF getSideAffixedChildren(self)->size() > 0-»
-«FOREACH getSideAffixedChildren(self) AS nextBorderItem-»
-«EXPAND xpt::Common::caseVisualID FOR nextBorderItem-»
-«ENDFOREACH-»
+switch (Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR getDiagram()Â»(childView)) {
+Â«IF getExternalLabels(self)->size() > 0-Â»
+Â«FOREACH getExternalLabels(self) AS nextLabel-Â»
+Â«EXPAND xpt::Common::caseVisualID FOR nextLabel-Â»
+Â«ENDFOREACH-Â»
+	return Â«EXPAND borderItemSelectionEPÂ»;
+Â«ENDIF-Â»
+Â«IF getSideAffixedChildren(self)->size() > 0-Â»
+Â«FOREACH getSideAffixedChildren(self) AS nextBorderItem-Â»
+Â«EXPAND xpt::Common::caseVisualID FOR nextBorderItem-Â»
+Â«ENDFOREACH-Â»
 	return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
-«ENDIF-»
+Â«ENDIF-Â»
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE borderItemSelectionEP FOR gmfgen::GenNode-»
+Â«DEFINE borderItemSelectionEP FOR gmfgen::GenNode-Â»
 new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy() {
 
 	protected java.util.List createSelectionHandles() {
@@ -176,151 +176,151 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		return java.util.Collections.singletonList(mh);
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::Viewmap-»
-	«ERROR 'Unknown viewmap: ' + self.repr()-»
-«ENDDEFINE»
+Â«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::Viewmap-Â»
+	Â«ERROR 'Unknown viewmap: ' + self.repr()-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::FigureViewmap-»
-	«LET (if figureQualifiedClassName = null then 'org.eclipse.draw2d.RectangleFigure' else figureQualifiedClassName endif) AS fqn-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::FigureViewmap-Â»
+	Â«LET (if figureQualifiedClassName = null then 'org.eclipse.draw2d.RectangleFigure' else figureQualifiedClassName endif) AS fqn-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.draw2d.IFigure createNodeShape() {
-			return primaryShape = new «fqn»()«IF node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT»{
+			return primaryShape = new Â«fqnÂ»()Â«IF node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUTÂ»{
 				protected boolean useLocalCoordinates() {
 					return true;
 				}
-			}«ENDIF»;
+			}Â«ENDIFÂ»;
 		}
 
-		«EXPAND getPrimaryShapeMethod FOR fqn-»
-	«ENDLET-»
-«ENDDEFINE»
+		Â«EXPAND getPrimaryShapeMethod FOR fqn-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::SnippetViewmap-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::SnippetViewmap-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.draw2d.IFigure createNodeShape() {
-		return «body»;
+		return Â«bodyÂ»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::InnerClassViewmap-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::InnerClassViewmap-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.draw2d.IFigure createNodeShape() {
-		«className» figure = new «className»();
-		«IF node.childNodes->size() > 0 and node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT-»
+		Â«classNameÂ» figure = new Â«classNameÂ»();
+		Â«IF node.childNodes->size() > 0 and node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT-Â»
  		figure.setUseLocalCoordinates(true);
-		«ENDIF-»
+		Â«ENDIF-Â»
  		return primaryShape = figure;
 	}
 
-	«EXPAND getPrimaryShapeMethod FOR className-»
-«ENDDEFINE»
+	Â«EXPAND getPrimaryShapeMethod FOR className-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPrimaryShapeMethod FOR String-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «self» getPrimaryShape() {
-		return («self») primaryShape;
+Â«DEFINE getPrimaryShapeMethod FOR String-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«selfÂ» getPrimaryShape() {
+		return (Â«selfÂ») primaryShape;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addFixedChild FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addFixedChild FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
-«FOREACH getInnerFixedLabels(self) AS label»«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
-		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-			((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName FOR childViewmap»(getPrimaryShape().«childViewmap.getterName»());
+Â«FOREACH getInnerFixedLabels(self) AS labelÂ»Â«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-Â»
+		if (childEditPart instanceof Â«label.getEditPartQualifiedClassName()Â») {
+			((Â«label.getEditPartQualifiedClassName()Â») childEditPart).Â«EXPAND impl::diagram::editparts::TextAware::labelSetterName FOR childViewmapÂ»(getPrimaryShape().Â«childViewmap.getterNameÂ»());
 			return true;
 		}
-«ENDLET»«ENDFOREACH-»
-«FOREACH getPinnedCompartments(self) AS compartment»«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
-		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
-			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
+Â«ENDLETÂ»Â«ENDFOREACH-Â»
+Â«FOREACH getPinnedCompartments(self) AS compartmentÂ»Â«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-Â»
+		if (childEditPart instanceof Â«compartment.getEditPartQualifiedClassName()Â») {
+			org.eclipse.draw2d.IFigure pane = getPrimaryShape().Â«childViewmap.getterNameÂ»();
 			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
-			pane.add(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			pane.add(((Â«compartment.getEditPartQualifiedClassName()Â») childEditPart).getFigure());
 			return true;
 		}	
-«ENDLET»«ENDFOREACH-»
-«FOREACH getSideAffixedChildren(self) AS child-»
-		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
-			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator = new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(), org.eclipse.draw2d.PositionConstants.«child.preferredSideName»);
-			getBorderedFigure().getBorderItemContainer().add(((«child.getEditPartQualifiedClassName()») childEditPart).getFigure(), locator);
+Â«ENDLETÂ»Â«ENDFOREACH-Â»
+Â«FOREACH getSideAffixedChildren(self) AS child-Â»
+		if (childEditPart instanceof Â«child.getEditPartQualifiedClassName()Â») {
+			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator = new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(), org.eclipse.draw2d.PositionConstants.Â«child.preferredSideNameÂ»);
+			getBorderedFigure().getBorderItemContainer().add(((Â«child.getEditPartQualifiedClassName()Â») childEditPart).getFigure(), locator);
 			return true;
 		}
-«ENDFOREACH-»
+Â«ENDFOREACH-Â»
 		return false;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE removeFixedChild FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE removeFixedChild FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
-«FOREACH getInnerFixedLabels(self) AS label»«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
-		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+Â«FOREACH getInnerFixedLabels(self) AS labelÂ»Â«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-Â»
+		if (childEditPart instanceof Â«label.getEditPartQualifiedClassName()Â») {
 			return true;
 		}
-«ENDLET»«ENDFOREACH-»
-«FOREACH getPinnedCompartments(self) AS compartment»«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
-		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
-			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
+Â«ENDLETÂ»Â«ENDFOREACH-Â»
+Â«FOREACH getPinnedCompartments(self) AS compartmentÂ»Â«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-Â»
+		if (childEditPart instanceof Â«compartment.getEditPartQualifiedClassName()Â») {
+			org.eclipse.draw2d.IFigure pane = getPrimaryShape().Â«childViewmap.getterNameÂ»();
 			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
-			pane.remove(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			pane.remove(((Â«compartment.getEditPartQualifiedClassName()Â») childEditPart).getFigure());
 			return true;
 		}	
-«ENDLET»«ENDFOREACH-»
-«FOREACH getSideAffixedChildren(self) AS child-»
-		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
-			getBorderedFigure().getBorderItemContainer().remove(((«child.getEditPartQualifiedClassName()») childEditPart).getFigure());
+Â«ENDLETÂ»Â«ENDFOREACH-Â»
+Â«FOREACH getSideAffixedChildren(self) AS child-Â»
+		if (childEditPart instanceof Â«child.getEditPartQualifiedClassName()Â») {
+			getBorderedFigure().getBorderItemContainer().remove(((Â«child.getEditPartQualifiedClassName()Â») childEditPart).getFigure());
 			return true;
 		}
-«ENDFOREACH-»
+Â«ENDFOREACH-Â»
 		return false;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addChildVisual FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addChildVisual FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
 		if (addFixedChild(childEditPart)) {
 			return;
 		}
 		super.addChildVisual(childEditPart, -1);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE removeChildVisual FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE removeChildVisual FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
 		if (removeFixedChild(childEditPart)){
 			return;
 		}
 		super.removeChildVisual(childEditPart);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getContentPaneFor FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getContentPaneFor FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.draw2d.IFigure getContentPaneFor(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart editPart) {
-		«REM»it is unclear what we should return for labels here«ENDREM-»
-«FOREACH getPinnedCompartments(self) AS compartment»«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
-		if (editPart instanceof «compartment.getEditPartQualifiedClassName()») {
-			return getPrimaryShape().«childViewmap.getterName»();
+		Â«REMÂ»it is unclear what we should return for labels hereÂ«ENDREM-Â»
+Â«FOREACH getPinnedCompartments(self) AS compartmentÂ»Â«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-Â»
+		if (editPart instanceof Â«compartment.getEditPartQualifiedClassName()Â») {
+			return getPrimaryShape().Â«childViewmap.getterNameÂ»();
 		}	
-«ENDLET»«ENDFOREACH-»
-«IF hasBorderItems(self)-»
+Â«ENDLETÂ»Â«ENDFOREACH-Â»
+Â«IF hasBorderItems(self)-Â»
 		if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 			return getBorderedFigure().getBorderItemContainer();
 		}
-«ENDIF-»
+Â«ENDIF-Â»
 		return getContentPane();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addBorderItem FOR gmfgen::GenNode-»
-	«IF getExternalLabels(self)->size() > 0-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addBorderItem FOR gmfgen::GenNode-Â»
+	Â«IF getExternalLabels(self)->size() > 0-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected void addBorderItem(org.eclipse.draw2d.IFigure borderItemContainer, org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart borderItemEditPart) {
-			if («FOREACH getExternalLabels(self) AS label SEPARATOR ' || '»borderItemEditPart instanceof «label.getEditPartQualifiedClassName()»«ENDFOREACH») {
+			if (Â«FOREACH getExternalLabels(self) AS label SEPARATOR ' || 'Â»borderItemEditPart instanceof Â«label.getEditPartQualifiedClassName()Â»Â«ENDFOREACHÂ») {
 				org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator = new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(), org.eclipse.draw2d.PositionConstants.SOUTH);
 				locator.setBorderItemOffset(new org.eclipse.draw2d.geometry.Dimension(-20, -20));
 				borderItemContainer.add(borderItemEditPart.getFigure(), locator);
@@ -328,56 +328,56 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 				super.addBorderItem(borderItemContainer, borderItemEditPart);
 			}
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createNodePlate FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createNodePlate FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createNodePlate() {
-		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result = new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(«IF getDiagram().isPixelMapMode()»«defaultSizeWidth(viewmap, 40)», «defaultSizeHeight(viewmap, 40)»«ELSE»getMapMode().DPtoLP(«defaultSizeWidth(viewmap, 40)»), getMapMode().DPtoLP(«defaultSizeHeight(viewmap, 40)»)«ENDIF»);
-		«EXPAND setupNodePlate-»
+		org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure result = new org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure(Â«IF getDiagram().isPixelMapMode()Â»Â«defaultSizeWidth(viewmap, 40)Â», Â«defaultSizeHeight(viewmap, 40)Â»Â«ELSEÂ»getMapMode().DPtoLP(Â«defaultSizeWidth(viewmap, 40)Â»), getMapMode().DPtoLP(Â«defaultSizeHeight(viewmap, 40)Â»)Â«ENDIFÂ»);
+		Â«EXPAND setupNodePlate-Â»
 		return result;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupNodePlate FOR gmfgen::GenNode»«ENDDEFINE»
+Â«DEFINE setupNodePlate FOR gmfgen::GenNodeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE setupNodePlate FOR gmfgen::GenChildSideAffixedNode»
+Â«DEFINE setupNodePlate FOR gmfgen::GenChildSideAffixedNodeÂ»
 	//FIXME: workaround for #154536
 	result.getBounds().setSize(result.getPreferredSize());
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPrimaryDragEditPolicy FOR gmfgen::GenNode-»
-	«LET getResizeConstraints(viewmap) AS rc-»
-		«IF null <> primaryDragEditPolicyQualifiedClassName or null <> rc-»
-			«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getPrimaryDragEditPolicy FOR gmfgen::GenNode-Â»
+	Â«LET getResizeConstraints(viewmap) AS rc-Â»
+		Â«IF null <> primaryDragEditPolicyQualifiedClassName or null <> rc-Â»
+			Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 			public org.eclipse.gef.EditPolicy getPrimaryDragEditPolicy() {
-				«IF null <> primaryDragEditPolicyQualifiedClassName-»
-					return new «primaryDragEditPolicyQualifiedClassName»();
-				«ELSE-»
+				Â«IF null <> primaryDragEditPolicyQualifiedClassName-Â»
+					return new Â«primaryDragEditPolicyQualifiedClassNameÂ»();
+				Â«ELSE-Â»
 					org.eclipse.gef.EditPolicy result = super.getPrimaryDragEditPolicy();
 					if (result instanceof org.eclipse.gef.editpolicies.ResizableEditPolicy) {
 						org.eclipse.gef.editpolicies.ResizableEditPolicy ep = (org.eclipse.gef.editpolicies.ResizableEditPolicy) result;
 						ep.setResizeDirections(
-							«IF rc.resizeHandleNames->size() > 0-»
-								«FOREACH rc.resizeHandleNames->asSequence() AS name SEPARATOR ' | '»org.eclipse.draw2d.PositionConstants.«name»«ENDFOREACH-»
-							«ELSE»org.eclipse.draw2d.PositionConstants.NONE«ENDIF»);
+							Â«IF rc.resizeHandleNames->size() > 0-Â»
+								Â«FOREACH rc.resizeHandleNames->asSequence() AS name SEPARATOR ' | 'Â»org.eclipse.draw2d.PositionConstants.Â«nameÂ»Â«ENDFOREACH-Â»
+							Â«ELSEÂ»org.eclipse.draw2d.PositionConstants.NONEÂ«ENDIFÂ»);
 					}
 					return result;
-				«ENDIF-»
+				Â«ENDIF-Â»
 			}
-		«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+		Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createFigure FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment(
+Â«DEFINE createFigure FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment(
 		'Creates figure for this edit part.\n' + 
 		'\n' + 
 		'Body of this method does not depend on settings in generation model\n' + 
 		'so you may safely remove <i>generated</i> tag and modify it.\n'
-	)»
-	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems(self)»Main«ELSE»Node«ENDIF»Figure() {
+	)Â»
+	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure createÂ«IF hasBorderItems(self)Â»MainÂ«ELSEÂ»NodeÂ«ENDIFÂ»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new org.eclipse.draw2d.StackLayout());
 		org.eclipse.draw2d.IFigure shape = createNodeShape();
@@ -385,18 +385,18 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		contentPane = setupContentPane(shape);
 		return figure;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupContentPane FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment(
+Â«DEFINE setupContentPane FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment(
 		'Default implementation treats passed figure as content pane.\n' + 
 		'Respects layout one may have set for generated figure.\n' + 
 		'@param nodeShape instance of generated figure class'
-	)»
+	)Â»
 	protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
-		«IF not childNodes->isEmpty() or (not compartments->isEmpty() or not labels->-((labels)[gmfgen::GenExternalNodeLabel])->isEmpty())-»
+		Â«IF not childNodes->isEmpty() or (not compartments->isEmpty() or not labels->-((labels)[gmfgen::GenExternalNodeLabel])->isEmpty())-Â»
 			if (nodeShape.getLayoutManager() == null) {
-				«IF getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT-»
+				Â«IF getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT-Â»
 					nodeShape.setLayoutManager(new org.eclipse.draw2d.FreeformLayout() {
 
 						public Object getConstraint(org.eclipse.draw2d.IFigure figure) {
@@ -407,175 +407,175 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 							return result;
 						}
 					});
-				«ELSE-»
+				Â«ELSE-Â»
 					org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout layout =new org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout();
-					layout.setSpacing(«IF getDiagram().isPixelMapMode()»5«ELSE»getMapMode().DPtoLP(5)«ENDIF»);
+					layout.setSpacing(Â«IF getDiagram().isPixelMapMode()Â»5Â«ELSEÂ»getMapMode().DPtoLP(5)Â«ENDIFÂ»);
 					nodeShape.setLayoutManager(layout);
-				«ENDIF-»
+				Â«ENDIF-Â»
 			}
-		«ENDIF-»
+		Â«ENDIF-Â»
 		return nodeShape; // use nodeShape itself as contentPane
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getContentPane FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getContentPane FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.draw2d.IFigure getContentPane() {
 		if (contentPane != null) {
 			return contentPane;
 		}
 		return super.getContentPane();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setForegroundColor FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setForegroundColor FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setForegroundColor(org.eclipse.swt.graphics.Color color) {
 		if (primaryShape != null) {
 			primaryShape.setForegroundColor(color);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setBackgroundColor FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setBackgroundColor FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setBackgroundColor(org.eclipse.swt.graphics.Color color) {
 		if (primaryShape != null) {
 			primaryShape.setBackgroundColor(color);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setLineWidth FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setLineWidth FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setLineWidth(int width) {
 		if (primaryShape instanceof org.eclipse.draw2d.Shape) {
-			((org.eclipse.draw2d.Shape) primaryShape).setLineWidth(«IF getDiagram().isPixelMapMode()»width«ELSE»getMapMode().DPtoLP(width)«ENDIF»);
+			((org.eclipse.draw2d.Shape) primaryShape).setLineWidth(Â«IF getDiagram().isPixelMapMode()Â»widthÂ«ELSEÂ»getMapMode().DPtoLP(width)Â«ENDIFÂ»);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setLineStyle FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setLineStyle FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setLineType(int style) {
 		if (primaryShape instanceof org.eclipse.draw2d.Shape) {
 			((org.eclipse.draw2d.Shape) primaryShape).setLineStyle(style);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPrimaryChildEditPart FOR gmfgen::GenNode-»
-	«IF not labels->isEmpty()-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getPrimaryChildEditPart FOR gmfgen::GenNode-Â»
+	Â«IF not labels->isEmpty()-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public org.eclipse.gef.EditPart getPrimaryChildEditPart() {
-			return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR labels->first().oclAsType(gmfgen::GenLabel)»);
+			return getChildBySemanticHint(Â«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR labels->first().oclAsType(gmfgen::GenLabel)Â»);
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 // pre: getAssistantOutgoingLinks(this).size() > 0
-«DEFINE getMARelTypesOnSource FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getMARelTypesOnSource FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMARelTypesOnSource() {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		«FOREACH getAssistantOutgoingLinks(self) AS link-»
-		types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
-		«ENDFOREACH-»
+		Â«FOREACH getAssistantOutgoingLinks(self) AS link-Â»
+		types.add(Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR linkÂ»);
+		Â«ENDFOREACH-Â»
 		return types;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 // pre: getAssistantIncomingLinks(this).size() > 0
-«DEFINE getMARelTypesOnTarget FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getMARelTypesOnTarget FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMARelTypesOnTarget() {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		«FOREACH getAssistantIncomingLinks(self) AS link-»
-		types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
-		«ENDFOREACH-»
+		Â«FOREACH getAssistantIncomingLinks(self) AS link-Â»
+		types.add(Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR linkÂ»);
+		Â«ENDFOREACH-Â»
 		return types;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 // pre: getAssistantOutgoingLinks(this).size() > 0
-«DEFINE getMARelTypesOnSourceAndTarget FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getMARelTypesOnSourceAndTarget FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMARelTypesOnSourceAndTarget(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart targetEditPart) {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		«FOREACH getAssistantOutgoingLinks(self) AS link-»
-			«FOREACH selectGenNodes(link.targets->asSequence()) AS target-»
-		if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
-			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
+		Â«FOREACH getAssistantOutgoingLinks(self) AS link-Â»
+			Â«FOREACH selectGenNodes(link.targets->asSequence()) AS target-Â»
+		if (targetEditPart instanceof Â«target.getEditPartQualifiedClassName()Â») {
+			types.add(Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR linkÂ»);
 		}
-			«ENDFOREACH-»
-		«ENDFOREACH-»
+			Â«ENDFOREACH-Â»
+		Â«ENDFOREACH-Â»
 		return types;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 // pre: getAssistantIncomingLinks(this).size() > 0
-«DEFINE getMATypesForSource FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getMATypesForSource FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMATypesForSource(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		«FOREACH getAssistantIncomingLinks(self) AS link-»
-			«FOREACH selectGenNodes(link.sources->asSequence()) AS source-»
-		if (relationshipType == «EXPAND xpt::providers::ElementTypes::accessElementType FOR link») {
-			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR source»);
+		Â«FOREACH getAssistantIncomingLinks(self) AS link-Â»
+			Â«FOREACH selectGenNodes(link.sources->asSequence()) AS source-Â»
+		if (relationshipType == Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR linkÂ») {
+			types.add(Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR sourceÂ»);
 		}
-			«ENDFOREACH-»
-		«ENDFOREACH-»
+			Â«ENDFOREACH-Â»
+		Â«ENDFOREACH-Â»
 		return types;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 // pre: getAssistantOutgoingLinks(this).size() > 0
-«DEFINE getMATypesForTarget FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getMATypesForTarget FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ getMATypesForTarget(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 		java.util.List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/ types = new java.util.ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		«FOREACH getAssistantOutgoingLinks(self) AS link-»
-			«FOREACH (link.targets)[gmfgen::GenNode]->asSequence() AS target-»
-		if (relationshipType == «EXPAND xpt::providers::ElementTypes::accessElementType FOR link») {
-			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR target»);
+		Â«FOREACH getAssistantOutgoingLinks(self) AS link-Â»
+			Â«FOREACH (link.targets)[gmfgen::GenNode]->asSequence() AS target-Â»
+		if (relationshipType == Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR linkÂ») {
+			types.add(Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR targetÂ»);
 		}
-			«ENDFOREACH-»
-		«ENDFOREACH-»
+			Â«ENDFOREACH-Â»
+		Â«ENDFOREACH-Â»
 		return types;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEventBody FOR gmfgen::GenTopLevelNode-»
+Â«DEFINE handleNotificationEventBody FOR gmfgen::GenTopLevelNode-Â»
 	if (event.getNotifier() == getModel() && org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
 		handleMajorSemanticChange();
 	} else {
 		super.handleNotificationEvent(event);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE innerClassDeclaration FOR gmfgen::Viewmap»
-«ENDDEFINE»
+Â«DEFINE innerClassDeclaration FOR gmfgen::ViewmapÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE innerClassDeclaration FOR gmfgen::InnerClassViewmap»
-	«classBody»
-«ENDDEFINE»
+Â«DEFINE innerClassDeclaration FOR gmfgen::InnerClassViewmapÂ»
+	Â«classBodyÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE getTargetEditPartMethod FOR gmfgen::GenNode»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getTargetEditPartMethod FOR gmfgen::GenNodeÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
 		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
 			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
-«FOREACH compartments->asSequence() AS compartment-»
-	«IF listCompartmentHasChildren(compartment)-»
-		«FOREACH compartment.childNodes->asSequence() AS childNode-»
-			if (type == «EXPAND xpt::providers::ElementTypes::accessElementType FOR childNode») {
-				return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR compartment»);
+Â«FOREACH compartments->asSequence() AS compartment-Â»
+	Â«IF listCompartmentHasChildren(compartment)-Â»
+		Â«FOREACH compartment.childNodes->asSequence() AS childNode-Â»
+			if (type == Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR childNodeÂ») {
+				return getChildBySemanticHint(Â«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR compartmentÂ»);
 			}
-		«ENDFOREACH-»
-	«ENDIF-»
-«ENDFOREACH-»
+		Â«ENDFOREACH-Â»
+	Â«ENDIF-Â»
+Â«ENDFOREACH-Â»
 		}
 		return super.getTargetEditPart(request);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,54 +10,54 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE DiagramItemSemanticEditPolicy FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «editPoliciesPackageName»;
+Â«DEFINE DiagramItemSemanticEditPolicy FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«editPoliciesPackageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «itemSemanticEditPolicyClassName» extends «getBaseItemSemanticEditPolicyQualifiedClassName()» {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«itemSemanticEditPolicyClassNameÂ» extends Â«getBaseItemSemanticEditPolicyQualifiedClassName()Â» {
 
-	«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::defaultConstructor-»
+	Â«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::defaultConstructor-Â»
 
-	«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR topLevelNodes->asSequence()-»
+	Â«EXPAND xpt::diagram::editpolicies::childContainerCreateCommand::childContainerCreateCommand FOR topLevelNodes->asSequence()-Â»
 	
-	«EXPAND getDuplicateCommand-»
+	Â«EXPAND getDuplicateCommand-Â»
 	
-	«EXPAND DuplicateAnythingCommand-»
+	Â«EXPAND DuplicateAnythingCommand-Â»
 	
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDuplicateCommand FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDuplicateCommand FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getDuplicateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 	return getGEFWrapper(new DuplicateAnythingCommand(editingDomain, req));
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE DuplicateAnythingCommand FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE DuplicateAnythingCommand FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 private static class DuplicateAnythingCommand extends org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand {
 
-	«EXPAND DAC_constructor-»
+	Â«EXPAND DAC_constructor-Â»
 
-	«EXPAND DAC_additions-»
+	Â«EXPAND DAC_additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE DAC_constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE DAC_constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public DuplicateAnythingCommand(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain, org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 	super(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE DAC_additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE DAC_additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

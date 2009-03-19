@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,104 +10,104 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«EXTENSION Facility»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION gmf::GenModelUtils»
+Â«EXTENSION FacilityÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION gmf::GenModelUtilsÂ»
 
 // XXX is isExternalInterface use valid here, won't all objects be just EObject?
 
-«DEFINE IsInstance(accessor : String) FOR genmodel::GenClass-»
-«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().isInstance(«accessor», "«ecoreClass.name»")«ENDDEFINE»
+Â«DEFINE IsInstance(accessor : String) FOR genmodel::GenClass-Â»
+Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genPackage)Â»().isInstance(Â«accessorÂ», "Â«ecoreClass.nameÂ»")Â«ENDDEFINEÂ»
 
-«DEFINE NotInstance(accessor : String) FOR genmodel::GenClass»!«EXPAND IsInstance(accessor)»«ENDDEFINE»
+Â«DEFINE NotInstance(accessor : String) FOR genmodel::GenClassÂ»!Â«EXPAND IsInstance(accessor)Â»Â«ENDDEFINEÂ»
 
-«DEFINE IsContainerInstance(_object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-»
-«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().isInstance(«IF isExternalInterface(self)»((org.eclipse.emf.ecore.EObject) «_object»)«ELSE»«_object»«ENDIF».eContainer(), "«ecoreClass.name»")«ENDDEFINE»
+Â«DEFINE IsContainerInstance(_object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-Â»
+Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genPackage)Â»().isInstance(Â«IF isExternalInterface(self)Â»((org.eclipse.emf.ecore.EObject) Â«_objectÂ»)Â«ELSEÂ»Â«_objectÂ»Â«ENDIFÂ».eContainer(), "Â«ecoreClass.nameÂ»")Â«ENDDEFINEÂ»
 
-«DEFINE getFeatureValue(containerVar : String, containerClass : genmodel::GenClass) FOR genmodel::GenFeature-»
-((«EXPAND featureTargetType») «IF isExternalInterface(containerClass)-»
-((org.eclipse.emf.ecore.EObject) «containerVar»)«ELSE-»
-«containerVar»«ENDIF-»
-.eGet(«EXPAND MetaFeature»))«ENDDEFINE»
+Â«DEFINE getFeatureValue(containerVar : String, containerClass : genmodel::GenClass) FOR genmodel::GenFeature-Â»
+((Â«EXPAND featureTargetTypeÂ») Â«IF isExternalInterface(containerClass)-Â»
+((org.eclipse.emf.ecore.EObject) Â«containerVarÂ»)Â«ELSE-Â»
+Â«containerVarÂ»Â«ENDIF-Â»
+.eGet(Â«EXPAND MetaFeatureÂ»))Â«ENDDEFINEÂ»
 
-«DEFINE featureTargetType FOR genmodel::GenFeature-»
-«EXPAND _featureTargetType(self) FOR ecoreFeature-»
-«ENDDEFINE»
+Â«DEFINE featureTargetType FOR genmodel::GenFeature-Â»
+Â«EXPAND _featureTargetType(self) FOR ecoreFeature-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _featureTargetType(gf : genmodel::GenFeature) FOR ecore::EStructuralFeature»NO-OP«ENDDEFINE»
-«DEFINE _featureTargetType(gf : genmodel::GenFeature) FOR ecore::EReference-»
-«IF isListType(gf)»java.util.List«ELSE»org.eclipse.emf.ecore.EObject«ENDIF-»
-«ENDDEFINE»
-«DEFINE _featureTargetType(gf : genmodel::GenFeature) FOR ecore::EAttribute-»
-«IF isListType(gf)»java.util.List«ELSE»«getObjectCompatibleClassName(eAttributeType)»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE _featureTargetType(gf : genmodel::GenFeature) FOR ecore::EStructuralFeatureÂ»NO-OPÂ«ENDDEFINEÂ»
+Â«DEFINE _featureTargetType(gf : genmodel::GenFeature) FOR ecore::EReference-Â»
+Â«IF isListType(gf)Â»java.util.ListÂ«ELSEÂ»org.eclipse.emf.ecore.EObjectÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
+Â«DEFINE _featureTargetType(gf : genmodel::GenFeature) FOR ecore::EAttribute-Â»
+Â«IF isListType(gf)Â»java.util.ListÂ«ELSEÂ»Â«getObjectCompatibleClassName(eAttributeType)Â»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getFeatureValue(containerVar : String, container : genmodel::GenClass, needsCastToResultType : Boolean) FOR genmodel::GenFeature-»
+Â«DEFINE getFeatureValue(containerVar : String, container : genmodel::GenClass, needsCastToResultType : Boolean) FOR genmodel::GenFeature-Â»
 // ??? FIXME
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setFeatureValue(containerVar : String, containerClass : genmodel::GenClass, valueVar : String) FOR genmodel::GenFeature-»
-«IF isExternalInterface(containerClass)-»
-((org.eclipse.emf.ecore.EObject) «containerVar»)«ELSE-»
-«containerVar»«ENDIF-»
-.eSet(«EXPAND MetaFeature», «valueVar»)«ENDDEFINE»
+Â«DEFINE setFeatureValue(containerVar : String, containerClass : genmodel::GenClass, valueVar : String) FOR genmodel::GenFeature-Â»
+Â«IF isExternalInterface(containerClass)-Â»
+((org.eclipse.emf.ecore.EObject) Â«containerVarÂ»)Â«ELSE-Â»
+Â«containerVarÂ»Â«ENDIF-Â»
+.eSet(Â«EXPAND MetaFeatureÂ», Â«valueVarÂ»)Â«ENDDEFINEÂ»
 
-«DEFINE setFeatureValue(containerVar : String, containerClass : genmodel::GenClass, valueVar : String, isPlainObjectValue : Boolean) FOR genmodel::GenFeature-»
-«EXPAND setFeatureValue(containerVar, containerClass, valueVar)»«ENDDEFINE»
+Â«DEFINE setFeatureValue(containerVar : String, containerClass : genmodel::GenClass, valueVar : String, isPlainObjectValue : Boolean) FOR genmodel::GenFeature-Â»
+Â«EXPAND setFeatureValue(containerVar, containerClass, valueVar)Â»Â«ENDDEFINEÂ»
 
-«DEFINE MetaClass FOR genmodel::GenDataType»«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().getEDataType("«ecoreDataType.name»")«ENDDEFINE»
-«DEFINE MetaClass FOR genmodel::GenEnum»«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().getEEnum("«ecoreEnum.name»")«ENDDEFINE»
-«DEFINE MetaClass FOR genmodel::GenClass»«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().getEClass("«ecoreClass.name»")«ENDDEFINE»
+Â«DEFINE MetaClass FOR genmodel::GenDataTypeÂ»Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genPackage)Â»().getEDataType("Â«ecoreDataType.nameÂ»")Â«ENDDEFINEÂ»
+Â«DEFINE MetaClass FOR genmodel::GenEnumÂ»Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genPackage)Â»().getEEnum("Â«ecoreEnum.nameÂ»")Â«ENDDEFINEÂ»
+Â«DEFINE MetaClass FOR genmodel::GenClassÂ»Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genPackage)Â»().getEClass("Â«ecoreClass.nameÂ»")Â«ENDDEFINEÂ»
 
-«DEFINE MetaFeature FOR genmodel::GenFeature»«EXPAND _metaFeature(ecoreFeature)»«ENDDEFINE»
+Â«DEFINE MetaFeature FOR genmodel::GenFeatureÂ»Â«EXPAND _metaFeature(ecoreFeature)Â»Â«ENDDEFINEÂ»
 
-«DEFINE _metaFeature(f : ecore::EStructuralFeature) FOR genmodel::GenFeature»no-op«ENDDEFINE»
-«DEFINE _metaFeature(eRef : ecore::EReference) FOR genmodel::GenFeature»«getDMA().getQualifiedClassName()».get«getNameToken(genClass.genPackage)»().getEReference("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
-«DEFINE _metaFeature(eAttr : ecore::EAttribute) FOR genmodel::GenFeature»«getDMA().getQualifiedClassName()».get«getNameToken(genClass.genPackage)»().getEAttribute("«genClass.ecoreClass.name»", "«ecoreFeature.name»")«ENDDEFINE»
+Â«DEFINE _metaFeature(f : ecore::EStructuralFeature) FOR genmodel::GenFeatureÂ»no-opÂ«ENDDEFINEÂ»
+Â«DEFINE _metaFeature(eRef : ecore::EReference) FOR genmodel::GenFeatureÂ»Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genClass.genPackage)Â»().getEReference("Â«genClass.ecoreClass.nameÂ»", "Â«ecoreFeature.nameÂ»")Â«ENDDEFINEÂ»
+Â«DEFINE _metaFeature(eAttr : ecore::EAttribute) FOR genmodel::GenFeatureÂ»Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genClass.genPackage)Â»().getEAttribute("Â«genClass.ecoreClass.nameÂ»", "Â«ecoreFeature.nameÂ»")Â«ENDDEFINEÂ»
 
-«DEFINE NewInstance FOR genmodel::GenClass-»
-«getDMA().getQualifiedClassName()».get«getNameToken(genPackage)»().newInstance("«ecoreClass.name»")«ENDDEFINE»
+Â«DEFINE NewInstance FOR genmodel::GenClass-Â»
+Â«getDMA().getQualifiedClassName()Â».getÂ«getNameToken(genPackage)Â»().newInstance("Â«ecoreClass.nameÂ»")Â«ENDDEFINEÂ»
 
-«DEFINE NewInstance(varName : String) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «varName» = «EXPAND NewInstance»;«ENDDEFINE»
+Â«DEFINE NewInstance(varName : String) FOR genmodel::GenClass-Â»
+org.eclipse.emf.ecore.EObject Â«varNameÂ» = Â«EXPAND NewInstanceÂ»;Â«ENDDEFINEÂ»
 
-«DEFINE DowncastToEObject(value : String) FOR genmodel::GenClass»«IF isExternalInterface(self)»(org.eclipse.emf.ecore.EObject) «ENDIF»«value»«ENDDEFINE»
+Â«DEFINE DowncastToEObject(value : String) FOR genmodel::GenClassÂ»Â«IF isExternalInterface(self)Â»(org.eclipse.emf.ecore.EObject) Â«ENDIFÂ»Â«valueÂ»Â«ENDDEFINEÂ»
 
-«DEFINE DeclareAndAssign(assignee : String, value : String) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «assignee» = «value»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String) FOR genmodel::GenClass-Â»
+org.eclipse.emf.ecore.EObject Â«assigneeÂ» = Â«valueÂ»;Â«ENDDEFINEÂ»
 
-«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «assignee» = «IF isPlainObjectValue»(org.eclipse.emf.ecore.EObject)«ENDIF»«value»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClass-Â»
+org.eclipse.emf.ecore.EObject Â«assigneeÂ» = Â«IF isPlainObjectValueÂ»(org.eclipse.emf.ecore.EObject)Â«ENDIFÂ»Â«valueÂ»;Â«ENDDEFINEÂ»
 
-«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClassifier»NO-OP«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClassifierÂ»NO-OPÂ«ENDDEFINEÂ»
 
-«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenDataType-»
-«EXPAND QualifiedClassName» «assignee» = («EXPAND QualifiedClassName») «value»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenDataType-Â»
+Â«EXPAND QualifiedClassNameÂ» Â«assigneeÂ» = (Â«EXPAND QualifiedClassNameÂ») Â«valueÂ»;Â«ENDDEFINEÂ»
 
 
-«DEFINE DeclareAndAssignContainer(assignee : String, _object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «assignee» = «IF isExternalInterface(metaClass)»((org.eclipse.emf.ecore.EObject) «_object»)«ELSE»«_object»«ENDIF».eContainer();«ENDDEFINE»
+Â«DEFINE DeclareAndAssignContainer(assignee : String, _object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-Â»
+org.eclipse.emf.ecore.EObject Â«assigneeÂ» = Â«IF isExternalInterface(metaClass)Â»((org.eclipse.emf.ecore.EObject) Â«_objectÂ»)Â«ELSEÂ»Â«_objectÂ»Â«ENDIFÂ».eContainer();Â«ENDDEFINEÂ»
 
 // FIXME - feature value is not necessarily of EObject type
-«DEFINE DeclareAndAssign(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «assignee» = «EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature) FOR genmodel::GenClass-Â»
+org.eclipse.emf.ecore.EObject Â«assigneeÂ» = Â«EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeatureÂ»;Â«ENDDEFINEÂ»
 
-«DEFINE DeclareAndAssign2(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature, srcExt : String, needCast : Boolean) FOR genmodel::GenClass-»
-org.eclipse.emf.ecore.EObject «assignee» = «EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeature».«srcExt»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign2(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature, srcExt : String, needCast : Boolean) FOR genmodel::GenClass-Â»
+org.eclipse.emf.ecore.EObject Â«assigneeÂ» = Â«EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeatureÂ».Â«srcExtÂ»;Â«ENDDEFINEÂ»
 
-«DEFINE CastEObject(eObjectValue : String) FOR genmodel::GenClass»«eObjectValue»«ENDDEFINE»
+Â«DEFINE CastEObject(eObjectValue : String) FOR genmodel::GenClassÂ»Â«eObjectValueÂ»Â«ENDDEFINEÂ»
 
-«DEFINE QualifiedClassName FOR genmodel::GenClassifier»NO-OP«ENDDEFINE»
-«DEFINE QualifiedClassName FOR genmodel::GenClass»org.eclipse.emf.ecore.EObject«ENDDEFINE»
-«DEFINE QualifiedClassName FOR genmodel::GenEnum»org.eclipse.emf.common.util.Enumerator«ENDDEFINE»
-«DEFINE QualifiedClassName FOR genmodel::GenDataType»«getObjectCompatibleClassName(ecoreDataType)»«ENDDEFINE»
+Â«DEFINE QualifiedClassName FOR genmodel::GenClassifierÂ»NO-OPÂ«ENDDEFINEÂ»
+Â«DEFINE QualifiedClassName FOR genmodel::GenClassÂ»org.eclipse.emf.ecore.EObjectÂ«ENDDEFINEÂ»
+Â«DEFINE QualifiedClassName FOR genmodel::GenEnumÂ»org.eclipse.emf.common.util.EnumeratorÂ«ENDDEFINEÂ»
+Â«DEFINE QualifiedClassName FOR genmodel::GenDataTypeÂ»Â«getObjectCompatibleClassName(ecoreDataType)Â»Â«ENDDEFINEÂ»
 
-«DEFINE PopulateItemProviderFactories(factoryListVar : String) FOR gmfgen::GenEditorGenerator-»
-«REM»
+Â«DEFINE PopulateItemProviderFactories(factoryListVar : String) FOR gmfgen::GenEditorGenerator-Â»
+Â«REMÂ»
 	NO-OP since ReflectiveItemProviderAdapterFactory should
 	get added anyway.
-«ENDREM»«ENDDEFINE»
+Â«ENDREMÂ»Â«ENDDEFINEÂ»

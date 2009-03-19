@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,64 +11,64 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::diagram::editparts::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::diagram::editparts::UtilsÂ»
 
-«DEFINE Main FOR gmfgen::GenCompartment-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE Main FOR gmfgen::GenCompartment-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND extendsListÂ» Â«EXPAND implementsListÂ» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::contsructor-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::contsructor-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::hasModelChildrenChanged-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::hasModelChildrenChanged-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::getCompartmentName-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::getCompartmentName-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::createFigure-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::createFigure-Â»
 	
-	«EXPAND createDefaultEditPolicies-»
+	Â«EXPAND createDefaultEditPolicies-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::refreshVisuals-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::refreshVisuals-Â»
 	
-	«EXPAND handleNotificationEvent-»
+	Â«EXPAND handleNotificationEvent-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::refreshBounds-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::refreshBounds-Â»
 	
-	«EXPAND impl::diagram::editparts::CompartmentEditPart::setRatio-»
+	Â«EXPAND impl::diagram::editparts::CompartmentEditPart::setRatio-Â»
 	
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenCompartment-»
-extends «IF listLayout»org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenCompartment-Â»
+extends Â«IF listLayoutÂ»org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPartÂ«ELSEÂ»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPartÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenCompartment»«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenCompartmentÂ»Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenCompartment-»
-	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR self-»
-«ENDDEFINE»
+Â«DEFINE attributes FOR gmfgen::GenCompartment-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPolicies FOR gmfgen::GenCompartment-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDefaultEditPolicies FOR gmfgen::GenCompartment-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void createDefaultEditPolicies() {
-		«EXPAND impl::diagram::editparts::CompartmentEditPart::createDefaultEditPoliciesBody-»
+		Â«EXPAND impl::diagram::editparts::CompartmentEditPart::createDefaultEditPoliciesBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEvent FOR gmfgen::GenCompartment-»
-	«IF isStoringChildPositions(node)-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleNotificationEvent FOR gmfgen::GenCompartment-Â»
+	Â«IF isStoringChildPositions(node)-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
-			«EXPAND impl::diagram::editparts::CompartmentEditPart::handleNotificationEventBody-»
+			Â«EXPAND impl::diagram::editparts::CompartmentEditPart::handleNotificationEventBody-Â»
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenCompartment»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenCompartmentÂ»Â«ENDDEFINEÂ»

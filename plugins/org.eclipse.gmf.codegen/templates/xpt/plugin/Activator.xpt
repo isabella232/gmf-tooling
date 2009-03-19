@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,37 +10,37 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE Activator FOR gmfgen::GenPlugin-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE Activator FOR gmfgen::GenPlugin-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«activatorClassNameÂ» extends org.eclipse.ui.plugin.AbstractUIPlugin {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String ID = "«iD»"; //$NON-NLS-1$
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final String ID = "Â«iDÂ»"; //$NON-NLS-1$
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static final org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint DIAGRAM_PREFERENCES_HINT =
 			new org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint(ID);
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static «activatorClassName» instance;
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private static Â«activatorClassNameÂ» instance;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.emf.edit.provider.ComposedAdapterFactory adapterFactory;	
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «editorGen.diagram.getDocumentProviderQualifiedClassName()» documentProvider;
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«editorGen.diagram.getDocumentProviderQualifiedClassName()Â» documentProvider;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «activatorClassName»() {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«activatorClassNameÂ»() {
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
@@ -48,7 +48,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 		adapterFactory = createAdapterFactory();
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void stop(org.osgi.framework.BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
@@ -56,31 +56,31 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 		super.stop(context);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static «activatorClassName» getInstance() {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static Â«activatorClassNameÂ» getInstance() {
 		return instance;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.emf.edit.provider.ComposedAdapterFactory createAdapterFactory() {
 		java.util.List factories = new java.util.ArrayList();
 		fillItemProviderFactories(factories);
 		return new org.eclipse.emf.edit.provider.ComposedAdapterFactory(factories);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void fillItemProviderFactories(java.util.List factories) {
-«EXPAND MetaModel::PopulateItemProviderFactories('factories') FOR editorGen-»
+Â«EXPAND MetaModel::PopulateItemProviderFactories('factories') FOR editorGen-Â»
 		factories.add(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		factories.add(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.common.notify.AdapterFactory getItemProvidersAdapterFactory() {
 		return adapterFactory;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.jface.resource.ImageDescriptor getItemImageDescriptor(Object item) {
 		org.eclipse.emf.edit.provider.IItemLabelProvider labelProvider =
 				(org.eclipse.emf.edit.provider.IItemLabelProvider) adapterFactory.adapt(
@@ -150,51 +150,51 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 				getInstance().getBundle(), "%" + key); //$NON-NLS-1$
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editorGen.diagram.getDocumentProviderQualifiedClassName()» getDocumentProvider() {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editorGen.diagram.getDocumentProviderQualifiedClassName()Â» getDocumentProvider() {
 		if (documentProvider == null) {
-			documentProvider = new «editorGen.diagram.getDocumentProviderQualifiedClassName()»();
+			documentProvider = new Â«editorGen.diagram.getDocumentProviderQualifiedClassName()Â»();
 		}
 		return documentProvider;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void logError(String error) {
 		logError(error, null);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void logError(String error, Throwable throwable) {
 		if (error == null && throwable != null) {
 			error = throwable.getMessage();
 		}
 		getLog().log(new org.eclipse.core.runtime.Status(
 				org.eclipse.core.runtime.IStatus.ERROR,
-				«activatorClassName».ID,
+				Â«activatorClassNameÂ».ID,
 				org.eclipse.core.runtime.IStatus.OK,
 				error, throwable));
 		debug(error, throwable);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void logInfo(String message) {
 		logInfo(message, null);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void logInfo(String message, Throwable throwable) {
 		if (message == null && throwable != null) {
 			message = throwable.getMessage();
 		}
 		getLog().log(new org.eclipse.core.runtime.Status(
 				org.eclipse.core.runtime.IStatus.INFO,
-				«activatorClassName».ID,
+				Â«activatorClassNameÂ».ID,
 				org.eclipse.core.runtime.IStatus.OK,
 				message, throwable));
 		debug(message, throwable);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private void debug(String message, Throwable throwable) {
 		if (!isDebugging()) {
 			return;
@@ -206,13 +206,13 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlugin
 			throwable.printStackTrace();
 		}
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 // Perhaps, xpt:editor::Editor or some xpt::CommonCode would be better place for
 // this accessor.
 // XXX besides, consider using preference store directly, without a hint (see comment in Editor.xpt#getPreferencesHint)
-«DEFINE preferenceHintAccess FOR gmfgen::GenEditorGenerator»«plugin.getActivatorQualifiedClassName()».DIAGRAM_PREFERENCES_HINT«ENDDEFINE»
+Â«DEFINE preferenceHintAccess FOR gmfgen::GenEditorGeneratorÂ»Â«plugin.getActivatorQualifiedClassName()Â».DIAGRAM_PREFERENCES_HINTÂ«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenPlugin»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenPluginÂ»Â«ENDDEFINEÂ»

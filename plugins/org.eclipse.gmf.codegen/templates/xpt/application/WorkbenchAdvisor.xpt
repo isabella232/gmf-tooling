@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,54 +10,54 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE WorkbenchAdvisor FOR gmfgen::GenApplication-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE WorkbenchAdvisor FOR gmfgen::GenApplication-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «workbenchAdvisorClassName» extends org.eclipse.ui.application.WorkbenchAdvisor {
-«EXPAND perspectiveId-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«workbenchAdvisorClassNameÂ» extends org.eclipse.ui.application.WorkbenchAdvisor {
+Â«EXPAND perspectiveId-Â»
 
-«EXPAND getInitialWindowPerspectiveId-»
+Â«EXPAND getInitialWindowPerspectiveId-Â»
 
-«EXPAND initialize-»
+Â«EXPAND initialize-Â»
 
-«EXPAND createWorkbenchWindowAdvisor-»
+Â«EXPAND createWorkbenchWindowAdvisor-Â»
 
-«EXPAND additions-»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE perspectiveId FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String PERSPECTIVE_ID = "«perspectiveId»"; «EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE perspectiveId FOR gmfgen::GenApplication-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final String PERSPECTIVE_ID = "Â«perspectiveIdÂ»"; Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE getInitialWindowPerspectiveId FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getInitialWindowPerspectiveId FOR gmfgen::GenApplication-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getInitialWindowPerspectiveId() {
 		return PERSPECTIVE_ID;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE initialize FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE initialize FOR gmfgen::GenApplication-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void initialize(org.eclipse.ui.application.IWorkbenchConfigurer configurer) {
 		super.initialize(configurer);
 		configurer.setSaveAndRestore(true);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createWorkbenchWindowAdvisor FOR gmfgen::GenApplication-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createWorkbenchWindowAdvisor FOR gmfgen::GenApplication-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.ui.application.WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
 			org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
-		return new «getWorkbenchWindowAdvisorQualifiedClassName()»(configurer);
+		return new Â«getWorkbenchWindowAdvisorQualifiedClassName()Â»(configurer);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenApplication-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenApplication-Â»
+Â«ENDDEFINEÂ»

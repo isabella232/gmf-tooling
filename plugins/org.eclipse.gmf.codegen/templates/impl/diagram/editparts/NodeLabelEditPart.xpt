@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,19 +11,19 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::diagram::editparts::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::diagram::editparts::UtilsÂ»
 
-«DEFINE _constructor FOR gmfgen::GenNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+Â«DEFINE _constructor FOR gmfgen::GenNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenNodeLabel-»
+Â«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenNodeLabel-Â»
 	super.createDefaultEditPolicies();
-	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»());
+	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new Â«getDiagram().getTextSelectionEditPolicyQualifiedClassName()Â»());
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new org.eclipse.gef.editpolicies.NonResizableEditPolicy() {
 
@@ -42,12 +42,12 @@
 			return false;
 		}
 	});
-	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
-«ENDDEFINE»
+	Â«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshBounds FOR gmfgen::GenNodeLabel-»
-	«IF isStoringChildPositions(node)-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshBounds FOR gmfgen::GenNodeLabel-Â»
+	Â«IF isStoringChildPositions(node)-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected void refreshBounds() {
 			int width = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width())).intValue();
 			int height = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
@@ -57,14 +57,14 @@
 			org.eclipse.draw2d.geometry.Point loc = new org.eclipse.draw2d.geometry.Point(x, y);
 			((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), new org.eclipse.draw2d.geometry.Rectangle(loc, size));
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEventBody FOR gmfgen::GenNodeLabel-»
+Â«DEFINE handleNotificationEventBody FOR gmfgen::GenNodeLabel-Â»
 	Object feature = event.getFeature();
-	«IF isStoringChildPositions(node)-»
-		«EXPAND xpt::diagram::editparts::Common::handleBounds FOR self-»
-	«ENDIF-»
-	«EXPAND xpt::diagram::editparts::Common::handleText FOR self-»
+	Â«IF isStoringChildPositions(node)-Â»
+		Â«EXPAND xpt::diagram::editparts::Common::handleBounds FOR self-Â»
+	Â«ENDIF-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::handleText FOR self-Â»
 	super.handleNotificationEvent(event);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

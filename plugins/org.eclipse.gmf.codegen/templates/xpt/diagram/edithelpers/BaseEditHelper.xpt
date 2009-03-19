@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,25 +10,25 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE BaseEditHelper FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editHelpersPackageName»;
+Â«DEFINE BaseEditHelper FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editHelpersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «baseEditHelperClassName» extends org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«baseEditHelperClassNameÂ» extends org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND getEditHelperAdvice-»
+	Â«EXPAND getEditHelperAdvice-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getInsteadCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest req) {
 		org.eclipse.gmf.runtime.common.core.command.ICommand epCommand =
-				(org.eclipse.gmf.runtime.common.core.command.ICommand) req.getParameter(«EXPAND editPolicyCommand»);
-		req.setParameter(«EXPAND editPolicyCommand», null);
+				(org.eclipse.gmf.runtime.common.core.command.ICommand) req.getParameter(Â«EXPAND editPolicyCommandÂ»);
+		req.setParameter(Â«EXPAND editPolicyCommandÂ», null);
 		org.eclipse.gmf.runtime.common.core.command.ICommand ehCommand = super.getInsteadCommand(req);
 		if (epCommand == null) {
 			return ehCommand;
@@ -43,57 +43,57 @@ public class «baseEditHelperClassName» extends org.eclipse.gmf.runtime.emf.type.
 		return command;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getCreateCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getCreateRelationshipCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getDestroyElementCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getDestroyReferenceCommand(
 			org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
 		return null;
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String «EXPAND editPolicyCommand» = "edit policy command"; //$NON-NLS-1$
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final String Â«EXPAND editPolicyCommandÂ» = "edit policy command"; //$NON-NLS-1$
 	
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String «EXPAND contextElementType» = "context element type"; //$NON-NLS-1$
-«ENDDEFINE»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final String Â«EXPAND contextElementTypeÂ» = "context element type"; //$NON-NLS-1$
+Â«ENDDEFINEÂ»
 
-«DEFINE editPolicyCommand FOR gmfgen::GenDiagram»EDIT_POLICY_COMMAND«ENDDEFINE»
+Â«DEFINE editPolicyCommand FOR gmfgen::GenDiagramÂ»EDIT_POLICY_COMMANDÂ«ENDDEFINEÂ»
 
-«DEFINE contextElementType FOR gmfgen::GenDiagram»CONTEXT_ELEMENT_TYPE«ENDDEFINE»
+Â«DEFINE contextElementType FOR gmfgen::GenDiagramÂ»CONTEXT_ELEMENT_TYPEÂ«ENDDEFINEÂ»
 
-«DEFINE editPolicyCommandConstant FOR gmfgen::GenDiagram»«getBaseEditHelperQualifiedClassName()».«EXPAND editPolicyCommand»«ENDDEFINE»
+Â«DEFINE editPolicyCommandConstant FOR gmfgen::GenDiagramÂ»Â«getBaseEditHelperQualifiedClassName()Â».Â«EXPAND editPolicyCommandÂ»Â«ENDDEFINEÂ»
 
-«DEFINE contextElementTypeConstant FOR gmfgen::GenDiagram»«getBaseEditHelperQualifiedClassName()».«EXPAND contextElementType»«ENDDEFINE»
+Â«DEFINE contextElementTypeConstant FOR gmfgen::GenDiagramÂ»Â«getBaseEditHelperQualifiedClassName()Â».Â«EXPAND contextElementTypeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getEditHelperAdvice FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditHelperAdvice FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.emf.type.core.edithelper.IEditHelperAdvice[] getEditHelperAdvice(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest req) {
-		if (req.getParameter(«EXPAND contextElementType») instanceof org.eclipse.gmf.runtime.emf.type.core.IElementType) {
-			return org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getEditHelperAdvice((org.eclipse.gmf.runtime.emf.type.core.IElementType) req.getParameter(«EXPAND contextElementType»));
+		if (req.getParameter(Â«EXPAND contextElementTypeÂ») instanceof org.eclipse.gmf.runtime.emf.type.core.IElementType) {
+			return org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getEditHelperAdvice((org.eclipse.gmf.runtime.emf.type.core.IElementType) req.getParameter(Â«EXPAND contextElementTypeÂ»));
 		}
 		return super.getEditHelperAdvice(req);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

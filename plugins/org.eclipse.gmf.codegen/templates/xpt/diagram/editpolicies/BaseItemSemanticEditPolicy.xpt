@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,143 +10,143 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«EXTENSION xpt::diagram::editpolicies::Utils»
-«EXTENSION xpt::diagram::Utils»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::expressions::ValueExpression»
-«EXTENSION xpt::StringOperations»
+Â«EXTENSION xpt::diagram::editpolicies::UtilsÂ»
+Â«EXTENSION xpt::diagram::UtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::expressions::ValueExpressionÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE BaseItemSemanticEditPolicy FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «getDiagram().editPoliciesPackageName»;
+Â«DEFINE BaseItemSemanticEditPolicy FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«getDiagram().editPoliciesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«baseItemSemanticEditPolicyClassNameÂ» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment(
+	Â«EXPAND xpt::Common::generatedMemberComment(
 		'Extended request data key to hold editpart visual id.\n' + 
 		'Add visual id of edited editpart to extended data of the request\n' + 
 		'so command switch can decide what kind of diagram element is being edited.\n' + 
 		'It is done in those cases when it\'s not possible to deduce diagram\n' + 
 		'element kind from domain element.\n'
-	)»
+	)Â»
 	public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
 		if (request instanceof org.eclipse.gef.requests.ReconnectRequest) {
 			Object view = ((org.eclipse.gef.requests.ReconnectRequest) request).getConnectionEditPart().getModel();
 			if (view instanceof org.eclipse.gmf.runtime.notation.View) {
-				Integer id = new Integer(«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»((org.eclipse.gmf.runtime.notation.View) view));
+				Integer id = new Integer(Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»((org.eclipse.gmf.runtime.notation.View) view));
 				request.getExtendedData().put(VISUAL_ID_KEY, id);
 			}
 		}
 		return super.getCommand(request);
 	}
 	
-	«EXPAND xpt::Common::generatedMemberComment('Returns visual id from request parameters.')»
+	Â«EXPAND xpt::Common::generatedMemberComment('Returns visual id from request parameters.')Â»
 	protected int getVisualID(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 		Object id = request.getParameter(VISUAL_ID_KEY);
 		return id instanceof Integer ? ((Integer) id).intValue() : -1;
 	}
 
-	«EXPAND semanticPart-»
+	Â«EXPAND semanticPart-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment('Returns editing domain from the host edit part.')»
+	Â«EXPAND xpt::Common::generatedMemberComment('Returns editing domain from the host edit part.')Â»
 	protected org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
 		return ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 	}
 
-	«EXPAND addDestroyShortcutsCommand-»
+	Â«EXPAND addDestroyShortcutsCommand-Â»
 
-	«EXPAND linkConstraints-»
+	Â«EXPAND linkConstraints-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment('Extended request data key to hold editpart visual id.')»
-	public static final String VISUAL_ID_KEY = "visual_id"; «EXPAND xpt::Common::nonNLS»
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment('Extended request data key to hold editpart visual id.')Â»
+	public static final String VISUAL_ID_KEY = "visual_id"; Â«EXPAND xpt::Common::nonNLSÂ»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private final org.eclipse.gmf.runtime.emf.type.core.IElementType myElementType;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected «baseItemSemanticEditPolicyClassName»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
+Â«DEFINE _constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	protected Â«baseItemSemanticEditPolicyClassNameÂ»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 		myElementType = elementType;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment('Clean all shortcuts to the host element from the same diagram')»
+Â«DEFINE addDestroyShortcutsCommand FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment('Clean all shortcuts to the host element from the same diagram')Â»
 	protected void addDestroyShortcutsCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd, org.eclipse.gmf.runtime.notation.View view) {
-		«EXPAND xpt::Common::_assert('view.getEAnnotation(\"Shortcut\") == null')-»
+		Â«EXPAND xpt::Common::_assert('view.getEAnnotation(\"Shortcut\") == null')-Â»
 		for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
-			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) {«EXPAND xpt::Common::nonNLS»
+			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) {Â«EXPAND xpt::Common::nonNLSÂ»
 				continue;
 			}
 			cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), nextView));
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE semanticPart FOR gmfgen::GenDiagram-»
-	«EXPAND getSemanticCommand-»
+Â«DEFINE semanticPart FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND getSemanticCommand-Â»
 	
-	«EXPAND addDeleteViewCommand-»
+	Â«EXPAND addDeleteViewCommand-Â»
 	
-	«EXPAND getEditHelperCommand-»
+	Â«EXPAND getEditHelperCommand-Â»
 	
-	«EXPAND getContextElementType-»
+	Â«EXPAND getContextElementType-Â»
 	
-	«EXPAND getSemanticCommandSwitch-»
+	Â«EXPAND getSemanticCommandSwitch-Â»
 	
-	«EXPAND getConfigureCommand-»
+	Â«EXPAND getConfigureCommand-Â»
 
-	«EXPAND getCreateRelationshipCommand-»
+	Â«EXPAND getCreateRelationshipCommand-Â»
 
-	«EXPAND getCreateCommand-»
+	Â«EXPAND getCreateCommand-Â»
 
-	«EXPAND getSetCommand-»
+	Â«EXPAND getSetCommand-Â»
 
-	«EXPAND getEditContextCommand-»
+	Â«EXPAND getEditContextCommand-Â»
 
-	«EXPAND getDestroyElementCommand-»
+	Â«EXPAND getDestroyElementCommand-Â»
 
-	«EXPAND getDestroyReferenceCommand-»
+	Â«EXPAND getDestroyReferenceCommand-Â»
 
-	«EXPAND getDuplicateCommand-»
+	Â«EXPAND getDuplicateCommand-Â»
 
-	«EXPAND getMoveCommand-»
+	Â«EXPAND getMoveCommand-Â»
 
-	«EXPAND getReorientReferenceRelationshipCommand-»
+	Â«EXPAND getReorientReferenceRelationshipCommand-Â»
 
-	«EXPAND getReorientRelationshipCommand-»
+	Â«EXPAND getReorientRelationshipCommand-Â»
 	
-	«EXPAND getGEFWrapper-»
-«ENDDEFINE»
+	Â«EXPAND getGEFWrapper-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getEditHelperCommand FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditHelperCommand FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gef.commands.Command getEditHelperCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request, org.eclipse.gef.commands.Command editPolicyCommand) {
 		if (editPolicyCommand != null) {
 			org.eclipse.gmf.runtime.common.core.command.ICommand command = editPolicyCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) editPolicyCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(editPolicyCommand);
-			request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstant», command);
+			request.setParameter(Â«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstantÂ», command);
 		}
 		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = getContextElementType(request);
-		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstant», requestContextElementType);
+		request.setParameter(Â«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstantÂ», requestContextElementType);
 		org.eclipse.gmf.runtime.common.core.command.ICommand command = requestContextElementType.getEditCommand(request);
-		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstant», null);
-		request.setParameter(«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstant», null);
+		request.setParameter(Â«EXPAND xpt::diagram::edithelpers::BaseEditHelper::editPolicyCommandConstantÂ», null);
+		request.setParameter(Â«EXPAND xpt::diagram::edithelpers::BaseEditHelper::contextElementTypeConstantÂ», null);
 		if (command != null) {
 			if (!(command instanceof org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand)) {
 				command = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(getEditingDomain(), command.getLabel()).compose(command);
@@ -155,18 +155,18 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runti
 		}
 		return editPolicyCommand;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getContextElementType FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getContextElementType FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gmf.runtime.emf.type.core.IElementType getContextElementType(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
-		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName()».getElementType(getVisualID(request));
+		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = Â«getElementTypesQualifiedClassName()Â».getElementType(getVisualID(request));
 		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSemanticCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSemanticCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 	org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest completedRequest = completeRequest(request);
 	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
@@ -177,18 +177,18 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 		}
 		return semanticCommand;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addDeleteViewCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addDeleteViewCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command addDeleteViewCommand(org.eclipse.gef.commands.Command mainCommand, org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest completedRequest){
 		org.eclipse.gef.commands.Command deleteViewCommand = getGEFWrapper(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getHost().getModel()));
 		return mainCommand == null ? deleteViewCommand : mainCommand.chain(deleteViewCommand);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSemanticCommandSwitch FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSemanticCommandSwitch FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getSemanticCommandSwitch(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest req) {
 	if (req instanceof org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest) {
 		return getCreateRelationshipCommand((org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest) req);
@@ -215,282 +215,282 @@ protected org.eclipse.gef.commands.Command getSemanticCommandSwitch(org.eclipse.
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getConfigureCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getConfigureCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getConfigureCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCreateRelationshipCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCreateRelationshipCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCreateCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCreateCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSetCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSetCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getSetCommand(org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getEditContextCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditContextCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getEditContextCommand(org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDestroyElementCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDestroyElementCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDestroyReferenceCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDestroyReferenceCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDuplicateCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDuplicateCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getDuplicateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getMoveCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getMoveCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getMoveCommand(org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest req) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getReorientReferenceRelationshipCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getReorientReferenceRelationshipCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest req) {
 	return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getReorientRelationshipCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getReorientRelationshipCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
 	return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getGEFWrapper FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getGEFWrapper FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected final org.eclipse.gef.commands.Command getGEFWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
 		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(cmd);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 		FIXME need to check constraint's provider to ensure we don't generate a field
 		for e.g. Java (or Literal, which is unlikely, though) expressions
-«ENDREM»
-«DEFINE linkConstraints FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::generatedClassComment»
-public static class «getLinkCreationConstraintsClassName()» {
+Â«ENDREMÂ»
+Â«DEFINE linkConstraints FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public static class Â«getLinkCreationConstraintsClassName()Â» {
 
-«IF null <> editorGen.expressionProviders-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static final String OPPOSITE_END_VAR = "oppositeEnd"; «EXPAND xpt::Common::nonNLS»
+Â«IF null <> editorGen.expressionProviders-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private static final String OPPOSITE_END_VAR = "oppositeEnd"; Â«EXPAND xpt::Common::nonNLSÂ»
 
-«FOREACH getValidLinkConstraints(self) AS lc-»
-«IF lc.sourceEnd <> null-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «sourceConstraintFieldName(lc.link)»;
-«ENDIF-»
-«IF lc.targetEnd <> null-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «targetConstraintFieldName(lc.link)»;
-«ENDIF-»
-«ENDFOREACH»
-«ENDIF-»
+Â«FOREACH getValidLinkConstraints(self) AS lc-Â»
+Â«IF lc.sourceEnd <> null-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private static Â«editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()Â» Â«sourceConstraintFieldName(lc.link)Â»;
+Â«ENDIF-Â»
+Â«IF lc.targetEnd <> null-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private static Â«editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()Â» Â«targetConstraintFieldName(lc.link)Â»;
+Â«ENDIF-Â»
+Â«ENDFOREACHÂ»
+Â«ENDIF-Â»
 
-	«EXPAND canCreate FOREACH links-»
-	«EXPAND canExist FOREACH links-»
+	Â«EXPAND canCreate FOREACH links-Â»
+	Â«EXPAND canExist FOREACH links-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE canCreate FOR gmfgen::GenLink»
+Â«DEFINE canCreate FOR gmfgen::GenLinkÂ»
 
-«EXPAND xpt::Common::generatedMemberComment»
-public static boolean canCreate«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
-	«EXPAND checkEMFConstraints FOR modelFacet-»
-	return canExist«getUniqueIdentifier()»(«EXPAND canCreateValues FOR modelFacet»);
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static boolean canCreateÂ«getUniqueIdentifier()Â»(Â«EXPAND canCreateParameters FOR modelFacetÂ») {
+	Â«EXPAND checkEMFConstraints FOR modelFacet-Â»
+	return canExistÂ«getUniqueIdentifier()Â»(Â«EXPAND canCreateValues FOR modelFacetÂ»);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 		XXX for now, both constraints are injected into single method
 			which may nob be suitable for modification especially when mixing
 			java and ocl constraints (former requires manual code).
 		Better approach would be:
 			if either is non-null and providers are not the same - introduce two methods, 
 			to check source and target separately. Otherwize, do it inplace.
-«ENDREM»
-«DEFINE canExist FOR gmfgen::GenLink»
+Â«ENDREMÂ»
+Â«DEFINE canExist FOR gmfgen::GenLinkÂ»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static boolean canExist«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
-«IF creationConstraints <> null and (creationConstraints.isValid() and null <> getDiagram().editorGen.expressionProviders)-»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static boolean canExistÂ«getUniqueIdentifier()Â»(Â«EXPAND canCreateParameters FOR modelFacetÂ») {
+Â«IF creationConstraints <> null and (creationConstraints.isValid() and null <> getDiagram().editorGen.expressionProviders)-Â»
 		try {
-«IF null <> creationConstraints.sourceEnd-»
-			«EXPAND checkAdditionalConstraint(creationConstraints.sourceEnd, sourceConstraintFieldName(self), 'source', 'target', creationConstraints.getSourceEndContextClass(), creationConstraints.getTargetEndContextClass()) FOR creationConstraints.sourceEnd.provider-»
-«ENDIF-»
-«IF null <> creationConstraints.targetEnd-»
-			«EXPAND checkAdditionalConstraint(creationConstraints.targetEnd, targetConstraintFieldName(self), 'target', 'source', creationConstraints.getTargetEndContextClass(), creationConstraints.getSourceEndContextClass()) FOR creationConstraints.targetEnd.provider-»
-«ENDIF-»
+Â«IF null <> creationConstraints.sourceEnd-Â»
+			Â«EXPAND checkAdditionalConstraint(creationConstraints.sourceEnd, sourceConstraintFieldName(self), 'source', 'target', creationConstraints.getSourceEndContextClass(), creationConstraints.getTargetEndContextClass()) FOR creationConstraints.sourceEnd.provider-Â»
+Â«ENDIF-Â»
+Â«IF null <> creationConstraints.targetEnd-Â»
+			Â«EXPAND checkAdditionalConstraint(creationConstraints.targetEnd, targetConstraintFieldName(self), 'target', 'source', creationConstraints.getTargetEndContextClass(), creationConstraints.getSourceEndContextClass()) FOR creationConstraints.targetEnd.provider-Â»
+Â«ENDIF-Â»
 			return true;
 		} catch(Exception e) {	
-			«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Link constraint evaluation error", e); «EXPAND xpt::Common::nonNLS»
+			Â«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Link constraint evaluation error", e); Â«EXPAND xpt::Common::nonNLSÂ»
 			return false;
 		}
-«ELSE-»
+Â«ELSE-Â»
 		return true;
-«ENDIF-»
+Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE canCreateParameters FOR gmfgen::LinkModelFacet»«EXPAND incorrectLinkModelFacet»«ENDDEFINE»
-«DEFINE canCreateParameters FOR gmfgen::TypeLinkModelFacet»«IF hasContainerOtherThanSource(self)»«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClass» container, «ENDIF»«EXPAND sourceTargetParameters»«ENDDEFINE»
-«DEFINE canCreateParameters FOR gmfgen::FeatureLinkModelFacet»«EXPAND sourceTargetParameters»«ENDDEFINE»
+Â«DEFINE canCreateParameters FOR gmfgen::LinkModelFacetÂ»Â«EXPAND incorrectLinkModelFacetÂ»Â«ENDDEFINEÂ»
+Â«DEFINE canCreateParameters FOR gmfgen::TypeLinkModelFacetÂ»Â«IF hasContainerOtherThanSource(self)Â»Â«EXPAND MetaModel::QualifiedClassName FOR containmentMetaFeature.genClassÂ» container, Â«ENDIFÂ»Â«EXPAND sourceTargetParametersÂ»Â«ENDDEFINEÂ»
+Â«DEFINE canCreateParameters FOR gmfgen::FeatureLinkModelFacetÂ»Â«EXPAND sourceTargetParametersÂ»Â«ENDDEFINEÂ»
 
-«DEFINE sourceTargetParameters FOR gmfgen::LinkModelFacet»«EXPAND MetaModel::QualifiedClassName FOR getSourceType()» source, «EXPAND MetaModel::QualifiedClassName FOR getTargetType()» target«ENDDEFINE»
+Â«DEFINE sourceTargetParameters FOR gmfgen::LinkModelFacetÂ»Â«EXPAND MetaModel::QualifiedClassName FOR getSourceType()Â» source, Â«EXPAND MetaModel::QualifiedClassName FOR getTargetType()Â» targetÂ«ENDDEFINEÂ»
 
-«DEFINE canCreateValues FOR gmfgen::LinkModelFacet»«EXPAND incorrectLinkModelFacet»«ENDDEFINE»
-«DEFINE canCreateValues FOR gmfgen::TypeLinkModelFacet»«IF hasContainerOtherThanSource(self)»container, «ENDIF»source, target«ENDDEFINE»
-«DEFINE canCreateValues FOR gmfgen::FeatureLinkModelFacet»source, target«ENDDEFINE»
+Â«DEFINE canCreateValues FOR gmfgen::LinkModelFacetÂ»Â«EXPAND incorrectLinkModelFacetÂ»Â«ENDDEFINEÂ»
+Â«DEFINE canCreateValues FOR gmfgen::TypeLinkModelFacetÂ»Â«IF hasContainerOtherThanSource(self)Â»container, Â«ENDIFÂ»source, targetÂ«ENDDEFINEÂ»
+Â«DEFINE canCreateValues FOR gmfgen::FeatureLinkModelFacetÂ»source, targetÂ«ENDDEFINEÂ»
 
 
 
-«DEFINE checkEMFConstraints FOR gmfgen::LinkModelFacet»«EXPAND incorrectLinkModelFacet»«ENDDEFINE»
+Â«DEFINE checkEMFConstraints FOR gmfgen::LinkModelFacetÂ»Â«EXPAND incorrectLinkModelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE checkEMFConstraints FOR gmfgen::TypeLinkModelFacet-»
-	«LET childMetaFeature <> containmentMetaFeature and childMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0 AS checkChildFeatureUpperBound-»
-		«IF containmentMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0 or checkChildFeatureUpperBound-»
-if («getContainerVariable(self)» != null) {
-			«EXPAND checkEMFConstraints(self) FOR containmentMetaFeature-»
-			«IF checkChildFeatureUpperBound-»
-				«EXPAND checkEMFConstraints(self) FOR childMetaFeature-»
-			«ENDIF-»
+Â«DEFINE checkEMFConstraints FOR gmfgen::TypeLinkModelFacet-Â»
+	Â«LET childMetaFeature <> containmentMetaFeature and childMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0 AS checkChildFeatureUpperBound-Â»
+		Â«IF containmentMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0 or checkChildFeatureUpperBound-Â»
+if (Â«getContainerVariable(self)Â» != null) {
+			Â«EXPAND checkEMFConstraints(self) FOR containmentMetaFeature-Â»
+			Â«IF checkChildFeatureUpperBound-Â»
+				Â«EXPAND checkEMFConstraints(self) FOR childMetaFeature-Â»
+			Â«ENDIF-Â»
 }
-		«ENDIF-»
-	«ENDLET-»
-«ENDDEFINE»
+		Â«ENDIF-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE checkEMFConstraints(modelFacet : gmfgen::TypeLinkModelFacet) FOR genmodel::GenFeature-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) > 0-»
-if («EXPAND featureBoundComparator(getContainerVariable(modelFacet), modelFacet.getSourceType())») {
+Â«DEFINE checkEMFConstraints(modelFacet : gmfgen::TypeLinkModelFacet) FOR genmodel::GenFeature-Â»
+Â«IF ecoreFeature.upperBound.oclAsType(Integer) > 0-Â»
+if (Â«EXPAND featureBoundComparator(getContainerVariable(modelFacet), modelFacet.getSourceType())Â») {
 	return false;
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE checkEMFConstraints FOR gmfgen::FeatureLinkModelFacet-»
+Â«DEFINE checkEMFConstraints FOR gmfgen::FeatureLinkModelFacet-Â»
 if (source != null) {
-	if («EXPAND featureBoundsConditionClause('source', getSourceType()) FOR metaFeature») {
+	if (Â«EXPAND featureBoundsConditionClause('source', getSourceType()) FOR metaFeatureÂ») {
 		return false;
 	}
-	«IF isContains(metaFeature)-»
+	Â«IF isContains(metaFeature)-Â»
 	if (source == target) {
 		return false;
 	}
-	«ENDIF-»	
+	Â«ENDIF-Â»	
 }
-«IF getReverse(metaFeature) <> null-»
-if (target != null && («EXPAND featureBoundsConditionClause('target', getTargetType()) FOR getReverse(metaFeature)»)) {
+Â«IF getReverse(metaFeature) <> null-Â»
+if (target != null && (Â«EXPAND featureBoundsConditionClause('target', getTargetType()) FOR getReverse(metaFeature)Â»)) {
 	return false;
 }
-«ENDIF»
-«ENDDEFINE»
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE featureBoundsConditionClause(targetVar : String, targetType : genmodel::GenClass) FOR genmodel::GenFeature-»
-«REM»Checking upper bounds if was specified in MM«ENDREM»«-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) > 0»«EXPAND featureBoundComparator(targetVar, targetType)»«ENDIF-»
-«REM»Checking uniqueness in addition if upper bounds > 1«ENDREM»«-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) > 1» || «ENDIF-»
-«REM»Checking uniqueness in if upper bounds > 1 or < 0«ENDREM»«-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) <> 1»«EXPAND featureUniquenessComparator(targetVar, targetType)»«ENDIF»
-«ENDDEFINE»
+Â«DEFINE featureBoundsConditionClause(targetVar : String, targetType : genmodel::GenClass) FOR genmodel::GenFeature-Â»
+Â«REMÂ»Checking upper bounds if was specified in MMÂ«ENDREMÂ»Â«-Â»
+Â«IF ecoreFeature.upperBound.oclAsType(Integer) > 0Â»Â«EXPAND featureBoundComparator(targetVar, targetType)Â»Â«ENDIF-Â»
+Â«REMÂ»Checking uniqueness in addition if upper bounds > 1Â«ENDREMÂ»Â«-Â»
+Â«IF ecoreFeature.upperBound.oclAsType(Integer) > 1Â» || Â«ENDIF-Â»
+Â«REMÂ»Checking uniqueness in if upper bounds > 1 or < 0Â«ENDREMÂ»Â«-Â»
+Â«IF ecoreFeature.upperBound.oclAsType(Integer) <> 1Â»Â«EXPAND featureUniquenessComparator(targetVar, targetType)Â»Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE featureBoundComparator(featureVar : String, featureVarGenClass : genmodel::GenClass) FOR genmodel::GenFeature»«EXPAND MetaModel::getFeatureValue(featureVar, featureVarGenClass)»«IF ecoreFeature.upperBound.oclAsType(Integer) = 1» != null«ELSE».size() >= «ecoreFeature.upperBound.oclAsType(Integer)»«ENDIF»«ENDDEFINE»
-«DEFINE featureUniquenessComparator(featureVar : String, featureVarGenClass : genmodel::GenClass) FOR genmodel::GenFeature»«EXPAND MetaModel::getFeatureValue(featureVar, featureVarGenClass) FOR self».contains(target)«ENDDEFINE»
+Â«DEFINE featureBoundComparator(featureVar : String, featureVarGenClass : genmodel::GenClass) FOR genmodel::GenFeatureÂ»Â«EXPAND MetaModel::getFeatureValue(featureVar, featureVarGenClass)Â»Â«IF ecoreFeature.upperBound.oclAsType(Integer) = 1Â» != nullÂ«ELSEÂ».size() >= Â«ecoreFeature.upperBound.oclAsType(Integer)Â»Â«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE featureUniquenessComparator(featureVar : String, featureVarGenClass : genmodel::GenClass) FOR genmodel::GenFeatureÂ»Â«EXPAND MetaModel::getFeatureValue(featureVar, featureVarGenClass) FOR selfÂ».contains(target)Â«ENDDEFINEÂ»
 
 
-«DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenExpressionProviderBase»
-«ERROR 'Have no idea what extra constraints to check for ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenExpressionProviderBaseÂ»
+Â«ERROR 'Have no idea what extra constraints to check for ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenExpressionInterpreter-»
-	if («sourceEndVar» == null) {
+Â«DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenExpressionInterpreter-Â»
+	if (Â«sourceEndVarÂ» == null) {
 		return true;
 	}
-	if («constraintFieldName» == null) {
-		java.util.Map env = java.util.Collections.singletonMap(OPPOSITE_END_VAR, «EXPAND MetaModel::MetaClass FOR oppositeEndContext»);
-		«constraintFieldName» = «getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR context», env); «EXPAND xpt::Common::nonNLS»
+	if (Â«constraintFieldNameÂ» == null) {
+		java.util.Map env = java.util.Collections.singletonMap(OPPOSITE_END_VAR, Â«EXPAND MetaModel::MetaClass FOR oppositeEndContextÂ»);
+		Â«constraintFieldNameÂ» = Â«getQualifiedClassName()Â».Â«getExpressionAccessor(valueExpr)Â»(Â«valueExpr.getBodyString()Â», Â«EXPAND MetaModel::MetaClass FOR contextÂ», env); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
-	Object «sourceEndVar»Val = «constraintFieldName».evaluate(«sourceEndVar», java.util.Collections.singletonMap(OPPOSITE_END_VAR, «targetEndVar»));
-	if (false == «sourceEndVar»Val instanceof Boolean || !((Boolean) «sourceEndVar»Val).booleanValue()) {
+	Object Â«sourceEndVarÂ»Val = Â«constraintFieldNameÂ».evaluate(Â«sourceEndVarÂ», java.util.Collections.singletonMap(OPPOSITE_END_VAR, Â«targetEndVarÂ»));
+	if (false == Â«sourceEndVarÂ»Val instanceof Boolean || !((Boolean) Â«sourceEndVarÂ»Val).booleanValue()) {
 		return false;
 	} // else fall-through
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenJavaExpressionProvider-»
-«IF injectExpressionBody and (valueExpr.body <> null and valueExpr.body.xpandLength() <> 0)-»
-	«valueExpr.body»
-«ELSEIF throwException or (injectExpressionBody and (valueExpr.body = null or valueExpr.body.xpandLength() = 0))-»
-	// TODO: implement this method, using «sourceEndVar» and «targetEndVar» 
+Â«DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenJavaExpressionProvider-Â»
+Â«IF injectExpressionBody and (valueExpr.body <> null and valueExpr.body.xpandLength() <> 0)-Â»
+	Â«valueExpr.bodyÂ»
+Â«ELSEIF throwException or (injectExpressionBody and (valueExpr.body = null or valueExpr.body.xpandLength() = 0))-Â»
+	// TODO: implement this method, using Â«sourceEndVarÂ» and Â«targetEndVarÂ» 
 	// to access link source and target, respectively
 	// Ensure that you remove @generated or mark it @generated NOT
 	if (Boolean.TRUE.booleanValue()) {
-		throw new java.lang.UnsupportedOperationException("No java implementation provided");«EXPAND xpt::Common::nonNLS»
+		throw new java.lang.UnsupportedOperationException("No java implementation provided");Â«EXPAND xpt::Common::nonNLSÂ»
 	}
-«ELSE-»
-	if (Boolean.TRUE.booleanValue()) {«REM»just in case there are two consecutive java expression with neither throw nor inject - avoid unreachable code.«ENDREM»
+Â«ELSE-Â»
+	if (Boolean.TRUE.booleanValue()) {Â«REMÂ»just in case there are two consecutive java expression with neither throw nor inject - avoid unreachable code.Â«ENDREMÂ»
 		return false;
 	}
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet»«ERROR 'Unrecognized link model facet: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacetÂ»Â«ERROR 'Unrecognized link model facet: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE defaultConstructor FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «itemSemanticEditPolicyClassName»() {
-		«EXPAND defaultConstructorBody-»
+Â«DEFINE defaultConstructor FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«itemSemanticEditPolicyClassNameÂ»() {
+		Â«EXPAND defaultConstructorBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 	This method should be called only with diagram, node or link used as a parameter 
 	(then elementType != null)
-«ENDREM»
-«DEFINE defaultConstructorBody FOR gmfgen::GenCommonBase-»
-	«IF elementType = null-»
-		«ERROR 'No element type in the passed node. Only diagram, node or link are supported in this template: ' + self.repr()-»
-	«ENDIF-»
-	super(«EXPAND xpt::providers::ElementTypes::accessElementType»);
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE defaultConstructorBody FOR gmfgen::GenCommonBase-Â»
+	Â«IF elementType = null-Â»
+		Â«ERROR 'No element type in the passed node. Only diagram, node or link are supported in this template: ' + self.repr()-Â»
+	Â«ENDIF-Â»
+	super(Â«EXPAND xpt::providers::ElementTypes::accessElementTypeÂ»);
+Â«ENDDEFINEÂ»

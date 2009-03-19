@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,49 +10,49 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«EXTENSION MetaModel»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION gmf::GenModelUtils»
+Â«EXTENSION MetaModelÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION gmf::GenModelUtilsÂ»
 
 /*
  * Does instanceof check.
  */
-«DEFINE IsInstance(accessor : String) FOR genmodel::GenClass-»
-«accessor» instanceof «getQualifiedInterfaceName(self)»«ENDDEFINE»
+Â«DEFINE IsInstance(accessor : String) FOR genmodel::GenClass-Â»
+Â«accessorÂ» instanceof Â«getQualifiedInterfaceName(self)Â»Â«ENDDEFINEÂ»
 
 // Shorthand, negates IsInstance - handy if you consider
 // different approaches for generated and dynamic models: false == instanceof
 // vs. !MetaModelFacility.isInstance
-«DEFINE NotInstance(accessor : String) FOR genmodel::GenClass-»
-false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
+Â«DEFINE NotInstance(accessor : String) FOR genmodel::GenClass-Â»
+false == Â«EXPAND IsInstance(accessor)Â»Â«ENDDEFINEÂ»
 
 /**
  * Special kind of instanceof check, that compares eContainer() of the object.
  * Since metaClass may be an external interface, eContainer() might need cast to EObject  
  */
-«DEFINE IsContainerInstance(_object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-»
-«EXPAND _getEObjectFeature(_object, 'eContainer()') FOR metaClass» instanceof «getQualifiedInterfaceName(self)»«ENDDEFINE»
+Â«DEFINE IsContainerInstance(_object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-Â»
+Â«EXPAND _getEObjectFeature(_object, 'eContainer()') FOR metaClassÂ» instanceof Â«getQualifiedInterfaceName(self)Â»Â«ENDDEFINEÂ»
 
-«DEFINE _getEObjectFeature(_object : String, feature : String) FOR genmodel::GenClass-»
-«IF isExternalInterface(self)»((org.eclipse.emf.ecore.EObject) «_object»).«feature»«ELSE»«_object».«feature»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE _getEObjectFeature(_object : String, feature : String) FOR genmodel::GenClass-Â»
+Â«IF isExternalInterface(self)Â»((org.eclipse.emf.ecore.EObject) Â«_objectÂ»).Â«featureÂ»Â«ELSEÂ»Â«_objectÂ».Â«featureÂ»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 // Public/API-sort templates are named with first letter capitalized.
 // FIXME getFeatureValue* and setFeatureValue start with lowercase to indicate pending refactoring
 
-«DEFINE getFeatureValue(containerVar : String, containerClass : genmodel::GenClass) FOR genmodel::GenFeature-»
-«IF isExternalInterface(containerClass)-»
-((«EXPAND featureTargetType») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«EXPAND MetaFeature»))«-»
-«ELSE-»
-«containerVar».«getGetAccessor(self)»()«-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE getFeatureValue(containerVar : String, containerClass : genmodel::GenClass) FOR genmodel::GenFeature-Â»
+Â«IF isExternalInterface(containerClass)-Â»
+((Â«EXPAND featureTargetTypeÂ») ((org.eclipse.emf.ecore.EObject) Â«containerVarÂ»).eGet(Â«EXPAND MetaFeatureÂ»))Â«-Â»
+Â«ELSE-Â»
+Â«containerVarÂ».Â«getGetAccessor(self)Â»()Â«-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE featureTargetType FOR genmodel::GenFeature»«IF isListType(self)»java.util.List«ELSE»«EXPAND QualifiedClassName FOR findGenClassifier(genClass.genPackage.genModel, ecoreFeature.eType)»«ENDIF»«ENDDEFINE»
+Â«DEFINE featureTargetType FOR genmodel::GenFeatureÂ»Â«IF isListType(self)Â»java.util.ListÂ«ELSEÂ»Â«EXPAND QualifiedClassName FOR findGenClassifier(genClass.genPackage.genModel, ecoreFeature.eType)Â»Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
 /*
  * FIXME leave only one version of these two getFeatureValue
@@ -63,99 +63,99 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
  * @param containerMetaClass the <code>GenClass</code> of the container, or <code>null</code>, if the container is declared as an <code>org.eclipse.emf.ecore.EObject</code>.
  * @param needsCastToResultType whether the cast to the result type is required (this parameter is only used if the <code>org.eclipse.emf.ecore.EClass</code> this feature belongs to is an external interface). 
  */
-«DEFINE getFeatureValue(containerVar : String, container : genmodel::GenClass, needsCastToResultType : Boolean) FOR genmodel::GenFeature-»
-«IF isExternalInterface(genClass)-»
-«IF needsCastToResultType»((«EXPAND featureTargetType») «ENDIF»«parenthesizedCast(containerVar, container, null)».eGet(«EXPAND MetaFeature»)«IF needsCastToResultType»)«ENDIF-»
-«ELSE-»
-«parenthesizedCast(containerVar, container, genClass)».«getGetAccessor(self)»()«-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE getFeatureValue(containerVar : String, container : genmodel::GenClass, needsCastToResultType : Boolean) FOR genmodel::GenFeature-Â»
+Â«IF isExternalInterface(genClass)-Â»
+Â«IF needsCastToResultTypeÂ»((Â«EXPAND featureTargetTypeÂ») Â«ENDIFÂ»Â«parenthesizedCast(containerVar, container, null)Â».eGet(Â«EXPAND MetaFeatureÂ»)Â«IF needsCastToResultTypeÂ»)Â«ENDIF-Â»
+Â«ELSE-Â»
+Â«parenthesizedCast(containerVar, container, genClass)Â».Â«getGetAccessor(self)Â»()Â«-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE modifyFeature(targetVar : String, targetType : genmodel::GenClass, value : String) FOR genmodel::GenFeature-»
-«IF isListType(self)-»
-«EXPAND getFeatureValue(targetVar, targetType)».add(«value»);«-»
-«ELSE-»
-«EXPAND setFeatureValue(targetVar, targetType, value)»;«-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE modifyFeature(targetVar : String, targetType : genmodel::GenClass, value : String) FOR genmodel::GenFeature-Â»
+Â«IF isListType(self)-Â»
+Â«EXPAND getFeatureValue(targetVar, targetType)Â».add(Â«valueÂ»);Â«-Â»
+Â«ELSE-Â»
+Â«EXPAND setFeatureValue(targetVar, targetType, value)Â»;Â«-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE replaceFeatureValue(targetVar : String, targetType : genmodel::GenClass, oldValue : String, newValue : String) FOR genmodel::GenFeature-»
-«IF isListType(self)-»
-	«EXPAND getFeatureValue(targetVar, targetType)».remove(«oldValue»);
-«ENDIF-»
-	«EXPAND modifyFeature(targetVar, targetType, newValue)-»
-«ENDDEFINE»
+Â«DEFINE replaceFeatureValue(targetVar : String, targetType : genmodel::GenClass, oldValue : String, newValue : String) FOR genmodel::GenFeature-Â»
+Â«IF isListType(self)-Â»
+	Â«EXPAND getFeatureValue(targetVar, targetType)Â».remove(Â«oldValueÂ»);
+Â«ENDIF-Â»
+	Â«EXPAND modifyFeature(targetVar, targetType, newValue)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE moveFeatureValue(oldTarget : String, newTarget : String, targetType : genmodel::GenClass, value : String) FOR genmodel::GenFeature-»
-«IF isListType(self)-»
-	«EXPAND getFeatureValue(oldTarget, targetType)».remove(«value»);
-«ELSE-»
-	«EXPAND setFeatureValue(oldTarget, targetType, 'null')»;
-«ENDIF-»
-	«EXPAND modifyFeature(newTarget, targetType, value)-»
-«ENDDEFINE»
+Â«DEFINE moveFeatureValue(oldTarget : String, newTarget : String, targetType : genmodel::GenClass, value : String) FOR genmodel::GenFeature-Â»
+Â«IF isListType(self)-Â»
+	Â«EXPAND getFeatureValue(oldTarget, targetType)Â».remove(Â«valueÂ»);
+Â«ELSE-Â»
+	Â«EXPAND setFeatureValue(oldTarget, targetType, 'null')Â»;
+Â«ENDIF-Â»
+	Â«EXPAND modifyFeature(newTarget, targetType, value)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE setFeatureValue(targetVar : String, targetType : genmodel::GenClass, valueVar : String) FOR genmodel::GenFeature-»
-«EXPAND setFeatureValue(targetVar, targetType, valueVar, false)»«ENDDEFINE»
+Â«DEFINE setFeatureValue(targetVar : String, targetType : genmodel::GenClass, valueVar : String) FOR genmodel::GenFeature-Â»
+Â«EXPAND setFeatureValue(targetVar, targetType, valueVar, false)Â»Â«ENDDEFINEÂ»
 
 // FIXME support list features as well, i.e. do .add() instead of eSet
-«DEFINE setFeatureValue(targetVar : String, targetType : genmodel::GenClass, valueVar : String, isPlainObjectValue : Boolean) FOR genmodel::GenFeature-»
-«IF isExternalInterface(targetType)-»
-((org.eclipse.emf.ecore.EObject) «targetVar»).eSet(«EXPAND MetaFeature», «valueVar»)«-»
-«ELSE-»
-«targetVar».set«getAccessorName(self)»(«IF not isPlainObjectValue»«valueVar»«ELSE»«IF isPrimitiveType(self)»«EXPAND _unwrapObjectToPrimitiveValue(valueVar)»«ELSE»(«EXPAND featureTargetType») «valueVar»«ENDIF»«ENDIF»)«-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE setFeatureValue(targetVar : String, targetType : genmodel::GenClass, valueVar : String, isPlainObjectValue : Boolean) FOR genmodel::GenFeature-Â»
+Â«IF isExternalInterface(targetType)-Â»
+((org.eclipse.emf.ecore.EObject) Â«targetVarÂ»).eSet(Â«EXPAND MetaFeatureÂ», Â«valueVarÂ»)Â«-Â»
+Â«ELSE-Â»
+Â«targetVarÂ».setÂ«getAccessorName(self)Â»(Â«IF not isPlainObjectValueÂ»Â«valueVarÂ»Â«ELSEÂ»Â«IF isPrimitiveType(self)Â»Â«EXPAND _unwrapObjectToPrimitiveValue(valueVar)Â»Â«ELSEÂ»(Â«EXPAND featureTargetTypeÂ») Â«valueVarÂ»Â«ENDIFÂ»Â«ENDIFÂ»)Â«-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _unwrapObjectToPrimitiveValue(valueVar : String) FOR genmodel::GenFeature-»
-((«EXPAND featureTargetType») «valueVar»).«ecoreFeature.eType.instanceClassName»Value()«ENDDEFINE»
+Â«DEFINE _unwrapObjectToPrimitiveValue(valueVar : String) FOR genmodel::GenFeature-Â»
+((Â«EXPAND featureTargetTypeÂ») Â«valueVarÂ»).Â«ecoreFeature.eType.instanceClassNameÂ»Value()Â«ENDDEFINEÂ»
 
-«DEFINE MetaClass FOR genmodel::GenClassifier»«getQualifiedPackageInterfaceName(genPackage)».eINSTANCE.get«getClassifierAccessorName(self)»()«ENDDEFINE»
+Â«DEFINE MetaClass FOR genmodel::GenClassifierÂ»Â«getQualifiedPackageInterfaceName(genPackage)Â».eINSTANCE.getÂ«getClassifierAccessorName(self)Â»()Â«ENDDEFINEÂ»
 
-«DEFINE MetaFeature FOR genmodel::GenFeature»«getQualifiedPackageInterfaceName(genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(self)»()«ENDDEFINE»
+Â«DEFINE MetaFeature FOR genmodel::GenFeatureÂ»Â«getQualifiedPackageInterfaceName(genClass.genPackage)Â».eINSTANCE.getÂ«getFeatureAccessorName(self)Â»()Â«ENDDEFINEÂ»
 
 // SomeFactory.eINSTANCE.createBlaBla();
 //NB: for map entries, the resulting type is EObject, not the qualified interface name. If cast is needed, use (un)parenthesizedCast() extension.
 //see GenClassImpl#hasFactoryInterfaceCreateMethod() for details why map entries should be treated differently
-«DEFINE NewInstance FOR genmodel::GenClass-»
-«IF isMapEntry(self)-»
-«getQualifiedFactoryInterfaceName(genPackage)».«getFactoryInstanceName(genPackage)».create(«EXPAND MetaClass»)«ELSE-»
-«getQualifiedFactoryInterfaceName(genPackage)».«getFactoryInstanceName(genPackage)».create«ecoreClass.name»()«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE NewInstance FOR genmodel::GenClass-Â»
+Â«IF isMapEntry(self)-Â»
+Â«getQualifiedFactoryInterfaceName(genPackage)Â».Â«getFactoryInstanceName(genPackage)Â».create(Â«EXPAND MetaClassÂ»)Â«ELSE-Â»
+Â«getQualifiedFactoryInterfaceName(genPackage)Â».Â«getFactoryInstanceName(genPackage)Â».createÂ«ecoreClass.nameÂ»()Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 // XXX Need to take into account possible GenClass from generated and always available code
 // e.g. Notation or Ecore 
 
-«DEFINE NewInstance(varName : String) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName(self)» «varName» = «IF isMapEntry(self)»(«getQualifiedInterfaceName(self)») «ENDIF»«EXPAND NewInstance»;
-«ENDDEFINE»
+Â«DEFINE NewInstance(varName : String) FOR genmodel::GenClass-Â»
+Â«getQualifiedInterfaceName(self)Â» Â«varNameÂ» = Â«IF isMapEntry(self)Â»(Â«getQualifiedInterfaceName(self)Â») Â«ENDIFÂ»Â«EXPAND NewInstanceÂ»;
+Â«ENDDEFINEÂ»
 
 /*
  * Ensures value is of type EObject, may be no-op if context GenClass is compatible with EObject.
  * Note, injected value is not surrounded with parenthesis, may need to introduce another
  * template to accomplish that if needed.
  */
-«DEFINE DowncastToEObject(value : String) FOR genmodel::GenClass»«IF isExternalInterface(self)»(org.eclipse.emf.ecore.EObject) «ENDIF»«value»«ENDDEFINE»
+Â«DEFINE DowncastToEObject(value : String) FOR genmodel::GenClassÂ»Â«IF isExternalInterface(self)Â»(org.eclipse.emf.ecore.EObject) Â«ENDIFÂ»Â«valueÂ»Â«ENDDEFINEÂ»
 
 /*
  * Declares new variable of appropriate type and assigns casted value to it.
  */
-«DEFINE DeclareAndAssign(assignee : String, value : String) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName(self)» «assignee» = («getQualifiedInterfaceName(self)») «value»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String) FOR genmodel::GenClass-Â»
+Â«getQualifiedInterfaceName(self)Â» Â«assigneeÂ» = (Â«getQualifiedInterfaceName(self)Â») Â«valueÂ»;Â«ENDDEFINEÂ»
 
 /*
  * third boolean parameter is to indicate the value is not EObject, so may
  * need extra cast in case dynamic model instances are in use.
  */
-«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClass-»
-«EXPAND DeclareAndAssign(assignee, value)»«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClass-Â»
+Â«EXPAND DeclareAndAssign(assignee, value)Â»Â«ENDDEFINEÂ»
 
-«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClassifier-»
-«self.getQualifiedClassName()» «assignee» = («self.getQualifiedClassName()») «value»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, value : String, isPlainObjectValue : Boolean) FOR genmodel::GenClassifier-Â»
+Â«self.getQualifiedClassName()Â» Â«assigneeÂ» = (Â«self.getQualifiedClassName()Â») Â«valueÂ»;Â«ENDDEFINEÂ»
 
 // @see IsContainerInstance
-«DEFINE DeclareAndAssignContainer(assignee : String, _object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName(self)» «assignee» = («getQualifiedInterfaceName(self)») «EXPAND _getEObjectFeature(_object, 'eContainer()') FOR metaClass»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssignContainer(assignee : String, _object : String, metaClass : genmodel::GenClass) FOR genmodel::GenClass-Â»
+Â«getQualifiedInterfaceName(self)Â» Â«assigneeÂ» = (Â«getQualifiedInterfaceName(self)Â») Â«EXPAND _getEObjectFeature(_object, 'eContainer()') FOR metaClassÂ»;Â«ENDDEFINEÂ»
 
 /*
  * Declares new variable of context type and assignes a value obtained from 'src',
@@ -163,31 +163,31 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
  *
  * XXX in certain scenarions may need extra cast of the feature value
  */
-«DEFINE DeclareAndAssign(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName(self)» «assignee» = «EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeature»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature) FOR genmodel::GenClass-Â»
+Â«getQualifiedInterfaceName(self)Â» Â«assigneeÂ» = Â«EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeatureÂ»;Â«ENDDEFINEÂ»
 
 /*
  * Same as DeclareAndAssign, with extra operation applied to source object
  */
-«DEFINE DeclareAndAssign2(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature, srcExt : String, needCast : Boolean) FOR genmodel::GenClass-»
-«getQualifiedInterfaceName(self)» «assignee» = «IF needCast»(«getQualifiedInterfaceName(self)») «ENDIF»«EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeature».«srcExt»;«ENDDEFINE»
+Â«DEFINE DeclareAndAssign2(assignee : String, src : String, srcMetaClass : genmodel::GenClass, srcFeature : genmodel::GenFeature, srcExt : String, needCast : Boolean) FOR genmodel::GenClass-Â»
+Â«getQualifiedInterfaceName(self)Â» Â«assigneeÂ» = Â«IF needCastÂ»(Â«getQualifiedInterfaceName(self)Â») Â«ENDIFÂ»Â«EXPAND getFeatureValue(src, srcMetaClass) FOR srcFeatureÂ».Â«srcExtÂ»;Â«ENDDEFINEÂ»
 
 /*
  * Cast value of type EObject to specific type. Would be no-op with dynamic model instances,
  * therefore, the fact eObjectValue is actually EObject is essential
  */
-«DEFINE CastEObject(eObjectValue : String) FOR genmodel::GenClass»(«getQualifiedInterfaceName(self)») «eObjectValue»«ENDDEFINE»
+Â«DEFINE CastEObject(eObjectValue : String) FOR genmodel::GenClassÂ»(Â«getQualifiedInterfaceName(self)Â») Â«eObjectValueÂ»Â«ENDDEFINEÂ»
 
 /**
  * Qualified interface name of the generated EClass, or EObject for dynamic models.
  * Use whenever class name is inevitable (e.g. method arguments)
  * SHOULD NEVER APPEAR in instanceof or any other similar comparison operation
  */
-«DEFINE QualifiedClassName FOR genmodel::GenClass»«getQualifiedInterfaceName(self)»«ENDDEFINE»
-«DEFINE QualifiedClassName FOR genmodel::GenClassifier»«self.getQualifiedClassName()»«ENDDEFINE»
+Â«DEFINE QualifiedClassName FOR genmodel::GenClassÂ»Â«getQualifiedInterfaceName(self)Â»Â«ENDDEFINEÂ»
+Â«DEFINE QualifiedClassName FOR genmodel::GenClassifierÂ»Â«self.getQualifiedClassName()Â»Â«ENDDEFINEÂ»
 
-«DEFINE PopulateItemProviderFactories(factoryListVar : String) FOR gmfgen::GenEditorGenerator-»
-«FOREACH getAllDomainGenPackages(true)->asSequence() AS genPackage-»
-		«factoryListVar».add(new «getQualifiedItemProviderAdapterFactoryClassName(genPackage)»());
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE PopulateItemProviderFactories(factoryListVar : String) FOR gmfgen::GenEditorGenerator-Â»
+Â«FOREACH getAllDomainGenPackages(true)->asSequence() AS genPackage-Â»
+		Â«factoryListVarÂ».add(new Â«getQualifiedItemProviderAdapterFactoryClassName(genPackage)Â»());
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»

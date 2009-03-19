@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,106 +10,106 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE visualIDConstant FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final int VISUAL_ID = «visualID»;
-«ENDDEFINE»
+Â«DEFINE visualIDConstant FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final int VISUAL_ID = Â«visualIDÂ»;
+Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::GenCommonBase-»
-	«EXPAND behaviour FOREACH behaviour-»
-«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND behaviour FOREACH behaviour-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::Behaviour-»
-«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::Behaviour-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::CustomBehaviour-»
-«IF editPolicyQualifiedClassName = null or editPolicyQualifiedClassName.trim().xpandLength() = 0-»
-	removeEditPolicy(«key»); «IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
-«ELSE-»
-	installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE behaviour FOR gmfgen::CustomBehaviour-Â»
+Â«IF editPolicyQualifiedClassName = null or editPolicyQualifiedClassName.trim().xpandLength() = 0-Â»
+	removeEditPolicy(Â«keyÂ»); Â«IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')Â»Â«EXPAND xpt::Common::nonNLSÂ»Â«ENDIFÂ»
+Â«ELSE-Â»
+	installEditPolicy(Â«keyÂ», new Â«getEditPolicyQualifiedClassName()Â»()); Â«IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')Â»Â«EXPAND xpt::Common::nonNLSÂ»Â«ENDIFÂ»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
+Â«DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-Â»
 	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.OPEN_ROLE,
-		new «getEditPolicyQualifiedClassName()»());
-«ENDDEFINE»
+		new Â«getEditPolicyQualifiedClassName()Â»());
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.draw2d.IFigure createFigure() {
-		// Parent should assign one using «EXPAND impl::diagram::editparts::TextAware::labelSetterName»() method
+		// Parent should assign one using Â«EXPAND impl::diagram::editparts::TextAware::labelSetterNameÂ»() method
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigure FOR gmfgen::Viewmap-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelFigure FOR gmfgen::Viewmap-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.draw2d.IFigure createFigure() {
 		org.eclipse.draw2d.IFigure label = createFigurePrim();
 		defaultText = getLabelTextHelper(label);
 		return label;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.draw2d.IFigure createFigurePrim() {
-		«EXPAND labelFigurePrim FOR self-»
-«ENDDEFINE»
+		Â«EXPAND labelFigurePrim FOR self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigurePrim FOR gmfgen::FigureViewmap-»
-«IF figureQualifiedClassName = null-»
+Â«DEFINE labelFigurePrim FOR gmfgen::FigureViewmap-Â»
+Â«IF figureQualifiedClassName = null-Â»
 	return new org.eclipse.draw2d.Label();
-«ELSE-»
-	return new «figureQualifiedClassName»();
-«ENDIF-»
+Â«ELSE-Â»
+	return new Â«figureQualifiedClassNameÂ»();
+Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigurePrim FOR gmfgen::SnippetViewmap-»
-	return «body»;
+Â«DEFINE labelFigurePrim FOR gmfgen::SnippetViewmap-Â»
+	return Â«bodyÂ»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigurePrim FOR gmfgen::InnerClassViewmap-»
-	return new «className»();
+Â«DEFINE labelFigurePrim FOR gmfgen::InnerClassViewmap-Â»
+	return new Â«classNameÂ»();
 	}
 
-	«classBody»
-«ENDDEFINE»
+	Â«classBodyÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelFigurePrim FOR gmfgen::Viewmap-»
-	«ERROR 'Unknown viewmap: ' + self.repr()-»
+Â«DEFINE labelFigurePrim FOR gmfgen::Viewmap-Â»
+	Â«ERROR 'Unknown viewmap: ' + self.repr()-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE notationalListeners FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE notationalListeners FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void addNotationalListeners() {
 		super.addNotationalListeners();
-		addListenerFilter("PrimaryView", this, getPrimaryView()); «EXPAND xpt::Common::nonNLS»
+		addListenerFilter("PrimaryView", this, getPrimaryView()); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void removeNotationalListeners() {
 		super.removeNotationalListeners();
-		removeListenerFilter("PrimaryView"); «EXPAND xpt::Common::nonNLS»
+		removeListenerFilter("PrimaryView"); Â«EXPAND xpt::Common::nonNLSÂ»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleBounds FOR gmfgen::GenCommonBase-»
+Â«DEFINE handleBounds FOR gmfgen::GenCommonBase-Â»
 	if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature) ||
 			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature) ||
 			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature) ||
 			org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
 		refreshBounds();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleText FOR gmfgen::GenCommonBase-»
+Â«DEFINE handleText FOR gmfgen::GenCommonBase-Â»
 	if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFontStyle_FontColor().equals(feature)) {
 		Integer c = (Integer) event.getNewValue();
 		setFontColor(org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry.getInstance().getColor(c));
@@ -138,18 +138,18 @@
 			}
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE installSemanticEditPolicy FOR gmfgen::GenCommonBase-»
-	«IF sansDomain-»
+Â«DEFINE installSemanticEditPolicy FOR gmfgen::GenCommonBase-Â»
+	Â«IF sansDomain-Â»
 removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE);
-	«ELSE-»
-installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new «getItemSemanticEditPolicyQualifiedClassName()»());
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ELSE-Â»
+installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new Â«getItemSemanticEditPolicyQualifiedClassName()Â»());
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE installCanonicalEditPolicy FOR gmfgen::GenContainerBase-»
-	«IF needsCanonicalEditPolicy()-»
-installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE, new «getCanonicalEditPolicyQualifiedClassName()»());
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE installCanonicalEditPolicy FOR gmfgen::GenContainerBase-Â»
+	Â«IF needsCanonicalEditPolicy()-Â»
+installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE, new Â«getCanonicalEditPolicyQualifiedClassName()Â»());
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

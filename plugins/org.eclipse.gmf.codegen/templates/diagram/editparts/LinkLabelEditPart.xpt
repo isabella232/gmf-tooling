@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,58 +11,58 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE Main FOR gmfgen::GenLinkLabel-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE Main FOR gmfgen::GenLinkLabel-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND extendsListÂ» Â«EXPAND implementsListÂ» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND impl::diagram::editparts::LinkLabelEditPart::initializer-»
+	Â«EXPAND impl::diagram::editparts::LinkLabelEditPart::initializer-Â»
 	
-	«EXPAND impl::diagram::editparts::LinkLabelEditPart::_constructor-»
+	Â«EXPAND impl::diagram::editparts::LinkLabelEditPart::_constructor-Â»
 	
-	«EXPAND createDefaultEditPolicies-»
+	Â«EXPAND createDefaultEditPolicies-Â»
 	
-	«EXPAND impl::diagram::editparts::LinkLabelEditPart::getKeyPoint-»
+	Â«EXPAND impl::diagram::editparts::LinkLabelEditPart::getKeyPoint-Â»
 	
-	«EXPAND impl::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, link, getDiagram())-»
+	Â«EXPAND impl::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, link, getDiagram())-Â»
 	
-	«EXPAND handleNotificationEvent-»
+	Â«EXPAND handleNotificationEvent-Â»
 	
-	«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-»
+	Â«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenLinkLabel»extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenLinkLabelÂ»extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenLinkLabel»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenLinkLabelÂ»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenLinkLabel-»
-	«EXPAND xpt::diagram::editparts::Common::visualIDConstant-»
+Â«DEFINE attributes FOR gmfgen::GenLinkLabel-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::visualIDConstant-Â»
 
-	«EXPAND impl::diagram::editparts::TextAware::fields-»
-«ENDDEFINE»
+	Â«EXPAND impl::diagram::editparts::TextAware::fields-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPolicies FOR gmfgen::GenLinkLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDefaultEditPolicies FOR gmfgen::GenLinkLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void createDefaultEditPolicies() {
-		«EXPAND impl::diagram::editparts::LinkLabelEditPart::createDefaultEditPoliciesBody-»
+		Â«EXPAND impl::diagram::editparts::LinkLabelEditPart::createDefaultEditPoliciesBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEvent FOR gmfgen::GenLinkLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleNotificationEvent FOR gmfgen::GenLinkLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
-		«EXPAND impl::diagram::editparts::LinkLabelEditPart::handleNotificationEventBody-»
+		Â«EXPAND impl::diagram::editparts::LinkLabelEditPart::handleNotificationEventBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenLinkLabel-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenLinkLabel-Â»
+Â«ENDDEFINEÂ»

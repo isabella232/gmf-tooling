@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,16 +10,16 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE EditHelper FOR gmfgen::MetamodelType-»
-«EXPAND xpt::Common::copyright FOR diagramElement.getDiagram().editorGen-»
-package «diagramElement.getDiagram().editHelpersPackageName»;
+Â«DEFINE EditHelper FOR gmfgen::MetamodelType-Â»
+Â«EXPAND xpt::Common::copyright FOR diagramElement.getDiagram().editorGen-Â»
+package Â«diagramElement.getDiagram().editHelpersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editHelperClassName» extends «diagramElement.getDiagram().getBaseEditHelperQualifiedClassName()» {
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editHelperClassNameÂ» extends Â«diagramElement.getDiagram().getBaseEditHelperQualifiedClassName()Â» {
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::MetamodelType»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::MetamodelTypeÂ»Â«ENDDEFINEÂ»

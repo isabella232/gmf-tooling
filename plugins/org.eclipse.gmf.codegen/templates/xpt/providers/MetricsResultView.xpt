@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,59 +11,59 @@
  *    Artem Tikhomirov (Borland) - refactoring (https://bugs.eclipse.org/230014)
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE className FOR gmfgen::GenDiagram»ResultView«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»ResultViewÂ«ENDDEFINEÂ»
 
-«DEFINE Class FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static class «EXPAND className» «EXPAND supertypes» «EXPAND implements»{
-		«EXPAND xpt::Common::generatedMemberComment»
-		public static final String VIEW_ID = "«getMetricViewID()»";«EXPAND xpt::Common::nonNLS»
+Â«DEFINE Class FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static class Â«EXPAND classNameÂ» Â«EXPAND supertypesÂ» Â«EXPAND implementsÂ»{
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+		public static final String VIEW_ID = "Â«getMetricViewID()Â»";Â«EXPAND xpt::Common::nonNLSÂ»
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private static int MAX_VISIBLE_KEY_CHAR_COUNT = 8;
 
-		«EXPAND viewerField-»
+		Â«EXPAND viewerField-Â»
 
-		«EXPAND inputField-»
+		Â«EXPAND inputField-Â»
 
-		«EXPAND setInputMethod-»
+		Â«EXPAND setInputMethod-Â»
 
-		«EXPAND adjustLayoutMethod-»
+		Â«EXPAND adjustLayoutMethod-Â»
 
-		«EXPAND createPartControlMethod-»
+		Â«EXPAND createPartControlMethod-Â»
 
-		«EXPAND handleOpenMethod-»
+		Â«EXPAND handleOpenMethod-Â»
 
-		«EXPAND calcMetricMaxValueStrLenMapMethod-»
+		Â«EXPAND calcMetricMaxValueStrLenMapMethod-Â»
 
-		«EXPAND setFocusMethod-»
+		Â«EXPAND setFocusMethod-Â»
 
-		«EXPAND labelProviderClass-»
+		Â«EXPAND labelProviderClass-Â»
 
-		«EXPAND additions-»
+		Â«EXPAND additions-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»extends org.eclipse.ui.part.ViewPart«ENDDEFINE»
-«DEFINE implements FOR gmfgen::GenDiagram»implements org.eclipse.jface.viewers.IOpenListener«ENDDEFINE»
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»extends org.eclipse.ui.part.ViewPartÂ«ENDDEFINEÂ»
+Â«DEFINE implements FOR gmfgen::GenDiagramÂ»implements org.eclipse.jface.viewers.IOpenListenerÂ«ENDDEFINEÂ»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE viewerField FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE viewerField FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.jface.viewers.TableViewer viewer;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE inputField FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE inputField FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.emf.ecore.resource.Resource diagramResource;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE setInputMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setInputMethod FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	void setInput(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart) {
 		diagramResource = diagramPart.getDiagram().eResource();
 		setTitleToolTip(diagramResource.getURI().path());
@@ -71,10 +71,10 @@
 		adjustLayout(metrics);
 		viewer.setInput(metrics); 
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE adjustLayoutMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE adjustLayoutMethod FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private void adjustLayout(java.util.List metricResultList) {
 		java.util.Map maxValStrMap = calcMetricMaxValueStrLenMap(metricResultList);
 		org.eclipse.swt.widgets.Table table = viewer.getTable();
@@ -82,7 +82,7 @@
 		org.eclipse.swt.graphics.GC gc = new org.eclipse.swt.graphics.GC(table);
 
 		gc.setFont(org.eclipse.jface.resource.JFaceResources.getDialogFont());
-		int padding = gc.stringExtent("X").x * 2;«EXPAND xpt::Common::nonNLS»
+		int padding = gc.stringExtent("X").x * 2;Â«EXPAND xpt::Common::nonNLSÂ»
 		for (int i = 0; i < getMetricKeys().length; i++) {
 			final String nextKey = getMetricKeys()[i];
 			String valueStr = (String) maxValStrMap.get(nextKey);
@@ -95,10 +95,10 @@
 		viewer.getTable().setLayout(layout);
 		viewer.getTable().layout(true, true);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createPartControlMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createPartControlMethod FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void createPartControl(org.eclipse.swt.widgets.Composite parent) {
 		this.viewer = new org.eclipse.jface.viewers.TableViewer(parent, org.eclipse.swt.SWT.FULL_SELECTION);
 		final org.eclipse.swt.widgets.Table table = viewer.getTable();
@@ -150,24 +150,24 @@
 				return table.getSortDirection() == org.eclipse.swt.SWT.DOWN ? result : -result;
 			}
 		});
-		«EXPAND createPartControlMethod_refreshInput FOR editorGen.editor-»
+		Â«EXPAND createPartControlMethod_refreshInput FOR editorGen.editor-Â»
 		}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createPartControlMethod_refreshInput FOR gmfgen::GenEditorView-»
+Â«DEFINE createPartControlMethod_refreshInput FOR gmfgen::GenEditorView-Â»
         org.eclipse.ui.IEditorPart editor = getSite().getPage().getActiveEditor();
-        if (editor != null && editor.getClass().equals(«editorGen.editor.getQualifiedClassName()».class)) {
-			setInput((«editorGen.editor.getQualifiedClassName()») editor);
+        if (editor != null && editor.getClass().equals(Â«editorGen.editor.getQualifiedClassName()Â».class)) {
+			setInput((Â«editorGen.editor.getQualifiedClassName()Â») editor);
         }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleOpenMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleOpenMethod FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void open(org.eclipse.jface.viewers.OpenEvent event) {
 		try {
 			org.eclipse.ui.IEditorPart editorPart = getSite().getPage().openEditor(
 				new org.eclipse.ui.part.FileEditorInput(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource)),
-				«editorGen.editor.getQualifiedClassName()».ID);
+				Â«editorGen.editor.getQualifiedClassName()Â».ID);
 			if (editorPart == null) {
 				return;
 			}
@@ -181,18 +181,18 @@
 				if (targetView != null) {
 					org.eclipse.gef.EditPart targetEditPart = (org.eclipse.gef.EditPart) diagramPart.getDiagramGraphicalViewer().getEditPartRegistry().get(targetView);
 					if (targetEditPart != null) {
-						«getDiagramEditorUtilQualifiedClassName()».selectElementsInDiagram(diagramPart, java.util.Collections.singletonList(targetEditPart));
+						Â«getDiagramEditorUtilQualifiedClassName()Â».selectElementsInDiagram(diagramPart, java.util.Collections.singletonList(targetEditPart));
 					}
 				}
 			}
 		} catch (org.eclipse.ui.PartInitException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE calcMetricMaxValueStrLenMapMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE calcMetricMaxValueStrLenMapMethod FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static java.util.Map calcMetricMaxValueStrLenMap(java.util.List allMetrics) {
 		java.util.Map metric2MaxStrLen = new java.util.HashMap();
 		for (int i = 0; i < getMetricKeys().length; i++) {
@@ -212,29 +212,29 @@
 		}
 		return metric2MaxStrLen;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setFocusMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setFocusMethod FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void setFocus() {
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelProviderClass FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE labelProviderClass FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private class Labels extends org.eclipse.jface.viewers.LabelProvider implements org.eclipse.jface.viewers.ITableLabelProvider, org.eclipse.jface.viewers.ITableColorProvider {
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private boolean isElementColumn(int columnIndex) {
 			return columnIndex >= getMetricKeys().length;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public org.eclipse.swt.graphics.Image getColumnImage(Object element, int columnIndex) {
 			return isElementColumn(columnIndex) ? ((ElementMetrics) element).elementImage : null;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public String getColumnText(Object element, int columnIndex) {
 			ElementMetrics elementMetrics = (ElementMetrics) element;
 			if (columnIndex == getMetricKeys().length) {
@@ -245,12 +245,12 @@
 			return (metric != null) ? metric.displayValue : "-"; //$NON-NLS-1$
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public org.eclipse.swt.graphics.Color getBackground(Object element, int columnIndex) {
 			return null; 
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public org.eclipse.swt.graphics.Color getForeground(Object element, int columnIndex) {
 			if (isElementColumn(columnIndex)) {
 				return null;
@@ -260,18 +260,18 @@
 			Metric metric = columnElement.getMetricByKey(key);
 			if (metric != null && metric.value != null) {
 				if (metric.highLimit != null && metric.highLimit.longValue() < metric.value.longValue()) {
-					return «EXPAND labelProvider_colorMore»;
+					return Â«EXPAND labelProvider_colorMoreÂ»;
 				} else if (metric.lowLimit != null && metric.lowLimit.longValue() > metric.value.longValue()) {
-					return «EXPAND labelProvider_colorLess»;
+					return Â«EXPAND labelProvider_colorLessÂ»;
 				}
 			}
 			return null;
 		}
 	}		
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelProvider_colorMore FOR gmfgen::GenDiagram»org.eclipse.draw2d.ColorConstants.red«ENDDEFINE»
-«DEFINE labelProvider_colorLess FOR gmfgen::GenDiagram»org.eclipse.draw2d.ColorConstants.blue«ENDDEFINE»
+Â«DEFINE labelProvider_colorMore FOR gmfgen::GenDiagramÂ»org.eclipse.draw2d.ColorConstants.redÂ«ENDDEFINEÂ»
+Â«DEFINE labelProvider_colorLess FOR gmfgen::GenDiagramÂ»org.eclipse.draw2d.ColorConstants.blueÂ«ENDDEFINEÂ»
 
 
  

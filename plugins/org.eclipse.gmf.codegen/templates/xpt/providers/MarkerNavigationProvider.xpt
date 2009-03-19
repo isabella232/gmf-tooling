@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,23 +10,23 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE MarkerNavigationProvider FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «providersPackageName»;
+Â«DEFINE MarkerNavigationProvider FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «markerNavigationProviderClassName»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«markerNavigationProviderClassNameÂ»
 		extends org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider {
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static final String MARKER_TYPE =
-		«editorGen.plugin.getActivatorQualifiedClassName()».ID + ".«getValidationDiagnosticMarkerType()»"; «EXPAND xpt::Common::nonNLS»
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID + ".Â«getValidationDiagnosticMarkerType()Â»"; Â«EXPAND xpt::Common::nonNLSÂ»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void doGotoMarker(org.eclipse.core.resources.IMarker marker) {
 		String elementId = marker.getAttribute(org.eclipse.gmf.runtime.common.core.resources.IMarker.ELEMENT_ID, null);
 		if (elementId == null || !(getEditor() instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor)) {
@@ -41,22 +41,22 @@ public class «markerNavigationProviderClassName»
 		}
 		org.eclipse.gef.EditPart targetEditPart = (org.eclipse.gef.EditPart) editPartRegistry.get(targetView);
 		if (targetEditPart != null) {
-			«getDiagramEditorUtilQualifiedClassName()».selectElementsInDiagram(
+			Â«getDiagramEditorUtilQualifiedClassName()Â».selectElementsInDiagram(
 					editor, java.util.Arrays.asList(new org.eclipse.gef.EditPart[] { targetEditPart }));
 		}
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static void deleteMarkers(org.eclipse.core.resources.IResource resource) {
 		try {
 			resource.deleteMarkers(MARKER_TYPE, true, org.eclipse.core.resources.IResource.DEPTH_ZERO);
 		} catch (org.eclipse.core.runtime.CoreException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-					"Failed to delete validation markers", e); «EXPAND xpt::Common::nonNLS»
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError(
+					"Failed to delete validation markers", e); Â«EXPAND xpt::Common::nonNLSÂ»
 		}
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static org.eclipse.core.resources.IMarker addMarker(org.eclipse.core.resources.IFile file,
 			String elementId, String location, String message, int statusSeverity) {
 		org.eclipse.core.resources.IMarker marker = null;
@@ -74,13 +74,13 @@ public class «markerNavigationProviderClassName»
 			}
 			marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, markerSeverity);
 		} catch (org.eclipse.core.runtime.CoreException e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-					"Failed to create validation marker", e); «EXPAND xpt::Common::nonNLS»
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError(
+					"Failed to create validation marker", e); Â«EXPAND xpt::Common::nonNLSÂ»
 		}
 		return marker;		
 	}	
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

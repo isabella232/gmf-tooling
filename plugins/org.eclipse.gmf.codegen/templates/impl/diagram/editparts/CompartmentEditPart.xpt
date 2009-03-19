@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,69 +11,69 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::diagram::editparts::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::diagram::editparts::UtilsÂ»
 
-«DEFINE contsructor FOR gmfgen::GenCompartment-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+Â«DEFINE contsructor FOR gmfgen::GenCompartment-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE hasModelChildrenChanged FOR gmfgen::GenCompartment-»
-	«IF listLayout-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE hasModelChildrenChanged FOR gmfgen::GenCompartment-Â»
+	Â«IF listLayout-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected boolean hasModelChildrenChanged(org.eclipse.emf.common.notify.Notification evt) {
 			return false;
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCompartmentName FOR gmfgen::GenCompartment-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCompartmentName FOR gmfgen::GenCompartment-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getCompartmentName() {
-		return «EXPAND xpt::Externalizer::accessorCall(i18nKeyForCompartmentTitle(self)) FOR getDiagram().editorGen»;
+		return Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForCompartmentTitle(self)) FOR getDiagram().editorGenÂ»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createFigure FOR gmfgen::GenCompartment-»
-	«IF not needsTitle-»
-		«REM»By default titles are shown even if there are no TitleStyle, we need to switch it off«ENDREM»«-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createFigure FOR gmfgen::GenCompartment-Â»
+	Â«IF not needsTitle-Â»
+		Â«REMÂ»By default titles are shown even if there are no TitleStyle, we need to switch it offÂ«ENDREMÂ»Â«-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public org.eclipse.draw2d.IFigure createFigure() {
 			org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure result = (org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure) super.createFigure();
 			result.setTitleVisibility(false);
 			return result;
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenCompartment-»
+Â«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenCompartment-Â»
 	super.createDefaultEditPolicies();
-	«IF canCollapse-»
+	Â«IF canCollapse-Â»
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy());
-	«ENDIF-»
-	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-	«IF childNodes->size() > 0-»
+	Â«ENDIF-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-Â»
+	Â«IF childNodes->size() > 0-Â»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy());
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
-	«ENDIF-»
-	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
-	«EXPAND xpt::diagram::editparts::Common::behaviour-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::behaviour-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshVisuals FOR gmfgen::GenCompartment-»
-	«IF isStoringChildPositions(node)-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshVisuals FOR gmfgen::GenCompartment-Â»
+	Â«IF isStoringChildPositions(node)-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected void refreshVisuals() {
 			super.refreshVisuals();
 			refreshBounds();
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 	
-«DEFINE handleNotificationEventBody FOR gmfgen::GenCompartment-»
+Â«DEFINE handleNotificationEventBody FOR gmfgen::GenCompartment-Â»
 	super.handleNotificationEvent(notification);
 	Object feature = notification.getFeature();
 	if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
@@ -82,11 +82,11 @@
 			|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
 		refreshBounds();
 	} 
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE refreshBounds FOR gmfgen::GenCompartment-»
-	«IF isStoringChildPositions(node)-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshBounds FOR gmfgen::GenCompartment-Â»
+	Â«IF isStoringChildPositions(node)-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected void refreshBounds() {
 			int x = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X())).intValue();
 			int y = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y())).intValue();
@@ -94,35 +94,35 @@
 			int height = ((Integer) getStructuralFeatureValue(org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height())).intValue();
 			((org.eclipse.gef.GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(), new org.eclipse.draw2d.geometry.Rectangle(x, y, width, height));
 		}
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE setRatio FOR gmfgen::GenCompartment-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setRatio FOR gmfgen::GenCompartment-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setRatio(Double ratio) {
-		«IF gmfgen::ViewmapLayoutType::UNKNOWN = node.getLayoutType()-»
+		Â«IF gmfgen::ViewmapLayoutType::UNKNOWN = node.getLayoutType()-Â»
 		if (getFigure().getParent().getLayoutManager() instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout) {
 			super.setRatio(ratio);
 		}
-		«ELSE-»
+		Â«ELSE-Â»
 		// nothing to do -- parent layout does not accept Double constraints as ratio
 		// super.setRatio(ratio); 
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«EXPAND internal_i18nAccessors FOREACH compartments»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«EXPAND internal_i18nAccessors FOREACH compartmentsÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE internal_i18nAccessors FOR gmfgen::GenCompartment-»
-«IF null <> title»«EXPAND xpt::Externalizer::accessorField(i18nKeyForCompartmentTitle(self))»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE internal_i18nAccessors FOR gmfgen::GenCompartment-Â»
+Â«IF null <> titleÂ»Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForCompartmentTitle(self))Â»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND internal_i18nValues FOREACH compartments»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND internal_i18nValues FOREACH compartmentsÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE internal_i18nValues FOR gmfgen::GenCompartment-»
-«IF null <> title»«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCompartmentTitle(self), title)»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE internal_i18nValues FOR gmfgen::GenCompartment-Â»
+Â«IF null <> titleÂ»Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForCompartmentTitle(self), title)Â»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

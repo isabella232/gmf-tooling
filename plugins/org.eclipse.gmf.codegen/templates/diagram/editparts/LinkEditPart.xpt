@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,51 +11,51 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE Main FOR gmfgen::GenLink-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE Main FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND extendsListÂ» Â«EXPAND implementsListÂ» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND impl::diagram::editparts::LinkEditPart::_constructor-»
+	Â«EXPAND impl::diagram::editparts::LinkEditPart::_constructor-Â»
 	
-	«EXPAND createDefaultEditPolicies-»
+	Â«EXPAND createDefaultEditPolicies-Â»
 
-	«EXPAND impl::diagram::editparts::LinkEditPart::addFixedChild-»
+	Â«EXPAND impl::diagram::editparts::LinkEditPart::addFixedChild-Â»
 
-	«EXPAND impl::diagram::editparts::LinkEditPart::addChildVisual-»
+	Â«EXPAND impl::diagram::editparts::LinkEditPart::addChildVisual-Â»
 
-	«EXPAND impl::diagram::editparts::LinkEditPart::removeFixedChild-»
+	Â«EXPAND impl::diagram::editparts::LinkEditPart::removeFixedChild-Â»
 
-	«EXPAND impl::diagram::editparts::LinkEditPart::removeChildVisual-»
+	Â«EXPAND impl::diagram::editparts::LinkEditPart::removeChildVisual-Â»
 	
-	«EXPAND impl::diagram::editparts::LinkEditPart::createLinkFigure-»
+	Â«EXPAND impl::diagram::editparts::LinkEditPart::createLinkFigure-Â»
 	
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenLink»extends org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenLinkÂ»extends org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenLink-»
-	«IF treeBranch»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenLink-Â»
+	Â«IF treeBranchÂ»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPartÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenLink-»
-	«EXPAND xpt::diagram::editparts::Common::visualIDConstant-»
-«ENDDEFINE»
+Â«DEFINE attributes FOR gmfgen::GenLink-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::visualIDConstant-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPolicies FOR gmfgen::GenLink-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDefaultEditPolicies FOR gmfgen::GenLink-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void createDefaultEditPolicies() {
-		«EXPAND impl::diagram::editparts::LinkEditPart::createDefaultEditPoliciesBody-»
+		Â«EXPAND impl::diagram::editparts::LinkEditPart::createDefaultEditPoliciesBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenLink-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenLink-Â»
+Â«ENDDEFINEÂ»

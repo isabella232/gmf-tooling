@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,30 +10,30 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«EXTENSION xpt::GenModelUtils»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE newInstance(String requestVar) FOR gmfgen::GenLink»«EXPAND newDeleteLinkCommand(self, requestVar) FOR modelFacet»«ENDDEFINE»
+Â«DEFINE newInstance(String requestVar) FOR gmfgen::GenLinkÂ»Â«EXPAND newDeleteLinkCommand(self, requestVar) FOR modelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE newRequest(String requestVar, String edgeVar) FOR gmfgen::GenLink»«EXPAND newDestroyRequest(self, requestVar, edgeVar) FOR modelFacet»«ENDDEFINE»
+Â«DEFINE newRequest(String requestVar, String edgeVar) FOR gmfgen::GenLinkÂ»Â«EXPAND newDestroyRequest(self, requestVar, edgeVar) FOR modelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE newDeleteLinkCommand(gmfgen::GenLink genLink, String requestVar) FOR gmfgen::LinkModelFacet»
-«ERROR 'Unsupported model facet: ' + self.repr()-»
-«ENDDEFINE»
+Â«DEFINE newDeleteLinkCommand(gmfgen::GenLink genLink, String requestVar) FOR gmfgen::LinkModelFacetÂ»
+Â«ERROR 'Unsupported model facet: ' + self.repr()-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE newDeleteLinkCommand(gmfgen::GenLink genLink, String requestVar) FOR gmfgen::TypeLinkModelFacet-»
-«EXPAND newDeleteLinkWithClassCommand(genLink, requestVar)-»
-«ENDDEFINE»
+Â«DEFINE newDeleteLinkCommand(gmfgen::GenLink genLink, String requestVar) FOR gmfgen::TypeLinkModelFacet-Â»
+Â«EXPAND newDeleteLinkWithClassCommand(genLink, requestVar)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE newDeleteLinkCommand(gmfgen::GenLink genLink, String requestVar) FOR gmfgen::FeatureLinkModelFacet-»
-«EXPAND newDeleteReferenceLinkCommand(genLink, requestVar)-»
-«ENDDEFINE»
+Â«DEFINE newDeleteLinkCommand(gmfgen::GenLink genLink, String requestVar) FOR gmfgen::FeatureLinkModelFacet-Â»
+Â«EXPAND newDeleteReferenceLinkCommand(genLink, requestVar)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE newDeleteReferenceLinkCommand(GenLink genLink, String destroyReferenceRequest) FOR gmfgen::FeatureLinkModelFacet-»
-new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(«destroyReferenceRequest»)«IF isContains(metaFeature)» {
+Â«DEFINE newDeleteReferenceLinkCommand(GenLink genLink, String destroyReferenceRequest) FOR gmfgen::FeatureLinkModelFacet-Â»
+new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(Â«destroyReferenceRequestÂ»)Â«IF isContains(metaFeature)Â» {
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.emf.ecore.EObject referencedObject = getReferencedObject();
 		org.eclipse.emf.ecore.resource.Resource resource = referencedObject.eResource();
@@ -41,22 +41,22 @@ new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(«dest
 		resource.getContents().add(referencedObject);
 		return result;
 	}
-}«ENDIF-»
-«ENDDEFINE»
+}Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE newDeleteLinkWithClassCommand(GenLink genLink, String destroyElementRequest) FOR gmfgen::TypeLinkModelFacet-»
-new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(«destroyElementRequest»)«-»
-«ENDDEFINE»
+Â«DEFINE newDeleteLinkWithClassCommand(GenLink genLink, String destroyElementRequest) FOR gmfgen::TypeLinkModelFacet-Â»
+new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(Â«destroyElementRequestÂ»)Â«-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE newDestroyRequest(gmfgen::GenLink genLink, String requestVar, String edgeVar) FOR gmfgen::LinkModelFacet»
-«ERROR 'Unsupported model facet: ' + self.repr()-»
-«ENDDEFINE»
+Â«DEFINE newDestroyRequest(gmfgen::GenLink genLink, String requestVar, String edgeVar) FOR gmfgen::LinkModelFacetÂ»
+Â«ERROR 'Unsupported model facet: ' + self.repr()-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE newDestroyRequest(gmfgen::GenLink genLink, String requestVar, String edgeVar) FOR gmfgen::TypeLinkModelFacet-»
-org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest «requestVar» = new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(«edgeVar».getElement(), false);
-«ENDDEFINE»
+Â«DEFINE newDestroyRequest(gmfgen::GenLink genLink, String requestVar, String edgeVar) FOR gmfgen::TypeLinkModelFacet-Â»
+org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest Â«requestVarÂ» = new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(Â«edgeVarÂ».getElement(), false);
+Â«ENDDEFINEÂ»
 
-«DEFINE newDestroyRequest(gmfgen::GenLink genLink, String requestVar, String edgeVar) FOR gmfgen::FeatureLinkModelFacet-»
-«REM»FIXME source not always container, target is not always referenced object. And containerReference is known at generation time«ENDREM-»
-org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest «requestVar» = new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest(«edgeVar».getSource().getElement(), null, «edgeVar».getTarget().getElement(), false);
-«ENDDEFINE»
+Â«DEFINE newDestroyRequest(gmfgen::GenLink genLink, String requestVar, String edgeVar) FOR gmfgen::FeatureLinkModelFacet-Â»
+Â«REMÂ»FIXME source not always container, target is not always referenced object. And containerReference is known at generation timeÂ«ENDREM-Â»
+org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest Â«requestVarÂ» = new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest(Â«edgeVarÂ».getSource().getElement(), null, Â«edgeVarÂ».getTarget().getElement(), false);
+Â«ENDDEFINEÂ»

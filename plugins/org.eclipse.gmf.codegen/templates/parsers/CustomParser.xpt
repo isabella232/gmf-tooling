@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,55 +10,55 @@
  *    Artem Tikhomirov (Borland) - [244419] custom parsers
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Main FOR gmfgen::CustomParser»
-«EXPAND xpt::Common::copyright FOR holder.editorGen-»
-«EXPAND xpt::Common::packageStatement FOR qualifiedName»
+Â«DEFINE Main FOR gmfgen::CustomParserÂ»
+Â«EXPAND xpt::Common::copyright FOR holder.editorGen-Â»
+Â«EXPAND xpt::Common::packageStatement FOR qualifiedNameÂ»
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedName.xpandSplit('\\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
-«EXPAND body»
-«EXPAND additions»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«qualifiedName.xpandSplit('\\.')->last()Â»Â«EXPAND extendsListÂ»Â«EXPAND implementsListÂ» {
+Â«EXPAND bodyÂ»
+Â«EXPAND additionsÂ»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::CustomParser»«ENDDEFINE»
-«DEFINE extendsList FOR gmfgen::CustomParser»«ENDDEFINE»
-«DEFINE implementsList FOR gmfgen::CustomParser» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::CustomParserÂ»Â«ENDDEFINEÂ»
+Â«DEFINE extendsList FOR gmfgen::CustomParserÂ»Â«ENDDEFINEÂ»
+Â«DEFINE implementsList FOR gmfgen::CustomParserÂ» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParserÂ«ENDDEFINEÂ»
 
-«DEFINE body FOR gmfgen::CustomParser»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE body FOR gmfgen::CustomParserÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getEditString(org.eclipse.core.runtime.IAdaptable element, int flags) {
 		return "";
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus isValidEditString(org.eclipse.core.runtime.IAdaptable element, String editString) {
 		// TODO change to EDITABLE_STATUS as appropriate
 		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(org.eclipse.core.runtime.IAdaptable element, String newString, int flags) {
 		// TODO
 		throw new UnsupportedOperationException(); 
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getPrintString(org.eclipse.core.runtime.IAdaptable element, int flags) {
 		return "";
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public boolean isAffectingEvent(Object event, int flags) {
 		return false;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor(org.eclipse.core.runtime.IAdaptable element) {
     	return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

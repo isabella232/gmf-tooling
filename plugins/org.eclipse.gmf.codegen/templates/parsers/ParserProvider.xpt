@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -12,37 +12,37 @@
  *                                 [244419] custom parsers
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::providers::ParserUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::providers::ParserUtilsÂ»
 
-«DEFINE Main FOR gmfgen::GenParsers-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE Main FOR gmfgen::GenParsers-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «className»«EXPAND extendsList»«EXPAND implementsList» {
-	«EXPAND impl::parsers::ParserProvider::parsers FOREACH editorGen.diagram.topLevelNodes»
-	«EXPAND impl::parsers::ParserProvider::parsers FOREACH editorGen.diagram.childNodes»
-	«EXPAND impl::parsers::ParserProvider::parsers FOREACH editorGen.diagram.links»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«classNameÂ»Â«EXPAND extendsListÂ»Â«EXPAND implementsListÂ» {
+	Â«EXPAND impl::parsers::ParserProvider::parsers FOREACH editorGen.diagram.topLevelNodesÂ»
+	Â«EXPAND impl::parsers::ParserProvider::parsers FOREACH editorGen.diagram.childNodesÂ»
+	Â«EXPAND impl::parsers::ParserProvider::parsers FOREACH editorGen.diagram.linksÂ»
 
-«IF extensibleViaService-»
-	«EXPAND impl::parsers::ParserProvider::getParserByVisualIdMethod-»
-	«EXPAND impl::parsers::ParserProvider::accessorMethod_delegate2providers-»
-	«EXPAND impl::parsers::ParserProvider::provider_getParserMethod»
-	«EXPAND impl::parsers::ParserProvider::provider_providesMethod»
-	«EXPAND impl::parsers::ParserProvider::HintAdapterClass»
-«ELSE-»
-	«EXPAND impl::parsers::ParserProvider::accessorMethod_direct-»
-«ENDIF-»
-	«EXPAND additions-»
+Â«IF extensibleViaService-Â»
+	Â«EXPAND impl::parsers::ParserProvider::getParserByVisualIdMethod-Â»
+	Â«EXPAND impl::parsers::ParserProvider::accessorMethod_delegate2providers-Â»
+	Â«EXPAND impl::parsers::ParserProvider::provider_getParserMethodÂ»
+	Â«EXPAND impl::parsers::ParserProvider::provider_providesMethodÂ»
+	Â«EXPAND impl::parsers::ParserProvider::HintAdapterClassÂ»
+Â«ELSE-Â»
+	Â«EXPAND impl::parsers::ParserProvider::accessorMethod_direct-Â»
+Â«ENDIF-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenParsers»«IF extensibleViaService» extends org.eclipse.gmf.runtime.common.core.service.AbstractProvider«ENDIF»«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenParsersÂ»Â«IF extensibleViaServiceÂ» extends org.eclipse.gmf.runtime.common.core.service.AbstractProviderÂ«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenParsers»«IF extensibleViaService» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider«ENDIF»«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenParsersÂ»Â«IF extensibleViaServiceÂ» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParserProviderÂ«ENDIFÂ»Â«ENDDEFINEÂ»
 
 /*
  * this/self - aka hintHolder, visual element to present a text (i.e. one of Node's labels)
@@ -50,12 +50,12 @@ public class «className»«EXPAND extendsList»«EXPAND implementsList» {
  * modelFacet - may be null
  * parsedElement - accessor to EObject being edited 
  */
-«DEFINE accessorCall(elementTypeHolder : gmfgen::GenCommonBase, labelModelFacet : gmfgen::LabelModelFacet, parsedElement : String) FOR gmfgen::GenCommonBase-»
-«IF getDiagram().editorGen.labelParsers.extensibleViaService-»
-«EXPAND impl::parsers::ParserProvider::accessorCall_delegate2providers(elementTypeHolder, labelModelFacet, parsedElement)-»
-«ELSE-»
-«EXPAND impl::parsers::ParserProvider::accessorCall_direct(elementTypeHolder, labelModelFacet, parsedElement)-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE accessorCall(elementTypeHolder : gmfgen::GenCommonBase, labelModelFacet : gmfgen::LabelModelFacet, parsedElement : String) FOR gmfgen::GenCommonBase-Â»
+Â«IF getDiagram().editorGen.labelParsers.extensibleViaService-Â»
+Â«EXPAND impl::parsers::ParserProvider::accessorCall_delegate2providers(elementTypeHolder, labelModelFacet, parsedElement)-Â»
+Â«ELSE-Â»
+Â«EXPAND impl::parsers::ParserProvider::accessorCall_direct(elementTypeHolder, labelModelFacet, parsedElement)-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenParsers»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenParsersÂ»Â«ENDDEFINEÂ»

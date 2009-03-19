@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,52 +9,52 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE Class FOR gmfgen::GenPropertySheet»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE Class FOR gmfgen::GenPropertySheetÂ»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «labelProviderClassName» extends «EXPAND extendsList» implements «EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«labelProviderClassNameÂ» extends Â«EXPAND extendsListÂ» implements Â«EXPAND implementsListÂ» {
 
-«EXPAND getTextMethod»
-«EXPAND getImageMethod»
-«EXPAND unwrapMethods»
+Â«EXPAND getTextMethodÂ»
+Â«EXPAND getImageMethodÂ»
+Â«EXPAND unwrapMethodsÂ»
 
-«EXPAND additions»
+Â«EXPAND additionsÂ»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenPropertySheet»org.eclipse.jface.viewers.BaseLabelProvider«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenPropertySheetÂ»org.eclipse.jface.viewers.BaseLabelProviderÂ«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenPropertySheet»org.eclipse.jface.viewers.ILabelProvider«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenPropertySheetÂ»org.eclipse.jface.viewers.ILabelProviderÂ«ENDDEFINEÂ»
 
-«DEFINE getTextMethod FOR gmfgen::GenPropertySheet»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getTextMethod FOR gmfgen::GenPropertySheetÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getText(Object element) {
 		element = unwrap(element);
-«IF editorGen.navigator <> null-»
-		if (element instanceof «editorGen.navigator.getNavigatorGroupQualifiedClassName()») {
-			return ((«editorGen.navigator.getNavigatorGroupQualifiedClassName()») element).getGroupName();
+Â«IF editorGen.navigator <> null-Â»
+		if (element instanceof Â«editorGen.navigator.getNavigatorGroupQualifiedClassName()Â») {
+			return ((Â«editorGen.navigator.getNavigatorGroupQualifiedClassName()Â») element).getGroupName();
 		}
-«ENDIF-»
+Â«ENDIF-Â»
 		org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(element));
 		return etype == null ? "" : etype.getDisplayName();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getImageMethod FOR gmfgen::GenPropertySheet»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImageMethod FOR gmfgen::GenPropertySheetÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.swt.graphics.Image getImage(Object element) {
 		org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(unwrap(element)));
-		return etype == null ? null : «editorGen.diagram.getElementTypesQualifiedClassName()».getImage(etype);
+		return etype == null ? null : Â«editorGen.diagram.getElementTypesQualifiedClassName()Â».getImage(etype);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE unwrapMethods FOR gmfgen::GenPropertySheet»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE unwrapMethods FOR gmfgen::GenPropertySheetÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private Object unwrap(Object element) {
 		if (element instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 			return ((org.eclipse.jface.viewers.IStructuredSelection) element).getFirstElement();
@@ -62,7 +62,7 @@ public class «labelProviderClassName» extends «EXPAND extendsList» implements «E
 		return element;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gmf.runtime.notation.View getView(Object element) {
 		if (element instanceof org.eclipse.gmf.runtime.notation.View) {
 			return (org.eclipse.gmf.runtime.notation.View) element;
@@ -74,13 +74,13 @@ public class «labelProviderClassName» extends «EXPAND extendsList» implements «E
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(org.eclipse.gmf.runtime.notation.View view) {
 		// For intermediate views climb up the containment hierarchy to find the one associated with an element type.
 		while (view != null) {
-			int vid = «editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view);
+			int vid = Â«editorGen.diagram.getVisualIDRegistryQualifiedClassName()Â».getVisualID(view);
 			org.eclipse.gmf.runtime.emf.type.core.IElementType etype =
-					«editorGen.diagram.getElementTypesQualifiedClassName()».getElementType(vid);
+					Â«editorGen.diagram.getElementTypesQualifiedClassName()Â».getElementType(vid);
 			if (etype != null) {
 				return etype;
 			}
@@ -89,6 +89,6 @@ public class «labelProviderClassName» extends «EXPAND extendsList» implements «E
 		}
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenPropertySheet»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenPropertySheetÂ»Â«ENDDEFINEÂ»

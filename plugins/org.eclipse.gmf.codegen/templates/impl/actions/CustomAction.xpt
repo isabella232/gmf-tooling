@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,18 +10,18 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Main FOR gmfgen::GenCustomAction-»
-«EXPAND xpt::Common::copyright FOR owner.editorGen-»
-«EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
+Â«DEFINE Main FOR gmfgen::GenCustomAction-Â»
+Â«EXPAND xpt::Common::copyright FOR owner.editorGen-Â»
+Â«EXPAND xpt::Common::packageStatement FOR qualifiedClassNameÂ»
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedClassName.xpandSplit('\\.')->last()» extends org.eclipse.core.commands.AbstractHandler {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«qualifiedClassName.xpandSplit('\\.')->last()Â» extends org.eclipse.core.commands.AbstractHandler {
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
 		org.eclipse.jface.viewers.ISelection selection = org.eclipse.ui.handlers.HandlerUtil.getCurrentSelectionChecked(event);
@@ -29,4 +29,4 @@ public class «qualifiedClassName.xpandSplit('\\.')->last()» extends org.eclipse.
 		throw new UnsupportedOperationException();
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

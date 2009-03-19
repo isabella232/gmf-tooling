@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,75 +10,75 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Main FOR gmfgen::GenCustomPreferencePage-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «(if qualifiedClassName = getClassName() then getDiagram().preferencesPackageName else qualifiedClassName.substring(1 + 0, qualifiedClassName.xpandLength() - getClassName().xpandLength() - 1) endif)»;
+Â«DEFINE Main FOR gmfgen::GenCustomPreferencePage-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«(if qualifiedClassName = getClassName() then getDiagram().preferencesPackageName else qualifiedClassName.substring(1 + 0, qualifiedClassName.xpandLength() - getClassName().xpandLength() - 1) endif)Â»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«getClassName()Â»Â«EXPAND extendsListÂ»Â«EXPAND implementsListÂ» {
 
-«EXPAND _constant FOREACH preferences-»
+Â«EXPAND _constant FOREACH preferences-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «getClassName()»() {
-		setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«getClassName()Â»() {
+		setPreferenceStore(Â«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getPreferenceStore());
 	}
-«EXPAND methods»
-«EXPAND initDefaultsMethod»
-«EXPAND additions»
+Â«EXPAND methodsÂ»
+Â«EXPAND initDefaultsMethodÂ»
+Â«EXPAND additionsÂ»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenCustomPreferencePage» extends org.eclipse.gmf.runtime.common.ui.preferences.AbstractPreferencePage«ENDDEFINE»
-«DEFINE implementsList FOR gmfgen::GenCustomPreferencePage»«REM»no-op«ENDREM»«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenCustomPreferencePageÂ» extends org.eclipse.gmf.runtime.common.ui.preferences.AbstractPreferencePageÂ«ENDDEFINEÂ»
+Â«DEFINE implementsList FOR gmfgen::GenCustomPreferencePageÂ»Â«REMÂ»no-opÂ«ENDREMÂ»Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenCustomPreferencePage»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenCustomPreferencePageÂ»Â«ENDDEFINEÂ»
 
 // the reason I didn't split this template up into two distinct, addFieldsMethod and initHelpMethod, is that
 // using superclass other than oe.gmf...AbstractPreferencePage may require implementation of completely different
 // set of methods. Besides, there's not to much generated, anyway.
-«DEFINE methods FOR gmfgen::GenCustomPreferencePage»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE methods FOR gmfgen::GenCustomPreferencePageÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void addFields(org.eclipse.swt.widgets.Composite parent) {
 		// TODO  Provide method implementation
 		throw new UnsupportedOperationException();
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void initHelp() {
 		// TODO implement this method if needed, or leave as no-op
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE initDefaultsMethod FOR gmfgen::GenCustomPreferencePage-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE initDefaultsMethod FOR gmfgen::GenCustomPreferencePage-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static void initDefaults(org.eclipse.jface.preference.IPreferenceStore store) {
-«IF preferences->isEmpty() or preferences->exists(p | p.defaultValue = null)-»
+Â«IF preferences->isEmpty() or preferences->exists(p | p.defaultValue = null)-Â»
 		// TODO this code is invoked during preference store initialization, please fill
 		// the store passed with default preference values.
-«ENDIF-»
-«EXPAND _setDefaultValue('store') FOREACH preferences->select(p | p.defaultValue <> null)-»
+Â«ENDIF-Â»
+Â«EXPAND _setDefaultValue('store') FOREACH preferences->select(p | p.defaultValue <> null)-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 // pair template to initDefaultsMethod, allows external templates invoke generated initDefaults method
 // Note, CustomPage::Main is expected to be invoked only for templates with generateBoilerplate == true,
 // hence no extra check when generating with initDefaultsMethod,
 // however, call_initDefaults may get invoked for any CustomPreferencePage
-«DEFINE call_initDefaults(storeVarName : String) FOR gmfgen::GenCustomPreferencePage-»
-«IF generateBoilerplate»«qualifiedClassName».initDefaults(«storeVarName»);«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE call_initDefaults(storeVarName : String) FOR gmfgen::GenCustomPreferencePage-Â»
+Â«IF generateBoilerplateÂ»Â«qualifiedClassNameÂ».initDefaults(Â«storeVarNameÂ»);Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constant FOR gmfgen::GenPreference-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static final String «name» = "«key»";«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE _constant FOR gmfgen::GenPreference-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public static final String Â«nameÂ» = "Â«keyÂ»";Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE _setDefaultValue(store : String) FOR gmfgen::GenPreference-»
-		«store».setDefault(«name», «defaultValue»);
-«ENDDEFINE»
+Â«DEFINE _setDefaultValue(store : String) FOR gmfgen::GenPreference-Â»
+		Â«storeÂ».setDefault(Â«nameÂ», Â«defaultValueÂ»);
+Â«ENDDEFINEÂ»

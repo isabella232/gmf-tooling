@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,14 +10,14 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE getEditorInput FOR gmfgen::GenEditorGenerator-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditorInput FOR gmfgen::GenEditorGenerator-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.ui.IEditorInput getEditorInput(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 	org.eclipse.emf.ecore.resource.Resource diagramResource = diagram.eResource();
-«IF null = application-»
+Â«IF null = application-Â»
 	for (java.util.Iterator it = diagramResource.getContents().iterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.EObject nextEObject = (org.eclipse.emf.ecore.EObject) it.next();
 		if (nextEObject == diagram) {
@@ -27,18 +27,18 @@ private static org.eclipse.ui.IEditorInput getEditorInput(org.eclipse.gmf.runtim
 			break;
 		}
 	}
-«ENDIF-»
-	«EXPAND defineURIEditorInput('diagram') FOR diagram-»
+Â«ENDIF-Â»
+	Â«EXPAND defineURIEditorInput('diagram') FOR diagram-Â»
 	return editorInput;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE defineURIEditorInput(diagramVarName : String) FOR gmfgen::GenDiagram-»
-«EXPAND defineURIEditorInput(diagramVarName, 'editorInput')-»
-«ENDDEFINE»
+Â«DEFINE defineURIEditorInput(diagramVarName : String) FOR gmfgen::GenDiagram-Â»
+Â«EXPAND defineURIEditorInput(diagramVarName, 'editorInput')-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE defineURIEditorInput(diagramVarName : String, editorInputVarName : String) FOR gmfgen::GenDiagram-»
-org.eclipse.emf.common.util.URI uri = org.eclipse.emf.ecore.util.EcoreUtil.getURI(«diagramVarName»);
-String editorName = uri.lastSegment() + "#" + «diagramVarName».eResource().getContents().indexOf(«diagramVarName»); «EXPAND xpt::Common::nonNLS»
-org.eclipse.ui.IEditorInput «editorInputVarName» = new org.eclipse.emf.common.ui.URIEditorInput(uri, editorName);
-«ENDDEFINE»
+Â«DEFINE defineURIEditorInput(diagramVarName : String, editorInputVarName : String) FOR gmfgen::GenDiagram-Â»
+org.eclipse.emf.common.util.URI uri = org.eclipse.emf.ecore.util.EcoreUtil.getURI(Â«diagramVarNameÂ»);
+String editorName = uri.lastSegment() + "#" + Â«diagramVarNameÂ».eResource().getContents().indexOf(Â«diagramVarNameÂ»); Â«EXPAND xpt::Common::nonNLSÂ»
+org.eclipse.ui.IEditorInput Â«editorInputVarNameÂ» = new org.eclipse.emf.common.ui.URIEditorInput(uri, editorName);
+Â«ENDDEFINEÂ»

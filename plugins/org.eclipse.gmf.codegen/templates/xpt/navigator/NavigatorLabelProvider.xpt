@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,106 +10,106 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
  
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::navigator::Utils»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::navigator::UtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
  
-«DEFINE NavigatorLabelProvider FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE NavigatorLabelProvider FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «labelProviderClassName» extends org.eclipse.jface.viewers.LabelProvider implements org.eclipse.ui.navigator.ICommonLabelProvider, org.eclipse.jface.viewers.ITreePathLabelProvider {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«labelProviderClassNameÂ» extends org.eclipse.jface.viewers.LabelProvider implements org.eclipse.ui.navigator.ICommonLabelProvider, org.eclipse.jface.viewers.ITreePathLabelProvider {
 
-	«EXPAND staticInitializer-»
+	Â«EXPAND staticInitializer-Â»
 	
-	«EXPAND updateLabel-»
+	Â«EXPAND updateLabel-Â»
 	
-	«EXPAND getImage-»
+	Â«EXPAND getImage-Â»
 	
-	«EXPAND getViewImage-»
+	Â«EXPAND getViewImage-Â»
 	
-	«EXPAND getImageByKey-»
+	Â«EXPAND getImageByKey-Â»
 	
-	«EXPAND getText-»
+	Â«EXPAND getText-Â»
 	
-	«EXPAND getViewText-»
+	Â«EXPAND getViewText-Â»
 	
-	«EXPAND getTextMethod FOREACH getNavigatorContainedNodes(self)-»
+	Â«EXPAND getTextMethod FOREACH getNavigatorContainedNodes(self)-Â»
 	
-	«EXPAND getUnknownElementText-»
+	Â«EXPAND getUnknownElementText-Â»
 	
-	«EXPAND getUnresolvedDomainElementProxyText-»
+	Â«EXPAND getUnresolvedDomainElementProxyText-Â»
 	
-	«EXPAND _init-»
+	Â«EXPAND _init-Â»
 
-	«EXPAND restoreState-»
+	Â«EXPAND restoreState-Â»
 
-	«EXPAND saveState-»
+	Â«EXPAND saveState-Â»
 	
-	«EXPAND getDescription-»
+	Â«EXPAND getDescription-Â»
 	
-	«EXPAND isOwnView-»
+	Â«EXPAND isOwnView-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE staticInitializer FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE staticInitializer FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 static {
-	«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getImageRegistry().put(«EXPAND unknownElementKey», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor()); «EXPAND xpt::Common::nonNLS»
-	«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getImageRegistry().put(«EXPAND notFoundElementKey», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor()); «EXPAND xpt::Common::nonNLS»
+	Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getImageRegistry().put(Â«EXPAND unknownElementKeyÂ», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor()); Â«EXPAND xpt::Common::nonNLSÂ»
+	Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getImageRegistry().put(Â«EXPAND notFoundElementKeyÂ», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor()); Â«EXPAND xpt::Common::nonNLSÂ»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE updateLabel FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE updateLabel FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void updateLabel(org.eclipse.jface.viewers.ViewerLabel label, org.eclipse.jface.viewers.TreePath elementPath) {
 	Object element = elementPath.getLastSegment();
-	if (element instanceof «getNavigatorItemQualifiedClassName()» && !isOwnView(((«getNavigatorItemQualifiedClassName()») element).getView())) {
+	if (element instanceof Â«getNavigatorItemQualifiedClassName()Â» && !isOwnView(((Â«getNavigatorItemQualifiedClassName()Â») element).getView())) {
 		return;
 	}
 	label.setText(getText(element));
 	label.setImage(getImage(element));
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getImage FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImage FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.swt.graphics.Image getImage(Object element) {
-	«EXPAND getNavigatorGroupImage-»
+	Â«EXPAND getNavigatorGroupImage-Â»
 
-	«EXPAND getNavigatorItemImage-»
+	Â«EXPAND getNavigatorItemImage-Â»
 
-	«EXPAND getAdaptableImage-»
+	Â«EXPAND getAdaptableImage-Â»
 
-	«EXPAND getAdditionalInputImage-»
+	Â«EXPAND getAdditionalInputImage-Â»
 	return super.getImage(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNavigatorGroupImage FOR gmfgen::GenNavigator-»
-if (element instanceof «getNavigatorGroupQualifiedClassName()») {
-	«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
-	return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getBundledImage(group.getIcon());
+Â«DEFINE getNavigatorGroupImage FOR gmfgen::GenNavigator-Â»
+if (element instanceof Â«getNavigatorGroupQualifiedClassName()Â») {
+	Â«getNavigatorGroupQualifiedClassName()Â» group = (Â«getNavigatorGroupQualifiedClassName()Â») element;
+	return Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getBundledImage(group.getIcon());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNavigatorItemImage FOR gmfgen::GenNavigator-»
-if (element instanceof «getNavigatorItemQualifiedClassName()») {
-	«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
+Â«DEFINE getNavigatorItemImage FOR gmfgen::GenNavigator-Â»
+if (element instanceof Â«getNavigatorItemQualifiedClassName()Â») {
+	Â«getNavigatorItemQualifiedClassName()Â» navigatorItem = (Â«getNavigatorItemQualifiedClassName()Â») element;
 	if (!isOwnView(navigatorItem.getView())) {
 		return super.getImage(element);
 	}
 	return getImage(navigatorItem.getView());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdaptableImage FOR gmfgen::GenNavigator-»
-«IF editorGen.diagram.generateShortcutIcon()-»
+Â«DEFINE getAdaptableImage FOR gmfgen::GenNavigator-Â»
+Â«IF editorGen.diagram.generateShortcutIcon()-Â»
 // Due to plugin.xml content will be called only for "own" views
 if (element instanceof org.eclipse.core.runtime.IAdaptable) {
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
@@ -117,80 +117,80 @@ if (element instanceof org.eclipse.core.runtime.IAdaptable) {
 		return getImage(view);
 	}
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdditionalInputImage FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE getAdditionalInputImage FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getViewImage FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getViewImage FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.swt.graphics.Image getImage(org.eclipse.gmf.runtime.notation.View view) {
-	«IF not getNavigatorContainedNodes(self)->isEmpty()-»
-	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
-		«EXPAND caseImage FOREACH getNavigatorContainedNodes(self)-»
+	Â«IF not getNavigatorContainedNodes(self)->isEmpty()-Â»
+	switch (Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagramÂ»(view)) {
+		Â«EXPAND caseImage FOREACH getNavigatorContainedNodes(self)-Â»
 	}
-	«ENDIF-»
-	return getImage(«EXPAND unknownElementKey», null); «EXPAND xpt::Common::nonNLS»
+	Â«ENDIF-Â»
+	return getImage(Â«EXPAND unknownElementKeyÂ», null); Â«EXPAND xpt::Common::nonNLSÂ»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE caseImage FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::caseVisualID»
-	return getImage("«EXPAND key»", «IF null <> elementType»«EXPAND xpt::providers::ElementTypes::accessElementType»«ELSE»null«ENDIF»);«EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE caseImage FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::caseVisualIDÂ»
+	return getImage("Â«EXPAND keyÂ»", Â«IF null <> elementTypeÂ»Â«EXPAND xpt::providers::ElementTypes::accessElementTypeÂ»Â«ELSEÂ»nullÂ«ENDIFÂ»);Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE getImageByKey FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImageByKey FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.swt.graphics.Image getImage(String key, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
-	org.eclipse.jface.resource.ImageRegistry imageRegistry = «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getImageRegistry();
+	org.eclipse.jface.resource.ImageRegistry imageRegistry = Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getImageRegistry();
 	org.eclipse.swt.graphics.Image image = imageRegistry.get(key);
-	if (image == null && elementType != null && «editorGen.diagram.getElementTypesQualifiedClassName()».isKnownElementType(elementType)) {
-		image = «editorGen.diagram.getElementTypesQualifiedClassName()».getImage(elementType);
+	if (image == null && elementType != null && Â«editorGen.diagram.getElementTypesQualifiedClassName()Â».isKnownElementType(elementType)) {
+		image = Â«editorGen.diagram.getElementTypesQualifiedClassName()Â».getImage(elementType);
 		imageRegistry.put(key, image);
 	}
 			
 	if (image == null) {
-		image = imageRegistry.get(«EXPAND notFoundElementKey»); «EXPAND xpt::Common::nonNLS»
+		image = imageRegistry.get(Â«EXPAND notFoundElementKeyÂ»); Â«EXPAND xpt::Common::nonNLSÂ»
 		imageRegistry.put(key, image);
 	}
 	return image;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getText FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public String getText(Object element) {
-	«EXPAND getNavigatorGroupText-»
+	Â«EXPAND getNavigatorGroupText-Â»
 
-	«EXPAND getNavigatorItemText-»
+	Â«EXPAND getNavigatorItemText-Â»
 
-	«EXPAND getAdaptableText-»
+	Â«EXPAND getAdaptableText-Â»
 
-	«EXPAND getAdditionalInputText-»
+	Â«EXPAND getAdditionalInputText-Â»
 	return super.getText(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNavigatorGroupText FOR gmfgen::GenNavigator-»
-if (element instanceof «getNavigatorGroupQualifiedClassName()») {
-	«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
+Â«DEFINE getNavigatorGroupText FOR gmfgen::GenNavigator-Â»
+if (element instanceof Â«getNavigatorGroupQualifiedClassName()Â») {
+	Â«getNavigatorGroupQualifiedClassName()Â» group = (Â«getNavigatorGroupQualifiedClassName()Â») element;
 	return group.getGroupName();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNavigatorItemText FOR gmfgen::GenNavigator-»
-if (element instanceof «getNavigatorItemQualifiedClassName()») {
-	«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
+Â«DEFINE getNavigatorItemText FOR gmfgen::GenNavigator-Â»
+if (element instanceof Â«getNavigatorItemQualifiedClassName()Â») {
+	Â«getNavigatorItemQualifiedClassName()Â» navigatorItem = (Â«getNavigatorItemQualifiedClassName()Â») element;
    		if (!isOwnView(navigatorItem.getView())) {
    			return null;
    		}
    		return getText(navigatorItem.getView());
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdaptableText FOR gmfgen::GenNavigator-»
-«IF editorGen.diagram.generateShortcutIcon()-»
+Â«DEFINE getAdaptableText FOR gmfgen::GenNavigator-Â»
+Â«IF editorGen.diagram.generateShortcutIcon()-Â»
 // Due to plugin.xml content will be called only for "own" views
 if (element instanceof org.eclipse.core.runtime.IAdaptable) {
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) ((org.eclipse.core.runtime.IAdaptable) element).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
@@ -198,227 +198,227 @@ if (element instanceof org.eclipse.core.runtime.IAdaptable) {
 		return getText(view);
 	}
 }
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdditionalInputText FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE getAdditionalInputText FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getViewText FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getViewText FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public String getText(org.eclipse.gmf.runtime.notation.View view) {
 	if (view.getElement() != null && view.getElement().eIsProxy()) {
 		return getUnresolvedDomainElementProxyText(view);
 	}
-	«IF not getNavigatorContainedNodes(self)->isEmpty()-»
-	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
-		«EXPAND caseText FOREACH getNavigatorContainedNodes(self)-»
+	Â«IF not getNavigatorContainedNodes(self)->isEmpty()-Â»
+	switch (Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagramÂ»(view)) {
+		Â«EXPAND caseText FOREACH getNavigatorContainedNodes(self)-Â»
 	}
-	«ENDIF-»
+	Â«ENDIF-Â»
 	return getUnknownElementText(view);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE caseText FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::caseVisualID»
-	return «EXPAND getTextMethodName»(view);
-«ENDDEFINE»
+Â«DEFINE caseText FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::caseVisualIDÂ»
+	return Â«EXPAND getTextMethodNameÂ»(view);
+Â«ENDDEFINEÂ»
 
-«DEFINE getTextMethodName FOR gmfgen::GenCommonBase»get«getUniqueIdentifier()»Text«ENDDEFINE»
+Â«DEFINE getTextMethodName FOR gmfgen::GenCommonBaseÂ»getÂ«getUniqueIdentifier()Â»TextÂ«ENDDEFINEÂ»
 
-«DEFINE getTextMethod FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.View view) {
-	«EXPAND getText-»
+Â«DEFINE getTextMethod FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private String Â«EXPAND getTextMethodNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
+	Â«EXPAND getText-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenCommonBase»«ERROR 'Incorrect GenCommonBase: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Incorrect GenCommonBase: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenDiagram-»
-	«EXPAND getLabelFeatureText(domainDiagramElement)-»
-«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND getLabelFeatureText(domainDiagramElement)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenChildLabelNode-»
-«EXPAND getDiagramLabelText(self, labelModelFacet)-»
-«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND getDiagramLabelText(self, labelModelFacet)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenLinkLabel»«EXPAND getDiagramLabelText(link, modelFacet)»«ENDDEFINE»
-«DEFINE getText FOR gmfgen::GenNodeLabel»«EXPAND getDiagramLabelText(node, modelFacet)»«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenLinkLabelÂ»Â«EXPAND getDiagramLabelText(link, modelFacet)Â»Â«ENDDEFINEÂ»
+Â«DEFINE getText FOR gmfgen::GenNodeLabelÂ»Â«EXPAND getDiagramLabelText(node, modelFacet)Â»Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenNode-»
-«IF labels->isEmpty()-»
-	«EXPAND getLabelFeatureText(modelFacet.metaClass)-»
-«ELSE-»
-	«EXPAND getDiagramLabelText(labels->asSequence())-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenNode-Â»
+Â«IF labels->isEmpty()-Â»
+	Â«EXPAND getLabelFeatureText(modelFacet.metaClass)-Â»
+Â«ELSE-Â»
+	Â«EXPAND getDiagramLabelText(labels->asSequence())-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenLink-»
-«IF labels->isEmpty()-»
-	«IF null <> modelFacet-»
-	«EXPAND getText(modelFacet)-»
-«ELSE-»
-		«EXPAND returnEmptyString-»
-	«ENDIF-»
-«ELSE-»
-	«EXPAND getDiagramLabelText(labels->asSequence())-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenLink-Â»
+Â«IF labels->isEmpty()-Â»
+	Â«IF null <> modelFacet-Â»
+	Â«EXPAND getText(modelFacet)-Â»
+Â«ELSE-Â»
+		Â«EXPAND returnEmptyString-Â»
+	Â«ENDIF-Â»
+Â«ELSE-Â»
+	Â«EXPAND getDiagramLabelText(labels->asSequence())-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramLabelText(labels : Sequence(gmfgen::GenLabel)) FOR gmfgen::GenCommonBase-»
-	«IF labels->isEmpty()-»
-		«ERROR 'Empty list of labels passed'-»
-	«ENDIF-»
-	«LET labels->first().oclAsType(gmfgen::GenLabel) AS label-»
-	«EXPAND getDiagramLabelText(self, label.modelFacet) FOR label-»
-	«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE getDiagramLabelText(labels : Sequence(gmfgen::GenLabel)) FOR gmfgen::GenCommonBase-Â»
+	Â«IF labels->isEmpty()-Â»
+		Â«ERROR 'Empty list of labels passed'-Â»
+	Â«ENDIF-Â»
+	Â«LET labels->first().oclAsType(gmfgen::GenLabel) AS label-Â»
+	Â«EXPAND getDiagramLabelText(self, label.modelFacet) FOR label-Â»
+	Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText(modelFacet : gmfgen::LinkModelFacet) FOR gmfgen::GenLink-»
-	«EXPAND returnEmptyString-»
-«ENDDEFINE»
+Â«DEFINE getText(modelFacet : gmfgen::LinkModelFacet) FOR gmfgen::GenLink-Â»
+	Â«EXPAND returnEmptyString-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText(modelFacet : gmfgen::TypeLinkModelFacet) FOR gmfgen::GenLink-»
-	«EXPAND getLabelFeatureText(modelFacet.metaClass)-»
-«ENDDEFINE»
+Â«DEFINE getText(modelFacet : gmfgen::TypeLinkModelFacet) FOR gmfgen::GenLink-Â»
+	Â«EXPAND getLabelFeatureText(modelFacet.metaClass)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getText FOR gmfgen::GenCompartment-»
-return "«title»"; «EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE getText FOR gmfgen::GenCompartment-Â»
+return "Â«titleÂ»"; Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«REM»FIXME: Refactor. Need to reuse parts of TextAware.xpt«ENDREM»
+Â«REMÂ»FIXME: Refactor. Need to reuse parts of TextAware.xptÂ«ENDREMÂ»
 /*
  * this/self - aka hintHolder, visual element to present a text
  * elementTypeHolder - model element being displayed
  * modelFacet - may be null 
  */
-«DEFINE getDiagramLabelText(elementTypeHolder : gmfgen::GenCommonBase, labelModelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
-org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = «EXPAND parsers::ParserProvider::accessorCall(elementTypeHolder, labelModelFacet, 'view.getElement() != null ? view.getElement() : view')»;
+Â«DEFINE getDiagramLabelText(elementTypeHolder : gmfgen::GenCommonBase, labelModelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-Â»
+org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser = Â«EXPAND parsers::ParserProvider::accessorCall(elementTypeHolder, labelModelFacet, 'view.getElement() != null ? view.getElement() : view')Â»;
 if (parser != null) {
 	return parser.getPrintString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(view.getElement() != null ? view.getElement() : view), org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 } else {
-	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Parser was not found for label " + «visualID»);«EXPAND xpt::Common::nonNLS»
-	«EXPAND returnEmptyString-»
+	Â«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Parser was not found for label " + Â«visualIDÂ»);Â«EXPAND xpt::Common::nonNLSÂ»
+	Â«EXPAND returnEmptyString-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE getLabelFeatureText(genClass : genmodel::GenClass) FOR gmfgen::GenCommonBase-»
-	«IF null <> genClass and null <> genClass.labelFeature-»
-«EXPAND MetaModel::DeclareAndAssign('domainModelElement', 'view.getElement()') FOR genClass»
+Â«DEFINE getLabelFeatureText(genClass : genmodel::GenClass) FOR gmfgen::GenCommonBase-Â»
+	Â«IF null <> genClass and null <> genClass.labelFeature-Â»
+Â«EXPAND MetaModel::DeclareAndAssign('domainModelElement', 'view.getElement()') FOR genClassÂ»
 if (domainModelElement != null) {
-	return «IF not isStringFeature(genClass.labelFeature)»String.valueOf(«ENDIF»«EXPAND MetaModel::getFeatureValue('domainModelElement', genClass) FOR genClass.labelFeature»«IF not isStringFeature(genClass.labelFeature)»)«ENDIF»;
+	return Â«IF not isStringFeature(genClass.labelFeature)Â»String.valueOf(Â«ENDIFÂ»Â«EXPAND MetaModel::getFeatureValue('domainModelElement', genClass) FOR genClass.labelFeatureÂ»Â«IF not isStringFeature(genClass.labelFeature)Â»)Â«ENDIFÂ»;
 } else {
-	«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("No domain element for view with visualID = " + «visualID»); «EXPAND xpt::Common::nonNLS»
-		«EXPAND returnEmptyString-»
+	Â«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("No domain element for view with visualID = " + Â«visualIDÂ»); Â«EXPAND xpt::Common::nonNLSÂ»
+		Â«EXPAND returnEmptyString-Â»
 }
-	«ELSE-»
-		«EXPAND returnEmptyString-»
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ELSE-Â»
+		Â«EXPAND returnEmptyString-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE returnEmptyString FOR OclAny-»
-return ""; «EXPAND xpt::Common::nonNLS»
-«ENDDEFINE»
+Â«DEFINE returnEmptyString FOR OclAny-Â»
+return ""; Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE getUnknownElementText FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getUnknownElementText FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private String getUnknownElementText(org.eclipse.gmf.runtime.notation.View view) {
-	return "<UnknownElement Visual_ID = " + view.getType() + ">"; «EXPAND xpt::Common::nonNLS(1)» «EXPAND xpt::Common::nonNLS(2)»
+	return "<UnknownElement Visual_ID = " + view.getType() + ">"; Â«EXPAND xpt::Common::nonNLS(1)Â» Â«EXPAND xpt::Common::nonNLS(2)Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getUnresolvedDomainElementProxyText FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getUnresolvedDomainElementProxyText FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private String getUnresolvedDomainElementProxyText(org.eclipse.gmf.runtime.notation.View view) {
-	return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; «EXPAND xpt::Common::nonNLS(1)» «EXPAND xpt::Common::nonNLS(2)»
+	return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; Â«EXPAND xpt::Common::nonNLS(1)Â» Â«EXPAND xpt::Common::nonNLS(2)Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _init FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE _init FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void init(org.eclipse.ui.navigator.ICommonContentExtensionSite aConfig) {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE restoreState FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE restoreState FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void restoreState(org.eclipse.ui.IMemento aMemento) {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE saveState FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE saveState FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void saveState(org.eclipse.ui.IMemento aMemento) {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getDescription FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDescription FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public String getDescription(Object anElement) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE isOwnView FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isOwnView FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private boolean isOwnView(org.eclipse.gmf.runtime.notation.View view) {
-	return «EXPAND xpt::editor::VisualIDRegistry::modelID FOR editorGen.diagram».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall FOR editorGen.diagram»(view));
+	return Â«EXPAND xpt::editor::VisualIDRegistry::modelID FOR editorGen.diagramÂ».equals(Â«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall FOR editorGen.diagramÂ»(view));
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE unknownElementKey FOR OclAny»"«EXPAND commonKeyPrefix»UnknownElement"«ENDDEFINE»
+Â«DEFINE unknownElementKey FOR OclAnyÂ»"Â«EXPAND commonKeyPrefixÂ»UnknownElement"Â«ENDDEFINEÂ»
 
-«DEFINE notFoundElementKey FOR OclAny»"«EXPAND commonKeyPrefix»ImageNotFound"«ENDDEFINE»
+Â«DEFINE notFoundElementKey FOR OclAnyÂ»"Â«EXPAND commonKeyPrefixÂ»ImageNotFound"Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenCommonBase»«ERROR 'Incorrect GenCommonBase: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenCommonBaseÂ»Â«ERROR 'Incorrect GenCommonBase: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenDiagram»«EXPAND commonKeyPrefix»Diagram?«EXPAND keyFragment FOR domainDiagramElement»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenDiagramÂ»Â«EXPAND commonKeyPrefixÂ»Diagram?Â«EXPAND keyFragment FOR domainDiagramElementÂ»Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenNode»«EXPAND commonKeyPrefix»«EXPAND keyFragment»«IF null <> modelFacet»«EXPAND keyFragment FOR modelFacet.metaClass»«ELSE»«EXPAND keyFragment FOR viewmap»«ENDIF»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenNodeÂ»Â«EXPAND commonKeyPrefixÂ»Â«EXPAND keyFragmentÂ»Â«IF null <> modelFacetÂ»Â«EXPAND keyFragment FOR modelFacet.metaClassÂ»Â«ELSEÂ»Â«EXPAND keyFragment FOR viewmapÂ»Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::GenNode»Node?«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::GenNodeÂ»Node?Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::GenTopLevelNode»TopLevelNode?«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::GenTopLevelNodeÂ»TopLevelNode?Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenLink»«EXPAND commonKeyPrefix»Link?«IF null <> modelFacet»«EXPAND keyFragment FOR modelFacet»«ELSE»«EXPAND keyFragment FOR viewmap»«ENDIF»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenLinkÂ»Â«EXPAND commonKeyPrefixÂ»Link?Â«IF null <> modelFacetÂ»Â«EXPAND keyFragment FOR modelFacetÂ»Â«ELSEÂ»Â«EXPAND keyFragment FOR viewmapÂ»Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::LinkModelFacet»«ERROR 'Incorrect link model facet passed: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::LinkModelFacetÂ»Â«ERROR 'Incorrect link model facet passed: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::TypeLinkModelFacet»«EXPAND keyFragment FOR metaClass»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::TypeLinkModelFacetÂ»Â«EXPAND keyFragment FOR metaClassÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::FeatureLinkModelFacet»«EXPAND keyFragment FOR metaFeature»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::FeatureLinkModelFacetÂ»Â«EXPAND keyFragment FOR metaFeatureÂ»Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenCompartment»«EXPAND key FOR node»?Compartment?«title»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenCompartmentÂ»Â«EXPAND key FOR nodeÂ»?Compartment?Â«titleÂ»Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenLabel»«ERROR 'Incorrect GenLabel:' + self.repr()»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenLabelÂ»Â«ERROR 'Incorrect GenLabel:' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenNodeLabel»«EXPAND key FOR node»«EXPAND keyFragment»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenNodeLabelÂ»Â«EXPAND key FOR nodeÂ»Â«EXPAND keyFragmentÂ»Â«ENDDEFINEÂ»
 
-«DEFINE key FOR gmfgen::GenLinkLabel»«EXPAND key FOR link»«EXPAND keyFragment»«ENDDEFINE»
+Â«DEFINE key FOR gmfgen::GenLinkLabelÂ»Â«EXPAND key FOR linkÂ»Â«EXPAND keyFragmentÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::GenLabel»?Label?«EXPAND keyFragment(self) FOR modelFacet»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::GenLabelÂ»?Label?Â«EXPAND keyFragment(self) FOR modelFacetÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR genmodel::GenClass»«genPackage.ecorePackage.nsURI»?«ecoreClass.name»«ENDDEFINE»
+Â«DEFINE keyFragment FOR genmodel::GenClassÂ»Â«genPackage.ecorePackage.nsURIÂ»?Â«ecoreClass.nameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR genmodel::GenFeature»«EXPAND keyFragment FOR genClass»?«ecoreFeature.name»«ENDDEFINE»
+Â«DEFINE keyFragment FOR genmodel::GenFeatureÂ»Â«EXPAND keyFragment FOR genClassÂ»?Â«ecoreFeature.nameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::Viewmap»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::ViewmapÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::FigureViewmap»«figureQualifiedClassName»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::FigureViewmapÂ»Â«figureQualifiedClassNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::InnerClassViewmap»«className»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::InnerClassViewmapÂ»Â«classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment FOR gmfgen::ParentAssignedViewmap»«figureQualifiedClassName»«ENDDEFINE»
+Â«DEFINE keyFragment FOR gmfgen::ParentAssignedViewmapÂ»Â«figureQualifiedClassNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment(label : gmfgen::GenLabel) FOR gmfgen::LabelModelFacet»«ERROR 'Incorrect label model facet: ' + self.repr()»«ENDDEFINE»
+Â«DEFINE keyFragment(label : gmfgen::GenLabel) FOR gmfgen::LabelModelFacetÂ»Â«ERROR 'Incorrect label model facet: ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment(label : gmfgen::GenLabel) FOR gmfgen::FeatureLabelModelFacet»«EXPAND keyFragment FOREACH metaFeatures»«ENDDEFINE»
+Â«DEFINE keyFragment(label : gmfgen::GenLabel) FOR gmfgen::FeatureLabelModelFacetÂ»Â«EXPAND keyFragment FOREACH metaFeaturesÂ»Â«ENDDEFINEÂ»
 
-«DEFINE keyFragment(label : gmfgen::GenLabel) FOR gmfgen::DesignLabelModelFacet»«EXPAND keyFragment FOR label.viewmap»«ENDDEFINE»
+Â«DEFINE keyFragment(label : gmfgen::GenLabel) FOR gmfgen::DesignLabelModelFacetÂ»Â«EXPAND keyFragment FOR label.viewmapÂ»Â«ENDDEFINEÂ»
 
-«DEFINE commonKeyPrefix FOR OclAny»Navigator?«ENDDEFINE»
+Â«DEFINE commonKeyPrefix FOR OclAnyÂ»Navigator?Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»

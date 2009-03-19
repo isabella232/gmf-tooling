@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,34 +10,34 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE GraphicalNodeEditPolicy FOR gmfgen::GenNode-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPoliciesPackageName»;
+Â«DEFINE GraphicalNodeEditPolicy FOR gmfgen::GenNode-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPoliciesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «graphicalNodeEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«graphicalNodeEditPolicyClassNameÂ» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy {
 
-	«EXPAND xpt::Common::generatedClassComment»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 	protected org.eclipse.gef.commands.Command getConnectionCompleteCommand(
 			org.eclipse.gef.requests.CreateConnectionRequest request) {
 		org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getElementType(request);
-		«FOREACH reorientedIncomingLinks->asSequence() AS link-»
-		if («EXPAND xpt::providers::ElementTypes::accessElementType FOR link» == elementType) {
-			«IF link.outgoingCreationAllowed-»
+		Â«FOREACH reorientedIncomingLinks->asSequence() AS link-Â»
+		if (Â«EXPAND xpt::providers::ElementTypes::accessElementType FOR linkÂ» == elementType) {
+			Â«IF link.outgoingCreationAllowed-Â»
 			if (request.getSourceEditPart() != getHost()) {
-			«ENDIF-»
+			Â«ENDIF-Â»
 			return getConnectionWithReorientedViewCompleteCommand(request);
-			«IF link.outgoingCreationAllowed-»
+			Â«IF link.outgoingCreationAllowed-Â»
 			}
-			«ENDIF-»
+			Â«ENDIF-Â»
 		}
-		«ENDFOREACH-»
+		Â«ENDFOREACH-Â»
 		return super.getConnectionCompleteCommand(request);
 	}
 
-	«EXPAND xpt::Common::generatedClassComment»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 	protected org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(
 			org.eclipse.gef.requests.CreateConnectionRequest request) {
 		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest) {
@@ -50,7 +50,7 @@ public class «graphicalNodeEditPolicyClassName» extends org.eclipse.gmf.runtime.
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedClassComment»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 	protected org.eclipse.gef.commands.Command getConnectionWithReorientedViewCompleteCommand(
 			org.eclipse.gef.requests.CreateConnectionRequest request) {
 		org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy c =
@@ -59,14 +59,14 @@ public class «graphicalNodeEditPolicyClassName» extends org.eclipse.gmf.runtime.
 				(org.eclipse.gmf.runtime.common.core.command.CompositeCommand) c.getICommand();
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain =
 				((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-		«getDiagram().getReorientConnectionViewCommandQualifiedClassName()» rcvCommand =
-				new «getDiagram().getReorientConnectionViewCommandQualifiedClassName()»(editingDomain, null);
+		Â«getDiagram().getReorientConnectionViewCommandQualifiedClassName()Â» rcvCommand =
+				new Â«getDiagram().getReorientConnectionViewCommandQualifiedClassName()Â»(editingDomain, null);
 		rcvCommand.setEdgeAdaptor(getViewAdapter());
 		cc.compose(rcvCommand);
 		return c;
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNodeÂ»Â«ENDDEFINEÂ»

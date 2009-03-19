@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,21 +10,21 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE CreateShortcutDecorationsCommand FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editCommandsPackageName»;
+Â«DEFINE CreateShortcutDecorationsCommand FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editCommandsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «createShortcutDecorationsCommandClassName»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«createShortcutDecorationsCommandClassNameÂ»
 		extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private java.util.List myDescriptors;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «createShortcutDecorationsCommandClassName»(
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«createShortcutDecorationsCommandClassNameÂ»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain,
 			org.eclipse.gmf.runtime.notation.View parentView,
 			java.util.List viewDescriptors) {
@@ -32,15 +32,15 @@ public class «createShortcutDecorationsCommandClassName»
 		myDescriptors = viewDescriptors;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «createShortcutDecorationsCommandClassName»(
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«createShortcutDecorationsCommandClassNameÂ»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain,
 			org.eclipse.gmf.runtime.notation.View parentView,
 			org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor) {
 		this(editingDomain, parentView, java.util.Collections.singletonList(viewDescriptor));
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {
@@ -51,10 +51,10 @@ public class «createShortcutDecorationsCommandClassName»
 					(org.eclipse.gmf.runtime.notation.View) nextDescriptor.getAdapter(
 							org.eclipse.gmf.runtime.notation.View.class);
 			if (view != null && view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				«EXPAND xpt::Common::addShortcutAnnotation('view')-»
+				Â«EXPAND xpt::Common::addShortcutAnnotation('view')-Â»
 			}
 		}
 		return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

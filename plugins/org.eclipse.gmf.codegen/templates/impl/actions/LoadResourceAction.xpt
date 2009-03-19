@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,34 +11,34 @@
  *    Artem Tikhomirov (Borland) - [174961] migration to Commands/Handlers 
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Main FOR gmfgen::LoadResourceAction-»
-«EXPAND xpt::Common::copyright FOR owner.editorGen-»
-«EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
+Â«DEFINE Main FOR gmfgen::LoadResourceAction-Â»
+Â«EXPAND xpt::Common::copyright FOR owner.editorGen-Â»
+Â«EXPAND xpt::Common::packageStatement FOR qualifiedClassNameÂ»
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedClassName.xpandSplit('\\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
-«EXPAND executeMethod»
-«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«qualifiedClassName.xpandSplit('\\.')->last()Â»Â«EXPAND extendsListÂ»Â«EXPAND implementsListÂ» {
+Â«EXPAND executeMethodÂ»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::LoadResourceAction» extends org.eclipse.core.commands.AbstractHandler«ENDDEFINE»
-«DEFINE implementsList FOR gmfgen::LoadResourceAction»«ENDDEFINE» 
+Â«DEFINE extendsList FOR gmfgen::LoadResourceActionÂ» extends org.eclipse.core.commands.AbstractHandlerÂ«ENDDEFINEÂ»
+Â«DEFINE implementsList FOR gmfgen::LoadResourceActionÂ»Â«ENDDEFINEÂ» 
 
-«DEFINE executeMethod FOR gmfgen::LoadResourceAction-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE executeMethod FOR gmfgen::LoadResourceAction-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
 		org.eclipse.swt.widgets.Shell shell = diagramEditor.getEditorSite().getShell();
-		«EXPAND xpt::Common::_assert('diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor')-»
+		Â«EXPAND xpt::Common::_assert('diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor')-Â»
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor) diagramEditor).getEditingDomain();
 		org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog = new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(shell, editingDomain);
 		loadResourceDialog.open();
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::LoadResourceAction»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::LoadResourceActionÂ»Â«ENDDEFINEÂ»

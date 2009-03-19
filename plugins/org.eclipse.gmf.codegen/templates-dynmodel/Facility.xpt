@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,72 +10,72 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
 
-«EXTENSION Facility»
+Â«EXTENSION FacilityÂ»
 
-«DEFINE Main FOR gmfgen::DynamicModelAccess-»
-package «packageName»;
+Â«DEFINE Main FOR gmfgen::DynamicModelAccess-Â»
+package Â«packageNameÂ»;
 
-public class «className» {
+public class Â«classNameÂ» {
 
-	«EXPAND field(self) FOREACH editorGen.getAllDomainGenPackages(false)-»
+	Â«EXPAND field(self) FOREACH editorGen.getAllDomainGenPackages(false)-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private final org.eclipse.emf.ecore.EPackage ePackage;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «className»(org.eclipse.emf.ecore.EPackage ePackage) {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«classNameÂ»(org.eclipse.emf.ecore.EPackage ePackage) {
 		this.ePackage = ePackage;
 	}
 
-	«EXPAND getMethod(self) FOREACH editorGen.getAllDomainGenPackages(false)-»
+	Â«EXPAND getMethod(self) FOREACH editorGen.getAllDomainGenPackages(false)-Â»
 
-	«EXPAND getRegistryMethod»
+	Â«EXPAND getRegistryMethodÂ»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public boolean isInstance(Object obj, String metaClassName) {
 		org.eclipse.emf.ecore.EClass metaClass = getEClass(metaClassName);
 		return obj instanceof org.eclipse.emf.ecore.EObject && metaClass.isSuperTypeOf(((org.eclipse.emf.ecore.EObject) obj).eClass());
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EObject newInstance(String metaClassName) {
 		return this.ePackage.getEFactoryInstance().create(getEClass(metaClassName));
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EClass getEClass(String metaClassName) {
-		«EXPAND xpt::Common::_assert('metaClassName != null')-»
+		Â«EXPAND xpt::Common::_assert('metaClassName != null')-Â»
 		org.eclipse.emf.ecore.EClass metaClass = findMetaClass(metaClassName);
 		assertMetaClass(metaClass, metaClassName);
 		return metaClass;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EStructuralFeature getEFeature(String metaClassName, String metaFeatureName) {
-		«EXPAND xpt::Common::_assert('metaFeatureName != null')-»
+		Â«EXPAND xpt::Common::_assert('metaFeatureName != null')-Â»
 		org.eclipse.emf.ecore.EClass metaClass = getEClass(metaClassName);
 		org.eclipse.emf.ecore.EStructuralFeature f = metaClass.getEStructuralFeature(metaFeatureName);
 		assertMetaFeature(f, metaClass, metaFeatureName);
 		return f;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EAttribute getEAttribute(String metaClassName, String metaFeatureName) {
 		return (org.eclipse.emf.ecore.EAttribute) getEFeature(metaClassName, metaFeatureName);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EReference getEReference(String metaClassName, String metaFeatureName) {
 		return (org.eclipse.emf.ecore.EReference) getEFeature(metaClassName, metaFeatureName);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EDataType getEDataType(String metaClassName) {
-		«EXPAND xpt::Common::_assert('metaClassName != null')-»
+		Â«EXPAND xpt::Common::_assert('metaClassName != null')-Â»
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
 		if (false == c instanceof org.eclipse.emf.ecore.EDataType) {
 			return null;
@@ -83,9 +83,9 @@ public class «className» {
 		return (org.eclipse.emf.ecore.EDataType) c;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EEnum getEEnum(String metaClassName) {
-		«EXPAND xpt::Common::_assert('metaClassName != null')-»
+		Â«EXPAND xpt::Common::_assert('metaClassName != null')-Â»
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(metaClassName);
 		if (false == c instanceof org.eclipse.emf.ecore.EEnum) {
 			return null;
@@ -93,7 +93,7 @@ public class «className» {
 		return (org.eclipse.emf.ecore.EEnum) c;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.emf.ecore.EClass findMetaClass(String name) {
 		org.eclipse.emf.ecore.EClassifier c = this.ePackage.getEClassifier(name);
 		if (false == c instanceof org.eclipse.emf.ecore.EClass) {
@@ -102,56 +102,56 @@ public class «className» {
 		return (org.eclipse.emf.ecore.EClass) c;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment('Default implementation throws IllegalStateException if metaclass is null')»
+	Â«EXPAND xpt::Common::generatedMemberComment('Default implementation throws IllegalStateException if metaclass is null')Â»
 	private void assertMetaClass(org.eclipse.emf.ecore.EClass metaClass, String metaClassName) {
 		if (metaClass == null) {
 			throw new IllegalStateException(java.text.MessageFormat.format("Can't find class {0} in the package {1}", new Object[] {metaClassName, this.ePackage.getName()}));
 		}
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment('Default implementation throws IllegalStateException if meta-feature is null')»
+	Â«EXPAND xpt::Common::generatedMemberComment('Default implementation throws IllegalStateException if meta-feature is null')Â»
 	private void assertMetaFeature(org.eclipse.emf.ecore.EStructuralFeature metaFeature, org.eclipse.emf.ecore.EClass metaClass, String featureName) {
 		if (metaFeature == null) {
 			throw new IllegalStateException(java.text.MessageFormat.format("Can't find feature {0} of class {1} in the package {2}", new Object[] {featureName, metaClass.getName(), this.ePackage.getName()}));
 		}
 	}
 
-	«EXPAND initMethod FOREACH editorGen.getAllDomainGenPackages(false)-»
-«EXPAND additions-»
+	Â«EXPAND initMethod FOREACH editorGen.getAllDomainGenPackages(false)-Â»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::DynamicModelAccess»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::DynamicModelAccessÂ»Â«ENDDEFINEÂ»
 
-«DEFINE field(dma : gmfgen::DynamicModelAccess) FOR genmodel::GenPackage-»
-«EXPAND xpt::Common::generatedMemberComment»
-private static «dma.className» «fieldName(self)»;
-«ENDDEFINE»
+Â«DEFINE field(dma : gmfgen::DynamicModelAccess) FOR genmodel::GenPackage-Â»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private static Â«dma.classNameÂ» Â«fieldName(self)Â»;
+Â«ENDDEFINEÂ»
 
-«DEFINE getMethod(dma : gmfgen::DynamicModelAccess) FOR genmodel::GenPackage-»
-	«EXPAND xpt::Common::generatedMemberComment('@throws IllegalStateException if no EPackage with given URI is registered.')»
-	public static «dma.className» get«getNameToken(self)»() {
-		if («fieldName(self)» == null) {
-			org.eclipse.emf.ecore.EPackage pkg = getRegistry().getEPackage("«ecorePackage.nsURI»");
+Â«DEFINE getMethod(dma : gmfgen::DynamicModelAccess) FOR genmodel::GenPackage-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment('@throws IllegalStateException if no EPackage with given URI is registered.')Â»
+	public static Â«dma.classNameÂ» getÂ«getNameToken(self)Â»() {
+		if (Â«fieldName(self)Â» == null) {
+			org.eclipse.emf.ecore.EPackage pkg = getRegistry().getEPackage("Â«ecorePackage.nsURIÂ»");
 			if (pkg == null) {
-				throw new IllegalStateException("Package «ecorePackage.name»(«ecorePackage.nsURI») not found");
+				throw new IllegalStateException("Package Â«ecorePackage.nameÂ»(Â«ecorePackage.nsURIÂ») not found");
 			}
-			«fieldName(self)» = new «dma.className»(pkg);
-			«fieldName(self)».init«getNameToken(self)»();
+			Â«fieldName(self)Â» = new Â«dma.classNameÂ»(pkg);
+			Â«fieldName(self)Â».initÂ«getNameToken(self)Â»();
 		}
-		return «fieldName(self)»;
+		return Â«fieldName(self)Â»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE initMethod FOR genmodel::GenPackage-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private void init«getNameToken(self)»() {
+Â«DEFINE initMethod FOR genmodel::GenPackage-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private void initÂ«getNameToken(self)Â»() {
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getRegistryMethod FOR gmfgen::DynamicModelAccess»
-	«EXPAND xpt::Common::generatedMemberComment('Default implementation returns global registry, clients that need another may redefine.')»
+Â«DEFINE getRegistryMethod FOR gmfgen::DynamicModelAccessÂ»
+	Â«EXPAND xpt::Common::generatedMemberComment('Default implementation returns global registry, clients that need another may redefine.')Â»
 	private static org.eclipse.emf.ecore.EPackage.Registry getRegistry() {
 		return org.eclipse.emf.ecore.EPackage.Registry.INSTANCE;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

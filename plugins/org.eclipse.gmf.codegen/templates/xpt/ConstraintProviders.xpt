@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,93 +9,93 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
-«EXTENSION gmf::CodeGenerationUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::GenAuditRootÂ»
+Â«EXTENSION xpt::GenEditorGeneratorÂ»
+Â«EXTENSION gmf::CodeGenerationUtilsÂ»
 
-«DEFINE extensions FOR gmfgen::GenEditorGenerator-»
-«IF hasAudits(self)»«EXPAND extensions FOR audits»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE extensions FOR gmfgen::GenEditorGenerator-Â»
+Â«IF hasAudits(self)Â»Â«EXPAND extensions FOR auditsÂ»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE extensions FOR gmfgen::GenAuditRoot-»
-«EXPAND extensions_emfv_constraintProviders»
-«EXPAND extensions_emfv_constraintBindings»
-«EXPAND extensions_emfv_uiContexts»
-«ENDDEFINE»
+Â«DEFINE extensions FOR gmfgen::GenAuditRoot-Â»
+Â«EXPAND extensions_emfv_constraintProvidersÂ»
+Â«EXPAND extensions_emfv_constraintBindingsÂ»
+Â«EXPAND extensions_emfv_uiContextsÂ»
+Â«ENDDEFINEÂ»
 
 //
 // Extension point: org.eclipse.emf.validation.constraintProviders
 //
-«DEFINE extensions_emfv_constraintProviders FOR gmfgen::GenAuditRoot-»
+Â«DEFINE extensions_emfv_constraintProviders FOR gmfgen::GenAuditRoot-Â»
    <extension point="org.eclipse.emf.validation.constraintProviders">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      «EXPAND declareCategory FOREACH categories-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+      Â«EXPAND declareCategory FOREACH categories-Â»
       <constraintProvider cache="true">
-«FOREACH getAllTargetedModelPackages(self) AS p-»
-         <package namespaceUri="«p.ecorePackage.nsURI»"/>
-«ENDFOREACH-»
-      «EXPAND defineCategory FOREACH categories-»
+Â«FOREACH getAllTargetedModelPackages(self) AS p-Â»
+         <package namespaceUri="Â«p.ecorePackage.nsURIÂ»"/>
+Â«ENDFOREACH-Â»
+      Â«EXPAND defineCategory FOREACH categories-Â»
       </constraintProvider>
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 //
 // Extension point: org.eclipse.emf.validation.constraintBindings
 //
-«DEFINE extensions_emfv_constraintBindings FOR gmfgen::GenAuditRoot-»
+Â«DEFINE extensions_emfv_constraintBindings FOR gmfgen::GenAuditRoot-Â»
    <extension point="org.eclipse.emf.validation.constraintBindings">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-«FOREACH clientContexts->asSequence() AS ctx-»
-      <clientContext default="false" id="«getQualifiedIdentity(ctx)»">
-         <selector class="«ctx.getQualifiedClassName()»"/>
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+Â«FOREACH clientContexts->asSequence() AS ctx-Â»
+      <clientContext default="false" id="Â«getQualifiedIdentity(ctx)Â»">
+         <selector class="Â«ctx.getQualifiedClassName()Â»"/>
       </clientContext>
-      <binding context="«getQualifiedIdentity(ctx)»">
-         «FOREACH rules->select(r | r.target <> null and r.target.contextSelector = ctx)->asSequence() /*alternative: ctx.ruleTargets.contains(r.target)*/ AS rule-»
-         <constraint ref="«editorGen.plugin.iD».«escapeXML(rule.id)»"/>
-         «ENDFOREACH-»
+      <binding context="Â«getQualifiedIdentity(ctx)Â»">
+         Â«FOREACH rules->select(r | r.target <> null and r.target.contextSelector = ctx)->asSequence() /*alternative: ctx.ruleTargets.contains(r.target)*/ AS rule-Â»
+         <constraint ref="Â«editorGen.plugin.iDÂ».Â«escapeXML(rule.id)Â»"/>
+         Â«ENDFOREACH-Â»
       </binding>
 
-«ENDFOREACH-»
+Â«ENDFOREACH-Â»
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 //
 // Extension point: org.eclipse.emf.validation.ui.UIRegisteredClientContext
 //
-«DEFINE extensions_emfv_uiContexts FOR gmfgen::GenAuditRoot-»
-«IF editorGen.diagram.liveValidationUIFeedback»
+Â«DEFINE extensions_emfv_uiContexts FOR gmfgen::GenAuditRoot-Â»
+Â«IF editorGen.diagram.liveValidationUIFeedbackÂ»
    <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-«FOREACH clientContexts->asSequence() AS ctx-»
-      <clientContext id="«getQualifiedIdentity(ctx)»"/>
-«ENDFOREACH-»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
+Â«FOREACH clientContexts->asSequence() AS ctx-Â»
+      <clientContext id="Â«getQualifiedIdentity(ctx)Â»"/>
+Â«ENDFOREACH-Â»
    </extension>
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE declareCategory FOR gmfgen::GenAuditContainer-»
-      <category id="«EXPAND _pathMap»" mandatory="false" name="«IF name <> null»«escapeXML(name)»«ELSE»«EXPAND _pathMap»«ENDIF»">
-         <![CDATA[«(if description <> null then description else '' endif)»]]>
+Â«DEFINE declareCategory FOR gmfgen::GenAuditContainer-Â»
+      <category id="Â«EXPAND _pathMapÂ»" mandatory="false" name="Â«IF name <> nullÂ»Â«escapeXML(name)Â»Â«ELSEÂ»Â«EXPAND _pathMapÂ»Â«ENDIFÂ»">
+         <![CDATA[Â«(if description <> null then description else '' endif)Â»]]>
       </category>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE defineCategory FOR gmfgen::GenAuditContainer-»
-         <constraints categories="«EXPAND _pathMap»">
-         «FOREACH audits->select(a | a.target <> null and a.target.getTargetClass() <> null)->asSequence() AS audit-»
-         <constraint id="«escapeXML(audit.id)»"
-            «IF audit.requiresConstraintAdapter»lang="Java" class="«audit.getConstraintAdapterQualifiedClassName()»"«ELSE»lang="OCL"«ENDIF»
-            name="«escapeXML((if audit.name <> null then audit.name else audit.id endif))»"
-            mode="«IF audit.useInLiveMode»Live«ELSE»Batch«ENDIF»"
-            severity="«audit.severity.repr()»" statusCode="200">
-            «IF not audit.requiresConstraintAdapter»<![CDATA[«(if audit.rule <> null then audit.rule.body else '' endif)»]]>«ENDIF»
-            <description><![CDATA[«(if audit.description <> null then audit.description else '' endif)»]]></description>
-            <message><![CDATA[«IF audit.message <> null»«audit.message»«ELSE»«(if audit.name <> null then audit.name else audit.id endif)» audit violated«ENDIF»]]></message>
-            <target class="«audit.target.getTargetClassModelQualifiedName()»"/>
+Â«DEFINE defineCategory FOR gmfgen::GenAuditContainer-Â»
+         <constraints categories="Â«EXPAND _pathMapÂ»">
+         Â«FOREACH audits->select(a | a.target <> null and a.target.getTargetClass() <> null)->asSequence() AS audit-Â»
+         <constraint id="Â«escapeXML(audit.id)Â»"
+            Â«IF audit.requiresConstraintAdapterÂ»lang="Java" class="Â«audit.getConstraintAdapterQualifiedClassName()Â»"Â«ELSEÂ»lang="OCL"Â«ENDIFÂ»
+            name="Â«escapeXML((if audit.name <> null then audit.name else audit.id endif))Â»"
+            mode="Â«IF audit.useInLiveModeÂ»LiveÂ«ELSEÂ»BatchÂ«ENDIFÂ»"
+            severity="Â«audit.severity.repr()Â»" statusCode="200">
+            Â«IF not audit.requiresConstraintAdapterÂ»<![CDATA[Â«(if audit.rule <> null then audit.rule.body else '' endif)Â»]]>Â«ENDIFÂ»
+            <description><![CDATA[Â«(if audit.description <> null then audit.description else '' endif)Â»]]></description>
+            <message><![CDATA[Â«IF audit.message <> nullÂ»Â«audit.messageÂ»Â«ELSEÂ»Â«(if audit.name <> null then audit.name else audit.id endif)Â» audit violatedÂ«ENDIFÂ»]]></message>
+            <target class="Â«audit.target.getTargetClassModelQualifiedName()Â»"/>
          </constraint>
-         «ENDFOREACH-»
+         Â«ENDFOREACH-Â»
          </constraints>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _pathMap FOR gmfgen::GenAuditContainer»«FOREACH path->asSequence() AS p SEPARATOR '/' »«escapeXML(p.id)»«ENDFOREACH»«ENDDEFINE»
+Â«DEFINE _pathMap FOR gmfgen::GenAuditContainerÂ»Â«FOREACH path->asSequence() AS p SEPARATOR '/' Â»Â«escapeXML(p.id)Â»Â«ENDFOREACHÂ»Â«ENDDEFINEÂ»

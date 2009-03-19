@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,49 +10,49 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::navigator::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::navigator::UtilsÂ»
 
-«DEFINE NavigatorSorter FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE NavigatorSorter FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «sorterClassName»  extends org.eclipse.jface.viewers.ViewerSorter {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«sorterClassNameÂ»  extends org.eclipse.jface.viewers.ViewerSorter {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND category-»
+	Â«EXPAND category-Â»
 
-    «EXPAND additions-»
+    Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private static final int GROUP_CATEGORY = «getMaxVisualID(self) + 2»;
-	«IF editorGen.diagram.generateCreateShortcutAction()-»
+Â«DEFINE attributes FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private static final int GROUP_CATEGORY = Â«getMaxVisualID(self) + 2Â»;
+	Â«IF editorGen.diagram.generateCreateShortcutAction()-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-private static final int SHORTCUTS_CATEGORY = «getMaxVisualID(self) + 1»;
-	«ENDIF-»
-«ENDDEFINE»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private static final int SHORTCUTS_CATEGORY = Â«getMaxVisualID(self) + 1Â»;
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE category FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE category FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public int category(Object element) {
-	if (element instanceof «getNavigatorItemQualifiedClassName()») {
-		«getNavigatorItemQualifiedClassName()» item = («getNavigatorItemQualifiedClassName()») element;
-	«IF editorGen.diagram.generateCreateShortcutAction()-»
-		if (item.getView().getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
+	if (element instanceof Â«getNavigatorItemQualifiedClassName()Â») {
+		Â«getNavigatorItemQualifiedClassName()Â» item = (Â«getNavigatorItemQualifiedClassName()Â») element;
+	Â«IF editorGen.diagram.generateCreateShortcutAction()-Â»
+		if (item.getView().getEAnnotation("Shortcut") != null) { Â«EXPAND xpt::Common::nonNLSÂ»
 			return SHORTCUTS_CATEGORY;
 		}
-	«ENDIF-»
-		return «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(item.getView());
+	Â«ENDIF-Â»
+		return Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagramÂ»(item.getView());
 	}
 	return GROUP_CATEGORY;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»

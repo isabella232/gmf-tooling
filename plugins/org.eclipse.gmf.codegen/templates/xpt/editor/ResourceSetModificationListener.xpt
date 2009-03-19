@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,41 +10,41 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«REM»Inner class of DocumentProvider«ENDREM»
-«DEFINE ResourceSetModificationListener FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedClassComment»	
+Â«REMÂ»Inner class of DocumentProviderÂ«ENDREMÂ»
+Â«DEFINE ResourceSetModificationListener FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»	
 private class ResourceSetModificationListener extends org.eclipse.emf.ecore.util.EContentAdapter {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND notifyChanged-»
+	Â«EXPAND notifyChanged-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE» 
+Â«ENDDEFINEÂ» 
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-		«EXPAND xpt::Common::generatedMemberComment»	
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»	
 		private org.eclipse.emf.transaction.NotificationFilter myModifiedFilter;
 
-		«EXPAND xpt::Common::generatedMemberComment»	
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»	
 		private ResourceSetInfo myInfo;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»	
+Â«DEFINE _constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»	
 public ResourceSetModificationListener(ResourceSetInfo info) {
 	myInfo = info;
 	myModifiedFilter = org.eclipse.emf.transaction.NotificationFilter.createEventTypeFilter(org.eclipse.emf.common.notify.Notification.SET).or(org.eclipse.emf.transaction.NotificationFilter.createEventTypeFilter(org.eclipse.emf.common.notify.Notification.UNSET)).and(org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(org.eclipse.emf.ecore.resource.Resource.class, org.eclipse.emf.ecore.resource.Resource.RESOURCE__IS_MODIFIED));
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE notifyChanged FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»	
+Â«DEFINE notifyChanged FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»	
 public void notifyChanged(org.eclipse.emf.common.notify.Notification notification) {
 	if (notification.getNotifier() instanceof org.eclipse.emf.ecore.resource.ResourceSet) {
 		super.notifyChanged(notification);
@@ -66,11 +66,11 @@ public void notifyChanged(org.eclipse.emf.common.notify.Notification notificatio
 						myInfo.fCanBeSaved = modified;
 						dirtyStateChanged = true;
 					}
-	«IF null = editorGen.application-»
+	Â«IF null = editorGen.application-Â»
 					if (!resource.isModified()) {
 						myInfo.setSynchronized(resource);
 					}
-	«ENDIF-»
+	Â«ENDIF-Â»
 				}
 				if (dirtyStateChanged) {
 					fireElementDirtyStateChanged(myInfo.getEditorInput(), modified);
@@ -83,7 +83,7 @@ public void notifyChanged(org.eclipse.emf.common.notify.Notification notificatio
 		}
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

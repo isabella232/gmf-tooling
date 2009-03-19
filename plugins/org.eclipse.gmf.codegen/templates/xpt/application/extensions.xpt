@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,85 +10,85 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE extensions FOR gmfgen::GenApplication-»
+Â«DEFINE extensions FOR gmfgen::GenApplication-Â»
 
-   <extension id="«iD»" point="org.eclipse.core.runtime.applications">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+   <extension id="Â«iDÂ»" point="org.eclipse.core.runtime.applications">
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <application>
-         <run class="«getQualifiedClassName()»"/>
+         <run class="Â«getQualifiedClassName()Â»"/>
       </application>
    </extension>
 
    <extension point="org.eclipse.ui.perspectives" id="rcp-perspective">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <perspective
-            id="«perspectiveId»"
+            id="Â«perspectiveIdÂ»"
             name="%perspectiveName"
-            class="«getPerspectiveQualifiedClassName()»">
+            class="Â«getPerspectiveQualifiedClassName()Â»">
       </perspective>
    </extension>
 
    <extension point="org.eclipse.ui.commands" id="rcp-menu-commands">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <command
             name="%openURIActionLabel"
             description="%openURIActionDescription"
             categoryId="org.eclipse.ui.category.file"
-            id="«editorGen.plugin.iD».OpenURICommand"/>  
+            id="Â«editorGen.plugin.iDÂ».OpenURICommand"/>  
       <command
             name="%openActionLabel"
             description="%openActionDescription"
             categoryId="org.eclipse.ui.category.file"
-            id="«editorGen.plugin.iD».OpenCommand"/>  
+            id="Â«editorGen.plugin.iDÂ».OpenCommand"/>  
    </extension>
 
    <extension point="org.eclipse.ui.bindings" id="rcp-command-bindings">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <key
-            commandId="«editorGen.plugin.iD».OpenURICommand"
+            commandId="Â«editorGen.plugin.iDÂ».OpenURICommand"
             sequence="M1+U"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
       <key
-            commandId="«editorGen.plugin.iD».OpenCommand"
+            commandId="Â«editorGen.plugin.iDÂ».OpenCommand"
             sequence="M1+O"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
    </extension>
 
    <extension point="org.eclipse.ui.actionSets" id="rcp-actions">
-      «EXPAND xpt::Common::xmlGeneratedTag»
+      Â«EXPAND xpt::Common::xmlGeneratedTagÂ»
       <actionSet
             label="%applicationActionSetLabel"
             visible="true"
-            id="«editorGen.plugin.iD».ActionSet">
+            id="Â«editorGen.plugin.iDÂ».ActionSet">
          <action
                label="%newDiagramActionLabel"
-               class="«getActionBarAdvisorQualifiedClassName()»$NewDiagramAction"
+               class="Â«getActionBarAdvisorQualifiedClassName()Â»$NewDiagramAction"
                menubarPath="file/new/additions"
-               id="«editorGen.plugin.iD».NewDiagramAction">
+               id="Â«editorGen.plugin.iDÂ».NewDiagramAction">
          </action>
          <action
                label="%aboutActionLabel"
-               class="«getActionBarAdvisorQualifiedClassName()»$AboutAction"
+               class="Â«getActionBarAdvisorQualifiedClassName()Â»$AboutAction"
                menubarPath="help/additions"
-               id="«editorGen.plugin.iD».AboutAction">
+               id="Â«editorGen.plugin.iDÂ».AboutAction">
          </action>
          <action
                label="%openURIActionLabel"
-               definitionId="«editorGen.plugin.iD».OpenURICommand"
-               class="«getActionBarAdvisorQualifiedClassName()»$OpenURIAction"
+               definitionId="Â«editorGen.plugin.iDÂ».OpenURICommand"
+               class="Â«getActionBarAdvisorQualifiedClassName()Â»$OpenURIAction"
                menubarPath="file/additions"
-               id="«editorGen.plugin.iD».OpenURIAction">
+               id="Â«editorGen.plugin.iDÂ».OpenURIAction">
          </action>
          <action
                label="%openActionLabel"
-               definitionId="«editorGen.plugin.iD».OpenCommand"
-               class="«getActionBarAdvisorQualifiedClassName()»$OpenAction"
+               definitionId="Â«editorGen.plugin.iDÂ».OpenCommand"
+               class="Â«getActionBarAdvisorQualifiedClassName()Â»$OpenAction"
                menubarPath="file/additions"
-               id="«editorGen.plugin.iD».OpenAction">
+               id="Â«editorGen.plugin.iDÂ».OpenAction">
          </action>
       </actionSet>
    </extension>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,101 +11,101 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::diagram::ViewmapAttributesUtilsÂ»
 
-«DEFINE fields FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE fields FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gef.tools.DirectEditManager manager;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private java.util.List parserElements;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private String defaultText;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE methods(needsRefreshBounds : Boolean, readOnly : Boolean, useElementIcon : Boolean, viewmap : gmfgen::Viewmap,
-		modelFacet : gmfgen::LabelModelFacet, host : gmfgen::GenCommonBase, diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
-	«EXPAND getLabelTextHelper-»
+Â«DEFINE methods(needsRefreshBounds : Boolean, readOnly : Boolean, useElementIcon : Boolean, viewmap : gmfgen::Viewmap,
+		modelFacet : gmfgen::LabelModelFacet, host : gmfgen::GenCommonBase, diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND getLabelTextHelper-Â»
 	
-	«EXPAND setLabelTextHelper-»
+	Â«EXPAND setLabelTextHelper-Â»
 	
-	«EXPAND getLabelIconHelper-»
+	Â«EXPAND getLabelIconHelper-Â»
 	
-	«EXPAND setLabelIconHelper-»
+	Â«EXPAND setLabelIconHelper-Â»
 	
-	«EXPAND labelSetter-»
+	Â«EXPAND labelSetter-Â»
 	
-	«EXPAND getModelChildren-»
+	Â«EXPAND getModelChildren-Â»
 	
-	«EXPAND getChildBySemanticHint-»
+	Â«EXPAND getChildBySemanticHint-Â»
 	
-	«EXPAND getParserElement(modelFacet)-»
+	Â«EXPAND getParserElement(modelFacet)-Â»
 	
-	«EXPAND getLabelIcon(useElementIcon, diagram)-»
+	Â«EXPAND getLabelIcon(useElementIcon, diagram)-Â»
 	
-	«EXPAND getLabelText-»
+	Â«EXPAND getLabelText-Â»
 	
-	«EXPAND setLabelText(diagram)-»
+	Â«EXPAND setLabelText(diagram)-Â»
 	
-	«EXPAND getEditText-»
+	Â«EXPAND getEditText-Â»
 	
-	«EXPAND isEditable(readOnly)-»
+	Â«EXPAND isEditable(readOnly)-Â»
 	
-	«EXPAND getEditTextValidator-»
+	Â«EXPAND getEditTextValidator-Â»
 	
-	«EXPAND getCompletionProcessor-»
+	Â«EXPAND getCompletionProcessor-Â»
 	
-	«EXPAND getParserOptions-»
+	Â«EXPAND getParserOptions-Â»
 	
-	«EXPAND getParser(modelFacet, diagram, host)-»
+	Â«EXPAND getParser(modelFacet, diagram, host)-Â»
 	
-	«EXPAND getManager(diagram)-»
+	Â«EXPAND getManager(diagram)-Â»
 	
-	«EXPAND setManager-»
+	Â«EXPAND setManager-Â»
 	
-	«EXPAND performDirectEdit-»
+	Â«EXPAND performDirectEdit-Â»
 	
-	«EXPAND performDirectEditAtPoint-»
+	Â«EXPAND performDirectEditAtPoint-Â»
 	
-	«EXPAND performDirectEditWithInitialChar-»
+	Â«EXPAND performDirectEditWithInitialChar-Â»
 	
-	«EXPAND performDirectEditRequest-»
+	Â«EXPAND performDirectEditRequest-Â»
 	
-	«EXPAND refreshVisuals(needsRefreshBounds)-»
+	Â«EXPAND refreshVisuals(needsRefreshBounds)-Â»
 	
-	«EXPAND refreshLabel(diagram)-»
+	Â«EXPAND refreshLabel(diagram)-Â»
 	
-	«EXPAND refreshUnderline-»
+	Â«EXPAND refreshUnderline-Â»
 	
-	«EXPAND refreshStrikeThrough-»
+	Â«EXPAND refreshStrikeThrough-Â»
 	
-	«EXPAND refreshFont-»
+	Â«EXPAND refreshFont-Â»
 	
-	«EXPAND setFontColor-»
+	Â«EXPAND setFontColor-Â»
 	
-	«EXPAND addSemanticListeners-»
+	Â«EXPAND addSemanticListeners-Â»
 	
-	«EXPAND removeSemanticListeners-»
+	Â«EXPAND removeSemanticListeners-Â»
 	
-	«EXPAND getAccessibleEditPart-»
+	Â«EXPAND getAccessibleEditPart-Â»
 	
-	«EXPAND getFontStyleOwnerView(viewmap)-»
-«ENDDEFINE»
+	Â«EXPAND getFontStyleOwnerView(viewmap)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-»
-«IF setterName <> null»«setterName»«ELSE»setLabel«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-Â»
+Â«IF setterName <> nullÂ»Â«setterNameÂ»Â«ELSEÂ»setLabelÂ«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelSetterName FOR gmfgen::Viewmap»setLabel«ENDDEFINE»
+Â«DEFINE labelSetterName FOR gmfgen::ViewmapÂ»setLabelÂ«ENDDEFINEÂ»
 
-«DEFINE getLabelTextHelper FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getLabelTextHelper FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected String getLabelTextHelper(org.eclipse.draw2d.IFigure figure) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getText();
@@ -113,10 +113,10 @@
 			return ((org.eclipse.draw2d.Label) figure).getText();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setLabelTextHelper FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setLabelTextHelper FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setLabelTextHelper(org.eclipse.draw2d.IFigure figure, String text) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setText(text);
@@ -124,10 +124,10 @@
 			((org.eclipse.draw2d.Label) figure).setText(text);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getLabelIconHelper FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getLabelIconHelper FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.swt.graphics.Image getLabelIconHelper(org.eclipse.draw2d.IFigure figure) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getIcon();
@@ -135,10 +135,10 @@
 			return ((org.eclipse.draw2d.Label) figure).getIcon();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setLabelIconHelper FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setLabelIconHelper FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setLabelIconHelper(org.eclipse.draw2d.IFigure figure, org.eclipse.swt.graphics.Image icon) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setIcon(icon);
@@ -146,80 +146,80 @@
 			((org.eclipse.draw2d.Label) figure).setIcon(icon);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelSetter FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public void «EXPAND labelSetterName FOR viewmap»(«EXPAND labelSetterFigureClassName FOR viewmap» figure) {
+Â«DEFINE labelSetter FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public void Â«EXPAND labelSetterName FOR viewmapÂ»(Â«EXPAND labelSetterFigureClassName FOR viewmapÂ» figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);
 		registerVisuals();
 		refreshVisuals();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelSetterFigureClassName FOR gmfgen::ParentAssignedViewmap-»
-	«IF figureQualifiedClassName <> null-»
-	«figureQualifiedClassName»
-	«ELSE-»
+Â«DEFINE labelSetterFigureClassName FOR gmfgen::ParentAssignedViewmap-Â»
+	Â«IF figureQualifiedClassName <> null-Â»
+	Â«figureQualifiedClassNameÂ»
+	Â«ELSE-Â»
 	org.eclipse.draw2d.IFigure
-	«ENDIF-»
-«ENDDEFINE»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE labelSetterFigureClassName FOR gmfgen::Viewmap-»
+Â«DEFINE labelSetterFigureClassName FOR gmfgen::Viewmap-Â»
 	org.eclipse.draw2d.IFigure
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelChildren FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelChildren FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected java.util.List getModelChildren() {
 		return java.util.Collections.EMPTY_LIST;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getChildBySemanticHint FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getChildBySemanticHint FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getParserElement(modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getParserElement(modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.emf.ecore.EObject getParserElement() {
-«IF modelFacet = null»
+Â«IF modelFacet = nullÂ»
 		org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 		return element != null ? element : (org.eclipse.gmf.runtime.notation.View) getModel();
-«ELSE»«EXPAND getParserElement FOR modelFacet»«ENDIF-»
+Â«ELSEÂ»Â«EXPAND getParserElement FOR modelFacetÂ»Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getParserElement FOR gmfgen::LabelModelFacet-»
+Â«DEFINE getParserElement FOR gmfgen::LabelModelFacet-Â»
 		return resolveSemanticElement();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getParserElement FOR gmfgen::DesignLabelModelFacet-»
+Â«DEFINE getParserElement FOR gmfgen::DesignLabelModelFacet-Â»
 		return (org.eclipse.gmf.runtime.notation.View) getModel();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getLabelIcon(useElementIcon : Boolean, diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getLabelIcon(useElementIcon : Boolean, diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.swt.graphics.Image getLabelIcon() {
-		«IF useElementIcon-»
+		Â«IF useElementIcon-Â»
 		org.eclipse.emf.ecore.EObject parserElement = getParserElement();
 		if (parserElement == null) {
 			return null;
 		}
-		return «diagram.getElementTypesQualifiedClassName()».getImage(parserElement.eClass());
-		«ELSE-»
+		return Â«diagram.getElementTypesQualifiedClassName()Â».getImage(parserElement.eClass());
+		Â«ELSE-Â»
 		return null;
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getLabelText FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getLabelText FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected String getLabelText() {
 		String text = null;
 		org.eclipse.emf.ecore.EObject parserElement = getParserElement();
@@ -233,48 +233,48 @@
 		}
 		return text;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setLabelText(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setLabelText(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void setLabelText(String text) {
 		setLabelTextHelper(getFigure(), text);
 		Object pdEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») pdEditPolicy).refreshFeedback();
+		if (pdEditPolicy instanceof Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») {
+			((Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») pdEditPolicy).refreshFeedback();
 		}
 		Object sfEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
-		if (sfEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») sfEditPolicy).refreshFeedback();
+		if (sfEditPolicy instanceof Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») {
+			((Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») sfEditPolicy).refreshFeedback();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getEditText FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditText FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getEditText() {
 		if (getParserElement() == null || getParser() == null) {
-			return ""; «EXPAND xpt::Common::nonNLS»
+			return ""; Â«EXPAND xpt::Common::nonNLSÂ»
 		}
 		return getParser().getEditString(
 			new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(getParserElement()),
 			getParserOptions().intValue());
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isEditable(readOnly : Boolean) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isEditable(readOnly : Boolean) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected boolean isEditable() {
-		«IF readOnly-»
+		Â«IF readOnly-Â»
 		return false;
-		«ELSE-»
+		Â«ELSE-Â»
 		return getParser() != null;
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getEditTextValidator FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditTextValidator FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.jface.viewers.ICellEditorValidator getEditTextValidator() {
 		return new org.eclipse.jface.viewers.ICellEditorValidator() {
 
@@ -302,72 +302,72 @@
 			}
 		};
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getCompletionProcessor FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getCompletionProcessor FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor() {
 		if (getParserElement() == null || getParser() == null) {
 			return null;
 		}
 		return getParser().getCompletionProcessor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(getParserElement()));
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getParserOptions FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getParserOptions FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions getParserOptions() {
 		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getParser(modelFacet : gmfgen::LabelModelFacet, diagram : gmfgen::GenDiagram, host : gmfgen::GenCommonBase) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getParser(modelFacet : gmfgen::LabelModelFacet, diagram : gmfgen::GenDiagram, host : gmfgen::GenCommonBase) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser() {
 		if (parser == null) {
-			parser = «EXPAND parsers::ParserProvider::accessorCall(host, modelFacet, 'getParserElement()')»;
+			parser = Â«EXPAND parsers::ParserProvider::accessorCall(host, modelFacet, 'getParserElement()')Â»;
 		}
 		return parser;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getManager(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getManager(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gef.tools.DirectEditManager getManager() {
 		if (manager == null) {
 			setManager(new org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager(this,
 				org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.getTextCellEditorClass(this),
-				«diagram.getEditPartFactoryQualifiedClassName()».getTextCellEditorLocator(this)));
+				Â«diagram.getEditPartFactoryQualifiedClassName()Â».getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setManager FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setManager FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setManager(org.eclipse.gef.tools.DirectEditManager manager) {
 		this.manager = manager;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE performDirectEdit FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE performDirectEdit FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void performDirectEdit() {
 		getManager().show();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE performDirectEditAtPoint FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE performDirectEditAtPoint FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void performDirectEdit(org.eclipse.draw2d.geometry.Point eventLocation) {
 		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
 			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE performDirectEditWithInitialChar FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE performDirectEditWithInitialChar FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
 			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
@@ -375,10 +375,10 @@
 			performDirectEdit();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE performDirectEditRequest FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE performDirectEditRequest FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void performDirectEditRequest(org.eclipse.gef.Request request) {
 		final org.eclipse.gef.Request theRequest = request;
 		try {
@@ -402,10 +402,10 @@
 			e.printStackTrace();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE refreshVisuals(needsRefreshBounds : Boolean) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshVisuals(needsRefreshBounds : Boolean) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		refreshLabel();
@@ -413,30 +413,30 @@
 		refreshFontColor();
 		refreshUnderline();
 		refreshStrikeThrough();
-		«IF needsRefreshBounds-»
+		Â«IF needsRefreshBounds-Â»
 		refreshBounds();
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE refreshLabel(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshLabel(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void refreshLabel() {
 		setLabelTextHelper(getFigure(), getLabelText());
 		setLabelIconHelper(getFigure(), getLabelIcon());
 		Object pdEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») pdEditPolicy).refreshFeedback();
+		if (pdEditPolicy instanceof Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») {
+			((Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») pdEditPolicy).refreshFeedback();
 		}
 		Object sfEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
-		if (sfEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») sfEditPolicy).refreshFeedback();
+		if (sfEditPolicy instanceof Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») {
+			((Â«diagram.getTextSelectionEditPolicyQualifiedClassName()Â») sfEditPolicy).refreshFeedback();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE refreshUnderline FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshUnderline FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void refreshUnderline() {
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -445,10 +445,10 @@
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getFigure()).setTextUnderline(style.isUnderline());
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE refreshStrikeThrough FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshStrikeThrough FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void refreshStrikeThrough() {
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -457,10 +457,10 @@
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) getFigure()).setTextStrikeThrough(style.isStrikeThrough());
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE refreshFont FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshFont FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void refreshFont() {
 		org.eclipse.gmf.runtime.notation.FontStyle style =
 			(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -473,45 +473,45 @@
 			setFont(fontData);
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE setFontColor FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setFontColor FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setFontColor(org.eclipse.swt.graphics.Color color) {
 		getFigure().setForegroundColor(color);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE addSemanticListeners FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addSemanticListeners FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void addSemanticListeners() {
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 			parserElements = ((org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) getParser()).getSemanticElementsBeingParsed(element);
 			for (int i = 0; i < parserElements.size(); i++) {
-				addListenerFilter("SemanticModel" + i, this, (org.eclipse.emf.ecore.EObject) parserElements.get(i)); «EXPAND xpt::Common::nonNLS»
+				addListenerFilter("SemanticModel" + i, this, (org.eclipse.emf.ecore.EObject) parserElements.get(i)); Â«EXPAND xpt::Common::nonNLSÂ»
 			}
 		} else {
 			super.addSemanticListeners();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE removeSemanticListeners FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE removeSemanticListeners FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void removeSemanticListeners() {
 		if (parserElements != null) {
 			for (int i = 0; i < parserElements.size(); i++) {
-				removeListenerFilter("SemanticModel" + i); «EXPAND xpt::Common::nonNLS»
+				removeListenerFilter("SemanticModel" + i); Â«EXPAND xpt::Common::nonNLSÂ»
 			}
 		} else {
 			super.removeSemanticListeners();
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getAccessibleEditPart FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getAccessibleEditPart FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gef.AccessibleEditPart getAccessibleEditPart() {
 		if (accessibleEP == null) {
 			accessibleEP = new AccessibleGraphicalEditPart() {
@@ -523,15 +523,15 @@
 		}
 		return accessibleEP;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getFontStyleOwnerView(viewmap : gmfgen::Viewmap) FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getFontStyleOwnerView(viewmap : gmfgen::Viewmap) FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	 private org.eclipse.gmf.runtime.notation.View getFontStyleOwnerView() {
-		«IF viewmap.isFixedFont()-»
+		Â«IF viewmap.isFixedFont()-Â»
 		return (org.eclipse.gmf.runtime.notation.View) getModel();
-		«ELSE-»
+		Â«ELSE-Â»
 		return getPrimaryView();
-		«ENDIF-»
+		Â«ENDIF-Â»
 	 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

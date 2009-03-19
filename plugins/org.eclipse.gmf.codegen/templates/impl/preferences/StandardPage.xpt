@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,37 +10,37 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE Main FOR gmfgen::GenStandardPreferencePage-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().preferencesPackageName»;
+Â«DEFINE Main FOR gmfgen::GenStandardPreferencePage-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().preferencesPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «getClassName()»«EXPAND extendsList»«EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«getClassName()Â»Â«EXPAND extendsListÂ»Â«EXPAND implementsListÂ» {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «getClassName()»() {
-		setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«getClassName()Â»() {
+		setPreferenceStore(Â«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getPreferenceStore());
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenStandardPreferencePage-»
-«IF gmfgen::StandardPreferencePages::General = kind-»
- extends org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramsPreferencePage«-»
-«ELSEIF gmfgen::StandardPreferencePages::Appearance = kind-»
- extends org.eclipse.gmf.runtime.diagram.ui.preferences.AppearancePreferencePage«-»
-«ELSEIF gmfgen::StandardPreferencePages::Connections = kind-»
- extends org.eclipse.gmf.runtime.diagram.ui.preferences.ConnectionsPreferencePage«-»
-«ELSEIF gmfgen::StandardPreferencePages::Printing = kind-»
- extends org.eclipse.gmf.runtime.diagram.ui.preferences.PrintingPreferencePage«-»
-«ELSEIF gmfgen::StandardPreferencePages::RulersAndGrid = kind-»
- extends org.eclipse.gmf.runtime.diagram.ui.preferences.RulerGridPreferencePage«-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenStandardPreferencePage-Â»
+Â«IF gmfgen::StandardPreferencePages::General = kind-Â»
+ extends org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramsPreferencePageÂ«-Â»
+Â«ELSEIF gmfgen::StandardPreferencePages::Appearance = kind-Â»
+ extends org.eclipse.gmf.runtime.diagram.ui.preferences.AppearancePreferencePageÂ«-Â»
+Â«ELSEIF gmfgen::StandardPreferencePages::Connections = kind-Â»
+ extends org.eclipse.gmf.runtime.diagram.ui.preferences.ConnectionsPreferencePageÂ«-Â»
+Â«ELSEIF gmfgen::StandardPreferencePages::Printing = kind-Â»
+ extends org.eclipse.gmf.runtime.diagram.ui.preferences.PrintingPreferencePageÂ«-Â»
+Â«ELSEIF gmfgen::StandardPreferencePages::RulersAndGrid = kind-Â»
+ extends org.eclipse.gmf.runtime.diagram.ui.preferences.RulerGridPreferencePageÂ«-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenStandardPreferencePage»«REM»no-op«ENDREM»«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenStandardPreferencePageÂ»Â«REMÂ»no-opÂ«ENDREMÂ»Â«ENDDEFINEÂ»
 
-«DEFINE call_initDefaults(storeVarName : String) FOR gmfgen::GenStandardPreferencePage»«IF kind <> gmfgen::StandardPreferencePages::Pathmaps»«getQualifiedClassName()».initDefaults(«storeVarName»);«ENDIF»«ENDDEFINE»
+Â«DEFINE call_initDefaults(storeVarName : String) FOR gmfgen::GenStandardPreferencePageÂ»Â«IF kind <> gmfgen::StandardPreferencePages::PathmapsÂ»Â«getQualifiedClassName()Â».initDefaults(Â«storeVarNameÂ»);Â«ENDIFÂ»Â«ENDDEFINEÂ»

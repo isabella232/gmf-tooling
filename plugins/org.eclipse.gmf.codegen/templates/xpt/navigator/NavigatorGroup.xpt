@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,120 +10,120 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE NavigatorGroup FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE NavigatorGroup FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «navigatorGroupClassName» extends «getAbstractNavigatorItemQualifiedClassName()» {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«navigatorGroupClassNameÂ» extends Â«getAbstractNavigatorItemQualifiedClassName()Â» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND getGroupName-»
+	Â«EXPAND getGroupName-Â»
 	
-	«EXPAND getIcon-»
+	Â«EXPAND getIcon-Â»
 	
-	«EXPAND getChildren-»
+	Â«EXPAND getChildren-Â»
 	
-	«EXPAND addChildren-»
+	Â«EXPAND addChildren-Â»
 	
-	«EXPAND addChild-»
+	Â«EXPAND addChild-Â»
 	
-	«EXPAND isEmpty-»
+	Â«EXPAND isEmpty-Â»
 	
-	«EXPAND equals-»
+	Â«EXPAND equals-Â»
 	
-	«EXPAND hashCode-»
+	Â«EXPAND hashCode-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private String myGroupName;
 	
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private String myIcon;
 	
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private java.util.Collection myChildren = new java.util.LinkedList();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
-«navigatorGroupClassName»(String groupName, String icon, Object parent) {
+Â«DEFINE _constructor FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+Â«navigatorGroupClassNameÂ»(String groupName, String icon, Object parent) {
 	super(parent);
 	myGroupName = groupName;
 	myIcon = icon;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getGroupName FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getGroupName FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public String getGroupName() {
 	return myGroupName;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getIcon FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getIcon FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public String getIcon() {
 	return myIcon;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getChildren FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getChildren FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object[] getChildren() {
 	return myChildren.toArray();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE addChildren FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addChildren FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void addChildren(java.util.Collection children) {
 	myChildren.addAll(children);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE addChild FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE addChild FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public void addChild(Object child) {
 	myChildren.add(child);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE isEmpty FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isEmpty FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isEmpty() {
 	return myChildren.size() == 0;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE equals FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE equals FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean equals(Object obj) {
-	if (obj instanceof «getNavigatorGroupQualifiedClassName()») {
-		«getNavigatorGroupQualifiedClassName()» anotherGroup = («getNavigatorGroupQualifiedClassName()») obj;
+	if (obj instanceof Â«getNavigatorGroupQualifiedClassName()Â») {
+		Â«getNavigatorGroupQualifiedClassName()Â» anotherGroup = (Â«getNavigatorGroupQualifiedClassName()Â») obj;
 		if (getGroupName().equals(anotherGroup.getGroupName())) {
 			return getParent().equals(anotherGroup.getParent());
 		}
 	}
 	return super.equals(obj);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE hashCode FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE hashCode FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public int hashCode() {
 	return getGroupName().hashCode();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,39 +11,39 @@
  *    Artem Tikhomirov (Borland) - [174961] migration to Commands/Handlers 
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::editor::Utils»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::editor::UtilsÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Main FOR gmfgen::CreateShortcutAction-»
-«EXPAND xpt::Common::copyright FOR owner.editorGen-»
-«EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
+Â«DEFINE Main FOR gmfgen::CreateShortcutAction-Â»
+Â«EXPAND xpt::Common::copyright FOR owner.editorGen-Â»
+Â«EXPAND xpt::Common::packageStatement FOR qualifiedClassNameÂ»
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «qualifiedClassName.xpandSplit('\\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
-«EXPAND executeMethod»
-«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«qualifiedClassName.xpandSplit('\\.')->last()Â»Â«EXPAND extendsListÂ»Â«EXPAND implementsListÂ» {
+Â«EXPAND executeMethodÂ»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::CreateShortcutAction» extends org.eclipse.core.commands.AbstractHandler«ENDDEFINE»
-«DEFINE implementsList FOR gmfgen::CreateShortcutAction»«ENDDEFINE» 
+Â«DEFINE extendsList FOR gmfgen::CreateShortcutActionÂ» extends org.eclipse.core.commands.AbstractHandlerÂ«ENDDEFINEÂ»
+Â«DEFINE implementsList FOR gmfgen::CreateShortcutActionÂ»Â«ENDDEFINEÂ» 
 
-«DEFINE executeMethod FOR gmfgen::CreateShortcutAction-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE executeMethod FOR gmfgen::CreateShortcutAction-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
 		org.eclipse.swt.widgets.Shell shell = diagramEditor.getEditorSite().getShell();
-		«EXPAND xpt::Common::_assert('diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor')-»
+		Â«EXPAND xpt::Common::_assert('diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor')-Â»
 		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor) diagramEditor).getEditingDomain();
 		org.eclipse.jface.viewers.ISelection selection = org.eclipse.ui.handlers.HandlerUtil.getCurrentSelectionChecked(event);
-		«EXPAND xpt::Common::_assert('selection instanceof org.eclipse.jface.viewers.IStructuredSelection')-»
-		«EXPAND xpt::Common::_assert('((org.eclipse.jface.viewers.IStructuredSelection) selection).size() == 1')-»
-		«EXPAND xpt::Common::_assert('((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement() instanceof org.eclipse.gef.EditPart')-»
+		Â«EXPAND xpt::Common::_assert('selection instanceof org.eclipse.jface.viewers.IStructuredSelection')-Â»
+		Â«EXPAND xpt::Common::_assert('((org.eclipse.jface.viewers.IStructuredSelection) selection).size() == 1')-Â»
+		Â«EXPAND xpt::Common::_assert('((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement() instanceof org.eclipse.gef.EditPart')-Â»
 		org.eclipse.gef.EditPart selectedDiagramPart = (org.eclipse.gef.EditPart) ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 		final org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) selectedDiagramPart.getModel();
-«IF null = owner.editorGen.application-»
-		«owner.editorGen.diagram.getElementChooserQualifiedClassName()» elementChooser = new «owner.editorGen.diagram.getElementChooserQualifiedClassName()»(shell, view);
+Â«IF null = owner.editorGen.application-Â»
+		Â«owner.editorGen.diagram.getElementChooserQualifiedClassName()Â» elementChooser = new Â«owner.editorGen.diagram.getElementChooserQualifiedClassName()Â»(shell, view);
 		int result = elementChooser.open();
 		if (result != org.eclipse.jface.window.Window.OK) {
 			return null;
@@ -53,46 +53,46 @@ public class «qualifiedClassName.xpandSplit('\\.')->last()»«EXPAND extendsList»«
 		try {
 			selectedElement = editingDomain.getResourceSet().getEObject(selectedModelElementURI, true);
 		} catch (org.eclipse.emf.common.util.WrappedException e) {
-			«owner.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e);«EXPAND xpt::Common::nonNLS»
+			Â«owner.editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e);Â«EXPAND xpt::Common::nonNLSÂ»
 			return null;
 		}
 
 		if (selectedElement == null) {
 			return null;
 		}
-		org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedElement), org.eclipse.gmf.runtime.notation.Node.class, null, «EXPAND xpt::plugin::Activator::preferenceHintAccess FOR owner.editorGen»);
+		org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedElement), org.eclipse.gmf.runtime.notation.Node.class, null, Â«EXPAND xpt::plugin::Activator::preferenceHintAccess FOR owner.editorGenÂ»);
 		org.eclipse.gmf.runtime.common.core.command.ICommand command = new org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand(editingDomain, viewDescriptor, view);
-		command = command.compose(new «owner.editorGen.diagram.getCreateShortcutDecorationsCommandQualifiedClassName()»(editingDomain, view, viewDescriptor));
+		command = command.compose(new Â«owner.editorGen.diagram.getCreateShortcutDecorationsCommandQualifiedClassName()Â»(editingDomain, view, viewDescriptor));
 		try {
 			org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 		} catch (org.eclipse.core.commands.ExecutionException e) {
-			«owner.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to create shortcut", e);«EXPAND xpt::Common::nonNLS»
+			Â«owner.editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Unable to create shortcut", e);Â«EXPAND xpt::Common::nonNLSÂ»
 		}
-«ELSE-»
-		org.eclipse.emf.ecore.resource.Resource resource = «owner.editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openModel(shell, «EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreateShortcutOpenModel())) FOR owner.editorGen», editingDomain);
+Â«ELSE-Â»
+		org.eclipse.emf.ecore.resource.Resource resource = Â«owner.editorGen.diagram.getDiagramEditorUtilQualifiedClassName()Â».openModel(shell, Â«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreateShortcutOpenModel())) FOR owner.editorGenÂ», editingDomain);
 		if (resource == null || resource.getContents().isEmpty()) {
 			return null;
 		}
-		«EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName FOR owner.editorGen.diagram» wizard = new «EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName FOR owner.editorGen.diagram»((org.eclipse.emf.ecore.EObject) resource.getContents().get(0), view, editingDomain);
-		wizard.setWindowTitle(«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreateShortcutWizard())) FOR owner.editorGen»);
-		«owner.editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».runWizard(myShell, wizard, "CreateShortcut");«EXPAND xpt::Common::nonNLS»
-«ENDIF-»
+		Â«EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName FOR owner.editorGen.diagramÂ» wizard = new Â«EXPAND xpt::editor::ShortcutCreationWizard::qualifiedClassName FOR owner.editorGen.diagramÂ»((org.eclipse.emf.ecore.EObject) resource.getContents().get(0), view, editingDomain);
+		wizard.setWindowTitle(Â«EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForCreateShortcutWizard())) FOR owner.editorGenÂ»);
+		Â«owner.editorGen.diagram.getDiagramEditorUtilQualifiedClassName()Â».runWizard(myShell, wizard, "CreateShortcut");Â«EXPAND xpt::Common::nonNLSÂ»
+Â«ENDIF-Â»
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::CreateShortcutAction»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::CreateShortcutActionÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«IF null <> editorGen.application-»
-«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreateShortcutOpenModel()), 'Select model to reference')-»
-«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreateShortcutWizard()), 'Create shortcut')-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«IF null <> editorGen.application-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreateShortcutOpenModel()), 'Select model to reference')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(titleKey(i18nKeyForCreateShortcutWizard()), 'Create shortcut')-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-«IF null <> editorGen.application-»
-«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreateShortcutOpenModel()))-»
-«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreateShortcutWizard()))-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+Â«IF null <> editorGen.application-Â»
+Â«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreateShortcutOpenModel()))-Â»
+Â«EXPAND xpt::Externalizer::accessorField(titleKey(i18nKeyForCreateShortcutWizard()))-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

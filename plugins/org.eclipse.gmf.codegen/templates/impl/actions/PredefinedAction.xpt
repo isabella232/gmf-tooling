@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,13 +10,13 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE Main FOR gmfgen::GenAction»«ERROR 'Asbtract template for ' + self.repr()»«ENDDEFINE»
+Â«DEFINE Main FOR gmfgen::GenActionÂ»Â«ERROR 'Asbtract template for ' + self.repr()Â»Â«ENDDEFINEÂ»
 
-«DEFINE Main FOR gmfgen::LoadResourceAction»«EXPAND LoadResourceAction::Main»«ENDDEFINE»
+Â«DEFINE Main FOR gmfgen::LoadResourceActionÂ»Â«EXPAND LoadResourceAction::MainÂ»Â«ENDDEFINEÂ»
 
-«DEFINE Main(editorGen : gmfgen::GenEditorGenerator) FOR gmfgen::InitDiagramAction»«EXPAND xpt::editor::InitDiagramFileAction::InitDiagramFileAction(editorGen)»«ENDDEFINE»
+Â«DEFINE Main(editorGen : gmfgen::GenEditorGenerator) FOR gmfgen::InitDiagramActionÂ»Â«EXPAND xpt::editor::InitDiagramFileAction::InitDiagramFileAction(editorGen)Â»Â«ENDDEFINEÂ»
 
-«DEFINE Main FOR gmfgen::CreateShortcutAction»«EXPAND CreateShortcutAction::Main»«ENDDEFINE»
+Â«DEFINE Main FOR gmfgen::CreateShortcutActionÂ»Â«EXPAND CreateShortcutAction::MainÂ»Â«ENDDEFINEÂ»

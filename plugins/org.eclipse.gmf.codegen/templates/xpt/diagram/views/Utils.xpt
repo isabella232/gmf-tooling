@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,77 +11,77 @@
  *    Artem Tikhomirov (Borland) - [257119] Create views directly, not through ViewFactories
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::diagram::ViewmapAttributesUtils»
-«EXTENSION xpt::diagram::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::diagram::ViewmapAttributesUtilsÂ»
+Â«EXTENSION xpt::diagram::UtilsÂ»
 
 // FIXME ColorAttributes class is deprecated
-«DEFINE foregroundColour(viewVar : String) FOR gmfgen::Viewmap»«EXPAND foregroundColour(viewVar) FOREACH attributes[gmfgen::ColorAttributes]»«ENDDEFINE»
-«DEFINE foregroundColour(viewVar : String) FOR gmfgen::ColorAttributes»org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.setStructuralFeatureValue(«viewVar», org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle_LineColor(), org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities.colorToInteger(org.eclipse.draw2d.ColorConstants.«foregroundColor»));
-«ENDDEFINE»
+Â«DEFINE foregroundColour(viewVar : String) FOR gmfgen::ViewmapÂ»Â«EXPAND foregroundColour(viewVar) FOREACH attributes[gmfgen::ColorAttributes]Â»Â«ENDDEFINEÂ»
+Â«DEFINE foregroundColour(viewVar : String) FOR gmfgen::ColorAttributesÂ»org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.setStructuralFeatureValue(Â«viewVarÂ», org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle_LineColor(), org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities.colorToInteger(org.eclipse.draw2d.ColorConstants.Â«foregroundColorÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE backgroundColour(viewVar : String) FOR gmfgen::Viewmap»«EXPAND backgroundColour(viewVar) FOREACH attributes[gmfgen::ColorAttributes]»«ENDDEFINE»
-«DEFINE backgroundColour(viewVar : String) FOR gmfgen::ColorAttributes»org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.setStructuralFeatureValue(«viewVar», org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor(), org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities.colorToInteger(org.eclipse.draw2d.ColorConstants.«backgroundColor»));
-«ENDDEFINE»
+Â«DEFINE backgroundColour(viewVar : String) FOR gmfgen::ViewmapÂ»Â«EXPAND backgroundColour(viewVar) FOREACH attributes[gmfgen::ColorAttributes]Â»Â«ENDDEFINEÂ»
+Â«DEFINE backgroundColour(viewVar : String) FOR gmfgen::ColorAttributesÂ»org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.setStructuralFeatureValue(Â«viewVarÂ», org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor(), org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities.colorToInteger(org.eclipse.draw2d.ColorConstants.Â«backgroundColorÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE addFontLineFillStylesConditionally(stylesVar : String) FOR gmfgen::Viewmap-»
-«IF not self.isFixedFont()-»
-	«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle());
-«ENDIF-»
-«IF not self.isFixedForeground()-»
-	«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle());
-«ENDIF-»
-«IF not self.isFixedBackground()-»
-	«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle());
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE addFontLineFillStylesConditionally(stylesVar : String) FOR gmfgen::Viewmap-Â»
+Â«IF not self.isFixedFont()-Â»
+	Â«stylesVarÂ».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFontStyle());
+Â«ENDIF-Â»
+Â«IF not self.isFixedForeground()-Â»
+	Â«stylesVarÂ».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLineStyle());
+Â«ENDIF-Â»
+Â«IF not self.isFixedBackground()-Â»
+	Â«stylesVarÂ».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createFillStyle());
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE addTextStyle(stylesVar : String) FOR gmfgen::LabelModelFacet»«ENDDEFINE»
-«DEFINE addTextStyle(stylesVar : String) FOR gmfgen::DesignLabelModelFacet»«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());
-«ENDDEFINE»
+Â«DEFINE addTextStyle(stylesVar : String) FOR gmfgen::LabelModelFacetÂ»Â«ENDDEFINEÂ»
+Â«DEFINE addTextStyle(stylesVar : String) FOR gmfgen::DesignLabelModelFacetÂ»Â«stylesVarÂ».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());
+Â«ENDDEFINEÂ»
 
-«DEFINE addLinkedDiagramStyle(stylesVar : String) FOR gmfgen::GenCommonBase»«EXPAND addLinkedDiagramStyle(stylesVar) FOREACH behaviour»«ENDDEFINE»
-«DEFINE addLinkedDiagramStyle(stylesVar : String) FOR gmfgen::Behaviour»«ENDDEFINE»
-«DEFINE addLinkedDiagramStyle(stylesVar : String) FOR gmfgen::OpenDiagramBehaviour-»
-«IF diagramKind <> null-»
+Â«DEFINE addLinkedDiagramStyle(stylesVar : String) FOR gmfgen::GenCommonBaseÂ»Â«EXPAND addLinkedDiagramStyle(stylesVar) FOREACH behaviourÂ»Â«ENDDEFINEÂ»
+Â«DEFINE addLinkedDiagramStyle(stylesVar : String) FOR gmfgen::BehaviourÂ»Â«ENDDEFINEÂ»
+Â«DEFINE addLinkedDiagramStyle(stylesVar : String) FOR gmfgen::OpenDiagramBehaviour-Â»
+Â«IF diagramKind <> null-Â»
 	{
 		org.eclipse.gmf.runtime.notation.HintedDiagramLinkStyle diagramFacet = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createHintedDiagramLinkStyle();
-		diagramFacet.setHint("«diagramKind»");«EXPAND xpt::Common::nonNLS»
-		«stylesVar».add(diagramFacet);
+		diagramFacet.setHint("Â«diagramKindÂ»");Â«EXPAND xpt::Common::nonNLSÂ»
+		Â«stylesVarÂ».add(diagramFacet);
 	}
-«ELSE-»
-		«stylesVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createHintedDiagramLinkStyle());
-«ENDIF-»
-«ENDDEFINE»
+Â«ELSE-Â»
+		Â«stylesVarÂ».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createHintedDiagramLinkStyle());
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE addCustomStyles(stylesVar : String) FOR gmfgen::GenCommonBase-»
-«FOREACH styles AS style-»
-	«stylesVar».add(«EXPAND MetaModel::NewInstance FOR style»);
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE addCustomStyles(stylesVar : String) FOR gmfgen::GenCommonBase-Â»
+Â«FOREACH styles AS style-Â»
+	Â«stylesVarÂ».add(Â«EXPAND MetaModel::NewInstance FOR styleÂ»);
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 // external node and link labels' offset
 
-«DEFINE offset(String viewVar) FOR gmfgen::GenLabel»«ENDDEFINE»
+Â«DEFINE offset(String viewVar) FOR gmfgen::GenLabelÂ»Â«ENDDEFINEÂ»
 
-«DEFINE offset(String viewVar) FOR gmfgen::GenLinkLabel-»
-«IF labelOffsetX(viewmap, 0) <> 0 or labelOffsetY(viewmap, 0) <> 0-»
-	«EXPAND offset(viewVar, labelOffsetX(viewmap, 0), labelOffsetY(viewmap, 0))-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE offset(String viewVar) FOR gmfgen::GenLinkLabel-Â»
+Â«IF labelOffsetX(viewmap, 0) <> 0 or labelOffsetY(viewmap, 0) <> 0-Â»
+	Â«EXPAND offset(viewVar, labelOffsetX(viewmap, 0), labelOffsetY(viewmap, 0))-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE offset(String viewVar) FOR gmfgen::GenExternalNodeLabel»«EXPAND offset(viewVar, 0, 5)»«ENDDEFINE»
+Â«DEFINE offset(String viewVar) FOR gmfgen::GenExternalNodeLabelÂ»Â«EXPAND offset(viewVar, 0, 5)Â»Â«ENDDEFINEÂ»
 
 // viewVar must be already inserted into a diagram (view.getDiagram() should be meaningful)
-«DEFINE offset(String viewVar, x : Integer, y : Integer) FOR gmfgen::GenLabel-»
-	org.eclipse.gmf.runtime.notation.Location location«visualID» = (org.eclipse.gmf.runtime.notation.Location) «viewVar».getLayoutConstraint();
-«IF self.getDiagram().isPixelMapMode()-»
-	location«visualID».setX(«x»);
-	location«visualID».setY(«y»);
-«ELSE-»
-	location«visualID».setX(org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper.getMapMode(«viewVar».getDiagram().getMeasurementUnit()).DPtoLP(«x»));
-	location«visualID».setY(org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper.getMapMode(«viewVar».getDiagram().getMeasurementUnit()).DPtoLP(«y»));
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE offset(String viewVar, x : Integer, y : Integer) FOR gmfgen::GenLabel-Â»
+	org.eclipse.gmf.runtime.notation.Location locationÂ«visualIDÂ» = (org.eclipse.gmf.runtime.notation.Location) Â«viewVarÂ».getLayoutConstraint();
+Â«IF self.getDiagram().isPixelMapMode()-Â»
+	locationÂ«visualIDÂ».setX(Â«xÂ»);
+	locationÂ«visualIDÂ».setY(Â«yÂ»);
+Â«ELSE-Â»
+	locationÂ«visualIDÂ».setX(org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper.getMapMode(Â«viewVarÂ».getDiagram().getMeasurementUnit()).DPtoLP(Â«xÂ»));
+	locationÂ«visualIDÂ».setY(org.eclipse.gmf.runtime.diagram.ui.util.MeasurementUnitHelper.getMapMode(Â«viewVarÂ».getDiagram().getMeasurementUnit()).DPtoLP(Â«yÂ»));
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

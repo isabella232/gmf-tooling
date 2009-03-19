@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,106 +10,106 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE AbstractExpression FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.expressionProviders.expressionsPackageName»;
+Â«DEFINE AbstractExpression FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.expressionProviders.expressionsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public abstract class «editorGen.expressionProviders.abstractExpressionClassName» «EXPAND supertypes»{
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public abstract class Â«editorGen.expressionProviders.abstractExpressionClassNameÂ» Â«EXPAND supertypesÂ»{
 
-«EXPAND status-»
+Â«EXPAND status-Â»
 
-«EXPAND body-»
+Â«EXPAND body-Â»
 
-«EXPAND context-»
+Â«EXPAND context-Â»
 
-«EXPAND ctors-»
+Â«EXPAND ctors-Â»
 
-«EXPAND evaluate-»
+Â«EXPAND evaluate-Â»
 
-«EXPAND performCast-»
+Â«EXPAND performCast-Â»
 
-«EXPAND additions-»
+Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE supertypes FOR gmfgen::GenDiagram»«ENDDEFINE»
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE supertypes FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE status FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE status FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.core.runtime.IStatus status = org.eclipse.core.runtime.Status.OK_STATUS;	
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setStatus(int severity, String message, Throwable throwable) {		
-		String pluginID = «editorGen.plugin.getActivatorQualifiedClassName()».ID;
-		this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable);«EXPAND xpt::Common::nonNLS»
+		String pluginID = Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID;
+		this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable);Â«EXPAND xpt::Common::nonNLSÂ»
 		if(!this.status.isOK()) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable);«EXPAND xpt::Common::nonNLS»«EXPAND xpt::Common::nonNLS(2)»
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable);Â«EXPAND xpt::Common::nonNLSÂ»Â«EXPAND xpt::Common::nonNLS(2)Â»
 		}
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.core.runtime.IStatus getStatus() {
 		return status;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE body FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE body FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private final String myBody;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String body() {
 		return myBody;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE context FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE context FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private final org.eclipse.emf.ecore.EClassifier myContext;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.emf.ecore.EClassifier context() {
 		return myContext;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE ctors FOR gmfgen::GenDiagram-»
+Â«DEFINE ctors FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected «editorGen.expressionProviders.abstractExpressionClassName»(String body, org.eclipse.emf.ecore.EClassifier context) {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	protected Â«editorGen.expressionProviders.abstractExpressionClassNameÂ»(String body, org.eclipse.emf.ecore.EClassifier context) {
 		myBody = body;
 		myContext = context;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE evaluate FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE evaluate FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected abstract Object doEvaluate(Object context, java.util.Map env);
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public Object evaluate(Object context) {
 		return evaluate(context, java.util.Collections.EMPTY_MAP);
 	}
 
-«EXPAND xpt::Common::generatedMemberComment»
+Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public Object evaluate(Object context, java.util.Map env) {
 		if(context().isInstance(context)) {
 			try {
 				return doEvaluate(context, env);
 			} catch(Exception e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Expression evaluation failure: " + body(), e);«EXPAND xpt::Common::nonNLS»
+				Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Expression evaluation failure: " + body(), e);Â«EXPAND xpt::Common::nonNLSÂ»
 			}
 		}
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE performCast FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment('Expression may return number value which is not directly compatible with feature type (e.g. Double when Integer is expected), or EEnumLiteral meta-object when literal instance is expected')»
+Â«DEFINE performCast FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment('Expression may return number value which is not directly compatible with feature type (e.g. Double when Integer is expected), or EEnumLiteral meta-object when literal instance is expected')Â»
 	public static Object performCast(Object value, org.eclipse.emf.ecore.EDataType targetType) {
 		if (targetType instanceof org.eclipse.emf.ecore.EEnum) {
 			if (value instanceof org.eclipse.emf.ecore.EEnumLiteral) {
@@ -142,4 +142,4 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassName
 		}
 		return value;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

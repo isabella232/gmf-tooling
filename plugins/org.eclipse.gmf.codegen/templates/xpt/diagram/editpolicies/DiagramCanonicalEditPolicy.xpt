@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,75 +10,75 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::diagram::editpolicies::Utils»
-«EXTENSION xpt::diagram::updater::Utils»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::diagram::editpolicies::UtilsÂ»
+Â«EXTENSION xpt::diagram::updater::UtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE DiagramCanonicalEditPolicy FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editPoliciesPackageName»;
+Â«DEFINE DiagramCanonicalEditPolicy FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editPoliciesPackageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«canonicalEditPolicyClassNameÂ» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy {
 
-	«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::containerBaseCanonicalMethods-»
+	Â«EXPAND xpt::diagram::updater::containerBaseCanonicalMethods::containerBaseCanonicalMethods-Â»
 
-	«EXPAND getSemanticConnectionsList-»
+	Â«EXPAND getSemanticConnectionsList-Â»
 	
-	«EXPAND getSourceElement-»
+	Â«EXPAND getSourceElement-Â»
 
-	«EXPAND getTargetElement-»
+	Â«EXPAND getTargetElement-Â»
 
-	«EXPAND shouldIncludeConnection-»
+	Â«EXPAND shouldIncludeConnection-Â»
 	
-	«EXPAND refreshSemantic-»
+	Â«EXPAND refreshSemantic-Â»
 	
-	«EXPAND getDiagram-»
+	Â«EXPAND getDiagram-Â»
 	
-	«EXPAND refreshLinks-»
-	«EXPAND additions-»
+	Â«EXPAND refreshLinks-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSemanticConnectionsList FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSemanticConnectionsList FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected java.util.List getSemanticConnectionsList() {
 	return java.util.Collections.EMPTY_LIST;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getSourceElement FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSourceElement FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.emf.ecore.EObject getSourceElement(org.eclipse.emf.ecore.EObject relationship) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getTargetElement FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getTargetElement FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.emf.ecore.EObject getTargetElement(org.eclipse.emf.ecore.EObject relationship) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE shouldIncludeConnection FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE shouldIncludeConnection FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected boolean shouldIncludeConnection(org.eclipse.gmf.runtime.notation.Edge connector, java.util.Collection children) {
 	return false;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshSemantic FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshSemantic FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void refreshSemantic() {
 	java.util.List createdViews = new java.util.LinkedList();
 	createdViews.addAll(refreshSemanticChildren());
 	java.util.List createdConnectionViews = new java.util.LinkedList();
 	createdConnectionViews.addAll(refreshSemanticConnections());
-	«IF not links->isEmpty()-»
+	Â«IF not links->isEmpty()-Â»
 	createdConnectionViews.addAll(refreshConnections());
-	«ENDIF-»
+	Â«ENDIF-Â»
 
 	if (createdViews.size() > 1) {
 		// perform a layout of the container
@@ -89,29 +89,29 @@ protected void refreshSemantic() {
 	createdViews.addAll(createdConnectionViews);
 	makeViewsImmutable(createdViews);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshLinks FOR gmfgen::GenDiagram-»
-	«IF not links->isEmpty()-»
-		«EXPAND refreshConnections-»
+Â«DEFINE refreshLinks FOR gmfgen::GenDiagram-Â»
+	Â«IF not links->isEmpty()-Â»
+		Â«EXPAND refreshConnections-Â»
 		
-		«EXPAND collectAllLinks-»
+		Â«EXPAND collectAllLinks-Â»
 		
-		«EXPAND createConnections-»
+		Â«EXPAND createConnections-Â»
 		
-		«EXPAND getEditPart-»
-	«ENDIF-»
-«ENDDEFINE»
+		Â«EXPAND getEditPart-Â»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshConnections FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshConnections FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private java.util.Collection refreshConnections() {
 	java.util.Map domain2NotationMap = new java.util.HashMap();
 	java.util.Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 	java.util.Collection existingLinks = new java.util.LinkedList(getDiagram().getEdges());
 	for (java.util.Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Edge nextDiagramLink = (org.eclipse.gmf.runtime.notation.Edge) linksIterator.next();
-		int diagramLinkVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(nextDiagramLink);
+		int diagramLinkVisualID = Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»(nextDiagramLink);
 		if (diagramLinkVisualID == -1) {
 			if (nextDiagramLink.getSource() != null && nextDiagramLink.getTarget() != null) {
 				linksIterator.remove();
@@ -122,7 +122,7 @@ private java.util.Collection refreshConnections() {
 		org.eclipse.emf.ecore.EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 		org.eclipse.emf.ecore.EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
 		for (java.util.Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
+			Â«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()Â» nextLinkDescriptor = (Â«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()Â») linkDescriptorsIterator.next();
 			if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 				linksIterator.remove();
 				linkDescriptorsIterator.remove();
@@ -133,17 +133,17 @@ private java.util.Collection refreshConnections() {
 	deleteViews(existingLinks.iterator());
 	return createConnections(linkDescriptors, domain2NotationMap);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE collectAllLinks FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE collectAllLinks FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.View view, java.util.Map domain2NotationMap) {
-	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view))) {
+	if (!Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ».equals(Â«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCallÂ»(view))) {
 		return java.util.Collections.EMPTY_LIST;
 	}
 	java.util.Collection result = new java.util.LinkedList();
-	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
-		«EXPAND caseSemanticElement FOREACH getAllSemanticElements(self)-»
+	switch (Â«EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCallÂ»(view)) {
+		Â«EXPAND caseSemanticElement FOREACH getAllSemanticElements(self)-Â»
 	}
 	for (java.util.Iterator children = view.getChildren().iterator(); children.hasNext();) {
 		result.addAll(collectAllLinks((org.eclipse.gmf.runtime.notation.View) children.next(), domain2NotationMap));
@@ -153,43 +153,43 @@ private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.Vi
 	}
 	return result;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE caseSemanticElement FOR gmfgen::GenCommonBase-»
-«EXPAND xpt::Common::caseVisualID» {
+Â«DEFINE caseSemanticElement FOR gmfgen::GenCommonBase-Â»
+Â«EXPAND xpt::Common::caseVisualIDÂ» {
 	if (!domain2NotationMap.containsKey(view.getElement())) {
-«REM»
+Â«REMÂ»
 	Processing each domain element only once. Prevents us from 
 	having duplicated links if a shortcut to one of the "main"
 	diagram elements present on diagram.
-«ENDREM»«-»
-		result.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(view));
+Â«ENDREMÂ»Â«-Â»
+		result.addAll(Â«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCallÂ»(view));
 	}
-	if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { «EXPAND xpt::Common::nonNLS»
-«REM»
+	if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { Â«EXPAND xpt::Common::nonNLSÂ»
+Â«REMÂ»
 	Storing element view or replacing shortcut by the "original" element view.
-«ENDREM»«-»
+Â«ENDREMÂ»Â«-Â»
 		domain2NotationMap.put(view.getElement(), view);
 	}	
 	break;	
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 	GMF has no links to "leaf" child nodes.
-«ENDREM»
-«DEFINE caseSemanticElement FOR gmfgen::GenChildLabelNode»«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE caseSemanticElement FOR gmfgen::GenChildLabelNodeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE colectContainedLink FOR gmfgen::GenLink-»
-«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(modelElement));
-«ENDDEFINE»
+Â«DEFINE colectContainedLink FOR gmfgen::GenLink-Â»
+Â«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCallÂ»(modelElement));
+Â«ENDDEFINEÂ»
 
-«DEFINE createConnections FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createConnections FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private java.util.Collection createConnections(java.util.Collection linkDescriptors, java.util.Map domain2NotationMap) {
 	java.util.List adapters = new java.util.LinkedList();
 	for (java.util.Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-		final «editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
+		final Â«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()Â» nextLinkDescriptor = (Â«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()Â») linkDescriptorsIterator.next();
 		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {
@@ -213,10 +213,10 @@ private java.util.Collection createConnections(java.util.Collection linkDescript
 	}
 	return adapters;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getEditPart FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getEditPart FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domainModelElement, java.util.Map domain2NotationMap) {
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) domain2NotationMap.get(domainModelElement);
 	if (view != null) {
@@ -224,17 +224,17 @@ private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domai
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagram FOR gmfgen::GenContainerBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDiagram FOR gmfgen::GenContainerBase-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.gmf.runtime.notation.Diagram getDiagram() {
 	return ((org.eclipse.gmf.runtime.notation.View) getHost().getModel()).getDiagram();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet-»
-	«ERROR 'Incorrect LinkModelFacet: ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet-Â»
+	Â«ERROR 'Incorrect LinkModelFacet: ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»

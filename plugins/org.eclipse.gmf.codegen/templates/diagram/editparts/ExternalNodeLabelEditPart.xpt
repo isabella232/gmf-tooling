@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,59 +11,59 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE Main FOR gmfgen::GenExternalNodeLabel-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE Main FOR gmfgen::GenExternalNodeLabel-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND extendsListÂ» Â«EXPAND implementsListÂ» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::initializer-»
+	Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::initializer-Â»
 	
-	«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::_constructor-»
+	Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::_constructor-Â»
 	
-	«EXPAND createDefaultEditPolicies-»
+	Â«EXPAND createDefaultEditPolicies-Â»
 	
-	«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::getBorderItemLocator-»
+	Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::getBorderItemLocator-Â»
 	
-	«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::refreshBounds-»
+	Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::refreshBounds-Â»
 	
-	«EXPAND impl::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, node, getDiagram())-»
+	Â«EXPAND impl::diagram::editparts::TextAware::methods(false, readOnly, elementIcon, viewmap, modelFacet, node, getDiagram())-Â»
 	
-	«EXPAND handleNotificationEvent-»
+	Â«EXPAND handleNotificationEvent-Â»
 	
-	«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::createFigure-»
+	Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::createFigure-Â»
 	
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenExternalNodeLabel»extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenExternalNodeLabelÂ»extends org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenExternalNodeLabel»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart, org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenExternalNodeLabelÂ»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart, org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR self-»
+Â«DEFINE attributes FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR self-Â»
 
-	«EXPAND impl::diagram::editparts::TextAware::fields FOR self-»
-«ENDDEFINE»
+	Â«EXPAND impl::diagram::editparts::TextAware::fields FOR self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPolicies FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDefaultEditPolicies FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void createDefaultEditPolicies() {
-		«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::createDefaultEditPoliciesBody-»
+		Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::createDefaultEditPoliciesBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEvent FOR gmfgen::GenExternalNodeLabel-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleNotificationEvent FOR gmfgen::GenExternalNodeLabel-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
-		«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::handleNotificationEventBody-»
+		Â«EXPAND impl::diagram::editparts::ExternalNodeLabelEditPart::handleNotificationEventBody-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenExternalNodeLabel»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenExternalNodeLabelÂ»Â«ENDDEFINEÂ»

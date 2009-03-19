@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,22 +10,22 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE MatchingStrategy FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE MatchingStrategy FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «matchingStrategyClassName» implements org.eclipse.ui.IEditorMatchingStrategy {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«matchingStrategyClassNameÂ» implements org.eclipse.ui.IEditorMatchingStrategy {
 
-	«EXPAND matches-»
+	Â«EXPAND matches-Â»
 
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE matches FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE matches FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean matches(org.eclipse.ui.IEditorReference editorRef, org.eclipse.ui.IEditorInput input) {
 	org.eclipse.ui.IEditorInput editorInput;
 	try {
@@ -37,13 +37,13 @@ public boolean matches(org.eclipse.ui.IEditorReference editorRef, org.eclipse.ui
 	if (editorInput.equals(input)) {
 		return true;
 	}
-«REM»
+Â«REMÂ»
 	Should be removed then https://bugs.eclipse.org/bugs/show_bug.cgi?id=175260 commited.
 	Problem is: URIEditorInput has no .equals() overriden
-«ENDREM-»
+Â«ENDREM-Â»
 	if (editorInput instanceof org.eclipse.emf.common.ui.URIEditorInput && input instanceof org.eclipse.emf.common.ui.URIEditorInput) {
 		return ((org.eclipse.emf.common.ui.URIEditorInput) editorInput).getURI().equals(((org.eclipse.emf.common.ui.URIEditorInput) input).getURI());
 	}
 	return false;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

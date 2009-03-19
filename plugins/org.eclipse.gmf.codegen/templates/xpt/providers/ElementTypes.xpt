@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,88 +10,88 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::diagram::Utils»
-«EXTENSION xpt::GenModelUtils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::diagram::UtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
 
-«DEFINE ElementTypes FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «providersPackageName»;
+Â«DEFINE ElementTypes FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«providersPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «elementTypesClassName» extends ElementInitializers {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«elementTypesClassNameÂ» extends ElementInitializers {
 
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND elementTypeField FOREACH getAllTypedElements()-»
+	Â«EXPAND elementTypeField FOREACH getAllTypedElements()-Â»
 	
-	«EXPAND getImageRegistry-»
+	Â«EXPAND getImageRegistry-Â»
 
-	«EXPAND getImageRegistryKey-»
+	Â«EXPAND getImageRegistryKey-Â»
 
-	«EXPAND getProvidedImageDescriptor-»
+	Â«EXPAND getProvidedImageDescriptor-Â»
 
-	«EXPAND getNamedElementImageDescriptor-»
+	Â«EXPAND getNamedElementImageDescriptor-Â»
 
-	«EXPAND getNamedElementImage-»
+	Â«EXPAND getNamedElementImage-Â»
 
-	«EXPAND getAdaptableImageDescriptor-»
+	Â«EXPAND getAdaptableImageDescriptor-Â»
 
-	«EXPAND getAdaptableImage-»
+	Â«EXPAND getAdaptableImage-Â»
 
-	«EXPAND getElement-»
+	Â«EXPAND getElement-Â»
 
-	«EXPAND getElementType-»
+	Â«EXPAND getElementType-Â»
 
-	«EXPAND isKnownElementType-»
+	Â«EXPAND isKnownElementType-Â»
 	
-	«EXPAND getElementTypeByVisualID-»
+	Â«EXPAND getElementTypeByVisualID-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private «elementTypesClassName»() {
+Â«DEFINE _constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+private Â«elementTypesClassNameÂ»() {
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static java.util.Map elements;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.jface.resource.ImageRegistry imageRegistry;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static java.util.Set KNOWN_ELEMENT_TYPES;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE getImageRegistry FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImageRegistry FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.jface.resource.ImageRegistry getImageRegistry() {
 	if (imageRegistry == null) {
 		imageRegistry = new org.eclipse.jface.resource.ImageRegistry();
 	}
 	return imageRegistry;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getImageRegistryKey FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getImageRegistryKey FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static String getImageRegistryKey(org.eclipse.emf.ecore.ENamedElement element) {
 	return element.getName();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getProvidedImageDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getProvidedImageDescriptor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 	if (element instanceof org.eclipse.emf.ecore.EStructuralFeature) {
 		org.eclipse.emf.ecore.EStructuralFeature feature = ((org.eclipse.emf.ecore.EStructuralFeature) element);
@@ -106,152 +106,152 @@ private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescri
 	if (element instanceof org.eclipse.emf.ecore.EClass) {
 		org.eclipse.emf.ecore.EClass eClass = (org.eclipse.emf.ecore.EClass) element;
 		if (!eClass.isAbstract()) {
-			return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemImageDescriptor(
+			return Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().getItemImageDescriptor(
 				eClass.getEPackage().getEFactoryInstance().create(eClass));
 		}
 	}
 	// TODO : support structural features
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNamedElementImageDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getNamedElementImageDescriptor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
 	String key = getImageRegistryKey(element);
 	org.eclipse.jface.resource.ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
 	if (imageDescriptor == null) {
-		«EXPAND loadProvidedImageDescriptor-»
+		Â«EXPAND loadProvidedImageDescriptor-Â»
 	}
 	return imageDescriptor;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram-»
+Â«DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram-Â»
 imageDescriptor = getProvidedImageDescriptor(element);
 if (imageDescriptor == null) {
 	imageDescriptor = org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor();
 }
 getImageRegistry().put(key, imageDescriptor);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNamedElementImage FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getNamedElementImage FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENamedElement element) {
 	String key = getImageRegistryKey(element);
 	org.eclipse.swt.graphics.Image image = getImageRegistry().get(key);
 	if (image == null) {
-		org.eclipse.jface.resource.ImageDescriptor «EXPAND loadProvidedImageDescriptor-»
+		org.eclipse.jface.resource.ImageDescriptor Â«EXPAND loadProvidedImageDescriptor-Â»
 		image = getImageRegistry().get(key);
 	}
 	return image;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdaptableImageDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getAdaptableImageDescriptor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.core.runtime.IAdaptable hint) {
-	«EXPAND getNamedElement-»
+	Â«EXPAND getNamedElement-Â»
 	return getImageDescriptor(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getNamedElement FOR gmfgen::GenDiagram-»
+Â«DEFINE getNamedElement FOR gmfgen::GenDiagram-Â»
 org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
 if (element == null) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getAdaptableImage FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getAdaptableImage FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static org.eclipse.swt.graphics.Image getImage(org.eclipse.core.runtime.IAdaptable hint) {
-	«EXPAND getNamedElement-»
+	Â«EXPAND getNamedElement-Â»
 	return getImage(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getElement FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment('Returns \'type\' of the ecore object associated with the hint.\n')»
+Â«DEFINE getElement FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment('Returns \'type\' of the ecore object associated with the hint.\n')Â»
 public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.runtime.IAdaptable hint) {
 	Object type = hint.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
 	if (elements == null) {
 		elements = new java.util.IdentityHashMap();
-		«EXPAND bindUniqueIdentifierToNamedElement(getUniqueIdentifier()) FOR domainDiagramElement-»
-		«FOREACH getAllNodes() AS node-»
-			«EXPAND bindUniqueIdentifierToNamedElement(node.getUniqueIdentifier()) FOR node.modelFacet-»
-		«ENDFOREACH-»
-		«FOREACH links->asSequence() AS link-»
-			«EXPAND bindUniqueIdentifierToNamedElement(link.getUniqueIdentifier()) FOR link.modelFacet-»
-		«ENDFOREACH-»
+		Â«EXPAND bindUniqueIdentifierToNamedElement(getUniqueIdentifier()) FOR domainDiagramElement-Â»
+		Â«FOREACH getAllNodes() AS node-Â»
+			Â«EXPAND bindUniqueIdentifierToNamedElement(node.getUniqueIdentifier()) FOR node.modelFacet-Â»
+		Â«ENDFOREACH-Â»
+		Â«FOREACH links->asSequence() AS link-Â»
+			Â«EXPAND bindUniqueIdentifierToNamedElement(link.getUniqueIdentifier()) FOR link.modelFacet-Â»
+		Â«ENDFOREACH-Â»
 	}
 	return (org.eclipse.emf.ecore.ENamedElement) elements.get(type);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR genmodel::GenClass»
-	elements.put(«id», «EXPAND MetaModel::MetaClass»);
-«ENDDEFINE»
+Â«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR genmodel::GenClassÂ»
+	elements.put(Â«idÂ», Â«EXPAND MetaModel::MetaClassÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR gmfgen::ModelFacet»
-	«ERROR 'Unsupported model facet: ' + self.repr()-»
-«ENDDEFINE»
+Â«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR gmfgen::ModelFacetÂ»
+	Â«ERROR 'Unsupported model facet: ' + self.repr()-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR gmfgen::TypeModelFacet»
-	«EXPAND bindUniqueIdentifierToNamedElement(id) FOR metaClass-»
-«ENDDEFINE»
+Â«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR gmfgen::TypeModelFacetÂ»
+	Â«EXPAND bindUniqueIdentifierToNamedElement(id) FOR metaClass-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR gmfgen::FeatureLinkModelFacet»
-	elements.put(«id», «EXPAND MetaModel::MetaFeature FOR metaFeature»);
-«ENDDEFINE»
+Â«DEFINE bindUniqueIdentifierToNamedElement(id : String) FOR gmfgen::FeatureLinkModelFacetÂ»
+	elements.put(Â«idÂ», Â«EXPAND MetaModel::MetaFeature FOR metaFeatureÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE elementTypeField FOR gmfgen::GenCommonBase-»
-	«IF null <> elementType-»
-		«EXPAND xpt::Common::generatedMemberComment»
-public static final org.eclipse.gmf.runtime.emf.type.core.IElementType «getUniqueIdentifier()» = getElementType("«elementType.uniqueIdentifier»"); «EXPAND xpt::Common::nonNLS»
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE elementTypeField FOR gmfgen::GenCommonBase-Â»
+	Â«IF null <> elementType-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public static final org.eclipse.gmf.runtime.emf.type.core.IElementType Â«getUniqueIdentifier()Â» = getElementType("Â«elementType.uniqueIdentifierÂ»"); Â«EXPAND xpt::Common::nonNLSÂ»
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE accessElementType FOR gmfgen::GenCommonBase»«getDiagram().getElementTypesQualifiedClassName()».«getUniqueIdentifier()»«ENDDEFINE»
+Â«DEFINE accessElementType FOR gmfgen::GenCommonBaseÂ»Â«getDiagram().getElementTypesQualifiedClassName()Â».Â«getUniqueIdentifier()Â»Â«ENDDEFINEÂ»
 
-«DEFINE getElementType FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getElementType FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(String id) {
 	return org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry.getInstance().getType(id);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isKnownElementType FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isKnownElementType FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public static boolean isKnownElementType(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 	if (KNOWN_ELEMENT_TYPES == null) {
 		KNOWN_ELEMENT_TYPES = new java.util.HashSet();
-		«EXPAND addKnownElementType FOREACH getAllTypedElements()-»
+		Â«EXPAND addKnownElementType FOREACH getAllTypedElements()-Â»
 	}
 	return KNOWN_ELEMENT_TYPES.contains(elementType);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addKnownElementType FOR gmfgen::GenCommonBase-»
-	«IF null <> elementType-»
-KNOWN_ELEMENT_TYPES.add(«getUniqueIdentifier()»);
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE addKnownElementType FOR gmfgen::GenCommonBase-Â»
+	Â«IF null <> elementType-Â»
+KNOWN_ELEMENT_TYPES.add(Â«getUniqueIdentifier()Â»);
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getElementTypeByVisualID FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getElementTypeByVisualID FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(int visualID) {
 		switch (visualID) {
-			«EXPAND caseElementType FOREACH getAllTypedElements()->select(el | el.elementType <> null)-»
+			Â«EXPAND caseElementType FOREACH getAllTypedElements()->select(el | el.elementType <> null)-Â»
 		}
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE caseElementType FOR gmfgen::GenCommonBase-»
-	«EXPAND xpt::Common::caseVisualID-»
-		return «getUniqueIdentifier()»;
-«ENDDEFINE»
+Â«DEFINE caseElementType FOR gmfgen::GenCommonBase-Â»
+	Â«EXPAND xpt::Common::caseVisualID-Â»
+		return Â«getUniqueIdentifier()Â»;
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

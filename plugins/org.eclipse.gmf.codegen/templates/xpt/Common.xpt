@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,83 +10,83 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
-«EXTENSION xpt::NonNLSUtils»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::NonNLSUtilsÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE copyright FOR gmfgen::GenEditorGenerator-»
-«IF copyrightText <> null-»
+Â«DEFINE copyright FOR gmfgen::GenEditorGenerator-Â»
+Â«IF copyrightText <> null-Â»
 /*
- * «copyrightText.xpandReplaceAll('\n', '\n * ')»
+ * Â«copyrightText.xpandReplaceAll('\n', '\n * ')Â»
  */
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE xcopyright FOR gmfgen::GenEditorGenerator-»
-«IF copyrightText <> null-»
+Â«DEFINE xcopyright FOR gmfgen::GenEditorGenerator-Â»
+Â«IF copyrightText <> null-Â»
 <!--
-«copyrightText»
+Â«copyrightTextÂ»
 -->
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE generatedClassComment FOR OclAny»«EXPAND generatedClassComment('')»«ENDDEFINE»
-«DEFINE generatedClassComment(comment : String) FOR OclAny-»
+Â«DEFINE generatedClassComment FOR OclAnyÂ»Â«EXPAND generatedClassComment('')Â»Â«ENDDEFINEÂ»
+Â«DEFINE generatedClassComment(comment : String) FOR OclAny-Â»
 /**
-«IF comment.xpandLength() > 0-»
- * «comment.xpandReplaceAll('\n', '\n * ')»
-«ENDIF-»
+Â«IF comment.xpandLength() > 0-Â»
+ * Â«comment.xpandReplaceAll('\n', '\n * ')Â»
+Â«ENDIF-Â»
  * @generated
- */«ENDDEFINE»
+ */Â«ENDDEFINEÂ»
 
-«DEFINE generatedMemberComment FOR Collection(OclAny)»«EXPAND generatedMemberComment('') FOR ''»«ENDDEFINE»
-«DEFINE generatedMemberComment FOR OclAny»«EXPAND generatedMemberComment('')»«ENDDEFINE»
-«DEFINE generatedMemberComment(comment : String) FOR OclAny-»
+Â«DEFINE generatedMemberComment FOR Collection(OclAny)Â»Â«EXPAND generatedMemberComment('') FOR ''Â»Â«ENDDEFINEÂ»
+Â«DEFINE generatedMemberComment FOR OclAnyÂ»Â«EXPAND generatedMemberComment('')Â»Â«ENDDEFINEÂ»
+Â«DEFINE generatedMemberComment(comment : String) FOR OclAny-Â»
 /**
-«IF comment.xpandLength() > 0-»
- * «comment.xpandReplaceAll('\n', '\n * ')»
-«ENDIF-»
+Â«IF comment.xpandLength() > 0-Â»
+ * Â«comment.xpandReplaceAll('\n', '\n * ')Â»
+Â«ENDIF-Â»
  * @generated
- */«ENDDEFINE»
+ */Â«ENDDEFINEÂ»
 
-«DEFINE xmlGeneratedTag FOR OclAny»<?gmfgen generated="true"?>«ENDDEFINE»
+Â«DEFINE xmlGeneratedTag FOR OclAnyÂ»<?gmfgen generated="true"?>Â«ENDDEFINEÂ»
 
-«DEFINE getSaveOptions FOR gmfgen::GenDiagram»«getDiagramEditorUtilQualifiedClassName()».getSaveOptions()«ENDDEFINE»
+Â«DEFINE getSaveOptions FOR gmfgen::GenDiagramÂ»Â«getDiagramEditorUtilQualifiedClassName()Â».getSaveOptions()Â«ENDDEFINEÂ»
 
-«DEFINE setCharset(varName : String) FOR gmfgen::GenDiagram-»
-«getDiagramEditorUtilQualifiedClassName()».setCharset(«varName»);
-«ENDDEFINE»
+Â«DEFINE setCharset(varName : String) FOR gmfgen::GenDiagram-Â»
+Â«getDiagramEditorUtilQualifiedClassName()Â».setCharset(Â«varNameÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE nonNLS FOR OclAny»«EXPAND nonNLS(1)»«ENDDEFINE»
+Â«DEFINE nonNLS FOR OclAnyÂ»Â«EXPAND nonNLS(1)Â»Â«ENDDEFINEÂ»
 
-«DEFINE nonNLS FOR Collection(OclAny)»«EXPAND nonNLS FOR getNonNLSCounter(self)»«ENDDEFINE»
+Â«DEFINE nonNLS FOR Collection(OclAny)Â»Â«EXPAND nonNLS FOR getNonNLSCounter(self)Â»Â«ENDDEFINEÂ»
 
-«DEFINE nonNLS FOR Collection(Integer)»«EXPAND nonNLS FOREACH self»«ENDDEFINE»
+Â«DEFINE nonNLS FOR Collection(Integer)Â»Â«EXPAND nonNLS FOREACH selfÂ»Â«ENDDEFINEÂ»
 
-«DEFINE nonNLS(i : Integer) FOR OclAny»«EXPAND nonNLS FOR i»«ENDDEFINE»
+Â«DEFINE nonNLS(i : Integer) FOR OclAnyÂ»Â«EXPAND nonNLS FOR iÂ»Â«ENDDEFINEÂ»
 
-«DEFINE nonNLS FOR Integer» //$NON-NLS-«self»$«ENDDEFINE»
+Â«DEFINE nonNLS FOR IntegerÂ» //$NON-NLS-Â«selfÂ»$Â«ENDDEFINEÂ»
 
-«DEFINE caseVisualID FOR gmfgen::GenCommonBase»case «EXPAND xpt::editor::VisualIDRegistry::visualID»:«ENDDEFINE»
+Â«DEFINE caseVisualID FOR gmfgen::GenCommonBaseÂ»case Â«EXPAND xpt::editor::VisualIDRegistry::visualIDÂ»:Â«ENDDEFINEÂ»
 
-«DEFINE addShortcutAnnotation(viewVar : String) FOR gmfgen::GenDiagram-»
+Â«DEFINE addShortcutAnnotation(viewVar : String) FOR gmfgen::GenDiagram-Â»
 	org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
-	shortcutAnnotation.setSource("Shortcut");«EXPAND xpt::Common::nonNLS»
-	shortcutAnnotation.getDetails().put("modelID", «EXPAND xpt::editor::VisualIDRegistry::modelID»);«EXPAND xpt::Common::nonNLS»
-	«viewVar».getEAnnotations().add(shortcutAnnotation);
-«ENDDEFINE»
+	shortcutAnnotation.setSource("Shortcut");Â«EXPAND xpt::Common::nonNLSÂ»
+	shortcutAnnotation.getDetails().put("modelID", Â«EXPAND xpt::editor::VisualIDRegistry::modelIDÂ»);Â«EXPAND xpt::Common::nonNLSÂ»
+	Â«viewVarÂ».getEAnnotations().add(shortcutAnnotation);
+Â«ENDDEFINEÂ»
 
 
-«DEFINE packageStatement FOR String-»
-«IF self.xpandSplit('\\.')->size() > 1-»
-package «FOREACH let tmpVar = self.xpandSplit('\\.') in if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'»«s»«ENDFOREACH»;«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE packageStatement FOR String-Â»
+Â«IF self.xpandSplit('\\.')->size() > 1-Â»
+package Â«FOREACH let tmpVar = self.xpandSplit('\\.') in if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'Â»Â«sÂ»Â«ENDFOREACHÂ»;Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 // Provides handy single point to override generation of assert statements
 // TODO refactor this Common.xpt into different flavours - like CommonCodeStyle (nls, assert), CommonSnippets(pkgStmt, setCharset, getSaveOptions) and so on
-«DEFINE _assert(condition : String) FOR OclAny-»
-assert «condition»;«IF condition.isQuoted('\"')»«EXPAND nonNLS»«ENDIF»
-«ENDDEFINE»
+Â«DEFINE _assert(condition : String) FOR OclAny-Â»
+assert Â«conditionÂ»;Â«IF condition.isQuoted('\"')Â»Â«EXPAND nonNLSÂ»Â«ENDIFÂ»
+Â«ENDDEFINEÂ»

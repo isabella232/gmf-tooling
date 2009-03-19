@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,22 +11,22 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::diagram::editparts::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::diagram::editparts::UtilsÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+Â«DEFINE _constructor FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«editPartClassNameÂ»(org.eclipse.gmf.runtime.notation.View view) {
 		super(view);
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenDiagram-»
+Â«DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenDiagram-Â»
 	super.createDefaultEditPolicies();
-	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
-	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
-	«IF generateCreateShortcutAction() and null = editorGen.application-»
+	Â«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-Â»
+	Â«IF generateCreateShortcutAction() and null = editorGen.application-Â»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {
 			public org.eclipse.gef.commands.Command getDropObjectsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
 				java.util.List viewDescriptors = new java.util.ArrayList();
@@ -43,13 +43,13 @@
 			private org.eclipse.gef.commands.Command createShortcutsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest, java.util.List viewDescriptors) {
 				org.eclipse.gef.commands.Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
 				if (command != null) {
-					return command.chain(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new «getCreateShortcutDecorationsCommandQualifiedClassName()»(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getModel(), viewDescriptors)));
+					return command.chain(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new Â«getCreateShortcutDecorationsCommandQualifiedClassName()Â»(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getModel(), viewDescriptors)));
 				}
 				return null;
 			}
 		});
-	«ENDIF-»
-	«IF shouldGenerateDiagramViewmap(self)-»
+	Â«ENDIF-Â»
+	Â«IF shouldGenerateDiagramViewmap(self)-Â»
 		// diagram figure does layout; need to install child editpolicy to show selection feedback
 		installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new org.eclipse.gef.editpolicies.LayoutEditPolicy() {
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
@@ -64,33 +64,33 @@
 				return null;
 			}
 		});
-	«ENDIF-»
-	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	Â«ENDIF-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-Â»
 	// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createFigure FOR gmfgen::GenDiagram-»
-	«IF shouldGenerateDiagramViewmap(self)-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createFigure FOR gmfgen::GenDiagram-Â»
+	Â«IF shouldGenerateDiagramViewmap(self)-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected org.eclipse.draw2d.IFigure createFigure() {
 			org.eclipse.draw2d.FreeformLayer l = new org.eclipse.draw2d.FreeformLayer();
 			l.setBorder(new org.eclipse.draw2d.MarginBorder(50));
-			«EXPAND initLayout('lm') FOR viewmap.layoutType-»
+			Â«EXPAND initLayout('lm') FOR viewmap.layoutType-Â»
 			l.setLayoutManager(lm);
 			return l;
 		}
-	«ENDIF»
-«ENDDEFINE»
+	Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE initLayout(varName : String) FOR gmfgen::ViewmapLayoutType-»
-	«IF self = gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT-»
-		org.eclipse.draw2d.ToolbarLayout «varName» = new org.eclipse.draw2d.ToolbarLayout();
-		«varName».setSpacing(10);
-	«ELSEIF self = gmfgen::ViewmapLayoutType::FLOW_LAYOUT-»
-		org.eclipse.draw2d.FlowLayout «varName» = new org.eclipse.draw2d.FlowLayout();
-		«varName».setMajorSpacing(10);
-		«varName».setMinorSpacing(10);
-	«ELSE-»
-		org.eclipse.draw2d.LayoutManager «varName» = null; /*FIXME - unknown layout type*/
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE initLayout(varName : String) FOR gmfgen::ViewmapLayoutType-Â»
+	Â«IF self = gmfgen::ViewmapLayoutType::TOOLBAR_LAYOUT-Â»
+		org.eclipse.draw2d.ToolbarLayout Â«varNameÂ» = new org.eclipse.draw2d.ToolbarLayout();
+		Â«varNameÂ».setSpacing(10);
+	Â«ELSEIF self = gmfgen::ViewmapLayoutType::FLOW_LAYOUT-Â»
+		org.eclipse.draw2d.FlowLayout Â«varNameÂ» = new org.eclipse.draw2d.FlowLayout();
+		Â«varNameÂ».setMajorSpacing(10);
+		Â«varNameÂ».setMinorSpacing(10);
+	Â«ELSE-Â»
+		org.eclipse.draw2d.LayoutManager Â«varNameÂ» = null; /*FIXME - unknown layout type*/
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

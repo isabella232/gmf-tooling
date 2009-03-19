@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,46 +10,46 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE DomainNavigatorItem FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE DomainNavigatorItem FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «domainNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«domainNavigatorItemClassNameÂ» extends org.eclipse.core.runtime.PlatformObject {
 
-	«EXPAND registerAdapterFactory-»
+	Â«EXPAND registerAdapterFactory-Â»
 	
-	«EXPAND xpt::navigator::AbstractNavigatorItem::attributes-»
+	Â«EXPAND xpt::navigator::AbstractNavigatorItem::attributes-Â»
 	
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND xpt::navigator::AbstractNavigatorItem::getParent-»
+	Â«EXPAND xpt::navigator::AbstractNavigatorItem::getParent-Â»
 	
-	«EXPAND getEObject-»
+	Â«EXPAND getEObject-Â»
 	
-	«EXPAND getPropertySourceProvider-»
+	Â«EXPAND getPropertySourceProvider-Â»
 	
-	«EXPAND equals-»
+	Â«EXPAND equals-Â»
 	
-	«EXPAND hashCode-»
+	Â«EXPAND hashCode-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE registerAdapterFactory FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE registerAdapterFactory FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 static {
 	final Class[] supportedTypes = new Class[] { org.eclipse.emf.ecore.EObject.class, org.eclipse.ui.views.properties.IPropertySource.class };
 	org.eclipse.core.runtime.Platform.getAdapterManager().registerAdapters(new org.eclipse.core.runtime.IAdapterFactory() {
 		
 		public Object getAdapter(Object adaptableObject, Class adapterType) {
-			if (adaptableObject instanceof «getDomainNavigatorItemQualifiedClassName()») {
-				«getDomainNavigatorItemQualifiedClassName()» domainNavigatorItem = («getDomainNavigatorItemQualifiedClassName()») adaptableObject;
+			if (adaptableObject instanceof Â«getDomainNavigatorItemQualifiedClassName()Â») {
+				Â«getDomainNavigatorItemQualifiedClassName()Â» domainNavigatorItem = (Â«getDomainNavigatorItemQualifiedClassName()Â») adaptableObject;
 				org.eclipse.emf.ecore.EObject eObject = domainNavigatorItem.getEObject();
 				if (adapterType == org.eclipse.emf.ecore.EObject.class) {
 					return eObject;
@@ -65,57 +65,57 @@ static {
 		public Class[] getAdapterList() {
 			return supportedTypes;
 		}
-	}, «getDomainNavigatorItemQualifiedClassName()».class);
+	}, Â«getDomainNavigatorItemQualifiedClassName()Â».class);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE  attributes FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE  attributes FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.emf.ecore.EObject myEObject;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.ui.views.properties.IPropertySourceProvider myPropertySourceProvider;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE  _constructor FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
-public «domainNavigatorItemClassName»(org.eclipse.emf.ecore.EObject eObject, Object parent, org.eclipse.ui.views.properties.IPropertySourceProvider propertySourceProvider) {
+Â«DEFINE  _constructor FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«domainNavigatorItemClassNameÂ»(org.eclipse.emf.ecore.EObject eObject, Object parent, org.eclipse.ui.views.properties.IPropertySourceProvider propertySourceProvider) {
 	myParent = parent;
 	myEObject = eObject;
 	myPropertySourceProvider = propertySourceProvider;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE  getEObject FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE  getEObject FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.emf.ecore.EObject getEObject() {
 	return myEObject;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getPropertySourceProvider FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getPropertySourceProvider FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.ui.views.properties.IPropertySourceProvider getPropertySourceProvider() {
 	return myPropertySourceProvider;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE  equals FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE  equals FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean equals(Object obj) {
-	if (obj instanceof «getDomainNavigatorItemQualifiedClassName()») {
-		return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((«getDomainNavigatorItemQualifiedClassName()») obj).getEObject()));
+	if (obj instanceof Â«getDomainNavigatorItemQualifiedClassName()Â») {
+		return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((Â«getDomainNavigatorItemQualifiedClassName()Â») obj).getEObject()));
 	}
 	return super.equals(obj);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE  hashCode FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE  hashCode FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public int hashCode() {
 	return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).hashCode();
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,42 +10,42 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE AbstractNavigatorItem FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «packageName»;
+Â«DEFINE AbstractNavigatorItem FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public abstract class «abstractNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public abstract class Â«abstractNavigatorItemClassNameÂ» extends org.eclipse.core.runtime.PlatformObject {
 
-«IF null <> editorGen.propertySheet»
-	«EXPAND registerAdapterFactory-»
-«ENDIF-»
+Â«IF null <> editorGen.propertySheetÂ»
+	Â«EXPAND registerAdapterFactory-Â»
+Â«ENDIF-Â»
 	
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND getParent-»
+	Â«EXPAND getParent-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE registerAdapterFactory FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE registerAdapterFactory FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 static {
 	final Class[] supportedTypes = new Class[] { org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class };
 	final org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor propertySheetPageContributor = new org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor() {
 		public String getContributorId() {
-			return "«editorGen.plugin.iD»"; «EXPAND xpt::Common::nonNLS»
+			return "Â«editorGen.plugin.iDÂ»"; Â«EXPAND xpt::Common::nonNLSÂ»
 		}
 	};
 	org.eclipse.core.runtime.Platform.getAdapterManager().registerAdapters(new org.eclipse.core.runtime.IAdapterFactory() {
 		
 		public Object getAdapter(Object adaptableObject, Class adapterType) {
-			if (adaptableObject instanceof «getAbstractNavigatorItemQualifiedClassName()» && adapterType == org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class) {
+			if (adaptableObject instanceof Â«getAbstractNavigatorItemQualifiedClassName()Â» && adapterType == org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class) {
 				return propertySheetPageContributor;				
 			}
 			return null;
@@ -54,28 +54,28 @@ static {
 		public Class[] getAdapterList() {
 			return supportedTypes;
 		}
-	}, «getAbstractNavigatorItemQualifiedClassName()».class);
+	}, Â«getAbstractNavigatorItemQualifiedClassName()Â».class);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private Object myParent;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
-protected «abstractNavigatorItemClassName»(Object parent) {
+Â«DEFINE _constructor FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+protected Â«abstractNavigatorItemClassNameÂ»(Object parent) {
 	myParent = parent;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getParent FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getParent FOR gmfgen::GenNavigator-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public Object getParent() {
 	return myParent;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenNavigator-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenNavigator-Â»
+Â«ENDDEFINEÂ»

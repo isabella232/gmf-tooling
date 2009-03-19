@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -12,47 +12,47 @@
  *                                 [244419] custom parsers
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION impl::parsers::i18n»
+Â«EXTENSION impl::parsers::i18nÂ»
 
-«DEFINE className FOR gmfgen::GenParsers»«defaultAbstractParserClassName()»«ENDDEFINE»
-«DEFINE qualifiedClassName FOR gmfgen::GenParsers»«implPackageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenParsersÂ»Â«defaultAbstractParserClassName()Â»Â«ENDDEFINEÂ»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenParsersÂ»Â«implPackageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE Main FOR gmfgen::GenParsers-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «implPackageName»;
+Â«DEFINE Main FOR gmfgen::GenParsers-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«implPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public abstract class Â«EXPAND classNameÂ» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser {
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected final org.eclipse.emf.ecore.EAttribute[] features;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected final org.eclipse.emf.ecore.EAttribute[] editableFeatures;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private String viewPattern;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private String editorPattern;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private String editPattern;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features) {
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«EXPAND classNameÂ»(org.eclipse.emf.ecore.EAttribute[] features) {
 		if (features == null || java.util.Arrays.asList(features).contains(null)) {
 			throw new IllegalArgumentException();
 		}
 		this.editableFeatures = this.features = features;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «EXPAND className»(org.eclipse.emf.ecore.EAttribute[] features,
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«EXPAND classNameÂ»(org.eclipse.emf.ecore.EAttribute[] features,
 			org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
 		if (features == null || java.util.Arrays.asList(features).contains(null)) {
 			throw new IllegalArgumentException();
@@ -64,37 +64,37 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		this.editableFeatures = editableFeatures;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getViewPattern() {
 		return viewPattern;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void setViewPattern(String viewPattern) {
 		this.viewPattern = viewPattern;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getEditorPattern() {
 		return editorPattern;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void setEditorPattern(String editorPattern) {
 		this.editorPattern = editorPattern;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public String getEditPattern() {
 		return editPattern;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void setEditPattern(String editPattern) {
 		this.editPattern = editPattern;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public boolean isAffectingEvent(Object event, int flags) {
 		if (event instanceof org.eclipse.emf.common.notify.Notification) {
 			return isAffectingFeature(((org.eclipse.emf.common.notify.Notification) event).getFeature());
@@ -102,7 +102,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		return false;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected boolean isAffectingFeature(Object feature) {
 		for (int i = 0; i < features.length; i++) {
 			if (features[i] == feature) {
@@ -112,13 +112,13 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		return false;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor(
 			org.eclipse.core.runtime.IAdaptable element) {
 		return null;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected Object[] getValues(org.eclipse.emf.ecore.EObject element) {
 		Object[] values = new Object[features.length];
 		for (int i = 0; i < features.length; i++) {
@@ -127,7 +127,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		return values;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected Object[] getEditableValues(org.eclipse.emf.ecore.EObject element) {
 		Object[] values = new Object[editableFeatures.length];
 		for (int i = 0; i < editableFeatures.length; i++) {
@@ -136,19 +136,19 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		return values;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected Object getValue(org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EAttribute feature) {
 		Object value = element.eGet(feature);
 		Class iClass = feature.getEAttributeType().getInstanceClass();
 		if (String.class.equals(iClass)) {
 			if (value == null) {
-				value = ""; «EXPAND xpt::Common::nonNLS»
+				value = ""; Â«EXPAND xpt::Common::nonNLSÂ»
 			}
 		}
 		return value;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(
 			org.eclipse.core.runtime.IAdaptable adapter, Object[] values, int flags) {
 		if (values == null || validateNewValues(values).getCode() !=
@@ -164,14 +164,14 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		}
 		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand command =
 				new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(
-						editingDomain, "Set Values"); «EXPAND xpt::Common::nonNLS»
+						editingDomain, "Set Values"); Â«EXPAND xpt::Common::nonNLSÂ»
 		for (int i = 0; i < values.length; i++) {
 			command.compose(getModificationCommand(element, editableFeatures[i], values[i]));
 		}
 		return command;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.core.command.ICommand getModificationCommand(
 			org.eclipse.emf.ecore.EObject element, org.eclipse.emf.ecore.EAttribute feature, Object value) {
 		value = getValidNewValue(feature, value);
@@ -183,7 +183,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		return new org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand(request);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus validateNewValues(Object[] values) {
 		if (values.length != editableFeatures.length) {
 			return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
@@ -192,7 +192,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 			Object value = getValidNewValue(editableFeatures[i], values[i]);
 			if (value instanceof InvalidValue) {
 				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
-						«editorGen.plugin.getActivatorQualifiedClassName()».ID,
+						Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID,
 						org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
 						value.toString());
 			}
@@ -200,7 +200,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.EDITABLE_STATUS;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected Object getValidNewValue(org.eclipse.emf.ecore.EAttribute feature, Object value) {
 		org.eclipse.emf.ecore.EClassifier type = feature.getEType();
 		if (type instanceof org.eclipse.emf.ecore.EDataType) {
@@ -211,7 +211,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 				} else if (value instanceof String) {
 					value = Boolean.valueOf((String) value);
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Character.TYPE.equals(iClass)) {
 				if (value instanceof Character) {
@@ -224,7 +224,7 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						value = new Character(s.charAt(0));
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Byte.TYPE.equals(iClass)) {
 				if (value instanceof Byte) {
@@ -239,11 +239,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Byte.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGenÂ», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Short.TYPE.equals(iClass)) {
 				if (value instanceof Short) {
@@ -258,11 +258,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Short.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGenÂ», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Integer.TYPE.equals(iClass)) {
 				if (value instanceof Integer) {
@@ -277,11 +277,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Integer.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGenÂ», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Long.TYPE.equals(iClass)) {
 				if (value instanceof Long) {
@@ -296,11 +296,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Long.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGenÂ», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Float.TYPE.equals(iClass)) {
 				if (value instanceof Float) {
@@ -315,11 +315,11 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Float.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGenÂ», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (Double.TYPE.equals(iClass)) {
 				if (value instanceof Double) {
@@ -334,63 +334,63 @@ public abstract class «EXPAND className» implements org.eclipse.gmf.runtime.comm
 						try {
 							value = Double.valueOf(s);
 						} catch (NumberFormatException nfe) {
-							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGen», iClass.getName()));
+							value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserWrongStringConversionMessage()) FOR editorGenÂ», iClass.getName()));
 						}
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», iClass.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», iClass.getName()));
 				}
 			} else if (type instanceof org.eclipse.emf.ecore.EEnum) {
 				if (value instanceof String) {
 					org.eclipse.emf.ecore.EEnumLiteral literal =
 							((org.eclipse.emf.ecore.EEnum) type).getEEnumLiteralByLiteral((String) value);
 					if (literal == null) {
-						value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnknownLiteralMessage()) FOR editorGen», value));
+						value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnknownLiteralMessage()) FOR editorGenÂ», value));
 					} else {
 						value = literal.getInstance();
 					}
 				} else {
-					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGen», String.class.getName()));
+					value = new InvalidValue(org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForAbstractParserUnexpectedValueTypeMessage()) FOR editorGenÂ», String.class.getName()));
 				}
 			}
 		}
 		return value;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected class InvalidValue {
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		private String description;
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public InvalidValue(String description) {
 			this.description = description;
 		}
 
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		public String toString() {
 			return description;
 		}
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenParsers»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenParsersÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenParsers-»
-«IF (implementations)[gmfgen::PredefinedParser]->size() > 0-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserUnexpectedValueTypeMessage(), 'Value of type {0} is expected')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserWrongStringConversionMessage(), 'String value does not convert to {0} value')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserUnknownLiteralMessage(), 'Unknown literal: {0}')-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenParsers-Â»
+Â«IF (implementations)[gmfgen::PredefinedParser]->size() > 0-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserUnexpectedValueTypeMessage(), 'Value of type {0} is expected')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserWrongStringConversionMessage(), 'String value does not convert to {0} value')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForAbstractParserUnknownLiteralMessage(), 'Unknown literal: {0}')-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenParsers-»
-«IF (implementations)[gmfgen::PredefinedParser]->size() > 0-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserUnexpectedValueTypeMessage())-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserWrongStringConversionMessage())-»
-«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserUnknownLiteralMessage())-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenParsers-Â»
+Â«IF (implementations)[gmfgen::PredefinedParser]->size() > 0-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserUnexpectedValueTypeMessage())-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserWrongStringConversionMessage())-Â»
+Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForAbstractParserUnknownLiteralMessage())-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

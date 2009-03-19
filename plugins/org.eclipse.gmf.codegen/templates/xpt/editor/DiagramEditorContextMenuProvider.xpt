@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,34 +10,34 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE className FOR gmfgen::GenDiagram»DiagramEditorContextMenuProvider«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»DiagramEditorContextMenuProviderÂ«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«editorGen.editor.packageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE DiagramEditorContextMenuProvider FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE DiagramEditorContextMenuProvider FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» extends org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider {
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.ui.IWorkbenchPart part;
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «EXPAND xpt::editor::DeleteElementAction::qualifiedClassName» deleteAction;
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«EXPAND xpt::editor::DeleteElementAction::qualifiedClassNameÂ» deleteAction;
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public DiagramEditorContextMenuProvider(org.eclipse.ui.IWorkbenchPart part, org.eclipse.gef.EditPartViewer viewer) {
 		super(part, viewer);
 		this.part = part;
-		deleteAction = new «EXPAND xpt::editor::DeleteElementAction::qualifiedClassName»(part);
+		deleteAction = new Â«EXPAND xpt::editor::DeleteElementAction::qualifiedClassNameÂ»(part);
 		deleteAction.init();
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void dispose() {
 		if (deleteAction != null) {
 			deleteAction.dispose();
@@ -46,7 +46,7 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.provi
 		super.dispose();
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void buildContextMenu(final org.eclipse.jface.action.IMenuManager menu) {
 		getViewer().flush();
 		try {
@@ -61,12 +61,12 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.diagram.ui.provi
 				}
 			});
 		} catch (Exception e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Error building context menu", e);
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Error building context menu", e);
 		}
 	}
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»

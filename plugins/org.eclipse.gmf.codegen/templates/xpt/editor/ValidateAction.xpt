@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,66 +10,66 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION xpt::editor::Utils»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
+Â«EXTENSION xpt::editor::UtilsÂ»
+Â«EXTENSION xpt::GenAuditRootÂ»
+Â«EXTENSION xpt::GenEditorGeneratorÂ»
 
-«DEFINE className FOR gmfgen::GenDiagram»«defaultValidateActionClassName(self)»«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::GenDiagramÂ»Â«defaultValidateActionClassName(self)Â»Â«ENDDEFINEÂ»
 
-«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»
+Â«DEFINE qualifiedClassName FOR gmfgen::GenDiagramÂ»Â«editorGen.editor.packageNameÂ».Â«EXPAND classNameÂ»Â«ENDDEFINEÂ»
 
-«DEFINE ValidateAction FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE ValidateAction FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «EXPAND className» extends org.eclipse.jface.action.Action {
-	«EXPAND attributes-»
-	«EXPAND _constructor-»
-	«EXPAND run-»
-	«EXPAND runValidation-»
-	«EXPAND runNonUIValidation-»
-	«EXPAND runValidationWithEP-»
-	«EXPAND runEMFValidator-»
-	«EXPAND validate-»
-	«EXPAND createMarkersForStatus-»
-	«EXPAND createMarkersForDiagnostic-»
-	«EXPAND addMarker-»
-	«EXPAND diagnosticToStatusSeverity-»
-	«EXPAND collectTargetElementsFromStatus-»
-	«EXPAND collectTargetElementsFromDiagnostic-»
-	«EXPAND additions-»
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«EXPAND classNameÂ» extends org.eclipse.jface.action.Action {
+	Â«EXPAND attributes-Â»
+	Â«EXPAND _constructor-Â»
+	Â«EXPAND run-Â»
+	Â«EXPAND runValidation-Â»
+	Â«EXPAND runNonUIValidation-Â»
+	Â«EXPAND runValidationWithEP-Â»
+	Â«EXPAND runEMFValidator-Â»
+	Â«EXPAND validate-Â»
+	Â«EXPAND createMarkersForStatus-Â»
+	Â«EXPAND createMarkersForDiagnostic-Â»
+	Â«EXPAND addMarker-Â»
+	Â«EXPAND diagnosticToStatusSeverity-Â»
+	Â«EXPAND collectTargetElementsFromStatus-Â»
+	Â«EXPAND collectTargetElementsFromDiagnostic-Â»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagram»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenDiagramÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private org.eclipse.ui.IWorkbenchPage page;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagram»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «EXPAND className»(org.eclipse.ui.IWorkbenchPage page) {
-		setText(«EXPAND xpt::Externalizer::accessorCall(messageKey(i18nKeyForValidateAction(self))) FOR editorGen»);
+Â«DEFINE _constructor FOR gmfgen::GenDiagramÂ»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	public Â«EXPAND classNameÂ»(org.eclipse.ui.IWorkbenchPage page) {
+		setText(Â«EXPAND xpt::Externalizer::accessorCall(messageKey(i18nKeyForValidateAction(self))) FOR editorGenÂ»);
 		this.page = page;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE run FOR gmfgen::GenDiagram-»
+Â«DEFINE run FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void run() {
 		org.eclipse.ui.IWorkbenchPart workbenchPart = page.getActivePart();
 		if (workbenchPart instanceof org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) {
 			final org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart part =	(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) workbenchPart;
 			try {
-				«IF editorGen.application = null-»
+				Â«IF editorGen.application = null-Â»
 				new org.eclipse.ui.actions.WorkspaceModifyDelegatingOperation(
-				«ENDIF-»
+				Â«ENDIF-Â»
 					new org.eclipse.jface.operation.IRunnableWithProgress() {
 
 						public void run(org.eclipse.core.runtime.IProgressMonitor monitor)
@@ -77,23 +77,23 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 							runValidation(part.getDiagramEditPart(), part.getDiagram());
 						}
 					}
-				«IF editorGen.application = null-»
+				Â«IF editorGen.application = null-Â»
 				)
-				«ENDIF-»
+				Â«ENDIF-Â»
 				.run(new org.eclipse.core.runtime.NullProgressMonitor());			
 			} catch (Exception e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Validation action failed", e);«EXPAND xpt::Common::nonNLS»
+				Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError("Validation action failed", e);Â«EXPAND xpt::Common::nonNLSÂ»
 			}
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE runValidation FOR gmfgen::GenDiagram-»
+Â«DEFINE runValidation FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static void runValidation(org.eclipse.gmf.runtime.notation.View view) {
 		try {
-			if («getDiagramEditorUtilQualifiedClassName()».openDiagram(view.eResource())) {
+			if (Â«getDiagramEditorUtilQualifiedClassName()Â».openDiagram(view.eResource())) {
 				org.eclipse.ui.IEditorPart editorPart = org.eclipse.ui.PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 				if (editorPart instanceof org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) {
@@ -104,42 +104,42 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 				}
 			}
 		} catch (Exception e) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
-					"Validation action failed", e); «EXPAND xpt::Common::nonNLS»
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError(
+					"Validation action failed", e); Â«EXPAND xpt::Common::nonNLSÂ»
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE runNonUIValidation FOR gmfgen::GenDiagram-»
+Â«DEFINE runNonUIValidation FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static void runNonUIValidation(org.eclipse.gmf.runtime.notation.View view) {
 		org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart =
 				org.eclipse.gmf.runtime.diagram.ui.OffscreenEditPartFactory.getInstance().createDiagramEditPart(
 						view.getDiagram());
 		runValidation(diagramEditPart, view);
 	}		
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE runValidationWithEP FOR gmfgen::GenDiagram-»
+Â«DEFINE runValidationWithEP FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public static void runValidation(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, org.eclipse.gmf.runtime.notation.View view) {
 		final org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart fpart = diagramEditPart;
 		final org.eclipse.gmf.runtime.notation.View fview = view;
 		org.eclipse.emf.transaction.TransactionalEditingDomain txDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(view);
-		«getValidationProviderQualifiedClassName()».runWithConstraints(txDomain, new Runnable() {
+		Â«getValidationProviderQualifiedClassName()Â».runWithConstraints(txDomain, new Runnable() {
 
 			public void run() {
 				validate(fpart, fview);
 			}
 		});
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE runEMFValidator FOR gmfgen::GenDiagram-»
+Â«DEFINE runEMFValidator FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static org.eclipse.emf.common.util.Diagnostic runEMFValidator(
 			org.eclipse.gmf.runtime.notation.View target) {
 		if (target.isSetElement() && target.getElement() != null) {
@@ -152,23 +152,23 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return org.eclipse.emf.common.util.Diagnostic.OK_INSTANCE;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE validate FOR gmfgen::GenDiagram-»
+Â«DEFINE validate FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static void validate(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart,
 			org.eclipse.gmf.runtime.notation.View view) {
-		«IF editorGen.application = null-»
+		Â«IF editorGen.application = null-Â»
 		org.eclipse.core.resources.IFile target = view.eResource() != null ?
 				org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(view.eResource()) : null;
 		if (target != null) {
-			«getMarkerNavigationProviderQualifiedClassName()».deleteMarkers(target);
+			Â«getMarkerNavigationProviderQualifiedClassName()Â».deleteMarkers(target);
 		}
-		«ELSE-»
+		Â«ELSE-Â»
 		org.eclipse.gmf.runtime.notation.View target = view;
-		«EXPAND xpt::editor::ValidationMarker::qualifiedClassName».removeAllMarkers(diagramEditPart.getViewer());
-		«ENDIF-»
+		Â«EXPAND xpt::editor::ValidationMarker::qualifiedClassNameÂ».removeAllMarkers(diagramEditPart.getViewer());
+		Â«ENDIF-Â»
 		org.eclipse.emf.common.util.Diagnostic diagnostic = runEMFValidator(view);
 		createMarkers(target, diagnostic, diagramEditPart);
 		org.eclipse.emf.validation.service.IBatchValidator validator =
@@ -180,32 +180,32 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			org.eclipse.core.runtime.IStatus status = validator.validate(view.getElement());
 			createMarkers(target, status, diagramEditPart);
 		}
-«IF shouldRunValidateOnDiagram(editorGen.audits)-»
-«IF hasDiagramElementTargetRule(editorGen.audits)-»
-		validator.setTraversalStrategy(«getValidationProviderQualifiedClassName()».getNotationTraversalStrategy(validator));
-«ENDIF-»
+Â«IF shouldRunValidateOnDiagram(editorGen.audits)-Â»
+Â«IF hasDiagramElementTargetRule(editorGen.audits)-Â»
+		validator.setTraversalStrategy(Â«getValidationProviderQualifiedClassName()Â».getNotationTraversalStrategy(validator));
+Â«ENDIF-Â»
 		org.eclipse.core.runtime.IStatus status = validator.validate(view);
 		createMarkers(target, status, diagramEditPart);
-«ENDIF-»
-		«IF editorGen.application <> null and validationDecorators-»
-		«getValidationDecoratorProviderQualifiedClassName()».refreshDecorators(view);
+Â«ENDIF-Â»
+		Â«IF editorGen.application <> null and validationDecorators-Â»
+		Â«getValidationDecoratorProviderQualifiedClassName()Â».refreshDecorators(view);
 		for (java.util.Iterator it = view.eAllContents(); it.hasNext();) {
 			org.eclipse.emf.ecore.EObject next = (org.eclipse.emf.ecore.EObject) it.next();
 			if (next instanceof org.eclipse.gmf.runtime.notation.View) {
-				«getValidationDecoratorProviderQualifiedClassName()».refreshDecorators(
+				Â«getValidationDecoratorProviderQualifiedClassName()Â».refreshDecorators(
 						(org.eclipse.gmf.runtime.notation.View) next);
 			}
 		}
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createMarkersForStatus FOR gmfgen::GenDiagram-»
+Â«DEFINE createMarkersForStatus FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static void createMarkers(
-			«IF editorGen.application = null»org.eclipse.core.resources.IFile
-			«ELSE»org.eclipse.gmf.runtime.notation.View«ENDIF» target,
+			Â«IF editorGen.application = nullÂ»org.eclipse.core.resources.IFile
+			Â«ELSEÂ»org.eclipse.gmf.runtime.notation.ViewÂ«ENDIFÂ» target,
 			org.eclipse.core.runtime.IStatus validationStatus,
 			org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart) {
 		if (validationStatus.isOK()) {
@@ -213,28 +213,28 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		final org.eclipse.core.runtime.IStatus rootStatus = validationStatus;
 		java.util.List allStatuses = new java.util.ArrayList();
-		«getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap element2ViewMap =
-				new «getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap(
+		Â«getDiagramEditorUtilQualifiedClassName()Â».LazyElement2ViewMap element2ViewMap =
+				new Â«getDiagramEditorUtilQualifiedClassName()Â».LazyElement2ViewMap(
 						diagramEditPart.getDiagramView(),
 						collectTargetElements(rootStatus, new java.util.HashSet(), allStatuses));
 		for (java.util.Iterator it = allStatuses.iterator(); it.hasNext();) {
 			org.eclipse.emf.validation.model.IConstraintStatus nextStatus =
 					(org.eclipse.emf.validation.model.IConstraintStatus) it.next();
-			org.eclipse.gmf.runtime.notation.View view = «getDiagramEditorUtilQualifiedClassName()».findView(
+			org.eclipse.gmf.runtime.notation.View view = Â«getDiagramEditorUtilQualifiedClassName()Â».findView(
 					diagramEditPart, nextStatus.getTarget(), element2ViewMap);			
 			addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), 
 					org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), 
 					nextStatus.getMessage(), nextStatus.getSeverity());
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createMarkersForDiagnostic FOR gmfgen::GenDiagram-»
+Â«DEFINE createMarkersForDiagnostic FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static void createMarkers(
-			«IF editorGen.application = null»org.eclipse.core.resources.IFile
-			«ELSE»org.eclipse.gmf.runtime.notation.View«ENDIF» target,
+			Â«IF editorGen.application = nullÂ»org.eclipse.core.resources.IFile
+			Â«ELSEÂ»org.eclipse.gmf.runtime.notation.ViewÂ«ENDIFÂ» target,
 			org.eclipse.emf.common.util.Diagnostic emfValidationStatus,
 			org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart) {
 		if (emfValidationStatus.getSeverity() == org.eclipse.emf.common.util.Diagnostic.OK) {
@@ -242,8 +242,8 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		final org.eclipse.emf.common.util.Diagnostic rootStatus = emfValidationStatus;
 		java.util.List allDiagnostics = new java.util.ArrayList();
-		«getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap element2ViewMap =
-				new «getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap(
+		Â«getDiagramEditorUtilQualifiedClassName()Â».LazyElement2ViewMap element2ViewMap =
+				new Â«getDiagramEditorUtilQualifiedClassName()Â».LazyElement2ViewMap(
 						diagramEditPart.getDiagramView(),
 						collectTargetElements(rootStatus, new java.util.HashSet(), allDiagnostics));
 		for (java.util.Iterator it = emfValidationStatus.getChildren().iterator(); it.hasNext();) {
@@ -251,7 +251,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			java.util.List data = nextDiagnostic.getData();
 			if (data != null && !data.isEmpty() && data.get(0) instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) data.get(0);
-				org.eclipse.gmf.runtime.notation.View view = «getDiagramEditorUtilQualifiedClassName()».findView(
+				org.eclipse.gmf.runtime.notation.View view = Â«getDiagramEditorUtilQualifiedClassName()Â».findView(
 						diagramEditPart, element, element2ViewMap);
 				addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view),
 						org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(element, true),
@@ -259,31 +259,31 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 			}
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addMarker FOR gmfgen::GenDiagram-»
+Â«DEFINE addMarker FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static void addMarker(org.eclipse.gef.EditPartViewer viewer,
-			«IF editorGen.application = null»org.eclipse.core.resources.IFile
-			«ELSE»org.eclipse.gmf.runtime.notation.View«ENDIF» target,
+			Â«IF editorGen.application = nullÂ»org.eclipse.core.resources.IFile
+			Â«ELSEÂ»org.eclipse.gmf.runtime.notation.ViewÂ«ENDIFÂ» target,
 			String elementId, String location, String message, int statusSeverity) {
 		if (target == null) {
 			return;
 		}
-		«IF editorGen.application = null-»
-		«getMarkerNavigationProviderQualifiedClassName()».addMarker(
+		Â«IF editorGen.application = null-Â»
+		Â«getMarkerNavigationProviderQualifiedClassName()Â».addMarker(
 				target, elementId, location, message, statusSeverity);
-		«ELSE-»
-		new «EXPAND xpt::editor::ValidationMarker::qualifiedClassName»(
+		Â«ELSE-Â»
+		new Â«EXPAND xpt::editor::ValidationMarker::qualifiedClassNameÂ»(
 				location, message, statusSeverity).add(viewer, elementId);
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE diagnosticToStatusSeverity FOR gmfgen::GenDiagram-»
+Â«DEFINE diagnosticToStatusSeverity FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static int diagnosticToStatusSeverity(int diagnosticSeverity) {
 		if (diagnosticSeverity == org.eclipse.emf.common.util.Diagnostic.OK) {
 			return org.eclipse.core.runtime.IStatus.OK;
@@ -297,11 +297,11 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return org.eclipse.core.runtime.IStatus.INFO;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE collectTargetElementsFromStatus FOR gmfgen::GenDiagram-»
+Â«DEFINE collectTargetElementsFromStatus FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static java.util.Set collectTargetElements(org.eclipse.core.runtime.IStatus status,
 			java.util.Set targetElementCollector, java.util.List allConstraintStatuses) {
 		if (status instanceof org.eclipse.emf.validation.model.IConstraintStatus) {
@@ -316,11 +316,11 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return targetElementCollector;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE collectTargetElementsFromDiagnostic FOR gmfgen::GenDiagram-»
+Â«DEFINE collectTargetElementsFromDiagnostic FOR gmfgen::GenDiagram-Â»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private static java.util.Set collectTargetElements(org.eclipse.emf.common.util.Diagnostic diagnostic,
 			java.util.Set targetElementCollector, java.util.List allDiagnostics) {
 		java.util.List data = diagnostic.getData();
@@ -338,14 +338,14 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		return targetElementCollector;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramÂ»Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForValidateAction(self)), 'Validate')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(messageKey(i18nKeyForValidateAction(self)), 'Validate')-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Externalizer::accessorField(messageKey(i18nKeyForValidateAction(self)))-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(messageKey(i18nKeyForValidateAction(self)))-Â»
+Â«ENDDEFINEÂ»

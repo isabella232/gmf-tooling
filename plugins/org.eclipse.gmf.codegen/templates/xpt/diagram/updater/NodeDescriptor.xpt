@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,55 +10,55 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE NodeDescriptor FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE NodeDescriptor FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-	«EXPAND xpt::Common::generatedClassComment»
-public class «nodeDescriptorClassName» {
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«nodeDescriptorClassNameÂ» {
 
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND _constructor-»
+	Â«EXPAND _constructor-Â»
 	
-	«EXPAND getModelElement-»
+	Â«EXPAND getModelElement-Â»
 	
-	«EXPAND getVisualID-»
+	Â«EXPAND getVisualID-Â»
 		
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE attributes FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private final org.eclipse.emf.ecore.EObject myModelElement;
 	
-	«EXPAND xpt::Common::generatedMemberComment»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private final int myVisualID;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE _constructor FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
-public «nodeDescriptorClassName»(org.eclipse.emf.ecore.EObject modelElement, int visualID) {
+Â«DEFINE _constructor FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+public Â«nodeDescriptorClassNameÂ»(org.eclipse.emf.ecore.EObject modelElement, int visualID) {
 	myModelElement = modelElement;
 	myVisualID = visualID;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelElement FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModelElement FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.emf.ecore.EObject getModelElement() {
 	return myModelElement;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 	
-«DEFINE getVisualID FOR gmfgen::GenDiagramUpdater-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getVisualID FOR gmfgen::GenDiagramUpdater-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public int getVisualID() {
 	return myVisualID;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagramUpdaterÂ»Â«ENDDEFINEÂ»

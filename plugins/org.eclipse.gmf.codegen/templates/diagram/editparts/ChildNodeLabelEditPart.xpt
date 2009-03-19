@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,80 +11,80 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«EXTENSION xpt::diagram::editparts::Utils»
+Â«EXTENSION xpt::diagram::editparts::UtilsÂ»
 
-«DEFINE Main FOR gmfgen::GenChildLabelNode-»
-«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
-package «getDiagram().editPartsPackageName»;
+Â«DEFINE Main FOR gmfgen::GenChildLabelNode-Â»
+Â«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-Â»
+package Â«getDiagram().editPartsPackageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsList» {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«editPartClassNameÂ» Â«EXPAND extendsListÂ» Â«EXPAND implementsListÂ» {
 	
-	«EXPAND attributes-»
+	Â«EXPAND attributes-Â»
 	
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::contsructor-»
+	Â«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::contsructor-Â»
 
-	«EXPAND getDragTracker-»
+	Â«EXPAND getDragTracker-Â»
 	
-	«EXPAND createDefaultEditPolicies-»
+	Â«EXPAND createDefaultEditPolicies-Â»
 
-	«EXPAND impl::diagram::editparts::TextAware::methods(false, labelReadOnly, labelElementIcon, viewmap, labelModelFacet, self, getDiagram())-»
+	Â«EXPAND impl::diagram::editparts::TextAware::methods(false, labelReadOnly, labelElementIcon, viewmap, labelModelFacet, self, getDiagram())-Â»
 
-	«EXPAND xpt::diagram::editparts::Common::notationalListeners-»
+	Â«EXPAND xpt::diagram::editparts::Common::notationalListeners-Â»
 
-«IF getAssistantOutgoingLinks(self)->size() > 0-»
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSource-»
+Â«IF getAssistantOutgoingLinks(self)->size() > 0-Â»
+	Â«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSource-Â»
 
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSourceAndTarget-»
+	Â«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSourceAndTarget-Â»
 
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForTarget-»
-«ENDIF-»
+	Â«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForTarget-Â»
+Â«ENDIF-Â»
 
-«IF getAssistantIncomingLinks(self)->size() > 0-»
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnTarget-»
+Â«IF getAssistantIncomingLinks(self)->size() > 0-Â»
+	Â«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnTarget-Â»
 
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForSource-»
-«ENDIF-»
+	Â«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForSource-Â»
+Â«ENDIF-Â»
 
-	«EXPAND handleNotificationEvent-»
+	Â«EXPAND handleNotificationEvent-Â»
 
-	«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-»
+	Â«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-Â»
 	
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE extendsList FOR gmfgen::GenChildLabelNode»extends org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart«ENDDEFINE»
+Â«DEFINE extendsList FOR gmfgen::GenChildLabelNodeÂ»extends org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE implementsList FOR gmfgen::GenChildLabelNode»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart«ENDDEFINE»
+Â«DEFINE implementsList FOR gmfgen::GenChildLabelNodeÂ»implements org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPartÂ«ENDDEFINEÂ»
 
-«DEFINE attributes FOR gmfgen::GenChildLabelNode-»
-	«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR self-»
+Â«DEFINE attributes FOR gmfgen::GenChildLabelNode-Â»
+	Â«EXPAND xpt::diagram::editparts::Common::visualIDConstant FOR self-Â»
 
-	«EXPAND impl::diagram::editparts::TextAware::fields FOR self-»
-«ENDDEFINE»
+	Â«EXPAND impl::diagram::editparts::TextAware::fields FOR self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDragTracker FOR gmfgen::GenChildLabelNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDragTracker FOR gmfgen::GenChildLabelNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gef.DragTracker getDragTracker(org.eclipse.gef.Request request) {
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::getDragTrackerBody-»
+	Â«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::getDragTrackerBody-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createDefaultEditPolicies FOR gmfgen::GenChildLabelNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDefaultEditPolicies FOR gmfgen::GenChildLabelNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void createDefaultEditPolicies() {
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::createDefaultEditPoliciesBody-»
+	Â«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::createDefaultEditPoliciesBody-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleNotificationEvent FOR gmfgen::GenChildLabelNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleNotificationEvent FOR gmfgen::GenChildLabelNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification event) {
-	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::handleNotificationEventBody-»
+	Â«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::handleNotificationEventBody-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenChildLabelNode»«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenChildLabelNodeÂ»Â«ENDDEFINEÂ»

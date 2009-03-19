@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,94 +10,94 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::editor::Utils»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::editor::UtilsÂ»
 
-«DEFINE DocumentProvider FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::copyright FOR editorGen-»
-package «editorGen.editor.packageName»;
+Â«DEFINE DocumentProvider FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::copyright FOR editorGen-Â»
+package Â«editorGen.editor.packageNameÂ»;
 
-«EXPAND xpt::Common::generatedClassComment»
-public class «documentProviderClassName» extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider {
+Â«EXPAND xpt::Common::generatedClassCommentÂ»
+public class Â«documentProviderClassNameÂ» extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider {
 	
-	«EXPAND createElementInfo-»
+	Â«EXPAND createElementInfo-Â»
 	
-	«EXPAND createDocument-»
+	Â«EXPAND createDocument-Â»
 	
-	«EXPAND setupDocument-»
+	Â«EXPAND setupDocument-Â»
 	
-	«EXPAND computeModificationStamp-»
+	Â«EXPAND computeModificationStamp-Â»
 	
-	«EXPAND createEmptyDocument-»
+	Â«EXPAND createEmptyDocument-Â»
 	
-	«EXPAND createEditingDomain-»
+	Â«EXPAND createEditingDomain-Â»
 	
-	«EXPAND setDocumentContent-»
+	Â«EXPAND setDocumentContent-Â»
 	
-	«EXPAND getModificationStamp-»
+	Â«EXPAND getModificationStamp-Â»
 	
-	«EXPAND isDeleted-»
+	Â«EXPAND isDeleted-Â»
 	
-	«EXPAND getResourceSetInfo-»
+	Â«EXPAND getResourceSetInfo-Â»
 	
-	«EXPAND disposeElementInfo-»
-	«IF null = editorGen.application-»
+	Â«EXPAND disposeElementInfo-Â»
+	Â«IF null = editorGen.application-Â»
 
-		«EXPAND doValidateState-»
-	«ENDIF-»
+		Â«EXPAND doValidateState-Â»
+	Â«ENDIF-Â»
 	
-	«EXPAND isReadOnly-»
+	Â«EXPAND isReadOnly-Â»
 	
-	«EXPAND isModifiable-»
+	Â«EXPAND isModifiable-Â»
 	
-	«EXPAND updateCache-»
+	Â«EXPAND updateCache-Â»
 	
-	«EXPAND doUpdateStateCache-»
+	Â«EXPAND doUpdateStateCache-Â»
 	
-	«EXPAND isSynchronized-»
-	«IF null = editorGen.application-»
+	Â«EXPAND isSynchronized-Â»
+	Â«IF null = editorGen.application-Â»
 		
-		«EXPAND getResetRule-»
+		Â«EXPAND getResetRule-Â»
 	
-		«EXPAND getSaveRule-»
+		Â«EXPAND getSaveRule-Â»
 	
-		«EXPAND getSynchronizeRule-»
+		Â«EXPAND getSynchronizeRule-Â»
 	
-		«EXPAND getValidateStateRule-»
+		Â«EXPAND getValidateStateRule-Â»
 	
-		«EXPAND computeSchedulingRule-»
-	«ENDIF-»
+		Â«EXPAND computeSchedulingRule-Â»
+	Â«ENDIF-Â»
 	
-	«EXPAND doSynchronize-»
+	Â«EXPAND doSynchronize-Â»
 	
-	«EXPAND doSaveDocument-»
+	Â«EXPAND doSaveDocument-Â»
 	
-	«EXPAND handleElementChanged-»
+	Â«EXPAND handleElementChanged-Â»
 
-	«EXPAND handleElementMoved-»
+	Â«EXPAND handleElementMoved-Â»
 
-	«EXPAND createInputWithEditingDomain-»
+	Â«EXPAND createInputWithEditingDomain-Â»
 
-	«EXPAND getDiagramDocument-»
+	Â«EXPAND getDiagramDocument-Â»
 	
-	«EXPAND getOperationRunner-»
-	«IF null <> editorGen.application-»
+	Â«EXPAND getOperationRunner-Â»
+	Â«IF null <> editorGen.application-Â»
 
-		«EXPAND getFile-»
-	«ENDIF-»
+		Â«EXPAND getFile-Â»
+	Â«ENDIF-Â»
 	
-	«EXPAND xpt::editor::ResourceSetInfo::ResourceSetInfo-»
+	Â«EXPAND xpt::editor::ResourceSetInfo::ResourceSetInfo-Â»
 	
-	«EXPAND xpt::editor::ResourceSetModificationListener::ResourceSetModificationListener-»
+	Â«EXPAND xpt::editor::ResourceSetModificationListener::ResourceSetModificationListener-Â»
 
-	«EXPAND additions-»
+	Â«EXPAND additions-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createElementInfo FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createElementInfo FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.runtime.CoreException {
-	«EXPAND checkEditorInputInstance-»
+	Â«EXPAND checkEditorInputInstance-Â»
 	org.eclipse.ui.IEditorInput editorInput = (org.eclipse.ui.IEditorInput) element;
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) createDocument(editorInput);
 
@@ -106,58 +106,58 @@ protected ElementInfo createElementInfo(Object element) throws org.eclipse.core.
 	info.fStatus = null;
 	return info;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE checkEditorInputInstance FOR gmfgen::GenDiagram-»
-if («IF null = editorGen.application»false == element instanceof «EXPAND fileEditorInputClassFQName» && «ENDIF»false == element instanceof «EXPAND uriEditorInputClassFQName») {
-	«EXPAND throwIncorrectInputException-»
+Â«DEFINE checkEditorInputInstance FOR gmfgen::GenDiagram-Â»
+if (Â«IF null = editorGen.applicationÂ»false == element instanceof Â«EXPAND fileEditorInputClassFQNameÂ» && Â«ENDIFÂ»false == element instanceof Â«EXPAND uriEditorInputClassFQNameÂ») {
+	Â«EXPAND throwIncorrectInputException-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE throwIncorrectInputException FOR gmfgen::GenDiagram-»
-throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, 
+Â«DEFINE throwIncorrectInputException FOR gmfgen::GenDiagram-Â»
+throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, 0, 
 		org.eclipse.osgi.util.NLS.bind(
-			«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIncorrectInputError(self)) FOR editorGen»,
-			new Object[] {element, «IF null = editorGen.application»"«EXPAND fileEditorInputClassFQName»", «ENDIF»"«EXPAND uriEditorInputClassFQName»"}),«EXPAND xpt::Common::nonNLS(1)»«IF null = editorGen.application»«EXPAND xpt::Common::nonNLS(2)»«ENDIF» 
+			Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIncorrectInputError(self)) FOR editorGenÂ»,
+			new Object[] {element, Â«IF null = editorGen.applicationÂ»"Â«EXPAND fileEditorInputClassFQNameÂ»", Â«ENDIFÂ»"Â«EXPAND uriEditorInputClassFQNameÂ»"}),Â«EXPAND xpt::Common::nonNLS(1)Â»Â«IF null = editorGen.applicationÂ»Â«EXPAND xpt::Common::nonNLS(2)Â»Â«ENDIFÂ» 
 		null));
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE fileEditorInputClassFQName FOR gmfgen::GenDiagram»org.eclipse.ui.part.FileEditorInput«ENDDEFINE»
+Â«DEFINE fileEditorInputClassFQName FOR gmfgen::GenDiagramÂ»org.eclipse.ui.part.FileEditorInputÂ«ENDDEFINEÂ»
 
-«DEFINE uriEditorInputClassFQName FOR gmfgen::GenDiagram»org.eclipse.emf.common.ui.URIEditorInput«ENDDEFINE»
+Â«DEFINE uriEditorInputClassFQName FOR gmfgen::GenDiagramÂ»org.eclipse.emf.common.ui.URIEditorInputÂ«ENDDEFINEÂ»
 
-«DEFINE createDocument FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createDocument FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createDocument(Object element) throws org.eclipse.core.runtime.CoreException {
-	«EXPAND checkEditorInputInstance-»
+	Â«EXPAND checkEditorInputInstance-Â»
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document = createEmptyDocument();
 	setDocumentContent(document, (org.eclipse.ui.IEditorInput) element);
 	setupDocument(element, document);
 	return document;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setupDocument FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment(
+Â«DEFINE setupDocument FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberComment(
 		'Sets up the given document as it would be provided for the given element. The\n' + 
 		'content of the document is not changed. This default implementation is empty.\n' + 
 		'Subclasses may reimplement.\n' + 
 		'\n' + 
 		'@param element the blue-print element\n' + 
 		'@param document the document to set up'
-	)»
+	)Â»
 protected void setupDocument(Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document) {
 	// for subclasses
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE computeModificationStamp FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE computeModificationStamp FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private long computeModificationStamp(ResourceSetInfo info) {
 	int result = 0;
 	for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-	«IF null = editorGen.application-»
+	Â«IF null = editorGen.application-Â»
 		org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 		if (file != null) {
 			if (file.getLocation() != null) {
@@ -166,31 +166,31 @@ private long computeModificationStamp(ResourceSetInfo info) {
 				result += file.getModificationStamp();
 			}
 		}
-	«ELSE-»
+	Â«ELSE-Â»
 		java.io.File file = getFile(nextResource);
 		if (file != null && file.exists()) {
 			result += file.lastModified();
 		}
-	«ENDIF-»
+	Â«ENDIF-Â»
 	}
 	return result;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEmptyDocument FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEmptyDocument FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument createEmptyDocument() {
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument document = new org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument();
 	document.setEditingDomain(createEditingDomain());
 	return document;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createEditingDomain FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createEditingDomain FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.emf.transaction.TransactionalEditingDomain createEditingDomain() {
 	org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory.getInstance().createEditingDomain();
-	editingDomain.setID("«editingDomainID»");«EXPAND xpt::Common::nonNLS»
+	editingDomain.setID("Â«editingDomainIDÂ»");Â«EXPAND xpt::Common::nonNLSÂ»
 	final org.eclipse.emf.transaction.NotificationFilter diagramResourceModifiedFilter = org.eclipse.emf.transaction.NotificationFilter.createNotifierFilter(editingDomain.getResourceSet()).and(org.eclipse.emf.transaction.NotificationFilter.createEventTypeFilter(org.eclipse.emf.common.notify.Notification.ADD)).and(org.eclipse.emf.transaction.NotificationFilter.createFeatureFilter(org.eclipse.emf.ecore.resource.ResourceSet.class, org.eclipse.emf.ecore.resource.ResourceSet.RESOURCE_SET__RESOURCES));
 	editingDomain.getResourceSet().eAdapters().add(new org.eclipse.emf.common.notify.Adapter() {
 
@@ -221,19 +221,19 @@ private org.eclipse.emf.transaction.TransactionalEditingDomain createEditingDoma
 	
 	return editingDomain;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setDocumentContent FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setDocumentContent FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, org.eclipse.ui.IEditorInput element) throws org.eclipse.core.runtime.CoreException {
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
 	org.eclipse.emf.transaction.TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
-	«IF null = editorGen.application»if (element instanceof «EXPAND fileEditorInputClassFQName») {
-		org.eclipse.core.resources.IStorage storage = ((«EXPAND fileEditorInputClassFQName») element).getStorage();
+	Â«IF null = editorGen.applicationÂ»if (element instanceof Â«EXPAND fileEditorInputClassFQNameÂ») {
+		org.eclipse.core.resources.IStorage storage = ((Â«EXPAND fileEditorInputClassFQNameÂ») element).getStorage();
 		org.eclipse.gmf.runtime.notation.Diagram diagram = org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.DiagramIOUtil.load(domain, storage, true, getProgressMonitor());
 		document.setContent(diagram);
-	} else «ENDIF»if(element instanceof «EXPAND uriEditorInputClassFQName») {
-		org.eclipse.emf.common.util.URI uri = ((«EXPAND uriEditorInputClassFQName») element).getURI();
+	} else Â«ENDIFÂ»if(element instanceof Â«EXPAND uriEditorInputClassFQNameÂ») {
+		org.eclipse.emf.common.util.URI uri = ((Â«EXPAND uriEditorInputClassFQNameÂ») element).getURI();
 		org.eclipse.emf.ecore.resource.Resource resource = null;
 		try {
 			resource = domain.getResourceSet().getResource(uri.trimFragment(), false);
@@ -266,26 +266,26 @@ protected void setDocumentContent(org.eclipse.gmf.runtime.diagram.ui.resources.e
 					}
 				}
 			}
-			throw new RuntimeException(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderNoDiagramInResourceError(self)) FOR editorGen»);
+			throw new RuntimeException(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderNoDiagramInResourceError(self)) FOR editorGenÂ»);
 		} catch (Exception e) {
 			org.eclipse.core.runtime.CoreException thrownExcp = null;
 			if (e instanceof org.eclipse.core.runtime.CoreException) {
 				thrownExcp = (org.eclipse.core.runtime.CoreException) e;
 			} else {
 				String msg = e.getLocalizedMessage();
-				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, 
-				msg != null ? msg : «EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderDiagramLoadingError(self)) FOR editorGen», e));
+				thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, 0, 
+				msg != null ? msg : Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderDiagramLoadingError(self)) FOR editorGenÂ», e));
 			}
 			throw thrownExcp;
 		}
 	} else {
-	«EXPAND throwIncorrectInputException-»
+	Â«EXPAND throwIncorrectInputException-Â»
 	}	
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModificationStamp FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getModificationStamp FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public long getModificationStamp(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -293,37 +293,37 @@ public long getModificationStamp(Object element) {
 	}
 	return super.getModificationStamp(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isDeleted FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isDeleted FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isDeleted(Object element) {
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = getDiagramDocument(element);
 	if (document != null) {
 		org.eclipse.emf.ecore.resource.Resource diagramResource = document.getDiagram().eResource();
 		if (diagramResource != null) {
-	«IF null = editorGen.application-»
+	Â«IF null = editorGen.application-Â»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagramResource);
 			return file == null || file.getLocation() == null || !file.getLocation().toFile().exists();
-	«ELSE-»
+	Â«ELSE-Â»
 			java.io.File file = getFile(diagramResource);
 			return file != null && !file.exists();
-	«ENDIF-»
+	Â«ENDIF-Â»
 		}
 	}
 	return super.isDeleted(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getResourceSetInfo FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getResourceSetInfo FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public ResourceSetInfo getResourceSetInfo(Object editorInput) {
 	return (ResourceSetInfo) super.getElementInfo(editorInput);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE disposeElementInfo FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE disposeElementInfo FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void disposeElementInfo(Object element, ElementInfo info) {
 	if (info instanceof ResourceSetInfo) {
 		ResourceSetInfo resourceSetInfo = (ResourceSetInfo) info;
@@ -331,10 +331,10 @@ protected void disposeElementInfo(Object element, ElementInfo info) {
 	}
 	super.disposeElementInfo(element, info);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE doValidateState FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE doValidateState FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void doValidateState(Object element, Object computationContext) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -351,62 +351,62 @@ protected void doValidateState(Object element, Object computationContext) throws
 
 	super.doValidateState(element, computationContext);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isReadOnly FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isReadOnly FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isReadOnly(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND callUpdateCache-»
+		Â«EXPAND callUpdateCache-Â»
 		return info.isReadOnly();
 	}
 	return super.isReadOnly(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isModifiable FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isModifiable FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isModifiable(Object element) {
 	if (!isStateValidated(element)) {
-		if («IF null = editorGen.application»element instanceof «EXPAND fileEditorInputClassFQName» || «ENDIF»element instanceof «EXPAND uriEditorInputClassFQName») {
+		if (Â«IF null = editorGen.applicationÂ»element instanceof Â«EXPAND fileEditorInputClassFQNameÂ» || Â«ENDIFÂ»element instanceof Â«EXPAND uriEditorInputClassFQNameÂ») {
 			return true;
 		}
 	}
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND callUpdateCache-»
+		Â«EXPAND callUpdateCache-Â»
 		return info.isModifiable();
 	}
 	return super.isModifiable(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE callUpdateCache FOR gmfgen::GenDiagram-»
+Â«DEFINE callUpdateCache FOR gmfgen::GenDiagram-Â»
 if (info.isUpdateCache()) {
 	try {
 		updateCache(element);
 	} catch (org.eclipse.core.runtime.CoreException ex) {
-		«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIsModifiable(self)) FOR editorGen», ex);
+		Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderIsModifiable(self)) FOR editorGenÂ», ex);
 		// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE updateCache FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE updateCache FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void updateCache(Object element) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 			org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
-	«IF null = editorGen.application-»
+	Â«IF null = editorGen.application-Â»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null && file.isReadOnly()) {
-	«ELSE-»
+	Â«ELSE-Â»
 			java.io.File file = getFile(nextResource);
 			if (file != null && file.exists() && !file.canWrite()) {
-	«ENDIF-»
+	Â«ENDIF-Â»
 				info.setReadOnly(true);
 				info.setModifiable(false);
 				return;
@@ -417,10 +417,10 @@ protected void updateCache(Object element) throws org.eclipse.core.runtime.CoreE
 		return;
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE doUpdateStateCache FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE doUpdateStateCache FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void doUpdateStateCache(Object element) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -428,10 +428,10 @@ protected void doUpdateStateCache(Object element) throws org.eclipse.core.runtim
 	}
 	super.doUpdateStateCache(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE isSynchronized FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE isSynchronized FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public boolean isSynchronized(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -439,10 +439,10 @@ public boolean isSynchronized(Object element) {
 	}
 	return super.isSynchronized(element);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getResetRule FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getResetRule FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -458,10 +458,10 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object elem
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSaveRule FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSaveRule FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -477,10 +477,10 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object eleme
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getSynchronizeRule FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getSynchronizeRule FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -496,10 +496,10 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Objec
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getValidateStateRule FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getValidateStateRule FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getValidateStateRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -515,10 +515,10 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getValidateStateRule(Obj
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE computeSchedulingRule FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE computeSchedulingRule FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private org.eclipse.core.runtime.jobs.ISchedulingRule computeSchedulingRule(org.eclipse.core.resources.IResource toCreateOrModify) {
 	if (toCreateOrModify.exists())
 		return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRuleFactory().modifyRule(toCreateOrModify);
@@ -537,10 +537,10 @@ private org.eclipse.core.runtime.jobs.ISchedulingRule computeSchedulingRule(org.
 
 	return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRuleFactory().createRule(toCreateOrModify);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE doSynchronize FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE doSynchronize FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void doSynchronize(Object element, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
@@ -552,22 +552,22 @@ protected void doSynchronize(Object element, org.eclipse.core.runtime.IProgressM
 	}
 	super.doSynchronize(element, monitor);
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleElementChanged FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleElementChanged FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.resource.Resource changedResource, org.eclipse.core.runtime.IProgressMonitor monitor) {
-	«IF null = editorGen.application-»
+	Â«IF null = editorGen.application-Â»
 	org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(changedResource);
 	if (file != null) {
 		try {
 			file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
 		} catch (org.eclipse.core.runtime.CoreException ex) {
-			«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderHandleElementContentChanged(self)) FOR editorGen», ex);
+			Â«editorGen.plugin.getActivatorQualifiedClassName()Â».getInstance().logError(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentProviderHandleElementContentChanged(self)) FOR editorGenÂ», ex);
 			// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.FileDocumentProvider_handleElementContentChanged
 		}
 	}
-	«ENDIF-»
+	Â«ENDIF-Â»
 	changedResource.unload();
 	
 	fireElementContentAboutToBeReplaced(info.getEditorInput());
@@ -578,43 +578,43 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 	} catch (org.eclipse.core.runtime.CoreException e) {
 		info.fStatus = e.getStatus();
 	}
-«REM»TODO: Remove this if and call setModificationStamp only from doSaveDocument method«ENDREM»«-»
+Â«REMÂ»TODO: Remove this if and call setModificationStamp only from doSaveDocument methodÂ«ENDREMÂ»Â«-Â»
 	if (!info.fCanBeSaved) {
 		info.setModificationStamp(computeModificationStamp(info));
 	}
 	addUnchangedElementListeners(info.getEditorInput(), info);
 	fireElementContentReplaced(info.getEditorInput());
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE doSaveDocument FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE doSaveDocument FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor, Object element, org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument document, boolean overwrite) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		if (!overwrite && !info.isSynchronized()) {
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 
-				«IF null = editorGen.application»org.eclipse.core.resources.IResourceStatus.OUT_OF_SYNC_LOCAL«ELSE»org.eclipse.core.runtime.IStatus.ERROR«ENDIF», 
-				«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentUnsynchronizedFileSaveError(self)) FOR editorGen», 
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, 
+				Â«IF null = editorGen.applicationÂ»org.eclipse.core.resources.IResourceStatus.OUT_OF_SYNC_LOCALÂ«ELSEÂ»org.eclipse.core.runtime.IStatus.ERRORÂ«ENDIFÂ», 
+				Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentUnsynchronizedFileSaveError(self)) FOR editorGenÂ», 
 				null));
 		}
-	«IF null = editorGen.application-»
+	Â«IF null = editorGen.application-Â»
 		info.stopResourceListening();
-	«ENDIF-»
+	Â«ENDIF-Â»
 		fireElementStateChanging(element);
 		try {
-			monitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveDiagramTask(self)) FOR editorGen», info.getResourceSet().getResources().size() + 1); //"Saving diagram"
+			monitor.beginTask(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveDiagramTask(self)) FOR editorGenÂ», info.getResourceSet().getResources().size() + 1); //"Saving diagram"
 			for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = info.getLoadedResourcesIterator(); it.hasNext();) {
 				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 				monitor.setTaskName(org.eclipse.osgi.util.NLS.bind(
-						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveNextResourceTask(self)) FOR editorGen», 
+						Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveNextResourceTask(self)) FOR editorGenÂ», 
 						nextResource.getURI()));
 				if (nextResource.isLoaded() && !info.getEditingDomain().isReadOnly(nextResource)) {
 					try {
-						nextResource.save(«EXPAND xpt::Common::getSaveOptions»);
+						nextResource.save(Â«EXPAND xpt::Common::getSaveOptionsÂ»);
 					} catch (java.io.IOException e) {
 						fireElementStateChangeFailed(element);
-						throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
+						throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
 					}
 				}
 				monitor.worked(1);
@@ -624,72 +624,72 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 		} catch (RuntimeException x) {
 			fireElementStateChangeFailed(element);
 			throw x;
-		} «IF null = editorGen.application» finally {
+		} Â«IF null = editorGen.applicationÂ» finally {
 			info.startResourceListening();
-		} «ENDIF»
+		} Â«ENDIFÂ»
 	} else {
 		org.eclipse.emf.common.util.URI newResoruceURI;
 		java.util.List affectedFiles = null;
-		«IF null = editorGen.application»if (element instanceof «EXPAND fileEditorInputClassFQName») {
-			org.eclipse.core.resources.IFile newFile = ((«EXPAND fileEditorInputClassFQName») element).getFile();
+		Â«IF null = editorGen.applicationÂ»if (element instanceof Â«EXPAND fileEditorInputClassFQNameÂ») {
+			org.eclipse.core.resources.IFile newFile = ((Â«EXPAND fileEditorInputClassFQNameÂ») element).getFile();
 			affectedFiles = java.util.Collections.singletonList(newFile);
 			newResoruceURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(newFile.getFullPath().toString(), true);
-		} else «ENDIF»if(element instanceof «EXPAND uriEditorInputClassFQName») {
-			newResoruceURI = ((«EXPAND uriEditorInputClassFQName») element).getURI();
+		} else Â«ENDIFÂ»if(element instanceof Â«EXPAND uriEditorInputClassFQNameÂ») {
+			newResoruceURI = ((Â«EXPAND uriEditorInputClassFQNameÂ») element).getURI();
 		} else {
 			fireElementStateChangeFailed(element);
-			«EXPAND throwIncorrectInputException-»
+			Â«EXPAND throwIncorrectInputException-Â»
 		}
 		if (false == document instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
 			fireElementStateChangeFailed(element);
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0,
-			"Incorrect document used: " + document + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument", null));«EXPAND xpt::Common::nonNLS(1)»«EXPAND xpt::Common::nonNLS(2)»
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, 0,
+			"Incorrect document used: " + document + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument", null));Â«EXPAND xpt::Common::nonNLS(1)Â»Â«EXPAND xpt::Common::nonNLS(2)Â»
 		}
 		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
 		final org.eclipse.emf.ecore.resource.Resource newResource = diagramDocument.getEditingDomain().getResourceSet().createResource(newResoruceURI);
 		final org.eclipse.gmf.runtime.notation.Diagram diagramCopy = (org.eclipse.gmf.runtime.notation.Diagram) org.eclipse.emf.ecore.util.EcoreUtil.copy(diagramDocument.getDiagram());
 		try {
-			new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(diagramDocument.getEditingDomain(), org.eclipse.osgi.util.NLS.bind(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveAs(self)) FOR editorGen», diagramCopy.getName()), affectedFiles) {
+			new org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand(diagramDocument.getEditingDomain(), org.eclipse.osgi.util.NLS.bind(Â«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveAs(self)) FOR editorGenÂ», diagramCopy.getName()), affectedFiles) {
 				protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 					newResource.getContents().add(diagramCopy);					
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 				}
 			}.execute(monitor, null);
-			newResource.save(«EXPAND xpt::Common::getSaveOptions»);
+			newResource.save(Â«EXPAND xpt::Common::getSaveOptionsÂ»);
 		} catch (org.eclipse.core.commands.ExecutionException e) {
 			fireElementStateChangeFailed(element);
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, e.getLocalizedMessage(), null));
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, 0, e.getLocalizedMessage(), null));
 		} catch (java.io.IOException e) {
 			fireElementStateChangeFailed(element);
-			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.getActivatorQualifiedClassName()».ID, 0, e.getLocalizedMessage(), null));
+			throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, Â«editorGen.plugin.getActivatorQualifiedClassName()Â».ID, 0, e.getLocalizedMessage(), null));
 		}
 		newResource.unload();
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE handleElementMoved FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE handleElementMoved FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected void handleElementMoved(org.eclipse.ui.IEditorInput input, org.eclipse.emf.common.util.URI uri) {
-	«IF null = editorGen.application»if (input instanceof «EXPAND fileEditorInputClassFQName») {
+	Â«IF null = editorGen.applicationÂ»if (input instanceof Â«EXPAND fileEditorInputClassFQNameÂ») {
 		org.eclipse.core.resources.IFile newFile = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().getFile(new org.eclipse.core.runtime.Path(org.eclipse.emf.common.util.URI.decode(uri.path())).removeFirstSegments(1));
 		fireElementMoved(input, newFile == null ? null : new org.eclipse.ui.part.FileEditorInput(newFile));
 		return;
-	}«ENDIF»
+	}Â«ENDIFÂ»
 	// TODO: append suffix to the URI! (use diagram as a parameter)
 	fireElementMoved(input, new org.eclipse.emf.common.ui.URIEditorInput(uri));
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE createInputWithEditingDomain FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE createInputWithEditingDomain FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.ui.IEditorInput createInputWithEditingDomain(org.eclipse.ui.IEditorInput editorInput, org.eclipse.emf.transaction.TransactionalEditingDomain domain) {
 	return editorInput;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getDiagramDocument FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getDiagramDocument FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument getDiagramDocument(Object element) {
 	org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument doc = getDocument(element);
 	if (doc instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
@@ -697,17 +697,17 @@ public org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocu
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getOperationRunner FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getOperationRunner FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 protected org.eclipse.jface.operation.IRunnableContext getOperationRunner(org.eclipse.core.runtime.IProgressMonitor monitor) {
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getFile FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE getFile FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource resource) {
 	org.eclipse.emf.common.util.URI resourceUri = resource.getURI();
 	if (resourceUri != null && resourceUri.isFile()) {
@@ -718,31 +718,31 @@ private static java.io.File getFile(org.eclipse.emf.ecore.resource.Resource reso
 	}
 	return null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nAccessors FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIsModifiable(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderHandleElementContentChanged(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIncorrectInputError(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderNoDiagramInResourceError(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderDiagramLoadingError(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentUnsynchronizedFileSaveError(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveDiagramTask(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveNextResourceTask(self))-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveAs(self))-»
-«ENDDEFINE»
+Â«DEFINE i18nAccessors FOR gmfgen::GenDiagram-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIsModifiable(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderHandleElementContentChanged(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderIncorrectInputError(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderNoDiagramInResourceError(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentProviderDiagramLoadingError(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentUnsynchronizedFileSaveError(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveDiagramTask(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveNextResourceTask(self))-Â»
+	Â«EXPAND xpt::Externalizer::accessorField(i18nKeyForDocumentSaveAs(self))-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE i18nValues FOR gmfgen::GenDiagram-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIsModifiable(self), 'Updating cache failed')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderHandleElementContentChanged(self), 'Failed to refresh hierarchy for changed resource')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIncorrectInputError(self), (if 'Incorrect element used: {0} instead of ' + editorGen.application.repr() = null then '{1} or {2}' else '{1}' endif))-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderNoDiagramInResourceError(self), 'Diagram is not present in resource')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderDiagramLoadingError(self), 'Error loading diagram')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentUnsynchronizedFileSaveError(self), 'The file has been changed on the file system')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveDiagramTask(self), 'Saving diagram')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveNextResourceTask(self), 'Saving {0}')-»
-«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveAs(self), 'Saving {0} diagram as')-»
-«ENDDEFINE»
+Â«DEFINE i18nValues FOR gmfgen::GenDiagram-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIsModifiable(self), 'Updating cache failed')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderHandleElementContentChanged(self), 'Failed to refresh hierarchy for changed resource')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderIncorrectInputError(self), (if 'Incorrect element used: {0} instead of ' + editorGen.application.repr() = null then '{1} or {2}' else '{1}' endif))-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderNoDiagramInResourceError(self), 'Diagram is not present in resource')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentProviderDiagramLoadingError(self), 'Error loading diagram')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentUnsynchronizedFileSaveError(self), 'The file has been changed on the file system')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveDiagramTask(self), 'Saving diagram')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveNextResourceTask(self), 'Saving {0}')-Â»
+Â«EXPAND xpt::Externalizer::messageEntry(i18nKeyForDocumentSaveAs(self), 'Saving {0} diagram as')-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
+Â«DEFINE additions FOR gmfgen::GenDiagram-Â»
+Â«ENDDEFINEÂ»
