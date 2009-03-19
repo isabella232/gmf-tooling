@@ -39,7 +39,7 @@ import org.eclipse.jdt.core.JavaCore;
 
 public class MigrationVisitor extends AbstractMigrationVisitor {
 
-	static final String CHARSET = "ISO-8859-1";
+	static final String CHARSET = "UTF8";
 
 	private int rootPathSegmentCount;
 
