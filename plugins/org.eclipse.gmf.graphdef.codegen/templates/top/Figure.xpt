@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,86 +10,86 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE ClassBody(cuName : String) FOR gmfgraph::Figure»«ERROR 'abstract ClassBody(Figure)'»«ENDDEFINE»
+Â«DEFINE ClassBody(cuName : String) FOR gmfgraph::FigureÂ»Â«ERROR 'abstract ClassBody(Figure)'Â»Â«ENDDEFINEÂ»
 
-«DEFINE ClassBody(cuName : String) FOR gmfgraph::FigureRef-»
-«EXPAND ClassBody(cuName) FOR figure-»
-«ENDDEFINE»
+Â«DEFINE ClassBody(cuName : String) FOR gmfgraph::FigureRef-Â»
+Â«EXPAND ClassBody(cuName) FOR figure-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ClassBody(cuName : String) FOR gmfgraph::RealFigure-»
+Â«DEFINE ClassBody(cuName : String) FOR gmfgraph::RealFigure-Â»
 	/**
 	 * @generated
 	 */
-	public «cuName»() {
-«clearBorders()-»
-		«EXPAND Layout::Init('this') FOR layout-»
-		«EXPAND Attrs::Init('this')-»
-«IF not (children)[gmfgraph::Figure]->isEmpty()-»
+	public Â«cuNameÂ»() {
+Â«clearBorders()-Â»
+		Â«EXPAND Layout::Init('this') FOR layout-Â»
+		Â«EXPAND Attrs::Init('this')-Â»
+Â«IF not (children)[gmfgraph::Figure]->isEmpty()-Â»
 		createContents();
 	}
-«EXPAND Children::CreateChildren-»
-«EXPAND Border::InitMethods»
-«ELSE-»
+Â«EXPAND Children::CreateChildren-Â»
+Â«EXPAND Border::InitMethodsÂ»
+Â«ELSE-Â»
 	}
-«ENDIF-»
-«EXPAND Extras::extraMethods»
-«EXPAND Extras::localCoordinates»
-«EXPAND additions-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«EXPAND Extras::extraMethodsÂ»
+Â«EXPAND Extras::localCoordinatesÂ»
+Â«EXPAND additions-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE ClassBody(cuName : String) FOR gmfgraph::PolylineConnection-»
+Â«DEFINE ClassBody(cuName : String) FOR gmfgraph::PolylineConnection-Â»
 	/**
 	 * @generated
 	 */
-	public «cuName»() {
-		«EXPAND Attrs::Init('this')»
-«IF not (children)[gmfgraph::Label]->isEmpty()-»
+	public Â«cuNameÂ»() {
+		Â«EXPAND Attrs::Init('this')Â»
+Â«IF not (children)[gmfgraph::Label]->isEmpty()-Â»
 		createContents();
-«ENDIF-»
-«IF hasSourceDecoration(self)-»
+Â«ENDIF-Â»
+Â«IF hasSourceDecoration(self)-Â»
 		setSourceDecoration(createSourceDecoration());
-«ENDIF-»
-«IF hasTargetDecoration(self)-»
+Â«ENDIF-Â»
+Â«IF hasTargetDecoration(self)-Â»
 		setTargetDecoration(createTargetDecoration());
-«ENDIF-»
+Â«ENDIF-Â»
 	}
-«IF not (children)[gmfgraph::Label]->isEmpty()»
-«REM»
+Â«IF not (children)[gmfgraph::Label]->isEmpty()Â»
+Â«REMÂ»
 	Copy of Children::CreateChildren with temp workaround to generate child figures for labels only.
 	Though this is temp workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=193180, I'm not sure
 	what's the right approach with e.g. decoration as child of a link.
-«ENDREM»
+Â«ENDREMÂ»
 	/**
 	 * @generated
 	 */
 	private void createContents(){
-«EXPAND Children::instantiate(0, self, 'this') FOREACH (children)[gmfgraph::Label]»
+Â«EXPAND Children::instantiate(0, self, 'this') FOREACH (children)[gmfgraph::Label]Â»
 	}
-«ENDIF-»
-«IF hasSourceDecoration(self)»
+Â«ENDIF-Â»
+Â«IF hasSourceDecoration(self)Â»
 	/**
 	 * @generated
 	 */
 	private org.eclipse.draw2d.RotatableDecoration createSourceDecoration() {
-		«EXPAND Decoration::Instantiate('df') FOR sourceDecoration-»
+		Â«EXPAND Decoration::Instantiate('df') FOR sourceDecoration-Â»
 		return df;
 	}
-«ENDIF-»
-«IF hasTargetDecoration(self)»
+Â«ENDIF-Â»
+Â«IF hasTargetDecoration(self)Â»
 	/**
 	 * @generated
 	 */
 	private org.eclipse.draw2d.RotatableDecoration createTargetDecoration() {
-		«EXPAND Decoration::Instantiate('df') FOR targetDecoration-»
+		Â«EXPAND Decoration::Instantiate('df') FOR targetDecoration-Â»
 		return df;
 	}
-«ENDIF-»
-«EXPAND additions-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«EXPAND additions-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Our regular way to add smth inside generated class body«ENDREM»
-«DEFINE additions FOR gmfgraph::Figure»«ENDDEFINE»
+Â«REMÂ»Our regular way to add smth inside generated class bodyÂ«ENDREMÂ»
+Â«DEFINE additions FOR gmfgraph::FigureÂ»Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,30 +9,30 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
-«EXTENSION NativeUtil»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
+Â«EXTENSION NativeUtilÂ»
 
-«DEFINE Init(instanceVarName : String) FOR gmfgraph::CustomClass»
-«EXPAND customAttribute(instanceVarName) FOREACH attributes»
-«ENDDEFINE»
+Â«DEFINE Init(instanceVarName : String) FOR gmfgraph::CustomClassÂ»
+Â«EXPAND customAttribute(instanceVarName) FOREACH attributesÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE customAttribute(instanceVarName : String) FOR gmfgraph::CustomAttribute»
-«EXPAND customAttrValueImpl-»
-«IF directAccess»
-«instanceVarName».«name» = «EXPAND customAttrValue»;
-«ELSE»
-«instanceVarName».set«name.firstToUpper()»(«EXPAND customAttrValue»);
-«ENDIF»
-«ENDDEFINE»
+Â«DEFINE customAttribute(instanceVarName : String) FOR gmfgraph::CustomAttributeÂ»
+Â«EXPAND customAttrValueImpl-Â»
+Â«IF directAccessÂ»
+Â«instanceVarNameÂ».Â«nameÂ» = Â«EXPAND customAttrValueÂ»;
+Â«ELSEÂ»
+Â«instanceVarNameÂ».setÂ«name.firstToUpper()Â»(Â«EXPAND customAttrValueÂ»);
+Â«ENDIFÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE customAttrValueImpl FOR gmfgraph::CustomAttribute»
-«IF multiStatementValue-»
-«messageFormat(value, Sequence { 'attr' + name.firstToUpper() })-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE customAttrValueImpl FOR gmfgraph::CustomAttributeÂ»
+Â«IF multiStatementValue-Â»
+Â«messageFormat(value, Sequence { 'attr' + name.firstToUpper() })-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE customAttrValue FOR gmfgraph::CustomAttribute»
-«IF multiStatementValue»attr«name.firstToUpper()»«ELSE-»«value»«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE customAttrValue FOR gmfgraph::CustomAttributeÂ»
+Â«IF multiStatementValueÂ»attrÂ«name.firstToUpper()Â»Â«ELSE-Â»Â«valueÂ»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»

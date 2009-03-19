@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,59 +10,59 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«REM»Define attributes for Figures (for DecorationFigure subclasses see Decoration.xpt)«ENDREM»
+Â«REMÂ»Define attributes for Figures (for DecorationFigure subclasses see Decoration.xpt)Â«ENDREMÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::Figure»
-«REM»Polymorphic entry point for any Figure's subclass attributes«ENDREM»
-«EXPAND attr::Figure::figureAttrs(figureVarName)»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::FigureÂ»
+Â«REMÂ»Polymorphic entry point for any Figure's subclass attributesÂ«ENDREMÂ»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::Shape-»
-«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::Shape-Â»
+Â«EXPAND attr::Shape::shapeAttrs(figureVarName)-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::Label-»
-«figureVarName».setText("«text»");
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::Label-Â»
+Â«figureVarNameÂ».setText("Â«textÂ»");
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::RoundedRectangle-»
-«figureVarName».setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(«EXPAND MapMode::_map FOR cornerWidth», «EXPAND MapMode::_map FOR cornerHeight»));
-«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::RoundedRectangle-Â»
+Â«figureVarNameÂ».setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(Â«EXPAND MapMode::_map FOR cornerWidthÂ», Â«EXPAND MapMode::_map FOR cornerHeightÂ»));
+Â«EXPAND attr::Shape::shapeAttrs(figureVarName)-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::CustomFigure-»
-«EXPAND attr::CustomClass::Init(figureVarName)-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::CustomFigure-Â»
+Â«EXPAND attr::CustomClass::Init(figureVarName)-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::Polyline-»
-«FOREACH template->asSequence() AS pt-»
-«figureVarName».addPoint(new org.eclipse.draw2d.geometry.Point(«EXPAND MapMode::_map FOR pt»));
-«ENDFOREACH-»
-«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::Polyline-Â»
+Â«FOREACH template->asSequence() AS pt-Â»
+Â«figureVarNameÂ».addPoint(new org.eclipse.draw2d.geometry.Point(Â«EXPAND MapMode::_map FOR ptÂ»));
+Â«ENDFOREACH-Â»
+Â«EXPAND attr::Shape::shapeAttrs(figureVarName)-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::SVGFigure-»
-«figureVarName».setURI("«documentURI»");
-«IF noCanvasWidth-»
-«figureVarName».setSpecifyCanvasWidth(false);
-«ENDIF-»
-«IF noCanvasHeight-»
-«figureVarName».setSpecifyCanvasHeight(false);
-«ENDIF-»
-«IF areaOfInterest <> null-»
-«figureVarName».setAreaOfInterest(«EXPAND Instance FOR areaOfInterest»);
-«ENDIF-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::SVGFigure-Â»
+Â«figureVarNameÂ».setURI("Â«documentURIÂ»");
+Â«IF noCanvasWidth-Â»
+Â«figureVarNameÂ».setSpecifyCanvasWidth(false);
+Â«ENDIF-Â»
+Â«IF noCanvasHeight-Â»
+Â«figureVarNameÂ».setSpecifyCanvasHeight(false);
+Â«ENDIF-Â»
+Â«IF areaOfInterest <> null-Â»
+Â«figureVarNameÂ».setAreaOfInterest(Â«EXPAND Instance FOR areaOfInterestÂ»);
+Â«ENDIF-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Instance FOR gmfgraph::Rectangle2D-»
-new java.awt.geom.Rectangle2D.Float(«x»f, «y»f, «width»f, «height»f)
-«ENDDEFINE»
+Â«DEFINE Instance FOR gmfgraph::Rectangle2D-Â»
+new java.awt.geom.Rectangle2D.Float(Â«xÂ»f, Â«yÂ»f, Â«widthÂ»f, Â«heightÂ»f)
+Â«ENDDEFINEÂ»

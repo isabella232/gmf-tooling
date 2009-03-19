@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,26 +10,26 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«REM»No mapMode at all«ENDREM»
+Â«REMÂ»No mapMode at allÂ«ENDREMÂ»
 
-«DEFINE _map FOR gmfgraph::Dimension-»
-«dx», «dy-»
-«ENDDEFINE»
+Â«DEFINE _map FOR gmfgraph::Dimension-Â»
+Â«dxÂ», Â«dy-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _map FOR gmfgraph::Point-»
-«x», «y-»
-«ENDDEFINE»
+Â«DEFINE _map FOR gmfgraph::Point-Â»
+Â«xÂ», Â«y-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _map FOR Integer»
-«self-»
-«ENDDEFINE»
+Â«DEFINE _map FOR IntegerÂ»
+Â«self-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _map FOR gmfgraph::Insets-»
-«top», «left», «bottom», «right-»
-«ENDDEFINE»
+Â«DEFINE _map FOR gmfgraph::Insets-Â»
+Â«topÂ», Â«leftÂ», Â«bottomÂ», Â«right-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Activator FOR OclAny-»
-«ENDDEFINE»
+Â«DEFINE Activator FOR OclAny-Â»
+Â«ENDDEFINEÂ»

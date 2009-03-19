@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,15 +10,15 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE localCoordinates FOR gmfgraph::RealFigure»
+Â«DEFINE localCoordinates FOR gmfgraph::RealFigureÂ»
 	/**
 	 * @generated
 	 */
-	private boolean myUseLocalCoordinates = «not (children)[gmfgraph::Polyline]->isEmpty()»;
+	private boolean myUseLocalCoordinates = Â«not (children)[gmfgraph::Polyline]->isEmpty()Â»;
 
 	/**
 	 * @generated
@@ -33,79 +33,79 @@
 	protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
 		myUseLocalCoordinates = useLocalCoordinates;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE localCoordinates FOR gmfgraph::Polyline-»
-«ENDDEFINE»
+Â«DEFINE localCoordinates FOR gmfgraph::Polyline-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE localCoordinates FOR gmfgraph::Label-»
-«ENDDEFINE»
+Â«DEFINE localCoordinates FOR gmfgraph::Label-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE extraMethods FOR gmfgraph::Figure-»
-«ENDDEFINE»
+Â«DEFINE extraMethods FOR gmfgraph::Figure-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE extraMethods FOR gmfgraph::ScalablePolygon-»
-«EXPAND xtras::ScalablePolygon::behaviour-»
-«ENDDEFINE»
+Â«DEFINE extraMethods FOR gmfgraph::ScalablePolygon-Â»
+Â«EXPAND xtras::ScalablePolygon::behaviour-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE extraMethods FOR gmfgraph::SVGFigure-»
-«EXPAND svgProperty FOREACH properties-»
-«ENDDEFINE»
+Â«DEFINE extraMethods FOR gmfgraph::SVGFigure-Â»
+Â«EXPAND svgProperty FOREACH properties-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE svgProperty FOR gmfgraph::SVGProperty-»
-«IF getter <> null-»
-	«EXPAND svgPropertyGetter-»
-«ENDIF-»
-«IF setter <> null-»
-	«EXPAND svgPropertySetter-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE svgProperty FOR gmfgraph::SVGProperty-Â»
+Â«IF getter <> null-Â»
+	Â«EXPAND svgPropertyGetter-Â»
+Â«ENDIF-Â»
+Â«IF setter <> null-Â»
+	Â«EXPAND svgPropertySetter-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE svgPropertyGetter FOR gmfgraph::SVGProperty-»
+Â«DEFINE svgPropertyGetter FOR gmfgraph::SVGProperty-Â»
 
 	/**
 	 * @generated
 	 */
-	public «svgPropertyType(self)» «getter»() {
-		org.w3c.dom.NodeList nodes = getNodes("«_query»"); //$NON-NLS-1$
+	public Â«svgPropertyType(self)Â» Â«getterÂ»() {
+		org.w3c.dom.NodeList nodes = getNodes("Â«_queryÂ»"); //$NON-NLS-1$
 		if (nodes.getLength() > 0) {
 			org.w3c.dom.Element element = (org.w3c.dom.Element) nodes.item(0);
-			«IF type = gmfgraph::SVGPropertyType::COLOR-»
-			return getColor(element, "«attribute»"); //$NON-NLS-1$
-			«ELSEIF type = gmfgraph::SVGPropertyType::FLOAT-»
-			String value = element.getAttributeNS(null, "«attribute»"); //$NON-NLS-1$
+			Â«IF type = gmfgraph::SVGPropertyType::COLOR-Â»
+			return getColor(element, "Â«attributeÂ»"); //$NON-NLS-1$
+			Â«ELSEIF type = gmfgraph::SVGPropertyType::FLOAT-Â»
+			String value = element.getAttributeNS(null, "Â«attributeÂ»"); //$NON-NLS-1$
 			return Float.parseFloat(value);
-			«ELSE-»
-			return element.getAttributeNS(null, "«attribute»"); //$NON-NLS-1$
-			«ENDIF-»
+			Â«ELSE-Â»
+			return element.getAttributeNS(null, "Â«attributeÂ»"); //$NON-NLS-1$
+			Â«ENDIF-Â»
 		}
-		«IF type = gmfgraph::SVGPropertyType::FLOAT-»
+		Â«IF type = gmfgraph::SVGPropertyType::FLOAT-Â»
 		return 0;
-		«ELSE-»
+		Â«ELSE-Â»
 		return null;
-		«ENDIF-»
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE svgPropertySetter FOR gmfgraph::SVGProperty-»
+Â«DEFINE svgPropertySetter FOR gmfgraph::SVGProperty-Â»
 
 	/**
 	 * @generated
 	 */
-	public void «setter»(«svgPropertyType(self)» value) {
-		«IF type = gmfgraph::SVGPropertyType::COLOR-»
+	public void Â«setterÂ»(Â«svgPropertyType(self)Â» value) {
+		Â«IF type = gmfgraph::SVGPropertyType::COLOR-Â»
 		String svalue = org.eclipse.gmf.runtime.lite.svg.SVGUtils.toSVGColor(getDocument(), value);
-		«ELSEIF type = gmfgraph::SVGPropertyType::FLOAT-»
+		Â«ELSEIF type = gmfgraph::SVGPropertyType::FLOAT-Â»
 		String svalue = Float.toString(value);
-		«ENDIF-»
-		org.w3c.dom.NodeList nodes = getNodes("«_query»"); //$NON-NLS-1$
+		Â«ENDIF-Â»
+		org.w3c.dom.NodeList nodes = getNodes("Â«_queryÂ»"); //$NON-NLS-1$
 		for (int i = 0; i < nodes.getLength(); i++) {
-			((org.w3c.dom.Element) nodes.item(i)).setAttributeNS(null, "«attribute»", //$NON-NLS-1$
-				«IF type = gmfgraph::SVGPropertyType::STRING»value«ELSE»svalue«ENDIF»);
+			((org.w3c.dom.Element) nodes.item(i)).setAttributeNS(null, "Â«attributeÂ»", //$NON-NLS-1$
+				Â«IF type = gmfgraph::SVGPropertyType::STRINGÂ»valueÂ«ELSEÂ»svalueÂ«ENDIFÂ»);
 		}
-		«IF callSuper-»
-		super.«setter»(value);
-		«ENDIF-»
+		Â«IF callSuper-Â»
+		super.Â«setterÂ»(value);
+		Â«ENDIF-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

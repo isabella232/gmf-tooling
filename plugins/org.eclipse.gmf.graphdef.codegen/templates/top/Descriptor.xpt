@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,75 +10,75 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Top(packageStmt : String) FOR gmfgraph::FigureDescriptor»
-«IF packageStmt <> null and packageStmt.xpandLength() > 0»package «packageStmt»;
-«ENDIF-»
+Â«DEFINE Top(packageStmt : String) FOR gmfgraph::FigureDescriptorÂ»
+Â«IF packageStmt <> null and packageStmt.xpandLength() > 0Â»package Â«packageStmtÂ»;
+Â«ENDIF-Â»
 /**
  * @generated
  */
-public class «compilationUnitName(self)» extends «EXPAND Runtime::fqn FOR actualFigure» {
-«EXPAND body»
-«additionalStaticFields()»
+public class Â«compilationUnitName(self)Â» extends Â«EXPAND Runtime::fqn FOR actualFigureÂ» {
+Â«EXPAND bodyÂ»
+Â«additionalStaticFields()Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
 
 
-«DEFINE Inner FOR gmfgraph::FigureDescriptor»
+Â«DEFINE Inner FOR gmfgraph::FigureDescriptorÂ»
 /**
  * @generated
  */
-public class «compilationUnitName(self)» extends «EXPAND Runtime::fqn FOR actualFigure» {
-«EXPAND body»
+public class Â«compilationUnitName(self)Â» extends Â«EXPAND Runtime::fqn FOR actualFigureÂ» {
+Â«EXPAND bodyÂ»
 }
-«additionalStaticFields()»
-«ENDDEFINE»
+Â«additionalStaticFields()Â»
+Â«ENDDEFINEÂ»
 
-«REM»«ENDREM»
-«DEFINE body FOR gmfgraph::FigureDescriptor»
+Â«REMÂ»Â«ENDREMÂ»
+Â«DEFINE body FOR gmfgraph::FigureDescriptorÂ»
 
-«EXPAND accessorField FOREACH accessors->select(a | not (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))»
+Â«EXPAND accessorField FOREACH accessors->select(a | not (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))Â»
 
-«EXPAND Figure::ClassBody(compilationUnitName(self)) FOR actualFigure»
+Â«EXPAND Figure::ClassBody(compilationUnitName(self)) FOR actualFigureÂ»
 
-«EXPAND accessorToField FOREACH accessors->select(a | not (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))»
-«FOREACH accessors->select(a | (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))->asSequence() AS a-»
-«EXPAND accessorToCustom(allCustomAccessors(self)->select(fa | fa.typedFigure = a.figure)) FOR a»
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«EXPAND accessorToField FOREACH accessors->select(a | not (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))Â»
+Â«FOREACH accessors->select(a | (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))->asSequence() AS a-Â»
+Â«EXPAND accessorToCustom(allCustomAccessors(self)->select(fa | fa.typedFigure = a.figure)) FOR aÂ»
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE accessorField FOR gmfgraph::ChildAccess-»
+Â«DEFINE accessorField FOR gmfgraph::ChildAccess-Â»
 	/**
 	 * @generated
 	 */
-	private «EXPAND Runtime::fqn FOR figure» «self.figureFieldName()»; 
-«ENDDEFINE»
+	private Â«EXPAND Runtime::fqn FOR figureÂ» Â«self.figureFieldName()Â»; 
+Â«ENDDEFINEÂ»
 
-«REM»ChildAccess points to figure we've generated, there's a field for it«ENDREM»
-«DEFINE accessorToField FOR gmfgraph::ChildAccess-»
+Â«REMÂ»ChildAccess points to figure we've generated, there's a field for itÂ«ENDREMÂ»
+Â«DEFINE accessorToField FOR gmfgraph::ChildAccess-Â»
 	/**
 	 * @generated
 	 */
-	public «EXPAND Runtime::fqn FOR figure» «accessor»() {
-		return «self.figureFieldName()»;
+	public Â«EXPAND Runtime::fqn FOR figureÂ» Â«accessorÂ»() {
+		return Â«self.figureFieldName()Â»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»ChildAccess points to some child of a CustomFigure, need to delegate to it's accessor
+Â«REMÂ»ChildAccess points to some child of a CustomFigure, need to delegate to it's accessor
 Perhaps, should add support for ChildAccess not being generated (in case they are have same name as 
 FigureAccessor.accessor
-«ENDREM»
-«DEFINE accessorToCustom(fa : Sequence(gmfgraph::FigureAccessor)) FOR gmfgraph::ChildAccess-»
+Â«ENDREMÂ»
+Â«DEFINE accessorToCustom(fa : Sequence(gmfgraph::FigureAccessor)) FOR gmfgraph::ChildAccess-Â»
 	/**
 	 * @generated
 	 */
-	public «EXPAND Runtime::fqn FOR figure» «accessor»() {
-		return «fa.accessor->first()»;
+	public Â«EXPAND Runtime::fqn FOR figureÂ» Â«accessorÂ»() {
+		return Â«fa.accessor->first()Â»;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

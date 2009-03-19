@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,25 +10,25 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«REM»Instantiate and define attributes for DecorationFigures«ENDREM»
+Â«REMÂ»Instantiate and define attributes for DecorationFiguresÂ«ENDREMÂ»
 
-«DEFINE Instantiate(figureVarName : String) FOR gmfgraph::DecorationFigure-»
-«EXPAND Runtime::newInstance(figureVarName)»
-«EXPAND Attrs::Init(figureVarName)»
-«ENDDEFINE»
+Â«DEFINE Instantiate(figureVarName : String) FOR gmfgraph::DecorationFigure-Â»
+Â«EXPAND Runtime::newInstance(figureVarName)Â»
+Â«EXPAND Attrs::Init(figureVarName)Â»
+Â«ENDDEFINEÂ»
 
-«REM»Guess, can't delegate to attrs through Attrs::Init because there's already Init for Polyline«ENDREM»
-«DEFINE Instantiate(figureVarName : String) FOR gmfgraph::PolylineDecoration-»
-«EXPAND Runtime::newInstance(figureVarName)»
-«EXPAND attr::Decoration::polylineAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«REMÂ»Guess, can't delegate to attrs through Attrs::Init because there's already Init for PolylineÂ«ENDREMÂ»
+Â«DEFINE Instantiate(figureVarName : String) FOR gmfgraph::PolylineDecoration-Â»
+Â«EXPAND Runtime::newInstance(figureVarName)Â»
+Â«EXPAND attr::Decoration::polylineAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«REM»Copy of above template for PolylineDecoration, just because PolygonDecoration doesn't extend PolylineDecoration in draw2d and gmfgraph«ENDREM»
-«DEFINE Instantiate(figureVarName : String) FOR gmfgraph::PolygonDecoration-»
-«EXPAND Runtime::newInstance(figureVarName)»
-«EXPAND attr::Decoration::polylineAttrs(figureVarName)-»
-«ENDDEFINE»
+Â«REMÂ»Copy of above template for PolylineDecoration, just because PolygonDecoration doesn't extend PolylineDecoration in draw2d and gmfgraphÂ«ENDREMÂ»
+Â«DEFINE Instantiate(figureVarName : String) FOR gmfgraph::PolygonDecoration-Â»
+Â«EXPAND Runtime::newInstance(figureVarName)Â»
+Â«EXPAND attr::Decoration::polylineAttrs(figureVarName)-Â»
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,51 +10,51 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::LayoutData»
-«ERROR 'Abstract definition, there should be specific template for ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::LayoutDataÂ»
+Â«ERROR 'Abstract definition, there should be specific template for ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::BorderLayoutData»
-«parentFigureVariable».add(«owningFigureVariable», org.eclipse.draw2d.BorderLayout.«borderLayoutConstant(self)»);
-«ENDDEFINE»
+Â«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::BorderLayoutDataÂ»
+Â«parentFigureVariableÂ».add(Â«owningFigureVariableÂ», org.eclipse.draw2d.BorderLayout.Â«borderLayoutConstant(self)Â»);
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::XYLayoutData»
-«parentFigureVariable».add(«owningFigureVariable», «EXPAND newRectangle»);
-«ENDDEFINE»
+Â«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::XYLayoutDataÂ»
+Â«parentFigureVariableÂ».add(Â«owningFigureVariableÂ», Â«EXPAND newRectangleÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::CustomLayoutData»
-«LET 'constraint' + owningFigureVariable.firstToUpper() AS constraintVarName-»
-«qualifiedClassName» «constraintVarName» = new «qualifiedClassName»();
-«EXPAND attr::CustomClass::Init(constraintVarName)»
-«parentFigureVariable».add(«owningFigureVariable», «constraintVarName»);
-«ENDLET-»
-«ENDDEFINE»
+Â«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::CustomLayoutDataÂ»
+Â«LET 'constraint' + owningFigureVariable.firstToUpper() AS constraintVarName-Â»
+Â«qualifiedClassNameÂ» Â«constraintVarNameÂ» = new Â«qualifiedClassNameÂ»();
+Â«EXPAND attr::CustomClass::Init(constraintVarName)Â»
+Â«parentFigureVariableÂ».add(Â«owningFigureVariableÂ», Â«constraintVarNameÂ»);
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::GridLayoutData»
-«LET 'constraint' + owningFigureVariable.firstToUpper() AS constraintVarName»
-«EXPAND Runtime::newInstance(constraintVarName)»
-«constraintVarName».verticalAlignment = «EXPAND Runtime::fqn».«verticalAlignment.repr()»;«REM».literal, not .name!«ENDREM»
-«constraintVarName».horizontalAlignment = «EXPAND Runtime::fqn».«horizontalAlignment.repr()»;
-«constraintVarName».horizontalIndent = «horizontalIndent»;
-«constraintVarName».horizontalSpan = «horizontalSpan»;
-«constraintVarName».verticalSpan = «verticalSpan»;
-«constraintVarName».grabExcessHorizontalSpace = «grabExcessHorizontalSpace»;
-«constraintVarName».grabExcessVerticalSpace = «grabExcessVerticalSpace»;
-«IF null <> sizeHint-»
-«constraintVarName».widthHint = «sizeHint.dx»;
-«constraintVarName».heightHint = «sizeHint.dy»;
-«ENDIF-»
-«parentFigureVariable».add(«owningFigureVariable», «constraintVarName»);
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE Init(parentFigureVariable : String, owningFigureVariable : String) FOR gmfgraph::GridLayoutDataÂ»
+Â«LET 'constraint' + owningFigureVariable.firstToUpper() AS constraintVarNameÂ»
+Â«EXPAND Runtime::newInstance(constraintVarName)Â»
+Â«constraintVarNameÂ».verticalAlignment = Â«EXPAND Runtime::fqnÂ».Â«verticalAlignment.repr()Â»;Â«REMÂ».literal, not .name!Â«ENDREMÂ»
+Â«constraintVarNameÂ».horizontalAlignment = Â«EXPAND Runtime::fqnÂ».Â«horizontalAlignment.repr()Â»;
+Â«constraintVarNameÂ».horizontalIndent = Â«horizontalIndentÂ»;
+Â«constraintVarNameÂ».horizontalSpan = Â«horizontalSpanÂ»;
+Â«constraintVarNameÂ».verticalSpan = Â«verticalSpanÂ»;
+Â«constraintVarNameÂ».grabExcessHorizontalSpace = Â«grabExcessHorizontalSpaceÂ»;
+Â«constraintVarNameÂ».grabExcessVerticalSpace = Â«grabExcessVerticalSpaceÂ»;
+Â«IF null <> sizeHint-Â»
+Â«constraintVarNameÂ».widthHint = Â«sizeHint.dxÂ»;
+Â«constraintVarNameÂ».heightHint = Â«sizeHint.dyÂ»;
+Â«ENDIF-Â»
+Â«parentFigureVariableÂ».add(Â«owningFigureVariableÂ», Â«constraintVarNameÂ»);
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE newRectangle FOR gmfgraph::XYLayoutData»
-new org.eclipse.draw2d.geometry.Rectangle(«IF null <> topLeft-»
-«EXPAND MapMode::_map FOR topLeft», «ELSE»0, 0, «ENDIF-»
-«IF null <> size-»
-«EXPAND MapMode::_map FOR size»«ELSE»0, 0«ENDIF»)
-«ENDDEFINE»
+Â«DEFINE newRectangle FOR gmfgraph::XYLayoutDataÂ»
+new org.eclipse.draw2d.geometry.Rectangle(Â«IF null <> topLeft-Â»
+Â«EXPAND MapMode::_map FOR topLeftÂ», Â«ELSEÂ»0, 0, Â«ENDIF-Â»
+Â«IF null <> size-Â»
+Â«EXPAND MapMode::_map FOR sizeÂ»Â«ELSEÂ»0, 0Â«ENDIFÂ»)
+Â«ENDDEFINEÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,49 +10,49 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE CreateChildren FOR gmfgraph::RealFigure-»
+Â«DEFINE CreateChildren FOR gmfgraph::RealFigure-Â»
 	/**
 	 * @generated
 	 */
 	private void createContents(){
-«EXPAND instantiate(0, self, 'this') FOREACH children»
+Â«EXPAND instantiate(0, self, 'this') FOREACH childrenÂ»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::Figure»
-«ERROR 'Abstract instantiate(int, RealFigure, String)'»
-«ENDDEFINE»
+Â«DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::FigureÂ»
+Â«ERROR 'Abstract instantiate(int, RealFigure, String)'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::FigureRef-»
+Â«DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::FigureRef-Â»
 /*FIXME referenced figures are just not yet fully-functional; need process attrs and layout here*/
-«EXPAND instantiate(count, parentFigure, parentFigureVariable) FOR figure-»
-«ENDDEFINE»
+Â«EXPAND instantiate(count, parentFigure, parentFigureVariable) FOR figure-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::RealFigure»
-«LET figureVariableName(self, count) AS figureVarName»
-«EXPAND newFigureInstance(figureVarName)»
-«EXPAND Attrs::Init(figureVarName)-»
-«IF null = layoutData or null = parentFigure.layout-»«REM»Check for (parentLayout != null) to avoid generating data that won't be used. Not sure it's essential, but it was that way with old jet templates«ENDREM»
-«parentFigureVariable».add(«figureVarName»);
-«ELSE-»
-«EXPAND LayoutData::Init(parentFigureVariable, figureVarName) FOR layoutData-»
-«ENDIF-»
-«EXPAND Layout::Init(figureVarName) FOR layout-»
-«EXPAND instantiate(count + 1, self, figureVarName) FOREACH children-»
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::RealFigureÂ»
+Â«LET figureVariableName(self, count) AS figureVarNameÂ»
+Â«EXPAND newFigureInstance(figureVarName)Â»
+Â«EXPAND Attrs::Init(figureVarName)-Â»
+Â«IF null = layoutData or null = parentFigure.layout-Â»Â«REMÂ»Check for (parentLayout != null) to avoid generating data that won't be used. Not sure it's essential, but it was that way with old jet templatesÂ«ENDREMÂ»
+Â«parentFigureVariableÂ».add(Â«figureVarNameÂ»);
+Â«ELSE-Â»
+Â«EXPAND LayoutData::Init(parentFigureVariable, figureVarName) FOR layoutData-Â»
+Â«ENDIF-Â»
+Â«EXPAND Layout::Init(figureVarName) FOR layout-Â»
+Â«EXPAND instantiate(count + 1, self, figureVarName) FOREACH children-Â»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE newFigureInstance(figureVarName : String) FOR gmfgraph::RealFigure»«IF needsField(self)»«figureVarName» = «EXPAND Runtime::newInstance»;«ELSE»«EXPAND Runtime::newInstance(figureVarName)»«ENDIF»«ENDDEFINE»
+Â«DEFINE newFigureInstance(figureVarName : String) FOR gmfgraph::RealFigureÂ»Â«IF needsField(self)Â»Â«figureVarNameÂ» = Â«EXPAND Runtime::newInstanceÂ»;Â«ELSEÂ»Â«EXPAND Runtime::newInstance(figureVarName)Â»Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE newFigureInstance(figureVarName : String) FOR gmfgraph::ScalablePolygon-»
-«LET figureVarName.firstToUpper() + 'Class' AS localClassName-»
-class «localClassName» extends «EXPAND Runtime::fqn» {
-«EXPAND xtras::ScalablePolygon::behaviour-»
+Â«DEFINE newFigureInstance(figureVarName : String) FOR gmfgraph::ScalablePolygon-Â»
+Â«LET figureVarName.firstToUpper() + 'Class' AS localClassName-Â»
+class Â«localClassNameÂ» extends Â«EXPAND Runtime::fqnÂ» {
+Â«EXPAND xtras::ScalablePolygon::behaviour-Â»
 };
-«IF not needsField(self)»«localClassName» «ENDIF»«figureVarName» = new «localClassName»();
-«ENDLET-»
-«ENDDEFINE»
+Â«IF not needsField(self)Â»Â«localClassNameÂ» Â«ENDIFÂ»Â«figureVarNameÂ» = new Â«localClassNameÂ»();
+Â«ENDLET-Â»
+Â«ENDDEFINEÂ»

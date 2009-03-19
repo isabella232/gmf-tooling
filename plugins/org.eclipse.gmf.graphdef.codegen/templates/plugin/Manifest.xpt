@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,36 +9,36 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«EXTENSION Util»
+Â«EXTENSION UtilÂ»
 
 /*
  * FIXME add a simple model (either non-generated, .ecore only?) to descripbe GenConfig 
  */
 
-«DEFINE Init(pluginID : String, pluginActivatorQualifiedName : String, exportedPackages : Sequence(String), referencedBundles : Sequence(String)) FOR OclAny-»
+Â«DEFINE Init(pluginID : String, pluginActivatorQualifiedName : String, exportedPackages : Sequence(String), referencedBundles : Sequence(String)) FOR OclAny-Â»
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: «pluginID»; singleton:=true
+Bundle-SymbolicName: Â«pluginIDÂ»; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: %providerName
-Bundle-Activator: «pluginActivatorQualifiedName»
+Bundle-Activator: Â«pluginActivatorQualifiedNameÂ»
 Bundle-Localization: plugin
-Export-Package:«EXPAND exportPackageHeader FOR exportedPackages»
-Require-Bundle:«EXPAND requireBundleHeader FOR requiredBundles(referencedBundles)»
+Export-Package:Â«EXPAND exportPackageHeader FOR exportedPackagesÂ»
+Require-Bundle:Â«EXPAND requireBundleHeader FOR requiredBundles(referencedBundles)Â»
 Eclipse-LazyStart: true
-«EXPAND additions-»
-«ENDDEFINE»
+Â«EXPAND additions-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE exportPackageHeader FOR Sequence(String)-»
-«EXPAND print FOREACH self SEPARATOR ',\n'-»
-«ENDDEFINE»
+Â«DEFINE exportPackageHeader FOR Sequence(String)-Â»
+Â«EXPAND print FOREACH self SEPARATOR ',\n'-Â»
+Â«ENDDEFINEÂ»
 
-«REM»FIXME Set[String] - improve union recognition«ENDREM»
-«DEFINE requireBundleHeader FOR Collection(OclAny)-»
-«EXPAND print FOREACH (self->collect(it | it))[String]->asSequence() SEPARATOR ',\n'-»
-«ENDDEFINE»
+Â«REMÂ»FIXME Set[String] - improve union recognitionÂ«ENDREMÂ»
+Â«DEFINE requireBundleHeader FOR Collection(OclAny)-Â»
+Â«EXPAND print FOREACH (self->collect(it | it))[String]->asSequence() SEPARATOR ',\n'-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE print FOR String» «self»«ENDDEFINE»
+Â«DEFINE print FOR StringÂ» Â«selfÂ»Â«ENDDEFINEÂ»
 
-«DEFINE additions FOR OclAny»«ENDDEFINE»
+Â«DEFINE additions FOR OclAnyÂ»Â«ENDDEFINEÂ»

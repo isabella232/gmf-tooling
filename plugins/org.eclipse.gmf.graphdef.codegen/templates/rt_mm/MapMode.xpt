@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,33 +10,33 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION rt_mm::MapModeUtil»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION rt_mm::MapModeUtilÂ»
 
-«REM»Using MapMode«ENDREM»
+Â«REMÂ»Using MapModeÂ«ENDREMÂ»
 
-«DEFINE _map FOR gmfgraph::Dimension-»
-«EXPAND deviceToLogic FOR dx», «EXPAND deviceToLogic FOR dy-»
-«ENDDEFINE»
+Â«DEFINE _map FOR gmfgraph::Dimension-Â»
+Â«EXPAND deviceToLogic FOR dxÂ», Â«EXPAND deviceToLogic FOR dy-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _map FOR gmfgraph::Point-»
-«EXPAND deviceToLogic FOR x», «EXPAND deviceToLogic FOR y-»
-«ENDDEFINE»
+Â«DEFINE _map FOR gmfgraph::Point-Â»
+Â«EXPAND deviceToLogic FOR xÂ», Â«EXPAND deviceToLogic FOR y-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _map FOR Integer-»
-«EXPAND deviceToLogic-»
-«ENDDEFINE»
+Â«DEFINE _map FOR Integer-Â»
+Â«EXPAND deviceToLogic-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE _map FOR gmfgraph::Insets-»
-«EXPAND deviceToLogic FOR top», «EXPAND deviceToLogic FOR left», «EXPAND deviceToLogic FOR bottom», «EXPAND deviceToLogic FOR right-»
-«ENDDEFINE»
+Â«DEFINE _map FOR gmfgraph::Insets-Â»
+Â«EXPAND deviceToLogic FOR topÂ», Â«EXPAND deviceToLogic FOR leftÂ», Â«EXPAND deviceToLogic FOR bottomÂ», Â«EXPAND deviceToLogic FOR right-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE deviceToLogic FOR Integer-»
-«mapModeAccessor()»getMapMode().DPtoLP(«self»)
-«ENDDEFINE»
+Â«DEFINE deviceToLogic FOR Integer-Â»
+Â«mapModeAccessor()Â»getMapMode().DPtoLP(Â«selfÂ»)
+Â«ENDDEFINEÂ»
 
-«DEFINE Activator FOR OclAny-»
+Â«DEFINE Activator FOR OclAny-Â»
 	private org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode myMapMode = org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeTypes.IDENTITY_MM;
 
 	/**
@@ -55,4 +55,4 @@
 	public org.eclipse.gmf.runtime.draw2d.ui.mapmode.IMapMode getMapMode() {
 		return myMapMode;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

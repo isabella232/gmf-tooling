@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,47 +10,47 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::Border-»
-«figureVarName».setBorder(«EXPAND border(figureVarName)»);
-«ENDDEFINE»
+Â«DEFINE Init(figureVarName : String) FOR gmfgraph::Border-Â»
+Â«figureVarNameÂ».setBorder(Â«EXPAND border(figureVarName)Â»);
+Â«ENDDEFINEÂ»
 
-«DEFINE InitMethods FOR gmfgraph::Figure»
-«FOREACH getBordersInUse() AS b»«EXPAND initMethod((getBordersInUse()->indexOf(b) - 1)) FOR b»«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE InitMethods FOR gmfgraph::FigureÂ»
+Â«FOREACH getBordersInUse() AS bÂ»Â«EXPAND initMethod((getBordersInUse()->indexOf(b) - 1)) FOR bÂ»Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE initMethod(c : Integer) FOR gmfgraph::CustomBorder-»
+Â«DEFINE initMethod(c : Integer) FOR gmfgraph::CustomBorder-Â»
 	/**
 	 * @generated
 	 */
-	private org.eclipse.draw2d.Border createBorder«c»() {
-		«EXPAND Runtime::newInstance('result')»
-		«EXPAND attr::CustomClass::Init('result')»
+	private org.eclipse.draw2d.Border createBorderÂ«cÂ»() {
+		Â«EXPAND Runtime::newInstance('result')Â»
+		Â«EXPAND attr::CustomClass::Init('result')Â»
 		return result;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE border(figureVarName : String) FOR gmfgraph::Border»
-«ERROR 'This is an abstract definition border(String, Border) invoked for ' + self.repr()»
-«ENDDEFINE»
+Â«DEFINE border(figureVarName : String) FOR gmfgraph::BorderÂ»
+Â«ERROR 'This is an abstract definition border(String, Border) invoked for ' + self.repr()Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE border(figureVarName : String) FOR gmfgraph::LineBorder-»
-new org.eclipse.draw2d.LineBorder(«IF null = color»null«ELSE»«EXPAND attr::Figure::color(figureVarName.toUpper() + '_BORDER') FOR color»«ENDIF», «EXPAND MapMode::_map FOR width»)«ENDDEFINE»
+Â«DEFINE border(figureVarName : String) FOR gmfgraph::LineBorder-Â»
+new org.eclipse.draw2d.LineBorder(Â«IF null = colorÂ»nullÂ«ELSEÂ»Â«EXPAND attr::Figure::color(figureVarName.toUpper() + '_BORDER') FOR colorÂ»Â«ENDIFÂ», Â«EXPAND MapMode::_map FOR widthÂ»)Â«ENDDEFINEÂ»
 
-«DEFINE border(figureVarName : String) FOR gmfgraph::MarginBorder-»
-new org.eclipse.draw2d.MarginBorder(«EXPAND MapMode::_map FOR insets»)«ENDDEFINE»
+Â«DEFINE border(figureVarName : String) FOR gmfgraph::MarginBorder-Â»
+new org.eclipse.draw2d.MarginBorder(Â«EXPAND MapMode::_map FOR insetsÂ»)Â«ENDDEFINEÂ»
 
-«DEFINE border(figureVarName : String) FOR gmfgraph::CompoundBorder-»
-new org.eclipse.draw2d.CompoundBorder(«IF outer = null»null«ELSE»«EXPAND border(figureVarName) FOR outer»«ENDIF», «IF inner = null»null«ELSE»«EXPAND border(figureVarName) FOR inner»«ENDIF»)
-«ENDDEFINE»
+Â«DEFINE border(figureVarName : String) FOR gmfgraph::CompoundBorder-Â»
+new org.eclipse.draw2d.CompoundBorder(Â«IF outer = nullÂ»nullÂ«ELSEÂ»Â«EXPAND border(figureVarName) FOR outerÂ»Â«ENDIFÂ», Â«IF inner = nullÂ»nullÂ«ELSEÂ»Â«EXPAND border(figureVarName) FOR innerÂ»Â«ENDIFÂ»)
+Â«ENDDEFINEÂ»
 
-«DEFINE border(figureVarName : String) FOR gmfgraph::CustomBorder-»
-createBorder«getBordersInUse()->size()»()«addBorder(self)-»
-«ENDDEFINE»
+Â«DEFINE border(figureVarName : String) FOR gmfgraph::CustomBorder-Â»
+createBorderÂ«getBordersInUse()->size()Â»()Â«addBorder(self)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE border(figureVarName : String) FOR gmfgraph::BorderRef-»
-«EXPAND border(figureVarName) FOR actual-»
-«ENDDEFINE»
+Â«DEFINE border(figureVarName : String) FOR gmfgraph::BorderRef-Â»
+Â«EXPAND border(figureVarName) FOR actual-Â»
+Â«ENDDEFINEÂ»

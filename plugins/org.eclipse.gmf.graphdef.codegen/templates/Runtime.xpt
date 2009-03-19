@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,65 +10,65 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE newInstance(figureVarName : String) FOR gmfgraph::Figure»«EXPAND fqn» «figureVarName» = «EXPAND newInstance»;«ENDDEFINE»
-«DEFINE newInstance FOR gmfgraph::Figure»new «EXPAND fqn»()«ENDDEFINE»
+Â«DEFINE newInstance(figureVarName : String) FOR gmfgraph::FigureÂ»Â«EXPAND fqnÂ» Â«figureVarNameÂ» = Â«EXPAND newInstanceÂ»;Â«ENDDEFINEÂ»
+Â«DEFINE newInstance FOR gmfgraph::FigureÂ»new Â«EXPAND fqnÂ»()Â«ENDDEFINEÂ»
 
-«DEFINE newInstance(layoutVarName : String) FOR gmfgraph::Layout»«EXPAND fqn» «layoutVarName» = «EXPAND newInstance»;«ENDDEFINE»
-«DEFINE newInstance FOR gmfgraph::Layout»new «EXPAND fqn»()«ENDDEFINE»
+Â«DEFINE newInstance(layoutVarName : String) FOR gmfgraph::LayoutÂ»Â«EXPAND fqnÂ» Â«layoutVarNameÂ» = Â«EXPAND newInstanceÂ»;Â«ENDDEFINEÂ»
+Â«DEFINE newInstance FOR gmfgraph::LayoutÂ»new Â«EXPAND fqnÂ»()Â«ENDDEFINEÂ»
 
-«DEFINE newInstance(constraintVarName : String) FOR gmfgraph::LayoutData»«EXPAND fqn» «constraintVarName» = «EXPAND newInstance»;«ENDDEFINE»
-«DEFINE newInstance FOR gmfgraph::LayoutData»new «EXPAND fqn»()«ENDDEFINE»
+Â«DEFINE newInstance(constraintVarName : String) FOR gmfgraph::LayoutDataÂ»Â«EXPAND fqnÂ» Â«constraintVarNameÂ» = Â«EXPAND newInstanceÂ»;Â«ENDDEFINEÂ»
+Â«DEFINE newInstance FOR gmfgraph::LayoutDataÂ»new Â«EXPAND fqnÂ»()Â«ENDDEFINEÂ»
 
-«DEFINE newInstance(borderVarName : String) FOR gmfgraph::Border»«EXPAND fqn» «borderVarName» = «EXPAND newInstance»;«ENDDEFINE»
-«DEFINE newInstance FOR gmfgraph::Border»new «EXPAND fqn»()«ENDDEFINE»
+Â«DEFINE newInstance(borderVarName : String) FOR gmfgraph::BorderÂ»Â«EXPAND fqnÂ» Â«borderVarNameÂ» = Â«EXPAND newInstanceÂ»;Â«ENDDEFINEÂ»
+Â«DEFINE newInstance FOR gmfgraph::BorderÂ»new Â«EXPAND fqnÂ»()Â«ENDDEFINEÂ»
 
 
-«DEFINE fqn FOR gmfgraph::Figure»«ERROR 'Abstract definition fqn(Figure)'»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Layout»«ERROR 'Abstract definition fqn(Layout)'»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::LayoutData»«ERROR 'Abstract definition fqn(LayoutData)'»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Border»«ERROR 'Abstract definition fqn(Border)'»«ENDDEFINE»
-
-////////////////////////
-«DEFINE fqn FOR gmfgraph::CustomLayout»«qualifiedClassName»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::CustomBorder»«qualifiedClassName»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::CustomFigure»«qualifiedClassName»«ENDDEFINE»
+Â«DEFINE fqn FOR gmfgraph::FigureÂ»Â«ERROR 'Abstract definition fqn(Figure)'Â»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::LayoutÂ»Â«ERROR 'Abstract definition fqn(Layout)'Â»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::LayoutDataÂ»Â«ERROR 'Abstract definition fqn(LayoutData)'Â»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::BorderÂ»Â«ERROR 'Abstract definition fqn(Border)'Â»Â«ENDDEFINEÂ»
 
 ////////////////////////
-«DEFINE fqn FOR gmfgraph::FlowLayout»«IF forceSingleLine»org.eclipse.draw2d.ToolbarLayout«ELSE»org.eclipse.draw2d.FlowLayout«ENDIF»«ENDDEFINE»
-
-«DEFINE fqn FOR gmfgraph::XYLayout»org.eclipse.draw2d.XYLayout«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::XYLayoutData»org.eclipse.draw2d.geometry.Rectangle«ENDDEFINE»
-
-«DEFINE fqn FOR gmfgraph::GridLayout»org.eclipse.draw2d.GridLayout«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::GridLayoutData»org.eclipse.draw2d.GridData«ENDDEFINE»
-
-«DEFINE fqn FOR gmfgraph::StackLayout»org.eclipse.draw2d.StackLayout«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::BorderLayout»org.eclipse.draw2d.BorderLayout«ENDDEFINE»
+Â«DEFINE fqn FOR gmfgraph::CustomLayoutÂ»Â«qualifiedClassNameÂ»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::CustomBorderÂ»Â«qualifiedClassNameÂ»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::CustomFigureÂ»Â«qualifiedClassNameÂ»Â«ENDDEFINEÂ»
 
 ////////////////////////
-«DEFINE fqn FOR gmfgraph::FigureRef»«EXPAND fqn FOR figure»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel«ELSE»org.eclipse.draw2d.Label«ENDIF»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::LabeledContainer»org.eclipse.draw2d.LabeledContainer«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Rectangle»org.eclipse.draw2d.RectangleFigure«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::RoundedRectangle»org.eclipse.draw2d.RoundedRectangle«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Ellipse»org.eclipse.draw2d.Ellipse«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Polygon»org.eclipse.draw2d.Polygon«ENDDEFINE»
-«REM»FIXME«ENDREM»«DEFINE fqn FOR gmfgraph::ScalablePolygon»org.eclipse.draw2d.Shape«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::PolygonDecoration»org.eclipse.draw2d.PolygonDecoration«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Polyline»org.eclipse.draw2d.Polyline«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::PolylineDecoration»org.eclipse.draw2d.PolylineDecoration«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::PolylineConnection»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx«ELSE»org.eclipse.draw2d.PolylineConnection«ENDIF»«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::SVGFigure»org.eclipse.gmf.runtime.lite.svg.SVGFigure«ENDDEFINE»
+Â«DEFINE fqn FOR gmfgraph::FlowLayoutÂ»Â«IF forceSingleLineÂ»org.eclipse.draw2d.ToolbarLayoutÂ«ELSEÂ»org.eclipse.draw2d.FlowLayoutÂ«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«REM»
+Â«DEFINE fqn FOR gmfgraph::XYLayoutÂ»org.eclipse.draw2d.XYLayoutÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::XYLayoutDataÂ»org.eclipse.draw2d.geometry.RectangleÂ«ENDDEFINEÂ»
+
+Â«DEFINE fqn FOR gmfgraph::GridLayoutÂ»org.eclipse.draw2d.GridLayoutÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::GridLayoutDataÂ»org.eclipse.draw2d.GridDataÂ«ENDDEFINEÂ»
+
+Â«DEFINE fqn FOR gmfgraph::StackLayoutÂ»org.eclipse.draw2d.StackLayoutÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::BorderLayoutÂ»org.eclipse.draw2d.BorderLayoutÂ«ENDDEFINEÂ»
+
+////////////////////////
+Â«DEFINE fqn FOR gmfgraph::FigureRefÂ»Â«EXPAND fqn FOR figureÂ»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::LabelÂ»Â«IF isFullRuntime()Â»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabelÂ«ELSEÂ»org.eclipse.draw2d.LabelÂ«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::LabeledContainerÂ»org.eclipse.draw2d.LabeledContainerÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::RectangleÂ»org.eclipse.draw2d.RectangleFigureÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::RoundedRectangleÂ»org.eclipse.draw2d.RoundedRectangleÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::EllipseÂ»org.eclipse.draw2d.EllipseÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::PolygonÂ»org.eclipse.draw2d.PolygonÂ«ENDDEFINEÂ»
+Â«REMÂ»FIXMEÂ«ENDREMÂ»Â«DEFINE fqn FOR gmfgraph::ScalablePolygonÂ»org.eclipse.draw2d.ShapeÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::PolygonDecorationÂ»org.eclipse.draw2d.PolygonDecorationÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::PolylineÂ»org.eclipse.draw2d.PolylineÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::PolylineDecorationÂ»org.eclipse.draw2d.PolylineDecorationÂ«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::PolylineConnectionÂ»Â«IF isFullRuntime()Â»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionExÂ«ELSEÂ»org.eclipse.draw2d.PolylineConnectionÂ«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE fqn FOR gmfgraph::SVGFigureÂ»org.eclipse.gmf.runtime.lite.svg.SVGFigureÂ«ENDDEFINEÂ»
+
+Â«REMÂ»
 to utilize around, need to fix XpandExecutionContextImpl to get aspects not only from relative aspects/ path, but from
 template file as well.
 // Full GMF Runtime
 ////////////////////////
-«AROUND fqn FOR PolylineConnection»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
-«AROUND fqn FOR Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
-«ENDREM»
+Â«AROUND fqn FOR PolylineConnectionÂ»Â«IF isFullRuntime()Â»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionExÂ«ELSEÂ»Â«targetDef.proceed()Â»Â«ENDIFÂ»Â«ENDAROUNDÂ»
+Â«AROUND fqn FOR LabelÂ»Â«IF isFullRuntime()Â»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabelÂ«ELSEÂ»Â«targetDef.proceed()Â»Â«ENDIFÂ»Â«ENDAROUNDÂ»
+Â«ENDREMÂ»

@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -11,82 +11,82 @@
  *    Michael Golubev (Borland) - GridLayout attributes
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::Layout-»
-«owningFigureVariable».setLayoutManager(«EXPAND Runtime::newInstance»);
-«ENDDEFINE»
+Â«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::Layout-Â»
+Â«owningFigureVariableÂ».setLayoutManager(Â«EXPAND Runtime::newInstanceÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::LayoutRef-»
-«EXPAND Init(owningFigureVariable) FOR actual-»
-«ENDDEFINE»
+Â«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::LayoutRef-Â»
+Â«EXPAND Init(owningFigureVariable) FOR actual-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::BorderLayout-»
-«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarName»
-	«EXPAND Runtime::newInstance(layoutVarName)»
-«IF null <> spacing-»
-	«layoutVarName».setHorizontalSpacing(«spacing.dx»);// TODO mapMode?
-	«layoutVarName».setVerticalSpacing(«spacing.dy»);
-«ENDIF-»
-	«owningFigureVariable».setLayoutManager(«layoutVarName»);
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::BorderLayout-Â»
+Â«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarNameÂ»
+	Â«EXPAND Runtime::newInstance(layoutVarName)Â»
+Â«IF null <> spacing-Â»
+	Â«layoutVarNameÂ».setHorizontalSpacing(Â«spacing.dxÂ»);// TODO mapMode?
+	Â«layoutVarNameÂ».setVerticalSpacing(Â«spacing.dyÂ»);
+Â«ENDIF-Â»
+	Â«owningFigureVariableÂ».setLayoutManager(Â«layoutVarNameÂ»);
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::GridLayout-»
-«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarName»
-	«EXPAND Runtime::newInstance(layoutVarName)»
-	«layoutVarName».numColumns = «numColumns»;
-	«layoutVarName».makeColumnsEqualWidth = «equalWidth»;
-«IF null <> spacing-»
-	«layoutVarName».horizontalSpacing = «spacing.dx»;
-	«layoutVarName».verticalSpacing = «spacing.dy»;
-«ENDIF-»
-«IF null <> margins-»
-	«layoutVarName».marginWidth = «margins.dx»;
-	«layoutVarName».marginHeight = «margins.dy»;
-«ENDIF-»
-	«owningFigureVariable».setLayoutManager(«layoutVarName»);
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::GridLayout-Â»
+Â«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarNameÂ»
+	Â«EXPAND Runtime::newInstance(layoutVarName)Â»
+	Â«layoutVarNameÂ».numColumns = Â«numColumnsÂ»;
+	Â«layoutVarNameÂ».makeColumnsEqualWidth = Â«equalWidthÂ»;
+Â«IF null <> spacing-Â»
+	Â«layoutVarNameÂ».horizontalSpacing = Â«spacing.dxÂ»;
+	Â«layoutVarNameÂ».verticalSpacing = Â«spacing.dyÂ»;
+Â«ENDIF-Â»
+Â«IF null <> margins-Â»
+	Â«layoutVarNameÂ».marginWidth = Â«margins.dxÂ»;
+	Â«layoutVarNameÂ».marginHeight = Â«margins.dyÂ»;
+Â«ENDIF-Â»
+	Â«owningFigureVariableÂ».setLayoutManager(Â«layoutVarNameÂ»);
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::FlowLayout-»
-«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarName»
-	«EXPAND Runtime::newInstance(layoutVarName)»
-	«layoutVarName».setStretchMinorAxis(«matchMinorSize»);
-	«layoutVarName».setMinorAlignment(«EXPAND Runtime::fqn».«EXPAND alignment(forceSingleLine) FOR minorAlignment»);
-«IF forceSingleLine»
-	«layoutVarName».setSpacing(«majorSpacing»);
-	«layoutVarName».setVertical(«vertical»);
-«ELSE»
-	«layoutVarName».setMajorAlignment(«EXPAND Runtime::fqn».«EXPAND alignment(forceSingleLine) FOR majorAlignment»);
-	«layoutVarName».setMajorSpacing(«majorSpacing»);
-	«layoutVarName».setMinorSpacing(«minorSpacing»);
-	«layoutVarName».setHorizontal(«not vertical»);
-«ENDIF»
-	«owningFigureVariable».setLayoutManager(«layoutVarName»);
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::FlowLayout-Â»
+Â«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarNameÂ»
+	Â«EXPAND Runtime::newInstance(layoutVarName)Â»
+	Â«layoutVarNameÂ».setStretchMinorAxis(Â«matchMinorSizeÂ»);
+	Â«layoutVarNameÂ».setMinorAlignment(Â«EXPAND Runtime::fqnÂ».Â«EXPAND alignment(forceSingleLine) FOR minorAlignmentÂ»);
+Â«IF forceSingleLineÂ»
+	Â«layoutVarNameÂ».setSpacing(Â«majorSpacingÂ»);
+	Â«layoutVarNameÂ».setVertical(Â«verticalÂ»);
+Â«ELSEÂ»
+	Â«layoutVarNameÂ».setMajorAlignment(Â«EXPAND Runtime::fqnÂ».Â«EXPAND alignment(forceSingleLine) FOR majorAlignmentÂ»);
+	Â«layoutVarNameÂ».setMajorSpacing(Â«majorSpacingÂ»);
+	Â«layoutVarNameÂ».setMinorSpacing(Â«minorSpacingÂ»);
+	Â«layoutVarNameÂ».setHorizontal(Â«not verticalÂ»);
+Â«ENDIFÂ»
+	Â«owningFigureVariableÂ».setLayoutManager(Â«layoutVarNameÂ»);
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::CustomLayout-»
-«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarName»
-	«EXPAND Runtime::newInstance(layoutVarName)»
-«EXPAND attr::CustomClass::Init(layoutVarName)-»
-	«owningFigureVariable».setLayoutManager(«layoutVarName»);
-«ENDLET»
-«ENDDEFINE»
+Â«DEFINE Init(owningFigureVariable : String) FOR gmfgraph::CustomLayout-Â»
+Â«LET 'layout' + owningFigureVariable.firstToUpper() AS layoutVarNameÂ»
+	Â«EXPAND Runtime::newInstance(layoutVarName)Â»
+Â«EXPAND attr::CustomClass::Init(layoutVarName)-Â»
+	Â«owningFigureVariableÂ».setLayoutManager(Â«layoutVarNameÂ»);
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE alignment(forceSingleLine : Boolean) FOR gmfgraph::Alignment-»
-«IF self = gmfgraph::Alignment::BEGINNING-»
-«IF forceSingleLine»ALIGN_TOPLEFT«ELSE»ALIGN_LEFTTOP«ENDIF-»
-«ELSEIF self = gmfgraph::Alignment::END-»
-«IF forceSingleLine»ALIGN_BOTTOMRIGHT«ELSE»ALIGN_RIGHTBOTTOM«ENDIF-»
-«ELSE-»
-ALIGN_CENTER«ENDIF-»
-«REM»XXX implement as extension
+Â«DEFINE alignment(forceSingleLine : Boolean) FOR gmfgraph::Alignment-Â»
+Â«IF self = gmfgraph::Alignment::BEGINNING-Â»
+Â«IF forceSingleLineÂ»ALIGN_TOPLEFTÂ«ELSEÂ»ALIGN_LEFTTOPÂ«ENDIF-Â»
+Â«ELSEIF self = gmfgraph::Alignment::END-Â»
+Â«IF forceSingleLineÂ»ALIGN_BOTTOMRIGHTÂ«ELSEÂ»ALIGN_RIGHTBOTTOMÂ«ENDIF-Â»
+Â«ELSE-Â»
+ALIGN_CENTERÂ«ENDIF-Â»
+Â«REMÂ»XXX implement as extension
 switch (value) {
   case Alignment.BEGINNING : ""
   default : ""
-}«ENDREM»
-«ENDDEFINE»
+}Â«ENDREMÂ»
+Â«ENDDEFINEÂ»

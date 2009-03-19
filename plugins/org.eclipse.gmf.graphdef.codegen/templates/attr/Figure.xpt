@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,87 +9,87 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE figureAttrs(figureVarName : String) FOR gmfgraph::Figure-»
-«EXPAND foregroundColor(self, figureVarName) FOR foregroundColor-»
-«EXPAND backgroundColor(self, figureVarName) FOR backgroundColor-»
-«EXPAND font(figureVarName) FOR font-»
-«EXPAND preferredSize(figureVarName) FOR preferredSize-»
-«EXPAND maximumSize(figureVarName) FOR maximumSize-»
-«EXPAND minimumSize(figureVarName) FOR minimumSize-»
-«EXPAND position(figureVarName) FOR location-»
-«EXPAND size(figureVarName) FOR size-»
-«EXPAND insets(figureVarName) FOR insets-»
-«EXPAND Border::Init(figureVarName) FOR border-»
-«ENDDEFINE»
+Â«DEFINE figureAttrs(figureVarName : String) FOR gmfgraph::Figure-Â»
+Â«EXPAND foregroundColor(self, figureVarName) FOR foregroundColor-Â»
+Â«EXPAND backgroundColor(self, figureVarName) FOR backgroundColor-Â»
+Â«EXPAND font(figureVarName) FOR font-Â»
+Â«EXPAND preferredSize(figureVarName) FOR preferredSize-Â»
+Â«EXPAND maximumSize(figureVarName) FOR maximumSize-Â»
+Â«EXPAND minimumSize(figureVarName) FOR minimumSize-Â»
+Â«EXPAND position(figureVarName) FOR location-Â»
+Â«EXPAND size(figureVarName) FOR size-Â»
+Â«EXPAND insets(figureVarName) FOR insets-Â»
+Â«EXPAND Border::Init(figureVarName) FOR border-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE foregroundColor(figure : gmfgraph::Figure, figureVarName : String) FOR gmfgraph::Color-»
-	«figureVarName».setForegroundColor(«EXPAND color(figureVarName.toUpper() + '_FORE')»);
-«ENDDEFINE»
-«DEFINE backgroundColor(figure : gmfgraph::Figure, figureVarName : String) FOR gmfgraph::Color-»
-	«figureVarName».setBackgroundColor(«EXPAND color(figureVarName.toUpper() + '_BACK')»);
-«ENDDEFINE»
+Â«DEFINE foregroundColor(figure : gmfgraph::Figure, figureVarName : String) FOR gmfgraph::Color-Â»
+	Â«figureVarNameÂ».setForegroundColor(Â«EXPAND color(figureVarName.toUpper() + '_FORE')Â»);
+Â«ENDDEFINEÂ»
+Â«DEFINE backgroundColor(figure : gmfgraph::Figure, figureVarName : String) FOR gmfgraph::Color-Â»
+	Â«figureVarNameÂ».setBackgroundColor(Â«EXPAND color(figureVarName.toUpper() + '_BACK')Â»);
+Â«ENDDEFINEÂ»
 
-«DEFINE preferredSize(figureVarName : String) FOR gmfgraph::Dimension-»
-«figureVarName».setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(«EXPAND MapMode::_map»));
-«ENDDEFINE»
+Â«DEFINE preferredSize(figureVarName : String) FOR gmfgraph::Dimension-Â»
+Â«figureVarNameÂ».setPreferredSize(new org.eclipse.draw2d.geometry.Dimension(Â«EXPAND MapMode::_mapÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE maximumSize(figureVarName : String) FOR gmfgraph::Dimension-»
-«figureVarName».setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(«EXPAND MapMode::_map»));
-«ENDDEFINE»
+Â«DEFINE maximumSize(figureVarName : String) FOR gmfgraph::Dimension-Â»
+Â«figureVarNameÂ».setMaximumSize(new org.eclipse.draw2d.geometry.Dimension(Â«EXPAND MapMode::_mapÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE minimumSize(figureVarName : String) FOR gmfgraph::Dimension-»
-«figureVarName».setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(«EXPAND MapMode::_map»));
-«ENDDEFINE»
+Â«DEFINE minimumSize(figureVarName : String) FOR gmfgraph::Dimension-Â»
+Â«figureVarNameÂ».setMinimumSize(new org.eclipse.draw2d.geometry.Dimension(Â«EXPAND MapMode::_mapÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE position(figureVarName : String) FOR gmfgraph::Point-»
-«figureVarName».setLocation(new org.eclipse.draw2d.geometry.Point(«EXPAND MapMode::_map»));
-«ENDDEFINE»
+Â«DEFINE position(figureVarName : String) FOR gmfgraph::Point-Â»
+Â«figureVarNameÂ».setLocation(new org.eclipse.draw2d.geometry.Point(Â«EXPAND MapMode::_mapÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE size(figureVarName : String) FOR gmfgraph::Point-»
-«figureVarName».setSize(«EXPAND MapMode::_map»);
-«ENDDEFINE»
+Â«DEFINE size(figureVarName : String) FOR gmfgraph::Point-Â»
+Â«figureVarNameÂ».setSize(Â«EXPAND MapMode::_mapÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE insets(figureVarName : String) FOR gmfgraph::Insets-»
-«REM»using MarginBorder for insets is not good idea«ENDREM»
-«figureVarName».setBorder(new org.eclipse.draw2d.MarginBorder(«EXPAND MapMode::_map»));
-«ENDDEFINE»
+Â«DEFINE insets(figureVarName : String) FOR gmfgraph::Insets-Â»
+Â«REMÂ»using MarginBorder for insets is not good ideaÂ«ENDREMÂ»
+Â«figureVarNameÂ».setBorder(new org.eclipse.draw2d.MarginBorder(Â«EXPAND MapMode::_mapÂ»));
+Â«ENDDEFINEÂ»
 
-«DEFINE font(figureVarName : String) FOR gmfgraph::Font»
-«ERROR 'This is abstact definition, just to overcome some xpand polymorphism limitations'»
-«ENDDEFINE»
+Â«DEFINE font(figureVarName : String) FOR gmfgraph::FontÂ»
+Â«ERROR 'This is abstact definition, just to overcome some xpand polymorphism limitations'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE color(variableName : String) FOR gmfgraph::Color»
-«ERROR 'This is abstact definition, just to overcome some xpand polymorphism limitations'»
-«ENDDEFINE»
+Â«DEFINE color(variableName : String) FOR gmfgraph::ColorÂ»
+Â«ERROR 'This is abstact definition, just to overcome some xpand polymorphism limitations'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE color(variableName : String) FOR gmfgraph::RGBColor-»
-«variableName-»
-«FILE '' staticFields»
+Â«DEFINE color(variableName : String) FOR gmfgraph::RGBColor-Â»
+Â«variableName-Â»
+Â«FILE '' staticFieldsÂ»
 /**
  * @generated
  */
-static final org.eclipse.swt.graphics.Color «variableName» = new org.eclipse.swt.graphics.Color(null, «red», «green», «blue»);
-«ENDFILE»
-«ENDDEFINE»
+static final org.eclipse.swt.graphics.Color Â«variableNameÂ» = new org.eclipse.swt.graphics.Color(null, Â«redÂ», Â«greenÂ», Â«blueÂ»);
+Â«ENDFILEÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE color(variableName : String) FOR gmfgraph::ConstantColor-»
-org.eclipse.draw2d.ColorConstants.«value-»
-«ENDDEFINE»
+Â«DEFINE color(variableName : String) FOR gmfgraph::ConstantColor-Â»
+org.eclipse.draw2d.ColorConstants.Â«value-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE font(figureVarName : String) FOR gmfgraph::BasicFont-»
-«LET figureVarName.toUpper() + '_FONT' AS variableName»
-«figureVarName».setFont(«variableName»);
-«FILE '' staticFields»
+Â«DEFINE font(figureVarName : String) FOR gmfgraph::BasicFont-Â»
+Â«LET figureVarName.toUpper() + '_FONT' AS variableNameÂ»
+Â«figureVarNameÂ».setFont(Â«variableNameÂ»);
+Â«FILE '' staticFieldsÂ»
 /**
  * @generated
  */
-static final org.eclipse.swt.graphics.Font «variableName» = new org.eclipse.swt.graphics.Font(org.eclipse.swt.widgets.Display.getCurrent(), «IF null = faceName or faceName.trim().xpandLength() = 0»org.eclipse.swt.widgets.Display.getDefault().getSystemFont().getFontData()[0].getName()«ELSE»"«faceName»"«ENDIF», «height», org.eclipse.swt.SWT.«style»);
-«ENDFILE»
-«ENDLET»
-«ENDDEFINE»
+static final org.eclipse.swt.graphics.Font Â«variableNameÂ» = new org.eclipse.swt.graphics.Font(org.eclipse.swt.widgets.Display.getCurrent(), Â«IF null = faceName or faceName.trim().xpandLength() = 0Â»org.eclipse.swt.widgets.Display.getDefault().getSystemFont().getFontData()[0].getName()Â«ELSEÂ»"Â«faceNameÂ»"Â«ENDIFÂ», Â«heightÂ», org.eclipse.swt.SWT.Â«styleÂ»);
+Â«ENDFILEÂ»
+Â«ENDLETÂ»
+Â«ENDDEFINEÂ»
 

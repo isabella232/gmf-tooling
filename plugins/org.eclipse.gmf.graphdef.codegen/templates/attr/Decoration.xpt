@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -9,44 +9,44 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
+Â«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION UtilÂ»
 
-«DEFINE polylineAttrs(figureVarName : String) FOR gmfgraph::PolylineDecoration-»
-«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«EXPAND templatePoints(figureVarName)-»
-«EXPAND scale(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE polylineAttrs(figureVarName : String) FOR gmfgraph::PolylineDecoration-Â»
+Â«EXPAND attr::Shape::shapeAttrs(figureVarName)-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«EXPAND templatePoints(figureVarName)-Â»
+Â«EXPAND scale(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE polylineAttrs(figureVarName : String) FOR gmfgraph::PolygonDecoration-»
-«EXPAND attr::Shape::shapeAttrs(figureVarName)-»
-«EXPAND attr::Figure::figureAttrs(figureVarName)-»
-«EXPAND templatePoints(figureVarName)-»
-«EXPAND scale(figureVarName)-»
-«ENDDEFINE»
+Â«DEFINE polylineAttrs(figureVarName : String) FOR gmfgraph::PolygonDecoration-Â»
+Â«EXPAND attr::Shape::shapeAttrs(figureVarName)-Â»
+Â«EXPAND attr::Figure::figureAttrs(figureVarName)-Â»
+Â«EXPAND templatePoints(figureVarName)-Â»
+Â«EXPAND scale(figureVarName)-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePoints(figureVarName : String) FOR gmfgraph::Polyline-»
-«IF not template->isEmpty()-»
+Â«DEFINE templatePoints(figureVarName : String) FOR gmfgraph::Polyline-Â»
+Â«IF not template->isEmpty()-Â»
 org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
-«EXPAND templatePoint('pl') FOREACH template-»
-«figureVarName».setTemplate(pl);
-«ENDIF-»
-«ENDDEFINE»
+Â«EXPAND templatePoint('pl') FOREACH template-Â»
+Â«figureVarNameÂ».setTemplate(pl);
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE templatePoint(pointListVarName : String) FOR gmfgraph::Point-»
-«pointListVarName».addPoint(«EXPAND MapMode::_map»);
-«ENDDEFINE»
+Â«DEFINE templatePoint(pointListVarName : String) FOR gmfgraph::Point-Â»
+Â«pointListVarNameÂ».addPoint(Â«EXPAND MapMode::_mapÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE scale(figureVarName : String) FOR gmfgraph::PolylineDecoration-»
-«IF not template->isEmpty()-»
-«figureVarName».setScale(«EXPAND MapMode::_map FOR 7», «EXPAND MapMode::_map FOR 3»);
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE scale(figureVarName : String) FOR gmfgraph::PolylineDecoration-Â»
+Â«IF not template->isEmpty()-Â»
+Â«figureVarNameÂ».setScale(Â«EXPAND MapMode::_map FOR 7Â», Â«EXPAND MapMode::_map FOR 3Â»);
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE scale(figureVarName : String) FOR gmfgraph::PolygonDecoration-»
-«IF not template->isEmpty()-»
-«figureVarName».setScale(«EXPAND MapMode::_map FOR 7», «EXPAND MapMode::_map FOR 3»);
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE scale(figureVarName : String) FOR gmfgraph::PolygonDecoration-Â»
+Â«IF not template->isEmpty()-Â»
+Â«figureVarNameÂ».setScale(Â«EXPAND MapMode::_map FOR 7Â», Â«EXPAND MapMode::_map FOR 3Â»);
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
