@@ -2,9 +2,10 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="org.eclipse.gmf.xpand.migration.templates" name="Legacy templates" schema="schema/org.eclipse.gmf.xpand.migration.templates.exsd"/>
+   
+<!-- Following actions are not used anymore - only project-wide migration action is available   
    <extension
          point="org.eclipse.ui.popupMenus">
-<!-- Following actions are not used anymore - only project-wide migration action is available
       <objectContribution
             id="org.eclipse.gmf.xpand.migration.actions.xtend"
             objectClass="org.eclipse.core.resources.IFile">
@@ -44,30 +45,65 @@
                menubarPath="additions">
          </action>
       </objectContribution>
--->      
-      <objectContribution
-            id="org.eclipse.gmf.xpand.migration.actions.migrateProject"
-            objectClass="org.eclipse.jdt.core.IJavaProject">
-         <action
-               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject"
-               enablesFor="1"
-               id="org.eclipse.gmf.xpand.migration.migratexpandProject"
-               label="%migrate.xpand.project.action"
-               menubarPath="additions">
-         </action>
-      </objectContribution>
-      <objectContribution
-            id="org.eclipse.gmf.xpand.migration.actions.migrateProject"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject"
-               enablesFor="1"
-               id="org.eclipse.gmf.xpand.migration.migratexpandProject"
-               label="%migrate.xpand.project.action"
-               menubarPath="additions">
-         </action>
-      </objectContribution>
    </extension>
+-->      
+   
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="menu:project">
+         <command commandId="org.eclipse.gmf.xpand.migration.migrateXpandProjectCommand">
+            <visibleWhen>
+               <with variable="selection">
+                  <and>
+                     <count value="1"/>
+                     <iterate>
+                        <and>
+                           <or>
+                              <instanceof value="org.eclipse.jdt.core.IJavaProject"/>
+                              <instanceof value="org.eclipse.core.resources.IProject"/>
+                           </or>
+                           <test 
+                                 property="org.eclipse.gmf.xpand.migration.hasOAWBuilder"
+                                 forcePluginActivation="true">
+                           </test>
+                        </and>
+                     </iterate>
+                  </and>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+		<category 
+			id="org.eclipse.gmf.xpand.migration.migrationCategory" 
+			name="%migrate.category.name" 
+			description="%migrate.category.description">
+		</category>
+		<command 
+			id="org.eclipse.gmf.xpand.migration.migrateXpandProjectCommand" 
+			name="%migrate.xpand.project.command" 
+			categoryId="org.eclipse.gmf.xpand.migration.migrationCategory"
+			defaultHandler="org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProjectCommandHandler">
+		</command>
+   </extension>
+   
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.gmf.internal.xpand.migration.ui.OAWBuilderPropertyTester"
+            id="org.eclipse.gmf.xpand.migration.IJavaProjectPropertyTester"
+            namespace="org.eclipse.gmf.xpand.migration"
+            properties="hasOAWBuilder"
+            type="org.eclipse.jdt.core.IJavaProject">
+      </propertyTester>
+      <propertyTester
+            class="org.eclipse.gmf.internal.xpand.migration.ui.OAWBuilderPropertyTester"
+            id="org.eclipse.gmf.xpand.migration.IProjectPropertyTester"
+            namespace="org.eclipse.gmf.xpand.migration"
+            properties="hasOAWBuilder"
+            type="org.eclipse.core.resources.IProject">
+      </propertyTester>
+   </extension>   
    
    <extension
          id="org.eclipse.gmf.xpand.oawBuilder"

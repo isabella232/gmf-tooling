@@ -13,10 +13,8 @@ package org.eclipse.gmf.internal.xpand.migration.ui;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
-import java.io.CharArrayWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -41,22 +39,11 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.RootManager;
 import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
 import org.eclipse.gmf.internal.xpand.build.OawBuilder;
-import org.eclipse.gmf.internal.xpand.expression.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.migration.ExpressionMigrationFacade;
-import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.util.OawMarkerManager;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-public class MigrateXpandProject extends WorkspaceModifyOperation implements IObjectActionDelegate {
+public class MigrateXpandProject extends WorkspaceModifyOperation {
 
 	private static final String DEFAULT_TEMPLATES_FOLDER = "templates";
 
@@ -84,8 +71,6 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 	
 	private static final String TRANSFORMATION_NATURE_ID = "org.eclipse.m2m.qvt.oml.project.QVTONature";
 
-	private IWorkbenchPart workbenchPart;
-
 	private RootManager rootManager;
 
 	private IProject selectedProject;
@@ -102,63 +87,9 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		}
 		return spm;
 	}
-
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		workbenchPart = targetPart;
-	}
-
-	public void run(IAction action) {
-		try {
-			new ProgressMonitorDialog(getShell()).run(true, true, this);
-		} catch (InvocationTargetException e) {
-			Throwable cause = e.getCause();
-			if (cause instanceof XpandResourceMigrationException) {
-				reportMigrationException((XpandResourceMigrationException) cause);
-			} else if (cause instanceof UnsupportedEncodingException) {
-				showError("Unsupported encoding", "Specified encoding \"" + MigrationVisitor.CHARSET + "\" is not supported by the platform: " + cause.getMessage());
-			} else if (cause != null) {
-				String message = cause.getMessage();
-				if (message == null || message.length() == 0) {
-					final CharArrayWriter writer = new CharArrayWriter();
-					final int[] lineCounter = new int[] {0};
-					final String[] messageContainer = new String[] {null};
-					cause.printStackTrace(new PrintWriter(writer) {
-						public void println() {
-							lineCounter[0] = lineCounter[0] + 1;
-							if (lineCounter[0] == 6) {
-								messageContainer[0] = new String(writer.toCharArray());			
-							}
-							super.println();
-						};
-					});
-					writer.close();
-					message = messageContainer[0] == null ? new String(writer.toCharArray()) : messageContainer[0];
-				}
-				showError("Exception", message);
-			} else {
-				showError("Invocation target exception", e.getMessage());
-			}
-		} catch (InterruptedException e) {
-			// Cancel pressed
-		}
-	}
-
-	private void reportMigrationException(XpandResourceMigrationException ex) {
-		MigrationException migrationException = ex.getMigrationException();
-		StringBuilder sb = new StringBuilder(ex.getTemplateFile().getProjectRelativePath().toString());
-		sb.append(" migration error\n");
-		switch (migrationException.getType()) {
-		case ANALYZATION_PROBLEMS:
-			sb.append("Following analyzation problems present:\n\n");
-			for (AnalysationIssue issue : migrationException.getIssues()) {
-				sb.append(issue.toString());
-				sb.append("\n");
-			}
-			showError("Unable to load xtend resource", sb.toString());
-			return;
-		default:
-			showError("Migration exception", sb.append(migrationException.getMessage()).toString());
-		}
+	
+	MigrateXpandProject(IProject project) {
+		selectedProject = project;
 	}
 
 	@Override
@@ -400,24 +331,6 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 		progressMonitor.done();
 		return getSelectedProject().getFolder(folderName);
 	}
-
-	public void selectionChanged(IAction action, ISelection selection) {
-		selectedProject = null;
-		rootManager = null;
-		if (selection instanceof IStructuredSelection) {
-			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1) {
-				if (structuredSelection.getFirstElement() instanceof IJavaProject) {
-					IJavaProject javaProject = (IJavaProject) structuredSelection.getFirstElement();
-					selectedProject = javaProject.getProject();
-				} else if (structuredSelection.getFirstElement() instanceof IProject) {
-					selectedProject = (IProject) structuredSelection.getFirstElement();
-				}
-			}
-		}
-		action.setEnabled(selectedProject != null);
-		return;
-	}
 	
 	private IProject getSelectedProject() {
 		return selectedProject;
@@ -435,14 +348,6 @@ public class MigrateXpandProject extends WorkspaceModifyOperation implements IOb
 			buildPropertiesManager = new BuildPropertiesManager(getSelectedProject());
 		}
 		return buildPropertiesManager;
-	}
-
-	private Shell getShell() {
-		return workbenchPart.getSite().getShell();
-	}
-
-	private void showError(String title, String contents) {
-		MessageDialog.openError(getShell(), title, contents);
 	}
 
 }
