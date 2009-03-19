@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,35 +10,35 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«DEFINE _main FOR gmfgen::GenDiagram-»
+Â«DEFINE _main FOR gmfgen::GenDiagram-Â»
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
 	<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
-«EXPAND registerHelperAdvice FOREACH topLevelNodes->select(n | n.elementType <> null)-»
+Â«EXPAND registerHelperAdvice FOREACH topLevelNodes->select(n | n.elementType <> null)-Â»
 	</extension>
 	<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
-		<binding context="«editorGen.plugin.iD».TypeContext">
-«EXPAND registerHelperAdviceBinding FOREACH topLevelNodes->select(n | n.elementType <> null)-»
+		<binding context="Â«editorGen.plugin.iDÂ».TypeContext">
+Â«EXPAND registerHelperAdviceBinding FOREACH topLevelNodes->select(n | n.elementType <> null)-Â»
 		</binding>
 	</extension>
 </plugin>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE registerHelperAdvice FOR gmfgen::GenTopLevelNode-»
-		<metamodel nsURI="«modelFacet.metaClass.genPackage.ecorePackage.nsURI»">
+Â«DEFINE registerHelperAdvice FOR gmfgen::GenTopLevelNode-Â»
+		<metamodel nsURI="Â«modelFacet.metaClass.genPackage.ecorePackage.nsURIÂ»">
 			<adviceBinding
-				class="«EXPAND edithelper::className FOR elementType»"
-				id="«EXPAND id FOR elementType»"
+				class="Â«EXPAND edithelper::className FOR elementTypeÂ»"
+				id="Â«EXPAND id FOR elementTypeÂ»"
 				inheritance="none"
-				typeId="«elementType.uniqueIdentifier»"/>
+				typeId="Â«elementType.uniqueIdentifierÂ»"/>
 		</metamodel>
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE id FOR gmfgen::ElementType»«uniqueIdentifier»_ExternalAdvice«ENDDEFINE»
+Â«DEFINE id FOR gmfgen::ElementTypeÂ»Â«uniqueIdentifierÂ»_ExternalAdviceÂ«ENDDEFINEÂ»
 
-«DEFINE registerHelperAdviceBinding FOR gmfgen::GenTopLevelNode-»
-			<advice ref="«EXPAND id FOR elementType»"/>
-«ENDDEFINE»
+Â«DEFINE registerHelperAdviceBinding FOR gmfgen::GenTopLevelNode-Â»
+			<advice ref="Â«EXPAND id FOR elementTypeÂ»"/>
+Â«ENDDEFINEÂ»

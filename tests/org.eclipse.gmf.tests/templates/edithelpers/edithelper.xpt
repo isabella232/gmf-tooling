@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * Copyright (c) 2006, 2008 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -10,11 +10,11 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::StringOperations»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE _main FOR gmfgen::ElementType-»
-public class «EXPAND className» extends org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice {
+Â«DEFINE _main FOR gmfgen::ElementType-Â»
+public class Â«EXPAND classNameÂ» extends org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice {
 
 	public org.eclipse.gmf.runtime.common.core.command.ICommand getBeforeEditCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 		return new MarkerCommand("before");
@@ -26,7 +26,7 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.emf.type.core.ed
 	
 	private class MarkerCommand extends org.eclipse.gmf.runtime.common.core.command.AbstractCommand {
 		public MarkerCommand(String name) {
-			super(name + "MarkerCommand«diagramElement.visualID»");
+			super(name + "MarkerCommandÂ«diagramElement.visualIDÂ»");
 		}
 		
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
@@ -42,12 +42,12 @@ public class «EXPAND className» extends org.eclipse.gmf.runtime.emf.type.core.ed
 		}
 	}
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE className FOR gmfgen::ElementType-»
-	«ERROR 'Should never be called'-»
-«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::ElementType-Â»
+	Â«ERROR 'Should never be called'-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE className FOR gmfgen::MetamodelType»«editHelperClassName»ExternalAdvice«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::MetamodelTypeÂ»Â«editHelperClassNameÂ»ExternalAdviceÂ«ENDDEFINEÂ»
 
-«DEFINE className FOR gmfgen::SpecializationType»«IF editHelperAdviceClassName = null or editHelperAdviceClassName.xpandLength() = 0»«diagramElement.getUniqueIdentifier()»«ELSE»«editHelperAdviceClassName»«ENDIF»ExternalAdvice«ENDDEFINE»
+Â«DEFINE className FOR gmfgen::SpecializationTypeÂ»Â«IF editHelperAdviceClassName = null or editHelperAdviceClassName.xpandLength() = 0Â»Â«diagramElement.getUniqueIdentifier()Â»Â«ELSEÂ»Â«editHelperAdviceClassNameÂ»Â«ENDIFÂ»ExternalAdviceÂ«ENDDEFINEÂ»
