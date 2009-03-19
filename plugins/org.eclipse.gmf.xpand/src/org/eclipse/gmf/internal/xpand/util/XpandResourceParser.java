@@ -1,7 +1,5 @@
 /*
- * <copyright>
- *
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2009 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,8 +8,6 @@
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
  *     Artem Tikhomirov - LPG lexer/parser and error reporting
- *
- * </copyright>
  */
 package org.eclipse.gmf.internal.xpand.util;
 
@@ -32,6 +28,9 @@ public class XpandResourceParser {
 		XpandParser parser = null;
 		XpandLexer scanner = null;
 		final char[] buffer = new StreamConverter().toCharArray(source);
+		if (buffer.length > 0 && buffer[0] == '\uFEFF') {
+			System.arraycopy(buffer, 1, buffer, 0, buffer.length-1);
+		}
 		try {
 			scanner = new XpandLexer(buffer, qualifiedTemplateName);
 			parser = new XpandParser(scanner);
