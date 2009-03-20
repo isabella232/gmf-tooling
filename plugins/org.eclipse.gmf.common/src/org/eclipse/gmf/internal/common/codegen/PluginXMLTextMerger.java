@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -155,11 +155,9 @@ public class PluginXMLTextMerger {
 					result.append(oldED.getText());
 					currentPosition += oldED.getTextLength();
 					oldED.remove();
-					if (!newEDs.isEmpty() && !oldDoc.hasGeneratedExtension(oldED.pointName)) {
-						for (ExtensionDescriptor newED : newEDs) {
-							if (newED.identityMatches(oldED)) {
-								newED.remove();
-							}
+					for (ExtensionDescriptor newED : newEDs) {
+						if (newED.identityMatches(oldED)) {
+							newED.remove();
 						}
 					}
 				}
@@ -301,18 +299,6 @@ public class PluginXMLTextMerger {
 					myPoint2ExtensionsMap.remove(ed.pointName);
 				}
 			}
-		}
-
-		boolean hasGeneratedExtension(String point) {
-			List<ExtensionDescriptor> list = myPoint2ExtensionsMap.get(point);
-			if (list != null && list.size() > 0) {
-				for (ExtensionDescriptor ed : list) {
-					if (ed.generated) {
-						return true;
-					}
-				}
-			}
-			return false;
 		}
 
 		boolean hasMoreExtensions() {
