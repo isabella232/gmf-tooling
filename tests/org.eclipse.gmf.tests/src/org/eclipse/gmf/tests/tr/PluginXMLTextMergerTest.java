@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -342,6 +342,22 @@ public class PluginXMLTextMergerTest extends TestCase {
 		internalTest_Bodies(oldXML_1 + oldXML_2, newXML, oldXML_1 + newXML);
 		// try different order of extensions
 		internalTest_Bodies(oldXML_2 + oldXML_1, newXML, newXML + oldXML_1);
+	}
+
+	// bug #269542: 3 extensions for the same extpoint, all with distinct ids. One (first! in the file) is manually modified and
+	// marked generated=false. After regeneration, original content of that extension is appended in the end of plugin.xml
+	// Seems quite similar to the previous test, {@link #testTwoExtensionsSamePointOneAddedManualNoID}, the difference is
+	// in identity of the modified extension
+	public void testTwoExtensionsSamePointOneModified() {
+		String oldXML_1 = String.format(extensionWithId, "id1", "<body1/>");
+		String oldXML_2 = String.format(extensionWithId, "id2", PI + "<body2/>");
+		String newXML_1 = String.format(extensionWithId, "id1", PI + "<newbody/>");
+		String newXML_2 = String.format(extensionWithId, "id2", PI + "<newbody/>");
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_1 + newXML_2, oldXML_1 + newXML_2);
+		// other ordering
+		internalTest_Bodies(oldXML_1 + oldXML_2, newXML_2 + newXML_1, oldXML_1 + newXML_2);
+		internalTest_Bodies(oldXML_2 + oldXML_1, newXML_1 + newXML_2, newXML_2 + oldXML_1);
+		internalTest_Bodies(oldXML_2 + oldXML_1, newXML_2 + newXML_1, newXML_2 + oldXML_1);
 	}
 
 	public void testTwoGeneratedExtensionsSamePointReplacedByOne() {
