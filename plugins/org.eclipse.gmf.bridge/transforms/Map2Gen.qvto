@@ -682,7 +682,7 @@ mapping GMFMAP::Measurable::metricTarget() : GMFGEN::GenMeasurable
 -- Viewmaps
 -- *************************************************************************************
 
-property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates.migrated/'};
+property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/'};
 
 mapping GMFGRAPH::Canvas::viewmap() : GMFGEN::Viewmap {
 	init {
