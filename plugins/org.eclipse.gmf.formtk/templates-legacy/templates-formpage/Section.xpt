@@ -9,22 +9,22 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Context'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Binding'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «EXTENSION Forms»
 «EXTENSION Widgets»
 «EXTENSION Context»
 
-«DEFINE Main FOR binding::Section-»
+«DEFINE Main FOR Section-»
 package org.eclipse.gmf.dsl.internal.project.ui.editor.pages.deploy;
 «EXPAND imports»
-«EXPAND _class('public ')»
+«EXPAND class("public ")»
 «ENDDEFINE»
 
-«DEFINE imports FOR binding::Section-»
+«DEFINE imports FOR Section-»
 import org.eclipse.gmf.dsl.internal.ui.emf.AttachAdapter;
 import org.eclipse.gmf.dsl.internal.ui.emf.ChangeTracker;
 import org.eclipse.gmf.dsl.internal.ui.emf.FeatureTracker;
@@ -39,7 +39,7 @@ import org.eclipse.ui.forms.*;
 import org.eclipse.ui.forms.widgets.*;
 «ENDDEFINE»
 
-«DEFINE _class(classModifiers : String) FOR binding::Section-»
+«DEFINE class(String classModifiers) FOR Section-»
 «classModifiers»class «className» extends SectionPart implements ChangeTracker, Listener { 
 
 	«EXPAND Update::AdaptersField-»
@@ -48,7 +48,7 @@ import org.eclipse.ui.forms.widgets.*;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND Visual::Fields FOR children->asSequence()»
+«EXPAND Visual::Fields FOR children»
 
 	public «className»(Composite parent, IManagedForm form) {
 		super(parent, form.getToolkit(), Section.TITLE_BAR | Section.TWISTIE | Section.DESCRIPTION);
@@ -68,10 +68,10 @@ import org.eclipse.ui.forms.widgets.*;
 	protected void createContents(Composite parent) {
 		getSection().setText("Generated Section");
 		final FormToolkit ftk = getManagedForm().getToolkit();
-«EXPAND Visual::Main('parent', 'ftk') FOR children->asSequence()»
-«IF layout <> null»«EXPAND Layout::Main('parent') FOR layout»«ENDIF-»
+«EXPAND Visual::Main("parent", "ftk") FOR children»
+«IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
 «EXPAND Update::PopulateWidgets-»
-		// getEditor().getGlobalActionSupport().register(«FOREACH self.textWidgets() AS te SEPARATOR ', '»«fieldName(te)»«ENDFOREACH»);
+		// getEditor().getGlobalActionSupport().register(«FOREACH textWidgets() AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»);
 «EXPAND Update::registerListeners-»
 	}
 
@@ -142,11 +142,11 @@ import org.eclipse.ui.forms.widgets.*;
 		refresh();
 	}
 
-	private «deduceInputType(self).name» getInput() {
+	private «deduceInputType().name» getInput() {
 		// TODO implement;
 		// XXX or move cast to setInput?
-		return («deduceInputType(self).name») myInput;
+		return («deduceInputType().name») myInput;
 	}
-«EXPAND Visual::ExtraMethods(false, 'getManagedForm().getToolkit()') FOR children->asSequence()-»
+«EXPAND Visual::ExtraMethods(false, "getManagedForm().getToolkit()") FOR children-»
 }
 «ENDDEFINE»

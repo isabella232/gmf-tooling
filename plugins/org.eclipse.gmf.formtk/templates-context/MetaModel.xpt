@@ -9,10 +9,10 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Context'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«DEFINE accessor FOR EStructuralFeature»«eContainingClass.ePackage.name.toFirstUpper()»Package.eINSTANCE.get«eContainingClass.name.toFirstUpper()»_«name.toFirstUpper()»()«ENDDEFINE»
+Â«DEFINE accessor FOR ecore::EStructuralFeatureÂ»Â«eContainingClass.ePackage.name.firstToUpper()Â»Package.eINSTANCE.getÂ«eContainingClass.name.firstToUpper()Â»_Â«name.firstToUpper()Â»()Â«ENDDEFINEÂ»
 
-«DEFINE factory FOR EClassifier»«ERROR "abstract MM::factory for " + name»«ENDDEFINE»
-«DEFINE factory FOR EClass»«ePackage.name.toFirstUpper()»Factory.eINSTANCE.create«name.toFirstUpper()»()«ENDDEFINE»
+Â«DEFINE factory FOR ecore::EClassifierÂ»Â«ERROR 'abstract MM::factory for ' + nameÂ»Â«ENDDEFINEÂ»
+Â«DEFINE factory FOR ecore::EClassÂ»Â«ePackage.name.firstToUpper()Â»Factory.eINSTANCE.createÂ«name.firstToUpper()Â»()Â«ENDDEFINEÂ»

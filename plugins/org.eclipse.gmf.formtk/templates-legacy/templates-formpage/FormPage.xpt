@@ -9,13 +9,12 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Context'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Binding'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::StringOperations»
+«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
-«DEFINE Main FOR binding::Editor»
+«DEFINE Main FOR Editor»
 package «packageName»;
 
 public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
@@ -38,16 +37,16 @@ public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
 		org.eclipse.jface.layout.GridLayoutFactory.fillDefaults().applyTo(bottomPane);
 		topPane.setLayout(new FormPageLayout(0,0));
 		//
-		«FOREACH sections->asSequence() AS s-»
-		«s.className» _«s.className.xpandToFirstLower()» = new «s.className»(bottomPane, managedForm);
+		«FOREACH sections AS s-»
+		«s.className» _«s.className.toFirstLower()» = new «s.className»(bottomPane, managedForm);
 		«ENDFOREACH»
 
 		FormPageLayout.setMinimalWidth(uiProject.getSection(), 350);
 		FormPageLayout.setMinimalWidth(uiWizard.getSection(), 350);
 		org.eclipse.jface.layout.GridDataFactory.fillDefaults().grab(true, false).applyTo(actionsSection.getSection());
 		//
-		«FOREACH sections->asSequence() AS s-»
-		managedForm.addPart(_«s.className.xpandToFirstLower()»);
+		«FOREACH sections AS s-»
+		managedForm.addPart(_«s.className.toFirstLower()»);
 		«ENDFOREACH»
 
 //		if (mySectionStateSupport != null) {
@@ -69,5 +68,5 @@ public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
 	}
 
 }
-«EXPAND Section::_class('') FOREACH sections»
+«EXPAND Section::class("") FOREACH sections»
 «ENDDEFINE»

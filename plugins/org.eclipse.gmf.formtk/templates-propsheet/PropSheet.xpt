@@ -9,21 +9,21 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Context'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Binding'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION Forms»
-«EXTENSION Widgets»
+Â«EXTENSION FormsÂ»
+Â«EXTENSION WidgetsÂ»
 
-«DEFINE Main FOR Editor-»
-package «packageName»;
-«EXPAND imports FOREACH sections»
-«EXPAND class("public ") FOREACH sections»
-«ENDDEFINE»
+Â«DEFINE Main FOR binding::Editor-Â»
+package Â«packageNameÂ»;
+Â«EXPAND imports FOREACH sectionsÂ»
+Â«EXPAND _class('public ') FOREACH sectionsÂ»
+Â«ENDDEFINEÂ»
 
-«DEFINE imports FOR Section»
+Â«DEFINE imports FOR binding::SectionÂ»
 import org.eclipse.gmf.dsl.internal.ui.emf.AttachAdapter;
 import org.eclipse.gmf.dsl.internal.ui.emf.ChangeTracker;
 import org.eclipse.gmf.dsl.internal.ui.emf.FeatureTracker;
@@ -36,38 +36,38 @@ import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.forms.widgets.*;
 import org.eclipse.ui.views.properties.tabbed.*;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE packageStatement FOR Section»package org.eclipse.gmf.graphdef.editor.sheet;«ENDDEFINE»
+Â«DEFINE packageStatement FOR binding::SectionÂ»package org.eclipse.gmf.graphdef.editor.sheet;Â«ENDDEFINEÂ»
 
 // Temp solution for hand-moved generated artifacts
-«DEFINE Main FOR Section-»
-«EXPAND packageStatement»
-«EXPAND imports»
+Â«DEFINE Main FOR binding::Section-Â»
+Â«EXPAND packageStatementÂ»
+Â«EXPAND importsÂ»
 import org.eclipse.gmf.gmfgraph.*;
 
-«EXPAND class("public ")»
-«ENDDEFINE»
+Â«EXPAND _class('public ')Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE class(String classModifiers) FOR Section»
-«classModifiers»class «className» extends AbstractPropertySection implements ChangeTracker, Listener {
+Â«DEFINE _class(classModifiers : String) FOR binding::SectionÂ»
+Â«classModifiersÂ»class Â«classNameÂ» extends AbstractPropertySection implements ChangeTracker, Listener {
 
-	«EXPAND Update::AdaptersField-»
+	Â«EXPAND Update::AdaptersField-Â»
 
 	private boolean myIsCommit;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND Visual::Fields FOR children»
+Â«EXPAND Visual::Fields FOR children->asSequence()Â»
 
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage page) {
 		super.createControls(parent, page);
 		getWidgetFactory().paintBordersFor(parent);
-«EXPAND Visual::Main("parent", "getWidgetFactory()") FOR children»
-«IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
-«EXPAND Update::PopulateWidgets-»
-«EXPAND Update::registerListeners-»
+Â«EXPAND Visual::Main('parent', 'getWidgetFactory()') FOR children->asSequence()Â»
+Â«IF layout <> nullÂ»Â«EXPAND Layout::Main('parent') FOR layoutÂ»Â«ENDIF-Â»
+Â«EXPAND Update::PopulateWidgets-Â»
+Â«EXPAND Update::registerListeners-Â»
 	}
 
 	@Override
@@ -89,13 +89,13 @@ import org.eclipse.gmf.gmfgraph.*;
 	}
 
 	protected void commit() {
-		«EXPAND Update::Commit»
+		Â«EXPAND Update::CommitÂ»
 	}
 
 	@Override
 	public void refresh() {
 		myIsRefresh = true;
-		«EXPAND Update::Refresh»
+		Â«EXPAND Update::RefreshÂ»
 		myIsRefresh = false;
 	}
 
@@ -110,7 +110,7 @@ import org.eclipse.gmf.gmfgraph.*;
 		if (myIsRefresh) {
 			return;
 		}
-		«EXPAND Update::handleEventMethodBody-»
+		Â«EXPAND Update::handleEventMethodBody-Â»
 	}
 
 	public void modelChanged(Notification msg) {
@@ -144,17 +144,17 @@ import org.eclipse.gmf.gmfgraph.*;
 	}
 
 	private void attach() {
-	«EXPAND Update::AttachAdapters»
+	Â«EXPAND Update::AttachAdaptersÂ»
 	}
 
 	private void detach() {
-	«EXPAND Update::DetachAdapters»
+	Â«EXPAND Update::DetachAdaptersÂ»
 	}
 
-	protected «deduceInputType().name» getInput() {
+	protected Â«deduceInputType(self).nameÂ» getInput() {
 		// TODO implement;
-		return («deduceInputType().name») myInput;
+		return (Â«deduceInputType(self).nameÂ») myInput;
 	}
-«EXPAND Visual::ExtraMethods(true, "getWidgetFactory()") FOR children»
+Â«EXPAND Visual::ExtraMethods(true, 'getWidgetFactory()') FOR children->asSequence()Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

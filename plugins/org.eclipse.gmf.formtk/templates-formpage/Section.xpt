@@ -9,22 +9,22 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Context'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Binding'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION Forms»
-«EXTENSION Widgets»
-«EXTENSION Context»
+Â«EXTENSION FormsÂ»
+Â«EXTENSION WidgetsÂ»
+Â«EXTENSION ContextÂ»
 
-«DEFINE Main FOR Section-»
+Â«DEFINE Main FOR binding::Section-Â»
 package org.eclipse.gmf.dsl.internal.project.ui.editor.pages.deploy;
-«EXPAND imports»
-«EXPAND class("public ")»
-«ENDDEFINE»
+Â«EXPAND importsÂ»
+Â«EXPAND _class('public ')Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE imports FOR Section-»
+Â«DEFINE imports FOR binding::Section-Â»
 import org.eclipse.gmf.dsl.internal.ui.emf.AttachAdapter;
 import org.eclipse.gmf.dsl.internal.ui.emf.ChangeTracker;
 import org.eclipse.gmf.dsl.internal.ui.emf.FeatureTracker;
@@ -37,20 +37,20 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.forms.*;
 import org.eclipse.ui.forms.widgets.*;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE class(String classModifiers) FOR Section-»
-«classModifiers»class «className» extends SectionPart implements ChangeTracker, Listener { 
+Â«DEFINE _class(classModifiers : String) FOR binding::Section-Â»
+Â«classModifiersÂ»class Â«classNameÂ» extends SectionPart implements ChangeTracker, Listener { 
 
-	«EXPAND Update::AdaptersField-»
+	Â«EXPAND Update::AdaptersField-Â»
 
 	private boolean myIsCommit;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND Visual::Fields FOR children»
+Â«EXPAND Visual::Fields FOR children->asSequence()Â»
 
-	public «className»(Composite parent, IManagedForm form) {
+	public Â«classNameÂ»(Composite parent, IManagedForm form) {
 		super(parent, form.getToolkit(), Section.TITLE_BAR | Section.TWISTIE | Section.DESCRIPTION);
 	}
 
@@ -68,18 +68,18 @@ import org.eclipse.ui.forms.widgets.*;
 	protected void createContents(Composite parent) {
 		getSection().setText("Generated Section");
 		final FormToolkit ftk = getManagedForm().getToolkit();
-«EXPAND Visual::Main("parent", "ftk") FOR children»
-«IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
-«EXPAND Update::PopulateWidgets-»
-		// getEditor().getGlobalActionSupport().register(«FOREACH textWidgets() AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»);
-«EXPAND Update::registerListeners-»
+Â«EXPAND Visual::Main('parent', 'ftk') FOR children->asSequence()Â»
+Â«IF layout <> nullÂ»Â«EXPAND Layout::Main('parent') FOR layoutÂ»Â«ENDIF-Â»
+Â«EXPAND Update::PopulateWidgets-Â»
+		// getEditor().getGlobalActionSupport().register(Â«FOREACH self.textWidgets() AS te SEPARATOR ', 'Â»Â«fieldName(te)Â»Â«ENDFOREACHÂ»);
+Â«EXPAND Update::registerListeners-Â»
 	}
 
 	@Override
 	public void commit(boolean onSave) {
 		try {
 			myIsCommit = true;
-			«EXPAND Update::Commit»
+			Â«EXPAND Update::CommitÂ»
 		} finally {
 			super.commit(onSave);
 			myIsCommit = false;
@@ -89,7 +89,7 @@ import org.eclipse.ui.forms.widgets.*;
 	@Override
 	public void refresh() {
 		myIsRefresh = true;
-		«EXPAND Update::Refresh»
+		Â«EXPAND Update::RefreshÂ»
 		myIsRefresh = false;
 	}
 
@@ -123,15 +123,15 @@ import org.eclipse.ui.forms.widgets.*;
 		if (myIsRefresh) {
 			return;
 		}
-«EXPAND Update::handleEventMethodBody-»
+Â«EXPAND Update::handleEventMethodBody-Â»
 	}
 
 	private void attach() {
-	«EXPAND Update::AttachAdapters-»
+	Â«EXPAND Update::AttachAdapters-Â»
 	}
 
 	private void detach() {
-	«EXPAND Update::DetachAdapters-»
+	Â«EXPAND Update::DetachAdapters-Â»
 	}
 
 	protected void applyChanges() {
@@ -142,11 +142,11 @@ import org.eclipse.ui.forms.widgets.*;
 		refresh();
 	}
 
-	private «deduceInputType().name» getInput() {
+	private Â«deduceInputType(self).nameÂ» getInput() {
 		// TODO implement;
 		// XXX or move cast to setInput?
-		return («deduceInputType().name») myInput;
+		return (Â«deduceInputType(self).nameÂ») myInput;
 	}
-«EXPAND Visual::ExtraMethods(false, "getManagedForm().getToolkit()") FOR children-»
+Â«EXPAND Visual::ExtraMethods(false, 'getManagedForm().getToolkit()') FOR children->asSequence()-Â»
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»

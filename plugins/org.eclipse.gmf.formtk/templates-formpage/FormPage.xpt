@@ -9,13 +9,14 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Context'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Binding'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«DEFINE Main FOR Editor»
-package «packageName»;
+Â«DEFINE Main FOR binding::EditorÂ»
+package Â«packageNameÂ»;
 
 public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
 
@@ -37,17 +38,17 @@ public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
 		org.eclipse.jface.layout.GridLayoutFactory.fillDefaults().applyTo(bottomPane);
 		topPane.setLayout(new FormPageLayout(0,0));
 		//
-		«FOREACH sections AS s-»
-		«s.className» _«s.className.toFirstLower()» = new «s.className»(bottomPane, managedForm);
-		«ENDFOREACH»
+		Â«FOREACH sections->asSequence() AS s-Â»
+		Â«s.classNameÂ» _Â«s.className.xpandToFirstLower()Â» = new Â«s.classNameÂ»(bottomPane, managedForm);
+		Â«ENDFOREACHÂ»
 
 		FormPageLayout.setMinimalWidth(uiProject.getSection(), 350);
 		FormPageLayout.setMinimalWidth(uiWizard.getSection(), 350);
 		org.eclipse.jface.layout.GridDataFactory.fillDefaults().grab(true, false).applyTo(actionsSection.getSection());
 		//
-		«FOREACH sections AS s-»
-		managedForm.addPart(_«s.className.toFirstLower()»);
-		«ENDFOREACH»
+		Â«FOREACH sections->asSequence() AS s-Â»
+		managedForm.addPart(_Â«s.className.xpandToFirstLower()Â»);
+		Â«ENDFOREACHÂ»
 
 //		if (mySectionStateSupport != null) {
 //			mySectionStateSupport.restoreState(this);
@@ -68,5 +69,5 @@ public class FormPage extends org.eclipse.ui.forms.editor.FormPage {
 	}
 
 }
-«EXPAND Section::class("") FOREACH sections»
-«ENDDEFINE»
+Â«EXPAND Section::_class('') FOREACH sectionsÂ»
+Â«ENDDEFINEÂ»

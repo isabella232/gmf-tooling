@@ -9,43 +9,43 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION Widgets»
+Â«EXTENSION WidgetsÂ»
 
-«DEFINE Main(String compositeVar) FOR Layout»«ERROR "abstract Main FOR Layout"»«ENDDEFINE»
+Â«DEFINE Main(compositeVar : String) FOR widget::LayoutÂ»Â«ERROR 'abstract Main FOR Layout'Â»Â«ENDDEFINEÂ»
 
-«DEFINE Main(String compositeVar) FOR FormLayout-»
-«compositeVar».setLayout(new org.eclipse.swt.layout.FormLayout());
-org.eclipse.swt.layout.FormData «compositeVar»FD;
-«FOREACH data AS fd-»
-«compositeVar»FD = new org.eclipse.swt.layout.FormData();
-«IF fd.left != null»«compositeVar»FD.left = «EXPAND x FOR fd.left»;
-«ENDIF-»
-«IF fd.right != null»«compositeVar»FD.right = «EXPAND x FOR fd.right»;
-«ENDIF-»
-«IF fd.top != null»«compositeVar»FD.top = «EXPAND x FOR fd.top»;
-«ENDIF-»
-«IF fd.bottom != null»«compositeVar»FD.bottom = «EXPAND x FOR fd.bottom»;
-«ENDIF-»
-«fd.widget.fieldName()».setLayoutData(«compositeVar»FD);
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE Main(compositeVar : String) FOR widget::FormLayout-Â»
+Â«compositeVarÂ».setLayout(new org.eclipse.swt.layout.FormLayout());
+org.eclipse.swt.layout.FormData Â«compositeVarÂ»FD;
+Â«FOREACH data->asSequence() AS fd-Â»
+Â«compositeVarÂ»FD = new org.eclipse.swt.layout.FormData();
+Â«IF fd.left <> nullÂ»Â«compositeVarÂ»FD.left = Â«EXPAND x FOR fd.leftÂ»;
+Â«ENDIF-Â»
+Â«IF fd.right <> nullÂ»Â«compositeVarÂ»FD.right = Â«EXPAND x FOR fd.rightÂ»;
+Â«ENDIF-Â»
+Â«IF fd.top <> nullÂ»Â«compositeVarÂ»FD.top = Â«EXPAND x FOR fd.topÂ»;
+Â«ENDIF-Â»
+Â«IF fd.bottom <> nullÂ»Â«compositeVarÂ»FD.bottom = Â«EXPAND x FOR fd.bottomÂ»;
+Â«ENDIF-Â»
+Â«fieldName(fd.widget)Â».setLayoutData(Â«compositeVarÂ»FD);
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE x FOR Attachment-»
-«IF control == null»new org.eclipse.swt.layout.FormAttachment(0, «offset»)«ELSE»new org.eclipse.swt.layout.FormAttachment(«control.fieldName()», «offset», org.eclipse.swt.SWT.«align.name»)«ENDIF»«ENDDEFINE»
+Â«DEFINE x FOR widget::Attachment-Â»
+Â«IF control = nullÂ»new org.eclipse.swt.layout.FormAttachment(0, Â«offsetÂ»)Â«ELSEÂ»new org.eclipse.swt.layout.FormAttachment(Â«fieldName(control)Â», Â«offsetÂ», org.eclipse.swt.SWT.Â«align.repr()Â»)Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE Main(String compositeVar) FOR GridLayout-»
-«compositeVar».setLayout(new org.eclipse.swt.layout.GridLayout(«columns», «equalColumns»));
-«FOREACH data AS fd-»
-org.eclipse.jface.layout.GridDataFactory.swtDefaults()«EXPAND align FOR fd»«EXPAND span FOR fd»«EXPAND grab FOR fd».applyTo(«fd.widget.fieldName()»);
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE Main(compositeVar : String) FOR widget::GridLayout-Â»
+Â«compositeVarÂ».setLayout(new org.eclipse.swt.layout.GridLayout(Â«columnsÂ», Â«equalColumnsÂ»));
+Â«FOREACH data->asSequence() AS fd-Â»
+org.eclipse.jface.layout.GridDataFactory.swtDefaults()Â«EXPAND align FOR fdÂ»Â«EXPAND span FOR fdÂ»Â«EXPAND grab FOR fdÂ».applyTo(Â«fieldName(fd.widget)Â»);
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE Main(String compositeVar) FOR FillLayout-»
-«compositeVar».setLayout(new org.eclipse.swt.layout.FillLayout(«IF vertical»org.eclipse.swt.SWT.VERTICAL«ENDIF»));
-«ENDDEFINE»
+Â«DEFINE Main(compositeVar : String) FOR widget::FillLayout-Â»
+Â«compositeVarÂ».setLayout(new org.eclipse.swt.layout.FillLayout(Â«IF verticalÂ»org.eclipse.swt.SWT.VERTICALÂ«ENDIFÂ»));
+Â«ENDDEFINEÂ»
 
 
 
@@ -53,8 +53,8 @@ org.eclipse.jface.layout.GridDataFactory.swtDefaults()«EXPAND align FOR fd»«EXPA
 // GridData internals
 //
 
-«DEFINE align FOR GridData».align(SWT.«EXPAND alignLiteral FOR hAlign», SWT.«EXPAND alignLiteral FOR vAlign»)«ENDDEFINE»
-«DEFINE span FOR GridData»«IF hSpan > 1 || vSpan > 1».span(«hSpan», «vSpan»)«ENDIF»«ENDDEFINE»
-«DEFINE grab FOR GridData»«IF hGrab || vGrab».grab(«hGrab», «vGrab»)«ENDIF»«ENDDEFINE»
+Â«DEFINE align FOR widget::GridDataÂ».align(SWT.Â«EXPAND alignLiteral FOR hAlignÂ», SWT.Â«EXPAND alignLiteral FOR vAlignÂ»)Â«ENDDEFINEÂ»
+Â«DEFINE span FOR widget::GridDataÂ»Â«IF hSpan > 1 or vSpan > 1Â».span(Â«hSpanÂ», Â«vSpanÂ»)Â«ENDIFÂ»Â«ENDDEFINEÂ»
+Â«DEFINE grab FOR widget::GridDataÂ»Â«IF hGrab or vGrabÂ».grab(Â«hGrabÂ», Â«vGrabÂ»)Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE alignLiteral FOR Alignment»«IF value == 0»BEGINNING«ELSEIF value == 2»END«ELSE»«literal»«ENDIF»«ENDDEFINE»
+Â«DEFINE alignLiteral FOR widget::AlignmentÂ»Â«IF self = widget::Alignment::LEFTÂ»BEGINNINGÂ«ELSEIF self = widget::Alignment::RIGHTÂ»ENDÂ«ELSEÂ»Â«selfÂ»Â«ENDIFÂ»Â«ENDDEFINEÂ»

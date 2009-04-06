@@ -16,5 +16,24 @@
             uri="http://www.eclipse.org/gmf/2008/Binding">
       </resource>
    </extension>
+   <extension
+         point="org.eclipse.gmf.xpand.migration.templates">
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.formtk/templates-legacy/templates-context"
+            originalLocation="/org.eclipse.gmf.formtk/templates-context">
+      </xpand-root>
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.formtk/templates-legacy/templates-formpage"
+            originalLocation="/org.eclipse.gmf.formtk/templates-formpage">
+      </xpand-root>
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.formtk/templates-legacy/templates-propsheet"
+            originalLocation="/org.eclipse.gmf.formtk/templates-propsheet">
+      </xpand-root>
+      <xpand-root
+            currentLocation="/org.eclipse.gmf.formtk/templates-legacy/templates-widget"
+            originalLocation="/org.eclipse.gmf.formtk/templates-widget">
+      </xpand-root>
+   </extension>
 
 </plugin>

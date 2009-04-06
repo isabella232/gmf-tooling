@@ -9,31 +9,31 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Context'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
 
-«EXTENSION Context»
+Â«EXTENSION ContextÂ»
 
-«DEFINE New(List[FeatureContext] conditionAccessors) FOR List[FeatureContext]-»
-«IF !isEmpty()-»
-«IF withChildren().isEmpty()»«EXPAND newFeatureTracker-»
-«ELSE-»
-«IF !withoutChildren().isEmpty()»«EXPAND newFeatureTracker FOR withoutChildren()», «ENDIF-»
-«EXPAND newAttachAdapter(conditionAccessors) FOREACH withChildren().filterEReference() SEPARATOR ","-»
-«ENDIF-»
-«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE New(conditionAccessors : Sequence(context::FeatureContext)) FOR Sequence(context::FeatureContext)-Â»
+Â«IF not self->isEmpty()-Â»
+Â«IF withChildren(self)->isEmpty()Â»Â«EXPAND newFeatureTracker-Â»
+Â«ELSE-Â»
+Â«IF not withoutChildren(self)->isEmpty()Â»Â«EXPAND newFeatureTracker FOR withoutChildren(self)Â», Â«ENDIF-Â»
+Â«EXPAND newAttachAdapter(conditionAccessors) FOREACH filterEReference(withChildren(self)) SEPARATOR ','-Â»
+Â«ENDIF-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE newFeatureTracker FOR List[FeatureContext]-»
-new FeatureTracker(this, «EXPAND MetaModel::accessor FOREACH selector SEPARATOR ","»)«ENDDEFINE»
+Â«DEFINE newFeatureTracker FOR Sequence(context::FeatureContext)-Â»
+new FeatureTracker(this, Â«EXPAND MetaModel::accessor FOREACH self.selector SEPARATOR ','Â»)Â«ENDDEFINEÂ»
 
-«REM»assumes !fc.children.isEmpty«ENDREM»
-«DEFINE newAttachAdapter(List[FeatureContext] conditionAccessors) FOR FeatureContext-»
-new AttachAdapter(«EXPAND MetaModel::accessor FOR selector», «IF conditionAccessors.contains(this)-»
+Â«REMÂ»assumes !fc.children.isEmptyÂ«ENDREMÂ»
+Â«DEFINE newAttachAdapter(conditionAccessors : Sequence(context::FeatureContext)) FOR context::FeatureContext-Â»
+new AttachAdapter(Â«EXPAND MetaModel::accessor FOR selectorÂ», Â«IF conditionAccessors->includes(self)-Â»
 new ChangeTracker() {
 	public void modelChanged(org.eclipse.emf.common.notify.Notification n) {
 		// FIXME enable/disable widget(s) -- HOWEVER, need access to Binding/Widget here, so can't share the template with e.g. Alex's ItemProviders
 	}
-}, «ENDIF-»
-«EXPAND New(conditionAccessors) FOR children.typeSelect(FeatureContext)»)«ENDDEFINE»
+}, Â«ENDIF-Â»
+Â«EXPAND New(conditionAccessors) FOR (children)[context::FeatureContext]->asSequence()Â»)Â«ENDDEFINEÂ»

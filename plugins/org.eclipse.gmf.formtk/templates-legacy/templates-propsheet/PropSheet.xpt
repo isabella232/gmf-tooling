@@ -9,21 +9,21 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Context'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Binding'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
+«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
+«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
 
 «EXTENSION Forms»
 «EXTENSION Widgets»
 
-«DEFINE Main FOR binding::Editor-»
+«DEFINE Main FOR Editor-»
 package «packageName»;
 «EXPAND imports FOREACH sections»
-«EXPAND _class('public ') FOREACH sections»
+«EXPAND class("public ") FOREACH sections»
 «ENDDEFINE»
 
-«DEFINE imports FOR binding::Section»
+«DEFINE imports FOR Section»
 import org.eclipse.gmf.dsl.internal.ui.emf.AttachAdapter;
 import org.eclipse.gmf.dsl.internal.ui.emf.ChangeTracker;
 import org.eclipse.gmf.dsl.internal.ui.emf.FeatureTracker;
@@ -38,18 +38,18 @@ import org.eclipse.ui.forms.widgets.*;
 import org.eclipse.ui.views.properties.tabbed.*;
 «ENDDEFINE»
 
-«DEFINE packageStatement FOR binding::Section»package org.eclipse.gmf.graphdef.editor.sheet;«ENDDEFINE»
+«DEFINE packageStatement FOR Section»package org.eclipse.gmf.graphdef.editor.sheet;«ENDDEFINE»
 
 // Temp solution for hand-moved generated artifacts
-«DEFINE Main FOR binding::Section-»
+«DEFINE Main FOR Section-»
 «EXPAND packageStatement»
 «EXPAND imports»
 import org.eclipse.gmf.gmfgraph.*;
 
-«EXPAND _class('public ')»
+«EXPAND class("public ")»
 «ENDDEFINE»
 
-«DEFINE _class(classModifiers : String) FOR binding::Section»
+«DEFINE class(String classModifiers) FOR Section»
 «classModifiers»class «className» extends AbstractPropertySection implements ChangeTracker, Listener {
 
 	«EXPAND Update::AdaptersField-»
@@ -58,14 +58,14 @@ import org.eclipse.gmf.gmfgraph.*;
 	private boolean myIsRefresh;
 	private Object myInput;
 
-«EXPAND Visual::Fields FOR children->asSequence()»
+«EXPAND Visual::Fields FOR children»
 
 	@Override
 	public void createControls(Composite parent, TabbedPropertySheetPage page) {
 		super.createControls(parent, page);
 		getWidgetFactory().paintBordersFor(parent);
-«EXPAND Visual::Main('parent', 'getWidgetFactory()') FOR children->asSequence()»
-«IF layout <> null»«EXPAND Layout::Main('parent') FOR layout»«ENDIF-»
+«EXPAND Visual::Main("parent", "getWidgetFactory()") FOR children»
+«IF layout != null»«EXPAND Layout::Main("parent") FOR layout»«ENDIF-»
 «EXPAND Update::PopulateWidgets-»
 «EXPAND Update::registerListeners-»
 	}
@@ -151,10 +151,10 @@ import org.eclipse.gmf.gmfgraph.*;
 	«EXPAND Update::DetachAdapters»
 	}
 
-	protected «deduceInputType(self).name» getInput() {
+	protected «deduceInputType().name» getInput() {
 		// TODO implement;
-		return («deduceInputType(self).name») myInput;
+		return («deduceInputType().name») myInput;
 	}
-«EXPAND Visual::ExtraMethods(true, 'getWidgetFactory()') FOR children->asSequence()»
+«EXPAND Visual::ExtraMethods(true, "getWidgetFactory()") FOR children»
 }
 «ENDDEFINE»
