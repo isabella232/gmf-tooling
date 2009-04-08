@@ -30,7 +30,7 @@ public class ExpandProposalComputer implements ProposalComputer {
 	}
 	public List<ICompletionProposal> computeProposals(final String txt, final ExecutionContext ctx) {
 		Matcher m = p.matcher(txt);
-		assert m.find();
+		m.find();
 		String templateName = m.group(1).trim();
 		// final List<ICompletionProposal> result = new
 		// ArrayList<ICompletionProposal>();
