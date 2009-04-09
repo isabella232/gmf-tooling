@@ -136,7 +136,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 
 		public Command getCreateNodeCommand(View parentView, GenCommonBase nodeType) {
 			IElementType metamodelType = getElementType(nodeType);
-			CreateUnspecifiedTypeRequest req = new CreateUnspecifiedTypeRequest(Arrays.asList(new IElementType[] { metamodelType }), PreferencesHint.USE_DEFAULTS);
+			CreateUnspecifiedTypeRequest req = new CreateUnspecifiedTypeRequest(Arrays.asList(new IElementType[] { metamodelType }), getDefaultPreferencesHint());
 			return findEditPart(parentView).getCommand(req);
 		}
 
@@ -154,7 +154,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 			IElementType metamodelType = getElementType(linkType);
 			CreateRelationshipRequest relationShipReq = new CreateRelationshipRequest(metamodelType);
 
-			ConnectionViewAndElementDescriptor desc = new ConnectionViewAndElementDescriptor(new CreateElementRequestAdapter(relationShipReq), metamodelType instanceof IHintedType ? ((IHintedType) metamodelType).getSemanticHint() : "", PreferencesHint.USE_DEFAULTS);
+			ConnectionViewAndElementDescriptor desc = new ConnectionViewAndElementDescriptor(new CreateElementRequestAdapter(relationShipReq), metamodelType instanceof IHintedType ? ((IHintedType) metamodelType).getSemanticHint() : "", getDefaultPreferencesHint());
 
 			CreateConnectionViewAndElementRequest req = new CreateConnectionViewAndElementRequest(desc);
 			req.setType(RequestConstants.REQ_CONNECTION_START);

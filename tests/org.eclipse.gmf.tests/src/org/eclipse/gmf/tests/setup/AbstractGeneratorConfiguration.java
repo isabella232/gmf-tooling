@@ -111,6 +111,10 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 		}
 		
 		protected IPreferenceStore getDefaultPreferences() {
+			return (IPreferenceStore) getDefaultPreferencesHint().getPreferenceStore();
+		}
+		
+		protected PreferencesHint getDefaultPreferencesHint() {
 			if (myDefaultPreferences == null){
 				try {
 					Class<?> activatorClazz = loadGeneratedClass(myDiagramModel.getEditorGen().getPlugin().getActivatorQualifiedClassName());
@@ -126,7 +130,7 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
 				}
 			}
-			return (IPreferenceStore) myDefaultPreferences.getPreferenceStore();
+			return myDefaultPreferences;
 		}
 		
 	}
