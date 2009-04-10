@@ -33,7 +33,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.eclipse.gmf.internal.xpand.expression.SyntaxConstants;
 import org.eclipse.gmf.internal.xpand.migration.Activator;
-import org.eclipse.gmf.internal.xpand.migration.ui.MigrateXpandProject;
 
 /**
  * Tracks template roots for a given project.
@@ -181,7 +180,9 @@ public class RootManager {
 							nextPaths.add(toAdd);
 						}
 					}
-					read.add(new RootDescription(nextPaths));
+					if (nextPaths.size() > 0) {
+						read.add(new RootDescription(nextPaths));
+					}
 				}
 			}
 		} catch (CoreException ex) {
@@ -229,7 +230,7 @@ public class RootManager {
 		return false;
 	}
 	
-	public RootDescription createUpdatedRootDescription(IContainer rootFolder, IFolder templatesOutputFolder) {
+	public List<IPath> getMigratedXpandRootEntry(IContainer rootFolder, IFolder templatesOutputFolder) {
 		assert rootFolder instanceof IFolder || rootFolder instanceof IProject;
 		if (rootFolder instanceof IFolder) {
 			RootDescription rootDescription = getRootDescription((IFolder) rootFolder);
@@ -239,18 +240,12 @@ public class RootManager {
 				if (i == 0) {
 					newRoots.set(0, templatesOutputFolder.getProjectRelativePath());
 				} else {
-					IPath path = newRoots.get(i);
-					IPath newPath = path.removeTrailingSeparator();
-					newPath = newPath.addFileExtension(MigrateXpandProject.MIGRATED_ROOT_EXTENSION);
-					if (path.hasTrailingSeparator()) {
-						newPath = newPath.addTrailingSeparator();
-					}
-					newRoots.set(i, newPath);
+					newRoots.set(i, Activator.getDefault().getLegacyTemplateRootRegistry().getMigratedRoot(newRoots.get(i)));
 				}
 			}
-			return new RootDescription(newRoots);
+			return newRoots;
 		} else {
-			return new RootDescription(Collections.singletonList(templatesOutputFolder.getProjectRelativePath()));
+			return Collections.singletonList(templatesOutputFolder.getProjectRelativePath());
 		}
 	}
 	
@@ -289,6 +284,7 @@ public class RootManager {
 		private final List<IPath> myRoots;
 		private WorkspaceResourceManager myManager;
 		public RootDescription(List<IPath> roots) {
+			assert roots.size() > 0;
 			myOriginalRoots = roots;
 			myRoots = new ArrayList<IPath>(roots.size());
 			for (IPath iPath : roots) {
@@ -299,9 +295,6 @@ public class RootManager {
 			return myOriginalRoots;
 		}
 		public List<IPath> getRoots() {
-			if (myRoots == null) {
-				
-			}
 			return myRoots;
 		}
 		public WorkspaceResourceManager getManager() {
@@ -344,7 +337,7 @@ public class RootManager {
 			return null;
 		}
 		public IPath getMainIPath() {
-			return myRoots.size() == 0 ? null : myRoots.get(0);
+			return myRoots.get(0);
 		}
 	}
 

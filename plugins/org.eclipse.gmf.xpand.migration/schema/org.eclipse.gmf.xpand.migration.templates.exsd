@@ -6,7 +6,7 @@
          <meta.schema plugin="org.eclipse.gmf.xpand.migration" id="org.eclipse.gmf.xpand.migration.templates" name="Legacy templates"/>
       </appInfo>
       <documentation>
-         This extension-point provides support for (Xtend-based) Xpand templates migration. It is used to expose new location of legacy (Xtend-based) Xpand templates. This information is important for redistribution of repackaged legacy templates together with migrated templates. It is necessary to redistribute legacy templates if it is supposed that migration action can be executed for another project relying on legacy templates from original one for example – in case of user-defined custom templates.
+         This extension-point provides support for (Xtend-based) Xpand templates migration. It is used to expose new location of legacy (Xtend-based) Xpand templates and specify location of migrated templates if those templates were moved after migration. This information is important for redistribution of repackaged legacy templates together with migrated templates. It is necessary to redistribute legacy templates if it is supposed that migration action can be executed for another project relying on legacy templates from original one for example – in case of user-defined custom templates.
       </documentation>
    </annotation>
 
@@ -50,7 +50,7 @@
    <element name="xpand-root">
       <annotation>
          <documentation>
-            Represents mapping of the original template root location to new legacy template root one. This mapping will be loaded and used by legacy xpand resource loader to load resources from &lt;b&gt;currentLocation&lt;/b&gt; instead of &lt;b&gt;originalLocation&lt;/b&gt;.
+            Represents mapping of the original template root location to new legacy template root one. This mapping will be loaded and used by legacy xpand resource loader to load resources from &lt;b&gt;currentLocation&lt;/b&gt; instead of &lt;b&gt;originalLocation&lt;/b&gt;. Besides it allows to specify new location for the migrated templates – this information will be used by migration process while updating .xpand-root file.
          </documentation>
       </annotation>
       <complexType>
@@ -65,6 +65,13 @@
             <annotation>
                <documentation>
                   Actual location of legacy templates. This string will be used instead of one specified as originalLocation while reading .xpand-root file of any other plug-ins.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="migratedLocation" type="string">
+            <annotation>
+               <documentation>
+                  Actual location of migrated templates. This string will be used during migration to update  .xpand-root file of any other plug-ins originally referencing legacy templates by originalLocation. If this attribute was not specified then originalLocation will be used instead.
                </documentation>
             </annotation>
          </attribute>
@@ -90,7 +97,8 @@
    &lt;extension point=&quot;org.eclipse.gmf.xpand.migration.templates&quot;&gt;
       &lt;xpand-root
             currentLocation=&quot;/org.eclipse.gmf.templates.legacy/codegen.templates&quot;
-            originalLocation=&quot;/org.eclipse.gmf.codegen/templates&quot;&gt;
+            originalLocation=&quot;/org.eclipse.gmf.codegen/templates&quot;
+            migratedLocation=&quot;/org.eclipse.gmf.codegen/templates.migrated.moved&quot;&gt;
       &lt;/xpand-root&gt;
    &lt;/extension&gt;   
 &lt;/pre&gt;
@@ -98,23 +106,7 @@
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="apiinfo"/>
-      </appInfo>
-      <documentation>
 
-      </documentation>
-   </annotation>
-
-   <annotation>
-      <appInfo>
-         <meta.section type="implementation"/>
-      </appInfo>
-      <documentation>
-
-      </documentation>
-   </annotation>
 
    <annotation>
       <appInfo>

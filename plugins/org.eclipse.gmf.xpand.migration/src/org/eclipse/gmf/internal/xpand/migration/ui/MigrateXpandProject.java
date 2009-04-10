@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.gmf.internal.xpand.RootManager;
-import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
 import org.eclipse.gmf.internal.xpand.build.OawBuilder;
 import org.eclipse.gmf.internal.xpand.migration.ExpressionMigrationFacade;
 import org.eclipse.gmf.internal.xpand.util.OawMarkerManager;
@@ -108,27 +107,27 @@ public class MigrateXpandProject extends WorkspaceModifyOperation {
 		IProgressMonitor subMonitor = createSubProgressMonitor(monitor, "Migrating all available xpand root folders", BIG_NUMBER * xpandRoots.size());
 		subMonitor.beginTask("Migrating all available xpand root folders", totalNumberOfSteps);
 		List<CharSequence> nativeLibraryDeclarations = new ArrayList<CharSequence>();
-		List<RootDescription> newRootDescriptions = new ArrayList<RootDescription>();
+		List<List<IPath>> newXpandRootEntries = new ArrayList<List<IPath>>();
 		for (IContainer rootContainer : xpandRoots) {
-			newRootDescriptions.add(migrateXpandRoot(rootContainer, nativeLibraryDeclarations, subMonitor));
+			newXpandRootEntries.add(migrateXpandRoot(rootContainer, nativeLibraryDeclarations, subMonitor));
 		}
 		registerNativeLibraries(nativeLibraryDeclarations, createSubProgressMonitor(monitor, "Registering native libraries", 1));
-		switchToNewXpandBuilder(newRootDescriptions, createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
-		updateXpandRootFile(newRootDescriptions, createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
+		switchToNewXpandBuilder(newXpandRootEntries, createSubProgressMonitor(monitor, "Registering new Xpand builder for the project", 1));
+		updateXpandRootFile(newXpandRootEntries, createSubProgressMonitor(monitor, "Saving modified Xpand roots information", 1));
 		getBuildPropertiesManager().save(createSubProgressMonitor(monitor, "Saving build.properties", 1));
 		OawMarkerManager.deleteMarkers(getSelectedProject());
 		buildPropertiesManager = null;
 	}
 
-	private void updateXpandRootFile(List<RootDescription> rootDescriptions, IProgressMonitor monitor) throws InvocationTargetException, CoreException {
+	private void updateXpandRootFile(List<List<IPath>> newXpandRootEntries, IProgressMonitor monitor) throws InvocationTargetException, CoreException {
 		monitor.beginTask("Saving modified Xpand roots information", 2);
 		StringBuilder sb = new StringBuilder();
-		for (RootDescription rootDescription : rootDescriptions) {
-			for (int i = 0; i < rootDescription.getOriginalRoots().size(); i++) {
+		for (List<IPath> rootEntry : newXpandRootEntries) {
+			for (int i = 0; i < rootEntry.size(); i++) {
 				if (i > 0) {
 					sb.append(",");
 				}
-				sb.append(rootDescription.getRoots().get(i).toString());
+				sb.append(rootEntry.get(i).toString());
 			}
 			sb.append(ExpressionMigrationFacade.LF);
 		}
@@ -147,7 +146,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation {
 		}
 	}
 
-	private void switchToNewXpandBuilder(List<RootDescription> newRootDescriptions, IProgressMonitor monitor) throws CoreException, InterruptedException {
+	private void switchToNewXpandBuilder(List<List<IPath>> newXpandRootEntries, IProgressMonitor monitor) throws CoreException, InterruptedException {
 		monitor.beginTask("Registering new Xpand builder for the project", 2);
 		IProjectDescription pd = getSelectedProject().getDescription();
 		ArrayList<ICommand> newBuildCommands = new ArrayList<ICommand>();
@@ -170,8 +169,10 @@ public class MigrateXpandProject extends WorkspaceModifyOperation {
 		if (addQVTBuilder) {
 			ICommand newCommand = pd.newCommand();
 			newCommand.setBuilderName(QVT_BUILDER_ID);
-			if (newRootDescriptions.size() > 0) {
-				IPath mainIPath = newRootDescriptions.get(0).getMainIPath();
+			if (newXpandRootEntries.size() > 0) {
+				List<IPath> firstEntry = newXpandRootEntries.get(0);
+				assert firstEntry.size() > 0;
+				IPath mainIPath = firstEntry.get(0);
 				if (!mainIPath.isAbsolute()) {
 					Map arguments = newCommand.getArguments();
 					if (arguments == null) {
@@ -260,7 +261,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation {
 		return result.append(LF);
 	}
 
-	private RootDescription migrateXpandRoot(IContainer rootContainer, List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws InterruptedException, CoreException,
+	private List<IPath> migrateXpandRoot(IContainer rootContainer, List<CharSequence> nativeLibraryDeclarations, IProgressMonitor progressMonitor) throws InterruptedException, CoreException,
 			InvocationTargetException {
 		IFolder templatesOutputFolder = getTemplatesOutputFolder(rootContainer, createSubProgressMonitor(progressMonitor, "Calculating new templates root folder name", 1));
 		IFolder nativeExtensionsRoot = getNativeExtensionsSourceRoot(rootContainer, createSubProgressMonitor(progressMonitor, "Creating new source rolot for native extensions", 1));
@@ -270,7 +271,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation {
 		visitor.done();
 		nativeLibraryDeclarations.addAll(visitor.getNativeLibraryDeclarations());
 		getBuildPropertiesManager().addBinInclude(templatesOutputFolder);
-		return getRootManager().createUpdatedRootDescription(rootContainer, templatesOutputFolder);
+		return getRootManager().getMigratedXpandRootEntry(rootContainer, templatesOutputFolder);
 	}
 
 	private int getNumberOfSteps(IContainer rootContainer, IProgressMonitor progressMonitor) throws CoreException, InterruptedException, InvocationTargetException {

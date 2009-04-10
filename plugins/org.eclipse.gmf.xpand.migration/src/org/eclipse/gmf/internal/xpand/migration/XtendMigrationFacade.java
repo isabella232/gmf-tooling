@@ -295,7 +295,7 @@ public class XtendMigrationFacade {
 			}
 		}
 		
-		throw new MigrationException(Type.UNSUPPORTED_NATIVE_EXTENSION_TYPE, resourceName, "Metamodel types without instanceClassName set are not supported for native extensions: " + xpandType.getName());
+		return "/*Write proper FQName manually:*/" + xpandType.getName();
 	}
 
 	private String suppressJavaLang(String instanceClassName) {
