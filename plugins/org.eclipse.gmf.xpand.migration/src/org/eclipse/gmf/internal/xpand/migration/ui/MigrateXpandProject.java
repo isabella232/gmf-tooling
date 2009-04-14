@@ -87,7 +87,7 @@ public class MigrateXpandProject extends WorkspaceModifyOperation {
 		return spm;
 	}
 	
-	MigrateXpandProject(IProject project) {
+	public MigrateXpandProject(IProject project) {
 		selectedProject = project;
 	}
 
