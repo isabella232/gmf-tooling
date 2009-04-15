@@ -93,7 +93,7 @@ public class CodegenEmitters {
 		if (templateDirectory != null) {
 			URI templatesURI = templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory, true) : URI.createURI(templateDirectory); //$NON-NLS-1$
 			try {
-				return new URL(CommonPlugin.resolve(templatesURI).toString());
+				return new URL(templatesURI.toString());
 			} catch (MalformedURLException e) {
 				Platform.getLog(getTemplatesBundle()).log(new Status(IStatus.ERROR, getTemplatesBundle().getSymbolicName(), 0, "Incorrecct dynamic templates location", e)); //$NON-NLS-1$
 			}
