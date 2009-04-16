@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -279,6 +279,8 @@ public class FilteringCopier extends EcoreUtil.Copier {
 	 * 
 	 * Though inherently protected, the method is visible to everyone to allow
 	 * post-processing/migration code to utilize it for further model tweaking.
+	 * @param eAttr structural feature from <em>original metamodel</em>
+	 * @param value original model's attribute value 
 	 */
 	public Object transformValue(EAttribute eAttr, Object value) {
 		if (eAttr.getEType() instanceof EEnum) {
