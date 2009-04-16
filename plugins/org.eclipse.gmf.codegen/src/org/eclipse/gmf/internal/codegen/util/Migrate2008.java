@@ -34,7 +34,7 @@ public /*package-local, but need to be visible from tests*/ class Migrate2008 {
 	
 	public Migrate2008() {
 		//myMetaPackage = GMFGenPackage.eINSTANCE;
-		myMetaPackage = EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/gmf/2008/GenModel");
+		myMetaPackage = EPackage.Registry.INSTANCE.getEPackage(ModelVersions.GMFGEN_2_1);
 	}
 
 	@SuppressWarnings("unchecked")

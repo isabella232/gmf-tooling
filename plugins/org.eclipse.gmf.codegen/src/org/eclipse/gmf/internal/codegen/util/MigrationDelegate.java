@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -46,41 +46,41 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	MigrationDelegate() {
 	}
 
-	private EPackage gmfgen2006 = get2006GenModelPackage();
+	private EPackage gmfgen2006 = EPackage.Registry.INSTANCE.getEPackage(ModelVersions.GMFGEN_2_0);
 	private EFactory factory2006 = gmfgen2006.getEFactoryInstance();
-	private GMFGenPackage gmfgen2008 = GMFGenPackage.eINSTANCE;
+	private GMFGenPackage gmfgenNew = GMFGenPackage.eINSTANCE; // any 2008 or later GMFGen as the only thing we use here are class/feature names, not EClasses/EStrFea 
 
-	private EClassifier class_editorCandies = gmfgen2006.getEClassifier(gmfgen2008.getEditorCandies().getName());
-	private EClassifier class_providerClassNames = gmfgen2006.getEClassifier(gmfgen2008.getProviderClassNames().getName());
-	private EClassifier class_editPartCandies = gmfgen2006.getEClassifier(gmfgen2008.getEditPartCandies().getName());
-	private EClassifier class_typeLinkModelFacet = gmfgen2006.getEClassifier(gmfgen2008.getTypeLinkModelFacet().getName());
-	private EClass class_genPlugin = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenPlugin().getName());
-	private EClass class_genExpressionInterpreter = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenExpressionInterpreter().getName());
-	private EClass class_featureLabelModelFacet = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getFeatureLabelModelFacet().getName());
-	private EClass class_genAuditRule = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenAuditRule().getName());
-	private EClass class_genAuditContainer = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenAuditContainer().getName());
-	private EClass class_genAuditRoot = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenAuditRoot().getName());
-	private EClass class_genFeatureValueSpec = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenFeatureValueSpec().getName());
-	private EClass class_genExpressionProviderBase = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenExpressionProviderBase().getName());
-	private EClass class_genExpressionProviderContainer = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenExpressionProviderContainer().getName());
-	private EClass class_genEditorGenerator = (EClass) gmfgen2006.getEClassifier(gmfgen2008.getGenEditorGenerator().getName());
+	private EClassifier class_editorCandies = gmfgen2006.getEClassifier(gmfgenNew.getEditorCandies().getName());
+	private EClassifier class_providerClassNames = gmfgen2006.getEClassifier(gmfgenNew.getProviderClassNames().getName());
+	private EClassifier class_editPartCandies = gmfgen2006.getEClassifier(gmfgenNew.getEditPartCandies().getName());
+	private EClassifier class_typeLinkModelFacet = gmfgen2006.getEClassifier(gmfgenNew.getTypeLinkModelFacet().getName());
+	private EClass class_genPlugin = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenPlugin().getName());
+	private EClass class_genExpressionInterpreter = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenExpressionInterpreter().getName());
+	private EClass class_featureLabelModelFacet = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getFeatureLabelModelFacet().getName());
+	private EClass class_genAuditRule = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenAuditRule().getName());
+	private EClass class_genAuditContainer = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenAuditContainer().getName());
+	private EClass class_genAuditRoot = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenAuditRoot().getName());
+	private EClass class_genFeatureValueSpec = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenFeatureValueSpec().getName());
+	private EClass class_genExpressionProviderBase = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenExpressionProviderBase().getName());
+	private EClass class_genExpressionProviderContainer = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenExpressionProviderContainer().getName());
+	private EClass class_genEditorGenerator = (EClass) gmfgen2006.getEClassifier(gmfgenNew.getGenEditorGenerator().getName());
 
-	private EStructuralFeature feature_genExpressionProviderBase_container = class_genExpressionProviderBase.getEStructuralFeature(gmfgen2008.getGenExpressionProviderBase_Container().getName());
-	private EStructuralFeature feature_genExpressionProviderContainer_providers = class_genExpressionProviderContainer.getEStructuralFeature(gmfgen2008.getGenExpressionProviderContainer_Providers().getName());
-	private EStructuralFeature feature_genExpressionProviderContainer_editorGen = class_genExpressionProviderContainer.getEStructuralFeature(gmfgen2008.getGenExpressionProviderContainer_EditorGen().getName());
-	private EStructuralFeature feature_genEditorGenerator_expressionProviders = class_genEditorGenerator.getEStructuralFeature(gmfgen2008.getGenEditorGenerator_ExpressionProviders().getName());
-	private EStructuralFeature feature_genEditorGenerator_plugin = class_genEditorGenerator.getEStructuralFeature(gmfgen2008.getGenEditorGenerator_Plugin().getName());
-	private EStructuralFeature feature_genPlugin_requiredPlugins = class_genPlugin.getEStructuralFeature(gmfgen2008.getGenPlugin_RequiredPlugins().getName());
-	private EStructuralFeature feature_featureLabelModelFacet_metaFeatures = class_featureLabelModelFacet.getEStructuralFeature(gmfgen2008.getFeatureLabelModelFacet_MetaFeatures().getName());
-	private EStructuralFeature feature_genAuditContainer_path = class_genAuditContainer.getEStructuralFeature(gmfgen2008.getGenAuditContainer_Path().getName());
-	private EStructuralFeature feature_genAuditContainer_id = class_genAuditContainer.getEStructuralFeature(gmfgen2008.getGenAuditContainer_Id().getName());
-	private EStructuralFeature feature_genAuditContainer_name = class_genAuditContainer.getEStructuralFeature(gmfgen2008.getGenAuditContainer_Name().getName());
-	private EStructuralFeature feature_genAuditContainer_description = class_genAuditContainer.getEStructuralFeature(gmfgen2008.getGenAuditContainer_Description().getName());
-	private EStructuralFeature feature_genAuditContainer_audits = class_genAuditContainer.getEStructuralFeature(gmfgen2008.getGenAuditContainer_Audits().getName());
-	private EStructuralFeature feature_genAuditContainer_root = class_genAuditContainer.getEStructuralFeature(gmfgen2008.getGenAuditContainer_Root().getName());
-	private EStructuralFeature feature_genAuditRoot_categories = class_genAuditRoot.getEStructuralFeature(gmfgen2008.getGenAuditRoot_Categories().getName());
-	private EStructuralFeature feature_genAuditRoot_rules = class_genAuditRoot.getEStructuralFeature(gmfgen2008.getGenAuditRoot_Rules().getName());
-	private EStructuralFeature feature_genAuditRule_category = class_genAuditRule.getEStructuralFeature(gmfgen2008.getGenAuditRule_Category().getName());
+	private EStructuralFeature feature_genExpressionProviderBase_container = class_genExpressionProviderBase.getEStructuralFeature(gmfgenNew.getGenExpressionProviderBase_Container().getName());
+	private EStructuralFeature feature_genExpressionProviderContainer_providers = class_genExpressionProviderContainer.getEStructuralFeature(gmfgenNew.getGenExpressionProviderContainer_Providers().getName());
+	private EStructuralFeature feature_genExpressionProviderContainer_editorGen = class_genExpressionProviderContainer.getEStructuralFeature(gmfgenNew.getGenExpressionProviderContainer_EditorGen().getName());
+	private EStructuralFeature feature_genEditorGenerator_expressionProviders = class_genEditorGenerator.getEStructuralFeature(gmfgenNew.getGenEditorGenerator_ExpressionProviders().getName());
+	private EStructuralFeature feature_genEditorGenerator_plugin = class_genEditorGenerator.getEStructuralFeature(gmfgenNew.getGenEditorGenerator_Plugin().getName());
+	private EStructuralFeature feature_genPlugin_requiredPlugins = class_genPlugin.getEStructuralFeature(gmfgenNew.getGenPlugin_RequiredPlugins().getName());
+	private EStructuralFeature feature_featureLabelModelFacet_metaFeatures = class_featureLabelModelFacet.getEStructuralFeature(gmfgenNew.getFeatureLabelModelFacet_MetaFeatures().getName());
+	private EStructuralFeature feature_genAuditContainer_path = class_genAuditContainer.getEStructuralFeature(gmfgenNew.getGenAuditContainer_Path().getName());
+	private EStructuralFeature feature_genAuditContainer_id = class_genAuditContainer.getEStructuralFeature(gmfgenNew.getGenAuditContainer_Id().getName());
+	private EStructuralFeature feature_genAuditContainer_name = class_genAuditContainer.getEStructuralFeature(gmfgenNew.getGenAuditContainer_Name().getName());
+	private EStructuralFeature feature_genAuditContainer_description = class_genAuditContainer.getEStructuralFeature(gmfgenNew.getGenAuditContainer_Description().getName());
+	private EStructuralFeature feature_genAuditContainer_audits = class_genAuditContainer.getEStructuralFeature(gmfgenNew.getGenAuditContainer_Audits().getName());
+	private EStructuralFeature feature_genAuditContainer_root = class_genAuditContainer.getEStructuralFeature(gmfgenNew.getGenAuditContainer_Root().getName());
+	private EStructuralFeature feature_genAuditRoot_categories = class_genAuditRoot.getEStructuralFeature(gmfgenNew.getGenAuditRoot_Categories().getName());
+	private EStructuralFeature feature_genAuditRoot_rules = class_genAuditRoot.getEStructuralFeature(gmfgenNew.getGenAuditRoot_Rules().getName());
+	private EStructuralFeature feature_genAuditRule_category = class_genAuditRule.getEStructuralFeature(gmfgenNew.getGenAuditRule_Category().getName());
 
 	void init() {
 		registerDeletedAttributes(class_editorCandies,
@@ -118,9 +118,9 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			renamings.put(myGenAuditContainer_ChildContainers.getName(), myGenAuditContainer_ChildContainers);
 			registerRenamedAttributes(class_genAuditContainer, renamings);
 		}
-		myGenAuditRoot_Id = (EAttribute) EcoreUtil.copy(gmfgen2008.getGenAuditContainer_Id());
-		myGenAuditRoot_Name = (EAttribute) EcoreUtil.copy(gmfgen2008.getGenAuditContainer_Name());
-		myGenAuditRoot_Description = (EAttribute) EcoreUtil.copy(gmfgen2008.getGenAuditContainer_Description());
+		myGenAuditRoot_Id = (EAttribute) EcoreUtil.copy(gmfgenNew.getGenAuditContainer_Id());
+		myGenAuditRoot_Name = (EAttribute) EcoreUtil.copy(gmfgenNew.getGenAuditContainer_Name());
+		myGenAuditRoot_Description = (EAttribute) EcoreUtil.copy(gmfgenNew.getGenAuditContainer_Description());
 		myGenAuditRoot_Audits = createNewReference("audits", class_genAuditRule, true); //$NON-NLS-1$
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
@@ -282,26 +282,17 @@ class MigrationDelegate extends MigrationDelegateImpl {
 	}
 
 	/**
-	 * Allows us to use dynamic 2006 factory to create all instances,
-	 * i.e. factory of {@link #get2006GenModelPackage()} package.
+	 * Allows us to use factory of dynamic package from year 2006 to create all instances,
 	 */
 	@Override
 	public String getURI(String prefix, String uri) {
 		if (is2005GenModel(prefix, uri)) {
-			return get2006GenModelURI();
+			return ModelVersions.GMFGEN_2_0;
 		}
 		return super.getURI(prefix, uri);
 	}
 	
 	static boolean is2005GenModel(String prefix, String uri) {
-		return "gmfgen".equals(prefix) && ("http://www.eclipse.org/gmf/2005/GenModel".equals(uri) || "http://www.eclipse.org/gmf/2005/GenModel/2.0".equals(uri)); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-	}
-	
-	static String get2006GenModelURI() {
-		return "http://www.eclipse.org/gmf/2006/GenModel"; //$NON-NLS-1$
-	}
-
-	private EPackage get2006GenModelPackage() {
-		return EPackage.Registry.INSTANCE.getEPackage(get2006GenModelURI());
+		return "gmfgen".equals(prefix) && (ModelVersions.GMFGEN_1_0.equals(uri) || ModelVersions.GMFGEN_PRE_2_0.equals(uri)); //$NON-NLS-1$
 	}
 }
