@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: GMF Tooling Commons Plug-in
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: Eclipse Modeling Project
 Bundle-SymbolicName: org.eclipse.gmf.common
 Bundle-Version: 1.1.100.qualifier
 Export-Package: org.eclipse.gmf.common,
@@ -28,3 +28,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.3.0,4.0.0)",
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.eclipse.gmf.internal.common.Activator
 Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin

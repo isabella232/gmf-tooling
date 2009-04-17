@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2006 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -10,18 +10,23 @@
  */
 package org.eclipse.gmf.internal.common.migrate;
 
-import org.eclipse.osgi.util.NLS;
+import java.util.ResourceBundle;
 
-public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "org.eclipse.gmf.internal.common.migrate.messages"; //$NON-NLS-1$
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.gmf.internal.common.Activator;
+
+public class Messages {
 
 	public static String oldModelVersionLoadedMigrationRequired;
 	public static String oldModelVersionLoadErrorMigrationMayBeRequired;	
 	public static String modelLoadedWithProblems;
 	
 	static {
-		// initialize resource bundle
-		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+		// FIXME rename methods
+		ResourceBundle rb = Platform.getResourceBundle(Platform.getBundle(Activator.getID()));
+		oldModelVersionLoadedMigrationRequired = rb.getString("oldModelVersionWarn");
+		oldModelVersionLoadErrorMigrationMayBeRequired = rb.getString("oldModelVersionErr");
+		modelLoadedWithProblems = rb.getString("modelLoadedWithProblems");
 	}
 
 	private Messages() {

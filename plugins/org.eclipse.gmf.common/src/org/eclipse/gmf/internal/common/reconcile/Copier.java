@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -61,7 +61,7 @@ public interface Copier {
 				currentCopy = EcoreUtil.copy(old);
 				EStructuralFeature containment = old.eContainingFeature();
 				Object currentValue = currentParent.eGet(containment);
-				if (currentValue instanceof Collection) {
+				if (currentValue instanceof Collection<?>) {
 					@SuppressWarnings("unchecked")
 					Collection<Object> asCollection = (Collection<Object>) currentValue;
 					asCollection.add(currentCopy);
@@ -95,7 +95,7 @@ public interface Copier {
 				currentCopy = EcoreUtil.copy(old);
 				EStructuralFeature containment = old.eContainingFeature();
 				Object currentValue = currentParent.eGet(containment);
-				if (currentValue instanceof Collection) {
+				if (currentValue instanceof Collection<?>) {
 					@SuppressWarnings("unchecked")
 					Collection<Object> asCollection = (Collection<Object>) currentValue;
 					asCollection.add(currentCopy);
