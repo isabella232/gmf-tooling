@@ -50,6 +50,8 @@ public class Migrate2009 {
 		EStructuralFeature baseGraphicalNodeEditPolicyClassName = ((EClass) oldGenModel.getEClassifier("EditPartCandies")).getEStructuralFeature("baseGraphicalNodeEditPolicyClassName");
 		EStructuralFeature notationViewFactoryClassName = ((EClass) oldGenModel.getEClassifier("GenCommonBase")).getEStructuralFeature("notationViewFactoryClassName");
 		//XXX treeBranch?
+		EStructuralFeature labelModelFacet1 = ((EClass) oldGenModel.getEClassifier("GenChildLabelNode")).getEStructuralFeature("labelModelFacet");
+		EStructuralFeature labelModelFacet2 = ((EClass) oldGenModel.getEClassifier("GenLabel")).getEStructuralFeature("modelFacet");
 		EClass featureLabelModelFacet = (EClass) oldGenModel.getEClassifier("FeatureLabelModelFacet");
 		EAttribute viewMethod = (EAttribute) featureLabelModelFacet.getEStructuralFeature("viewMethod");
 		EAttribute editMethod = (EAttribute) featureLabelModelFacet.getEStructuralFeature("editMethod");
@@ -70,19 +72,65 @@ public class Migrate2009 {
 		cc.ignore(viewMethod);
 		cc.ignore(editMethod);
 		cc.ignore(domainModelElementTesterClassName);
+		// we don't really need to ignore model facets, just record all the uses
+		cc.ignore(labelModelFacet1);
+		cc.ignore(labelModelFacet2);
 		EObject result = cc.go(o);
 		assert "GenEditorGenerator".equals(result.eClass().getName());
 
 		final EClass newGenParserClass = (EClass) myMetaPackage.getEClassifier("GenParsers");
-		EObject newGenParser = null;
+		final EObject newGenParser = myMetaPackage.getEFactoryInstance().create(newGenParserClass);
+		@SuppressWarnings("unchecked")
+		final List<EObject> implementations = (List<EObject>) newGenParser.eGet(newGenParserClass.getEStructuralFeature("implementations"));
+
+		// Approach: one instance, reuse for all not set labelModelFacets - by default uses hint from facet's owner. May alter - e.g. distinct parser per use
+		final EObject externalAuxParser = myMetaPackage.getEFactoryInstance().create((EClass) myMetaPackage.getEClassifier("ExternalParser"));
+		final EObject externalDesignParser = myMetaPackage.getEFactoryInstance().create(externalAuxParser.eClass());
+
+		// first, need to copy ignored LabelModelFacets
+		final EClass newLabelModelFacet = (EClass) myMetaPackage.getEClassifier("LabelModelFacet");
+		final EStructuralFeature lmfParser = newLabelModelFacet.getEStructuralFeature("parser");
+		for (EObject l : cc.getIgnoredOwners(labelModelFacet1)) {
+			EObject newOwner = cc.get(l);
+			EObject newValue;
+			if (l.eIsSet(labelModelFacet1)) {
+				newValue = cc.copy((EObject) l.eGet(labelModelFacet1));
+				if ("DesignLabelModelFacet".equals(newValue.eClass().getName())) {
+					newValue.eSet(lmfParser, externalDesignParser);
+					implementations.add(externalDesignParser);
+				} // for FeatureLabelModelFacet, parser would get set later
+			} else { // null value used to indicate external parser
+				newValue = myMetaPackage.getEFactoryInstance().create(newLabelModelFacet);
+				newValue.eSet(lmfParser, externalAuxParser);
+				implementations.add(externalAuxParser); // I assume list is unique and won't add same object twice
+			}
+			newOwner.eSet(newOwner.eClass().getEStructuralFeature(labelModelFacet1.getName()), newValue);
+		}
+		for (EObject l : cc.getIgnoredOwners(labelModelFacet2)) {
+			EObject newOwner = cc.get(l);
+			EObject newValue;
+			if (l.eIsSet(labelModelFacet2)) {
+				newValue = cc.copy((EObject) l.eGet(labelModelFacet2));
+				if ("DesignLabelModelFacet".equals(newValue.eClass().getName())) {
+					newValue.eSet(lmfParser, externalDesignParser);
+					implementations.add(externalDesignParser);
+				} // for FeatureLabelModelFacet, parser would get set later
+			} else { // null value used to indicate external parser
+				newValue = myMetaPackage.getEFactoryInstance().create(newLabelModelFacet);
+				newValue.eSet(lmfParser, externalAuxParser);
+				implementations.add(externalAuxParser); // I assume list is unique and won't add same object twice
+			}
+			newOwner.eSet(newOwner.eClass().getEStructuralFeature(labelModelFacet2.getName()), newValue);
+		}
+
 		final HashMap<List<?>, EObject> methodsToParserImpl = new HashMap<List<?>, EObject>();
 		assert cc.getIgnoredOwners(viewMethod).size() == cc.getIgnoredOwners(editMethod).size();
 		for (EObject flmf : cc.getIgnoredOwners(viewMethod)) {
 			Object viewMethodEnum = flmf.eGet(viewMethod);
 			Object editMethodEnum = flmf.eGet(editMethod);
 			ArrayList<Object> keyPair = new ArrayList<Object>(2); // need a pair as a key
-			keyPair.set(0, viewMethodEnum);
-			keyPair.set(1, editMethodEnum);
+			keyPair.add(0, viewMethodEnum);
+			keyPair.add(1, editMethodEnum);
 			EObject parserImpl = methodsToParserImpl.get(keyPair);
 			if (parserImpl == null) {
 				EClass prefefinedParser = (EClass) myMetaPackage.getEClassifier("PredefinedParser");
@@ -90,19 +138,14 @@ public class Migrate2009 {
 				parserImpl.eSet(prefefinedParser.getEStructuralFeature("viewMethod"), cc.transformValue(viewMethod, viewMethodEnum));
 				parserImpl.eSet(prefefinedParser.getEStructuralFeature("editMethod"), cc.transformValue(editMethod, editMethodEnum));
 				methodsToParserImpl.put(keyPair, parserImpl);
-				if (newGenParser == null) {
-					newGenParser = myMetaPackage.getEFactoryInstance().create(newGenParserClass);
-				}
-				@SuppressWarnings("unchecked")
-				List<EObject> implementations = (List<EObject>) newGenParser.eGet(newGenParser.eClass().getEStructuralFeature("implementations"));
 				implementations.add(parserImpl);
 			}
 			EObject new_flmf = cc.get(flmf);
-			new_flmf.eSet(new_flmf.eClass().getEStructuralFeature("parser"), parserImpl);
+			new_flmf.eSet(lmfParser, parserImpl);
 		}
 		EObject oldGenDiagram = (EObject) o.eGet(o.eClass().getEStructuralFeature("diagram"));
 		
-		if (newGenParser != null) { // few FeatureLabelModelFacet found
+		if (!implementations.isEmpty()) {
 			result.eSet(result.eClass().getEStructuralFeature("labelParsers"), newGenParser);
 			// XXX try Proxy&InvocationHandler
 			newGenParser.eSet(newGenParserClass.getEStructuralFeature("providerPriority"), cc.transformValue(parserProviderPriority, oldGenDiagram.eGet(parserProviderPriority)));

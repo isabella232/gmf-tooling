@@ -42,24 +42,13 @@ public class GMFGenResource extends MigrationResource {
 
 	/**
 	 * Migration from 2006 (v2.0) to 2008 (v2.1) model
+	 * and from 2008 (v2.1) to 2009 (v2.2)
 	 */
 	public static class Factory2 extends ToolingResourceFactory {
 		@Override
 		public Resource createResource(URI uri) {
 			ToolResource r = (ToolResource) super.createResource(uri);
 			r.getDefaultLoadOptions().put(XMLResource.OPTION_RESOURCE_HANDLER, new X());
-			return r;
-		}
-	}
-
-	/**
-	 * Migration from 2008 (v2.1) to 2009 (v2.2)
-	 */
-	public static class Factory3 extends ToolingResourceFactory {
-		@Override
-		public Resource createResource(URI uri) {
-			ToolResource r = (ToolResource) super.createResource(uri);
-			r.getDefaultLoadOptions().put(XMLResource.OPTION_RESOURCE_HANDLER, new Y());
 			return r;
 		}
 	}
@@ -79,26 +68,33 @@ public class GMFGenResource extends MigrationResource {
 		@Override
 		public void postLoad(XMLResource resource, InputStream inputStream, Map<?, ?> options) {
 			LinkedList<EObject> migrated = new LinkedList<EObject>();
+			boolean needWarning = false;
 			for (EObject o : resource.getContents()) {
-				if (o != null && "GenEditorGenerator".equals(o.eClass().getName()) && ModelVersions.GMFGEN_2_0.equals(o.eClass().getEPackage().getNsURI())) { //$NON-NLS-1$
-					final Migrate2008 migrate = new Migrate2008();
-					EObject m = migrate.go(o);
-					if (m != null && migrate.wasMigrationApplied()) { // XXX multiple warnings if there are few GenEditorGenerators in the resource
-						resource.getWarnings().add(0, MigrationResource.createMessageDiagnostic(resource, Messages.oldModelVersionLoadedMigrationRequired));
+				if (o != null && "GenEditorGenerator".equals(o.eClass().getName())) { //$NON-NLS-1$
+					EObject result = o;
+					if (ModelVersions.GMFGEN_2_0.equals(o.eClass().getEPackage().getNsURI())) {
+						final Migrate2008 migrate = new Migrate2008();
+						EObject m = migrate.go(o);
+						if (m != null && migrate.wasMigrationApplied()) {
+							needWarning = true;
+							result = m;
+						}
 					}
-					migrated.add(m != null ? m : o);
+					if (ModelVersions.GMFGEN_2_1.equals(result.eClass().getEPackage().getNsURI())) {
+						final Migrate2009 migrate = new Migrate2009();
+						EObject m = migrate.go(result);
+						if (m != null) {
+							needWarning = true;
+							result = m;
+						}
+					}
+					migrated.add(result);
 				} else {
 					migrated.add(o);
 				}
 			}
-			resource.getContents().clear();
-			resource.getContents().addAll(migrated);
-		}
-	}
-	private static class Y extends BasicResourceHandler {
-		public void postLoad(XMLResource resource, InputStream inputStream, Map<?, ?> options) {
-			LinkedList<EObject> migrated = new LinkedList<EObject>();
-			for (EObject o : resource.getContents()) {
+			if (needWarning) {
+				resource.getWarnings().add(0, MigrationResource.createMessageDiagnostic(resource, Messages.oldModelVersionLoadedMigrationRequired));
 			}
 			resource.getContents().clear();
 			resource.getContents().addAll(migrated);
