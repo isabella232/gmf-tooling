@@ -75,7 +75,7 @@ public class Migrate2009 {
 		// we don't really need to ignore model facets, just record all the uses
 		cc.ignore(labelModelFacet1);
 		cc.ignore(labelModelFacet2);
-		EObject result = cc.go(o);
+		EObject result = cc.copy(o); // just structure. It's incomplete at this point, hence don't copy any references.
 		assert "GenEditorGenerator".equals(result.eClass().getName());
 
 		final EClass newGenParserClass = (EClass) myMetaPackage.getEClassifier("GenParsers");
@@ -122,6 +122,14 @@ public class Migrate2009 {
 			}
 			newOwner.eSet(newOwner.eClass().getEStructuralFeature(labelModelFacet2.getName()), newValue);
 		}
+		// now, we have whole model copied, hence may proceed with copying internal and external references
+		cc.copyReferences();
+
+		EObject oldGenDiagram = (EObject) o.eGet(o.eClass().getEStructuralFeature("diagram"));
+		if (oldGenDiagram == null) {
+			// although unlikely (the only known place is tests),  
+			return result;
+		}
 
 		final HashMap<List<?>, EObject> methodsToParserImpl = new HashMap<List<?>, EObject>();
 		assert cc.getIgnoredOwners(viewMethod).size() == cc.getIgnoredOwners(editMethod).size();
@@ -143,7 +151,6 @@ public class Migrate2009 {
 			EObject new_flmf = cc.get(flmf);
 			new_flmf.eSet(lmfParser, parserImpl);
 		}
-		EObject oldGenDiagram = (EObject) o.eGet(o.eClass().getEStructuralFeature("diagram"));
 		
 		if (!implementations.isEmpty()) {
 			result.eSet(result.eClass().getEStructuralFeature("labelParsers"), newGenParser);
@@ -160,6 +167,9 @@ public class Migrate2009 {
 		EStructuralFeature genAction_qualifiedClassName = loadResAction.eClass().getEStructuralFeature("qualifiedClassName");
 		loadResAction.eSet(genAction_qualifiedClassName, editorPackageName + '.' + oldGenDiagram.eGet(loadResourceActionClassName));
 		EObject diagramCtxMenu = myMetaPackage.getEFactoryInstance().create((EClass) myMetaPackage.getEClassifier("GenContextMenu"));
+		@SuppressWarnings("unchecked")
+		List<EObject> allContextMenus = (List<EObject>) result.eGet(result.eClass().getEStructuralFeature("contextMenus"));
+		allContextMenus.add(diagramCtxMenu);
 		@SuppressWarnings("unchecked")
 		List<EObject> ctxMenuContext = (List<EObject>) diagramCtxMenu.eGet(diagramCtxMenu.eClass().getEStructuralFeature("context"));
 		// genContextMenu.getContext().add(result.getDiagram());

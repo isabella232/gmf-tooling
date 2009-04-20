@@ -35,16 +35,17 @@
         point="org.eclipse.emf.ecore.content_parser">
      <parser
            class="org.eclipse.gmf.internal.common.ToolingResourceFactory"
-           contentTypeIdentifier="org.eclipse.gmf.gen">
-     </parser>
+           contentTypeIdentifier="org.eclipse.gmf.gen"/>
+     <!-- Factory2 supports both 2.0 and 2.1, updating them to 2.2 -->
      <parser
            class="org.eclipse.gmf.internal.codegen.util.GMFGenResource$Factory2"
-           contentTypeIdentifier="org.eclipse.gmf.gen_2_0">
-     </parser>
+           contentTypeIdentifier="org.eclipse.gmf.gen_2_1"/>
+     <parser
+           class="org.eclipse.gmf.internal.codegen.util.GMFGenResource$Factory2"
+           contentTypeIdentifier="org.eclipse.gmf.gen_2_0"/>
      <parser
            class="org.eclipse.gmf.internal.codegen.util.GMFGenResource$Factory"
-           contentTypeIdentifier="org.eclipse.gmf.gen_1_0">
-     </parser>
+           contentTypeIdentifier="org.eclipse.gmf.gen_1_0"/>
   </extension>
 
   <extension

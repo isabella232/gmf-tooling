@@ -75,9 +75,11 @@ public class GMFGenResource extends MigrationResource {
 					if (ModelVersions.GMFGEN_2_0.equals(o.eClass().getEPackage().getNsURI())) {
 						final Migrate2008 migrate = new Migrate2008();
 						EObject m = migrate.go(o);
-						if (m != null && migrate.wasMigrationApplied()) {
-							needWarning = true;
+						if (m != null) {
 							result = m;
+							if (migrate.wasMigrationApplied()) {
+								needWarning = true;
+							}
 						}
 					}
 					if (ModelVersions.GMFGEN_2_1.equals(result.eClass().getEPackage().getNsURI())) {
