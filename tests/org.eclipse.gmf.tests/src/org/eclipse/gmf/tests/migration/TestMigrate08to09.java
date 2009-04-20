@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.tests.migration;
 
 import junit.framework.TestCase;
@@ -18,6 +29,10 @@ import org.eclipse.gmf.codegen.gmfgen.LoadResourceAction;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.tests.Plugin;
 
+/**
+ * No tests for added FeatureLabelModelFacet#editableMetaFeatures, as empty value is ok (see AbstractParser).
+ * @author artem
+ */
 public class TestMigrate08to09 extends TestCase {
 	private GenEditorGenerator editorGen;
 
@@ -30,6 +45,9 @@ public class TestMigrate08to09 extends TestCase {
 		editorGen = (GenEditorGenerator) root;
 	}
 
+	/**
+	 * Concept of GenParser and ParserImplementation introduced to replace edit/view methods of FeatureLabelModelFacet 
+	 */
 	public void testGenParsers() {
 		GenParsers genParsers = editorGen.getLabelParsers();
 		assertNotNull(genParsers);
@@ -48,7 +66,7 @@ public class TestMigrate08to09 extends TestCase {
 				predefinedParser = (PredefinedParser) gpi;
 			}
 		}
-		assertTrue("Missing CustomParser use ", customParserFound);
+		assertFalse("Old models had no means to define CustomParser", customParserFound);
 		assertTrue("Missing ExternalParser use ", externalParserFound);
 		assertTrue("Missing PredefinedParser use ", predefinedParser != null);
 		assertFalse(predefinedParser.getUses().isEmpty());
@@ -56,12 +74,9 @@ public class TestMigrate08to09 extends TestCase {
 		assertEquals(LabelTextAccessMethod.PRINTF, predefinedParser.getViewMethod());
 	}
 
-	// FeatureLabelModelFacet#editableMetaFeatures
-	public void testLabelEditableFeatures() {
-		fail();
-	}
-
-	// LoadResourceAction, CreateShortcutAction are now distinct classes, explicitly inserted into diagram's context menu
+	/**
+	 * LoadResourceAction, CreateShortcutAction are now distinct classes, explicitly inserted into diagram's context menu
+	 */
 	public void testActions() {
 		assertFalse(editorGen.getContextMenus().isEmpty());
 		GenContextMenu diagramMenu = null;

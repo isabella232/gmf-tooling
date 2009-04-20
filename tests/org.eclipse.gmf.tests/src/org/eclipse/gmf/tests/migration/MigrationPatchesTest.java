@@ -6,7 +6,9 @@
  * accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: dvorak - initial API and implementation
+ * Contributors:
+ *    dvorak - initial API and implementation
+ *    Artem Tikhomirov (Borland) - updated with 2009 migration
  */
 package org.eclipse.gmf.tests.migration;
 
@@ -17,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -28,18 +29,22 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -58,6 +63,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.internal.codegen.util.ModelVersions;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
@@ -78,30 +84,19 @@ import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.tests.Plugin;
 
 public class MigrationPatchesTest extends TestCase {
-	private EClass cGenEditorGenerator;
-	private EClass cGenDiagram;
-	private EClass cFeatureLabelModelFacet;
-	private EClass cGenAuditRoot;
-	private EClass cGenAuditContext; 
-	private EStructuralFeature rMetaFeatures;
-	private EStructuralFeature rGenNode_Labels;
-	private EStructuralFeature rModelFacet;
+
+	static URI createURI(String testModelFileName) {
+		try {
+			return Plugin.createURI("/models/migration/" + testModelFileName); //$NON-NLS-1$
+		} catch (IOException e) {
+			e.printStackTrace();
+			fail("Could not create test model URI"); //$NON-NLS-1$
+		}
+		return null;
+	}
 
 	public MigrationPatchesTest(String name) {
 		super(name);
-	}
-
-	@Override
-	protected void setUp() throws Exception {
-		EPackage gmfgen_2008 = EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/gmf/2008/GenModel");
-		cGenEditorGenerator = (EClass) gmfgen_2008.getEClassifier("GenEditorGenerator");
-		cGenDiagram = (EClass) gmfgen_2008.getEClassifier("GenDiagram");
-		cFeatureLabelModelFacet = (EClass) gmfgen_2008.getEClassifier("FeatureLabelModelFacet");
-		cGenAuditRoot = (EClass) gmfgen_2008.getEClassifier("GenAuditRoot");
-		cGenAuditContext = (EClass) gmfgen_2008.getEClassifier("GenAuditContext");
-		rMetaFeatures = cFeatureLabelModelFacet.getEStructuralFeature("metaFeatures");
-		rGenNode_Labels = ((EClass)gmfgen_2008.getEClassifier("GenNode")).getEStructuralFeature("labels");
-		rModelFacet = ((EClass)gmfgen_2008.getEClassifier("GenLabel")).getEStructuralFeature("modelFacet");
 	}
 
 	/*
@@ -146,8 +141,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
 		URI newGenUri = temporarySaveMigratedModel(genmodelFileName, "patch_138440", "gmfgen");
-		changeNsUriToOldOne(newGenUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
-		
+		assertNoOrdinaryLoadModelProblems(newGenUri);
 		assertOnLoadModelMigrationDidNothing(newGenUri);
 		
 		URI gmfmapmodelFileName = createURI("patch_161380.gmfmap"); //$NON-NLS-1$		
@@ -160,87 +154,6 @@ public class MigrationPatchesTest extends TestCase {
 		changeNsUriToOldOne(newUri, "gmfmap", "http://www.eclipse.org/gmf/2005/mappings/2.0");
 		
 		assertOnLoadModelMigrationDidNothing(newUri);
-	}
-
-	static URI createURI(String testModelFileName) {
-		try {
-			return Plugin.createURI("/models/migration/" + testModelFileName); //$NON-NLS-1$
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("Could not create test model URI"); //$NON-NLS-1$
-		}
-		return null;
-	}
-
-	void assertOnLoadModelMigrationSuccess(URI uri) throws Exception {
-		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
-		
-		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
-		for (Resource.Diagnostic d : errors) {
-			if (d instanceof WrappedException) {
-				((WrappedException) d).exception().printStackTrace();
-			}
-		}
-		assertTrue("Errors found after migration: "+errors, errors.isEmpty()); //$NON-NLS-1$
-		
-		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
-		Collection<Resource.Diagnostic> warnings = new ArrayList<Resource.Diagnostic>();
-		for (Resource nextResource : loadHelper.getLoadedResource().getResourceSet().getResources()) {
-			warnings.addAll(nextResource.getWarnings());
-		}
-		for (Resource.Diagnostic warning : warnings) {
-			assertTrue("Migration Warning diagnostic expected", warning instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
-		}
-		
-		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
-		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
-		assertEquals("Unknown elements were found after migration", 0, xmlResource.getEObjectToExtensionMap().size());
-	}
-
-	void assertOnLoadModelMigrationDidNothing(URI uri) throws Exception {
-		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
-		
-		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
-		assertTrue("Errors after re-run migration on new migrated model: "+errors, errors.isEmpty());
-		
-		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
-		assertTrue("Warnings after re-run migration on new migrated model: "+warnings, warnings.isEmpty());
-		
-		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
-		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
-		assertEquals("Unknown elements were found after re-migration", 0, xmlResource.getEObjectToExtensionMap().size());
-	}
-
-	Exception assertOrdinaryLoadModelProblems(URI uri) throws Exception {
-		Resource resource = new ToolingResourceFactory().createResource(uri);
-		ResourceSet rset = new ResourceSetImpl();
-		rset.getResources().add(resource);
-
-		RuntimeException caughtException = null;
-		try {
-			rset.getResource(uri, true);
-		} catch (RuntimeException e) {
-			caughtException = e;
-		}
-		assertTrue("Expected model loading problems", //$NON-NLS-1$
-				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
-		return caughtException;
-	}
-
-	Resource assertNoOrdinaryLoadModelProblems(URI uri) throws Exception {
-		Resource resource = new ToolingResourceFactory().createResource(uri);
-		ResourceSet rset = new ResourceSetImpl();
-		rset.getResources().add(resource);
-
-		RuntimeException caughtException = null;
-		try {
-			rset.getResource(uri, true);
-		} catch (RuntimeException e) {
-			caughtException = e;
-		}
-		assertFalse("Unexpected model loading problems", //$NON-NLS-1$
-				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
-		return resource;
 	}
 
 	/*
@@ -264,15 +177,16 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenDiagram", "gmfgen");
-		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
+		changeNsUriToOldOne(newUri, "gmfgen", ModelVersions.GMFGEN_PRE_2_0);
 		
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
 	/*
-	FeatureLabelModelFacet 
-	Removed refs:
-	ref genmodel.GenFeature[1] metaFeature;
+		FeatureLabelModelFacet 
+			ref genmodel.GenFeature[1] metaFeature;
+		was replaced by:
+			ref genmodel.GenFeature[+] metaFeatures;
 	 */
 	public void testFeatureLabelModelFacet() throws Exception {
 		URI genmodelFileName = createURI("testFeatureLabelModelFacet.gmfgen"); //$NON-NLS-1$
@@ -284,10 +198,8 @@ public class MigrationPatchesTest extends TestCase {
 		checkFeatureLabelModelFacetsMigrated(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testFeatureLabelModelFacet", "gmfgen");
-		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
-		
+		assertNoOrdinaryLoadModelProblems(newUri);
 		assertOnLoadModelMigrationDidNothing(newUri);
-		checkFeatureLabelModelFacetsMigrated(newUri);
 	}
 
 //	/*
@@ -313,8 +225,8 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAuditRootDefaultAndNested", "gmfgen");
-		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
 		
+		assertNoOrdinaryLoadModelProblems(newUri);
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
@@ -336,8 +248,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAudits", "gmfgen");
-		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
-		
+		assertNoOrdinaryLoadModelProblems(newUri);
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
@@ -350,8 +261,7 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenEditorAuditRootNoDefaultButNested", "gmfgen");
-		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
-		
+		assertNoOrdinaryLoadModelProblems(newUri);
 		assertOnLoadModelMigrationDidNothing(newUri);
 	}
 
@@ -366,8 +276,7 @@ public class MigrationPatchesTest extends TestCase {
 		checkModelAndCorrectCategories(genmodelFileName);
 
 		URI newUri = temporarySaveMigratedModel(genmodelFileName, "testGenAuditsCorrectCategories", "gmfgen");
-		changeNsUriToOldOne(newUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0");
-		
+		assertNoOrdinaryLoadModelProblems(newUri);
 		assertOnLoadModelMigrationDidNothing(newUri);
 		
 		checkModelAndCorrectCategories(newUri);
@@ -464,28 +373,26 @@ public class MigrationPatchesTest extends TestCase {
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 		checkAllRequiredPluginsAreNotLost(gmfmapmodelFileName);
 
-		URI newMapUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testRequiredPluginsMoved", "gmfgen"); //$NON-NLS-1$ //$NON-NLS-2$
-		changeNsUriToOldOne(newMapUri, "gmfgen", "http://www.eclipse.org/gmf/2005/GenModel/2.0"); //$NON-NLS-1$ //$NON-NLS-2$
+		URI newUri = temporarySaveMigratedModel(gmfmapmodelFileName, "testRequiredPluginsMoved", "gmfgen"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		assertNoOrdinaryLoadModelProblems(newUri);
+		assertOnLoadModelMigrationDidNothing(newUri);
 		
-		assertOnLoadModelMigrationDidNothing(newMapUri);
-		checkAllRequiredPluginsAreNotLost(newMapUri);
+		checkAllRequiredPluginsAreNotLost(newUri);
 	}
 
 	private void checkAllRequiredPluginsAreNotLost(URI modelUri) {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), modelUri);
 		Resource resource = loadHelper.getLoadedResource();
 		assertEquals(1, resource.getContents().size());
-		EObject genEditor = resource.getContents().get(0);
-		assertEquals(cGenEditorGenerator, genEditor.eClass());
-		EObject exprProviderContainer = (EObject) genEditor.eGet(cGenEditorGenerator.getEStructuralFeature("expressionProviders")); 
-		assertNotNull(exprProviderContainer);
-		List<?> providers = (List<?>) exprProviderContainer.eGet(exprProviderContainer.eClass().getEStructuralFeature("providers"));
-		assertFalse(providers.isEmpty());
-		EObject plugin = (EObject) genEditor.eGet(cGenEditorGenerator.getEStructuralFeature("plugin"));
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof GenEditorGenerator);
+		GenEditorGenerator genEditor = (GenEditorGenerator) first;
+		assertNotNull(genEditor.getExpressionProviders());
+		assertFalse(genEditor.getExpressionProviders().getProviders().isEmpty());
+		GenPlugin plugin = genEditor.getPlugin();
 		assertNotNull(plugin);
-		EStructuralFeature rRequiredPlugins = plugin.eClass().getEStructuralFeature("requiredPlugins");
-		@SuppressWarnings("unchecked")
-		EList<String> requiredPlugins = (EList<String>) plugin.eGet(rRequiredPlugins);
+		EList<String> requiredPlugins = plugin.getRequiredPlugins();
 		assertEquals(3, requiredPlugins.size());
 		assertEquals("org.eclipse.fake.x1", requiredPlugins.get(0));
 		assertEquals("org.eclipse.fake.x2", requiredPlugins.get(1));
@@ -519,28 +426,28 @@ public class MigrationPatchesTest extends TestCase {
 		}
 	}
 
-	private void checkFeatureLabelModelFacetsMigrated(URI uri) {
+	private static void checkFeatureLabelModelFacetsMigrated(URI uri) {
 		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
 		Resource resource = loadHelper.getLoadedResource();
 		assertEquals(1, resource.getContents().size());
 		EObject editorGen = resource.getContents().get(0);
-		assertEquals(cGenEditorGenerator, editorGen.eClass());
-		assertEquals(1, editorGen.eContents().size());
+		assertTrue(editorGen instanceof GenEditorGenerator);
+		assertTrue(editorGen.eContents().size() > 0);
 		EObject diagram = editorGen.eContents().get(0);
-		assertEquals(cGenDiagram, diagram.eClass());
+		assertTrue(diagram instanceof GenDiagram);
 		assertEquals(1, diagram.eContents().size());
-		EObject rootTLN = diagram.eContents().get(0);
-		assertEquals(2, rootTLN.eContents().size());
-		@SuppressWarnings("unchecked")
-		List<EObject> labels = (List<EObject>) rootTLN.eGet(rGenNode_Labels);
-		assertEquals(2, labels.size());
+		GenTopLevelNode root = (GenTopLevelNode) diagram.eContents().get(0);
+		assertEquals(2, root.eContents().size());
+		assertEquals(2, root.getLabels().size());
 		//
-		EObject first = (EObject) labels.get(0).eGet(rModelFacet);
-		assertEquals(cFeatureLabelModelFacet, first.eClass());
-		assertEquals(1, ((List<?>) first.eGet(rMetaFeatures)).size());
-		EObject second = (EObject) labels.get(1).eGet(rModelFacet);
-		assertEquals(cFeatureLabelModelFacet, second.eClass());
-		assertEquals(2, ((List<?>) second.eGet(rMetaFeatures)).size());
+		LabelModelFacet first = root.getLabels().get(0).getModelFacet();
+		assertTrue(first instanceof FeatureLabelModelFacet);
+		FeatureLabelModelFacet firstFeatureLabelModelFacet = (FeatureLabelModelFacet) first;
+		assertEquals(1, firstFeatureLabelModelFacet.getMetaFeatures().size());
+		LabelModelFacet second = root.getLabels().get(1).getModelFacet();
+		assertTrue(second instanceof FeatureLabelModelFacet);
+		FeatureLabelModelFacet secondFeatureLabelModelFacet = (FeatureLabelModelFacet) second;
+		assertEquals(2, secondFeatureLabelModelFacet.getMetaFeatures().size());
 	}
 
 
@@ -902,13 +809,14 @@ public class MigrationPatchesTest extends TestCase {
 		URI gmfgenFileName = createURI("test226149.gmfgen"); //$NON-NLS-1$
 		
 		Resource resource = assertNoOrdinaryLoadModelProblems(gmfgenFileName);
-		assertEquals("http://www.eclipse.org/gmf/2006/GenModel", resource.getContents().get(0).eClass().getEPackage().getNsURI());
+		assertEquals(ModelVersions.GMFGEN_2_0, resource.getContents().get(0).eClass().getEPackage().getNsURI());
 
 		assertOnLoadModelMigrationSuccess(gmfgenFileName);
 		checkAuditContexts(gmfgenFileName);
 
 		URI newUri = temporarySaveMigratedModel(gmfgenFileName, "test226149", "gmfgen");
 		
+		assertNoOrdinaryLoadModelProblems(newUri);
 		assertOnLoadModelMigrationDidNothing(newUri);
 		checkAuditContexts(newUri);
 	}
@@ -918,28 +826,28 @@ public class MigrationPatchesTest extends TestCase {
 		Resource resource = loadHelper.getLoadedResource();
 		
 		assertEquals(1, resource.getContents().size());
-		EObject editorGen = resource.getContents().get(0);
-		assertEquals(cGenEditorGenerator, editorGen.eClass());
-		assertEquals(1, editorGen.eContents().size());
-		EObject auditRoot = editorGen.eContents().get(0);
-		assertEquals(cGenAuditRoot, auditRoot.eClass());
-		assertEquals(6, auditRoot.eContents().size());
-
-		@SuppressWarnings("unchecked")
-		List<EObject> clientContexts = (List<EObject>) auditRoot.eGet(cGenAuditRoot.getEStructuralFeature("clientContexts"));
-		assertEquals(2, clientContexts.size());
+		Object first = resource.getContents().get(0);
+		assertTrue(first instanceof GenEditorGenerator);
+		GenEditorGenerator editor = (GenEditorGenerator) first;
+		assertEquals(1, editor.eContents().size());
+		first = editor.eContents().get(0);
+		assertTrue(first instanceof GenAuditRoot);
+		GenAuditRoot root = (GenAuditRoot) first;
+		assertEquals(6, root.eContents().size());
 		
+		assertNotNull(root.getClientContexts());
+		assertFalse(root.getClientContexts().isEmpty());
+		assertEquals(2, root.getClientContexts().size());
 		
-		EObject auditContext1 = clientContexts.get(0);
-		assertEquals(cGenAuditContext, auditContext1.eClass());
-		EStructuralFeature aId = cGenAuditContext.getEStructuralFeature("id");
-		EStructuralFeature rRuleTargets = cGenAuditContext.getEStructuralFeature("ruleTargets");
-		assertEquals("SaveMe1", auditContext1.eGet(aId));
-		assertEquals(2, ((List<?>) auditContext1.eGet(rRuleTargets)).size());
+		GenAuditContext saveMe1 = root.getClientContexts().get(0);
+		assertEquals("SaveMe1", saveMe1.getId());
+		assertFalse(saveMe1.getRuleTargets().isEmpty());
+		assertEquals(2, saveMe1.getRuleTargets().size());
 
-		EObject auditContext2 = clientContexts.get(1);
-		assertEquals("SaveMe2", auditContext2.eGet(aId));
-		assertEquals(1, ((List<?>) auditContext2.eGet(rRuleTargets)).size());
+		GenAuditContext saveMe2 = root.getClientContexts().get(1);
+		assertEquals("SaveMe2", saveMe2.getId());
+		assertFalse(saveMe2.getRuleTargets().isEmpty());
+		assertEquals(1, saveMe2.getRuleTargets().size());
 	}
 
 	public void testFeatureValueSpecRefactor227505() throws Exception {
@@ -1027,4 +935,74 @@ public class MigrationPatchesTest extends TestCase {
 		assertEquals("some.Checker2", value31.getBody());
 	}
 
+	private void assertOnLoadModelMigrationSuccess(URI uri) throws Exception {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		
+		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
+		for (Resource.Diagnostic d : errors) {
+			if (d instanceof WrappedException) {
+				((WrappedException) d).exception().printStackTrace();
+			}
+		}
+		assertTrue("Errors found after migration: "+errors, errors.isEmpty()); //$NON-NLS-1$
+		
+		assertTrue("Migration warning load status expected", loadHelper.getStatus().matches(IStatus.WARNING)); //$NON-NLS-1$
+		Collection<Resource.Diagnostic> warnings = new ArrayList<Resource.Diagnostic>();
+		for (Resource nextResource : loadHelper.getLoadedResource().getResourceSet().getResources()) {
+			warnings.addAll(nextResource.getWarnings());
+		}
+		for (Resource.Diagnostic warning : warnings) {
+			assertTrue("Migration Warning diagnostic expected", warning instanceof MigrationResource.Diagnostic); //$NON-NLS-1$
+		}
+		
+		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
+		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
+		assertEquals("Unknown elements were found after migration", 0, xmlResource.getEObjectToExtensionMap().size());
+	}
+
+	private void assertOnLoadModelMigrationDidNothing(URI uri) throws Exception {
+		ModelLoadHelper loadHelper = new ModelLoadHelper(new ResourceSetImpl(), uri);
+		
+		EList<Resource.Diagnostic> errors = loadHelper.getLoadedResource().getErrors();
+		assertTrue("Errors after re-run migration on new migrated model: "+errors, errors.isEmpty());
+		
+		EList<Resource.Diagnostic> warnings = loadHelper.getLoadedResource().getWarnings();
+		assertTrue("Warnings after re-run migration on new migrated model: "+warnings, warnings.isEmpty());
+		
+		assertTrue(loadHelper.getLoadedResource() instanceof XMLResource);
+		XMLResource xmlResource = (XMLResource) loadHelper.getLoadedResource();
+		assertEquals("Unknown elements were found after re-migration", 0, xmlResource.getEObjectToExtensionMap().size());
+	}
+
+	private Exception assertOrdinaryLoadModelProblems(URI uri) throws Exception {
+		Resource resource = new ToolingResourceFactory().createResource(uri);
+		ResourceSet rset = new ResourceSetImpl();
+		rset.getResources().add(resource);
+
+		RuntimeException caughtException = null;
+		try {
+			rset.getResource(uri, true);
+		} catch (RuntimeException e) {
+			caughtException = e;
+		}
+		assertTrue("Expected model loading problems", //$NON-NLS-1$
+				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
+		return caughtException;
+	}
+
+	private Resource assertNoOrdinaryLoadModelProblems(URI uri) throws Exception {
+		Resource resource = new ToolingResourceFactory().createResource(uri);
+		ResourceSet rset = new ResourceSetImpl();
+		rset.getResources().add(resource);
+
+		RuntimeException caughtException = null;
+		try {
+			rset.getResource(uri, true);
+		} catch (RuntimeException e) {
+			caughtException = e;
+		}
+		assertFalse("Unexpected model loading problems", //$NON-NLS-1$
+				caughtException != null || !resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty());
+		return resource;
+	}
 }
