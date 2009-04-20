@@ -29,7 +29,7 @@ import org.eclipse.gmf.internal.common.migrate.MigrationResource;
 public class GMFGenResource extends MigrationResource {
 
 	/**
-	 * Migration from 2005 model to 2006 dynamic model and then once again to 2008 normal model during XML reading 
+	 * Migration from 2005 model to 2006 dynamic model and then once again to 2008 and 2009 models 
 	 */
 	public static class Factory extends ToolingResourceFactory {
 		@Override
