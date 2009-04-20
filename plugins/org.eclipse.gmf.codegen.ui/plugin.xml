@@ -49,9 +49,11 @@
 		</action>
 		<visibility>
 		  <or>
-			<objectState name="extension" value="gmfgen"/>
+			<objectState name="contentTypeId" value="org.eclipse.gmf.gen_1_0"/>
+			<objectState name="contentTypeId" value="org.eclipse.gmf.gen_2_0"/>
+			<objectState name="contentTypeId" value="org.eclipse.gmf.gen_2_1"/>
   			<objectState name="extension" value="gmfmap"/>
-  			<objectState name="extension" value="gmfgraph"/>
+			<objectState name="contentTypeId" value="org.eclipse.gmf.graph_1_0"/>
 		  </or>
 		</visibility>
 	</objectContribution>
