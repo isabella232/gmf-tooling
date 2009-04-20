@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -14,8 +14,6 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessCreateCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.ChildAccessReorientCommand;
 import org.eclipse.gmf.graphdef.editor.edit.commands.DiagramElementFigureCreateCommand;
@@ -36,12 +34,18 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
+import org.eclipse.gmf.runtime.common.core.command.ICompositeCommand;
+import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -53,41 +57,30 @@ public class FigureDescriptorItemSemanticEditPolicy extends GMFGraphBaseItemSema
 	/**
 	 * @generated
 	 */
+	public FigureDescriptorItemSemanticEditPolicy() {
+		super(GMFGraphElementTypes.FigureDescriptor_3009);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (GMFGraphElementTypes.Rectangle_3010 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
-			}
 			return getGEFWrapper(new RectangleCreateCommand(req));
 		}
 		if (GMFGraphElementTypes.Ellipse_3015 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
-			}
 			return getGEFWrapper(new Ellipse2CreateCommand(req));
 		}
 		if (GMFGraphElementTypes.RoundedRectangle_3016 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
-			}
 			return getGEFWrapper(new RoundedRectangle2CreateCommand(req));
 		}
 		if (GMFGraphElementTypes.Polyline_3017 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
-			}
 			return getGEFWrapper(new Polyline2CreateCommand(req));
 		}
 		if (GMFGraphElementTypes.Polygon_3024 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
-			}
 			return getGEFWrapper(new Polygon2CreateCommand(req));
 		}
 		if (GMFGraphElementTypes.Label_3027 == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure());
-			}
 			return getGEFWrapper(new Label2CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
@@ -97,42 +90,131 @@ public class FigureDescriptorItemSemanticEditPolicy extends GMFGraphBaseItemSema
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		CompoundCommand cc = getDestroyEdgesCommand();
-		addDestroyChildNodesCommand(cc);
-		addDestroyShortcutsCommand(cc);
-		cc.add(getGEFWrapper(new DestroyElementCommand(req)));
-		return cc.unwrap();
+		View view = (View) getHost().getModel();
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
+		cmd.setTransactionNestingEnabled(false);
+		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
+			Edge incomingLink = (Edge) it.next();
+			if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == DiagramElementFigureEditPart.VISUAL_ID) {
+				DestroyReferenceRequest r = new DestroyReferenceRequest(incomingLink.getSource().getElement(), null, incomingLink.getTarget().getElement(), false);
+				cmd.add(new DestroyReferenceCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
+		}
+		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
+			Edge outgoingLink = (Edge) it.next();
+			if (GMFGraphVisualIDRegistry.getVisualID(outgoingLink) == ChildAccessEditPart.VISUAL_ID) {
+				DestroyElementRequest r = new DestroyElementRequest(outgoingLink.getElement(), false);
+				cmd.add(new DestroyElementCommand(r));
+				cmd.add(new DeleteCommand(getEditingDomain(), outgoingLink));
+				continue;
+			}
+		}
+		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
+		if (annotation == null) {
+			// there are indirectly referenced children, need extra commands: false
+			addDestroyChildNodesCommand(cmd);
+			addDestroyShortcutsCommand(cmd, view);
+			// delete host element
+			cmd.add(new DestroyElementCommand(req));
+		} else {
+			cmd.add(new DeleteCommand(getEditingDomain(), view));
+		}
+		return getGEFWrapper(cmd.reduce());
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void addDestroyChildNodesCommand(CompoundCommand cmd) {
+	private void addDestroyChildNodesCommand(ICompositeCommand cmd) {
 		View view = (View) getHost().getModel();
-		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
-		if (annotation != null) {
-			return;
-		}
-		for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
-			Node node = (Node) it.next();
+		for (Iterator nit = view.getChildren().iterator(); nit.hasNext();) {
+			Node node = (Node) nit.next();
 			switch (GMFGraphVisualIDRegistry.getVisualID(node)) {
 			case RectangleEditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
+				for (Iterator it = node.getTargetEdges().iterator(); it.hasNext();) {
+					Edge incomingLink = (Edge) it.next();
+					if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == ChildAccessEditPart.VISUAL_ID) {
+						DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
+						cmd.add(new DestroyElementCommand(r));
+						cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+						continue;
+					}
+				}
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
+				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case Ellipse2EditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
+				for (Iterator it = node.getTargetEdges().iterator(); it.hasNext();) {
+					Edge incomingLink = (Edge) it.next();
+					if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == ChildAccessEditPart.VISUAL_ID) {
+						DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
+						cmd.add(new DestroyElementCommand(r));
+						cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+						continue;
+					}
+				}
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
+				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case RoundedRectangle2EditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
+				for (Iterator it = node.getTargetEdges().iterator(); it.hasNext();) {
+					Edge incomingLink = (Edge) it.next();
+					if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == ChildAccessEditPart.VISUAL_ID) {
+						DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
+						cmd.add(new DestroyElementCommand(r));
+						cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+						continue;
+					}
+				}
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
+				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case Polyline2EditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
+				for (Iterator it = node.getTargetEdges().iterator(); it.hasNext();) {
+					Edge incomingLink = (Edge) it.next();
+					if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == ChildAccessEditPart.VISUAL_ID) {
+						DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
+						cmd.add(new DestroyElementCommand(r));
+						cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+						continue;
+					}
+				}
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
+				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case Polygon2EditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
+				for (Iterator it = node.getTargetEdges().iterator(); it.hasNext();) {
+					Edge incomingLink = (Edge) it.next();
+					if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == ChildAccessEditPart.VISUAL_ID) {
+						DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
+						cmd.add(new DestroyElementCommand(r));
+						cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+						continue;
+					}
+				}
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
+				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case Label2EditPart.VISUAL_ID:
-				cmd.add(getDestroyElementCommand(node));
+				for (Iterator it = node.getTargetEdges().iterator(); it.hasNext();) {
+					Edge incomingLink = (Edge) it.next();
+					if (GMFGraphVisualIDRegistry.getVisualID(incomingLink) == ChildAccessEditPart.VISUAL_ID) {
+						DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
+						cmd.add(new DestroyElementCommand(r));
+						cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+						continue;
+					}
+				}
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
+				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			}
 		}

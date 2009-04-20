@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
@@ -27,17 +26,18 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.handles.NonResizableHandleKit;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.tools.DirectEditManager;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphTextSelectionEditPolicy;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
-import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
@@ -101,12 +101,14 @@ public class CompartmentNameEditPart extends CompartmentEditPart implements ITex
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new GMFGraphTextSelectionEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
 		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
 
 			protected List createSelectionHandles() {
 				List handles = new ArrayList();
 				NonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);
+				((MoveHandle) handles.get(0)).setBorder(null);
 				return handles;
 			}
 
@@ -231,6 +233,10 @@ public class CompartmentNameEditPart extends CompartmentEditPart implements ITex
 		if (pdEditPolicy instanceof GMFGraphTextSelectionEditPolicy) {
 			((GMFGraphTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
 		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof GMFGraphTextSelectionEditPolicy) {
+			((GMFGraphTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
+		}
 	}
 
 	/**
@@ -301,9 +307,8 @@ public class CompartmentNameEditPart extends CompartmentEditPart implements ITex
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			String parserHint = ((View) getModel()).getType();
-			IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Compartment_2005, getParserElement(), parserHint);
-			parser = ParserService.getInstance().getParser(hintAdapter);
+			parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Compartment_2005, getParserElement(), GMFGraphVisualIDRegistry
+					.getType(org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentNameEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
@@ -400,6 +405,10 @@ public class CompartmentNameEditPart extends CompartmentEditPart implements ITex
 		Object pdEditPolicy = getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 		if (pdEditPolicy instanceof GMFGraphTextSelectionEditPolicy) {
 			((GMFGraphTextSelectionEditPolicy) pdEditPolicy).refreshFeedback();
+		}
+		Object sfEditPolicy = getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);
+		if (sfEditPolicy instanceof GMFGraphTextSelectionEditPolicy) {
+			((GMFGraphTextSelectionEditPolicy) sfEditPolicy).refreshFeedback();
 		}
 	}
 

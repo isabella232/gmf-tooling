@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -23,15 +23,14 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.LabelText3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.LabelTextEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeNameEditPart;
-import org.eclipse.gmf.graphdef.editor.parsers.CompositeParser;
 import org.eclipse.gmf.graphdef.editor.parsers.MessageFormatParser;
-import org.eclipse.gmf.graphdef.editor.parsers.RegexpParser;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 import org.eclipse.gmf.runtime.notation.View;
@@ -51,18 +50,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getCompartmentName_5005Parser() {
 		if (compartmentName_5005Parser == null) {
-			compartmentName_5005Parser = createCompartmentName_5005Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			compartmentName_5005Parser = parser;
 		}
 		return compartmentName_5005Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createCompartmentName_5005Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -75,18 +67,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getNodeName_5006Parser() {
 		if (nodeName_5006Parser == null) {
-			nodeName_5006Parser = createNodeName_5006Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			nodeName_5006Parser = parser;
 		}
 		return nodeName_5006Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createNodeName_5006Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -99,18 +84,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getConnectionName_5007Parser() {
 		if (connectionName_5007Parser == null) {
-			connectionName_5007Parser = createConnectionName_5007Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			connectionName_5007Parser = parser;
 		}
 		return connectionName_5007Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createConnectionName_5007Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -123,18 +101,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getFigureGalleryName_5009Parser() {
 		if (figureGalleryName_5009Parser == null) {
-			figureGalleryName_5009Parser = createFigureGalleryName_5009Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			figureGalleryName_5009Parser = parser;
 		}
 		return figureGalleryName_5009Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createFigureGalleryName_5009Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -147,18 +118,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getDiagramLabelName_5013Parser() {
 		if (diagramLabelName_5013Parser == null) {
-			diagramLabelName_5013Parser = createDiagramLabelName_5013Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			diagramLabelName_5013Parser = parser;
 		}
 		return diagramLabelName_5013Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createDiagramLabelName_5013Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -171,18 +135,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getFigureDescriptorName_5008Parser() {
 		if (figureDescriptorName_5008Parser == null) {
-			figureDescriptorName_5008Parser = createFigureDescriptorName_5008Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			figureDescriptorName_5008Parser = parser;
 		}
 		return figureDescriptorName_5008Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createFigureDescriptorName_5008Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getIdentity_Name(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -195,18 +152,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getLabelText_5010Parser() {
 		if (labelText_5010Parser == null) {
-			labelText_5010Parser = createLabelText_5010Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			labelText_5010Parser = parser;
 		}
 		return labelText_5010Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createLabelText_5010Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -219,18 +169,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getLabelText_5011Parser() {
 		if (labelText_5011Parser == null) {
-			labelText_5011Parser = createLabelText_5011Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			labelText_5011Parser = parser;
 		}
 		return labelText_5011Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createLabelText_5011Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -243,18 +186,11 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	 */
 	private IParser getLabelText_5012Parser() {
 		if (labelText_5012Parser == null) {
-			labelText_5012Parser = createLabelText_5012Parser();
+			EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text() };
+			MessageFormatParser parser = new MessageFormatParser(features);
+			labelText_5012Parser = parser;
 		}
 		return labelText_5012Parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IParser createLabelText_5012Parser() {
-		EAttribute[] features = new EAttribute[] { GMFGraphPackage.eINSTANCE.getLabel_Text(), };
-		MessageFormatParser parser = new MessageFormatParser(features);
-		return parser;
 	}
 
 	/**
@@ -282,6 +218,14 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 			return getLabelText_5012Parser();
 		}
 		return null;
+	}
+
+	/**
+	 * Utility method that consults ParserService
+	 * @generated
+	 */
+	public static IParser getParser(IElementType type, EObject object, String parserHint) {
+		return ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
 	}
 
 	/**
@@ -316,7 +260,7 @@ public class GMFGraphParserProvider extends AbstractProvider implements IParserP
 	/**
 	 * @generated
 	 */
-	public static class HintAdapter extends ParserHintAdapter {
+	private static class HintAdapter extends ParserHintAdapter {
 
 		/**
 		 * @generated

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -100,7 +100,7 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection semanticChildren, final View view) {
-		if (view.getEAnnotation("Shortcut") != null) {//$NON-NLS-1$
+		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
 			return GMFGraphDiagramUpdater.isShortcutOrphaned(view);
 		}
 		int visualID = GMFGraphVisualIDRegistry.getVisualID(view);
@@ -213,12 +213,13 @@ public class CanvasCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			EObject diagramLinkObject = nextDiagramLink.getElement();
 			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-			for (Iterator LinkDescriptorsIterator = linkDescriptors.iterator(); LinkDescriptorsIterator.hasNext();) {
-				GMFGraphLinkDescriptor nextLinkDescriptor = (GMFGraphLinkDescriptor) LinkDescriptorsIterator.next();
+			for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
+				GMFGraphLinkDescriptor nextLinkDescriptor = (GMFGraphLinkDescriptor) linkDescriptorsIterator.next();
 				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
 						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 					linksIterator.remove();
-					LinkDescriptorsIterator.remove();
+					linkDescriptorsIterator.remove();
+					break;
 				}
 			}
 		}

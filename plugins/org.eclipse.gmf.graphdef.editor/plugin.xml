@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <!--
- Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ Copyright (c) 2006, 2009 Borland Software Corporation and others.
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0
  which accompanies this distribution, and is available at
@@ -12,15 +12,12 @@
 -->
 <plugin>
 
-   <extension point="org.eclipse.team.core.fileTypes">
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
       <?gmfgen generated="true"?>
-      <fileTypes
-         type="text"
-         extension="gmfgraph_diagram">
-      </fileTypes>
+      <fileTypes type="text" extension="gmfgraph_diagram"/>
    </extension>
 
-   <extension point="org.eclipse.emf.ecore.extension_parser">
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
       <?gmfgen generated="true"?>
       <parser
          type="gmfgraph_diagram"
@@ -28,7 +25,7 @@
       </parser>
    </extension>
 
-   <extension point="org.eclipse.ui.editors">
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
       <?gmfgen generated="true"?>
       <editor
          id="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID"
@@ -41,8 +38,18 @@
          contributorClass="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramActionBarContributor">
       </editor>
    </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.graphdef.editor.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
 
-   <extension point="org.eclipse.ui.newWizards">
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
       <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
@@ -54,35 +61,7 @@
       </wizard>
    </extension>
 
-   <extension point="org.eclipse.ui.popupMenus">
-      <?gmfgen generated="true"?>
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.graphdef.editor.CreateShortcut"
-            objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart">
-         <action
-               class="org.eclipse.gmf.graphdef.editor.part.GMFGraphCreateShortcutAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.graphdef.editor.CreateShortcutAction"
-               label="%createShortcutActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>                      
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.gmf.graphdef.editor.LoadResource"
-            objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart">
-         <action
-               class="org.eclipse.gmf.graphdef.editor.part.GMFGraphLoadResourceAction"
-               enablesFor="1"
-               id="org.eclipse.gmf.graphdef.editor.LoadResourceAction"
-               label="%loadResourceActionLabel"
-               menubarPath="additions">
-         </action>
-      </objectContribution>           
-   </extension>
-
-   <extension point="org.eclipse.ui.popupMenus">
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
       <?gmfgen generated="true"?>
       <objectContribution
             id="org.eclipse.gmf.graphdef.editor.InitDiagram"
@@ -98,7 +77,7 @@
       </objectContribution>
    </extension>
 	
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
       <?gmfgen generated="true"?>
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
@@ -137,14 +116,13 @@
       </GlobalActionHandlerProvider>
    </extension>
 
-   
 
-   <extension point="org.eclipse.core.runtime.preferences">
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
       <?gmfgen generated="true"?>
       <initializer class="org.eclipse.gmf.graphdef.editor.preferences.DiagramPreferenceInitializer"/>
    </extension>
 
-   <extension point="org.eclipse.ui.preferencePages">
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.graphdef.diagram.general"
@@ -175,15 +153,9 @@
             category="org.eclipse.gmf.graphdef.diagram.general"
             class="org.eclipse.gmf.graphdef.editor.preferences.DiagramRulersAndGridPreferencePage">
       </page>
-      <page
-            id="org.eclipse.gmf.graphdef.diagram.pathmaps"
-            name="%prefpage.org.eclipse.gmf.graphdef.diagram.pathmaps"
-            category="org.eclipse.gmf.graphdef.diagram.general"
-            class="org.eclipse.gmf.runtime.emf.ui.preferences.PathmapsPreferencePage">
-      </page>
    </extension>
 
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor">
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
       <?gmfgen generated="true"?>
       <propertyContributor
             contributorId="org.eclipse.gmf.graphdef.editor"
@@ -194,7 +166,7 @@
       </propertyContributor>
    </extension>
 
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
       <?gmfgen generated="true"?>   
       <propertyTabs contributorId="org.eclipse.gmf.graphdef.editor">
          <propertyTab
@@ -228,7 +200,7 @@
       </propertyTabs>
    </extension>
 
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
       <?gmfgen generated="true"?>   
       <propertySections contributorId="org.eclipse.gmf.graphdef.editor">
          <propertySection id="property.section.ConnectorAppearancePropertySection" 
@@ -290,52 +262,78 @@
       </propertySections>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
       <?gmfgen generated="true"?>
       <viewProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="GMFGraph"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2005,2006,2007,2008,2009,3009,3010,3011,3012,3013,3014,3022,3023,3026,3015,3016,3017,3024,3027,3018,3019,3020,3021,3025,3028"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4002,4003,4004,4006,4005"/>
       </viewProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
       <?gmfgen generated="true"?>
       <editpartProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphEditPartProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="GMFGraph"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2005,2006,2007,2008,2009,3009,3010,3011,3012,3013,3014,3022,3023,3026,3015,3016,3017,3024,3027,3018,3019,3020,3021,3025,3028"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4002,4003,4004,4006,4005"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5005,5006,5007,5009,5013,5008,5010,5011,5012"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="7005,7006,7007,7008,7009"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="true"?>
       <modelingAssistantProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphModelingAssistantProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart" id="Compartment_2005"/>
+         <object class="org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart" id="Node_2006"/>
+         <object class="org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart" id="Connection_2007"/>
+         <object class="org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart" id="FigureGallery_2008"/>
+         <object class="org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart" id="DiagramLabel_2009"/>
+         <context elements="Compartment_2005,Node_2006,Connection_2007,FigureGallery_2008,DiagramLabel_2009"/>
       </modelingAssistantProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       <?gmfgen generated="true"?>
       <IconProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphIconProvider">
          <Priority name="Low"/>
       </IconProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
       <?gmfgen generated="true"?>
       <ParserProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphParserProvider">
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders">
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
       <?gmfgen generated="true"?>
       <decoratorProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphShortcutsDecoratorProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+            <method name="getType()" value="2005,2006,2007,2008,2009"/>
+         </object>
+         <context decoratorTargets="generated-top-nodes"/>
       </decoratorProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
       <?gmfgen generated="true"?>
       <metamodel nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition">
          <metamodelType
@@ -633,16 +631,16 @@
       </metamodel>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings">
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
       <?gmfgen generated="true"?>
-      <clientContext id="GMFGraphClientContext">
+      <clientContext id="org.eclipse.gmf.graphdef.editor.TypeContext">
          <enablement>
             <test
                property="org.eclipse.gmf.runtime.emf.core.editingDomain"
                value="org.eclipse.gmf.graphdef.editor.EditingDomain"/>
          </enablement>
       </clientContext> 
-      <binding context="GMFGraphClientContext">
+      <binding context="org.eclipse.gmf.graphdef.editor.TypeContext">
          <elementType ref="org.eclipse.gmf.graphdef.editor.Canvas_1000"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Compartment_2005"/>
          <elementType ref="org.eclipse.gmf.graphdef.editor.Node_2006"/>
@@ -677,7 +675,7 @@
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>
-	   <extension point="org.eclipse.core.expressions.propertyTesters">
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
       <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.graphdef.editor.URIEditorInputPropertyTester"
@@ -688,7 +686,7 @@
        </propertyTester>
    </extension>
 
-	   <extension point="org.eclipse.core.expressions.propertyTesters">
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isShortcut">
       <?gmfgen generated="true"?>
        <propertyTester
            id="org.eclipse.gmf.graphdef.editor.ShortcutPropertyTester"
@@ -699,18 +697,7 @@
        </propertyTester>
    </extension>
 
-	   <extension point="org.eclipse.core.expressions.propertyTesters">
-      <?gmfgen generated="true"?>
-       <propertyTester
-           id="org.eclipse.gmf.graphdef.editor.DomainModelElementPropertyTester"
-           type="org.eclipse.emf.ecore.EObject"
-           namespace="org.eclipse.gmf.graphdef.editor"
-           properties="isDomainModelElement"
-           class="org.eclipse.gmf.graphdef.editor.part.GMFGraphDomainModelElementTester">
-       </propertyTester>
-   </extension>
-
-	   <extension point="org.eclipse.ui.navigator.viewer">
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
       <?gmfgen generated="true"?>
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
@@ -726,7 +713,7 @@
       </viewerActionBinding>
    </extension>
 
-   <extension point="org.eclipse.ui.navigator.navigatorContent">
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
       <?gmfgen generated="true"?>
       <navigatorContent
             id="org.eclipse.gmf.graphdef.editor.resourceContent" 
@@ -784,17 +771,11 @@
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
         	      <test property="org.eclipse.core.resources.extension" value="gmfgraph"/>
                </and>
-               <and>
-                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
-                  <test property="org.eclipse.gmf.graphdef.editor.isDomainModelElement"/>
-               </and>
+               <instanceof value="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphDomainNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <and>
-       	       <instanceof value="org.eclipse.emf.ecore.EObject"/>
-       	       <test property="org.eclipse.gmf.graphdef.editor.isDomainModelElement"/>
-       	    </and>
+            <instanceof value="org.eclipse.gmf.graphdef.editor.navigator.GMFGraphDomainNavigatorItem"/>
          </possibleChildren>
       </navigatorContent>
       <actionProvider
@@ -811,7 +792,7 @@
       </actionProvider>
    </extension>
    
-	   <extension point="org.eclipse.ui.navigator.linkHelper">
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
       <?gmfgen generated="true"?>
       <linkHelper
             id="org.eclipse.gmf.graphdef.editor.navigatorLinkHelper"
@@ -827,30 +808,7 @@
          </selectionEnablement>
       </linkHelper>
    </extension>
-   
-   <extension id="SelectStackedElementsPopup" name="StackedElements"
-		point="org.eclipse.ui.popupMenus">
-        <?gmfgen generated="false"?>
-		<objectContribution adaptable="false" id="org.eclipse.gmf.graphdef.editor.SelectStackedElements"
-		    objectClass="org.eclipse.gmf.graphdef.editor.edit.parts.AbstractFigureEditPart">
-            <action
-                  class="org.eclipse.gmf.graphdef.editor.edit.parts.SelectStackedElementsAction"
-                  enablesFor="1"
-                  id="org.eclipse.gmf.graphdef.editor.SelectStackedElementsAction"
-                  label="Select Stacked Elements"
-                  menubarPath="additions">
-            </action>
-		</objectContribution>
-	</extension><extension point="org.eclipse.ui.contexts">
-      <?gmfgen generated="true"?>
-      <context
-         description="%context.description"
-         id="org.eclipse.gmf.graphdef.editor.ui.diagramContext"
-         name="%context.name"
-         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
-      </context>
-   </extension>
-<extension point="org.eclipse.ui.commands">
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
       <?gmfgen generated="true"?>
       <command
          categoryId="org.eclipse.ui.category.edit"
@@ -859,7 +817,8 @@
          id="org.eclipse.gmf.graphdef.editor.updateDiagram"
          name="%update.diagram.name"/>
    </extension>
-<extension point="org.eclipse.ui.bindings">
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
       <?gmfgen generated="true"?>
       <key 
          commandId="org.eclipse.gmf.graphdef.editor.updateDiagram"
@@ -868,16 +827,52 @@
          sequence="F5"/>
    </extension>
 
-   <extension
-         point="org.eclipse.emf.ecore.dynamic_package">
-      <resource
-            location="models/propsheet.ecore"
-            uri="http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet">
-      </resource>
-      <resource
-            location="models/wysiwyg.ecore"
-            uri="http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg">
-      </resource>
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.gmf.graphdef.editor.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+         <command commandId="org.eclipse.gmf.graphdef.editor.CreateShortcutAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
 
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.gmf.graphdef.editor.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.graphdef.editor.part.LoadResourceAction"/>
+      <command id="org.eclipse.gmf.graphdef.editor.CreateShortcutAction"
+         name="Create Shortcut..."
+         categoryId="org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.graphdef.editor.part.CreateShortcutAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
 </plugin>

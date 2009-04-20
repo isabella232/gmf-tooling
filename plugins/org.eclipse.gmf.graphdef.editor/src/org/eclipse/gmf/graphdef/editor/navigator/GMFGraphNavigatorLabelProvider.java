@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Ellipse;
-import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.Polyline;
@@ -66,7 +65,7 @@ import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphParserProvider;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
-import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -327,103 +326,98 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	/**
 	 * @generated
 	 */
-	private String getCompartment_2005Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Compartment_2005, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
-				.getType(CompartmentNameEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
+	private String getCanvas_1000Text(View view) {
+		Canvas domainModelElement = (Canvas) view.getElement();
+		if (domainModelElement != null) {
+			return domainModelElement.getName();
+		} else {
+			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 1000); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
 
+	/**
+	 * @generated
+	 */
+	private String getCompartment_2005Text(View view) {
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Compartment_2005, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
+				.getType(CompartmentNameEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5005); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getNode_2006Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Node_2006, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Node_2006, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(NodeNameEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5006); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getConnection_2007Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Connection_2007, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Connection_2007, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(ConnectionNameEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5007); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getFigureGallery_2008Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.FigureGallery_2008, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.FigureGallery_2008, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(FigureGalleryNameEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5009); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getDiagramLabel_2009Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.DiagramLabel_2009, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.DiagramLabel_2009, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(DiagramLabelNameEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5013); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getFigureDescriptor_3009Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.FigureDescriptor_3009, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.FigureDescriptor_3009, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(FigureDescriptorNameEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5008); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
@@ -521,17 +515,14 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getLabel_3026Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Label_3026, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Label_3026, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(LabelTextEditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5010); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
@@ -590,17 +581,14 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getLabel_3027Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Label_3027, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Label_3027, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(LabelText2EditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5011); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
-
 	}
 
 	/**
@@ -672,28 +660,12 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getLabel_3028Text(View view) {
-		IAdaptable hintAdapter = new GMFGraphParserProvider.HintAdapter(GMFGraphElementTypes.Label_3028, (view.getElement() != null ? view.getElement() : view), GMFGraphVisualIDRegistry
+		IParser parser = GMFGraphParserProvider.getParser(GMFGraphElementTypes.Label_3028, view.getElement() != null ? view.getElement() : view, GMFGraphVisualIDRegistry
 				.getType(LabelText3EditPart.VISUAL_ID));
-		IParser parser = ParserService.getInstance().getParser(hintAdapter);
-
 		if (parser != null) {
-			return parser.getPrintString(hintAdapter, ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5012); //$NON-NLS-1$
-			return ""; //$NON-NLS-1$
-		}
-
-	}
-
-	/**
-	 * @generated
-	 */
-	private String getCanvas_1000Text(View view) {
-		Canvas domainModelElement = (Canvas) view.getElement();
-		if (domainModelElement != null) {
-			return domainModelElement.getName();
-		} else {
-			GMFGraphDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 1000); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -743,14 +715,14 @@ public class GMFGraphNavigatorLabelProvider extends LabelProvider implements ICo
 	 * @generated
 	 */
 	private String getUnknownElementText(View view) {
-		return "<UnknownElement Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+		return "<UnknownElement Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$  //$NON-NLS-2$
 	}
 
 	/**
 	 * @generated
 	 */
 	private String getUnresolvedDomainElementProxyText(View view) {
-		return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+		return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$  //$NON-NLS-2$
 	}
 
 	/**

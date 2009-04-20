@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -10,37 +10,35 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.commands;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
-
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class FigureGalleryCreateCommand extends CreateElementCommand {
+public class FigureGalleryCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
 	 */
 	public FigureGalleryCreateCommand(CreateElementRequest req) {
-		super(req);
+		super(req.getLabel(), null, req);
 	}
 
 	/**
-	 * @generated
-	 */
-	protected EClass getEClassToEdit() {
-		return GMFGraphPackage.eINSTANCE.getCanvas();
-	}
-
-	/**
+	 * FIXME: replace with setElementToEdit()
 	 * @generated
 	 */
 	protected EObject getElementToEdit() {
@@ -49,6 +47,43 @@ public class FigureGalleryCreateCommand extends CreateElementCommand {
 			container = ((View) container).getElement();
 		}
 		return container;
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean canExecute() {
+		return true;
+
+	}
+
+	/**
+	 * @generated
+	 */
+	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		FigureGallery newElement = GMFGraphFactory.eINSTANCE.createFigureGallery();
+
+		Canvas owner = (Canvas) getElementToEdit();
+		owner.getFigures().add(newElement);
+
+		doConfigure(newElement, monitor, info);
+
+		((CreateElementRequest) getRequest()).setNewElement(newElement);
+		return CommandResult.newOKCommandResult(newElement);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void doConfigure(FigureGallery newElement, IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		IElementType elementType = ((CreateElementRequest) getRequest()).getElementType();
+		ConfigureRequest configureRequest = new ConfigureRequest(getEditingDomain(), newElement, elementType);
+		configureRequest.setClientContext(((CreateElementRequest) getRequest()).getClientContext());
+		configureRequest.addParameters(getRequest().getParameters());
+		ICommand configureCommand = elementType.getEditCommand(configureRequest);
+		if (configureCommand != null && configureCommand.canExecute()) {
+			configureCommand.execute(monitor, info);
+		}
 	}
 
 }

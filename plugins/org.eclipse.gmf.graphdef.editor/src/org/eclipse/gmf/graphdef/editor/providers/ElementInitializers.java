@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -33,6 +33,7 @@ public class ElementInitializers {
 			Point newInstance_0_0 = GMFGraphFactory.eINSTANCE.createPoint();
 
 			instance.getTemplate().add(newInstance_0_0);
+			;
 			Object value_0_0_0 = GMFGraphOCLFactory.getExpression("10", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_0);
 
 			value_0_0_0 = GMFGraphAbstractExpression.performCast(value_0_0_0, EcorePackage.eINSTANCE.getEInt());
@@ -45,6 +46,7 @@ public class ElementInitializers {
 			Point newInstance_0_1 = GMFGraphFactory.eINSTANCE.createPoint();
 
 			instance.getTemplate().add(newInstance_0_1);
+			;
 			Object value_0_1_0 = GMFGraphOCLFactory.getExpression("30", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_1);
 
 			value_0_1_0 = GMFGraphAbstractExpression.performCast(value_0_1_0, EcorePackage.eINSTANCE.getEInt());
@@ -67,6 +69,7 @@ public class ElementInitializers {
 			Point newInstance_0_0 = GMFGraphFactory.eINSTANCE.createPoint();
 
 			instance.getTemplate().add(newInstance_0_0);
+			;
 			Object value_0_0_0 = GMFGraphOCLFactory.getExpression("10", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_0);
 
 			value_0_0_0 = GMFGraphAbstractExpression.performCast(value_0_0_0, EcorePackage.eINSTANCE.getEInt());
@@ -79,6 +82,7 @@ public class ElementInitializers {
 			Point newInstance_0_1 = GMFGraphFactory.eINSTANCE.createPoint();
 
 			instance.getTemplate().add(newInstance_0_1);
+			;
 			Object value_0_1_0 = GMFGraphOCLFactory.getExpression("30", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_1);
 
 			value_0_1_0 = GMFGraphAbstractExpression.performCast(value_0_1_0, EcorePackage.eINSTANCE.getEInt());
@@ -91,6 +95,7 @@ public class ElementInitializers {
 			Point newInstance_0_2 = GMFGraphFactory.eINSTANCE.createPoint();
 
 			instance.getTemplate().add(newInstance_0_2);
+			;
 			Object value_0_2_0 = GMFGraphOCLFactory.getExpression("10", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_2);
 
 			value_0_2_0 = GMFGraphAbstractExpression.performCast(value_0_2_0, EcorePackage.eINSTANCE.getEInt());
@@ -104,4 +109,5 @@ public class ElementInitializers {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
 	}
+
 }

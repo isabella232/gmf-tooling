@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -13,23 +13,24 @@ package org.eclipse.gmf.graphdef.editor.edit.commands;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.policies.GMFGraphBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 
 /**
  * @generated
  */
-public class ChildAccessCreateCommand extends CreateElementCommand {
+public class ChildAccessCreateCommand extends EditElementCommand {
 
 	/**
 	 * @generated
@@ -45,14 +46,9 @@ public class ChildAccessCreateCommand extends CreateElementCommand {
 	 * @generated
 	 */
 	public ChildAccessCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
-		super(request);
+		super(request.getLabel(), null, request);
 		this.source = source;
 		this.target = target;
-		if (request.getContainmentFeature() == null) {
-			setContainmentFeature(GMFGraphPackage.eINSTANCE.getFigureDescriptor_Accessors());
-		}
-
-		super.setElementToEdit(source);
 	}
 
 	/**
@@ -78,38 +74,34 @@ public class ChildAccessCreateCommand extends CreateElementCommand {
 	/**
 	 * @generated
 	 */
-	protected EObject doDefaultElementCreation() {
-		ChildAccess newElement = GMFGraphFactory.eINSTANCE.createChildAccess();
-		getSource().getAccessors().add(newElement);
-		newElement.setFigure(getTarget());
-		return newElement;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EClass getEClassToEdit() {
-		return GMFGraphPackage.eINSTANCE.getFigureDescriptor();
-	}
-
-	/**
-	 * @generated
-	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
-		return super.doExecuteWithResult(monitor, info);
+
+		ChildAccess newElement = GMFGraphFactory.eINSTANCE.createChildAccess();
+		getSource().getAccessors().add(newElement);
+		newElement.setFigure(getTarget());
+		doConfigure(newElement, monitor, info);
+		((CreateElementRequest) getRequest()).setNewElement(newElement);
+		return CommandResult.newOKCommandResult(newElement);
+
 	}
 
 	/**
 	 * @generated
 	 */
-	protected ConfigureRequest createConfigureRequest() {
-		ConfigureRequest request = super.createConfigureRequest();
-		request.setParameter(CreateRelationshipRequest.SOURCE, getSource());
-		request.setParameter(CreateRelationshipRequest.TARGET, getTarget());
-		return request;
+	protected void doConfigure(ChildAccess newElement, IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+		IElementType elementType = ((CreateElementRequest) getRequest()).getElementType();
+		ConfigureRequest configureRequest = new ConfigureRequest(getEditingDomain(), newElement, elementType);
+		configureRequest.setClientContext(((CreateElementRequest) getRequest()).getClientContext());
+		configureRequest.addParameters(getRequest().getParameters());
+		configureRequest.setParameter(CreateRelationshipRequest.SOURCE, getSource());
+		configureRequest.setParameter(CreateRelationshipRequest.TARGET, getTarget());
+		ICommand configureCommand = elementType.getEditCommand(configureRequest);
+		if (configureCommand != null && configureCommand.canExecute()) {
+			configureCommand.execute(monitor, info);
+		}
 	}
 
 	/**
@@ -132,4 +124,5 @@ public class ChildAccessCreateCommand extends CreateElementCommand {
 	protected Figure getTarget() {
 		return (Figure) target;
 	}
+
 }

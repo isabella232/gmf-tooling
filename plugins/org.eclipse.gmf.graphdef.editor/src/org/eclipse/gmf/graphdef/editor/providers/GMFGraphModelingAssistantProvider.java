@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -18,26 +18,20 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
-import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryFiguresEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
@@ -51,9 +45,18 @@ import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
 import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
-
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.graphdef.editor.part.Messages;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 /**
  * @generated
@@ -66,7 +69,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3010);
 			types.add(GMFGraphElementTypes.Ellipse_3015);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3016);
@@ -76,7 +79,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof RectangleEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -86,7 +89,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof Rectangle2EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -96,7 +99,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof EllipseEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -106,7 +109,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof RoundedRectangleEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -116,17 +119,17 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof PolylineEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof PolygonEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof Ellipse2EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -136,7 +139,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle2EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -146,17 +149,17 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof Polyline2EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof Polygon2EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof Rectangle3EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -166,7 +169,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof Ellipse3EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -176,7 +179,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof RoundedRectangle3EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(6);
 			types.add(GMFGraphElementTypes.Rectangle_3011);
 			types.add(GMFGraphElementTypes.Ellipse_3012);
 			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
@@ -186,17 +189,17 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof Polyline3EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof Polygon3EditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(1);
 			types.add(GMFGraphElementTypes.Point_3022);
 			return types;
 		}
 		if (editPart instanceof FigureGalleryFiguresEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(7);
 			types.add(GMFGraphElementTypes.FigureDescriptor_3009);
 			types.add(GMFGraphElementTypes.Rectangle_3018);
 			types.add(GMFGraphElementTypes.Ellipse_3019);
@@ -207,7 +210,7 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 			return types;
 		}
 		if (editPart instanceof CanvasEditPart) {
-			List types = new ArrayList();
+			ArrayList types = new ArrayList(5);
 			types.add(GMFGraphElementTypes.Compartment_2005);
 			types.add(GMFGraphElementTypes.Node_2006);
 			types.add(GMFGraphElementTypes.Connection_2007);
@@ -224,24 +227,19 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getRelTypesOnSource(IAdaptable source) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof CompartmentEditPart) {
-			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.CompartmentAccessor_4003);
-			return types;
+			return ((CompartmentEditPart) sourceEditPart).getMARelTypesOnSource();
 		}
 		if (sourceEditPart instanceof NodeEditPart) {
-			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.NodeContentPane_4006);
-			return types;
+			return ((NodeEditPart) sourceEditPart).getMARelTypesOnSource();
+		}
+		if (sourceEditPart instanceof ConnectionEditPart) {
+			return ((ConnectionEditPart) sourceEditPart).getMARelTypesOnSource();
 		}
 		if (sourceEditPart instanceof DiagramLabelEditPart) {
-			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.DiagramLabelAccessor_4004);
-			return types;
+			return ((DiagramLabelEditPart) sourceEditPart).getMARelTypesOnSource();
 		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.ChildAccess_4002);
-			return types;
+			return ((FigureDescriptorEditPart) sourceEditPart).getMARelTypesOnSource();
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -252,9 +250,61 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getRelTypesOnTarget(IAdaptable target) {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
-			types.add(GMFGraphElementTypes.DiagramElementFigure_4005);
-			return types;
+			return ((FigureDescriptorEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof RectangleEditPart) {
+			return ((RectangleEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Rectangle2EditPart) {
+			return ((Rectangle2EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof EllipseEditPart) {
+			return ((EllipseEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof RoundedRectangleEditPart) {
+			return ((RoundedRectangleEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof PolylineEditPart) {
+			return ((PolylineEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof PolygonEditPart) {
+			return ((PolygonEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof LabelEditPart) {
+			return ((LabelEditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Ellipse2EditPart) {
+			return ((Ellipse2EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof RoundedRectangle2EditPart) {
+			return ((RoundedRectangle2EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Polyline2EditPart) {
+			return ((Polyline2EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Polygon2EditPart) {
+			return ((Polygon2EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Label2EditPart) {
+			return ((Label2EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Rectangle3EditPart) {
+			return ((Rectangle3EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Ellipse3EditPart) {
+			return ((Ellipse3EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof RoundedRectangle3EditPart) {
+			return ((RoundedRectangle3EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Polyline3EditPart) {
+			return ((Polyline3EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Polygon3EditPart) {
+			return ((Polygon3EditPart) targetEditPart).getMARelTypesOnTarget();
+		}
+		if (targetEditPart instanceof Label3EditPart) {
+			return ((Label3EditPart) targetEditPart).getMARelTypesOnTarget();
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -266,20 +316,19 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof CompartmentEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((CompartmentEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		if (sourceEditPart instanceof NodeEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((NodeEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
+		}
+		if (sourceEditPart instanceof ConnectionEditPart) {
+			return ((ConnectionEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		if (sourceEditPart instanceof DiagramLabelEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((DiagramLabelEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((FigureDescriptorEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -290,8 +339,61 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getTypesForSource(IAdaptable target, IElementType relationshipType) {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((FigureDescriptorEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof RectangleEditPart) {
+			return ((RectangleEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Rectangle2EditPart) {
+			return ((Rectangle2EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof EllipseEditPart) {
+			return ((EllipseEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof RoundedRectangleEditPart) {
+			return ((RoundedRectangleEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof PolylineEditPart) {
+			return ((PolylineEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof PolygonEditPart) {
+			return ((PolygonEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof LabelEditPart) {
+			return ((LabelEditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Ellipse2EditPart) {
+			return ((Ellipse2EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof RoundedRectangle2EditPart) {
+			return ((RoundedRectangle2EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Polyline2EditPart) {
+			return ((Polyline2EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Polygon2EditPart) {
+			return ((Polygon2EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Label2EditPart) {
+			return ((Label2EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Rectangle3EditPart) {
+			return ((Rectangle3EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Ellipse3EditPart) {
+			return ((Ellipse3EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof RoundedRectangle3EditPart) {
+			return ((RoundedRectangle3EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Polyline3EditPart) {
+			return ((Polyline3EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Polygon3EditPart) {
+			return ((Polygon3EditPart) targetEditPart).getMATypesForSource(relationshipType);
+		}
+		if (targetEditPart instanceof Label3EditPart) {
+			return ((Label3EditPart) targetEditPart).getMATypesForSource(relationshipType);
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -302,20 +404,19 @@ public class GMFGraphModelingAssistantProvider extends ModelingAssistantProvider
 	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		if (sourceEditPart instanceof CompartmentEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((CompartmentEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
 		}
 		if (sourceEditPart instanceof NodeEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((NodeEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
+		}
+		if (sourceEditPart instanceof ConnectionEditPart) {
+			return ((ConnectionEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
 		}
 		if (sourceEditPart instanceof DiagramLabelEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((DiagramLabelEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
 		}
 		if (sourceEditPart instanceof FigureDescriptorEditPart) {
-			List types = new ArrayList();
-			return types;
+			return ((FigureDescriptorEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
 		}
 		return Collections.EMPTY_LIST;
 	}

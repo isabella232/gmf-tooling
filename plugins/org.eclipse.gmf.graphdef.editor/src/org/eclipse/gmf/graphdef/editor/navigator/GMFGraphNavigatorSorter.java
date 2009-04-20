@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.gmf.graphdef.editor.navigator;
 
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
-
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**

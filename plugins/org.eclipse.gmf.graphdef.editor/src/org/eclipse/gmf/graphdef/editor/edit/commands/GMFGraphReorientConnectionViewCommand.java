@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -66,9 +66,9 @@ public class GMFGraphReorientConnectionViewCommand extends AbstractTransactional
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
-		assert null != edgeAdaptor : "Null child in GMFGraphReorientConnectionViewCommand"; //$NON-NLS-1$
+		assert null != edgeAdaptor : "Null child in GMFGraphReorientConnectionViewCommand";
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
-		assert null != edge : "Null edge in GMFGraphReorientConnectionViewCommand"; //$NON-NLS-1$
+		assert null != edge : "Null edge in GMFGraphReorientConnectionViewCommand";
 		View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

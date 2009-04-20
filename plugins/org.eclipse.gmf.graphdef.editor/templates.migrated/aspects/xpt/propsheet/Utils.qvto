@@ -1,0 +1,19 @@
+import gmf.EMFUtils;
+
+modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+modeltype propSheet uses "http://www.eclipse.org/gmf/2008/GmfGraph/PropSheet";
+
+library Utils;
+
+helper isProxyTab(tab : genModel::GenCustomPropertyTab) : Boolean {
+	return not (getReferencingObjects(Sequence { tab }->first().oclAsType(ecore::EObject)))[propSheet::CustomPropertySection]->isEmpty()
+}
+
+helper getProxyTabSuperClassName(tab : genModel::GenCustomPropertyTab) : String {
+	return getCustomPropertySection(tab).section.className
+}
+
+helper getCustomPropertySection(tab : genModel::GenCustomPropertyTab) : propSheet::CustomPropertySection {
+	return (getReferencingObjects(Sequence { tab }->first().oclAsType(ecore::EObject)))[propSheet::CustomPropertySection]->first()
+}

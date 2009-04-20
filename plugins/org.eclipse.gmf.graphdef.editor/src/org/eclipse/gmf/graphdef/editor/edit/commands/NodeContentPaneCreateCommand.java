@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -72,10 +72,19 @@ public class NodeContentPaneCreateCommand extends EditElementCommand {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
 		}
+
 		if (getSource() != null && getTarget() != null) {
 			getSource().setContentPane(getTarget());
 		}
 		return CommandResult.newOKCommandResult();
+
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setElementToEdit(EObject element) {
+		throw new UnsupportedOperationException();
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.gmf.graphdef.editor.edit.parts;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -33,6 +34,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -128,7 +130,9 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof FigureGalleryNameEditPart) {
+			return true;
+		}
 		return false;
 	}
 
@@ -156,15 +160,14 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
-
-		return super.getContentPaneFor(editPart);
+		return getContentPane();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
 		return result;
 	}
 
@@ -196,7 +199,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 		IFigure contentPane = fgFigure.getFigureFigureGalleryFigure_ChildContainer();
 		if (contentPane.getLayoutManager() == null) {
 			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-			layout.setSpacing(getMapMode().DPtoLP(5));
+			layout.setSpacing(5);
 			contentPane.setLayoutManager(layout);
 		}
 		return contentPane; // use nodeShape itself as contentPane
@@ -210,6 +213,42 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 			return contentPane;
 		}
 		return super.getContentPane();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setForegroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setForegroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setBackgroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setBackgroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineWidth(int width) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineWidth(width);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineType(int style) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineStyle(style);
+		}
 	}
 
 	/**
@@ -253,6 +292,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 			BorderLayout layoutThis = new BorderLayout();
 			this.setLayoutManager(layoutThis);
 
+			this.setLineWidth(1);
 			createContents();
 		}
 
@@ -269,6 +309,7 @@ public class FigureGalleryEditPart extends ShapeNodeEditPart {
 			fFigureFigureGalleryFigure_ChildContainer = new RectangleFigure();
 			fFigureFigureGalleryFigure_ChildContainer.setFill(false);
 			fFigureFigureGalleryFigure_ChildContainer.setOutline(false);
+			fFigureFigureGalleryFigure_ChildContainer.setLineWidth(1);
 
 			this.add(fFigureFigureGalleryFigure_ChildContainer, BorderLayout.CENTER);
 			fFigureFigureGalleryFigure_ChildContainer.setLayoutManager(new StackLayout());

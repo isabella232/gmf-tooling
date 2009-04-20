@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -64,15 +64,15 @@ public class GMFGraphNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	public GMFGraphNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
-		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
-		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
-		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
+		assert domainModelURI != null : "Domain model uri must be specified";
+		assert diagramRoot != null : "Doagram root element must be specified";
+		assert editingDomain != null : "Editing domain must be specified";
 
 		myFileCreationPage = new WizardNewFileCreationPage(Messages.GMFGraphNewDiagramFileWizard_CreationPageName, StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle(Messages.GMFGraphNewDiagramFileWizard_CreationPageTitle);
 		myFileCreationPage.setDescription(NLS.bind(Messages.GMFGraphNewDiagramFileWizard_CreationPageDescription, CanvasEditPart.MODEL_ID));
 		IPath filePath;
-		String fileName = domainModelURI.trimFileExtension().lastSegment();
+		String fileName = URI.decode(domainModelURI.trimFileExtension().lastSegment());
 		if (domainModelURI.isPlatformResource()) {
 			filePath = new Path(domainModelURI.trimSegments(1).toPlatformString(true));
 		} else if (domainModelURI.isFile()) {

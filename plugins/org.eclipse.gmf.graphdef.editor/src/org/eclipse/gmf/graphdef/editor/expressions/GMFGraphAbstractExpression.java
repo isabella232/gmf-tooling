@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2008 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -104,7 +104,7 @@ public abstract class GMFGraphAbstractExpression {
 			try {
 				return doEvaluate(context, env);
 			} catch (Exception e) {
-				GMFGraphDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body(), e);//$NON-NLS-1$
+				GMFGraphDiagramEditorPlugin.getInstance().logError("Expression evaluation failure: " + body(), e); //$NON-NLS-1$
 			}
 		}
 		return null;

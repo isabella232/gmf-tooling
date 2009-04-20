@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2008 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polygon;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -36,6 +37,7 @@ import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -101,7 +103,7 @@ public class PointEditPart extends AbstractPointEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(7), getMapMode().DPtoLP(7));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(7, 7);
 		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
@@ -154,6 +156,42 @@ public class PointEditPart extends AbstractPointEditPart {
 	/**
 	 * @generated
 	 */
+	protected void setForegroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setForegroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setBackgroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setBackgroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineWidth(int width) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineWidth(width);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineType(int style) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineStyle(style);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void handleNotificationEvent(Notification notification) {
 		Object feature = notification.getFeature();
 		if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
@@ -175,6 +213,7 @@ public class PointEditPart extends AbstractPointEditPart {
 		public PolylinePointFigure() {
 			this.setFill(false);
 			this.setOutline(false);
+			this.setLineWidth(1);
 			createContents();
 		}
 
@@ -188,6 +227,7 @@ public class PointEditPart extends AbstractPointEditPart {
 			polyline0.addPoint(new Point(getMapMode().DPtoLP(6), getMapMode().DPtoLP(3)));
 			polyline0.addPoint(new Point(getMapMode().DPtoLP(3), getMapMode().DPtoLP(6)));
 			polyline0.setFill(true);
+			polyline0.setLineWidth(1);
 			polyline0.setForegroundColor(ColorConstants.blue);
 			polyline0.setBackgroundColor(ColorConstants.blue);
 

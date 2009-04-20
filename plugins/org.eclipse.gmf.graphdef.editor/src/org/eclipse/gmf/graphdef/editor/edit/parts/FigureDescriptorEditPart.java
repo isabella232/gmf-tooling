@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -10,11 +10,15 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
@@ -27,6 +31,7 @@ import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureDescriptorCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureDescriptorItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
+import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
@@ -34,9 +39,11 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
@@ -135,7 +142,9 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-
+		if (childEditPart instanceof FigureDescriptorNameEditPart) {
+			return true;
+		}
 		return false;
 	}
 
@@ -163,15 +172,14 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
-
-		return super.getContentPaneFor(editPart);
+		return getContentPane();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
+		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
 		return result;
 	}
 
@@ -203,7 +211,7 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 		IFigure contentPane = fdFigure.getFigureFigureDescriptorFigure_ChildContainer();
 		if (contentPane.getLayoutManager() == null) {
 			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-			layout.setSpacing(getMapMode().DPtoLP(5));
+			layout.setSpacing(5);
 			contentPane.setLayoutManager(layout);
 		}
 		return contentPane; // use nodeShape itself as contentPane
@@ -222,8 +230,206 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
+	protected void setForegroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setForegroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setBackgroundColor(Color color) {
+		if (primaryShape != null) {
+			primaryShape.setBackgroundColor(color);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineWidth(int width) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineWidth(width);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setLineType(int style) {
+		if (primaryShape instanceof Shape) {
+			((Shape) primaryShape).setLineStyle(style);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(GMFGraphVisualIDRegistry.getType(FigureDescriptorNameEditPart.VISUAL_ID));
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSource() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(GMFGraphElementTypes.ChildAccess_4002);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (targetEditPart instanceof RectangleEditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Rectangle2EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof EllipseEditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof RoundedRectangleEditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof PolylineEditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof PolygonEditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof LabelEditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Ellipse2EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof RoundedRectangle2EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Polyline2EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Polygon2EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Label2EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Rectangle3EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Ellipse3EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof RoundedRectangle3EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Polyline3EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Polygon3EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		if (targetEditPart instanceof Label3EditPart) {
+			types.add(GMFGraphElementTypes.ChildAccess_4002);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Rectangle_3010);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Rectangle_3011);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Ellipse_3012);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.RoundedRectangle_3013);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Polyline_3014);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Polygon_3023);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Label_3026);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Ellipse_3015);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.RoundedRectangle_3016);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Polyline_3017);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Polygon_3024);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Label_3027);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Rectangle_3018);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Ellipse_3019);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.RoundedRectangle_3020);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Polyline_3021);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Polygon_3025);
+		}
+		if (relationshipType == GMFGraphElementTypes.ChildAccess_4002) {
+			types.add(GMFGraphElementTypes.Label_3028);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(GMFGraphElementTypes.DiagramElementFigure_4005);
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForSource(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == GMFGraphElementTypes.DiagramElementFigure_4005) {
+			types.add(GMFGraphElementTypes.Compartment_2005);
+		}
+		if (relationshipType == GMFGraphElementTypes.DiagramElementFigure_4005) {
+			types.add(GMFGraphElementTypes.Node_2006);
+		}
+		if (relationshipType == GMFGraphElementTypes.DiagramElementFigure_4005) {
+			types.add(GMFGraphElementTypes.Connection_2007);
+		}
+		if (relationshipType == GMFGraphElementTypes.DiagramElementFigure_4005) {
+			types.add(GMFGraphElementTypes.DiagramLabel_2009);
+		}
+		return types;
 	}
 
 	/**
@@ -250,6 +456,7 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 			this.setLayoutManager(layoutThis);
 
 			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
+			this.setLineWidth(1);
 			this.setLineStyle(Graphics.LINE_DOT);
 			createContents();
 		}
@@ -267,6 +474,7 @@ public class FigureDescriptorEditPart extends ShapeNodeEditPart {
 			fFigureFigureDescriptorFigure_ChildContainer = new RectangleFigure();
 			fFigureFigureDescriptorFigure_ChildContainer.setFill(false);
 			fFigureFigureDescriptorFigure_ChildContainer.setOutline(false);
+			fFigureFigureDescriptorFigure_ChildContainer.setLineWidth(1);
 
 			this.add(fFigureFigureDescriptorFigure_ChildContainer, BorderLayout.CENTER);
 			fFigureFigureDescriptorFigure_ChildContainer.setLayoutManager(new StackLayout());

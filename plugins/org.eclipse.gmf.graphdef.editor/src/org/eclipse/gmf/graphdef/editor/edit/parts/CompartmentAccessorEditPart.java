@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -76,6 +76,7 @@ public class CompartmentAccessorEditPart extends ConnectionNodeEditPart implemen
 		 * @generated
 		 */
 		public ChildAccessConnectionFigure() {
+			this.setLineWidth(1);
 			this.setLineStyle(Graphics.LINE_DOT);
 
 			setTargetDecoration(createTargetDecoration());
@@ -86,6 +87,7 @@ public class CompartmentAccessorEditPart extends ConnectionNodeEditPart implemen
 		 */
 		private RotatableDecoration createTargetDecoration() {
 			PolylineDecoration df = new PolylineDecoration();
+			df.setLineWidth(1);
 			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));

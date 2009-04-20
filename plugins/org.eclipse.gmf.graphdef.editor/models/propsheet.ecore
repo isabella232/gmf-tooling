@@ -10,8 +10,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="CustomPropertySection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="section" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.formtk/model/binding.ecore#//Section"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tab" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/gmf/2008/GenModel#//GenCustomPropertyTab"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tab" lowerBound="1" eType="ecore:EClass http://www.eclipse.org/gmf/2009/GenModel#//GenCustomPropertyTab"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" lowerBound="1" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/gmf/2008/GenModel#//GenNode"/>
+        eType="ecore:EClass http://www.eclipse.org/gmf/2009/GenModel#//GenNode"/>
   </eClassifiers>
 </ecore:EPackage>

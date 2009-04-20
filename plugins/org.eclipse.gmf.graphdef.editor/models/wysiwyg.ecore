@@ -12,7 +12,7 @@
         upperBound="-1" eType="ecore:EClass ../../org.eclipse.gmf.formtk/model/context.ecore#//Context"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="genNodes" upperBound="-1"
-        eType="ecore:EClass http://www.eclipse.org/gmf/2008/GenModel#//GenNode"/>
+        eType="ecore:EClass http://www.eclipse.org/gmf/2009/GenModel#//GenNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="actions" lowerBound="1"
         upperBound="-1" eType="#//AbstractAction" containment="true"/>
   </eClassifiers>

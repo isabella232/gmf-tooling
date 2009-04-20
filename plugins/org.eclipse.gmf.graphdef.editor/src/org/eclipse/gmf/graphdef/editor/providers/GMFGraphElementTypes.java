@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -21,6 +21,37 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ChildAccessEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentAccessorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramElementFigureEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelAccessorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Ellipse3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.EllipseEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureDescriptorEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Label3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.LabelEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeContentPaneEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PointEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polygon3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolygonEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Polyline3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.PolylineEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.Rectangle3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RectangleEditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle2EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangle3EditPart;
+import org.eclipse.gmf.graphdef.editor.edit.parts.RoundedRectangleEditPart;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -426,6 +457,77 @@ public class GMFGraphElementTypes extends ElementInitializers {
 			KNOWN_ELEMENT_TYPES.add(DiagramElementFigure_4005);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static IElementType getElementType(int visualID) {
+		switch (visualID) {
+		case CanvasEditPart.VISUAL_ID:
+			return Canvas_1000;
+		case CompartmentEditPart.VISUAL_ID:
+			return Compartment_2005;
+		case NodeEditPart.VISUAL_ID:
+			return Node_2006;
+		case ConnectionEditPart.VISUAL_ID:
+			return Connection_2007;
+		case FigureGalleryEditPart.VISUAL_ID:
+			return FigureGallery_2008;
+		case DiagramLabelEditPart.VISUAL_ID:
+			return DiagramLabel_2009;
+		case FigureDescriptorEditPart.VISUAL_ID:
+			return FigureDescriptor_3009;
+		case RectangleEditPart.VISUAL_ID:
+			return Rectangle_3010;
+		case Rectangle2EditPart.VISUAL_ID:
+			return Rectangle_3011;
+		case EllipseEditPart.VISUAL_ID:
+			return Ellipse_3012;
+		case RoundedRectangleEditPart.VISUAL_ID:
+			return RoundedRectangle_3013;
+		case PolylineEditPart.VISUAL_ID:
+			return Polyline_3014;
+		case PointEditPart.VISUAL_ID:
+			return Point_3022;
+		case PolygonEditPart.VISUAL_ID:
+			return Polygon_3023;
+		case LabelEditPart.VISUAL_ID:
+			return Label_3026;
+		case Ellipse2EditPart.VISUAL_ID:
+			return Ellipse_3015;
+		case RoundedRectangle2EditPart.VISUAL_ID:
+			return RoundedRectangle_3016;
+		case Polyline2EditPart.VISUAL_ID:
+			return Polyline_3017;
+		case Polygon2EditPart.VISUAL_ID:
+			return Polygon_3024;
+		case Label2EditPart.VISUAL_ID:
+			return Label_3027;
+		case Rectangle3EditPart.VISUAL_ID:
+			return Rectangle_3018;
+		case Ellipse3EditPart.VISUAL_ID:
+			return Ellipse_3019;
+		case RoundedRectangle3EditPart.VISUAL_ID:
+			return RoundedRectangle_3020;
+		case Polyline3EditPart.VISUAL_ID:
+			return Polyline_3021;
+		case Polygon3EditPart.VISUAL_ID:
+			return Polygon_3025;
+		case Label3EditPart.VISUAL_ID:
+			return Label_3028;
+		case ChildAccessEditPart.VISUAL_ID:
+			return ChildAccess_4002;
+		case CompartmentAccessorEditPart.VISUAL_ID:
+			return CompartmentAccessor_4003;
+		case DiagramLabelAccessorEditPart.VISUAL_ID:
+			return DiagramLabelAccessor_4004;
+		case NodeContentPaneEditPart.VISUAL_ID:
+			return NodeContentPane_4006;
+		case DiagramElementFigureEditPart.VISUAL_ID:
+			return DiagramElementFigure_4005;
+		}
+		return null;
 	}
 
 }

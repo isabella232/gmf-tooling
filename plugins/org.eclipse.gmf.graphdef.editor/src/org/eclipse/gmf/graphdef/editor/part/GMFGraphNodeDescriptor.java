@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -20,17 +20,12 @@ public class GMFGraphNodeDescriptor {
 	/**
 	 * @generated
 	 */
-	private EObject myModelElement;
+	private final EObject myModelElement;
 
 	/**
 	 * @generated
 	 */
-	private int myVisualID;
-
-	/**
-	 * @generated
-	 */
-	private String myType;
+	private final int myVisualID;
 
 	/**
 	 * @generated
@@ -52,16 +47,6 @@ public class GMFGraphNodeDescriptor {
 	 */
 	public int getVisualID() {
 		return myVisualID;
-	}
-
-	/**
-	 * @generated
-	 */
-	public String getType() {
-		if (myType == null) {
-			myType = GMFGraphVisualIDRegistry.getType(getVisualID());
-		}
-		return myType;
 	}
 
 }

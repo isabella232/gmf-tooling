@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -138,22 +138,22 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle;
+	public static String InitDiagramFile_ResourceErrorDialogTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage;
+	public static String InitDiagramFile_ResourceErrorDialogMessage;
 
 	/**
 	 * @generated
 	 */
-	public static String GMFGraphInitDiagramFileAction_InitDiagramFileWizardTitle;
+	public static String InitDiagramFile_WizardTitle;
 
 	/**
 	 * @generated
 	 */
-	public static String GMFGraphInitDiagramFileAction_OpenModelFileDialogTitle;
+	public static String InitDiagramFile_OpenModelFileDialogTitle;
 
 	/**
 	 * @generated
@@ -628,17 +628,17 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String AbstractParser_UnexpectedValueTypeMessage;
+	public static String AbstractParser_UnexpectedValueType;
 
 	/**
 	 * @generated
 	 */
-	public static String AbstractParser_WrongStringConversionMessage;
+	public static String AbstractParser_WrongStringConversion;
 
 	/**
 	 * @generated
 	 */
-	public static String AbstractParser_UnknownLiteralMessage;
+	public static String AbstractParser_UnknownLiteral;
 
 	/**
 	 * @generated

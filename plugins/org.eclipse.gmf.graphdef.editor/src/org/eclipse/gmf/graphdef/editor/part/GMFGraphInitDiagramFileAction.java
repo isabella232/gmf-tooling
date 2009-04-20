@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2006, 2007 Borland Software Corporation and others.
+ *  Copyright (c) 2006, 2009 Borland Software Corporation and others.
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
@@ -86,12 +86,11 @@ public class GMFGraphInitDiagramFileAction implements IObjectActionDelegate {
 			GMFGraphDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + domainModelURI, ex); //$NON-NLS-1$
 		}
 		if (diagramRoot == null) {
-			MessageDialog.openError(getShell(), Messages.GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogTitle,
-					Messages.GMFGraphInitDiagramFileAction_InitDiagramFileResourceErrorDialogMessage);
+			MessageDialog.openError(getShell(), Messages.InitDiagramFile_ResourceErrorDialogTitle, Messages.InitDiagramFile_ResourceErrorDialogMessage);
 			return;
 		}
 		Wizard wizard = new GMFGraphNewDiagramFileWizard(domainModelURI, diagramRoot, editingDomain);
-		wizard.setWindowTitle(NLS.bind(Messages.GMFGraphInitDiagramFileAction_InitDiagramFileWizardTitle, CanvasEditPart.MODEL_ID));
+		wizard.setWindowTitle(NLS.bind(Messages.InitDiagramFile_WizardTitle, CanvasEditPart.MODEL_ID));
 		GMFGraphDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 	}
 }

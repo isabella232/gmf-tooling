@@ -21,12 +21,21 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.gmf.xpand.oawBuilder</name>
+			<name>org.eclipse.pde.api.tools.apiAnalysisBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.pde.api.tools.apiAnalysisBuilder</name>
+			<name>org.eclipse.m2m.qvt.oml.project.QVTOBuilder</name>
+			<arguments>
+				<dictionary>
+					<key>src_container</key>
+					<value>templates.migrated</value>
+				</dictionary>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.gmf.xpand.xpandBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -35,5 +44,6 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.pde.api.tools.apiAnalysisNature</nature>
+		<nature>org.eclipse.m2m.qvt.oml.project.QVTONature</nature>
 	</natures>
 </projectDescription>
