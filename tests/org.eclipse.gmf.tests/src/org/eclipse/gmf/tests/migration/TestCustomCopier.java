@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.codegen.util.Migrate2008;
+import org.eclipse.gmf.internal.codegen.util.ModelVersions;
 import org.eclipse.gmf.internal.common.ToolingResourceFactory;
 
 public class TestCustomCopier extends TestCase {
@@ -51,7 +52,7 @@ public class TestCustomCopier extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		gmfgen_2008 = EPackage.Registry.INSTANCE.getEPackage("http://www.eclipse.org/gmf/2008/GenModel");
+		gmfgen_2008 = EPackage.Registry.INSTANCE.getEPackage(ModelVersions.GMFGEN_2_1);
 		cGenEditorGenerator = (EClass) gmfgen_2008.getEClassifier("GenEditorGenerator");
 		cGenDiagram = (EClass) gmfgen_2008.getEClassifier("GenDiagram");
 		cGenAuditRule = (EClass) gmfgen_2008.getEClassifier("GenAuditRule");

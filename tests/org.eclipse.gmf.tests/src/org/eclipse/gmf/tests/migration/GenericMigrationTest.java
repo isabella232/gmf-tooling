@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Anna Karjakina (Borland) - tests for MigrationDelegate
  */
 package org.eclipse.gmf.tests.migration;
 
@@ -30,7 +31,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ContentHandler;
@@ -194,7 +194,7 @@ public class GenericMigrationTest extends TestCase {
 		Object narrowRef = migratedObj.eGet(widenedRef, true);
 		if (widenedRef.isMany()) {
 			result = new ArrayList<EObject>();
-			assertTrue(narrowRef instanceof EList);
+			assertTrue(narrowRef instanceof EList<?>);
 			EList<?> narrowRefs = (EList<?>) narrowRef;
 			assertFalse(narrowRefs.isEmpty());
 			for (int i=0; i<narrowRefs.size(); i++) {
