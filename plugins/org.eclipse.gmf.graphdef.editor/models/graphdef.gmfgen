@@ -1366,9 +1366,6 @@
               genNodes="/0/@diagram/@childNodes.8 /0/@diagram/@childNodes.13 /0/@diagram/@childNodes.19"/>
         </groups>
       </palette>
-      <preferences
-          showConnectionHandles="false"
-          showPopupBars="false"/>
       <preferencePages
           xsi:type="gmfgen:GenStandardPreferencePage"
           iD="org.eclipse.gmf.graphdef.diagram.general"
