@@ -154,7 +154,6 @@ public class Migrate2009 {
 		
 		if (!implementations.isEmpty()) {
 			result.eSet(result.eClass().getEStructuralFeature("labelParsers"), newGenParser);
-			// XXX try Proxy&InvocationHandler
 			newGenParser.eSet(newGenParserClass.getEStructuralFeature("providerPriority"), cc.transformValue(parserProviderPriority, oldGenDiagram.eGet(parserProviderPriority)));
 			newGenParser.eSet(newGenParserClass.getEStructuralFeature("extensibleViaService"), Boolean.TRUE); // override default as old models may rely on default behavior, XXX although may force education with false?
 			newGenParser.eSet(newGenParserClass.getEStructuralFeature("packageName"), oldGenDiagram.eGet(oldGenDiagram.eClass().getEStructuralFeature("providersPackageName")));
@@ -185,4 +184,55 @@ public class Migrate2009 {
 		
 		return result;
 	}
+
+/*
+	It's quite tempting to use Proxy&InvocationHandler to wrap reflective code inside InvocationHandler to write migration code in plain Java, i.e. 
+	instead of:
+			newGenParser.eSet(newGenParserClass.getEStructuralFeature("providerPriority"), cc.transformValue(parserProviderPriority, oldGenDiagram.eGet(parserProviderPriority)));
+			newGenParser.eSet(newGenParserClass.getEStructuralFeature("extensibleViaService"), Boolean.TRUE); // override default as old models may rely on default behavior, XXX although may force education with false?
+			newGenParser.eSet(newGenParserClass.getEStructuralFeature("packageName"), oldGenDiagram.eGet(oldGenDiagram.eClass().getEStructuralFeature("providersPackageName")));
+	write smth like:
+			GenParsers genParsersProxy = (GenParsers) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[] { GenParsers.class }, new ReflectiveHandler(newGenParser));
+			GenDiagram oldGenDiagramProxy = (GenDiagram) Proxy.newProxyInstance(getClass().getClassLoader(), new Class[] {GenDiagram.class }, new ReflectiveHandler(oldGenDiagram));
+			genParsersProxy.setProviderPriority((ProviderPriority) cc.transformValue(parserProviderPriority, oldGenDiagramProxy.getParserProviderPriority()));
+			genParsersProxy.setExtensibleViaService(true);
+			genParsersProxy.setPackageName(oldGenDiagramProxy.getProvidersPackageName());
+	 
+	However, attempt reveals that it's not worth the effort, as use of plain Java mandates type conformance: 
+		a) Unresolvable troubles with enum literals (and likely with any non-primitive type) - CCE on oldGenDiagramProxy.getParserProviderPriority()
+		   because proxy conformance expects instance of ProviderPriority enum, but gets dynamic EEnumLiteralImpl.  
+		b) mandates presence of old features/method in the Java API. E.g. once provider package name is removed from GenDiagram interface,
+	 	   only reflective access would be possible (not oldGenDiagramProxy.getProviderPackageName()), but then (c) comes into play.
+		c) hard to mix non-reflective and reflective, e.g. 
+				genParsersProxy.setPackageName(oldGenDiagram.eGet(oldGenDiagram.eClass().getEStructuralFeature("providersPackageName")));
+		   requires explicit cast to String, which can be omitted when both left and right are EObject reflective methods
+
+
+	private static class ReflectiveHandler implements InvocationHandler {
+		private final EObject myTarget;
+
+		public ReflectiveHandler(EObject target) {
+			assert target != null;
+			myTarget = target;
+		}
+
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			assert proxy instanceof EObject;
+			if (method.getName().startsWith("get")) {
+				assert args == null;
+				String featureName = CodeGenUtil.uncapName(method.getName().substring(3));
+				EStructuralFeature feature = myTarget.eClass().getEStructuralFeature(featureName);
+				Object result = myTarget.eGet(feature);
+				return result;
+			} else if (method.getName().startsWith("set")) {
+				assert args.length == 1;
+				String featureName = CodeGenUtil.uncapName(method.getName().substring(3));
+				EStructuralFeature feature = myTarget.eClass().getEStructuralFeature(featureName);
+				myTarget.eSet(feature, args[0]);
+				return null;
+			}
+			throw new UnsupportedOperationException(); // or whatever needed to indicate I can't do anything about this method?
+		}
+	}
+*/
 }
