@@ -39,7 +39,7 @@ public class StreamDecoder {
 	 */
 	public StreamDecoder(InputStream is, Charset defaultEncoding) {
 		assert is != null;
-		myInputStream = is.markSupported() ? is : new BufferedInputStream(is);
+		myInputStream = ensureMarkSupported(is);
 		myDefaultEncoding = defaultEncoding;
 	}
 
@@ -126,4 +126,13 @@ public class StreamDecoder {
 		return encoding != null ? new InputStreamReader(is, encoding) : new InputStreamReader(is);
 	}
 
+	/**
+	 * @return same or wrapped input stream that has {@link InputStream#markSupported()} == true
+	 */
+	public static InputStream ensureMarkSupported(InputStream is) {
+		return is.markSupported() ? is : new BufferedInputStream(is);
+	}
+//	public static Reader ensureMarkSupported(Reader r) {
+//		return r.markSupported() ? r : new BufferedReader(r);
+//	}
 }
