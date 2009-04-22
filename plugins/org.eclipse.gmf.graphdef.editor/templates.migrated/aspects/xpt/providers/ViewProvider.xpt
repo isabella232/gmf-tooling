@@ -1,0 +1,37 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«EXTENSION aspects::impl::diagram::editparts::Utils»
+
+«AROUND createNodeMethod FOR gmfgen::GenNode-»
+	«IF hasSynchronizers(self)-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.gmf.runtime.notation.Node create«getUniqueIdentifier()»(org.eclipse.emf.ecore.EObject domainElement, org.eclipse.gmf.runtime.notation.View containerView, int index, boolean persisted, org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint preferencesHint) {
+			org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createNode();
+			node.getStyles().add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());«REM»FIXME Contionally add this style, whether toolsmith needs Notes or not«ENDREM»
+			«EXPAND xpt::diagram::views::Utils::addLinkedDiagramStyle('node.getStyles()')-»
+			«EXPAND xpt::diagram::views::Utils::addCustomStyles('node.getStyles()')-»
+			node.setType(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»);
+			org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.insertChildView(containerView, node, index, persisted);
+			node.setElement(domainElement);
+			// initializeFromPreferences «REM»XXX Perhaps, do init only once, for complete figure?«ENDREM»
+			final org.eclipse.jface.preference.IPreferenceStore prefStore = (org.eclipse.jface.preference.IPreferenceStore) preferencesHint.getPreferenceStore();
+			«EXPAND xpt::providers::ViewProvider::initLabel('node', 'prefStore') FOREACH labels-»
+			«EXPAND xpt::providers::ViewProvider::initCompartment('node', 'prefStore') FOREACH compartments-»
+			return node;
+		}
+	«ELSE-»
+		«targetDef.proceed()-»
+	«ENDIF-»
+«ENDAROUND»
