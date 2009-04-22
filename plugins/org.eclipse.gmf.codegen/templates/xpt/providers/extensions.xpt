@@ -54,10 +54,11 @@
       «EXPAND xpt::Common::xmlGeneratedTag»
       <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
          <Priority name="«modelingAssistantProviderPriority»"/>
+         <object class="«getEditPartQualifiedClassName()»" id="«getUniqueIdentifier()»"/>
 «FOREACH topLevelNodes AS n-»
          <object class="«n.getEditPartQualifiedClassName()»" id="«n.getUniqueIdentifier()»"/>
 «ENDFOREACH-»
-         <context elements="«FOREACH topLevelNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»"/>
+         <context elements="«getUniqueIdentifier()»,«FOREACH topLevelNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»"/>
       </modelingAssistantProvider>
    </extension>
 
