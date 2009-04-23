@@ -112,7 +112,7 @@ private java.util.Collection refreshConnections() {
 	for (java.util.Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Edge nextDiagramLink = (org.eclipse.gmf.runtime.notation.Edge) linksIterator.next();
 		int diagramLinkVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(nextDiagramLink);
-		if (diagramLinkVisualID == -1) {
+		if (diagramLinkVisualID == -1«EXPAND compareLinkVisualID FOREACH links->select(gl | gl.modelFacet.oclIsUndefined())») {
 			if (nextDiagramLink.getSource() != null && nextDiagramLink.getTarget() != null) {
 				linksIterator.remove();
 			}
@@ -134,6 +134,8 @@ private java.util.Collection refreshConnections() {
 	return createConnections(linkDescriptors, domain2NotationMap);
 }
 «ENDDEFINE»
+
+«DEFINE compareLinkVisualID FOR gmfgen::GenLink» || diagramLinkVisualID == «EXPAND xpt::editor::VisualIDRegistry::visualID»«ENDDEFINE»
 
 «DEFINE collectAllLinks FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
