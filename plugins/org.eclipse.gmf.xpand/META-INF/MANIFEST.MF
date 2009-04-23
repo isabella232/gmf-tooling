@@ -20,7 +20,8 @@ Export-Package: org.eclipse.gmf.internal.xpand;
    org.eclipse.gmf.codegen.lite,
    org.eclipse.gmf.common,
    org.eclipse.gmf.xpand.debug,
-   org.eclipse.gmf.xpand.ant",
+   org.eclipse.gmf.xpand.ant,
+   org.eclipse.gmf.codegen.ui",
  org.eclipse.gmf.internal.xpand.ast;x-friends:="org.eclipse.gmf.xpand.editor,org.eclipse.gmf.tests.xpand,org.eclipse.gmf.xpand.debug",
  org.eclipse.gmf.internal.xpand.build;x-friends:="org.eclipse.gmf.xpand.editor",
  org.eclipse.gmf.internal.xpand.eval;x-friends:="org.eclipse.gmf.xpand.debug,org.eclipse.gmf.tests.xpand",
@@ -53,11 +54,6 @@ Export-Package: org.eclipse.gmf.internal.xpand;
    org.eclipse.gmf.xpand.ant"
 Bundle-Activator: org.eclipse.gmf.internal.xpand.Activator
 Bundle-Localization: plugin
-Import-Package: org.eclipse.core.filebuffers,
- org.eclipse.core.runtime,
- org.eclipse.core.runtime.jobs,
- org.eclipse.jface.text,
- org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy; exclude:="org.eclipse.gmf.internal.xpand.inactive"
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
