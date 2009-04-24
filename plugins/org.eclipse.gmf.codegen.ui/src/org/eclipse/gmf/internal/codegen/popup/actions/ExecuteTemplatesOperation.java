@@ -28,6 +28,7 @@ import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.bridge.transform.ValidationHelper;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
+import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
@@ -197,7 +198,8 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 
 	private Diagnostic loadGenModel() {
 		ResourceSet srcResSet = new ResourceSetImpl();
-		srcResSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());		
+		srcResSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
+		Activator.fillWorkspaceMetaModelsMap(srcResSet.getPackageRegistry());
 		ModelLoadHelper loadHelper = new ModelLoadHelper(srcResSet, getGenModelURI());
 		Object root = loadHelper.getContentsRoot();
 		if (root instanceof GenDiagram) {
