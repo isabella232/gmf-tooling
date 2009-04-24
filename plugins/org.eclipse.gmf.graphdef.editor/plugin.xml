@@ -299,12 +299,13 @@
       <?gmfgen generated="true"?>
       <modelingAssistantProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphModelingAssistantProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.graphdef.editor.edit.parts.CanvasEditPart" id="Canvas_1000"/>
          <object class="org.eclipse.gmf.graphdef.editor.edit.parts.CompartmentEditPart" id="Compartment_2005"/>
          <object class="org.eclipse.gmf.graphdef.editor.edit.parts.NodeEditPart" id="Node_2006"/>
          <object class="org.eclipse.gmf.graphdef.editor.edit.parts.ConnectionEditPart" id="Connection_2007"/>
          <object class="org.eclipse.gmf.graphdef.editor.edit.parts.FigureGalleryEditPart" id="FigureGallery_2008"/>
          <object class="org.eclipse.gmf.graphdef.editor.edit.parts.DiagramLabelEditPart" id="DiagramLabel_2009"/>
-         <context elements="Compartment_2005,Node_2006,Connection_2007,FigureGallery_2008,DiagramLabel_2009"/>
+         <context elements="Canvas_1000,Compartment_2005,Node_2006,Connection_2007,FigureGallery_2008,DiagramLabel_2009"/>
       </modelingAssistantProvider>
    </extension>
 
