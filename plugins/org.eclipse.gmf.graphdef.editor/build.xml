@@ -1,0 +1,29 @@
+<project name="graphdef.editor" default="main" xmlns:xpt="eclipse.org/gmf/2008/xpand">
+	
+	<property name="graphdef.plugin" value="platform:/resource/org.eclipse.gmf.graphdef.editor"/>
+	<property name="formtk.plugin" value="platform:/resource/org.eclipse.gmf.formtk"/>
+	
+	<target name="main">
+		<antcall target="generateSection">
+			<param name="section" value="Size"/>
+		</antcall>
+		<antcall target="generateSection">
+			<param name="section" value="Layout"/>
+		</antcall>
+		<antcall target="generateSection">
+			<param name="section" value="LayoutData"/>
+		</antcall>
+		<antcall target="generateSection">
+			<param name="section" value="Figure"/>
+		</antcall>
+	</target>
+	
+	<target name="generateSection">
+		<xpt:template 
+			name="PropSheet::Main"
+			inputURI="${graphdef.plugin}/models/${section}Section.xmi#/"
+			templateroot="${graphdef.plugin}/templates-context,${graphdef.plugin}/templates-propsheet,${formtk.plugin}/templates-propsheet,${formtk.plugin}/templates-formpage,${formtk.plugin}/templates-context,${formtk.plugin}/templates-widget"
+			outfile="${basedir}/src-extra/org/eclipse/gmf/graphdef/editor/sheet/${section}Section.java"/>
+	</target>
+	
+</project>

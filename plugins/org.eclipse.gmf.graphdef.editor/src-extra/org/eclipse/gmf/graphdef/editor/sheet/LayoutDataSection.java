@@ -6,6 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
+ *     Artem Tikhomirov (Borland) - initial API and implementation
  *     Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
@@ -271,7 +272,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		}
 		if (myCustomLayoutDataDetails.isVisible()) {
 			getInput().setLayoutData(GMFGraphFactory.eINSTANCE.createCustomLayoutData());
-			((CustomClass) getInput().getLayoutData()).setQualifiedClassName(/* Bridge.fieldGet(myCustomLayoutQualifiedClassName) */myCustomLayoutQualifiedClassName.getText());
+			((CustomClass) getInput().getLayoutData()).setQualifiedClassName(/*Bridge.fieldGet(myCustomLayoutQualifiedClassName)*/myCustomLayoutQualifiedClassName.getText());
 		}
 		if (myR5.getSelection()) {
 			getInput().setLayoutData(null);
@@ -331,10 +332,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 		}
 		if (getInput().getLayoutData() instanceof CustomLayoutData) {
 			if (getInput().getLayoutData() != null) {
-				myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*
-																															 * Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass)
-																															 * getInput().getLayoutData()).getQualifiedClassName());
-																															 */
+				myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass) getInput().getLayoutData()).getQualifiedClassName());*/
 			}
 			myR4.setSelection(true);
 			myCustomLayoutDataDetails.setVisible(true);
@@ -365,7 +363,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 
 		if (event.type == SWT.Modify) {
 			// XXX also override isDirty to compare values if they
-			// match model's and to clear dirty state in case like aaa^H^H^H
+			// match model's and to clear dirty state in case like aaa^H^H^H 
 			markDirty();
 		} else if (event.type == SWT.FocusOut) {
 			applyChanges();
@@ -450,10 +448,7 @@ public class LayoutDataSection extends AbstractPropertySection implements Change
 					myXyLayoutDataDetails.setVisible(false);
 					applyChanges(); // Commit; View to Model
 					if (getInput().getLayoutData() != null) {
-						myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*
-																																	 * Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass)
-																																	 * getInput().getLayoutData()).getQualifiedClassName());
-																																	 */
+						myCustomLayoutQualifiedClassName.setText(((CustomClass) getInput().getLayoutData()).getQualifiedClassName());/*Bridge.fieldSet(myCustomLayoutQualifiedClassName, ((CustomClass) getInput().getLayoutData()).getQualifiedClassName());*/
 					}
 				} else {
 					myCustomLayoutDataDetails.setVisible(false);

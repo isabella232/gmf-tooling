@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Artem Tikhomirov (Borland) - initial API and implementation
+ *     Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
@@ -271,7 +272,7 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		}
 		if (myCustomLayoutDetails.isVisible()) {
 			getInput().setLayout(GMFGraphFactory.eINSTANCE.createCustomLayout());
-			((CustomClass) getInput().getLayout()).setQualifiedClassName(/* Bridge.fieldGet(myCustomLayoutClass) */myCustomLayoutClass.getText());
+			((CustomClass) getInput().getLayout()).setQualifiedClassName(/*Bridge.fieldGet(myCustomLayoutClass)*/myCustomLayoutClass.getText());
 		}
 		if (myR7.getSelection()) {
 			getInput().setLayout(null);
@@ -341,10 +342,7 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 		}
 		if (getInput().getLayout() instanceof CustomLayout) {
 			if (getInput().getLayout() != null) {
-				myCustomLayoutClass.setText(((CustomClass) getInput().getLayout()).getQualifiedClassName());/*
-																											 * Bridge.fieldSet(myCustomLayoutClass, ((CustomClass)
-																											 * getInput().getLayout()).getQualifiedClassName());
-																											 */
+				myCustomLayoutClass.setText(((CustomClass) getInput().getLayout()).getQualifiedClassName());/*Bridge.fieldSet(myCustomLayoutClass, ((CustomClass) getInput().getLayout()).getQualifiedClassName());*/
 			}
 			myR6.setSelection(true);
 			myCustomLayoutDetails.setVisible(true);
@@ -375,7 +373,7 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 
 		if (event.type == SWT.Modify) {
 			// XXX also override isDirty to compare values if they
-			// match model's and to clear dirty state in case like aaa^H^H^H
+			// match model's and to clear dirty state in case like aaa^H^H^H 
 			markDirty();
 		} else if (event.type == SWT.FocusOut) {
 			applyChanges();
@@ -479,10 +477,7 @@ public class LayoutSection extends AbstractPropertySection implements ChangeTrac
 					myGridLayoutDetails.setVisible(false);
 					applyChanges(); // Commit; View to Model
 					if (getInput().getLayout() != null) {
-						myCustomLayoutClass.setText(((CustomClass) getInput().getLayout()).getQualifiedClassName());/*
-																													 * Bridge.fieldSet(myCustomLayoutClass, ((CustomClass)
-																													 * getInput().getLayout()).getQualifiedClassName());
-																													 */
+						myCustomLayoutClass.setText(((CustomClass) getInput().getLayout()).getQualifiedClassName());/*Bridge.fieldSet(myCustomLayoutClass, ((CustomClass) getInput().getLayout()).getQualifiedClassName());*/
 					}
 				} else {
 					myCustomLayoutDetails.setVisible(false);

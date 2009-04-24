@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Artem Tikhomirov (Borland) - initial API and implementation
+ *     Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
 
@@ -355,7 +356,7 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		}
 		if (myFontFaceName.isEnabled() && myFontHeight.isEnabled() && myFontStyle.isEnabled()) {
 			getInput().setFont(GMFGraphFactory.eINSTANCE.createBasicFont());
-			((BasicFont) getInput().getFont()).setFaceName(/* Bridge.fieldGet(myFontFaceName) */myFontFaceName.getText());
+			((BasicFont) getInput().getFont()).setFaceName(/*Bridge.fieldGet(myFontFaceName)*/myFontFaceName.getText());
 			((BasicFont) getInput().getFont()).setHeight(myFontHeight.getSelection());
 			((BasicFont) getInput().getFont()).setStyle(FontStyle.get(myFontStyle.getSelectionIndex()));
 		} else {
@@ -467,7 +468,7 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 		}
 		if (getInput().getFont() instanceof BasicFont) {
 			if (getInput().getFont() != null) {
-				myFontFaceName.setText(((BasicFont) getInput().getFont()).getFaceName());/* Bridge.fieldSet(myFontFaceName, ((BasicFont) getInput().getFont()).getFaceName()); */
+				myFontFaceName.setText(((BasicFont) getInput().getFont()).getFaceName());/*Bridge.fieldSet(myFontFaceName, ((BasicFont) getInput().getFont()).getFaceName());*/
 				myFontHeight.setSelection(((BasicFont) getInput().getFont()).getHeight());
 				myFontStyle.select(((BasicFont) getInput().getFont()).getStyle().getValue());
 			}
@@ -499,7 +500,7 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 
 		if (event.type == SWT.Modify) {
 			// XXX also override isDirty to compare values if they
-			// match model's and to clear dirty state in case like aaa^H^H^H
+			// match model's and to clear dirty state in case like aaa^H^H^H 
 			markDirty();
 		} else if (event.type == SWT.FocusOut) {
 			applyChanges();
@@ -618,7 +619,7 @@ public class FigureSection extends AbstractPropertySection implements ChangeTrac
 					myFontStyle.setEnabled(true);
 					applyChanges(); // Commit; View to Model
 					if (getInput().getFont() != null) {
-						myFontFaceName.setText(((BasicFont) getInput().getFont()).getFaceName());/* Bridge.fieldSet(myFontFaceName, ((BasicFont) getInput().getFont()).getFaceName()); */
+						myFontFaceName.setText(((BasicFont) getInput().getFont()).getFaceName());/*Bridge.fieldSet(myFontFaceName, ((BasicFont) getInput().getFont()).getFaceName());*/
 						myFontHeight.setSelection(((BasicFont) getInput().getFont()).getHeight());
 						myFontStyle.select(((BasicFont) getInput().getFont()).getStyle().getValue());
 					}

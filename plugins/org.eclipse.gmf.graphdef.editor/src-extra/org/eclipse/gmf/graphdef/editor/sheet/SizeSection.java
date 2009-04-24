@@ -6,6 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
+ *     Artem Tikhomirov (Borland) - initial API and implementation
  *     Alexander Shatalin (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.graphdef.editor.sheet;
@@ -267,7 +268,7 @@ public class SizeSection extends AbstractPropertySection implements ChangeTracke
 
 		if (event.type == SWT.Modify) {
 			// XXX also override isDirty to compare values if they
-			// match model's and to clear dirty state in case like aaa^H^H^H
+			// match model's and to clear dirty state in case like aaa^H^H^H 
 			markDirty();
 		} else if (event.type == SWT.FocusOut) {
 			applyChanges();
