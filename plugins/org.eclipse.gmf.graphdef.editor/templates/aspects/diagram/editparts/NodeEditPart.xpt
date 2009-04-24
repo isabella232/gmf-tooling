@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,159 +11,160 @@
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
-«IMPORT "http://www.eclipse.org/emf/2002/GenModel"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'Â»
+Â«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/Context'Â»
+Â«IMPORT 'http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg'Â»
 
-«EXTENSION aspects::impl::diagram::editparts::Utils»
-«EXTENSION xpt::GenModelUtils»
+Â«EXTENSION aspects::impl::diagram::editparts::UtilsÂ»
+Â«EXTENSION xpt::GenModelUtilsÂ»
+Â«EXTENSION xpt::StringOperationsÂ»
 
-«AROUND extendsList FOR gmfgen::GenNode»«IF hasSynchronizers(this)»extends «getDiagram().editPartsPackageName».«EXPAND superclassName»«ELSE»«targetDef.proceed()»«ENDIF»«ENDAROUND»
+Â«AROUND extendsList FOR gmfgen::GenNodeÂ»Â«IF hasSynchronizers(self)Â»extends Â«getDiagram().editPartsPackageNameÂ».Â«EXPAND superclassNameÂ»Â«ELSEÂ»Â«targetDef.proceed()Â»Â«ENDIFÂ»Â«ENDAROUNDÂ»
 
-«DEFINE superclassName FOR gmfgen::GenNode»«IF isPolylinePoint(this)»AbstractPointEditPart«ELSE»AbstractFigureEditPart«ENDIF»«ENDDEFINE»
+Â«DEFINE superclassName FOR gmfgen::GenNodeÂ»Â«IF isPolylinePoint(self)Â»AbstractPointEditPartÂ«ELSEÂ»AbstractFigureEditPartÂ«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«AROUND handleNotificationEvent FOR gmfgen::GenNode-»
-	«IF hasSynchronizers(this)-»
-		«EXPAND xpt::Common::generatedMemberComment»
+Â«AROUND handleNotificationEvent FOR gmfgen::GenNode-Â»
+	Â«IF hasSynchronizers(self)-Â»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
 			Object feature = notification.getFeature();
-			«IF hasLayoutDataSynchronizers(this)»if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
+			Â«IF hasLayoutDataSynchronizers(self)Â»if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
 				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature)
 				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature)
 				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
 				return;
-			} else «ENDIF»if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
+			} else Â«ENDIFÂ»if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
 				return;
 			} else if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
 				return;
 			}
 			super.handleNotificationEvent(notification);
 		}
-	«ENDIF-»
-	«targetDef.proceed()-»
-«ENDAROUND»
+	Â«ENDIF-Â»
+	Â«targetDef.proceed()-Â»
+Â«ENDAROUNDÂ»
 
-«AROUND additions FOR gmfgen::GenNode-»
-	«IF hasSynchronizers(this)-»
+Â«AROUND additions FOR gmfgen::GenNode-Â»
+	Â«IF hasSynchronizers(self)-Â»
 	
-		«EXPAND myDomainElementAdapters-»
+		Â«EXPAND myDomainElementAdapters-Â»
 	
-		«EXPAND getGmfgraphElement-»
+		Â«EXPAND getGmfgraphElement-Â»
 	
-		«EXPAND removeSemanticListeners-»
+		Â«EXPAND removeSemanticListeners-Â»
 	
-		«EXPAND setFigure-»
+		Â«EXPAND setFigure-Â»
 	
-		«EXPAND activate-»
-		«IF hasLayoutDataSynchronizers(this)-»
+		Â«EXPAND activate-Â»
+		Â«IF hasLayoutDataSynchronizers(self)-Â»
 		
-			«EXPAND refreshBounds-»
-		«ENDIF-»
-		«IF isPolyline(this)-»
-			«IF hasLayoutDataSynchronizers(this)-»
+			Â«EXPAND refreshBounds-Â»
+		Â«ENDIF-Â»
+		Â«IF isPolyline(self)-Â»
+			Â«IF hasLayoutDataSynchronizers(self)-Â»
 		
-				«EXPAND refreshMainFigureBounds-»
-			«ENDIF-»
+				Â«EXPAND refreshMainFigureBounds-Â»
+			Â«ENDIF-Â»
 		
-			«EXPAND DefaultSizeNodeFigureExt-»
-		«ENDIF-»
-	«ENDIF-»
-	«targetDef.proceed()»
-«ENDAROUND»
+			Â«EXPAND DefaultSizeNodeFigureExt-Â»
+		Â«ENDIF-Â»
+	Â«ENDIF-Â»
+	Â«targetDef.proceed()Â»
+Â«ENDAROUNDÂ»
 
-«DEFINE myDomainElementAdapters FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE myDomainElementAdapters FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	private java.util.Collection<org.eclipse.emf.common.notify.Adapter> myDomainElementAdapters = new java.util.ArrayList<org.eclipse.emf.common.notify.Adapter>();
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE activate FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE activate FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void activate() {
 		if (isActive()){
 			return;
 		}
-		final «EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
+		final Â«EXPAND MetaModel::QualifiedClassName FOR metaclass(self)Â» modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			super.activate();
 			return;
 		}
-        «EXPAND addDomainElementAdapters FOREACH getSynchronizers(this)-»
+        Â«EXPAND addDomainElementAdapters FOREACH getSynchronizers(self)-Â»
 		modelElement.eAdapters().addAll(myDomainElementAdapters);
 		super.activate();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE getGmfgraphElement FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «EXPAND MetaModel::QualifiedClassName FOR metaclass()» getGmfgraphElement() {
+Â«DEFINE getGmfgraphElement FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
+	private Â«EXPAND MetaModel::QualifiedClassName FOR metaclass(self)Â» getGmfgraphElement() {
 		org.eclipse.gmf.runtime.notation.View view = getNotationView();
 		if (view == null) {
 			return null;
 		}
 		org.eclipse.emf.ecore.EObject element = view.getElement();
-		if («EXPAND MetaModel::IsInstance("element") FOR metaclass()») {
-			«EXPAND MetaModel::DeclareAndAssign("modelFigureElement", "element") FOR metaclass()»
+		if (Â«EXPAND MetaModel::IsInstance('element') FOR metaclass(self)Â») {
+			Â«EXPAND MetaModel::DeclareAndAssign('modelFigureElement', 'element') FOR metaclass(self)Â»
 			return modelFigureElement;
 		}
 		return null;
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE removeSemanticListeners FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE removeSemanticListeners FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void removeSemanticListeners() {
-		«EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
+		Â«EXPAND MetaModel::QualifiedClassName FOR metaclass(self)Â» modelElement = getGmfgraphElement();
 		if (modelElement != null) {
 			modelElement.eAdapters().removeAll(myDomainElementAdapters);
 			myDomainElementAdapters.clear();
 		}
 		super.removeSemanticListeners();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE setFigure FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE setFigure FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void setFigure(org.eclipse.draw2d.IFigure figure) {
 		super.setFigure(figure);
-		«EXPAND processChanges-»
+		Â«EXPAND processChanges-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE processChanges FOR gmfgen::GenNode-»
-	«EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
+Â«DEFINE processChanges FOR gmfgen::GenNode-Â»
+	Â«EXPAND MetaModel::QualifiedClassName FOR metaclass(self)Â» modelElement = getGmfgraphElement();
 	if (modelElement != null) {
-		«EXPAND processChanges FOREACH getSynchronizers(this)-»
+		Â«EXPAND processChanges FOREACH getSynchronizers(self)-Â»
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE processChanges FOR wysiwyg::DomainPropertiesSynchronizer-»
-	«EXPAND processChanges(contexts) FOREACH actions-»
-«ENDDEFINE»
+Â«DEFINE processChanges FOR wysiwyg::DomainPropertiesSynchronizer-Â»
+	Â«EXPAND processChanges(contexts->asSequence()) FOREACH actions-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE processChanges(List[context::Context] contexts) FOR wysiwyg::AbstractAction-»
-	«ERROR "Should never be called"»
-«ENDDEFINE»
+Â«DEFINE processChanges(contexts : Sequence(context::Context)) FOR wysiwyg::AbstractAction-Â»
+	Â«ERROR 'Should never be called'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE processChanges(List[context::Context] contexts) FOR wysiwyg::MethodCallAction-»
-	«methodName»();
-«ENDDEFINE»
+Â«DEFINE processChanges(contexts : Sequence(context::Context)) FOR wysiwyg::MethodCallAction-Â»
+	Â«methodNameÂ»();
+Â«ENDDEFINEÂ»
 
-«DEFINE processChanges(List[context::Context] contexts) FOR wysiwyg::FigurePropertySynchAction-»
-	getPrimaryShape().«EXPAND setterName»(«IF domainValueTransformerName != null»«domainValueTransformerName»(«ENDIF»«EXPAND getModelElementProperty FOREACH contexts SEPARATOR ", "»«IF domainValueTransformerName != null»)«ENDIF»);
-«ENDDEFINE»
+Â«DEFINE processChanges(contexts : Sequence(context::Context)) FOR wysiwyg::FigurePropertySynchAction-Â»
+	getPrimaryShape().Â«EXPAND setterNameÂ»(Â«IF domainValueTransformerName <> nullÂ»Â«domainValueTransformerNameÂ»(Â«ENDIFÂ»Â«EXPAND getModelElementProperty FOREACH contexts SEPARATOR ', 'Â»Â«IF domainValueTransformerName <> nullÂ»)Â«ENDIFÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelElementProperty FOR context::Context-»
-	«ERROR "Should never be called"»
-«ENDDEFINE»
+Â«DEFINE getModelElementProperty FOR context::Context-Â»
+	Â«ERROR 'Should never be called'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE getModelElementProperty FOR context::FeatureContext»modelElement.«EXPAND getterName FOR selector»()«ENDDEFINE»
+Â«DEFINE getModelElementProperty FOR context::FeatureContextÂ»modelElement.Â«EXPAND getterName FOR selectorÂ»()Â«ENDDEFINEÂ»
 
-«DEFINE refreshBounds FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshBounds FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	protected void refreshBounds() {
-		«EXPAND MetaModel::QualifiedClassName FOR metaclass()» modelElement = getGmfgraphElement();
+		Â«EXPAND MetaModel::QualifiedClassName FOR metaclass(self)Â» modelElement = getGmfgraphElement();
 		if (modelElement == null) {
 			return;
 		}
@@ -174,65 +175,65 @@
 			getFigure().setLocation(getDraw2DPoint(modelElement.getLocation()));
 		}
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE addDomainElementAdapters FOR wysiwyg::DomainPropertiesSynchronizer-»
+Â«DEFINE addDomainElementAdapters FOR wysiwyg::DomainPropertiesSynchronizer-Â»
 
-	org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker «EXPAND changeTrackerVarName» = new org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker() {
+	org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker Â«EXPAND changeTrackerVarNameÂ» = new org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker() {
 		public void modelChanged(org.eclipse.emf.common.notify.Notification msg) {
-			«EXPAND processChanges-»
+			Â«EXPAND processChanges-Â»
 		}
 	};
-	myDomainElementAdapters.add(«EXPAND attachContextListener(this) FOREACH contexts SEPARATOR "); \nmyDomainElementAdapters.add("»);
-«ENDDEFINE»
+	myDomainElementAdapters.add(Â«EXPAND attachContextListener(self) FOREACH contexts SEPARATOR '); \nmyDomainElementAdapters.add('Â»);
+Â«ENDDEFINEÂ»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::DomainPropertiesSynchronizer»«EXPAND changeTrackerVarName FOR (wysiwyg::AbstractAction) actions.first()»«ENDDEFINE»
+Â«DEFINE changeTrackerVarName FOR wysiwyg::DomainPropertiesSynchronizerÂ»Â«EXPAND changeTrackerVarName FOR actions->first().oclAsType(wysiwyg::AbstractAction)Â»Â«ENDDEFINEÂ»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::AbstractAction»
-	«ERROR "Should never be called"»
-«ENDDEFINE»
+Â«DEFINE changeTrackerVarName FOR wysiwyg::AbstractActionÂ»
+	Â«ERROR 'Should never be called'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::MethodCallAction»«methodName»Tracker«ENDDEFINE»
+Â«DEFINE changeTrackerVarName FOR wysiwyg::MethodCallActionÂ»Â«methodNameÂ»TrackerÂ«ENDDEFINEÂ»
 
-«DEFINE changeTrackerVarName FOR wysiwyg::FigurePropertySynchAction»«figureAttribute.toFirstLower()»Tracker«ENDDEFINE»
+Â«DEFINE changeTrackerVarName FOR wysiwyg::FigurePropertySynchActionÂ»Â«figureAttribute.xpandToFirstLower()Â»TrackerÂ«ENDDEFINEÂ»
 
-«DEFINE attachContextListener(wysiwyg::DomainPropertiesSynchronizer synchronizer) FOR context::Context-»
-	«ERROR "Should never be called"»
-«ENDDEFINE»
+Â«DEFINE attachContextListener(synchronizer : wysiwyg::DomainPropertiesSynchronizer) FOR context::Context-Â»
+	Â«ERROR 'Should never be called'Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE attachContextListener(wysiwyg::DomainPropertiesSynchronizer synchronizer) FOR context::FeatureContext-»
-	«IF children.size() == 0-»
-		new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(«EXPAND changeTrackerVarName FOR synchronizer», «EXPAND accessor FOR selector»)
-	«ELSE-»
-		new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(«EXPAND accessor FOR selector», «EXPAND changeTrackerVarName FOR synchronizer», «EXPAND attachContextListener(synchronizer) FOREACH children SEPARATOR ", "»)
-	«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE attachContextListener(synchronizer : wysiwyg::DomainPropertiesSynchronizer) FOR context::FeatureContext-Â»
+	Â«IF children->size() = 0-Â»
+		new org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker(Â«EXPAND changeTrackerVarName FOR synchronizerÂ», Â«EXPAND accessor FOR selectorÂ»)
+	Â«ELSE-Â»
+		new org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter(Â«EXPAND accessor FOR selectorÂ», Â«EXPAND changeTrackerVarName FOR synchronizerÂ», Â«EXPAND attachContextListener(synchronizer) FOREACH children SEPARATOR ', 'Â»)
+	Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE refreshMainFigureBounds FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedMemberComment»
+Â«DEFINE refreshMainFigureBounds FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 	public void refreshMainFigureBounds() {
 		DefaultSizeNodeFigureExt nodeFigure = (DefaultSizeNodeFigureExt) getFigure();
 		nodeFigure.fireFigureMoved();
 		nodeFigure.revalidate();
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE DefaultSizeNodeFigureExt FOR gmfgen::GenNode-»
-	«EXPAND xpt::Common::generatedClassComment»
+Â«DEFINE DefaultSizeNodeFigureExt FOR gmfgen::GenNode-Â»
+	Â«EXPAND xpt::Common::generatedClassCommentÂ»
 	class DefaultSizeNodeFigureExt extends org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure {
 	
-		«EXPAND xpt::Common::generatedMemberComment»
+		Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 		DefaultSizeNodeFigureExt(int width, int height) {
 			super(width, height);
 		}
 
-		«IF hasLayoutDataSynchronizers(this)-»
-			«EXPAND xpt::Common::generatedMemberComment»
+		Â«IF hasLayoutDataSynchronizers(self)-Â»
+			Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 			public void setBounds(org.eclipse.draw2d.geometry.Rectangle rect) {
 				getPrimaryShape().setBounds(rect);
 			}
 			
-			«EXPAND xpt::Common::generatedMemberComment»
+			Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 			public org.eclipse.draw2d.geometry.Rectangle getBounds() {
 				org.eclipse.draw2d.geometry.Rectangle polylineBounds = getPrimaryShape().getBounds().getCopy();
 				polylineBounds.width += 8;
@@ -240,17 +241,17 @@
 				return polylineBounds;
 			}
 
-			«EXPAND xpt::Common::generatedMemberComment»			
+			Â«EXPAND xpt::Common::generatedMemberCommentÂ»			
 			public void fireFigureMoved() {
 				super.fireFigureMoved();
 			}
-		«ELSE-»
-			«EXPAND xpt::Common::generatedMemberComment»
+		Â«ELSE-Â»
+			Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 			protected boolean useLocalCoordinates() {
 				return true;
 			}
 			
-			«EXPAND xpt::Common::generatedMemberComment»
+			Â«EXPAND xpt::Common::generatedMemberCommentÂ»
 			protected void paintFigure(org.eclipse.draw2d.Graphics graphics) {
 				graphics.pushState();
 				graphics.setLineWidth(1);
@@ -260,14 +261,14 @@
 				graphics.popState();
 				super.paintFigure(graphics);
 			}
-		«ENDIF-»
+		Â«ENDIF-Â»
 		
 	}
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«REM»Temporary solution. Use MetaModel.xpt from formtk here.«ENDREM»
-«DEFINE accessor FOR ecore::EStructuralFeature»org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.get«eContainingClass.name.toFirstUpper()»_«name.toFirstUpper()»()«ENDDEFINE»
+Â«REMÂ»Temporary solution. Use MetaModel.xpt from formtk here.Â«ENDREMÂ»
+Â«DEFINE accessor FOR ecore::EStructuralFeatureÂ»org.eclipse.gmf.gmfgraph.GMFGraphPackage.eINSTANCE.getÂ«eContainingClass.name.firstToUpper()Â»_Â«name.firstToUpper()Â»()Â«ENDDEFINEÂ»
 
-«DEFINE setterName FOR wysiwyg::FigurePropertySynchAction»set«figureAttribute»«ENDDEFINE»
+Â«DEFINE setterName FOR wysiwyg::FigurePropertySynchActionÂ»setÂ«figureAttributeÂ»Â«ENDDEFINEÂ»
 
-«DEFINE getterName FOR ecore::EStructuralFeature»«IF eType.name == "EBoolean"»is«ELSE»get«ENDIF»«name.toFirstUpper()»«ENDDEFINE»
+Â«DEFINE getterName FOR ecore::EStructuralFeatureÂ»Â«IF eType.name = 'EBoolean'Â»isÂ«ELSEÂ»getÂ«ENDIFÂ»Â«name.firstToUpper()Â»Â«ENDDEFINEÂ»

@@ -30,7 +30,7 @@
 			<arguments>
 				<dictionary>
 					<key>src_container</key>
-					<value>templates.migrated</value>
+					<value>templates</value>
 				</dictionary>
 			</arguments>
 		</buildCommand>

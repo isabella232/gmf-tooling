@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,21 +10,21 @@
  *    Alexander Shatalin (Borland) - initial API and implementation 
  */
 
-«IMPORT "http://www.eclipse.org/gmf/2008/GenModel"»
+Â«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'Â»
 
-«EXTENSION aspects::xpt::propsheet::Utils»
+Â«EXTENSION aspects::xpt::propsheet::UtilsÂ»
 
-«AROUND filter FOR gmfgen::CustomTabFilter-»
-«IF isProxyTab(tab)-»
-            filter="«tab.getQualifiedClassName()»$«EXPAND aspects::xpt::propsheet::PropertySection::filterClassName FOR tab»"
+Â«AROUND filter FOR gmfgen::CustomTabFilter-Â»
+Â«IF isProxyTab(tab)-Â»
+            filter="Â«tab.getQualifiedClassName()Â»$Â«EXPAND aspects::xpt::propsheet::PropertySection::filterClassName FOR tabÂ»"
             enablesFor="1"
-«ELSE-»
-«targetDef.proceed()-»
-«ENDIF-»
-«ENDAROUND»
+Â«ELSE-Â»
+Â«targetDef.proceed()-Â»
+Â«ENDIF-Â»
+Â«ENDAROUNDÂ»
 
-«AROUND section FOR gmfgen::GenStandardPropertyTab-»
-«IF iD == "appearance"-»
+Â«AROUND section FOR gmfgen::GenStandardPropertyTab-Â»
+Â«IF iD = 'appearance'-Â»
          <propertySection id="property.section.ConnectorAppearancePropertySection" 
             filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
@@ -40,7 +40,7 @@
             class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
             tab="property.tab.AppearancePropertySection">
          </propertySection>     
-«ELSE-»
-«targetDef.proceed()-»
-«ENDIF-»
-«ENDAROUND»
+Â«ELSE-Â»
+Â«targetDef.proceed()-Â»
+Â«ENDIF-Â»
+Â«ENDAROUNDÂ»
