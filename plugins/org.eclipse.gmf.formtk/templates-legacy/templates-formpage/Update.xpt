@@ -9,44 +9,44 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT "http://www.eclipse.org/gmf/2008/Widget"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Context"»
-«IMPORT "http://www.eclipse.org/gmf/2008/Binding"»
-«IMPORT "http://www.eclipse.org/emf/2002/Ecore"»
+Â«IMPORT "http://www.eclipse.org/gmf/2008/Widget"Â»
+Â«IMPORT "http://www.eclipse.org/gmf/2008/Context"Â»
+Â«IMPORT "http://www.eclipse.org/gmf/2008/Binding"Â»
+Â«IMPORT "http://www.eclipse.org/emf/2002/Ecore"Â»
 
-«EXTENSION Forms»
-«EXTENSION Widgets»
-«EXTENSION Context»
+Â«EXTENSION FormsÂ»
+Â«EXTENSION WidgetsÂ»
+Â«EXTENSION ContextÂ»
 
 //
 //
 //
-«DEFINE registerListeners FOR Section»
-«IF hasTextWidgets()-»
-		for (Text t : new Text[] {«FOREACH textWidgets() AS te SEPARATOR ", "»«te.fieldName()»«ENDFOREACH»}) {
+Â«DEFINE registerListeners FOR SectionÂ»
+Â«IF hasTextWidgets()-Â»
+		for (Text t : new Text[] {Â«FOREACH textWidgets() AS te SEPARATOR ", "Â»Â«te.fieldName()Â»Â«ENDFOREACHÂ»}) {
 			t.addListener(SWT.Modify, this);
 			t.addListener(SWT.FocusOut, this);
 			t.addListener(SWT.KeyDown, this);
 		}
-«ENDIF-»
-«IF hasSpins()-»
-		for (Spinner s : new Spinner[] {«FOREACH spinWidgets() AS s SEPARATOR ", "»«s.fieldName()»«ENDFOREACH»}) {
+Â«ENDIF-Â»
+Â«IF hasSpins()-Â»
+		for (Spinner s : new Spinner[] {Â«FOREACH spinWidgets() AS s SEPARATOR ", "Â»Â«s.fieldName()Â»Â«ENDFOREACHÂ»}) {
 			s.addListener(SWT.Modify, this);
 			s.addListener(SWT.FocusOut, this);
 		}
-«ENDIF-»
-«IF hasRadioButtons() || hasCheckBoxes() || hasCombos()-»
-		for (Widget w : new Widget[] {«FOREACH (List[Widget])radioWidgets().union(checkboxWidgets()).union(comboWidgets()) AS r SEPARATOR ", "»«r.fieldName()»«ENDFOREACH»}) {
+Â«ENDIF-Â»
+Â«IF hasRadioButtons() || hasCheckBoxes() || hasCombos()-Â»
+		for (Widget w : new Widget[] {Â«FOREACH (List[Widget])radioWidgets().union(checkboxWidgets()).union(comboWidgets()) AS r SEPARATOR ", "Â»Â«r.fieldName()Â»Â«ENDFOREACHÂ»}) {
 			w.addListener(SWT.Selection, this);
 		}
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 //
 //
 //
-«DEFINE handleEventMethodBody FOR Section»
-«IF hasTextWidgets() || hasSpins() /*though, spinners may require more attention*/ -»
+Â«DEFINE handleEventMethodBody FOR SectionÂ»
+Â«IF hasTextWidgets() || hasSpins() /*though, spinners may require more attention*/ -Â»
 		if (event.type == SWT.Modify) {
 			// XXX also override isDirty to compare values if they
 			// match model's and to clear dirty state in case like aaa^H^H^H 
@@ -60,326 +60,326 @@
 				applyChanges();
 			}
 		}
-«ENDIF-»
-«IF hasRadioButtons() || hasCheckBoxes()-»
+Â«ENDIF-Â»
+Â«IF hasRadioButtons() || hasCheckBoxes()-Â»
 		if (event.type == SWT.Selection) {
-«LET checkboxWidgets().select(w | isBoolean(associatedBinding(w).selector)) AS booleanCheckBoxes-»
-«IF !booleanCheckBoxes.isEmpty()-»
-			if «FOREACH booleanCheckBoxes AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
-«IF !dependantActions(r).isEmpty()-»
-				if («r.fieldName()».getSelection()) {
-					«EXPAND ApplyAction FOREACH dependantActions(r)-»
+Â«LET checkboxWidgets().select(w | isBoolean(associatedBinding(w).selector)) AS booleanCheckBoxes-Â»
+Â«IF !booleanCheckBoxes.isEmpty()-Â»
+			if Â«FOREACH booleanCheckBoxes AS r SEPARATOR " else if "Â»(Â«r.fieldName()Â» == event.widget) {
+Â«IF !dependantActions(r).isEmpty()-Â»
+				if (Â«r.fieldName()Â».getSelection()) {
+					Â«EXPAND ApplyAction FOREACH dependantActions(r)-Â»
 				} else {
-					«EXPAND RevertAction FOREACH dependantActions(r)-»
+					Â«EXPAND RevertAction FOREACH dependantActions(r)-Â»
 				}
-«ENDIF-»
+Â«ENDIF-Â»
 				applyChanges(); // Commit; View to Model
 				// Optimization? Instead of full refresh, just dependant widgets should get updated
-				«EXPAND RefreshAssociated(r)-»
-			}«ENDFOREACH»
-«ENDIF-»
-«ENDLET-»
-«LET checkboxWidgets().select(w | !isBoolean(associatedBinding(w).selector)) AS referenceBasedCheckBoxes-»
-«IF hasRadioButtons() || !referenceBasedCheckBoxes.isEmpty()-»
-			if «FOREACH (List[Widget])radioWidgets().union(referenceBasedCheckBoxes) AS r SEPARATOR " else if "»(«r.fieldName()» == event.widget) {
-	«LET associatedBinding(r) AS activeBinding-»
-				if («r.fieldName()».getSelection()) {
-					«EXPAND ApplyAction FOREACH triggeredActions_activated(activeBinding)-»
-					«EXPAND RevertAction FOREACH triggeredActions_deactivated(activeBinding)-»
+				Â«EXPAND RefreshAssociated(r)-Â»
+			}Â«ENDFOREACHÂ»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«LET checkboxWidgets().select(w | !isBoolean(associatedBinding(w).selector)) AS referenceBasedCheckBoxes-Â»
+Â«IF hasRadioButtons() || !referenceBasedCheckBoxes.isEmpty()-Â»
+			if Â«FOREACH (List[Widget])radioWidgets().union(referenceBasedCheckBoxes) AS r SEPARATOR " else if "Â»(Â«r.fieldName()Â» == event.widget) {
+	Â«LET associatedBinding(r) AS activeBinding-Â»
+				if (Â«r.fieldName()Â».getSelection()) {
+					Â«EXPAND ApplyAction FOREACH triggeredActions_activated(activeBinding)-Â»
+					Â«EXPAND RevertAction FOREACH triggeredActions_deactivated(activeBinding)-Â»
 					applyChanges(); // Commit; View to Model
-					«EXPAND doRefresh(triggeredBindingToRefreshBesidesTheOne(activeBinding), activeBinding.refreshCondition.accessor)-»
-				}«IF !triggeredActions_activated(activeBinding).isEmpty()» else {
-					«EXPAND RevertAction FOREACH triggeredActions_activated(activeBinding)-»
-«IF !{activeBinding.widget}.typeSelect(CheckBox).isEmpty()-»
+					Â«EXPAND doRefresh(triggeredBindingToRefreshBesidesTheOne(activeBinding), activeBinding.refreshCondition.accessor)-Â»
+				}Â«IF !triggeredActions_activated(activeBinding).isEmpty()Â» else {
+					Â«EXPAND RevertAction FOREACH triggeredActions_activated(activeBinding)-Â»
+Â«IF !{activeBinding.widget}.typeSelect(CheckBox).isEmpty()-Â»
 					applyChanges(); // Commit; View to Model
-«ENDIF-»
-				}«ENDIF»
-	«ENDLET-»
-			}«ENDFOREACH»
-«ENDIF-»
-«ENDLET-»
-«IF hasCombos()-»
-			if («FOREACH comboWidgets() AS cb SEPARATOR " || "»«cb.fieldName()» == event.widget«ENDFOREACH») {
-				applyChanges();«REM»TODO need to process possible enablements here as well (actions for conditions with accessor equal to the activated)«ENDREM»
+Â«ENDIF-Â»
+				}Â«ENDIFÂ»
+	Â«ENDLET-Â»
+			}Â«ENDFOREACHÂ»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«IF hasCombos()-Â»
+			if (Â«FOREACH comboWidgets() AS cb SEPARATOR " || "Â»Â«cb.fieldName()Â» == event.widgetÂ«ENDFOREACHÂ») {
+				applyChanges();Â«REMÂ»TODO need to process possible enablements here as well (actions for conditions with accessor equal to the activated)Â«ENDREMÂ»
 			}
-«ENDIF»
+Â«ENDIFÂ»
 		}
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 //
 //
 // for all bindings that share the same condition, refresh UI state
-«DEFINE RefreshAssociated(Widget w) FOR Section-»
-«EXPAND doRefresh(dependantBindings(w), null)-»
-«ENDDEFINE»
+Â«DEFINE RefreshAssociated(Widget w) FOR Section-Â»
+Â«EXPAND doRefresh(dependantBindings(w), null)-Â»
+Â«ENDDEFINEÂ»
 
 
 /////////////////////////////////////////////////////////////////////////////////
 
-«DEFINE Commit FOR Section-»
-«REM»
+Â«DEFINE Commit FOR Section-Â»
+Â«REMÂ»
 	FIXME
 	Need to create not only the those elements that would get committed at this time
 	e.g. is wizard/generatePerspective == false, do not create GenPerspective
-«ENDREM»
-«EXPAND createMissing(1, this) FOR needsCreation(bindings.select(b | b.commitCondition == null))-»
+Â«ENDREMÂ»
+Â«EXPAND createMissing(1, this) FOR needsCreation(bindings.select(b | b.commitCondition == null))-Â»
 
-«FOREACH bindings.select(b | b.commitCondition == null) AS b»«EXPAND ViewToModel(b) FOR b.widget»«ENDFOREACH»
+Â«FOREACH bindings.select(b | b.commitCondition == null) AS bÂ»Â«EXPAND ViewToModel(b) FOR b.widgetÂ»Â«ENDFOREACHÂ»
 
-«FOREACH conditions.select(c | bindings.exists(b | c == b.commitCondition)) AS c-»
-«IF triggeredActions(c).isEmpty()-»
-«FOREACH bindings.select(b | b.commitCondition == c) AS b-»
-if («EXPAND uiConditionGet FOR b.widget») {
-	«EXPAND createMissing(1, this) FOR needsCreation({b})-»
-	«EXPAND ViewToModel(b) FOR b.widget-»
+Â«FOREACH conditions.select(c | bindings.exists(b | c == b.commitCondition)) AS c-Â»
+Â«IF triggeredActions(c).isEmpty()-Â»
+Â«FOREACH bindings.select(b | b.commitCondition == c) AS b-Â»
+if (Â«EXPAND uiConditionGet FOR b.widgetÂ») {
+	Â«EXPAND createMissing(1, this) FOR needsCreation({b})-Â»
+	Â«EXPAND ViewToModel(b) FOR b.widget-Â»
 }
-«ENDFOREACH-»
-«ELSE-»
-«LET bindings.select(b | b.commitCondition == c) AS bc-»
-if («EXPAND uiConditionGet FOREACH triggeredActions(c) SEPARATOR " || "») {
-«LET needsCreation(bc) AS toCreate-»
-«FOREACH bc.select(b | b.selector.wholeChain().intersect(toCreate).isEmpty()) AS b-»
-	«EXPAND ViewToModel(b) FOR b.widget-»
-«ENDFOREACH-»
-	«EXPAND createMissing(1, this) FOR toCreate-»
-«FOREACH bc.select(b | !b.selector.wholeChain().intersect(toCreate).isEmpty()) AS b-»
-	«EXPAND ViewToModel(b) FOR b.widget-»
-«ENDFOREACH-»
-«ENDLET-»
-}«LET bc.select(b | !{b.widget}.typeSelect(CheckBox).isEmpty() && !isBoolean(b.selector)) AS referenceBasedCheckBoxBindings-»
-«IF !referenceBasedCheckBoxBindings.isEmpty()» else {
-«FOREACH referenceBasedCheckBoxBindings AS cb-»
-	«EXPAND modelAccessSet(cb.selector)»(null);
-«ENDFOREACH-»
+Â«ENDFOREACH-Â»
+Â«ELSE-Â»
+Â«LET bindings.select(b | b.commitCondition == c) AS bc-Â»
+if (Â«EXPAND uiConditionGet FOREACH triggeredActions(c) SEPARATOR " || "Â») {
+Â«LET needsCreation(bc) AS toCreate-Â»
+Â«FOREACH bc.select(b | b.selector.wholeChain().intersect(toCreate).isEmpty()) AS b-Â»
+	Â«EXPAND ViewToModel(b) FOR b.widget-Â»
+Â«ENDFOREACH-Â»
+	Â«EXPAND createMissing(1, this) FOR toCreate-Â»
+Â«FOREACH bc.select(b | !b.selector.wholeChain().intersect(toCreate).isEmpty()) AS b-Â»
+	Â«EXPAND ViewToModel(b) FOR b.widget-Â»
+Â«ENDFOREACH-Â»
+Â«ENDLET-Â»
+}Â«LET bc.select(b | !{b.widget}.typeSelect(CheckBox).isEmpty() && !isBoolean(b.selector)) AS referenceBasedCheckBoxBindings-Â»
+Â«IF !referenceBasedCheckBoxBindings.isEmpty()Â» else {
+Â«FOREACH referenceBasedCheckBoxBindings AS cb-Â»
+	Â«EXPAND modelAccessSet(cb.selector)Â»(null);
+Â«ENDFOREACH-Â»
 }
-«ENDIF-»
-«ENDLET-»
-«ENDLET-»
-«ENDIF-»
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«ENDIF-Â»
+Â«ENDLET-Â»
+Â«ENDLET-Â»
+Â«ENDIF-Â»
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 
 // assume each element of the list is context that mayBeNull
-«DEFINE createMissing(int level, Section s) FOR List[Context]-»
-«IF exists(x | wholeChain(x).size() >= level)-»
-«FOREACH select(x | wholeChain(x).size() == level).typeSelect(FeatureContext) AS x-»
-if («EXPAND modelAccessGet(x) FOR s» == null) {
-	«EXPAND modelAccessSet(x) FOR s»(«EXPAND MetaModel::factory FOR x.selector.eType»);
+Â«DEFINE createMissing(int level, Section s) FOR List[Context]-Â»
+Â«IF exists(x | wholeChain(x).size() >= level)-Â»
+Â«FOREACH select(x | wholeChain(x).size() == level).typeSelect(FeatureContext) AS x-Â»
+if (Â«EXPAND modelAccessGet(x) FOR sÂ» == null) {
+	Â«EXPAND modelAccessSet(x) FOR sÂ»(Â«EXPAND MetaModel::factory FOR x.selector.eTypeÂ»);
 }
-«ENDFOREACH-»
-«EXPAND createMissing(level+1, s)-»
-«ENDIF-»
-«ENDDEFINE»
+Â«ENDFOREACH-Â»
+Â«EXPAND createMissing(level+1, s)-Â»
+Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE Refresh FOR Section»
-«EXPAND doRefresh(bindings.select(b | b.refreshCondition == null), null)-»
+Â«DEFINE Refresh FOR SectionÂ»
+Â«EXPAND doRefresh(bindings.select(b | b.refreshCondition == null), null)-Â»
 
-«FOREACH conditions.select(c | bindings.exists(b | b.refreshCondition == c)) AS c-»
-«REM»grouping bindings by condition - to generate only one check and to set dependant bindings/widgets inside the same if()«ENDREM»
-if («EXPAND modelConditionClause(c)») {
-	«EXPAND doRefresh(bindingsToRefresh(c), c.accessor)-»
-	«EXPAND ApplyAction FOREACH triggeredActions(c)-»
-}«IF !triggeredActions(c).isEmpty() || needsRadioButtonWorkaround(c) || hasReferenceBasedCheckBoxes(c)» else {
-	«EXPAND deselectWidget FOREACH radioButtonToWorkaround(c)-»
-	«EXPAND deselectWidget FOREACH referenceBasedCheckBoxBindings(c)-»
-	«EXPAND RevertAction FOREACH triggeredActions(c)-»
-}«ENDIF-»
-«ENDFOREACH-»
+Â«FOREACH conditions.select(c | bindings.exists(b | b.refreshCondition == c)) AS c-Â»
+Â«REMÂ»grouping bindings by condition - to generate only one check and to set dependant bindings/widgets inside the same if()Â«ENDREMÂ»
+if (Â«EXPAND modelConditionClause(c)Â») {
+	Â«EXPAND doRefresh(bindingsToRefresh(c), c.accessor)-Â»
+	Â«EXPAND ApplyAction FOREACH triggeredActions(c)-Â»
+}Â«IF !triggeredActions(c).isEmpty() || needsRadioButtonWorkaround(c) || hasReferenceBasedCheckBoxes(c)Â» else {
+	Â«EXPAND deselectWidget FOREACH radioButtonToWorkaround(c)-Â»
+	Â«EXPAND deselectWidget FOREACH referenceBasedCheckBoxBindings(c)-Â»
+	Â«EXPAND RevertAction FOREACH triggeredActions(c)-Â»
+}Â«ENDIF-Â»
+Â«ENDFOREACH-Â»
 
-«FOREACH conditions.select(c | bindings.exists(b | b.commitCondition == c && b.refreshCondition != c) && !triggeredActions(c).isEmpty()) AS c-»
-if («IF c.accessor.chain != null && needsNullCheck(c.accessor.chain)»«EXPAND nullModelConditionClause(this) FOR c.accessor.chain» && «ENDIF»«EXPAND modelConditionClause(c)») {
-	«EXPAND ApplyAction FOREACH triggeredActions(c)-»
-} else {«REM»Shouldn't I add radiobutton workaround here as well?«ENDREM»
-	«EXPAND RevertAction FOREACH triggeredActions(c)-»
+Â«FOREACH conditions.select(c | bindings.exists(b | b.commitCondition == c && b.refreshCondition != c) && !triggeredActions(c).isEmpty()) AS c-Â»
+if (Â«IF c.accessor.chain != null && needsNullCheck(c.accessor.chain)Â»Â«EXPAND nullModelConditionClause(this) FOR c.accessor.chainÂ» && Â«ENDIFÂ»Â«EXPAND modelConditionClause(c)Â») {
+	Â«EXPAND ApplyAction FOREACH triggeredActions(c)-Â»
+} else {Â«REMÂ»Shouldn't I add radiobutton workaround here as well?Â«ENDREMÂ»
+	Â«EXPAND RevertAction FOREACH triggeredActions(c)-Â»
 }
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 
-«REM»
+Â«REMÂ»
 	Performs a refresh taking into account possible null Contexts
 	In certain cases, there might be a null/whatever check for specific context,
 	  (e.g. when refresh is conditioned) so that we may assume here the context is 
 	  already known to be non-null.
-«ENDREM»
-«DEFINE doRefresh(List[Binding] bnd, Context exclude) FOR Section-»
-«FOREACH bnd.select(b | needsNullCheck(b.selector) && b.selector != exclude).selector.chain.purgeDups().typeSelect(Context) AS x-»
-	if («EXPAND nullModelConditionClause(this) FOR x») {
-		«FOREACH bnd.select(b | b.selector.chain == x) AS b-»
-		«EXPAND ModelToView(b) FOR b.widget-»
-		«ENDFOREACH-»
+Â«ENDREMÂ»
+Â«DEFINE doRefresh(List[Binding] bnd, Context exclude) FOR Section-Â»
+Â«FOREACH bnd.select(b | needsNullCheck(b.selector) && b.selector != exclude).selector.chain.purgeDups().typeSelect(Context) AS x-Â»
+	if (Â«EXPAND nullModelConditionClause(this) FOR xÂ») {
+		Â«FOREACH bnd.select(b | b.selector.chain == x) AS b-Â»
+		Â«EXPAND ModelToView(b) FOR b.widget-Â»
+		Â«ENDFOREACH-Â»
 	}
-«ENDFOREACH-»
-«FOREACH bnd.select(b | !needsNullCheck(b.selector) || b.selector == exclude) AS b-»
-		«EXPAND ModelToView(b) FOR b.widget-»
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«ENDFOREACH-Â»
+Â«FOREACH bnd.select(b | !needsNullCheck(b.selector) || b.selector == exclude) AS b-Â»
+		Â«EXPAND ModelToView(b) FOR b.widget-Â»
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 
 
 /////////////////////////////////////////////////////////////////////////////////
 // Model to View    -    Refresh/Update
 
-«DEFINE ModelToView(Binding b) FOR Widget»«ERROR "abstract ModelToView(Binding) FOR Widget"»«ENDDEFINE»
+Â«DEFINE ModelToView(Binding b) FOR WidgetÂ»Â«ERROR "abstract ModelToView(Binding) FOR Widget"Â»Â«ENDDEFINEÂ»
 
-«DEFINE ModelToView(Binding b) FOR TextEntry-»
-	«fieldName()».setText(«EXPAND modelAccessGet(b.selector) FOR b.section»);/*Bridge.fieldSet(«fieldName()», «EXPAND modelAccessGet(b.selector) FOR b.section»);*/
-«ENDDEFINE»
+Â«DEFINE ModelToView(Binding b) FOR TextEntry-Â»
+	Â«fieldName()Â».setText(Â«EXPAND modelAccessGet(b.selector) FOR b.sectionÂ»);/*Bridge.fieldSet(Â«fieldName()Â», Â«EXPAND modelAccessGet(b.selector) FOR b.sectionÂ»);*/
+Â«ENDDEFINEÂ»
 
 // XXX NOTE: actual model value from b.selector is not used for now - not sure
 // how to tell radiobuttons based on boolean values vs. radiobtns used to switch
 // UI based on a condition
-«DEFINE ModelToView(Binding b) FOR RadioButton-»
-	«fieldName()».setSelection(true);
-«ENDDEFINE»
+Â«DEFINE ModelToView(Binding b) FOR RadioButton-Â»
+	Â«fieldName()Â».setSelection(true);
+Â«ENDDEFINEÂ»
 
-«DEFINE ModelToView(Binding b) FOR CheckBox-»
-	«fieldName()».setSelection(«IF isBoolean(b.selector)»«EXPAND modelAccessGet(b.selector) FOR b.section»«ELSE»true«ENDIF»);
-«ENDDEFINE»
+Â«DEFINE ModelToView(Binding b) FOR CheckBox-Â»
+	Â«fieldName()Â».setSelection(Â«IF isBoolean(b.selector)Â»Â«EXPAND modelAccessGet(b.selector) FOR b.sectionÂ»Â«ELSEÂ»trueÂ«ENDIFÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE ModelToView(Binding b) FOR Spin-»
-	«fieldName()».setSelection(«EXPAND modelAccessGet(b.selector) FOR b.section»);
-«ENDDEFINE»
+Â«DEFINE ModelToView(Binding b) FOR Spin-Â»
+	Â«fieldName()Â».setSelection(Â«EXPAND modelAccessGet(b.selector) FOR b.sectionÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE ModelToView(Binding b) FOR Combo-»
-	«fieldName()».select(«EXPAND modelAccessGet(b.selector) FOR b.section».getValue());
-«ENDDEFINE»
+Â«DEFINE ModelToView(Binding b) FOR Combo-Â»
+	Â«fieldName()Â».select(Â«EXPAND modelAccessGet(b.selector) FOR b.sectionÂ».getValue());
+Â«ENDDEFINEÂ»
 
-«REM»
+Â«REMÂ»
 	XXX WORKAROUND. May be reasonable to hide that behind RadioGroupController
 
 	Programmatic radioButton.setSelection(true) doesn't deselect
 	any previously selected radiobutton within the same composite 
 	(as it happens with user action/event). Hence, need to deselect
 	radiobuttons manually (leftover selection from previous input)
-«ENDREM»
-«DEFINE deselectWidget FOR Binding-»
-	«fieldName(widget)».setSelection(false);
-«ENDDEFINE»
+Â«ENDREMÂ»
+Â«DEFINE deselectWidget FOR Binding-Â»
+	Â«fieldName(widget)Â».setSelection(false);
+Â«ENDDEFINEÂ»
 
 
 /////////////////////////////////////////////////////////////////////////////////
 // View to Model    -    Commit
 
-«DEFINE ViewToModel(Binding b) FOR Widget»«ERROR "abstract ViewToModel(Condition, Binding) FOR Widget"»«ENDDEFINE»
+Â«DEFINE ViewToModel(Binding b) FOR WidgetÂ»Â«ERROR "abstract ViewToModel(Condition, Binding) FOR Widget"Â»Â«ENDDEFINEÂ»
 
-«DEFINE ViewToModel(Binding b) FOR TextEntry-»
-	«EXPAND modelAccessSet(b.selector) FOR b.section»(/*Bridge.fieldGet(«fieldName()»)*/«fieldName()».getText());
-«ENDDEFINE»
+Â«DEFINE ViewToModel(Binding b) FOR TextEntry-Â»
+	Â«EXPAND modelAccessSet(b.selector) FOR b.sectionÂ»(/*Bridge.fieldGet(Â«fieldName()Â»)*/Â«fieldName()Â».getText());
+Â«ENDDEFINEÂ»
 
-«DEFINE ViewToModel(Binding b) FOR RadioButton-»
-	«EXPAND modelAccessSet(b.selector) FOR b.section»(«EXPAND NewValue FOR b.commitCondition»);
-«ENDDEFINE»
+Â«DEFINE ViewToModel(Binding b) FOR RadioButton-Â»
+	Â«EXPAND modelAccessSet(b.selector) FOR b.sectionÂ»(Â«EXPAND NewValue FOR b.commitConditionÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE ViewToModel(Binding b) FOR CheckBox-»
-	«EXPAND modelAccessSet(b.selector) FOR b.section»(«IF isBoolean(b.selector)»«fieldName()».getSelection()«ELSE»«EXPAND NewValue FOR b.commitCondition»«ENDIF»);
-«ENDDEFINE»
+Â«DEFINE ViewToModel(Binding b) FOR CheckBox-Â»
+	Â«EXPAND modelAccessSet(b.selector) FOR b.sectionÂ»(Â«IF isBoolean(b.selector)Â»Â«fieldName()Â».getSelection()Â«ELSEÂ»Â«EXPAND NewValue FOR b.commitConditionÂ»Â«ENDIFÂ»);
+Â«ENDDEFINEÂ»
 
-«DEFINE ViewToModel(Binding b) FOR Spin-»
-	«EXPAND modelAccessSet(b.selector) FOR b.section»(«fieldName()».getSelection());
-«ENDDEFINE»
+Â«DEFINE ViewToModel(Binding b) FOR Spin-Â»
+	Â«EXPAND modelAccessSet(b.selector) FOR b.sectionÂ»(Â«fieldName()Â».getSelection());
+Â«ENDDEFINEÂ»
 
-«DEFINE ViewToModel(Binding b) FOR Combo-»
-	«EXPAND modelAccessSet(b.selector) FOR b.section»(«EXPAND enumComboModelClass FOR b».get(«fieldName()».getSelectionIndex()));
-«ENDDEFINE»
+Â«DEFINE ViewToModel(Binding b) FOR Combo-Â»
+	Â«EXPAND modelAccessSet(b.selector) FOR b.sectionÂ»(Â«EXPAND enumComboModelClass FOR bÂ».get(Â«fieldName()Â».getSelectionIndex()));
+Â«ENDDEFINEÂ»
 
-«DEFINE NewValue FOR Condition»«ERROR "abstract NewValue FOR Condition"»«ENDDEFINE»
-«DEFINE NewValue FOR InstanceCondition»«EXPAND MetaModel::factory FOR type»«ENDDEFINE»
-«DEFINE NewValue FOR EqualsCondition»«value»«ENDDEFINE»
+Â«DEFINE NewValue FOR ConditionÂ»Â«ERROR "abstract NewValue FOR Condition"Â»Â«ENDDEFINEÂ»
+Â«DEFINE NewValue FOR InstanceConditionÂ»Â«EXPAND MetaModel::factory FOR typeÂ»Â«ENDDEFINEÂ»
+Â«DEFINE NewValue FOR EqualsConditionÂ»Â«valueÂ»Â«ENDDEFINEÂ»
 
 
 
 /////////////////////////////////////////////////////////////////////////////////
 // Adapters
 
-«DEFINE AdaptersField FOR Section-»
+Â«DEFINE AdaptersField FOR Section-Â»
 private org.eclipse.emf.common.notify.Adapter[] myModelListeners;
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE AttachAdapters FOR Section-»
+Â«DEFINE AttachAdapters FOR Section-Â»
 myModelListeners = new org.eclipse.emf.common.notify.Adapter[] {
-	«EXPAND Adapter::New(getConditionAccessors()) FOR input.typeSelect(FeatureContext)»
+	Â«EXPAND Adapter::New(getConditionAccessors()) FOR input.typeSelect(FeatureContext)Â»
 };
 getInput().eAdapters().addAll(java.util.Arrays.asList(myModelListeners));
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE DetachAdapters FOR Section-»
+Â«DEFINE DetachAdapters FOR Section-Â»
 if (myModelListeners != null) {
 	getInput().eAdapters().removeAll(java.util.Arrays.asList(myModelListeners));
 	myModelListeners = null;
 }
-«ENDDEFINE»
+Â«ENDDEFINEÂ»
 
-«DEFINE modelAccessSet(Context c) FOR Section»«ENDDEFINE»
-«DEFINE modelAccessGet(Context c) FOR Section»«IF c == null»getInput(/*not sure which modelAccesGet would get invoked when c==null*/)«ENDIF»«ENDDEFINE»
+Â«DEFINE modelAccessSet(Context c) FOR SectionÂ»Â«ENDDEFINEÂ»
+Â«DEFINE modelAccessGet(Context c) FOR SectionÂ»Â«IF c == nullÂ»getInput(/*not sure which modelAccesGet would get invoked when c==null*/)Â«ENDIFÂ»Â«ENDDEFINEÂ»
 
-«DEFINE modelAccessSet(FeatureContext c) FOR Section-»
-«IF needsCast(deduceInputType(), c)-»
-((«c.selector.eContainingClass.name») «EXPAND modelAccessGet(c.chain)»)«ELSE-»
-«EXPAND modelAccessGet(c.chain)-»
-«ENDIF».set«c.selector.name.toFirstUpper()-»
-«ENDDEFINE»
+Â«DEFINE modelAccessSet(FeatureContext c) FOR Section-Â»
+Â«IF needsCast(deduceInputType(), c)-Â»
+((Â«c.selector.eContainingClass.nameÂ») Â«EXPAND modelAccessGet(c.chain)Â»)Â«ELSE-Â»
+Â«EXPAND modelAccessGet(c.chain)-Â»
+Â«ENDIFÂ».setÂ«c.selector.name.toFirstUpper()-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE modelAccessGet(FeatureContext c) FOR Section-»
-«IF c == null»getInput()«ELSE-»
-«IF needsCast(deduceInputType(), c)-»
-((«c.selector.eContainingClass.name») «EXPAND modelAccessGet (c.chain)»)«ELSE-»
-«EXPAND modelAccessGet(c.chain)-»
-«ENDIF-»
-«IF "EBoolean" == c.selector.eType.name».is«ELSE».get«ENDIF»«c.selector.name.toFirstUpper()»()«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE modelAccessGet(FeatureContext c) FOR Section-Â»
+Â«IF c == nullÂ»getInput()Â«ELSE-Â»
+Â«IF needsCast(deduceInputType(), c)-Â»
+((Â«c.selector.eContainingClass.nameÂ») Â«EXPAND modelAccessGet (c.chain)Â»)Â«ELSE-Â»
+Â«EXPAND modelAccessGet(c.chain)-Â»
+Â«ENDIF-Â»
+Â«IF "EBoolean" == c.selector.eType.nameÂ».isÂ«ELSEÂ».getÂ«ENDIFÂ»Â«c.selector.name.toFirstUpper()Â»()Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE uiConditionGet FOR Action-»
-«FOREACH widgets AS w SEPARATOR " && "»«IF kind.value == 1 || kind.value == 3»!«ENDIF»«w.fieldName()»«IF kind.value < 2».isVisible()«ELSE».isEnabled()«ENDIF»«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE uiConditionGet FOR Action-Â»
+Â«FOREACH widgets AS w SEPARATOR " && "Â»Â«IF kind.value == 1 || kind.value == 3Â»!Â«ENDIFÂ»Â«w.fieldName()Â»Â«IF kind.value < 2Â».isVisible()Â«ELSEÂ».isEnabled()Â«ENDIFÂ»Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 // Sorta hack for radiobuttons. Unless Action(kind=SELECTION) is introduced
-«DEFINE uiConditionGet FOR Widget»«ERROR "abstract uiConditionGet FOR Widget"»«ENDDEFINE»
-«DEFINE uiConditionGet FOR RadioButton»«fieldName()».getSelection()«ENDDEFINE»
+Â«DEFINE uiConditionGet FOR WidgetÂ»Â«ERROR "abstract uiConditionGet FOR Widget"Â»Â«ENDDEFINEÂ»
+Â«DEFINE uiConditionGet FOR RadioButtonÂ»Â«fieldName()Â».getSelection()Â«ENDDEFINEÂ»
 
 
-«DEFINE modelConditionClause(Condition c) FOR Section»«ERROR "abstract modelConditionClause"»«ENDDEFINE»
+Â«DEFINE modelConditionClause(Condition c) FOR SectionÂ»Â«ERROR "abstract modelConditionClause"Â»Â«ENDDEFINEÂ»
 
-«DEFINE modelConditionClause(InstanceCondition c) FOR Section-»
-«EXPAND modelAccessGet(c.accessor)» instanceof «c.type.name-»
-«ENDDEFINE»
+Â«DEFINE modelConditionClause(InstanceCondition c) FOR Section-Â»
+Â«EXPAND modelAccessGet(c.accessor)Â» instanceof Â«c.type.name-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE modelConditionClause(EqualsCondition c) FOR Section-»
-«EXPAND modelAccessGet(c.accessor)»«IF c.value != null» == «c.value»«ENDIF-»
-«ENDDEFINE»
-«DEFINE modelConditionClause(AndCondition c) FOR Section-»
-«FOREACH c.conjuncts AS cj SEPARATOR " && "»«EXPAND modelConditionClause(cj)»«ENDFOREACH»
-«ENDDEFINE»
+Â«DEFINE modelConditionClause(EqualsCondition c) FOR Section-Â»
+Â«EXPAND modelAccessGet(c.accessor)Â»Â«IF c.value != nullÂ» == Â«c.valueÂ»Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
+Â«DEFINE modelConditionClause(AndCondition c) FOR Section-Â»
+Â«FOREACH c.conjuncts AS cj SEPARATOR " && "Â»Â«EXPAND modelConditionClause(cj)Â»Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»
 
 //uiConditionSet
-«DEFINE ApplyAction FOR Action-»
-«FOREACH widgets AS w»«w.fieldName()».«IF kind.value < 2»setVisible«ELSE»setEnabled«ENDIF»(«kind.value == 0 || kind.value == 2»);
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE ApplyAction FOR Action-Â»
+Â«FOREACH widgets AS wÂ»Â«w.fieldName()Â».Â«IF kind.value < 2Â»setVisibleÂ«ELSEÂ»setEnabledÂ«ENDIFÂ»(Â«kind.value == 0 || kind.value == 2Â»);
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE RevertAction FOR Action-»
-«FOREACH widgets AS w»«w.fieldName()».«IF kind.value < 2»setVisible«ELSE»setEnabled«ENDIF»(«kind.value == 1 || kind.value == 3»);
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE RevertAction FOR Action-Â»
+Â«FOREACH widgets AS wÂ»Â«w.fieldName()Â».Â«IF kind.value < 2Â»setVisibleÂ«ELSEÂ»setEnabledÂ«ENDIFÂ»(Â«kind.value == 1 || kind.value == 3Â»);
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 //
-«DEFINE nullModelConditionClause(Section s) FOR Context»«ERROR "abstract nullModelConditionClause"»«ENDDEFINE»
-«DEFINE nullModelConditionClause(Section s) FOR FeatureContext-»
-«FOREACH wholeChain().select(x | mayBeNull(x)).typeSelect(FeatureContext) AS x SEPARATOR " && "»«EXPAND modelAccessGet(x) FOR s» != null«ENDFOREACH-»
-«ENDDEFINE»
+Â«DEFINE nullModelConditionClause(Section s) FOR ContextÂ»Â«ERROR "abstract nullModelConditionClause"Â»Â«ENDDEFINEÂ»
+Â«DEFINE nullModelConditionClause(Section s) FOR FeatureContext-Â»
+Â«FOREACH wholeChain().select(x | mayBeNull(x)).typeSelect(FeatureContext) AS x SEPARATOR " && "Â»Â«EXPAND modelAccessGet(x) FOR sÂ» != nullÂ«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
 
-«DEFINE PopulateWidgets FOR Section-»
-«FOREACH comboWidgets() AS wc-»
-//TODO «wc.fieldName()».setItems(VALUES.toString().toArray());
-for (org.eclipse.emf.common.util.Enumerator e : «EXPAND enumComboModelClass FOR associatedBinding(wc)».VALUES) {
-	«wc.fieldName()».add(e.getName());
+Â«DEFINE PopulateWidgets FOR Section-Â»
+Â«FOREACH comboWidgets() AS wc-Â»
+// TODO Â«wc.fieldName()Â».setItems(VALUES.toString().toArray());
+for (org.eclipse.emf.common.util.Enumerator e : Â«EXPAND enumComboModelClass FOR associatedBinding(wc)Â».VALUES) {
+	Â«wc.fieldName()Â».add(e.getName());
 }
-«ENDFOREACH-»
-«ENDDEFINE»
+Â«ENDFOREACH-Â»
+Â«ENDDEFINEÂ»
 
-«REM»FIXME: hack/quickfix - always assume combos are associated with eenum«ENDREM»
-«DEFINE enumComboModelClass FOR Binding»«((FeatureContext) selector).selector.eType.name»«ENDDEFINE»
+Â«REMÂ»FIXME: hack/quickfix - always assume combos are associated with eenumÂ«ENDREMÂ»
+Â«DEFINE enumComboModelClass FOR BindingÂ»Â«((FeatureContext) selector).selector.eType.nameÂ»Â«ENDDEFINEÂ»
