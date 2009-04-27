@@ -374,7 +374,7 @@ if (myModelListeners != null) {
 
 «DEFINE PopulateWidgets FOR binding::Section-»
 «FOREACH self.comboWidgets() AS wc-»
-//TODO «fieldName(wc)».setItems(VALUES.toString().toArray());
+// TODO «fieldName(wc)».setItems(VALUES.toString().toArray());
 for (org.eclipse.emf.common.util.Enumerator e : «EXPAND enumComboModelClass FOR associatedBinding(self, wc)».VALUES) {
 	«fieldName(wc)».add(e.getName());
 }
