@@ -19,7 +19,7 @@
 «DEFINE Main(compositeVar : String) FOR widget::FormLayout-»
 «compositeVar».setLayout(new org.eclipse.swt.layout.FormLayout());
 org.eclipse.swt.layout.FormData «compositeVar»FD;
-«FOREACH data->asSequence() AS fd-»
+«FOREACH data AS fd-»
 «compositeVar»FD = new org.eclipse.swt.layout.FormData();
 «IF fd.left <> null»«compositeVar»FD.left = «EXPAND x FOR fd.left»;
 «ENDIF-»
@@ -38,7 +38,7 @@ org.eclipse.swt.layout.FormData «compositeVar»FD;
 
 «DEFINE Main(compositeVar : String) FOR widget::GridLayout-»
 «compositeVar».setLayout(new org.eclipse.swt.layout.GridLayout(«columns», «equalColumns»));
-«FOREACH data->asSequence() AS fd-»
+«FOREACH data AS fd-»
 org.eclipse.jface.layout.GridDataFactory.swtDefaults()«EXPAND align FOR fd»«EXPAND span FOR fd»«EXPAND grab FOR fd».applyTo(«fieldName(fd.widget)»);
 «ENDFOREACH-»
 «ENDDEFINE»

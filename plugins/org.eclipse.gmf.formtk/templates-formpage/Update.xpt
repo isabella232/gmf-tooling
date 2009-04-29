@@ -35,8 +35,8 @@
 			s.addListener(SWT.FocusOut, this);
 		}
 «ENDIF-»
-«IF self.hasRadioButtons() or (self.hasCheckBoxes() or self.hasCombos())-»
-		for (Widget w : new Widget[] {«FOREACH (self.radioWidgets())[widget::Widget]->union(self.checkboxWidgets())->asOrderedSet()->asSequence()->union(self.comboWidgets())->asOrderedSet()->asSequence() AS r SEPARATOR ', '»«fieldName(r)»«ENDFOREACH»}) {
+«IF self.hasRadioButtons() or self.hasCheckBoxes() or self.hasCombos()-»
+		for (Widget w : new Widget[] {«FOREACH self.radioWidgets()[widget::Widget]->union(self.checkboxWidgets())->union(self.comboWidgets()) AS r SEPARATOR ', '»«fieldName(r)»«ENDFOREACH»}) {
 			w.addListener(SWT.Selection, this);
 		}
 «ENDIF-»
@@ -123,20 +123,20 @@
 	Need to create not only the those elements that would get committed at this time
 	e.g. is wizard/generatePerspective == false, do not create GenPerspective
 «ENDREM»
-«EXPAND createMissing(1, self) FOR needsCreation(bindings->select(b | b.commitCondition = null)->asSequence())-»
+«EXPAND createMissing(1, self) FOR needsCreation(bindings->asSequence()->select(b | b.commitCondition = null))-»
 
-«FOREACH bindings->select(b | b.commitCondition = null)->asSequence() AS b»«EXPAND ViewToModel(b) FOR b.widget»«ENDFOREACH»
+«FOREACH bindings->asSequence()->select(b | b.commitCondition = null) AS b»«EXPAND ViewToModel(b) FOR b.widget»«ENDFOREACH»
 
-«FOREACH conditions->select(c | bindings->exists(b | c = b.commitCondition))->asSequence() AS c-»
+«FOREACH conditions->asSequence()->select(c | bindings->exists(b | c = b.commitCondition)) AS c-»
 «IF triggeredActions(self, c)->isEmpty()-»
-«FOREACH bindings->select(b | b.commitCondition = c)->asSequence() AS b-»
+«FOREACH bindings->asSequence()->select(b | b.commitCondition = c) AS b-»
 if («EXPAND uiConditionGet FOR b.widget») {
 	«EXPAND createMissing(1, self) FOR needsCreation(Sequence { b })-»
 	«EXPAND ViewToModel(b) FOR b.widget-»
 }
 «ENDFOREACH-»
 «ELSE-»
-«LET bindings->select(b | b.commitCondition = c)->asSequence() AS bc-»
+«LET bindings->asSequence()->select(b | b.commitCondition = c) AS bc-»
 if («EXPAND uiConditionGet FOREACH triggeredActions(self, c) SEPARATOR ' || '») {
 «LET needsCreation(bc) AS toCreate-»
 «FOREACH bc->select(b | wholeChain(b.selector)->asOrderedSet()->intersection(toCreate->asSet())->isEmpty()) AS b-»

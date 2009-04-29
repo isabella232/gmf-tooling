@@ -47,49 +47,49 @@ helper Sequence(widget::Widget)::hasCombos() : Boolean {
 }
 
 helper widget::Composite::textWidgets() : Sequence(widget::TextEntry) {
-	return (allWidgets(self.children->asSequence()))[widget::TextEntry]
+	return self.children->asSequence()->textWidgets()
 }
 
 helper widget::Composite::radioWidgets() : Sequence(widget::RadioButton) {
-	return (allWidgets(self.children->asSequence()))[widget::RadioButton]
+	return self.children->asSequence()->radioWidgets()
 }
 
 helper widget::Composite::checkboxWidgets() : Sequence(widget::CheckBox) {
-	return (allWidgets(self.children->asSequence()))[widget::CheckBox]
+	return self.children->asSequence()->checkboxWidgets()
 }
 
 helper widget::Composite::spinWidgets() : Sequence(widget::Spin) {
-	return (allWidgets(self.children->asSequence()))[widget::Spin]
+	return self.children->asSequence()->spinWidgets()
 }
 
 helper widget::Composite::comboWidgets() : Sequence(widget::Combo) {
-	return (allWidgets(self.children->asSequence()))[widget::Combo]
+	return self.children->asSequence()->comboWidgets()
 }
 
 helper Sequence(widget::Widget)::textWidgets() : Sequence(widget::TextEntry) {
-	return (allWidgets(self))[widget::TextEntry]
+	return allWidgets(self)[widget::TextEntry]
 }
 
 helper Sequence(widget::Widget)::radioWidgets() : Sequence(widget::RadioButton) {
-	return (allWidgets(self))[widget::RadioButton]
+	return allWidgets(self)[widget::RadioButton]
 }
 
 helper Sequence(widget::Widget)::checkboxWidgets() : Sequence(widget::CheckBox) {
-	return (allWidgets(self))[widget::CheckBox]
+	return allWidgets(self)[widget::CheckBox]
 }
 
 helper Sequence(widget::Widget)::spinWidgets() : Sequence(widget::Spin) {
-	return (allWidgets(self))[widget::Spin]
+	return allWidgets(self)[widget::Spin]
 }
 
 helper Sequence(widget::Widget)::comboWidgets() : Sequence(widget::Combo) {
-	return (allWidgets(self))[widget::Combo]
+	return allWidgets(self)[widget::Combo]
 }
 
 helper allWidgets(w : Sequence(widget::Widget)) : Sequence(widget::Widget) {
-	return (if (w)[widget::Composite]->isEmpty() then w else w->union(allWidgets((w)[widget::Composite].children))->asOrderedSet()->asSequence() endif)
+	return (if w[widget::Composite]->isEmpty() then w else w->union(allWidgets(w[widget::Composite].children->asSequence())) endif)
 }
 
 helper createsAnyLabel(w : Sequence(widget::Widget)) : Boolean {
-	return let aw = allWidgets(w) in not (aw)[widget::Spin]->isEmpty() or (aw)[widget::TextEntry]->exists(te | te.label <> null)
+	return let aw = allWidgets(w) in not aw[widget::Spin]->isEmpty() or aw[widget::TextEntry]->exists(te | te.label <> null)
 }

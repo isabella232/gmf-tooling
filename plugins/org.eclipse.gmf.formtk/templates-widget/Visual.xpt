@@ -44,7 +44,7 @@
 		return l;
 	}
 «ENDIF-»
-«IF not (allWidgets(self))[widget::Group]->isEmpty() /* the only reason to have that method even with extended toolkit is null check for label*/»
+«IF not allWidgets(self)[widget::Group]->isEmpty() /* the only reason to have that method even with extended toolkit is null check for label*/»
 	private org.eclipse.swt.widgets.Group createGroup(org.eclipse.swt.widgets.Composite parent, String label) {
         org.eclipse.swt.widgets.Group g = new org.eclipse.swt.widgets.Group(parent, SWT.SHADOW_NONE);
         if (label != null) g.setText(label);

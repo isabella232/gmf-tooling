@@ -24,7 +24,7 @@ helper referenceBasedCheckBoxBindings(s : binding::Section, c : context::Conditi
 }
 
 helper getConditionAccessors(e : binding::Section) : Sequence(context::FeatureContext) {
-	return (e.bindings->select(b | b.refreshCondition <> null).refreshCondition.accessor->asOrderedSet()->asSequence())[context::FeatureContext]
+	return (e.bindings->asSequence()->select(b | b.refreshCondition <> null).refreshCondition.accessor->asOrderedSet()->asSequence())[context::FeatureContext]
 }
 
 helper needsCast(inputType : ecore::EClass, x : context::FeatureContext) : Boolean {
@@ -32,7 +32,7 @@ helper needsCast(inputType : ecore::EClass, x : context::FeatureContext) : Boole
 }
 
 helper dependantActions(s : binding::Section, w : widget::Widget) : Sequence(binding::Action) {
-	return triggeredConditions(s, associatedBinding(s, w))->collect(c | triggeredActions(s, c))->flatten()
+	return triggeredConditions(s, associatedBinding(s, w))->collect(c | triggeredActions(s, c))
 }
 
 helper associatedBinding(s : binding::Section, w : widget::Widget) : binding::Binding {
@@ -40,31 +40,31 @@ helper associatedBinding(s : binding::Section, w : widget::Widget) : binding::Bi
 }
 
 helper triggeredActions(s : binding::Section, c : context::Condition) : Sequence(binding::Action) {
-	return s.actions->select(a | a.trigger->includes(c))->asSequence()
+	return s.actions->asSequence()->select(a | a.trigger->includes(c))
 }
 
 helper triggeredConditions(s : binding::Section, b : binding::Binding) : Sequence(context::Condition) {
-	return s.conditions->select(c | c.accessor = b.selector)->asSequence()
+	return s.conditions->asSequence()->select(c | c.accessor = b.selector)
 }
 
 helper triggeredActions_activated(s : binding::Section, b : binding::Binding) : Sequence(binding::Action) {
-	return s.actions->select(a | a.trigger->exists(c | c.accessor = b.selector and b.commitCondition = c))->asSequence()
+	return s.actions->asSequence()->select(a | a.trigger->exists(c | c.accessor = b.selector and b.commitCondition = c))
 }
 
 helper triggeredActions_deactivated(s : binding::Section, b : binding::Binding) : Sequence(binding::Action) {
-	return s.actions->select(a | a.trigger->exists(c | c.accessor = b.selector and b.commitCondition <> c))->asSequence()
+	return s.actions->asSequence()->select(a | a.trigger->exists(c | c.accessor = b.selector and b.commitCondition <> c))
 }
 
 helper triggeredBindingToRefreshBesidesTheOne(s : binding::Section, b : binding::Binding) : Sequence(binding::Binding) {
-	return let triggeredAndActivatedConditions = s.conditions->select(c | c.accessor = b.selector and b.commitCondition = c) in s.bindings->select(v | v <> b and triggeredAndActivatedConditions->includes(v.refreshCondition))->asSequence()
+	return let triggeredAndActivatedConditions = s.conditions->select(c | c.accessor = b.selector and b.commitCondition = c) in s.bindings->asSequence()->select(v | v <> b and triggeredAndActivatedConditions->includes(v.refreshCondition))
 }
 
 helper dependantBindings(s : binding::Section, w : widget::Widget) : Sequence(binding::Binding) {
-	return let activeBinding = associatedBinding(s, w) in let triggered = triggeredConditions(s, activeBinding) in s.bindings->select(b | b <> activeBinding and (triggered->includes(b.refreshCondition) or triggered->includes(b.commitCondition)))->asSequence()
+	return let activeBinding = associatedBinding(s, w) in let triggered = triggeredConditions(s, activeBinding) in s.bindings->asSequence()->select(b | b <> activeBinding and (triggered->includes(b.refreshCondition) or triggered->includes(b.commitCondition)))
 }
 
 helper bindingsToRefresh(s : binding::Section, c : context::Condition) : Sequence(binding::Binding) {
-	return s.bindings->select(b | b.refreshCondition = c)->asSequence()
+	return s.bindings->asSequence()->select(b | b.refreshCondition = c)
 }
 
 helper needsRadioButtonWorkaround(s : binding::Section, c : context::Condition) : Boolean {
@@ -76,17 +76,36 @@ helper radioButtonToWorkaround(s : binding::Section, c : context::Condition) : S
 }
 
 helper needsCreation(bindings : Sequence(binding::Binding)) : Sequence(context::Context) {
-	return ((bindings.selector->select(x | x.needsNullCheck()).chain->asOrderedSet()->asSequence())[context::Context]->collect(it | wholeChain(it))->flatten()->asOrderedSet()->-(bindings.selector->asSet()))[context::Context]->select(x | x.mayBeNull())->asSequence()
+	var res = bindings.selector->select(x | x.needsNullCheck()).chain[context::Context]->collect(it | wholeChain(it))->select(x | x.mayBeNull());
+	bindings.selector->forEach(i) {
+		res := res->excluding(i);
+	};
+	return res->asOrderedSet()->asSequence();
 }
 
 helper deduceInputType(s : binding::Section) : ecore::EClass {
 	return deduceCommon((s.input)[context::FeatureContext].selector.eContainingClass)
 }
 
+/* looks strange check if it is working correctly */
 helper deduceCommon(classes : Sequence(ecore::EClass)) : ecore::EClass {
-	return (if classes->asOrderedSet()->size() = 1 then classes->first() else let supertypesOfTheRest = classes->select(c | classes->forAll(cc | c.isSuperTypeOf(cc))) in (if supertypesOfTheRest->isEmpty() then let supertypesOfNone = classes->select(c | classes->forAll(cc | cc <> c and not c.isSuperTypeOf(cc))) in (if supertypesOfNone->isEmpty() then deduceCommon(classes.eSuperTypes) else deduceCommon((supertypesOfNone.eSuperTypes->union(classes->asOrderedSet()->-(supertypesOfNone->asSet())->asSequence())->asOrderedSet()->asSequence())[ecore::EClass]) endif) else mostSpecific(supertypesOfTheRest) endif) endif)
+	return if classes->size() = 1 
+		then classes->first() 
+		else let supertypesOfTheRest = classes->select(c | classes->forAll(cc | c.isSuperTypeOf(cc))) 
+			in if supertypesOfTheRest->isEmpty() 
+				then let supertypesOfNone = classes->select(c | classes->forAll(cc | cc <> c and not c.isSuperTypeOf(cc))) /* no cycles in supertypes => this collection will not be empty*/ 
+					in if supertypesOfNone->isEmpty() 
+						then deduceCommon(classes.eSuperTypes) /* Should never happen*/ 
+						else deduceCommon((supertypesOfNone.eSuperTypes->union(classes->asOrderedSet()->-(supertypesOfNone->asSet())->asSequence())->asOrderedSet()->asSequence())[ecore::EClass]) 
+					endif 
+				else mostSpecific(supertypesOfTheRest) /* this collection contains only one class (no cycles in supertypes)*/ 
+			endif 
+	endif
 }
 
 helper mostSpecific(classes : Sequence(ecore::EClass)) : ecore::EClass {
-	return (if classes->size() = 1 then classes->first() else classes->reject(c | classes->exists(cc | cc <> c and c.isSuperTypeOf(cc)))->first() endif)
+	return if classes->size() = 1 
+		then classes->first() 
+		else classes->reject(c | classes->exists(cc | cc <> c and c.isSuperTypeOf(cc)))->first() /* looks strange - should be "->select" instead of "->reject" */
+	endif
 }
