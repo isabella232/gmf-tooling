@@ -76,7 +76,7 @@ helper radioButtonToWorkaround(s : binding::Section, c : context::Condition) : S
 }
 
 helper needsCreation(bindings : Sequence(binding::Binding)) : Sequence(context::Context) {
-	var res = bindings.selector->select(x | x.needsNullCheck()).chain[context::Context]->collect(it | wholeChain(it))->select(x | x.mayBeNull());
+	var res = bindings->selector[ctx | ctx.needsNullCheck()]->chain[ctx | ctx != null]->asOrderedSet()->asSequence()->collect(it | wholeChain(it))->select(x | x.mayBeNull());
 	bindings.selector->forEach(i) {
 		res := res->excluding(i);
 	};
