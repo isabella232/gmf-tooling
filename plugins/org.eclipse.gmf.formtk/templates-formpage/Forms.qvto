@@ -1,81 +1,81 @@
 import Context;
 
-modeltype widgetModel uses "http://www.eclipse.org/gmf/2008/Widget";
-modeltype contextModel uses "http://www.eclipse.org/gmf/2008/Context";
-modeltype bindingModel uses "http://www.eclipse.org/gmf/2008/Binding";
-modeltype ecoreModel uses "http://www.eclipse.org/emf/2002/Ecore";
+modeltype widget_ uses "http://www.eclipse.org/gmf/2008/Widget";
+modeltype context uses "http://www.eclipse.org/gmf/2008/Context";
+modeltype binding uses "http://www.eclipse.org/gmf/2008/Binding";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
 
 library Forms;
 
-helper contextModel::Context::isBoolean() : Boolean {
+helper context::Context::isBoolean() : Boolean {
 	return false
 }
 
-helper contextModel::FeatureContext::isBoolean() : Boolean {
+helper context::FeatureContext::isBoolean() : Boolean {
 	return self.selector.eType.name = 'EBoolean'
 }
 
-helper hasReferenceBasedCheckBoxes(s : bindingModel::Section, c : contextModel::Condition) : Boolean {
-	return bindingsToRefresh(s, c)->exists(b | b.widget.oclIsKindOf(widgetModel::CheckBox) and not b.selector.isBoolean())
+helper hasReferenceBasedCheckBoxes(s : binding::Section, c : context::Condition) : Boolean {
+	return bindingsToRefresh(s, c)->exists(b | b.widget.oclIsKindOf(widget_::CheckBox) and not b.selector.isBoolean())
 }
 
-helper referenceBasedCheckBoxBindings(s : bindingModel::Section, c : contextModel::Condition) : Sequence(bindingModel::Binding) {
-	return bindingsToRefresh(s, c)->select(b | b.widget.oclIsKindOf(widgetModel::CheckBox) and not b.selector.isBoolean())
+helper referenceBasedCheckBoxBindings(s : binding::Section, c : context::Condition) : Sequence(binding::Binding) {
+	return bindingsToRefresh(s, c)[widget.oclIsKindOf(widget_::CheckBox) and not selector.isBoolean()]
 }
 
-helper getConditionAccessors(e : bindingModel::Section) : Sequence(contextModel::FeatureContext) {
-	return (e.bindings->asSequence()->select(b | b.refreshCondition <> null).refreshCondition.accessor->asOrderedSet()->asSequence())[contextModel::FeatureContext]
+helper getConditionAccessors(e : binding::Section) : Sequence(context::FeatureContext) {
+	return (e.bindings->asSequence()->refreshCondition.accessor->asOrderedSet()->asSequence())[context::FeatureContext]
 }
 
-helper needsCast(inputType : ecoreModel::EClass, x : contextModel::FeatureContext) : Boolean {
-	return (if x.chain = null then not x.selector.eContainingClass.isSuperTypeOf(inputType) else not x.selector.eContainingClass.isSuperTypeOf(x.chain.oclAsType(contextModel::FeatureContext).selector.oclAsType(ecoreModel::EReference).eReferenceType) endif)
+helper needsCast(inputType : ecore::EClass, x : context::FeatureContext) : Boolean {
+	return (if x.chain = null then not x.selector.eContainingClass.isSuperTypeOf(inputType) else not x.selector.eContainingClass.isSuperTypeOf(x.chain.oclAsType(context::FeatureContext).selector.oclAsType(ecore::EReference).eReferenceType) endif)
 }
 
-helper dependantActions(s : bindingModel::Section, w : widgetModel::Widget) : Sequence(bindingModel::Action) {
+helper dependantActions(s : binding::Section, w : widget_::Widget) : Sequence(binding::Action) {
 	return triggeredConditions(s, associatedBinding(s, w))->collect(c | triggeredActions(s, c))
 }
 
-helper associatedBinding(s : bindingModel::Section, w : widgetModel::Widget) : bindingModel::Binding {
+helper associatedBinding(s : binding::Section, w : widget_::Widget) : binding::Binding {
 	return s.bindings[widget = w]->first()
 }
 
-helper triggeredActions(s : bindingModel::Section, c : contextModel::Condition) : Sequence(bindingModel::Action) {
+helper triggeredActions(s : binding::Section, c : context::Condition) : Sequence(binding::Action) {
 	return (s.actions->asSequence())[trigger->includes(c)]
 }
 
-helper triggeredConditions(s : bindingModel::Section, b : bindingModel::Binding) : Sequence(contextModel::Condition) {
+helper triggeredConditions(s : binding::Section, b : binding::Binding) : Sequence(context::Condition) {
 	return (s.conditions->asSequence())[accessor = b.selector]
 }
 
-helper triggeredActions_activated(s : bindingModel::Section, b : bindingModel::Binding) : Sequence(bindingModel::Action) {
+helper triggeredActions_activated(s : binding::Section, b : binding::Binding) : Sequence(binding::Action) {
 	return (s.actions->asSequence())[trigger->exists(c | c.accessor = b.selector and b.commitCondition = c)]
 }
 
-helper triggeredActions_deactivated(s : bindingModel::Section, b : bindingModel::Binding) : Sequence(bindingModel::Action) {
+helper triggeredActions_deactivated(s : binding::Section, b : binding::Binding) : Sequence(binding::Action) {
 	return (s.actions->asSequence())[trigger->exists(c | c.accessor = b.selector and b.commitCondition <> c)]
 }
 
-helper triggeredBindingToRefreshBesidesTheOne(s : bindingModel::Section, b : bindingModel::Binding) : Sequence(bindingModel::Binding) {
+helper triggeredBindingToRefreshBesidesTheOne(s : binding::Section, b : binding::Binding) : Sequence(binding::Binding) {
 	return let triggeredAndActivatedConditions = s.conditions->select(c | c.accessor = b.selector and b.commitCondition = c) in s.bindings->asSequence()->select(v | v <> b and triggeredAndActivatedConditions->includes(v.refreshCondition))
 }
 
-helper dependantBindings(s : bindingModel::Section, w : widgetModel::Widget) : Sequence(bindingModel::Binding) {
+helper dependantBindings(s : binding::Section, w : widget_::Widget) : Sequence(binding::Binding) {
 	return let activeBinding = associatedBinding(s, w) in let triggered = triggeredConditions(s, activeBinding) in s.bindings->asSequence()->select(b | b <> activeBinding and (triggered->includes(b.refreshCondition) or triggered->includes(b.commitCondition)))
 }
 
-helper bindingsToRefresh(s : bindingModel::Section, c : contextModel::Condition) : Sequence(bindingModel::Binding) {
+helper bindingsToRefresh(s : binding::Section, c : context::Condition) : Sequence(binding::Binding) {
 	return (s.bindings->asSequence())[refreshCondition = c]
 }
 
-helper needsRadioButtonWorkaround(s : bindingModel::Section, c : contextModel::Condition) : Boolean {
-	return bindingsToRefresh(s, c)->exists(b | b.widget.oclIsKindOf(widgetModel::RadioButton))
+helper needsRadioButtonWorkaround(s : binding::Section, c : context::Condition) : Boolean {
+	return bindingsToRefresh(s, c)->exists(b | b.widget.oclIsKindOf(widget_::RadioButton))
 }
 
-helper radioButtonToWorkaround(s : bindingModel::Section, c : contextModel::Condition) : Sequence(bindingModel::Binding) {
-	return bindingsToRefresh(s, c)[widget.oclIsKindOf(widgetModel::RadioButton)]
+helper radioButtonToWorkaround(s : binding::Section, c : context::Condition) : Sequence(binding::Binding) {
+	return bindingsToRefresh(s, c)[widget.oclIsKindOf(widget_::RadioButton)]
 }
 
-helper needsCreation(bindings : Sequence(bindingModel::Binding)) : Sequence(contextModel::Context) {
+helper needsCreation(bindings : Sequence(binding::Binding)) : Sequence(context::Context) {
 	var res = bindings->selector[needsNullCheck()]->chain->asOrderedSet()->asSequence()->collect(ctx | wholeChain(ctx))[mayBeNull()];
 	bindings.selector->forEach(i) {
 		res := res->excluding(i);
@@ -83,12 +83,12 @@ helper needsCreation(bindings : Sequence(bindingModel::Binding)) : Sequence(cont
 	return res->asOrderedSet()->asSequence();
 }
 
-helper deduceInputType(s : bindingModel::Section) : ecoreModel::EClass {
-	return deduceCommon(s.input[contextModel::FeatureContext].selector.eContainingClass)
+helper deduceInputType(s : binding::Section) : ecore::EClass {
+	return deduceCommon(s.input[context::FeatureContext].selector.eContainingClass)
 }
 
 /* looks strange check if it is working correctly */
-helper deduceCommon(classes : Sequence(ecoreModel::EClass)) : ecoreModel::EClass {
+helper deduceCommon(classes : Sequence(ecore::EClass)) : ecore::EClass {
 	return if classes->size() = 1 
 		then classes->first() 
 		else let supertypesOfTheRest = classes->select(c | classes->forAll(cc | c.isSuperTypeOf(cc))) 
@@ -96,14 +96,14 @@ helper deduceCommon(classes : Sequence(ecoreModel::EClass)) : ecoreModel::EClass
 				then let supertypesOfNone = classes->select(c | classes->forAll(cc | cc <> c and not c.isSuperTypeOf(cc))) /* no cycles in supertypes => this collection will not be empty*/ 
 					in if supertypesOfNone->isEmpty() 
 						then deduceCommon(classes.eSuperTypes) /* Should never happen*/ 
-						else deduceCommon((supertypesOfNone.eSuperTypes->union(classes->asOrderedSet()->-(supertypesOfNone->asSet())->asSequence())->asOrderedSet()->asSequence())[ecoreModel::EClass]) 
+						else deduceCommon((supertypesOfNone.eSuperTypes->union(classes->asOrderedSet()->-(supertypesOfNone->asSet())->asSequence())->asOrderedSet()->asSequence())[ecore::EClass]) 
 					endif 
 				else mostSpecific(supertypesOfTheRest) /* this collection contains only one class (no cycles in supertypes)*/ 
 			endif 
 	endif
 }
 
-helper mostSpecific(classes : Sequence(ecoreModel::EClass)) : ecoreModel::EClass {
+helper mostSpecific(classes : Sequence(ecore::EClass)) : ecore::EClass {
 	return if classes->size() = 1 
 		then classes->first() 
 		else classes->reject(c | classes->exists(cc | cc <> c and c.isSuperTypeOf(cc)))->first() /* looks strange - should be "->select" instead of "->reject" */
