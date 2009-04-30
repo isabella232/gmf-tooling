@@ -175,7 +175,7 @@ if («EXPAND modelAccessGet(x) FOR s» == null) {
 
 
 «DEFINE Refresh FOR binding::Section»
-«EXPAND doRefresh(bindings->select(b | b.refreshCondition = null)->asSequence(), null)-»
+«EXPAND doRefresh((bindings->asSequence())[refreshCondition = null], null)-»
 
 «FOREACH conditions->select(c | bindings->exists(b | b.refreshCondition = c))->asSequence() AS c-»
 «REM»grouping bindings by condition - to generate only one check and to set dependant bindings/widgets inside the same if()«ENDREM»
@@ -206,14 +206,14 @@ if («IF c.accessor.chain <> null and c.accessor.chain.needsNullCheck()»«EXPAN
 	  already known to be non-null.
 «ENDREM»
 «DEFINE doRefresh(bnd : Sequence(binding::Binding), exclude : context::Context) FOR binding::Section-»
-«FOREACH (bnd->select(b | b.selector.needsNullCheck() and b.selector <> exclude).selector.chain->asOrderedSet()->asSequence())[context::Context] AS x-»
+«FOREACH bnd->selector[ctx | ctx.needsNullCheck() and ctx <> exclude]->chain->asOrderedSet() AS x-»
 	if («EXPAND nullModelConditionClause(self) FOR x») {
-		«FOREACH bnd->select(b | b.selector.chain = x) AS b-»
+		«FOREACH bnd[selector.chain = x] AS b-»
 		«EXPAND ModelToView(b) FOR b.widget-»
 		«ENDFOREACH-»
 	}
 «ENDFOREACH-»
-«FOREACH bnd->select(b | not b.selector.needsNullCheck() or b.selector = exclude) AS b-»
+«FOREACH bnd[not selector.needsNullCheck() or selector = exclude] AS b-»
 		«EXPAND ModelToView(b) FOR b.widget-»
 «ENDFOREACH-»
 «ENDDEFINE»
@@ -368,7 +368,7 @@ if (myModelListeners != null) {
 //
 «DEFINE nullModelConditionClause(s : binding::Section) FOR context::Context»«ERROR 'abstract nullModelConditionClause'»«ENDDEFINE»
 «DEFINE nullModelConditionClause(s : binding::Section) FOR context::FeatureContext-»
-«FOREACH (wholeChain(self)->select(x | x.mayBeNull()))[context::FeatureContext] AS x SEPARATOR ' && '»«EXPAND modelAccessGet(x) FOR s» != null«ENDFOREACH-»
+«FOREACH wholeChain(self)[mayBeNull()][context::FeatureContext] AS x SEPARATOR ' && '»«EXPAND modelAccessGet(x) FOR s» != null«ENDFOREACH-»
 «ENDDEFINE»
 
 
