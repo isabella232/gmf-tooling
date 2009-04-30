@@ -177,7 +177,8 @@ if («EXPAND modelAccessGet(x) FOR s» == null) {
 «DEFINE Refresh FOR binding::Section»
 «EXPAND doRefresh((bindings->asSequence())[refreshCondition = null], null)-»
 
-«FOREACH conditions->select(c | bindings->exists(b | b.refreshCondition = c))->asSequence() AS c-»
+«REM»Shouldn't we modify select like: "bindings->exists(b | b.refreshCondition = c) or actions->exists(a | a.trigger->includes(c))" ?«ENDREM»
+«FOREACH conditions->asSequence()->select(c | bindings->exists(b | b.refreshCondition = c)) AS c-»
 «REM»grouping bindings by condition - to generate only one check and to set dependant bindings/widgets inside the same if()«ENDREM»
 if («EXPAND modelConditionClause(c)») {
 	«EXPAND doRefresh(bindingsToRefresh(self, c), c.accessor)-»
@@ -189,7 +190,7 @@ if («EXPAND modelConditionClause(c)») {
 }«ENDIF-»
 «ENDFOREACH-»
 
-«FOREACH conditions->select(c | bindings->exists(b | b.commitCondition = c and b.refreshCondition <> c) and not triggeredActions(self, c)->isEmpty())->asSequence() AS c-»
+«FOREACH conditions->asSequence()->select(c | bindings->exists(b | b.commitCondition = c and b.refreshCondition <> c) and not triggeredActions(self, c)->isEmpty()) AS c-»
 if («IF c.accessor.chain <> null and c.accessor.chain.needsNullCheck()»«EXPAND nullModelConditionClause(self) FOR c.accessor.chain» && «ENDIF»«EXPAND modelConditionClause(c)») {
 	«EXPAND ApplyAction FOREACH triggeredActions(self, c)-»
 } else {«REM»Shouldn't I add radiobutton workaround here as well?«ENDREM»
@@ -356,12 +357,12 @@ if (myModelListeners != null) {
 
 //uiConditionSet
 «DEFINE ApplyAction FOR binding::Action-»
-«FOREACH widgets->asSequence() AS w»«fieldName(w)».«IF kind = binding::ActionKind::HIDE or kind = binding::ActionKind::SHOW»setVisible«ELSE»setEnabled«ENDIF»(«kind = binding::ActionKind::SHOW or kind = binding::ActionKind::ENABLE»);
+«FOREACH widgets AS w»«fieldName(w)».«IF kind = binding::ActionKind::HIDE or kind = binding::ActionKind::SHOW»setVisible«ELSE»setEnabled«ENDIF»(«kind = binding::ActionKind::SHOW or kind = binding::ActionKind::ENABLE»);
 «ENDFOREACH-»
 «ENDDEFINE»
 
 «DEFINE RevertAction FOR binding::Action-»
-«FOREACH widgets->asSequence() AS w»«fieldName(w)».«IF kind = binding::ActionKind::HIDE or kind = binding::ActionKind::SHOW»setVisible«ELSE»setEnabled«ENDIF»(«kind = binding::ActionKind::HIDE or kind = binding::ActionKind::_DISABLE»);
+«FOREACH widgets AS w»«fieldName(w)».«IF kind = binding::ActionKind::HIDE or kind = binding::ActionKind::SHOW»setVisible«ELSE»setEnabled«ENDIF»(«kind = binding::ActionKind::HIDE or kind = binding::ActionKind::_DISABLE»);
 «ENDFOREACH-»
 «ENDDEFINE»
 
