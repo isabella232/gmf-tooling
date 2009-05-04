@@ -72,12 +72,26 @@ public class BuiltinMetaModel {
 	static {
 		ITERATOR_TYPE.setName("xpand2::Iterator");
 		ITERATOR_TYPE.getESuperTypes().add(EcorePackage.eINSTANCE.getEClass());
-		{
-			EOperation isFirstIteration = EcoreFactory.eINSTANCE.createEOperation();
-			isFirstIteration.setName("isFirstIteration");
-			isFirstIteration.setEType(EcorePackage.eINSTANCE.getEBoolean());
-			ITERATOR_TYPE.getEOperations().add(isFirstIteration);
-		}
+		EOperation isFirstIteration = EcoreFactory.eINSTANCE.createEOperation();
+		isFirstIteration.setName("isFirstIteration");
+		isFirstIteration.setEType(EcorePackage.eINSTANCE.getEBoolean());
+		EOperation isLastIteration = EcoreFactory.eINSTANCE.createEOperation();
+		isLastIteration.setName("isLastIteration");
+		isLastIteration.setEType(EcorePackage.eINSTANCE.getEBoolean());
+		EOperation counter = EcoreFactory.eINSTANCE.createEOperation();
+		counter.setName("counter");
+		counter.setEType(EcorePackage.eINSTANCE.getELong());
+		EOperation elements = EcoreFactory.eINSTANCE.createEOperation();
+		elements.setName("elements");
+		elements.setEType(EcorePackage.eINSTANCE.getELong());
+		EOperation counter1 = EcoreFactory.eINSTANCE.createEOperation();
+		counter1.setName("counter1");
+		counter1.setEType(EcorePackage.eINSTANCE.getELong());
+		ITERATOR_TYPE.getEOperations().add(isFirstIteration);
+		ITERATOR_TYPE.getEOperations().add(isLastIteration);
+		ITERATOR_TYPE.getEOperations().add(counter);
+		ITERATOR_TYPE.getEOperations().add(counter1);
+		ITERATOR_TYPE.getEOperations().add(elements);
 		ITERATOR_TYPE.setInstanceClass(XpandIterator.class);
 		XECORE.getEClassifiers().add(ITERATOR_TYPE);
 	}
