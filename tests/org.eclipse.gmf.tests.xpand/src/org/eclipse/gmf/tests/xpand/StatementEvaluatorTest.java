@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     Sven Efftinge - Initial API and implementation
- *     Alexander Shatalin (Borland) - initial API and implementation
+ *     Alexander Shatalin (Borland) - QVTO migration
  */
 package org.eclipse.gmf.tests.xpand;
 
@@ -186,7 +186,8 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 		final String[] result = buffer.toString().trim().split(",");
 		assertEquals("XXX", result[0].trim());
 		assertEquals("XXXXX", result[1].trim());
-//		assertEquals("1A2B3C", result[2].trim()); XXX uncomment iterator in Foreach.xpt
+		assertEquals("1X2X3X", result[2].trim());
+		assertEquals("3X3X3X", result[3].trim());
 	}
 
 	public void testReferenceAnotherDefinition() throws Exception {

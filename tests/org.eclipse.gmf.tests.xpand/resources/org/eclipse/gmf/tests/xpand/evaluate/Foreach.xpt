@@ -1,5 +1,6 @@
 «DEFINE test FOR String»
 «FOREACH Sequence{self, self, self} AS c»«c»«ENDFOREACH»,
 «FOREACH Sequence{self, self, self} AS c SEPARATOR self»«c»«ENDFOREACH»,
-«REM» FIXME FOREACH this.toCharList() AS c ITERATOR i»«i.counter1»«c»«ENDFOREACH «ENDREM»
+«FOREACH Sequence{self, self, self} AS c ITERATOR i»«i.counter1()»«c»«ENDFOREACH»,
+«FOREACH Sequence{self, self, self} AS c ITERATOR i»«i.elements()»«c»«ENDFOREACH»
 «ENDDEFINE»
