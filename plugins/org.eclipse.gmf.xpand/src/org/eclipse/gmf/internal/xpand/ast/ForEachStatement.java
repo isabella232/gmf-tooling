@@ -90,7 +90,7 @@ public class ForEachStatement extends Statement {
 		EClassifier targetElementType = ((CollectionType) targetType).getElementType();
 		final Object o = target.evaluate(ctx);
 
-		if (!(o instanceof Collection)) {
+		if (!(o instanceof Collection<?>)) {
 			throw new EvaluationException("Collection expected (was: " + o.getClass().getName() + ")!", target);
 		}
 		final Collection<?> col = (Collection<?>) o;
