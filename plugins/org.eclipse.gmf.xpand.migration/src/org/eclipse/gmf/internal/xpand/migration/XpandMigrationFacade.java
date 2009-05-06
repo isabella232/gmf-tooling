@@ -106,7 +106,7 @@ public class XpandMigrationFacade {
 		if (xpandResource == null) {
 			throw new MigrationException(Type.RESOURCE_NOT_FOUND, resourceName, "Unable to load resource: " + resourceName);
 		}
-		ctx = rootExecutionContext != null ? rootExecutionContext : new MigrationExecutionContextImpl(resourceManager).<MigrationExecutionContext> cloneWithResource(xpandResource);
+		ctx = rootExecutionContext != null ? rootExecutionContext : (MigrationExecutionContext) new MigrationExecutionContextImpl(resourceManager).cloneWithResource(xpandResource);
 		Set<AnalysationIssue> issues = new HashSet<AnalysationIssue>();
 		xpandResource.analyze(ctx, issues);
 		if (MigrationException.hasErrors(issues)) {
