@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.ClassNotFoundException;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -105,7 +106,9 @@ public class MigrationPatchesTest extends TestCase {
 	public void testPatch_138440() throws Exception {
 		URI genmodelFileName = createURI("patch_138440.gmfgen"); //$NON-NLS-1$
 		Exception caughtGenException = assertOrdinaryLoadModelProblems(genmodelFileName);
-		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtGenException instanceof IllegalArgumentException); //$NON-NLS-1$				
+		assertNotNull("expected exception on load...", caughtGenException); //$NON-NLS-1$
+		assertTrue(caughtGenException.toString(), caughtGenException instanceof WrappedException);
+		assertTrue("...which should indicate failed object creation", ((WrappedException) caughtGenException).exception() instanceof ClassNotFoundException); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(genmodelFileName);
 
@@ -120,7 +123,9 @@ public class MigrationPatchesTest extends TestCase {
 		
 		URI gmfmapmodelFileName = createURI("patch_138440.gmfmap"); //$NON-NLS-1$
 		Exception caughtMapException = assertOrdinaryLoadModelProblems(gmfmapmodelFileName);
-		assertTrue("expected IllegalArgumentException from metamodel EFactory", caughtMapException instanceof IllegalArgumentException); //$NON-NLS-1$
+		assertNotNull("expected exception on load...", caughtMapException); //$NON-NLS-1$
+		assertTrue(caughtGenException.toString(), caughtMapException instanceof WrappedException);
+		assertTrue("...which should indicate failed object creation", ((WrappedException) caughtMapException).exception() instanceof ClassNotFoundException); //$NON-NLS-1$				
 
 		assertOnLoadModelMigrationSuccess(gmfmapmodelFileName);
 
