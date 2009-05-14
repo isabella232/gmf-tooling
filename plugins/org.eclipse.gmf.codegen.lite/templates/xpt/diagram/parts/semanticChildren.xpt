@@ -13,7 +13,7 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
+«EXTENSION gmf::GenModelUtils»
 «EXTENSION xpt::commands::CommandUtils»
 «EXTENSION xpt::diagram::parts::NotationModelRefresher»
 «EXTENSION xpt::diagram::PhantomUtils»

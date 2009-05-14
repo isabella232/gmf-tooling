@@ -1,4 +1,3 @@
-import xpt.GenAuditRoot;
 import xpt.GenEditorGenerator;
 
 modeltype genModel uses "http://www.eclipse.org/gmf/2009/GenModel";

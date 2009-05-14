@@ -1,4 +1,4 @@
-import xpt.GenModelUtils;
+import gmf.GenModelUtils;
 import xpt.commands.CommandUtils;
 import xpt.diagram.PhantomUtils;
 
