@@ -319,31 +319,35 @@ public class «notationViewProviderClassName»«EXPAND extendsList»«EXPAND imp
 
 // FIXME check if there's need for a variable name, see initCompartment for a hint
 «DEFINE initLabel(String nodeVar, String prefStoreVar) FOR gmfgen::GenLabel-»
-		org.eclipse.gmf.runtime.notation.Node «getUniqueIdentifier()» = createLabel(«nodeVar», «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»);
-		«EXPAND xpt::diagram::views::Utils::addTextStyle(getUniqueIdentifier() + '.getStyles()') FOR modelFacet-»
-		«EXPAND xpt::diagram::views::Utils::addCustomStyles(getUniqueIdentifier() + '.getStyles()')-»
+«LET 'label' + self.visualID.repr() AS labelVar-»
+		org.eclipse.gmf.runtime.notation.Node «labelVar» = createLabel(«nodeVar», «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»);
+		«EXPAND xpt::diagram::views::Utils::addTextStyle(labelVar + '.getStyles()') FOR modelFacet-»
+		«EXPAND xpt::diagram::views::Utils::addCustomStyles(labelVar + '.getStyles()')-»
 «IF self.oclIsKindOf(gmfgen::GenExternalNodeLabel) or self.oclIsKindOf(gmfgen::GenLinkLabel)-»
-		«getUniqueIdentifier()».setLayoutConstraint(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLocation());
-		«EXPAND xpt::diagram::views::Utils::offset(getUniqueIdentifier())-»
+		«labelVar».setLayoutConstraint(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createLocation());
+		«EXPAND xpt::diagram::views::Utils::offset(labelVar)-»
 «ENDIF-»
-		«EXPAND initializeStyles(getUniqueIdentifier(), prefStoreVar, false, false, false)-»
+		«EXPAND initializeStyles(labelVar, prefStoreVar, false, false, false)-»
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE initCompartment(String nodeVar, String prefStoreVar) FOR gmfgen::GenCompartment-»
-		«IF styles->notEmpty() or isStoringChildPositions(getLayoutType())»org.eclipse.gmf.runtime.notation.Node «getUniqueIdentifier()» = «ENDIF»createCompartment(«nodeVar», «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall», «canCollapse», «needsTitle», «listLayout», «listLayout»);
-		«EXPAND xpt::diagram::views::Utils::addCustomStyles(getUniqueIdentifier() + '.getStyles()')-»
+«LET 'compartment' + self.visualID.repr() AS compartmentVar-»
+		«IF styles->notEmpty() or isStoringChildPositions(getLayoutType())»org.eclipse.gmf.runtime.notation.Node «compartmentVar» = «ENDIF»createCompartment(«nodeVar», «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall», «canCollapse», «needsTitle», «listLayout», «listLayout»);
+		«EXPAND xpt::diagram::views::Utils::addCustomStyles(compartmentVar + '.getStyles()')-»
 «IF isStoringChildPositions(getLayoutType())-»
 	«IF viewmap.canUseShapeStyle()-»
-		«getUniqueIdentifier()».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createShapeStyle());
+		«compartmentVar».add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createShapeStyle());
 	«ELSE-»
 «REM»Intentionally not adding Description style, as it deemed to be useless for compartments (can't avoid for ShapeStyle - benefits of a single style overwheight drawbacks of Description presence)«ENDREM»
-		«EXPAND xpt::diagram::views::Utils::addFontLineFillStylesConditionally(getUniqueIdentifier() + '.getStyles()') FOR viewmap-»
+		«EXPAND xpt::diagram::views::Utils::addFontLineFillStylesConditionally(compartmentVar + '.getStyles()') FOR viewmap-»
 	«ENDIF-»
-		«getUniqueIdentifier()».setLayoutConstraint(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createBounds());
-		«EXPAND initializeStyles(getUniqueIdentifier(), prefStoreVar, not viewmap.isFixedForeground(), not viewmap.isFixedBackground(), not viewmap.isFixedFont())-»
+		«compartmentVar».setLayoutConstraint(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createBounds());
+		«EXPAND initializeStyles(compartmentVar, prefStoreVar, not viewmap.isFixedForeground(), not viewmap.isFixedBackground(), not viewmap.isFixedFont())-»
 «ELSE-»
-		«EXPAND initializeStyles(getUniqueIdentifier(), prefStoreVar, false, false, false)-»
+		«EXPAND initializeStyles(compartmentVar, prefStoreVar, false, false, false)-»
 «ENDIF-»
+«ENDLET-»
 «ENDDEFINE»
 
 «DEFINE initForegroundFromPrefs(String viewVar, String prefStoreVar) FOR gmfgen::GenCommonBase-»
