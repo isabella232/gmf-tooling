@@ -16,7 +16,6 @@
 «EXTENSION xpt::providers::i18n_lite»
 «EXTENSION xpt::providers::ValidationUtils»
 «EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
 
 «DEFINE className FOR gmfgen::GenDiagram»ValidateAction«ENDDEFINE»
 

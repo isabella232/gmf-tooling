@@ -14,12 +14,9 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::providers::ValidationUtils»
 «EXTENSION xpt::providers::Metrics»
 «EXTENSION xpt::providers::i18n_lite»
-«EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
 
 «DEFINE MetricProvider FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen»

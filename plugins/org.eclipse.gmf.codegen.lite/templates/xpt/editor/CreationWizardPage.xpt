@@ -13,7 +13,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::editor::Wizard»
 «EXTENSION xpt::editor::GenDiagram»
 «EXTENSION xpt::editor::i18n»

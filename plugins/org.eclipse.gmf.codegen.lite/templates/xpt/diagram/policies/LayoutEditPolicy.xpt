@@ -13,10 +13,8 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::diagram::policies::ClassNames»
 «EXTENSION xpt::diagram::Helper»
-«EXTENSION xpt::commands::CommandUtils»
 
 «DEFINE LayoutEditPolicy FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen»
