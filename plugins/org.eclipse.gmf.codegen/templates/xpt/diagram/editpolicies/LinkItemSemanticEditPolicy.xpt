@@ -12,7 +12,6 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
 
 «DEFINE LinkItemSemanticEditPolicy FOR gmfgen::GenLink-»

@@ -11,9 +11,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::diagram::editpolicies::Utils»
 «EXTENSION xpt::diagram::updater::Utils»
-«EXTENSION xpt::GenModelUtils»
 
 «DEFINE DiagramCanonicalEditPolicy FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»

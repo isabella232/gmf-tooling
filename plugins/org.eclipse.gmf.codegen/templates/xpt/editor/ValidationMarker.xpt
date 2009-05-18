@@ -14,8 +14,6 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«EXTENSION xpt::editor::Utils»
-
 «DEFINE className FOR gmfgen::GenDiagram»ValidationMarker«ENDDEFINE»
 
 «DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«editorGen.editor.packageName».«EXPAND className»«ENDDEFINE»

@@ -15,7 +15,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::diagram::editpolicies::Utils»
-«EXTENSION xpt::GenModelUtils»
 
 «REM»
  * Start  		start of link creation. 

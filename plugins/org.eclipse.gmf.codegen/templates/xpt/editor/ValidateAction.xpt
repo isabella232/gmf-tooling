@@ -16,7 +16,6 @@
 
 «EXTENSION xpt::editor::Utils»
 «EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::GenEditorGenerator»
 
 «DEFINE className FOR gmfgen::GenDiagram»«defaultValidateActionClassName(self)»«ENDDEFINE»
 

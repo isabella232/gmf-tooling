@@ -15,7 +15,6 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 
 «EXTENSION xpt::editor::Utils»
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
 «EXTENSION xpt::expressions::ValueExpression»
 «EXTENSION xpt::StringOperations»

@@ -15,7 +15,6 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::providers::Metrics»
 «EXTENSION xpt::StringOperations»
 «EXTENSION gmf::CodeGenerationUtils»

@@ -11,7 +11,6 @@
  */
  
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«EXTENSION xpt::GenModelUtils»
 
 «DEFINE childContainerCreateCommand FOR Sequence(gmfgen::GenNode)-»
 «IF not self->isEmpty()-»

@@ -15,7 +15,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION xpt::providers::ParserUtils»
 
 «DEFINE Main FOR gmfgen::GenParsers-»
 «EXPAND xpt::Common::copyright FOR editorGen-»

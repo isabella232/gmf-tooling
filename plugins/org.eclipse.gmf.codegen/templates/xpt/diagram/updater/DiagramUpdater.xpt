@@ -16,7 +16,6 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION xpt::diagram::updater::Utils»
-«EXTENSION xpt::diagram::editpolicies::LinkUtils»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION gmf::GenModelUtils»
 

@@ -13,7 +13,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
 «EXTENSION xpt::diagram::updater::Utils»
-«EXTENSION xpt::GenModelUtils»
 
 «DEFINE DiagramContentInitializer FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
