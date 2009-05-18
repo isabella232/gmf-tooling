@@ -93,4 +93,9 @@ public class IfStatement extends Statement {
             }
         }
     }
+    
+    Statement[] getThenPart() {
+    	return thenPart;
+    }
+
 }

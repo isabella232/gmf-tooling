@@ -103,5 +103,21 @@ public class ProtectStatement extends Statement {
     private String nullSave(final Object string) {
         return string != null ? string.toString() : "";
     }
+    
+    ExpressionHelper getCommentStart() {
+    	return commentStart;
+    }
+    
+    ExpressionHelper getCommentEnd() {
+    	return commentEnd;
+    }
+    
+    ExpressionHelper getId() {
+    	return id;
+    }
+    
+    Statement[] getBody() {
+    	return body;
+    }
 
 }

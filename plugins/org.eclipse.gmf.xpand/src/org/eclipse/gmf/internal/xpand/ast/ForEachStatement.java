@@ -115,4 +115,17 @@ public class ForEachStatement extends Statement {
 			iterator.increment();
 		}
 	}
+	
+	ExpressionHelper getSeparator() {
+		return separator;
+	}
+	
+	ExpressionHelper getTarget() {
+		return target;
+	}
+	
+	Statement[] getBody() {
+		return body;
+	}
+	
 }

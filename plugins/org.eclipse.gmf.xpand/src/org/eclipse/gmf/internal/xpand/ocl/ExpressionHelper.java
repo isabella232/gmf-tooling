@@ -219,5 +219,13 @@ public class ExpressionHelper {
 	public int getLine() {
 		return parentElement.getLine();
 	}
+
+	/**
+	 * @return cached oclExpression. This method should be called only after
+	 *         analyze() or evaluate() method call.
+	 */
+	public OCLExpression<EClassifier> getOCLExpression() {
+		return oclExpression;
+	}
 	
 }

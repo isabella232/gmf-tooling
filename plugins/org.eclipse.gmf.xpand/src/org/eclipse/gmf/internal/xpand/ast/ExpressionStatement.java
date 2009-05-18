@@ -41,4 +41,9 @@ public class ExpressionStatement extends org.eclipse.gmf.internal.xpand.ast.Stat
             ctx.getScope().getOutput().write(val.toString());
         }
     }
+    
+    ExpressionHelper getExpression() {
+    	return expression;
+    }
+    
 }

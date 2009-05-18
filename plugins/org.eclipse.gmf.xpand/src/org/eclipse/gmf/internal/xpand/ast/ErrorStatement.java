@@ -41,4 +41,8 @@ public class ErrorStatement extends Statement {
         throw new RuntimeException(MessageFormat.format("Error in {0}:{1}: ", getFileName(), getLine(), result));
     }
 
+    ExpressionHelper getMessage() {
+    	return message;
+    }
+    
 }

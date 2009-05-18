@@ -184,5 +184,17 @@ public class ExpandStatement extends Statement {
                 + (target != null ? (isForeach ? " FOREACH " : " FOR ") + target : "")
                 + (separator != null ? " SEPARATOR " + separator : "");
     }
+    
+    ExpressionHelper getTarget() {
+    	return target;
+    }
+    
+    ExpressionHelper getSeparator() {
+    	return separator;
+    }
+    
+    ExpressionHelper[] getParameters() {
+    	return parameters;
+    }
 
 }

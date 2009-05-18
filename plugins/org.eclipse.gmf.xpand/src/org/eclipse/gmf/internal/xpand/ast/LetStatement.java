@@ -71,5 +71,13 @@ public class LetStatement extends Statement {
 		EClassifier t = varValue.analyze(ctx, issues);
 		return t == null ? t = EcorePackage.eINSTANCE.getEObject() : t;
 	}
+	
+	ExpressionHelper getVarValue() {
+		return varValue;
+	}
+	
+	Statement[] getBody() {
+		return body;
+	}
 
 }

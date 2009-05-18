@@ -31,7 +31,8 @@ public class AnalysationIssue {
         SYNTAX_ERROR("Syntax error"),
         DEFINITION_NOT_FOUND("Definition not found"),
         EXTENSION_NOT_FOUND("Extension not found"),
-        NAMESPACE_NOT_FOUND("Namespace not found");
+        NAMESPACE_NOT_FOUND("Namespace not found"),
+        UNUSED_IMPORT("Unused import");
 
         private String name;
 
@@ -58,7 +59,11 @@ public class AnalysationIssue {
 	private final int line;
 
     public AnalysationIssue(final Type type, final String message, final SyntaxElement element) {
-    	this(type, message, element.getStart(), element.getEnd(), element.getLine(), false);
+    	this(type, message, element, false);
+    }
+    
+    public AnalysationIssue(final Type type, final String message, final SyntaxElement element, boolean isWarning) {
+    	this(type, message, element.getStart(), element.getEnd(), element.getLine(), isWarning);
     }
 
     public AnalysationIssue(final Type type, final String message, final ExpressionHelper exprHelper) {
@@ -93,12 +98,11 @@ public class AnalysationIssue {
     public int getEnd() {
     	return end;
     }
-
     
     public int getLine() {
     	return line;
     }
-
+    
     @Override
     public String toString() {
         return "[" + type.name + "] - " + message;
