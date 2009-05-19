@@ -11,25 +11,22 @@
  */
 package org.eclipse.gmf.internal.xpand.ast;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EPackage.Registry;
+import org.eclipse.gmf.internal.xpand.ast.analyze.UnusedMetamodelsCollector;
+import org.eclipse.gmf.internal.xpand.ast.analyze.UnusedModulesCollector;
 import org.eclipse.gmf.internal.xpand.expression.ast.SyntaxElement;
 import org.eclipse.gmf.internal.xpand.model.AnalysationIssue;
 import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.gmf.internal.xpand.model.XpandAdvice;
 import org.eclipse.gmf.internal.xpand.model.XpandDefinition;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
-import org.eclipse.gmf.internal.xpand.ocl.ExpressionHelper;
 import org.eclipse.gmf.internal.xpand.xtend.ast.QvtResource;
 import org.eclipse.m2m.internal.qvt.oml.expressions.Module;
-import org.eclipse.ocl.ecore.OperationCallExp;
 
 /**
  * XXX why it's SyntaxElement? What does 'getLine()' means?
@@ -115,23 +112,30 @@ public class Template extends SyntaxElement implements XpandResource {
 			}
 		}
 
-		UnusedModulesCollector visitor = new UnusedModulesCollector(module2ImportDeclarationMap.keySet());
-		try {
-			new AstIterator(visitor).iterate(this);
-		} catch (InterruptIterrationException e) {
-			// skipping this exception - just a way to break AST iteration
-			// process
-		}
-		for (Module unusedModule : visitor.getUnusedModules()) {
-			ImportDeclaration importDeclaration = module2ImportDeclarationMap.get(unusedModule);
-			issues.add(new AnalysationIssue(AnalysationIssue.Type.UNUSED_IMPORT, "Imported module " + importDeclaration.getImportString() + " is not used", importDeclaration, true));
-		}
-
+		Map<EPackage, NamespaceImport> ePackage2NapespaceImportMap = new LinkedHashMap<EPackage, NamespaceImport>();
 		Registry packageRegistry = ctx.getScope().createPackageRegistry(getImportedNamespaces());
 		for (NamespaceImport namespaceImport : imports) {
 			if (!packageRegistry.containsKey(namespaceImport.getImportString())) {
 				issues.add(new AnalysationIssue(AnalysationIssue.Type.NAMESPACE_NOT_FOUND, "Couldn't find " + namespaceImport.getImportString(), namespaceImport));
+			} else {
+				ePackage2NapespaceImportMap.put(packageRegistry.getEPackage(namespaceImport.getImportString()), namespaceImport);
 			}
+		}
+		
+		addWarnings(module2ImportDeclarationMap, ePackage2NapespaceImportMap, ctx, issues);
+	}
+
+	private void addWarnings(Map<Module, ImportDeclaration> module2ImportDeclarationMap, Map<EPackage, NamespaceImport> ePackage2NapespaceImportMap, ExecutionContext ctx, Set<AnalysationIssue> issues) {
+		UnusedModulesCollector unusedModulesCollector = new UnusedModulesCollector(module2ImportDeclarationMap.keySet());
+		UnusedMetamodelsCollector unusedMetamodelsCollector = new UnusedMetamodelsCollector(ePackage2NapespaceImportMap.keySet(), ctx);
+		new AstIterator(new CompositeAstVisitor(unusedModulesCollector, unusedMetamodelsCollector)).iterate(this);
+		for (Module unusedModule : unusedModulesCollector.getUnusedModules()) {
+			ImportDeclaration importDeclaration = module2ImportDeclarationMap.get(unusedModule);
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.UNUSED_IMPORT, "Extension " + importDeclaration.getImportString() + " is never used", importDeclaration, true));
+		}
+		for (EPackage unusedEPackage : unusedMetamodelsCollector.getUnusedEPackages()) {
+			NamespaceImport namespaceImport = ePackage2NapespaceImportMap.get(unusedEPackage);
+			issues.add(new AnalysationIssue(AnalysationIssue.Type.UNUSED_IMPORT, "Import " + namespaceImport.getImportString() + " is never used", namespaceImport, true));
 		}
 	}
 
@@ -161,47 +165,4 @@ public class Template extends SyntaxElement implements XpandResource {
 		return advices;
 	}
 
-	private class UnusedModulesCollector extends AbstractAstVisitor {
-
-		private Set<Module> myUnusedModules;
-
-		public UnusedModulesCollector(Set<Module> allModules) {
-			myUnusedModules = new LinkedHashSet<Module>(allModules);
-		}
-
-		public Set<Module> getUnusedModules() {
-			return myUnusedModules;
-		}
-		
-		@Override
-		protected void visitExpressionHelper(ExpressionHelper expressionHelper) {
-			if (myUnusedModules.size() == 0) {
-				throw new InterruptIterrationException();
-			}
-			if (expressionHelper.getOCLExpression() != null) {
-				purgeUsedModule(expressionHelper.getOCLExpression());
-				for (Iterator<EObject> it = expressionHelper.getOCLExpression().eAllContents(); it.hasNext();) {
-					purgeUsedModule(it.next());
-				}
-			}
-		}
-
-		private void purgeUsedModule(EObject oclAstElement) {
-			if (oclAstElement instanceof OperationCallExp) {
-				OperationCallExp opCall = (OperationCallExp) oclAstElement;
-				EOperation referredOperation = opCall.getReferredOperation();
-				if (referredOperation != null) {
-					EObject eContainer = referredOperation.eContainer();
-					if (eContainer instanceof Module) {
-						myUnusedModules.remove(eContainer);
-					}
-				}
-			}
-		}
-
-	}
-	
-	private class InterruptIterrationException extends RuntimeException {
-	}
-	
 }

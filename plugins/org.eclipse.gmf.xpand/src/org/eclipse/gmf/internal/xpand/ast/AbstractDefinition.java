@@ -82,4 +82,12 @@ public abstract class AbstractDefinition extends SyntaxElement implements XpandA
             body[i].evaluate(ctx);
         }
     }
+    
+    public TypeHelper getType() {
+    	return type;
+    }
+    
+    public DeclaredParameter[] getParemeters() {
+    	return params;
+    }
 }

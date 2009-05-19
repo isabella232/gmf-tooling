@@ -22,10 +22,20 @@ public abstract class AbstractAstVisitor implements AstVisitor {
 	}
 
 	public boolean visit(XpandAdvice advice) {
+		if (advice instanceof AbstractDefinition) {
+			return visit((AbstractDefinition) advice);
+		}
 		return true;
 	}
 
 	public boolean visit(XpandDefinition definition) {
+		if (definition instanceof AbstractDefinition) {
+			return visit((AbstractDefinition) definition);
+		}
+		return true;
+	}
+
+	protected boolean visit(AbstractDefinition definition) {
 		return true;
 	}
 
