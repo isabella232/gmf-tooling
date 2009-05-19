@@ -1,17 +1,17 @@
-«DEFINE contextualPolymorphysm FOR OclAny»«EXPAND concreteDefine»«ENDDEFINE»
+Â«DEFINE contextualPolymorphysm FOR OclAnyÂ»Â«EXPAND concreteDefineÂ»Â«ENDDEFINEÂ»
 
-«DEFINE parameterPolymorphysm FOR OclAny»«EXPAND concreteDefine(self)»«ENDDEFINE»
+Â«DEFINE parameterPolymorphysm FOR OclAnyÂ»Â«EXPAND concreteDefine(self)Â»Â«ENDDEFINEÂ»
 
-«DEFINE secondParameterPolymorphysm FOR OclAny»«EXPAND concreteDefine(self, self)»«ENDDEFINE»
+Â«DEFINE secondParameterPolymorphysm FOR OclAnyÂ»Â«EXPAND concreteDefine(self, self)Â»Â«ENDDEFINEÂ»
 
-«DEFINE concreteDefine FOR OclAny»OclAnyDefine«ENDDEFINE»
+Â«DEFINE concreteDefine FOR OclAnyÂ»OclAnyDefineÂ«ENDDEFINEÂ»
 
-«DEFINE concreteDefine FOR String»StringDefine«ENDDEFINE»
+Â«DEFINE concreteDefine FOR StringÂ»StringDefineÂ«ENDDEFINEÂ»
 
-«DEFINE concreteDefine(param : OclAny) FOR OclAny»OclAnyDefine«ENDDEFINE»
+Â«DEFINE concreteDefine(param : OclAny) FOR OclAnyÂ»OclAnyDefineÂ«ENDDEFINEÂ»
 
-«DEFINE concreteDefine(param : String) FOR OclAny»StringDefine«ENDDEFINE»
+Â«DEFINE concreteDefine(param : String) FOR OclAnyÂ»StringDefineÂ«ENDDEFINEÂ»
 
-«DEFINE concreteDefine(param1 : OclAny, param2 : OclAny) FOR OclAny»OclAnyDefine«ENDDEFINE»
+Â«DEFINE concreteDefine(param1 : OclAny, param2 : OclAny) FOR OclAnyÂ»OclAnyDefineÂ«ENDDEFINEÂ»
 
-«DEFINE concreteDefine(param1 : OclAny, param2 : String) FOR OclAny»StringDefine«ENDDEFINE»
+Â«DEFINE concreteDefine(param1 : OclAny, param2 : String) FOR OclAnyÂ»StringDefineÂ«ENDDEFINEÂ»

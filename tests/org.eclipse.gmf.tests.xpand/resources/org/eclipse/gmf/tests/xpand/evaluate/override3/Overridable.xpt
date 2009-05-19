@@ -1,3 +1,3 @@
-«DEFINE test4 FOR String»«EXPAND test3»«ENDDEFINE»
+Â«DEFINE test4 FOR StringÂ»Â«EXPAND test3Â»Â«ENDDEFINEÂ»
 
-«DEFINE testRedefineWithParameters(p : Sequence(String)) FOR String»testRedefineRedefined«ENDDEFINE»
+Â«DEFINE testRedefineWithParameters(p : Sequence(String)) FOR StringÂ»testRedefineRedefinedÂ«ENDDEFINEÂ»

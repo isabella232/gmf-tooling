@@ -1,4 +1,4 @@
-«DEFINE test FOR String»
-«PROTECT CSTART '/*' CEND '*/' ID this DISABLE»«this»«ENDPROTECT»,
-«PROTECT CSTART '/*' CEND '*/' ID this»«this»«ENDPROTECT»
-«ENDDEFINE»
+Â«DEFINE test FOR StringÂ»
+Â«PROTECT CSTART '/*' CEND '*/' ID this DISABLEÂ»Â«thisÂ»Â«ENDPROTECTÂ»,
+Â«PROTECT CSTART '/*' CEND '*/' ID thisÂ»Â«thisÂ»Â«ENDPROTECTÂ»
+Â«ENDDEFINEÂ»

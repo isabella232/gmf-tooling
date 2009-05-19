@@ -1,6 +1,6 @@
-«DEFINE test FOR String»
-«FOREACH Sequence{self, self, self} AS c»«c»«ENDFOREACH»,
-«FOREACH Sequence{self, self, self} AS c SEPARATOR self»«c»«ENDFOREACH»,
-«FOREACH Sequence{self, self, self} AS c ITERATOR i»«i.counter1()»«c»«ENDFOREACH»,
-«FOREACH Sequence{self, self, self} AS c ITERATOR i»«i.elements()»«c»«ENDFOREACH»
-«ENDDEFINE»
+Â«DEFINE test FOR StringÂ»
+Â«FOREACH Sequence{self, self, self} AS cÂ»Â«cÂ»Â«ENDFOREACHÂ»,
+Â«FOREACH Sequence{self, self, self} AS c SEPARATOR selfÂ»Â«cÂ»Â«ENDFOREACHÂ»,
+Â«FOREACH Sequence{self, self, self} AS c ITERATOR iÂ»Â«i.counter1()Â»Â«cÂ»Â«ENDFOREACHÂ»,
+Â«FOREACH Sequence{self, self, self} AS c ITERATOR iÂ»Â«i.elements()Â»Â«cÂ»Â«ENDFOREACHÂ»
+Â«ENDDEFINEÂ»

@@ -47,7 +47,7 @@ public class TestsResourceManager extends ResourceManagerImpl implements Resourc
 		if (inputStream == null) {
 			throw new FileNotFoundException(fullyQualifiedName);
 		}
-		return new Reader[] { new InputStreamReader(inputStream, Charset.forName("ISO-8859-1")) };
+		return new Reader[] { new InputStreamReader(inputStream, Charset.forName("UTF-8")) };
 	}
 
 	@Override

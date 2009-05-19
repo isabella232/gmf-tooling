@@ -1,13 +1,13 @@
-«EXTENSION org::eclipse::gmf::tests::xpand::evaluate::Extensions»
+Â«EXTENSION org::eclipse::gmf::tests::xpand::evaluate::ExtensionsÂ»
 
-«DEFINE test1 FOR String-»
-«IF trueFunc(self)»1«ELSE»2«ENDIF-»
-«ENDDEFINE»
+Â«DEFINE test1 FOR String-Â»
+Â«IF trueFunc(self)Â»1Â«ELSEÂ»2Â«ENDIF-Â»
+Â«ENDDEFINEÂ»
 
-«DEFINE test2 FOR String»<«EXPAND test4»>«ENDDEFINE»
-«DEFINE test3 FOR String»test3«ENDDEFINE»
-«DEFINE test4 FOR String»test4«ENDDEFINE»
+Â«DEFINE test2 FOR StringÂ»<Â«EXPAND test4Â»>Â«ENDDEFINEÂ»
+Â«DEFINE test3 FOR StringÂ»test3Â«ENDDEFINEÂ»
+Â«DEFINE test4 FOR StringÂ»test4Â«ENDDEFINEÂ»
 
-«DEFINE testRedefineInAspect FOR String»testRedefineOriginal«ENDDEFINE»
+Â«DEFINE testRedefineInAspect FOR StringÂ»testRedefineOriginalÂ«ENDDEFINEÂ»
 
-«DEFINE testRedefineWithParameters(p : Sequence(String)) FOR String»testRedefineOriginal«ENDDEFINE»
+Â«DEFINE testRedefineWithParameters(p : Sequence(String)) FOR StringÂ»testRedefineOriginalÂ«ENDDEFINEÂ»

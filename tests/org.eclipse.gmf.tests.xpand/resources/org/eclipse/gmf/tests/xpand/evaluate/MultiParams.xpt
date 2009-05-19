@@ -1,4 +1,4 @@
-«DEFINE test(String s, String s2) FOR String»«self»«s»«s2»1«ENDDEFINE»
-«DEFINE test(String s, OclAny s2) FOR String»«self»«s»«s2»2«ENDDEFINE»
+Â«DEFINE test(String s, String s2) FOR StringÂ»Â«selfÂ»Â«sÂ»Â«s2Â»1Â«ENDDEFINEÂ»
+Â«DEFINE test(String s, OclAny s2) FOR StringÂ»Â«selfÂ»Â«sÂ»Â«s2Â»2Â«ENDDEFINEÂ»
 
-«DEFINE test FOR String»«EXPAND test('A','B') FOR self»«ENDDEFINE»
+Â«DEFINE test FOR StringÂ»Â«EXPAND test('A','B') FOR selfÂ»Â«ENDDEFINEÂ»

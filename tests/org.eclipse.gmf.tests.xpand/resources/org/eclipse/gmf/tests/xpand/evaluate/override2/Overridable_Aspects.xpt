@@ -1,2 +1,2 @@
 
-«DEFINE testRedefineInAspect FOR String»testRedefineRedefined«ENDDEFINE»
+Â«DEFINE testRedefineInAspect FOR StringÂ»testRedefineRedefinedÂ«ENDDEFINEÂ»

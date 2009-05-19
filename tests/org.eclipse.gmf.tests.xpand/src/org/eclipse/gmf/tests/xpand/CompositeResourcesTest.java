@@ -140,7 +140,7 @@ public class CompositeResourcesTest extends TestCase {
 			if (resourceAsStream == null) {
 				return null;
 			}
-			return new InputStreamReader(resourceAsStream, Charset.forName("ISO-8859-1"));
+			return new InputStreamReader(resourceAsStream, Charset.forName("UTF-8"));
 		}
 		@Override
 		protected void handleParserException(ParserException ex) {

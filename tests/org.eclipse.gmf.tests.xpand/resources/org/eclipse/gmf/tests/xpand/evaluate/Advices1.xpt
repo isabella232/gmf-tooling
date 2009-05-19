@@ -1,11 +1,11 @@
-«AROUND *advtest* FOR OclAny»1«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1 FOR OclAny»2«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest2 FOR OclAny»3«targetDef.proceed()»«ENDAROUND»
-«AROUND *e2s* FOR OclAny»4«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest* FOR String»5«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1(x:OclAny) FOR String»6«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1(x:OclAny,*) FOR String»7«targetDef.proceed()»«ENDAROUND»
-«AROUND *advtest1(*) FOR String»8«targetDef.proceed()»«ENDAROUND»
+Â«AROUND *advtest* FOR OclAnyÂ»1Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *advtest1 FOR OclAnyÂ»2Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *advtest2 FOR OclAnyÂ»3Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *e2s* FOR OclAnyÂ»4Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *advtest* FOR StringÂ»5Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *advtest1(x:OclAny) FOR StringÂ»6Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *advtest1(x:OclAny,*) FOR StringÂ»7Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
+Â«AROUND *advtest1(*) FOR StringÂ»8Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
 
 
-«AROUND org::eclipse::gmf::tests::xpand::evaluate::Adviced::advtest3 FOR String»qualified-«targetDef.proceed()»«ENDAROUND»
+Â«AROUND org::eclipse::gmf::tests::xpand::evaluate::Adviced::advtest3 FOR StringÂ»qualified-Â«targetDef.proceed()Â»Â«ENDAROUNDÂ»
