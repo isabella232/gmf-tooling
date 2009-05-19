@@ -10,7 +10,6 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «DEFINE Class FOR gmfgen::GenPropertySheet»
 	«EXPAND xpt::Common::copyright FOR editorGen-»

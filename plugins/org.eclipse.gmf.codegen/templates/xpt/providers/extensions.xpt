@@ -11,8 +11,6 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::diagram::Utils»
 
 «DEFINE extensions FOR gmfgen::GenDiagram-»

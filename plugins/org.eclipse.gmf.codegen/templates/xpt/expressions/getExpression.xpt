@@ -12,7 +12,6 @@
  
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «DEFINE getExpression(valueExpr : gmfgen::ValueExpression, context : genmodel::GenClassifier) FOR gmfgen::GenExpressionInterpreter-»
 «getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR context»)«-»

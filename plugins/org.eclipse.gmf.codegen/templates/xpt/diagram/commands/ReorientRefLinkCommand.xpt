@@ -11,8 +11,6 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 
 «DEFINE ReorientRefLinkCommand FOR gmfgen::GenLink-»
 «EXPAND xpt::Common::copyright FOR diagram.editorGen-»
