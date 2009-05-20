@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -91,7 +91,7 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
 		
 		Object val = nodeAElement.eGet(feature);
-		assertTrue(val instanceof Collection);
+		assertTrue(val instanceof Collection<?>);
 		Collection<?> children = (Collection<?>) val;
 		assertEquals("2 child nodes expected", 2, children.size());
 		int index = 0;
@@ -140,7 +140,7 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 		EStructuralFeature feature = parent.eClass().getEStructuralFeature("nestedNodes1"); //$NON-NLS-1$		
 		assertNotNull("feature not found in the intializer class", feature); //$NON-NLS-1$
 		Object val = parent.eGet(feature);
-		assertTrue(val instanceof Collection);
+		assertTrue(val instanceof Collection<?>);
 		Collection<?> children = (Collection<?>) val;
 		assertTrue("At least one child node expected", children.size() > 0);
 		Object child = children.iterator().next();
@@ -204,7 +204,7 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 						multiValPrimitiveTypeAttrTested = true;
 					} 
 					else if(!genFeature.isReferenceType() && !genFeature.isPrimitiveType() && !genFeature.isListType()) {
-						assertEquals(genFeature.getType(), method.getReturnType().getName());
+						assertEquals(genFeature.getType(genFeature.getGenClass()), method.getReturnType().getName());
 						objValTypeAttrTested = true;
 					} 
 					else if(!genFeature.isReferenceType() && !genFeature.isPrimitiveType() && genFeature.isListType()) {
@@ -271,7 +271,7 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 		expectedValues.add(getEnumLiteralInstance(testEnum, "LIT1")); //$NON-NLS-1$
 		
 		Object literalValues = nodeAElement.eGet(enumField);
-		assertTrue(literalValues instanceof Collection);
+		assertTrue(literalValues instanceof Collection<?>);
 		Collection<?> retrivedValues = (Collection<?>) literalValues;
 		assertEquals(expectedValues, retrivedValues);		
 	}	
@@ -281,7 +281,7 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 		assertNotNull("Float type attribute not found in tested class", realField); //$NON-NLS-1$
 		
 		Object realValues = nodeAElement.eGet(realField);
-		assertTrue(realValues instanceof Collection);
+		assertTrue(realValues instanceof Collection<?>);
 		Collection<?> retrivedValues = (Collection<?>) realValues;
 		// @see LinkSessionSetup
 		Collection<Float> expectedValues = new ArrayList<Float>();
