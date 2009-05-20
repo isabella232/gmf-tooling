@@ -187,9 +187,15 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 					}
 
 					// ElementInitializers.ext#javaMethodName
-					String operationName = nextFtValSpec.getFeature().getEcoreFeature().getName() + "_" + diagramElement.getUniqueIdentifier();					
-					Method method = findMethod(javaContainerClass, operationName, fsInitializer.getElementClass());
-					assertNotNull("Can't find Java method:" + operationName, method);
+					StringBuilder operationName = new StringBuilder(nextFtValSpec.getFeature().getEcoreFeature().getName());
+					operationName.append('_');
+					if (nextFtValSpec.getFeatureSeqInitializer().getCreatingInitializer() != null) {
+						operationName.append(nextFtValSpec.getFeatureSeqInitializer().getCreatingInitializer().getFeature().getEcoreFeature().getName());
+						operationName.append('_');
+					}
+					operationName.append(diagramElement.getUniqueIdentifier());					
+					Method method = findMethod(javaContainerClass, operationName.toString(), fsInitializer.getElementClass());
+					assertNotNull("Can't find Java method:" + operationName.toString(), method);
 					 
 					GenFeature genFeature = nextFtValSpec.getFeature();
 					if(genFeature.isPrimitiveType() && !genFeature.isListType()) {

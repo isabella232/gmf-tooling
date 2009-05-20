@@ -1,12 +1,15 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
  * accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
- * Contributors: Radek Dvorak (Borland) - initial API and implementation
+ * Contributors:
+ *     Radek Dvorak (Borland) - initial API and implementation
+ *     Artem Tikhomirov (Borland) - tests for enhanced/refactored java implementations 
+ *                                  (method injection, exceptions, method names) 
  */
 package org.eclipse.gmf.tests.setup;
 
@@ -232,58 +235,51 @@ public class LinksSessionSetup extends SessionSetup {
 
 		/* Setup element initializers */
 		protected void setupNodeMapping(NodeMapping nme) {
+			final EClass nodeEClass = modelAccess.findClass("//Node");
+			final EStructuralFeature node_nestedNodes1 = modelAccess.findFeature("//Node/nestedNodes1");
 			if("LinkContainer".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
 				EPath ecoreModelAccess = new EPath(EcorePackage.eINSTANCE.eResource());
-				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
+				nme.setDomainInitializer(createFSeqInit(null, 
 					featureValOCL("//LinkContainer/enumAttr_Init", "TestEnum::LIT1"), //$NON-NLS-1$ //$NON-NLS-2$
 					featureValOCL("//LinkContainer/manyEnumAttr_Init", "Sequence { TestEnum::LIT0, TestEnum::LIT1 }"), //$NON-NLS-1$ //$NON-NLS-2$						
 					featureValOCL("//LinkContainer/reference_Init", "Bag { self }" ), //$NON-NLS-1$ //$NON-NLS-2$
 					featureValOCL("//LinkContainer/manyRealAttr_Init", "Sequence { 1, 1.5 }" ), //$NON-NLS-1$ //$NON-NLS-2$
 					// test complex structure creation
-					refNewElement(modelAccess.findFeature("//LinkContainer/refNewElement"), new FeatureSeqInitializer[] { //$NON-NLS-1$
-						newElementFSeqInit(new FeatureInitDataHelper[] {
+					refNewElement(modelAccess.findFeature("//LinkContainer/refNewElement"), //$NON-NLS-1$
+						createFSeqInit(null,
 							featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EClass'"), //$NON-NLS-1$ //$NON-NLS-2$
-							refNewElement(ecoreModelAccess.findFeature("//EClass/eStructuralFeatures"), new FeatureSeqInitializer[] { //$NON-NLS-1$
-								newElementFSeqInit(new FeatureInitDataHelper[] {
+							refNewElement(ecoreModelAccess.findFeature("//EClass/eStructuralFeatures"), //$NON-NLS-1$
+								createFSeqInit(ecoreModelAccess.findClass("//EAttribute"), //$NON-NLS-1$
 									featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EAttribute'"), //$NON-NLS-1$ //$NON-NLS-2$
 									featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "ecore::EString") //$NON-NLS-1$ //$NON-NLS-2$									
-								}, ecoreModelAccess.findClass("//EAttribute")) //$NON-NLS-1$
-							}),
-							refNewElement(ecoreModelAccess.findFeature("//EClass/eOperations"), new FeatureSeqInitializer[] { //$NON-NLS-1$
-									newElementFSeqInit(new FeatureInitDataHelper[] {
-										featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EOperation'"), //$NON-NLS-1$ //$NON-NLS-2$
-										featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "links::LinkContainer") //$NON-NLS-1$ //$NON-NLS-2$									
-									}, null) 
-							})							
-						}, null),
-					}),
-					refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
-						newElementFSeqInit(new FeatureInitDataHelper[] {
-							featureValOCL("//Node/name", "'Node_0'"),
-							refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
-								newElementFSeqInit(new FeatureInitDataHelper[] {
-									featureValOCL("//Node/name", "'Node_0_0'"),
-									refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
-										newElementFSeqInit(new FeatureInitDataHelper[] {
-											featureValOCL("//Node/name", "'Node_0_0_0'"),
-											refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
-												newElementFSeqInit(new FeatureInitDataHelper[] {
-														featureValOCL("//Node/name", "'Node_0_0_0_0'"),
-														refNewElement(modelAccess.findFeature("//Node/nestedNodes1"), new FeatureSeqInitializer[] {
-															newElementFSeqInit(new FeatureInitDataHelper[] {
-																	featureValOCL("//Node/name", "'Node_0_0_0_0_0'"),
-															}, modelAccess.findClass("//Node"))
-														})
-												}, modelAccess.findClass("//Node"))
-											})
-										}, modelAccess.findClass("//Node"))
-									})
-								}, modelAccess.findClass("//Node"))
-							})
-						}, modelAccess.findClass("//Node")),
-						newElementFSeqInit(new FeatureInitDataHelper[] { featureValOCL("//Node/name", "'Node_1'") }, modelAccess.findClass("//Node"))
-					})
-				}));
+								)
+							),
+							refNewElement(ecoreModelAccess.findFeature("//EClass/eOperations"), //$NON-NLS-1$
+								createFSeqInit(null, 
+									featureValOCL(ecoreModelAccess.findFeature("//ENamedElement/name"), "'EOperation'"), //$NON-NLS-1$ //$NON-NLS-2$
+									featureValOCL(ecoreModelAccess.findFeature("//ETypedElement/eType"), "links::LinkContainer") //$NON-NLS-1$ //$NON-NLS-2$									
+								) 
+							)							
+						)
+					),
+					refNewElement(node_nestedNodes1, createFSeqInit(nodeEClass, 
+						featureValOCL("//Node/name", "'Node_0'"),
+						refNewElement(node_nestedNodes1, createFSeqInit(nodeEClass, 
+							featureValOCL("//Node/name", "'Node_0_0'"),
+							refNewElement(node_nestedNodes1, createFSeqInit(nodeEClass, 
+								featureValOCL("//Node/name", "'Node_0_0_0'"),
+								refNewElement(node_nestedNodes1, createFSeqInit(nodeEClass, 
+									featureValOCL("//Node/name", "'Node_0_0_0_0'"),
+									refNewElement(node_nestedNodes1, createFSeqInit(nodeEClass, 
+										featureValOCL("//Node/name", "'Node_0_0_0_0_0'")
+									))
+								))
+							))
+						))
+					),
+					createFSeqInit(nodeEClass, featureValOCL("//Node/name", "'Node_1'"))					
+					)
+				));
 	
 				// test domain element selector
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
@@ -291,24 +287,33 @@ public class LinksSessionSetup extends SessionSetup {
 				nme.setDomainSpecialization(selector);
 				
 			} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
-				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {  
+				nme.setDomainInitializer(createFSeqInit(null,
 					featureValOCL("//Node/integers_Init", "Sequence { 10, 20 }" ), //$NON-NLS-1$ //$NON-NLS-2$
-					featureValJava("//Node/name", "setNodeName"), //$NON-NLS-1$ //$NON-NLS-2$				
-				}));				
+					featureValJava("//Node/name", "setNodeName") //$NON-NLS-1$ //$NON-NLS-2$				
+				));				
 			
 				createReusedChildNodes(nme, new String[] { "//Node/nestedNodes1", "//Node/nestedNodes2" }); //$NON-NLS-1$ //$NON-NLS-2$				
 			} else if("InvalidNode".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$				
 				// test specializer with multiple java expressions coming from reused node mapping				
 				// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=144305
-				nme.setDomainInitializer(createFSeqInit(new FeatureInitDataHelper[] {
+				nme.setDomainInitializer(createFSeqInit(null, 
 					featureValOCL("//Node/name", "'\"Quated-name tests literal escaping\"'"), //$NON-NLS-1$ //$NON-NLS-2$						
 					featureValJava("//Node/multiValPrimitive", "multiValPrimitive"), //$NON-NLS-1$ //$NON-NLS-2$ 					
 					featureValJava("//Node/multiValObj", "multiValObj"), //$NON-NLS-1$ //$NON-NLS-2$ 					
 					featureValJava("//Node/multiRef", "multiRef"), //$NON-NLS-1$ //$NON-NLS-2$
 					featureValJava("//Node/singleValPrimitive", "singleValPrimitive"), //$NON-NLS-1$ //$NON-NLS-2$ 					
 					featureValJava("//Node/singleValObj", "singleValObj"), //$NON-NLS-1$ //$NON-NLS-2$ 					
-					featureValJava("//Node/singleRef", "singleRef"), //$NON-NLS-1$ //$NON-NLS-2$ 										
-				}));		
+					featureValJava("//Node/singleRef", "singleRef"), //$NON-NLS-1$ //$NON-NLS-2$
+					//
+					// next two RefNewElementSpec are to check unique method names of java initializers for 
+					// few nested Objects of the same kind that get created in different features (see bug 276142)
+					refNewElement(modelAccess.findFeature("//InvalidNode/ref1"), //$NON-NLS-1$
+						createFSeqInit(nodeEClass, featureValJava("//Node/name", "aaa")) //$NON-NLS-1$ //$NON-NLS-2$
+					),
+					refNewElement(modelAccess.findFeature("//InvalidNode/ref2"), //$NON-NLS-1$
+						createFSeqInit(nodeEClass, featureValJava("//Node/name", "bbb")) //$NON-NLS-1$ //$NON-NLS-2$
+					)
+				));		
 		
 				Constraint selector = GMFMapFactory.eINSTANCE.createConstraint();
 				selector.setLanguage(Language.JAVA_LITERAL);				
@@ -317,75 +322,52 @@ public class LinksSessionSetup extends SessionSetup {
 				createReusedChildNodes(nme, new String[] { "//Node/nestedNodes1" }); //$NON-NLS-1$				
 			}
 		}
-		
-		
-		static FeatureSeqInitializer createFSeqInit(FeatureInitDataHelper[] featureInits) {
+
+		// @param elementClass may be null
+		static FeatureSeqInitializer createFSeqInit(EClass elementClass, FeatureInitializer... featureInits) {
 			FeatureSeqInitializer elementInitializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();
 			for (int i = 0; i < featureInits.length; i++) {
-				elementInitializer.getInitializers().add(featureInits[i].createInitializer());
+				elementInitializer.getInitializers().add(featureInits[i]);
 			}
-			return elementInitializer;
-		}
-		
-		static FeatureSeqInitializer newElementFSeqInit(FeatureInitDataHelper[] featureInits, EClass elementClass) {
-			FeatureSeqInitializer elementInitializer = createFSeqInit(featureInits);
 			if(elementClass != null) {
 				elementInitializer.setElementClass(elementClass);
 			}
 			return elementInitializer;
 		}
 				
-		private static abstract class FeatureInitDataHelper {
-			protected final EStructuralFeature feature;
-			
-			protected FeatureInitDataHelper(EStructuralFeature feature) {
-				this.feature = feature;
-			}
-			
-			abstract FeatureInitializer createInitializer();
-		}
-		
-		FeatureInitDataHelper featureValOCL(String featureQName, final String expressionBody) {
+		FeatureValueSpec featureValOCL(String featureQName, final String expressionBody) {
 			return featureValOCL(modelAccess.findFeature(featureQName), expressionBody);
 		}
 
-		static FeatureInitDataHelper featureValOCL(EStructuralFeature sf, final String expressionBody) {
+		static FeatureValueSpec featureValOCL(EStructuralFeature sf, final String expressionBody) {
 			return featureVal(sf, expressionBody, Language.OCL_LITERAL);
 		}
 
-		FeatureInitDataHelper featureValJava(String featureQName, final String expressionBody) {
+		FeatureValueSpec featureValJava(String featureQName, final String expressionBody) {
 			return featureVal(modelAccess.findFeature(featureQName), expressionBody, Language.JAVA_LITERAL);
 		}
 
-		FeatureInitDataHelper featureValLiteral(String featureQName, String expression) {
+		FeatureValueSpec featureValLiteral(String featureQName, String expression) {
 			return featureVal(modelAccess.findFeature(featureQName), expression, Language.LITERAL_LITERAL);
 		}
 
-		private static FeatureInitDataHelper featureVal(EStructuralFeature sf, final String expressionBody, final Language expressionLang) {
-			return new FeatureInitDataHelper(sf) {
-				FeatureInitializer createInitializer() {
-					FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();				
-					featureValueSpec.setFeature(feature);
-					ValueExpression value = GMFMapFactory.eINSTANCE.createValueExpression();
-					value.setBody(expressionBody);
-					value.setLanguage(expressionLang);
-					featureValueSpec.setValue(value);
-					return featureValueSpec;
-				}					
-			};
+		private static FeatureValueSpec featureVal(EStructuralFeature sf, final String expressionBody, final Language expressionLang) {
+			FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();				
+			featureValueSpec.setFeature(sf);
+			ValueExpression value = GMFMapFactory.eINSTANCE.createValueExpression();
+			value.setBody(expressionBody);
+			value.setLanguage(expressionLang);
+			featureValueSpec.setValue(value);
+			return featureValueSpec;
 		}		
 		
-		FeatureInitDataHelper refNewElement(EStructuralFeature sf, final FeatureSeqInitializer[] elementInitializers) {
-			return new FeatureInitDataHelper(sf) {
-				FeatureInitializer createInitializer() {
-					ReferenceNewElementSpec newElementSpec = GMFMapFactory.eINSTANCE.createReferenceNewElementSpec();
-					newElementSpec.setFeature(feature);
-					for (int i = 0; i < elementInitializers.length; i++) {
-						newElementSpec.getNewElementInitializers().add(elementInitializers[i]);
-					}
-					return newElementSpec;
-				}					
-			};
+		static ReferenceNewElementSpec refNewElement(EStructuralFeature sf, final FeatureSeqInitializer... elementInitializers) {
+			ReferenceNewElementSpec newElementSpec = GMFMapFactory.eINSTANCE.createReferenceNewElementSpec();
+			newElementSpec.setFeature(sf);
+			for (int i = 0; i < elementInitializers.length; i++) {
+				newElementSpec.getNewElementInitializers().add(elementInitializers[i]);
+			}
+			return newElementSpec;
 		}		
 		 
 
@@ -466,10 +448,10 @@ public class LinksSessionSetup extends SessionSetup {
 			assert lme.getDomainInitializer() == null; // sanity, don't want to break anything
 			// we use element initializers of the link with class just
 			// to check LITERAL kind of value expressions
-			ElementInitializer ei = createFSeqInit(new FeatureInitDataHelper[] {
+			ElementInitializer ei = createFSeqInit(null, 
 				featureValLiteral("//Link/boolToInit", "true"),
-				featureValLiteral("//Link/stringToInit", "\"init-string\""),
-			});
+				featureValLiteral("//Link/stringToInit", "\"init-string\"")
+			);
 			lme.setDomainInitializer(ei);
 		}
 
