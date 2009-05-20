@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2007, 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    bblajer (Borland) - initial API and implementation
+ */
+
 import xpt.commands.CommandUtils;
 import xpt.diagram.PhantomUtils;
 
@@ -33,7 +45,6 @@ helper getChildFeaturesForFilter(gcb : genModel_1::GenContainerBase) : Collectio
 helper childMetaFeatureForFilter(modelFacet : genModel_1::TypeModelFacet) : genModel::GenFeature {
 	return (if modelFacet.childMetaFeature.ecoreFeature._derived then modelFacet.containmentMetaFeature else modelFacet.childMetaFeature endif)
 }
-
 
 helper getAllInitableContainers(diagram : genModel_1::GenDiagram) : Collection(genModel_1::GenContainerBase) {
 	return getAllContainersWithChildren(diagram)->collect(it | it)->asSequence()->union(diagram.getAllNodes()->select(e | getInitableCompartments(e)->size() > 0)->asSequence())->asOrderedSet()->asSequence()
