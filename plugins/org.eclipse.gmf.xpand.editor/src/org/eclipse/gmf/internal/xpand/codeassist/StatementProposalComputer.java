@@ -84,7 +84,7 @@ public class StatementProposalComputer implements ProposalComputer {
 	}
 
 	private ICompletionProposal expandStatementProposal(final String ws) {
-		final String insertString = XpandTokens.LT + "EXPAND definition FOR this" + XpandTokens.RT;
+		final String insertString = XpandTokens.LT + "EXPAND definition FOR self" + XpandTokens.RT;
 		return proposalFactory.createStatementProposal(insertString, "EXPAND statement", insertString.indexOf("definition"), "definition".length());
 	}
 
