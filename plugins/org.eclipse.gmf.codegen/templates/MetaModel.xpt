@@ -125,6 +125,7 @@ false == «EXPAND IsInstance(accessor)»«ENDDEFINE»
 // XXX Need to take into account possible GenClass from generated and always available code
 // e.g. Notation or Ecore 
 
+// FIXME be consistent on final line feed - e.g. NewInstance adds a LF, while modifyFeature not, hence together they look odd.
 «DEFINE NewInstance(varName : String) FOR genmodel::GenClass-»
 «getQualifiedInterfaceName(self)» «varName» = «IF isMapEntry(self)»(«getQualifiedInterfaceName(self)») «ENDIF»«EXPAND NewInstance»;
 «ENDDEFINE»
