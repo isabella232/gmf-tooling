@@ -22,6 +22,9 @@ helper genmodel::GenClass::expressionResultNeedsCast() : Boolean { return false 
 helper genmodel::GenDataType::expressionResultNeedsCast() : Boolean { return self.isNumberObject() or self.isPrimitiveNumberType() }
 helper genmodel::GenEnum::expressionResultNeedsCast() : Boolean { return true }
 
+--
+-- Present approach may result in duplicated methods when same feature gets
+-- initialized using java language inside single ElementInitializer hierarchy
 helper javaMethodName(de : gmfgen::GenCommonBase, valueSpec : gmfgen::GenFeatureValueSpec) : String {
 	return valueSpec.feature.ecoreFeature.name + '_' + de.getUniqueIdentifier()
 }

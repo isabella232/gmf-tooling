@@ -39,7 +39,7 @@ public class ElementInitializers {
 «ENDDEFINE»
 
 «DEFINE JavaSupport FOR gmfgen::GenDiagram-»
-«IF editorGen.expressionProviders <> null and not (editorGen.expressionProviders.providers)[gmfgen::GenJavaExpressionProvider]->isEmpty()-»
+«IF editorGen.expressionProviders <> null and editorGen.expressionProviders.providers[gmfgen::GenJavaExpressionProvider]->notEmpty()-»
 	«EXPAND javaMethod FOREACH getAllNodes()-»
 	«EXPAND javaMethod FOREACH links-»
 «ENDIF-»
