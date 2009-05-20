@@ -23,10 +23,23 @@ helper genmodel::GenDataType::expressionResultNeedsCast() : Boolean { return sel
 helper genmodel::GenEnum::expressionResultNeedsCast() : Boolean { return true }
 
 --
--- Present approach may result in duplicated methods when same feature gets
--- initialized using java language inside single ElementInitializer hierarchy
+-- Present approach may result in duplicated methods in few odd scenarios
+-- when same feature gets initialized using java language inside single ElementInitializer hierarchy, 
+-- e.g. for a given diagram element, with feature1 and feature2 of a same/similar kind:
+-- feature1
+--   Instance1
+--     featureX
+--       InstanceX1
+--         featureY = 'aaa' (Java)
+-- feature2
+--   Instance2
+--     featureX
+--       InstanceX2
+--         featureY = 'bbb' (Java)
+-- there would be two featureY_featureY_DiagramElement() methods
+--
 helper javaMethodName(de : gmfgen::GenCommonBase, valueSpec : gmfgen::GenFeatureValueSpec) : String {
-	return valueSpec.feature.ecoreFeature.name + '_' + de.getUniqueIdentifier()
+	return valueSpec.feature.ecoreFeature.name + '_' + (if valueSpec.featureSeqInitializer.creatingInitializer <> null then valueSpec.featureSeqInitializer.creatingInitializer.feature.ecoreFeature.name + '_' else '' endif) + de.getUniqueIdentifier()
 }
 
 helper recurseCollectValueSpec(si : gmfgen::GenFeatureSeqInitializer) : Sequence(gmfgen::GenFeatureValueSpec) {
