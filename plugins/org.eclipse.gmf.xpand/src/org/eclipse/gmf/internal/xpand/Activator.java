@@ -232,6 +232,13 @@ public class Activator extends Plugin {
 		}
 		final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
 		resourceSetImpl.setURIResourceMap(new EPackageRegistryBasedURIResourceMap(resourceSetImpl.getURIConverter()));
+		// TODO: EcorePlugin.computePlatformURIMap() can return different maps
+		// if some of the project were opened/closed, so it is necessary to
+		// either update it or not keep any shared resourceSet for meta-models.
+		// In case of second solution we can better keep meta-model URIs and
+		// pre-load all necessary meta-models into the newly created ResourceSet
+		// just before Xpand execution (build or evaluation). 
+		resourceSetImpl.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 		if (anInstance != null) {
 			anInstance.workspaceMetamodelRS = resourceSetImpl;
 		}

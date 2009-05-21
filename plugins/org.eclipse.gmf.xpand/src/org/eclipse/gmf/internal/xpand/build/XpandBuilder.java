@@ -59,6 +59,11 @@ public class XpandBuilder extends IncrementalProjectBuilder implements RootManag
 		myRootManager = Activator.getRootManager(getProject());
 		myRootManager.addRootChangeListener(this);
 		modelRegistry = new WorkspaceModelRegistry(getProject(), Activator.getWorkspaceMetamodelsResourceSet());
+		// TODO: unregister modelRegistry from Activator on closing the project
+		// associated with this builder. Keeping modelRegistry registered inside
+		// Activator produce incorrect meta-model resolution - meta-model loaded
+		// from closed project will be returned instead of the one from
+		// PackageRegistry.     
 		Activator.registerModelSource(modelRegistry);
 	}
 

@@ -73,11 +73,11 @@ class WorkspaceModelRegistry implements MetaModelSource {
 		assert project != null;
 		this.project = project;
 		resourceSet = resolutionResourceSet;
-		resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 	}
 	
 	public WorkspaceModelRegistry(IProject project) {
 		this(project, new ResourceSetImpl());
+		resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 	}
 
 	public EPackage find(String nsURI) {
