@@ -37,6 +37,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.common.core.command.ICompositeCommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
@@ -134,8 +135,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected Command addDeleteViewCommand(Command mainCommand, DestroyRequest completedRequest) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		Command deleteViewCommand = getGEFWrapper(new DeleteCommand(editingDomain, (View) getHost().getModel()));
+		Command deleteViewCommand = getGEFWrapper(new DeleteCommand(getEditingDomain(), (View) getHost().getModel()));
 		return mainCommand == null ? deleteViewCommand : mainCommand.chain(deleteViewCommand);
 	}
 
@@ -154,8 +154,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
 		if (command != null) {
 			if (!(command instanceof CompositeTransactionalCommand)) {
-				TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-				command = new CompositeTransactionalCommand(editingDomain, command.getLabel()).compose(command);
+				command = new CompositeTransactionalCommand(getEditingDomain(), command.getLabel()).compose(command);
 			}
 			return new ICommandProxy(command);
 		}
@@ -285,22 +284,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * @deprecated use getGEFWrapper() instead
-	 * @generated
-	 */
-	protected final Command getMSLWrapper(ICommand cmd) {
-		// XXX deprecated: use getGEFWrapper() instead
-		return getGEFWrapper(cmd);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EObject getSemanticElement() {
-		return ViewUtil.resolveSemanticElement((View) getHost().getModel());
-	}
-
-	/**
 	 * Returns editing domain from the host edit part.
 	 * 
 	 * @generated
@@ -310,47 +293,17 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * Creates command to destroy the link.
-	 * 
+	 * Clean all shortcuts to the host element from the same diagram
 	 * @generated
 	 */
-	protected Command getDestroyElementCommand(View view) {
-		EditPart editPart = (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
-		DestroyElementRequest request = new DestroyElementRequest(getEditingDomain(), false);
-		return editPart.getCommand(new EditCommandRequestWrapper(request, Collections.EMPTY_MAP));
-	}
-
-	/**
-	 * Creates commands to destroy all host incoming and outgoing links.
-	 * 
-	 * @generated
-	 */
-	protected CompoundCommand getDestroyEdgesCommand() {
-		CompoundCommand cmd = new CompoundCommand();
-		View view = (View) getHost().getModel();
-		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((Edge) it.next()));
-		}
-		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
-			cmd.add(getDestroyElementCommand((Edge) it.next()));
-		}
-		return cmd;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addDestroyShortcutsCommand(CompoundCommand command) {
-		View view = (View) getHost().getModel();
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
-			return;
-		}
+	protected void addDestroyShortcutsCommand(ICompositeCommand cmd, View view) {
+		assert view.getEAnnotation("Shortcut") == null;
 		for (Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { //$NON-NLS-1$
 				continue;
 			}
-			command.add(getDestroyElementCommand(nextView));
+			cmd.add(new DeleteCommand(getEditingDomain(), nextView));
 		}
 	}
 

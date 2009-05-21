@@ -286,10 +286,11 @@ Contributors:
       <?gmfgen generated="true"?>
       <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanModelingAssistantProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart" id="Aquatory_1000"/>
          <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart" id="Port_2001"/>
          <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart" id="Ship_2002"/>
          <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart" id="Warship_2003"/>
-         <context elements="Port_2001,Ship_2002,Warship_2003"/>
+         <context elements="Aquatory_1000,Port_2001,Ship_2002,Warship_2003"/>
       </modelingAssistantProvider>
    </extension>
 

@@ -109,6 +109,7 @@ public class UnreliableRouteEditPart extends ConnectionNodeEditPart implements I
 		 * @generated
 		 */
 		public UnreliableRouteFigure() {
+			this.setLineWidth(1);
 			this.setLineStyle(Graphics.LINE_DASH);
 
 		}

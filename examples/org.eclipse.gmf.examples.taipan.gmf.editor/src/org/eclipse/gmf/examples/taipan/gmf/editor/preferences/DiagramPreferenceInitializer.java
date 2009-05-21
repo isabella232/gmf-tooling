@@ -48,8 +48,8 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 		PreferenceConverter.setDefault(store, IPreferenceConstants.PREF_LINE_COLOR, new org.eclipse.swt.graphics.RGB(64, 64, 64));
 		store.setDefault(IPreferenceConstants.PREF_LINE_STYLE, Routing.MANUAL);
 		store.setDefault(IPreferenceConstants.PREF_SHOW_RULERS, false);
-		store.setDefault(IPreferenceConstants.PREF_RULER_UNITS, false);
-		store.setDefault(IPreferenceConstants.PREF_SHOW_GRID, RulerProvider.UNIT_PIXELS);
+		store.setDefault(IPreferenceConstants.PREF_RULER_UNITS, RulerProvider.UNIT_PIXELS);
+		store.setDefault(IPreferenceConstants.PREF_SHOW_GRID, false);
 		store.setDefault(IPreferenceConstants.PREF_SNAP_TO_GRID, false);
 		store.setDefault(IPreferenceConstants.PREF_SNAP_TO_GEOMETRY, false);
 		store.setDefault(IPreferenceConstants.PREF_GRID_SPACING, 0.125);
