@@ -40,6 +40,7 @@ public class TaiPanPaletteFactory {
 	 */
 	private PaletteContainer createPort1Group() {
 		PaletteGroup paletteContainer = new PaletteGroup(Messages.Port1Group_title);
+		paletteContainer.setId("createPort1Group"); //$NON-NLS-1$
 		paletteContainer.add(createBuilding1CreationTool());
 		return paletteContainer;
 	}
@@ -51,6 +52,7 @@ public class TaiPanPaletteFactory {
 		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
 		types.add(TaiPanElementTypes.Building_2001);
 		NodeToolEntry entry = new NodeToolEntry(Messages.Building1CreationTool_title, Messages.Building1CreationTool_desc, types);
+		entry.setId("createBuilding1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Building_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
 		return entry;

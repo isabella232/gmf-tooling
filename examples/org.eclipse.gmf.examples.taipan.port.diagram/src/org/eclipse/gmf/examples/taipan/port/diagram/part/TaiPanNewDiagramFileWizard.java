@@ -65,9 +65,9 @@ public class TaiPanNewDiagramFileWizard extends Wizard {
 	 * @generated
 	 */
 	public TaiPanNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
-		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
-		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
-		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
+		assert domainModelURI != null : "Domain model uri must be specified";
+		assert diagramRoot != null : "Doagram root element must be specified";
+		assert editingDomain != null : "Editing domain must be specified";
 
 		myFileCreationPage = new WizardNewFileCreationPage(Messages.TaiPanNewDiagramFileWizard_CreationPageName, StructuredSelection.EMPTY);
 		myFileCreationPage.setTitle(Messages.TaiPanNewDiagramFileWizard_CreationPageTitle);
