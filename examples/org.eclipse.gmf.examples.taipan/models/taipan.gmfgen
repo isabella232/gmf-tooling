@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2008/GenModel" packageNamePrefix="org.eclipse.gmf.examples.taipan.gmf.editor"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel" packageNamePrefix="org.eclipse.gmf.examples.taipan.gmf.editor"
     modelID="TaiPan"
     copyrightText="Copyright (c) 2006, 2007 Borland Software Corporation&#xA;&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;   Dmitry Stadnik (Borland) - initial API and implementation">
   <audits>
@@ -560,7 +560,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="UnreliableRouteFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
           modelElementSelector="//@expressionProviders/@providers.0/@expressions.3">
