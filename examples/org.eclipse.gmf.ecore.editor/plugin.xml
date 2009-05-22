@@ -267,12 +267,13 @@ Contributors:
       <?gmfgen generated="true"?>
       <modelingAssistantProvider class="org.eclipse.gmf.ecore.providers.EcoreModelingAssistantProvider">
          <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart" id="EPackage_1000"/>
          <object class="org.eclipse.gmf.ecore.edit.parts.EClassEditPart" id="EClass_2001"/>
          <object class="org.eclipse.gmf.ecore.edit.parts.EPackage2EditPart" id="EPackage_2002"/>
          <object class="org.eclipse.gmf.ecore.edit.parts.EAnnotationEditPart" id="EAnnotation_2003"/>
          <object class="org.eclipse.gmf.ecore.edit.parts.EDataTypeEditPart" id="EDataType_2004"/>
          <object class="org.eclipse.gmf.ecore.edit.parts.EEnumEditPart" id="EEnum_2005"/>
-         <context elements="EClass_2001,EPackage_2002,EAnnotation_2003,EDataType_2004,EEnum_2005"/>
+         <context elements="EPackage_1000,EClass_2001,EPackage_2002,EAnnotation_2003,EDataType_2004,EEnum_2005"/>
       </modelingAssistantProvider>
    </extension>
 
