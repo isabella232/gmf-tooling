@@ -9,7 +9,6 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2008/Context'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «DEFINE accessor FOR ecore::EStructuralFeature»«eContainingClass.ePackage.name.firstToUpper()»Package.eINSTANCE.get«eContainingClass.name.firstToUpper()»_«name.firstToUpper()»()«ENDDEFINE»

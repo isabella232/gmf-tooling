@@ -9,10 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-«IMPORT 'http://www.eclipse.org/gmf/2008/Widget'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/Context'»
 «IMPORT 'http://www.eclipse.org/gmf/2008/Binding'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::StringOperations»
 
 «DEFINE Main FOR binding::Editor»
