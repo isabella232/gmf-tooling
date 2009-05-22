@@ -23,7 +23,7 @@
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
     <containsShortcutsTo>ecore</containsShortcutsTo>
-    <shortcutsProvidedFor>ecore</shortcutsProvidedFor>
+    <shortcutsProvidedFor>Ecore</shortcutsProvidedFor>
     <domainDiagramElement
         href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
     <childNodes

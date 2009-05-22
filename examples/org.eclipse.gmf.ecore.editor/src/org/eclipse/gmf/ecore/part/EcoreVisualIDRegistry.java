@@ -166,7 +166,7 @@ public class EcoreVisualIDRegistry {
 			return -1;
 		}
 		String containerModelID = org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getModelID(containerView);
-		if (!EPackageEditPart.MODEL_ID.equals(containerModelID) && !"ecore".equals(containerModelID)) { //$NON-NLS-1$
+		if (!EPackageEditPart.MODEL_ID.equals(containerModelID) && !"Ecore".equals(containerModelID)) { //$NON-NLS-1$
 			return -1;
 		}
 		int containerVisualID;
@@ -266,7 +266,7 @@ public class EcoreVisualIDRegistry {
 	 */
 	public static boolean canCreateNode(View containerView, int nodeVisualID) {
 		String containerModelID = org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry.getModelID(containerView);
-		if (!EPackageEditPart.MODEL_ID.equals(containerModelID) && !"ecore".equals(containerModelID)) { //$NON-NLS-1$
+		if (!EPackageEditPart.MODEL_ID.equals(containerModelID) && !"Ecore".equals(containerModelID)) { //$NON-NLS-1$
 			return false;
 		}
 		int containerVisualID;
