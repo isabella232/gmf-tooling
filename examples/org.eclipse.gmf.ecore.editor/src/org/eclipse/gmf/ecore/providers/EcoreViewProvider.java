@@ -328,7 +328,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node EClassName_5001 = createLabel(node, EcoreVisualIDRegistry.getType(EClassNameEditPart.VISUAL_ID));
+		Node label5001 = createLabel(node, EcoreVisualIDRegistry.getType(EClassNameEditPart.VISUAL_ID));
 		createCompartment(node, EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID), true, false, true, true);
 		createCompartment(node, EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID), true, false, true, true);
 		createCompartment(node, EcoreVisualIDRegistry.getType(EClassClassAnnotationsEditPart.VISUAL_ID), true, false, true, true);
@@ -363,7 +363,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node EPackageName_5002 = createLabel(node, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID));
+		Node label5002 = createLabel(node, EcoreVisualIDRegistry.getType(EPackageNameEditPart.VISUAL_ID));
 		createCompartment(node, EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID), true, false, true, true);
 		createCompartment(node, EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID), true, false, true, true);
 		createCompartment(node, EcoreVisualIDRegistry.getType(EPackageDataTypesEditPart.VISUAL_ID), true, false, true, true);
@@ -399,7 +399,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node EAnnotationSource_5003 = createLabel(node, EcoreVisualIDRegistry.getType(EAnnotationSourceEditPart.VISUAL_ID));
+		Node label5003 = createLabel(node, EcoreVisualIDRegistry.getType(EAnnotationSourceEditPart.VISUAL_ID));
 		createCompartment(node, EcoreVisualIDRegistry.getType(EAnnotationDetailsEditPart.VISUAL_ID), true, false, true, true);
 		return node;
 	}
@@ -431,7 +431,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node EDataTypeName_5004 = createLabel(node, EcoreVisualIDRegistry.getType(EDataTypeNameEditPart.VISUAL_ID));
+		Node label5004 = createLabel(node, EcoreVisualIDRegistry.getType(EDataTypeNameEditPart.VISUAL_ID));
 		createCompartment(node, EcoreVisualIDRegistry.getType(EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID), true, false, true, true);
 		return node;
 	}
@@ -463,7 +463,7 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node EEnumName_5005 = createLabel(node, EcoreVisualIDRegistry.getType(EEnumNameEditPart.VISUAL_ID));
+		Node label5005 = createLabel(node, EcoreVisualIDRegistry.getType(EEnumNameEditPart.VISUAL_ID));
 		createCompartment(node, EcoreVisualIDRegistry.getType(EEnumLiteralsEditPart.VISUAL_ID), true, false, true, true);
 		createCompartment(node, EcoreVisualIDRegistry.getType(EEnumEnumAnnotationsEditPart.VISUAL_ID), true, false, true, true);
 		return node;
@@ -640,14 +640,14 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
 			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
 		}
-		Node EReferenceName_6001 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceNameEditPart.VISUAL_ID));
-		EReferenceName_6001.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
-		Location location6001 = (Location) EReferenceName_6001.getLayoutConstraint();
+		Node label6001 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceNameEditPart.VISUAL_ID));
+		label6001.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6001 = (Location) label6001.getLayoutConstraint();
 		location6001.setX(0);
 		location6001.setY(40);
-		Node EReferenceLowerBoundUpperBound_6003 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID));
-		EReferenceLowerBoundUpperBound_6003.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
-		Location location6003 = (Location) EReferenceLowerBoundUpperBound_6003.getLayoutConstraint();
+		Node label6003 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBoundEditPart.VISUAL_ID));
+		label6003.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6003 = (Location) label6003.getLayoutConstraint();
 		location6003.setX(0);
 		location6003.setY(60);
 		return edge;
@@ -683,14 +683,14 @@ public class EcoreViewProvider extends AbstractProvider implements IViewProvider
 			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
 			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
 		}
-		Node EReferenceName_6002 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID));
-		EReferenceName_6002.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
-		Location location6002 = (Location) EReferenceName_6002.getLayoutConstraint();
+		Node label6002 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceName2EditPart.VISUAL_ID));
+		label6002.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6002 = (Location) label6002.getLayoutConstraint();
 		location6002.setX(0);
 		location6002.setY(40);
-		Node EReferenceLowerBoundUpperBound_6004 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID));
-		EReferenceLowerBoundUpperBound_6004.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
-		Location location6004 = (Location) EReferenceLowerBoundUpperBound_6004.getLayoutConstraint();
+		Node label6004 = createLabel(edge, EcoreVisualIDRegistry.getType(EReferenceLowerBoundUpperBound2EditPart.VISUAL_ID));
+		label6004.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
+		Location location6004 = (Location) label6004.getLayoutConstraint();
 		location6004.setX(0);
 		location6004.setY(60);
 		return edge;
