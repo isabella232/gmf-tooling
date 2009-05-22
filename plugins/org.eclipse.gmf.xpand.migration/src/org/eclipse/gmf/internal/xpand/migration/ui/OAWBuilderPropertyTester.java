@@ -36,10 +36,12 @@ public class OAWBuilderPropertyTester extends PropertyTester {
 
 	private boolean hasOAWBuilder(IProject project) {
 		try {
-			ICommand[] buildSpecification = project.getDescription().getBuildSpec();
-			for (ICommand buildCommand : buildSpecification) {
-				if (OawBuilder.getBUILDER_ID().equals(buildCommand.getBuilderName())) {
-					return true;
+			if (project.isOpen()) {
+				ICommand[] buildSpecification = project.getDescription().getBuildSpec();
+				for (ICommand buildCommand : buildSpecification) {
+					if (OawBuilder.getBUILDER_ID().equals(buildCommand.getBuilderName())) {
+						return true;
+					}
 				}
 			}
 		} catch (CoreException e) {
