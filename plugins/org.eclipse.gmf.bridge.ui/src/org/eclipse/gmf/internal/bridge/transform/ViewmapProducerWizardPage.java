@@ -43,7 +43,8 @@ import org.eclipse.swt.widgets.Text;
  * XXX: duplicates functionality of org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorOptionsDialog
  */
 class ViewmapProducerWizardPage extends WizardPage {
-	
+
+	private boolean myInitingControls;
     private Button generateRCPButton;
     private Button useMapModeButton;
     private Button useRuntimeFiguresButton;
@@ -182,6 +183,9 @@ class ViewmapProducerWizardPage extends WizardPage {
 	}
 	
 	void validatePage() {
+		if (myInitingControls) {
+			return;
+		}
 		setStatus(Status.OK_STATUS);
 		boolean hasLite = TransformOptions.checkLiteOptionPresent();
 		if (hasLite) {
@@ -212,30 +216,35 @@ class ViewmapProducerWizardPage extends WizardPage {
 	}
 
 	private void initControls() {
-		TransformOptions options = getOperation().getOptions();
-		generateRCPButton.setSelection(options.getGenerateRCP());
-		useRuntimeFiguresButton.setSelection(options.getUseRuntimeFigures());
-		useMapModeButton.setSelection(options.getUseMapMode());
-		if (null != options.getFigureTemplatesPath()) {
-			templatesPathText.setText(options.getFigureTemplatesPath().toString());
-			// reveal the value to avoid confusion.
-			// FIXME extract expand bar with template path as separate control and
-			// move expand logic there (based on setInitialValue event
-			myTemplatePathItem.setExpanded(true);
-		}
-
-		radioDGMT.setSelection(options.getMainTransformation() == null);
-		radioQVT.setSelection(!radioDGMT.getSelection());
-		qvtoFileControl.setEnabled(radioQVT.getSelection());
-		qvtoFileControl.setText(options.getMainTransformation() != null ? options.getMainTransformation().toString() : ""); //$NON-NLS-1$
-		preReconcileTransformBtn.setSelection(options.getPreReconcileTransform() != null);
-		preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
-		preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : ""); //$NON-NLS-1$
-		postReconcileTransformBtn.setSelection(options.getPostReconcileTransform() != null);
-		postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
-		postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : ""); //$NON-NLS-1$
-		if (radioQVT.getSelection() || preReconcileTransformBtn.getSelection() || postReconcileTransformBtn.getSelection()) {
-			myTransformsItem.setExpanded(true);
+		myInitingControls = true;
+		try {
+			TransformOptions options = getOperation().getOptions();
+			generateRCPButton.setSelection(options.getGenerateRCP());
+			useRuntimeFiguresButton.setSelection(options.getUseRuntimeFigures());
+			useMapModeButton.setSelection(options.getUseMapMode());
+			if (null != options.getFigureTemplatesPath()) {
+				templatesPathText.setText(options.getFigureTemplatesPath().toString());
+				// reveal the value to avoid confusion.
+				// FIXME extract expand bar with template path as separate control and
+				// move expand logic there (based on setInitialValue event
+				myTemplatePathItem.setExpanded(true);
+			}
+	
+			radioDGMT.setSelection(options.getMainTransformation() == null);
+			radioQVT.setSelection(!radioDGMT.getSelection());
+			qvtoFileControl.setEnabled(radioQVT.getSelection());
+			qvtoFileControl.setText(options.getMainTransformation() != null ? options.getMainTransformation().toString() : ""); //$NON-NLS-1$
+			preReconcileTransformBtn.setSelection(options.getPreReconcileTransform() != null);
+			preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
+			preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : ""); //$NON-NLS-1$
+			postReconcileTransformBtn.setSelection(options.getPostReconcileTransform() != null);
+			postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
+			postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : ""); //$NON-NLS-1$
+			if (radioQVT.getSelection() || preReconcileTransformBtn.getSelection() || postReconcileTransformBtn.getSelection()) {
+				myTransformsItem.setExpanded(true);
+			}
+		} finally {
+			myInitingControls = false;
 		}
 	}
 
