@@ -367,7 +367,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node CompartmentName_5005 = createLabel(node, GMFGraphVisualIDRegistry.getType(CompartmentNameEditPart.VISUAL_ID));
+		Node label5005 = createLabel(node, GMFGraphVisualIDRegistry.getType(CompartmentNameEditPart.VISUAL_ID));
 		createCompartment(node, GMFGraphVisualIDRegistry.getType(CompartmentVisualFacetsEditPart.VISUAL_ID), true, true, true, true);
 		return node;
 	}
@@ -399,7 +399,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node NodeName_5006 = createLabel(node, GMFGraphVisualIDRegistry.getType(NodeNameEditPart.VISUAL_ID));
+		Node label5006 = createLabel(node, GMFGraphVisualIDRegistry.getType(NodeNameEditPart.VISUAL_ID));
 		createCompartment(node, GMFGraphVisualIDRegistry.getType(NodeVisualFacetsEditPart.VISUAL_ID), true, true, true, true);
 		return node;
 	}
@@ -431,7 +431,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node ConnectionName_5007 = createLabel(node, GMFGraphVisualIDRegistry.getType(ConnectionNameEditPart.VISUAL_ID));
+		Node label5007 = createLabel(node, GMFGraphVisualIDRegistry.getType(ConnectionNameEditPart.VISUAL_ID));
 		createCompartment(node, GMFGraphVisualIDRegistry.getType(ConnectionVisualFacetsEditPart.VISUAL_ID), true, true, true, true);
 		return node;
 	}
@@ -463,7 +463,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node FigureGalleryName_5009 = createLabel(node, GMFGraphVisualIDRegistry.getType(FigureGalleryNameEditPart.VISUAL_ID));
+		Node label5009 = createLabel(node, GMFGraphVisualIDRegistry.getType(FigureGalleryNameEditPart.VISUAL_ID));
 		createCompartment(node, GMFGraphVisualIDRegistry.getType(FigureGalleryFiguresEditPart.VISUAL_ID), true, true, false, false);
 		return node;
 	}
@@ -495,7 +495,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node DiagramLabelName_5013 = createLabel(node, GMFGraphVisualIDRegistry.getType(DiagramLabelNameEditPart.VISUAL_ID));
+		Node label5013 = createLabel(node, GMFGraphVisualIDRegistry.getType(DiagramLabelNameEditPart.VISUAL_ID));
 		createCompartment(node, GMFGraphVisualIDRegistry.getType(DiagramLabelVisualFacetsEditPart.VISUAL_ID), true, true, true, true);
 		return node;
 	}
@@ -526,7 +526,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		}
 		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FILL_COLOR);
 		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getFillStyle_FillColor(), FigureUtilities.RGBToInteger(fillRGB));
-		Node FigureDescriptorName_5008 = createLabel(node, GMFGraphVisualIDRegistry.getType(FigureDescriptorNameEditPart.VISUAL_ID));
+		Node label5008 = createLabel(node, GMFGraphVisualIDRegistry.getType(FigureDescriptorNameEditPart.VISUAL_ID));
 		return node;
 	}
 
@@ -639,7 +639,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		node.setElement(domainElement);
 		// initializeFromPreferences 
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
-		Node LabelText_5010 = createLabel(node, GMFGraphVisualIDRegistry.getType(LabelTextEditPart.VISUAL_ID));
+		Node label5010 = createLabel(node, GMFGraphVisualIDRegistry.getType(LabelTextEditPart.VISUAL_ID));
 		return node;
 	}
 
@@ -710,7 +710,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		node.setElement(domainElement);
 		// initializeFromPreferences 
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
-		Node LabelText_5011 = createLabel(node, GMFGraphVisualIDRegistry.getType(LabelText2EditPart.VISUAL_ID));
+		Node label5011 = createLabel(node, GMFGraphVisualIDRegistry.getType(LabelText2EditPart.VISUAL_ID));
 		return node;
 	}
 
@@ -795,7 +795,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 		node.setElement(domainElement);
 		// initializeFromPreferences 
 		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
-		Node LabelText_5012 = createLabel(node, GMFGraphVisualIDRegistry.getType(LabelText3EditPart.VISUAL_ID));
+		Node label5012 = createLabel(node, GMFGraphVisualIDRegistry.getType(LabelText3EditPart.VISUAL_ID));
 		return node;
 	}
 

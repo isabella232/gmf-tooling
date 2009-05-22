@@ -31,9 +31,7 @@ public class ElementInitializers {
 	public static void init_Polyline_3014(Polyline instance) {
 		try {
 			Point newInstance_0_0 = GMFGraphFactory.eINSTANCE.createPoint();
-
 			instance.getTemplate().add(newInstance_0_0);
-			;
 			Object value_0_0_0 = GMFGraphOCLFactory.getExpression("10", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_0);
 
 			value_0_0_0 = GMFGraphAbstractExpression.performCast(value_0_0_0, EcorePackage.eINSTANCE.getEInt());
@@ -44,9 +42,7 @@ public class ElementInitializers {
 			newInstance_0_0.setY(((Integer) value_0_0_1).intValue());
 
 			Point newInstance_0_1 = GMFGraphFactory.eINSTANCE.createPoint();
-
 			instance.getTemplate().add(newInstance_0_1);
-			;
 			Object value_0_1_0 = GMFGraphOCLFactory.getExpression("30", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_1);
 
 			value_0_1_0 = GMFGraphAbstractExpression.performCast(value_0_1_0, EcorePackage.eINSTANCE.getEInt());
@@ -67,9 +63,7 @@ public class ElementInitializers {
 	public static void init_Polygon_3023(Polygon instance) {
 		try {
 			Point newInstance_0_0 = GMFGraphFactory.eINSTANCE.createPoint();
-
 			instance.getTemplate().add(newInstance_0_0);
-			;
 			Object value_0_0_0 = GMFGraphOCLFactory.getExpression("10", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_0);
 
 			value_0_0_0 = GMFGraphAbstractExpression.performCast(value_0_0_0, EcorePackage.eINSTANCE.getEInt());
@@ -80,9 +74,7 @@ public class ElementInitializers {
 			newInstance_0_0.setY(((Integer) value_0_0_1).intValue());
 
 			Point newInstance_0_1 = GMFGraphFactory.eINSTANCE.createPoint();
-
 			instance.getTemplate().add(newInstance_0_1);
-			;
 			Object value_0_1_0 = GMFGraphOCLFactory.getExpression("30", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_1);
 
 			value_0_1_0 = GMFGraphAbstractExpression.performCast(value_0_1_0, EcorePackage.eINSTANCE.getEInt());
@@ -93,9 +85,7 @@ public class ElementInitializers {
 			newInstance_0_1.setY(((Integer) value_0_1_1).intValue());
 
 			Point newInstance_0_2 = GMFGraphFactory.eINSTANCE.createPoint();
-
 			instance.getTemplate().add(newInstance_0_2);
-			;
 			Object value_0_2_0 = GMFGraphOCLFactory.getExpression("10", GMFGraphPackage.eINSTANCE.getPoint()).evaluate(newInstance_0_2);
 
 			value_0_2_0 = GMFGraphAbstractExpression.performCast(value_0_2_0, EcorePackage.eINSTANCE.getEInt());
