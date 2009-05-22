@@ -12,11 +12,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/gmf/2008/GmfGraph/wysiwyg'»
 
-«EXTENSION xpt::GenModelUtils»
 «EXTENSION aspects::impl::diagram::editparts::Utils»
 «EXTENSION xpt::diagram::editparts::Utils»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
