@@ -84,6 +84,7 @@ package «FOREACH let tmpVar = self.xpandSplit('\\.') in if tmpVar->size() < 2 t
 
 // Provides handy single point to override generation of assert statements
 // TODO refactor this Common.xpt into different flavours - like CommonCodeStyle (nls, assert), CommonSnippets(pkgStmt, setCharset, getSaveOptions) and so on
+// TODO condition.xpandToCharList()->count('"') / 2 gives better guess about number of nonNLS to generate 
 «DEFINE _assert(condition : String) FOR OclAny-»
-assert «condition»;«IF condition.isQuoted('\"')»«EXPAND nonNLS»«ENDIF»
+assert «condition»;«IF condition.indexOf('\"') > 0»«EXPAND nonNLS»«ENDIF»
 «ENDDEFINE»
