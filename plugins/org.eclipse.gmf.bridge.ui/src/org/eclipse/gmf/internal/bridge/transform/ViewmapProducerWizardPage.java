@@ -195,19 +195,19 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 		TransformOptions options = getOperation().getOptions();
 		// safe to set option value now as they get flushed into storage only on Wizard.performFinish
-		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText, true));
-		options.setTransformation(checkTextFieldURI(qvtoFileControl, false));
-		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText, false));
-		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTranfsormText, false));
+		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText));
+		options.setTransformation(checkTextFieldURI(qvtoFileControl));
+		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
+		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTranfsormText));
 	}
 
-	private URL checkTextFieldURI(Text widget, boolean resolve) {
+	private URL checkTextFieldURI(Text widget) {
 		if (!widget.isEnabled()) {
 			return null;
 		}
 		if (widget.getText().trim().length() > 0) {
 			try {
-				return new URL(guessAndResolvePathURL(widget.getText().trim(), resolve));
+				return new URL(guessAndResolvePathURL(widget.getText().trim()));
 			} catch (MalformedURLException ex) {
 				setStatus(Plugin.createWarning(ex.getMessage()));
 			}
@@ -262,13 +262,15 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 	}
 
-	private static String guessAndResolvePathURL(String path, boolean resolve) {
+	private static String guessAndResolvePathURL(String path) {
 		assert path != null;
-		try {
-			URI templatesURI = path.indexOf(':') == -1 ? URI.createPlatformResourceURI(path, true) : URI.createURI(path);
-			return resolve ? CommonPlugin.resolve(templatesURI).toString() : templatesURI.toString();
-		} catch (IllegalArgumentException ex) {
-			// IGNORE. URI#validate throws IAE if path is incorrect, e.g. once user typed in "platform:" - opaquePart is illegal
+		if (path.indexOf(':') == -1) {
+			try {
+				URI templatesURI = URI.createPlatformResourceURI(path, true);
+				return templatesURI.toString();
+			} catch (IllegalArgumentException ex) {
+				// IGNORE. URI#validate throws IAE if path is incorrect, e.g. once user typed in "platform:" - opaquePart is illegal
+			}
 		}
 		return path;
 	}
