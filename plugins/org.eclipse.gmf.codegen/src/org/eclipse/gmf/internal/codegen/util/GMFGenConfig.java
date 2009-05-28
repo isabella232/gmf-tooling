@@ -54,7 +54,6 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenEditorView_ID());
 
 		setMatcher(GMFGEN.getGenDiagram(), ALWAYS_MATCH);
-		restoreOld(GMFGEN.getGenDiagram(), GMFGEN.getGenCommonBase_NotationViewFactoryClassName());
 		restoreOld(GMFGEN.getGenDiagram(), GMFGEN.getGenCommonBase_EditPartClassName());
 		restoreOld(GMFGEN.getGenDiagram(), GMFGEN.getGenCommonBase_ItemSemanticEditPolicyClassName());
 		restoreOld(GMFGEN.getGenDiagram(), GMFGEN.getGenContainerBase_CanonicalEditPolicyClassName());
