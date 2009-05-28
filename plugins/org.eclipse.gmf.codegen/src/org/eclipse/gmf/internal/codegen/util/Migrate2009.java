@@ -162,9 +162,28 @@ public class Migrate2009 {
 		}
 		// loadResource was generated unconditionally
 		EObject loadResAction = myMetaPackage.getEFactoryInstance().create((EClass) myMetaPackage.getEClassifier("LoadResourceAction"));
-		String editorPackageName = null; // DiagramImpl#getEditorPackageName()
+		// GenDiagramImpl#getEditorPackageName()
+		EObject newEditorView = (EObject) result.eGet(result.eClass().getEStructuralFeature("editor"));
+		// more fair would be to look into old GenEditorView#packageName, but since we trust our copy utility, value from new should be the same
+		// Moreover, using new object may save us some effort, provided that if there's generated code for the target model, access to
+		// packageName attribute would result into method invocation (the one that does all that crappy reflective stuff that I wrote below)  
+		String editorPackageName = (String) newEditorView.eGet(newEditorView.eClass().getEStructuralFeature("packageName"));
+		if (editorPackageName == null) {
+			// GenEditorViewImpl#getPackageName()
+			editorPackageName = (String) result.eGet(result.eClass().getEStructuralFeature("packageNamePrefix"));
+			// generally, packageNamePrefix won't be null here as long as target model has generated code, but in future it might not be generated
+			if (editorPackageName != null) {
+				editorPackageName += ".part"; 
+			} else {
+				// Here, we can try to access primaryGenPackage and it's qualified name, or to 
+				// use design.diagram for pure design diagrams, but does it pay off?
+				// no-op for now.
+			}
+		}
 		EStructuralFeature genAction_qualifiedClassName = loadResAction.eClass().getEStructuralFeature("qualifiedClassName");
-		loadResAction.eSet(genAction_qualifiedClassName, editorPackageName + '.' + oldGenDiagram.eGet(loadResourceActionClassName));
+		if (editorPackageName != null && oldGenDiagram.eIsSet(loadResourceActionClassName)) {
+			loadResAction.eSet(genAction_qualifiedClassName, editorPackageName + '.' + oldGenDiagram.eGet(loadResourceActionClassName));
+		}
 		EObject diagramCtxMenu = myMetaPackage.getEFactoryInstance().create((EClass) myMetaPackage.getEClassifier("GenContextMenu"));
 		@SuppressWarnings("unchecked")
 		List<EObject> allContextMenus = (List<EObject>) result.eGet(result.eClass().getEStructuralFeature("contextMenus"));
@@ -178,7 +197,9 @@ public class Migrate2009 {
 		ctxMenuItems.add(loadResAction);
 		if (/*oldGenDiagram.generateCreateShortcutAction()*/ ((List<?>) oldGenDiagram.eGet(oldGenDiagram.eClass().getEStructuralFeature("containsShortcutsTo"))).size() > 0) {
 			EObject createShortcutsAction = myMetaPackage.getEFactoryInstance().create((EClass) myMetaPackage.getEClassifier("CreateShortcutAction"));
-			createShortcutsAction.eSet(genAction_qualifiedClassName, editorPackageName + '.' + oldGenDiagram.eGet(createShortcutActionClassName));
+			if (editorPackageName != null && oldGenDiagram.eIsSet(createShortcutActionClassName)) { 
+				createShortcutsAction.eSet(genAction_qualifiedClassName, editorPackageName + '.' + oldGenDiagram.eGet(createShortcutActionClassName));
+			}
 			ctxMenuItems.add(createShortcutsAction);
 		}
 		
