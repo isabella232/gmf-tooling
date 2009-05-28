@@ -1095,7 +1095,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			GenCommonBase nextEntity = entities.next();
 			checkClassName(state, "GenCommonBase:EditPart", nextEntity.getEditPartClassName(), nextEntity.getEditPartQualifiedClassName());
 			checkClassName(state, "GenCommonBase:ItemSemanticEditPolicy", nextEntity.getItemSemanticEditPolicyClassName(), nextEntity.getItemSemanticEditPolicyQualifiedClassName());
-			checkClassName(state, "GenCommonBase:NotationViewFactory", nextEntity.getNotationViewFactoryClassName(), nextEntity.getNotationViewFactoryQualifiedClassName());
 			checkEditSupport(state, nextEntity);
 			if (nextEntity instanceof GenChildContainer) {
 				GenChildContainer genContainer = (GenChildContainer) nextEntity;
