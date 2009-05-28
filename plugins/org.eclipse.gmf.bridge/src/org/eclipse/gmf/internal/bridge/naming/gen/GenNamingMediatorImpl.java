@@ -167,7 +167,6 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 	}
 
 	protected void feedCommon(GenCommonBase element) {
-		feedName(element, M.getGenCommonBase_NotationViewFactoryClassName(), getViewFactory());
 		feedName(element, M.getGenCommonBase_EditPartClassName(), getEditPart());
 		feedName(element, M.getGenCommonBase_ItemSemanticEditPolicyClassName(), getItemSemanticPolicy());
 		if (element.getElementType() instanceof MetamodelType) {
