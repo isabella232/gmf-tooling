@@ -167,7 +167,7 @@ public class Migrate2009 {
 		// more fair would be to look into old GenEditorView#packageName, but since we trust our copy utility, value from new should be the same
 		// Moreover, using new object may save us some effort, provided that if there's generated code for the target model, access to
 		// packageName attribute would result into method invocation (the one that does all that crappy reflective stuff that I wrote below)  
-		String editorPackageName = (String) newEditorView.eGet(newEditorView.eClass().getEStructuralFeature("packageName"));
+		String editorPackageName = newEditorView == null ? null : (String) newEditorView.eGet(newEditorView.eClass().getEStructuralFeature("packageName"));
 		if (editorPackageName == null) {
 			// GenEditorViewImpl#getPackageName()
 			editorPackageName = (String) result.eGet(result.eClass().getEStructuralFeature("packageNamePrefix"));
