@@ -397,6 +397,10 @@ public class «notationViewProviderClassName»«EXPAND extendsList»«EXPAND imp
 		// initializePreferences
 		final org.eclipse.jface.preference.IPreferenceStore prefStore = (org.eclipse.jface.preference.IPreferenceStore) preferencesHint.getPreferenceStore();
 		«EXPAND initializeStyles('edge', 'prefStore', not viewmap.isFixedForeground(), false, not viewmap.isFixedFont())-»
+		org.eclipse.gmf.runtime.notation.Routing routing = org.eclipse.gmf.runtime.notation.Routing.get(prefStore.getInt(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_LINE_STYLE));
+		if (routing != null) {
+			org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.setStructuralFeatureValue(edge, org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getRoutingStyle_Routing(), routing);
+		}
 «EXPAND initLabel('edge', 'prefStore') FOREACH labels-»
 		return edge;
 	}
