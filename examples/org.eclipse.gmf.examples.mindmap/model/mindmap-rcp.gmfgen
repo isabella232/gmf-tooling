@@ -2,7 +2,7 @@
 <gmfgen:GenEditorGenerator xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2006/GenModel" packageNamePrefix="org.eclipse.gmf.examples.mindmap.rcp.diagram"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel" packageNamePrefix="org.eclipse.gmf.examples.mindmap.rcp.diagram"
     diagramFileExtension="mmd">
   <audits>
     <categories
@@ -15,10 +15,9 @@
         name="Cyclic relationship check"
         description="This audit detects (simple) cycles between Topic relationships"
         id="cycle"
+        rule="//@expressionProviders/@providers.0/@expressions.10"
         message="A cycle was found in relationships between two Topic elements."
         category="//@audits/@categories.0">
-      <rule
-          body="self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target &lt;> r1.source)"/>
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
@@ -29,10 +28,9 @@
         name="Topic name audit"
         description="A Topic must have a name provided."
         id="topic.name"
+        rule="//@expressionProviders/@providers.0/@expressions.11"
         message="Topics must have a name"
         category="//@audits/@categories.0">
-      <rule
-          body="name.size() > 0"/>
       <target
           xsi:type="gmfgen:GenDomainElementTarget">
         <element
@@ -44,10 +42,8 @@
       visualID="1000"
       editPartClassName="MapEditPart"
       itemSemanticEditPolicyClassName="MapItemSemanticEditPolicy"
-      notationViewFactoryClassName="MapViewFactory"
       canonicalEditPolicyClassName="MapCanonicalEditPolicy"
-      iconProviderPriority="Low"
-      validationProviderPriority="Low">
+      iconProviderPriority="Low">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -62,7 +58,6 @@
         visualID="3001"
         editPartClassName="ThreadEditPart"
         itemSemanticEditPolicyClassName="ThreadItemSemanticEditPolicy"
-        notationViewFactoryClassName="ThreadViewFactory"
         canonicalEditPolicyClassName="ThreadCanonicalEditPolicy"
         compartments="//@diagram/@compartments.1"
         graphicalNodeEditPolicyClassName="ThreadGraphicalNodeEditPolicy"
@@ -95,7 +90,6 @@
           visualID="5001"
           editPartClassName="ThreadSubjectEditPart"
           itemSemanticEditPolicyClassName="ThreadSubjectItemSemanticEditPolicy"
-          notationViewFactoryClassName="ThreadSubjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -104,7 +98,8 @@
             getterName="getFigureStickyNoteNameFigure"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet">
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="mindmap.genmodel#//mindmap/Thread/subject"/>
         </modelFacet>
@@ -115,7 +110,6 @@
         visualID="3002"
         editPartClassName="ThreadItemEditPart"
         itemSemanticEditPolicyClassName="ThreadItemItemSemanticEditPolicy"
-        notationViewFactoryClassName="ThreadItemViewFactory"
         canonicalEditPolicyClassName="ThreadItemCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="ThreadItemGraphicalNodeEditPolicy"
         createCommandClassName="ThreadItemCreateCommand"
@@ -139,7 +133,8 @@
             href="mindmap.genmodel#//mindmap/Thread/items"/>
       </modelFacet>
       <labelModelFacet
-          xsi:type="gmfgen:FeatureLabelModelFacet">
+          xsi:type="gmfgen:FeatureLabelModelFacet"
+          parser="//@labelParsers/@implementations.0">
         <metaFeatures
             href="mindmap.genmodel#//mindmap/ThreadItem/body"/>
       </labelModelFacet>
@@ -148,7 +143,6 @@
         visualID="2001"
         editPartClassName="TopicEditPart"
         itemSemanticEditPolicyClassName="TopicItemSemanticEditPolicy"
-        notationViewFactoryClassName="TopicViewFactory"
         canonicalEditPolicyClassName="TopicCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0"
         graphicalNodeEditPolicyClassName="TopicGraphicalNodeEditPolicy"
@@ -179,7 +173,6 @@
           visualID="5002"
           editPartClassName="TopicNameEditPart"
           itemSemanticEditPolicyClassName="TopicNameItemSemanticEditPolicy"
-          notationViewFactoryClassName="TopicNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -188,7 +181,8 @@
             getterName="getFigureTopicNameFigure"
             figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel"/>
         <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet">
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0">
           <metaFeatures
               href="mindmap.genmodel#//mindmap/Topic/name"/>
         </modelFacet>
@@ -198,7 +192,6 @@
         visualID="2002"
         editPartClassName="ResourceEditPart"
         itemSemanticEditPolicyClassName="ResourceItemSemanticEditPolicy"
-        notationViewFactoryClassName="ResourceViewFactory"
         canonicalEditPolicyClassName="ResourceCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="ResourceGraphicalNodeEditPolicy"
         createCommandClassName="ResourceCreateCommand">
@@ -229,7 +222,6 @@
           visualID="5003"
           editPartClassName="ResourceNameEmailEditPart"
           itemSemanticEditPolicyClassName="ResourceNameEmailItemSemanticEditPolicy"
-          notationViewFactoryClassName="ResourceNameEmailViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -238,6 +230,7 @@
             figureQualifiedClassName="org.eclipse.draw2d.Label"/>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewPattern="{0} [{1}]"
             editorPattern="{0} : {1}"
             editPattern="{0} : {1}">
@@ -252,7 +245,6 @@
         visualID="4001"
         editPartClassName="TopicSubtopicsEditPart"
         itemSemanticEditPolicyClassName="TopicSubtopicsItemSemanticEditPolicy"
-        notationViewFactoryClassName="TopicSubtopicsViewFactory"
         createCommandClassName="TopicSubtopicsCreateCommand"
         reorientCommandClassName="TopicSubtopicsReorientCommand">
       <diagramRunTimeClass
@@ -270,16 +262,13 @@
         <metaFeature
             href="mindmap.genmodel#//mindmap/Topic/subtopics"/>
       </modelFacet>
-      <creationConstraints>
-        <sourceEnd
-            body="self &lt;> oppositeEnd"/>
-      </creationConstraints>
+      <creationConstraints
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.0"/>
     </links>
     <links
         visualID="4002"
         editPartClassName="RelationshipEditPart"
         itemSemanticEditPolicyClassName="RelationshipItemSemanticEditPolicy"
-        notationViewFactoryClassName="RelationshipViewFactory"
         createCommandClassName="RelationshipCreateCommand"
         reorientCommandClassName="RelationshipReorientCommand">
       <diagramRunTimeClass
@@ -294,26 +283,25 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.1">
         <metaClass
             href="mindmap.genmodel#//mindmap/Relationship"/>
         <containmentMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
-        <modelElementSelector
-            body="self.type = RelationshipType::EXTENDS"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="RelationshipType::EXTENDS">
+              value="//@expressionProviders/@providers.0/@expressions.2">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/type"/>
           </initializers>
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="'extends'">
+              value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/label"/>
           </initializers>
@@ -326,8 +314,7 @@
       <labels
           visualID="6001"
           editPartClassName="RelationshipLabelEditPart"
-          itemSemanticEditPolicyClassName="RelationshipLabelItemSemanticEditPolicy"
-          notationViewFactoryClassName="RelationshipLabelViewFactory">
+          itemSemanticEditPolicyClassName="RelationshipLabelItemSemanticEditPolicy">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -340,6 +327,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewPattern="«{0}»">
           <metaFeatures
               href="mindmap.genmodel#//mindmap/Relationship/label"/>
@@ -350,7 +338,6 @@
         visualID="4003"
         editPartClassName="Relationship2EditPart"
         itemSemanticEditPolicyClassName="Relationship2ItemSemanticEditPolicy"
-        notationViewFactoryClassName="Relationship2ViewFactory"
         createCommandClassName="RelationshipCreateCommand"
         reorientCommandClassName="RelationshipReorientCommand">
       <diagramRunTimeClass
@@ -366,26 +353,25 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
         <metaClass
             href="mindmap.genmodel#//mindmap/Relationship"/>
         <containmentMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
-        <modelElementSelector
-            body="self.type = RelationshipType::INCLUDES"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="RelationshipType::INCLUDES">
+              value="//@expressionProviders/@providers.0/@expressions.5">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/type"/>
           </initializers>
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="'includes'">
+              value="//@expressionProviders/@providers.0/@expressions.6">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/label"/>
           </initializers>
@@ -398,8 +384,7 @@
       <labels
           visualID="6002"
           editPartClassName="RelationshipLabel2EditPart"
-          itemSemanticEditPolicyClassName="RelationshipLabel2ItemSemanticEditPolicy"
-          notationViewFactoryClassName="RelationshipLabel2ViewFactory">
+          itemSemanticEditPolicyClassName="RelationshipLabel2ItemSemanticEditPolicy">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -412,6 +397,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewPattern="«{0}»">
           <metaFeatures
               href="mindmap.genmodel#//mindmap/Relationship/label"/>
@@ -422,7 +408,6 @@
         visualID="4004"
         editPartClassName="Relationship3EditPart"
         itemSemanticEditPolicyClassName="Relationship3ItemSemanticEditPolicy"
-        notationViewFactoryClassName="Relationship3ViewFactory"
         createCommandClassName="RelationshipCreateCommand"
         reorientCommandClassName="RelationshipReorientCommand">
       <diagramRunTimeClass
@@ -438,26 +423,25 @@
         <requiredPluginIDs>org.eclipse.gmf.runtime.draw2d.ui</requiredPluginIDs>
       </viewmap>
       <modelFacet
-          xsi:type="gmfgen:TypeLinkModelFacet">
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.7">
         <metaClass
             href="mindmap.genmodel#//mindmap/Relationship"/>
         <containmentMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
         <childMetaFeature
             href="mindmap.genmodel#//mindmap/Map/relations"/>
-        <modelElementSelector
-            body="self.type = RelationshipType::DEPENDENCY"/>
         <modelElementInitializer
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="RelationshipType::DEPENDENCY">
+              value="//@expressionProviders/@providers.0/@expressions.8">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/type"/>
           </initializers>
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              body="'depends'">
+              value="//@expressionProviders/@providers.0/@expressions.9">
             <feature
                 href="mindmap.genmodel#//mindmap/Relationship/label"/>
           </initializers>
@@ -470,8 +454,7 @@
       <labels
           visualID="6003"
           editPartClassName="RelationshipLabel3EditPart"
-          itemSemanticEditPolicyClassName="RelationshipLabel3ItemSemanticEditPolicy"
-          notationViewFactoryClassName="RelationshipLabel3ViewFactory">
+          itemSemanticEditPolicyClassName="RelationshipLabel3ItemSemanticEditPolicy">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
@@ -484,6 +467,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0"
             viewPattern="«{0}»">
           <metaFeatures
               href="mindmap.genmodel#//mindmap/Relationship/label"/>
@@ -494,7 +478,6 @@
         visualID="7001"
         editPartClassName="TopicThreadCompartmentEditPart"
         itemSemanticEditPolicyClassName="TopicThreadCompartmentItemSemanticEditPolicy"
-        notationViewFactoryClassName="TopicThreadCompartmentViewFactory"
         canonicalEditPolicyClassName="TopicThreadCompartmentCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="ThreadCompartment"
@@ -517,7 +500,6 @@
         visualID="7002"
         editPartClassName="ThreadThreadItemCompartmentEditPart"
         itemSemanticEditPolicyClassName="ThreadThreadItemCompartmentItemSemanticEditPolicy"
-        notationViewFactoryClassName="ThreadThreadItemCompartmentViewFactory"
         canonicalEditPolicyClassName="ThreadThreadItemCompartmentCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.1"
         title="ThreadItemCompartment"
@@ -870,7 +852,49 @@
       href="mindmap.genmodel#/"/>
   <expressionProviders>
     <providers
-        xsi:type="gmfgen:GenExpressionInterpreter"
-        expressions="//@diagram/@links.0/@creationConstraints/@sourceEnd //@diagram/@links.1/@modelFacet/@modelElementSelector //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.1/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.2/@modelFacet/@modelElementSelector //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.2/@modelFacet/@modelElementInitializer/@initializers.1 //@diagram/@links.3/@modelFacet/@modelElementSelector //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.0 //@diagram/@links.3/@modelFacet/@modelElementInitializer/@initializers.1 //@audits/@rules.0/@rule //@audits/@rules.1/@rule"/>
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self &lt;> oppositeEnd"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = RelationshipType::EXTENDS"/>
+      <expressions
+          body="RelationshipType::EXTENDS"/>
+      <expressions
+          body="'extends'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = RelationshipType::INCLUDES"/>
+      <expressions
+          body="RelationshipType::INCLUDES"/>
+      <expressions
+          body="'includes'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.type = RelationshipType::DEPENDENCY"/>
+      <expressions
+          body="RelationshipType::DEPENDENCY"/>
+      <expressions
+          body="'depends'"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="self.relations->forAll(r1, r2 |  r1.target = r2.source and r1.type = r2.type implies r2.target &lt;> r1.source)"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="name.size() > 0"/>
+    </providers>
   </expressionProviders>
+  <labelParsers
+      extensibleViaService="true">
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@childNodes.1/@labelModelFacet //@diagram/@childNodes.0/@labels.0/@modelFacet //@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@links.1/@labels.0/@modelFacet //@diagram/@links.2/@labels.0/@modelFacet //@diagram/@links.3/@labels.0/@modelFacet"/>
+  </labelParsers>
+  <contextMenus
+      context="//@diagram">
+    <items
+        xsi:type="gmfgen:LoadResourceAction"
+        qualifiedClassName="null.null"/>
+  </contextMenus>
 </gmfgen:GenEditorGenerator>
