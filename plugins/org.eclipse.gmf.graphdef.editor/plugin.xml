@@ -266,6 +266,10 @@
       <?gmfgen generated="true"?>
       <viewProvider class="org.eclipse.gmf.graphdef.editor.providers.GMFGraphViewProvider">
          <Priority name="Lowest"/>
+         <object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+            <method name="getType()" value="GMFGraph"/>
+         </object>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="GMFGraph"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2005,2006,2007,2008,2009,3009,3010,3011,3012,3013,3014,3022,3023,3026,3015,3016,3017,3024,3027,3018,3019,3020,3021,3025,3028"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4002,4003,4004,4006,4005"/>

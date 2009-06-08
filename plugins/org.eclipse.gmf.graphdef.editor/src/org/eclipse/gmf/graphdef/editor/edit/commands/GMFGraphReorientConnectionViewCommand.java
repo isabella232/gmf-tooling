@@ -66,9 +66,9 @@ public class GMFGraphReorientConnectionViewCommand extends AbstractTransactional
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
-		assert null != edgeAdaptor : "Null child in GMFGraphReorientConnectionViewCommand";
+		assert null != edgeAdaptor : "Null child in GMFGraphReorientConnectionViewCommand"; //$NON-NLS-1$
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
-		assert null != edge : "Null edge in GMFGraphReorientConnectionViewCommand";
+		assert null != edge : "Null edge in GMFGraphReorientConnectionViewCommand"; //$NON-NLS-1$
 		View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

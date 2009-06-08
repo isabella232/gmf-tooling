@@ -18,7 +18,6 @@
         visualID="1000"
         editPartClassName="CanvasEditPart"
         itemSemanticEditPolicyClassName="CanvasItemSemanticEditPolicy"
-        notationViewFactoryClassName="CanvasViewFactory"
         canonicalEditPolicyClassName="CanvasCanonicalEditPolicy"
         iconProviderPriority="Low"
         creationWizardCategoryID="org.eclipse.ui.Examples/org.eclipse.gmf.examples"
