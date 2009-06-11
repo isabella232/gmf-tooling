@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2008, 2009 Borland Software Corp.
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 modeltype context uses "http://www.eclipse.org/gmf/2008/Context";
 
 library Context;
@@ -14,20 +25,33 @@ helper withChildren(x : Sequence(context::FeatureContext)) : Sequence(context::F
 	return x->select(fc | not fc.children->isEmpty())
 }
 
+// recursive.
 helper context::Context::needsNullCheck() : Boolean {
 	return false
 }
 
+// recursive.
 helper context::FeatureContext::needsNullCheck() : Boolean {
 	return self.mayBeNull() or (self.chain <> null and self.chain.needsNullCheck())
+	// alternatively, wholeChain(x).exists(c | mayBeNull(c))
 }
 
+// non-recursive
 helper context::Context::mayBeNull() : Boolean {
 	return false
 }
 
+// non-recursive
 helper context::FeatureContext::mayBeNull() : Boolean {
-	return self.selector.eClass().name = 'EReference' and not self.selector.many
+	// assume getInput() is never null, and only [0..1] references may be null
+	//
+	// [AS] Removing && !x.selector.required because it is still possible to create
+	// model element without required features set, so we'll get null pointers in the
+	// generated code. 
+	// In addition "mayBeNull" operation called from Forms.ext.needsCreation()query,
+	// so initialization code will not be generated for required features as a result
+	// NullPointerExceptions will be thrown from generated code.
+	return self.selector.eClass().name = 'EReference' and not self.selector.many //and not self.selector.required
 }
 
 helper wholeChain(x : context::Context) : Sequence(context::Context) {
