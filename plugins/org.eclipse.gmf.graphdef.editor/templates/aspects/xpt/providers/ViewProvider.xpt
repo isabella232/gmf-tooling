@@ -22,6 +22,9 @@
 			node.getStyles().add(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createDescriptionStyle());«REM»FIXME Contionally add this style, whether toolsmith needs Notes or not«ENDREM»
 			«EXPAND xpt::diagram::views::Utils::addLinkedDiagramStyle('node.getStyles()')-»
 			«EXPAND xpt::diagram::views::Utils::addCustomStyles('node.getStyles()')-»
+			«IF not hasLayoutDataSynchronizers(self)-»
+				node.setLayoutConstraint(org.eclipse.gmf.runtime.notation.NotationFactory.eINSTANCE.createBounds());
+			«ENDIF-»
 			node.setType(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall»);
 			org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.insertChildView(containerView, node, index, persisted);
 			node.setElement(domainElement);

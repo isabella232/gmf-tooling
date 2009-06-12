@@ -537,6 +537,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createRectangle_3010(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(RectangleEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -607,6 +608,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createPoint_3022(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(PointEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -650,6 +652,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createEllipse_3015(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Ellipse2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -664,6 +667,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createRoundedRectangle_3016(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(RoundedRectangle2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -678,6 +682,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createPolyline_3017(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Polyline2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -692,6 +697,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createPolygon_3024(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Polygon2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -706,6 +712,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createLabel_3027(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Label2EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -721,6 +728,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createRectangle_3018(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Rectangle3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -735,6 +743,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createEllipse_3019(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Ellipse3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -749,6 +758,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createRoundedRectangle_3020(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(RoundedRectangle3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -763,6 +773,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createPolyline_3021(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Polyline3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -777,6 +788,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createPolygon_3025(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Polygon3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
@@ -791,6 +803,7 @@ public class GMFGraphViewProvider extends AbstractProvider implements IViewProvi
 	public Node createLabel_3028(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
 		node.setType(GMFGraphVisualIDRegistry.getType(Label3EditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
