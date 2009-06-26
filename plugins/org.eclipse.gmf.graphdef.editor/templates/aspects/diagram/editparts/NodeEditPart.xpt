@@ -24,18 +24,14 @@
 «DEFINE superclassName FOR gmfgen::GenNode»«IF isPolylinePoint(self)»AbstractPointEditPart«ELSE»AbstractFigureEditPart«ENDIF»«ENDDEFINE»
 
 «AROUND handleNotificationEvent FOR gmfgen::GenNode-»
-	«IF hasSynchronizers(self)-»
+	«IF hasLayoutDataSynchronizers(self)-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected void handleNotificationEvent(org.eclipse.emf.common.notify.Notification notification) {
 			Object feature = notification.getFeature();
-			«IF hasLayoutDataSynchronizers(self)»if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
+			if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Width().equals(feature)
 				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getSize_Height().equals(feature)
 				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_X().equals(feature)
 				|| org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
-				return;
-			} else «ENDIF»if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
-				return;
-			} else if (org.eclipse.gmf.runtime.notation.NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
 				return;
 			}
 			super.handleNotificationEvent(notification);
