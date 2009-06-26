@@ -35,7 +35,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.NonResizableEditPolicyEx;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
 
@@ -75,6 +74,7 @@ public class PointEditPart extends AbstractPointEditPart {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -187,19 +187,6 @@ public class PointEditPart extends AbstractPointEditPart {
 		if (primaryShape instanceof Shape) {
 			((Shape) primaryShape).setLineStyle(style);
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleNotificationEvent(Notification notification) {
-		Object feature = notification.getFeature();
-		if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
-			return;
-		}
-		super.handleNotificationEvent(notification);
 	}
 
 	/**

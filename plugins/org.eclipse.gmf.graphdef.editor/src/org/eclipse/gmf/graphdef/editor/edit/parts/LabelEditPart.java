@@ -83,6 +83,7 @@ public class LabelEditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -288,10 +289,6 @@ public class LabelEditPart extends AbstractFigureEditPart {
 		Object feature = notification.getFeature();
 		if (NotationPackage.eINSTANCE.getSize_Width().equals(feature) || NotationPackage.eINSTANCE.getSize_Height().equals(feature) || NotationPackage.eINSTANCE.getLocation_X().equals(feature)
 				|| NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
 			return;
 		}
 		super.handleNotificationEvent(notification);

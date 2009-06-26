@@ -43,7 +43,6 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.graphics.Color;
 
@@ -83,6 +82,7 @@ public class Label3EditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -279,19 +279,6 @@ public class Label3EditPart extends AbstractFigureEditPart {
 			types.add(GMFGraphElementTypes.FigureDescriptor_3009);
 		}
 		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleNotificationEvent(Notification notification) {
-		Object feature = notification.getFeature();
-		if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
-			return;
-		}
-		super.handleNotificationEvent(notification);
 	}
 
 	/**

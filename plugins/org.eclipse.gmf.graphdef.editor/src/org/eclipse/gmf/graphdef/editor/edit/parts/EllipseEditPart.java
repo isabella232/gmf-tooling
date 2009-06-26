@@ -30,6 +30,8 @@ import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.graphdef.editor.edit.policies.EllipseCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.EllipseItemSemanticEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.polocies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
@@ -82,8 +84,10 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EllipseCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		installEditPolicy(KeyHandlerEditPolicy.KEY_HANDLER_ROLE, new ChildFigureSelectionEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -230,10 +234,6 @@ public class EllipseEditPart extends AbstractFigureEditPart {
 		Object feature = notification.getFeature();
 		if (NotationPackage.eINSTANCE.getSize_Width().equals(feature) || NotationPackage.eINSTANCE.getSize_Height().equals(feature) || NotationPackage.eINSTANCE.getLocation_X().equals(feature)
 				|| NotationPackage.eINSTANCE.getLocation_Y().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
 			return;
 		}
 		super.handleNotificationEvent(notification);

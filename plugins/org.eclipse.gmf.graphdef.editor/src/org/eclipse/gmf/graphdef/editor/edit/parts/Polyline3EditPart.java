@@ -27,8 +27,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline3CanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Polyline3ItemSemanticEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.polocies.PointContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
 import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
@@ -41,7 +43,6 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -83,8 +84,10 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Polyline3CanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+		installEditPolicy(KeyHandlerEditPolicy.KEY_HANDLER_ROLE, new ChildFigureSelectionEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
 	/**
@@ -213,19 +216,6 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 			types.add(GMFGraphElementTypes.FigureDescriptor_3009);
 		}
 		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void handleNotificationEvent(Notification notification) {
-		Object feature = notification.getFeature();
-		if (NotationPackage.eINSTANCE.getFillStyle_FillColor().equals(feature)) {
-			return;
-		} else if (NotationPackage.eINSTANCE.getLineStyle_LineColor().equals(feature)) {
-			return;
-		}
-		super.handleNotificationEvent(notification);
 	}
 
 	/**
