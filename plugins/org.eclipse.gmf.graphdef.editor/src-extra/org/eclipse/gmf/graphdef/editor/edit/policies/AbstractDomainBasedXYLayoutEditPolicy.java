@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2008 Borland Software Corp.
+ * Copyright (c) 2008, 2009 Borland Software Corp.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,7 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.graphdef.editor.edit.polocies;
+package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import java.util.Iterator;
 

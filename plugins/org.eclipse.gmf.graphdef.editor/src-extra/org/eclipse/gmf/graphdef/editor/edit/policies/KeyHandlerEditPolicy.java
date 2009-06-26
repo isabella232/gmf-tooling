@@ -12,6 +12,7 @@
 package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler.KeyPressedRequest;
 
 public interface KeyHandlerEditPolicy extends EditPolicy {
 

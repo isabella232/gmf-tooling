@@ -9,7 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.graphdef.editor.edit.polocies;
+package org.eclipse.gmf.graphdef.editor.edit.policies;
 
 import java.util.Iterator;
 
@@ -25,15 +25,14 @@ import org.eclipse.gef.LayerConstants;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.graphdef.editor.edit.parts.AbstractFigureEditPart;
-import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandler;
-import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy;
-import org.eclipse.gmf.graphdef.editor.edit.policies.KeyPressedRequest;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.AssistantFigureKeyListener;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.BubbleFigure;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.HeadlessDiagramGraphicalViewer;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.PreviewFigure;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.SelectEditPartDragTracker;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.SelectableBubbleItemFigure;
+import org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler.KeyHandler;
+import org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler.KeyPressedRequest;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramAssistantEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;

@@ -109,7 +109,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Rectangle"/>
@@ -147,7 +147,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Rectangle"/>
@@ -185,7 +185,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Ellipse"/>
@@ -223,7 +223,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RoundedRectangle"/>
@@ -259,7 +259,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet
             modelElementSelector="/0/@expressionProviders/@providers.0/@expressions.1">
           <metaClass
@@ -361,7 +361,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polygon"/>
@@ -504,7 +504,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Ellipse"/>
@@ -542,7 +542,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RoundedRectangle"/>
@@ -578,7 +578,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet
             modelElementSelector="/0/@expressionProviders/@providers.0/@expressions.12">
           <metaClass
@@ -610,7 +610,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polygon"/>
@@ -703,7 +703,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Rectangle"/>
@@ -741,7 +741,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Ellipse"/>
@@ -779,7 +779,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/RoundedRectangle"/>
@@ -815,7 +815,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet
             modelElementSelector="/0/@expressionProviders/@providers.0/@expressions.12">
           <metaClass
@@ -847,7 +847,7 @@
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
-            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.polocies.ChildFigureSelectionEditPolicy"/>
+            editPolicyQualifiedClassName="org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy"/>
         <modelFacet>
           <metaClass
               href="../../../plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph/Polygon"/>

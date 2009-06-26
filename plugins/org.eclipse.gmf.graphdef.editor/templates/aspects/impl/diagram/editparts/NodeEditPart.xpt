@@ -27,7 +27,7 @@
 
 «AROUND createLayoutEditPolicyBody FOR gmfgen::GenNode-»
 	«IF hasSynchronizers(self)-»
-		return new org.eclipse.gmf.graphdef.editor.edit.polocies.«EXPAND layoutEditPolicyConstructor»;
+		return new org.eclipse.gmf.graphdef.editor.edit.policies.«EXPAND layoutEditPolicyConstructor»;
 	«ELSE-»
 		«targetDef.proceed()»
 	«ENDIF-»

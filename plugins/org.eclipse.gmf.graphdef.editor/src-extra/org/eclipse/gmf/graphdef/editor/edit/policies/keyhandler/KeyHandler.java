@@ -9,7 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.graphdef.editor.edit.policies;
+package org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +21,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;

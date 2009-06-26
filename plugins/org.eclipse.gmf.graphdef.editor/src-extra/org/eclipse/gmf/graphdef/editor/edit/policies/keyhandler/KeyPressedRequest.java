@@ -9,7 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.graphdef.editor.edit.policies;
+package org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler;
 
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.requests.LocationRequest;

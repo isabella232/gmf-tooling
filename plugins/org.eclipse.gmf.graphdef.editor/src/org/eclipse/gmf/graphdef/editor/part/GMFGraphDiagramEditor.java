@@ -35,7 +35,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandler;
+import org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler.KeyHandler;
 import org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
