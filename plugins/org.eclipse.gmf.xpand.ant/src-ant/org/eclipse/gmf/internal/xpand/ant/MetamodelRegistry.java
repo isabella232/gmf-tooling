@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.xpand.ant;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.types.DataType;
 
 public class MetamodelRegistry extends DataType {
@@ -29,7 +30,11 @@ public class MetamodelRegistry extends DataType {
 
 	public Collection<Metamodel> getMetamodels() {
 		if (isReference()) {
-			return ((MetamodelRegistry) getCheckedRef()).getMetamodels();
+			Object referencedObject = getRefid().getReferencedObject();
+			if (referencedObject instanceof MetamodelRegistry) {
+				return ((MetamodelRegistry) referencedObject).getMetamodels();
+			}
+            throw new BuildException(getRefid() + " doesn\'t denote a " + getDataTypeName());
 		}
 		return myMetamodels;
 	}
