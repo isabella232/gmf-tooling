@@ -35,6 +35,7 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandler;
 import org.eclipse.gmf.graphdef.editor.navigator.GMFGraphNavigatorItem;
 import org.eclipse.gmf.runtime.common.ui.services.marker.MarkerNavigationService;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
@@ -290,6 +291,7 @@ public class GMFGraphDiagramEditor extends DiagramDocumentEditor implements IGot
 		DiagramEditorContextMenuProvider provider = new DiagramEditorContextMenuProvider(this, getDiagramGraphicalViewer());
 		getDiagramGraphicalViewer().setContextMenu(provider);
 		getSite().registerContextMenu(ActionIds.DIAGRAM_EDITOR_CONTEXT_MENU, provider, getDiagramGraphicalViewer());
+		getDiagramGraphicalViewer().setKeyHandler(new KeyHandler(getDiagramGraphicalViewer()));
 	}
 
 	/**
