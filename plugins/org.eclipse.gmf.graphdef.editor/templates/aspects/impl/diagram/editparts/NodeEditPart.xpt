@@ -33,6 +33,11 @@
 	«ENDIF-»
 «ENDAROUND»
 
+«AROUND createDefaultEditPoliciesBody FOR gmfgen::GenNode-»
+	«targetDef.proceed()-»
+	removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+«ENDAROUND»
+
 «DEFINE layoutEditPolicyConstructor FOR gmfgen::GenNode-»
 «IF isPolyline(self)»PointContainerXYLayoutEditPolicy«ELSE»FigureContainerXYLayoutEditPolicy«ENDIF»(getMapMode()«IF isPolyline(self)», «hasLayoutDataSynchronizers(self)»«ENDIF»)«-»
 «ENDDEFINE»
@@ -61,9 +66,9 @@
 «DEFINE customCreateFigure FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment(
 		'Creates figure for this edit part.\n' + 
-'\n' + 
-'Body of this method does not depend on settings in generation model\n' + 
-'so you may safely remove <i>generated</i> tag and modify it.\n'
+		'\n' + 
+		'Body of this method does not depend on settings in generation model\n' + 
+		'so you may safely remove <i>generated</i> tag and modify it.\n'
 	)»
 	protected org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure create«IF hasBorderItems(self)»Main«ELSE»Node«ENDIF»Figure() {
 		org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure figure = createNodePlate();
