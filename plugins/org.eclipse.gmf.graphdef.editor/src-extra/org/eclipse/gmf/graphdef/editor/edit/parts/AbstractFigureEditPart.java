@@ -10,7 +10,6 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.parts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.Graphics;
@@ -22,7 +21,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.tools.AbstractTool;
+import org.eclipse.gef.Request;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
@@ -45,11 +44,7 @@ import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConnectionHandleEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.diagram.ui.handles.ConnectionHandle;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.FontDescriptor;
@@ -58,8 +53,6 @@ import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.RGB;
 
 public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
-
-	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private static Integer getGridDataAlignment(Alignment alignment) {
 		switch (alignment.getValue()) {
@@ -151,6 +144,8 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 	}
 
 	private FontData myCachedFontData;
+	
+	private boolean myDragAllowed = true;
 
 	public AbstractFigureEditPart(View view) {
 		super(view);
@@ -419,70 +414,17 @@ public abstract class AbstractFigureEditPart extends ShapeNodeEditPart {
 			getNodeFigure().repaint();
 		}
 	}
-
-	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
-
-		// override default connection handles behavior, that could be installed
-		// by parent
-		installEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE, new MyConnectionHandleEditPolicy());
+	
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		if (myDragAllowed) {
+			return super.getDragTracker(request);
+		}
+		return null;
 	}
-
-	private static class MyConnectionHandleEditPolicy extends ConnectionHandleEditPolicy {
-
-		protected List getHandleFigures() {
-			IGraphicalEditPart selectedPart = (IGraphicalEditPart) getHost();
-			List result = new ArrayList(selectedPart.getChildren().size());
-			for (int i = 0; i < selectedPart.getChildren().size(); i++) {
-				final EditPart next = (EditPart) selectedPart.getChildren().get(i);
-				String tooltip = EMPTY_STRING;
-				if (next instanceof AbstractFigureEditPart) {
-					final AbstractFigureEditPart nextAF = (AbstractFigureEditPart) next;
-					View model = (View) nextAF.getModel();
-					RealFigure modelElement = (RealFigure) model.getElement();
-					String name = modelElement.getName();
-					tooltip = modelElement.eClass().getName() + ":" + (name != null && name.length() != 0 ? name : String.valueOf(i + 1));
-				}
-				result.add(new MyConnectionHandle(selectedPart, next, tooltip));
-			}
-			return result;
-		}
+	
+	public void setDragAllowed(boolean dragAllowed) {
+		myDragAllowed = dragAllowed;
 	}
-
-	private static class MyConnectionHandle extends ConnectionHandle {
-
-		private final MyHandleTool myTool;
-
-		public MyConnectionHandle(IGraphicalEditPart ownerEditPart, EditPart nextChild, String tooltip) {
-			super(ownerEditPart, HandleDirection.INCOMING, tooltip);
-			myTool = new MyHandleTool(nextChild, tooltip);
-		}
-
-		protected DragTracker createDragTracker() {
-			return myTool;
-		}
-	}
-
-	private static class MyHandleTool extends AbstractTool implements DragTracker {
-
-		private final EditPart myTarget;
-
-		private final String myCommandName;
-
-		public MyHandleTool(EditPart target, String commandName) {
-			super();
-			myTarget = target;
-			myCommandName = commandName;
-		}
-
-		protected boolean handleButtonUp(int button) {
-			myTarget.getViewer().select(myTarget);
-			return true;
-		}
-
-		protected String getCommandName() {
-			return myCommandName;
-		}
-	}
-
+	
 }
