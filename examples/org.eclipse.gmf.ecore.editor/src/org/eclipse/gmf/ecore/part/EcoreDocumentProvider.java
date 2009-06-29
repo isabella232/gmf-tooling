@@ -766,6 +766,7 @@ public class EcoreDocumentProvider extends AbstractDocumentProvider implements I
 				Resource resource = (Resource) it.next();
 				resource.unload();
 			}
+			getEditingDomain().dispose();
 		}
 
 		/**
