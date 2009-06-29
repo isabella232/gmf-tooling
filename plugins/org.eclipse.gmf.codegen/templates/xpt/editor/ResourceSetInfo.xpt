@@ -165,6 +165,7 @@ public void dispose() {
 		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 		resource.unload();
 	}
+	getEditingDomain().dispose();
 }
 «ENDDEFINE»
 
