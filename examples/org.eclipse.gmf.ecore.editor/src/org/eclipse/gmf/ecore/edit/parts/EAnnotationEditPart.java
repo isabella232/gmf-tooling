@@ -383,6 +383,7 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
+			this.setLineWidth(1);
 			createContents();
 		}
 

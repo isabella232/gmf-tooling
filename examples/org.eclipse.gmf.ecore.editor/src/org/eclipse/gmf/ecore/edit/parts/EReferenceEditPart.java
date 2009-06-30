@@ -111,6 +111,7 @@ public class EReferenceEditPart extends ConnectionNodeEditPart implements ITreeB
 		 * @generated
 		 */
 		public SolidLineWDstArrow() {
+			this.setLineWidth(1);
 
 			setTargetDecoration(createTargetDecoration());
 		}
@@ -120,6 +121,7 @@ public class EReferenceEditPart extends ConnectionNodeEditPart implements ITreeB
 		 */
 		private RotatableDecoration createTargetDecoration() {
 			PolylineDecoration df = new PolylineDecoration();
+			df.setLineWidth(1);
 			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));

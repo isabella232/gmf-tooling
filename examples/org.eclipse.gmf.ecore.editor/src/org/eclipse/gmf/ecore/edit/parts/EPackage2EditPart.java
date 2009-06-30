@@ -342,6 +342,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
+			this.setLineWidth(1);
 			createContents();
 		}
 

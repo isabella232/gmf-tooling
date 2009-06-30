@@ -1095,7 +1095,7 @@
       iD="org.eclipse.gmf.ecore.editor"
       name="ECore Sample Diagram Plugin"
       provider="Eclipse.org"
-      version="2.1.0.qualifier"
+      version="2.2.0.qualifier"
       printingEnabled="true">
     <requiredPlugins>org.eclipse.draw2d</requiredPlugins>
     <requiredPlugins>org.eclipse.gmf.runtime.draw2d.ui</requiredPlugins>
