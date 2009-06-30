@@ -298,12 +298,18 @@ public class TransformToGenModelOperation {
 			return Status.OK_STATUS;
 		} catch (CoreException ex) {
 			return ex.getStatus();
-		} catch (Exception ex) {
+		} catch (IOException ex) {
 			String message = ex.getMessage();
 			if (message == null) {
 				message = Messages.TransformToGenModelOperation_e_generator_creation;
 			}
 			return Plugin.createError(message, ex);
+		} catch (Error err) {
+			Plugin.log(Plugin.createError(err.getMessage(), err));
+			throw err;
+		} catch (RuntimeException ex) {
+			Plugin.log(ex);
+			throw ex;
 		} finally {
 			setGMFGenValidationResult(validation);
 			if (monitor != null) {
