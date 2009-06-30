@@ -1455,7 +1455,7 @@
         iD="org.eclipse.gmf.graphdef.editor"
         name="GMFGraph Editor Plugin"
         provider="Eclipse Modeling Project"
-        version="1.0.1.qualifier">
+        version="1.1.0.qualifier">
       <requiredPlugins>org.eclipse.draw2d</requiredPlugins>
       <requiredPlugins>org.eclipse.gmf.runtime.draw2d.ui</requiredPlugins>
     </plugin>
