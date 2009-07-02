@@ -33,6 +33,8 @@ public class BubbleFigure extends Shape {
 
 	private static final int HORIZONTAL_CHILDREN_INSET = 2;
 
+	private Mode myMode;
+
 	public BubbleFigure() {
 		setRequestFocusEnabled(true);
 		setLineStyle(SWT.LINE_DASH);
@@ -118,6 +120,24 @@ public class BubbleFigure extends Shape {
 		} finally {
 			graphics.popState();
 		}
+	}
+
+	// TODO: move to EditPolicy?
+	public void setMode(Mode mode) {
+		myMode = mode;
+		for (Object childFigure : getChildren()) {
+			if (childFigure instanceof SelectableBubbleItemFigure) {
+				((SelectableBubbleItemFigure) childFigure).setMode(mode);
+			}
+		}
+	}
+
+	public Mode getMode() {
+		return myMode;
+	}
+
+	public enum Mode {
+		PREVIEW, ICON;
 	}
 
 }

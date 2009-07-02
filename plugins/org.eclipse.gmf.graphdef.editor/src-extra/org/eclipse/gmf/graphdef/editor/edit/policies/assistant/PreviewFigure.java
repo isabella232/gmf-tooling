@@ -29,6 +29,10 @@ public class PreviewFigure extends Figure {
 
 	private double myScale;
 
+	private int myHorizontalShift;
+
+	private int myVerticalShift;
+
 	public PreviewFigure(View view, HeadlessDiagramGraphicalViewer viewer) {
 		myActualFigure = viewer.addChild(view);
 		myValid = myActualFigure != null;
@@ -63,10 +67,18 @@ public class PreviewFigure extends Figure {
 	@Override
 	public void setPreferredSize(Dimension size) {
 		Dimension figurePreferredSize = myActualFigure.getPreferredSize();
-		myActualFigure.getPreferredSize(figurePreferredSize.width, figurePreferredSize.height);
+		if (figurePreferredSize.width == 0 && figurePreferredSize.height == 0) {
+			figurePreferredSize.width = figurePreferredSize.height = 15;
+		} else if (figurePreferredSize.width == 0) {
+			figurePreferredSize.width = figurePreferredSize.height;
+		} else if (figurePreferredSize.height == 0) {
+			figurePreferredSize.height = figurePreferredSize.width;
+		}
 		myActualFigure.setSize(figurePreferredSize);
 		myActualFigure.setLocation(new Point(0, 0));
 		myScale = Math.min(size.width / (double) figurePreferredSize.width, size.height / (double) figurePreferredSize.height);
+		myHorizontalShift = (int) ((size.width - figurePreferredSize.width * myScale) / 2);
+		myVerticalShift = (int) ((size.height - figurePreferredSize.height * myScale) / 2);
 		super.setPreferredSize(size);
 	}
 
@@ -84,7 +96,7 @@ public class PreviewFigure extends Figure {
 	protected void paintClientArea(Graphics graphics) {
 		graphics.pushState();
 		boolean optimizeClip = getBorder() == null || getBorder().isOpaque();
-		graphics.translate(getBounds().x + getInsets().left, getBounds().y + getInsets().top);
+		graphics.translate(getBounds().x + getInsets().left + myHorizontalShift, getBounds().y + getInsets().top + myVerticalShift);
 		if (!optimizeClip) {
 			graphics.clipRect(getClientArea(Rectangle.SINGLETON));
 		}

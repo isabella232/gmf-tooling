@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 import org.eclipse.draw2d.FocusEvent;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.geometry.Point;
@@ -23,6 +24,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.graphdef.editor.edit.parts.AbstractFigureEditPart;
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.AssistantFigureKeyListener;
@@ -33,12 +35,19 @@ import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.SelectEditPartDra
 import org.eclipse.gmf.graphdef.editor.edit.policies.assistant.SelectableBubbleItemFigure;
 import org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler.KeyHandler;
 import org.eclipse.gmf.graphdef.editor.edit.policies.keyhandler.KeyPressedRequest;
+import org.eclipse.gmf.graphdef.editor.part.GMFGraphDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramAssistantEditPolicy;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.swt.widgets.Display;
 
 public class ChildFigureSelectionEditPolicy extends DiagramAssistantEditPolicy implements KeyHandlerEditPolicy {
+
+	private static final String PNG_EXTENSION = ".png";
+
+	private static final String ICONS_FOLDER = "icons/handles/";
+
+	private static final String UNKNOWN_FIGURE_ICON = ICONS_FOLDER + "Unknown" + PNG_EXTENSION;
 
 	private BubbleFigure myFeedbackFigure;
 
@@ -132,16 +141,18 @@ public class ChildFigureSelectionEditPolicy extends DiagramAssistantEditPolicy i
 				// TODO: Better check for figure instance here.
 				if (previewFigure.isPreviewValid()) {
 					previewFigure.setPreferredSize(15, 15);
-					itemFigure.add(previewFigure);
+					itemFigure.setItemRepresentation(BubbleFigure.Mode.PREVIEW, previewFigure);
 				} else {
-					// TODO: add image figure to visualize invalid preview.
+					itemFigure.setItemRepresentation(BubbleFigure.Mode.PREVIEW, new ImageFigure(GMFGraphDiagramEditorPlugin.getInstance().getBundledImage(UNKNOWN_FIGURE_ICON)));
 				}
+				itemFigure.setItemRepresentation(BubbleFigure.Mode.ICON, getImageFigure(figure));
 				if (myFeedbackFigure.getChildren().size() == 1) {
-					itemFigure.setSelected(true);
+					myFeedbackFigure.selectChild(itemFigure);
 				}
 			}
 		}
 
+		myFeedbackFigure.setMode(BubbleFigure.Mode.PREVIEW);
 		myFeedbackFigure.setSize(myFeedbackFigure.getPreferredSize());
 		layer.add(myFeedbackFigure);
 		myFeedbackFigure.addKeyListener(new AssistantFigureKeyListener(myFeedbackFigure) {
@@ -164,6 +175,21 @@ public class ChildFigureSelectionEditPolicy extends DiagramAssistantEditPolicy i
 			}
 		});
 		myFeedbackFigure.requestFocus();
+	}
+
+	private IFigure getImageFigure(Figure figure) {
+		switch (figure.eClass().getClassifierID()) {
+		case GMFGraphPackage.ELLIPSE:
+		case GMFGraphPackage.LABEL:
+		case GMFGraphPackage.POINT:
+		case GMFGraphPackage.POLYGON:
+		case GMFGraphPackage.POLYLINE:
+		case GMFGraphPackage.RECTANGLE:
+		case GMFGraphPackage.ROUNDED_RECTANGLE:
+			return new ImageFigure(GMFGraphDiagramEditorPlugin.getInstance().getBundledImage(ICONS_FOLDER + figure.eClass().getName() + PNG_EXTENSION));
+		default:
+			return new ImageFigure(GMFGraphDiagramEditorPlugin.getInstance().getBundledImage(UNKNOWN_FIGURE_ICON));
+		}
 	}
 
 	private void disposeFeedbackFigure() {

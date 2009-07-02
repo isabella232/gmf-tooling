@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.graphdef.editor.edit.policies.assistant;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -33,6 +36,10 @@ public class SelectableBubbleItemFigure extends Shape implements Handle {
 	private DragTracker myDragTracker;
 
 	private boolean mySelected;
+
+	private Map<BubbleFigure.Mode, IFigure> myModeToFigureMap = new HashMap<BubbleFigure.Mode, IFigure>();
+
+	private IFigure myVisibleChild;
 
 	public SelectableBubbleItemFigure(DragTracker dragTracker) {
 		myDragTracker = dragTracker;
@@ -78,6 +85,19 @@ public class SelectableBubbleItemFigure extends Shape implements Handle {
 	@Override
 	protected IFigure findDescendantAtExcluding(int x, int y, TreeSearch search) {
 		return null;
+	}
+
+	public void setItemRepresentation(BubbleFigure.Mode mode, IFigure figure) {
+		myModeToFigureMap.put(mode, figure);
+	}
+
+	void setMode(BubbleFigure.Mode mode) {
+		assert myModeToFigureMap.containsKey(mode);
+		if (myVisibleChild != null) {
+			remove(myVisibleChild);
+		}
+		myVisibleChild = myModeToFigureMap.get(mode);
+		add(myVisibleChild);
 	}
 
 }

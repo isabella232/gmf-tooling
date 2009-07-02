@@ -29,6 +29,10 @@ public abstract class AssistantFigureKeyListener extends KeyListener.Stub {
 			hideAssistant();
 			return;
 		case ' ':
+			if (ke.getState() != 0) {
+				// ignoring any key events with state masks
+				return;
+			}
 		case SWT.CR:
 			for (Object nextFigure : myFeedbackFigure.getChildren()) {
 				if (nextFigure instanceof SelectableBubbleItemFigure) {
@@ -40,6 +44,16 @@ public abstract class AssistantFigureKeyListener extends KeyListener.Stub {
 				}
 			}
 			return;
+		case 12:
+			switch (myFeedbackFigure.getMode()) {
+			case ICON:
+				myFeedbackFigure.setMode(BubbleFigure.Mode.PREVIEW);
+				break;
+			case PREVIEW:
+				myFeedbackFigure.setMode(BubbleFigure.Mode.ICON);
+				break;
+			}
+			myFeedbackFigure.setSize(myFeedbackFigure.getPreferredSize());
 		}
 		switch (ke.keycode) {
 		case SWT.ARROW_UP:
