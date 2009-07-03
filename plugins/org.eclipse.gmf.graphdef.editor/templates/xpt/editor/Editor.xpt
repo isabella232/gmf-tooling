@@ -20,6 +20,6 @@
 				new «EXPAND xpt::editor::DiagramEditorContextMenuProvider::qualifiedClassName FOR editorGen.diagram»(this, getDiagramGraphicalViewer());
 		getDiagramGraphicalViewer().setContextMenu(provider);
 		getSite().registerContextMenu(org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds.DIAGRAM_EDITOR_CONTEXT_MENU, provider, getDiagramGraphicalViewer());
-		getDiagramGraphicalViewer().setKeyHandler(new «editorGen.diagram.editPoliciesPackageName».KeyHandler(getDiagramGraphicalViewer()));
+		getDiagramGraphicalViewer().setKeyHandler(new «editorGen.diagram.editPoliciesPackageName».keyhandler.KeyHandler(getDiagramGraphicalViewer()));
 	}
 «ENDDEFINE»
