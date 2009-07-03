@@ -357,7 +357,12 @@
             editHelperClassName="PolygonEditHelper"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Polygon"/>
+            figureQualifiedClassName="org.eclipse.draw2d.Polygon">
+          <attributes
+              xsi:type="gmfgen:DefaultSizeAttributes"
+              width="0"
+              height="0"/>
+        </viewmap>
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
@@ -606,7 +611,12 @@
             metamodelType="/0/@diagram/@childNodes.7/@elementType"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Polygon"/>
+            figureQualifiedClassName="org.eclipse.draw2d.Polygon">
+          <attributes
+              xsi:type="gmfgen:DefaultSizeAttributes"
+              width="0"
+              height="0"/>
+        </viewmap>
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"
@@ -843,7 +853,12 @@
             metamodelType="/0/@diagram/@childNodes.7/@elementType"/>
         <viewmap
             xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.draw2d.Polygon"/>
+            figureQualifiedClassName="org.eclipse.draw2d.Polygon">
+          <attributes
+              xsi:type="gmfgen:DefaultSizeAttributes"
+              width="0"
+              height="0"/>
+        </viewmap>
         <behaviour
             xsi:type="gmfgen:CustomBehaviour"
             key="org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy.KEY_HANDLER_ROLE"

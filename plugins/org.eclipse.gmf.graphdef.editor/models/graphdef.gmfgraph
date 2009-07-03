@@ -289,7 +289,12 @@
   </nodes>
   <nodes
       name="PolygonNode"
-      figure="PolygonFigure"/>
+      figure="PolygonFigure">
+    <facets
+        xsi:type="gmfgraph:DefaultSizeFacet">
+      <defaultSize/>
+    </facets>
+  </nodes>
   <nodes
       name="LabelNode"
       figure="LabelFigure"
