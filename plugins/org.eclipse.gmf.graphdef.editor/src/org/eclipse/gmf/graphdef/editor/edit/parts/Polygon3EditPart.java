@@ -115,7 +115,7 @@ public class Polygon3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigureExt result = new DefaultSizeNodeFigureExt(40, 40);
+		DefaultSizeNodeFigureExt result = new DefaultSizeNodeFigureExt(0, 0);
 		result.setMinimumSize(new Dimension(0, 0));
 		return result;
 	}
