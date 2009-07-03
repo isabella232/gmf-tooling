@@ -220,6 +220,16 @@
 		DefaultSizeNodeFigureExt(int width, int height) {
 			super(width, height);
 		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		public Dimension getPreferredSize(int wHint, int hHint) {
+			if (getLayoutManager() != null) {
+				Dimension d = getLayoutManager().getPreferredSize(this, wHint, hHint);
+				if (d != null)
+					return d;
+			}
+			return getSize();
+		}
 
 		«IF hasLayoutDataSynchronizers(self)-»
 			«EXPAND xpt::Common::generatedMemberComment»

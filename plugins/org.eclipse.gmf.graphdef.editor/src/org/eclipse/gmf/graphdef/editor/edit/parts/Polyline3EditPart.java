@@ -410,6 +410,18 @@ public class Polyline3EditPart extends AbstractFigureEditPart {
 		/**
 		 * @generated
 		 */
+		public Dimension getPreferredSize(int wHint, int hHint) {
+			if (getLayoutManager() != null) {
+				Dimension d = getLayoutManager().getPreferredSize(this, wHint, hHint);
+				if (d != null)
+					return d;
+			}
+			return getSize();
+		}
+
+		/**
+		 * @generated
+		 */
 		protected boolean useLocalCoordinates() {
 			return true;
 		}

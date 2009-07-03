@@ -486,6 +486,18 @@ public class PolygonEditPart extends AbstractFigureEditPart {
 		/**
 		 * @generated
 		 */
+		public Dimension getPreferredSize(int wHint, int hHint) {
+			if (getLayoutManager() != null) {
+				Dimension d = getLayoutManager().getPreferredSize(this, wHint, hHint);
+				if (d != null)
+					return d;
+			}
+			return getSize();
+		}
+
+		/**
+		 * @generated
+		 */
 		public void setBounds(Rectangle rect) {
 			getPrimaryShape().setBounds(rect);
 		}
