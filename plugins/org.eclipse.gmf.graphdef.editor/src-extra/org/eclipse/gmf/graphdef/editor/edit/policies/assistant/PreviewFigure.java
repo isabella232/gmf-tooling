@@ -66,7 +66,12 @@ public class PreviewFigure extends Figure {
 
 	@Override
 	public void setPreferredSize(Dimension size) {
-		Dimension figurePreferredSize = myActualFigure.getLayoutManager().getPreferredSize(myActualFigure, -1, -1);
+		Dimension figurePreferredSize = myActualFigure.getPreferredSize();
+		// Calculating preferred size using layout
+		if (figurePreferredSize.width == 0 || figurePreferredSize.height == 0) {
+			figurePreferredSize = myActualFigure.getLayoutManager().getPreferredSize(myActualFigure, -1, -1);
+		}
+		// Correcting preferred size to make figure visible
 		if (figurePreferredSize.width == 0 && figurePreferredSize.height == 0) {
 			figurePreferredSize.width = figurePreferredSize.height = 15;
 		} else if (figurePreferredSize.width == 0) {
