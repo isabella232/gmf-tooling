@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.common.URIUtil;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
@@ -165,14 +166,22 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 				return processGMFGenValidationResult();
 			}
 			setErrorMessage(s[0].getMessage());
+			if (s[0].getException() != null) {
+				Plugin.log(s[0]);
+			}
 			return false;
 		} catch (InvocationTargetException ex) {
 			String message = Messages.TransformToGenModelOperation_e_generator_creation;
 			Throwable targetException = ex.getTargetException();
-			if (targetException != null && targetException.getMessage() != null) {
-				message = targetException.getMessage();
+			if (targetException != null) {
+				if (targetException.getMessage() != null) {
+					message = targetException.getMessage();
+				} else {
+					message += ": " + targetException.getClass().getName();
+				}
 			}
 			setErrorMessage(message);
+			Plugin.log(Plugin.createError(message, targetException));
 			return false;
 		} catch (InterruptedException ex){
 			setErrorMessage(Messages.TransformToGenModelWizard_e_operation_cancelled);
