@@ -1,0 +1,121 @@
+﻿/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«DEFINE Main FOR gmfgen::GenEditorGenerator-»
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="main" xmlns:xpt="eclipse.org/gmf/2008/xpand">
+<!-- Ant script analogous to org.eclipse.gmf.codegen.util.Generator -->
+
+  <target name="main" depends="init">
+«EXPAND mainTarget-»
+  </target>
+
+  <target name="init">
+    <property name="templateRoot" value="platform:/plugin/org.eclipse.gmf.codegen/templates/«IF dynamicTemplates»,«self.templateDirectory»«ENDIF»">
+    <!-- template names -->
+    <property name="NodeItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::NodeItemSemanticEditPolicy"/>
+    <property name="CreateNodeCommandEmitter" value="xpt::diagram::commands::CreateNodeCommand"/>
+    <property name="NodeEditPartEmitter" value="diagram::editparts::NodeEditPart"/>
+    <property name="OpenDiagramEditPolicyEmitter" value="xpt::diagram::editpolicies::OpenDiagram"/>
+    <property name="ChildContainerCanonicalEditPolicyEmitter" value="xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy">
+    <property name="GraphicalNodeEditPolicyEmitter" value="xpt::diagram::editpolicies::GraphicalNodeEditPolicy"/>
+    <property name="ExternalNodeLabelEditPartEmitter" value="diagram::editparts::ExternalNodeLabelEditPart"/>
+    <property name="NodeLabelEditPartEmitter" value="diagram::editparts::NodeLabelEditPart"/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <!-- -->
+  </target>
+
+«EXPAND commandsTask»
+«EXPAND parsersTask»
+«EXPAND externalizeTask»
+«EXPAND editpolicyTask»
+«EXPAND editpartTask»
+«EXPAND providerTask»
+«EXPAND elementtypeTask»
+«EXPAND validationTask»
+«EXPAND auditsmetricsTask»
+«EXPAND preferencesTask»
+«EXPAND editorTask»
+«EXPAND navigatorTask»
+«EXPAND propertysheetTask»
+
+«EXPAND additions»
+</project>
+«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenEditorGenerator»«ENDDEFINE»
+
+«DEFINE mainTarget FOR gmfgen::GenEditorGenerator-»
+    <antcall target="commands"/>
+    <antcall target="parsers"/>
+
+«EXPAND generateNode FOREACH diagram.topLevelNodes-»
+«ENDDEFINE»
+
+«DEFINE commandsTask FOR gmfgen::GenEditorGenerator-»
+  <target name="commands">
+  </target>
+«ENDDEFINE»
+
+«DEFINE parsersTask FOR gmfgen::GenEditorGenerator-»
+  <target name="parsers">
+  </target>
+«ENDDEFINE»
+
+«DEFINE generateNode FOR gmfgen::GenNode-»
+    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+«IF not sansDomain-»
+      <xpt:template name="$NodeItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+«IF not modelFacet.oclIsUndefined()-»
+      <xpt:template name="$CreateNodeCommandEmitter" outfile="«getCreateCommandQualifiedClassName()»"/>
+«ENDIF-»
+      <xpt:template name="$NodeEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+«EXPAND generateBehaviours-»
+«IF self.needsCanonicalEditPolicy()-»
+      <xpt:template name="$ChildContainerCanonicalEditPolicyEmitter" outfile="«getCanonicalEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+«IF not modelFacet.oclIsUndefined() and reorientedIncomingLinks->notEmpty()-»
+      <xpt:template name="$GraphicalNodeEditPolicyEmitter" outfile="«getGraphicalNodeEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+«EXPAND generateLabel FOREACH labels-»
+    </xpt:template-set>
+«ENDDEFINE»
+
+«DEFINE generateLabel FOR gmfgen::GenExternalNodeLabel-»
+      <xpt:template name="$ExternalNodeLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»" inputURI="«self»"/>
+«ENDDEFINE»
+
+«DEFINE generateLabel FOR gmfgen::GenNodeLabel-»
+      <xpt:template name="$NodeLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»" inputURI="«self»"/>
+«ENDDEFINE»
+
+«DEFINE generateBehaviours FOR gmfgen::GenCommonBase-»
+«EXPAND generateOpenDiagramEditPolicy FOREACH behaviour[gmfgen::OpenDiagramBehaviour]-»
+«ENDDEFINE»
+
+«DEFINE generateOpenDiagramEditPolicy FOR gmfgen::OpenDiagramBehaviour-»
+      <xpt:template name="$OpenDiagramEditPolicyEmitter" outfile="«getEditPolicyQualifiedClassName()»" inputURI="«self»"/>
+«ENDDEFINE»
+
+«REM»
+  <target name="generateNode">
+    <xpt:template name="" inputURI="$inputURI" templateroot="$templateRoot" outfile="getItemSemanticEditPolicyQualifiedClassName()"/>
+  </target>
+«ENDREM»
