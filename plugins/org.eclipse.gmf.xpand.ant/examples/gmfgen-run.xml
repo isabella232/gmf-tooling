@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Execute GMFGen generation" default="main" xmlns:xpt="eclipse.org/gmf/2008/xpand">
+  <property name="input-gmfgen-model-uri" value="#/"/>
+
+  <target name="main">
+  	<!-- 1. Generate Ant build.xml for specific gmfgen model -->
+  	<tempfile property="generated-build-file" prefix="gmfgen-build" suffix=".xml"/>
+    <xpt:template name="impl::build::antbuild::Main" 
+      inputURI="$input-gmfgen-model-uri" 
+	  templateroot="platform:/plugin/org.eclipse.gmf.codegen/templates/"
+	  outfile="$generated-build-file"/>
+  	<!-- 2. Execute generated script to produce diagram editor plug-in -->
+  	<ant antfile="$generated-build-file"/>
+  </target>
+
+</project>
