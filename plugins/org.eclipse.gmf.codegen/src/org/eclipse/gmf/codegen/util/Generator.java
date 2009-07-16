@@ -123,15 +123,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		// parsers
 		generateParsers();
 
-		// edit parts, edit policies and providers
-		generateBaseItemSemanticEditPolicy();
-		generateBehaviours(myDiagram);
-		if (myDiagram.needsCanonicalEditPolicy()) {
-			generateDiagramCanonicalEditPolicy();	
-		}
-		generateDiagramItemSemanticEditPolicy();
-		generateTextSelectionEditPolicy();
-		generateTextNonResizableEditPolicy();
+		//
+		// Nodes
 		for (GenTopLevelNode node : myDiagram.getTopLevelNodes()) {
 			generateNode(node);
 		}
@@ -142,6 +135,8 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateNode(node);
 			}
 		}
+		//
+		// Compartments
 		for (GenCompartment compartment : myDiagram.getCompartments()) {
 			generateCompartmentEditPart(compartment);
 			generateCompartmentItemSemanticEditPolicy(compartment);
@@ -149,6 +144,8 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateChildContainerCanonicalEditPolicy(compartment);
 			}
 		}
+		//
+		// Links
 		for (GenLink next: myDiagram.getLinks()) {
 			generateEditSupport(next);
 			generateLinkEditPart(next);
@@ -170,8 +167,12 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateLinkLabelEditPart(label);
 			}
 		}
-		generateEditSupport(myDiagram);
-		generateDiagramEditPart();
+		generateDiagram();
+		//
+		// common edit parts, edit policies and providers
+		generateBaseItemSemanticEditPolicy();
+		generateTextSelectionEditPolicy();
+		generateTextNonResizableEditPolicy();
 		generateEditPartFactory();
 		generateElementInitializers();
 		generateElementTypes();
@@ -213,6 +214,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDeleteElementAction();
 		generateDiagramEditorContextMenuProvider();
 		generateEditor();
+		generateActionBarContributor();
+		generateMatchingStrategy();
 		generateDocumentProvider();
 		if (myDiagram.generateInitDiagramAction() || myDiagram.generateCreateShortcutAction() /*FIXME use another condition here*/) {
 			generateModelElementSelectionPage();
@@ -232,12 +235,14 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateShortcutCreationWizard();
 			}
 		}
+		//
+		// Updater
 		generateDiagramUpdater();
 		generateUpdateCommand();
 		generateNodeDescriptor();
 		generateLinkDescriptor();
-		generateActionBarContributor();
-		generateMatchingStrategy();
+		//
+		// Navigator
 		if (myEditorGen.getNavigator() != null) {
 			generateNavigatorContentProvider();
 			generateNavigatorLabelProvider();
@@ -283,6 +288,17 @@ public class Generator extends GeneratorBase implements Runnable {
 		assert path != null;
 		Path p = new Path(path);
 		return !p.isAbsolute() && !p.segment(0).equals(".."); //$NON-NLS-1$
+	}
+
+	// Diagram itself as a diagram element - editpart, editpolicies
+	private void generateDiagram() throws UnexpectedBehaviourException, InterruptedException {
+		generateBehaviours(myDiagram);
+		if (myDiagram.needsCanonicalEditPolicy()) {
+			generateDiagramCanonicalEditPolicy();	
+		}
+		generateDiagramItemSemanticEditPolicy();
+		generateEditSupport(myDiagram);
+		generateDiagramEditPart();
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
@@ -781,6 +797,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		for (GenPropertyTab tab : myEditorGen.getPropertySheet().getTabs()) {
 			if (tab instanceof GenCustomPropertyTab) {
+				// XXX isGenerateBoolerplate??? Bug 283717
 				internalGenerateJavaClass(
 					myEmitters.getPropertySectionEmitter(),
 					((GenCustomPropertyTab) tab).getQualifiedClassName(),
