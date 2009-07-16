@@ -102,7 +102,7 @@ public class ExpressionHelper {
 		initializeStreamsHolder(ctx.getScope(), null, visitor.getOperationalEvaluationEnv());
 		clearGlobalVariables(ctx, visitor.getOperationalEvaluationEnv());
 		if (env.getOCLStandardLibrary().getOclInvalid() == val) {
-			throw new EvaluationException("Can't evaluate expression: retured value is OclInvalid", this);
+			throw new EvaluationException("Can't evaluate expression: returned value is OclInvalid", this);
 		}
 		return val;		
 	}
