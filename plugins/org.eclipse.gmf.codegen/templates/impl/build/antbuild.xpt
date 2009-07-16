@@ -39,6 +39,26 @@
     <property name="LinkEditPartEmitter" value="diagram::editparts::LinkEditPart"/>
     <property name="LinkItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::LinkItemSemanticEditPolicy"/>
     <property name="LinkLabelEditPartEmitter" value="diagram::editparts::LinkLabelEditPart"/>
+    <property name="CreateLinkCommandEmitter" value="xpt::diagram::commands::CreateLinkCommand::Main"/>
+    <property name="ReorientLinkCommandEmitter" value="xpt::diagram::commands::ReorientLinkCommand"/>
+    <property name="ReorientRefLinkCommandEmitter" value="xpt::diagram::commands::ReorientRefLinkCommand"/>
+    <property name="EditHelperEmitter" value="xpt::diagram::edithelpers::EditHelper"/>
+    <property name="EditHelperAdviceEmitter" value="xpt::diagram::edithelpers::EditHelperAdvice"/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
+    <property name="" value=""/>
     <property name="" value=""/>
     <property name="" value=""/>
     <property name="" value=""/>
@@ -132,7 +152,19 @@
 «ENDDEFINE»
 
 «DEFINE generateEditSupport FOR gmfgen::GenCommonBase-»
-                                                    FIXME!!!!!!1
+«IF not elementType.definedExternally-»
+«EXPAND generateEditHelperOrAdvice FOR elementType-»
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE generateEditHelperOrAdvice FOR gmfgen::ElementType»«ERROR 'Abstract template generateEditHelperOrAdvice for ' + self.repr()»«ENDDEFINE»
+«DEFINE generateEditHelperOrAdvice FOR gmfgen::SpecializationType-»
+«IF self.editHelperAdviceClassName <> null /*eIsSet*/-»
+      <xpt:template name="$EditHelperAdviceEmitter" outfile="«getEditHelperAdviceQualifiedClassName()»"/>
+«ENDIF-»
+«ENDDEFINE»
+«DEFINE generateEditHelperOrAdvice FOR gmfgen::MetamodelType-»
+      <xpt:template name="$EditHelperEmitter" outfile="«getEditHelperQualifiedClassName()»"/>
 «ENDDEFINE»
 
 «DEFINE generateChildContainerCanonicalEditPolicy FOR gmfgen::GenChildContainer»
@@ -140,6 +172,7 @@
       <xpt:template name="$ChildContainerCanonicalEditPolicyEmitter" outfile="«getCanonicalEditPolicyQualifiedClassName()»"/>
 «ENDIF-»
 «ENDDEFINE»
+
 «REM»
   <target name="generateNode">
     <xpt:template name="" inputURI="$inputURI" templateroot="$templateRoot" outfile="getItemSemanticEditPolicyQualifiedClassName()"/>
@@ -176,7 +209,14 @@
 «IF not sansDomain-»
       <xpt:template name="$LinkItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
 «ENDIF-»
-      «REM» FIXME  modelfacet and commands «ENDREM»
+«IF not modelFacet.oclIsUndefined() and (targetReorientingAllowed or sourceReorientingAllowed)-»
+      <xpt:template name="$CreateLinkCommandEmitter" outfile="«getCreateCommandQualifiedClassName()»"/>
+«IF modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet)-»
+      <xpt:template name="$ReorientLinkCommandEmitter" outfile="«getReorientCommandQualifiedClassName()»"/>
+«ELSEIF modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet)-»
+      <xpt:template name="$ReorientRefLinkCommandEmitter" outfile="«getReorientCommandQualifiedClassName()»"/>
+«ENDIF-»
+«ENDIF-»
 «EXPAND generateLinkLabel FOREACH labels-»
     </xpt:template-set>
 «ENDDEFINE»
