@@ -33,6 +33,12 @@
     <property name="GraphicalNodeEditPolicyEmitter" value="xpt::diagram::editpolicies::GraphicalNodeEditPolicy"/>
     <property name="ExternalNodeLabelEditPartEmitter" value="diagram::editparts::ExternalNodeLabelEditPart"/>
     <property name="NodeLabelEditPartEmitter" value="diagram::editparts::NodeLabelEditPart"/>
+    <property name="ChildNodeLabelEditPartEmitter" value="diagram::editparts::ChildNodeLabelEditPart"/>
+    <property name="CompartmentEditPartEmitter" value="diagram::editparts::CompartmentEditPart"/>
+    <property name="CompartmentItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy"/>
+    <property name="LinkEditPartEmitter" value="diagram::editparts::LinkEditPart"/>
+    <property name="LinkItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::LinkItemSemanticEditPolicy"/>
+    <property name="LinkLabelEditPartEmitter" value="diagram::editparts::LinkLabelEditPart"/>
     <property name="" value=""/>
     <property name="" value=""/>
     <property name="" value=""/>
@@ -66,6 +72,9 @@
     <antcall target="parsers"/>
 
 «EXPAND generateNode FOREACH diagram.topLevelNodes-»
+«EXPAND generateChildNode FOREACH diagram.childNodes-»
+«EXPAND generateCompartment FOREACH diagram.compartments-»
+«EXPAND generateLink FOREACH diagram.links-»
 «ENDDEFINE»
 
 «DEFINE commandsTask FOR gmfgen::GenEditorGenerator-»
@@ -79,18 +88,14 @@
 «ENDDEFINE»
 
 «DEFINE generateNode FOR gmfgen::GenNode-»
+    <!-- Node «visualID» -->
     <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
-«IF not sansDomain-»
-      <xpt:template name="$NodeItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
-«ENDIF-»
-«IF not modelFacet.oclIsUndefined()-»
-      <xpt:template name="$CreateNodeCommandEmitter" outfile="«getCreateCommandQualifiedClassName()»"/>
-«ENDIF-»
+«EXPAND generateNodeItemSemanticEditPolicy-»
+«EXPAND generateCreateNodeCommand-»
+«EXPAND generateEditSupport-»
       <xpt:template name="$NodeEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
 «EXPAND generateBehaviours-»
-«IF self.needsCanonicalEditPolicy()-»
-      <xpt:template name="$ChildContainerCanonicalEditPolicyEmitter" outfile="«getCanonicalEditPolicyQualifiedClassName()»"/>
-«ENDIF-»
+«EXPAND generateChildContainerCanonicalEditPolicy-»
 «IF not modelFacet.oclIsUndefined() and reorientedIncomingLinks->notEmpty()-»
       <xpt:template name="$GraphicalNodeEditPolicyEmitter" outfile="«getGraphicalNodeEditPolicyQualifiedClassName()»"/>
 «ENDIF-»
@@ -114,8 +119,68 @@
       <xpt:template name="$OpenDiagramEditPolicyEmitter" outfile="«getEditPolicyQualifiedClassName()»" inputURI="«self»"/>
 «ENDDEFINE»
 
+«DEFINE generateNodeItemSemanticEditPolicy FOR gmfgen::GenNode-»
+«IF not sansDomain-»
+      <xpt:template name="$NodeItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE generateCreateNodeCommand FOR gmfgen::GenNode-»
+«IF not modelFacet.oclIsUndefined()-»
+      <xpt:template name="$CreateNodeCommandEmitter" outfile="«getCreateCommandQualifiedClassName()»"/>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE generateEditSupport FOR gmfgen::GenCommonBase-»
+                                                    FIXME!!!!!!1
+«ENDDEFINE»
+
+«DEFINE generateChildContainerCanonicalEditPolicy FOR gmfgen::GenChildContainer»
+«IF needsCanonicalEditPolicy()-»
+      <xpt:template name="$ChildContainerCanonicalEditPolicyEmitter" outfile="«getCanonicalEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+«ENDDEFINE»
 «REM»
   <target name="generateNode">
     <xpt:template name="" inputURI="$inputURI" templateroot="$templateRoot" outfile="getItemSemanticEditPolicyQualifiedClassName()"/>
   </target>
 «ENDREM»
+
+«DEFINE generateChildNode FOR gmfgen::GenChildLabelNode-»
+«EXPAND generateNodeItemSemanticEditPolicy-»
+«EXPAND generateCreateNodeCommand-»
+«EXPAND generateEditSupport-»
+«EXPAND generateBehaviours-»
+      <xpt:template name="$ChildNodeLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+«ENDDEFINE»
+
+«DEFINE generateChildNode FOR gmfgen::GenChildNode»«EXPAND generateNode»«ENDDEFINE»
+
+«DEFINE generateCompartment FOR gmfgen::GenCompartment-»
+    <!-- Compartment «visualID» -->
+    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+      <xpt:template name="$CompartmentEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+«IF not sansDomain-»
+      <xpt:template name="$CompartmentItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+«EXPAND generateChildContainerCanonicalEditPolicy-»
+    </xpt:template-set>
+«ENDDEFINE»
+
+«DEFINE generateLink FOR gmfgen::GenLink-»
+    <!-- Link «visualID» -->
+    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+«EXPAND generateEditSupport-»
+      <xpt:template name="$LinkEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+«EXPAND generateBehaviours-»
+«IF not sansDomain-»
+      <xpt:template name="$LinkItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+«ENDIF-»
+      «REM» FIXME  modelfacet and commands «ENDREM»
+«EXPAND generateLinkLabel FOREACH labels-»
+    </xpt:template-set>
+«ENDDEFINE»
+
+«DEFINE generateLinkLabel FOR gmfgen::GenLinkLabel-»
+      <xpt:template name="$LinkLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+«ENDDEFINE»
