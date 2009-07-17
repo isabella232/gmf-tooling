@@ -62,6 +62,7 @@ public class InvokeTemplateTask extends AbstractTemplateTask {
 		} else {
 			try {
 				File f = getProject().resolveFile(myOutFile);
+				f.getParentFile().mkdirs();
 				FileOutputStream os = new FileOutputStream(f);
 				os.write(result.getBytes());
 				os.close();
