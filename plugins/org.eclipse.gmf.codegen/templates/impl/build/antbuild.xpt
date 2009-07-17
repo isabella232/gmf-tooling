@@ -11,50 +11,74 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
+
+«EXTENSION impl::build::BuildUtils /*gmf::EMFUtils*/»
 
 «DEFINE Main FOR gmfgen::GenEditorGenerator-»
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="main" xmlns:xpt="eclipse.org/gmf/2008/xpand">
 <!-- Ant script analogous to org.eclipse.gmf.codegen.util.Generator -->
 
+  <!-- Input, EMF Resource URI (just resource, not GenEditorGenerator element) -->
+  <property name="inputURI" value="«self.uri().substringBefore('#' + self.uriFragment())»"/>
+  <property name="outputRoot" value="c:/temp"/>«REM»TODO: Perhaps, may use empty for workspace? Need to check generation task impl«ENDREM»<!-- ${osgi.instance.area} -->
+
+
   <target name="main" depends="init">
 «EXPAND mainTarget-»
   </target>
 
+«EXPAND commandsTask»
+«EXPAND parsersTask»
+«REM»
+«EXPAND externalizeTask»
+«EXPAND editpolicyTask»
+«EXPAND editpartTask»
+«EXPAND providerTask»
+«EXPAND elementtypeTask»
+«EXPAND validationTask»
+«EXPAND auditsmetricsTask»
+«ENDREM»
+«EXPAND diagramupdateTask FOR diagramUpdater-»
+«EXPAND preferencesTask FOR diagram-»
+«EXPAND editorTask FOR editor»
+«EXPAND navigatorTask FOR navigator-»
+«EXPAND propertysheetTask FOR propertySheet-»
+«EXPAND pluginTask FOR plugin»
+
   <target name="init">
+    
     <!-- Destination -->
-    <property name="outputRoot" value="c:\\temp"/>«REM»TODO: Perhaps, may use empty for workspace? Need to check generation task impl«ENDREM»
-    <property name="outputPluginRoot" value="$outputRoot/«plugin.iD»/"/>
-    <property name="outputJavaRoot" value="$outputPluginRoot/src/"/>
+    <property name="outputPluginRoot" value="${outputRoot}/«plugin.iD»/"/>
+    <property name="outputJavaRoot" value="${outputPluginRoot}/src/"/>
     <!-- Template location -->
     <property name="templateRoot" value="platform:/plugin/org.eclipse.gmf.codegen/templates/«IF dynamicTemplates»,«self.templateDirectory»«ENDIF»"/>
     <!-- Template names -->
-    <property name="NodeItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::NodeItemSemanticEditPolicy"/>
-    <property name="CreateNodeCommandEmitter" value="xpt::diagram::commands::CreateNodeCommand"/>
-    <property name="NodeEditPartEmitter" value="diagram::editparts::NodeEditPart"/>
-    <property name="OpenDiagramEditPolicyEmitter" value="xpt::diagram::editpolicies::OpenDiagram"/>
-    <property name="ChildContainerCanonicalEditPolicyEmitter" value="xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy"/>
-    <property name="GraphicalNodeEditPolicyEmitter" value="xpt::diagram::editpolicies::GraphicalNodeEditPolicy"/>
-    <property name="ExternalNodeLabelEditPartEmitter" value="diagram::editparts::ExternalNodeLabelEditPart"/>
-    <property name="NodeLabelEditPartEmitter" value="diagram::editparts::NodeLabelEditPart"/>
-    <property name="ChildNodeLabelEditPartEmitter" value="diagram::editparts::ChildNodeLabelEditPart"/>
-    <property name="CompartmentEditPartEmitter" value="diagram::editparts::CompartmentEditPart"/>
-    <property name="CompartmentItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy"/>
-    <property name="LinkEditPartEmitter" value="diagram::editparts::LinkEditPart"/>
-    <property name="LinkItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::LinkItemSemanticEditPolicy"/>
-    <property name="LinkLabelEditPartEmitter" value="diagram::editparts::LinkLabelEditPart"/>
+    <property name="NodeItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::NodeItemSemanticEditPolicy::NodeItemSemanticEditPolicy"/>
+    <property name="CreateNodeCommandEmitter" value="xpt::diagram::commands::CreateNodeCommand::CreateNodeCommand"/>
+    <property name="NodeEditPartEmitter" value="diagram::editparts::NodeEditPart::Main"/>
+    <property name="OpenDiagramEditPolicyEmitter" value="xpt::diagram::editpolicies::OpenDiagram::OpenDiagram"/>
+    <property name="ChildContainerCanonicalEditPolicyEmitter" value="xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy::ChildContainerCanonicalEditPolicy"/>
+    <property name="GraphicalNodeEditPolicyEmitter" value="xpt::diagram::editpolicies::GraphicalNodeEditPolicy::GraphicalNodeEditPolicy"/>
+    <property name="ExternalNodeLabelEditPartEmitter" value="diagram::editparts::ExternalNodeLabelEditPart::Main"/>
+    <property name="NodeLabelEditPartEmitter" value="diagram::editparts::NodeLabelEditPart::Main"/>
+    <property name="ChildNodeLabelEditPartEmitter" value="diagram::editparts::ChildNodeLabelEditPart::Main"/>
+    <property name="CompartmentEditPartEmitter" value="diagram::editparts::CompartmentEditPart::Main"/>
+    <property name="CompartmentItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy::CompartmentItemSemanticEditPolicy"/>
+    <property name="LinkEditPartEmitter" value="diagram::editparts::LinkEditPart::Main"/>
+    <property name="LinkItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::LinkItemSemanticEditPolicy::LinkItemSemanticEditPolicy"/>
+    <property name="LinkLabelEditPartEmitter" value="diagram::editparts::LinkLabelEditPart::Main"/>
     <property name="CreateLinkCommandEmitter" value="xpt::diagram::commands::CreateLinkCommand::Main"/>
-    <property name="ReorientLinkCommandEmitter" value="xpt::diagram::commands::ReorientLinkCommand"/>
-    <property name="ReorientRefLinkCommandEmitter" value="xpt::diagram::commands::ReorientRefLinkCommand"/>
-    <property name="EditHelperEmitter" value="xpt::diagram::edithelpers::EditHelper"/>
-    <property name="EditHelperAdviceEmitter" value="xpt::diagram::edithelpers::EditHelperAdvice"/>
-    <property name="DiagramEditPartEmitter" value="diagram::editparts::DiagramEditPart"/>
-    <property name="EditPartFactoryEmitter" value="xpt::diagram::editparts::EditPartFactory"/>
-    <property name="ElementInitializersEmitter" value="xpt::providers::ElementInitializers"/>
-    <property name="ElementTypesEmitter" value="xpt::providers::ElementTypes"/>
+    <property name="ReorientLinkCommandEmitter" value="xpt::diagram::commands::ReorientLinkCommand::ReorientLinkCommand"/>
+    <property name="ReorientRefLinkCommandEmitter" value="xpt::diagram::commands::ReorientRefLinkCommand::ReorientRefLinkCommand"/>
+    <property name="EditHelperEmitter" value="xpt::diagram::edithelpers::EditHelper::EditHelper"/>
+    <property name="EditHelperAdviceEmitter" value="xpt::diagram::edithelpers::EditHelperAdvice::EditHelperAdvice"/>
+    <property name="DiagramEditPartEmitter" value="diagram::editparts::DiagramEditPart::Main"/>
+    <property name="EditPartFactoryEmitter" value="xpt::diagram::editparts::EditPartFactory::EditPartFactory"/>
+    <property name="ElementInitializersEmitter" value="xpt::providers::ElementInitializers::ElementInitializers"/>
+    <property name="ElementTypesEmitter" value="xpt::providers::ElementTypes::ElementTypes"/>
     <!-- Preferences -->
-    <property name="PreferenceInitializerEmitter" value="xpt::diagram::preferences::PreferenceInitializer"/>
+    <property name="PreferenceInitializerEmitter" value="xpt::diagram::preferences::PreferenceInitializer::PreferenceInitializer"/>
     <property name="CustomPreferencePageEmitter" value="impl::preferences::CustomPage::Main"/>
     <property name="StandardPreferencePageEmitter" value="impl::preferences::StandardPage::Main"/>
     <!-- Property Sheet -->
@@ -100,23 +124,6 @@
     <!-- -->
   </target>
 
-«EXPAND commandsTask»
-«EXPAND parsersTask»
-«REM»
-«EXPAND externalizeTask»
-«EXPAND editpolicyTask»
-«EXPAND editpartTask»
-«EXPAND providerTask»
-«EXPAND elementtypeTask»
-«EXPAND validationTask»
-«EXPAND auditsmetricsTask»
-«ENDREM»
-«EXPAND diagramupdateTask FOR diagramUpdater-»
-«EXPAND preferencesTask FOR diagram-»
-«EXPAND editorTask FOR editor»
-«EXPAND navigatorTask FOR navigator-»
-«EXPAND propertysheetTask FOR propertySheet-»
-«EXPAND pluginTask FOR plugin»
 «EXPAND additions»
 </project>
 «ENDDEFINE»
@@ -163,26 +170,26 @@
 
 «DEFINE generateNode FOR gmfgen::GenNode-»
     <!-- Node «visualID» -->
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
 «EXPAND generateNodeItemSemanticEditPolicy-»
 «EXPAND generateCreateNodeCommand-»
 «EXPAND generateEditSupport-»
-      <xpt:template name="$NodeEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+      <xpt:template name="${NodeEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java"/>
 «EXPAND generateBehaviours-»
 «EXPAND generateChildContainerCanonicalEditPolicy-»
 «IF not modelFacet.oclIsUndefined() and reorientedIncomingLinks->notEmpty()-»
-      <xpt:template name="$GraphicalNodeEditPolicyEmitter" outfile="«getGraphicalNodeEditPolicyQualifiedClassName()»"/>
+      <xpt:template name="${GraphicalNodeEditPolicyEmitter}" outfile="${outputJavaRoot}/«getGraphicalNodeEditPolicyQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «EXPAND generateLabel FOREACH labels-»
     </xpt:template-set>
 «ENDDEFINE»
 
 «DEFINE generateLabel FOR gmfgen::GenExternalNodeLabel-»
-      <xpt:template name="$ExternalNodeLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»" inputURI="«self»"/>
+      <xpt:template name="${ExternalNodeLabelEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDDEFINE»
 
 «DEFINE generateLabel FOR gmfgen::GenNodeLabel-»
-      <xpt:template name="$NodeLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»" inputURI="«self»"/>
+      <xpt:template name="${NodeLabelEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDDEFINE»
 
 «DEFINE generateBehaviours FOR gmfgen::GenCommonBase-»
@@ -190,18 +197,18 @@
 «ENDDEFINE»
 
 «DEFINE generateOpenDiagramEditPolicy FOR gmfgen::OpenDiagramBehaviour-»
-      <xpt:template name="$OpenDiagramEditPolicyEmitter" outfile="«getEditPolicyQualifiedClassName()»" inputURI="«self»"/>
+      <xpt:template name="${OpenDiagramEditPolicyEmitter}" outfile="${outputJavaRoot}/«getEditPolicyQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDDEFINE»
 
 «DEFINE generateNodeItemSemanticEditPolicy FOR gmfgen::GenNode-»
 «IF not sansDomain-»
-      <xpt:template name="$NodeItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+      <xpt:template name="${NodeItemSemanticEditPolicyEmitter}" outfile="${outputJavaRoot}/«getItemSemanticEditPolicyQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «ENDDEFINE»
 
 «DEFINE generateCreateNodeCommand FOR gmfgen::GenNode-»
 «IF not modelFacet.oclIsUndefined()-»
-      <xpt:template name="$CreateNodeCommandEmitter" outfile="«getCreateCommandQualifiedClassName()»"/>
+      <xpt:template name="${CreateNodeCommandEmitter}" outfile="${outputJavaRoot}/«getCreateCommandQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «ENDDEFINE»
 
@@ -214,22 +221,22 @@
 «DEFINE generateEditHelperOrAdvice FOR gmfgen::ElementType»«ERROR 'Abstract template generateEditHelperOrAdvice for ' + self.repr()»«ENDDEFINE»
 «DEFINE generateEditHelperOrAdvice FOR gmfgen::SpecializationType-»
 «IF self.editHelperAdviceClassName <> null /*eIsSet*/-»
-      <xpt:template name="$EditHelperAdviceEmitter" outfile="«getEditHelperAdviceQualifiedClassName()»"/>
+      <xpt:template name="${EditHelperAdviceEmitter}" outfile="${outputJavaRoot}/«getEditHelperAdviceQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDIF-»
 «ENDDEFINE»
 «DEFINE generateEditHelperOrAdvice FOR gmfgen::MetamodelType-»
-      <xpt:template name="$EditHelperEmitter" outfile="«getEditHelperQualifiedClassName()»"/>
+      <xpt:template name="${EditHelperEmitter}" outfile="${outputJavaRoot}/«getEditHelperQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDDEFINE»
 
 «DEFINE generateChildContainerCanonicalEditPolicy FOR gmfgen::GenChildContainer-»
 «IF needsCanonicalEditPolicy()-»
-      <xpt:template name="$ChildContainerCanonicalEditPolicyEmitter" outfile="«getCanonicalEditPolicyQualifiedClassName()»"/>
+      <xpt:template name="${ChildContainerCanonicalEditPolicyEmitter}" outfile="${outputJavaRoot}/«getCanonicalEditPolicyQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «ENDDEFINE»
 
 «REM»
   <target name="generateNode">
-    <xpt:template name="" inputURI="$inputURI" templateroot="$templateRoot" outfile="getItemSemanticEditPolicyQualifiedClassName()"/>
+    <xpt:template name="" inputURI="${inputURI}" templateroot="${templateRoot}" outfile="${outputJavaRoot}/getItemSemanticEditPolicyQualifiedClassName().replace('.','/')"/>
   </target>
 «ENDREM»
 
@@ -240,12 +247,12 @@
 
 «DEFINE generateChildNode FOR gmfgen::GenChildLabelNode-»
     <!-- Child Node «visualID» -->
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
 «EXPAND generateNodeItemSemanticEditPolicy-»
 «EXPAND generateCreateNodeCommand-»
 «EXPAND generateEditSupport-»
 «EXPAND generateBehaviours-»
-      <xpt:template name="$ChildNodeLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+      <xpt:template name="${ChildNodeLabelEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java"/>
     </xpt:template-set>
 «ENDDEFINE»
 
@@ -257,10 +264,10 @@
 
 «DEFINE generateCompartment FOR gmfgen::GenCompartment-»
     <!-- Compartment «visualID» -->
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
-      <xpt:template name="$CompartmentEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${CompartmentEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java"/>
 «IF not sansDomain-»
-      <xpt:template name="$CompartmentItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+      <xpt:template name="${CompartmentItemSemanticEditPolicyEmitter}" outfile="${outputJavaRoot}/«getItemSemanticEditPolicyQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «EXPAND generateChildContainerCanonicalEditPolicy-»
     </xpt:template-set>
@@ -272,19 +279,19 @@
 
 «DEFINE generateLink FOR gmfgen::GenLink-»
     <!-- Link «visualID» -->
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
 «EXPAND generateEditSupport-»
-      <xpt:template name="$LinkEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+      <xpt:template name="${LinkEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java"/>
 «EXPAND generateBehaviours-»
 «IF not sansDomain-»
-      <xpt:template name="$LinkItemSemanticEditPolicyEmitter" outfile="«getItemSemanticEditPolicyQualifiedClassName()»"/>
+      <xpt:template name="${LinkItemSemanticEditPolicyEmitter}" outfile="${outputJavaRoot}/«getItemSemanticEditPolicyQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «IF not modelFacet.oclIsUndefined() and (targetReorientingAllowed or sourceReorientingAllowed)-»
-      <xpt:template name="$CreateLinkCommandEmitter" outfile="«getCreateCommandQualifiedClassName()»"/>
+      <xpt:template name="${CreateLinkCommandEmitter}" outfile="${outputJavaRoot}/«getCreateCommandQualifiedClassName().replace('.','/')».java"/>
 «IF modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet)-»
-      <xpt:template name="$ReorientLinkCommandEmitter" outfile="«getReorientCommandQualifiedClassName()»"/>
+      <xpt:template name="${ReorientLinkCommandEmitter}" outfile="${outputJavaRoot}/«getReorientCommandQualifiedClassName().replace('.','/')».java"/>
 «ELSEIF modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet)-»
-      <xpt:template name="$ReorientRefLinkCommandEmitter" outfile="«getReorientCommandQualifiedClassName()»"/>
+      <xpt:template name="${ReorientRefLinkCommandEmitter}" outfile="${outputJavaRoot}/«getReorientCommandQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «ENDIF-»
 «EXPAND generateLinkLabel FOREACH labels-»
@@ -292,7 +299,7 @@
 «ENDDEFINE»
 
 «DEFINE generateLinkLabel FOR gmfgen::GenLinkLabel-»
-      <xpt:template name="$LinkLabelEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
+      <xpt:template name="${LinkLabelEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDDEFINE»
 
 «REM»
@@ -301,12 +308,12 @@
 
 «DEFINE generateDiagram FOR gmfgen::GenDiagram-»
     <!-- Diagram «visualID» -->
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
 «EXPAND generateEditSupport-»
-      <xpt:template name="$DiagramEditPartEmitter" outfile="«getEditPartQualifiedClassName()»"/>
-      <xpt:template name="$EditPartFactoryEmitter" outfile="«getEditPartFactoryQualifiedClassName()»"/>«REM» Although, EPFactory is rather about editor, not diagram«ENDREM»
-      <xpt:template name="$ElementInitializersEmitter" outfile="«providersPackageName».ElementInitializers"/>
-      <xpt:template name="$ElementTypesEmitter" outfile="«getElementTypesQualifiedClassName()»"/>
+      <xpt:template name="${DiagramEditPartEmitter}" outfile="${outputJavaRoot}/«getEditPartQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${EditPartFactoryEmitter}" outfile="${outputJavaRoot}/«getEditPartFactoryQualifiedClassName().replace('.','/')».java"/>«REM» Although, EPFactory is rather about editor, not diagram«ENDREM»
+      <xpt:template name="${ElementInitializersEmitter}" outfile="${outputJavaRoot}/«providersPackageName.replace('.','/')»/ElementInitializers.java"/>
+      <xpt:template name="${ElementTypesEmitter}" outfile="${outputJavaRoot}/«getElementTypesQualifiedClassName().replace('.','/')».java"/>
 «EXPAND generateBehaviours-»
     </xpt:template-set>
 «ENDDEFINE»
@@ -317,8 +324,8 @@
 
 «DEFINE preferencesTask FOR gmfgen::GenDiagram-»
   <target name="preferences">
-    <xpt:template name="$PreferenceInitializerEmitter" outfile="«preferencesPackageName».DiagramPreferenceInitializer"«REM» FIXME - in Generator.java, classname is taken from template - get rid of that practice «ENDREM» 
-      templateRoot="$templateRoot" inputURI="$inputURI"/>
+    <xpt:template name="${PreferenceInitializerEmitter}" outfile="${outputJavaRoot}/«preferencesPackageName.replace('.','/')»/DiagramPreferenceInitializer.java"«REM» FIXME - in Generator.java, classname is taken from template - get rid of that practice «ENDREM» 
+      templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»"/>
 «EXPAND generatePreferencePage FOREACH preferencePages-»
   </target>
 «ENDDEFINE»
@@ -327,14 +334,14 @@
 
 «DEFINE generatePreferencePage FOR gmfgen::GenCustomPreferencePage-»
 «IF generateBoilerplate-»
-    <xpt:template name="$CustomPreferencePageEmitter" outfile="«qualifiedClassName»" templateRoot="$templateRoot" inputURI="$inputURI"/>
+    <xpt:template name="${CustomPreferencePageEmitter}" outfile="${outputJavaRoot}/«qualifiedClassName.replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDIF-»
 «EXPAND generatePreferencePage FOREACH children-»
 «ENDDEFINE»
 
 «DEFINE generatePreferencePage FOR gmfgen::GenStandardPreferencePage-»
 «IF kind <> gmfgen::StandardPreferencePages::Pathmaps-»
-    <xpt:template name="$StandardPreferencePageEmitter" outfile="«getQualifiedClassName()»" templateRoot="$templateRoot" inputURI="$inputURI"/>
+    <xpt:template name="${StandardPreferencePageEmitter}" outfile="${outputJavaRoot}/«getQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»"/>
 «ENDIF-»
 «EXPAND generatePreferencePage FOREACH children-»
 «ENDDEFINE»
@@ -345,9 +352,9 @@
 
 «DEFINE propertysheetTask FOR gmfgen::GenPropertySheet-»
   <target name="propertysheet">
-      <xpt:template name="$PropertySheetLabelProviderEmitter" outfile="«getLabelProviderQualifiedClassName()»" templateRoot="$templateRoot" inputURI="$inputURI"/>
+      <xpt:template name="${PropertySheetLabelProviderEmitter}" outfile="${outputJavaRoot}/«getLabelProviderQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»"/>
 «FOREACH tabs[gmfgen::GenCustomPropertyTab] AS t-»
-      <xpt:template name="$PropertySectionEmitter" outfile="«t.getQualifiedClassName()»" templateRoot="$templateRoot" inputURI="«t»"/>
+      <xpt:template name="${PropertySectionEmitter}" outfile="${outputJavaRoot}/«t.getQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«t.uriFragment()»"/>
 «ENDFOREACH-»
   </target>
 «ENDDEFINE»
@@ -358,25 +365,25 @@
 
 «DEFINE navigatorTask FOR gmfgen::GenNavigator-»
   <target name="navigator">
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
-      <xpt:template name="$NavigatorContentProviderEmitter" outfile="«getContentProviderQualifiedClassName()»"/>
-      <xpt:template name="$NavigatorLabelProviderEmitter" outfile="«getLabelProviderQualifiedClassName()»"/>
-      <xpt:template name="$NavigatorLinkHelper" outfile="«getLinkHelperQualifiedClassName()»"/>
-      <xpt:template name="$NavigatorSorter" outfile="«getSorterQualifiedClassName()»"/>
-      <xpt:template name="$NavigatorActionProvider" outfile="«getActionProviderQualifiedClassName()»"/>
-      <xpt:template name="$AbstractNavigatorItemEmitter" outfile="«getAbstractNavigatorItemQualifiedClassName()»"/>
-      <xpt:template name="$NavigatorGroupEmitter" outfile="«getNavigatorGroupQualifiedClassName()»"/>
-      <xpt:template name="$NavigatorItemEmitter" outfile="«getNavigatorItemQualifiedClassName()»"/>
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${NavigatorContentProviderEmitter}" outfile="${outputJavaRoot}/«getContentProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NavigatorLabelProviderEmitter}" outfile="${outputJavaRoot}/«getLabelProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NavigatorLinkHelperEmitter}" outfile="${outputJavaRoot}/«getLinkHelperQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NavigatorSorterEmitter}" outfile="${outputJavaRoot}/«getSorterQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NavigatorActionProviderEmitter}" outfile="${outputJavaRoot}/«getActionProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${AbstractNavigatorItemEmitter}" outfile="${outputJavaRoot}/«getAbstractNavigatorItemQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NavigatorGroupEmitter}" outfile="${outputJavaRoot}/«getNavigatorGroupQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NavigatorItemEmitter}" outfile="${outputJavaRoot}/«getNavigatorItemQualifiedClassName().replace('.','/')».java"/>
       <!--
         Can't generate binary files now
-        xpt:template name="/xpt/navigator/navigatorGroup.gif" outfile="«FOREACH childReferences->select(not groupIcon.oclIsUndefined() and groupIcon.size() > 0 ).groupIcon->asOrderedSet() AS f SEPARATOR ';'»«f»«ENDFOREACH»"/ 
+        xpt:template name="/xpt/navigator/navigatorGroup.gif" outfile="${outputJavaRoot}/«FOREACH childReferences->select(not groupIcon.oclIsUndefined() and groupIcon.size() > 0 ).groupIcon->asOrderedSet() AS f SEPARATOR ';'»«f»«ENDFOREACH»"/ 
       -->
 «IF generateDomainModelNavigator and not editorGen.domainGenModel.oclIsUndefined()-»
       <!-- Naviagator for domain model -->
-      <xpt:template name="$DomainNavigatorContentProviderEmitter" outfile="«getDomainContentProviderQualifiedClassName()»"/>
-      <xpt:template name="$DomainNavigatorLabelProviderEmitter" outfile="«getDomainLabelProviderQualifiedClassName()»"/>
-      <xpt:template name="$DomainNavigatorItemEmitter" outfile="«getDomainNavigatorItemQualifiedClassName()»"/>
-      <xpt:template name="$URIEditorInputTesterEmitter" outfile="«getUriInputTesterQualifiedClassName()»"/>
+      <xpt:template name="${DomainNavigatorContentProviderEmitter}" outfile="${outputJavaRoot}/«getDomainContentProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${DomainNavigatorLabelProviderEmitter}" outfile="${outputJavaRoot}/«getDomainLabelProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${DomainNavigatorItemEmitter}" outfile="${outputJavaRoot}/«getDomainNavigatorItemQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${URIEditorInputTesterEmitter}" outfile="${outputJavaRoot}/«getUriInputTesterQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
     </xpt:template-set>
   </target>
@@ -388,18 +395,18 @@
 
 «DEFINE editorTask FOR gmfgen::GenEditorView-»
   <target name="editor">
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">«REM»FIXME GenEditorView«ENDREM»
-      <xpt:template name="$EditorEmitter" outfile="«getQualifiedClassName()»"/>
-      <xpt:template name="$ActionBarContributorEmitter" outfile="«getActionBarContributorQualifiedClassName()»"/>
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${EditorEmitter}" outfile="${outputJavaRoot}/«getQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${ActionBarContributorEmitter}" outfile="${outputJavaRoot}/«getActionBarContributorQualifiedClassName().replace('.','/')».java"/>
     </xpt:template-set>
 «IF not editorGen.diagram.palette.oclIsUndefined()-»
-    <xpt:template name="$PaletteEmitter" outfile="«editorGen.diagram.palette.getFactoryQualifiedClassName()»" templateRoot="$templateRoot" inputURI="$inputURI"/>«REM»FIXME GenPalette«ENDREM»
+    <xpt:template name="${PaletteEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.palette.getFactoryQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«editorGen.diagram.palette.uriFragment()»"/>
 «ENDIF-»
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">«REM»FIXME GenDiagram«ENDREM»
-      <xpt:template name="$DiagramEditorUtilEmitter" outfile="«packageName».«editorGen.diagram.diagramEditorUtilClassName»"/>
-      <xpt:template name="$VisualIDRegistryEmitter" outfile="«editorGen.diagram.getVisualIDRegistryQualifiedClassName()»"/>
-      <xpt:template name="$MatchingStrategyEmitter" outfile="«editorGen.diagram.getMatchingStrategyQualifiedClassName()»"/>
-      <xpt:template name="$DocumentProviderEmitter" outfile="«editorGen.diagram.getDocumentProviderQualifiedClassName()»"/>
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«editorGen.diagram.uriFragment()»">
+      <xpt:template name="${DiagramEditorUtilEmitter}" outfile="${outputJavaRoot}/«packageName.replace('.','/')».«editorGen.diagram.diagramEditorUtilClassName».java"/>
+      <xpt:template name="${VisualIDRegistryEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getVisualIDRegistryQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${MatchingStrategyEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getMatchingStrategyQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${DocumentProviderEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getDocumentProviderQualifiedClassName().replace('.','/')».java"/>
     </xpt:template-set>
   </target>
 «ENDDEFINE»
@@ -410,13 +417,13 @@
 
 «DEFINE pluginTask FOR gmfgen::GenPlugin-»
   <target name="plugin">
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
-      <xpt:template name="$ActivatorEmitter" outfile="«getActivatorQualifiedClassName()»"/>
-      <xpt:template name="$BundleManifestEmitte" outfile="META-INF/MANIFEST.MF"/>
-      <xpt:template name="$PluginXmlEmitter" outfile="plugin.xml"/>
-      <xpt:template name="$PluginPropertiesEmitter" outfile="plugin.properties"/>
-      <xpt:template name="$BuildPropertiesEmitter" outfile="build.properties"/>
-      <xpt:template name="$OptionsFileEmitter" outfile=".options"/>
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${ActivatorEmitter}" outfile="${outputJavaRoot}/«getActivatorQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${BundleManifestEmitter}" outfile="${outputPluginRoot}/META-INF/MANIFEST.MF"/>
+      <xpt:template name="${PluginXmlEmitter}" outfile="${outputPluginRoot}/plugin.xml"/>
+      <xpt:template name="${PluginPropertiesEmitter}" outfile="${outputPluginRoot}/plugin.properties"/>
+      <xpt:template name="${BuildPropertiesEmitter}" outfile="${outputPluginRoot}/build.properties"/>
+      <xpt:template name="${OptionsFileEmitter}" outfile="${outputPluginRoot}/.options"/>
     </xpt:template-set>
   </target>
 «ENDDEFINE»
@@ -427,11 +434,11 @@
 
 «DEFINE diagramupdateTask FOR gmfgen::GenDiagramUpdater-»
   <target name="diagramupdate">
-    <xpt:template-set templateRoot="$templateRoot" inputURI="$inputURI">
-      <xpt:template name="$DiagramUpdaterEmitter" outfile="«getDiagramUpdaterQualifiedClassName()»"/>
-      <xpt:template name="$UpdateCommandEmitter" outfile="«getUpdateCommandQualifiedClassName()»"/>
-      <xpt:template name="$NodeDescriptorEmitter" outfile="«getNodeDescriptorQualifiedClassName()»"/>
-      <xpt:template name="$LinkDescriptorEmitter" outfile="«getLinkDescriptorQualifiedClassName()»"/>
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${DiagramUpdaterEmitter}" outfile="${outputJavaRoot}/«getDiagramUpdaterQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${UpdateCommandEmitter}" outfile="${outputJavaRoot}/«getUpdateCommandQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${NodeDescriptorEmitter}" outfile="${outputJavaRoot}/«getNodeDescriptorQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${LinkDescriptorEmitter}" outfile="${outputJavaRoot}/«getLinkDescriptorQualifiedClassName().replace('.','/')».java"/>
     </xpt:template-set>
   </target>
 «ENDDEFINE»

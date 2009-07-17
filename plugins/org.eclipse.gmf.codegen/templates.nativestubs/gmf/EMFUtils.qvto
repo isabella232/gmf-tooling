@@ -25,3 +25,11 @@ library EMFUtils;
 helper getReferencingObjects(target : ecore::EObject) : Sequence(ecore::EObject) {
 	return null;
 }
+
+query EObject::uriFragment() : String {
+	return null;
+}
+
+query EObject::uri() : String {
+	return null;
+}

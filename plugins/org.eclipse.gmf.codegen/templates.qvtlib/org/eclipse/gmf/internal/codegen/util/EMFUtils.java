@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2009 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - added uri and uriFragment helpers
+ */
 package org.eclipse.gmf.internal.codegen.util;
 
 import java.util.ArrayList;
@@ -28,4 +40,20 @@ public class EMFUtils {
 		return CollectionUtil.<EObject> createNewSequence(result);
 	}
 
+	@Operation(contextual = true, kind = Kind.QUERY)
+	public String uriFragment(EObject target) {
+		if (target.eResource() == null) {
+			return String.valueOf(System.identityHashCode(target)); // anything will do, identityHashCode just for personal amusement.
+		}
+		return target.eResource().getURIFragment(target);
+	}
+
+	@Operation(contextual = true, kind = Kind.QUERY)
+	public String uri(EObject target) {
+		String fragment = uriFragment(target);
+		if (target.eResource() == null) {
+			return fragment;
+		}
+		return target.eResource().getURI().appendFragment(fragment).toString();
+	}
 }
