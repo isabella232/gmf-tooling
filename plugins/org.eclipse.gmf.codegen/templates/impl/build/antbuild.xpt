@@ -403,7 +403,7 @@
     <xpt:template name="${PaletteEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.palette.getFactoryQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«editorGen.diagram.palette.uriFragment()»"/>
 «ENDIF-»
     <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«editorGen.diagram.uriFragment()»">
-      <xpt:template name="${DiagramEditorUtilEmitter}" outfile="${outputJavaRoot}/«packageName.replace('.','/')».«editorGen.diagram.diagramEditorUtilClassName».java"/>
+      <xpt:template name="${DiagramEditorUtilEmitter}" outfile="${outputJavaRoot}/«packageName.replace('.','/')»/«editorGen.diagram.diagramEditorUtilClassName».java"/>
       <xpt:template name="${VisualIDRegistryEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getVisualIDRegistryQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${MatchingStrategyEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getMatchingStrategyQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${DocumentProviderEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getDocumentProviderQualifiedClassName().replace('.','/')».java"/>
