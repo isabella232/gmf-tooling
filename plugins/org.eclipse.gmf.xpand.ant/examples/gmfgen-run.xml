@@ -5,6 +5,7 @@
   <target name="main">
   	<!-- 1. Generate Ant build.xml for specific gmfgen model -->
   	<tempfile property="generated-build-file" prefix="gmfgen-build" suffix=".xml"/>
+  	<echo message="${generated-build-file}"/>
     <xpt:template name="impl::build::antbuild::Main" 
       inputURI="${input-gmfgen-model-uri}" 
 	  templateroot="platform:/plugin/org.eclipse.gmf.codegen/templates/"
