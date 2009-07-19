@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.setup.annotated;
 
 import java.util.Iterator;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -59,7 +60,9 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 			DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 			EPackage ePackage = mapping.getDiagram().getDomainModel();
 			if (ePackage != null) {
-				t.setEMFGenModel(Utils.createGenModel(ePackage));
+				GenModel gm = Utils.createGenModel(ePackage);
+				t.setEMFGenModel(gm);
+				saveModel(gm, "genmodel");
 			}
 			t.transform(mapping);
 			gen = t.getResult();
