@@ -23,7 +23,9 @@ helper context::Context::isBoolean() : Boolean {
 }
 
 helper context::FeatureContext::isBoolean() : Boolean {
-	return self.selector.eType.name = 'EBoolean'
+	return self.selector.eType.name = 'EBoolean' or self.selector.eType.name = 'EBooleanObject' or self.selector.eType.name = 'Boolean' /* UML. Though not 100% sure it's right place */or
+	  // just in case, if user defined own primitive type with Java's implementation of a boolean kind
+	  (self.selector.eType.instanceClassName = 'java.lang.Boolean' or self.selector.eType.instanceClassName = 'boolean')
 }
 
 helper hasReferenceBasedCheckBoxes(s : binding::Section, c : context::Condition) : Boolean {
