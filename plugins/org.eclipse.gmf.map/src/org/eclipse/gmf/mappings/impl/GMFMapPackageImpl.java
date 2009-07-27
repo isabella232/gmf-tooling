@@ -2169,7 +2169,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.child.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.child.domainMetaElement)))",
-			 "description", "Phantom nodes that are not targeted by a link mapping exist"
+			 "description", "Phantom nodes that are not targeted by a link mapping representing containment reference present in model"
 		   });					
 		addAnnotation
 		  (getMappingEntry_DomainSpecialization(), 
