@@ -36,7 +36,9 @@ new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(«des
 		org.eclipse.emf.ecore.EObject referencedObject = getReferencedObject();
 		org.eclipse.emf.ecore.resource.Resource resource = referencedObject.eResource();
 		org.eclipse.gmf.runtime.common.core.command.CommandResult result = super.doExecuteWithResult(progressMonitor, info);
-		resource.getContents().add(referencedObject);
+		if (resource != null) {
+			resource.getContents().add(referencedObject);
+		}
 		return result;
 	}
 }«ENDIF-»
