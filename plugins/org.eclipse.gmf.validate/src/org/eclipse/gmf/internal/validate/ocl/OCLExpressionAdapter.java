@@ -12,6 +12,7 @@
 package org.eclipse.gmf.internal.validate.ocl;
 
 import java.text.MessageFormat;
+import java.util.HashSet;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClass;
@@ -24,6 +25,11 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.internal.validate.DebugOptions;
 import org.eclipse.gmf.internal.validate.DefUtils;
 import org.eclipse.gmf.internal.validate.EDataTypeConversion;
@@ -60,10 +66,9 @@ class OCLExpressionAdapter extends AbstractExpression {
 		super(body, context, extEnv);
 		
 		try {
-			EcoreEnvironmentFactory factory = EcoreEnvironmentFactory.INSTANCE;
 			org.eclipse.ocl.ecore.OCL ocl = null;			
-			
 			if(extEnv != null) {
+				EcoreEnvironmentFactory factory = EcoreEnvironmentFactory.INSTANCE;
 				if(extEnv.getImportRegistry() != null) { 					
 					factory = new EcoreEnvironmentFactory(extEnv.getImportRegistry());
 				}
@@ -80,8 +85,20 @@ class OCLExpressionAdapter extends AbstractExpression {
 					env.addElement(varDecl.getName(), varDecl, true);
 				}
 			} else {
-				ocl = org.eclipse.ocl.ecore.OCL.newInstance(EcoreEnvironmentFactory.INSTANCE);
-				this.env = ocl.getEnvironment();				
+				EPackage.Registry registry = new EPackageRegistryImpl(EPackage.Registry.INSTANCE);
+				ResourceSet resourceSet = context.eResource().getResourceSet();
+				if (resourceSet != null) {
+					EcoreUtil.resolveAll(resourceSet);
+					HashSet<EPackage> ePackages = new HashSet<EPackage>();
+					for (Resource resource : resourceSet.getResources()) {
+						ePackages.addAll(EcoreUtil.<EPackage> getObjectsByType(resource.getContents(), EcorePackage.Literals.EPACKAGE));
+					}
+					for (EPackage ePackage : ePackages) {
+						registry.put(ePackage.getNsURI(), ePackage);
+					}
+				}
+				ocl = org.eclipse.ocl.ecore.OCL.newInstance(new EcoreEnvironmentFactory(registry));
+				this.env = ocl.getEnvironment();
 			}
 
 			org.eclipse.ocl.ecore.OCL.Helper helper = ocl.createOCLHelper();
