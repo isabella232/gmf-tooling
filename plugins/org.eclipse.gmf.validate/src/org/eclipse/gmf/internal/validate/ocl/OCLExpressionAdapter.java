@@ -85,9 +85,15 @@ class OCLExpressionAdapter extends AbstractExpression {
 					env.addElement(varDecl.getName(), varDecl, true);
 				}
 			} else {
-				EPackage.Registry registry = new EPackageRegistryImpl(EPackage.Registry.INSTANCE);
-				ResourceSet resourceSet = context.eResource().getResourceSet();
-				if (resourceSet != null) {
+				EPackage.Registry registry = new EPackageRegistryImpl();
+				for (Object nextRegistryObject : EPackage.Registry.INSTANCE.values()) {
+					if (nextRegistryObject instanceof EPackage) {
+						EPackage ePackage = (EPackage) nextRegistryObject;
+						registry.put(ePackage.getNsURI(), ePackage);
+					}
+				}
+				if (context.eResource() != null && context.eResource().getResourceSet() != null) {
+					ResourceSet resourceSet = context.eResource().getResourceSet();
 					EcoreUtil.resolveAll(resourceSet);
 					HashSet<EPackage> ePackages = new HashSet<EPackage>();
 					for (Resource resource : resourceSet.getResources()) {
