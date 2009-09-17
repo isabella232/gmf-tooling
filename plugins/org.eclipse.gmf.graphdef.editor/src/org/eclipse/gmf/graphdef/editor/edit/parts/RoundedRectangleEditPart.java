@@ -28,8 +28,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.graphdef.editor.edit.policies.BorderLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.ChildFigureSelectionEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureContainerXYLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.policies.GridLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.policies.InnerFigureDragDropEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.KeyHandlerEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangleCanonicalEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.RoundedRectangleItemSemanticEditPolicy;
@@ -38,7 +42,6 @@ import org.eclipse.gmf.graphdef.editor.sheet.AttachAdapter;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
 import org.eclipse.gmf.graphdef.editor.sheet.FeatureTracker;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
@@ -81,12 +84,19 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new RoundedRectangleItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new InnerFigureDragDropEditPolicy() {
+
+			/**
+			 * @generated
+			 */
+			protected Shape getActualFigure() {
+				return getPrimaryShape();
+			}
+		});
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new RoundedRectangleCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		installEditPolicy(KeyHandlerEditPolicy.KEY_HANDLER_ROLE, new ChildFigureSelectionEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
-		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
@@ -94,6 +104,15 @@ public class RoundedRectangleEditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
+		Layout layout = getGmfgraphElement().getLayout();
+		if (layout != null) {
+			switch (layout.eClass().getClassifierID()) {
+			case GMFGraphPackage.BORDER_LAYOUT:
+				return new BorderLayoutEditPolicy();
+			case GMFGraphPackage.GRID_LAYOUT:
+				return new GridLayoutEditPolicy();
+			}
+		}
 		return new FigureContainerXYLayoutEditPolicy(getMapMode());
 	}
 

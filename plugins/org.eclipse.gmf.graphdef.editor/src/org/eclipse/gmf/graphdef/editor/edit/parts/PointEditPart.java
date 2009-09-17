@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.graphdef.editor.edit.policies.BorderLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureContainerXYLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.PointItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.sheet.ChangeTracker;
@@ -73,7 +75,6 @@ public class PointEditPart extends AbstractPointEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PointItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
-		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 

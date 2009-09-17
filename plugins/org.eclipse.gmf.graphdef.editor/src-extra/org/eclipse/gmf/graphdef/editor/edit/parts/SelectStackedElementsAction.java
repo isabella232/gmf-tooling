@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 
+// TODO: is it used?
 public class SelectStackedElementsAction extends Action implements IMenuCreator, MenuListener, IObjectActionDelegate {
 	public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 

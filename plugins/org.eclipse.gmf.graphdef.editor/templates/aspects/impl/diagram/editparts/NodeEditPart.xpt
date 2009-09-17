@@ -27,19 +27,57 @@
 
 «AROUND createLayoutEditPolicyBody FOR gmfgen::GenNode-»
 	«IF hasSynchronizers(self)-»
-		return new org.eclipse.gmf.graphdef.editor.edit.policies.«EXPAND layoutEditPolicyConstructor»;
+		«IF isPolyline(self)-»
+			return new org.eclipse.gmf.graphdef.editor.edit.policies.PointContainerXYLayoutEditPolicy(getMapMode(), «hasLayoutDataSynchronizers(self)»);
+		«ELSE-»
+			«IF not isPolylinePoint(self)-»
+				org.eclipse.gmf.gmfgraph.Layout layout = getGmfgraphElement().getLayout();
+				if (layout != null) {
+					switch (layout.eClass().getClassifierID()) {
+					case org.eclipse.gmf.gmfgraph.GMFGraphPackage.BORDER_LAYOUT:
+						return new org.eclipse.gmf.graphdef.editor.edit.policies.BorderLayoutEditPolicy();
+					case org.eclipse.gmf.gmfgraph.GMFGraphPackage.GRID_LAYOUT:
+						return new org.eclipse.gmf.graphdef.editor.edit.policies.GridLayoutEditPolicy();
+					}
+				}
+			«ENDIF-»
+			return new org.eclipse.gmf.graphdef.editor.edit.policies.FigureContainerXYLayoutEditPolicy(getMapMode());
+		«ENDIF-»
 	«ELSE-»
 		«targetDef.proceed()»
 	«ENDIF-»
 «ENDAROUND»
 
 «AROUND createDefaultEditPoliciesBody FOR gmfgen::GenNode-»
-	«targetDef.proceed()-»
+	«EXPAND impl::diagram::editparts::NodeEditPart::installCreationRolePolicy-»
+	super.createDefaultEditPolicies();
+	«EXPAND impl::diagram::editparts::NodeEditPart::installPrimaryDragEditPolicy-»
+	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
+	«IF needsGraphicalNodeEditPolicy(self)-»
+		installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «getGraphicalNodeEditPolicyQualifiedClassName()»());
+	«ENDIF-»
+	«IF not childNodes->isEmpty()-»
+		«EXPAND installDragDropEditPolicy-»
+	«ENDIF-»
+	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
+	installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
+	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 	removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 «ENDAROUND»
 
-«DEFINE layoutEditPolicyConstructor FOR gmfgen::GenNode-»
-«IF isPolyline(self)»PointContainerXYLayoutEditPolicy«ELSE»FigureContainerXYLayoutEditPolicy«ENDIF»(getMapMode()«IF isPolyline(self)», «hasLayoutDataSynchronizers(self)»«ENDIF»)«-»
+«DEFINE installDragDropEditPolicy FOR gmfgen::GenNode-»
+	«IF hasLayoutDataSynchronizers(self)-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.graphdef.editor.edit.policies.InnerFigureDragDropEditPolicy() {
+		
+			«EXPAND xpt::Common::generatedMemberComment»
+			protected org.eclipse.draw2d.Shape getActualFigure() {
+				return getPrimaryShape();
+			}
+		});		
+	«ELSE-»
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
+	«ENDIF-»
 «ENDDEFINE»
 
 «AROUND createNodePlate FOR gmfgen::GenNode-»

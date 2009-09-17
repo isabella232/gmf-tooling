@@ -46,7 +46,7 @@ public class FigureContainerXYLayoutEditPolicy extends AbstractDomainBasedXYLayo
 	public FigureContainerXYLayoutEditPolicy(IMapMode mapMode) {
 		super(mapMode);
 	}
-
+	
 	@Override
 	protected ICommand createSetBoundsCommand(TransactionalEditingDomain editingDomain, String label, Resource resource, Rectangle bounds, EObject element) {
 		if (element instanceof Figure) {

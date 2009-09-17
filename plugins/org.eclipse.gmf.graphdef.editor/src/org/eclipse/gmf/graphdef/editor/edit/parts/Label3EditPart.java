@@ -29,7 +29,10 @@ import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.ResizableEditPolicy;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.graphdef.editor.edit.policies.BorderLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.FigureContainerXYLayoutEditPolicy;
+import org.eclipse.gmf.graphdef.editor.edit.policies.GridLayoutEditPolicy;
 import org.eclipse.gmf.graphdef.editor.edit.policies.Label3ItemSemanticEditPolicy;
 import org.eclipse.gmf.graphdef.editor.part.GMFGraphVisualIDRegistry;
 import org.eclipse.gmf.graphdef.editor.providers.GMFGraphElementTypes;
@@ -81,7 +84,6 @@ public class Label3EditPart extends AbstractFigureEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Label3ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
-		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		removeEditPolicy(EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 	}
 
@@ -89,6 +91,15 @@ public class Label3EditPart extends AbstractFigureEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
+		Layout layout = getGmfgraphElement().getLayout();
+		if (layout != null) {
+			switch (layout.eClass().getClassifierID()) {
+			case GMFGraphPackage.BORDER_LAYOUT:
+				return new BorderLayoutEditPolicy();
+			case GMFGraphPackage.GRID_LAYOUT:
+				return new GridLayoutEditPolicy();
+			}
+		}
 		return new FigureContainerXYLayoutEditPolicy(getMapMode());
 	}
 
