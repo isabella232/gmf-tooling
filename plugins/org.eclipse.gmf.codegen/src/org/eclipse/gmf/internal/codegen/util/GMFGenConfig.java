@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Michael Golubev (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - maintenance and extra configuration 
  */
 package org.eclipse.gmf.internal.codegen.util;
 
@@ -21,6 +22,7 @@ import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.Decision;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
+import org.eclipse.gmf.internal.common.reconcile.MergeListsDecision;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.internal.common.reconcile.ReflectiveMatcher;
 import org.eclipse.gmf.internal.common.reconcile.StringPatternDecision;
@@ -47,6 +49,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenPlugin_Version());
 		preserveIfSet(GMFGEN.getGenPlugin_ActivatorClassName());
 		preserveIfSet(GMFGEN.getGenPlugin_PrintingEnabled());
+		addDecision(GMFGEN.getGenPlugin(), new MergeListsDecision(GMFGEN.getGenPlugin_RequiredPlugins()));
 
 		setMatcher(GMFGEN.getGenEditorView(), ALWAYS_MATCH); //exactly one 
 		preserveIfSet(GMFGEN.getGenEditorView_IconPath());
