@@ -107,7 +107,11 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
-		return getTab().getSheet().getEditorGen().getEditor().getPackageName() + '.' + getClassName();
+		String s = getClassName();
+		if (s != null && s.indexOf('.') != -1) {
+			return s;
+		}
+		return getTab().getSheet().getEditorGen().getEditor().getPackageName() + '.' + s;
 	}
 
 	/**

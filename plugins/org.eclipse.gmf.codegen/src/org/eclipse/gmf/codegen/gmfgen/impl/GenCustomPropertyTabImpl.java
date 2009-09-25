@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPropertyTabImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPropertyTabImpl#getFilter <em>Filter</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPropertyTabImpl#isGenerateBoilerplate <em>Generate Boilerplate</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +63,26 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 	 * @ordered
 	 */
 	protected GenPropertyTabFilter filter;
+
+	/**
+	 * The default value of the '{@link #isGenerateBoilerplate() <em>Generate Boilerplate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateBoilerplate()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean GENERATE_BOILERPLATE_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isGenerateBoilerplate() <em>Generate Boilerplate</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isGenerateBoilerplate()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean generateBoilerplate = GENERATE_BOILERPLATE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -157,10 +178,35 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isGenerateBoilerplate() {
+		return generateBoilerplate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGenerateBoilerplate(boolean newGenerateBoilerplate) {
+		boolean oldGenerateBoilerplate = generateBoilerplate;
+		generateBoilerplate = newGenerateBoilerplate;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE, oldGenerateBoilerplate, generateBoilerplate));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
-		return getSheet().getPackageName() + '.' + getClassName();
+		String simpleName = getClassName();
+		if (simpleName.indexOf('.') != -1) {
+			return simpleName; // not so simple name
+		}
+		return getSheet().getPackageName() + '.' + simpleName;
 	}
 
 	/**
@@ -205,6 +251,8 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 				return getClassName();
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER:
 				return getFilter();
+			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE:
+				return isGenerateBoilerplate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -222,6 +270,9 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 				return;
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER:
 				setFilter((GenPropertyTabFilter)newValue);
+				return;
+			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE:
+				setGenerateBoilerplate((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -241,6 +292,9 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER:
 				setFilter((GenPropertyTabFilter)null);
 				return;
+			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE:
+				setGenerateBoilerplate(GENERATE_BOILERPLATE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -257,6 +311,8 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER:
 				return filter != null;
+			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE:
+				return generateBoilerplate != GENERATE_BOILERPLATE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -273,6 +329,8 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (className: ");
 		result.append(className);
+		result.append(", generateBoilerplate: ");
+		result.append(generateBoilerplate);
 		result.append(')');
 		return result.toString();
 	}

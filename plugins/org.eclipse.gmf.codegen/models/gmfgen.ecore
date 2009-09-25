@@ -2055,9 +2055,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenCustomPropertyTab" eSuperTypes="#//GenPropertyTab">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="For custom tabs without generated boilerplate code should be qualified class name. If not, property sheet's package name will be used for qualified names"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="filter" eType="#//GenPropertyTabFilter"
         containment="true" eOpposite="#//GenPropertyTabFilter/tab"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generateBoilerplate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenPropertyTabFilter" abstract="true"
       interface="true">
@@ -2081,7 +2087,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="CustomTabFilter" eSuperTypes="#//GenPropertyTabFilter">
     <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Qualified class name of a tab filter, implementation of org.eclipse.jface.viewers.IFilter. If class name is not qualified, it's prefixed with editor's package name for legacy reasons"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenContributionItem" abstract="true"
       interface="true">
@@ -2130,7 +2140,11 @@
       <details key="documentation" value="Action that is generated along with diagram action, i.e. there's a template that provides its implementation"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Human-readble name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LoadResourceAction" eSuperTypes="#//GenAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="InitDiagramAction" eSuperTypes="#//GenAction"/>

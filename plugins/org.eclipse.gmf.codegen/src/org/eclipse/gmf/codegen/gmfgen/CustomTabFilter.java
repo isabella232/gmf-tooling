@@ -32,6 +32,9 @@ public interface CustomTabFilter extends GenPropertyTabFilter {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Qualified class name of a tab filter, implementation of org.eclipse.jface.viewers.IFilter. If class name is not qualified, it's prefixed with editor's package name for legacy reasons
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Class Name</em>' attribute.
 	 * @see #setClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getCustomTabFilter_ClassName()

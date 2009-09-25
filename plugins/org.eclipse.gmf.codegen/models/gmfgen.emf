@@ -1430,6 +1430,7 @@ enum GeneratedType {
 }
 
 class CustomTabFilter extends GenPropertyTabFilter {
+	@genmodel(documentation="Qualified class name of a tab filter, implementation of org.eclipse.jface.viewers.IFilter. If class name is not qualified, it's prefixed with editor's package name for legacy reasons")
 	attr String[1] className;
 	op String getQualifiedClassName();
 }

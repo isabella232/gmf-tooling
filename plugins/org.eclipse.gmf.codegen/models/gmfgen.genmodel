@@ -923,6 +923,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenCustomPropertyTab" labelFeature="#//gmfgen/GenPropertyTab/label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPropertyTab/className"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCustomPropertyTab/filter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCustomPropertyTab/generateBoilerplate"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCustomPropertyTab/getQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenPropertyTabFilter">

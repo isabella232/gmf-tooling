@@ -9427,13 +9427,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CUSTOM_PROPERTY_TAB__FILTER = GEN_PROPERTY_TAB_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Generate Boilerplate</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE = GEN_PROPERTY_TAB_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Gen Custom Property Tab</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CUSTOM_PROPERTY_TAB_FEATURE_COUNT = GEN_PROPERTY_TAB_FEATURE_COUNT + 2;
+	int GEN_CUSTOM_PROPERTY_TAB_FEATURE_COUNT = GEN_PROPERTY_TAB_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter <em>Gen Property Tab Filter</em>}' class.
@@ -16575,6 +16584,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenCustomPropertyTab_Filter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#isGenerateBoilerplate <em>Generate Boilerplate</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Generate Boilerplate</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab#isGenerateBoilerplate()
+	 * @see #getGenCustomPropertyTab()
+	 * @generated
+	 */
+	EAttribute getGenCustomPropertyTab_GenerateBoilerplate();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenPropertyTabFilter <em>Gen Property Tab Filter</em>}'.

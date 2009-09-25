@@ -796,12 +796,8 @@ public class Generator extends GeneratorBase implements Runnable {
 				myEditorGen.getPropertySheet());
 		}
 		for (GenPropertyTab tab : myEditorGen.getPropertySheet().getTabs()) {
-			if (tab instanceof GenCustomPropertyTab) {
-				// XXX isGenerateBoolerplate??? Bug 283717
-				internalGenerateJavaClass(
-					myEmitters.getPropertySectionEmitter(),
-					((GenCustomPropertyTab) tab).getQualifiedClassName(),
-					tab);
+			if (tab instanceof GenCustomPropertyTab && ((GenCustomPropertyTab) tab).isGenerateBoilerplate()) {
+				internalGenerateJavaClass(myEmitters.getPropertySectionEmitter(), ((GenCustomPropertyTab) tab).getQualifiedClassName(), tab);
 			}
 		}
 	}
