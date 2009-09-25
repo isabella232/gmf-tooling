@@ -62,6 +62,7 @@ public class GenCustomPropertyTabItemProvider
 			super.getPropertyDescriptors(object);
 
 			addClassNamePropertyDescriptor(object);
+			addGenerateBoilerplatePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -84,6 +85,28 @@ public class GenCustomPropertyTabItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Generate Boilerplate feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGenerateBoilerplatePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCustomPropertyTab_generateBoilerplate_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCustomPropertyTab_generateBoilerplate_feature", "_UI_GenCustomPropertyTab_type"),
+				 GMFGenPackage.eINSTANCE.getGenCustomPropertyTab_GenerateBoilerplate(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -156,6 +179,7 @@ public class GenCustomPropertyTabItemProvider
 
 		switch (notification.getFeatureID(GenCustomPropertyTab.class)) {
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__CLASS_NAME:
+			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__GENERATE_BOILERPLATE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_CUSTOM_PROPERTY_TAB__FILTER:
