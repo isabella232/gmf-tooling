@@ -368,8 +368,8 @@ public class GMFGenSwitch<T> {
 			case GMFGenPackage.GEN_LINK: {
 				GenLink genLink = (GenLink)theEObject;
 				T result = caseGenLink(genLink);
-				if (result == null) result = caseGenCommonBase(genLink);
 				if (result == null) result = caseGenLinkEnd(genLink);
+				if (result == null) result = caseGenCommonBase(genLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

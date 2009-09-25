@@ -63,6 +63,9 @@ public interface GenAction extends GenContributionItem {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Human-readble name
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAction_Name()
