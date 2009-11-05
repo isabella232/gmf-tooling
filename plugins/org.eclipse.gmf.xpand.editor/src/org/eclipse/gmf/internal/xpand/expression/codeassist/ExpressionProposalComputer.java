@@ -289,14 +289,15 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			methodNames.add(XpandParsersym.TK_sortedBy);
 			methodNames.add(XpandParsersym.TK_isUnique);
 			methodNames.add(XpandParsersym.TK_iterate);
-			methodNames.add(XpandParsersym.TK_oclIsKindOf);
+// TODO: commented out due to the latest changed in OCL parser. Corresponding code have to be reviewed.			
+/*			methodNames.add(XpandParsersym.TK_oclIsKindOf);
 			methodNames.add(XpandParsersym.TK_oclIsTypeOf);
 			methodNames.add(XpandParsersym.TK_oclAsType);
 			methodNames.add(XpandParsersym.TK_oclIsNew);
 			methodNames.add(XpandParsersym.TK_oclIsUndefined);
 			methodNames.add(XpandParsersym.TK_oclIsInvalid);
 			methodNames.add(XpandParsersym.TK_oclIsInState);
-			methodNames.add(XpandParsersym.TK_allInstances);
+			methodNames.add(XpandParsersym.TK_allInstances);*/
 		}
 
 		private final Set<Integer> operands = new HashSet<Integer>();
