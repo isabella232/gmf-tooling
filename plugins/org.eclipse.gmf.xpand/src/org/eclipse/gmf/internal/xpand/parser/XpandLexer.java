@@ -12,21 +12,18 @@
  */
 package org.eclipse.gmf.internal.xpand.parser;
 
+import lpg.lpgjavaruntime.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lpg.lpgjavaruntime.LexParser;
-import lpg.lpgjavaruntime.LexStream;
-import lpg.lpgjavaruntime.LpgLexStream;
-import lpg.lpgjavaruntime.Monitor;
-import lpg.lpgjavaruntime.ParseTable;
-import lpg.lpgjavaruntime.PrsStream;
-import lpg.lpgjavaruntime.RuleAction;
-
 import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.util.ParserException.ErrorLocationInfo;
+import org.eclipse.ocl.Environment;
+import org.eclipse.ocl.lpg.BasicEnvironment;
+import org.eclipse.ocl.util.OCLUtil;
+import org.eclipse.ocl.parser.OCLKWLexer;
 
 public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLexersym, RuleAction {
     private static ParseTable prs = new XpandLexerprs();
@@ -377,32 +374,26 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             //
             // Rule 6:  Token ::= IntegerLiteral
             //
-            case 6: { 
-				makeToken(TK_INTEGER_LITERAL);
-	            break;
-            }
+            case 6:
+                break; 
 	 
             //
-            // Rule 7:  Token ::= RealLiteral
+            // Rule 7:  Token ::= IntegerLiteral DotToken
             //
-            case 7: { 
-				makeToken(TK_REAL_LITERAL);
-	            break;
-            }
+            case 7:
+                break; 
 	 
             //
-            // Rule 8:  Token ::= NumericOperation
+            // Rule 8:  Token ::= IntegerLiteral DotDotToken
             //
-            case 8: { 
-				makeToken(TK_NUMERIC_OPERATION);
-	            break;
-            }
+            case 8:
+                break; 
 	 
             //
-            // Rule 9:  Token ::= IntegerRangeStart
+            // Rule 9:  Token ::= RealLiteral
             //
             case 9: { 
-				makeToken(TK_INTEGER_RANGE_START);
+				makeToken(TK_REAL_LITERAL);
 	            break;
             }
 	 
@@ -410,7 +401,7 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             // Rule 10:  Token ::= SLC
             //
             case 10: { 
-				skipToken();
+				makeComment(TK_SINGLE_LINE_COMMENT);
 	            break;
             }
 	 
@@ -418,7 +409,7 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             // Rule 11:  Token ::= / * Inside Stars /
             //
             case 11: { 
-                skipToken();
+                makeComment(TK_MULTI_LINE_COMMENT);
                 break;
             }
      
@@ -607,159 +598,171 @@ public class XpandLexer extends LpgLexStream implements XpandParsersym, XpandLex
             }
 	 
             //
-            // Rule 35:  Token ::= .
+            // Rule 35:  Token ::= DotToken
             //
-            case 35: { 
+            case 35:
+                break; 
+	 
+            //
+            // Rule 36:  DotToken ::= .
+            //
+            case 36: { 
 				makeToken(TK_DOT);
 	            break;
             }
 	 
             //
-            // Rule 36:  Token ::= . .
+            // Rule 37:  Token ::= DotDotToken
             //
-            case 36: { 
+            case 37:
+                break; 
+	 
+            //
+            // Rule 38:  DotDotToken ::= . .
+            //
+            case 38: { 
 				makeToken(TK_DOTDOT);
 	            break;
             }
 	 
             //
-            // Rule 37:  Token ::= @ p r e
+            // Rule 39:  IntegerLiteral ::= Integer
             //
-            case 37: { 
-				makeToken(TK_ATPRE);
+            case 39: { 
+				makeToken(TK_INTEGER_LITERAL);
 	            break;
             }
 	 
             //
-            // Rule 38:  Token ::= ^
+            // Rule 264:  Token ::= @
             //
-            case 38: { 
+            case 264: { 
+				makeToken(TK_AT);
+	            break;
+            }
+	 
+            //
+            // Rule 265:  Token ::= ^
+            //
+            case 265: { 
 				makeToken(TK_CARET);
 	            break;
             }
 	 
             //
-            // Rule 39:  Token ::= ^ ^
+            // Rule 266:  Token ::= ^ ^
             //
-            case 39: { 
+            case 266: { 
 				makeToken(TK_CARETCARET);
 	            break;
             }
 	 
             //
-            // Rule 40:  Token ::= ?
+            // Rule 267:  Token ::= ?
             //
-            case 40: { 
+            case 267: { 
 				makeToken(TK_QUESTIONMARK);
 	            break;
             }
 	 
             //
-            // Rule 305:  Token ::= : =
+            // Rule 268:  Token ::= : =
             //
-            case 305: { 
+            case 268: { 
 				makeToken(TK_RESET_ASSIGN);
 	            break;
             }
 	 
             //
-            // Rule 306:  Token ::= + =
+            // Rule 269:  Token ::= + =
             //
-            case 306: { 
+            case 269: { 
 				makeToken(TK_ADD_ASSIGN);
 	            break;
             }
 	 
             //
-            // Rule 307:  Token ::= @
+            // Rule 270:  Token ::= !
             //
-            case 307: { 
-				makeToken(TK_AT_SIGN);
-	            break;
-            }
-	 
-            //
-            // Rule 308:  Token ::= !
-            //
-            case 308: { 
+            case 270: { 
 				makeToken(TK_EXCLAMATION_MARK);
 	            break;
             }
 	 
             //
-            // Rule 309:  Token ::= ! =
+            // Rule 271:  Token ::= ! =
             //
-            case 309: { 
+            case 271: { 
 				makeToken(TK_NOT_EQUAL_EXEQ);
 	            break;
             }
 	 
             //
-            // Rule 310:  Token ::= < <
+            // Rule 272:  Token ::= < <
             //
-            case 310: { 
+            case 272: { 
 				makeToken(TK_STEREOTYPE_QUALIFIER_OPEN);
 	            break;
             }
 	 
             //
-            // Rule 311:  Token ::= > >
+            // Rule 273:  Token ::= > >
             //
-            case 311: { 
+            case 273: { 
 				makeToken(TK_STEREOTYPE_QUALIFIER_CLOSE);
 	            break;
             }
 	 
             //
-            // Rule 312:  Token ::= . . .
+            // Rule 274:  Token ::= . . .
             //
-            case 312: { 
+            case 274: { 
 				makeToken(TK_MULTIPLICITY_RANGE);
 	            break;
             }
 	 
             //
-            // Rule 313:  Token ::= ~
+            // Rule 275:  Token ::= ~
             //
-            case 313: { 
+            case 275: { 
 				makeToken(TK_TILDE_SIGN);
 	            break;
             }
 	 
             //
-            // Rule 314:  Token ::= : : =
+            // Rule 276:  Token ::= : : =
             //
-            case 314: { 
+            case 276: { 
 				makeToken(TK_COLONCOLONEQUAL);
 	            break;
             }
 	 
             //
-            // Rule 322:  Token ::= DoubleQuote SLNotDQOpt DoubleQuote
+            // Rule 284:  Token ::= DoubleQuote SLNotDQOpt DoubleQuote
             //
-            case 322: { 
+            case 284: { 
 				makeToken(TK_STRING_LITERAL);
 	            break;
             }
 	 
             //
-            // Rule 325:  Token ::= LG
+            // Rule 288:  Token ::= LG
             //
-            case 325: { 
+            case 288: { 
 		makeToken(TK_LG);
 	          break;
             } 
             //
-            // Rule 326:  Token ::= RG textAny lgOpt
+            // Rule 289:  Token ::= RG textAny lgOpt
             //
-            case 326: { 
+            case 289: { 
 		makeToken(TK_TEXT);
 	          break;
             } 
             //
-            // Rule 336:  Token ::= R E M RG commentAny lgPlus E N D R E M
+            // Rule 299:  Token ::= R E M RG commentAny lgPlus E N D R E M
             //
-            case 336: { 
+            case 299: { 
 		skipToken();
 	          break;
             }

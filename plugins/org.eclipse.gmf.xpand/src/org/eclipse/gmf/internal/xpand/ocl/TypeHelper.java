@@ -16,6 +16,7 @@ import org.eclipse.gmf.internal.xpand.model.ExecutionContext;
 import org.eclipse.ocl.cst.CollectionTypeCS;
 import org.eclipse.ocl.cst.PathNameCS;
 import org.eclipse.ocl.cst.PrimitiveTypeCS;
+import org.eclipse.ocl.cst.SimpleNameCS;
 import org.eclipse.ocl.cst.TypeCS;
 
 /**
@@ -48,11 +49,11 @@ public class TypeHelper {
 
 	public static String toString(PathNameCS pathName) {
         StringBuilder sb = new StringBuilder();
-        for (String s : pathName.getSequenceOfNames()) {
+        for (SimpleNameCS simpleName : pathName.getSimpleNames()) {
         	if (sb.length() > 0) {
         		sb.append("::");
         	}
-        	sb.append(s);
+        	sb.append(simpleName.getValue());
         }
         return sb.toString();
 	}

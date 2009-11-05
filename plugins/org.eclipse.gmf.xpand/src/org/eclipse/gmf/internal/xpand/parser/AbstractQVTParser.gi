@@ -11,6 +11,7 @@ $Globals
 	import org.eclipse.m2m.internal.qvt.oml.cst.DictLiteralPartCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.StatementCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.ListLiteralExpCS;
+	import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeOperationCallExpCS;
 	./
 $End
 
@@ -137,6 +138,38 @@ $Headers
 
 	private boolean isTokenOfType(IToken token, int kind) {
 		return (token != null) && (token.getKind() == kind);
+	}
+	
+	private ImperativeOperationCallExpCS createFeatureFQNOperationCallExpCS(SimpleNameCS moduleName, SimpleNameCS operationName, EList<OCLExpressionCS> arguments) {
+		ImperativeOperationCallExpCS result = org.eclipse.m2m.internal.qvt.oml.cst.CSTFactory.eINSTANCE.createImperativeOperationCallExpCS();
+		return setupImperativeOperationCallExpCS(moduleName, operationName,	arguments, result);
+	}
+	
+	private OperationCallExpCS createDotOperationCallExpCS(OCLExpressionCS oclExpressionCS, PathNameCS pathNameCs, SimpleNameCS simpleNameCS, IsMarkedPreCS isMarkedPreCS,	EList<OCLExpressionCS> arguments) {
+		if (pathNameCs != null && pathNameCs.getSimpleNames().size() == 1) {
+			ImperativeOperationCallExpCS result = createFeatureFQNOperationCallExpCS(pathNameCs.getSimpleNames().get(0), simpleNameCS, arguments);
+			if (oclExpressionCS != null) {
+				result.setSource(oclExpressionCS);
+				result.setIsAtomic(true);
+			}
+			result.setAccessor(oclExpressionCS != null ? DotOrArrowEnum.DOT_LITERAL : DotOrArrowEnum.NONE_LITERAL);
+			if (isAtPre(isMarkedPreCS)) {
+				result.setIsMarkedPreCS(isMarkedPreCS);
+			}
+			return result;
+		}
+		OperationCallExpCS result = createOperationCallExpCS(oclExpressionCS, DotOrArrowEnum.DOT_LITERAL, pathNameCs, simpleNameCS, isMarkedPreCS, arguments);
+		if (oclExpressionCS != null) {
+			result.setIsAtomic(true);
+		}
+		return result;
+	}
+	
+	private ImperativeOperationCallExpCS setupImperativeOperationCallExpCS(SimpleNameCS moduleName, SimpleNameCS operationName, EList<OCLExpressionCS> arguments, ImperativeOperationCallExpCS result) {
+		result.setModule(moduleName);
+		result.setSimpleNameCS(operationName);
+		result.getArguments().addAll(arguments);
+		return result;
 	}
 ./
 $End

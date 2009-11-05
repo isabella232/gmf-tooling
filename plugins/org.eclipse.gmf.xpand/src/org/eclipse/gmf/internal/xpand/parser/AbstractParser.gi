@@ -109,5 +109,9 @@ $Headers
 	
 		return result;
 	}
+	
+	private boolean isAtPre(IsMarkedPreCS atPreCS) {
+		return atPreCS != null;
+	}
 ./
 $End
