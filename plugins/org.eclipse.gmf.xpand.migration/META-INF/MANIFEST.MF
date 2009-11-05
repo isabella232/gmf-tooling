@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.xpand.migration;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.100.qualifier
 Bundle-Activator: org.eclipse.gmf.internal.xpand.migration.Activator
 Bundle-Localization: plugin
 Bundle-Vendor: %providerName
@@ -10,7 +10,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  net.sourceforge.lpg.lpgjavaruntime;visibility:=reexport,
  org.eclipse.emf.ecore;bundle-version="2.4.0",
- org.eclipse.ocl.ecore;bundle-version="1.2.0",
+ org.eclipse.ocl.ecore;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.ui,
  org.eclipse.text;bundle-version="3.4.100",
  org.eclipse.ui.ide;bundle-version="3.4.0",
