@@ -1,1 +1,1 @@
-«DEFINE echo FOR Object»«self»«ENDDEFINE»
+«DEFINE echo FOR OclAny»«self»«ENDDEFINE»
