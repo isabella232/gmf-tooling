@@ -312,7 +312,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (node.needsCanonicalEditPolicy()) {
 			generateChildContainerCanonicalEditPolicy(node);
 		}
-		if (node.getModelFacet() != null && !node.getReorientedIncomingLinks().isEmpty()) {
+		if (needsGraphicalNodeEditPolicy(node)) {
 			generateGraphicalNodeEditPolicy(node);
 		}
 		for (GenNodeLabel label : node.getLabels()) {
@@ -338,7 +338,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	// commands
 
 	private void generateReorientLinkViewCommand() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getReorientLinkViewCommandEmitter(), myDiagram.getReorientConnectionViewCommandQualifiedClassName(), myDiagram);
+		for (GenNode n : myDiagram.getAllNodes()) {
+			if (needsGraphicalNodeEditPolicy(n)) {
+				// ReorientConnectionViewCommand is neccessary only when there's GraphicalNodeEditPolicy
+				// XXX consider using some general modeling facility for reused code like that one (there's a bug for this)
+				doGenerateJavaClass(myEmitters.getReorientLinkViewCommandEmitter(), myDiagram.getReorientConnectionViewCommandQualifiedClassName(), myDiagram);
+				break;
+			}
+		}
 	}
 
 	private void generateCreateNodeCommand(GenNode node) throws InterruptedException, UnexpectedBehaviourException {
@@ -1000,5 +1007,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		c.registerFactor(GMFGenPackage.eINSTANCE.getGenExpressionProviderContainer(), 1);
 		c.registerFactor(GMFGenPackage.eINSTANCE.getPalette(), 1);
 		setupProgressMonitor(null, c.getTotal(myEditorGen));
+	}
+
+	private static boolean needsGraphicalNodeEditPolicy(GenNode node) {
+		return node.getModelFacet() != null && !node.getReorientedIncomingLinks().isEmpty();
 	}
 }
