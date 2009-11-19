@@ -36,4 +36,7 @@ query GenNavigator::uriFragment() : String { return self.oclAsType(ecore::EObjec
 query GenPlugin::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
 query Palette::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
 query GenDiagramUpdater::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
-
+query GenApplication::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
+query GenParserImplementation::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
+query GenParsers::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
+query GenContributionItem::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }

@@ -28,13 +28,12 @@
 «EXPAND mainTarget-»
   </target>
 
-«EXPAND commandsTask»
-«EXPAND parsersTask»
+«EXPAND externalizeSupportTask»
+«EXPAND sharedCommandsTask»
+«EXPAND parsersTask FOR labelParsers-»
+«EXPAND editpoliciesTask FOR diagram»
+«EXPAND providersTask FOR diagram»
 «REM»
-«EXPAND externalizeTask»
-«EXPAND editpolicyTask»
-«EXPAND editpartTask»
-«EXPAND providerTask»
 «EXPAND elementtypeTask»
 «EXPAND validationTask»
 «EXPAND auditsmetricsTask»
@@ -45,6 +44,8 @@
 «EXPAND navigatorTask FOR navigator-»
 «EXPAND propertysheetTask FOR propertySheet-»
 «EXPAND pluginTask FOR plugin»
+«EXPAND rcpApplicationTask FOR application-»
+«EXPAND actionsTask-»
 
   <target name="init">
     
@@ -118,9 +119,39 @@
     <property name="VisualIDRegistryEmitter" value="xpt::editor::VisualIDRegistry::VisualIDRegistry"/>
     <property name="MatchingStrategyEmitter" value="xpt::editor::MatchingStrategy::MatchingStrategy"/>
     <property name="DocumentProviderEmitter" value="xpt::editor::DocumentProvider::DocumentProvider"/>
-    <!-- property name="" value=""/>
+    <!-- RCP Application -->
+    <property name="ApplicationEmitter" value="xpt::application::Application::Application"/>
+    <property name="ActionBarAdvisorEmitter" value="xpt::application::ActionBarAdvisor::ActionBarAdvisor"/>
+    <property name="PerspectiveEmitter" value="xpt::application::Perspective::Perspective"/>
+    <property name="WorkbenchAdvisorEmitter" value="xpt::application::WorkbenchAdvisor::WorkbenchAdvisor"/>
+    <property name="WorkbenchWindowAdvisorEmitter" value="xpt::application::WorkbenchWindowAdvisor::WorkbenchWindowAdvisor"/>
+    <property name="WizardNewFileCreationPageEmitter" value="xpt::application::WizardNewFileCreationPage::WizardNewFileCreationPage"/>
+    <!-- Actions -->
+    <property name="CustomActionEmitter" value="impl::actions::CustomAction::Main"/>
+    <property name="PredefinedActionEmitter" value="impl::actions::PredefinedAction::Main"/>
+    <!-- String externalization -->
+    <property name="ExternalizeEmitter" value="xpt::Externalizer::Access"/>
+    <property name="MessagesEmitter" value="xpt::Externalizer::Values"/>
+    <!-- -->
+    <property name="ReorientLinkViewCommandEmitter" value="xpt::diagram::commands::ReorientLinkViewCommand::ReorientLinkViewCommand"/>
+    <!-- Parsers -->
+    <property name="AbstractParserEmitter" value="impl::parsers::AbstractParser::Main"/>
+    <property name="PredefinedParserEmitter" value="parsers::PredefinedParser::Main"/>
+    <property name="CustomParserEmitter" value="parsers::CustomParser::Main"/>
+    <!-- Providers -->
+    <property name="ViewProviderEmitter" value="xpt::providers::ViewProvider::ViewProvider"/>
+    <property name="EditPartProviderEmitter" value="xpt::providers::EditPartProvider::EditPartProvider"/>
+    <property name="ModelingAssistantProviderEmitter" value="xpt::providers::ModelingAssistantProvider::ModelingAssistantProvider"/>
+    <property name="IconProviderEmitter" value="xpt::providers::IconProvider::IconProvider"/>
+    <property name="ParserProviderEmitter" value="parsers::ParserProvider::Main"/>
+    <!-- Edit Policy --> 
+    <property name="TextSelectionEditPolicyEmitter" value="xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"/>
+    <property name="TextNonResizableEditPolicyEmitter" value="xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"/>
+    <!--
     <property name="" value=""/>
-    <property name="" value=""/ -->
+    <property name="" value=""/>
+    <property name="" value=""/> 
+    -->
     <!-- -->
   </target>
 
@@ -131,8 +162,8 @@
 «DEFINE additions FOR gmfgen::GenEditorGenerator»«ENDDEFINE»
 
 «DEFINE mainTarget FOR gmfgen::GenEditorGenerator-»
-    <antcall target="commands"/>
-    <antcall target="parsers"/>
+    <antcall target="externalize-support"/>
+    <antcall target="shared-commands"/>
 
 «EXPAND generateNode FOREACH diagram.topLevelNodes-»
 «EXPAND generateChildNode FOREACH diagram.childNodes-»
@@ -140,28 +171,63 @@
 «EXPAND generateLink FOREACH diagram.links-»
 «EXPAND generateDiagram FOR diagram-»
 
+    <antcall target="shared-edit-policy"/>
+    <antcall target="providers"/>
+
     <antcall target="diagramupdate"/>
     <antcall target="preferences"/>
     <antcall target="editor"/>
     <antcall target="plugin"/>
 
+«IF not labelParsers.oclIsUndefined()-»
+    <antcall target="parsers"/>
+«ENDIF-»
 «IF not propertySheet.oclIsUndefined()-»
     <antcall target="propertysheet"/>
 «ENDIF-»
 «IF not navigator.oclIsUndefined()-»
     <antcall target="navigator"/>
 «ENDIF-»
+«IF not application.oclIsUndefined()-»
+    <antcall target="rcp-app"/>
+«ENDIF-»
+«IF contextMenus->notEmpty()-»
+    <antcall target="actions"/>
+«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE commandsTask FOR gmfgen::GenEditorGenerator-»
-  <target name="commands">
+«DEFINE sharedCommandsTask FOR gmfgen::GenEditorGenerator-»
+  <target name="shared-commands">
+«IF diagram.getAllNodes()->exists(n | not n.modelFacet.oclIsUndefined() and n.reorientedIncomingLinks->notEmpty()) /*see below GraphicalNodeEditPolicyEmitter condition*/-»
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«diagram.uriFragment()»">
+      <xpt:template name="${ReorientLinkViewCommandEmitter}" outfile="${outputJavaRoot}/«diagram.getReorientConnectionViewCommandQualifiedClassName().replace('.','/')».java"/>
+    </xpt:template-set>
+«ENDIF-»
   </target>
 «ENDDEFINE»
 
-«DEFINE parsersTask FOR gmfgen::GenEditorGenerator-»
+«DEFINE parsersTask FOR gmfgen::GenParsers-»
   <target name="parsers">
+    <xpt:template-set templateRoot="${templateRoot}">
+«EXPAND invokeParserTemplate FOREACH implementations-»
+«IF implementations->exists(i | i.oclIsKindOf(gmfgen::PredefinedParser))-»
+      <xpt:template name="${AbstractParserEmitter}" outfile="${outputJavaRoot}/«implPackageName.replace('.','/')»/AbstractParser.java" inputURI="${inputURI}#«uriFragment()»"/>
+«ENDIF-»
+    </xpt:template-set>
   </target>
 «ENDDEFINE»
+
+«DEFINE invokeParserTemplate FOR gmfgen::GenParserImplementation»«ERROR 'Abstract template invokeParserTemplate for '.concat(self.repr())»«ENDDEFINE»
+
+«DEFINE invokeParserTemplate FOR gmfgen::PredefinedParser-»
+      <xpt:template name="${PredefinedParserEmitter}" outfile="${outputJavaRoot}/«getQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
+«ENDDEFINE»
+«DEFINE invokeParserTemplate FOR gmfgen::CustomParser-»
+«IF generateBoilerplate-»
+      <xpt:template name="${CustomParserEmitter}" outfile="${outputJavaRoot}/«qualifiedName.replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
+«ENDIF-»
+«ENDDEFINE»
+
 
 «REM»
                                            N O D E
@@ -444,6 +510,96 @@
 «ENDDEFINE»
 
 «REM»
-                                           whatever
+                                           R C P     A P P L I C A T I O N
+«ENDREM»
+«DEFINE rcpApplicationTask FOR gmfgen::GenApplication-»
+  <target name="rcp-app">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${ApplicationEmitter}" outfile="${outputJavaRoot}/«getQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${ActionBarAdvisorEmitter}" outfile="${outputJavaRoot}/«getActionBarAdvisorQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${PerspectiveEmitter}" outfile="${outputJavaRoot}/«getPerspectiveQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${WorkbenchAdvisorEmitter}" outfile="${outputJavaRoot}/«getWorkbenchAdvisorQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${WorkbenchWindowAdvisorEmitter}" outfile="${outputJavaRoot}/«getWorkbenchWindowAdvisorQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${WizardNewFileCreationPageEmitter}" outfile="${outputJavaRoot}/«packageName.replace('.','/')»/WizardNewFileCreationPage.java"/>
+    </xpt:template-set>
+  </target>
+«ENDDEFINE»
+
+«REM»
+                                           A C T I O N S
+                                           FIXME: handle duplicates (processedItems in the original Generator code)
 «ENDREM»
 
+«DEFINE actionsTask FOR gmfgen::GenEditorGenerator-»
+«IF contextMenus->notEmpty()-»
+  <target name="actions">
+    <xpt:template-set templateRoot="${templateRoot}">
+«FOREACH contextMenus AS m-»
+«EXPAND invokeActionTemplate FOREACH m.items-»
+«ENDFOREACH-»
+    </xpt:template-set>
+  </target>
+«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE invokeActionTemplate FOR gmfgen::GenContributionItem»«ERROR 'Abstract template invokeActionTemplate for '.concat(self.repr())»«ENDDEFINE»
+«DEFINE invokeActionTemplate FOR gmfgen::GenCustomAction-»
+«IF generateBoilerplate /* and not processedItems->contains(self) FIXME processedItems : List(gmfgen::GenContributionItem)*/»
+      <xpt:template name="${CustomActionEmitter}" outfile="${outputJavaRoot}/«qualifiedClassName.replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
+«ENDIF»
+«ENDDEFINE»
+«DEFINE invokeActionTemplate FOR gmfgen::GenContributionManager-»
+«EXPAND invokeActionTemplate FOREACH items-»
+«ENDDEFINE»
+«DEFINE invokeActionTemplate FOR gmfgen::GenSharedContributionItem-»
+«EXPAND invokeActionTemplate FOR actualItem-»
+«ENDDEFINE»
+«DEFINE invokeActionTemplate FOR gmfgen::GenAction-»
+      <xpt:template name="${PredefinedActionEmitter}" outfile="${outputJavaRoot}/«qualifiedClassName.replace('.','/')».java" inputURI="${inputURI}#«uriFragment()»"/>
+«ENDDEFINE»
+
+«REM»
+                                           E X T E R N A L I Z E        S U P P O R T
+«ENDREM»
+«DEFINE externalizeSupportTask FOR gmfgen::GenEditorGenerator-»
+  <target name="externalize-support">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${ExternalizeEmitter}" outfile="${outputJavaRoot}/«editor.packageName.replace('.','/')»/Messages.java"/>
+      <xpt:template name="${MessagesEmitter}" outfile="${outputPluginRoot}/messages.properties"/>
+    </xpt:template-set>
+  </target>
+«ENDDEFINE»
+
+«REM»
+                                           P R O V I D E R S
+«ENDREM»
+«DEFINE providersTask FOR gmfgen::GenDiagram-»
+  <target name="providers">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${ViewProviderEmitter}" outfile="${outputJavaRoot}/«getNotationViewProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${EditPartProviderEmitter}" outfile="${outputJavaRoot}/«getEditPartProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${ModelingAssistantProviderEmitter}" outfile="${outputJavaRoot}/«getModelingAssistantProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${IconProviderEmitter}" outfile="${outputJavaRoot}/«getIconProviderQualifiedClassName().replace('.','/')».java"/>
+«IF not editorGen.labelParsers.oclIsUndefined() and (editorGen.labelParsers.extensibleViaService or editorGen.labelParsers.implementations->exists(pi | not pi.oclIsKindOf(gmfgen::ExternalParser)) /*existsNonExternalParser*/)-»
+      <xpt:template name="${ParserProviderEmitter}" outfile="${outputJavaRoot}/«editorGen.labelParsers.getQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«editorGen.labelParsers.uriFragment()»"/>
+«ENDIF-»
+    </xpt:template-set>
+  </target>
+«ENDDEFINE»
+
+«REM»
+                                           E D I T  P O L I C I E S
+«ENDREM»
+«DEFINE editpoliciesTask FOR gmfgen::GenDiagram-»
+  <target name="shared-edit-policy">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <!-- BaseItem, -->
+      <xpt:template name="${TextSelectionEditPolicyEmitter}" outfile="${outputJavaRoot}/«getTextSelectionEditPolicyQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${TextNonResizableEditPolicyEmitter}" outfile="${outputJavaRoot}/«getTextNonResizableEditPolicyQualifiedClassName().replace('.','/')».java"/>
+    </xpt:template-set>
+  </target>
+«ENDDEFINE»
+
+«REM»
+                                           whatever
+«ENDREM»
