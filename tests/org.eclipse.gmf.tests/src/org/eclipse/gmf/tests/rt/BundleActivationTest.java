@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2009 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,6 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DecorationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DecorationEditPolicy.DecoratorTarget;
 import org.eclipse.gmf.runtime.diagram.ui.internal.editparts.DefaultNodeEditPart;
@@ -124,7 +125,9 @@ public class BundleActivationTest extends ConfiguredTestCase {
 	public void testDecoratorService() throws Exception {
 		assertTrue("[sanity]", getSetup().getGenModel().getGenDiagram().generateShortcutIcon());
 		assertBundleNotStarted("[sanity]");
-		DecoratorTarget dt = new DecorationEditPolicy().new DecoratorTarget();
+		DecorationEditPolicy decorationEditPolicy = new DecorationEditPolicy();
+		decorationEditPolicy.setHost(new ShapeEditPart(null) {});
+		DecoratorTarget dt = decorationEditPolicy.new DecoratorTarget();
 		@SuppressWarnings("restriction")
 		IDecoratorProvider dp = DecoratorService.getInstance();
 		dp.createDecorators(dt);
