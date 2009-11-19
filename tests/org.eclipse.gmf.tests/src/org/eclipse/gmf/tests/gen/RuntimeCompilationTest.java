@@ -373,12 +373,19 @@ public class RuntimeCompilationTest extends CompilationTest {
 	}
 
 	public void testAntScriptEmitsSameStructure() throws Exception {
+		testAntScriptEmitsSameStructure(createLibraryGen(false));
+	}
+
+	public void testAntScriptEmitsSameStructure_rcp() throws Exception {
+		testAntScriptEmitsSameStructure(createLibraryGen(true));
+	}
+
+	private void testAntScriptEmitsSameStructure(DiaGenSource s) throws Exception {
+		System.out.println(s.getGenDiagram().eResource().getURI().toString());
 		URL scriptLocation = FileLocator.find(Platform.getBundle("org.eclipse.gmf.xpand.ant"), new Path("/examples/gmfgen-run.xml"), null);
 		assertNotNull(scriptLocation);
 		AntRunner r = new AntRunner();
 		r.setBuildFileLocation(FileLocator.toFileURL(scriptLocation).getFile());
-		DiaGenSource s = createLibraryGen(false);
-		System.out.println(s.getGenDiagram().eResource().getURI().toString());
 		File antOutputRoot = File.createTempFile("aaa", "");
 		antOutputRoot.delete();
 		antOutputRoot = new File(antOutputRoot.getParentFile(), antOutputRoot.getName());
@@ -388,7 +395,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		//
 		FileCollector antResult = new FileCollector();
 		FileCollector javaResult = new FileCollector();
-		final String[] filters = { ".*\\.java$", ".*\\.properties$", "MANIFEST\\.MF$", "plugin\\.xml$", "\\.options$" };
+		final String[] filters = { ".*\\.java$", ".*\\.properties$", "MANIFEST\\.MF$", "plugin\\.xml$", "\\.options$", ".*\\.gif$" };
 		antResult.addNameFilter(filters);
 		javaResult.addNameFilter(filters);
 		//
