@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2009 Borland Software Corporation
+ * Copyright (c) 2009 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -129,6 +129,12 @@
     <!-- Actions -->
     <property name="CustomActionEmitter" value="impl::actions::CustomAction::Main"/>
     <property name="PredefinedActionEmitter" value="impl::actions::PredefinedAction::Main"/>
+    <property name="NewDiagramFileWizardEmitter" value="xpt::editor::NewDiagramFileWizard::NewDiagramFileWizard"/>
+    <property name="DiagramContentInitializerEmitter" value="xpt::editor::DiagramContentInitializer::DiagramContentInitializer"/>
+    <property name="ModelElementSelectionPageEmitter" value="xpt::editor::ModelElementSelectionPage::ModelElementSelectionPage"/>
+    <property name="CreateShortcutDecorationsCommandEmitter" value="xpt::diagram::commands::CreateShortcutDecorationsCommand::CreateShortcutDecorationsCommand"/>
+    <property name="ElementChooserEmitter" value="xpt::editor::ElementChooser::ElementChooser"/>
+    <property name="ShortcutCreationWizardEmitter" value="xpt::editor::ShortcutCreationWizard::ShortcutCreationWizard"/>
     <!-- String externalization -->
     <property name="ExternalizeEmitter" value="xpt::Externalizer::Access"/>
     <property name="MessagesEmitter" value="xpt::Externalizer::Values"/>
@@ -145,14 +151,23 @@
     <property name="IconProviderEmitter" value="xpt::providers::IconProvider::IconProvider"/>
     <property name="ParserProviderEmitter" value="parsers::ParserProvider::Main"/>
     <!-- Edit Policy --> 
+    <property name="BaseItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"/>
     <property name="TextSelectionEditPolicyEmitter" value="xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"/>
     <property name="TextNonResizableEditPolicyEmitter" value="xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"/>
-    <!--
-    <property name="" value=""/>
-    <property name="" value=""/>
-    <property name="" value=""/> 
-    -->
-    <!-- -->
+    <property name="DiagramCanonicalEditPolicyEmitter" value="xpt::diagram::editpolicies::DiagramCanonicalEditPolicy::DiagramCanonicalEditPolicy"/>
+    <property name="DiagramItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::DiagramItemSemanticEditPolicy::DiagramItemSemanticEditPolicy"/>
+    <property name="BaseEditHelperEmitter" value="xpt::diagram::edithelpers::BaseEditHelper::BaseEditHelper"/>
+    <!-- wizard to create a diagram -->
+    <property name="CreationWizardEmitter" value="xpt::editor::CreationWizard::CreationWizard"/>
+    <property name="CreationWizardPageEmitter" value="xpt::editor::CreationWizardPage::CreationWizardPage"/>
+    <!-- delete from a diagram action -->
+    <property name="DeleteElementActionEmitter" value="xpt::editor::DeleteElementAction::DeleteElementAction"/>
+    <property name="DiagramEditorContextMenuProviderEmitter" value="xpt::editor::DiagramEditorContextMenuProvider::DiagramEditorContextMenuProvider"/>
+    <!-- Icons -->
+    <property name="ShortcutImageEmitter" value="/xpt/editor/shortcut.gif"/><!-- just a copy -->
+    <property name="GroupIconEmitter" value="/xpt/navigator/navigatorGroup.gif"/><!-- just a copy -->
+    <property name="DiagramIconEmitter" value="/xpt/editor/diagram.gif"/><!-- through EMF GIF Emitter-->
+    <property name="WizardBannerImageEmitter" value="/xpt/editor/wizban.gif"/><!-- through EMF GIF Emitter-->
   </target>
 
 «EXPAND additions»
@@ -380,6 +395,12 @@
       <xpt:template name="${EditPartFactoryEmitter}" outfile="${outputJavaRoot}/«getEditPartFactoryQualifiedClassName().replace('.','/')».java"/>«REM» Although, EPFactory is rather about editor, not diagram«ENDREM»
       <xpt:template name="${ElementInitializersEmitter}" outfile="${outputJavaRoot}/«providersPackageName.replace('.','/')»/ElementInitializers.java"/>
       <xpt:template name="${ElementTypesEmitter}" outfile="${outputJavaRoot}/«getElementTypesQualifiedClassName().replace('.','/')».java"/>
+«IF needsCanonicalEditPolicy()-»
+      <xpt:template name="${DiagramCanonicalEditPolicyEmitter}" outfile="${outputJavaRoot}/«getCanonicalEditPolicyQualifiedClassName().replace('.','/')».java"/>
+«ENDIF-»
+«IF not sansDomain-»
+      <xpt:template name="${DiagramItemSemanticEditPolicyEmitter}" outfile="${outputJavaRoot}/«getItemSemanticEditPolicyQualifiedClassName().replace('.','/')».java"/>
+«ENDIF-»
 «EXPAND generateBehaviours-»
     </xpt:template-set>
 «ENDDEFINE»
@@ -440,10 +461,6 @@
       <xpt:template name="${AbstractNavigatorItemEmitter}" outfile="${outputJavaRoot}/«getAbstractNavigatorItemQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${NavigatorGroupEmitter}" outfile="${outputJavaRoot}/«getNavigatorGroupQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${NavigatorItemEmitter}" outfile="${outputJavaRoot}/«getNavigatorItemQualifiedClassName().replace('.','/')».java"/>
-      <!--
-        Can't generate binary files now
-        xpt:template name="/xpt/navigator/navigatorGroup.gif" outfile="${outputJavaRoot}/«FOREACH childReferences->select(not groupIcon.oclIsUndefined() and groupIcon.size() > 0 ).groupIcon->asOrderedSet() AS f SEPARATOR ';'»«f»«ENDFOREACH»"/ 
-      -->
 «IF generateDomainModelNavigator and not editorGen.domainGenModel.oclIsUndefined()-»
       <!-- Naviagator for domain model -->
       <xpt:template name="${DomainNavigatorContentProviderEmitter}" outfile="${outputJavaRoot}/«getDomainContentProviderQualifiedClassName().replace('.','/')».java"/>
@@ -452,6 +469,13 @@
       <xpt:template name="${URIEditorInputTesterEmitter}" outfile="${outputJavaRoot}/«getUriInputTesterQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
     </xpt:template-set>
+    <!-- generateNavigatorGroupIcons -->
+«FOREACH childReferences->select(not groupIcon.oclIsUndefined() and groupIcon.size() > 0 ).groupIcon->asOrderedSet() AS f-»
+«IF f.rfind('/') > 0 -»
+    <mkdir dir="${outputPluginRoot}/«f.substring(1, f.rfind('/'))»"/>
+«ENDIF-»
+    <get src="${templateRoot}${GroupIconEmitter}" dest="${outputPluginRoot}/«f»"/>
+«ENDFOREACH-»
   </target>
 «ENDDEFINE»
 
@@ -473,8 +497,35 @@
       <xpt:template name="${VisualIDRegistryEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getVisualIDRegistryQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${MatchingStrategyEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getMatchingStrategyQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${DocumentProviderEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getDocumentProviderQualifiedClassName().replace('.','/')».java"/>
+      <!-- editor creation wizard -->
+      <xpt:template name="${CreationWizardEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getCreationWizardQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${CreationWizardPageEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getCreationWizardPageQualifiedClassName().replace('.','/')».java"/>
+      <!-- delete action on a diagram -->
+      <xpt:template name="${DeleteElementActionEmitter}" outfile="${outputJavaRoot}/«/*editorGen.editor.*/packageName.replace('.','/')»/DeleteElementAction.java"/>
+      <xpt:template name="${DiagramEditorContextMenuProviderEmitter}" outfile="${outputJavaRoot}/«/*editorGen.editor.*/packageName.replace('.','/')»/DiagramEditorContextMenuProvider.java"/>
     </xpt:template-set>
+    <!-- FIXME do not overwrite existing files -->
+«IF editorGen.diagram.creationWizardIconPath.indexOf('/') > 0 and not editorGen.diagram.creationWizardIconPath.startsWith('../')-»
+    <mkdir dir="${outputPluginRoot}/«editorGen.diagram.creationWizardIconPath.substring(1, editorGen.diagram.creationWizardIconPath.rfind('/'))»"/>
+«ENDIF-»
+    <get src="${templateRoot}${DiagramIconEmitter}" dest="«EXPAND processIconPath(editorGen.diagram.creationWizardIconPath) FOR editorGen»"/>
+«IF iconPath.indexOf('/') > 0 and not iconPath.startsWith('../')-»
+    <mkdir dir="${outputPluginRoot}/«iconPath.substring(1, iconPath.rfind('/'))»"/>
+«ENDIF-»
+    <get src="${templateRoot}${DiagramIconEmitter}" dest="«EXPAND processIconPath(iconPath) FOR editorGen»"/>
+    <mkdir dir="${outputPluginRoot}/icons/wizban/"/>
+    <get src="${templateRoot}${WizardBannerImageEmitter}" dest="${outputPluginRoot}/icons/wizban/New«IF editorGen.diagram.domainDiagramElement <> null /*@see CreationWizard.xpt*/»«editorGen.diagram.domainDiagramElement.genPackage.prefix»«ENDIF»Wizard.gif"/>
   </target>
+«ENDDEFINE»
+
+//#getCreationWizardIconPathX and #getIconPathX 
+«DEFINE processIconPath(String path) FOR gmfgen::GenEditorGenerator-»
+«IF '{reuseEMFIcon}'.equalsIgnoreCase(path)-»
+«IF diagram.domainDiagramElement <> null-»
+../«domainGenModel.editorPluginID»/icons/full/obj16/«diagram.domainDiagramElement.genPackage.prefix»ModelFile.gif«ELSE-»
+${outputPluginRoot}/icons/obj16/DiagramFile.gif
+«ENDIF-»
+«ELSE»${outputPluginRoot}/«path»«ENDIF-»
 «ENDDEFINE»
 
 «REM»
@@ -538,8 +589,34 @@
 «EXPAND invokeActionTemplate FOREACH m.items-»
 «ENDFOREACH-»
     </xpt:template-set>
+«EXPAND legacyActionsSubTask FOR diagram-»
   </target>
 «ENDIF-»
+«ENDDEFINE»
+
+«REM» actions that not yet migrated to ContributionItem approach.«ENDREM»
+«DEFINE legacyActionsSubTask FOR gmfgen::GenDiagram-»
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+«IF generateInitDiagramAction() or generateCreateShortcutAction()-»
+      <xpt:template name="${ModelElementSelectionPageEmitter}" outfile="${outputJavaRoot}/«editorGen.editor.packageName.replace('.','/')»/ModelElementSelectionPage.java"/>
+«ENDIF»
+«IF generateInitDiagramAction()-»
+      <!-- FIXME HACK! -->
+      <xpt:template name="xpt::editor::InitDiagramFileAction::Hack" outfile="${outputJavaRoot}/«getInitDiagramFileActionQualifiedClassName().replace('.','/')».java" inputURI="${inputURI}#«editorGen.uriFragment()»"/>
+«IF not synchronized»
+      <xpt:template name="${DiagramContentInitializerEmitter}" outfile="${outputJavaRoot}/«getDiagramContentInitializerQualifiedClassName().replace('.','/')».java"/>
+«ENDIF-»
+      <xpt:template name="${NewDiagramFileWizardEmitter}" outfile="${outputJavaRoot}/«editorGen.editor.packageName.replace('.','/')»/«newDiagramFileWizardClassName».java"/>
+«ENDIF-»
+«IF generateCreateShortcutAction()-»
+      <xpt:template name="${CreateShortcutDecorationsCommandEmitter}" outfile="${outputJavaRoot}/«getCreateShortcutDecorationsCommandQualifiedClassName().replace('.','/')».java"/>
+«IF editorGen.application.oclIsUndefined()-»
+      <xpt:template name="${ElementChooserEmitter}" outfile="${outputJavaRoot}/«getElementChooserQualifiedClassName().replace('.','/')».java"/>
+«ELSE-»
+      <xpt:template name="${ShortcutCreationWizardEmitter}" outfile="${outputJavaRoot}/«editorGen.editor.packageName.replace('.','/')»/ShortcutCreationWizard.java"/>
+«ENDIF-»
+«ENDIF-»
+    </xpt:template-set>
 «ENDDEFINE»
 
 «DEFINE invokeActionTemplate FOR gmfgen::GenContributionItem»«ERROR 'Abstract template invokeActionTemplate for '.concat(self.repr())»«ENDDEFINE»
@@ -593,9 +670,12 @@
 «DEFINE editpoliciesTask FOR gmfgen::GenDiagram-»
   <target name="shared-edit-policy">
     <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
-      <!-- BaseItem, -->
+«IF getAllContainers()->exists(not sansDomain) or links->exists(not sansDomain) /*any element got an associated model entity*/-»
+      <xpt:template name="${BaseItemSemanticEditPolicyEmitter}" outfile="${outputJavaRoot}/«getBaseItemSemanticEditPolicyQualifiedClassName().replace('.','/')».java"/>
+«ENDIF-»
       <xpt:template name="${TextSelectionEditPolicyEmitter}" outfile="${outputJavaRoot}/«getTextSelectionEditPolicyQualifiedClassName().replace('.','/')».java"/>
       <xpt:template name="${TextNonResizableEditPolicyEmitter}" outfile="${outputJavaRoot}/«getTextNonResizableEditPolicyQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${BaseEditHelperEmitter}" outfile="${outputJavaRoot}/«getBaseEditHelperQualifiedClassName().replace('.','/')».java"/>
     </xpt:template-set>
   </target>
 «ENDDEFINE»

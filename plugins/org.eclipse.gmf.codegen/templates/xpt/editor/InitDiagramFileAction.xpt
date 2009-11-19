@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2009 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,6 +17,15 @@
 «EXTENSION xpt::StringOperations»
 
 «DEFINE InitDiagramFileAction(editorGen : gmfgen::GenEditorGenerator) FOR gmfgen::InitDiagramAction-»
+«EXPAND InitDiagramFileAction(editorGen, qualifiedClassName)-»
+«ENDDEFINE»
+
+// HACK to deal with the InitDiagramAction instance being constructed at codegen time, and Ant being capable of supplying (existing!) target object only 
+«DEFINE Hack FOR gmfgen::GenEditorGenerator-»
+«EXPAND InitDiagramFileAction(self, diagram.getInitDiagramFileActionQualifiedClassName())-»
+«ENDDEFINE»
+
+«DEFINE InitDiagramFileAction(gmfgen::GenEditorGenerator editorGen, String qualifiedClassName) FOR OclAny-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 «EXPAND xpt::Common::packageStatement FOR qualifiedClassName»
 

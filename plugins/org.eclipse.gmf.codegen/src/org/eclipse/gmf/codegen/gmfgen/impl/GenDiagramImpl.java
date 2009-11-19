@@ -3070,7 +3070,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getCreationWizardIconPath() {
 		String value = getCreationWizardIconPathGen();
 		if (isEmpty(value)) {
-			return createDefaultIconPath();
+			final String stem = getDomainDiagramElement() == null ? "" : getDomainDiagramElement().getGenPackage().getPrefix();
+			return "icons/obj16/" + stem +"DiagramFile.gif";
 		}
 		return value;
 	}
@@ -3087,13 +3088,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			return "../" + getEditorGen().getDomainGenModel().getEditorPluginID() + "/icons/full/obj16/" + domainMetaModel.getPrefix() + "ModelFile.gif";
 		} else {
 			// no much sense to return value of REUSE_ICON_VALUE constant
-			return createDefaultIconPath();
+			return "icons/obj16/DiagramFile.gif";
 		}
-	}
-
-	private String createDefaultIconPath() {
-		final String stem = getDomainDiagramElement() == null ? "" : getDomainDiagramElement().getGenPackage().getPrefix();
-		return "icons/obj16/" + stem +"DiagramFile.gif";
 	}
 
 	/**

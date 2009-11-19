@@ -694,9 +694,6 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 	
 	private void generateElementChooser() throws InterruptedException {
-		if (!myDiagram.generateCreateShortcutAction()) {
-			return;
-		}
 		doGenerateJavaClass(myEmitters.getElementChooserEmitter(), myDiagram.getElementChooserQualifiedClassName(), myDiagram);
 	}
 
