@@ -44,6 +44,8 @@ public class StatementEvaluatorTest extends AbstractXpandTest {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		// [radvorak]
+		// Consider to avoid this code
 		if (QvtPlugin.getDefault() == null) {
 			new QvtPlugin();
 		}
