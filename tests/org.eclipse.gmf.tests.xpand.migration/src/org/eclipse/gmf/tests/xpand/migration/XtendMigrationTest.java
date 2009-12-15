@@ -21,6 +21,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.xpand.migration.MigrationException;
 import org.eclipse.gmf.internal.xpand.migration.MigrationExecutionContextImpl;
 import org.eclipse.gmf.internal.xpand.migration.XtendMigrationFacade;
@@ -319,7 +320,7 @@ public class XtendMigrationTest extends TestCase {
 			}
 		};
 		
-		QVTOCompiler qvtCompiler = new QVTOCompiler(resolver);
+		QVTOCompiler qvtCompiler = QVTOCompiler.createCompiler(resolver, EPackage.Registry.INSTANCE);
 		QvtCompilerOptions options = new QvtCompilerOptions();
 		options.setGenerateCompletionData(false);
 		options.setShowAnnotations(false);
