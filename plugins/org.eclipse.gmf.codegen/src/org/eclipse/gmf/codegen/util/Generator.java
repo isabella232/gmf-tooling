@@ -184,14 +184,13 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myDiagram.isValidationEnabled() || myEditorGen.hasAudits()) {
 			generateValidationProvider();
 			generateValidateAction();
-			if (myEditorGen.getApplication() != null) {
+			if (myEditorGen.getApplication() == null) {
+				generateMarkerNavigationProvider();
+			} else {
 				generateValidationMarker();
 			}
 			if (myDiagram.isValidationDecorators()) {
 				generateValidationDecoratorProvider();
-			}
-			if (myEditorGen.getApplication() == null) {
-				generateMarkerNavigationProvider();
 			}
 		}
 		if (myEditorGen.getMetrics() != null) {

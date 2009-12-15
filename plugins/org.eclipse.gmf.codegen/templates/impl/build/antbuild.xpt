@@ -33,11 +33,11 @@
 «EXPAND parsersTask FOR labelParsers-»
 «EXPAND editpoliciesTask FOR diagram»
 «EXPAND providersTask FOR diagram»
-«REM»
-«EXPAND elementtypeTask»
-«EXPAND validationTask»
-«EXPAND auditsmetricsTask»
-«ENDREM»
+«IF diagram.validationEnabled or (not audits.oclIsUndefined() and audits.rules->notEmpty())-»
+«EXPAND auditsTask FOR diagram-»
+«ENDIF-»
+«EXPAND metricsTask FOR metrics-»
+«EXPAND expressionProvidersTask FOR expressionProviders-»
 «EXPAND diagramupdateTask FOR diagramUpdater-»
 «EXPAND preferencesTask FOR diagram-»
 «EXPAND editorTask FOR editor»
@@ -119,6 +119,8 @@
     <property name="VisualIDRegistryEmitter" value="xpt::editor::VisualIDRegistry::VisualIDRegistry"/>
     <property name="MatchingStrategyEmitter" value="xpt::editor::MatchingStrategy::MatchingStrategy"/>
     <property name="DocumentProviderEmitter" value="xpt::editor::DocumentProvider::DocumentProvider"/>
+    <property name="ShortcutsDecoratorProviderEmitter" value="xpt::providers::ShortcutsDecoratorProvider::ShortcutsDecoratorProvider"/>
+    <property name="ShortcutPropertyTesterEmitter" value="xpt::editor::ShortcutPropertyTester::ShortcutPropertyTester"/>
     <!-- RCP Application -->
     <property name="ApplicationEmitter" value="xpt::application::Application::Application"/>
     <property name="ActionBarAdvisorEmitter" value="xpt::application::ActionBarAdvisor::ActionBarAdvisor"/>
@@ -168,6 +170,16 @@
     <property name="GroupIconEmitter" value="/xpt/navigator/navigatorGroup.gif"/><!-- just a copy -->
     <property name="DiagramIconEmitter" value="/xpt/editor/diagram.gif"/><!-- through EMF GIF Emitter-->
     <property name="WizardBannerImageEmitter" value="/xpt/editor/wizban.gif"/><!-- through EMF GIF Emitter-->
+    <!-- Audits, metrics and validation -->
+    <property name="MetricProviderEmitter" value="xpt::providers::MetricProvider::MetricProvider"/>
+    <property name="ValidationProviderEmitter" value="xpt::providers::ValidationProvider::ValidationProvider"/>
+    <property name="ValidateActionEmitter" value="xpt::editor::ValidateAction::ValidateAction"/>
+    <property name="ValidationDecoratorProviderEmitter" value="xpt::providers::ValidationDecoratorProvider::ValidationDecoratorProvider"/>
+    <property name="MarkerNavigationProviderEmitter" value="xpt::providers::MarkerNavigationProvider::MarkerNavigationProvider"/>
+    <property name="ValidationMarkerEmitter" value="xpt::editor::ValidationMarker::ValidationMarker"/>
+    <property name="AbstractExpressionEmitter" value="xpt::expressions::AbstractExpression::AbstractExpression"/>
+    <property name="OCLExpressionFactoryEmitter" value="xpt::expressions::OCLExpressionFactory::OCLExpressionFactory"/>
+    <property name="RegexpExpressionFactoryEmitter" value="xpt::expressions::RegexpExpressionFactory::RegexpExpressionFactory"/>
   </target>
 
 «EXPAND additions»
@@ -196,6 +208,15 @@
 
 «IF not labelParsers.oclIsUndefined()-»
     <antcall target="parsers"/>
+«ENDIF-»
+«IF diagram.validationEnabled or (not audits.oclIsUndefined() and audits.rules->notEmpty())-»
+    <antcall target="audits"/>
+«ENDIF-»
+«IF not metrics.oclIsUndefined()-»
+    <antcall target="metrics"/>
+«ENDIF-»
+«IF not expressionProviders.oclIsUndefined()-»
+    <antcall target="expression-providers"/>
 «ENDIF-»
 «IF not propertySheet.oclIsUndefined()-»
     <antcall target="propertysheet"/>
@@ -314,12 +335,6 @@
       <xpt:template name="${ChildContainerCanonicalEditPolicyEmitter}" outfile="${outputJavaRoot}/«getCanonicalEditPolicyQualifiedClassName().replace('.','/')».java"/>
 «ENDIF-»
 «ENDDEFINE»
-
-«REM»
-  <target name="generateNode">
-    <xpt:template name="" inputURI="${inputURI}" templateroot="${templateRoot}" outfile="${outputJavaRoot}/getItemSemanticEditPolicyQualifiedClassName().replace('.','/')"/>
-  </target>
-«ENDREM»
 
 
 «REM»
@@ -503,6 +518,10 @@
       <!-- delete action on a diagram -->
       <xpt:template name="${DeleteElementActionEmitter}" outfile="${outputJavaRoot}/«/*editorGen.editor.*/packageName.replace('.','/')»/DeleteElementAction.java"/>
       <xpt:template name="${DiagramEditorContextMenuProviderEmitter}" outfile="${outputJavaRoot}/«/*editorGen.editor.*/packageName.replace('.','/')»/DiagramEditorContextMenuProvider.java"/>
+«IF editorGen.diagram.generateShortcutIcon()-»
+      <xpt:template name="${ShortcutsDecoratorProviderEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getShortcutsDecoratorProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${ShortcutPropertyTesterEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getShortcutPropertyTesterQualifiedClassName().replace('.','/')».java"/>
+«ENDIF-»
     </xpt:template-set>
     <!-- FIXME do not overwrite existing files -->
 «IF editorGen.diagram.creationWizardIconPath.indexOf('/') > 0 and not editorGen.diagram.creationWizardIconPath.startsWith('../')-»
@@ -515,6 +534,10 @@
     <get src="${templateRoot}${DiagramIconEmitter}" dest="«EXPAND processIconPath(iconPath) FOR editorGen»"/>
     <mkdir dir="${outputPluginRoot}/icons/wizban/"/>
     <get src="${templateRoot}${WizardBannerImageEmitter}" dest="${outputPluginRoot}/icons/wizban/New«IF editorGen.diagram.domainDiagramElement <> null /*@see CreationWizard.xpt*/»«editorGen.diagram.domainDiagramElement.genPackage.prefix»«ENDIF»Wizard.gif"/>
+«IF editorGen.diagram.generateShortcutIcon()-»
+    <mkdir dir="${outputPluginRoot}/icons/"/>
+    <get src="${templateRoot}${ShortcutImageEmitter}" dest="${outputPluginRoot}/icons/shortcut.gif"/>
+«ENDIF-»
   </target>
 «ENDDEFINE»
 
@@ -681,5 +704,47 @@ ${outputPluginRoot}/icons/obj16/DiagramFile.gif
 «ENDDEFINE»
 
 «REM»
-                                           whatever
+                                           M E T R I C S
 «ENDREM»
+«DEFINE metricsTask FOR gmfgen::GenMetricContainer-»
+  <target name="metrics">
+    <xpt:template name="${MetricProviderEmitter}" outfile="${outputJavaRoot}/«editorGen.diagram.getMetricProviderQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«editorGen.diagram.uriFragment()»"/>
+  </target>
+«ENDDEFINE»
+
+«REM»
+                                           E X P R E S S I O N  P R O V I D E R S
+«ENDREM»
+«DEFINE expressionProvidersTask FOR gmfgen::GenExpressionProviderContainer-»
+  <target name="expression-providers">
+«FOREACH providers[GenExpressionInterpreter]->select(language = gmfgen::GenLanguage::ocl) AS i-»
+    <xpt:template name="${OCLExpressionFactoryEmitter}" outfile="${outputJavaRoot}/«i.getQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«i.uriFragment()»"/>
+«ENDFOREACH-»  
+«FOREACH providers[GenExpressionInterpreter]->select(language = gmfgen::GenLanguage::regexp or language = gmfgen::GenLanguage::nregexp) AS i-»
+    <xpt:template name="${RegexpExpressionFactoryEmitter}" outfile="${outputJavaRoot}/«i.getQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«i.uriFragment()»"/>
+«ENDFOREACH-»  
+«IF providers[GenExpressionInterpreter]->exists(language = gmfgen::GenLanguage::ocl or language = gmfgen::GenLanguage::regexp or language = gmfgen::GenLanguage::nregexp) /*needAbstractExpression*/-»
+    <xpt:template name="${AbstractExpressionEmitter}" outfile="${outputJavaRoot}/«getAbstractExpressionQualifiedClassName().replace('.','/')».java" templateRoot="${templateRoot}" inputURI="${inputURI}#«editorGen.diagram.uriFragment()»"/>
+«ENDIF-»
+  </target>
+«ENDDEFINE»
+
+«REM»
+                                           V A L I D A T I O N  &  A U D I T S
+«ENDREM»
+«DEFINE auditsTask FOR gmfgen::GenDiagram-»
+  <target name="audits">
+    <xpt:template-set templateRoot="${templateRoot}" inputURI="${inputURI}#«uriFragment()»">
+      <xpt:template name="${ValidationProviderEmitter}" outfile="${outputJavaRoot}/«getValidationProviderQualifiedClassName().replace('.','/')».java"/>
+      <xpt:template name="${ValidateActionEmitter}" outfile="${outputJavaRoot}/«editorGen.editor.packageName.replace('.','/')»/ValidateAction.java"/>
+«IF editorGen.application.oclIsUndefined()-»
+      <xpt:template name="${MarkerNavigationProviderEmitter}" outfile="${outputJavaRoot}/«getMarkerNavigationProviderQualifiedClassName().replace('.','/')».java"/>
+«ELSE-»
+      <xpt:template name="${ValidationMarkerEmitter}" outfile="${outputJavaRoot}/«editorGen.editor.packageName.replace('.','/')»/ValidationMarker.java"/>
+«ENDIF-»
+«IF validationDecorators-»
+      <xpt:template name="${ValidationDecoratorProviderEmitter}" outfile="${outputJavaRoot}/«getValidationDecoratorProviderQualifiedClassName().replace('.','/')».java"/>
+«ENDIF-»
+    </xpt:template-set>
+  </target>
+«ENDDEFINE»

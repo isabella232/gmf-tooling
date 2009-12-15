@@ -40,3 +40,4 @@ query GenApplication::uriFragment() : String { return self.oclAsType(ecore::EObj
 query GenParserImplementation::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
 query GenParsers::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
 query GenContributionItem::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
+query GenExpressionInterpreter::uriFragment() : String { return self.oclAsType(ecore::EObject).uriFragment(); }
