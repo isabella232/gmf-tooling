@@ -131,9 +131,9 @@ private void create«getUniqueIdentifier()»ChildLinks(org.eclipse.gmf.runtime.n
 		}
 	}
 «ENDIF-»
-		«LET self.getContainedContainers()->select(e | allContainersWithAncestors->includes(e)) AS containedLinkContainers-»
-		«LET (containedLinkContainers->collect(it | it))[gmfgen::GenLink]->asSequence() AS linkContainersContainedInSourceEdges-»
-		«LET containedLinkContainers->collect(it_1 | it_1)->asSet()->-(linkContainersContainedInSourceEdges->asSet()) AS linkContainersContainedInChildren-»
+		«LET self.getContainedContainers()->collect(it | it)->asSequence()->select(e | allContainersWithAncestors->includes(e)) AS containedLinkContainers-»
+		«LET containedLinkContainers[gmfgen::GenLink]->asSequence() AS linkContainersContainedInSourceEdges-»
+		«LET containedLinkContainers[not oclIsKindOf(gmfgen::GenLink)] AS linkContainersContainedInChildren-»
 		«IF linkContainersContainedInChildren->size() > 0-»
 	for(java.util.Iterator it = viewObject.getChildren().iterator(); it.hasNext(); ) {
 		org.eclipse.gmf.runtime.notation.View next = (org.eclipse.gmf.runtime.notation.View) it.next();

@@ -24,7 +24,7 @@ public static int «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodN
 	int containerVisualID = -1;
 	if («EXPAND xpt::editor::VisualIDRegistry::modelID».equals(containerModelID)) {
 		containerVisualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(containerView);
-«LET shortcutsProvidedFor->-(Sequence { editorGen.modelID }->asSet()) AS shortcutModels-»
+«LET shortcutsProvidedFor->asSequence()->excluding(editorGen.modelID) AS shortcutModels-»
 	«IF shortcutModels->size() > 0-»
 	} else {
 		if (false == containerView instanceof org.eclipse.gmf.runtime.notation.Diagram) {
