@@ -27,7 +27,7 @@ helper getSideAffixedChildren(node : genModel::GenNode) : Sequence(genModel::Gen
 }
 
 helper getInnerFixedLabels(node : genModel::GenNode) : Sequence(genModel::GenLabel) {
-	return node.labels->-((node.labels)[genModel::GenExternalNodeLabel])->select(e | (Sequence { e.oclAsType(genModel::GenLabel).viewmap })[genModel::ParentAssignedViewmap]->size() > 0)->asSequence()
+	return node.labels->asSequence()[not oclIsKindOf(genModel::GenExternalNodeLabel)]->select(e | e.oclAsType(genModel::GenLabel).viewmap.oclIsKindOf(genModel::ParentAssignedViewmap));
 }
 
 helper getPinnedCompartments(node : genModel::GenNode) : Sequence(genModel::GenCompartment) {

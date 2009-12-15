@@ -393,7 +393,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		'@param nodeShape instance of generated figure class'
 	)»
 	protected org.eclipse.draw2d.IFigure setupContentPane(org.eclipse.draw2d.IFigure nodeShape) {
-		«IF not childNodes->isEmpty() or (not compartments->isEmpty() or not labels->-((labels)[gmfgen::GenExternalNodeLabel])->isEmpty())-»
+		«IF not childNodes->isEmpty() or (not compartments->isEmpty() or labels[not oclIsKindOf(gmfgen::GenExternalNodeLabel)]->notEmpty())-»
 			if (nodeShape.getLayoutManager() == null) {
 				«IF getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT-»
 					nodeShape.setLayoutManager(new org.eclipse.draw2d.FreeformLayout() {
