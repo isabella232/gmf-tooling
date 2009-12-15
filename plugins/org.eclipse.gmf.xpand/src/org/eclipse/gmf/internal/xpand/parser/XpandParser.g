@@ -24,7 +24,6 @@ $Globals
 	import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 	import org.eclipse.gmf.internal.xpand.ast.*;
 	import org.eclipse.ocl.cst.*;
-	import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeIterateExpCS;
 	import java.util.Collections;
 
 	import org.eclipse.m2m.internal.qvt.oml.cst.SimpleSignatureCS;
@@ -32,6 +31,9 @@ $Globals
 	import org.eclipse.m2m.internal.qvt.oml.cst.DirectionKindEnum;
 	import org.eclipse.m2m.internal.qvt.oml.cst.DirectionKindCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.TypeSpecCS;
+	
+	import org.eclipse.ocl.util.OCLStandardLibraryUtil;
+	import org.eclipse.ocl.utilities.PredefinedType;
 
 	./
 $End
@@ -50,27 +52,25 @@ $Import
 	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/ImperativeOCL.g
 
 $DropRules
-	oclExpCS -> switchExpCS
-	oclExpCS -> whileExpCS
-	oclExpCS -> legacyWhileExpCS
-	oclExpCS -> computeExpCS
-	oclExpCS -> newExpCS
-	loopExpCS -> iterateSwitchExpCS
-	loopExpCS -> forExpCS
+	primaryExpCS -> switchExpCS
+	primaryExpCS -> whileExpCS
+	primaryExpCS -> computeExpCS
+	primaryExpCS -> newExpCS
+	IterateExpCS ::= primaryExpCS '->' switch '(' switchDeclaratorCS ')' switchBodyExpCS
+	IteratorExpCS ::= primaryExpCS '->' forExpCS
 	ifExpBodyCS -> expression_block
-	oclExpressionCS -> assignStatementCS
-	oclExpressionCS ::= primaryOCLExpressionCS
-	oclExpressionCS -> returnExpCS
-	oclExpressionCS -> var_init_exp
+	OclExpressionCS -> assignStatementCS
+	OclExpressionCS ::= primaryOCLExpressionCS
+	OclExpressionCS -> returnExpCS
+	OclExpressionCS -> var_init_exp
 
 $DropSymbols
 	logExpCS logWhenExp logWhenExpOpt
 	assertExpCS assertWithLogExp assertWithLogExpOpt severityKindCS severityKindCSOpt
 	oclExpressionCSOpt 
-	expressionStatementCS
+	expression_statement
 	expression_block
 	switchExpCS
-	iterateSwitchExpCS
 	switchDeclaratorCS
 	switchBodyExpCS
 	switchAltExpCS
@@ -79,7 +79,6 @@ $DropSymbols
 	switchAltExpCSList
 	whileExpCS
 	whileBodyCS
-	legacyWhileExpCS
 	computeExpCS
 	forExpCS
 	forOpCode
@@ -99,13 +98,8 @@ $DropSymbols
 	var_init_declarator
 	var_init_op
 	newExpCS
-	expression_statement
-	_import
-	transformation_h
 	qualifier
 	qualifierList
-	unit_element
-	renaming
 	param
 	param_list
 	param_listOpt
@@ -123,6 +117,11 @@ $DropSymbols
 	semicolonOpt
 	qualifiedNameCS
 	qvtIdentifierCS
+	reservedKeywordCS
+	otherKeywordCS
+	otherKeyword
+	simpleNameCS
+	newTypespecCS
 $End
 
 -- FIXME need to fix $Notice section from EssentialOCL.g
@@ -242,7 +241,7 @@ $Rules
 			setResult(res);
 		$EndJava./
 
-	anImport ::= "IMPORT" stringLiteralExpCS TEXT commentTextPairAny 
+	anImport ::= "IMPORT" StringLiteralExpCS TEXT commentTextPairAny 
 		/.$BeginJava
 			setResult(xpandFactory.createNamespaceImport(getLeftIToken(), (StringLiteralExpCS) getRhsSym(2)));
 		$EndJava./
@@ -408,7 +407,7 @@ $Rules
 
 	simpleStatement -> errorStatement | expandStatement | expressionStmt
 
-	errorStatement ::= "ERROR" oclExpressionCS
+	errorStatement ::= "ERROR" OclExpressionCS
 		/.$BeginJava
 			setResult(xpandFactory.createErrorStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2)));
 		$EndJava./
@@ -418,11 +417,11 @@ $Rules
 		/.$BeginJava
 			setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), null, false, null));
 		$EndJava./
-	expandStatement ::= "EXPAND" definitionName parameterListOpt "FOR" oclExpressionCS
+	expandStatement ::= "EXPAND" definitionName parameterListOpt "FOR" OclExpressionCS
 		/.$BeginJava
 			setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), false, null));
 		$EndJava./
-	expandStatement ::= "EXPAND" definitionName parameterListOpt "FOREACH" oclExpressionCS separatorOpt
+	expandStatement ::= "EXPAND" definitionName parameterListOpt "FOREACH" OclExpressionCS separatorOpt
 		/.$BeginJava
 			setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), true, (OCLExpressionCS) getRhsSym(6)));
 		$EndJava./
@@ -439,14 +438,14 @@ $Rules
 
 	definitionName -> pathNameCS
 
-	expressionStmt ::= oclExpressionCS
+	expressionStmt ::= OclExpressionCS
 		/.$BeginJava
 			// XXX OCL CST doesn't keep track of line numbers, but we use them (perhaps, might refactor to stop using?)
 			int lineNumber = getLeftIToken().getLine();
 			setResult(xpandFactory.createExpressionStatement((OCLExpressionCS) getRhsSym(1), lineNumber));
 		$EndJava./
 
-	fileStatement ::= "FILE" oclExpressionCS identOpt sequence "ENDFILE"
+	fileStatement ::= "FILE" OclExpressionCS identOpt sequence "ENDFILE"
 		/.$BeginJava
 			setResult(xpandFactory.createFileStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), (Identifier) getRhsSym(3), (List) getRhsSym(4)));
 		$EndJava./
@@ -461,7 +460,7 @@ $Rules
 			setResult(xpandFactory.createIdentifier(getLeftIToken()));
 		$EndJava./
 
-	foreachStatement ::= "FOREACH" oclExpressionCS "AS" IDENTIFIER iteratorOpt separatorOpt sequence "ENDFOREACH"
+	foreachStatement ::= "FOREACH" OclExpressionCS "AS" IDENTIFIER iteratorOpt separatorOpt sequence "ENDFOREACH"
 		/.$BeginJava
 			setResult(xpandFactory.createForEachStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (OCLExpressionCS) getRhsSym(6), (IToken) getRhsSym(5), (List) getRhsSym(7)));
 		$EndJava./
@@ -479,13 +478,13 @@ $Rules
 		/.$BeginJava
 			setResult(null);
 		$EndJava./
-	separatorOpt ::= "SEPARATOR" oclExpressionCS
+	separatorOpt ::= "SEPARATOR" OclExpressionCS
 		/.$BeginJava
 			setResult(getRhsSym(2));
 		$EndJava./
 
 
-	ifStatement ::= "IF" oclExpressionCS sequence elseifAny elseOpt "ENDIF"
+	ifStatement ::= "IF" OclExpressionCS sequence elseifAny elseOpt "ENDIF"
 		/.$BeginJava
 			IfStatement i = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 			IfStatement elseIf = (IfStatement) getRhsSym(4);
@@ -508,7 +507,7 @@ $Rules
 		/.$BeginJava
 			setResult(null);
 		$EndJava./
-	elseifAny ::= "ELSEIF" oclExpressionCS sequence elseifAny
+	elseifAny ::= "ELSEIF" OclExpressionCS sequence elseifAny
 		/.$BeginJava
 			IfStatement elseIf = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 			IfStatement restElseIf = (IfStatement) getRhsSym(4);
@@ -525,12 +524,12 @@ $Rules
 			setResult(xpandFactory.createIfStatement(getLeftIToken(), null, (List) getRhsSym(2), null));
 		$EndJava./
 
-	letStatement ::= "LET" oclExpressionCS "AS" IDENTIFIER sequence "ENDLET"
+	letStatement ::= "LET" OclExpressionCS "AS" IDENTIFIER sequence "ENDLET"
 		/.$BeginJava
 			setResult(xpandFactory.createLetStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (List) getRhsSym(5)));
 		$EndJava./
 	
-	protectStatement ::= "PROTECT" "CSTART" oclExpressionCS "CEND" oclExpressionCS "ID" oclExpressionCS disabledOpt sequence "ENDPROTECT"
+	protectStatement ::= "PROTECT" "CSTART" OclExpressionCS "CEND" OclExpressionCS "ID" OclExpressionCS disabledOpt sequence "ENDPROTECT"
 		/.$BeginJava
 			setResult(xpandFactory.createProtectStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), (OCLExpressionCS) getRhsSym(7), (IToken) getRhsSym(8), (List) getRhsSym(9)));
 		$EndJava./
