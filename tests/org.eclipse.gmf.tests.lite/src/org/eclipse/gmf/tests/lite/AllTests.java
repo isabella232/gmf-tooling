@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.lite;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
@@ -75,7 +76,7 @@ public class AllTests {
 		return suite;
 	}
 
-	private static Test feed(Class<?> theClass, TestConfiguration config) {
+	private static Test feed(Class<? extends TestCase> theClass, TestConfiguration config) {
 		return org.eclipse.gmf.tests.AllTests.feed(theClass, config);
 	}
 }
