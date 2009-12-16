@@ -179,10 +179,10 @@ public class AllTests {
 	}
 
 	// should be in a better namespace than AllTests suite, though
-	public static Test feed(Class<?> theClass, TestConfiguration config) {
+	public static Test feed(Class<? extends TestCase> theClass, TestConfiguration config) {
 		return feed(theClass, config, null);
 	}
-	public static Test feed(Class<?> theClass, TestConfiguration config, String suffix) {
+	public static Test feed(Class<? extends TestCase> theClass, TestConfiguration config, String suffix) {
 		TestSuite suite = new TestSuite(theClass, theClass.getSimpleName());
 		if (suffix != null) {
 			suite.setName(suite.getName() + suffix);
