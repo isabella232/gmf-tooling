@@ -30,7 +30,7 @@ For purposes of the EPL, &quot;Program&quot; will mean the Content.
       <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
       <import plugin="net.sourceforge.lpg.lpgjavaruntime" version="1.1.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.xpand.qvtlibrary" version="1.0.0" match="compatible"/>
       <import plugin="org.eclipse.core.filebuffers"/>
       <import plugin="org.eclipse.core.jobs"/>
@@ -54,7 +54,7 @@ For purposes of the EPL, &quot;Program&quot; will mean the Content.
       <import plugin="org.eclipse.text" version="3.4.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide" version="3.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.5.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.m2m.qvt.oml" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.m2m.qvt.oml" version="3.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.m2m.qvt.oml.common" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.m2m.qvt.oml.project" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="2.0.0" match="compatible"/>
