@@ -127,4 +127,5 @@ public class EReference2CreateCommand extends EditElementCommand {
 	protected EClassifier getTarget() {
 		return (EClassifier) target;
 	}
+
 }
