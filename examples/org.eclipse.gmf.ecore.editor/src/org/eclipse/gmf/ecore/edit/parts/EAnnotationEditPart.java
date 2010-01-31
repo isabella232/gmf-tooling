@@ -271,15 +271,6 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		types.add(EcoreElementTypes.EAnnotationReferences_4001);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
 	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (targetEditPart instanceof EClassEditPart) {
@@ -297,6 +288,38 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 		if (targetEditPart instanceof EEnumEditPart) {
 			types.add(EcoreElementTypes.EAnnotationReferences_4001);
 		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EClass_2001);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EPackage_2002);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EAnnotation_2003);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EDataType_2004);
+		}
+		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
+			types.add(EcoreElementTypes.EEnum_2005);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(EcoreElementTypes.EAnnotationReferences_4001);
 		return types;
 	}
 
@@ -323,29 +346,6 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 			}
 		}
 		return super.getTargetEditPart(request);
-	}
-
-	/**
-	 * @generated
-	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
-			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
-			types.add(EcoreElementTypes.EPackage_2002);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
-			types.add(EcoreElementTypes.EAnnotation_2003);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
-			types.add(EcoreElementTypes.EDataType_2004);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
-			types.add(EcoreElementTypes.EEnum_2005);
-		}
-		return types;
 	}
 
 	/**

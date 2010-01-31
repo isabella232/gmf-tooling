@@ -273,18 +273,6 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		types.add(EcoreElementTypes.EAnnotationReferences_4001);
-		types.add(EcoreElementTypes.EReference_4002);
-		types.add(EcoreElementTypes.EReference_4003);
-		types.add(EcoreElementTypes.EClassESuperTypes_4004);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
 	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (targetEditPart instanceof org.eclipse.gmf.ecore.edit.parts.EClassEditPart) {
@@ -308,6 +296,47 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		if (targetEditPart instanceof org.eclipse.gmf.ecore.edit.parts.EClassEditPart) {
 			types.add(EcoreElementTypes.EClassESuperTypes_4004);
 		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		if (relationshipType == EcoreElementTypes.EReference_4002) {
+			types.add(EcoreElementTypes.EClass_2001);
+		}
+		if (relationshipType == EcoreElementTypes.EReference_4002) {
+			types.add(EcoreElementTypes.EDataType_2004);
+		}
+		if (relationshipType == EcoreElementTypes.EReference_4002) {
+			types.add(EcoreElementTypes.EEnum_2005);
+		}
+		if (relationshipType == EcoreElementTypes.EReference_4003) {
+			types.add(EcoreElementTypes.EClass_2001);
+		}
+		if (relationshipType == EcoreElementTypes.EReference_4003) {
+			types.add(EcoreElementTypes.EDataType_2004);
+		}
+		if (relationshipType == EcoreElementTypes.EReference_4003) {
+			types.add(EcoreElementTypes.EEnum_2005);
+		}
+		if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+			types.add(EcoreElementTypes.EClass_2001);
+		}
+		return types;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
+		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		types.add(EcoreElementTypes.EAnnotationReferences_4001);
+		types.add(EcoreElementTypes.EReference_4002);
+		types.add(EcoreElementTypes.EReference_4003);
+		types.add(EcoreElementTypes.EClassESuperTypes_4004);
 		return types;
 	}
 
@@ -349,35 +378,6 @@ public class EClassEditPart extends ShapeNodeEditPart {
 			}
 		}
 		return super.getTargetEditPart(request);
-	}
-
-	/**
-	 * @generated
-	 */
-	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMATypesForTarget(IElementType relationshipType) {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
-		if (relationshipType == EcoreElementTypes.EReference_4002) {
-			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4002) {
-			types.add(EcoreElementTypes.EDataType_2004);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4002) {
-			types.add(EcoreElementTypes.EEnum_2005);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
-			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
-			types.add(EcoreElementTypes.EDataType_2004);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
-			types.add(EcoreElementTypes.EEnum_2005);
-		}
-		if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
-			types.add(EcoreElementTypes.EClass_2001);
-		}
-		return types;
 	}
 
 	/**
