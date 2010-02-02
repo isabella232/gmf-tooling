@@ -79,7 +79,7 @@
 
 «DEFINE packageStatement FOR String-»
 «IF self.xpandSplit('\\.')->size() > 1-»
-package «FOREACH let tmpVar = self.xpandSplit('\\.') in if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'»«s»«ENDFOREACH»;«ENDIF-»
+package «LET self.xpandSplit('\\.') AS tmpVar»«FOREACH if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'»«s»«ENDFOREACH»;«ENDLET»«ENDIF-»
 «ENDDEFINE»
 
 // Provides handy single point to override generation of assert statements
