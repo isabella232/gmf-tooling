@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import lpg.lpgjavaruntime.IToken;
+import lpg.runtime.IToken;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -275,13 +275,18 @@ public class ExpressionProposalComputer implements ProposalComputer {
 
 		private final Set<Integer> methodNames = new HashSet<Integer>();
 		{
+// TODO: commented out due to the latest changed in OCL parser. Corresponding code have to be reviewed.
+/*			
 			methodNames.add(XpandParsersym.TK_IDENTIFIER);
 			methodNames.add(XpandParsersym.TK_collect);
 			methodNames.add(XpandParsersym.TK_exists);
 			methodNames.add(XpandParsersym.TK_forAll);
 			methodNames.add(XpandParsersym.TK_reject);
 			methodNames.add(XpandParsersym.TK_select);
+*/			
 // methodNames.add(XpandParsersym.TK_typeSelect);
+// TODO: commented out due to the latest changed in OCL parser. Corresponding code have to be reviewed.			
+/*
 			methodNames.add(XpandParsersym.TK_closure);
 			methodNames.add(XpandParsersym.TK_any);
 			methodNames.add(XpandParsersym.TK_one);
@@ -289,6 +294,7 @@ public class ExpressionProposalComputer implements ProposalComputer {
 			methodNames.add(XpandParsersym.TK_sortedBy);
 			methodNames.add(XpandParsersym.TK_isUnique);
 			methodNames.add(XpandParsersym.TK_iterate);
+*/			
 // TODO: commented out due to the latest changed in OCL parser. Corresponding code have to be reviewed.			
 /*			methodNames.add(XpandParsersym.TK_oclIsKindOf);
 			methodNames.add(XpandParsersym.TK_oclIsTypeOf);
@@ -303,13 +309,13 @@ public class ExpressionProposalComputer implements ProposalComputer {
 		private final Set<Integer> operands = new HashSet<Integer>();
 		{
 			operands.add(XpandParsersym.TK_IDENTIFIER);
-			operands.add(XpandParsersym.TK_collect);
-			operands.add(XpandParsersym.TK_exists);
+//			operands.add(XpandParsersym.TK_collect);
+//			operands.add(XpandParsersym.TK_exists);
 			operands.add(XpandParsersym.TK_false);
-			operands.add(XpandParsersym.TK_forAll);
+//			operands.add(XpandParsersym.TK_forAll);
 			operands.add(XpandParsersym.TK_null);
-			operands.add(XpandParsersym.TK_reject);
-			operands.add(XpandParsersym.TK_select);
+//			operands.add(XpandParsersym.TK_reject);
+//			operands.add(XpandParsersym.TK_select);
 			operands.add(XpandParsersym.TK_true);
 			operands.add(XpandParsersym.TK_self);
 // operands.add(XpandParsersym.TK_typeSelect);

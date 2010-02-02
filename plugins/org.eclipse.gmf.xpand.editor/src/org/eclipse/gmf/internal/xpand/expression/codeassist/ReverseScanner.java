@@ -10,8 +10,8 @@
  */
 package org.eclipse.gmf.internal.xpand.expression.codeassist;
 
-import lpg.lpgjavaruntime.IToken;
-import lpg.lpgjavaruntime.PrsStream;
+import lpg.runtime.IToken;
+import lpg.runtime.PrsStream;
 
 import org.eclipse.gmf.internal.xpand.parser.XpandLexer;
 import org.eclipse.gmf.internal.xpand.parser.XpandParsersym;
