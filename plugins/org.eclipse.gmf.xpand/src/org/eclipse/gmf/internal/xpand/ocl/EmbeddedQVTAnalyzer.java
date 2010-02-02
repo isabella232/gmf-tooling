@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.m2m.internal.qvt.oml.ast.parser.QvtOperationalVisitorCS;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 import org.eclipse.m2m.internal.qvt.oml.cst.parser.AbstractQVTParser;
+import org.eclipse.m2m.internal.qvt.oml.cst.parser.QVTOLexer;
+import org.eclipse.m2m.internal.qvt.oml.cst.parser.QVTOParser;
 import org.eclipse.ocl.cst.CSTNode;
 import org.eclipse.ocl.cst.OCLExpressionCS;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
@@ -30,14 +32,14 @@ import org.eclipse.ocl.expressions.OCLExpression;
 class EmbeddedQVTAnalyzer extends QvtOperationalVisitorCS {
 
 	EmbeddedQVTAnalyzer(EcoreEnvironment env) {
-		super(new AbstractQVTParser(env) {
+		super(new QVTOParser(new QVTOLexer(env)) {
 			@Override
 			public String getTokenKindName(int kind) {
 				throw new UnsupportedOperationException();
 			}
-
+			
 			@Override
-			public CSTNode parseTokensToCST(Monitor monitor, int error_repair_count) {
+			public CSTNode parser(Monitor monitor, int error_repair_count) {
 				throw new UnsupportedOperationException();
 			}
 		}, options());

@@ -12,19 +12,20 @@
 
 %options fp=XpandLexer,prefix=Char_
 %options package=org.eclipse.gmf.internal.xpand.parser
-%options template=../expression/parser/LexerTemplateD.g
+%options template=../expression/parser/LexerTemplateF.gi
 %options export_terminals=("XpandParsersym.java", "TK_")
 %options filter=XpandKWLexer.g
 -- stupid endrem needs 6
 %options lalr=6
 %options include_directory="../expression/parser/;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
-$Import
-	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QvtOpLexer.g
-$End
+%Import
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QVTOLexer.gi
+%End
 
-$Define
+%Define
 	$kw_lexer_class /.XpandKWLexer./
+	$prs_stream_class /.PrsStream./
 	$getNonASCIICharKindMethodImpl 
 	    /.if (c == '\u00AB') {
               return Char_LG;
@@ -37,20 +38,21 @@ $Define
           }
           return Char_AfterASCII;
         ./
-$End
+%End
 
-$Export
+%Export
 	TEXT
 	LG
 --	RG
-$End
+%End
 
-$Terminals
+%Terminals
+	AfterASCII
 	LG ::= '\u00AB'
 	RG ::= '\u00BB'
-$End
+%End
 
-$Rules
+%Rules
 	Token ::= LG
 		/.$BeginAction
 			makeToken($_LG);
@@ -61,12 +63,12 @@ $Rules
 			makeToken($_TEXT);
 		$EndAction./
 
-	textAny -> $empty
+	textAny -> %empty
 	textAny -> textAny textAnyChars
 	textAnyChars -> AfterASCII | NotSlashOrStar | '*' | '/' | CtlCharNotWS
 
 	-- lgOpt -> EOF | LG
-	lgOpt -> $empty
+	lgOpt -> %empty
 	lgOpt -> LG
 
 	Token ::= R E M RG commentAny lgPlus E N D R E M 
@@ -74,7 +76,7 @@ $Rules
 			skipToken();
 		$EndAction./
 
-	commentAny -> $empty
+	commentAny -> %empty
 	commentAny -> commentAny commentChar 
 	commentAny -> commentAny LG commentCharNotE
 	commentAny -> commentAny LG E commentCharNotN
@@ -96,4 +98,4 @@ $Rules
 	UpperCaseLetterWithoutENDRM -> A | B | C | F | G | H | I | J | K | L | O | P | Q | S | T | U | V | W | X | Y | Z
 	
 	lgPlus ::= LG | lgPlus LG
-$End
+%End

@@ -12,8 +12,8 @@
 --
 %Options programming_language=java,margin=4
 %Options table
-%options action=("*.java", "/.", "./")
-%options ParseTable=lpg.lpgjavaruntime.ParseTable
+%options action-block=("*.java", "/.", "./")
+%options ParseTable=lpg.runtime.ParseTable
 %Options prefix=Char_
 
 --
@@ -21,19 +21,19 @@
 -- to EOF and that the prefix be "Char_" to be consistent with
 -- KeywordTemplateD.
 --
-$Eof
+%Eof
     EOF
-$End
+%End
 
 --
 -- This template also requires that the name of the parser EOF
 -- Token to be exported be set to EOF_TOKEN
 --
-$Export
+%Export
     EOF_TOKEN
-$End
+%End
 
-$Define
+%Define
     --
     -- Macros that are be needed in an instance of this template
     --
@@ -77,11 +77,11 @@ $Define
     /.          break;
                 }./
 
-    $BeginJava
+    $BeginCode
     /.$BeginAction
                 $symbol_declarations./
 
-    $EndJava /.$EndAction./
+    $EndCode /.$EndAction./
 
     $NoAction
     /. $Header
@@ -116,12 +116,12 @@ $Define
     -- Macros to provide different implementation of non-ascii char handing in getKind(int) method
     -- Default implementation always tells it's general non-ascii char
     $getNonASCIICharKindMethodImpl /.return Char_AfterASCII;./
-$End
+%End
 
-$Globals
-    /.import lpg.lpgjavaruntime.*;
+%Globals
+    /.import lpg.runtime.*;
     ./
-$End
+%End
 
 -- INJECTED COPY OF LexerBasicMap.g, instead of $Include
 -- The reasons to do that are:
@@ -133,7 +133,7 @@ $End
 --          printValues and boolean attribute to control that were removed
 --          getKind() extracted into separate overridable macro $getNonASCIICharKindMethodImpl
 
-$Headers
+%Headers
     /.
     public class $action_type extends $super_stream_class implements $exp_type, $sym_type, RuleAction$additional_interfaces {
         private static ParseTable prs = new $prs_type();
@@ -371,25 +371,25 @@ $Headers
             $getNonASCIICharKindMethodImpl
         }
     ./
-$End
+%End
 
-$Define
+%Define
 	$tokenStartOffset /.leftToken./
 	$tokenEndOffset /.rightToken./
-$Include
+%Include
 	errorHandling.g
-$End
+%End
 
-$Rules
+%Rules
     /.$BeginActions./
-$End
+%End
 
-$Trailers
+%Trailers
     /.
         $EndActions
     }
     ./
-$End
+%End
 
 --
 -- E N D   O F   T E M P L A T E

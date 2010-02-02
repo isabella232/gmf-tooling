@@ -14,11 +14,10 @@ package org.eclipse.gmf.internal.xpand.parser;
 
 
 
-
 public class XpandKWLexer extends XpandKWLexerprs implements XpandParsersym
 {
     private char[] inputChars;
-    private final int keywordKind[] = new int[128 + 1];
+    private final int keywordKind[] = new int[149 + 1];
 
     public int[] getKeywordKinds() { return keywordKind; }
 
@@ -52,66 +51,68 @@ public class XpandKWLexer extends XpandKWLexerprs implements XpandParsersym
     final static int tokenKind[] = new int[128];
     static
     {
-        tokenKind['$'] = Char_DollarSign;
+        tokenKind['$'] = XpandKWLexersym.Char_DollarSign;
+        tokenKind['%'] = XpandKWLexersym.Char_Percent;
+        tokenKind['_'] = XpandKWLexersym.Char__;
 
-        tokenKind['a'] = Char_a;
-        tokenKind['b'] = Char_b;
-        tokenKind['c'] = Char_c;
-        tokenKind['d'] = Char_d;
-        tokenKind['e'] = Char_e;
-        tokenKind['f'] = Char_f;
-        tokenKind['g'] = Char_g;
-        tokenKind['h'] = Char_h;
-        tokenKind['i'] = Char_i;
-        tokenKind['j'] = Char_j;
-        tokenKind['k'] = Char_k;
-        tokenKind['l'] = Char_l;
-        tokenKind['m'] = Char_m;
-        tokenKind['n'] = Char_n;
-        tokenKind['o'] = Char_o;
-        tokenKind['p'] = Char_p;
-        tokenKind['q'] = Char_q;
-        tokenKind['r'] = Char_r;
-        tokenKind['s'] = Char_s;
-        tokenKind['t'] = Char_t;
-        tokenKind['u'] = Char_u;
-        tokenKind['v'] = Char_v;
-        tokenKind['w'] = Char_w;
-        tokenKind['x'] = Char_x;
-        tokenKind['y'] = Char_y;
-        tokenKind['z'] = Char_z;
+        tokenKind['a'] = XpandKWLexersym.Char_a;
+        tokenKind['b'] = XpandKWLexersym.Char_b;
+        tokenKind['c'] = XpandKWLexersym.Char_c;
+        tokenKind['d'] = XpandKWLexersym.Char_d;
+        tokenKind['e'] = XpandKWLexersym.Char_e;
+        tokenKind['f'] = XpandKWLexersym.Char_f;
+        tokenKind['g'] = XpandKWLexersym.Char_g;
+        tokenKind['h'] = XpandKWLexersym.Char_h;
+        tokenKind['i'] = XpandKWLexersym.Char_i;
+        tokenKind['j'] = XpandKWLexersym.Char_j;
+        tokenKind['k'] = XpandKWLexersym.Char_k;
+        tokenKind['l'] = XpandKWLexersym.Char_l;
+        tokenKind['m'] = XpandKWLexersym.Char_m;
+        tokenKind['n'] = XpandKWLexersym.Char_n;
+        tokenKind['o'] = XpandKWLexersym.Char_o;
+        tokenKind['p'] = XpandKWLexersym.Char_p;
+        tokenKind['q'] = XpandKWLexersym.Char_q;
+        tokenKind['r'] = XpandKWLexersym.Char_r;
+        tokenKind['s'] = XpandKWLexersym.Char_s;
+        tokenKind['t'] = XpandKWLexersym.Char_t;
+        tokenKind['u'] = XpandKWLexersym.Char_u;
+        tokenKind['v'] = XpandKWLexersym.Char_v;
+        tokenKind['w'] = XpandKWLexersym.Char_w;
+        tokenKind['x'] = XpandKWLexersym.Char_x;
+        tokenKind['y'] = XpandKWLexersym.Char_y;
+        tokenKind['z'] = XpandKWLexersym.Char_z;
 
-        tokenKind['A'] = Char_A;
-        tokenKind['B'] = Char_B;
-        tokenKind['C'] = Char_C;
-        tokenKind['D'] = Char_D;
-        tokenKind['E'] = Char_E;
-        tokenKind['F'] = Char_F;
-        tokenKind['G'] = Char_G;
-        tokenKind['H'] = Char_H;
-        tokenKind['I'] = Char_I;
-        tokenKind['J'] = Char_J;
-        tokenKind['K'] = Char_K;
-        tokenKind['L'] = Char_L;
-        tokenKind['M'] = Char_M;
-        tokenKind['N'] = Char_N;
-        tokenKind['O'] = Char_O;
-        tokenKind['P'] = Char_P;
-        tokenKind['Q'] = Char_Q;
-        tokenKind['R'] = Char_R;
-        tokenKind['S'] = Char_S;
-        tokenKind['T'] = Char_T;
-        tokenKind['U'] = Char_U;
-        tokenKind['V'] = Char_V;
-        tokenKind['W'] = Char_W;
-        tokenKind['X'] = Char_X;
-        tokenKind['Y'] = Char_Y;
-        tokenKind['Z'] = Char_Z;
+        tokenKind['A'] = XpandKWLexersym.Char_A;
+        tokenKind['B'] = XpandKWLexersym.Char_B;
+        tokenKind['C'] = XpandKWLexersym.Char_C;
+        tokenKind['D'] = XpandKWLexersym.Char_D;
+        tokenKind['E'] = XpandKWLexersym.Char_E;
+        tokenKind['F'] = XpandKWLexersym.Char_F;
+        tokenKind['G'] = XpandKWLexersym.Char_G;
+        tokenKind['H'] = XpandKWLexersym.Char_H;
+        tokenKind['I'] = XpandKWLexersym.Char_I;
+        tokenKind['J'] = XpandKWLexersym.Char_J;
+        tokenKind['K'] = XpandKWLexersym.Char_K;
+        tokenKind['L'] = XpandKWLexersym.Char_L;
+        tokenKind['M'] = XpandKWLexersym.Char_M;
+        tokenKind['N'] = XpandKWLexersym.Char_N;
+        tokenKind['O'] = XpandKWLexersym.Char_O;
+        tokenKind['P'] = XpandKWLexersym.Char_P;
+        tokenKind['Q'] = XpandKWLexersym.Char_Q;
+        tokenKind['R'] = XpandKWLexersym.Char_R;
+        tokenKind['S'] = XpandKWLexersym.Char_S;
+        tokenKind['T'] = XpandKWLexersym.Char_T;
+        tokenKind['U'] = XpandKWLexersym.Char_U;
+        tokenKind['V'] = XpandKWLexersym.Char_V;
+        tokenKind['W'] = XpandKWLexersym.Char_W;
+        tokenKind['X'] = XpandKWLexersym.Char_X;
+        tokenKind['Y'] = XpandKWLexersym.Char_Y;
+        tokenKind['Z'] = XpandKWLexersym.Char_Z;
     };
 
     final int getKind(char c)
     {
-        return (c < 128 ? tokenKind[c] : 0);
+        return (((c & 0xFFFFFF80) == 0) /* 0 <= c < 128? */ ? tokenKind[c] : 0);
     }
 
 
@@ -123,736 +124,856 @@ public class XpandKWLexer extends XpandKWLexerprs implements XpandParsersym
         //
         // Rule 1:  KeyWord ::= s e l f
         //
-		keywordKind[1] = (TK_self);
+		keywordKind[1] = (XpandParsersym.TK_self);
 	  
 	
         //
         // Rule 2:  KeyWord ::= i f
         //
-		keywordKind[2] = (TK_if);
+		keywordKind[2] = (XpandParsersym.TK_if);
 	  
 	
         //
         // Rule 3:  KeyWord ::= t h e n
         //
-		keywordKind[3] = (TK_then);
+		keywordKind[3] = (XpandParsersym.TK_then);
 	  
 	
         //
         // Rule 4:  KeyWord ::= e l s e
         //
-		keywordKind[4] = (TK_else);
+		keywordKind[4] = (XpandParsersym.TK_else);
 	  
 	
         //
         // Rule 5:  KeyWord ::= e n d i f
         //
-		keywordKind[5] = (TK_endif);
+		keywordKind[5] = (XpandParsersym.TK_endif);
 	  
 	
         //
         // Rule 6:  KeyWord ::= a n d
         //
-		keywordKind[6] = (TK_and);
+		keywordKind[6] = (XpandParsersym.TK_and);
 	  
 	
         //
         // Rule 7:  KeyWord ::= o r
         //
-		keywordKind[7] = (TK_or);
+		keywordKind[7] = (XpandParsersym.TK_or);
 	  
 	
         //
         // Rule 8:  KeyWord ::= x o r
         //
-		keywordKind[8] = (TK_xor);
+		keywordKind[8] = (XpandParsersym.TK_xor);
 	  
 	
         //
         // Rule 9:  KeyWord ::= n o t
         //
-		keywordKind[9] = (TK_not);
+		keywordKind[9] = (XpandParsersym.TK_not);
 	  
 	
         //
         // Rule 10:  KeyWord ::= i m p l i e s
         //
-		keywordKind[10] = (TK_implies);
+		keywordKind[10] = (XpandParsersym.TK_implies);
 	  
 	
         //
         // Rule 11:  KeyWord ::= l e t
         //
-		keywordKind[11] = (TK_let);
+		keywordKind[11] = (XpandParsersym.TK_let);
 	  
 	
         //
         // Rule 12:  KeyWord ::= i n
         //
-		keywordKind[12] = (TK_in);
+		keywordKind[12] = (XpandParsersym.TK_in);
 	  
 	
         //
         // Rule 13:  KeyWord ::= t r u e
         //
-		keywordKind[13] = (TK_true);
+		keywordKind[13] = (XpandParsersym.TK_true);
 	  
 	
         //
         // Rule 14:  KeyWord ::= f a l s e
         //
-		keywordKind[14] = (TK_false);
+		keywordKind[14] = (XpandParsersym.TK_false);
 	  
 	
         //
         // Rule 15:  KeyWord ::= S e t
         //
-		keywordKind[15] = (TK_Set);
+		keywordKind[15] = (XpandParsersym.TK_Set);
 	  
 	
         //
         // Rule 16:  KeyWord ::= B a g
         //
-		keywordKind[16] = (TK_Bag);
+		keywordKind[16] = (XpandParsersym.TK_Bag);
 	  
 	
         //
         // Rule 17:  KeyWord ::= S e q u e n c e
         //
-		keywordKind[17] = (TK_Sequence);
+		keywordKind[17] = (XpandParsersym.TK_Sequence);
 	  
 	
         //
         // Rule 18:  KeyWord ::= C o l l e c t i o n
         //
-		keywordKind[18] = (TK_Collection);
+		keywordKind[18] = (XpandParsersym.TK_Collection);
 	  
 	
         //
         // Rule 19:  KeyWord ::= O r d e r e d S e t
         //
-		keywordKind[19] = (TK_OrderedSet);
+		keywordKind[19] = (XpandParsersym.TK_OrderedSet);
 	  
 	
         //
-        // Rule 20:  KeyWord ::= i t e r a t e
+        // Rule 20:  KeyWord ::= S t r i n g
         //
-		keywordKind[20] = (TK_iterate);
+		keywordKind[20] = (XpandParsersym.TK_String);
 	  
 	
         //
-        // Rule 21:  KeyWord ::= f o r A l l
+        // Rule 21:  KeyWord ::= I n t e g e r
         //
-		keywordKind[21] = (TK_forAll);
+		keywordKind[21] = (XpandParsersym.TK_Integer);
 	  
 	
         //
-        // Rule 22:  KeyWord ::= e x i s t s
+        // Rule 22:  KeyWord ::= U n l i m i t e d N a t u r a l
         //
-		keywordKind[22] = (TK_exists);
+		keywordKind[22] = (XpandParsersym.TK_UnlimitedNatural);
 	  
 	
         //
-        // Rule 23:  KeyWord ::= i s U n i q u e
+        // Rule 23:  KeyWord ::= R e a l
         //
-		keywordKind[23] = (TK_isUnique);
+		keywordKind[23] = (XpandParsersym.TK_Real);
 	  
 	
         //
-        // Rule 24:  KeyWord ::= a n y
+        // Rule 24:  KeyWord ::= B o o l e a n
         //
-		keywordKind[24] = (TK_any);
+		keywordKind[24] = (XpandParsersym.TK_Boolean);
 	  
 	
         //
-        // Rule 25:  KeyWord ::= o n e
+        // Rule 25:  KeyWord ::= T u p l e
         //
-		keywordKind[25] = (TK_one);
+		keywordKind[25] = (XpandParsersym.TK_Tuple);
 	  
 	
         //
-        // Rule 26:  KeyWord ::= c o l l e c t
+        // Rule 26:  KeyWord ::= O c l A n y
         //
-		keywordKind[26] = (TK_collect);
+		keywordKind[26] = (XpandParsersym.TK_OclAny);
 	  
 	
         //
-        // Rule 27:  KeyWord ::= s e l e c t
+        // Rule 27:  KeyWord ::= O c l V o i d
         //
-		keywordKind[27] = (TK_select);
+		keywordKind[27] = (XpandParsersym.TK_OclVoid);
 	  
 	
         //
-        // Rule 28:  KeyWord ::= r e j e c t
+        // Rule 28:  KeyWord ::= O c l I n v a l i d
         //
-		keywordKind[28] = (TK_reject);
+		keywordKind[28] = (XpandParsersym.TK_OclInvalid);
 	  
 	
         //
-        // Rule 29:  KeyWord ::= c o l l e c t N e s t e d
+        // Rule 29:  KeyWord ::= n u l l
         //
-		keywordKind[29] = (TK_collectNested);
+		keywordKind[29] = (XpandParsersym.TK_null);
 	  
 	
         //
-        // Rule 30:  KeyWord ::= s o r t e d B y
+        // Rule 30:  KeyWord ::= i n v a l i d
         //
-		keywordKind[30] = (TK_sortedBy);
+		keywordKind[30] = (XpandParsersym.TK_invalid);
 	  
 	
         //
-        // Rule 31:  KeyWord ::= c l o s u r e
+        // Rule 32:  ImperativeOCLKeyWord ::= D i c t
         //
-		keywordKind[31] = (TK_closure);
+		keywordKind[32] = (XpandParsersym.TK_Dict);
 	  
 	
         //
-        // Rule 32:  KeyWord ::= S t r i n g
+        // Rule 33:  ImperativeOCLKeyWord ::= L i s t
         //
-		keywordKind[32] = (TK_String);
+		keywordKind[33] = (XpandParsersym.TK_List);
 	  
 	
         //
-        // Rule 33:  KeyWord ::= I n t e g e r
+        // Rule 34:  ImperativeOCLKeyWord ::= b r e a k
         //
-		keywordKind[33] = (TK_Integer);
+		keywordKind[34] = (XpandParsersym.TK_break);
 	  
 	
         //
-        // Rule 34:  KeyWord ::= U n l i m i t e d N a t u r a l
+        // Rule 35:  ImperativeOCLKeyWord ::= s w i t c h
         //
-		keywordKind[34] = (TK_UnlimitedNatural);
+		keywordKind[35] = (XpandParsersym.TK_switch);
 	  
 	
         //
-        // Rule 35:  KeyWord ::= R e a l
+        // Rule 36:  ImperativeOCLKeyWord ::= c a s e
         //
-		keywordKind[35] = (TK_Real);
+		keywordKind[36] = (XpandParsersym.TK_case);
 	  
 	
         //
-        // Rule 36:  KeyWord ::= B o o l e a n
+        // Rule 37:  ImperativeOCLKeyWord ::= x s e l e c t
         //
-		keywordKind[36] = (TK_Boolean);
+		keywordKind[37] = (XpandParsersym.TK_xselect);
 	  
 	
         //
-        // Rule 37:  KeyWord ::= T u p l e
+        // Rule 38:  ImperativeOCLKeyWord ::= x c o l l e c t
         //
-		keywordKind[37] = (TK_Tuple);
+		keywordKind[38] = (XpandParsersym.TK_xcollect);
 	  
 	
         //
-        // Rule 38:  KeyWord ::= O c l A n y
+        // Rule 39:  ImperativeOCLKeyWord ::= s e l e c t O n e
         //
-		keywordKind[38] = (TK_OclAny);
+		keywordKind[39] = (XpandParsersym.TK_selectOne);
 	  
 	
         //
-        // Rule 39:  KeyWord ::= O c l V o i d
+        // Rule 40:  ImperativeOCLKeyWord ::= c o l l e c t O n e
         //
-		keywordKind[39] = (TK_OclVoid);
+		keywordKind[40] = (XpandParsersym.TK_collectOne);
 	  
 	
         //
-        // Rule 40:  KeyWord ::= O c l I n v a l i d
+        // Rule 41:  ImperativeOCLKeyWord ::= c o l l e c t s e l e c t
         //
-		keywordKind[40] = (TK_OclInvalid);
+		keywordKind[41] = (XpandParsersym.TK_collectselect);
 	  
 	
         //
-        // Rule 41:  KeyWord ::= n u l l
+        // Rule 42:  ImperativeOCLKeyWord ::= c o l l e c t s e l e c t O n e
         //
-		keywordKind[41] = (TK_null);
+		keywordKind[42] = (XpandParsersym.TK_collectselectOne);
 	  
 	
         //
-        // Rule 42:  KeyWord ::= i n v a l i d
+        // Rule 43:  ImperativeOCLKeyWord ::= f o r E a c h
         //
-		keywordKind[42] = (TK_invalid);
+		keywordKind[43] = (XpandParsersym.TK_forEach);
 	  
 	
         //
-        // Rule 43:  KeyWord ::= i n i t
+        // Rule 44:  ImperativeOCLKeyWord ::= f o r O n e
         //
-		keywordKind[43] = (TK_init);
+		keywordKind[44] = (XpandParsersym.TK_forOne);
 	  
 	
         //
-        // Rule 44:  KeyWord ::= O c l M e s s a g e
+        // Rule 45:  ImperativeOCLKeyWord ::= c o m p u t e
         //
-		keywordKind[44] = (TK_OclMessage);
+		keywordKind[45] = (XpandParsersym.TK_compute);
 	  
 	
         //
-        // Rule 45:  KeyWord ::= s t a t i c
+        // Rule 46:  ImperativeOCLKeyWord ::= r e t u r n
         //
-		keywordKind[45] = (TK_static);
+		keywordKind[46] = (XpandParsersym.TK_return);
 	  
 	
         //
-        // Rule 47:  QVTKeyWord ::= w h i l e
+        // Rule 47:  ImperativeOCLKeyWord ::= v a r
         //
-		keywordKind[47] = (TK_while);
+		keywordKind[47] = (XpandParsersym.TK_var);
 	  
 	
         //
-        // Rule 48:  QVTKeyWord ::= o b j e c t
+        // Rule 48:  ImperativeOCLKeyWord ::= w h i l e
         //
-		keywordKind[48] = (TK_object);
+		keywordKind[48] = (XpandParsersym.TK_while);
 	  
 	
         //
-        // Rule 49:  QVTKeyWord ::= w h e n
+        // Rule 49:  ImperativeOCLKeyWord ::= c o n t i n u e
         //
-		keywordKind[49] = (TK_when);
+		keywordKind[49] = (XpandParsersym.TK_continue);
 	  
 	
         //
-        // Rule 50:  QVTKeyWord ::= v a r
+        // Rule 50:  ImperativeOCLKeyWord ::= l o g
         //
-		keywordKind[50] = (TK_var);
+		keywordKind[50] = (XpandParsersym.TK_log);
 	  
 	
         //
-        // Rule 51:  QVTKeyWord ::= o p p o s i t e s
+        // Rule 51:  ImperativeOCLKeyWord ::= a s s e r t
         //
-		keywordKind[51] = (TK_opposites);
+		keywordKind[51] = (XpandParsersym.TK_assert);
 	  
 	
         //
-        // Rule 52:  QVTKeyWord ::= c l a s s
+        // Rule 52:  ImperativeOCLKeyWord ::= w i t h
         //
-		keywordKind[52] = (TK_class);
+		keywordKind[52] = (XpandParsersym.TK_with);
 	  
 	
         //
-        // Rule 53:  QVTKeyWord ::= n e w
+        // Rule 53:  ImperativeOCLKeyWord ::= n e w
         //
-		keywordKind[53] = (TK_new);
+		keywordKind[53] = (XpandParsersym.TK_new);
 	  
 	
         //
-        // Rule 54:  QVTKeyWord ::= w i t h
+        // Rule 55:  QVTOKeyWord ::= s t a t i c
         //
-		keywordKind[54] = (TK_with);
+		keywordKind[55] = (XpandParsersym.TK_static);
 	  
 	
         //
-        // Rule 55:  QVTKeyWord ::= r e s o l v e
+        // Rule 56:  QVTOKeyWord ::= i n i t
         //
-		keywordKind[55] = (TK_resolve);
+		keywordKind[56] = (XpandParsersym.TK_init);
 	  
 	
         //
-        // Rule 56:  QVTKeyWord ::= r e s o l v e o n e
+        // Rule 57:  QVTOKeyWord ::= e n d
         //
-		keywordKind[56] = (TK_resolveone);
+		keywordKind[57] = (XpandParsersym.TK_end);
 	  
 	
         //
-        // Rule 57:  QVTKeyWord ::= r e s o l v e I n
+        // Rule 58:  QVTOKeyWord ::= o u t
         //
-		keywordKind[57] = (TK_resolveIn);
+		keywordKind[58] = (XpandParsersym.TK_out);
 	  
 	
         //
-        // Rule 58:  QVTKeyWord ::= r e s o l v e o n e I n
+        // Rule 59:  QVTOKeyWord ::= o b j e c t
         //
-		keywordKind[58] = (TK_resolveoneIn);
+		keywordKind[59] = (XpandParsersym.TK_object);
 	  
 	
         //
-        // Rule 59:  QVTKeyWord ::= i n v r e s o l v e
+        // Rule 60:  QVTOKeyWord ::= t r a n s f o r m a t i o n
         //
-		keywordKind[59] = (TK_invresolve);
+		keywordKind[60] = (XpandParsersym.TK_transformation);
 	  
 	
         //
-        // Rule 60:  QVTKeyWord ::= i n v r e s o l v e o n e
+        // Rule 61:  QVTOKeyWord ::= i m p o r t
         //
-		keywordKind[60] = (TK_invresolveone);
+		keywordKind[61] = (XpandParsersym.TK_import);
 	  
 	
         //
-        // Rule 61:  QVTKeyWord ::= i n v r e s o l v e I n
+        // Rule 62:  QVTOKeyWord ::= l i b r a r y
         //
-		keywordKind[61] = (TK_invresolveIn);
+		keywordKind[62] = (XpandParsersym.TK_library);
 	  
 	
         //
-        // Rule 62:  QVTKeyWord ::= i n v r e s o l v e o n e I n
+        // Rule 63:  QVTOKeyWord ::= m e t a m o d e l
         //
-		keywordKind[62] = (TK_invresolveoneIn);
+		keywordKind[63] = (XpandParsersym.TK_metamodel);
 	  
 	
         //
-        // Rule 63:  QVTKeyWord ::= w h e r e
+        // Rule 64:  QVTOKeyWord ::= d i s j u n c t s
         //
-		keywordKind[63] = (TK_where);
+		keywordKind[64] = (XpandParsersym.TK_disjuncts);
 	  
 	
         //
-        // Rule 64:  QVTKeyWord ::= t h i s
+        // Rule 65:  QVTOKeyWord ::= m e r g e s
         //
-		keywordKind[64] = (TK_this);
+		keywordKind[65] = (XpandParsersym.TK_merges);
 	  
 	
         //
-        // Rule 65:  QVTKeyWord ::= s w i t c h
+        // Rule 66:  QVTOKeyWord ::= i n h e r i t s
         //
-		keywordKind[65] = (TK_switch);
+		keywordKind[66] = (XpandParsersym.TK_inherits);
 	  
 	
         //
-        // Rule 66:  QVTKeyWord ::= c a s e
+        // Rule 67:  QVTOKeyWord ::= r e n a m e
         //
-		keywordKind[66] = (TK_case);
+		keywordKind[67] = (XpandParsersym.TK_rename);
 	  
 	
         //
-        // Rule 67:  QVTKeyWord ::= x s e l e c t
+        // Rule 68:  QVTOKeyWord ::= m a p p i n g
         //
-		keywordKind[67] = (TK_xselect);
+		keywordKind[68] = (XpandParsersym.TK_mapping);
 	  
 	
         //
-        // Rule 68:  QVTKeyWord ::= x c o l l e c t
+        // Rule 69:  QVTOKeyWord ::= q u e r y
         //
-		keywordKind[68] = (TK_xcollect);
+		keywordKind[69] = (XpandParsersym.TK_query);
 	  
 	
         //
-        // Rule 69:  QVTKeyWord ::= s e l e c t O n e
+        // Rule 70:  QVTOKeyWord ::= h e l p e r
         //
-		keywordKind[69] = (TK_selectOne);
+		keywordKind[70] = (XpandParsersym.TK_helper);
 	  
 	
         //
-        // Rule 70:  QVTKeyWord ::= c o l l e c t O n e
+        // Rule 71:  QVTOKeyWord ::= i n o u t
         //
-		keywordKind[70] = (TK_collectOne);
+		keywordKind[71] = (XpandParsersym.TK_inout);
 	  
 	
         //
-        // Rule 71:  QVTKeyWord ::= c o l l e c t s e l e c t
+        // Rule 72:  QVTOKeyWord ::= w h e n
         //
-		keywordKind[71] = (TK_collectselect);
+		keywordKind[72] = (XpandParsersym.TK_when);
 	  
 	
         //
-        // Rule 72:  QVTKeyWord ::= c o l l e c t s e l e c t O n e
+        // Rule 73:  QVTOKeyWord ::= c o n f i g u r a t i o n
         //
-		keywordKind[72] = (TK_collectselectOne);
+		keywordKind[73] = (XpandParsersym.TK_configuration);
 	  
 	
         //
-        // Rule 73:  QVTKeyWord ::= f o r E a c h
+        // Rule 74:  QVTOKeyWord ::= p o p u l a t i o n
         //
-		keywordKind[73] = (TK_forEach);
+		keywordKind[74] = (XpandParsersym.TK_population);
 	  
 	
         //
-        // Rule 74:  QVTKeyWord ::= f o r O n e
+        // Rule 75:  QVTOKeyWord ::= i n t e r m e d i a t e
         //
-		keywordKind[74] = (TK_forOne);
+		keywordKind[75] = (XpandParsersym.TK_intermediate);
 	  
 	
         //
-        // Rule 75:  QVTKeyWord ::= c o m p u t e
+        // Rule 76:  QVTOKeyWord ::= p r o p e r t y
         //
-		keywordKind[75] = (TK_compute);
+		keywordKind[76] = (XpandParsersym.TK_property);
 	  
 	
         //
-        // Rule 76:  QVTKeyWord ::= D i c t
+        // Rule 77:  QVTOKeyWord ::= o p p o s i t e s
         //
-		keywordKind[76] = (TK_Dict);
+		keywordKind[77] = (XpandParsersym.TK_opposites);
 	  
 	
         //
-        // Rule 77:  QVTKeyWord ::= L i s t
+        // Rule 78:  QVTOKeyWord ::= c l a s s
         //
-		keywordKind[77] = (TK_List);
+		keywordKind[78] = (XpandParsersym.TK_class);
 	  
 	
         //
-        // Rule 78:  QVTKeyWord ::= b r e a k
+        // Rule 79:  QVTOKeyWord ::= m a p
         //
-		keywordKind[78] = (TK_break);
+		keywordKind[79] = (XpandParsersym.TK_map);
 	  
 	
         //
-        // Rule 79:  QVTKeyWord ::= c o m p o s e s
+        // Rule 80:  QVTOKeyWord ::= x m a p
         //
-		keywordKind[79] = (TK_composes);
+		keywordKind[80] = (XpandParsersym.TK_xmap);
 	  
 	
         //
-        // Rule 80:  QVTKeyWord ::= c o n s t r u c t o r
+        // Rule 81:  QVTOKeyWord ::= l a t e
         //
-		keywordKind[80] = (TK_constructor);
+		keywordKind[81] = (XpandParsersym.TK_late);
 	  
 	
         //
-        // Rule 81:  QVTKeyWord ::= c o n t i n u e
+        // Rule 82:  QVTOKeyWord ::= r e s o l v e
         //
-		keywordKind[81] = (TK_continue);
+		keywordKind[82] = (XpandParsersym.TK_resolve);
 	  
 	
         //
-        // Rule 82:  QVTKeyWord ::= d a t a t y p e
+        // Rule 83:  QVTOKeyWord ::= r e s o l v e o n e
         //
-		keywordKind[82] = (TK_datatype);
+		keywordKind[83] = (XpandParsersym.TK_resolveone);
 	  
 	
         //
-        // Rule 83:  QVTKeyWord ::= d e f a u l t
+        // Rule 84:  QVTOKeyWord ::= r e s o l v e I n
         //
-		keywordKind[83] = (TK_default);
+		keywordKind[84] = (XpandParsersym.TK_resolveIn);
 	  
 	
         //
-        // Rule 84:  QVTKeyWord ::= d e r i v e d
+        // Rule 85:  QVTOKeyWord ::= r e s o l v e o n e I n
         //
-		keywordKind[84] = (TK_derived);
+		keywordKind[85] = (XpandParsersym.TK_resolveoneIn);
 	  
 	
         //
-        // Rule 85:  QVTKeyWord ::= d o
+        // Rule 86:  QVTOKeyWord ::= i n v r e s o l v e
         //
-		keywordKind[85] = (TK_do);
+		keywordKind[86] = (XpandParsersym.TK_invresolve);
 	  
 	
         //
-        // Rule 86:  QVTKeyWord ::= e l i f
+        // Rule 87:  QVTOKeyWord ::= i n v r e s o l v e o n e
         //
-		keywordKind[86] = (TK_elif);
+		keywordKind[87] = (XpandParsersym.TK_invresolveone);
 	  
 	
         //
-        // Rule 87:  QVTKeyWord ::= e n u m
+        // Rule 88:  QVTOKeyWord ::= i n v r e s o l v e I n
         //
-		keywordKind[87] = (TK_enum);
+		keywordKind[88] = (XpandParsersym.TK_invresolveIn);
 	  
 	
         //
-        // Rule 88:  QVTKeyWord ::= e x c e p t
+        // Rule 89:  QVTOKeyWord ::= i n v r e s o l v e o n e I n
         //
-		keywordKind[88] = (TK_except);
+		keywordKind[89] = (XpandParsersym.TK_invresolveoneIn);
 	  
 	
         //
-        // Rule 89:  QVTKeyWord ::= e x c e p t i o n
+        // Rule 90:  QVTOKeyWord ::= m o d e l t y p e
         //
-		keywordKind[89] = (TK_exception);
+		keywordKind[90] = (XpandParsersym.TK_modeltype);
 	  
 	
         //
-        // Rule 90:  QVTKeyWord ::= f r o m
+        // Rule 91:  QVTOKeyWord ::= u s e s
         //
-		keywordKind[90] = (TK_from);
+		keywordKind[91] = (XpandParsersym.TK_uses);
 	  
 	
         //
-        // Rule 91:  QVTKeyWord ::= l i t e r a l
+        // Rule 92:  QVTOKeyWord ::= w h e r e
         //
-		keywordKind[91] = (TK_literal);
+		keywordKind[92] = (XpandParsersym.TK_where);
 	  
 	
         //
-        // Rule 92:  QVTKeyWord ::= o r d e r e d
+        // Rule 93:  QVTOKeyWord ::= r e f i n e s
         //
-		keywordKind[92] = (TK_ordered);
+		keywordKind[93] = (XpandParsersym.TK_refines);
 	  
 	
         //
-        // Rule 93:  QVTKeyWord ::= p r i m i t i v e
+        // Rule 94:  QVTOKeyWord ::= a c c e s s
         //
-		keywordKind[93] = (TK_primitive);
+		keywordKind[94] = (XpandParsersym.TK_access);
 	  
 	
         //
-        // Rule 94:  QVTKeyWord ::= r a i s e
+        // Rule 95:  QVTOKeyWord ::= e x t e n d s
         //
-		keywordKind[94] = (TK_raise);
+		keywordKind[95] = (XpandParsersym.TK_extends);
 	  
 	
         //
-        // Rule 95:  QVTKeyWord ::= r e a d o n l y
+        // Rule 96:  QVTOKeyWord ::= b l a c k b o x
         //
-		keywordKind[95] = (TK_readonly);
+		keywordKind[96] = (XpandParsersym.TK_blackbox);
 	  
 	
         //
-        // Rule 96:  QVTKeyWord ::= r e f e r e n c e s
+        // Rule 97:  QVTOKeyWord ::= a b s t r a c t
         //
-		keywordKind[96] = (TK_references);
+		keywordKind[97] = (XpandParsersym.TK_abstract);
 	  
 	
         //
-        // Rule 97:  QVTKeyWord ::= t a g
+        // Rule 98:  QVTOKeyWord ::= r e s u l t
         //
-		keywordKind[97] = (TK_tag);
+		keywordKind[98] = (XpandParsersym.TK_result);
 	  
 	
         //
-        // Rule 98:  QVTKeyWord ::= t r y
+        // Rule 99:  QVTOKeyWord ::= m a i n
         //
-		keywordKind[98] = (TK_try);
+		keywordKind[99] = (XpandParsersym.TK_main);
 	  
 	
         //
-        // Rule 99:  QVTKeyWord ::= t y p e d e f
+        // Rule 100:  QVTOKeyWord ::= t h i s
         //
-		keywordKind[99] = (TK_typedef);
+		keywordKind[100] = (XpandParsersym.TK_this);
 	  
 	
         //
-        // Rule 100:  QVTKeyWord ::= u n l i m i t e d
+        // Rule 101:  QVTOKeyWord ::= c o m p o s e s
         //
-		keywordKind[100] = (TK_unlimited);
+		keywordKind[101] = (XpandParsersym.TK_composes);
 	  
 	
         //
-        // Rule 101:  KeyWord ::= I M P O R T
+        // Rule 102:  QVTOKeyWord ::= c o n s t r u c t o r
         //
-		keywordKind[101] = (TK_IMPORT);
+		keywordKind[102] = (XpandParsersym.TK_constructor);
+	  
+	
+        //
+        // Rule 103:  QVTOKeyWord ::= d a t a t y p e
+        //
+		keywordKind[103] = (XpandParsersym.TK_datatype);
+	  
+	
+        //
+        // Rule 104:  QVTOKeyWord ::= d e f a u l t
+        //
+		keywordKind[104] = (XpandParsersym.TK_default);
+	  
+	
+        //
+        // Rule 105:  QVTOKeyWord ::= d e r i v e d
+        //
+		keywordKind[105] = (XpandParsersym.TK_derived);
+	  
+	
+        //
+        // Rule 106:  QVTOKeyWord ::= d o
+        //
+		keywordKind[106] = (XpandParsersym.TK_do);
+	  
+	
+        //
+        // Rule 107:  QVTOKeyWord ::= e l i f
+        //
+		keywordKind[107] = (XpandParsersym.TK_elif);
+	  
+	
+        //
+        // Rule 108:  QVTOKeyWord ::= e n u m
+        //
+		keywordKind[108] = (XpandParsersym.TK_enum);
+	  
+	
+        //
+        // Rule 109:  QVTOKeyWord ::= e x c e p t
+        //
+		keywordKind[109] = (XpandParsersym.TK_except);
+	  
+	
+        //
+        // Rule 110:  QVTOKeyWord ::= e x c e p t i o n
+        //
+		keywordKind[110] = (XpandParsersym.TK_exception);
+	  
+	
+        //
+        // Rule 111:  QVTOKeyWord ::= f r o m
+        //
+		keywordKind[111] = (XpandParsersym.TK_from);
+	  
+	
+        //
+        // Rule 112:  QVTOKeyWord ::= l i t e r a l
+        //
+		keywordKind[112] = (XpandParsersym.TK_literal);
+	  
+	
+        //
+        // Rule 113:  QVTOKeyWord ::= o r d e r e d
+        //
+		keywordKind[113] = (XpandParsersym.TK_ordered);
+	  
+	
+        //
+        // Rule 114:  QVTOKeyWord ::= p r i m i t i v e
+        //
+		keywordKind[114] = (XpandParsersym.TK_primitive);
+	  
+	
+        //
+        // Rule 115:  QVTOKeyWord ::= r a i s e
+        //
+		keywordKind[115] = (XpandParsersym.TK_raise);
+	  
+	
+        //
+        // Rule 116:  QVTOKeyWord ::= r e a d o n l y
+        //
+		keywordKind[116] = (XpandParsersym.TK_readonly);
+	  
+	
+        //
+        // Rule 117:  QVTOKeyWord ::= r e f e r e n c e s
+        //
+		keywordKind[117] = (XpandParsersym.TK_references);
+	  
+	
+        //
+        // Rule 118:  QVTOKeyWord ::= t a g
+        //
+		keywordKind[118] = (XpandParsersym.TK_tag);
+	  
+	
+        //
+        // Rule 119:  QVTOKeyWord ::= t r y
+        //
+		keywordKind[119] = (XpandParsersym.TK_try);
+	  
+	
+        //
+        // Rule 120:  QVTOKeyWord ::= t y p e d e f
+        //
+		keywordKind[120] = (XpandParsersym.TK_typedef);
+	  
+	
+        //
+        // Rule 121:  QVTOKeyWord ::= u n l i m i t e d
+        //
+		keywordKind[121] = (XpandParsersym.TK_unlimited);
+	  
+	
+        //
+        // Rule 122:  KeyWord ::= I M P O R T
+        //
+		keywordKind[122] = (XpandParsersym.TK_IMPORT);
 	
         //
-        // Rule 102:  KeyWord ::= E X T E N S I O N
+        // Rule 123:  KeyWord ::= E X T E N S I O N
         //
-		keywordKind[102] = (TK_EXTENSION);
+		keywordKind[123] = (XpandParsersym.TK_EXTENSION);
 	
         //
-        // Rule 103:  KeyWord ::= A R O U N D
+        // Rule 124:  KeyWord ::= A R O U N D
         //
-		keywordKind[103] = (TK_AROUND);
+		keywordKind[124] = (XpandParsersym.TK_AROUND);
 	
         //
-        // Rule 104:  KeyWord ::= E N D A R O U N D
+        // Rule 125:  KeyWord ::= E N D A R O U N D
         //
-		keywordKind[104] = (TK_ENDAROUND);
+		keywordKind[125] = (XpandParsersym.TK_ENDAROUND);
 	
         //
-        // Rule 105:  KeyWord ::= D E F I N E
+        // Rule 126:  KeyWord ::= D E F I N E
         //
-		keywordKind[105] = (TK_DEFINE);
+		keywordKind[126] = (XpandParsersym.TK_DEFINE);
 	
         //
-        // Rule 106:  KeyWord ::= E N D D E F I N E
+        // Rule 127:  KeyWord ::= E N D D E F I N E
         //
-		keywordKind[106] = (TK_ENDDEFINE);
+		keywordKind[127] = (XpandParsersym.TK_ENDDEFINE);
 	
         //
-        // Rule 107:  KeyWord ::= E R R O R
+        // Rule 128:  KeyWord ::= E R R O R
         //
-		keywordKind[107] = (TK_ERROR);
+		keywordKind[128] = (XpandParsersym.TK_ERROR);
 	
         //
-        // Rule 108:  KeyWord ::= E X P A N D
+        // Rule 129:  KeyWord ::= E X P A N D
         //
-		keywordKind[108] = (TK_EXPAND);
+		keywordKind[129] = (XpandParsersym.TK_EXPAND);
 	
         //
-        // Rule 109:  KeyWord ::= F O R
+        // Rule 130:  KeyWord ::= F O R
         //
-		keywordKind[109] = (TK_FOR);
+		keywordKind[130] = (XpandParsersym.TK_FOR);
 	
         //
-        // Rule 110:  KeyWord ::= S E P A R A T O R
+        // Rule 131:  KeyWord ::= S E P A R A T O R
         //
-		keywordKind[110] = (TK_SEPARATOR);
+		keywordKind[131] = (XpandParsersym.TK_SEPARATOR);
 	
         //
-        // Rule 111:  KeyWord ::= A S
+        // Rule 132:  KeyWord ::= A S
         //
-		keywordKind[111] = (TK_AS);
+		keywordKind[132] = (XpandParsersym.TK_AS);
 	
         //
-        // Rule 112:  KeyWord ::= I T E R A T O R
+        // Rule 133:  KeyWord ::= I T E R A T O R
         //
-		keywordKind[112] = (TK_ITERATOR);
+		keywordKind[133] = (XpandParsersym.TK_ITERATOR);
 	
         //
-        // Rule 113:  KeyWord ::= F O R E A C H
+        // Rule 134:  KeyWord ::= F O R E A C H
         //
-		keywordKind[113] = (TK_FOREACH);
+		keywordKind[134] = (XpandParsersym.TK_FOREACH);
 	
         //
-        // Rule 114:  KeyWord ::= E N D F O R E A C H
+        // Rule 135:  KeyWord ::= E N D F O R E A C H
         //
-		keywordKind[114] = (TK_ENDFOREACH);
+		keywordKind[135] = (XpandParsersym.TK_ENDFOREACH);
 	
         //
-        // Rule 115:  KeyWord ::= F I L E
+        // Rule 136:  KeyWord ::= F I L E
         //
-		keywordKind[115] = (TK_FILE);
+		keywordKind[136] = (XpandParsersym.TK_FILE);
 	
         //
-        // Rule 116:  KeyWord ::= E N D F I L E
+        // Rule 137:  KeyWord ::= E N D F I L E
         //
-		keywordKind[116] = (TK_ENDFILE);
+		keywordKind[137] = (XpandParsersym.TK_ENDFILE);
 	
         //
-        // Rule 117:  KeyWord ::= I F
+        // Rule 138:  KeyWord ::= I F
         //
-		keywordKind[117] = (TK_IF);
+		keywordKind[138] = (XpandParsersym.TK_IF);
 	
         //
-        // Rule 118:  KeyWord ::= E L S E I F
+        // Rule 139:  KeyWord ::= E L S E I F
         //
-		keywordKind[118] = (TK_ELSEIF);
+		keywordKind[139] = (XpandParsersym.TK_ELSEIF);
 	
         //
-        // Rule 119:  KeyWord ::= E L S E
+        // Rule 140:  KeyWord ::= E L S E
         //
-		keywordKind[119] = (TK_ELSE);
+		keywordKind[140] = (XpandParsersym.TK_ELSE);
 	
         //
-        // Rule 120:  KeyWord ::= E N D I F
+        // Rule 141:  KeyWord ::= E N D I F
         //
-		keywordKind[120] = (TK_ENDIF);
+		keywordKind[141] = (XpandParsersym.TK_ENDIF);
 	
         //
-        // Rule 121:  KeyWord ::= L E T
+        // Rule 142:  KeyWord ::= L E T
         //
-		keywordKind[121] = (TK_LET);
+		keywordKind[142] = (XpandParsersym.TK_LET);
 	
         //
-        // Rule 122:  KeyWord ::= E N D L E T
+        // Rule 143:  KeyWord ::= E N D L E T
         //
-		keywordKind[122] = (TK_ENDLET);
+		keywordKind[143] = (XpandParsersym.TK_ENDLET);
 	
         //
-        // Rule 123:  KeyWord ::= P R O T E C T
+        // Rule 144:  KeyWord ::= P R O T E C T
         //
-		keywordKind[123] = (TK_PROTECT);
+		keywordKind[144] = (XpandParsersym.TK_PROTECT);
 	
         //
-        // Rule 124:  KeyWord ::= C S T A R T
+        // Rule 145:  KeyWord ::= C S T A R T
         //
-		keywordKind[124] = (TK_CSTART);
+		keywordKind[145] = (XpandParsersym.TK_CSTART);
 	
         //
-        // Rule 125:  KeyWord ::= C E N D
+        // Rule 146:  KeyWord ::= C E N D
         //
-		keywordKind[125] = (TK_CEND);
+		keywordKind[146] = (XpandParsersym.TK_CEND);
 	
         //
-        // Rule 126:  KeyWord ::= I D
+        // Rule 147:  KeyWord ::= I D
         //
-		keywordKind[126] = (TK_ID);
+		keywordKind[147] = (XpandParsersym.TK_ID);
 	
         //
-        // Rule 127:  KeyWord ::= D I S A B L E
+        // Rule 148:  KeyWord ::= D I S A B L E
         //
-		keywordKind[127] = (TK_DISABLE);
+		keywordKind[148] = (XpandParsersym.TK_DISABLE);
 	
         //
-        // Rule 128:  KeyWord ::= E N D P R O T E C T
+        // Rule 149:  KeyWord ::= E N D P R O T E C T
         //
-		keywordKind[128] = (TK_ENDPROTECT);
+		keywordKind[149] = (XpandParsersym.TK_ENDPROTECT);
 	
 
         for (int i = 0; i < keywordKind.length; i++)

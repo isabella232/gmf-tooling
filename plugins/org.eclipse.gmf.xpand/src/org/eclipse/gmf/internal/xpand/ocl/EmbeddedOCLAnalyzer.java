@@ -30,7 +30,8 @@ import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.OCLExpression;
 import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.parser.AbstractOCLAnalyzer;
-import org.eclipse.ocl.parser.AbstractOCLParser;
+import org.eclipse.ocl.parser.OCLLexer;
+import org.eclipse.ocl.parser.OCLParser;
 
 class EmbeddedOCLAnalyzer extends AbstractOCLAnalyzer<
 			EPackage, EClassifier, EOperation, EStructuralFeature,
@@ -43,10 +44,10 @@ class EmbeddedOCLAnalyzer extends AbstractOCLAnalyzer<
 		// and hence #getOCLEnvironment() would return it.
 		// The rest of AbstractOCLParser is only that we need to pass anything but null 
 		// to superclass's constructor
-		super(new AbstractOCLParser(environment) {  
-
+		super(new OCLParser(new OCLLexer(environment)) {
+			
 			@Override
-			public CSTNode parseTokensToCST(Monitor monitor, int error_repair_count) {
+			public CSTNode parser(Monitor monitor, int error_repair_count) {
 				throw new UnsupportedOperationException("This analyzer is expected to get CST ready for use");
 			}
 		});

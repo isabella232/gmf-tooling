@@ -19,7 +19,7 @@
 %options lalr=2
 %options include_directory="../expression/parser/;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
-$Globals
+%Globals
 	/.
 	import org.eclipse.gmf.internal.xpand.expression.ast.Identifier;
 	import org.eclipse.gmf.internal.xpand.ast.*;
@@ -36,26 +36,26 @@ $Globals
 	import org.eclipse.ocl.utilities.PredefinedType;
 
 	./
-$End
+%End
 
-$Headers
+%Headers
 	/.
 		private final XpandFactory xpandFactory;
 	./
-$End
+%End
 
-$Start
+%Start
 	template
-$End
+%End
 
-$Import
-	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/ImperativeOCL.g
+%Import
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/ImperativeOCL.gi
 
-$DropRules
-	primaryExpCS -> switchExpCS
-	primaryExpCS -> whileExpCS
-	primaryExpCS -> computeExpCS
-	primaryExpCS -> newExpCS
+%DropRules
+	primaryNotNameCS -> switchExpCS
+	primaryNotNameCS -> whileExpCS
+	primaryNotNameCS -> computeExpCS
+	primaryNotNameCS -> newExpCS
 	IterateExpCS ::= primaryExpCS '->' switch '(' switchDeclaratorCS ')' switchBodyExpCS
 	IteratorExpCS ::= primaryExpCS '->' forExpCS
 	ifExpBodyCS -> expression_block
@@ -64,7 +64,7 @@ $DropRules
 	OclExpressionCS -> returnExpCS
 	OclExpressionCS -> var_init_exp
 
-$DropSymbols
+%DropSymbols
 	logExpCS logWhenExp logWhenExpOpt
 	assertExpCS assertWithLogExp assertWithLogExpOpt severityKindCS severityKindCSOpt
 	oclExpressionCSOpt 
@@ -120,28 +120,28 @@ $DropSymbols
 	reservedKeywordCS
 	otherKeywordCS
 	otherKeyword
-	simpleNameCS
+--	simpleNameCS
 	newTypespecCS
-$End
+%End
 
 -- FIXME need to fix $Notice section from EssentialOCL.g
 
 -- factory method for QVT CST constructs
-$Include
+%Include
 	AbstractQVTParser.gi
-$End
+%End
 
 -- factory method for OCL CST constructs
-$Include
+%Include
 	AbstractOCLParser.gi
-$End
+%End
 
 -- unquote and setOffsets methods
-$Include
+%Include
 	AbstractParser.gi
-$End
+%End
 
-$Define
+%Define
 	-- definition of init code should go *after* import
 	$initialization_code /.xpandFactory = new XpandFactory(lexStream.getFileName());./
 	-- not to include all the stuff from EssentialOCL.g but rules
@@ -157,9 +157,9 @@ $Define
 	./
 	-- do not inject DEBUG variable as well.
 	$DebugModeOff /../
-$End
+%End
 
-$Terminals
+%Terminals
 	IMPORT EXTENSION
 	AROUND ENDAROUND
 	DEFINE ENDDEFINE
@@ -175,21 +175,21 @@ $Terminals
 	LG ::= '\u00AB'
 
 --	RG ::= '\u00BB' -- useless
-$End
+%End
 
-$Rules
+%Rules
 
 	template ::= emptyTemplate
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createTemplate(Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST, getRightIToken()));
-		$EndJava./
+		$EndCode./
 
 	-- original xpand allows empty templates, not sure what for; added support to handle comments-only content
-	emptyTemplate -> $empty | LG TEXT commentTextPairAny
+	emptyTemplate -> %empty | LG TEXT commentTextPairAny
 
 	-- unlike original xpand, do not allow mixed order of imports (ext and regular)
 	template ::= LG commentTextPairAny imports extensionImports defineOrAroundSeq
-		/.$BeginJava
+		/.$BeginCode
 			List imports = (List) getRhsSym(3);
 			List extensionImports = (List) getRhsSym(4);
 			List defineOrAround = (List) getRhsSym(5);
@@ -205,83 +205,83 @@ $Rules
 				}
 			}
 			setResult(xpandFactory.createTemplate(imports, extensionImports, defines, advices, getRightIToken()));
-		$EndJava./
+		$EndCode./
 
 	defineOrAroundSeq ::= define TEXT commentTextPairAny defineOrAroundSuffix
-		/.$BeginJava
+		/.$BeginCode
 			List result = new LinkedList();
 			result.add(getRhsSym(1));
 			result.addAll((List) getRhsSym(4));
 			setResult(result);
-		$EndJava./
+		$EndCode./
 	defineOrAroundSeq ::= around TEXT commentTextPairAny defineOrAroundSuffix 
-		/.$BeginJava
+		/.$BeginCode
 			List result = new LinkedList();
 			result.add(getRhsSym(1));
 			result.addAll((List) getRhsSym(4));
 			setResult(result);
-		$EndJava./
-	defineOrAroundSuffix ::= $empty
-		/.$BeginJava
+		$EndCode./
+	defineOrAroundSuffix ::= %empty
+		/.$BeginCode
 			setResult(Collections.EMPTY_LIST);
-		$EndJava./
+		$EndCode./
 	defineOrAroundSuffix -> defineOrAroundSeq
 
-	commentTextPairAny -> $empty | TEXT commentTextPairAny
+	commentTextPairAny -> %empty | TEXT commentTextPairAny
 
-	imports ::= $empty
-		/.$BeginJava
+	imports ::= %empty
+		/.$BeginCode
 			setResult(Collections.EMPTY_LIST);
-		$EndJava./
+		$EndCode./
 	imports ::= anImport imports
-		/.$BeginJava
+		/.$BeginCode
 			List res = new LinkedList();
 			res.add(getRhsSym(1));
 			res.addAll((List) getRhsSym(2));
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
 	anImport ::= "IMPORT" StringLiteralExpCS TEXT commentTextPairAny 
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createNamespaceImport(getLeftIToken(), (StringLiteralExpCS) getRhsSym(2)));
-		$EndJava./
+		$EndCode./
 
-	extensionImports ::= $empty
-		/.$BeginJava
+	extensionImports ::= %empty
+		/.$BeginCode
 			setResult(Collections.EMPTY_LIST);
-		$EndJava./
+		$EndCode./
 	extensionImports ::= anExtensionImport extensionImports
-		/.$BeginJava
+		/.$BeginCode
 			List res = new LinkedList();
 			res.add(getRhsSym(1));
 			res.addAll((List) getRhsSym(2));
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
 	anExtensionImport ::= "EXTENSION" pathNameCS TEXT commentTextPairAny 
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createImportDeclaration(getLeftIToken(), (PathNameCS) getRhsSym(2)));
-		$EndJava./
+		$EndCode./
 
 	around ::= "AROUND" pointcut "FOR" typeCS sequence "ENDAROUND"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.<VariableCS>emptyList(), false, (TypeCS) getRhsSym(4), (List) getRhsSym(5)));
-		$EndJava./
+		$EndCode./
 	around ::= "AROUND" pointcut LPAREN parametersList RPAREN "FOR" typeCS sequence "ENDAROUND"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List<VariableCS>) getRhsSym(4), false, (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
-		$EndJava./
+		$EndCode./
 	around ::= "AROUND" pointcut LPAREN parametersList COMMA MULTIPLY RPAREN "FOR" typeCS sequence "ENDAROUND"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), (List<VariableCS>) getRhsSym(4), true, (TypeCS) getRhsSym(9), (List) getRhsSym(10)));
-		$EndJava./
+		$EndCode./
 	around ::= "AROUND" pointcut LPAREN MULTIPLY RPAREN "FOR" typeCS sequence "ENDAROUND"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createAround(getLeftIToken(), getRightIToken(), (Identifier) getRhsSym(2), Collections.<VariableCS>emptyList(), true, (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
-		$EndJava./
+		$EndCode./
 
 	pointcut ::= MULTIPLY pointcutSuffix 
-		/.$BeginJava
+		/.$BeginCode
 //			FIXME: may use SimpleNameCS here, though need more sophisticated code to update end position
 //			SimpleNameCS simpleNameCS = createSimpleNameCS(SimpleTypeEnum.IDENTIFIER_LITERAL, getTokenText(getRhsTokenIndex(1)));
 //			setOffsets(simpleNameCS, getLeftIToken());
@@ -290,84 +290,84 @@ $Rules
 				res = res.append((Identifier) getRhsSym(2));
 			}
 			setResult(res);
-		$EndJava./
+		$EndCode./
 	pointcut ::= IDENTIFIER pointcutSuffix
-		/.$BeginJava
+		/.$BeginCode
 			Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 			if (getRhsSym(2) != null) {
 				res = res.append((Identifier) getRhsSym(2));
 			}
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
-	pointcutSuffix ::= $empty
-		/.$BeginJava
+	pointcutSuffix ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	pointcutSuffix -> pointcut
 	pointcutSuffix ::= COLONCOLON pointcutSuffix
-		/.$BeginJava
+		/.$BeginCode
 			Identifier res = xpandFactory.createIdentifier(getLeftIToken());
 			if (getRhsSym(2) != null) {
 				res = res.append((Identifier) getRhsSym(2));
 			}
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
 	define ::= "DEFINE" IDENTIFIER "FOR" typeCS sequence "ENDDEFINE"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), Collections.<VariableCS>emptyList(), (TypeCS) getRhsSym(4), (List) getRhsSym(5)));
-		$EndJava./
+		$EndCode./
 	define ::= "DEFINE" IDENTIFIER LPAREN parametersList RPAREN "FOR" typeCS sequence "ENDDEFINE"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createDefinition(getLeftIToken(), getRightIToken(), getRhsIToken(2), (List<VariableCS>) getRhsSym(4), (TypeCS) getRhsSym(7), (List) getRhsSym(8)));
-		$EndJava./
+		$EndCode./
 		
 	parametersList ::= parameter 
-		/.$BeginJava
+		/.$BeginCode
 			VariableCS param = (VariableCS) getRhsSym(1);
 			LinkedList res = new LinkedList();
 			res.add(param);
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
 	parametersList ::= parametersList ',' parameter 
-		/.$BeginJava
+		/.$BeginCode
 			VariableCS param = (VariableCS) getRhsSym(3);
 			LinkedList res = new LinkedList();
 			res.addAll((List) getRhsSym(1));
 			res.add(param);
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
 	parameter -> declarator
 
 	parameter ::= typeCS IDENTIFIER
-		/.$BeginJava
+		/.$BeginCode
 			VariableCS result = createVariableCS(getRhsIToken(2).toString(), (TypeCS) getRhsSym(1), null);
 			setOffsets(result, (TypeCS) getRhsSym(1), getRhsIToken(2));
 			setResult(result);
-		$EndJava./
+		$EndCode./
 	
 	sequence ::= text sequenceSuffix
-		/.$BeginJava
+		/.$BeginCode
 			List res = new LinkedList();
 			res.addAll((List) getRhsSym(1));
 			res.addAll((List) getRhsSym(2));
 			setResult(res);
-		$EndJava./
-	sequenceSuffix ::= $empty
-		/.$BeginJava
+		$EndCode./
+	sequenceSuffix ::= %empty
+		/.$BeginCode
 			setResult(Collections.EMPTY_LIST);
-		$EndJava./
+		$EndCode./
 	sequenceSuffix ::= statement text sequenceSuffix
-		/.$BeginJava
+		/.$BeginCode
 			List res = new LinkedList();
 			res.add(getRhsSym(1));
 			res.addAll((List) getRhsSym(2));
 			res.addAll((List) getRhsSym(3));
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
 
 --
@@ -377,115 +377,115 @@ $Rules
 	statement -> simpleStatement | fileStatement | foreachStatement | ifStatement | letStatement | protectStatement
 
 	text ::= minusOpt TEXT textSuffix 
-		/.$BeginJava
+		/.$BeginCode
 			List res = new LinkedList();
 			res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
 			res.addAll((List) getRhsSym(3));
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
-	textSuffix ::= $empty
-		/.$BeginJava
+	textSuffix ::= %empty
+		/.$BeginCode
 			setResult(Collections.EMPTY_LIST);
-		$EndJava./
+		$EndCode./
 	textSuffix ::= minusOpt TEXT textSuffix
-		/.$BeginJava
+		/.$BeginCode
 			List res = new LinkedList();
 			res.add(xpandFactory.createTextStatement(getRhsIToken(2), (IToken) getRhsSym(1)));
 			res.addAll((List) getRhsSym(3));
 			setResult(res);
-		$EndJava./
+		$EndCode./
 
-	minusOpt ::= $empty
-		/.$BeginJava
+	minusOpt ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	minusOpt ::= MINUS
-		/.$BeginJava
+		/.$BeginCode
 			setResult(getLeftIToken());
-		$EndJava./
+		$EndCode./
 
 	simpleStatement -> errorStatement | expandStatement | expressionStmt
 
 	errorStatement ::= "ERROR" OclExpressionCS
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createErrorStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2)));
-		$EndJava./
+		$EndCode./
 
 
 	expandStatement ::= "EXPAND" definitionName parameterListOpt
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), null, false, null));
-		$EndJava./
+		$EndCode./
 	expandStatement ::= "EXPAND" definitionName parameterListOpt "FOR" OclExpressionCS
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), false, null));
-		$EndJava./
+		$EndCode./
 	expandStatement ::= "EXPAND" definitionName parameterListOpt "FOREACH" OclExpressionCS separatorOpt
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createExpandStatement(getLeftIToken(), (PathNameCS) getRhsSym(2), (List) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), true, (OCLExpressionCS) getRhsSym(6)));
-		$EndJava./
+		$EndCode./
 
-	parameterListOpt ::= $empty
-		/.$BeginJava
+	parameterListOpt ::= %empty
+		/.$BeginCode
 			setResult(Collections.EMPTY_LIST);
-		$EndJava./
+		$EndCode./
 	parameterListOpt ::= LPAREN argumentsCS RPAREN
-		/.$BeginJava
+		/.$BeginCode
 			setResult(getRhsSym(2));
-		$EndJava./
+		$EndCode./
 
 
 	definitionName -> pathNameCS
 
 	expressionStmt ::= OclExpressionCS
-		/.$BeginJava
+		/.$BeginCode
 			// XXX OCL CST doesn't keep track of line numbers, but we use them (perhaps, might refactor to stop using?)
 			int lineNumber = getLeftIToken().getLine();
 			setResult(xpandFactory.createExpressionStatement((OCLExpressionCS) getRhsSym(1), lineNumber));
-		$EndJava./
+		$EndCode./
 
 	fileStatement ::= "FILE" OclExpressionCS identOpt sequence "ENDFILE"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createFileStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), (Identifier) getRhsSym(3), (List) getRhsSym(4)));
-		$EndJava./
+		$EndCode./
 
 	-- XXX may use simpleNameCSopt instead, however not sure about self and String/Real/etc as possible values there.
-	identOpt ::= $empty
-		/.$BeginJava
+	identOpt ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	identOpt ::= IDENTIFIER
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createIdentifier(getLeftIToken()));
-		$EndJava./
+		$EndCode./
 
 	foreachStatement ::= "FOREACH" OclExpressionCS "AS" IDENTIFIER iteratorOpt separatorOpt sequence "ENDFOREACH"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createForEachStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (OCLExpressionCS) getRhsSym(6), (IToken) getRhsSym(5), (List) getRhsSym(7)));
-		$EndJava./
+		$EndCode./
 
-	iteratorOpt ::= $empty
-		/.$BeginJava
+	iteratorOpt ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	iteratorOpt ::= "ITERATOR" IDENTIFIER
-		/.$BeginJava
+		/.$BeginCode
 			setResult(getRightIToken());
-		$EndJava./
+		$EndCode./
 
-	separatorOpt ::= $empty
-		/.$BeginJava
+	separatorOpt ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	separatorOpt ::= "SEPARATOR" OclExpressionCS
-		/.$BeginJava
+		/.$BeginCode
 			setResult(getRhsSym(2));
-		$EndJava./
+		$EndCode./
 
 
 	ifStatement ::= "IF" OclExpressionCS sequence elseifAny elseOpt "ENDIF"
-		/.$BeginJava
+		/.$BeginCode
 			IfStatement i = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 			IfStatement elseIf = (IfStatement) getRhsSym(4);
 			IfStatement elseStmt = (IfStatement) getRhsSym(5);
@@ -501,46 +501,46 @@ $Rules
 				i.setElseIf(elseStmt);
 			}
 			setResult(i);
-		$EndJava./
+		$EndCode./
 
-	elseifAny ::= $empty
-		/.$BeginJava
+	elseifAny ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	elseifAny ::= "ELSEIF" OclExpressionCS sequence elseifAny
-		/.$BeginJava
+		/.$BeginCode
 			IfStatement elseIf = xpandFactory.createIfStatement(getLeftIToken(), (OCLExpressionCS) getRhsSym(2), (List) getRhsSym(3), null);
 			IfStatement restElseIf = (IfStatement) getRhsSym(4);
 			elseIf.setElseIf(restElseIf);
 			setResult(elseIf);
-		$EndJava./
+		$EndCode./
 
-	elseOpt ::= $empty
-		/.$BeginJava
+	elseOpt ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	elseOpt ::= "ELSE" sequence
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createIfStatement(getLeftIToken(), null, (List) getRhsSym(2), null));
-		$EndJava./
+		$EndCode./
 
 	letStatement ::= "LET" OclExpressionCS "AS" IDENTIFIER sequence "ENDLET"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createLetStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(2), getRhsIToken(4), (List) getRhsSym(5)));
-		$EndJava./
+		$EndCode./
 	
 	protectStatement ::= "PROTECT" "CSTART" OclExpressionCS "CEND" OclExpressionCS "ID" OclExpressionCS disabledOpt sequence "ENDPROTECT"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(xpandFactory.createProtectStatement(getLeftIToken(), getRightIToken(), (OCLExpressionCS) getRhsSym(3), (OCLExpressionCS) getRhsSym(5), (OCLExpressionCS) getRhsSym(7), (IToken) getRhsSym(8), (List) getRhsSym(9)));
-		$EndJava./
+		$EndCode./
 
-	disabledOpt ::= $empty
-		/.$BeginJava
+	disabledOpt ::= %empty
+		/.$BeginCode
 			setResult(null);
-		$EndJava./
+		$EndCode./
 	disabledOpt ::= "DISABLE"
-		/.$BeginJava
+		/.$BeginCode
 			setResult(getLeftIToken());
-		$EndJava./
+		$EndCode./
 
-$End
+%End

@@ -1,7 +1,7 @@
 -- Copy of OCL CST factory methods from AbstractOCLParser
 -- Only required (reused) methods were copied, hence private visibility to make sure we use all them
 -- XXX ask C.Damus to split factory out of AbstractOCLParser.java 
-$Headers
+%Headers
 /.
 	private OperationCallExpCS createArrowOperationCallExpCS(OCLExpressionCS oclExpressionCS, SimpleNameCS simpleNameCS, IsMarkedPreCS isMarkedPreCS, EList<OCLExpressionCS> arguments) {
 		return createOperationCallExpCS(oclExpressionCS, DotOrArrowEnum.ARROW_LITERAL, null, simpleNameCS, isMarkedPreCS, arguments);
@@ -246,133 +246,107 @@ $Headers
 		return result;
 	}
 
-	private String unescape(IToken stringLiteral) {
-		String rawString = stringLiteral.toString();
-		int rawStringLength = rawString.length();
-		if (rawStringLength <= 2) {
-			return ""; //$NON-NLS-1$
-		}
-		StringBuilder unescapedStringBuilder = null;
-		boolean isBackslashEscapeProcessingUsed = true; //getEnvironment().isEnabled(ParsingOptions.USE_BACKSLASH_ESCAPE_PROCESSING);
-		boolean isNonStdSQEscapingUsed = false;
-		int n = rawStringLength - 1;
-		for (int i = 1; i < n; i++) {
-			char ch = rawString.charAt(i);
-			if ((isBackslashEscapeProcessingUsed && (ch == '\\'))
-				|| ((ch == '\'') && isNonStdSQSupported())) {
-				if (unescapedStringBuilder == null) {
-					unescapedStringBuilder = new StringBuilder(rawString
-						.substring(1, i));
-				}
-				i++;
-				if (i >= n) {
-					reportError(
-						ParseErrorCodes.INVALID_CODE,
-						"", stringLiteral.getTokenIndex(), stringLiteral.getTokenIndex(), //$NON-NLS-1$
-						"String literal not properly closed");
-				}
-				char nextCh = rawString.charAt(i);
-				if (ch == '\\') {
-					switch (nextCh) {
-						case 'b' :
-							unescapedStringBuilder.append('\b');
-							break;
-						case 't' :
-							unescapedStringBuilder.append('\t');
-							break;
-						case 'n' :
-							unescapedStringBuilder.append('\n');
-							break;
-						case 'f' :
-							unescapedStringBuilder.append('\f');
-							break;
-						case 'r' :
-							unescapedStringBuilder.append('\r');
-							break;
-						case '\"' :
-							unescapedStringBuilder.append('\"');
-							break;
-						case '\'' :
-							unescapedStringBuilder.append('\'');
-							break;
-						case '\\' :
-							unescapedStringBuilder.append('\\');
-							break;
-						default :
-							// octal escape check
-							int unescapedChar = -1;
-							if ((nextCh >= '\u0030') && (nextCh <= '\u0037')) { // octal
-																				// digit
-								unescapedChar = Character
-									.getNumericValue(nextCh);
-								if (i + 1 < n) {
-									char tmpCh = rawString.charAt(i + 1);
-									if ((tmpCh >= '\u0030')
-										&& (tmpCh <= '\u0037')) { // octal digit
-										unescapedChar = 8 * unescapedChar
-											+ Character.getNumericValue(tmpCh);
-										i++;
-										if (i + 1 < n) {
-											tmpCh = rawString.charAt(i + 1);
-											if ((tmpCh >= '\u0030')
-												&& (tmpCh <= '\u0037') // octal
-																		// digit
-												&& (nextCh <= '\u0033')) { // most-significant
-																			// digit
-																			// in
-																			// range
-																			// 0..2
-												unescapedChar = 8
-													* unescapedChar
-													+ Character
-														.getNumericValue(tmpCh);
-												i++;
-											}
-										}
-									}
-								}
-								unescapedStringBuilder
-									.append((char) unescapedChar);
-							}
-							if (unescapedChar < 0) {
-								reportError(
-									ParseErrorCodes.INVALID_CODE,
-									"", stringLiteral.getTokenIndex(), stringLiteral.getTokenIndex(), //$NON-NLS-1$
-									"Invalid escape sequence (valid ones are \\b \\t \\n \\f \\r \\\" \\\' \\\\)");
-							}
-							break;
-					}
-				} else { // non-std '' escaping
-					unescapedStringBuilder.append('\'');
-					isNonStdSQEscapingUsed = true;
-					assert nextCh == '\'' : "Unexpected escape sequence in string literal: " + rawString; //$NON-NLS-1$
-				}
-			} else if (unescapedStringBuilder != null) {
-				unescapedStringBuilder.append(ch);
-			}
-		}
-		if (isNonStdSQEscapingUsed) {
-	// Should not be called - isNonStdSQSupported returns false
-			
-	//		// check settings for using non-standard closure iterator
-	//		ProblemHandler.Severity sev = getEnvironment().getValue(
-	//			ProblemOption.STRING_SINGLE_QUOTE_ESCAPE);
-	//		if ((sev != null) && (sev != ProblemHandler.Severity.OK)) {
-	//			getEnvironment().problem(
-	//				sev,
-	//				ProblemHandler.Phase.PARSER,
-	//				OCLMessages.bind(OCLMessages.NonStd_SQuote_Escape_,
-	//					stringLiteral), "STRING_LITERAL", //$NON-NLS-1$
-	//				null);
-	//		}
-		}
-		return (unescapedStringBuilder == null)
-			? rawString.substring(1, n)
-			: unescapedStringBuilder.toString();
-	}
-
 	private boolean isNonStdSQSupported() {
 		return false;
 	}
+	
+	protected SimpleNameCS createConceptualOperationNameCS(IToken token) {
+		SimpleNameCS result = CSTFactory.eINSTANCE.createSimpleNameCS();
+		result.setType(SimpleTypeEnum.KEYWORD_LITERAL);
+		String conceptualName = token.toString();
+		result.setValue(conceptualName);
+		ProblemHandler.Severity sev = ProblemHandler.Severity.OK;
+/*
+[AS]: TODO log error here
+
+		BasicEnvironment benv = getEnvironment();
+		if (benv != null) {
+			sev = benv.getValue(ProblemOption.CONCEPTUAL_OPERATION_NAME);
+		}
+		
+		if ((sev != null) && (sev != ProblemHandler.Severity.OK)) {
+			benv.problem(sev, ProblemHandler.Phase.PARSER, OCLMessages
+				.bind(OCLMessages.Conceptual_Operation_Name_, conceptualName),
+				"unquote", //$NON-NLS-1$
+				token);
+		}
+*/		
+		return result;
+	}
+	
+	protected SimpleNameCS createSimpleNameCS(SimpleTypeEnum type, IToken token) {
+		SimpleNameCS result = CSTFactory.eINSTANCE.createSimpleNameCS();
+		result.setType(type);
+		result.setValue(unDoubleQuote(token));
+		return result;
+	}
+	
+	protected StringLiteralExpCS createStringLiteralExpCS(IToken token) {
+		StringLiteralExpCS result = CSTFactory.eINSTANCE
+			.createStringLiteralExpCS();
+		String unquoted = unSingleQuote(token);
+		result.setSymbol(unquoted);
+		result.setStringSymbol(unquoted);
+		result.setUnescapedStringSymbol(unquoted);
+		return result;
+	}
+	
+	protected StringLiteralExpCS extendStringLiteralExpCS(StringLiteralExpCS string, IToken token) {       
+        String oldString = string.getUnescapedStringSymbol();
+        String newString = unSingleQuote(token);
+        int oldFinish = string.getEndOffset();
+        int newStart = token.getStartOffset();
+    	String joinedString;
+        if (newStart - oldFinish > 1) {
+        	joinedString = oldString + newString;
+            }
+        else {
+        	joinedString = oldString + '\'' + newString;
+/*
+[AS]: TODO log error here        	
+    		ProblemHandler.Severity sev = getEnvironment().getValue(
+    			ProblemOption.STRING_SINGLE_QUOTE_ESCAPE);
+    		if ((sev != null) && (sev != ProblemHandler.Severity.OK)) {
+    			getEnvironment().problem(
+    				sev,
+    				ProblemHandler.Phase.PARSER,
+    				OCLMessages.bind(OCLMessages.NonStd_SQuote_Escape_,
+    					joinedString), "STRING_LITERAL", //$NON-NLS-1$
+    					joinedString);
+    		}
+*/    		
+        }
+		string.setSymbol(joinedString);
+    	string.setStringSymbol(joinedString);
+    	string.setUnescapedStringSymbol(joinedString);
+		return string;
+	}
+	
+	protected Set<String> iteratorNames = null;
+
+	@SuppressWarnings("nls")
+	protected Set<String> createIteratorNames() {
+		Set<String> iteratorNames = new HashSet<String>();
+		iteratorNames.add("any");
+		iteratorNames.add("collect");
+		iteratorNames.add("collectNested");
+		iteratorNames.add("exists");
+		iteratorNames.add("forAll");
+		iteratorNames.add("isUnique");
+		iteratorNames.add("one");
+		iteratorNames.add("reject");
+		iteratorNames.add("select");
+		iteratorNames.add("sortedBy");
+
+		iteratorNames.add("closure");
+		return iteratorNames;
+	}
+	
+	protected boolean isIterator(String name) {
+		if (iteratorNames == null) {
+			iteratorNames = createIteratorNames();
+		}
+		return iteratorNames.contains(name);
+	}
 ./
-$End
+%End

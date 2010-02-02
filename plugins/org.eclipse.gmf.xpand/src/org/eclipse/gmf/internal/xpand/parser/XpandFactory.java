@@ -13,7 +13,7 @@ package org.eclipse.gmf.internal.xpand.parser;
 
 import java.util.List;
 
-import lpg.lpgjavaruntime.IToken;
+import lpg.runtime.IToken;
 
 import org.eclipse.gmf.internal.xpand.ast.Advice;
 import org.eclipse.gmf.internal.xpand.ast.Definition;

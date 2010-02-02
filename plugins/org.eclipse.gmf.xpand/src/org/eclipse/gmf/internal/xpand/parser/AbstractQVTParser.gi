@@ -1,7 +1,7 @@
 -- Copy of QVT CST factory methods from AbstractQVTParser
 -- Only required (reused) methods were copied, hence private visibility to make sure we use all them
 -- XXX ask QVT guys to split factory out of AbstractOCLParser.java 
-$Globals
+%Globals
 	/.
 	import org.eclipse.m2m.internal.qvt.oml.cst.CompleteSignatureCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.LibraryImportCS;
@@ -13,9 +13,9 @@ $Globals
 	import org.eclipse.m2m.internal.qvt.oml.cst.ListLiteralExpCS;
 	import org.eclipse.m2m.internal.qvt.oml.cst.ImperativeOperationCallExpCS;
 	./
-$End
+%End
 
-$Headers
+%Headers
 /.
     private ImperativeIterateExpCS createImperativeIterateExpCS(
             SimpleNameCS simpleNameCS,
@@ -171,5 +171,13 @@ $Headers
 		result.getArguments().addAll(arguments);
 		return result;
 	}
+	
+	protected VariableCS createVariableCS(IToken token, TypeCS typeCS, OCLExpressionCS oclExpressionCS) {
+		VariableCS result = CSTFactory.eINSTANCE.createVariableCS();
+		result.setName(unSingleQuote(token));
+		result.setTypeCS(typeCS);
+		result.setInitExpression(oclExpressionCS);
+		return result;
+	}
 ./
-$End
+%End

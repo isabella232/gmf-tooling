@@ -10,22 +10,22 @@
 %Options programming_language=java,margin=4
 %Options table,error_maps,scopes
 %options prefix=TK_,
-%options action=("*.java", "/.", "./")
-%options ParseTable=lpg.lpgjavaruntime.ParseTable
+%options action-block=("*.java", "/.", "./")
+%options ParseTable=lpg.runtime.ParseTable
 
 --
 -- This template requires that the name of the EOF token be set
 -- to EOF_TOKEN to be consistent with LexerTemplateD and LexerTemplateE
 --
-$EOF
+%EOF
     EOF_TOKEN
-$End
+%End
 
-$ERROR
+%ERROR
     ERROR_TOKEN
-$End
+%End
 
-$Define
+%Define
     $Header
     /.
                 //
@@ -93,14 +93,14 @@ $Define
     $ast_class /.$ast_type./
     $initialization_code /../
 
-$End
+%End
 
-$Globals
-    /.import lpg.lpgjavaruntime.*;
+%Globals
+    /.import lpg.runtime.*;
     ./
-$End
+%End
 
-$Headers
+%Headers
     /.
     public class $action_type extends PrsStream implements RuleAction$additional_interfaces {
         private static ParseTable prs = new $prs_type();
@@ -209,15 +209,27 @@ $Headers
 
     ./
 
-$End
+%End
 
-$Define
+%Define
 	$tokenStartOffset /.getStartOffset(leftToken)./
 	$tokenEndOffset /.getEndOffset(rightToken)./
 
-$Include
+%Include
 	errorHandling.g
-$End
+%End
+
+%Rules
+    /.$BeginActions./
+%End
+
+%Trailers
+    /.
+        $EndActions
+    }
+    ./
+%End
+
 
 -- XXX EssentialOCL.g has both $Rules section with BeginActions
 -- and $Trailers with EndActions, hence no need duplicate here

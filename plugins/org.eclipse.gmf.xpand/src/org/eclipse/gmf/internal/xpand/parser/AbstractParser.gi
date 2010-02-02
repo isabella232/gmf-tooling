@@ -1,5 +1,5 @@
 -- Copy of reelvant methods from org.eclipse.ocl.lpg.AbstractParser
-$Headers
+%Headers
 /.
 	/**
 	 * Sets the start and end offsets of the given <code>CSTNode</code>
@@ -113,5 +113,182 @@ $Headers
 	private boolean isAtPre(IsMarkedPreCS atPreCS) {
 		return atPreCS != null;
 	}
+	
+	protected String unDoubleQuote(IToken token) {
+		if (token == null) {
+			return null;
+		}
+		String quoted = token.toString();
+		if (quoted == null) {
+			return null;
+		}
+		int quotedLength = quoted.length();
+		if ((quotedLength < 2) || (quoted.charAt(0) != '"') || (quoted.charAt(quotedLength-1) != '"')) {
+			return quoted;
+		}
+		ProblemHandler.Severity sev = ProblemHandler.Severity.OK;
+/*
+		BasicEnvironment benv = getEnvironment();
+
+		if (benv != null) {
+			sev = benv
+				.getValue(ProblemOption.ELEMENT_NAME_QUOTE_ESCAPE);
+		}
+		if ((sev != null) && (sev != ProblemHandler.Severity.OK)) {
+			benv.problem(sev, ProblemHandler.Phase.PARSER, OCLMessages
+				.bind(OCLMessages.NonStd_DQuote_Escape_, quoted),
+				"unquote", //$NON-NLS-1$
+				token);
+		}
+*/		
+		return decodeString(token, quoted.substring(1, quotedLength-1));
+	}
+	
+	protected String unSingleQuote(IToken token) {
+		if (token == null) {
+			return null;
+		}
+		String quoted = token.toString();
+		if (quoted == null) {
+			return null;
+		}
+		int quotedLength = quoted.length();
+		if ((quotedLength < 2) || (quoted.charAt(0) != '\'') || (quoted.charAt(quotedLength-1) != '\'')) {
+			return quoted;
+		}
+		String unquoted = quoted.substring(1, quotedLength-1);
+		Boolean backslashProcessingEnabled = true;
+/*
+		BasicEnvironment benv = getEnvironment();
+		if (benv != null) {
+			backslashProcessingEnabled = benv
+				.getValue(ParsingOptions.USE_BACKSLASH_ESCAPE_PROCESSING);
+		}
+*/		
+		if ((backslashProcessingEnabled == null) || !backslashProcessingEnabled) {
+			return unquoted;
+		}
+		return decodeString(token, unquoted);
+	}
+	
+	protected String decodeString(IToken token, String string) {
+		if (string.indexOf('\\') < 0) {
+			return string;			
+		}
+		StringBuffer s = new StringBuffer();
+		StringCharacterIterator i = new StringCharacterIterator(string);
+		for (char c = i.first(); c != StringCharacterIterator.DONE; c = i.next()) {
+			if (c != '\\') {
+				s.append(c);
+			}
+			else {
+				int iStart = i.getIndex();
+				char ch = decodeEscapeSequence(i);
+				if (ch != StringCharacterIterator.DONE) {
+					s.append(ch);
+				}
+				else {
+/*
+[AS]: TODO: report error here
+
+					BasicEnvironment benv = getEnvironment();
+					benv.problem(ProblemHandler.Severity.ERROR, ProblemHandler.Phase.PARSER, OCLMessages
+						.bind(OCLMessages.InvalidEscapeSequence_ERROR, string.substring(iStart, i.getIndex())),
+						"unquote", //$NON-NLS-1$
+						token);
+*/						
+					return string;
+				}
+			}
+		}
+		return s.toString();
+	}
+	
+	protected char decodeEscapeSequence(StringCharacterIterator i) {
+		int savedIndex = i.getIndex();
+		char c = i.next();
+		switch (c) {
+			case 'b' : return '\b';
+			case 'f' : return '\f';
+			case 't' : return '\t';
+			case 'n' : return '\n';
+			case 'r' : return '\r';
+			case '\\' : return '\\';
+			case '\'' : return '\'';
+			case '"' : return '\"';
+			case '0' :
+			case '1' :
+			case '2' :
+			case '3' : {
+				int c1 = c - '0';
+				int c2 = decodeOctalCharacter(i);
+				if (c2 < 0) {
+					return (char)(c1);					
+				}
+				int c3 = decodeOctalCharacter(i);
+				if (c3 < 0) {
+					return (char)((c1 << 3) + c2);
+				}
+				return (char)((c1 << 6) + (c2 << 3) + c3);
+			}
+			case '4' :
+			case '5' :
+			case '6' :
+			case '7' : {
+				int c1 = c - '0';
+				int c2 = decodeOctalCharacter(i);
+				if (c2 < 0) {
+					i.previous();
+					return (char)(c1);					
+				}
+				return (char)((c1 << 3) + c2);
+			}
+			case 'x' : {
+				int c1 = decodeHexCharacter(i.next());
+				int c2 = decodeHexCharacter(i.next());
+				if ((c1 < 0) || (c2 < 0)) {
+					break;
+				}
+				return (char)((c1 << 4) + c2);
+			}
+			case 'u' : {
+				int c1 = decodeHexCharacter(i.next());
+				int c2 = decodeHexCharacter(i.next());
+				int c3 = decodeHexCharacter(i.next());
+				int c4 = decodeHexCharacter(i.next());
+				if ((c1 < 0) || (c2 < 0) || (c3 < 0) || (c4 < 0)) {
+					break;
+				}
+				return (char)((c1 << 12) + (c2 << 8) + (c3 << 4) + c4);
+			}
+		}
+		i.setIndex(savedIndex);		// Give derived augmentations the same starting point
+		return StringCharacterIterator.DONE;
+	}
+	
+	protected int decodeOctalCharacter(StringCharacterIterator i) {
+		char c = i.next();
+		if (c == StringCharacterIterator.DONE) {
+			return -1;					
+		}
+		if (('0' <= c) && (c <= '7')) {
+			return c - '0';
+		}
+		i.previous();
+		return -1;
+	}
+
+	protected int decodeHexCharacter(char c) {
+		if (('0' <= c) && (c <= '9')) {
+			return c - '0';
+		}
+		if (('A' <= c) && (c <= 'F')) {
+			return 10 + c - 'A';
+		}
+		if (('a' <= c) && (c <= 'f')) {
+			return 10 + c - 'a';
+		}
+		return -1;
+	}
 ./
-$End
+%End

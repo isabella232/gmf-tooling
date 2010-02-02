@@ -12,14 +12,14 @@
 
 %options fp=XpandKWLexer,prefix=Char_
 %options package=org.eclipse.gmf.internal.xpand.parser
-%options template=../expression/parser/KeywordTemplateD.g
+%options template=../expression/parser/KeywordTemplateF.gi
 %options export_terminals=("XpandParsersym.java", "TK_")
 %options include_directory="../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst;../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/lpg"
 
-$Import
-	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QvtOpKWLexer.g
+%Import
+	../../../../../../../../org.eclipse.m2m.qvt.oml.cst.parser/cst/QVTOKWLexer.gi
 
-$DropRules
+%DropRules
 	QVTKeyWord ::= t r a n s f o r m a t i o n
 	QVTKeyWord ::= i m p o r t
 	QVTKeyWord ::= l i b r a r y
@@ -56,9 +56,9 @@ $DropRules
 		| e n f o r c i n g
 		| a c c e s s
 		| b l a c k b o x
-$End
+%End
 
-$Export
+%Export
 	IMPORT EXTENSION
 	AROUND ENDAROUND
 	DEFINE ENDDEFINE
@@ -70,9 +70,9 @@ $Export
 	IF ELSEIF ELSE ENDIF
 	LET ENDLET
 	PROTECT CSTART CEND ID DISABLE ENDPROTECT
-$End
+%End
 
-$Rules
+%Rules
 	KeyWord ::=
 		I M P O R T
 		/.$BeginAction
@@ -213,4 +213,4 @@ $Rules
 		/.$BeginAction
 			$setResult($_ENDPROTECT);
 		$EndAction./
-$End
+%End
