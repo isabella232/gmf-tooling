@@ -1,17 +1,17 @@
 import "http://www.eclipse.org/emf/2002/Ecore";
 
-String chainExpression(ecore::EClass eClass, ecore::EStructuralFeature eFeature) :
-	eClass.eUnset(eFeature)->eClass.name
+String chainExpression(ecore::EObject eObject, ecore::EClass eClass, ecore::EStructuralFeature eFeature) :
+	eObject.eUnset(eFeature)->eClass.name
 ;
 
-String nestedChainExpressions(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2) :
-	eClass.eUnset(eFeature1)->eClass.eUnset(eFeature2)->eClass.name
+String nestedChainExpressions(ecore::EObject eObject, ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2) :
+	eObject.eUnset(eFeature1)->eObject.eUnset(eFeature2)->eClass.name
 ;
 
-String nestedChainExpressionsWBraces(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2, ecore::EStructuralFeature eFeature3) :
-	eClass.eUnset(eFeature1)->(eClass.eUnset(eFeature2)->eClass.eUnset(eFeature3))->eClass.name
+String nestedChainExpressionsWBraces(ecore::EObject eObject, ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2, ecore::EStructuralFeature eFeature3) :
+	eObject.eUnset(eFeature1)->(eObject.eUnset(eFeature2)->eObject.eUnset(eFeature3))->eClass.name
 ;
 
-String incorrectlyNestedChainExpressions(ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2, Boolean condition) :
-	condition ? (eClass.eUnset(eFeature1)->eClass.name) : (eClass.eUnset(eFeature2)->eClass.name)
+String incorrectlyNestedChainExpressions(ecore::EObject eObject, ecore::EClass eClass, ecore::EStructuralFeature eFeature1, ecore::EStructuralFeature eFeature2, Boolean condition) :
+	condition ? (eObject.eUnset(eFeature1)->eClass.name) : (eObject.eUnset(eFeature2)->eClass.name)
 ;

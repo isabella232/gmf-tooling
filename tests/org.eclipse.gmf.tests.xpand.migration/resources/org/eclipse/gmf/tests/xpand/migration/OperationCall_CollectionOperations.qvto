@@ -50,112 +50,112 @@ helper sizeSet(eClasses : Set(ecore::EClass)) : Integer {
 	return eClasses->size()
 }
 
-helper unionCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it_1 | it_1.oclAsType(ecore::EObject))->asSequence()->union(addition->collect(it | it)->asSequence())->asOrderedSet()->asSequence()
+helper unionCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->asSequence()->union(addition->collect(it | it)->asSequence())->asOrderedSet()->asSequence()
 }
 
-helper unionCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(ecore::EObject))->asSequence()->union(addition)->asOrderedSet()->asSequence()
+helper unionCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it | it.oclAsType(ecore::EClassifier))->asSequence()->union(addition)->asOrderedSet()->asSequence()
 }
 
-helper unionCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(ecore::EObject))->asSequence()->union(addition->asSequence())->asOrderedSet()->asSequence()
+helper unionCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it | it.oclAsType(ecore::EClassifier))->asSequence()->union(addition->asSequence())->asOrderedSet()->asSequence()
 }
 
-helper unionListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->union(addition->collect(it | it)->asSequence())->asOrderedSet()->asSequence()
+helper unionListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->union(addition->collect(it | it)->asSequence())->asOrderedSet()->asSequence()
 }
 
-helper unionListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->union(addition)->asOrderedSet()->asSequence()
+helper unionListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->union(addition)->asOrderedSet()->asSequence()
 }
 
-helper unionListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->union(addition->asSequence())->asOrderedSet()->asSequence()
+helper unionListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->union(addition->asSequence())->asOrderedSet()->asSequence()
 }
 
-helper unionSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSequence()->union(addition->collect(it | it)->asSequence())->asOrderedSet()->asSequence()
+helper unionSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asSequence()->union(addition->collect(it | it)->asSequence())->asOrderedSet()->asSequence()
 }
 
-helper unionSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSequence()->union(addition)->asOrderedSet()->asSequence()
+helper unionSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asSequence()->union(addition)->asOrderedSet()->asSequence()
 }
 
-helper unionSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asSequence()->union(addition->asSequence())->asOrderedSet()->asSequence()
+helper unionSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asSequence()->union(addition->asSequence())->asOrderedSet()->asSequence()
 }
 
-helper intersectCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it_1 | it_1.oclAsType(ecore::EObject))->asSet()->intersection(addition->collect(it | it)->asSet())
+helper intersectCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->asSet()->intersection(addition->collect(it | it)->asSet())
 }
 
-helper intersectCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(ecore::EObject))->asSet()->intersection(addition->asSet())
+helper intersectCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->intersection(addition->asSet())
 }
 
-helper intersectCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(ecore::EObject))->asSet()->intersection(addition)
+helper intersectCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->intersection(addition)
 }
 
-helper intersectListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asOrderedSet()->intersection(addition->collect(it | it)->asSet())
+helper intersectListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asOrderedSet()->intersection(addition->collect(it | it)->asSet())
 }
 
-helper intersectListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asOrderedSet()->intersection(addition->asSet())
+helper intersectListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asOrderedSet()->intersection(addition->asSet())
 }
 
-helper intersectListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asOrderedSet()->intersection(addition)
+helper intersectListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asOrderedSet()->intersection(addition)
 }
 
-helper intersectSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->intersection(addition->collect(it | it)->asSet())
+helper intersectSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->intersection(addition->collect(it | it)->asSet())
 }
 
-helper intersectSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->intersection(addition->asSet())
+helper intersectSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->intersection(addition->asSet())
 }
 
-helper intersectSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->intersection(addition)
+helper intersectSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->intersection(addition)
 }
 
-helper withoutCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it_1 | it_1.oclAsType(ecore::EObject))->asSet()->-(addition->collect(it | it)->asSet())
+helper withoutCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it_1 | it_1.oclAsType(ecore::EClassifier))->asSet()->-(addition->collect(it | it)->asSet())
 }
 
-helper withoutCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(ecore::EObject))->asSet()->-(addition->asSet())
+helper withoutCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->-(addition->asSet())
 }
 
-helper withoutCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return eClasses->collect(it | it.oclAsType(ecore::EObject))->asSet()->-(addition)
+helper withoutCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return eClasses->collect(it | it.oclAsType(ecore::EClassifier))->asSet()->-(addition)
 }
 
-helper withoutListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asOrderedSet()->-(addition->collect(it | it)->asSet())
+helper withoutListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asOrderedSet()->-(addition->collect(it | it)->asSet())
 }
 
-helper withoutListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asOrderedSet()->-(addition->asSet())
+helper withoutListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asOrderedSet()->-(addition->asSet())
 }
 
-helper withoutListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->asOrderedSet()->-(addition)
+helper withoutListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->asOrderedSet()->-(addition)
 }
 
-helper withoutSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->-(addition->collect(it | it)->asSet())
+helper withoutSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->-(addition->collect(it | it)->asSet())
 }
 
-helper withoutSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->-(addition->asSet())
+helper withoutSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->-(addition->asSet())
 }
 
-helper withoutSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EObject)) : Collection(OclAny) {
-	return (eClasses)[ecore::EObject]->-(addition)
+helper withoutSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EClassifier)) : Collection(OclAny) {
+	return (eClasses)[ecore::EClassifier]->-(addition)
 }
 
 helper toListCollection(eClasses : Collection(ecore::EClass)) : Sequence(OclAny) {
@@ -182,40 +182,40 @@ helper containsSet(eClasses : Set(ecore::EClass), param : OclAny) : Boolean {
 	return (eClasses)[OclAny]->includes(param)
 }
 
-helper containsAllCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllCollectionWCollection(eClasses : Collection(ecore::EClass), addition : Collection(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllCollectionWList(eClasses : Collection(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllCollectionWSet(eClasses : Collection(ecore::EClass), addition : Set(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllListWCollection(eClasses : Sequence(ecore::EClass), addition : Collection(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllListWList(eClasses : Sequence(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllListWSet(eClasses : Sequence(ecore::EClass), addition : Set(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllSetWCollection(eClasses : Set(ecore::EClass), addition : Collection(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllSetWList(eClasses : Set(ecore::EClass), addition : Sequence(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
-helper containsAllSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EObject)) : Boolean {
-	return (eClasses)[ecore::EObject]->includesAll(addition)
+helper containsAllSetWSet(eClasses : Set(ecore::EClass), addition : Set(ecore::EClassifier)) : Boolean {
+	return (eClasses)[ecore::EClassifier]->includesAll(addition)
 }
 
 helper getOp(eClasses : Sequence(ecore::EClass), index : Integer) : OclAny {
