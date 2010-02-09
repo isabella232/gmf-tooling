@@ -250,7 +250,10 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		}
 	}
 
-	public void testDiagramAndModelExternalModificationSameResource() {
+	/**
+	 * Disable this test for Galileo SR2, see https://bugs.eclipse.org/bugs/show_bug.cgi?id=300887 
+	 */
+	public void donottestDiagramAndModelExternalModificationSameResource() {
 		checkDiagramAndModelExternalModification(true);
 	}
 
