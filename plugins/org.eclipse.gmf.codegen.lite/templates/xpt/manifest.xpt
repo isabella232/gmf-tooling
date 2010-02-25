@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,7 +24,7 @@ Bundle-Vendor: «EXPAND bundleVendor»
 Bundle-Localization: «EXPAND bundleLocalization»
 Export-Package: «EXPAND exportedPackages»
 Require-Bundle: «EXPAND requiredBundles»
-Eclipse-LazyStart: «EXPAND eclipseLazyStart»
+Bundle-ActivationPolicy: «EXPAND eclipseLazyStart»
 «ENDDEFINE»
 
 «DEFINE manifestVersion FOR gmfgen::GenPlugin»1.0«ENDDEFINE»
@@ -80,4 +80,4 @@ org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.lite«-»
 «ENDDEFINE»
 
-«DEFINE eclipseLazyStart FOR gmfgen::GenPlugin»true«ENDDEFINE»
+«DEFINE eclipseLazyStart FOR gmfgen::GenPlugin»lazy«ENDDEFINE»
