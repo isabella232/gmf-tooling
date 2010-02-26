@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -190,35 +190,48 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	/**
-	 * @param pluginId both name of workspace project and plug-in id
+	 * Delegates to {@link #initializeEditorProject(IPath, IPath, List)}, using plug-in id as workspace project name and
+	 * 'src' as Java sources location.  
+	 * @param pluginId both name of workspace project and plug-in id 
+	 * @param projectLocation {@link IPath} to folder where <code>.project</code> file would reside. Use <code>null</code> to use default workspace location.
+	 * @param referencedProjects collection of {@link IProject}
+	 * 
+	 */
+	protected final void initializeEditorProject(String pluginId, IPath projectLocation, List<IProject> referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
+		// not sure if there's any reason to get project's name via IProject (not use pluginId directly), this is just how it was done from 1.1.
+		IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
+		initializeEditorProject(new Path('/' + p.getName() + "/src"), projectLocation, referencedProjects);
+	}
+
+	/**
+	 * @param javaSource workspace absolute path to java source folder of the generated project, e.g. '/org.sample.aaa/sources'. 
 	 * @param projectLocation {@link IPath} to folder where <code>.project</code> file would reside. Use <code>null</code> to use default workspace location.
 	 * @param referencedProjects collection of {@link IProject}
 	 * @throws UnexpectedBehaviourException something goes really wrong 
 	 * @throws InterruptedException user canceled operation
 	 */
-	protected final void initializeEditorProject(String pluginId, IPath projectLocation, List<IProject> referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
-		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginId);
-		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
+	protected final void initializeEditorProject(IPath javaSource, IPath projectLocation, List<IProject> referencedProjects) throws UnexpectedBehaviourException, InterruptedException {
+		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(javaSource.segment(0));
 		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
 		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
 		final List<?> pluginVariables = null;
 		final IProgressMonitor pm = getNextStepMonitor();
 		setProgressTaskName(Messages.initproject);
 
-		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
+		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(javaSource, projectLocation, referencedProjects, pm, style, pluginVariables);
 
 		try {
 			final IJavaProject jp = JavaCore.create(myDestProject);
-			myDestRoot = jp.findPackageFragmentRoot(srcPath);
+			myDestRoot = jp.findPackageFragmentRoot(javaSource);
 			// createEMFProject doesn't create source entry in case project exists and has some classpath entries already, 
 			// though the folder gets created. 
 			if (myDestRoot == null) {
 				IClasspathEntry[] oldCP = jp.getRawClasspath();
 				IClasspathEntry[] newCP = new IClasspathEntry[oldCP.length + 1];
 				System.arraycopy(oldCP, 0, newCP, 0, oldCP.length);
-				newCP[oldCP.length] = JavaCore.newSourceEntry(srcPath);
+				newCP[oldCP.length] = JavaCore.newSourceEntry(javaSource);
 				jp.setRawClasspath(newCP, new NullProgressMonitor());
-				myDestRoot = jp.findPackageFragmentRoot(srcPath);
+				myDestRoot = jp.findPackageFragmentRoot(javaSource);
 			}
 		} catch (JavaModelException ex) {
 			throw new UnexpectedBehaviourException(ex.getMessage());
@@ -227,7 +240,7 @@ public abstract class GeneratorBase implements Runnable {
 			throw new UnexpectedBehaviourException("no source root can be found");
 		}
 	}
-
+	
 	/**
 	 * Generate ordinary file.
 	 * @param emitter template to use
