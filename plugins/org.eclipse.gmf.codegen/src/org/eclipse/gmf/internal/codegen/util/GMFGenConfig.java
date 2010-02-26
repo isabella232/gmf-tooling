@@ -245,6 +245,11 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		restoreOld(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_ID());
 		restoreOld(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_Name());
 		setCleaner(GMFGEN.getGenStandardPreferencePage(), new Cleaner.Remove());
+		// Although copying old standard pages may seem odd here (i.e. if new model comes without some standard page, most likely this is 
+		// intentionally and we don't need to restore the old one), there are cases when copying old is necessary - i.e. user moved standard page
+		// out of GenPreferencePage hierarchy (up to GenDiagram) and set #parentCategory explicitly. In latter case, we need to copy his changes.
+		// I believe in former case user can just delete the page he no longer needs (and his DGMT no longer gives it to him)
+		setCopier(GMFGEN.getGenStandardPreferencePage(), Copier.COMPLETE_COPY_NO_CROSSREF);
 
 		setMatcher(GMFGEN.getGenCustomPreferencePage(), GMFGEN.getGenCustomPreferencePage_QualifiedClassName());
 		restoreOld(GMFGEN.getGenCustomPreferencePage_GenerateBoilerplate());
