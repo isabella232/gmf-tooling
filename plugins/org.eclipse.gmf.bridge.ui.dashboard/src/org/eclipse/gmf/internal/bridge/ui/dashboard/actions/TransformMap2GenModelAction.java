@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,7 +12,9 @@
 package org.eclipse.gmf.internal.bridge.ui.dashboard.actions;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -52,6 +54,7 @@ public class TransformMap2GenModelAction implements DashboardAction {
 			gm = mm.trimFileExtension().appendFileExtension("gmfgen"); //$NON-NLS-1$
 			state.setGM(gm);
 		}
+		IStatus result = Status.OK_STATUS;
 		try {
 			final ResourceSet rs = new ResourceSetImpl();
 			TransformToGenModelOperation op = new TransformToGenModelOperation(rs);
@@ -59,12 +62,13 @@ public class TransformMap2GenModelAction implements DashboardAction {
 			op.loadMappingModel(mm, new NullProgressMonitor());
 			op.loadGenModel(state.getDGM(), new NullProgressMonitor());
 			op.setGenURI(gm);
-			op.executeTransformation(new NullProgressMonitor());
+			result = op.executeTransformation(new NullProgressMonitor());
 		} catch (CoreException ce) {
-			ErrorDialog.openError(context.getShell(), null, ce.getMessage(), ce.getStatus());
+			result = ce.getStatus();
 		} finally {
 			context.updateStatus();
 		}
+		ErrorDialog.openError(context.getShell(), null, null, result, IStatus.ERROR | IStatus.WARNING);
 	}
 
 	protected void configureOptions(TransformOptions options) {
