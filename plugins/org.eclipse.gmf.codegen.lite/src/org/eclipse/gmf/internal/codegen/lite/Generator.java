@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,11 +12,12 @@
 package org.eclipse.gmf.internal.codegen.lite;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -79,11 +80,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		return myEmitters.createMergeService();
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		final String pluginID = myEditorGen.getPlugin().getID();
+		final Path pluginDirectory = new Path(myEditorGen.getPluginDirectory());
 		final Path examplaryLocation = new Path(myEditorGen.getDomainGenModel().getModelDirectory());
-		initializeEditorProject(pluginID, guessNewProjectLocation(examplaryLocation, pluginID));
+		initializeEditorProject(pluginDirectory, guessNewProjectLocation(examplaryLocation, pluginDirectory.segment(0)), Collections.<IProject>emptyList());
 
 		doGenerateFile(myEmitters.getManifestGenerator(), new Path("META-INF/MANIFEST.MF"), new Object[] { myEditorGen.getPlugin() });
 		doGenerateFile(myEmitters.getBuildPropertiesGenerator(), new Path("build.properties"), new Object[] { myEditorGen.getPlugin() });
@@ -152,8 +152,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			if (!(next instanceof GenChildLabelNode)) {
 				internalGenerateJavaClass(myEmitters.getNodeEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 				generateGraphicalEditPolicy(next);
-				for (Iterator it2 = next.getLabels().iterator(); it2.hasNext();) {
-					final GenNodeLabel label = (GenNodeLabel) it2.next();
+				for (GenNodeLabel label : next.getLabels()) {
 					internalGenerateJavaClass(myEmitters.getNodeLabelEditPartGenerator(), label.getEditPartQualifiedClassName(), label);
 					internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), label.getNotationViewFactoryQualifiedClassName(), label);
 				}
@@ -195,8 +194,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			generateCommands(next);
 			generateComponentEditPolicy(next);
 		}
-		for (Iterator it = myDiagram.getCompartments().iterator(); it.hasNext(); ) {
-			final GenCompartment next = (GenCompartment) it.next();
+		for (GenCompartment next : myDiagram.getCompartments()) {
 			internalGenerateJavaClass(myEmitters.getCompartmentEditPartGenerator(), next.getEditPartQualifiedClassName(), next);
 			internalGenerateJavaClass(myEmitters.getViewFactoryGenerator(), next.getNotationViewFactoryQualifiedClassName(), next);
 			generateLayoutEditPolicy(next);
