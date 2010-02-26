@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Michael Golubev (Borland) - initial API and implementation
+ *    Artem Tikhomirov (independent) support to handle not-matched new elements (Cleaner) 
  */
 package org.eclipse.gmf.internal.common.reconcile;
 
@@ -48,7 +49,11 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	public Copier getCopier(EClass eClass) {
 		return getRecord(eClass, false).getCopier();
 	}
-	
+
+	public Cleaner getCleaner(EClass eClass) {
+		return getRecord(eClass, false).getCleaner();
+	}
+
 	public final Decision[] getDecisions(EClass eClass) {
 		return getRecord(eClass, false).getDecisions();
 	}
@@ -83,6 +88,15 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		getTemplateRecord(eClass, true).setCopier(copier);
 	}
 	
+	protected final void setCleaner(EClass eClass, Cleaner cleaner) {
+		getRecord(eClass, true).setCleaner(cleaner);
+	}
+
+	protected final void setCleanerForAllSubclasses(EClass eClass, Cleaner cleaner) {
+		checkAbstract(eClass);
+		getTemplateRecord(eClass, true).setCleaner(cleaner);
+	}
+
 	private static void checkAbstract(EClass eClass){
 		if (!eClass.isAbstract()){
 			throw new IllegalArgumentException(
@@ -153,6 +167,7 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 	private static class EClassRecord {
 		private Matcher myMatcher = Matcher.FALSE; 
 		private Copier myCopier = Copier.NEVER_COPY;
+		private Cleaner myCleaner = new Cleaner();
 		private final List<Decision> myDecisions = new LinkedList<Decision>();
 		private Decision[] myMakersArray;
 		
@@ -163,6 +178,10 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 		
 		public void setCopier(Copier copier) {
 			myCopier = copier;
+		}
+		
+		public void setCleaner(Cleaner cleaner) {
+			myCleaner = cleaner;
 		}
 
 		public Decision[] getDecisions(){
@@ -184,6 +203,10 @@ public class ReconcilerConfigBase implements ReconcilerConfig {
 			return myCopier;
 		}
 		
+		public Cleaner getCleaner() {
+			return myCleaner;
+		}
+
 		private void makersSetChanged(){
 			myMakersArray = null;
 		}

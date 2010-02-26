@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -53,12 +53,8 @@ public class Reconciler {
 	}
 
 	protected void handleNotMatchedCurrent(EObject current){
-		//FIXME ??? Is it user escape -- check history ???
-		//FIXME How to handle not macthed old ???
-		/*
-		 * [AS]: inversed constructor parameter was added to DefaultDecision, so
-		 * it looks like a way to remove genmodel nodes removed by user.
-		 */
+		Cleaner cleaner = myConfig.getCleaner(current.eClass());
+		cleaner.clear(current);
 	}
 	
 	protected EObject handleNotMatchedOld(EObject currentParent, EObject notMatchedOld) {
