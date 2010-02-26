@@ -66,6 +66,7 @@ public class GenPreferencePageItemProvider
 
 			addIDPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addParentCategoryPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -106,6 +107,28 @@ public class GenPreferencePageItemProvider
 				 getString("_UI_GenPreferencePage_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPreferencePage_name_feature", "_UI_GenPreferencePage_type"),
 				 GMFGenPackage.eINSTANCE.getGenPreferencePage_Name(),
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Parent Category feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addParentCategoryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPreferencePage_parentCategory_feature"),
+				 getString("_UI_GenPreferencePage_parentCategory_description"),
+				 GMFGenPackage.eINSTANCE.getGenPreferencePage_ParentCategory(),
 				 true,
 				 false,
 				 false,
@@ -172,6 +195,7 @@ public class GenPreferencePageItemProvider
 		switch (notification.getFeatureID(GenPreferencePage.class)) {
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__ID:
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__NAME:
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT_CATEGORY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
