@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.internal.common.reconcile.Cleaner;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
 import org.eclipse.gmf.internal.common.reconcile.Decision;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
@@ -41,6 +42,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenEditorGenerator_ModelID());
 		preserveIfSet(GMFGEN.getGenEditorGenerator_DynamicTemplates());
 		preserveIfSet(GMFGEN.getGenEditorGenerator_TemplateDirectory());
+		preserveIfSet(GMFGEN.getGenEditorGenerator_PluginDirectory());
 
 		setMatcher(GMFGEN.getGenPlugin(), ALWAYS_MATCH); // exactly one feature for ALWAYS_MATCH GenEditorGenerator
 		preserveIfSet(GMFGEN.getGenPlugin_ID());
@@ -241,6 +243,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		});
 		restoreOld(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_ID());
 		restoreOld(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_Name());
+		setCleaner(GMFGEN.getGenStandardPreferencePage(), new Cleaner.Remove());
 
 		setMatcher(GMFGEN.getGenCustomPreferencePage(), GMFGEN.getGenCustomPreferencePage_QualifiedClassName());
 		restoreOld(GMFGEN.getGenCustomPreferencePage_GenerateBoilerplate());
