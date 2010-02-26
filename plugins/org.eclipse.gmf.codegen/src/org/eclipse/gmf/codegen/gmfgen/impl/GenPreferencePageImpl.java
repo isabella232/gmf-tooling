@@ -32,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPreferencePageImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPreferencePageImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPreferencePageImpl#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPreferencePageImpl#getParentCategory <em>Parent Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -87,6 +88,26 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 * @ordered
 	 */
 	protected EList<GenPreferencePage> children;
+
+	/**
+	 * The default value of the '{@link #getParentCategory() <em>Parent Category</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParentCategory()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PARENT_CATEGORY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getParentCategory() <em>Parent Category</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParentCategory()
+	 * @generated
+	 * @ordered
+	 */
+	protected String parentCategory = PARENT_CATEGORY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -169,6 +190,27 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	public GenPreferencePage getParent() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT) return null;
 		return (GenPreferencePage)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getParentCategory() {
+		return parentCategory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParentCategory(String newParentCategory) {
+		String oldParentCategory = parentCategory;
+		parentCategory = newParentCategory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT_CATEGORY, oldParentCategory, parentCategory));
 	}
 
 	/**
@@ -265,6 +307,8 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 				return getChildren();
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
 				return getParent();
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT_CATEGORY:
+				return getParentCategory();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -288,6 +332,9 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 				getChildren().clear();
 				getChildren().addAll((Collection<? extends GenPreferencePage>)newValue);
 				return;
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT_CATEGORY:
+				setParentCategory((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -309,6 +356,9 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__CHILDREN:
 				getChildren().clear();
 				return;
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT_CATEGORY:
+				setParentCategory(PARENT_CATEGORY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -329,6 +379,8 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 				return children != null && !children.isEmpty();
 			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT:
 				return getParent() != null;
+			case GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT_CATEGORY:
+				return PARENT_CATEGORY_EDEFAULT == null ? parentCategory != null : !PARENT_CATEGORY_EDEFAULT.equals(parentCategory);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -347,6 +399,8 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 		result.append(iD);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", parentCategory: ");
+		result.append(parentCategory);
 		result.append(')');
 		return result.toString();
 	}

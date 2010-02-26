@@ -35,6 +35,8 @@
             name="%prefpage.«iD»"
 «IF null <> parent-»
             category="«parent.iD»"
+«ELSEIF parentCategory <> null and parentCategory.size() > 0-»
+            category="«parentCategory»"
 «ENDIF-»
             class="«getQualifiedClassName()»">
       </page>

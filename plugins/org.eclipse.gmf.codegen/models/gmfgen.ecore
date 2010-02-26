@@ -165,6 +165,11 @@
         eType="#//GenPreferencePage" containment="true" eOpposite="#//GenPreferencePage/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//GenPreferencePage"
         changeable="false" resolveProxies="false" eOpposite="#//GenPreferencePage/children"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentCategory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="For a page that doesn't have another GenPreferencePage set as its parent, id of any other preference page to use as parent page may be set with this attribute"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenCustomPreferencePage" eSuperTypes="#//GenPreferencePage">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" lowerBound="1"

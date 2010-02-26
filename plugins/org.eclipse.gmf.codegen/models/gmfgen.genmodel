@@ -161,14 +161,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/sameFileForDiagramAndModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/diagramFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/domainFileExtension"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/dynamicTemplates"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/templateDirectory"/>
+      <genFeatures createChild="false" propertyDescription="Set true to enable use of dynamic templates"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/dynamicTemplates"/>
+      <genFeatures createChild="false" propertyDescription="Directory with dynamic templates"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/templateDirectory"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/copyrightText"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/expressionProviders"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/modelAccess"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/labelParsers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/contextMenus"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/pluginDirectory"/>
+      <genFeatures createChild="false" propertyDescription="The target directory for generated editor code"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/pluginDirectory"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>
@@ -209,6 +212,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreferencePage/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenPreferencePage/parent"/>
+      <genFeatures createChild="false" propertyDescription="Parent category to use unless this page has explicit parent page"
+          ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPreferencePage/parentCategory"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getDiagram"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPreferencePage/getClassName"/>

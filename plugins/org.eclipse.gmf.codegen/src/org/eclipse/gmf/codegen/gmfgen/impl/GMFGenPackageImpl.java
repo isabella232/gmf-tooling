@@ -1694,6 +1694,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenPreferencePage_ParentCategory() {
+        return (EAttribute)getGenPreferencePage().getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenCustomPreferencePage() {
 		if (genCustomPreferencePageEClass == null) {
 			genCustomPreferencePageEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(4);

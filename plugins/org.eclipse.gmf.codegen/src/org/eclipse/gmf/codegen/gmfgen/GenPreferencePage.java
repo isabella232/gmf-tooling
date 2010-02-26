@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParent <em>Parent</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParentCategory <em>Parent Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -116,6 +117,31 @@ public interface GenPreferencePage extends EObject {
 	 * @generated
 	 */
 	GenPreferencePage getParent();
+
+	/**
+	 * Returns the value of the '<em><b>Parent Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * For a page that doesn't have another GenPreferencePage set as its parent, id of any other preference page to use as parent page may be set with this attribute
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Parent Category</em>' attribute.
+	 * @see #setParentCategory(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPreferencePage_ParentCategory()
+	 * @model
+	 * @generated
+	 */
+	String getParentCategory();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParentCategory <em>Parent Category</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parent Category</em>' attribute.
+	 * @see #getParentCategory()
+	 * @generated
+	 */
+	void setParentCategory(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

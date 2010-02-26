@@ -102,6 +102,8 @@ abstract class GenPreferencePage {
 	attr String[1] name;
 	val GenPreferencePage[*]#parent children;
 	readonly !resolve ref GenPreferencePage[?]#children parent;
+	@genmodel(documentation="For a page that doesn't have another GenPreferencePage set as its parent, id of any other preference page to use as parent page may be set with this attribute")
+	attr String[?] parentCategory;
 	op GenDiagram getDiagram();
 	op String getQualifiedClassName();
 	op String getClassName();

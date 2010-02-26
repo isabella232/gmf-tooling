@@ -1446,13 +1446,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PREFERENCE_PAGE__PARENT = 3;
 
 	/**
+	 * The feature id for the '<em><b>Parent Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PREFERENCE_PAGE__PARENT_CATEGORY = 4;
+
+	/**
 	 * The number of structural features of the '<em>Gen Preference Page</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PREFERENCE_PAGE_FEATURE_COUNT = 4;
+	int GEN_PREFERENCE_PAGE_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomPreferencePageImpl <em>Gen Custom Preference Page</em>}' class.
@@ -1499,6 +1508,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CUSTOM_PREFERENCE_PAGE__PARENT = GEN_PREFERENCE_PAGE__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Parent Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_PREFERENCE_PAGE__PARENT_CATEGORY = GEN_PREFERENCE_PAGE__PARENT_CATEGORY;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -1581,6 +1599,15 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_STANDARD_PREFERENCE_PAGE__PARENT = GEN_PREFERENCE_PAGE__PARENT;
+
+	/**
+	 * The feature id for the '<em><b>Parent Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_STANDARD_PREFERENCE_PAGE__PARENT_CATEGORY = GEN_PREFERENCE_PAGE__PARENT_CATEGORY;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -11509,6 +11536,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenPreferencePage_Parent();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParentCategory <em>Parent Category</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parent Category</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPreferencePage#getParentCategory()
+	 * @see #getGenPreferencePage()
+	 * @generated
+	 */
+	EAttribute getGenPreferencePage_ParentCategory();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage <em>Gen Custom Preference Page</em>}'.
