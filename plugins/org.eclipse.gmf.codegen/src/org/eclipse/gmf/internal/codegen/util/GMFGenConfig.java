@@ -226,6 +226,7 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getGenApplication_PerspectiveId());
 		preserveIfSet(GMFGEN.getGenApplication_SupportFiles());
 
+		//
 		// XXX ReflectiveMatcher(Kind) instead?
 		setMatcher(GMFGEN.getGenStandardPreferencePage(), new Matcher() {
 
@@ -248,6 +249,11 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		setMatcher(GMFGEN.getGenCustomPreferencePage(), GMFGEN.getGenCustomPreferencePage_QualifiedClassName());
 		restoreOld(GMFGEN.getGenCustomPreferencePage_GenerateBoilerplate());
 		setCopier(GMFGEN.getGenCustomPreferencePage(), Copier.COMPLETE_COPY_NO_CROSSREF);
+		// kepp parent category, if set, for both standard and custom pages 
+		preserveIfSet(GMFGEN.getGenStandardPreferencePage(), GMFGEN.getGenPreferencePage_ParentCategory());
+		preserveIfSet(GMFGEN.getGenCustomPreferencePage(), GMFGEN.getGenPreferencePage_ParentCategory());
+
+		//
 		setMatcher(GMFGEN.getGenPreference(), GMFGEN.getGenPreference_Name()); // XXX or KEY, perhaps, if persistence format is more important?
 		preserveIfSet(GMFGEN.getGenPreference_Key());
 		preserveIfSet(GMFGEN.getGenPreference_DefaultValue());
@@ -315,12 +321,15 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		restoreOld(feature.getEContainingClass(), feature);
 	}
 
+	// use this shorthand for features from concrete (non-abstract) classes
 	private void preserveIfSet(EAttribute feature) {
-		assert !feature.getEContainingClass().isAbstract();
 		addDecision(feature.getEContainingClass(), new DefaultDecision(feature));
 	}
+
+	//FIXME: only attributes for now, allow references
 	private void preserveIfSet(EClass eClass, EAttribute feature) {
-		//FIXME: only attributes for now, allow references
+		// decisions are queried against specific types, hence need to make sure no abstract types get through
+		assert !eClass.isAbstract();
 		addDecision(eClass, new DefaultDecision(feature));
 	}
 
