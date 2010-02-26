@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2005, 2009 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -58,6 +58,8 @@ class GenEditorGenerator {
   	@constraints(ocl="labelParsers.oclIsUndefined() implies (diagram.getAllNodes()->forAll(labels->size()=0) and diagram.links->forAll(labels->size()=0) and not diagram.childNodes->exists(oclIsKindOf(GenChildLabelNode)))", description="No label may be declared without a parser")
 	val GenParsers[?]#editorGen labelParsers; // labelParser is permitted to be null only when there are basic nodes and links only, no labels
 	val GenContextMenu[*] contextMenus; // XXX perhaps, as GenPlugin attribute instead?
+	@genmodel(documentation="The target directory for generated editor code. Similar to EMF's GenModel#editorDirectory")
+	attr String pluginDirectory; 
 }
 
 @constraints(ocl="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Diagram')", description="'Diagram Runtime Class' must be a notation::Diagram or sub-class")

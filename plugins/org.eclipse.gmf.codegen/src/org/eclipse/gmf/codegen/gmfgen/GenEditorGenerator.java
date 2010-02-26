@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelAccess <em>Model Access</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getLabelParsers <em>Label Parsers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getContextMenus <em>Context Menus</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPluginDirectory <em>Plugin Directory</em>}</li>
  * </ul>
  * </p>
  *
@@ -633,6 +634,31 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	EList<GenContextMenu> getContextMenus();
+
+	/**
+	 * Returns the value of the '<em><b>Plugin Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The target directory for generated editor code. Similar to EMF's GenModel#editorDirectory
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Plugin Directory</em>' attribute.
+	 * @see #setPluginDirectory(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_PluginDirectory()
+	 * @model
+	 * @generated
+	 */
+	String getPluginDirectory();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPluginDirectory <em>Plugin Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Plugin Directory</em>' attribute.
+	 * @see #getPluginDirectory()
+	 * @generated
+	 */
+	void setPluginDirectory(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

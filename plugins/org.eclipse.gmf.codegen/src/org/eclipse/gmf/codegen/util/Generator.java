@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2009 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -103,8 +104,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		final String pluginID = myEditorGen.getPlugin().getID();
-		initializeEditorProject(pluginID, guessProjectLocation(pluginID));
+		final Path pluginDirectory = new Path(myEditorGen.getPluginDirectory());
+		initializeEditorProject(pluginDirectory, guessProjectLocation(pluginDirectory.segment(0)), Collections.<IProject>emptyList());
 
 		if (myEditorGen.getModelAccess() != null) {
 			myEmitters.setGlobals(Collections.<String, Object>singletonMap("DynamicModelAccess", myEditorGen.getModelAccess()));

@@ -271,13 +271,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__CONTEXT_MENUS = 21;
 
 	/**
+	 * The feature id for the '<em><b>Plugin Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY = 22;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 22;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -11206,6 +11215,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenEditorGenerator_ContextMenus();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPluginDirectory <em>Plugin Directory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Plugin Directory</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPluginDirectory()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_PluginDirectory();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.

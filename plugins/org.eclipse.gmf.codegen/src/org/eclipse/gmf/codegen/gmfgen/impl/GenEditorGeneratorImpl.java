@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -68,6 +69,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelAccess <em>Model Access</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getLabelParsers <em>Label Parsers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getContextMenus <em>Context Menus</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPluginDirectory <em>Plugin Directory</em>}</li>
  * </ul>
  * </p>
  *
@@ -373,6 +375,26 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected EList<GenContextMenu> contextMenus;
+
+	/**
+	 * The default value of the '{@link #getPluginDirectory() <em>Plugin Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPluginDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PLUGIN_DIRECTORY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPluginDirectory() <em>Plugin Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPluginDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected String pluginDirectory = PLUGIN_DIRECTORY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1186,6 +1208,38 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getPluginDirectoryGen() {
+		return pluginDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPluginDirectory(String newPluginDirectory) {
+		String oldPluginDirectory = pluginDirectory;
+		pluginDirectory = newPluginDirectory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY, oldPluginDirectory, pluginDirectory));
+	}
+	
+	public String getPluginDirectory() {
+		String value = getPluginDirectoryGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			if (getPlugin() == null || GenCommonBaseImpl.isEmpty(getPlugin().getID())) {
+				return ""; //$NON-NLS-1$
+			}
+			return new Path('/' + getPlugin().getID() + "/src").toString(); //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<GenPackage> getAllDomainGenPackages(boolean withUsed) {
@@ -1372,6 +1426,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getLabelParsers();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
 				return getContextMenus();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
+				return getPluginDirectory();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1452,6 +1508,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				getContextMenus().clear();
 				getContextMenus().addAll((Collection<? extends GenContextMenu>)newValue);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
+				setPluginDirectory((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1530,6 +1589,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
 				getContextMenus().clear();
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
+				setPluginDirectory(PLUGIN_DIRECTORY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1586,6 +1648,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return labelParsers != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
 				return contextMenus != null && !contextMenus.isEmpty();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
+				return PLUGIN_DIRECTORY_EDEFAULT == null ? pluginDirectory != null : !PLUGIN_DIRECTORY_EDEFAULT.equals(pluginDirectory);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1616,6 +1680,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		result.append(templateDirectory);
 		result.append(", copyrightText: ");
 		result.append(copyrightText);
+		result.append(", pluginDirectory: ");
+		result.append(pluginDirectory);
 		result.append(')');
 		return result.toString();
 	}

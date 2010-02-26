@@ -168,6 +168,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/modelAccess"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/labelParsers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/contextMenus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/pluginDirectory"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>
