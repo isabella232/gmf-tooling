@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -56,8 +56,19 @@ import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.LoadResourceAction;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.mappings.MetricRule;
+import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.annotated.GenASetup;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IField;
@@ -373,7 +384,57 @@ public class RuntimeCompilationTest extends CompilationTest {
 	}
 
 	public void testAntScriptEmitsSameStructure() throws Exception {
-		testAntScriptEmitsSameStructure(createLibraryGen(false));
+		Mapping mapping = myMapSource.getMapping();
+		//
+		// metrics
+		MetricContainer mc = GMFMapFactory.eINSTANCE.createMetricContainer();
+		MetricRule mr = GMFMapFactory.eINSTANCE.createMetricRule();
+		mr.setKey("metric.rule1"); //$NON-NLS-1$
+		// Note: use characters that need to be escaped in java source string literals
+		mr.setName("Name of " + mr.getKey()); //$NON-NLS-1$
+		mr.setDescription("Description of " + mr.getKey()); //$NON-NLS-1$
+		mr.setRule(GMFMapFactory.eINSTANCE.createValueExpression());
+		mr.getRule().setBody("'aaa'.size() + 2");
+		mr.setLowLimit(new Double(2));
+		mr.setHighLimit(new Double(6));
+		DiagramElementTarget diagramElementTarget = GMFMapFactory.eINSTANCE.createDiagramElementTarget();
+		diagramElementTarget.setElement(mapping.getNodes().get(0).getChild());
+		mr.setTarget(diagramElementTarget);
+		mc.getMetrics().add(mr);
+		mapping.setMetrics(mc);
+		//
+		// audits
+		AuditContainer ac = GMFMapFactory.eINSTANCE.createAuditContainer();
+		ac.setId("ac1"); //$NON-NLS-1$
+		ac.setName(ac.getId());
+		AuditRule ar = GMFMapFactory.eINSTANCE.createAuditRule();
+		String ar_id = "audit.rule1"; 
+		ar.setId(ar_id);
+		ar.setName("Name of " + ar_id); //$NON-NLS-1$
+		ar.setMessage("Violation of " + ar_id); //$NON-NLS-1$
+		ar.setDescription("Description of " + ar_id); //$NON-NLS-1$
+		DomainElementTarget classLibrary = GMFMapFactory.eINSTANCE.createDomainElementTarget();
+		classLibrary.setElement(mapping.getDiagram().getDomainMetaElement()); 	
+		ar.setTarget(classLibrary);
+		Constraint rule = GMFMapFactory.eINSTANCE.createConstraint();
+		// body is not essential, just to look nice
+		rule.setBody("Library.allInstances()->size() > 0"); //$NON-NLS-1$
+		ar.setRule(rule);
+		ar.setSeverity(Severity.ERROR_LITERAL);
+		ar.setUseInLiveMode(true);
+		ac.getAudits().add(ar);
+		mapping.setAudits(ac);
+		DiaGenSource s = new GenASetup(mapping, myViewmapProducer, false);
+		//
+		// validation
+		s.getGenDiagram().setValidationEnabled(true); // although presence of audits effectively does the same
+		//
+		// shortcuts
+		s.getGenDiagram().getContainsShortcutsTo().add("ecore");
+		s.getGenDiagram().getShortcutsProvidedFor().add("ecore");
+		s.getGenDiagram().eResource().save(null);
+		
+		testAntScriptEmitsSameStructure(s);
 	}
 
 	public void testAntScriptEmitsSameStructure_rcp() throws Exception {
