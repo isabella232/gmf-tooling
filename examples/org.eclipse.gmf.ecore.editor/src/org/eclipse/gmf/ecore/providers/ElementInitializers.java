@@ -12,8 +12,6 @@
 package org.eclipse.gmf.ecore.providers;
 
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
 import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
 
 /**
@@ -26,8 +24,7 @@ public class ElementInitializers {
 	 */
 	public static void init_EReference_4002(EReference instance) {
 		try {
-			Object value_0 = EcoreOCLFactory.getExpression("false", EcorePackage.eINSTANCE.getEReference()).evaluate(instance);
-			instance.setContainment(((Boolean) value_0).booleanValue());
+			instance.setContainment(false);
 		} catch (RuntimeException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
@@ -38,8 +35,7 @@ public class ElementInitializers {
 	 */
 	public static void init_EReference_4003(EReference instance) {
 		try {
-			Object value_0 = EcoreOCLFactory.getExpression("true", EcorePackage.eINSTANCE.getEReference()).evaluate(instance);
-			instance.setContainment(((Boolean) value_0).booleanValue());
+			instance.setContainment(true);
 		} catch (RuntimeException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}

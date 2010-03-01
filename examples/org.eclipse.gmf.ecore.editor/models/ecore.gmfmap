@@ -408,7 +408,8 @@
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
         <value
-            body="false"/>
+            body="false"
+            language="literal"/>
       </initializers>
     </domainInitializer>
     <labelMappings
@@ -457,7 +458,8 @@
             xsi:type="ecore:EAttribute"
             href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EReference/containment"/>
         <value
-            body="true"/>
+            body="true"
+            language="literal"/>
       </initializers>
     </domainInitializer>
     <labelMappings
