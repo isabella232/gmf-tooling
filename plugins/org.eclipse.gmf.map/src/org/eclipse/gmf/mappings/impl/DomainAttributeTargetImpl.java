@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: DomainAttributeTargetImpl.java,v 1.3 2007/04/25 08:08:29 dstadnik Exp $
+ * $Id: DomainAttributeTargetImpl.java,v 1.4 2010/03/01 20:35:29 atikhomirov Exp $
  */
 package org.eclipse.gmf.mappings.impl;
 
@@ -153,7 +153,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 				if (resolve) return getAttribute();
 				return basicGetAttribute();
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR:
-				return isNullAsError() ? Boolean.TRUE : Boolean.FALSE;
+				return isNullAsError();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -170,7 +170,7 @@ public class DomainAttributeTargetImpl extends EObjectImpl implements DomainAttr
 				setAttribute((EAttribute)newValue);
 				return;
 			case GMFMapPackage.DOMAIN_ATTRIBUTE_TARGET__NULL_AS_ERROR:
-				setNullAsError(((Boolean)newValue).booleanValue());
+				setNullAsError((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

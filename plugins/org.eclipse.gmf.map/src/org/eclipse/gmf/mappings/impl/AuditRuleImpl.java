@@ -419,7 +419,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * @generated
 	 */
 	public AuditContainer getContainer() {
-		if (eContainerFeatureID != GMFMapPackage.AUDIT_RULE__CONTAINER) return null;
+		if (eContainerFeatureID() != GMFMapPackage.AUDIT_RULE__CONTAINER) return null;
 		return (AuditContainer)eContainer();
 	}
 
@@ -439,7 +439,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * @generated
 	 */
 	public void setContainer(AuditContainer newContainer) {
-		if (newContainer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.AUDIT_RULE__CONTAINER && newContainer != null)) {
+		if (newContainer != eInternalContainer() || (eContainerFeatureID() != GMFMapPackage.AUDIT_RULE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -495,7 +495,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.AUDIT_RULE__CONTAINER:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.AUDIT_CONTAINER__AUDITS, AuditContainer.class, msgs);
 		}
@@ -523,7 +523,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 			case GMFMapPackage.AUDIT_RULE__SEVERITY:
 				return getSeverity();
 			case GMFMapPackage.AUDIT_RULE__USE_IN_LIVE_MODE:
-				return isUseInLiveMode() ? Boolean.TRUE : Boolean.FALSE;
+				return isUseInLiveMode();
 			case GMFMapPackage.AUDIT_RULE__MESSAGE:
 				return getMessage();
 			case GMFMapPackage.AUDIT_RULE__CONTAINER:
@@ -559,7 +559,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 				setSeverity((Severity)newValue);
 				return;
 			case GMFMapPackage.AUDIT_RULE__USE_IN_LIVE_MODE:
-				setUseInLiveMode(((Boolean)newValue).booleanValue());
+				setUseInLiveMode((Boolean)newValue);
 				return;
 			case GMFMapPackage.AUDIT_RULE__MESSAGE:
 				setMessage((String)newValue);

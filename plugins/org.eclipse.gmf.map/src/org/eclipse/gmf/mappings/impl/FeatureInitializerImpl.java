@@ -105,7 +105,7 @@ public abstract class FeatureInitializerImpl extends EObjectImpl implements Feat
 	 * @generated
 	 */
 	public FeatureSeqInitializer getFeatureSeqInitializer() {
-		if (eContainerFeatureID != GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER) return null;
+		if (eContainerFeatureID() != GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER) return null;
 		return (FeatureSeqInitializer)eContainer();
 	}
 
@@ -146,7 +146,7 @@ public abstract class FeatureInitializerImpl extends EObjectImpl implements Feat
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.FEATURE_INITIALIZER__FEATURE_SEQ_INITIALIZER:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
 		}

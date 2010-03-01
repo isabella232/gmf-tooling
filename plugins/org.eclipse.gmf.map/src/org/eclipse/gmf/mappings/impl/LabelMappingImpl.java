@@ -147,7 +147,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * @generated
 	 */
 	public MappingEntry getMapEntry() {
-		if (eContainerFeatureID != GMFMapPackage.LABEL_MAPPING__MAP_ENTRY) return null;
+		if (eContainerFeatureID() != GMFMapPackage.LABEL_MAPPING__MAP_ENTRY) return null;
 		return (MappingEntry)eContainer();
 	}
 
@@ -188,7 +188,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS, MappingEntry.class, msgs);
 		}
@@ -207,7 +207,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 				if (resolve) return getDiagramLabel();
 				return basicGetDiagramLabel();
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
-				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+				return isReadOnly();
 			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
 				return getMapEntry();
 		}
@@ -226,7 +226,7 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 				setDiagramLabel((DiagramLabel)newValue);
 				return;
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
-				setReadOnly(((Boolean)newValue).booleanValue());
+				setReadOnly((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

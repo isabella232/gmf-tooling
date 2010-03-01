@@ -192,7 +192,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 * @generated
 	 */
 	public ReferenceNewElementSpec getCreatingInitializer() {
-		if (eContainerFeatureID != GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
+		if (eContainerFeatureID() != GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
 		return (ReferenceNewElementSpec)eContainer();
 	}
 
@@ -238,7 +238,7 @@ public class FeatureSeqInitializerImpl extends EObjectImpl implements FeatureSeq
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.REFERENCE_NEW_ELEMENT_SPEC__NEW_ELEMENT_INITIALIZERS, ReferenceNewElementSpec.class, msgs);
 		}

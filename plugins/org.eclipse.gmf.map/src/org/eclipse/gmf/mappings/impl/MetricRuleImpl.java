@@ -380,7 +380,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * @generated
 	 */
 	public MetricContainer getContainer() {
-		if (eContainerFeatureID != GMFMapPackage.METRIC_RULE__CONTAINER) return null;
+		if (eContainerFeatureID() != GMFMapPackage.METRIC_RULE__CONTAINER) return null;
 		return (MetricContainer)eContainer();
 	}
 
@@ -400,7 +400,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 * @generated
 	 */
 	public void setContainer(MetricContainer newContainer) {
-		if (newContainer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.METRIC_RULE__CONTAINER && newContainer != null)) {
+		if (newContainer != eInternalContainer() || (eContainerFeatureID() != GMFMapPackage.METRIC_RULE__CONTAINER && newContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newContainer))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -456,7 +456,7 @@ public class MetricRuleImpl extends EObjectImpl implements MetricRule {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.METRIC_RULE__CONTAINER:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.METRIC_CONTAINER__METRICS, MetricContainer.class, msgs);
 		}

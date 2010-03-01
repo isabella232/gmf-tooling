@@ -93,7 +93,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * @generated
 	 */
 	public NodeMapping getParentNode() {
-		if (eContainerFeatureID != GMFMapPackage.CHILD_REFERENCE__PARENT_NODE) return null;
+		if (eContainerFeatureID() != GMFMapPackage.CHILD_REFERENCE__PARENT_NODE) return null;
 		return (NodeMapping)eContainer();
 	}
 
@@ -113,7 +113,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 * @generated
 	 */
 	public void setParentNode(NodeMapping newParentNode) {
-		if (newParentNode != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.CHILD_REFERENCE__PARENT_NODE && newParentNode != null)) {
+		if (newParentNode != eInternalContainer() || (eContainerFeatureID() != GMFMapPackage.CHILD_REFERENCE__PARENT_NODE && newParentNode != null)) {
 			if (EcoreUtil.isAncestor(this, newParentNode))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -314,7 +314,7 @@ public class ChildReferenceImpl extends NodeReferenceImpl implements ChildRefere
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.CHILD_REFERENCE__PARENT_NODE:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.NODE_MAPPING__CHILDREN, NodeMapping.class, msgs);
 		}

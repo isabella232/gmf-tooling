@@ -122,7 +122,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * @generated
 	 */
 	public NodeMapping getParentNode() {
-		if (eContainerFeatureID != GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE) return null;
+		if (eContainerFeatureID() != GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE) return null;
 		return (NodeMapping)eContainer();
 	}
 
@@ -180,7 +180,7 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, NodeMapping.class, msgs);
 		}

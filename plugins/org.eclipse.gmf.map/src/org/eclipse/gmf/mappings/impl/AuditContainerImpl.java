@@ -209,7 +209,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 */
 	public AuditContainer getParentContainer() {
-		if (eContainerFeatureID != GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER) return null;
+		if (eContainerFeatureID() != GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER) return null;
 		return (AuditContainer)eContainer();
 	}
 
@@ -229,7 +229,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 * @generated
 	 */
 	public void setParentContainer(AuditContainer newParentContainer) {
-		if (newParentContainer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER && newParentContainer != null)) {
+		if (newParentContainer != eInternalContainer() || (eContainerFeatureID() != GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER && newParentContainer != null)) {
 			if (EcoreUtil.isAncestor(this, newParentContainer))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -314,7 +314,7 @@ public class AuditContainerImpl extends EObjectImpl implements AuditContainer {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.AUDIT_CONTAINER__PARENT_CONTAINER:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS, AuditContainer.class, msgs);
 		}

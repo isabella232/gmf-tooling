@@ -78,7 +78,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * @generated
 	 */
 	public LinkMapping getLinkMapping() {
-		if (eContainerFeatureID != GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING) return null;
+		if (eContainerFeatureID() != GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING) return null;
 		return (LinkMapping)eContainer();
 	}
 
@@ -209,7 +209,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
 				return eInternalContainer().eInverseRemove(this, GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, LinkMapping.class, msgs);
 		}
