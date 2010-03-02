@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,142 +11,143 @@
  */
 
 import gmf.GenModelUtils;
+import xpt.GenModelUtils;
 import xpt.commands.CommandUtils;
 import xpt.diagram.PhantomUtils;
 
-modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
-modeltype genModel_1 uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library LinkFinder;
 
-helper incomingLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
-	return let effectiveMetaClass = gcb.getEffectiveMetaClass() in (if effectiveMetaClass = null then Sequence {  } else gcb.getDiagram().links->select(e | e.incomingGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)) endif)
+helper incomingLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
+	return let effectiveMetaClass = gcb.getEffectiveMetaClass() in (if effectiveMetaClass = null then Sequence {  } else gcb.getDiagram().links->select(e | e.incomingGenClass().isSuperTypeOf(effectiveMetaClass)) endif)
 }
 
-helper incomingTypeLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
-	return incomingLinks(gcb)->select(e | (Sequence { e.modelFacet })[genModel_1::TypeLinkModelFacet]->size() > 0)
+helper incomingTypeLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
+	return incomingLinks(gcb)->select(e | (Sequence { e.modelFacet })[gmfgen::TypeLinkModelFacet]->size() > 0)
 }
 
-helper outgoingLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
-	return let effectiveMetaClass = gcb.getEffectiveMetaClass() in (if effectiveMetaClass = null then Sequence {  } else gcb.getDiagram().links->select(e | e.outgoingGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)) endif)
+helper outgoingLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
+	return let effectiveMetaClass = gcb.getEffectiveMetaClass() in (if effectiveMetaClass = null then Sequence {  } else gcb.getDiagram().links->select(e | e.outgoingGenClass().isSuperTypeOf(effectiveMetaClass)) endif)
 }
 
-helper outgoingNonPhantomLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
+helper outgoingNonPhantomLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
 	return outgoingLinks(gcb)->select(e | not e.modelFacet.isPhantomLink(gcb.getDiagram()))
 }
 
-helper containedLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
-	return let effectiveMetaClass = gcb.getEffectiveMetaClass() in (if effectiveMetaClass = null then Sequence {  } else gcb.getDiagram().links->select(e | e.containerGenClass().ecoreClass.isSuperTypeOf(effectiveMetaClass.ecoreClass)) endif)
+helper containedLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
+	return let effectiveMetaClass = gcb.getEffectiveMetaClass() in (if effectiveMetaClass = null then Sequence {  } else gcb.getDiagram().links->select(e | e.containerGenClass().isSuperTypeOf(effectiveMetaClass)) endif)
 }
 
-helper containedTypeModelFacetLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
-	return containedLinks(gcb)->select(e | (Sequence { e.modelFacet })[genModel_1::TypeLinkModelFacet]->size() > 0)
+helper containedTypeModelFacetLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
+	return containedLinks(gcb)->select(e | (Sequence { e.modelFacet })[gmfgen::TypeLinkModelFacet]->size() > 0)
 }
 
-helper containedFeatureModelFacetLinks(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
-	return containedLinks(gcb)->select(e | (Sequence { e.modelFacet })[genModel_1::FeatureLinkModelFacet]->size() > 0)
+helper containedFeatureModelFacetLinks(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
+	return containedLinks(gcb)->select(e | (Sequence { e.modelFacet })[gmfgen::FeatureLinkModelFacet]->size() > 0)
 }
 
-helper containedLinksWithSelector(gcb : genModel_1::GenCommonBase) : Collection(genModel_1::GenLink) {
+helper containedLinksWithSelector(gcb : gmfgen::GenCommonBase) : Collection(gmfgen::GenLink) {
 	return containedTypeModelFacetLinks(gcb)->select(e | e.modelFacet.getElementSelector() <> null)
 }
 
-helper needsSourceVisualID(gcb : genModel_1::GenCommonBase) : Boolean {
+helper needsSourceVisualID(gcb : gmfgen::GenCommonBase) : Boolean {
 	return containedLinks(gcb)->select(e | e.modelFacet <> null and getRelatedChildLabelGenNodes(e.getDiagram(), e.modelFacet.getSourceType())->size() > 0)->size() > 0
 }
 
-helper needsTargetVisualID(gcb : genModel_1::GenCommonBase) : Boolean {
+helper needsTargetVisualID(gcb : gmfgen::GenCommonBase) : Boolean {
 	return containedLinks(gcb)->select(e | e.modelFacet <> null and getRelatedChildLabelGenNodes(e.getDiagram(), e.modelFacet.getTargetType())->size() > 0)->size() > 0
 }
 
-helper getPossibleContainers(link : genModel_1::GenLink) : Collection(genModel_1::GenCommonBase) {
-	return let containerClass = link.containerGenClass().ecoreClass in (if containerClass = null then Sequence {  } else ((Sequence { link.getDiagram() })[genModel_1::GenContainerBase]->union(link.getDiagram().getAllNodes()->asSequence()))[genModel_1::GenCommonBase]->union(link.getDiagram().links->asSequence())->select(e | let effectiveMetaClass = e.oclAsType(genModel_1::GenCommonBase).getEffectiveMetaClass() in (if effectiveMetaClass = null then false else containerClass.isSuperTypeOf(effectiveMetaClass.ecoreClass) endif)) endif)
+helper getPossibleContainers(link : gmfgen::GenLink) : Collection(gmfgen::GenCommonBase) {
+	return let containerClass = link.containerGenClass() in (if containerClass = null then Sequence {  } else ((Sequence { link.getDiagram() })[gmfgen::GenContainerBase]->union(link.getDiagram().getAllNodes()->asSequence()))[gmfgen::GenCommonBase]->union(link.getDiagram().links->asSequence())->select(e | let effectiveMetaClass = e.oclAsType(gmfgen::GenCommonBase).getEffectiveMetaClass() in (if effectiveMetaClass = null then false else containerClass.isSuperTypeOf(effectiveMetaClass) endif)) endif)
 }
 
-helper genModel_1::LinkModelFacet::getElementSelector() : genModel_1::GenConstraint {
+helper gmfgen::LinkModelFacet::getElementSelector() : gmfgen::GenConstraint {
 	return null
 }
 
-helper genModel_1::TypeLinkModelFacet::getElementSelector() : genModel_1::GenConstraint {
+helper gmfgen::TypeLinkModelFacet::getElementSelector() : gmfgen::GenConstraint {
 	return self.modelElementSelector
 }
 
-helper genModel_1::GenLink::incomingGenClass() : genModel::GenClass {
+helper gmfgen::GenLink::incomingGenClass() : genmodel::GenClass {
 	return self.modelFacet.incomingGenClass()
 }
 
-helper genModel_1::LinkModelFacet::incomingGenClass() : genModel::GenClass {
+helper gmfgen::LinkModelFacet::incomingGenClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel_1::FeatureLinkModelFacet::incomingGenClass() : genModel::GenClass {
+helper gmfgen::FeatureLinkModelFacet::incomingGenClass() : genmodel::GenClass {
 	return getTypeGenClass(self.metaFeature)
 }
 
-helper genModel_1::TypeLinkModelFacet::incomingGenClass() : genModel::GenClass {
+helper gmfgen::TypeLinkModelFacet::incomingGenClass() : genmodel::GenClass {
 	return getTypeGenClass(self.targetMetaFeature)
 }
 
-helper genModel_1::GenLink::outgoingGenClass() : genModel::GenClass {
+helper gmfgen::GenLink::outgoingGenClass() : genmodel::GenClass {
 	return self.modelFacet.outgoingGenClass()
 }
 
-helper genModel_1::LinkModelFacet::outgoingGenClass() : genModel::GenClass {
+helper gmfgen::LinkModelFacet::outgoingGenClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel_1::FeatureLinkModelFacet::outgoingGenClass() : genModel::GenClass {
+helper gmfgen::FeatureLinkModelFacet::outgoingGenClass() : genmodel::GenClass {
 	return self.metaFeature.genClass
 }
 
-helper genModel_1::TypeLinkModelFacet::outgoingGenClass() : genModel::GenClass {
+helper gmfgen::TypeLinkModelFacet::outgoingGenClass() : genmodel::GenClass {
 	return (if self.sourceMetaFeature = null then self.containmentMetaFeature.genClass else getTypeGenClass(self.sourceMetaFeature) endif)
 }
 
-helper getTypeGenClass(feature : genModel::GenFeature) : genModel::GenClass {
-	return findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType).oclAsType(genModel::GenClass)
+helper getTypeGenClass(feature : genmodel::GenFeature) : genmodel::GenClass {
+	return findGenClassifier(feature.genClass.genPackage.genModel, feature.ecoreFeature.eType).oclAsType(genmodel::GenClass)
 }
 
-helper genModel_1::GenLink::containerGenClass() : genModel::GenClass {
+helper gmfgen::GenLink::containerGenClass() : genmodel::GenClass {
 	return self.modelFacet.containerGenClass()
 }
 
-helper genModel_1::LinkModelFacet::containerGenClass() : genModel::GenClass {
+helper gmfgen::LinkModelFacet::containerGenClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel_1::TypeLinkModelFacet::containerGenClass() : genModel::GenClass {
+helper gmfgen::TypeLinkModelFacet::containerGenClass() : genmodel::GenClass {
 	return self.containmentMetaFeature.genClass
 }
 
-helper genModel_1::FeatureLinkModelFacet::containerGenClass() : genModel::GenClass {
+helper gmfgen::FeatureLinkModelFacet::containerGenClass() : genmodel::GenClass {
 	return self.metaFeature.genClass
 }
 
-helper genModel_1::GenCommonBase::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::GenCommonBase::getEffectiveMetaClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel_1::GenDiagram::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::GenDiagram::getEffectiveMetaClass() : genmodel::GenClass {
 	return self.domainDiagramElement
 }
 
-helper genModel_1::GenNode::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::GenNode::getEffectiveMetaClass() : genmodel::GenClass {
 	return self.modelFacet.metaClass
 }
 
-helper genModel_1::GenLink::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::GenLink::getEffectiveMetaClass() : genmodel::GenClass {
 	return self.modelFacet.getEffectiveMetaClass()
 }
 
-helper genModel_1::LinkModelFacet::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::LinkModelFacet::getEffectiveMetaClass() : genmodel::GenClass {
 	return null
 }
 
-helper genModel_1::TypeLinkModelFacet::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::TypeLinkModelFacet::getEffectiveMetaClass() : genmodel::GenClass {
 	return self.metaClass
 }
 
-helper genModel_1::GenChildLabelNode::getEffectiveMetaClass() : genModel::GenClass {
+helper gmfgen::GenChildLabelNode::getEffectiveMetaClass() : genmodel::GenClass {
 	return null
 }

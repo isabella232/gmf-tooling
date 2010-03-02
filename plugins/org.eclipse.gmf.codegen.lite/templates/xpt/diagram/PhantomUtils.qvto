@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,35 +13,35 @@
 import xpt.GenModelUtils;
 import gmf.GenModelUtils;
 
-modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
-modeltype genModel_1 uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library PhantomUtils;
 
-helper getPhantomNodes(diagram : genModel_1::GenDiagram) : Collection(genModel_1::GenTopLevelNode) {
+helper getPhantomNodes(diagram : gmfgen::GenDiagram) : Collection(gmfgen::GenTopLevelNode) {
 	return diagram.topLevelNodes->select(e | e.modelFacet.isPhantomElement())
 }
 
-helper genModel_1::GenDiagram::getPhantomFeatures() : Collection(genModel::GenFeature) {
+helper gmfgen::GenDiagram::getPhantomFeatures() : Collection(genmodel::GenFeature) {
 	return getPhantomFeatures(self, getPhantomNodes(self))
 }
 
-helper genModel_1::GenTopLevelNode::getPhantomFeatures() : Collection(genModel::GenFeature) {
+helper gmfgen::GenTopLevelNode::getPhantomFeatures() : Collection(genmodel::GenFeature) {
 	return getPhantomFeatures(self.getDiagram(), Sequence { self })
 }
 
-helper getPhantomFeatures(diagram : genModel_1::GenDiagram, phantomNodes : Collection(genModel_1::GenTopLevelNode)) : Collection(genModel::GenFeature) {
-	return diagram.links->select(e | e.modelFacet.isPhantomLink(phantomNodes))->collect(e | e.modelFacet.oclAsType(genModel_1::FeatureLinkModelFacet).metaFeature)
+helper getPhantomFeatures(diagram : gmfgen::GenDiagram, phantomNodes : Collection(gmfgen::GenTopLevelNode)) : Collection(genmodel::GenFeature) {
+	return diagram.links->select(e | e.modelFacet.isPhantomLink(phantomNodes))->collect(e | e.modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature)
 }
 
-helper genModel_1::LinkModelFacet::isPhantomLink(diagram : genModel_1::GenDiagram) : Boolean {
+helper gmfgen::LinkModelFacet::isPhantomLink(diagram : gmfgen::GenDiagram) : Boolean {
 	return self.isPhantomLink(getPhantomNodes(diagram))
 }
 
-helper genModel_1::LinkModelFacet::isPhantomLink(phantoms : Collection(genModel_1::GenTopLevelNode)) : Boolean {
+helper gmfgen::LinkModelFacet::isPhantomLink(phantoms : Collection(gmfgen::GenTopLevelNode)) : Boolean {
 	return false
 }
 
-helper genModel_1::FeatureLinkModelFacet::isPhantomLink(phantoms : Collection(genModel_1::GenTopLevelNode)) : Boolean {
-	return (if not isContains(self.metaFeature) then false else let featureType = getTypeGenClassX(self.metaFeature).ecoreClass in phantoms->select(e | featureType.isSuperTypeOf(e.modelFacet.metaClass.ecoreClass))->size() > 0 endif)
+helper gmfgen::FeatureLinkModelFacet::isPhantomLink(phantoms : Collection(gmfgen::GenTopLevelNode)) : Boolean {
+	return (if not isContains(self.metaFeature) then false else let featureType = getTypeGenClassX(self.metaFeature) in phantoms->select(e | featureType.isSuperTypeOf(e.modelFacet.metaClass))->size() > 0 endif)
 }

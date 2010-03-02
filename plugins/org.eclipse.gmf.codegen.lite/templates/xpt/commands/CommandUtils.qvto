@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,48 +9,49 @@
  * Contributors:
  *    bblajer (Borland) - initial API and implementation
  */
+import xpt.GenModelUtils;
  
-modeltype genModel uses "http://www.eclipse.org/emf/2002/GenModel";
-modeltype genModel_1 uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library CommandUtils;
 
-helper genModel_1::GenContainerBase::getChildNodes() : Collection(genModel_1::GenNode) {
+helper gmfgen::GenContainerBase::getChildNodes() : Collection(gmfgen::GenNode) {
 	return null
 }
 
-helper genModel_1::GenDiagram::getChildNodes() : Collection(genModel_1::GenNode) {
+helper gmfgen::GenDiagram::getChildNodes() : Collection(gmfgen::GenNode) {
 	return self.topLevelNodes
 }
 
-helper genModel_1::GenChildContainer::getChildNodes() : Collection(genModel_1::GenNode) {
+helper gmfgen::GenChildContainer::getChildNodes() : Collection(gmfgen::GenNode) {
 	return self.childNodes
 }
 
-helper getRelatedGenNodes(node : genModel_1::GenNode) : Collection(genModel_1::GenNode) {
+helper getRelatedGenNodes(node : gmfgen::GenNode) : Collection(gmfgen::GenNode) {
 	return getRelatedGenNodes(node.getDiagram(), node.getDomainMetaClass())
 }
 
-helper getRelatedGenNodes(diagram : genModel_1::GenDiagram, nodeClass : genModel::GenClass) : Collection(genModel_1::GenNode) {
-	return diagram.getAllNodes()->select(e | nodeClass.ecoreClass.isSuperTypeOf(e.getDomainMetaClass().ecoreClass))
+helper getRelatedGenNodes(diagram : gmfgen::GenDiagram, nodeClass : genmodel::GenClass) : Collection(gmfgen::GenNode) {
+	return diagram.getAllNodes()->select(e | nodeClass.isSuperTypeOf(e.getDomainMetaClass()))
 }
 
-helper getRelatedChildLabelGenNodes(diagram : genModel_1::GenDiagram, nodeClass : genModel::GenClass) : Collection(genModel_1::GenNode) {
-	return (getRelatedGenNodes(diagram, nodeClass)->collect(it | it))[genModel_1::GenChildLabelNode]->asSequence()
+helper getRelatedChildLabelGenNodes(diagram : gmfgen::GenDiagram, nodeClass : genmodel::GenClass) : Collection(gmfgen::GenNode) {
+	return (getRelatedGenNodes(diagram, nodeClass)->collect(it | it))[gmfgen::GenChildLabelNode]->asSequence()
 }
 
-helper getCreateShortcutNodeCommandClassName(diagram : genModel_1::GenDiagram) : String {
+helper getCreateShortcutNodeCommandClassName(diagram : gmfgen::GenDiagram) : String {
 	return 'CreateShortcutNodeCommand'
 }
 
-helper getCreateShortcutNodeCommandQualifiedClassName(diagram : genModel_1::GenDiagram) : String {
+helper getCreateShortcutNodeCommandQualifiedClassName(diagram : gmfgen::GenDiagram) : String {
 	return diagram.editCommandsPackageName + '.' + getCreateShortcutNodeCommandClassName(diagram)
 }
 
-helper getCreateShortcutEdgeCommandClassName(diagram : genModel_1::GenDiagram) : String {
+helper getCreateShortcutEdgeCommandClassName(diagram : gmfgen::GenDiagram) : String {
 	return 'CreateShortcutEdgeCommand'
 }
 
-helper getCreateShortcutEdgeCommandQualifiedClassName(diagram : genModel_1::GenDiagram) : String {
+helper getCreateShortcutEdgeCommandQualifiedClassName(diagram : gmfgen::GenDiagram) : String {
 	return diagram.editCommandsPackageName + '.' + getCreateShortcutEdgeCommandClassName(diagram)
 }
