@@ -129,6 +129,14 @@ public class ExecuteTemplatesOperation {
 					return Status.CANCEL_STATUS;
 				}
 			}
+			
+			@Override
+			public boolean belongsTo(Object family) {
+				if (family instanceof Job) {
+					return family.getClass().equals(this.getClass());
+				}
+				return false;
+			}
 		};
 		job.setUser(true);
 		job.setProperty(IProgressConstants.KEEPONE_PROPERTY, true);
@@ -168,11 +176,26 @@ public class ExecuteTemplatesOperation {
 	}
 
 	protected void showOk(boolean force) {
-		boolean neverShowAgain = MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_OK));
+		final boolean neverShowAgain = MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_OK));
 		if (force || !neverShowAgain) {
-			String okMsg = CodeGenUIPlugin.getBundleString("generatecode.ok"); //$NON-NLS-1$
-			String neverMsg = CodeGenUIPlugin.getBundleString("generatecode.neveragain"); //$NON-NLS-1$
-			MessageDialogWithToggle.openInformation(getShell(), getName(), okMsg, neverMsg, neverShowAgain, getPreferences(), ASK_OK);
+			final String okMsg = CodeGenUIPlugin.getBundleString("generatecode.ok"); //$NON-NLS-1$
+			final String neverMsg = CodeGenUIPlugin.getBundleString("generatecode.neveragain"); //$NON-NLS-1$
+			Runnable r = new Runnable() {
+				public void run() {
+					MessageDialogWithToggle dlg = MessageDialogWithToggle.openInformation(getShell(), getName(), okMsg, neverMsg, neverShowAgain, getPreferences(), ASK_OK);
+					if (!dlg.getToggleState()) {
+						// Unfortunately, MessageDialogWithToggle doesn't support clearing 'ask me again' option once set
+						// @see #buttonPressed - preferences are modified only when toggleState == true
+						// Hence, need to clear it manually
+						getPreferences().setValue(ASK_OK, MessageDialogWithToggle.PROMPT);
+					}
+				}
+			};
+			if (Display.getCurrent() != null) {
+				r.run();
+			} else {
+				Display.getDefault().asyncExec(r);
+			}
 		}
 	}
 
