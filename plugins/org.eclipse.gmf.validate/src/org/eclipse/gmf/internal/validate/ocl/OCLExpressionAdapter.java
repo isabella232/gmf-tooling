@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -51,6 +51,7 @@ import org.eclipse.ocl.ecore.SendSignalAction;
 import org.eclipse.ocl.ecore.TypeType;
 import org.eclipse.ocl.expressions.ExpressionsFactory;
 import org.eclipse.ocl.expressions.Variable;
+import org.eclipse.ocl.options.ParsingOptions;
 
 class OCLExpressionAdapter extends AbstractExpression {
 	/**
@@ -106,6 +107,7 @@ class OCLExpressionAdapter extends AbstractExpression {
 				ocl = org.eclipse.ocl.ecore.OCL.newInstance(new EcoreEnvironmentFactory(registry));
 				this.env = ocl.getEnvironment();
 			}
+			ParsingOptions.setOption(this.env, ParsingOptions.implicitRootClass(this.env), EcorePackage.Literals.EOBJECT);
 
 			org.eclipse.ocl.ecore.OCL.Helper helper = ocl.createOCLHelper();
 			helper.setContext(context);			
