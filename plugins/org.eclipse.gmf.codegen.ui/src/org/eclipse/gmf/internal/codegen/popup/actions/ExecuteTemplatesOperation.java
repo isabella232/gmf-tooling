@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,15 +8,16 @@
  *
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Artem Tikhomirov (independent) - [304421] allow code generation to run in background 
  */
 package org.eclipse.gmf.internal.codegen.popup.actions;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -27,17 +28,18 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.bridge.transform.ValidationHelper;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
+import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.xpand.Activator;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
-import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.progress.IProgressConstants;
 
 /**
  * Operation that processes templates to generate diagram editor.
@@ -48,7 +50,7 @@ import org.eclipse.ui.PlatformUI;
  * 
  * @author dstadnik
  */
-public class ExecuteTemplatesOperation implements IRunnableWithProgress {
+public class ExecuteTemplatesOperation {
 
 	private static final String ASK_OK = "ask_ok"; //$NON-NLS-1$
 
@@ -57,8 +59,6 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 	private Shell shell;
 
 	private URI genModelURI;
-
-	protected IStatus myRunStatus;
 
 	private GenEditorGenerator myGenModel;
 
@@ -97,45 +97,82 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 		if (getGenModelURI() == null) {
 			return;
 		}
-		try {
-			Diagnostic loadStatus = loadGenModel();
-			if (!canProcessGMFGenModel(loadStatus)) {
+		Diagnostic loadStatus = loadGenModel();
+		if (!canProcessGMFGenModel(loadStatus)) {
+			return;
+		}
+
+		assert getGenModel() != null;
+		Diagnostic isGenModelValid = validateGenModel();
+		if (!ValidationHelper.isOK(isGenModelValid)) {
+			final String msg = CodeGenUIPlugin.getBundleString("generatecode.badsrc"); //$NON-NLS-1$
+			if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), msg, isGenModelValid) == IDialogConstants.CANCEL_ID) {
 				return;
 			}
+		}
 
-			assert getGenModel() != null;
-			Diagnostic isGenModelValid = validateGenModel();
-			if (!ValidationHelper.isOK(isGenModelValid)) {
-				final String msg = CodeGenUIPlugin.getBundleString("generatecode.badsrc"); //$NON-NLS-1$
-				if (DiagnosticsDialog.openProceedCancel(getShell(), getName(), msg, isGenModelValid) == IDialogConstants.CANCEL_ID) {
+		if (!PlatformUI.getWorkbench().saveAllEditors(true)) {
+			return;
+		}
+
+		final Job job = new Job(getName()) {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				try {
+					IStatus s = ExecuteTemplatesOperation.this.run(monitor);
+					if (!s.isOK()) {
+						return s;
+					}
+					// usually, ok status has just "OK" text. Since we put this into a job, visible in the progress view, better label needed
+					return new Status(IStatus.OK, s.getPlugin(), CodeGenUIPlugin.getBundleString("generatecode.ok")); //$NON-NLS-1$
+				} catch (InterruptedException ex) {
+					return Status.CANCEL_STATUS;
+				}
+			}
+		};
+		job.setUser(true);
+		job.setProperty(IProgressConstants.KEEPONE_PROPERTY, true);
+		job.setProperty(IProgressConstants.ACTION_PROPERTY, new Action() {
+			@Override
+			public void run() {
+				IStatus runStatus = job.getResult();
+				if (runStatus == null) {
 					return;
 				}
-			}
-
-			if (!PlatformUI.getWorkbench().saveAllEditors(true)) {
-				return;
-			}
-
-			doRunWithStatus();
-
-			if (getRunStatus().isOK()) {
-				if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_OK))) {
-					String okMsg = CodeGenUIPlugin.getBundleString("generatecode.ok"); //$NON-NLS-1$
-					String neverMsg = CodeGenUIPlugin.getBundleString("generatecode.neveragain"); //$NON-NLS-1$
-					MessageDialogWithToggle.openInformation(getShell(), getName(), okMsg, neverMsg, false, getPreferences(), ASK_OK);
+				if (runStatus.isOK()) {
+					showOk(true);
+				} else if (runStatus.matches(IStatus.ERROR)) {
+					ErrorDialog.openError(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.err"), runStatus); //$NON-NLS-1$
+				} else if (runStatus.matches(IStatus.WARNING)) {
+					ErrorDialog.openError(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.warn"), runStatus); //$NON-NLS-1$
+				} else if (runStatus.matches(IStatus.INFO)) {
+					ErrorDialog.openError(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.info"), runStatus); //$NON-NLS-1$
 				}
-			} else if (myRunStatus.matches(IStatus.ERROR)) {
-				CodeGenUIPlugin.getDefault().getLog().log(getRunStatus());
-				ErrorDialog.openError(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.err"), getRunStatus()); //$NON-NLS-1$
-			} else if (myRunStatus.matches(IStatus.WARNING)) {
-				ErrorDialog.openError(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.warn"), getRunStatus()); //$NON-NLS-1$
-			} else if (myRunStatus.matches(IStatus.INFO)) {
-				ErrorDialog.openError(getShell(), getName(), CodeGenUIPlugin.getBundleString("generatecode.info"), getRunStatus()); //$NON-NLS-1$
 			}
-		} catch (InterruptedException ex) {
-			// presumably, user canceled the operation, don't bother him with additional messages
-		} finally {
-			unloadGenModel();
+		});
+		job.addJobChangeListener(new JobChangeAdapter() {
+
+			@Override
+			public void done(IJobChangeEvent event) {
+				unloadGenModel();
+				//
+				IStatus runStatus = event.getResult();
+				if (runStatus.isOK() && Boolean.TRUE.equals(event.getJob().getProperty(IProgressConstants.PROPERTY_IN_DIALOG))) {
+					showOk(false);
+				} else if (runStatus.matches(IStatus.ERROR)) {
+					CodeGenUIPlugin.getDefault().getLog().log(runStatus);
+				}
+			}
+		});
+		job.schedule();
+	}
+
+	protected void showOk(boolean force) {
+		boolean neverShowAgain = MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_OK));
+		if (force || !neverShowAgain) {
+			String okMsg = CodeGenUIPlugin.getBundleString("generatecode.ok"); //$NON-NLS-1$
+			String neverMsg = CodeGenUIPlugin.getBundleString("generatecode.neveragain"); //$NON-NLS-1$
+			MessageDialogWithToggle.openInformation(getShell(), getName(), okMsg, neverMsg, neverShowAgain, getPreferences(), ASK_OK);
 		}
 	}
 
@@ -161,34 +198,13 @@ public class ExecuteTemplatesOperation implements IRunnableWithProgress {
 		return true;
 	}
 
-	/**
-	 * @return
-	 */
-	private void doRunWithStatus() throws InterruptedException {
-		myRunStatus = Status.CANCEL_STATUS;
-		try {
-			new ProgressMonitorDialog(getShell()).run(true, true, this);
-		} catch (InvocationTargetException ex) {
-			Throwable targetException = ex.getTargetException();
-			if (targetException instanceof CoreException) {
-				myRunStatus = ((CoreException) targetException).getStatus();
-			} else {
-				myRunStatus = new Status(IStatus.ERROR, CodeGenUIPlugin.getPluginID(), 0, "Exception occurred while generating code", targetException);
-			}
-		}
-	}
-
-	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		Generator g = createGenerator();
+	protected IStatus run(IProgressMonitor monitor) throws InterruptedException {
+		GeneratorBase g = createGenerator();
 		g.run(monitor);
-		myRunStatus = g.getRunStatus();
+		return g.getRunStatus();
 	}
 
-	private IStatus getRunStatus() {
-		return myRunStatus;
-	}
-	
-	protected Generator createGenerator() {
+	protected GeneratorBase createGenerator() {
 		return new Generator(getGenModel(), CodeGenUIPlugin.getDefault().getEmitters(getGenModel()));
 	}
 
