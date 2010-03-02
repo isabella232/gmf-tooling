@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2009 Sven Efftinge and others.
+ * Copyright (c) 2005, 2010 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.xpand.BuiltinMetaModel;
 import org.eclipse.gmf.internal.xpand.ResourceMarker;
 import org.eclipse.gmf.internal.xpand.util.PolymorphicResolver;
@@ -42,11 +43,13 @@ import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.ecore.EcoreEnvironment;
 import org.eclipse.ocl.ecore.EcoreEvaluationEnvironment;
 import org.eclipse.ocl.ecore.EcoreFactory;
+import org.eclipse.ocl.options.ParsingOptions;
 
 /**
  * @author Sven Efftinge
  * @author Arno Haase
  */
+@SuppressWarnings("restriction")
 public final class ExecutionContextImpl implements ExecutionContext {
 
     private final Map<String, Variable> variables = new HashMap<String, Variable> ();
@@ -251,7 +254,8 @@ public final class ExecutionContextImpl implements ExecutionContext {
     		envFactory = new OCLEnvironmentWithQVTAccessFactory(getImportedModules(), getAllVisibleModels());
     	}
 		environment = (EcoreEnvironment) envFactory.createEnvironment();
-		QVTParsingOptions.setOption(environment, QVTParsingOptions.ENFORCE_EXPLICIT_SELF_VARIABLE, Boolean.FALSE);
+		ParsingOptions.setOption(environment, QVTParsingOptions.ENFORCE_EXPLICIT_SELF_VARIABLE, Boolean.FALSE);
+		ParsingOptions.setOption(environment, ParsingOptions.implicitRootClass(environment), EcorePackage.Literals.EOBJECT);
 		Variable that = getImplicitVariable();
     	for (Variable v : variables.values()) {
     		if (that != v) {
