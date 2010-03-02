@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2008, 2009 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,7 +34,7 @@ public class «className» {
 
 	«EXPAND getRegistryMethod»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment»«REM»NOTE, when metaClassName is 'EObject', isSuperTypeOf is unlikely (see bug #255469) ever to return true (it lookes into metamodel, and unless obj's EClass has explicit EObject in its superclasses, the method simply returns false). But unless it's requested, I don't want to complicate this piece of code«ENDREM»
 	public boolean isInstance(Object obj, String metaClassName) {
 		org.eclipse.emf.ecore.EClass metaClass = getEClass(metaClassName);
 		return obj instanceof org.eclipse.emf.ecore.EObject && metaClass.isSuperTypeOf(((org.eclipse.emf.ecore.EObject) obj).eClass());

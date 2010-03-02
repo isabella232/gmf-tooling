@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -68,6 +68,10 @@ helper isContains(gf : genmodel::GenFeature) : Boolean {
 
 helper isPrimitiveType(gf : genmodel::GenFeature) : Boolean {
 	return Sequence { 'boolean', 'byte', 'char', 'double', 'float', 'int', 'long', 'short' }->includes(gf.ecoreFeature.eType.instanceClassName)
+}
+-- Workaround for EMF 2.5M4 change (bug #255469) - always assume implicit EObject supertype.
+helper GenClass::isSuperTypeOf(subclassCandidate : GenClass) : Boolean {
+	return self.ecoreClass.isSuperTypeOf(subclassCandidate.ecoreClass) or (self.ecoreClass.name = 'EObject' and self.ecoreClass.ePackage.nsURI = 'http://www.eclipse.org/emf/2002/Ecore')
 }
 
 -- MODIFIERS:private

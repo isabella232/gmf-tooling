@@ -36,6 +36,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.internal.codegen.util.Extras;
 
 /**
  * <!-- begin-user-doc -->
@@ -620,7 +621,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		}
 		
 		GenClass actualMetaclass = actualModelFacet.getMetaClass();
-		return actualMetaclass != null && desiredEndType.getEcoreClass().isSuperTypeOf(actualMetaclass.getEcoreClass());
+		return actualMetaclass != null && Extras.isSuperTypeOf(desiredEndType.getEcoreClass(), actualMetaclass.getEcoreClass());
 	}
 
 	/**
@@ -689,8 +690,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				GenClass nodeType = node.getModelFacet().getMetaClass();
 				if (nodeType != null && nodeType.getEcoreClass() != null) {
 					for (GenClass participantType : participantTypes) {
-						if (participantType.getEcoreClass() != null
-								&& participantType.getEcoreClass().isSuperTypeOf(nodeType.getEcoreClass())) {
+						if (participantType.getEcoreClass() != null && Extras.isSuperTypeOf(participantType.getEcoreClass(), nodeType.getEcoreClass())) {
 							participants.add(node);
 						}
 					}

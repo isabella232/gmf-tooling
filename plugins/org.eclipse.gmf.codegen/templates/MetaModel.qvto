@@ -138,7 +138,7 @@ helper unparenthesizedCast(what : String, source : genModel::GenClass, target : 
 --See cast()
 -- MODIFIERS: private
 helper needsCast(source : genModel::GenClass, target : genModel::GenClass) : Boolean {
-	return (if source = target then false else (if target = null then source <> null and isExternalInterface(source) else source = null or (isExternalInterface(target) or (isExternalInterface(source) or not target.ecoreClass.isSuperTypeOf(source.ecoreClass))) endif) endif)
+	return (if source = target then false else (if target = null then source <> null and isExternalInterface(source) else source = null or (isExternalInterface(target) or (isExternalInterface(source) or not target.isSuperTypeOf(source))) endif) endif)
 }
 -- MODIFIERS: private
 helper genModel::GenClassifier::getEcoreClassifier() : ecore::EClassifier {	return null }

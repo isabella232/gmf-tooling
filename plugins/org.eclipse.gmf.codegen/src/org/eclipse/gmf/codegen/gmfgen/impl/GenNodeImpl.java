@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.internal.codegen.util.Extras;
 
 /**
  * <!-- begin-user-doc -->
@@ -619,10 +620,10 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 				continue;
 			}
 			GenClass nodeMetaClass = getModelFacet().getMetaClass();
-			boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-			boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+			boolean canBeSource = Extras.isSuperTypeOf(outgoingClass.getEcoreClass(), nodeMetaClass.getEcoreClass());
+			boolean canBeTarget = Extras.isSuperTypeOf(incomingClass.getEcoreClass(), nodeMetaClass.getEcoreClass());
 /*
- * This logic is currently alligned with the logic in NodeItemSemanticEditPolicy.javajet i.e.:
+ * This logic is currently aligned with the logic in NodeItemSemanticEditPolicy.javajet i.e.:
  *
  * - we do not perform link rotation if this link could be drawn from instance of this EP 
  *   to the instance of this EP.
