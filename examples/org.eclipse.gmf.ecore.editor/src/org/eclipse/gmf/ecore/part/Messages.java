@@ -519,56 +519,6 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String NavigatorGroupName_EAttribute_3001_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EOperation_3002_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EAnnotation_3003_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EAnnotation_3003_outgoinglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EClass_3004_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EClass_3004_outgoinglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EPackage_3005_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EDataType_3006_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EEnum_3007_incominglinks;
-
-	/**
-	 * @generated
-	 */
-	public static String NavigatorGroupName_EEnumLiteral_3009_incominglinks;
-
-	/**
-	 * @generated
-	 */
 	public static String NavigatorGroupName_EAnnotationReferences_4001_target;
 
 	/**

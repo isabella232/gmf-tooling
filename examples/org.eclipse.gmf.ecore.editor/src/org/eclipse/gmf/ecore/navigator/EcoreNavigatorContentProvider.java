@@ -256,7 +256,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			result.addAll(getForeignShortcuts((Diagram) view, parentElement));
 			EcoreNavigatorGroup links = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EPackage_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackage2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
@@ -284,7 +285,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EClass_2001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			EcoreNavigatorGroup outgoinglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EClass_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassAttributesEditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassOperationsEditPart.VISUAL_ID));
@@ -319,7 +321,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		case EPackage2EditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EPackage_2002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackageClassesEditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackagePackagesEditPart.VISUAL_ID));
@@ -346,7 +349,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAnnotation_2003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			EcoreNavigatorGroup outgoinglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAnnotation_2003_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationDetailsEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationDetailsEditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EStringToStringMapEntryEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
@@ -365,7 +369,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		case EDataTypeEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EDataType_2004_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataTypeDataTypeAnnotationsEditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
@@ -383,7 +388,8 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 		case EEnumEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EEnum_2005_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumLiteralsEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumLiteralsEditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumEnumAnnotationsEditPart.VISUAL_ID));
@@ -401,129 +407,12 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case EAttributeEditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAttribute_3001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
-		case EOperationEditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EOperation_3002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
-		case EAnnotation2EditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAnnotation_3003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			EcoreNavigatorGroup outgoinglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAnnotation_3003_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case EClass2EditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EClass_3004_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			EcoreNavigatorGroup outgoinglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EClass_3004_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassESuperTypesEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case EPackage3EditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EPackage_3005_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
-		case EDataType2EditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EDataType_3006_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
-		case EEnum2EditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EEnum_3007_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReferenceEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EReference2EditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
-		case EEnumLiteralEditPart.VISUAL_ID: {
-			Collection result = new ArrayList();
-			EcoreNavigatorGroup incominglinks = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EEnumLiteral_3009_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getIncomingLinksByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationReferencesEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
 		case EAnnotationReferencesEditPart.VISUAL_ID: {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup target = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAnnotationReferences_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			EcoreNavigatorGroup source = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EAnnotationReferences_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackage2EditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
@@ -533,25 +422,7 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAttributeEditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EOperationEditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EPackage3EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumLiteralEditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotationEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EAnnotation2EditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
@@ -566,21 +437,14 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup target = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EReference_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			EcoreNavigatorGroup source = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EReference_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
@@ -595,21 +459,14 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup target = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EReference_4003_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			EcoreNavigatorGroup source = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EReference_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataTypeEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnumEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EDataType2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EEnum2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
@@ -624,13 +481,10 @@ public class EcoreNavigatorContentProvider implements ICommonContentProvider {
 			Collection result = new ArrayList();
 			EcoreNavigatorGroup target = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EClassESuperTypes_4004_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			EcoreNavigatorGroup source = new EcoreNavigatorGroup(Messages.NavigatorGroupName_EClassESuperTypes_4004_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
+			Collection connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClassEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(view), EcoreVisualIDRegistry.getType(EClass2EditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
 			if (!target.isEmpty()) {
 				result.add(target);
