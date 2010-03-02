@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,10 +12,7 @@
 package org.eclipse.gmf.internal.bridge.genmodel.navigator;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -23,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
@@ -81,67 +79,49 @@ public class NavigatorHandler {
 		childReference.setGroupIcon("icons/linksNavigatorGroup.gif");
 
 
-		Collection<GenNode> targetNodes = getTargetGenNodes(link);
-		for (GenNode node : targetNodes) {
+		for (GenLinkEnd linkEnd : getTargetGenNodes(link)) {
 			if (myShowLinkTargets) {
-				GenNavigatorChildReference reference = createChildReference(node, link, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(linkEnd, link, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 				reference.setGroupName("target");
 				reference.setGroupIcon("icons/linkTargetNavigatorGroup.gif");
 			}
 			
 			if (myShowIncomingLinks) {
-				GenNavigatorChildReference reference = createChildReference(link, node, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(link, linkEnd, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("incoming links");
 				reference.setGroupIcon("icons/incomingLinksNavigatorGroup.gif");
 			}
 		}
 
-		Collection<GenNode> sourceNodes = getSourceGenNodes(link);
-		for (GenNode node : sourceNodes) {
+		for (GenLinkEnd linkEnd : getSourceGenNodes(link)) {
 			if (myShowLinkSources) {
-				GenNavigatorChildReference reference = createChildReference(node, link, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(linkEnd, link, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("source");
 				reference.setGroupIcon("icons/linkSourceNavigatorGroup.gif");
 			}
 			
 			if (myShowOutgoingLinks) {
-				GenNavigatorChildReference reference = createChildReference(link, node, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
+				GenNavigatorChildReference reference = createChildReference(link, linkEnd, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 				reference.setGroupName("outgoing links");
 				reference.setGroupIcon("icons/outgoingLinksNavigatorGroup.gif");
 			}
 		}
 	}
 
-	private Collection<GenNode> getTargetGenNodes(GenLink link) {
+	private Collection<? extends GenLinkEnd> getTargetGenNodes(GenLink link) {
+		// FIXME link.getTargets gives empty list when no model facet set, but allNodes (which is legacy approach) is perhaps the 
+		// correct one, and GenLink#sources/targets should be modified? 
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
 		}
-		return getAssignableGenNodes(link.getModelFacet().getTargetType());
+		return link.getTargets();
 	}
 
-	private Collection<GenNode> getSourceGenNodes(GenLink link) {
+	private Collection<? extends GenLinkEnd> getSourceGenNodes(GenLink link) {
 		if (link.getModelFacet() == null) {
 			return myDiagram.getAllNodes();
 		}
-		return getAssignableGenNodes(link.getModelFacet().getSourceType());
-	}
-
-	private Collection<GenNode> getAssignableGenNodes(GenClass genClass) {
-		if (genClass == null) {
-			return Collections.emptyList();
-		}
-		Collection<GenNode> result = new LinkedHashSet<GenNode>();
-		for (GenNode nextNode : myDiagram.getAllNodes()) {
-			if (nextNode.getModelFacet() == null) {
-				// skipping pure design nodes - cannot be incorrect connection
-				// source/target
-				continue;
-			}
-			if (genClass.getEcoreClass().isSuperTypeOf(nextNode.getDomainMetaClass().getEcoreClass())) {
-				result.add(nextNode);
-			}
-		}
-		return result;
+		return link.getSources();
 	}
 
 	private void createChildNodeReference(GenNode childNode, GenCommonBase parent) {

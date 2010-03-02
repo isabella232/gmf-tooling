@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2009 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -49,6 +49,7 @@ import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.navigator.NavigatorHandler;
 import org.eclipse.gmf.internal.bridge.tooldef.PaletteHandler;
+import org.eclipse.gmf.internal.codegen.util.Extras;
 import org.eclipse.gmf.mappings.*;
 import org.eclipse.gmf.mappings.LinkConstraints;
 
@@ -687,7 +688,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			if (labelMapping instanceof FeatureLabelMapping) {
 				final EClass domainElement = labelMapping.getMapEntry().getDomainContext();
 				for (EAttribute attr : (Collection<? extends EAttribute>) ((FeatureLabelMapping) labelMapping).getFeatures()) {
-					if (!attr.getEContainingClass().isSuperTypeOf(domainElement)) {
+					if (!Extras.isSuperTypeOf(attr.getEContainingClass(), domainElement)) {
 						return false;
 					}
 				}
