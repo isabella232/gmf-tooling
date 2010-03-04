@@ -12,11 +12,11 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
-«EXTENSION xpt::GenModelUtils»
+«EXTENSION xpt::GenEditorGenerator»
 
 // Generic types
-«DEFINE G(String type) FOR gmfgen::GenCommonBase»«IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4»<«type»>«ELSE»/*[«type»]*/«ENDIF»«ENDDEFINE»
-«DEFINE G2(String type1, String type2) FOR gmfgen::GenCommonBase»«IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4»<«type1», «type2»>«ELSE»/*[«type1», «type2»]*/«ENDIF»«ENDDEFINE»
+«DEFINE G(String type) FOR gmfgen::GenCommonBase»«IF self.jdkComplianceLevel() > 4»<«type»>«ELSE»/*[«type»]*/«ENDIF»«ENDDEFINE»
+«DEFINE G2(String type1, String type2) FOR gmfgen::GenCommonBase»«IF self.jdkComplianceLevel() > 4»<«type1», «type2»>«ELSE»/*[«type1», «type2»]*/«ENDIF»«ENDDEFINE»
 
 // e.g. java.util.List<String>
 «DEFINE G(String type, String typeArgument) FOR gmfgen::GenCommonBase»«type»«EXPAND G(typeArgument)»«ENDDEFINE»
@@ -31,7 +31,7 @@
 // iterate cycle with explicit iterator variable
 «DEFINE iterate(String elementVar, String elementType, String iteratorVar, String iterationSource) FOR gmfgen::GenCommonBase-»
 for («EXPAND G('java.util.Iterator', elementType)» «iteratorVar» = «iterationSource»; «iteratorVar».hasNext();) {
-	«elementType» «elementVar» = «IF not (self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4) /*generics are not used then, should cast. Using 'not greater 4' instead of 'less than 5' to handle null/undefined case correctly*/»(«elementType») «ENDIF»«iteratorVar».next();
+	«elementType» «elementVar» = «IF not (self.jdkComplianceLevel() > 4) /*generics are not used then, should cast. Using 'not greater 4' instead of 'less than 5' to handle null/undefined case correctly*/»(«elementType») «ENDIF»«iteratorVar».next();
 «ENDDEFINE»
 
 // uses default iterator name, 'it'  
@@ -46,7 +46,7 @@ for (<elementType> <elementVar> : <iterationSource>) {
 «ENDDEFINE»
 
 «DEFINE emptyList FOR gmfgen::GenCommonBase-»
-«IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4 -»
+«IF self.jdkComplianceLevel() > 4 -»
 java.util.Collections.emptyList()«ELSE-»
 java.util.Collections.EMPTY_LIST«ENDIF-»
 «ENDDEFINE»
