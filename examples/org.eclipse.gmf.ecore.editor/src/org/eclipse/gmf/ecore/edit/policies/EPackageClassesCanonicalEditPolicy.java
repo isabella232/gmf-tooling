@@ -12,12 +12,12 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.ecore.edit.parts.EClass2EditPart;
 import org.eclipse.gmf.ecore.part.EcoreDiagramUpdater;
@@ -34,14 +34,9 @@ public class EPackageClassesCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
-	Set myFeaturesToSynchronize;
-
-	/**
-	 * @generated
-	 */
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
-		List result = new LinkedList();
+		LinkedList<EObject> result = new LinkedList<EObject>();
 		for (Iterator it = EcoreDiagramUpdater.getEPackageClasses_7004SemanticChildren(viewObject).iterator(); it.hasNext();) {
 			result.add(((EcoreNodeDescriptor) it.next()).getModelElement());
 		}
@@ -72,12 +67,8 @@ public class EPackageClassesCanonicalEditPolicy extends CanonicalEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected Set getFeaturesToSynchronize() {
-		if (myFeaturesToSynchronize == null) {
-			myFeaturesToSynchronize = new HashSet();
-			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
-		}
-		return myFeaturesToSynchronize;
+	protected EStructuralFeature getFeatureToSynchronize() {
+		return EcorePackage.eINSTANCE.getEPackage_EClassifiers();
 	}
 
 }

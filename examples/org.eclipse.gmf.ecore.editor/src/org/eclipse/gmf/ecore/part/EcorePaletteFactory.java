@@ -12,6 +12,7 @@
 package org.eclipse.gmf.ecore.part;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.gef.Tool;
@@ -22,6 +23,7 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -87,7 +89,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEClass1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(EcoreElementTypes.EClass_2001);
 		types.add(EcoreElementTypes.EClass_3004);
 		NodeToolEntry entry = new NodeToolEntry(Messages.EClass1CreationTool_title, Messages.EClass1CreationTool_desc, types);
@@ -101,7 +103,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEPackage2CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(EcoreElementTypes.EPackage_2002);
 		types.add(EcoreElementTypes.EPackage_3005);
 		NodeToolEntry entry = new NodeToolEntry(Messages.EPackage2CreationTool_title, Messages.EPackage2CreationTool_desc, types);
@@ -115,7 +117,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEAnnotation3CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(EcoreElementTypes.EAnnotation_3003);
 		types.add(EcoreElementTypes.EAnnotation_2003);
 		NodeToolEntry entry = new NodeToolEntry(Messages.EAnnotation3CreationTool_title, Messages.EAnnotation3CreationTool_desc, types);
@@ -129,7 +131,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEDataType4CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(EcoreElementTypes.EDataType_3006);
 		types.add(EcoreElementTypes.EDataType_2004);
 		NodeToolEntry entry = new NodeToolEntry(Messages.EDataType4CreationTool_title, Messages.EDataType4CreationTool_desc, types);
@@ -143,7 +145,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEEnum5CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(2);
+		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 		types.add(EcoreElementTypes.EEnum_3007);
 		types.add(EcoreElementTypes.EEnum_2005);
 		NodeToolEntry entry = new NodeToolEntry(Messages.EEnum5CreationTool_title, Messages.EEnum5CreationTool_desc, types);
@@ -157,9 +159,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEAttribute1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EAttribute_3001);
-		NodeToolEntry entry = new NodeToolEntry(Messages.EAttribute1CreationTool_title, Messages.EAttribute1CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.EAttribute1CreationTool_title, Messages.EAttribute1CreationTool_desc, Collections.singletonList(EcoreElementTypes.EAttribute_3001));
 		entry.setId("createEAttribute1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAttribute_3001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -170,9 +170,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEOperation2CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EOperation_3002);
-		NodeToolEntry entry = new NodeToolEntry(Messages.EOperation2CreationTool_title, Messages.EOperation2CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.EOperation2CreationTool_title, Messages.EOperation2CreationTool_desc, Collections.singletonList(EcoreElementTypes.EOperation_3002));
 		entry.setId("createEOperation2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EOperation_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -183,9 +181,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createAnnotationdetails3CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EStringToStringMapEntry_3008);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Annotationdetails3CreationTool_title, Messages.Annotationdetails3CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Annotationdetails3CreationTool_title, Messages.Annotationdetails3CreationTool_desc, Collections
+				.singletonList(EcoreElementTypes.EStringToStringMapEntry_3008));
 		entry.setId("createAnnotationdetails3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_3008));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -196,9 +193,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEEnumLiteral4CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EEnumLiteral_3009);
-		NodeToolEntry entry = new NodeToolEntry(Messages.EEnumLiteral4CreationTool_title, Messages.EEnumLiteral4CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.EEnumLiteral4CreationTool_title, Messages.EEnumLiteral4CreationTool_desc, Collections.singletonList(EcoreElementTypes.EEnumLiteral_3009));
 		entry.setId("createEEnumLiteral4CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_3009));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -209,9 +204,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEAnnotationreference1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EAnnotationReferences_4001);
-		LinkToolEntry entry = new LinkToolEntry(Messages.EAnnotationreference1CreationTool_title, Messages.EAnnotationreference1CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.EAnnotationreference1CreationTool_title, Messages.EAnnotationreference1CreationTool_desc, Collections
+				.singletonList(EcoreElementTypes.EAnnotationReferences_4001));
 		entry.setId("createEAnnotationreference1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotationReferences_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -222,9 +216,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createAssociation2CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EReference_4002);
-		LinkToolEntry entry = new LinkToolEntry(Messages.Association2CreationTool_title, Messages.Association2CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.Association2CreationTool_title, Messages.Association2CreationTool_desc, Collections.singletonList(EcoreElementTypes.EReference_4002));
 		entry.setId("createAssociation2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EReference_4002));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -235,9 +227,7 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createAggregation3CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EReference_4003);
-		LinkToolEntry entry = new LinkToolEntry(Messages.Aggregation3CreationTool_title, Messages.Aggregation3CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.Aggregation3CreationTool_title, Messages.Aggregation3CreationTool_desc, Collections.singletonList(EcoreElementTypes.EReference_4003));
 		entry.setId("createAggregation3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EReference_4003));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -248,9 +238,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createGeneralization4CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(EcoreElementTypes.EClassESuperTypes_4004);
-		LinkToolEntry entry = new LinkToolEntry(Messages.Generalization4CreationTool_title, Messages.Generalization4CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.Generalization4CreationTool_title, Messages.Generalization4CreationTool_desc, Collections
+				.singletonList(EcoreElementTypes.EClassESuperTypes_4004));
 		entry.setId("createGeneralization4CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EClassESuperTypes_4004));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -265,12 +254,12 @@ public class EcorePaletteFactory {
 		/**
 		 * @generated
 		 */
-		private final List elementTypes;
+		private final List<IElementType> elementTypes;
 
 		/**
 		 * @generated
 		 */
-		private NodeToolEntry(String title, String description, List elementTypes) {
+		private NodeToolEntry(String title, String description, List<IElementType> elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
@@ -293,12 +282,12 @@ public class EcorePaletteFactory {
 		/**
 		 * @generated
 		 */
-		private final List relationshipTypes;
+		private final List<IElementType> relationshipTypes;
 
 		/**
 		 * @generated
 		 */
-		private LinkToolEntry(String title, String description, List relationshipTypes) {
+		private LinkToolEntry(String title, String description, List<IElementType> relationshipTypes) {
 			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}

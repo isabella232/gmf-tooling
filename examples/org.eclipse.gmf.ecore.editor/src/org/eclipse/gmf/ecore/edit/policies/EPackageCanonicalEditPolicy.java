@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
@@ -57,14 +58,14 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	Set myFeaturesToSynchronize;
+	Set<EStructuralFeature> myFeaturesToSynchronize;
 
 	/**
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
-		List result = new LinkedList();
+		LinkedList<EObject> result = new LinkedList<EObject>();
 		for (Iterator it = EcoreDiagramUpdater.getEPackage_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
 			result.add(((EcoreNodeDescriptor) it.next()).getModelElement());
 		}
@@ -111,7 +112,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 */
 	protected Set getFeaturesToSynchronize() {
 		if (myFeaturesToSynchronize == null) {
-			myFeaturesToSynchronize = new HashSet();
+			myFeaturesToSynchronize = new HashSet<EStructuralFeature>();
 			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEPackage_EClassifiers());
 			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEPackage_ESubpackages());
 			myFeaturesToSynchronize.add(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
@@ -178,8 +179,8 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	private Collection refreshConnections() {
-		Map domain2NotationMap = new HashMap();
-		Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
+		Map<EObject, View> domain2NotationMap = new HashMap<EObject, View>();
+		Collection<EcoreLinkDescriptor> linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 		Collection existingLinks = new LinkedList(getDiagram().getEdges());
 		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 			Edge nextDiagramLink = (Edge) linksIterator.next();
@@ -193,8 +194,8 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 			EObject diagramLinkObject = nextDiagramLink.getElement();
 			EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 			EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-			for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-				EcoreLinkDescriptor nextLinkDescriptor = (EcoreLinkDescriptor) linkDescriptorsIterator.next();
+			for (Iterator<EcoreLinkDescriptor> linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
+				EcoreLinkDescriptor nextLinkDescriptor = linkDescriptorsIterator.next();
 				if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination()
 						&& diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 					linksIterator.remove();
@@ -210,11 +211,11 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection collectAllLinks(View view, Map domain2NotationMap) {
+	private Collection<EcoreLinkDescriptor> collectAllLinks(View view, Map<EObject, View> domain2NotationMap) {
 		if (!EPackageEditPart.MODEL_ID.equals(EcoreVisualIDRegistry.getModelID(view))) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
-		Collection result = new LinkedList();
+		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
 		case EPackageEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
@@ -301,10 +302,10 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection createConnections(Collection linkDescriptors, Map domain2NotationMap) {
-		List adapters = new LinkedList();
-		for (Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			final EcoreLinkDescriptor nextLinkDescriptor = (EcoreLinkDescriptor) linkDescriptorsIterator.next();
+	private Collection<IAdaptable> createConnections(Collection<EcoreLinkDescriptor> linkDescriptors, Map<EObject, View> domain2NotationMap) {
+		LinkedList<IAdaptable> adapters = new LinkedList<IAdaptable>();
+		for (Iterator<EcoreLinkDescriptor> it = linkDescriptors.iterator(); it.hasNext();) {
+			EcoreLinkDescriptor nextLinkDescriptor = it.next();
 			EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 			EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 			if (sourceEditPart == null || targetEditPart == null) {
@@ -333,7 +334,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private EditPart getEditPart(EObject domainModelElement, Map domain2NotationMap) {
+	private EditPart getEditPart(EObject domainModelElement, Map<EObject, View> domain2NotationMap) {
 		View view = (View) domain2NotationMap.get(domainModelElement);
 		if (view != null) {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);

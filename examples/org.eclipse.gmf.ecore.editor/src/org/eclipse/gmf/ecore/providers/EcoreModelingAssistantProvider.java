@@ -51,14 +51,14 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof EClassEditPart) {
-			ArrayList types = new ArrayList(3);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
 			types.add(EcoreElementTypes.EAttribute_3001);
 			types.add(EcoreElementTypes.EOperation_3002);
 			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EPackage2EditPart) {
-			ArrayList types = new ArrayList(5);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(5);
 			types.add(EcoreElementTypes.EClass_3004);
 			types.add(EcoreElementTypes.EPackage_3005);
 			types.add(EcoreElementTypes.EDataType_3006);
@@ -67,23 +67,23 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 			return types;
 		}
 		if (editPart instanceof EAnnotationEditPart) {
-			ArrayList types = new ArrayList(1);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
 			types.add(EcoreElementTypes.EStringToStringMapEntry_3008);
 			return types;
 		}
 		if (editPart instanceof EDataTypeEditPart) {
-			ArrayList types = new ArrayList(1);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
 			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EEnumEditPart) {
-			ArrayList types = new ArrayList(2);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 			types.add(EcoreElementTypes.EEnumLiteral_3009);
 			types.add(EcoreElementTypes.EAnnotation_3003);
 			return types;
 		}
 		if (editPart instanceof EPackageEditPart) {
-			ArrayList types = new ArrayList(5);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(5);
 			types.add(EcoreElementTypes.EClass_2001);
 			types.add(EcoreElementTypes.EPackage_2002);
 			types.add(EcoreElementTypes.EAnnotation_2003);
@@ -209,9 +209,9 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 			return null;
 		}
 		Diagram diagram = (Diagram) editPart.getRoot().getContents().getModel();
-		Collection elements = new HashSet();
-		for (Iterator it = diagram.getElement().eAllContents(); it.hasNext();) {
-			EObject element = (EObject) it.next();
+		HashSet<EObject> elements = new HashSet<EObject>();
+		for (Iterator<EObject> it = diagram.getElement().eAllContents(); it.hasNext();) {
+			EObject element = it.next();
 			if (isApplicableElement(element, types)) {
 				elements.add(element);
 			}
