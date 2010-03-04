@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -108,11 +108,13 @@ public class «factoryClassName» {
 org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.ToolEntry(«EXPAND i18nTitle», «EXPAND i18nDesc», null, null) {};
 «ELSE-»
 «LET (if genNodes->isEmpty() then 'LinkToolEntry' else 'NodeToolEntry' endif) AS toolEntryClass-»
-java.util.List/*<IElementType>*/ types = new java.util.ArrayList/*<IElementType>*/(«elements->size()»);
+«IF elements->size() > 1-»
+«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types') FOR elements->any(true)»(«elements->size()»);
 «FOREACH elements->asSequence() AS e-»
 types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR e»);
 «ENDFOREACH-»
-«toolEntryClass» «toolVarName» = new «toolEntryClass»(«EXPAND i18nTitle», «EXPAND i18nDesc», types);
+«ENDIF-»
+«toolEntryClass» «toolVarName» = new «toolEntryClass»(«EXPAND i18nTitle», «EXPAND i18nDesc», «IF elements->size() > 1»types«ELSE»java.util.Collections.singletonList(«EXPAND xpt::providers::ElementTypes::accessElementType FOR elements->first()»)«ENDIF»);
 «ENDLET-»
 «ENDIF-»
 «ENDDEFINE»
@@ -235,12 +237,12 @@ FIXME
 	}
 «ENDDEFINE»
 
-«DEFINE nodeToolEntry FOR OclAny»
+«DEFINE nodeToolEntry FOR gmfgen::Palette»
 	«EXPAND xpt::Common::generatedClassComment»
 	private static class NodeToolEntry extends org.eclipse.gef.palette.ToolEntry {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private final java.util.List elementTypes;
+		private final «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» elementTypes;
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private NodeToolEntry(String title, String description, java.util.List elementTypes) {
@@ -257,12 +259,12 @@ FIXME
 	}
 «ENDDEFINE»
 
-«DEFINE linkToolEntry FOR OclAny»
+«DEFINE linkToolEntry FOR gmfgen::Palette»
 	«EXPAND xpt::Common::generatedClassComment»
 	private static class LinkToolEntry extends org.eclipse.gef.palette.ToolEntry {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private final java.util.List relationshipTypes;
+		private final «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» relationshipTypes;
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private LinkToolEntry(String title, String description, java.util.List relationshipTypes) {
