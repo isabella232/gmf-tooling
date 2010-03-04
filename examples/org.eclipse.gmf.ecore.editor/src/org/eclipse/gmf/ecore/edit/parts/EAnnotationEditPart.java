@@ -298,17 +298,9 @@ public class EAnnotationEditPart extends ShapeNodeEditPart {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
 			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
 			types.add(EcoreElementTypes.EPackage_2002);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
 			types.add(EcoreElementTypes.EAnnotation_2003);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
 			types.add(EcoreElementTypes.EDataType_2004);
-		}
-		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
 			types.add(EcoreElementTypes.EEnum_2005);
 		}
 		return types;

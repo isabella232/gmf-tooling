@@ -306,20 +306,12 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (relationshipType == EcoreElementTypes.EReference_4002) {
 			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4002) {
 			types.add(EcoreElementTypes.EDataType_2004);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4002) {
 			types.add(EcoreElementTypes.EEnum_2005);
 		}
 		if (relationshipType == EcoreElementTypes.EReference_4003) {
 			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
 			types.add(EcoreElementTypes.EDataType_2004);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
 			types.add(EcoreElementTypes.EEnum_2005);
 		}
 		if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
