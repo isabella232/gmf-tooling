@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -73,10 +73,10 @@ protected class ResourceSetInfo extends ElementInfo {
 
 	«IF null = editorGen.application-»
 		«EXPAND xpt::Common::generatedMemberComment»
-	private org.eclipse.emf.workspace.util.WorkspaceSynchronizer mySynchronizer;
+		private org.eclipse.emf.workspace.util.WorkspaceSynchronizer mySynchronizer;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-	private java.util.Collection myUnSynchronizedResources = new java.util.ArrayList();
+		private «EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.emf.ecore.resource.Resource', 'myUnSynchronizedResources')»();
 	
 	«ENDIF-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -142,8 +142,8 @@ public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
 
 «DEFINE getLoadedResourcesIterator FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ getLoadedResourcesIterator() {
-	return new java.util.ArrayList/*<org.eclipse.emf.ecore.resource.Resource>*/(getResourceSet().getResources()).iterator();
+public «EXPAND CodeStyle::G('java.util.Iterator', 'org.eclipse.emf.ecore.resource.Resource')» getLoadedResourcesIterator() {
+	return new «EXPAND CodeStyle::G('java.util.ArrayList', 'org.eclipse.emf.ecore.resource.Resource')»(getResourceSet().getResources()).iterator();
 }
 «ENDDEFINE»
 
@@ -161,8 +161,7 @@ public void dispose() {
 	stopResourceListening();
 	«ENDIF-»
 	getResourceSet().eAdapters().remove(myResourceSetListener);
-	for (java.util.Iterator/*<org.eclipse.emf.ecore.resource.Resource>*/ it = getLoadedResourcesIterator(); it.hasNext();) {
-		org.eclipse.emf.ecore.resource.Resource resource = (org.eclipse.emf.ecore.resource.Resource) it.next();
+	«EXPAND CodeStyle::iterate('resource', 'org.eclipse.emf.ecore.resource.Resource', 'getLoadedResourcesIterator()')-»
 		resource.unload();
 	}
 	getEditingDomain().dispose();
