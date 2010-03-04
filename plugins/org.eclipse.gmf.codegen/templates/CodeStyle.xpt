@@ -21,3 +21,15 @@
 // java.util.List<String> varName = new Type<TypeArgument>
 // note, no constructor parameters, callers should add (); or whatever they think is reasonable
 «DEFINE newGenericInstance(String type, String typeArgument, String varName) FOR gmfgen::GenCommonBase»«EXPAND G(type, typeArgument)» «varName» = new «EXPAND G(type, typeArgument)»«ENDDEFINE»
+
+// iterate cycle with explicit iterator variable
+«DEFINE iterate(String elementVar, String elementType, String iteratorVar, String iterationSource) FOR gmfgen::GenCommonBase-»
+for («EXPAND G('java.util.Iterator', elementType)» «iteratorVar» = «iterationSource»; «iteratorVar».hasNext();) {
+	«elementType» «elementVar» = «IF true /*not isGenericsInUse*/»(«elementType») «ENDIF»«iteratorVar».next();
+«ENDDEFINE»
+
+// uses default iterator name, 'it'
+// TODO also support Java5-style iterate cycle, no explicit iterator
+«DEFINE iterate(String elementVar, String elementType, String iterationSource) FOR gmfgen::GenCommonBase-»
+«EXPAND iterate(elementVar, elementType, 'it', iterationSource)-»
+«ENDDEFINE»
