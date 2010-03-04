@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -125,6 +125,7 @@ public class «className» {
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private static void initCustomEnv(org.eclipse.ocl.Environment ecoreEnv, java.util.Map environment) {
+			«EXPAND initializeEnvironment('ecoreEnv')-»
 			for (java.util.Iterator it = environment.keySet().iterator(); it.hasNext();) {
 				String varName = (String) it.next();
 				org.eclipse.emf.ecore.EClassifier varType = (org.eclipse.emf.ecore.EClassifier) environment.get(varName);
@@ -143,6 +144,13 @@ public class «className» {
 	}
 	«EXPAND additions-»
 }
+«ENDDEFINE»
+
+/*
+ * Clients may override if they don't need
+ */
+«DEFINE initializeEnvironment(String environmentVar) FOR gmfgen::GenExpressionInterpreter-»
+org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse.ocl.options.ParsingOptions.implicitRootClass(«environmentVar»), org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEObject());
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenExpressionInterpreter»«ENDDEFINE»
