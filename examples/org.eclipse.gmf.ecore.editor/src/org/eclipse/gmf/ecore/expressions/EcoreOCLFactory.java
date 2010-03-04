@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.ParserException;
@@ -27,6 +28,7 @@ import org.eclipse.ocl.expressions.OCLExpression;
 import org.eclipse.ocl.expressions.OperationCallExp;
 import org.eclipse.ocl.expressions.Variable;
 import org.eclipse.ocl.helper.OCLHelper;
+import org.eclipse.ocl.options.ParsingOptions;
 import org.eclipse.ocl.utilities.AbstractVisitor;
 import org.eclipse.ocl.utilities.PredefinedType;
 
@@ -159,6 +161,7 @@ public class EcoreOCLFactory {
 		 * @generated
 		 */
 		private static void initCustomEnv(Environment ecoreEnv, Map environment) {
+			ParsingOptions.setOption(ecoreEnv, ParsingOptions.implicitRootClass(ecoreEnv), EcorePackage.eINSTANCE.getEObject());
 			for (Iterator it = environment.keySet().iterator(); it.hasNext();) {
 				String varName = (String) it.next();
 				EClassifier varType = (EClassifier) environment.get(varName);
