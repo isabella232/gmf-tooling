@@ -28,6 +28,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
+/**
+ * GenNavigatorChildReference may relate parent and child not directly connected to each other (but not completely unrelated, though).
+ * To accomplish that, we build connection paths for those non-directly related elements, and use these paths at code generation time.
+ * This class is basically an utility to find connection path for any parent-child pair of navigator elements demanded by user with 
+ * GenNavigatorChildReference in its genmodel. 
+ */
 public class GenModelGraphAnalyzer {
 
 	/**
