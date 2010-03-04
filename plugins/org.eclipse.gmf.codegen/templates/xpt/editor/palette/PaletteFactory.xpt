@@ -245,7 +245,7 @@ FIXME
 		private final «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» elementTypes;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private NodeToolEntry(String title, String description, java.util.List elementTypes) {
+		private NodeToolEntry(String title, String description, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
@@ -267,7 +267,7 @@ FIXME
 		private final «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» relationshipTypes;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private LinkToolEntry(String title, String description, java.util.List relationshipTypes) {
+		private LinkToolEntry(String title, String description, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» relationshipTypes) {
 			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}
