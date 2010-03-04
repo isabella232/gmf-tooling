@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,11 +31,12 @@
 	«EXPAND getFeaturesToSynchronize-»
 «ENDDEFINE»
 
+// XXX package-local access? why not private?
 «DEFINE attributes FOR gmfgen::GenContainerBase-»
-«IF getSemanticChildrenContainmentFeatures(self)->size() > 0-»
+«IF getSemanticChildrenContainmentFeatures(self)->size() > 1-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-java.util.Set myFeaturesToSynchronize;
+	«EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.emf.ecore.EStructuralFeature')» myFeaturesToSynchronize;
 «ENDIF-»
 «ENDDEFINE»
 
@@ -44,7 +45,7 @@ java.util.Set myFeaturesToSynchronize;
 protected java.util.List getSemanticChildrenList() {
 	«IF hasSemanticChildren(self)-»
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
-	java.util.List result = new java.util.LinkedList();
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.emf.ecore.EObject', 'result')»();
 	for (java.util.Iterator it = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject).iterator(); it.hasNext();) {
 		result.add(((«getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()») it.next()).getModelElement());
 	}
@@ -147,16 +148,22 @@ private void populateViewProperties(org.eclipse.gmf.runtime.notation.View oldVie
 «ENDDEFINE»
 
 «DEFINE getFeaturesToSynchronize FOR gmfgen::GenContainerBase-»
-«IF getSemanticChildrenChildFeatures(self)->size() > 0-»
+«IF getSemanticChildrenChildFeatures(self)->size() = 1-»
 
-		«EXPAND xpt::Common::generatedMemberComment»
-protected java.util.Set getFeaturesToSynchronize(){
-	if (myFeaturesToSynchronize == null) {
-		myFeaturesToSynchronize = new java.util.HashSet();
-		«EXPAND addContainmentFeature FOREACH getSemanticChildrenContainmentFeatures(self)-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.emf.ecore.EStructuralFeature getFeatureToSynchronize() {
+		return «EXPAND MetaModel::MetaFeature FOR getSemanticChildrenContainmentFeatures(self)->any(true)»;
 	}
-	return myFeaturesToSynchronize;
-}
+«ELSEIF getSemanticChildrenChildFeatures(self)->size() > 1-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected java.util.Set getFeaturesToSynchronize() {
+		if (myFeaturesToSynchronize == null) {
+			myFeaturesToSynchronize = new «EXPAND CodeStyle::G('java.util.HashSet', 'org.eclipse.emf.ecore.EStructuralFeature')»();
+			«EXPAND addContainmentFeature FOREACH getSemanticChildrenContainmentFeatures(self)-»
+		}
+		return myFeaturesToSynchronize;
+	}
 «ENDIF-»
 «ENDDEFINE»
 

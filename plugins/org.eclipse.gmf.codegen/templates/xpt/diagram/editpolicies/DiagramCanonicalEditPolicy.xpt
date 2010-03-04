@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -104,8 +104,8 @@ protected void refreshSemantic() {
 «DEFINE refreshConnections FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 private java.util.Collection refreshConnections() {
-	java.util.Map domain2NotationMap = new java.util.HashMap();
-	java.util.Collection linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
+	«EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap = new «EXPAND CodeStyle::G2('java.util.HashMap', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')»();
+	«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 	java.util.Collection existingLinks = new java.util.LinkedList(getDiagram().getEdges());
 	for (java.util.Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Edge nextDiagramLink = (org.eclipse.gmf.runtime.notation.Edge) linksIterator.next();
@@ -119,8 +119,7 @@ private java.util.Collection refreshConnections() {
 		org.eclipse.emf.ecore.EObject diagramLinkObject = nextDiagramLink.getElement();
 		org.eclipse.emf.ecore.EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 		org.eclipse.emf.ecore.EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
-		for (java.util.Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			«editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
+		«EXPAND CodeStyle::iterate('nextLinkDescriptor', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'linkDescriptorsIterator', 'linkDescriptors.iterator()')-»
 			if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 				linksIterator.remove();
 				linkDescriptorsIterator.remove();
@@ -137,11 +136,11 @@ private java.util.Collection refreshConnections() {
 
 «DEFINE collectAllLinks FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.View view, java.util.Map domain2NotationMap) {
+private «EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» collectAllLinks(org.eclipse.gmf.runtime.notation.View view, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
 	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view))) {
-		return java.util.Collections.EMPTY_LIST;
+		return «EXPAND CodeStyle::emptyList»;
 	}
-	java.util.Collection result = new java.util.LinkedList();
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'result')»();
 	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view)) {
 		«EXPAND caseSemanticElement FOREACH getAllSemanticElements(self)-»
 	}
@@ -186,10 +185,9 @@ private java.util.Collection collectAllLinks(org.eclipse.gmf.runtime.notation.Vi
 
 «DEFINE createConnections FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection createConnections(java.util.Collection linkDescriptors, java.util.Map domain2NotationMap) {
-	java.util.List adapters = new java.util.LinkedList();
-	for (java.util.Iterator linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-		final «editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()» nextLinkDescriptor = («editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()») linkDescriptorsIterator.next();
+private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.IAdaptable')»  createConnections(«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable', 'adapters')»();
+	«EXPAND CodeStyle::iterate('nextLinkDescriptor', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'linkDescriptors.iterator()')-»
 		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {
@@ -217,7 +215,7 @@ private java.util.Collection createConnections(java.util.Collection linkDescript
 
 «DEFINE getEditPart FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domainModelElement, java.util.Map domain2NotationMap) {
+private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domainModelElement, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) domain2NotationMap.get(domainModelElement);
 	if (view != null) {
 		return (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -63,13 +63,13 @@ public static boolean isShortcutOrphaned(org.eclipse.gmf.runtime.notation.View v
 
 «DEFINE getGenericSemanticChildrenOfView(semanticContainers : Sequence(gmfgen::GenContainerBase)) FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
+public static «EXPAND CodeStyle::G('java.util.List', getNodeDescriptorQualifiedClassName()) FOR editorGen.diagram» getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
 	«IF not semanticContainers->isEmpty()-»
 	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
 		«EXPAND getSemanticChildrenCase FOREACH semanticContainers-»
 	}
 	«ENDIF-»
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList FOR editorGen.diagram»;
 }
 «ENDDEFINE»
 
@@ -81,10 +81,10 @@ public static java.util.List getSemanticChildren(org.eclipse.gmf.runtime.notatio
 «DEFINE getSemanticChildrenOfView FOR gmfgen::GenContainerBase-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+public static «EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName())» «EXPAND getSemanticChildrenMethodName»(org.eclipse.gmf.runtime.notation.View view) {
 	«IF getSemanticChildrenChildFeatures(self)->size() > 0 or self.getPhantomNodes()->size() > 0-»
 	«EXPAND defineModelElement-»
-	java.util.List result = new java.util.LinkedList();
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName(), 'result')»();
 «REM»childMetaFeature can be null here!«ENDREM»«-»
 		«FOREACH getSemanticChildrenChildFeatures(self) AS childMetaFeature-»
 			«IF null = childMetaFeature-»
@@ -111,25 +111,25 @@ public static java.util.List «EXPAND getSemanticChildrenMethodName»(org.eclips
 		«ENDIF-»		
 	return result;
 	«ELSE-»
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList»;
 	«ENDIF-»
 }
 «ENDDEFINE»
 
 «DEFINE defineModelElement FOR gmfgen::GenContainerBase-»
 if (!view.isSetElement()) {
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList»;
 }
 «EXPAND MetaModel::DeclareAndAssign('modelElement', 'view.getElement()') FOR self.getModelElementType()»
 «ENDDEFINE»
 
 «DEFINE defineModelElement FOR gmfgen::GenCompartment-»
 if (false == view.eContainer() instanceof org.eclipse.gmf.runtime.notation.View) {
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList»;
 }
 org.eclipse.gmf.runtime.notation.View containerView = (org.eclipse.gmf.runtime.notation.View) view.eContainer();
 if (!containerView.isSetElement()) {
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList»;
 }
 «EXPAND MetaModel::DeclareAndAssign('modelElement', 'containerView.getElement()') FOR self.getModelElementType()»
 «ENDDEFINE»
@@ -167,13 +167,13 @@ private static java.util.Iterator getPhantomNodesIterator(org.eclipse.emf.ecore.
 
 «DEFINE getGenericConnectedLinks(linkContainers : Sequence(gmfgen::GenCommonBase), methodNameSuffix : String) FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::generatedMemberComment»
-public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtime.notation.View view) {
+public static «EXPAND CodeStyle::G('java.util.List', getLinkDescriptorQualifiedClassName()) FOR editorGen.diagram» get«methodNameSuffix»Links(org.eclipse.gmf.runtime.notation.View view) {
 	«IF not linkContainers->isEmpty()-»
 	switch («EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall FOR editorGen.diagram»(view)) {
 		«EXPAND getContainedLinksCase(methodNameSuffix) FOREACH linkContainers-»
 	}
 	«ENDIF-»
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList FOR editorGen.diagram»;
 }
 «ENDDEFINE»
 
@@ -208,19 +208,19 @@ public static java.util.List get«methodNameSuffix»Links(org.eclipse.gmf.runtim
 «DEFINE getConnectedLinks(genLinks : Sequence(gmfgen::GenLink), methodNameSuffix : String, needCrossReferencer : Boolean) FOR gmfgen::GenCommonBase-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.eclipse.gmf.runtime.notation.View view) {
+public static «EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» «EXPAND linkGetterName(methodNameSuffix)»(org.eclipse.gmf.runtime.notation.View view) {
 	«IF not genLinks->isEmpty()-»
 		«LET self.getMetaClass() AS metaclass-»
 	«EXPAND MetaModel::DeclareAndAssign('modelElement', 'view.getElement()') FOR metaclass»
 			«IF needCrossReferencer-»
 	java.util.Map crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 			«ENDIF-»
-	java.util.List result = new java.util.LinkedList();
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'result')»();
 			«EXPAND colectConnectedLinks(methodNameSuffix, needCrossReferencer, isExternalInterface(metaclass)) FOREACH genLinks-»
 	return result;
 		«ENDLET-»
 	«ELSE-»
-	return java.util.Collections.EMPTY_LIST;
+	return «EXPAND CodeStyle::emptyList»;
 	«ENDIF-»
 }
 «ENDDEFINE»
@@ -282,13 +282,13 @@ public static java.util.List «EXPAND linkGetterName(methodNameSuffix)»(org.ecl
 «DEFINE getContainedLinksByTypeMethod(genLink : gmfgen::GenLink) FOR gmfgen::TypeLinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR childMetaFeature.genClass» container) {
+private static «EXPAND CodeStyle::G('java.util.Collection', genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()) FOR genLink» «EXPAND getConnectedLinksByTypeMethodName(getContainedLinksMethodNameSuffix()) FOR genLink»(«EXPAND MetaModel::QualifiedClassName FOR childMetaFeature.genClass» container) {
 	«EXPAND getContainedLinksByTypeMethodBody(genLink, false)-»
 }
 «ENDDEFINE»
 
 «DEFINE getContainedLinksByTypeMethodBody(genLink : gmfgen::GenLink, sourceVarDefined : Boolean) FOR gmfgen::TypeLinkModelFacet-»
-java.util.Collection result = new java.util.LinkedList();
+«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'result') FOR genLink»();
 	«LET isListType(childMetaFeature) AS inLoop-»
 «IF inLoop-»
 for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue('container', childMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
@@ -379,8 +379,8 @@ return result;
 «DEFINE getIncomingLinksByTypeMethod FOR gmfgen::GenLink-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getTargetType()» target, java.util.Map crossReferences) {
-	java.util.Collection result = new java.util.LinkedList();
+private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» «EXPAND getConnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getTargetType()» target, java.util.Map crossReferences) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'result')»();
 	java.util.Collection settings = (java.util.Collection) crossReferences.get(target);
 	for (java.util.Iterator it = settings.iterator(); it.hasNext();) {
 		org.eclipse.emf.ecore.EStructuralFeature.Setting setting = (org.eclipse.emf.ecore.EStructuralFeature.Setting) it.next();
@@ -427,13 +427,14 @@ if (setting.getEStructuralFeature() == «EXPAND MetaModel::MetaFeature FOR metaF
 	«EXPAND getOutgoingLinksByTypeMethod(self) FOR modelFacet-»
 «ENDDEFINE»
 
-«DEFINE getOutgoingLinksByTypeMethodSignature FOR gmfgen::GenLink»private static java.util.Collection «EXPAND getConnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getSourceType()» source)«ENDDEFINE»
+«DEFINE getOutgoingLinksByTypeMethodSignature FOR gmfgen::GenLink-»
+private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» «EXPAND getConnectedLinksByTypeMethodName(getOutgoingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getSourceType()» source)«ENDDEFINE»
 
 «DEFINE getOutgoingLinksByTypeMethod(genLink : gmfgen::GenLink) FOR gmfgen::FeatureLinkModelFacet-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 «EXPAND getOutgoingLinksByTypeMethodSignature FOR genLink» {
-	java.util.Collection result = new java.util.LinkedList();
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'result') FOR genLink»();
 	«IF isListType(metaFeature)-»
 	for (java.util.Iterator destinations = «EXPAND MetaModel::getFeatureValue('source', getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
 		«EXPAND MetaModel::DeclareAndAssign('destination', 'destinations.next()', true) FOR getTargetType()»
@@ -467,7 +468,7 @@ if (setting.getEStructuralFeature() == «EXPAND MetaModel::MetaFeature FOR metaF
 		}
 	}
 	if (container == null) {
-		return java.util.Collections.EMPTY_LIST;
+		return «EXPAND CodeStyle::emptyList FOR genLink»;
 	}
 		«EXPAND getContainedLinksByTypeMethodBody(genLink, true)-»
 }		

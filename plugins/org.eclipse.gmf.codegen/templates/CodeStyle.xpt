@@ -44,3 +44,9 @@ for (<elementType> <elementVar> : <iterationSource>) {
 «ENDREM-»
 «EXPAND iterate(elementVar, elementType, 'it', iterationSource)-»
 «ENDDEFINE»
+
+«DEFINE emptyList FOR gmfgen::GenCommonBase-»
+«IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4 -»
+java.util.Collections.emptyList()«ELSE-»
+java.util.Collections.EMPTY_LIST«ENDIF-»
+«ENDDEFINE»
