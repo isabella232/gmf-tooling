@@ -263,7 +263,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnSource() {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/(3);
 		types.add(EcoreElementTypes.EReference_4002);
 		types.add(EcoreElementTypes.EReference_4003);
 		types.add(EcoreElementTypes.EClassESuperTypes_4004);
@@ -308,13 +308,11 @@ public class EClassEditPart extends ShapeNodeEditPart {
 			types.add(EcoreElementTypes.EClass_2001);
 			types.add(EcoreElementTypes.EDataType_2004);
 			types.add(EcoreElementTypes.EEnum_2005);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
+		} else if (relationshipType == EcoreElementTypes.EReference_4003) {
 			types.add(EcoreElementTypes.EClass_2001);
 			types.add(EcoreElementTypes.EDataType_2004);
 			types.add(EcoreElementTypes.EEnum_2005);
-		}
-		if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+		} else if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
 			types.add(EcoreElementTypes.EClass_2001);
 		}
 		return types;
@@ -324,7 +322,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/(4);
 		types.add(EcoreElementTypes.EAnnotationReferences_4001);
 		types.add(EcoreElementTypes.EReference_4002);
 		types.add(EcoreElementTypes.EReference_4003);
@@ -339,14 +337,11 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
 		if (relationshipType == EcoreElementTypes.EAnnotationReferences_4001) {
 			types.add(EcoreElementTypes.EAnnotation_2003);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4002) {
+		} else if (relationshipType == EcoreElementTypes.EReference_4002) {
 			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EReference_4003) {
+		} else if (relationshipType == EcoreElementTypes.EReference_4003) {
 			types.add(EcoreElementTypes.EClass_2001);
-		}
-		if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
+		} else if (relationshipType == EcoreElementTypes.EClassESuperTypes_4004) {
 			types.add(EcoreElementTypes.EClass_2001);
 		}
 		return types;

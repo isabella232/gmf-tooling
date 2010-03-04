@@ -265,7 +265,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/getMARelTypesOnTarget() {
-		List/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/();
+		ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/types = new ArrayList/*<org.eclipse.gmf.runtime.emf.type.core.IElementType>*/(1);
 		types.add(EcoreElementTypes.EAnnotationReferences_4001);
 		return types;
 	}
