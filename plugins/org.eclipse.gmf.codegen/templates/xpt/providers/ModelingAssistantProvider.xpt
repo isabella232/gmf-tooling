@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -58,7 +58,7 @@ public class «modelingAssistantProviderClassName»
 		«FOREACH getAllContainers()->asSequence() AS container-»
 			«IF container.getAssistantNodes()->size() > 0-»
 		if (editPart instanceof «container.getEditPartQualifiedClassName()») {
-			java.util.ArrayList types = new java.util.ArrayList(«container.getAssistantNodes()->size()»);
+			«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»(«container.getAssistantNodes()->size()»);
 				«FOREACH container.getAssistantNodes()->asSequence() AS node-»
 			types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR node»);
 				«ENDFOREACH-»
@@ -194,9 +194,8 @@ public class «modelingAssistantProviderClassName»
 		}
 		org.eclipse.gmf.runtime.notation.Diagram diagram =
 				(org.eclipse.gmf.runtime.notation.Diagram) editPart.getRoot().getContents().getModel();
-		java.util.Collection elements = new java.util.HashSet();
-		for (java.util.Iterator it = diagram.getElement().eAllContents(); it.hasNext();) {
-			org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) it.next();
+		«EXPAND CodeStyle::newGenericInstance('java.util.HashSet', 'org.eclipse.emf.ecore.EObject', 'elements')»();
+		«EXPAND CodeStyle::iterate('element', 'org.eclipse.emf.ecore.EObject', 'diagram.getElement().eAllContents()')-»
 			if (isApplicableElement(element, types)) {
 				elements.add(element);
 			}

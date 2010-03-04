@@ -214,19 +214,30 @@ public boolean hasChildren(Object element) {
 «ENDDEFINE»
 
 «DEFINE getFileChildren FOR gmfgen::GenNavigator-»
-	«EXPAND getFileResoruce-»
-java.util.Collection result = new java.util.ArrayList();
+	«EXPAND getFileResource-»
+	«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', getNavigatorItemQualifiedClassName(), 'result') FOR editorGen.diagram»();
 	«LET getChildReferencesFrom(self, null) AS _references-»
 		«EXPAND initGroupVariables(self, _references, 'file', null) FOREACH getGroupNames(_references)-»
+		«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.notation.View', 'topViews') FOR editorGen.diagram»(resource.getContents().size());
+		«EXPAND CodeStyle::iterate('o', 'org.eclipse.emf.ecore.EObject', 'resource.getContents().iterator()') FOR editorGen.diagram-»
+			if (o instanceof org.eclipse.gmf.runtime.notation.View) {
+				topViews.add((org.eclipse.gmf.runtime.notation.View) o);
+			}
+		}
 		«FOREACH _references AS ref-»
-			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(resource.getContents(), «EXPAND getChildViewType FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
+			«EXPAND addNavigatorItemsPrefix FOR ref»selectViewsByType(topViews, «EXPAND getChildViewType FOR ref.child»)«EXPAND addNavigatorItemsSuffix('file', false) FOR ref-»
 		«ENDFOREACH-»
 		«EXPAND addGroups(_references) FOREACH getGroupNames(_references)-»
 	«ENDLET-»
-return result.toArray();
+	return result.toArray();
 «ENDDEFINE»
 
+// TODO remove this incorectly named template in the next release, and inline, perhaps?
 «DEFINE getFileResoruce FOR gmfgen::GenNavigator-»
+// FIXME type in the template has been fixed (getFileResoruce --> getFileResource), please update your dynamic templates !!!
+«EXPAND getFileResource-»
+«ENDDEFINE»
+«DEFINE getFileResource FOR gmfgen::GenNavigator-»
 org.eclipse.core.resources.IFile file = (org.eclipse.core.resources.IFile) parentElement;
 org.eclipse.emf.common.util.URI fileURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file.getFullPath().toString(), true);
 org.eclipse.emf.ecore.resource.Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
@@ -274,8 +285,8 @@ private Object[] getViewChildren(org.eclipse.gmf.runtime.notation.View view, Obj
 
 «DEFINE utilityMethods FOR  gmfgen::GenNavigator-»
 «EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection getLinksSourceByType(java.util.Collection edges, String type) {
-	java.util.Collection result = new java.util.ArrayList();
+private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» getLinksSourceByType(java.util.Collection edges, String type) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
  	for (java.util.Iterator it = edges.iterator(); it.hasNext();) {
  		org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) it.next();
  		org.eclipse.gmf.runtime.notation.View nextEdgeSource = nextEdge.getSource();
@@ -287,8 +298,8 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, St
 }
 	
 «EXPAND xpt::Common::generatedMemberComment»
- private java.util.Collection getLinksTargetByType(java.util.Collection edges, String type) {
-	java.util.Collection result = new java.util.ArrayList();
+ private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» getLinksTargetByType(java.util.Collection edges, String type) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
  	for (java.util.Iterator it = edges.iterator(); it.hasNext();) {
  		org.eclipse.gmf.runtime.notation.Edge nextEdge = (org.eclipse.gmf.runtime.notation.Edge) it.next();
  		org.eclipse.gmf.runtime.notation.View nextEdgeTarget = nextEdge.getTarget();
@@ -300,30 +311,27 @@ private java.util.Collection getLinksSourceByType(java.util.Collection edges, St
 }
 
 «EXPAND xpt::Common::generatedMemberComment»
- private java.util.Collection getOutgoingLinksByType(java.util.Collection nodes, String type) {
-	java.util.Collection result = new java.util.ArrayList();
- 	for (java.util.Iterator it = nodes.iterator(); it.hasNext();) {
- 		org.eclipse.gmf.runtime.notation.View nextNode = (org.eclipse.gmf.runtime.notation.View) it.next();
+ private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» getOutgoingLinksByType(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» nodes, String type) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
+ 	«EXPAND CodeStyle::iterate('nextNode', 'org.eclipse.gmf.runtime.notation.View', 'nodes.iterator()') FOR editorGen.diagram-»
 		result.addAll(selectViewsByType(nextNode.getSourceEdges(), type));
  	}
  	return result;
 }
 	
 «EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection getIncomingLinksByType(java.util.Collection nodes, String type) {
-	java.util.Collection result = new java.util.ArrayList();
- 	for (java.util.Iterator it = nodes.iterator(); it.hasNext();) {
- 		org.eclipse.gmf.runtime.notation.View nextNode = (org.eclipse.gmf.runtime.notation.View) it.next();
+private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» getIncomingLinksByType(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» nodes, String type) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
+ 	«EXPAND CodeStyle::iterate('nextNode', 'org.eclipse.gmf.runtime.notation.View', 'nodes.iterator()') FOR editorGen.diagram-»
 		result.addAll(selectViewsByType(nextNode.getTargetEdges(), type));
  	}
  	return result;
 }
 	
 «EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection getChildrenByType(java.util.Collection nodes, String type) {
-	java.util.Collection result = new java.util.ArrayList();
-	for (java.util.Iterator it = nodes.iterator(); it.hasNext();) {
-		org.eclipse.gmf.runtime.notation.View nextNode = (org.eclipse.gmf.runtime.notation.View) it.next();
+private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» getChildrenByType(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» nodes, String type) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
+	«EXPAND CodeStyle::iterate('nextNode', 'org.eclipse.gmf.runtime.notation.View', 'nodes.iterator()') FOR editorGen.diagram-»
 		result.addAll(selectViewsByType(nextNode.getChildren(), type));
 	}
 	return result;
@@ -339,11 +347,11 @@ private java.util.Collection getDiagramLinksByType(java.util.Collection diagrams
 	return result;
 }
 
+// TODO refactor as static method
 «EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection selectViewsByType(java.util.Collection views, String type) {
-	java.util.Collection result = new java.util.ArrayList();
-	for (java.util.Iterator it = views.iterator(); it.hasNext();) {
-		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
+private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» selectViewsByType(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» views, String type) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
+	«EXPAND CodeStyle::iterate('nextView', 'org.eclipse.gmf.runtime.notation.View', 'views.iterator()') FOR editorGen.diagram-»
 		if (type.equals(nextView.getType()) && isOwnView(nextView)) {
 			result.add(nextView);
 		}
@@ -357,10 +365,10 @@ private boolean isOwnView(org.eclipse.gmf.runtime.notation.View view) {
 }
 	
 «EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection createNavigatorItems(java.util.Collection views, Object parent, boolean isLeafs) {
-	java.util.Collection result = new java.util.ArrayList();
-	for (java.util.Iterator it = views.iterator(); it.hasNext();) {
-		result.add(new «getNavigatorItemQualifiedClassName()»((org.eclipse.gmf.runtime.notation.View) it.next(), parent, isLeafs));
+private «EXPAND CodeStyle::G('java.util.Collection', getNavigatorItemQualifiedClassName()) FOR editorGen.diagram» createNavigatorItems(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View') FOR editorGen.diagram» views, Object parent, boolean isLeafs) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', getNavigatorItemQualifiedClassName(), 'result') FOR editorGen.diagram»(views.size());
+	«EXPAND CodeStyle::iterate('nextView', 'org.eclipse.gmf.runtime.notation.View', 'views.iterator()') FOR editorGen.diagram-»
+		result.add(new «getNavigatorItemQualifiedClassName()»(nextView, parent, isLeafs));
 	}
 	return result;
 }
@@ -371,10 +379,9 @@ private java.util.Collection createNavigatorItems(java.util.Collection views, Ob
 	«IF editorGen.diagram.generateCreateShortcutAction() and getChildReferencesFrom(self, editorGen.diagram)->size() > 0-»
 	
 «EXPAND xpt::Common::generatedMemberComment»
-private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
-	java.util.Collection result = new java.util.ArrayList();
-	for (java.util.Iterator it = diagram.getChildren().iterator(); it.hasNext();) {
-		org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
+private «EXPAND CodeStyle::G('java.util.Collection', getNavigatorItemQualifiedClassName()) FOR editorGen.diagram» getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'result') FOR editorGen.diagram»();
+	«EXPAND CodeStyle::iterate('nextView', 'org.eclipse.gmf.runtime.notation.View', 'diagram.getChildren().iterator()') FOR editorGen.diagram-»
 		if (!isOwnView(nextView) && nextView.getEAnnotation("Shortcut") != null) { «EXPAND xpt::Common::nonNLS»
 			result.add(nextView);
 		}
@@ -414,12 +421,12 @@ private java.util.Collection getForeignShortcuts(org.eclipse.gmf.runtime.notatio
 
 «DEFINE caseNavigatorNode(navigator : gmfgen::GenNavigator) FOR gmfgen::GenCommonBase»
 «EXPAND xpt::Common::caseVisualID» {
-	java.util.Collection result = new java.util.ArrayList();
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', navigator.getAbstractNavigatorItemQualifiedClassName(), 'result')»();
 	«EXPAND addForeignShortcuts FOR self-»
 	«LET getChildReferencesFrom(navigator, self) AS _references-»
 		«EXPAND initGroupVariables(navigator, _references, 'parentElement', self) FOREACH getGroupNames(_references)-»
 		«IF _references->notEmpty() and _references->findConnectionPaths()->notEmpty()-»
-		java.util.Collection connectedViews;
+		«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.gmf.runtime.notation.View')» connectedViews;
 		«FOREACH _references AS reference-»
 			«FOREACH reference.findConnectionPaths() AS path-»
 				«FOREACH path.segments->asSequence() AS segment ITERATOR segmentsIterator-»

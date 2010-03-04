@@ -16,12 +16,16 @@
 
 // Generic types
 «DEFINE G(String type) FOR gmfgen::GenCommonBase»«IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4»<«type»>«ELSE»/*[«type»]*/«ENDIF»«ENDDEFINE»
+«DEFINE G2(String type1, String type2) FOR gmfgen::GenCommonBase»«IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4»<«type1», «type2»>«ELSE»/*[«type1», «type2»]*/«ENDIF»«ENDDEFINE»
 
-// java.util.List<String>
+// e.g. java.util.List<String>
 «DEFINE G(String type, String typeArgument) FOR gmfgen::GenCommonBase»«type»«EXPAND G(typeArgument)»«ENDDEFINE»
+// e.g. java.util.Map<String, Integer>
+«DEFINE G2(String type, String typeArgument1, String typeArgument2) FOR gmfgen::GenCommonBase»«type»«EXPAND G2(typeArgument1, typeArgument2)»«ENDDEFINE»
 
 // java.util.List<String> varName = new Type<TypeArgument>
 // note, no constructor parameters, callers should add (); or whatever they think is reasonable
+// XXX perhaps, varName should go first, to be consistent with iterate?
 «DEFINE newGenericInstance(String type, String typeArgument, String varName) FOR gmfgen::GenCommonBase»«EXPAND G(type, typeArgument)» «varName» = new «EXPAND G(type, typeArgument)»«ENDDEFINE»
 
 // iterate cycle with explicit iterator variable
