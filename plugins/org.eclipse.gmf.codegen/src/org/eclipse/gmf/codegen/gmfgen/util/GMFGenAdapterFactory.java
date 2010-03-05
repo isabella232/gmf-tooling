@@ -289,6 +289,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createDesignLabelModelFacetAdapter();
 			}
 			@Override
+			public Adapter caseExpressionLabelModelFacet(ExpressionLabelModelFacet object) {
+				return createExpressionLabelModelFacetAdapter();
+			}
+			@Override
 			public Adapter caseAttributes(Attributes object) {
 				return createAttributesAdapter();
 			}
@@ -607,6 +611,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePredefinedParser(PredefinedParser object) {
 				return createPredefinedParserAdapter();
+			}
+			@Override
+			public Adapter caseExpressionLabelParser(ExpressionLabelParser object) {
+				return createExpressionLabelParserAdapter();
 			}
 			@Override
 			public Adapter caseCustomParser(CustomParser object) {
@@ -1375,6 +1383,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDesignLabelModelFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet <em>Expression Label Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet
+	 * @generated
+	 */
+	public Adapter createExpressionLabelModelFacetAdapter() {
 		return null;
 	}
 
@@ -2481,6 +2503,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPredefinedParserAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser <em>Expression Label Parser</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser
+	 * @generated
+	 */
+	public Adapter createExpressionLabelParserAdapter() {
 		return null;
 	}
 

@@ -845,6 +845,16 @@ enum LabelTextAccessMethod {
 class DesignLabelModelFacet extends LabelModelFacet {
 }
 
+@genmodel(documentation="Model facet of a label calculated with an expression")
+class ExpressionLabelModelFacet extends LabelModelFacet {
+	@genmodel(documentation="Expression to calculate user-readable label value")
+	ref ValueExpression[1] viewExpression;
+	@genmodel(documentation="Optional expression to represent value for editing")
+	ref ValueExpression[?] editExpression;
+	@genmodel(documentation="Optional expression to answer whether user input is ok for further parsing")
+	ref GenConstraint[?] validateExpression;
+}
+
 /////////////
 // View Facet
 /////////////
@@ -1573,6 +1583,13 @@ class PredefinedParser extends GenParserImplementation {
 	// XXX describe contract (i.e. presense of setViewPattern/setEditPattern methods, constructors)
 	attr LabelTextAccessMethod viewMethod;
 	attr LabelTextAccessMethod editMethod;
+	@genmodel(documentation="Provides means to alter name of parser implementation class")
+	attr String[?] className;
+	op String getQualifiedClassName();
+}
+
+@genmodel(documentation="")
+class ExpressionLabelParser extends GenParserImplementation {
 	@genmodel(documentation="Provides means to alter name of parser implementation class")
 	attr String[?] className;
 	op String getQualifiedClassName();

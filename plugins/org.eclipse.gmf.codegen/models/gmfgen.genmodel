@@ -620,6 +620,11 @@
       <genFeatures property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editMethod"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//DesignLabelModelFacet"/>
+    <genClasses ecoreClass="gmfgen.ecore#//ExpressionLabelModelFacet">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ExpressionLabelModelFacet/viewExpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ExpressionLabelModelFacet/editExpression"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ExpressionLabelModelFacet/validateExpression"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>
     <genClasses ecoreClass="gmfgen.ecore#//ColorAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/foregroundColor"/>
@@ -1031,6 +1036,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/editMethod"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/className"/>
       <genOperations ecoreOperation="gmfgen.ecore#//PredefinedParser/getQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ExpressionLabelParser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExpressionLabelParser/className"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ExpressionLabelParser/getQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//CustomParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CustomParser/qualifiedName"/>

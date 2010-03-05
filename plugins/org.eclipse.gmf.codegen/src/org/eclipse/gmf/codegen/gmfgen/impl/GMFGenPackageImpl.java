@@ -422,6 +422,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass expressionLabelModelFacetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass typeLinkModelFacetEClass = null;
 
 	/**
@@ -990,6 +997,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass predefinedParserEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass expressionLabelParserEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -4100,6 +4114,45 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getExpressionLabelModelFacet() {
+		if (expressionLabelModelFacetEClass == null) {
+			expressionLabelModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(65);
+		}
+		return expressionLabelModelFacetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelModelFacet_ViewExpression() {
+        return (EReference)getExpressionLabelModelFacet().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelModelFacet_EditExpression() {
+        return (EReference)getExpressionLabelModelFacet().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelModelFacet_ValidateExpression() {
+        return (EReference)getExpressionLabelModelFacet().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getTypeLinkModelFacet() {
 		if (typeLinkModelFacetEClass == null) {
 			typeLinkModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(60);
@@ -4153,7 +4206,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getViewmap() {
 		if (viewmapEClass == null) {
-			viewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(71);
+			viewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(72);
 		}
 		return viewmapEClass;
 	}
@@ -4192,7 +4245,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getAttributes() {
 		if (attributesEClass == null) {
-			attributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(65);
+			attributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(66);
 		}
 		return attributesEClass;
 	}
@@ -4204,7 +4257,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getColorAttributes() {
 		if (colorAttributesEClass == null) {
-			colorAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(66);
+			colorAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(67);
 		}
 		return colorAttributesEClass;
 	}
@@ -4234,7 +4287,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getStyleAttributes() {
 		if (styleAttributesEClass == null) {
-			styleAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(67);
+			styleAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(68);
 		}
 		return styleAttributesEClass;
 	}
@@ -4273,7 +4326,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getResizeConstraints() {
 		if (resizeConstraintsEClass == null) {
-			resizeConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(68);
+			resizeConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(69);
 		}
 		return resizeConstraintsEClass;
 	}
@@ -4321,7 +4374,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getDefaultSizeAttributes() {
 		if (defaultSizeAttributesEClass == null) {
-			defaultSizeAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(69);
+			defaultSizeAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(70);
 		}
 		return defaultSizeAttributesEClass;
 	}
@@ -4351,7 +4404,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getLabelOffsetAttributes() {
 		if (labelOffsetAttributesEClass == null) {
-			labelOffsetAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(70);
+			labelOffsetAttributesEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(71);
 		}
 		return labelOffsetAttributesEClass;
 	}
@@ -4381,7 +4434,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getFigureViewmap() {
 		if (figureViewmapEClass == null) {
-			figureViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(73);
+			figureViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(74);
 		}
 		return figureViewmapEClass;
 	}
@@ -4402,7 +4455,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getSnippetViewmap() {
 		if (snippetViewmapEClass == null) {
-			snippetViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(74);
+			snippetViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(75);
 		}
 		return snippetViewmapEClass;
 	}
@@ -4423,7 +4476,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getInnerClassViewmap() {
 		if (innerClassViewmapEClass == null) {
-			innerClassViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(75);
+			innerClassViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(76);
 		}
 		return innerClassViewmapEClass;
 	}
@@ -4453,7 +4506,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getParentAssignedViewmap() {
 		if (parentAssignedViewmapEClass == null) {
-			parentAssignedViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(76);
+			parentAssignedViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(77);
 		}
 		return parentAssignedViewmapEClass;
 	}
@@ -4492,7 +4545,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getModeledViewmap() {
 		if (modeledViewmapEClass == null) {
-			modeledViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(77);
+			modeledViewmapEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(78);
 		}
 		return modeledViewmapEClass;
 	}
@@ -4513,7 +4566,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getValueExpression() {
 		if (valueExpressionEClass == null) {
-			valueExpressionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(78);
+			valueExpressionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(79);
 		}
 		return valueExpressionEClass;
 	}
@@ -4552,7 +4605,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenConstraint() {
 		if (genConstraintEClass == null) {
-			genConstraintEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(79);
+			genConstraintEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(80);
 		}
 		return genConstraintEClass;
 	}
@@ -4564,7 +4617,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getPalette() {
 		if (paletteEClass == null) {
-			paletteEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(80);
+			paletteEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(81);
 		}
 		return paletteEClass;
 	}
@@ -4621,7 +4674,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getEntryBase() {
 		if (entryBaseEClass == null) {
-			entryBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(81);
+			entryBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(82);
 		}
 		return entryBaseEClass;
 	}
@@ -4687,7 +4740,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getAbstractToolEntry() {
 		if (abstractToolEntryEClass == null) {
-			abstractToolEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(82);
+			abstractToolEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(83);
 		}
 		return abstractToolEntryEClass;
 	}
@@ -4726,7 +4779,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getToolEntry() {
 		if (toolEntryEClass == null) {
-			toolEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(83);
+			toolEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(84);
 		}
 		return toolEntryEClass;
 	}
@@ -4765,7 +4818,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getStandardEntry() {
 		if (standardEntryEClass == null) {
-			standardEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(84);
+			standardEntryEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(85);
 		}
 		return standardEntryEClass;
 	}
@@ -4786,7 +4839,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getToolGroupItem() {
 		if (toolGroupItemEClass == null) {
-			toolGroupItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(86);
+			toolGroupItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(87);
 		}
 		return toolGroupItemEClass;
 	}
@@ -4807,7 +4860,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getSeparator() {
 		if (separatorEClass == null) {
-			separatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(87);
+			separatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(88);
 		}
 		return separatorEClass;
 	}
@@ -4819,7 +4872,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getToolGroup() {
 		if (toolGroupEClass == null) {
-			toolGroupEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(88);
+			toolGroupEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(89);
 		}
 		return toolGroupEClass;
 	}
@@ -4876,7 +4929,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenElementInitializer() {
 		if (genElementInitializerEClass == null) {
-			genElementInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(89);
+			genElementInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(90);
 		}
 		return genElementInitializerEClass;
 	}
@@ -4897,7 +4950,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenFeatureSeqInitializer() {
 		if (genFeatureSeqInitializerEClass == null) {
-			genFeatureSeqInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(90);
+			genFeatureSeqInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(91);
 		}
 		return genFeatureSeqInitializerEClass;
 	}
@@ -4936,7 +4989,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenFeatureValueSpec() {
 		if (genFeatureValueSpecEClass == null) {
-			genFeatureValueSpecEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(91);
+			genFeatureValueSpecEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(92);
 		}
 		return genFeatureValueSpecEClass;
 	}
@@ -4957,7 +5010,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenReferenceNewElementSpec() {
 		if (genReferenceNewElementSpecEClass == null) {
-			genReferenceNewElementSpecEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(92);
+			genReferenceNewElementSpecEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(93);
 		}
 		return genReferenceNewElementSpecEClass;
 	}
@@ -4978,7 +5031,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenFeatureInitializer() {
 		if (genFeatureInitializerEClass == null) {
-			genFeatureInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(93);
+			genFeatureInitializerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(94);
 		}
 		return genFeatureInitializerEClass;
 	}
@@ -5008,7 +5061,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenLinkConstraints() {
 		if (genLinkConstraintsEClass == null) {
-			genLinkConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(94);
+			genLinkConstraintsEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(95);
 		}
 		return genLinkConstraintsEClass;
 	}
@@ -5047,7 +5100,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditRoot() {
 		if (genAuditRootEClass == null) {
-			genAuditRootEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(95);
+			genAuditRootEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(96);
 		}
 		return genAuditRootEClass;
 	}
@@ -5095,7 +5148,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditContainer() {
 		if (genAuditContainerEClass == null) {
-			genAuditContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(96);
+			genAuditContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(97);
 		}
 		return genAuditContainerEClass;
 	}
@@ -5116,7 +5169,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenRuleBase() {
 		if (genRuleBaseEClass == null) {
-			genRuleBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(97);
+			genRuleBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(98);
 		}
 		return genRuleBaseEClass;
 	}
@@ -5191,7 +5244,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditRule() {
 		if (genAuditRuleEClass == null) {
-			genAuditRuleEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(98);
+			genAuditRuleEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(99);
 		}
 		return genAuditRuleEClass;
 	}
@@ -5284,7 +5337,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenRuleTarget() {
 		if (genRuleTargetEClass == null) {
-			genRuleTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(100);
+			genRuleTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(101);
 		}
 		return genRuleTargetEClass;
 	}
@@ -5296,7 +5349,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenDomainElementTarget() {
 		if (genDomainElementTargetEClass == null) {
-			genDomainElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(101);
+			genDomainElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(102);
 		}
 		return genDomainElementTargetEClass;
 	}
@@ -5317,7 +5370,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenDiagramElementTarget() {
 		if (genDiagramElementTargetEClass == null) {
-			genDiagramElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(102);
+			genDiagramElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(103);
 		}
 		return genDiagramElementTargetEClass;
 	}
@@ -5338,7 +5391,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenDomainAttributeTarget() {
 		if (genDomainAttributeTargetEClass == null) {
-			genDomainAttributeTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(103);
+			genDomainAttributeTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(104);
 		}
 		return genDomainAttributeTargetEClass;
 	}
@@ -5368,7 +5421,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenNotationElementTarget() {
 		if (genNotationElementTargetEClass == null) {
-			genNotationElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(104);
+			genNotationElementTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(105);
 		}
 		return genNotationElementTargetEClass;
 	}
@@ -5389,7 +5442,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenMetricContainer() {
 		if (genMetricContainerEClass == null) {
-			genMetricContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(105);
+			genMetricContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(106);
 		}
 		return genMetricContainerEClass;
 	}
@@ -5419,7 +5472,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenMetricRule() {
 		if (genMetricRuleEClass == null) {
-			genMetricRuleEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(106);
+			genMetricRuleEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(107);
 		}
 		return genMetricRuleEClass;
 	}
@@ -5485,7 +5538,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditedMetricTarget() {
 		if (genAuditedMetricTargetEClass == null) {
-			genAuditedMetricTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(107);
+			genAuditedMetricTargetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(108);
 		}
 		return genAuditedMetricTargetEClass;
 	}
@@ -5515,7 +5568,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditable() {
 		if (genAuditableEClass == null) {
-			genAuditableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(108);
+			genAuditableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(109);
 		}
 		return genAuditableEClass;
 	}
@@ -5536,7 +5589,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAuditContext() {
 		if (genAuditContextEClass == null) {
-			genAuditContextEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(109);
+			genAuditContextEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(110);
 		}
 		return genAuditContextEClass;
 	}
@@ -5584,7 +5637,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenMeasurable() {
 		if (genMeasurableEClass == null) {
-			genMeasurableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(110);
+			genMeasurableEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(111);
 		}
 		return genMeasurableEClass;
 	}
@@ -5596,7 +5649,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenExpressionProviderContainer() {
 		if (genExpressionProviderContainerEClass == null) {
-			genExpressionProviderContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(111);
+			genExpressionProviderContainerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(112);
 		}
 		return genExpressionProviderContainerEClass;
 	}
@@ -5644,7 +5697,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenExpressionProviderBase() {
 		if (genExpressionProviderBaseEClass == null) {
-			genExpressionProviderBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(112);
+			genExpressionProviderBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(113);
 		}
 		return genExpressionProviderBaseEClass;
 	}
@@ -5674,7 +5727,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenJavaExpressionProvider() {
 		if (genJavaExpressionProviderEClass == null) {
-			genJavaExpressionProviderEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(113);
+			genJavaExpressionProviderEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(114);
 		}
 		return genJavaExpressionProviderEClass;
 	}
@@ -5704,7 +5757,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenExpressionInterpreter() {
 		if (genExpressionInterpreterEClass == null) {
-			genExpressionInterpreterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(114);
+			genExpressionInterpreterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(115);
 		}
 		return genExpressionInterpreterEClass;
 	}
@@ -5734,7 +5787,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenLiteralExpressionProvider() {
 		if (genLiteralExpressionProviderEClass == null) {
-			genLiteralExpressionProviderEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(115);
+			genLiteralExpressionProviderEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(116);
 		}
 		return genLiteralExpressionProviderEClass;
 	}
@@ -5746,7 +5799,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenDomainModelNavigator() {
 		if (genDomainModelNavigatorEClass == null) {
-			genDomainModelNavigatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(117);
+			genDomainModelNavigatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(118);
 		}
 		return genDomainModelNavigatorEClass;
 	}
@@ -5830,7 +5883,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenNavigator() {
 		if (genNavigatorEClass == null) {
-			genNavigatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(118);
+			genNavigatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(119);
 		}
 		return genNavigatorEClass;
 	}
@@ -6004,7 +6057,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenNavigatorChildReference() {
 		if (genNavigatorChildReferenceEClass == null) {
-			genNavigatorChildReferenceEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(120);
+			genNavigatorChildReferenceEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(121);
 		}
 		return genNavigatorChildReferenceEClass;
 	}
@@ -6079,7 +6132,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenNavigatorPath() {
 		if (genNavigatorPathEClass == null) {
-			genNavigatorPathEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(121);
+			genNavigatorPathEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(122);
 		}
 		return genNavigatorPathEClass;
 	}
@@ -6100,7 +6153,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenNavigatorPathSegment() {
 		if (genNavigatorPathSegmentEClass == null) {
-			genNavigatorPathSegmentEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(122);
+			genNavigatorPathSegmentEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(123);
 		}
 		return genNavigatorPathSegmentEClass;
 	}
@@ -6139,7 +6192,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenPropertySheet() {
 		if (genPropertySheetEClass == null) {
-			genPropertySheetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(123);
+			genPropertySheetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(124);
 		}
 		return genPropertySheetEClass;
 	}
@@ -6205,7 +6258,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenPropertyTab() {
 		if (genPropertyTabEClass == null) {
-			genPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(124);
+			genPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(125);
 		}
 		return genPropertyTabEClass;
 	}
@@ -6244,7 +6297,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenStandardPropertyTab() {
 		if (genStandardPropertyTabEClass == null) {
-			genStandardPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(125);
+			genStandardPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(126);
 		}
 		return genStandardPropertyTabEClass;
 	}
@@ -6256,7 +6309,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenCustomPropertyTab() {
 		if (genCustomPropertyTabEClass == null) {
-			genCustomPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(126);
+			genCustomPropertyTabEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(127);
 		}
 		return genCustomPropertyTabEClass;
 	}
@@ -6295,7 +6348,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenPropertyTabFilter() {
 		if (genPropertyTabFilterEClass == null) {
-			genPropertyTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(127);
+			genPropertyTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(128);
 		}
 		return genPropertyTabFilterEClass;
 	}
@@ -6316,7 +6369,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getTypeTabFilter() {
 		if (typeTabFilterEClass == null) {
-			typeTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(128);
+			typeTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(129);
 		}
 		return typeTabFilterEClass;
 	}
@@ -6346,7 +6399,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getCustomTabFilter() {
 		if (customTabFilterEClass == null) {
-			customTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(130);
+			customTabFilterEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(131);
 		}
 		return customTabFilterEClass;
 	}
@@ -6367,7 +6420,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenContributionItem() {
 		if (genContributionItemEClass == null) {
-			genContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(131);
+			genContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(132);
 		}
 		return genContributionItemEClass;
 	}
@@ -6388,7 +6441,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenSharedContributionItem() {
 		if (genSharedContributionItemEClass == null) {
-			genSharedContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(132);
+			genSharedContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(133);
 		}
 		return genSharedContributionItemEClass;
 	}
@@ -6409,7 +6462,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenGroupMarker() {
 		if (genGroupMarkerEClass == null) {
-			genGroupMarkerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(133);
+			genGroupMarkerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(134);
 		}
 		return genGroupMarkerEClass;
 	}
@@ -6430,7 +6483,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenSeparator() {
 		if (genSeparatorEClass == null) {
-			genSeparatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(134);
+			genSeparatorEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(135);
 		}
 		return genSeparatorEClass;
 	}
@@ -6451,7 +6504,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenCustomAction() {
 		if (genCustomActionEClass == null) {
-			genCustomActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(135);
+			genCustomActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(136);
 		}
 		return genCustomActionEClass;
 	}
@@ -6490,7 +6543,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenCommandAction() {
 		if (genCommandActionEClass == null) {
-			genCommandActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(136);
+			genCommandActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(137);
 		}
 		return genCommandActionEClass;
 	}
@@ -6520,7 +6573,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenAction() {
 		if (genActionEClass == null) {
-			genActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(137);
+			genActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(138);
 		}
 		return genActionEClass;
 	}
@@ -6550,7 +6603,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getLoadResourceAction() {
 		if (loadResourceActionEClass == null) {
-			loadResourceActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(138);
+			loadResourceActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(139);
 		}
 		return loadResourceActionEClass;
 	}
@@ -6562,7 +6615,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getInitDiagramAction() {
 		if (initDiagramActionEClass == null) {
-			initDiagramActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(139);
+			initDiagramActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(140);
 		}
 		return initDiagramActionEClass;
 	}
@@ -6574,7 +6627,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getCreateShortcutAction() {
 		if (createShortcutActionEClass == null) {
-			createShortcutActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(140);
+			createShortcutActionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(141);
 		}
 		return createShortcutActionEClass;
 	}
@@ -6586,7 +6639,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenActionFactoryContributionItem() {
 		if (genActionFactoryContributionItemEClass == null) {
-			genActionFactoryContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(141);
+			genActionFactoryContributionItemEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(142);
 		}
 		return genActionFactoryContributionItemEClass;
 	}
@@ -6607,7 +6660,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenContributionManager() {
 		if (genContributionManagerEClass == null) {
-			genContributionManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(142);
+			genContributionManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(143);
 		}
 		return genContributionManagerEClass;
 	}
@@ -6646,7 +6699,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenMenuManager() {
 		if (genMenuManagerEClass == null) {
-			genMenuManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(143);
+			genMenuManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(144);
 		}
 		return genMenuManagerEClass;
 	}
@@ -6667,7 +6720,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenToolBarManager() {
 		if (genToolBarManagerEClass == null) {
-			genToolBarManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(144);
+			genToolBarManagerEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(145);
 		}
 		return genToolBarManagerEClass;
 	}
@@ -6679,7 +6732,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenContextMenu() {
 		if (genContextMenuEClass == null) {
-			genContextMenuEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(145);
+			genContextMenuEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(146);
 		}
 		return genContextMenuEClass;
 	}
@@ -6700,7 +6753,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenApplication() {
 		if (genApplicationEClass == null) {
-			genApplicationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(146);
+			genApplicationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(147);
 		}
 		return genApplicationEClass;
 	}
@@ -6838,7 +6891,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenLinkEnd() {
 		if (genLinkEndEClass == null) {
-			genLinkEndEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(147);
+			genLinkEndEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(148);
 		}
 		return genLinkEndEClass;
 	}
@@ -6868,7 +6921,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenParsers() {
 		if (genParsersEClass == null) {
-			genParsersEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(148);
+			genParsersEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(149);
 		}
 		return genParsersEClass;
 	}
@@ -6943,7 +6996,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenParserImplementation() {
 		if (genParserImplementationEClass == null) {
-			genParserImplementationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(149);
+			genParserImplementationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(150);
 		}
 		return genParserImplementationEClass;
 	}
@@ -6973,7 +7026,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getPredefinedParser() {
 		if (predefinedParserEClass == null) {
-			predefinedParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(150);
+			predefinedParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(151);
 		}
 		return predefinedParserEClass;
 	}
@@ -7010,9 +7063,30 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getExpressionLabelParser() {
+		if (expressionLabelParserEClass == null) {
+			expressionLabelParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(152);
+		}
+		return expressionLabelParserEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExpressionLabelParser_ClassName() {
+        return (EAttribute)getExpressionLabelParser().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomParser() {
 		if (customParserEClass == null) {
-			customParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(151);
+			customParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(153);
 		}
 		return customParserEClass;
 	}
@@ -7042,7 +7116,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getExternalParser() {
 		if (externalParserEClass == null) {
-			externalParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(152);
+			externalParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(154);
 		}
 		return externalParserEClass;
 	}
@@ -7183,7 +7257,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getViewmapLayoutType() {
 		if (viewmapLayoutTypeEEnum == null) {
-			viewmapLayoutTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(72);
+			viewmapLayoutTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(73);
 		}
 		return viewmapLayoutTypeEEnum;
 	}
@@ -7195,7 +7269,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getStandardEntryKind() {
 		if (standardEntryKindEEnum == null) {
-			standardEntryKindEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(85);
+			standardEntryKindEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(86);
 		}
 		return standardEntryKindEEnum;
 	}
@@ -7207,7 +7281,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getGenSeverity() {
 		if (genSeverityEEnum == null) {
-			genSeverityEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(99);
+			genSeverityEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(100);
 		}
 		return genSeverityEEnum;
 	}
@@ -7219,7 +7293,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getGenLanguage() {
 		if (genLanguageEEnum == null) {
-			genLanguageEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(116);
+			genLanguageEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(117);
 		}
 		return genLanguageEEnum;
 	}
@@ -7231,7 +7305,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getGenNavigatorReferenceType() {
 		if (genNavigatorReferenceTypeEEnum == null) {
-			genNavigatorReferenceTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(119);
+			genNavigatorReferenceTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(120);
 		}
 		return genNavigatorReferenceTypeEEnum;
 	}
@@ -7243,7 +7317,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EEnum getGeneratedType() {
 		if (generatedTypeEEnum == null) {
-			generatedTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(129);
+			generatedTypeEEnum = (EEnum)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(130);
 		}
 		return generatedTypeEEnum;
 	}

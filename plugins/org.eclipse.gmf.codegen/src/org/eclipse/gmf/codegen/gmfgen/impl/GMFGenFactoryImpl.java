@@ -95,6 +95,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.FEATURE_LINK_MODEL_FACET: return createFeatureLinkModelFacet();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET: return createFeatureLabelModelFacet();
 			case GMFGenPackage.DESIGN_LABEL_MODEL_FACET: return createDesignLabelModelFacet();
+			case GMFGenPackage.EXPRESSION_LABEL_MODEL_FACET: return createExpressionLabelModelFacet();
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.STYLE_ATTRIBUTES: return createStyleAttributes();
 			case GMFGenPackage.RESIZE_CONSTRAINTS: return createResizeConstraints();
@@ -155,6 +156,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_APPLICATION: return createGenApplication();
 			case GMFGenPackage.GEN_PARSERS: return createGenParsers();
 			case GMFGenPackage.PREDEFINED_PARSER: return createPredefinedParser();
+			case GMFGenPackage.EXPRESSION_LABEL_PARSER: return createExpressionLabelParser();
 			case GMFGenPackage.CUSTOM_PARSER: return createCustomParser();
 			case GMFGenPackage.EXTERNAL_PARSER: return createExternalParser();
 			default:
@@ -580,6 +582,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public DesignLabelModelFacet createDesignLabelModelFacet() {
 		DesignLabelModelFacetImpl designLabelModelFacet = new DesignLabelModelFacetImpl();
 		return designLabelModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpressionLabelModelFacet createExpressionLabelModelFacet() {
+		ExpressionLabelModelFacetImpl expressionLabelModelFacet = new ExpressionLabelModelFacetImpl();
+		return expressionLabelModelFacet;
 	}
 
 	/**
@@ -1200,6 +1212,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public PredefinedParser createPredefinedParser() {
 		PredefinedParserImpl predefinedParser = new PredefinedParserImpl();
 		return predefinedParser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpressionLabelParser createExpressionLabelParser() {
+		ExpressionLabelParserImpl expressionLabelParser = new ExpressionLabelParserImpl();
+		return expressionLabelParser;
 	}
 
 	/**

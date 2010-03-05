@@ -323,6 +323,15 @@ public interface GMFGenFactory extends EFactory {
 	DesignLabelModelFacet createDesignLabelModelFacet();
 
 	/**
+	 * Returns a new object of class '<em>Expression Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expression Label Model Facet</em>'.
+	 * @generated
+	 */
+	ExpressionLabelModelFacet createExpressionLabelModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Type Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -861,6 +870,15 @@ public interface GMFGenFactory extends EFactory {
 	 * @generated
 	 */
 	PredefinedParser createPredefinedParser();
+
+	/**
+	 * Returns a new object of class '<em>Expression Label Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expression Label Parser</em>'.
+	 * @generated
+	 */
+	ExpressionLabelParser createExpressionLabelParser();
 
 	/**
 	 * Returns a new object of class '<em>Custom Parser</em>'.

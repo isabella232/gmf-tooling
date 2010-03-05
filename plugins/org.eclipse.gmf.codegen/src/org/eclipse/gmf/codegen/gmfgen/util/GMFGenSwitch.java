@@ -492,6 +492,14 @@ public class GMFGenSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.EXPRESSION_LABEL_MODEL_FACET: {
+				ExpressionLabelModelFacet expressionLabelModelFacet = (ExpressionLabelModelFacet)theEObject;
+				T result = caseExpressionLabelModelFacet(expressionLabelModelFacet);
+				if (result == null) result = caseLabelModelFacet(expressionLabelModelFacet);
+				if (result == null) result = caseModelFacet(expressionLabelModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.ATTRIBUTES: {
 				Attributes attributes = (Attributes)theEObject;
 				T result = caseAttributes(attributes);
@@ -1039,6 +1047,13 @@ public class GMFGenSwitch<T> {
 				PredefinedParser predefinedParser = (PredefinedParser)theEObject;
 				T result = casePredefinedParser(predefinedParser);
 				if (result == null) result = caseGenParserImplementation(predefinedParser);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.EXPRESSION_LABEL_PARSER: {
+				ExpressionLabelParser expressionLabelParser = (ExpressionLabelParser)theEObject;
+				T result = caseExpressionLabelParser(expressionLabelParser);
+				if (result == null) result = caseGenParserImplementation(expressionLabelParser);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1852,6 +1867,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T caseDesignLabelModelFacet(DesignLabelModelFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expression Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expression Label Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpressionLabelModelFacet(ExpressionLabelModelFacet object) {
 		return null;
 	}
 
@@ -3037,6 +3067,21 @@ public class GMFGenSwitch<T> {
 	 * @generated
 	 */
 	public T casePredefinedParser(PredefinedParser object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expression Label Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expression Label Parser</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpressionLabelParser(ExpressionLabelParser object) {
 		return null;
 	}
 
