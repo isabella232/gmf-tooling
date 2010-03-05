@@ -894,6 +894,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExpressionLabelModelFacetItemProvider expressionLabelModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExpressionLabelModelFacetAdapter() {
+		if (expressionLabelModelFacetItemProvider == null) {
+			expressionLabelModelFacetItemProvider = new ExpressionLabelModelFacetItemProvider(this);
+		}
+
+		return expressionLabelModelFacetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2228,6 +2251,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExpressionLabelParserItemProvider expressionLabelParserItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExpressionLabelParserAdapter() {
+		if (expressionLabelParserItemProvider == null) {
+			expressionLabelParserItemProvider = new ExpressionLabelParserItemProvider(this);
+		}
+
+		return expressionLabelParserItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CustomParser} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2480,6 +2526,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (featureLinkModelFacetItemProvider != null) featureLinkModelFacetItemProvider.dispose();
 		if (featureLabelModelFacetItemProvider != null) featureLabelModelFacetItemProvider.dispose();
 		if (designLabelModelFacetItemProvider != null) designLabelModelFacetItemProvider.dispose();
+		if (expressionLabelModelFacetItemProvider != null) expressionLabelModelFacetItemProvider.dispose();
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
 		if (styleAttributesItemProvider != null) styleAttributesItemProvider.dispose();
 		if (resizeConstraintsItemProvider != null) resizeConstraintsItemProvider.dispose();
@@ -2540,6 +2587,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genApplicationItemProvider != null) genApplicationItemProvider.dispose();
 		if (genParsersItemProvider != null) genParsersItemProvider.dispose();
 		if (predefinedParserItemProvider != null) predefinedParserItemProvider.dispose();
+		if (expressionLabelParserItemProvider != null) expressionLabelParserItemProvider.dispose();
 		if (customParserItemProvider != null) customParserItemProvider.dispose();
 		if (externalParserItemProvider != null) externalParserItemProvider.dispose();
 	}

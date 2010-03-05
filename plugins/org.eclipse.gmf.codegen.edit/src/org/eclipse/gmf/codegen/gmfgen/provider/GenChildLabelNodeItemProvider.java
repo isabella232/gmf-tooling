@@ -214,6 +214,11 @@ public class GenChildLabelNodeItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelModelFacet(),
 				 GMFGenFactory.eINSTANCE.createDesignLabelModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenChildLabelNode_LabelModelFacet(),
+				 GMFGenFactory.eINSTANCE.createExpressionLabelModelFacet()));
 	}
 
 }
