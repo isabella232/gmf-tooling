@@ -18,17 +18,7 @@ modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
 library Utils;
 
 helper getMaxVisualID(navigator : gmfgen::GenNavigator) : Integer {
-	return (if getMaxVisualIDNavigatorNode(navigator)->size() = 1 then getMaxVisualIDNavigatorNode(navigator)->first().visualID else 0 endif)
-}
-
--- MODIFIERS: private cached
-helper getMaxVisualIDNavigatorNode(navigator : gmfgen::GenNavigator) : Sequence(gmfgen::GenCommonBase) {
-	return getNavigatorNodes(navigator)->select(navigatorNode | isMaximumVisualID(navigatorNode, getNavigatorNodes(navigator)))
-}
-
--- MODIFIERS: private
-helper isMaximumVisualID(commonBase : gmfgen::GenCommonBase, allNavigatorNodes : Sequence(gmfgen::GenCommonBase)) : Boolean {
-	return allNavigatorNodes->select(navigatorNode | navigatorNode.visualID > commonBase.visualID)->isEmpty()
+	return getNavigatorNodes(navigator)->sortedBy(n | n.visualID)->last().visualID;
 }
 
 helper isStringFeature(feature : genmodel::GenFeature) : Boolean {
@@ -47,7 +37,7 @@ helper getNavigatorContainedNodes(navigator : gmfgen::GenNavigator) : Sequence(g
 
 -- MODIFIERS: private
 helper getNavigatorNodes(navigator : gmfgen::GenNavigator) : Sequence(gmfgen::GenCommonBase) {
-	return let diagram = navigator.editorGen.diagram in (((OrderedSet { diagram })[gmfgen::GenContainerBase]->union(diagram.topLevelNodes)->union(diagram.childNodes))[gmfgen::GenCommonBase]->union(diagram.links)->union(diagram.compartments))[gmfgen::GenCommonBase]->asSequence()
+	return navigator.editorGen.diagram.getAllContainers()[gmfgen::GenCommonBase]->union(navigator.editorGen.diagram.links)->asSequence()
 }
 
 helper getGroupNames(_references : Sequence(gmfgen::GenNavigatorChildReference)) : Set(String) {
