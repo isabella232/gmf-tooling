@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,6 +10,7 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  *    Artem Tikhomirov (Borland) - [235113] alternative parser access
  *                                 [244419] custom parsers
+ *                                 [138179] expression-backed labels
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
@@ -150,6 +151,10 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
 «ENDDEFINE»
 
+«DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExpressionLabelParser-»
+	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+«ENDDEFINE»
+
 
 «DEFINE parsers FOR gmfgen::GenNode»«EXPAND _parser FOREACH labels»«ENDDEFINE»
 «DEFINE parsers FOR gmfgen::GenLink»«EXPAND _parser FOREACH labels»«ENDDEFINE»
@@ -218,4 +223,17 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 		«parserVar».setEditPattern("«viewPattern»");«EXPAND xpt::Common::nonNLS(1)»
 	«ENDIF-»
 «ENDIF-»
+«ENDDEFINE»
+
+«DEFINE _parser(modelFacet : gmfgen::ExpressionLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExpressionLabelParser»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «getQualifiedClassName()» «parserFieldName(element)»;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
+		if («parserFieldName(element)» == null) {
+			«parserFieldName(element)» = new «getQualifiedClassName()»();
+		}
+		return «parserFieldName(element)»;
+	}
 «ENDDEFINE»

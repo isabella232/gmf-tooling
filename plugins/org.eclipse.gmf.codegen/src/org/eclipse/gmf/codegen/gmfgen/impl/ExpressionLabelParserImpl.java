@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 
 /**
  * <!-- begin-user-doc -->
@@ -73,9 +74,27 @@ public class ExpressionLabelParserImpl extends GenParserImplementationImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getClassName() {
+	public String getClassNameGen() {
 		return className;
 	}
+
+	public String getClassName() {
+		String n = getClassNameGen();
+		if (!GenCommonBaseImpl.isEmpty(n)) {
+			return n;
+		}
+		String baseName = "ExpressionLabelParser";
+		if (getUses().size() == 1) {
+			if (getUses().get(0).eContainer() instanceof GenCommonBase) {
+				return ((GenCommonBase) getUses().get(0).eContainer()).getClassNamePrefix() + baseName;
+			}
+		}
+		if (getHolder() != null && getHolder().getImplementations().size() > 1) {
+			return baseName + (1+getHolder().getImplementations().indexOf(this));
+		}
+		return baseName;
+	}
+
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -92,12 +111,14 @@ public class ExpressionLabelParserImpl extends GenParserImplementationImpl imple
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		String n = getClassName();
+		if (getHolder() == null || GenCommonBaseImpl.isEmpty(getHolder().getImplPackageName())) {
+			return n;
+		}
+		return getHolder().getImplPackageName() + '.' + n;
 	}
 
 	/**
