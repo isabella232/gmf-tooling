@@ -153,7 +153,7 @@ FIXME
 «toolVarName».setSmallIcon(«palette.activatorFQN()».findImageDescriptor("«smallIconPath»"));«EXPAND xpt::Common::nonNLS»
 «ELSEIF not (Sequence { self })[gmfgen::ToolEntry].elements->isEmpty()-»
 «LET self.oclAsType(gmfgen::ToolEntry) AS toolEntry-»
-«toolVarName».setSmallIcon(«palette.diagram.getElementTypesQualifiedClassName()».getImageDescriptor(«EXPAND xpt::providers::ElementTypes::accessElementType FOR toolEntry.elements->first().oclAsType(gmfgen::GenCommonBase)»));
+«toolVarName».setSmallIcon(«palette.diagram.getElementTypesQualifiedClassName()».getImageDescriptor(«EXPAND xpt::providers::ElementTypes::accessElementType FOR toolEntry.elements->first()»));
 «ENDLET-»
 «ENDIF-»
 «ENDDEFINE»

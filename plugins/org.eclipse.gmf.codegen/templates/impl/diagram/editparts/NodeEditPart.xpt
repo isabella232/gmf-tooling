@@ -466,7 +466,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	«IF not labels->isEmpty()-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gef.EditPart getPrimaryChildEditPart() {
-			return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR labels->first().oclAsType(gmfgen::GenLabel)»);
+			return getChildBySemanticHint(«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall FOR labels->first()»);
 		}
 	«ENDIF-»
 «ENDDEFINE»

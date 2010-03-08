@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -268,7 +268,7 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.Vie
 	«IF labels->isEmpty()-»
 		«ERROR 'Empty list of labels passed'-»
 	«ENDIF-»
-	«LET labels->first().oclAsType(gmfgen::GenLabel) AS label-»
+	«LET labels->first() AS label-»
 	«EXPAND getDiagramLabelText(self, label.modelFacet) FOR label-»
 	«ENDLET-»
 «ENDDEFINE»
