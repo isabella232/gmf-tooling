@@ -55,7 +55,7 @@ public class «modelingAssistantProviderClassName»
 		org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart editPart =
 				(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) host.getAdapter(
 						org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
-		«FOREACH getAllContainers()->asSequence() AS container-»
+		«FOREACH getAllContainers() AS container-»
 			«IF container.getAssistantNodes()->size() > 0-»
 		if (editPart instanceof «container.getEditPartQualifiedClassName()») {
 			«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»(«container.getAssistantNodes()->size()»);
