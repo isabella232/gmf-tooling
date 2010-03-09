@@ -598,6 +598,23 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setParser(getOrCreateParser((DesignLabelMapping) mapping));
 			return modelFacet;
 		}
+		if (mapping instanceof ExpressionLabelMapping) {
+			ExpressionLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createExpressionLabelModelFacet();
+			ExpressionLabelParser parser = GMFGenFactory.eINSTANCE.createExpressionLabelParser();
+			ExpressionLabelMapping elm = (ExpressionLabelMapping) mapping;
+			parser.setExpressionContext(findGenClass(elm.getMapEntry().getDomainContext()));
+			if (elm.getViewExpression() != null) {
+				parser.setViewExpression(createValueExpression(elm.getViewExpression()));
+			}
+			if (elm.getEditExpression() != null) {
+				parser.setEditExpression(createValueExpression(elm.getEditExpression()));
+			}
+			if (elm.getValidateExpression() != null) {
+				parser.setValidateExpression(createGenConstraint(elm.getValidateExpression()));
+			}
+			modelFacet.setParser(parser);
+			return modelFacet;
+		}
 		// create bare instance that points to a ExternalParser
 		// this is modification of old contract (though, not breaking change, I believe)
 		// that says null modelFacet means use of external parser
@@ -811,9 +828,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			FeatureValueSpec featureValSpec = (FeatureValueSpec) featureInitializer;				
 			GenFeatureValueSpec genFeatureValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();
 			genFeatureValSpec.setFeature(findGenFeature(featureValSpec.getFeature()));
-			ValueExpression value = GMFGenFactory.eINSTANCE.createValueExpression();
-			value.setBody(featureValSpec.getValue().getBody());
-			genFeatureValSpec.setValue(bindToProvider(featureValSpec.getValue(), value));
+			genFeatureValSpec.setValue(createValueExpression(featureValSpec.getValue()));
 
 			return genFeatureValSpec;
 		} else if (featureInitializer instanceof ReferenceNewElementSpec) {
@@ -847,7 +862,18 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		return GenLanguage.OCL_LITERAL;
 	}
-	
+
+	// may return GenConstraint, based on original expression type
+	// XXX perhaps, combining #createValueExpression and #createGenConstraint into a single method makes sense?
+	private ValueExpression createValueExpression(org.eclipse.gmf.mappings.ValueExpression valueExpression) {
+		if (valueExpression instanceof Constraint) {
+			return createGenConstraint((Constraint) valueExpression);
+		}
+		ValueExpression result = GMFGenFactory.eINSTANCE.createValueExpression();
+		result.setBody(valueExpression.getBody());
+		return bindToProvider(valueExpression, result);
+	}
+
 	private GenConstraint createGenConstraint(Constraint constraint) {
 		if(constraint.getBody() == null) {
 			return null;
@@ -1039,9 +1065,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genMetric.setHighLimit(metric.getHighLimit());
 		
 		if(metric.getRule() != null) {
-			ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
-			valueExpression.setBody(metric.getRule().getBody());
-			genMetric.setRule(bindToProvider(metric.getRule(), valueExpression));
+			genMetric.setRule(createValueExpression(metric.getRule()));
 		}
 		
 		if(metric.getTarget() != null) {		
