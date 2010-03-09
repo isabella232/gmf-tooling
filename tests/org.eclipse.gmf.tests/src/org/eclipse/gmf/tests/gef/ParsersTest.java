@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Artem Tikhomirov (independent) - [138179] expressions-based labels
  */
 package org.eclipse.gmf.tests.gef;
 
@@ -36,22 +37,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gmf.codegen.gmfgen.CustomParser;
-import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
-import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -327,6 +313,25 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 		assertNotNull(p);
 		assertEquals("org.eclipse.gmf.runtime.diagram.ui.providers.internal.parsers.DescriptionParser", p.getClass().getName());
 	}
+	
+	public void testExpressionLabelParser() throws Exception {
+		ResourceSet rs = new ResourceSetImpl();
+		Resource r = rs.createResource(URI.createURI("uri://org.eclipse.gmf/tests/parkins"));
+		EObject nodkin = createNodkin();
+		setAttribute(nodkin, "a1", "aaa");
+		setAttribute(nodkin, "a2", ""); // if not set, 'if' statement should be rewritten to respect Invalid case (null a2 in a2.size()) 
+		r.getContents().add(nodkin);
+		TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(rs);
+
+		assertTrue("sanity", setup.genModel.a_expr.getModelFacet().eClass() == GMFGenPackage.eINSTANCE.getExpressionLabelModelFacet());
+		IParser p = getParser(setup.genModel.a_expr);
+		assertNotNull(p);
+		assertEquals("MyExpressionParser", p.getClass().getSimpleName());
+		String s = p.getPrintString(new EObjectAdapter(nodkin), 0);
+		assertNotNull(s);
+		assertEquals("aaa ==> <none>", s);
+	}
+
 
 	protected IParser getParser(final GenNodeLabel label) throws Exception {
 		final GenEditorGenerator editorGen = setup.genModel.diagramkin.getEditorGen();
@@ -482,6 +487,7 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 		public GenTopLevelNode nodkin;
 		public GenNodeLabel a1, a123, ac132, a12e31, an2, apr23;
 		public GenNodeLabel a_cp_pmf, a_cp_flmf, a_extp; // Custom and External Parsers
+		public GenNodeLabel a_expr; // ExpressionLabelParser
 
 		public ParsersGenModel(ParsersDomainModel domainModel) {
 			GenModel runtimeModel = getRuntimeGenModel();
@@ -501,6 +507,7 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 			genBurden.setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
 			genBurden.setLabelParsers(GMFGenFactory.eINSTANCE.createGenParsers());
+			genBurden.setExpressionProviders(GMFGenFactory.eINSTANCE.createGenExpressionProviderContainer());
 			new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/parking")).getContents().add(genBurden);
 
 			nodkin = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
@@ -529,11 +536,35 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			final ExternalParser externalParser = GMFGenFactory.eINSTANCE.createExternalParser();
 			externalParser.setHint("\"Description\""); // value of CommonParserHint.DESCIPTION constant, 
 			// not the constant itself to manually (visually) assure (in the generated class) the hint is being used.
+			final ExpressionLabelParser expressionParser = GMFGenFactory.eINSTANCE.createExpressionLabelParser();
+			expressionParser.setExpressionContext(nodkin.getDomainMetaClass());
+			GenJavaExpressionProvider javaProvider = GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider();
+			GenExpressionInterpreter oclProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
+			oclProvider.setLanguage(GenLanguage.OCL_LITERAL);
+			GenLiteralExpressionProvider asisProvider = GMFGenFactory.eINSTANCE.createGenLiteralExpressionProvider();
+			genBurden.getExpressionProviders().getProviders().add(javaProvider);
+			genBurden.getExpressionProviders().getProviders().add(oclProvider);
+			genBurden.getExpressionProviders().getProviders().add(asisProvider);
+			ValueExpression v1 = GMFGenFactory.eINSTANCE.createValueExpression();
+			v1.setBody("self.a1.concat(' ==> ').concat(if self.a2.size() > 0 then self.a2 else '<none>' endif)");
+			oclProvider.getExpressions().add(v1);
+			expressionParser.setViewExpression(v1);
+			ValueExpression v2 = GMFGenFactory.eINSTANCE.createValueExpression();
+			v2.setBody("\"[enter new value here]\"");
+			asisProvider.getExpressions().add(v2);
+			expressionParser.setEditExpression(v2);
+			GenConstraint v3 = GMFGenFactory.eINSTANCE.createGenConstraint();
+			v3.setBody("return self.length() > 2;");
+			javaProvider.getExpressions().add(v3);
+			expressionParser.setValidateExpression(v3);
+			expressionParser.setClassName("MyExpressionParser");
+			//
 			genBurden.getLabelParsers().getImplementations().add(messageFormatParser);
 			genBurden.getLabelParsers().getImplementations().add(nativeParser);
 			genBurden.getLabelParsers().getImplementations().add(printfRegexParser);
 			genBurden.getLabelParsers().getImplementations().add(customParser);
 			genBurden.getLabelParsers().getImplementations().add(externalParser);
+			genBurden.getLabelParsers().getImplementations().add(expressionParser);
 			a1 = addAttr(gmm, domainModel.a1);
 			{
 				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a1.getModelFacet();
@@ -563,36 +594,32 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 				mf.setParser(messageFormatParser);
 			}
 			an2 = addAttr(gmm, domainModel.a2);
-			{
-				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) an2.getModelFacet();
-				mf.setParser(nativeParser);
-			}
+			an2.getModelFacet().setParser(nativeParser);
+			//
 			apr23 = addAttr(gmm, domainModel.a2, domainModel.a3);
-			{
-				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) apr23.getModelFacet();
-				mf.setParser(printfRegexParser);
-			}
+			apr23.getModelFacet().setParser(printfRegexParser);
+			//
 			a_cp_pmf = addAttr(gmm);
-			{
-				LabelModelFacet mf = GMFGenFactory.eINSTANCE.createLabelModelFacet();
-				mf.setParser(customParser);
-				a_cp_pmf.setModelFacet(mf);
-			}
+			a_cp_pmf.setModelFacet(GMFGenFactory.eINSTANCE.createLabelModelFacet());
+			a_cp_pmf.getModelFacet().setParser(customParser);
+			//
 			a_cp_flmf = addAttr(gmm, domainModel.a1);
 			{
 				// need to get different name than default
 				// which conflicts with a1's name
 				a_cp_flmf.setEditPartClassName("AttrWithCustomParserEditPart");
-				FeatureLabelModelFacet mf = (FeatureLabelModelFacet) a_cp_flmf.getModelFacet();
-				mf.setParser(customParser);
+				a_cp_flmf.getModelFacet().setParser(customParser);
 			}
 			a_extp = addAttr(gmm);
-			{
-				a_extp.setEditPartClassName("LabelWithExternalParserEditPart");
-				LabelModelFacet mf = GMFGenFactory.eINSTANCE.createLabelModelFacet();
-				mf.setParser(externalParser);
-				a_extp.setModelFacet(mf);
-			}
+			a_extp.setEditPartClassName("LabelWithExternalParserEditPart");
+			a_extp.setModelFacet(GMFGenFactory.eINSTANCE.createLabelModelFacet());
+			a_extp.getModelFacet().setParser(externalParser);
+			//
+			a_expr = addAttr(gmm);
+			a_expr.setEditPartClassName("LabelWithExpressionParserEditPart");
+			a_expr.setModelFacet(GMFGenFactory.eINSTANCE.createExpressionLabelModelFacet());
+			a_expr.getModelFacet().setParser(expressionParser);
+			
 		}
 
 		private int nextVID() {
