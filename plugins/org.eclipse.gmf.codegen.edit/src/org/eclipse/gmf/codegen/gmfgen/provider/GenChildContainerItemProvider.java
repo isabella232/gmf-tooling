@@ -88,6 +88,16 @@ public class GenChildContainerItemProvider
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean shouldComposeCreationImage() {
+		return true;
+	}
+
+	/**
 	 * This adds a property descriptor for the Canonical Edit Policy Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenReferenceNewElementSpecItemProvider.java,v 1.4 2008/03/03 18:38:20 atikhomirov Exp $
+ * $Id: GenReferenceNewElementSpecItemProvider.java,v 1.5 2010/03/09 22:25:26 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -129,6 +129,16 @@ public class GenReferenceNewElementSpecItemProvider
 	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenReferenceNewElementSpec"));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean shouldComposeCreationImage() {
+		return true;
 	}
 
 	/**

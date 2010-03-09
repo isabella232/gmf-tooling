@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenJavaExpressionProviderItemProvider.java,v 1.5 2008/05/05 21:06:51 atikhomirov Exp $
+ * $Id: GenJavaExpressionProviderItemProvider.java,v 1.6 2010/03/09 22:25:26 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -118,6 +118,16 @@ public class GenJavaExpressionProviderItemProvider
 	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenJavaExpressionProvider"));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean shouldComposeCreationImage() {
+		return true;
 	}
 
 	/**

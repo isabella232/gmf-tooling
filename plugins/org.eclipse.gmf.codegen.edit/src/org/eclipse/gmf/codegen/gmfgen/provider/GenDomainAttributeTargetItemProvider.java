@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenDomainAttributeTargetItemProvider.java,v 1.5 2008/03/03 17:45:17 atikhomirov Exp $
+ * $Id: GenDomainAttributeTargetItemProvider.java,v 1.6 2010/03/09 22:25:27 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -118,6 +118,16 @@ public class GenDomainAttributeTargetItemProvider
 	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenDomainAttributeTarget"));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean shouldComposeCreationImage() {
+		return true;
 	}
 
 	/**

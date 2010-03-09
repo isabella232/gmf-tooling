@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: GenExpressionProviderContainerItemProvider.java,v 1.6 2008/07/01 11:40:19 atikhomirov Exp $
+ * $Id: GenExpressionProviderContainerItemProvider.java,v 1.7 2010/03/09 22:25:26 atikhomirov Exp $
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -153,6 +153,16 @@ public class GenExpressionProviderContainerItemProvider
 	@Override
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenExpressionProviderContainer"));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected boolean shouldComposeCreationImage() {
+		return true;
 	}
 
 	/**
