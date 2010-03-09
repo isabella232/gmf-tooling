@@ -235,6 +235,29 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ExpressionLabelMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExpressionLabelMappingItemProvider expressionLabelMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ExpressionLabelMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExpressionLabelMappingAdapter() {
+		if (expressionLabelMappingItemProvider == null) {
+			expressionLabelMappingItemProvider = new ExpressionLabelMappingItemProvider(this);
+		}
+
+		return expressionLabelMappingItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.Mapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -698,7 +721,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
-			if (!(type instanceof Class) || (((Class<?>)type).isInstance(adapter))) {
+			if (!(type instanceof Class<?>) || (((Class<?>)type).isInstance(adapter))) {
 				return adapter;
 			}
 		}
@@ -757,6 +780,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (labelMappingItemProvider != null) labelMappingItemProvider.dispose();
 		if (featureLabelMappingItemProvider != null) featureLabelMappingItemProvider.dispose();
 		if (designLabelMappingItemProvider != null) designLabelMappingItemProvider.dispose();
+		if (expressionLabelMappingItemProvider != null) expressionLabelMappingItemProvider.dispose();
 		if (constraintItemProvider != null) constraintItemProvider.dispose();
 		if (linkConstraintsItemProvider != null) linkConstraintsItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
