@@ -12,16 +12,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet} object.
@@ -58,77 +54,8 @@ public class ExpressionLabelModelFacetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addViewExpressionPropertyDescriptor(object);
-			addEditExpressionPropertyDescriptor(object);
-			addValidateExpressionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the View Expression feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addViewExpressionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExpressionLabelModelFacet_viewExpression_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelModelFacet_viewExpression_feature", "_UI_ExpressionLabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getExpressionLabelModelFacet_ViewExpression(),
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Edit Expression feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditExpressionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExpressionLabelModelFacet_editExpression_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelModelFacet_editExpression_feature", "_UI_ExpressionLabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getExpressionLabelModelFacet_EditExpression(),
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Validate Expression feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addValidateExpressionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExpressionLabelModelFacet_validateExpression_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelModelFacet_validateExpression_feature", "_UI_ExpressionLabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getExpressionLabelModelFacet_ValidateExpression(),
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**

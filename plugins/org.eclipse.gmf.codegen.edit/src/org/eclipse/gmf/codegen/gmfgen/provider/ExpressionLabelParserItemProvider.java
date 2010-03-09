@@ -62,6 +62,10 @@ public class ExpressionLabelParserItemProvider
 			super.getPropertyDescriptors(object);
 
 			addClassNamePropertyDescriptor(object);
+			addExpressionContextPropertyDescriptor(object);
+			addViewExpressionPropertyDescriptor(object);
+			addEditExpressionPropertyDescriptor(object);
+			addValidateExpressionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -84,6 +88,94 @@ public class ExpressionLabelParserItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Expression Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExpressionContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpressionLabelParser_expressionContext_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelParser_expressionContext_feature", "_UI_ExpressionLabelParser_type"),
+				 GMFGenPackage.eINSTANCE.getExpressionLabelParser_ExpressionContext(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the View Expression feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addViewExpressionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpressionLabelParser_viewExpression_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelParser_viewExpression_feature", "_UI_ExpressionLabelParser_type"),
+				 GMFGenPackage.eINSTANCE.getExpressionLabelParser_ViewExpression(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Expression feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditExpressionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpressionLabelParser_editExpression_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelParser_editExpression_feature", "_UI_ExpressionLabelParser_type"),
+				 GMFGenPackage.eINSTANCE.getExpressionLabelParser_EditExpression(),
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Validate Expression feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidateExpressionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpressionLabelParser_validateExpression_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpressionLabelParser_validateExpression_feature", "_UI_ExpressionLabelParser_type"),
+				 GMFGenPackage.eINSTANCE.getExpressionLabelParser_ValidateExpression(),
+				 true,
+				 false,
+				 true,
+				 null,
 				 null,
 				 null));
 	}
