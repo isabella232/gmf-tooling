@@ -86,6 +86,7 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.core.runtime.IStatus updateValues(org.eclipse.emf.ecore.EObject target, String newString) throws org.eclipse.core.commands.ExecutionException {
 		// TODO implement this method
+		// DO NOT FORGET to remove @generated tag or mark method @generated NOT
 		throw new org.eclipse.core.commands.ExecutionException("Please implement parsing and value modification"); 
 	}
 «EXPAND impl::parsers::ExpressionLabelParser::extraMethods-»
