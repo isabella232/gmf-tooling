@@ -257,6 +257,9 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Handy operation to get top and child nodes
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
@@ -265,6 +268,9 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * All nodes (top and child) and compartments
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
@@ -273,6 +279,9 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * All nodes, compartments and diagram itself
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */

@@ -6176,40 +6176,13 @@ public interface GMFGenPackage extends EPackage {
 	int EXPRESSION_LABEL_MODEL_FACET__PARSER = LABEL_MODEL_FACET__PARSER;
 
 	/**
-	 * The feature id for the '<em><b>View Expression</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_LABEL_MODEL_FACET__VIEW_EXPRESSION = LABEL_MODEL_FACET_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Edit Expression</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_LABEL_MODEL_FACET__EDIT_EXPRESSION = LABEL_MODEL_FACET_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Validate Expression</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_LABEL_MODEL_FACET__VALIDATE_EXPRESSION = LABEL_MODEL_FACET_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the '<em>Expression Label Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_LABEL_MODEL_FACET_FEATURE_COUNT = LABEL_MODEL_FACET_FEATURE_COUNT + 3;
+	int EXPRESSION_LABEL_MODEL_FACET_FEATURE_COUNT = LABEL_MODEL_FACET_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ViewmapImpl <em>Viewmap</em>}' class.
@@ -10820,13 +10793,49 @@ public interface GMFGenPackage extends EPackage {
 	int EXPRESSION_LABEL_PARSER__CLASS_NAME = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Expression Context</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_LABEL_PARSER__EXPRESSION_CONTEXT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>View Expression</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_LABEL_PARSER__VIEW_EXPRESSION = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Edit Expression</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_LABEL_PARSER__EDIT_EXPRESSION = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Validate Expression</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_LABEL_PARSER__VALIDATE_EXPRESSION = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Expression Label Parser</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_LABEL_PARSER_FEATURE_COUNT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 1;
+	int EXPRESSION_LABEL_PARSER_FEATURE_COUNT = GEN_PARSER_IMPLEMENTATION_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.CustomParserImpl <em>Custom Parser</em>}' class.
@@ -14361,39 +14370,6 @@ public interface GMFGenPackage extends EPackage {
 	EClass getExpressionLabelModelFacet();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet#getViewExpression <em>View Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>View Expression</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet#getViewExpression()
-	 * @see #getExpressionLabelModelFacet()
-	 * @generated
-	 */
-	EReference getExpressionLabelModelFacet_ViewExpression();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet#getEditExpression <em>Edit Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Edit Expression</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet#getEditExpression()
-	 * @see #getExpressionLabelModelFacet()
-	 * @generated
-	 */
-	EReference getExpressionLabelModelFacet_EditExpression();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet#getValidateExpression <em>Validate Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Validate Expression</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet#getValidateExpression()
-	 * @see #getExpressionLabelModelFacet()
-	 * @generated
-	 */
-	EReference getExpressionLabelModelFacet_ValidateExpression();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet <em>Type Link Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -17587,6 +17563,50 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getExpressionLabelParser_ClassName();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getExpressionContext <em>Expression Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Expression Context</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getExpressionContext()
+	 * @see #getExpressionLabelParser()
+	 * @generated
+	 */
+	EReference getExpressionLabelParser_ExpressionContext();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getViewExpression <em>View Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>View Expression</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getViewExpression()
+	 * @see #getExpressionLabelParser()
+	 * @generated
+	 */
+	EReference getExpressionLabelParser_ViewExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getEditExpression <em>Edit Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Edit Expression</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getEditExpression()
+	 * @see #getExpressionLabelParser()
+	 * @generated
+	 */
+	EReference getExpressionLabelParser_EditExpression();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getValidateExpression <em>Validate Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Validate Expression</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser#getValidateExpression()
+	 * @see #getExpressionLabelParser()
+	 * @generated
+	 */
+	EReference getExpressionLabelParser_ValidateExpression();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.CustomParser <em>Custom Parser</em>}'.

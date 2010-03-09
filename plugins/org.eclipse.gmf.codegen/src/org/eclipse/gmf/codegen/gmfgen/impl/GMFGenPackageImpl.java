@@ -4126,33 +4126,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExpressionLabelModelFacet_ViewExpression() {
-        return (EReference)getExpressionLabelModelFacet().getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getExpressionLabelModelFacet_EditExpression() {
-        return (EReference)getExpressionLabelModelFacet().getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getExpressionLabelModelFacet_ValidateExpression() {
-        return (EReference)getExpressionLabelModelFacet().getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getTypeLinkModelFacet() {
 		if (typeLinkModelFacetEClass == null) {
 			typeLinkModelFacetEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(60);
@@ -7077,6 +7050,42 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getExpressionLabelParser_ClassName() {
         return (EAttribute)getExpressionLabelParser().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelParser_ExpressionContext() {
+        return (EReference)getExpressionLabelParser().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelParser_ViewExpression() {
+        return (EReference)getExpressionLabelParser().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelParser_EditExpression() {
+        return (EReference)getExpressionLabelParser().getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelParser_ValidateExpression() {
+        return (EReference)getExpressionLabelParser().getEStructuralFeatures().get(4);
 	}
 
 	/**

@@ -72,8 +72,11 @@ class GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, Lin
 	val GenCompartment[*]#diagram compartments;
 	val Palette[?]#diagram palette;
 	attr boolean synchronized = true;
+	@genmodel(documentation="Handy operation to get top and child nodes")
 	op GenNode[*] getAllNodes();
+	@genmodel(documentation="All nodes (top and child) and compartments")
 	op GenChildContainer[*] getAllChildContainers();
+	@genmodel(documentation="All nodes, compartments and diagram itself")
 	op GenContainerBase[*] getAllContainers();
 	@genmodel(documentation="Gets the name of the class to hold the initializer methods for domain elements")
 	op String getElementInitializersClassName();
@@ -847,12 +850,10 @@ class DesignLabelModelFacet extends LabelModelFacet {
 
 @genmodel(documentation="Model facet of a label calculated with an expression")
 class ExpressionLabelModelFacet extends LabelModelFacet {
-	@genmodel(documentation="Expression to calculate user-readable label value")
-	ref ValueExpression[1] viewExpression;
-	@genmodel(documentation="Optional expression to represent value for editing")
-	ref ValueExpression[?] editExpression;
-	@genmodel(documentation="Optional expression to answer whether user input is ok for further parsing")
-	ref GenConstraint[?] validateExpression;
+	// right now it is just a marker, in case we need extra information in future 
+	// ExpressionLabelParser doesn't rely on any specific kind of model facet.
+	// XXX perhaps, we may try to use other LabelModelFacets (e.g. FeatureLabelModelFacet) to generate 
+	// extra support (i.e. handle notification changes based on #features)
 }
 
 /////////////
@@ -1588,11 +1589,19 @@ class PredefinedParser extends GenParserImplementation {
 	op String getQualifiedClassName();
 }
 
-@genmodel(documentation="")
+@genmodel(documentation="Parser implementation that uses expressions to produce string values")
 class ExpressionLabelParser extends GenParserImplementation {
 	@genmodel(documentation="Provides means to alter name of parser implementation class")
 	attr String[?] className;
 	op String getQualifiedClassName();
+	ref genmodel.GenClass[1] expressionContext;
+	//
+	@genmodel(documentation="Expression to calculate user-readable label value; facet's owner type is evaluation context.")
+	ref ValueExpression[1] viewExpression;
+	@genmodel(documentation="Optional expression to represent value for editing")
+	ref ValueExpression[?] editExpression;
+	@genmodel(documentation="Optional expression to answer whether user input is ok for further parsing. Note, context here is string, not facet's owner type")
+	ref GenConstraint[?] validateExpression;
 }
 
 @genmodel(documentation="Handwritten or otherwise available IParser implementation")
