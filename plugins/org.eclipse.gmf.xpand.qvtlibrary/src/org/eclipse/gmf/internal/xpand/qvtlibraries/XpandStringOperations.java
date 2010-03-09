@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2008 Borland Software Corp.
+/*
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -39,6 +39,9 @@ public class XpandStringOperations {
 		return rv;
 	}
 
+	/*
+	 * Not in use in current templates, however kept for migration simplicity
+	 */
 	@Operation(contextual = true, kind = Kind.HELPER)
 	public static String xpandSubstring(String self, Integer beginIndex) {
 		return self.substring(beginIndex);
@@ -63,20 +66,4 @@ public class XpandStringOperations {
 	public static Boolean xpandMatches(String self, String regex) {
 		return self.matches(regex);
 	}
-
-	@Operation(contextual = true, kind = Kind.HELPER)
-	public static Boolean xpandStartsWith(String self, String prefix) {
-		return self.startsWith(prefix);
-	}
-
-	@Operation(contextual = true, kind = Kind.HELPER)
-	public static Boolean xpandEndsWith(String self, String suffix) {
-		return self.endsWith(suffix);
-	}
-
-	@Operation(contextual = true, kind = Kind.HELPER)
-	public static Integer xpandLength(String self) {
-		return self.length();
-	}
-
 }

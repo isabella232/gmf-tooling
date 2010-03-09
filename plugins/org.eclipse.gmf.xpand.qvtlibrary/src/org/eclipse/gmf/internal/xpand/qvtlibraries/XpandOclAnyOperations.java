@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2008 Borland Software Corp.
+/*
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,8 +24,9 @@ public class XpandOclAnyOperations {
 		if (parameter == null) {
 			return false;
 		}
-		if (self instanceof Comparable) {
-			return ((Comparable) self).compareTo(parameter) == 0;
+		if (self instanceof Comparable<?>) {
+			@SuppressWarnings("unchecked") Comparable<Object> x = (Comparable<Object>) self;
+			return x.compareTo(parameter) == 0;
 		}
 		return String.valueOf(self).compareTo(String.valueOf(parameter)) == 0;
 
