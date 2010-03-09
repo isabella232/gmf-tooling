@@ -33,6 +33,7 @@ import org.eclipse.gmf.ecore.edit.parts.EReferenceLowerBoundUpperBoundEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceName2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EReferenceNameEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart;
+import org.eclipse.gmf.ecore.parsers.EAttributeExpressionLabelParser;
 import org.eclipse.gmf.ecore.parsers.MessageFormatParser;
 import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
@@ -138,16 +139,14 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	/**
 	 * @generated
 	 */
-	private IParser eAttribute_3001Parser;
+	private EAttributeExpressionLabelParser eAttribute_3001Parser;
 
 	/**
 	 * @generated
 	 */
 	private IParser getEAttribute_3001Parser() {
 		if (eAttribute_3001Parser == null) {
-			EAttribute[] features = new EAttribute[] { EcorePackage.eINSTANCE.getENamedElement_Name() };
-			MessageFormatParser parser = new MessageFormatParser(features);
-			eAttribute_3001Parser = parser;
+			eAttribute_3001Parser = new EAttributeExpressionLabelParser();
 		}
 		return eAttribute_3001Parser;
 	}

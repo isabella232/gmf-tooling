@@ -33,13 +33,17 @@
           <domainMetaElement
               href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAttribute"/>
           <labelMappings
-              xsi:type="gmfmap:FeatureLabelMapping"
-              viewPattern=""
-              editPattern="">
+              xsi:type="gmfmap:ExpressionLabelMapping">
             <diagramLabel
                 href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
-            <features
-                href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
+            <viewExpression
+                body="self.name.concat(' : ').concat(if self.eType.name.oclIsUndefined() then 'none' else self.eType.name endif)"/>
+            <editExpression
+                body="&quot;&lt;enter new value>&quot;"
+                language="literal"/>
+            <validateExpression
+                body="return self.length() > 0;"
+                language="java"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
