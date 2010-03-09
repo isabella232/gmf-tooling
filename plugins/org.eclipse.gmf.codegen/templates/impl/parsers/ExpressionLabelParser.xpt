@@ -12,57 +12,39 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
-«DEFINE fields(gmfgen::ExpressionLabelParser parser) FOR gmfgen::LabelModelFacet»«ERROR 'ExpressionLabelParser can be used with ExpressionLabelModelFacet only, not with ' + self.repr()»«ENDDEFINE»
-
-«DEFINE fields(gmfgen::ExpressionLabelParser parser) FOR gmfgen::ExpressionLabelModelFacet-»
-«IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-
+«DEFINE fields FOR gmfgen::ExpressionLabelParser-»
+«IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private final «parser.holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» printExpression;
+	private final «holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» printExpression;
 «ENDIF-»
 
-«IF not editExpression.oclIsUndefined() and editExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-
+«IF not editExpression.oclIsUndefined() and editExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private final «parser.holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» editExpression;
+	private final «holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» editExpression;
 «ENDIF-»
 
-«IF not validateExpression.oclIsUndefined() and validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-
+«IF not validateExpression.oclIsUndefined() and validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private final «parser.holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» validateExpression;
+	private final «holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» validateExpression;
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE consInit(gmfgen::ExpressionLabelParser parser) FOR gmfgen::LabelModelFacet»«ERROR 'ExpressionLabelParser can be used with ExpressionLabelModelFacet only, not with ' + self.repr()»«ENDDEFINE»
-
-«DEFINE consInit(gmfgen::ExpressionLabelParser parser) FOR gmfgen::ExpressionLabelModelFacet-»
-«IF not viewExpression.oclIsUndefined()-»
-«EXPAND _initField('this.printExpression', viewExpression, self.eContainer().oclAsType(gmfgen::GenCommonBase) /*this cast is not really good, but can not find better alternative*/) FOR viewExpression.provider-»
-«ENDIF-»
-«IF not editExpression.oclIsUndefined()-»
-«EXPAND _initField('this.editExpression', editExpression, self.eContainer().oclAsType(gmfgen::GenCommonBase)) FOR editExpression.provider-»
-«ENDIF-»
-«IF not validateExpression.oclIsUndefined()-»
-«EXPAND _initField('this.validateExpression', validateExpression, self.eContainer().oclAsType(gmfgen::GenCommonBase)) FOR validateExpression.provider-»
-«ENDIF-»
+«DEFINE cons(String name) FOR gmfgen::ExpressionLabelParser-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «name»() {
+	«IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
+		this.printExpression = «EXPAND xpt::expressions::getExpression::getExpression(viewExpression, self.expressionContext) FOR viewExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;
+	«ENDIF-»
+	«IF not editExpression.oclIsUndefined() and editExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
+		this.editExpression = «EXPAND xpt::expressions::getExpression::getExpression(editExpression, self.expressionContext) FOR editExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;
+	«ENDIF-»
+	«IF not validateExpression.oclIsUndefined() and validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
+		this.validateExpression = «EXPAND xpt::expressions::getExpression::getExpression(validateExpression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()') FOR validateExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;
+	«ENDIF-»
+	}
 «ENDDEFINE»
 
-«DEFINE _initField(String fieldName, gmfgen::ValueExpression expression, gmfgen::GenCommonBase labelOwner) FOR gmfgen::GenExpressionProviderBase-»
-«REM»
-NO-OP, do not need fields for anything but interpreted expressions (nor java, nor literal at the moment)
-«ENDREM-»
-«ENDDEFINE»
-
-«DEFINE _initField(String fieldName, gmfgen::ValueExpression expression, gmfgen::GenCommonBase labelOwner) FOR gmfgen::GenExpressionInterpreter-»
-«fieldName» = «EXPAND xpt::expressions::getExpression::getExpression(expression, labelOwner.oclAsType(GenNode).modelFacet.metaClass)»;
-«ENDDEFINE»
-
-«DEFINE accessEditExpression FOR gmfgen::LabelModelFacet»«ERROR 'ExpressionLabelParser can be used with ExpressionLabelModelFacet only, not with ' + self.repr()»«ENDDEFINE»
-«DEFINE accessViewExpression FOR gmfgen::LabelModelFacet»«ERROR 'ExpressionLabelParser can be used with ExpressionLabelModelFacet only, not with ' + self.repr()»«ENDDEFINE»
-«DEFINE accessValidateExpression FOR gmfgen::LabelModelFacet»«ERROR 'ExpressionLabelParser can be used with ExpressionLabelModelFacet only, not with ' + self.repr()»«ENDDEFINE»
-
-«DEFINE accessEditExpression FOR gmfgen::ExpressionLabelModelFacet-»
+«DEFINE accessEditExpression FOR gmfgen::ExpressionLabelParser-»
 «IF editExpression.oclIsUndefined()-»
 	return getPrintString(element, flags);
 «ELSE-»
@@ -70,7 +52,7 @@ NO-OP, do not need fields for anything but interpreted expressions (nor java, no
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE accessViewExpression FOR gmfgen::ExpressionLabelModelFacet-»
+«DEFINE accessViewExpression FOR gmfgen::ExpressionLabelParser-»
 «IF viewExpression.oclIsUndefined()-»
 	// TODO
 	throw new UnsupportedOperationException();
@@ -93,7 +75,7 @@ return «expression.body»;
 «ENDDEFINE»
 
 
-«DEFINE accessValidateExpression FOR gmfgen::ExpressionLabelModelFacet-»
+«DEFINE accessValidateExpression FOR gmfgen::ExpressionLabelParser-»
 «IF not validateExpression.oclIsUndefined() -»
 	if («IF validateExpression.provider.getLanguage() = gmfgen::GenLanguage::_literal»!«validateExpression.body»«ELSE»Boolean.FALSE.equals(«IF validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»this.validateExpression.evaluate(editString)«ELSEIF validateExpression.provider.oclIsKindOf(gmfgen::GenJavaExpressionProvider)»evaluateValidateExpression(editString)«ENDIF»)«ENDIF») {
 		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
@@ -102,9 +84,7 @@ return «expression.body»;
 	return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.EDITABLE_STATUS;
 «ENDDEFINE»
 
-«DEFINE extraMethods FOR gmfgen::LabelModelFacet»«ERROR 'ExpressionLabelParser can be used with ExpressionLabelModelFacet only, not with ' + self.repr()»«ENDDEFINE»
-
-«DEFINE extraMethods FOR gmfgen::ExpressionLabelModelFacet-»
+«DEFINE extraMethods FOR gmfgen::ExpressionLabelParser-»
 «IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenJavaExpressionProvider)»
 	«EXPAND _javaMethod('evaluatePrintExpression', 'String', 'org.eclipse.emf.ecore.EObject', viewExpression) FOR viewExpression.provider.oclAsType(gmfgen::GenJavaExpressionProvider)-»
 «ENDIF-»

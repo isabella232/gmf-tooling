@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,4 +15,9 @@
 
 «DEFINE getExpression(valueExpr : gmfgen::ValueExpression, context : genmodel::GenClassifier) FOR gmfgen::GenExpressionInterpreter-»
 «getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR context»)«-»
+«ENDDEFINE»
+
+// occasionally we need to use some well-known context type, i.e. String
+«DEFINE getExpression(valueExpr : gmfgen::ValueExpression, String contextMetaClassifier) FOR gmfgen::GenExpressionInterpreter-»
+«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «contextMetaClassifier»)«-»
 «ENDDEFINE»

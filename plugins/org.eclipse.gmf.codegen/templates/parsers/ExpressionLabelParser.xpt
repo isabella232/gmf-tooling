@@ -20,8 +20,8 @@
 
 «EXPAND xpt::Common::generatedClassComment»
 public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
-«EXPAND fields»
-«EXPAND cons»
+«EXPAND impl::parsers::ExpressionLabelParser::fields-»
+«EXPAND impl::parsers::ExpressionLabelParser::cons(getQualifiedClassName().xpandSplit('\\.')->last())-»
 «EXPAND body»
 «EXPAND additions»
 }
@@ -31,26 +31,15 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 «DEFINE extendsList FOR gmfgen::ExpressionLabelParser»«ENDDEFINE»
 «DEFINE implementsList FOR gmfgen::ExpressionLabelParser» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser«ENDDEFINE»
 
-«DEFINE fields FOR gmfgen::ExpressionLabelParser»
-«EXPAND impl::parsers::ExpressionLabelParser::fields(self) FOR _uses->first()»
-«ENDDEFINE»
-
-«DEFINE cons FOR gmfgen::ExpressionLabelParser»
-	«EXPAND xpt::Common::generatedMemberComment»
-	public «self.getQualifiedClassName().xpandSplit('\\.')->last()»() {
-		«EXPAND impl::parsers::ExpressionLabelParser::consInit(self) FOR _uses->first()»
-	}
-«ENDDEFINE»
-
 «DEFINE body FOR gmfgen::ExpressionLabelParser»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditString(org.eclipse.core.runtime.IAdaptable element, int flags) {
-		«EXPAND impl::parsers::ExpressionLabelParser::accessEditExpression FOR _uses->first()-»
+		«EXPAND impl::parsers::ExpressionLabelParser::accessEditExpression-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus isValidEditString(org.eclipse.core.runtime.IAdaptable element, String editString) {
-		«EXPAND impl::parsers::ExpressionLabelParser::accessValidateExpression FOR _uses->first()-»
+		«EXPAND impl::parsers::ExpressionLabelParser::accessValidateExpression-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -73,7 +62,7 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getPrintString(org.eclipse.core.runtime.IAdaptable element, int flags) {
-		«EXPAND impl::parsers::ExpressionLabelParser::accessViewExpression FOR _uses->first()-»
+		«EXPAND impl::parsers::ExpressionLabelParser::accessViewExpression-»
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -99,5 +88,5 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 		// TODO implement this method
 		throw new org.eclipse.core.commands.ExecutionException("Please implement parsing and value modification"); 
 	}
-«EXPAND impl::parsers::ExpressionLabelParser::extraMethods FOR _uses->first()-»
+«EXPAND impl::parsers::ExpressionLabelParser::extraMethods-»
 «ENDDEFINE»

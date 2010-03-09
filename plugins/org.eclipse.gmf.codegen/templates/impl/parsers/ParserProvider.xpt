@@ -225,7 +225,8 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE _parser(modelFacet : gmfgen::ExpressionLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExpressionLabelParser»
+/*Intentionally modelFacet typed as general LMF, because ExpressionLabelModelFacet is merely a marker*/
+«DEFINE _parser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExpressionLabelParser»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private «getQualifiedClassName()» «parserFieldName(element)»;
 
