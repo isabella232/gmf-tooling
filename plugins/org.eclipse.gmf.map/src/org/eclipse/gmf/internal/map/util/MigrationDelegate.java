@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -48,9 +48,9 @@ class MigrationDelegate extends MigrationDelegateImpl {
 		
 		//registerNarrowReferenceType(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(), GMFMapPackage.eINSTANCE.getFeatureLabelMapping());
 		// -->
-		myLabelMapping_Features = (EReference) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_Features());
-		myLabelMapping_ViewPattern = (EAttribute) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewPattern());
-		myLabelMapping_EditPattern = (EAttribute) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditPattern());
+		myLabelMapping_Features = EcoreUtil.copy(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_Features());
+		myLabelMapping_ViewPattern = EcoreUtil.copy(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_ViewPattern());
+		myLabelMapping_EditPattern = EcoreUtil.copy(GMFMapPackage.eINSTANCE.getFeatureLabelMapping_EditPattern());
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
 			renamings.put(myLabelMapping_ViewPattern.getName(), myLabelMapping_ViewPattern);
@@ -59,8 +59,8 @@ class MigrationDelegate extends MigrationDelegateImpl {
 			registerRenamedAttributes(GMFMapPackage.eINSTANCE.getLabelMapping(), renamings);
 		}
 		
-		myFeatureValueSpec_Body = (EAttribute) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getValueExpression_Body());
-		myFeatureValueSpec_Language = (EAttribute) EcoreUtil.copy(GMFMapPackage.eINSTANCE.getValueExpression_Language());
+		myFeatureValueSpec_Body = EcoreUtil.copy(GMFMapPackage.eINSTANCE.getValueExpression_Body());
+		myFeatureValueSpec_Language = EcoreUtil.copy(GMFMapPackage.eINSTANCE.getValueExpression_Language());
 		{
 			Map<String, EStructuralFeature> renamings = new HashMap<String, EStructuralFeature>();
 			renamings.put(myFeatureValueSpec_Body.getName(), myFeatureValueSpec_Body);
