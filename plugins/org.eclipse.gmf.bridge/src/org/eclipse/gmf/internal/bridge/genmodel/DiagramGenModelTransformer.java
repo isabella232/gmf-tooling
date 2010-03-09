@@ -613,6 +613,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				parser.setValidateExpression(createGenConstraint(elm.getValidateExpression()));
 			}
 			modelFacet.setParser(parser);
+			getGenParsers().getImplementations().add(parser);
 			return modelFacet;
 		}
 		// create bare instance that points to a ExternalParser
@@ -1082,6 +1083,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	/**
 	 * ValueExpressions may be reused, as such clients should treat second argument as template and record return value
 	 * as actual expression.
+	 * 
+	 * FIXME when ValueExpression in Java language and non-empty body, create JavaProvider with injectBody set to true. Also respect
+	 * this condition in search for existing provider
+	 * 
 	 * @return actual gmfgen::ValueExpression to reference
 	 */
 	private <T extends ValueExpression> T bindToProvider(org.eclipse.gmf.mappings.ValueExpression expression, T genExpression) {
