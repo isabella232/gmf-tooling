@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -100,7 +100,7 @@ public org.eclipse.gmf.runtime.lite.figures.ExternalChildPositionTracker getPosi
 «DEFINE behaviour FOR gmfgen::SharedBehaviour»«EXPAND behaviour FOR delegate»«ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::CustomBehaviour»
-installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.xpandStartsWith('\"') and key.xpandEndsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
+installEditPolicy(«key», new «getEditPolicyQualifiedClassName()»()); «IF key.startsWith('\"') and key.endsWith('\"')»«EXPAND xpt::Common::nonNLS»«ENDIF»
 «ENDDEFINE»
 
 «DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
