@@ -89,6 +89,15 @@ public interface GMFMapFactory extends EFactory {
 	DesignLabelMapping createDesignLabelMapping();
 
 	/**
+	 * Returns a new object of class '<em>Expression Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Expression Label Mapping</em>'.
+	 * @generated
+	 */
+	ExpressionLabelMapping createExpressionLabelMapping();
+
+	/**
 	 * Returns a new object of class '<em>Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

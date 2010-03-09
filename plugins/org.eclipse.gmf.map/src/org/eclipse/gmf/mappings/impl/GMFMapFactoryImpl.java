@@ -87,6 +87,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.LABEL_MAPPING: return createLabelMapping();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING: return createFeatureLabelMapping();
 			case GMFMapPackage.DESIGN_LABEL_MAPPING: return createDesignLabelMapping();
+			case GMFMapPackage.EXPRESSION_LABEL_MAPPING: return createExpressionLabelMapping();
 			case GMFMapPackage.CONSTRAINT: return createConstraint();
 			case GMFMapPackage.LINK_CONSTRAINTS: return createLinkConstraints();
 			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
@@ -213,6 +214,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public DesignLabelMapping createDesignLabelMapping() {
 		DesignLabelMappingImpl designLabelMapping = new DesignLabelMappingImpl();
 		return designLabelMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpressionLabelMapping createExpressionLabelMapping() {
+		ExpressionLabelMappingImpl expressionLabelMapping = new ExpressionLabelMappingImpl();
+		return expressionLabelMapping;
 	}
 
 	/**

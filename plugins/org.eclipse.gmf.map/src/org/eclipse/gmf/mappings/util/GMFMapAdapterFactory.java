@@ -145,6 +145,10 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 				return createDesignLabelMappingAdapter();
 			}
 			@Override
+			public Adapter caseExpressionLabelMapping(ExpressionLabelMapping object) {
+				return createExpressionLabelMappingAdapter();
+			}
+			@Override
 			public Adapter caseConstraint(Constraint object) {
 				return createConstraintAdapter();
 			}
@@ -421,6 +425,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDesignLabelMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ExpressionLabelMapping <em>Expression Label Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.ExpressionLabelMapping
+	 * @generated
+	 */
+	public Adapter createExpressionLabelMappingAdapter() {
 		return null;
 	}
 

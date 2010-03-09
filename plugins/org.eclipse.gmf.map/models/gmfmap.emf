@@ -24,7 +24,7 @@ import "platform:/resource/org.eclipse.gmf.tooldef/models/tooldef.ecore";
 
 @constraints(
 	ocl="nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.child.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.child.domainMetaElement)))", 
-	description="Phantom nodes that are not targeted by a link mapping exist"
+	description="Phantom nodes that are not targeted by a link mapping representing containment reference present in the model"
 )
 class Mapping {
 	!resolve val TopNodeReference[*] nodes;
@@ -183,6 +183,19 @@ enum LabelTextAccessMethod {
 
 @genmodel(documentation="Label based on DescriptionStyle from notation model")
 class DesignLabelMapping extends LabelMapping {
+}
+
+@genmodel(documentation="Label based on a calculated value")
+class ExpressionLabelMapping extends LabelMapping {
+	// In futute, we may want to add optional list of features, that are deemed as triggering label change 
+	//ref ecore.EAttribute[*] features;
+
+	@genmodel(documentation="Expression to produce regular label value. Evaluated in the context of the owning mapEntry.domainMetaElement")
+	val ValueExpression[1] viewExpression;
+	@genmodel(documentation="Optional expression to produce editable string representation of the label. If not set, viewExpression is used.")
+	val ValueExpression[?] editExpression;
+	@genmodel(documentation="Boolean expression in a string context, which able to tell whether user-entered text is valid.")
+	val Constraint[?] validateExpression;
 }
 
 //////////////

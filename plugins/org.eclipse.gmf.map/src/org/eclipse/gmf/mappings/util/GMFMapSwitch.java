@@ -204,6 +204,13 @@ public class GMFMapSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.EXPRESSION_LABEL_MAPPING: {
+				ExpressionLabelMapping expressionLabelMapping = (ExpressionLabelMapping)theEObject;
+				T result = caseExpressionLabelMapping(expressionLabelMapping);
+				if (result == null) result = caseLabelMapping(expressionLabelMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.CONSTRAINT: {
 				Constraint constraint = (Constraint)theEObject;
 				T result = caseConstraint(constraint);
@@ -537,6 +544,21 @@ public class GMFMapSwitch<T> {
 	 * @generated
 	 */
 	public T caseDesignLabelMapping(DesignLabelMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expression Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expression Label Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpressionLabelMapping(ExpressionLabelMapping object) {
 		return null;
 	}
 

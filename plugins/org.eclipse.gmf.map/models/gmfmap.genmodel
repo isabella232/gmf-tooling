@@ -115,6 +115,17 @@
       <genFeatures createChild="false" propertyCategory="Visual representation" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/editMethod"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//DesignLabelMapping"/>
+    <genClasses ecoreClass="gmfmap.ecore#//ExpressionLabelMapping">
+      <genFeatures children="true" createChild="true" propertyCategory="Visual representation"
+          propertyDescription="Expression to produce regular label value. Evaluated in the context of the owning mapEntry.domainMetaElement"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//ExpressionLabelMapping/viewExpression"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Visual representation"
+          propertyDescription="Optional expression to produce editable string representation of the label. If not set, viewExpression is used"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//ExpressionLabelMapping/editExpression"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Visual representation"
+          propertyDescription="Boolean expression in a string context, which able to tell whether user-entered text is valid"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//ExpressionLabelMapping/validateExpression"/>
+    </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//Constraint" labelFeature="#//mappings/ValueExpression/body"/>
     <genClasses ecoreClass="gmfmap.ecore#//LinkConstraints">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkConstraints/linkMapping"/>

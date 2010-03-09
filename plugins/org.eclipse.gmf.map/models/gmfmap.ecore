@@ -13,7 +13,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Mapping">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.child.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.child.domainMetaElement)))"/>
-      <details key="description" value="Phantom nodes that are not targeted by a link mapping representing containment reference present in model"/>
+      <details key="description" value="Phantom nodes that are not targeted by a link mapping representing containment reference present in the model"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//TopNodeReference" containment="true" resolveProxies="false"/>
@@ -253,6 +253,29 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label based on DescriptionStyle from notation model"/>
     </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressionLabelMapping" eSuperTypes="#//LabelMapping">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Label based on a calculated value"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewExpression" lowerBound="1"
+        eType="#//ValueExpression" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Expression to produce regular label value. Evaluated in the context of the owning mapEntry.domainMetaElement"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editExpression" eType="#//ValueExpression"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Optional expression to produce editable string representation of the label. If not set, viewExpression is used."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="validateExpression" eType="#//Constraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Boolean expression in a string context, which able to tell whether user-entered text is valid."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

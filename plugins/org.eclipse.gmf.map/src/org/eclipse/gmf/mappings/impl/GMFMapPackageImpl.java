@@ -115,6 +115,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass expressionLabelMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass mappingEClass = null;
 
 	/**
@@ -326,20 +333,10 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link GMFMapPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -351,7 +348,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		if (isInited) return (GMFMapPackage)EPackage.Registry.INSTANCE.getEPackage(GMFMapPackage.eNS_URI);
 
 		// Obtain or create and register package
-		GMFMapPackageImpl theGMFMapPackage = (GMFMapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof GMFMapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new GMFMapPackageImpl());
+		GMFMapPackageImpl theGMFMapPackage = (GMFMapPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof GMFMapPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new GMFMapPackageImpl());
 
 		isInited = true;
 
@@ -369,6 +366,9 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		// Mark meta-data to indicate it can't be changed
 		theGMFMapPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(GMFMapPackage.eNS_URI, theGMFMapPackage);
 		return theGMFMapPackage;
 	}
 
@@ -835,6 +835,42 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 */
 	public EClass getDesignLabelMapping() {
 		return designLabelMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExpressionLabelMapping() {
+		return expressionLabelMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelMapping_ViewExpression() {
+		return (EReference)expressionLabelMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelMapping_EditExpression() {
+		return (EReference)expressionLabelMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpressionLabelMapping_ValidateExpression() {
+		return (EReference)expressionLabelMappingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1638,6 +1674,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		designLabelMappingEClass = createEClass(DESIGN_LABEL_MAPPING);
 
+		expressionLabelMappingEClass = createEClass(EXPRESSION_LABEL_MAPPING);
+		createEReference(expressionLabelMappingEClass, EXPRESSION_LABEL_MAPPING__VIEW_EXPRESSION);
+		createEReference(expressionLabelMappingEClass, EXPRESSION_LABEL_MAPPING__EDIT_EXPRESSION);
+		createEReference(expressionLabelMappingEClass, EXPRESSION_LABEL_MAPPING__VALIDATE_EXPRESSION);
+
 		constraintEClass = createEClass(CONSTRAINT);
 
 		linkConstraintsEClass = createEClass(LINK_CONSTRAINTS);
@@ -1781,6 +1822,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		linkMappingEClass.getESuperTypes().add(this.getAppearanceSteward());
 		featureLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
 		designLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
+		expressionLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
 		constraintEClass.getESuperTypes().add(this.getValueExpression());
 		featureSeqInitializerEClass.getESuperTypes().add(this.getElementInitializer());
 		featureValueSpecEClass.getESuperTypes().add(this.getFeatureInitializer());
@@ -1869,6 +1911,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEAttribute(getFeatureLabelMapping_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(designLabelMappingEClass, DesignLabelMapping.class, "DesignLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(expressionLabelMappingEClass, ExpressionLabelMapping.class, "ExpressionLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExpressionLabelMapping_ViewExpression(), this.getValueExpression(), null, "viewExpression", null, 1, 1, ExpressionLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExpressionLabelMapping_EditExpression(), this.getValueExpression(), null, "editExpression", null, 0, 1, ExpressionLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExpressionLabelMapping_ValidateExpression(), this.getConstraint(), null, "validateExpression", null, 0, 1, ExpressionLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2006,7 +2053,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																																		
+		   });																																																																																																																						
 	}
 
 	/**
@@ -2023,7 +2070,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																																
+		   });																																				
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2169,7 +2216,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.child.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.child.domainMetaElement)))",
-			 "description", "Phantom nodes that are not targeted by a link mapping representing containment reference present in model"
+			 "description", "Phantom nodes that are not targeted by a link mapping representing containment reference present in the model"
 		   });					
 		addAnnotation
 		  (getMappingEntry_DomainSpecialization(), 
@@ -2296,7 +2343,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "editableFeatures->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))",
 			 "description", "Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry"
-		   });									
+		   });													
 		addAnnotation
 		  (linkConstraintsEClass, 
 		   source, 
