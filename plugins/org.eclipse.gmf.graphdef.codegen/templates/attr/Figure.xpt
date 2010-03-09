@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -10,9 +10,6 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
-«EXTENSION xpt::StringOperations»
 
 «DEFINE figureAttrs(figureVarName : String) FOR gmfgraph::Figure-»
 «EXPAND foregroundColor(self, figureVarName) FOR foregroundColor-»
@@ -88,7 +85,7 @@ org.eclipse.draw2d.ColorConstants.«value-»
 /**
  * @generated
  */
-static final org.eclipse.swt.graphics.Font «variableName» = new org.eclipse.swt.graphics.Font(org.eclipse.swt.widgets.Display.getCurrent(), «IF null = faceName or faceName.trim().xpandLength() = 0»org.eclipse.swt.widgets.Display.getDefault().getSystemFont().getFontData()[0].getName()«ELSE»"«faceName»"«ENDIF», «height», org.eclipse.swt.SWT.«style»);
+static final org.eclipse.swt.graphics.Font «variableName» = new org.eclipse.swt.graphics.Font(org.eclipse.swt.widgets.Display.getCurrent(), «IF null = faceName or faceName.trim().size() = 0»org.eclipse.swt.widgets.Display.getDefault().getSystemFont().getFontData()[0].getName()«ELSE»"«faceName»"«ENDIF», «height», org.eclipse.swt.SWT.«style»);
 «ENDFILE»
 «ENDLET»
 «ENDDEFINE»
