@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2008 Borland Software Corp.
+/*
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -39,9 +39,9 @@ public class StandardLibraryImports extends AbstractImportsManager {
 		operationsMap.put(BuiltinMetaModel.EString_ReplaceAll, MapEntry.newStringLibEntry("xpandReplaceAll"));
 		operationsMap.put(BuiltinMetaModel.EString_Split, MapEntry.newStringLibEntry("xpandSplit"));
 		operationsMap.put(BuiltinMetaModel.EString_Matches, MapEntry.newStringLibEntry("xpandMatches"));
-		operationsMap.put(BuiltinMetaModel.EString_StartsWith, MapEntry.newStringLibEntry("xpandStartsWith"));
-		operationsMap.put(BuiltinMetaModel.EString_EndsWith, MapEntry.newStringLibEntry("xpandEndsWith"));
-		operationsMap.put(BuiltinMetaModel.EString_Length, MapEntry.newStringLibEntry("xpandLength"));
+		operationsMap.put(BuiltinMetaModel.EString_StartsWith, MapEntry.newEntry("startsWith"));
+		operationsMap.put(BuiltinMetaModel.EString_EndsWith, MapEntry.newEntry("endsWith"));
+		operationsMap.put(BuiltinMetaModel.EString_Length, MapEntry.newEntry("size"));
 		operationsMap.put(BuiltinMetaModel.Object_CompareTo, MapEntry.newOclAnyLibEntry("xpandCompareTo"));
 		operationsMap.put(BuiltinMetaModel.Object_ToString, MapEntry.newEntry("repr"));
 		operationsMap.put(BuiltinMetaModel.Int_Div_Int, MapEntry.newEntry("div"));
