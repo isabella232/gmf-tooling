@@ -73,7 +73,6 @@ import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.provider.EcoreItemProviderAdapterFactoryEx;
 import org.eclipse.gmf.mappings.provider.GMFMapEditPlugin;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -657,7 +656,7 @@ public class GMFMapEditor
 		adapterFactory.addAdapterFactory(new GMFMapItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new GMFGraphItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new GMFToolItemProviderAdapterFactory());
-		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
+		adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactoryEx());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		// Create the command stack that will notify this editor as commands are executed.
@@ -1262,8 +1261,8 @@ public class GMFMapEditor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
-		@Override
+	@SuppressWarnings("rawtypes")
+	@Override
 	public Object getAdapter(Class key) {
 		if (key.equals(IContentOutlinePage.class)) {
 			return showOutlineView() ? getContentOutlinePage() : null;
