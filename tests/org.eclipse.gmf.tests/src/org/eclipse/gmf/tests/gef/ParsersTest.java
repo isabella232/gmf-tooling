@@ -554,8 +554,9 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 			asisProvider.getExpressions().add(v2);
 			expressionParser.setEditExpression(v2);
 			GenConstraint v3 = GMFGenFactory.eINSTANCE.createGenConstraint();
-			v3.setBody("return self.length() > 2;");
+			v3.setBody("return Boolean.valueOf(self.length() > 2);");
 			javaProvider.getExpressions().add(v3);
+			javaProvider.setInjectExpressionBody(true);
 			expressionParser.setValidateExpression(v3);
 			expressionParser.setClassName("MyExpressionParser");
 			//
