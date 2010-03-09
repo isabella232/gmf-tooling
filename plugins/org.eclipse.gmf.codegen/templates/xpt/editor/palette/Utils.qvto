@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,8 +9,6 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-
-import xpt.StringOperations;
 
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
@@ -29,7 +27,7 @@ helper gmfgen::ToolGroup::activatorFQN() : String {
 }
 
 helper i18nKey(group : gmfgen::EntryBase) : String {
-	return let rv = group.createMethodName in (if rv.xpandStartsWith('get') then rv.xpandSubstring(3) else (if rv.xpandStartsWith('create') then rv.xpandSubstring(6) else rv endif) endif)
+	return let rv = group.createMethodName in (if rv.startsWith('get') then rv.substringAfter('get') else (if rv.startsWith('create') then rv.substringAfter('create') else rv endif) endif)
 }
 
 helper i18nTitleKey(group : gmfgen::EntryBase) : String {

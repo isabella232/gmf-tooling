@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,7 +17,6 @@
 «EXTENSION xpt::diagram::Utils»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION xpt::expressions::ValueExpression»
-«EXTENSION xpt::StringOperations»
 
 «DEFINE BaseItemSemanticEditPolicy FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -455,9 +454,9 @@ if (target != null && («EXPAND featureBoundsConditionClause('target', getTarget
 «ENDDEFINE»
 
 «DEFINE checkAdditionalConstraint(valueExpr : gmfgen::ValueExpression, constraintFieldName : String, sourceEndVar : String, targetEndVar : String, context : genmodel::GenClass, oppositeEndContext : genmodel::GenClass) FOR gmfgen::GenJavaExpressionProvider-»
-«IF injectExpressionBody and (valueExpr.body <> null and valueExpr.body.xpandLength() <> 0)-»
+«IF injectExpressionBody and (valueExpr.body <> null and valueExpr.body.size() <> 0)-»
 	«valueExpr.body»
-«ELSEIF throwException or (injectExpressionBody and (valueExpr.body = null or valueExpr.body.xpandLength() = 0))-»
+«ELSEIF throwException or (injectExpressionBody and (valueExpr.body = null or valueExpr.body.size() = 0))-»
 	// TODO: implement this method, using «sourceEndVar» and «targetEndVar» 
 	// to access link source and target, respectively
 	// Ensure that you remove @generated or mark it @generated NOT

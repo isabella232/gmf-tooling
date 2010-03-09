@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,7 +19,6 @@
 «EXTENSION xpt::providers::ElementInitializers»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION gmf::GenModelUtils»
-«EXTENSION xpt::StringOperations»
 
 «DEFINE ElementInitializers FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -129,7 +128,9 @@ public class ElementInitializers {
 
 «DEFINE evaluateExpr(diagramElement : gmfgen::GenCommonBase, valueExpr : gmfgen::GenFeatureValueSpec, instanceVar : String) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
 
-// XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type) 
+// XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type)
+// FIXME - creating new expression each time we need to initialize an element is not very efficient (e.g. OCLFactory.getExpression()).
+// Perhaps, factory implementation should be changed instead, to keep all optimization in a single place? 
 «DEFINE evaluateExpr(diagramElement : gmfgen::GenCommonBase, valueExpr : gmfgen::GenFeatureValueSpec, instanceVar : String) FOR gmfgen::GenExpressionInterpreter-»
 «EXPAND xpt::expressions::getExpression::getExpression(valueExpr.value, valueExpr.featureSeqInitializer.elementClass)».evaluate(«instanceVar»)«-»
 «ENDDEFINE»
@@ -162,9 +163,9 @@ public class ElementInitializers {
 «DEFINE javaMethod(diagramElement : gmfgen::GenCommonBase, vs : gmfgen::GenFeatureValueSpec) FOR gmfgen::GenJavaExpressionProvider-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static «EXPAND MetaModel::featureTargetType FOR vs.feature» «javaMethodName(diagramElement, vs)»(«EXPAND MetaModel::QualifiedClassName FOR vs.featureSeqInitializer.elementClass» self) {
-«IF injectExpressionBody and (vs.value.body <> null and vs.value.body.xpandLength() <> 0)-»
+«IF injectExpressionBody and (vs.value.body <> null and vs.value.body.size() <> 0)-»
 		«vs.value.body»
-«ELSEIF throwException or (injectExpressionBody and (vs.value.body = null or vs.value.body.xpandLength() = 0))-»
+«ELSEIF throwException or (injectExpressionBody and (vs.value.body = null or vs.value.body.size() = 0))-»
 		// TODO: implement this method to return value  
 		// for «EXPAND MetaModel::MetaFeature FOR vs.feature»
 		// Ensure that you remove @generated or mark it @generated NOT

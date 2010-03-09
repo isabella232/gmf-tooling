@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,8 +15,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
 «EXTENSION xpt::GenAuditRoot»
-«EXTENSION xpt::StringOperations»
-
 
 «DEFINE ValidationProvider FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -275,9 +273,9 @@ static boolean isInDefaultEditorContext(Object object) {
 «ENDDEFINE»
 
 «DEFINE constraintAdapter_validateMethod(audit : gmfgen::GenAuditRule) FOR gmfgen::GenJavaExpressionProvider-»
-«IF injectExpressionBody and (audit.rule.body <> null and audit.rule.body.xpandLength() <> 0)-»
+«IF injectExpressionBody and (audit.rule.body <> null and audit.rule.body.size() <> 0)-»
 			«audit.rule.body»
-«ELSEIF throwException or (injectExpressionBody and (audit.rule.body = null or audit.rule.body.xpandLength() = 0))-»
+«ELSEIF throwException or (injectExpressionBody and (audit.rule.body = null or audit.rule.body.size() = 0))-»
 			// TODO: put validation code here
 			// Ensure that you remove @generated tag or use @generated NOT
 			//
