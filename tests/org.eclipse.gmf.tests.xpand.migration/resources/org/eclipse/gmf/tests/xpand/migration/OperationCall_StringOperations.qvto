@@ -32,11 +32,11 @@ helper stringToCharList(string : String) : Sequence(String) {
 }
 
 helper stringStartsWith(string : String, parameter : String) : Boolean {
-	return string.xpandStartsWith(parameter)
+	return string.startsWith(parameter)
 }
 
 helper stringEndsWith(string : String, parameter : String) : Boolean {
-	return string.xpandEndsWith(parameter)
+	return string.endsWith(parameter)
 }
 
 helper stringSubString(string : String, startIndex : Integer, endIndex : Integer) : String {
@@ -76,7 +76,7 @@ helper stringTrim(string : String) : String {
 }
 
 helper stringLength(string : String) : Integer {
-	return string.xpandLength()
+	return string.size()
 }
 
 helper stringCompareTo(string : String, another : OclAny) : Boolean {
