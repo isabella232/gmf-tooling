@@ -78,9 +78,13 @@ if (view.getEAnnotation("Shortcut") != null) {«EXPAND xpt::Common::nonNLS»
 
 «DEFINE getDefaultFactoryHint FOR gmfgen::GenContainerBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
-protected String getDefaultFactoryHint() {
-	return null;
-}
+	protected String getDefaultFactoryHint() {
+«IF getDiagram().synchronized /*XXX not quite sure this check makes any sense - we are in the process of generation CEP anyway*/-»
+		return «EXPAND impl::editor::Editor::canonicalEPFactoryHintStringValue FOR getDiagram()»;«EXPAND xpt::Common::nonNLS»
+«ELSE-»
+		return null;
+«ENDIF-»
+	}
 «ENDDEFINE»
 
 «DEFINE isOrphaned FOR gmfgen::GenContainerBase-»

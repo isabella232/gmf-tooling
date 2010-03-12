@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -26,8 +26,10 @@
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
 «ENDIF-»
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«FOREACH getAllNodes() /*XXX can further improve selection using containerViews attribute, however, when top-node is created, provider is activated and this xml is not consulted any longer*/ AS n SEPARATOR ','»«n.visualID»«ENDFOREACH»"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="«FOREACH links AS l SEPARATOR ','»«l.visualID»«ENDFOREACH»"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«IF synchronized»«EXPAND impl::editor::Editor::canonicalEPFactoryHintValue»,«ENDIF»«FOREACH getAllNodes() /*XXX can further improve selection using containerViews attribute, however, when top-node is created, provider is activated and this xml is not consulted any longer*/ AS n SEPARATOR ','»«n.visualID»«ENDFOREACH»"/>
+«IF links->notEmpty() /*it is unlikely there would be a diagram without a node, but a diagram without links deemed possible */-»
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="«IF synchronized»«EXPAND impl::editor::Editor::canonicalEPFactoryHintValue»,«ENDIF»«FOREACH links AS l SEPARATOR ','»«l.visualID»«ENDFOREACH»"/>
+«ENDIF-»
       </viewProvider>
    </extension>
 
