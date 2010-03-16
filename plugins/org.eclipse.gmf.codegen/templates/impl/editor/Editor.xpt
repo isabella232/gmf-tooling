@@ -12,9 +12,3 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
-// this is a temporary fix for 281014 
-// the reason it is in the Editor template is that I expect this field to appear (if ever) in the editor class - since 
-// there might not be diagram CEP always. Another alternative is diagram's EditPart. ViewProvider is not a good one because
-// it's much more internal class than editor or editpart.
-«DEFINE canonicalEPFactoryHintValue FOR gmfgen::GenDiagram»«editorGen.modelID»-CEP«ENDDEFINE»
-«DEFINE canonicalEPFactoryHintStringValue FOR gmfgen::GenDiagram»"«EXPAND canonicalEPFactoryHintValue»"«ENDDEFINE»
