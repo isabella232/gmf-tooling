@@ -64,7 +64,7 @@ public class «notationViewProviderClassName»«EXPAND extendsList»«EXPAND imp
 		org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
 		org.eclipse.emf.ecore.EObject domainElement = getSemanticElement(op.getSemanticAdapter());
 		int visualID;
-		if (op.getSemanticHint() == null«IF synchronized» || «EXPAND impl::editor::Editor::canonicalEPFactoryHintStringValue».equals(op.getSemanticHint())«ENDIF») {
+		if (op.getSemanticHint() == null) {
 			// Semantic hint is not specified, or a factory hint value was provided (which can be a result of call from CanonicalEditPolicy).
 			// In this situation there should be NO elementType, visualID will be determined
 			// by VisualIDRegistry.getNodeVisualID() for domainElement.
@@ -162,7 +162,7 @@ public class «notationViewProviderClassName»«EXPAND extendsList»«EXPAND imp
 	public org.eclipse.gmf.runtime.notation.Node createNode(org.eclipse.core.runtime.IAdaptable semanticAdapter, org.eclipse.gmf.runtime.notation.View containerView, String semanticHint, int index, boolean persisted, org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint preferencesHint) {
 		final org.eclipse.emf.ecore.EObject domainElement = getSemanticElement(semanticAdapter);
 		final int visualID;
-		if (semanticHint == null«IF synchronized» || «EXPAND impl::editor::Editor::canonicalEPFactoryHintStringValue».equals(semanticHint)«ENDIF») {
+		if (semanticHint == null) {
 			visualID = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement);
 		} else {
 			visualID = «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(semanticHint);

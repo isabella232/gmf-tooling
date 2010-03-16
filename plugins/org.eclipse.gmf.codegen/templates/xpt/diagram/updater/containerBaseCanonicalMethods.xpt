@@ -27,7 +27,6 @@
 		«EXPAND populateViewProperties-»
 	«ENDIF-»
 	
-	«EXPAND getDefaultFactoryHint-»
 	«EXPAND getFeaturesToSynchronize-»
 «ENDDEFINE»
 
@@ -43,11 +42,12 @@
 «DEFINE getSemanticChildrenList FOR gmfgen::GenContainerBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getSemanticChildrenList() {
-	«IF hasSemanticChildren(self)-»
+	«IF hasSemanticChildren(self) /*REVISIT: is there real need for this check - Generator seems to consult needsCanonicalEP, which in turns ensures there are semantic children?*/-»
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.emf.ecore.EObject', 'result')»();
-	for (java.util.Iterator it = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject).iterator(); it.hasNext();) {
-		result.add(((«getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName()») it.next()).getModelElement());
+	«EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName())» childDescriptors = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject);
+	«EXPAND CodeStyle::iterate('d', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName(), 'childDescriptors.iterator()')-»
+		result.add(d.getModelElement());
 	}
 	return result;
 	«ELSE-»
@@ -75,17 +75,6 @@ if (view.getEAnnotation("Shortcut") != null) {«EXPAND xpt::Common::nonNLS»
 «ENDDEFINE»
 
 «DEFINE checkShortcutProperty FOR gmfgen::GenContainerBase»«ENDDEFINE»
-
-«DEFINE getDefaultFactoryHint FOR gmfgen::GenContainerBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected String getDefaultFactoryHint() {
-«IF getDiagram().synchronized /*XXX not quite sure this check makes any sense - we are in the process of generation CEP anyway*/-»
-		return «EXPAND impl::editor::Editor::canonicalEPFactoryHintStringValue FOR getDiagram()»;«EXPAND xpt::Common::nonNLS»
-«ELSE-»
-		return null;
-«ENDIF-»
-	}
-«ENDDEFINE»
 
 «DEFINE isOrphaned FOR gmfgen::GenContainerBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
