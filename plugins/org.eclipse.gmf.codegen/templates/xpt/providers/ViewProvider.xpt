@@ -65,7 +65,7 @@ public class «notationViewProviderClassName»«EXPAND extendsList»«EXPAND imp
 		org.eclipse.emf.ecore.EObject domainElement = getSemanticElement(op.getSemanticAdapter());
 		int visualID;
 		if (op.getSemanticHint() == null) {
-			// Semantic hint is not specified, or a factory hint value was provided (which can be a result of call from CanonicalEditPolicy).
+			// Semantic hint is not specified. Can be a result of call from CanonicalEditPolicy.
 			// In this situation there should be NO elementType, visualID will be determined
 			// by VisualIDRegistry.getNodeVisualID() for domainElement.
 			if (elementType != null || domainElement == null) {«REM»XXX Perhaps, better to fix CanonicalEP instead of this hack?«ENDREM»
