@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.ecore.edit.policies;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -42,18 +42,22 @@ import org.eclipse.gmf.ecore.part.EcoreVisualIDRegistry;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
+import org.eclipse.gmf.runtime.diagram.ui.commands.SetViewMutabilityCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
+public class EPackageCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated
@@ -66,8 +70,10 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		LinkedList<EObject> result = new LinkedList<EObject>();
-		for (Iterator it = EcoreDiagramUpdater.getEPackage_1000SemanticChildren(viewObject).iterator(); it.hasNext();) {
-			result.add(((EcoreNodeDescriptor) it.next()).getModelElement());
+		List<EcoreNodeDescriptor> childDescriptors = EcoreDiagramUpdater.getEPackage_1000SemanticChildren(viewObject);
+		for (Iterator<EcoreNodeDescriptor> it = childDescriptors.iterator(); it.hasNext();) {
+			EcoreNodeDescriptor d = it.next();
+			result.add(d.getModelElement());
 		}
 		return result;
 	}
@@ -103,13 +109,6 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected String getDefaultFactoryHint() {
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected Set getFeaturesToSynchronize() {
 		if (myFeaturesToSynchronize == null) {
 			myFeaturesToSynchronize = new HashSet<EStructuralFeature>();
@@ -123,40 +122,47 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected List getSemanticConnectionsList() {
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EObject getSourceElement(EObject relationship) {
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EObject getTargetElement(EObject relationship) {
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
 	protected void refreshSemantic() {
-		List createdViews = new LinkedList();
-		createdViews.addAll(refreshSemanticChildren());
-		List createdConnectionViews = new LinkedList();
-		createdConnectionViews.addAll(refreshSemanticConnections());
-		createdConnectionViews.addAll(refreshConnections());
+		if (resolveSemanticElement() == null) {
+			return;
+		}
+		LinkedList<IAdaptable> createdViews = new LinkedList<IAdaptable>();
+		// refreshSemanticChildren() alternative
+		List<EcoreNodeDescriptor> childDescriptors = EcoreDiagramUpdater.getEPackage_1000SemanticChildren((View) getHost().getModel());
+		ArrayList<EObject> semanticChildren = new ArrayList<EObject>(childDescriptors.size());
+		for (Iterator<EcoreNodeDescriptor> it = childDescriptors.iterator(); it.hasNext();) {
+			EcoreNodeDescriptor next = it.next();
+			semanticChildren.add(next.getModelElement());
+		}
+		List<View> orphaned = cleanCanonicalSemanticChildren(getViewChildren(), semanticChildren);
+		boolean changed = deleteViews(orphaned.iterator());
+		// leave descriptors that reference survived semanticChildren.
+		// NOTE, we may want to stop using cleanCanonicalSemanticChildren() here, replacing with own code, that respects NodeDescriptors 
+		for (Iterator<EcoreNodeDescriptor> it = childDescriptors.iterator(); it.hasNext();) {
+			EcoreNodeDescriptor next = it.next();
+			if (!semanticChildren.contains(next.getModelElement())) {
+				it.remove();
+			}
+		}
+		ArrayList<CreateViewRequest.ViewDescriptor> viewDescriptors = new ArrayList<CreateViewRequest.ViewDescriptor>(childDescriptors.size());
+		for (Iterator<EcoreNodeDescriptor> it = childDescriptors.iterator(); it.hasNext();) {
+			EcoreNodeDescriptor next = it.next();
+			String hint = EcoreVisualIDRegistry.getType(next.getVisualID());
+			IAdaptable elementAdapter = new CanonicalElementAdapter(next.getModelElement(), hint);
+			viewDescriptors.add(new CreateViewRequest.ViewDescriptor(elementAdapter, Node.class, hint, ViewUtil.APPEND, false, host().getDiagramPreferencesHint()));
+		}
+		//
+		CreateViewRequest request = getCreateViewRequest(viewDescriptors);
+		Command cmd = getCreateViewCommand(request);
+		if (cmd != null && cmd.canExecute()) {
+			SetViewMutabilityCommand.makeMutable(new EObjectAdapter(host().getNotationView())).execute();
+			executeCommand(cmd);
+			createdViews.addAll((List<IAdaptable>) request.getNewObject());
+		}
+		if (changed || createdViews.size() > 0) {
+			postProcessRefreshSemantic(createdViews);
+		}
+		Collection<IAdaptable> createdConnectionViews = refreshConnections();
 
 		if (createdViews.size() > 1) {
 			// perform a layout of the container
@@ -178,7 +184,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	/**
 	 * @generated
 	 */
-	private Collection refreshConnections() {
+	private Collection<IAdaptable> refreshConnections() {
 		Map<EObject, View> domain2NotationMap = new HashMap<EObject, View>();
 		Collection<EcoreLinkDescriptor> linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 		Collection existingLinks = new LinkedList(getDiagram().getEdges());

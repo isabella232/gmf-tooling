@@ -37,8 +37,10 @@ public class EPackagePackageAnnotationsCanonicalEditPolicy extends CanonicalEdit
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
 		LinkedList<EObject> result = new LinkedList<EObject>();
-		for (Iterator it = EcoreDiagramUpdater.getEPackagePackageAnnotations_7008SemanticChildren(viewObject).iterator(); it.hasNext();) {
-			result.add(((EcoreNodeDescriptor) it.next()).getModelElement());
+		List<EcoreNodeDescriptor> childDescriptors = EcoreDiagramUpdater.getEPackagePackageAnnotations_7008SemanticChildren(viewObject);
+		for (Iterator<EcoreNodeDescriptor> it = childDescriptors.iterator(); it.hasNext();) {
+			EcoreNodeDescriptor d = it.next();
+			result.add(d.getModelElement());
 		}
 		return result;
 	}
@@ -55,13 +57,6 @@ public class EPackagePackageAnnotationsCanonicalEditPolicy extends CanonicalEdit
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected String getDefaultFactoryHint() {
-		return null;
 	}
 
 	/**
