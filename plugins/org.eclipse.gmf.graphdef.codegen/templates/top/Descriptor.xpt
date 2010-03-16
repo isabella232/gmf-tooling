@@ -11,9 +11,8 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
 «EXTENSION Util»
-«EXTENSION xpt::StringOperations»
 
 «DEFINE Top(packageStmt : String) FOR gmfgraph::FigureDescriptor»
 «IF packageStmt <> null and packageStmt.size() > 0»package «packageStmt»;
