@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -32,7 +32,11 @@ public class TypeHelper {
 	}
 
 	public EClassifier getTypeForName(ExecutionContext ctx) {
-		return new EmbeddedOCLAnalyzer(ctx.getOCLEnvironment()).typeForName(typeCS);
+		EClassifier c = new EmbeddedOCLAnalyzer(ctx.getOCLEnvironment()).typeForName(typeCS);
+		if (c == ctx.getOCLEnvironment().getOCLStandardLibrary().getOclVoid()) {
+			return null;
+		}
+		return c;
 	}
 
 	public String getName() {
