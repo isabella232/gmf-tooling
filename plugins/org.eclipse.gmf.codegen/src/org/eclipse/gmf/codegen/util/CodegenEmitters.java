@@ -194,11 +194,11 @@ public class CodegenEmitters {
 	}
 
 	public TextEmitter getDiagramCanonicalEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::DiagramCanonicalEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("diagram::editpolicies::DiagramCanonicalEditPolicy::Main"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy"); //$NON-NLS-1$
+		return newXpandEmitter("diagram::editpolicies::ChildContainerCanonicalEditPolicy::Main"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() {

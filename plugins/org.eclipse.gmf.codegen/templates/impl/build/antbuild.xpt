@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2009 Borland Software Corporation and others
+ * Copyright (c) 2009, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -59,7 +59,7 @@
     <property name="CreateNodeCommandEmitter" value="xpt::diagram::commands::CreateNodeCommand::CreateNodeCommand"/>
     <property name="NodeEditPartEmitter" value="diagram::editparts::NodeEditPart::Main"/>
     <property name="OpenDiagramEditPolicyEmitter" value="xpt::diagram::editpolicies::OpenDiagram::OpenDiagram"/>
-    <property name="ChildContainerCanonicalEditPolicyEmitter" value="xpt::diagram::editpolicies::ChildContainerCanonicalEditPolicy::ChildContainerCanonicalEditPolicy"/>
+    <property name="ChildContainerCanonicalEditPolicyEmitter" value="diagram::editpolicies::ChildContainerCanonicalEditPolicy::Main"/>
     <property name="GraphicalNodeEditPolicyEmitter" value="xpt::diagram::editpolicies::GraphicalNodeEditPolicy::GraphicalNodeEditPolicy"/>
     <property name="ExternalNodeLabelEditPartEmitter" value="diagram::editparts::ExternalNodeLabelEditPart::Main"/>
     <property name="NodeLabelEditPartEmitter" value="diagram::editparts::NodeLabelEditPart::Main"/>
@@ -156,7 +156,7 @@
     <property name="BaseItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::BaseItemSemanticEditPolicy"/>
     <property name="TextSelectionEditPolicyEmitter" value="xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"/>
     <property name="TextNonResizableEditPolicyEmitter" value="xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"/>
-    <property name="DiagramCanonicalEditPolicyEmitter" value="xpt::diagram::editpolicies::DiagramCanonicalEditPolicy::DiagramCanonicalEditPolicy"/>
+    <property name="DiagramCanonicalEditPolicyEmitter" value="diagram::editpolicies::DiagramCanonicalEditPolicy::Main"/>
     <property name="DiagramItemSemanticEditPolicyEmitter" value="xpt::diagram::editpolicies::DiagramItemSemanticEditPolicy::DiagramItemSemanticEditPolicy"/>
     <property name="BaseEditHelperEmitter" value="xpt::diagram::edithelpers::BaseEditHelper::BaseEditHelper"/>
     <!-- wizard to create a diagram -->
