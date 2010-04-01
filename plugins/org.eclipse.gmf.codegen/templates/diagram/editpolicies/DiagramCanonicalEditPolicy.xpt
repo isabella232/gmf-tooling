@@ -35,27 +35,25 @@ public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.di
 «ENDDEFINE»
 
 «DEFINE refreshSemanticMethod FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	protected void refreshSemantic() {
-		if (resolveSemanticElement() == null) {
-			return;
-		}
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable', 'createdViews')»();
-		«EXPAND impl::diagram::update::CanonicalUpdate::refreshSemanticChildren('createdViews', editorGen.diagramUpdater)-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshSemantic() {
+	if (resolveSemanticElement() == null) {
+		return;
+	}
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable', 'createdViews')»();
+	«EXPAND impl::diagram::update::CanonicalUpdate::refreshSemanticChildren('createdViews', editorGen.diagramUpdater)-»
+
 	«IF links->notEmpty()-»
 		«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.IAdaptable')» createdConnectionViews = refreshConnections();
 	«ENDIF-»
 
-		if (createdViews.size() > 1) {
-			// perform a layout of the container
-			org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand layoutCmd = new org.eclipse.gmf.runtime.diagram.ui.commands.DeferredLayoutCommand(host().getEditingDomain(), createdViews, host());
-			executeCommand(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(layoutCmd));
-		}
+	«EXPAND impl::diagram::update::CanonicalUpdate::executeLayoutCommand('createdViews')-»
 
 	«IF links->notEmpty()-»
 		createdViews.addAll(createdConnectionViews);
 	«ENDIF-»
-		makeViewsImmutable(createdViews);
+
+	makeViewsImmutable(createdViews);
 }
 «ENDDEFINE»
 

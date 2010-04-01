@@ -20,8 +20,24 @@ package «getDiagram().editPoliciesPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «canonicalEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy {
 	«EXPAND impl::diagram::update::CanonicalUpdate::body-»
-	«EXPAND impl::diagram::update::CanonicalUpdate::getDefaultFactoryHintMethod-»
+
+	«EXPAND refreshSemanticMethod-»
 	«EXPAND additions-»
+}
+«ENDDEFINE»
+
+
+«DEFINE refreshSemanticMethod FOR gmfgen::GenChildContainer-»
+«EXPAND xpt::Common::generatedMemberComment»
+protected void refreshSemantic() {
+	if (resolveSemanticElement() == null) {
+		return;
+	}
+	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable', 'createdViews')»();
+	«EXPAND impl::diagram::update::CanonicalUpdate::refreshSemanticChildren('createdViews', getDiagram().editorGen.diagramUpdater)-»
+	«EXPAND impl::diagram::update::CanonicalUpdate::executeLayoutCommand('createdViews')-»
+	
+	makeViewsImmutable(createdViews);
 }
 «ENDDEFINE»
 
