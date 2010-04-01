@@ -59,4 +59,4 @@ java.util.Collections.EMPTY_LIST«ENDIF-»
 //   List/*[String]*/ coll = ...
 //   String aaa = (String) coll.get(0);
 // cast to string is needed in 1.4
-«DEFINE castTyped(String type) FOR gmfgen::GenCommonBase»«IF not (self.jdkComplianceLevel() > 4)»(type) «ENDIF»«ENDDEFINE»
+«DEFINE castTyped(String type) FOR gmfgen::GenCommonBase»«IF not (self.jdkComplianceLevel() > 4)»(«type») «ENDIF»«ENDDEFINE»
