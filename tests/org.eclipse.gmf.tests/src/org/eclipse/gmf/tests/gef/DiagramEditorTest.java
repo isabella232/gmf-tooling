@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Eclipse.org
+/*
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -50,6 +50,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -59,6 +60,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorTest(String name) {
 		super(name);
+		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	public void testSaveDiagramChanges() {
@@ -278,6 +280,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 			saveResources(diagramCopy.eResource().getResourceSet().getResources());
 			redispatchEvents();
+			System.err.println("[300887] Test is about to re-get top EP's model");
 
 			diagram = getDiagram();
 			assertFalse("Editor is dirty", editorPart.isDirty());
