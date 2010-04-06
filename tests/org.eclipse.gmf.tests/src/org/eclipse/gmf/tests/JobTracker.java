@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -21,10 +21,10 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 
 /**
  * Collects jobs being scheduled during some period of time and provides condition trigger
- * whcih signals when all the jobs scheduled have finished.
+ * which signals when all the jobs scheduled have finished.
  * @author artem
  */
-class JobTracker extends JobChangeAdapter {
+public class JobTracker extends JobChangeAdapter {
 	private final boolean[] condition = new boolean[] {false};
 	private final List<Job> knownJobs = Collections.synchronizedList(new LinkedList<Job>());
 	private boolean stopCollectingJobs = false;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,7 +15,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import junit.framework.Assert;
@@ -33,6 +32,7 @@ import org.eclipse.emf.ecore.plugin.RegistryReader.PluginClassDescriptor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.tests.JobTracker;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.swt.widgets.Display;
@@ -79,12 +79,18 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 				RegistryFactory.getRegistry().addRegistryChangeListener(listener, "org.eclipse.ui");
 			}
 			myBundle = null;
+			JobTracker jt = new JobTracker();
+			jt.start();
 			generateAndCompile(genEditor);
 			myBundle.start();
+			jt.freeze();
+			// System.out.println("Jobs to wait:" + jt.getJobsCount()); 13!
 			registerExtensions(myBundle);
 			registerEMFEditExtensions();
 			// there should be hit, any .diagram plugin is supposed to register extensions we monitor with the listener above.
 			monitorExtensionLoad(extensionChangeNotification, 60);
+			monitorExtensionLoad(jt.getNonEmptyCondition(), 10);
+			jt.stop();
 		} catch (BundleException ex) {
 			throw ex;
 		} catch (Exception ex) {
@@ -135,7 +141,6 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void registerEMFEditExtensions() {
 		for(Bundle next : myAllInstalledBundes) {
 			IConfigurationElement[] configElements = getConfigurationElements(next.getSymbolicName(), "org.eclipse.emf.edit.itemProviderAdapterFactories");
@@ -166,7 +171,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 
 					for (StringTokenizer stringTokenizer = new StringTokenizer(supportedTypes); stringTokenizer.hasMoreTokens(); ) {
 						String supportedType = stringTokenizer.nextToken();
-						List key = new ArrayList();
+						ArrayList<String> key = new ArrayList<String>(2);
 						key.add(packageURI);
 						key.add(supportedType);
 						((ComposedAdapterFactory.Descriptor.Registry.Impl) ComposedAdapterFactory.Descriptor.Registry.INSTANCE).put(key, new PluginAdapterFactoryDescriptor(element, "class"));
@@ -194,8 +199,23 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	}
 
 	public void uninstall() throws Exception {
+		final JobTracker jt = new JobTracker();
+		jt.start();
 		for (Bundle next : myAllInstalledBundes) {
 			next.uninstall();
 		}
+		jt.freeze();
+		// need timeout for ExtensionRegistry to dispatch changes about removed extensions, e.g.
+		// EditorManager#removeExtensions removes IEditorParts from EditorHistory, to prevent issues
+		// like https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
+		// ExtensionRegistry (namely EqunoxRegistryStrategy) does that either using jobs (ExtensionEventDispatcherJob) or 
+		// in RegistryEventThread, hence all we need to do is give it a chance to complete
+		boolean t = Utils.dispatchDisplayMessages(jt.getNonEmptyCondition(), 10);
+		Assert.assertTrue("Timeout while waiting for jobs to complete", t);
+		jt.stop();
+		// Then UIExtensionTracker re-dispatches this notification to EditorManager in UI thread, hence need to let them 
+		// reach EditorManager#removeExtensions method 
+		t = Utils.dispatchDisplayMessages(3);
+		Assert.assertTrue("Display message redispatch was not expected to end by timeout", t);
 	}
 }
