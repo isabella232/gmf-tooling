@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -61,6 +61,8 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		myProject = createProject();
 		myDiagramFile = createDiagram();
 		myEditor = openEditor(myDiagramFile);
+		assertNotNull(myEditor);
+		assertFalse("Fail fast if not diagram editor is associated with diagram file", "org.eclipse.ui.DefaultTextEditor".equals(myEditor.getEditorSite().getId()));
 	}
 	
 	protected IProject getProject() {
@@ -84,23 +86,20 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	@Override
 	protected void tearDown() throws Exception {
 		closeEditor(myEditor);
-// Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
-// Leaving editor open till bundle uninstallation
-//		deleteProject();
+		// keep project alive for potential workspace investigations
+		// deleteProject();
 		myProject = null;
 		myDiagramFile = null;
 		super.tearDown();
 	}
 
-	protected void closeEditor(IEditorPart editor) {
-		myEditor.doSave(new NullProgressMonitor());
+	protected static void closeEditor(IEditorPart editor) {
+		editor.doSave(new NullProgressMonitor());
 		redispatchEvents();
-// Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
-// Leaving editor open till bundle uninstallation
-//		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(myEditor, true);
+		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editor, true);
 	}
 	
-	protected final void redispatchEvents() {
+	protected static final void redispatchEvents() {
 		final boolean t = Utils.dispatchDisplayMessages(3);
 		assertTrue("Display message redispatch was not expected to end by timeout", t);
 	}
