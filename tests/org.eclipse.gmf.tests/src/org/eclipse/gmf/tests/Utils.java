@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,6 +12,8 @@
 package org.eclipse.gmf.tests;
 
 import java.util.Calendar;
+
+import junit.framework.Assert;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -106,5 +108,15 @@ public class Utils {
 			}
 		}
 		return true;
+	}
+
+	public static void assertDispatchDisplayMessages(int timeoutSeconts) {
+		boolean queueCleared = dispatchDisplayMessages(3);
+		Assert.assertTrue("Display message redispatch was not expected to end by timeout", queueCleared);
+	}
+
+	public static void assertDispatchDisplayMessages(boolean[] condition, int timeoutSeconds) {
+		boolean conditionSatisfied = Utils.dispatchDisplayMessages(condition, 10);
+		Assert.assertTrue("Timeout while waiting for jobs to complete", conditionSatisfied);
 	}
 }
