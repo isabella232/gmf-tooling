@@ -261,7 +261,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 	}
 
 	private void checkDiagramAndModelExternalModification(boolean sameFile) {
-		IEditorPart editorPart = setupCustomEditorPart(false);
+		IEditorPart editorPart = setupCustomEditorPart(sameFile);
 		try {
 			Diagram diagram = getDiagram();
 			assertTrue("Not empty diagram created", diagram.getChildren().size() == 0);
