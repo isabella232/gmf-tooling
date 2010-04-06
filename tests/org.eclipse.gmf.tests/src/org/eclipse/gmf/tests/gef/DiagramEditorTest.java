@@ -146,7 +146,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		EditPartViewer viewer = viewerConfiguration.getViewer();
 		Diagram diagram = getDiagram();
 
-		// Creating arbitratry model resource + unloading it
+		// Creating arbitrary model resource + unloading it
 		URI anotherResourceURI = diagram.eResource().getURI().trimFileExtension().appendFileExtension("additional." + getSetup().getGenModel().getGenDiagram().getEditorGen().getDomainFileExtension());
 		createAdditionalModelResource(anotherResourceURI);
 		Resource anotherResource = diagram.eResource().getResourceSet().getResource(anotherResourceURI, true);
@@ -279,8 +279,9 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 			assertFalse("Diagram node was not created", diagramCopy.getChildren().size() == 0);
 
 			saveResources(diagramCopy.eResource().getResourceSet().getResources());
+			System.err.println("[300887] Done saveResources, all resource notifications should be already dispatched");
 			redispatchEvents();
-			System.err.println("[300887] Test is about to re-get top EP's model");
+			System.err.println("[300887] Test is about to re-get top EP's model:" + getName());
 
 			diagram = getDiagram();
 			assertFalse("Editor is dirty", editorPart.isDirty());
