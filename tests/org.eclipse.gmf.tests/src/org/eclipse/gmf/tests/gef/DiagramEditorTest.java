@@ -260,6 +260,33 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		checkDiagramAndModelExternalModification(false);
 	}
 
+	/*
+	 * Here's console output for regular (successful) run of testDiagramAndModelExternalModificationSeparateResources.
+	 * The difference in test...SameResource() is in single file notification
+	 *  
+	 * Important thing to note:
+	 * - handleElementChanged is invoked asynchronously from a worker thread, albeit idea of saveResources() 
+	 * with subsequent redispatchEvents was to have handleElementChanged (among others, of course) to be already invoked
+	 * by the moment we do getDiagram(). Nevertheless, on my Windows machine handleElementChanged() still runs prior to 
+	 * getDiagram() call (see below). It is not true for Linux test machine, where we had failures for the long time.
+	 * 
+		[300887] Done saveResources, all resource notifications should be already dispatched
+		[300887] added async handleElementChanged Worker-3
+		[300887] added async handleElementChanged Worker-3
+		[300887] L/AbstractDiagramEditorTest_1270580558187/AbstractDiagramEditorTest_1270580617468.samplemodel
+		[300887] about to be replaced
+		[300887] doc content set
+		[300887] DiagramEditor.handleElementContentReplaced.1
+		[300887] DiagramEditor.handleElementContentReplaced.2
+		[300887] content replaced fired
+		[300887] L/AbstractDiagramEditorTest_1270580558187/AbstractDiagramEditorTest_1270580617468.samplemodel_diagram
+		[300887] about to be replaced
+		[300887] doc content set
+		[300887] DiagramEditor.handleElementContentReplaced.1
+		[300887] DiagramEditor.handleElementContentReplaced.2
+		[300887] content replaced fired
+		[300887] Test is about to re-get top EP's model:testDiagramAndModelExternalModificationSeparateResources
+	 */
 	private void checkDiagramAndModelExternalModification(boolean sameFile) {
 		IEditorPart editorPart = setupCustomEditorPart(sameFile);
 		try {
