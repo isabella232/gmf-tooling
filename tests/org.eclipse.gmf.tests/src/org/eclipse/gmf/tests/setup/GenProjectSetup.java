@@ -210,12 +210,11 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		// like https://bugs.eclipse.org/bugs/show_bug.cgi?id=154767
 		// ExtensionRegistry (namely EqunoxRegistryStrategy) does that either using jobs (ExtensionEventDispatcherJob) or 
 		// in RegistryEventThread, hence all we need to do is give it a chance to complete
-		boolean t = Utils.dispatchDisplayMessages(jt.getNonEmptyCondition(), 10);
-		Assert.assertTrue("Timeout while waiting for jobs to complete", t);
+		Utils.assertDispatchDisplayMessages(jt.getNonEmptyCondition(), 10);
 		jt.stop();
+		//
 		// Then UIExtensionTracker re-dispatches this notification to EditorManager in UI thread, hence need to let them 
 		// reach EditorManager#removeExtensions method 
-		t = Utils.dispatchDisplayMessages(3);
-		Assert.assertTrue("Display message redispatch was not expected to end by timeout", t);
+		Utils.assertDispatchDisplayMessages(3);
 	}
 }
