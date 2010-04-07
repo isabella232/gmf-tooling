@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,15 +14,19 @@ package org.eclipse.gmf.tests.lite.gef;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.lite.parts.DiagramEditor;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 
 public class DiagramEditorMatchingStrategyTest extends AbstractDiagramEditorTest {
 	public DiagramEditorMatchingStrategyTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 	}
 
 	public void testReusingEditor() throws Exception {
@@ -46,5 +50,10 @@ public class DiagramEditorMatchingStrategyTest extends AbstractDiagramEditorTest
 		DiagramEditor newEditor = (DiagramEditor) editor.getSite().getPage().openEditor(new URIEditorInput(uri), editor.getSite().getId(), true, IWorkbenchPage.MATCH_NONE);
 		assertNotSame(editor, newEditor);
 		assertSame(editor.getEditingDomain(), newEditor.getEditingDomain());
+	}
+
+	@Override
+	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		return LiteGeneratorConfiguration.createDiagram(domainElement, genPlugin);
 	}
 }

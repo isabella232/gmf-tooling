@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,6 +31,7 @@ import org.eclipse.gmf.runtime.lite.services.DefaultDiagramLayouter;
 import org.eclipse.gmf.runtime.lite.services.IDiagramLayouter;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -42,7 +43,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class DiagramElementTest extends GeneratedCanvasTest {
 	public DiagramElementTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 	}
 
 	private static final Rectangle NODE_1_BOUNDS = new Rectangle(10, 10, 100, 100);
@@ -104,7 +105,7 @@ public class DiagramElementTest extends GeneratedCanvasTest {
 	private void align(List<EditPart> nodes, int alignment) {
 		layout(((GraphicalEditPart)nodes.get(0)).getFigure().getParent());	//since the action operates with figure bounds, we must invoke layout explicitly to update them from layout constraints.
 		AlignmentAction action = new AlignmentAction(new ViewPart() {
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings("rawtypes")
 			public Object getAdapter(Class adapter) {
 				if (CommandStack.class == adapter) {
 					return getCommandStack();

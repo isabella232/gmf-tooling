@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -41,6 +41,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.rt.AbstractMultiSetupTest;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -48,7 +49,7 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class ShortcutCreationTest extends AbstractMultiSetupTest {
 	public ShortcutCreationTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 	}
 
 	@Override

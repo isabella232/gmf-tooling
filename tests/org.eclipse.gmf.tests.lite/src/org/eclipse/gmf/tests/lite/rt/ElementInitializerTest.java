@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,10 +11,12 @@
  */
 package org.eclipse.gmf.tests.lite.rt;
 
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
+
 
 public class ElementInitializerTest extends org.eclipse.gmf.tests.rt.ElementInitializerTest {
 	public ElementInitializerTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 	}
 
 	@Override

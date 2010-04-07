@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,12 +36,13 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
 public class NotationRefreshTest extends GeneratedCanvasTest {
 	public NotationRefreshTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 

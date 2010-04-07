@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -48,7 +48,8 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.AbstractGeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.events.DisposeEvent;
@@ -57,7 +58,6 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.Bundle;
 
 
 public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
@@ -66,28 +66,33 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 		return new Generator(diagram.getEditorGen());
 	}
 
-	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genProject) throws Exception {
-		return new LiteViewerConfiguration(viewer, model, genProject);
+	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GeneratedDiagramPlugin genPlugin){
+		return new LiteViewerConfiguration(viewer, genPlugin);
 	}
 
 	protected EditPartViewer createViewerInstance() {
 		return new FakeLiteViewer();
 	}
 
-	public Diagram createDiagram(EObject domainElement, SessionSetup sessionSetup) throws Exception {
-		Diagram result = NotationFactory.eINSTANCE.createDiagram();
-		result.setElement(domainElement);
-		String diagramDecoratorClass = sessionSetup.getGenModel().getGenDiagram().getNotationViewFactoryQualifiedClassName();
-		Class<?> pluginClass = sessionSetup.loadGeneratedClass(diagramDecoratorClass);
-		Field field = pluginClass.getField("INSTANCE");
-		IViewDecorator decorator = (IViewDecorator) field.get(null);
-		decorator.decorateView(result);
-		return result;
+	public static Diagram createDiagram(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		try {
+			Diagram result = NotationFactory.eINSTANCE.createDiagram();
+			result.setElement(domainElement);
+			String diagramDecoratorClass = genPlugin.getGenDiagram().getNotationViewFactoryQualifiedClassName();
+			Class<?> pluginClass = genPlugin.loadGeneratedClass(diagramDecoratorClass);
+			Field field = pluginClass.getField("INSTANCE");
+			IViewDecorator decorator = (IViewDecorator) field.get(null);
+			decorator.decorateView(result);
+			return result;
+		} catch (Exception ex) {
+			Assert.fail(ex.toString());
+		}
+		return null;
 	}
 
 	private static class LiteViewerConfiguration extends AbstractViewerConfiguration {
-		public LiteViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) {
-			super(viewer, model, genPlugin);
+		public LiteViewerConfiguration(EditPartViewer viewer, GeneratedDiagramPlugin genPlugin) {
+			super(viewer, genPlugin);
 		}
 
 		public Command getCreateNodeCommand(View parentView, GenCommonBase nodeType) {
@@ -208,9 +213,6 @@ public class LiteGeneratorConfiguration extends AbstractGeneratorConfiguration {
 			return myPreferenceStore;
 		}
 
-		protected TransactionalEditingDomain getEditDomain(EditPart editPart) {
-			return TransactionUtil.getEditingDomain(editPart.getModel());
-		}
 		protected TransactionalEditingDomain getEditDomain(EObject object) {
 			return TransactionUtil.getEditingDomain(object);
 		}

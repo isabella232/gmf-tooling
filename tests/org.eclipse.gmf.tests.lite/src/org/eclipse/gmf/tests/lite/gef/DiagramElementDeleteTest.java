@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2007 Borland Software Corporation
+/*
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -29,12 +29,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
 
 public class DiagramElementDeleteTest extends GeneratedCanvasTest {
 	public DiagramElementDeleteTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 	}
 
 	public void testReferencesToDeletedElement() throws Exception {

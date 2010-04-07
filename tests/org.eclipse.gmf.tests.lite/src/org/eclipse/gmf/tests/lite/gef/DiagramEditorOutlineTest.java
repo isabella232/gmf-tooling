@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -18,9 +18,12 @@ import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
@@ -31,7 +34,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorOutlineTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
@@ -72,5 +75,10 @@ public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
 		assertTrue(command.canExecute());
 		execute(command);
 		assertNull("Command obtained via outline has not executed correctly", book1.eResource());
+	}
+
+	@Override
+	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		return LiteGeneratorConfiguration.createDiagram(domainElement, genPlugin);
 	}
 }

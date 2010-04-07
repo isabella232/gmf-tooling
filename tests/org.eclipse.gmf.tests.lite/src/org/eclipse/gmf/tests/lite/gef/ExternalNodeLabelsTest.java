@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,12 +11,11 @@
  */
 package org.eclipse.gmf.tests.lite.gef;
 
-import java.util.Iterator;
-
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -30,13 +29,16 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.runtime.lite.commands.WrappingCommand;
 import org.eclipse.gmf.runtime.lite.preferences.IPreferenceConstants;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
+import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.FontData;
@@ -46,7 +48,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 	public ExternalNodeLabelsTest(String name) {
-		super(name);
+		super(name, new LiteGeneratorConfiguration());
 		PlatformUI.getWorkbench().getEditorRegistry();
 		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
@@ -101,10 +103,8 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 		assertEquals("Unexpected position of external node label", nodeBottom.y + location.getY(), labelTop.y, tolerance.height);
 	}
 
-	@SuppressWarnings("unchecked")
 	private GenExternalNodeLabel getFirstExternalNodeLabel(GenNode genNode) {
-		for(Iterator it = genNode.getLabels().iterator(); it.hasNext(); ) {
-			GenNodeLabel next = (GenNodeLabel) it.next();
+		for (GenNodeLabel next : genNode.getLabels()) {
 			if (next instanceof GenExternalNodeLabel) {
 				return (GenExternalNodeLabel) next;
 			}
@@ -160,5 +160,10 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 		PreferenceConverter.setValue(preferenceStore, IPreferenceConstants.DEFAULT_FONT, fonts[index]);
 		//Check that the font of the label has changed in response.
 		assertEquals(fonts[index].getName(), extLabelEP.getFigure().getFont().getFontData()[0].getName());
+	}
+
+	@Override
+	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		return LiteGeneratorConfiguration.createDiagram(domainElement, genPlugin);
 	}
 }

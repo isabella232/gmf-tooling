@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,7 +34,7 @@ public class LiteLinksSessionSetup extends LinksSessionSetup {
 	protected DiaGenSource createGenModel() {
 		DiaGenSource result = super.createGenModel();
 		result.getGenDiagram().getContainsShortcutsTo().add("Library");	//$NON-NLS-1$
-		result.getGenDiagram().getContainsShortcutsTo().add(result.getGenDiagram().getEditorGen().getModelID());	//$NON-NLS-1$
+		result.getGenDiagram().getContainsShortcutsTo().add(result.getGenDiagram().getEditorGen().getModelID());
 		return result;
 	}
 }
