@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -50,8 +49,11 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.Utils;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
@@ -59,7 +61,7 @@ import org.eclipse.ui.IEditorPart;
 public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 		myDefaultSetup = SessionSetup.newInstance();
 	}
 
@@ -78,7 +80,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		assertFalse("Editor was not saved", editorPart.isDirty());
 	}
 
-	public void testSaveNotaitonElementChanges() {
+	public void testSaveNotationElementChanges() {
 		IEditorPart editorPart = getEditor();
 		ViewerConfiguration viewerConfiguration = getViewerConfiguration();
 		Diagram diagram = getDiagram();
@@ -99,48 +101,31 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 	}
 
 	public void testSaveDomainElementChangesSeparateFiles() {
-		checkSaveDomainElementChanges(false);
+		useSameFileForDiagramAndModel(false);
+		checkSaveDomainElementChanges();
 	}
 
 	public void testSaveDomainElementChangesSameFile() {
-		checkSaveDomainElementChanges(true);
+		useSameFileForDiagramAndModel(true);
+		checkSaveDomainElementChanges();
 	}
 
-	private void checkSaveDomainElementChanges(boolean sameFile) {
-		IEditorPart editorPart = setupCustomEditorPart(sameFile);
-		try {
-			ViewerConfiguration viewerConfiguration = getViewerConfiguration();
-			EditPartViewer viewer = viewerConfiguration.getViewer();
-			Diagram diagram = getDiagram();
+	private void checkSaveDomainElementChanges() {
+		IEditorPart editorPart = getEditor();
+		ViewerConfiguration viewerConfiguration = getViewerConfiguration();
+		EditPartViewer viewer = viewerConfiguration.getViewer();
+		Diagram diagram = getDiagram();
 
-			Node nodeA = createNodeA(diagram, editorPart);
-			Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", getUniqueString());
-			checkEditorDirtyState(setLabelCommand, editorPart, viewer);
-		} finally {
-			editorPart.doSave(new NullProgressMonitor());
-			closeEditor(editorPart);
-		}
-	}
-
-	private IEditorPart setupCustomEditorPart(boolean sameFileForModel) {
-		try {
-			IFile diagramFile = createDiagram(sameFileForModel);
-			IEditorPart editorPart = openEditor(diagramFile);
-			ViewerConfiguration viewerConfiguration = createViewerConfiguration(editorPart);
-			// Substituting viewer configuraration with the custom one
-			setViewerConfiguration(viewerConfiguration);
-			return editorPart;
-		} catch (Exception e) {
-			fail(e.getMessage());
-			return null;
-		}
+		Node nodeA = createNodeA(diagram, editorPart);
+		Command setLabelCommand = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(nodeA, "label", getUniqueString());
+		checkEditorDirtyState(setLabelCommand, editorPart, viewer);
 	}
 
 	/**
 	 * Testing fix of request:
 	 * https://bugs.eclipse.org/bugs/show_bug.cgi?id=153893
 	 */
-	public void testSaveWithUnloadedResource() {
+	public void testSaveWithUnloadedResource() throws IOException {
 		IEditorPart editorPart = getEditor();
 		ViewerConfiguration viewerConfiguration = getViewerConfiguration();
 		EditPartViewer viewer = viewerConfiguration.getViewer();
@@ -236,28 +221,22 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		assertTrue("Unloaded resource was changed while saving editor", resource.getContents().size() == 1);
 	}
 
-	private void createAdditionalModelResource(URI anotherResourceURI) {
+	private void createAdditionalModelResource(URI anotherResourceURI) throws IOException {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(anotherResourceURI, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
-		try {
-			EObject domainDiagramElement = createDiagramDomainObject();
-			resource.getContents().add(domainDiagramElement);
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-		try {
-			resource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		EObject domainDiagramElement = createDiagramDomainObject(getSetup());
+		resource.getContents().add(domainDiagramElement);
+		resource.save(Collections.EMPTY_MAP);
 	}
 
 	public void testDiagramAndModelExternalModificationSameResource() {
-		checkDiagramAndModelExternalModification(true);
+		useSameFileForDiagramAndModel(true);
+		checkDiagramAndModelExternalModification();
 	}
 
 	public void testDiagramAndModelExternalModificationSeparateResources() {
-		checkDiagramAndModelExternalModification(false);
+		useSameFileForDiagramAndModel(false);
+		checkDiagramAndModelExternalModification();
 	}
 
 	/*
@@ -287,45 +266,41 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		[300887] content replaced fired
 		[300887] Test is about to re-get top EP's model:testDiagramAndModelExternalModificationSeparateResources
 	 */
-	private void checkDiagramAndModelExternalModification(boolean sameFile) {
-		IEditorPart editorPart = setupCustomEditorPart(sameFile);
+	private void checkDiagramAndModelExternalModification() {
+		IEditorPart editorPart = getEditor();
+		Diagram diagram = getDiagram();
+		assertTrue("Not empty diagram created", diagram.getChildren().size() == 0);
+		assertTrue("Not empty domain model element created", diagram.getElement().eContents().size() == 0);
+
+		Diagram diagramCopy = reloadInSeparateResourceSet(diagram);
+		assertTrue("Passed diagram is not empty", diagramCopy.getChildren().size() == 0);
 		try {
-			Diagram diagram = getDiagram();
-			assertTrue("Not empty diagram created", diagram.getChildren().size() == 0);
-			assertTrue("Not empty domain model element created", diagram.getElement().eContents().size() == 0);
-
-			Diagram diagramCopy = reloadInSeparateResoruceSet(diagram);
-			assertTrue("Passed diagram is not empty", diagramCopy.getChildren().size() == 0);
-			try {
-				ViewerConfiguration viewerConfiguration = getSetup().getGeneratorConfiguration().createViewerConfiguration(new Shell(SWT.NONE), getSetup(), diagramCopy);
-				Command command = viewerConfiguration.getCreateNodeCommand(diagramCopy, getSetup().getGenModel().getNodeA());
-				viewerConfiguration.getViewer().getEditDomain().getCommandStack().execute(command);
-			} catch (Exception e) {
-				fail(e.getMessage());
-			}
-			assertFalse("Diagram node was not created", diagramCopy.getChildren().size() == 0);
-
-			saveResources(diagramCopy.eResource().getResourceSet().getResources());
-			System.err.println("[300887] Done saveResources, all resource notifications should be already dispatched");
-			redispatchEvents();
-			System.err.println("[300887] Test is about to re-get top EP's model:" + getName());
-
-			diagram = getDiagram();
-			assertFalse("Editor is dirty", editorPart.isDirty());
-			assertTrue("Diagram content was not refreshed", diagram.getChildren().size() > 0);
-			assertTrue("Domain model content was not refreshed", diagram.getElement().eContents().size() > 0);
-		} finally {
-			closeEditor(editorPart);
+			ViewerConfiguration viewerConfiguration = getViewerConfigurationFactory().createViewerConfiguration(new Shell(SWT.NONE), diagramCopy, getSetup());
+			Command command = viewerConfiguration.getCreateNodeCommand(diagramCopy, getSetup().getGenModel().getNodeA());
+			viewerConfiguration.getViewer().getEditDomain().getCommandStack().execute(command);
+		} catch (Exception e) {
+			fail(e.getMessage());
 		}
+		assertFalse("Diagram node was not created", diagramCopy.getChildren().size() == 0);
+
+		saveResources(diagramCopy.eResource().getResourceSet().getResources());
+		System.err.println("[300887] Done saveResources, all resource notifications should be already dispatched");
+		Utils.assertDispatchDisplayMessages(3);
+		System.err.println("[300887] Test is about to re-get top EP's model:" + getName());
+
+		diagram = getDiagram();
+		assertFalse("Editor is dirty", editorPart.isDirty());
+		assertTrue("Diagram content was not refreshed", diagram.getChildren().size() > 0);
+		assertTrue("Domain model content was not refreshed", diagram.getElement().eContents().size() > 0);
 	}
 
-	public void testDiagramResorceExternalModification() {
+	public void testDiagramResourceExternalModification() {
 		Diagram diagram = getDiagram();
 		String newDiagramName = getUniqueString();
 
-		Diagram diagramCopy = reloadInSeparateResoruceSet(diagram);
+		Diagram diagramCopy = reloadInSeparateResourceSet(diagram);
 		try {
-			ViewerConfiguration viewerConfiguration = getSetup().getGeneratorConfiguration().createViewerConfiguration(new Shell(SWT.NONE), getSetup(), diagramCopy);
+			ViewerConfiguration viewerConfiguration = getViewerConfigurationFactory().createViewerConfiguration(new Shell(SWT.NONE), diagramCopy, getSetup());
 			Command command = viewerConfiguration.getSetNotationalElementStructuralFeature(diagramCopy, NotationPackage.eINSTANCE.getDiagram_Name(), newDiagramName);
 			viewerConfiguration.getViewer().getEditDomain().getCommandStack().execute(command);
 		} catch (Exception e) {
@@ -334,7 +309,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		assertEquals("Diagram name was not set", newDiagramName, diagramCopy.getName());
 
 		saveResources(Collections.singletonList(diagramCopy.eResource()));
-		redispatchEvents();
+		Utils.assertDispatchDisplayMessages(3);
 
 		diagram = getDiagram();
 		assertFalse("Editor is dirty", getEditor().isDirty());
@@ -344,17 +319,17 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 	public void testModelResorceExternalModification() {
 		Diagram diagram = getDiagram();
 
-		Diagram diagramCopy = reloadInSeparateResoruceSet(diagram);
+		Diagram diagramCopy = reloadInSeparateResourceSet(diagram);
 		String newName = getUniqueString();
 		try {
-			ViewerConfiguration viewerConfiguration = getSetup().getGeneratorConfiguration().createViewerConfiguration(new Shell(SWT.NONE), getSetup(), diagramCopy);
+			ViewerConfiguration viewerConfiguration = getViewerConfigurationFactory().createViewerConfiguration(new Shell(SWT.NONE), diagramCopy, getSetup());
 			Command command = viewerConfiguration.getSetBusinessElementStructuralFeatureCommand(diagramCopy, "diagramAttribute", newName);
 			viewerConfiguration.getViewer().getEditDomain().getCommandStack().execute(command);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
 		saveResources(Collections.singletonList(diagramCopy.getElement().eResource()));
-		redispatchEvents();
+		Utils.assertDispatchDisplayMessages(3);
 
 		diagram = getDiagram();
 		assertFalse("Editor is dirty", getEditor().isDirty());
@@ -391,7 +366,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		}
 	}
 
-	private Diagram reloadInSeparateResoruceSet(Diagram diagram) {
+	private Diagram reloadInSeparateResourceSet(Diagram diagram) {
 		TransactionalEditingDomain editingDoman = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		editingDoman.setID(getSetup().getGenModel().getGenDiagram().getEditingDomainID());
 		AdapterFactoryEditingDomain oldEditingDomain = (AdapterFactoryEditingDomain) TransactionUtil.getEditingDomain(diagram);
@@ -403,4 +378,8 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		return (Diagram) newDiagram;
 	}
 
+	@Override
+	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		return RuntimeBasedGeneratorConfiguration.createDiagram(domainElement, genPlugin);
+	}
 }

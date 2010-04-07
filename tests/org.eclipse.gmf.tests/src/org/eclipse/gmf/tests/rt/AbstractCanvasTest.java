@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,8 +30,7 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 
 /**
  * Provides default operations like creating nodes and links. 
@@ -41,7 +40,7 @@ import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
  * instead, its subclasses do ({@link GeneratedCanvasTest}).
  */
 public abstract class AbstractCanvasTest extends ConfiguredTestCase {
-	private GeneratorConfiguration.ViewerConfiguration myViewerConfiguration;
+	private ViewerConfiguration myViewerConfiguration;
 
 	public AbstractCanvasTest(String name) {
 		super(name);
@@ -64,10 +63,6 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 		return (Diagram) getDiagramEditPart().getModel();
 	}
 	
-	protected void setViewerConfiguration(ViewerConfiguration configuration) {
-		myViewerConfiguration = configuration;
-	}
-
 	public ViewerConfiguration getViewerConfiguration() {
 		if (myViewerConfiguration == null) {
 			try {
@@ -147,7 +142,7 @@ public abstract class AbstractCanvasTest extends ConfiguredTestCase {
 		return getViewerConfiguration().getViewer().getEditDomain().getCommandStack();
 	}
 
-	protected abstract GeneratorConfiguration.ViewerConfiguration createViewerConfiguration() throws Exception;
+	protected abstract ViewerConfiguration createViewerConfiguration() throws Exception;
 
 	protected static class CreateListener extends AdapterImpl {
 		private EObject myCreatedChild;

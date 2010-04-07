@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,13 +13,12 @@ package org.eclipse.gmf.tests.rt;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.CompartmentEditPart;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration.Factory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
@@ -35,13 +34,20 @@ public abstract class GeneratedCanvasTest extends AbstractCanvasTest {
 	private EditPart myNodeEditPartB;
 	private CompartmentEditPart myCompartmentA;
 	private CompartmentEditPart myCompartmentB;
+	private final Factory myViewerConfigFactory;
 
-	public GeneratedCanvasTest(String name) {
+	public GeneratedCanvasTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {
 		super(name);
+		myViewerConfigFactory = viewerConfigFactory;
 	}
 
-	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration() throws Exception {
-		return createViewerConfiguration(getCanvasInstance().getCanvas());
+	protected ViewerConfiguration createViewerConfiguration() throws Exception {
+		myParentShell = new Shell(SWT.NONE);
+		return getViewerConfigurationFactory().createViewerConfiguration(myParentShell, getCanvasInstance().getCanvas(), getSetup());
+	}
+
+	protected final ViewerConfiguration.Factory getViewerConfigurationFactory() {
+		return myViewerConfigFactory;
 	}
 
 	protected final RTSource getCanvasInstance() {
@@ -101,10 +107,5 @@ public abstract class GeneratedCanvasTest extends AbstractCanvasTest {
 
 	protected final DiaGenSource getGenModel() {
 		return getSetup().getGenModel();
-	}
-
-	protected ViewerConfiguration createViewerConfiguration(Diagram canvas) throws Exception {
-		myParentShell = new Shell(SWT.NONE);
-		return getSetup().getGeneratorConfiguration().createViewerConfiguration(myParentShell, getSetup(), canvas);
 	}
 }

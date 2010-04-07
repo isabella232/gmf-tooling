@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2009 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -80,8 +80,8 @@ public class LinksSessionSetup extends SessionSetup {
 	}
 
 	@Override
-	protected GenProjectSetup createGenProject() throws BundleException {
-		GenProjectSetup genProjectSetup = super.createGenProject();
+	protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {
+		GenProjectSetup genProjectSetup = super.createGenProject(generatorConfiguration);
 
 		assertValid("Test gmfmap model must be valid", EcoreUtil.getRootContainer(getMapModel().getMapping())); //$NON-NLS-1$
 //		assertValid("Test gmfgen model must be valid", EcoreUtil.getRootContainer(getGenModel().getGenDiagram())); //$NON-NLS-1$

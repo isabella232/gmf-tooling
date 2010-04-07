@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Borland Software Corporation
+ * Copyright (c) 2009, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
@@ -30,7 +29,7 @@ public class PaletteTest extends GeneratedCanvasTest {
 
 
 	public PaletteTest(String name) {
-		super(name);
+		super(name, null /* as long as we don't use ViewerConfiguration below to instantiate palette */);
 		myDefaultSetup = SessionSetup.newInstance();
 
 	}

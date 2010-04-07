@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -25,12 +25,18 @@ import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 
 public class LinkCreationConstraintsTest extends GeneratedCanvasTest {
 
 	public LinkCreationConstraintsTest(String name) {
-		super(name);
+		this(name, new RuntimeBasedGeneratorConfiguration());
 		myDefaultSetup = LinksSessionSetup.newInstance();
+	}
+	
+	protected LinkCreationConstraintsTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {
+		super(name, viewerConfigFactory);
 	}
 	
 	/*
@@ -38,7 +44,7 @@ public class LinkCreationConstraintsTest extends GeneratedCanvasTest {
 	 */
 	public void testEndContexts() {
 		GenLink genLinkOrigin = getGenModel().getLinkC();
-		GenLink genLink = (GenLink)EcoreUtil.copy(genLinkOrigin);
+		GenLink genLink = EcoreUtil.copy(genLinkOrigin);
 		assertTrue(genLink.getModelFacet() instanceof TypeLinkModelFacet);
 		TypeLinkModelFacet tlModelFacet = (TypeLinkModelFacet)genLink.getModelFacet();
 		assertTrue(tlModelFacet.getContainmentMetaFeature() != null && tlModelFacet.getTargetMetaFeature() != null);

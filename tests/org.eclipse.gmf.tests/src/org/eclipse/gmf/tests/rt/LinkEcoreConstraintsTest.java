@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -91,7 +91,7 @@ public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
 	};
 
 	public LinkEcoreConstraintsTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 	}
 
 	@Override

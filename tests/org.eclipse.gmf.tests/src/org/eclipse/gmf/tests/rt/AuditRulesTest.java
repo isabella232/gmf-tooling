@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -58,6 +58,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.MapDefSource;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 /**
  * Tests valid registration of audit rule definitions in emft validation framework
@@ -79,7 +80,7 @@ public class AuditRulesTest extends GeneratedCanvasTest {
 	private List<GenPackage> targetedPackages;
 
 	public AuditRulesTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 
@@ -193,6 +194,7 @@ public class AuditRulesTest extends GeneratedCanvasTest {
 		/*
 		 * Checks if the constraint is correctly targeted to validated instances.
 		 */
+		@SuppressWarnings("unchecked")
 		void assertEvaluation(final AuditRule audit, final EObject target) {
 			final EObject[] validatedInstance = new EObject[1];		
 			// Note: use notation::View host for the validated element in case of domain EObject to adapt the

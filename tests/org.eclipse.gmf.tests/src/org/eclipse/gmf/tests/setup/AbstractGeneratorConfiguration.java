@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,6 +12,8 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.lang.reflect.Field;
+
+import junit.framework.Assert;
 
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
@@ -41,17 +43,21 @@ import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.osgi.framework.Bundle;
 
 
-public abstract class AbstractGeneratorConfiguration implements GeneratorConfiguration {
+public abstract class AbstractGeneratorConfiguration implements GeneratorConfiguration, ViewerConfiguration.Factory {
 	
-	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup sessionSetup, Diagram canvas) throws Exception {
-		EditPartViewer viewer = createViewer(parent, sessionSetup, canvas);
-		return createViewerConfiguration(viewer, sessionSetup.getGenModel().getGenDiagram(), sessionSetup.getGenProject().getBundle());
+	public ViewerConfiguration createViewerConfiguration(Composite parent, Diagram canvas, GeneratedDiagramPlugin genPlugin) {
+		try {
+			EditPartViewer viewer = createViewer(parent, canvas, genPlugin);
+			return createViewerConfiguration(viewer, genPlugin);
+		} catch (Exception ex) {
+			Assert.fail(ex.toString());
+		}
+		return null;
 	}
 
-	public EditPartViewer createViewer(Composite parent, SessionSetup sessionSetup, Diagram canvas) throws Exception {
+	public EditPartViewer createViewer(Composite parent, Diagram canvas, GeneratedDiagramPlugin genPlugin) throws Exception {
 		// make sure there's display for current thread
 		Display.getDefault();
 	
@@ -61,8 +67,8 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 		gv.setEditDomain(ded);
 		gv.getEditDomain().setCommandStack(new DiagramCommandStack(ded));
 
-		String epFactoryClassName = sessionSetup.getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
-		Class<?> epFactory = sessionSetup.loadGeneratedClass(epFactoryClassName);
+		String epFactoryClassName = genPlugin.getGenDiagram().getEditPartFactoryQualifiedClassName();
+		Class<?> epFactory = genPlugin.loadGeneratedClass(epFactoryClassName);
 		assert EditPartFactory.class.isAssignableFrom(epFactory);
 		gv.setEditPartFactory((EditPartFactory) epFactory.newInstance());
 		gv.setContents(canvas);
@@ -75,14 +81,12 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 	protected static abstract class AbstractViewerConfiguration implements ViewerConfiguration {
 		
 		private final EditPartViewer myViewer;
-		private final GenDiagram myDiagramModel;
-		private final Bundle myGenProject;
+		private final GeneratedDiagramPlugin myGeneratedPlugin;
 		private PreferencesHint myDefaultPreferences;
 
-		public AbstractViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) {
+		public AbstractViewerConfiguration(EditPartViewer viewer, GeneratedDiagramPlugin genPlugin) {
 			myViewer = viewer;
-			myDiagramModel = model;
-			myGenProject = genPlugin;
+			myGeneratedPlugin = genPlugin;
 		}
 		
 		public EditPartViewer getViewer() {
@@ -102,12 +106,12 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 			return result;
 		}
 		
-		protected final Class<?> loadGeneratedClass(String qualifiedClassName) throws ClassNotFoundException {
-			return myGenProject.loadClass(qualifiedClassName);
+		protected final Class<?> loadGeneratedClass(String qualifiedClassName) throws Exception {
+			return myGeneratedPlugin.loadGeneratedClass(qualifiedClassName);
 		}
 		
 		protected GenDiagram getGenModel() {
-			return myDiagramModel;
+			return myGeneratedPlugin.getGenDiagram();
 		}
 		
 		protected IPreferenceStore getDefaultPreferences() {
@@ -117,16 +121,10 @@ public abstract class AbstractGeneratorConfiguration implements GeneratorConfigu
 		protected PreferencesHint getDefaultPreferencesHint() {
 			if (myDefaultPreferences == null){
 				try {
-					Class<?> activatorClazz = loadGeneratedClass(myDiagramModel.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+					Class<?> activatorClazz = loadGeneratedClass(myGeneratedPlugin.getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName());
 					Field field = activatorClazz.getField("DIAGRAM_PREFERENCES_HINT");
 					myDefaultPreferences = (PreferencesHint)field.get(null);
-				} catch (ClassNotFoundException e) {
-					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
-				} catch (SecurityException e) {
-					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
-				} catch (NoSuchFieldException e) {
-					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
-				} catch (IllegalAccessException e) {
+				} catch (Exception e) {
 					myDefaultPreferences = PreferencesHint.USE_DEFAULTS;
 				}
 			}

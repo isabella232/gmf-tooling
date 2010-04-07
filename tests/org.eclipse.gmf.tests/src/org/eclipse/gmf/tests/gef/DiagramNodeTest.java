@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -44,6 +44,8 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.swt.graphics.RGB;
 
@@ -72,7 +74,11 @@ public class DiagramNodeTest extends GeneratedCanvasTest {
 	private final Dimension mySizeDelta = new Dimension(100, 50);
 
 	public DiagramNodeTest(String name) {
-		super(name);
+		this(name, new RuntimeBasedGeneratorConfiguration());
+	}
+	
+	protected DiagramNodeTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {
+		super(name, viewerConfigFactory);
 	}
 	
 	public void testCanCreateLink(){

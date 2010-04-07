@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -21,6 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 /**
  * TODO: need to validate that not only calcXXX methods are present and work,
@@ -31,7 +32,7 @@ public class MetricRulesTest extends GeneratedCanvasTest {
 	private GenMetricContainer genMetricContainer;
 	
 	public MetricRulesTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,44 +11,9 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
-import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Composite;
-import org.osgi.framework.Bundle;
 
 public interface GeneratorConfiguration {
 	public GeneratorBase createGenerator(GenDiagram diagram);
-
-	/**
-	 * Encapsulates differences in the way viewer is created and operated in different configurations.
-	 */
-	public static interface ViewerConfiguration {
-		// XXX is it really different? 
-		public EditPart findEditPart(View notationElement);
-		public EditPartViewer getViewer();
-		public Command getCreateNodeCommand(View parentView, GenCommonBase nodeType);
-		public Command getStartLinkCommand(View source, GenCommonBase linkType);
-		public Command getCreateLinkCommand(View source, View target, GenCommonBase linkType);
-		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value);
-		public Command getSetNotationalElementStructuralFeature(View view, EStructuralFeature feature, Object value);
-		
-		public RGB getDefaultLinkColor();
-		public Font getDefaultFont();
-	}
-
-	public ViewerConfiguration createViewerConfiguration(Composite parent, SessionSetup setup, Diagram canvas) throws Exception;
-	
-	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genProject) throws Exception;
-	
-	public Diagram createDiagram(EObject domainElement, SessionSetup setup) throws Exception;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.tests.TestConfiguration;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -18,7 +19,7 @@ import org.osgi.framework.BundleException;
 /**
  * @author artem
  */
-public class SessionSetup implements TestConfiguration {
+public class SessionSetup implements TestConfiguration, GeneratedDiagramPlugin {
 
 	private DomainModelSource myDomainModel;
 	private DiaGenSource myGenModel;
@@ -80,17 +81,13 @@ public class SessionSetup implements TestConfiguration {
 
 	protected GenProjectSetup getGenProject() throws Exception {
 		if (myProject == null) {
-			myProject = createGenProject();
+			myProject = createGenProject(myGeneratorConfig);
 		}
 		return myProject;
 	}
 
-	protected GenProjectSetup createGenProject() throws BundleException {
-		return new GenProjectSetup(getGeneratorConfiguration()).init(getGenModel());
-	}
-
-	public GeneratorConfiguration getGeneratorConfiguration() {
-		return myGeneratorConfig;
+	protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {
+		return new GenProjectSetup(generatorConfiguration).init(getGenModel());
 	}
 
 	public MapDefSource getMapModel() {
@@ -133,13 +130,17 @@ public class SessionSetup implements TestConfiguration {
 		}
 	}
 
+	public final Bundle getGeneratedPlugin() throws Exception {
+		return getGenProject().getBundle();
+	}
+
+	public GenDiagram getGenDiagram() {
+		return getGenModel().getGenDiagram();
+	}	
+
 	public final Class<?> loadGeneratedClass(String qualifiedClassName) throws Exception {
 		// move to GenProjectSetup?
 		return getGeneratedPlugin().loadClass(qualifiedClassName);
-	}
-
-	public final Bundle getGeneratedPlugin() throws Exception {
-		return getGenProject().getBundle();
 	}
 
 	// FUTURE: automatically unload/cleanup when myUses goes to zero.
@@ -149,5 +150,5 @@ public class SessionSetup implements TestConfiguration {
 
 	public void oneDown() {
 		myUses--;
-	}	
+	}
 }

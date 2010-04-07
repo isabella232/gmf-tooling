@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2009 Borland Software Corp.
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -65,6 +65,7 @@ import org.eclipse.gmf.runtime.common.core.command.ICompositeCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
@@ -72,6 +73,7 @@ import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
@@ -91,7 +93,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 	public static final SessionSetup setup = new EditHelpersSessionSetup();
 
 	public EditHelpersTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 		configure(setup);
 	}
 
@@ -124,6 +126,11 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		assertTrue(afterCommands.size() == 2);
 		assertTrue(hasCommand(afterCommands, getSetup().getGenModel().getNodeA().getVisualID()));
 		assertTrue(hasCommand(afterCommands, getSetup().getGenModel().getNodeB().getVisualID()));
+	}
+
+	@Override
+	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		return RuntimeBasedGeneratorConfiguration.createDiagram(domainElement, genPlugin);
 	}
 
 	private boolean hasCommand(Collection<IUndoableOperation> beforeCommands, int visualID) {
@@ -233,8 +240,8 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		}
 
 		@Override
-		protected GenProjectSetup createGenProject() throws BundleException {
-			return new EditHelpersProjectSetup(getGeneratorConfiguration()).init(getGenModel());
+		protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {
+			return new EditHelpersProjectSetup(generatorConfiguration).init(getGenModel());
 		}
 
 		@Override

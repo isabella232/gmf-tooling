@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -61,7 +61,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
-import org.osgi.framework.Bundle;
 
 public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfiguration {
 
@@ -73,29 +72,31 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 		return new Generator(editorGen, new CodegenEmitters(!editorGen.isDynamicTemplates(), editorGen.getTemplateDirectory(), editorGen.getModelAccess() != null));
 	}
 
-	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) throws Exception {
-		return new DefaultViewerConfiguration(viewer, model, genPlugin);
+	public ViewerConfiguration createViewerConfiguration(EditPartViewer viewer, GeneratedDiagramPlugin genPlugin) {
+		return new DefaultViewerConfiguration(viewer, genPlugin);
 	}
 
 	protected EditPartViewer createViewerInstance() {
 		return new FakeViewer();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.tests.setup.GeneratorConfiguration#createDiagram(org.eclipse.emf.ecore.EObject)
-	 */
-	public Diagram createDiagram(EObject domainElement, SessionSetup sessionSetup) throws Exception {
-		String pluginClassName = sessionSetup.getGenModel().getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName();
-		Class<?> pluginClass = sessionSetup.getGenProject().getBundle().loadClass(pluginClassName);
-		Field field = pluginClass.getField("DIAGRAM_PREFERENCES_HINT");
-		final PreferencesHint hint = (PreferencesHint) field.get(null);
-		return ViewService.createDiagram(domainElement, sessionSetup.getGenModel().getGenDiagram().getEditorGen().getModelID(), hint);
+	public static Diagram createDiagram(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		try {
+			String pluginClassName = genPlugin.getGenDiagram().getEditorGen().getPlugin().getActivatorQualifiedClassName();
+			Class<?> pluginClass = genPlugin.loadGeneratedClass(pluginClassName);
+			Field field = pluginClass.getField("DIAGRAM_PREFERENCES_HINT");
+			final PreferencesHint hint = (PreferencesHint) field.get(null);
+			return ViewService.createDiagram(domainElement, genPlugin.getGenDiagram().getEditorGen().getModelID(), hint);
+		} catch (Exception ex) {
+			Assert.fail(ex.toString());
+		}
+		return null;
 	}
 
 	protected static class DefaultViewerConfiguration extends AbstractViewerConfiguration {
 
-		public DefaultViewerConfiguration(EditPartViewer viewer, GenDiagram model, Bundle genPlugin) throws Exception {
-			super(viewer, model, genPlugin);
+		public DefaultViewerConfiguration(EditPartViewer viewer, GeneratedDiagramPlugin genPlugin) {
+			super(viewer, genPlugin);
 		}
 
 		public Command getSetBusinessElementStructuralFeatureCommand(View view, String featureName, Object value) {
@@ -147,9 +148,6 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 			return findEditPart(source).getCommand(wrapper);
 		}
 
-		/* (non-Javadoc)
-		 * @see org.eclipse.gmf.tests.setup.GeneratorConfiguration.ViewerConfiguration#getCreateLinkCommand(org.eclipse.gmf.runtime.notation.View, org.eclipse.gmf.runtime.notation.View, org.eclipse.gmf.codegen.gmfgen.GenCommonBase)
-		 */
 		public Command getCreateLinkCommand(View source, View target, GenCommonBase linkType) {
 			IElementType metamodelType = getElementType(linkType);
 			CreateRelationshipRequest relationShipReq = new CreateRelationshipRequest(metamodelType);
@@ -226,7 +224,7 @@ public class RuntimeBasedGeneratorConfiguration extends AbstractGeneratorConfigu
 			return (IDiagramEditDomain) super.getEditDomain();
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings("rawtypes")
 		public List findEditPartsForElement(String elementIdStr, Class editPartClass) {
 			return Collections.EMPTY_LIST;
 		}

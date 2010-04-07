@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2009 Borland Software Corporation and others
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -36,6 +36,7 @@ import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
+import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.osgi.framework.Bundle;
@@ -49,8 +50,8 @@ public class BundleActivationTest extends ConfiguredTestCase {
 	private final PreferencesHint prefHint = new PreferencesHint("a.b.c");
 	public final static SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
 		@Override
-		protected GenProjectSetup createGenProject() throws BundleException {
-			return new GenProjectSetup(getGeneratorConfiguration()) {
+		protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {
+			return new GenProjectSetup(generatorConfiguration) {
 				@Override
 				public GenProjectSetup init(GenEditorGenerator genEditor) throws BundleException {
 					try {

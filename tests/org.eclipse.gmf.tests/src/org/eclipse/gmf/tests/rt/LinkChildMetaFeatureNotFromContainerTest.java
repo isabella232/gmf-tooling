@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -32,12 +32,14 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 
@@ -201,7 +203,7 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 	};
 
 	public LinkChildMetaFeatureNotFromContainerTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 		configure(setup);
 	}
 	
@@ -232,5 +234,10 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 		//
 		assertEquals("Link target should be B, accessible from L.lt", l.eGet(lt), b);
 		assertEquals("Link should originate at A element, from non-containment featyre A.lt", a.eGet(ls), l);
+	}
+
+	@Override
+	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
+		return RuntimeBasedGeneratorConfiguration.createDiagram(domainElement, genPlugin);
 	}
 }

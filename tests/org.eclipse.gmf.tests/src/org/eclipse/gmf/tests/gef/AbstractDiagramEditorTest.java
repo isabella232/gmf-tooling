@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.tests.gef;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -30,12 +29,14 @@ import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.rt.AbstractCanvasTest;
-import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
@@ -45,24 +46,28 @@ import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * Abstract test that operates with open diagram editors instead of fake no-update viewers.
+ * Note, distinct subclasses for Full and Lite runtimes are required since 
+ * {@link #createViewerConfiguration(EditPartViewer, GeneratedDiagramPlugin)} and
+ * {@link #createDiagramView(EObject, GeneratedDiagramPlugin)} need different implementation. 
  */
-public class AbstractDiagramEditorTest extends AbstractCanvasTest {
+public abstract class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	private IProject myProject;
 	private IEditorPart myEditor;
 	private IFile myDiagramFile;
+	private Boolean mySameModelAndDiagramFile = null;
+	private final ViewerConfiguration.Factory myViewerConfigFactory;
 
-	public AbstractDiagramEditorTest(String name) {
+	public AbstractDiagramEditorTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {
 		super(name);
+		assert viewerConfigFactory != null;
+		myViewerConfigFactory = viewerConfigFactory;
 	}
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		myProject = createProject();
-		myDiagramFile = createDiagram();
-		myEditor = openEditor(myDiagramFile);
-		assertNotNull(myEditor);
-		assertFalse("Fail fast if not diagram editor is associated with diagram file", "org.eclipse.ui.DefaultTextEditor".equals(myEditor.getEditorSite().getId()));
+		mySameModelAndDiagramFile = null; // use default value (i.e. from gmfgen)
 	}
 	
 	protected IProject getProject() {
@@ -70,22 +75,36 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	}
 	
 	protected IEditorPart getEditor() {
+		if (myEditor == null) {
+			myEditor = openEditor(getDiagramFile());
+			assertNotNull(myEditor);
+			assertFalse("Fail fast if not diagram editor is associated with diagram file", "org.eclipse.ui.DefaultTextEditor".equals(myEditor.getEditorSite().getId()));
+		}
 		return myEditor;
 	}
+	private IFile getDiagramFile() {
+		if (myDiagramFile == null) {
+			myDiagramFile = createDiagramFile();
+		}
+		return myDiagramFile;
+	}
 
 	@Override
-	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration() throws Exception {
-		return createViewerConfiguration(myEditor);
+	protected ViewerConfiguration createViewerConfiguration() {
+		IEditorPart editorPart = getEditor();
+		GraphicalViewer viewer = (GraphicalViewer) editorPart.getAdapter(GraphicalViewer.class);
+		return getViewerConfigurationFactory().createViewerConfiguration(viewer, getSetup());
 	}
 	
-	protected GeneratorConfiguration.ViewerConfiguration createViewerConfiguration(IEditorPart editorPart) throws Exception {
-		GraphicalViewer viewer = (GraphicalViewer) editorPart.getAdapter(GraphicalViewer.class);
-		return getSetup().getGeneratorConfiguration().createViewerConfiguration(viewer, getSetup().getGenModel().getGenDiagram(), getSetup().getGeneratedPlugin());
+	protected final ViewerConfiguration.Factory getViewerConfigurationFactory() {
+		return myViewerConfigFactory;
 	}
-
+	
 	@Override
 	protected void tearDown() throws Exception {
-		closeEditor(myEditor);
+		if (myEditor != null) {
+			closeEditor(myEditor);
+		}
 		// keep project alive for potential workspace investigations
 		// deleteProject();
 		myProject = null;
@@ -95,13 +114,8 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 
 	protected static void closeEditor(IEditorPart editor) {
 		editor.doSave(new NullProgressMonitor());
-		redispatchEvents();
+		Utils.assertDispatchDisplayMessages(3);
 		PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().closeEditor(editor, true);
-	}
-	
-	protected static final void redispatchEvents() {
-		final boolean t = Utils.dispatchDisplayMessages(3);
-		assertTrue("Display message redispatch was not expected to end by timeout", t);
 	}
 	
 	protected IProject createProject() {
@@ -119,7 +133,7 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	}
 	
 	protected void deleteProject() throws CoreException {
-		if (getProject() != null) {
+		if (myProject != null) {
 			if (getProject().isOpen()) {
 				getProject().close(new NullProgressMonitor());
 			}
@@ -129,22 +143,44 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		}
 	}
 
-	protected IFile createDiagram() throws Exception {
-		return createDiagram(getSetup().getGenModel().getGenDiagram().getEditorGen().isSameFileForDiagramAndModel());
+	/**
+	 * Unless invoked, default value from gmfgen model will be used.
+	 * Note, should be called prior to any #getEditor() or #getDiagram() call
+	 */
+	protected final void useSameFileForDiagramAndModel(boolean sameFile) {
+		assertNull("Can't use this method after diagram file has been created", myDiagramFile);
+		mySameModelAndDiagramFile = Boolean.valueOf(sameFile);
 	}
 
-	protected IFile createDiagram(boolean storeModelInDiagramFile) throws Exception {
-		GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
-		String uniqueName = getUniqueString();
-		final String diagramFileName = uniqueName + "." + genDiagram.getEditorGen().getDiagramFileExtension();
-		IFile diagramFile = getProject().getFile(diagramFileName);
+	private IFile createDiagramFile() {
+		boolean sameFileForDiagramAndModel;
+		if (mySameModelAndDiagramFile != null) {
+			sameFileForDiagramAndModel = mySameModelAndDiagramFile.booleanValue();
+		} else {
+			sameFileForDiagramAndModel = getSetup().getGenModel().getGenDiagram().getEditorGen().isSameFileForDiagramAndModel();
+		}
+		// use test name for diagram file name since there should be no more than one diagram file per test 
+		// and it's easier to analyze test contents with meaningful names 
+		EObject domainElement = createDiagramDomainObject(getSetup());
+		Diagram diagramView = createDiagramView(domainElement, getSetup());
+		assertNotNull("Diagram was not created", diagramView);
+		assertSame(domainElement, diagramView.getElement());
+		return createDiagramFile(getProject(), getName(), getSetup().getGenDiagram(), domainElement, diagramView, sameFileForDiagramAndModel);
+	}
+	
+	// XXX full and lite runtimes now need different initialization steps (unless we have common createDiagram code in e.g. DiagramEditorUtil 
+	protected abstract Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin);
+
+	private static IFile createDiagramFile(IProject where, String fileNameStem, GenDiagram genDiagram, EObject domainElement, Diagram diagramView, boolean storeModelInDiagramFile) {
+		final String diagramFileName = fileNameStem + "." + genDiagram.getEditorGen().getDiagramFileExtension();
+		IFile diagramFile = where.getFile(diagramFileName);
 		assertFalse("Diagram file was already created", diagramFile.exists());
 
 		IFile modelFile = null;
 		if (!storeModelInDiagramFile) {
 			IPath diagramFilePath = diagramFile.getProjectRelativePath();
 			IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension(genDiagram.getEditorGen().getDomainFileExtension());	
-			modelFile = getProject().getFile(modelFilePath);
+			modelFile = where.getFile(modelFilePath);
 			assertFalse("Model file was already created", modelFile.exists());
 		}
 
@@ -152,49 +188,49 @@ public class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toOSString(), true), ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 		Resource modelResource = modelFile != null ? resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toOSString(), true), ContentHandler.UNSPECIFIED_CONTENT_TYPE) : null;		
 		
-		EObject domainDiagramElement = createDiagramDomainObject();
 
 		if (modelResource != null) {
-			modelResource.getContents().add(domainDiagramElement);
+			modelResource.getContents().add(domainElement);
 		} else {
-			diagramResource.getContents().add(domainDiagramElement);
+			diagramResource.getContents().add(domainElement);
 		}
-		Diagram diagram = getSetup().getGeneratorConfiguration().createDiagram(domainDiagramElement, getSetup());
-		assertNotNull("Diagram was not created", diagram);
-		if (diagram != null) {
-			diagramResource.getContents().add(diagram);
-			diagram.setName(uniqueName);
-			diagram.setElement(domainDiagramElement);
-		}
+		assertSame("[sanity]", domainElement, diagramView.getElement());
+		diagramResource.getContents().add(diagramView);
+		diagramView.setName(fileNameStem);
 		try {
 			if (modelResource != null) {
 				modelResource.save(Collections.EMPTY_MAP);
 			}
 			diagramResource.save(Collections.EMPTY_MAP);
-		} catch (IOException e) {
-			fail(e.getMessage());
+		} catch (Exception e) {
+			fail(e.toString());
 		}
 		return diagramFile;
 	}
 
-	protected EObject createDiagramDomainObject() throws Exception {
-		GenClass diagramElementGenClass = getSetup().getGenModel().getGenDiagram().getDomainDiagramElement();
-		GenPackage domainGenPackage = diagramElementGenClass.getGenPackage();
-		Class<?> factoryInterface = getSetup().loadGeneratedClass(domainGenPackage.getQualifiedFactoryInterfaceName());
-		assertNotNull("Factory interface not found", factoryInterface);
-		Field accessor = null;
-		accessor = factoryInterface.getField(domainGenPackage.getFactoryInstanceName());
-		assertNotNull("Accessor field not found", accessor);
-		Object factory = null;
-		factory = accessor.get(null);
-		assertNotNull("Factory unavailable", factory);
-		Method createMethod = null;
-		createMethod = factory.getClass().getMethod("create" + diagramElementGenClass.getName(), new Class[0]);
-		assertNotNull("Create method unavailable", createMethod);
-		EObject domainDiagramElement = null;
-		domainDiagramElement = (EObject) createMethod.invoke(factory, new Object[0]);
-		assertNotNull("Domain diagram element was not created", domainDiagramElement);
-		return domainDiagramElement;
+	protected static EObject createDiagramDomainObject(GeneratedDiagramPlugin genPlugin) {
+		try {
+			GenClass diagramElementGenClass = genPlugin.getGenDiagram().getDomainDiagramElement();
+			GenPackage domainGenPackage = diagramElementGenClass.getGenPackage();
+			Class<?> factoryInterface = genPlugin.loadGeneratedClass(domainGenPackage.getQualifiedFactoryInterfaceName());
+			assertNotNull("Factory interface not found", factoryInterface);
+			Field accessor = null;
+			accessor = factoryInterface.getField(domainGenPackage.getFactoryInstanceName());
+			assertNotNull("Accessor field not found", accessor);
+			Object factory = null;
+			factory = accessor.get(null);
+			assertNotNull("Factory unavailable", factory);
+			Method createMethod = null;
+			createMethod = factory.getClass().getMethod("create" + diagramElementGenClass.getName(), new Class[0]);
+			assertNotNull("Create method unavailable", createMethod);
+			EObject domainDiagramElement = null;
+			domainDiagramElement = (EObject) createMethod.invoke(factory, new Object[0]);
+			assertNotNull("Domain diagram element was not created", domainDiagramElement);
+			return domainDiagramElement;
+		} catch (Exception ex) {
+			fail(ex.toString());
+		}
+		return null;
 	}
 
 	protected IEditorPart openEditor(IFile diagramFile) {

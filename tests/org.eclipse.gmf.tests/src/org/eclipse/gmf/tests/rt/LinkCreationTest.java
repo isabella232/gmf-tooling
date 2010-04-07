@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Borland Software Corp.
+/*
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 public class LinkCreationTest extends GeneratedCanvasTest {
 
@@ -32,7 +33,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 	private Node myNodeB;
 
 	public LinkCreationTest(String name) {
-		super(name);
+		super(name, new RuntimeBasedGeneratorConfiguration());
 	}
 
 	protected void setUp() throws Exception {
@@ -354,7 +355,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 		EStructuralFeature linkFeature = linkSource.eClass().getEStructuralFeature(facet.getMetaFeature().getName());
 		assertNotNull(linkFeature);
 		Object linked = linkSource.eGet(linkFeature);
-		if (linked instanceof Collection) {
+		if (linked instanceof Collection<?>) {
 			assertTrue("Link element was not added to the container", ((Collection<?>) linked).contains(linkTarget));
 		} else {
 			assertEquals("Link element was not added to the container", linkTarget, linked);
@@ -371,7 +372,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 			EStructuralFeature containmentFeature = linkSource.eClass().getEStructuralFeature(facet.getContainmentMetaFeature().getName());
 			assertNotNull(containmentFeature);
 			Object contained = linkSource.eGet(containmentFeature);
-			if (contained instanceof Collection) {
+			if (contained instanceof Collection<?>) {
 				assertTrue("Link element was not added to the container", ((Collection<?>) contained).contains(linkElement));
 			} else {
 				assertEquals("Link element was not added to the container", linkElement, contained);
@@ -380,7 +381,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 			EStructuralFeature sourceFeature = linkElement.eClass().getEStructuralFeature(facet.getSourceMetaFeature().getName());
 			assertNotNull(sourceFeature);
 			Object sources = linkElement.eGet(sourceFeature);
-			if (sources instanceof Collection) {
+			if (sources instanceof Collection<?>) {
 				assertTrue("Link source was not set correctly", ((Collection<?>) sources).contains(linkSource));
 			} else {
 				assertEquals("Link source was not set correctly", linkSource, sources);
@@ -390,7 +391,7 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 		EStructuralFeature targetFeature = linkElement.eClass().getEStructuralFeature(facet.getTargetMetaFeature().getName());
 		assertNotNull(targetFeature);
 		Object targets = linkElement.eGet(targetFeature);
-		if (targets instanceof Collection) {
+		if (targets instanceof Collection<?>) {
 			assertTrue("Link target was not set correctly", ((Collection<?>) targets).contains(linkTarget));
 		} else {
 			assertEquals("Link target was not set correctly", linkTarget, targets);

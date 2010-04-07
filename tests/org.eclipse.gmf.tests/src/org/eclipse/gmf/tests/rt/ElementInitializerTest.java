@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2009 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License v1.0 which
@@ -40,6 +40,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
+import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 
 /**
  * Tests domain meta-model element initialization   
@@ -52,8 +54,12 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 	private Node myNodeA;	
 	
 	public ElementInitializerTest(String name) {
-		super(name);
+		this(name, new RuntimeBasedGeneratorConfiguration());
 		myDefaultSetup = LinksSessionSetup.newInstance();
+	}
+	
+	protected ElementInitializerTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {
+		super(name, viewerConfigFactory);
 	}
 
 	protected void setUp() throws Exception {
