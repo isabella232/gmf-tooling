@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Borland Software Corporation
+/*
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -33,7 +33,6 @@ import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 
-@SuppressWarnings("unchecked")
 public class OCLExpressionAdapterTest extends TestCase {
 	EClassifier context;
 	IModelExpressionProvider provider;
