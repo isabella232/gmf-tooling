@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import junit.framework.Assert;
+
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -49,10 +52,10 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.JobTracker;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -62,7 +65,6 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	public void testSaveDiagramChanges() {
@@ -283,9 +285,8 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		}
 		assertFalse("Diagram node was not created", diagramCopy.getChildren().size() == 0);
 
-		saveResources(diagramCopy.eResource().getResourceSet().getResources());
+		new WorkspaceUtils(getProject()).atomicSave(diagramCopy.eResource().getResourceSet().getResources());
 		System.err.println("[300887] Done saveResources, all resource notifications should be already dispatched");
-		Utils.assertDispatchDisplayMessages(3);
 		System.err.println("[300887] Test is about to re-get top EP's model:" + getName());
 
 		diagram = getDiagram();
@@ -308,8 +309,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		}
 		assertEquals("Diagram name was not set", newDiagramName, diagramCopy.getName());
 
-		saveResources(Collections.singletonList(diagramCopy.eResource()));
-		Utils.assertDispatchDisplayMessages(3);
+		new WorkspaceUtils(getProject()).atomicSave(diagramCopy.eResource());
 
 		diagram = getDiagram();
 		assertFalse("Editor is dirty", getEditor().isDirty());
@@ -328,8 +328,7 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
-		saveResources(Collections.singletonList(diagramCopy.getElement().eResource()));
-		Utils.assertDispatchDisplayMessages(3);
+		new WorkspaceUtils(getProject()).atomicSave(diagramCopy.getElement().eResource());
 
 		diagram = getDiagram();
 		assertFalse("Editor is dirty", getEditor().isDirty());
@@ -340,29 +339,52 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		assertEquals("Name was not refreshed", newName, nodeAName);
 	}
 
-	private void saveResources(final List<Resource> resources) {
-		// Batching all the notifications from Eclipse resource subsystem.
-		// Otherwise notifications will be dispatched on by one and just created
-		// diagram node will be removed by CanonicalEditPolicy because
-		// corresponding notification from the domain model file changes is
-		// waiting to be dispatched later
-		IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+	// utilities for workspace (IResource) operations
+	private static class WorkspaceUtils {
+		private final IProject myProject;
 
-			public void run(IProgressMonitor monitor) throws CoreException {
-				for (Resource nextResource : resources) {
-					try {
-						nextResource.save(Collections.EMPTY_MAP);
-					} catch (IOException e) {
-						fail(e.getMessage());
+		WorkspaceUtils(IProject p) {
+			assert p != null;
+			myProject = p;
+		}
+
+		void atomicSave(Resource resource) {
+			atomicSave(Collections.singletonList(resource));
+		}
+
+		void atomicSave(final List<Resource> resources) {
+			// Batching all the notifications from Eclipse resource subsystem.
+			// Otherwise notifications will be dispatched on by one and just created
+			// diagram node will be removed by CanonicalEditPolicy because
+			// corresponding notification from the domain model file changes is
+			// waiting to be dispatched later
+			IWorkspaceRunnable runnable = new IWorkspaceRunnable() {
+	
+				public void run(IProgressMonitor monitor) throws CoreException {
+					for (Resource nextResource : resources) {
+						try {
+							nextResource.save(Collections.EMPTY_MAP);
+						} catch (IOException e) {
+							fail(e.getMessage());
+						}
 					}
 				}
+			};
+			JobTracker jt = new JobTracker();
+			try {
+				jt.start();
+				ResourcesPlugin.getWorkspace().run(runnable, myProject, IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
+				jt.freeze();
+				// WorkspaceSynchronizer re-dispatches resource events using Jobs, let these jobs complete
+				Utils.assertDispatchDisplayMessages(jt.getNonEmptyCondition(), 3);
+				// hence DocumentProvider.ResourceSetInfo's delegate (from Job) invoked handleResourceChanged(), which in turn 
+				// posted asyncExec to invoke DocumentProvider.handleElementChanged(), thus need to give it a chance
+				Utils.assertDispatchDisplayMessages(3);
+			} catch (CoreException e) {
+				Assert.fail(e.getMessage());
+			} finally {
+				jt.stop();
 			}
-		};
-
-		try {
-			ResourcesPlugin.getWorkspace().run(runnable, getProject(), IWorkspace.AVOID_UPDATE, new NullProgressMonitor());
-		} catch (CoreException e) {
-			fail(e.getMessage());
 		}
 	}
 
