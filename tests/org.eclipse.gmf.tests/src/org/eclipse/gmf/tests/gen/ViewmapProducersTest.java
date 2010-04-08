@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -342,7 +342,7 @@ public class ViewmapProducersTest extends TestCase {
 
 		Compartment compartment = eFact.createCompartment();
 		compartment.setName("Compartment");
-		compartment.setFigure(DiaDefSetup.newDescriptor((CustomFigure) EcoreUtil.copy(customFigure)));
+		compartment.setFigure(DiaDefSetup.newDescriptor(EcoreUtil.copy(customFigure)));
 		figureGallery.getDescriptors().add(compartment.getFigure());
 
 		Connection connection = eFact.createConnection();
@@ -525,7 +525,7 @@ public class ViewmapProducersTest extends TestCase {
 		
 		RealFigure withPrefSize = eFact.createRoundedRectangle();
 		withPrefSize.setName("WithPreferredSize");
-		withPrefSize.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
+		withPrefSize.setPreferredSize(EcoreUtil.copy(DIMENSION));
 		new Checker(withPrefSize).check(withPrefSize);
 		
 		RealFigure noPrefSize = eFact.createRectangle();
@@ -536,14 +536,14 @@ public class ViewmapProducersTest extends TestCase {
 		childHasPrefSizeButFigureDoesNot.setName("Parent");
 		RealFigure child = eFact.createRectangle();
 		child.setName("child");
-		child.setPreferredSize((Dimension) EcoreUtil.copy(DIMENSION));
+		child.setPreferredSize(EcoreUtil.copy(DIMENSION));
 		new Checker((Dimension)null).check(childHasPrefSizeButFigureDoesNot);
 		new Checker(DIMENSION).check(child);
 		
 		RealFigure noPrefSizeButFacet = eFact.createScalablePolygon();
 		Node facetNode = createNode("NoPrefSizeButFacet", noPrefSizeButFacet);
 		DefaultSizeFacet facet = eFact.createDefaultSizeFacet();
-		facet.setDefaultSize((Dimension) EcoreUtil.copy(DIMENSION));
+		facet.setDefaultSize(EcoreUtil.copy(DIMENSION));
 		facetNode.getFacets().add(facet);
 		new Checker(DIMENSION).check(getProducer().create(facetNode));
 		
@@ -659,7 +659,7 @@ public class ViewmapProducersTest extends TestCase {
 		
 		RealFigure labelParent = eFact.createRectangle();
 		labelParent.setName("LabelParent");
-		Label innerWithFont = (Label) EcoreUtil.copy(externalWithFont);
+		Label innerWithFont = EcoreUtil.copy(externalWithFont);
 		labelParent.getChildren().add(innerWithFont);
 		DiagramLabel diagramInnerLabel = eFact.createDiagramLabel();
 		diagramInnerLabel.setName("DiagramInnerLabelWithFont");
