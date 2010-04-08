@@ -42,7 +42,10 @@ import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
  */
 public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
 	
-	public final static SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
+	public final static class CustomSetup extends SessionSetup {
+		public CustomSetup() {
+			super(new RuntimeBasedGeneratorConfiguration());
+		}
 
 		private DiaGenSource myGenModel;
 
@@ -92,12 +95,6 @@ public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
 
 	public LinkEcoreConstraintsTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-	}
-
-	@Override
-	protected void setUp() throws Exception {
-		configure(setup);
-		super.setUp();
 	}
 
 	@Override

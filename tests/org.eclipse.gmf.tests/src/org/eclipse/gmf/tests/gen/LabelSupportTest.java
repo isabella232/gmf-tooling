@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -13,8 +13,6 @@ package org.eclipse.gmf.tests.gen;
 
 import java.lang.reflect.Method;
 
-import junit.framework.Assert;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
@@ -22,17 +20,12 @@ import org.eclipse.gmf.tests.setup.figures.FigureCheck;
 import org.eclipse.gmf.tests.setup.figures.GenericFigureCheck;
 import org.eclipse.gmf.tests.setup.figures.LabelSupportSetup;
 
-public class LabelSupportTest extends FigureCodegenTestBase {
+public class LabelSupportTest extends FigureCodegenTestBase<LabelSupportSetup> {
 	
 	public LabelSupportTest(String name) {
 		super(name);
 	}
-	
-	private LabelSupportSetup getSessionSetup() {
-		Assert.assertTrue("Incorrect session setup was used, use FigureCodegenSetup instead of: " + mySessionSetup, mySessionSetup instanceof LabelSupportSetup);
-		return (LabelSupportSetup) mySessionSetup;
-	}
-	
+
 	public void testCustomFigureWithLabel(){
 		doPerformTests(getSessionSetup().getCustom());
 	}

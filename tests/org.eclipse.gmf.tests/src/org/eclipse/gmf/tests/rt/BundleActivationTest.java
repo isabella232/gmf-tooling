@@ -43,12 +43,16 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
 /**
- * Check metainformation for GMF RT providers prevents bundle from activation
+ * Check meta-information for GMF RT providers prevents bundle from activation
  * @author artem
  */
+@SuppressWarnings("restriction")
 public class BundleActivationTest extends ConfiguredTestCase {
 	private final PreferencesHint prefHint = new PreferencesHint("a.b.c");
-	public final static SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
+	public final static class CustomSetup extends SessionSetup {
+		public CustomSetup() {
+			super(new RuntimeBasedGeneratorConfiguration());
+		}
 		@Override
 		protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {
 			return new GenProjectSetup(generatorConfiguration) {
@@ -87,7 +91,6 @@ public class BundleActivationTest extends ConfiguredTestCase {
 
 	public BundleActivationTest(String name) {
 		super(name);
-		configure(setup);
 	}
 
 	private void assertBundleNotStarted(String msg) throws Exception {
@@ -129,7 +132,6 @@ public class BundleActivationTest extends ConfiguredTestCase {
 		DecorationEditPolicy decorationEditPolicy = new DecorationEditPolicy();
 		decorationEditPolicy.setHost(new ShapeEditPart(null) {});
 		DecoratorTarget dt = decorationEditPolicy.new DecoratorTarget();
-		@SuppressWarnings("restriction")
 		IDecoratorProvider dp = DecoratorService.getInstance();
 		dp.createDecorators(dt);
 		assertBundleNotStarted("DecoratorService");
@@ -137,7 +139,6 @@ public class BundleActivationTest extends ConfiguredTestCase {
 
 	public void testModelAssistantService() throws Exception {
 		assertBundleNotStarted("[sanity]");
-		@SuppressWarnings("restriction")
 		EditPart ep = new DefaultNodeEditPart(NotationFactory.eINSTANCE.createNode());
 		ModelingAssistantService.getInstance().getTypesForPopupBar(ep);
 		assertBundleNotStarted("ModelAssistantService#getTypesForPopupBar(EditPart)");

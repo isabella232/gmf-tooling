@@ -90,11 +90,8 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 
 	private static final String MARKER_COMMAND_LABEL = "MarkerCommand";
 
-	public static final SessionSetup setup = new EditHelpersSessionSetup();
-
 	public EditHelpersTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-		configure(setup);
 	}
 
 	public void testSingleEditHelperAdviceNode() {
@@ -228,9 +225,9 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		return Integer.valueOf(label.substring(label.indexOf(MARKER_COMMAND_LABEL) + MARKER_COMMAND_LABEL.length()));
 	}
 
-	private static final class EditHelpersSessionSetup extends SessionSetup {
+	public static final class EditHelpersSessionSetup extends SessionSetup {
 
-		private EditHelpersSessionSetup() {
+		public EditHelpersSessionSetup() {
 			super(new RuntimeBasedGeneratorConfiguration());
 		}
 

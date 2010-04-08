@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007, 2008 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -50,7 +50,6 @@ import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.MapDefSource;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
 
 
@@ -58,7 +57,6 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 	
 	public TransformToGenModelOperationTest(String name) {
 		super(name);
-		myDefaultSetup = SessionSetup.newInstance();
 	}
 	
 	private static String FOLDER_MODELS = "models"; //$NON-NLS-1$

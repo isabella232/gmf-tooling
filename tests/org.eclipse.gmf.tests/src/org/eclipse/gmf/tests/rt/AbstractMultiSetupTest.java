@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.rt;
 
+import org.eclipse.gmf.tests.NeedsSetup;
 import org.eclipse.gmf.tests.setup.MultiSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -23,6 +24,7 @@ public abstract class AbstractMultiSetupTest extends GeneratedCanvasTest {
 		super(name, viewerConfigFactory);
 	}
 
+	@NeedsSetup
 	public final void configure(MultiSetup setup) {
 		myMultiSetup = setup;
 		configure(setup.getDefaultSetup());

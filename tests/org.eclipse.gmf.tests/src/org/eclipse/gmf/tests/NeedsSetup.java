@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,20 +11,23 @@
  */
 package org.eclipse.gmf.tests;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import junit.framework.TestCase;
+
 /**
- * FIXME guess, with Java 5 I may have configure(T param) method
- *  
- * Marker interface used in conjunction with {@link TestConfiguration} class.
- * Test that needs some configuration object (i.e. one which implements {@link TestConfiguration})
- * should add this interface to the <code>implements</code> list <b>AND</b>
- * define method named <em>configure</em> ({@link #METHOD_NAME}) taking its favourite
- * TestConfiguration subclass as a single argument.
+ * Marker annotation used in conjunction with {@link TestConfiguration} class.
+ * Test (in fact, set of tests, {@link TestCase}) that needs some configuration object 
+ * (i.e. one which implements {@link TestConfiguration}) should define method that 
+ * takes its favorite TestConfiguration subclass as a single argument 
+ * <b>AND</b> annotate this method with {@link NeedsSetup this annotation}.  
  * 
  * @author artem
  */
-public interface NeedsSetup {
-	/**
-	 * Name of the method to be invoked via reflection (value: <em>configure</em>)
-	 */
-	String METHOD_NAME = "configure";
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NeedsSetup {
 }

@@ -39,7 +39,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
-import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 
@@ -55,7 +54,6 @@ public class ElementInitializerTest extends GeneratedCanvasTest {
 	
 	public ElementInitializerTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());
-		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 	
 	protected ElementInitializerTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {

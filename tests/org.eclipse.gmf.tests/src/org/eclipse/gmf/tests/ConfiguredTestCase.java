@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,23 +19,20 @@ import junit.framework.TestCase;
  * @author artem
  *
  */
-public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup {
+public abstract class ConfiguredTestCase extends TestCase {
 
 	private SessionSetup mySessionSetup;
 
-	/**
-	 * subclasses may initialize this field prior to calling super.setUp()
-	 * so that if no SessionSetup was configured explicitly, this default 
-	 * would be used.
-	 */
-	protected SessionSetup myDefaultSetup;
-
 	protected ConfiguredTestCase(String name) {
 		super(name);
+		Plugin.getConfig().prepare(this);
 	}
 
+	@NeedsSetup
 	public final void configure(SessionSetup sessionSetup) {
 		assertNotNull(sessionSetup);
+		// XXX if (mySessionSetup != null) mySessionSetup.oneDown() - e.g. if configure is called twice for the same test?
+		// i.e. once from Configurator.prepare (cons), another one from outsite (AllTests)?
 		mySessionSetup = sessionSetup;
 		mySessionSetup.oneUp();
 	}
@@ -46,10 +43,6 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		if (mySessionSetup == null && myDefaultSetup != null) {
-			// subject to enabled/disabled state dictated from AllTests 
-			configure(myDefaultSetup);
-		}
 		assertNotNull("Test " + getName() + " needs session setup", mySessionSetup);
 	}
 

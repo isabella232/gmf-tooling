@@ -20,7 +20,6 @@ import org.eclipse.gef.palette.PaletteEntry;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.CreationTool;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * @author artem
@@ -30,9 +29,8 @@ public class PaletteTest extends GeneratedCanvasTest {
 
 	public PaletteTest(String name) {
 		super(name, null /* as long as we don't use ViewerConfiguration below to instantiate palette */);
-		myDefaultSetup = SessionSetup.newInstance();
-
 	}
+
 	// [236869] Provide id for ToolEntry to allow palette customization
 	public void testEntriesGetIdentity() throws Exception {
 		PaletteRoot root = getPaletteRoot();

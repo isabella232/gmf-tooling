@@ -56,7 +56,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
@@ -81,7 +80,6 @@ public class AuditRulesTest extends GeneratedCanvasTest {
 
 	public AuditRulesTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {

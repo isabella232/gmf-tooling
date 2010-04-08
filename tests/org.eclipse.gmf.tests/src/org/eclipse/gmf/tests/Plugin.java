@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,12 +15,14 @@ import java.io.IOException;
 
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.osgi.framework.BundleContext;
 
 public class Plugin extends org.eclipse.core.runtime.Plugin {
 
 	private static Plugin ourInstance;
 	private BundleContext myContext;
+	private Configurator myConfiguration;
 
 	public Plugin() {
 		super();
@@ -30,11 +32,16 @@ public class Plugin extends org.eclipse.core.runtime.Plugin {
 		super.start(context);
 		ourInstance = this;
 		myContext = context;
+		EMFTypePlugin.startDynamicAwareMode();
 	}
 
 	public void stop(BundleContext context) throws Exception {
 		ourInstance = null;
 		myContext = null;
+		if (myConfiguration != null) {
+			myConfiguration.dispose();
+			myConfiguration = null;
+		}
 		super.stop(context);
 	}
 
@@ -68,5 +75,13 @@ public class Plugin extends org.eclipse.core.runtime.Plugin {
 	 */
 	public static String getPluginID() {
 		return getInstance().getBundle().getSymbolicName();
+	}
+
+	public static Configurator getConfig() {
+		if (ourInstance.myConfiguration == null) {
+			ourInstance.myConfiguration = new Configurator();
+			AllTests.populate(ourInstance.myConfiguration);
+		}
+		return ourInstance.myConfiguration;
 	}
 }

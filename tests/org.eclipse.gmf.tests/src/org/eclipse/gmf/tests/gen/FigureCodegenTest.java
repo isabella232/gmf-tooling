@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2007 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,8 +14,6 @@ package org.eclipse.gmf.tests.gen;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-
-import junit.framework.Assert;
 
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.IFigure;
@@ -34,20 +32,12 @@ import org.eclipse.swt.graphics.Font;
 /**
  * @author artem
  */
-public class FigureCodegenTest extends FigureCodegenTestBase {
+public class FigureCodegenTest extends FigureCodegenTestBase<FigureCodegenSetup> {
 
 	public FigureCodegenTest(String name) {
 		super(name);
 	}
 
-	private FigureCodegenSetup getSessionSetup() {
-		if (mySessionSetup == null){
-			mySessionSetup = new FigureCodegenSetup();
-		}
-		Assert.assertTrue("Incorrect session setup was used, use FigureCodegenSetup instead of: " + mySessionSetup, mySessionSetup instanceof FigureCodegenSetup);
-		return (FigureCodegenSetup) mySessionSetup;
-	}
-	
 	public void testGenPolylineConnection() {
 		final org.eclipse.gmf.gmfgraph.PolylineConnection f = getSessionSetup().getEcoreContainmentRef();
 		performTests(f, new GenericFigureCheck(null/*fake arg*/) {

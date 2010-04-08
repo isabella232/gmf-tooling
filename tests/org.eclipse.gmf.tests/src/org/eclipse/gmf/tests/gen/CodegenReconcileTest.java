@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -25,46 +25,18 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gmf.codegen.gmfgen.Attributes;
-import org.eclipse.gmf.codegen.gmfgen.CustomParser;
-import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
-import org.eclipse.gmf.codegen.gmfgen.ElementType;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenCommandAction;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
-import org.eclipse.gmf.codegen.gmfgen.GenContextMenu;
-import org.eclipse.gmf.codegen.gmfgen.GenCustomAction;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
-import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
-import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class CodegenReconcileTest extends ConfiguredTestCase {
 
 	public CodegenReconcileTest(String name) {
 		super(name);
-		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	protected final GenEditorGenerator getOriginal() {
@@ -72,7 +44,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 	}
 
 	protected final GenEditorGenerator createCopy() {
-		return (GenEditorGenerator) EcoreUtil.copy(getOriginal());
+		return EcoreUtil.copy(getOriginal());
 	}
 
 	public void testLoadGMFGen() throws Exception {
@@ -695,7 +667,7 @@ public class CodegenReconcileTest extends ConfiguredTestCase {
 				return null;
 			}
 		}
-		checkUserChange(new GenJavaExpressionProviderChange(GMFGenPackage.eINSTANCE.getGenJavaExpressionProvider_InjectExpressionBody(), true), editorGen, (GenEditorGenerator) EcoreUtil.copy(editorGen));
+		checkUserChange(new GenJavaExpressionProviderChange(GMFGenPackage.eINSTANCE.getGenJavaExpressionProvider_InjectExpressionBody(), true), editorGen, EcoreUtil.copy(editorGen));
 	}
 
 	public void testGenParsers() {

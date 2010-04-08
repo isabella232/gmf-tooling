@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -43,54 +43,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.gmf.codegen.gmfgen.Behaviour;
-import org.eclipse.gmf.codegen.gmfgen.ElementType;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenApplication;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
-import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
-import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenParsers;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
-import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
-import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
-import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
 
@@ -110,7 +64,6 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 
 	public HandcodedImplTest(String name) {
 		super(name);
-		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {

@@ -50,6 +50,7 @@ public class SessionSetup implements TestConfiguration, GeneratedDiagramPlugin {
 	/**
 	 * @return <code>null</code> if {@link #disallowSingleTestCaseUse()} was called
 	 */
+	@TestConfiguration.FactoryMethod
 	public static SessionSetup newInstance() {
 		if (factoryClosed) {
 			return null;

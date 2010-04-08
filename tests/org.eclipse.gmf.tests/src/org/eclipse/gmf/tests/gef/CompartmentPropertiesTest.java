@@ -28,7 +28,6 @@ import org.eclipse.gmf.runtime.notation.TitleStyle;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
 /**
  * TODO: This test should be joined with the part of DiagramNodeTest concerning
@@ -47,7 +46,6 @@ public final class CompartmentPropertiesTest extends GeneratedCanvasTest {
 	
 	public CompartmentPropertiesTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-		myDefaultSetup = SessionSetup.newInstance();
 	}
 	
 	/**

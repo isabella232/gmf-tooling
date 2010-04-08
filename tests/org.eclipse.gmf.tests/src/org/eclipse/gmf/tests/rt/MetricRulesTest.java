@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.mappings.MetricContainer;
-import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 /**
@@ -33,7 +32,6 @@ public class MetricRulesTest extends GeneratedCanvasTest {
 	
 	public MetricRulesTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 
 	protected void setUp() throws Exception {

@@ -63,7 +63,7 @@ import org.osgi.framework.Bundle;
  * but through EditPart#getParser method - as we anyway do that for ExternalParser cases
  * @author dstadnik
  */
-public class ParsersTest extends TestCase implements NeedsSetup {
+public class ParsersTest extends TestCase {
 
 	protected ParsersSetup setup;
 
@@ -71,13 +71,7 @@ public class ParsersTest extends TestCase implements NeedsSetup {
 		super(name);
 	}
 
-	@Override
-	protected void setUp() throws Exception {
-		if (setup == null) {
-			configure(new ParsersSetup(true));
-		}
-	}
-	
+	@NeedsSetup
 	public final void configure(ParsersSetup ps) throws Exception {
 		setup = ps;
 		setup.init();

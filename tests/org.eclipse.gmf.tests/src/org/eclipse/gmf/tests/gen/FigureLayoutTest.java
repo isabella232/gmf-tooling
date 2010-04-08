@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2007 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,20 +11,13 @@
  */
 package org.eclipse.gmf.tests.gen;
 
-import junit.framework.Assert;
-
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.tests.setup.figures.FigureGeneratorUtil;
 import org.eclipse.gmf.tests.setup.figures.FigureLayoutSetup;
 
-public class FigureLayoutTest extends FigureCodegenTestBase {
+public class FigureLayoutTest extends FigureCodegenTestBase<FigureLayoutSetup> {
 	public FigureLayoutTest(String name){
 		super(name);
-	}
-	
-	private FigureLayoutSetup getSessionSetup() {
-		Assert.assertTrue("Incorrect session setup was used, use FigureLayoutSetup instead of: " + mySessionSetup, mySessionSetup instanceof FigureLayoutSetup);
-		return (FigureLayoutSetup) mySessionSetup;
 	}
 	
 	public void testGridLayout(){

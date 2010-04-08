@@ -195,7 +195,11 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 		}
 	}
 
-	public static final SessionSetup setup = new SessionSetup(new RuntimeBasedGeneratorConfiguration()) {
+	public static final class CustomSetup extends SessionSetup {
+		public CustomSetup() {
+			super(new RuntimeBasedGeneratorConfiguration());
+		}
+
 		@Override
 		protected DiaGenSource createGenModel() {
 			return new DiaGenSourceImpl();
@@ -204,7 +208,6 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 
 	public LinkChildMetaFeatureNotFromContainerTest(String name) {
 		super(name, new RuntimeBasedGeneratorConfiguration());
-		configure(setup);
 	}
 	
 	public void testCreateLink() {

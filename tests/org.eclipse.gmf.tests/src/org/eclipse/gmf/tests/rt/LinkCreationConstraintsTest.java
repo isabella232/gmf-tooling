@@ -24,7 +24,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.ViewerConfiguration;
 
@@ -32,7 +31,6 @@ public class LinkCreationConstraintsTest extends GeneratedCanvasTest {
 
 	public LinkCreationConstraintsTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());
-		myDefaultSetup = LinksSessionSetup.newInstance();
 	}
 	
 	protected LinkCreationConstraintsTest(String name, ViewerConfiguration.Factory viewerConfigFactory) {

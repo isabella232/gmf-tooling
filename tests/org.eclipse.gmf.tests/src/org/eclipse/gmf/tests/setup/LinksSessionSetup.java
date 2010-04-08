@@ -61,6 +61,7 @@ import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ValueExpression;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.osgi.framework.BundleException;
 
 public class LinksSessionSetup extends SessionSetup {
@@ -72,7 +73,8 @@ public class LinksSessionSetup extends SessionSetup {
 		
 	}
 
-	public static SessionSetup newInstance() {
+	@TestConfiguration.FactoryMethod
+	public static LinksSessionSetup newInstance() {
 		if (factoryClosed) {
 			return null;
 		}

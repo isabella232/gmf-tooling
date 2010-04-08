@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2009 Borland Software Corporation
+ * Copyright (c) 2009, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,7 +27,6 @@ public class TestAllDerivedFeatures extends ConfiguredTestCase {
 
 	public TestAllDerivedFeatures(String name) {
 		super(name);
-		myDefaultSetup = SessionSetup.newInstance();
 	}
 
 	public void testGMFGenModel() {
