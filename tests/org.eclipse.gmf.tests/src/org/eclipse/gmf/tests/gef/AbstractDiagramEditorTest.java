@@ -157,7 +157,7 @@ public abstract class AbstractDiagramEditorTest extends AbstractCanvasTest {
 		if (mySameModelAndDiagramFile != null) {
 			sameFileForDiagramAndModel = mySameModelAndDiagramFile.booleanValue();
 		} else {
-			sameFileForDiagramAndModel = getSetup().getGenModel().getGenDiagram().getEditorGen().isSameFileForDiagramAndModel();
+			sameFileForDiagramAndModel = getSetup().getGenDiagram().getEditorGen().isSameFileForDiagramAndModel();
 		}
 		// use test name for diagram file name since there should be no more than one diagram file per test 
 		// and it's easier to analyze test contents with meaningful names 
