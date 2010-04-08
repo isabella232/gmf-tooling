@@ -22,7 +22,6 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
-import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
@@ -35,7 +34,6 @@ public class DiagramEditorOutlineTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorOutlineTest(String name) {
 		super(name, new LiteGeneratorConfiguration());
-		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	@Override

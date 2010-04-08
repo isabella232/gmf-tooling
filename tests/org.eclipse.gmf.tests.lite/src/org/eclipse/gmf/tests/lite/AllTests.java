@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2009 Borland Software Corporation and others
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,11 +12,10 @@
 package org.eclipse.gmf.tests.lite;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.CleanupTest;
-import org.eclipse.gmf.tests.TestConfiguration;
+import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorMatchingStrategyTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramEditorOutlineTest;
 import org.eclipse.gmf.tests.lite.gef.DiagramElementDeleteTest;
@@ -51,19 +50,32 @@ public class AllTests {
 		final MultiSetup multiSetup = new MultiSetup(sessionSetup2, sessionSetup3);
 
 		SessionSetup.disallowSingleTestCaseUse();
+		
+		Plugin.getConfig().register(DiagramEditorMatchingStrategyTest.class, sessionSetup3);
+		Plugin.getConfig().register(DiagramEditorOutlineTest.class, sessionSetup3);	// myDefaultSetup = LibraryConstrainedSetup.getInstance();
+		Plugin.getConfig().register(DiagramElementDeleteTest.class, sessionSetup3);
+		Plugin.getConfig().register(ExternalNodeLabelsTest.class, sessionSetup3); // myDefaultSetup = ... 
+		Plugin.getConfig().register(DiagramNodeTest.class, sessionSetup);
+		Plugin.getConfig().register(DiagramNodeCloneMoveTest.class, sessionSetup3); // myDefaultSetup = ...
+		Plugin.getConfig().register(DiagramElementTest.class, sessionSetup2);
+		Plugin.getConfig().register(DiagramLinksTest.class, sessionSetup2);
+		Plugin.getConfig().register(ElementInitializerTest.class, sessionSetup2);
+		Plugin.getConfig().register(LinkCreationConstraintsTest.class, sessionSetup2);
+		Plugin.getConfig().register(NotationRefreshTest.class, sessionSetup3); // myDefaultSetup = LibraryConstrainedSetup.getInstance();
+		Plugin.getConfig().register(ShortcutCreationTest.class, multiSetup);
 
-		suite.addTest(feed(DiagramEditorMatchingStrategyTest.class, sessionSetup3));
-		suite.addTest(feed(DiagramEditorOutlineTest.class, sessionSetup3));
-		suite.addTest(feed(DiagramElementDeleteTest.class, sessionSetup3));
-		suite.addTest(feed(ExternalNodeLabelsTest.class, sessionSetup3));
-		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
-		suite.addTest(feed(DiagramNodeCloneMoveTest.class, sessionSetup3));
-		suite.addTest(feed(DiagramElementTest.class, sessionSetup2));
-		suite.addTest(feed(DiagramLinksTest.class, sessionSetup2));
-		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));
-		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
-		suite.addTest(feed(NotationRefreshTest.class, sessionSetup3));
-		suite.addTest(feed(ShortcutCreationTest.class, multiSetup));
+		suite.addTestSuite(DiagramEditorMatchingStrategyTest.class);
+		suite.addTestSuite(DiagramEditorOutlineTest.class);
+		suite.addTestSuite(DiagramElementDeleteTest.class);
+		suite.addTestSuite(ExternalNodeLabelsTest.class);
+		suite.addTestSuite(DiagramNodeTest.class);
+		suite.addTestSuite(DiagramNodeCloneMoveTest.class);
+		suite.addTestSuite(DiagramElementTest.class);
+		suite.addTestSuite(DiagramLinksTest.class);
+		suite.addTestSuite(ElementInitializerTest.class);
+		suite.addTestSuite(LinkCreationConstraintsTest.class);
+		suite.addTestSuite(NotationRefreshTest.class);
+		suite.addTestSuite(ShortcutCreationTest.class);
 		suite.addTestSuite(SVGFigureTest.class);
 		suite.addTestSuite(GeneratedSVGFigureTest.class);
 		suite.addTest(new CleanupTest("testCleanup") {
@@ -74,9 +86,5 @@ public class AllTests {
 			}
 		});
 		return suite;
-	}
-
-	private static Test feed(Class<? extends TestCase> theClass, TestConfiguration config) {
-		return org.eclipse.gmf.tests.AllTests.feed(theClass, config);
 	}
 }

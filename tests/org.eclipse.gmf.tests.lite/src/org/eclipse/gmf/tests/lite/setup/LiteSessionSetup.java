@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenRGBColor;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.DiaGenSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
@@ -32,6 +33,7 @@ public class LiteSessionSetup extends SessionSetup {
 		super(genConfig);
 	}
 
+	@TestConfiguration.FactoryMethod
 	public static SessionSetup getInstance() {
 		if (factoryClosed) {
 			return null;

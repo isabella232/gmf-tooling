@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2008 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.tests.EPath;
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.lite.Activator;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
@@ -39,6 +40,7 @@ public class LibraryConstrainedSetup extends SessionSetup {
 		super(genConfig);
 	}
 
+	@TestConfiguration.FactoryMethod
 	public static LibraryConstrainedSetup getInstance() {
 		if (factoryClosed) {
 			return null;

@@ -46,13 +46,11 @@ import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
-import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
 public class DiagramNodeCloneMoveTest extends GeneratedCanvasTest {
 	public DiagramNodeCloneMoveTest(String name) {
 		super(name, new LiteGeneratorConfiguration());
-		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testClone() throws Exception {

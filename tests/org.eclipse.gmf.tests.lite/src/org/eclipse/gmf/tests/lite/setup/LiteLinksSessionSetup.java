@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.lite.setup;
 
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
@@ -23,6 +24,7 @@ public class LiteLinksSessionSetup extends LinksSessionSetup {
 		super(genConfig);
 	}
 
+	@TestConfiguration.FactoryMethod
 	public static LinksSessionSetup getInstance() {
 		if (factoryClosed) {
 			return null;

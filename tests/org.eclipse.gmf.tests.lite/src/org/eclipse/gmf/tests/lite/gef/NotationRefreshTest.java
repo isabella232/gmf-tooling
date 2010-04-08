@@ -37,13 +37,11 @@ import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
-import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 
 public class NotationRefreshTest extends GeneratedCanvasTest {
 	public NotationRefreshTest(String name) {
 		super(name, new LiteGeneratorConfiguration());
-		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testNotationRefreshOnDeleteNode() throws Exception {

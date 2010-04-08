@@ -37,7 +37,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tests.gef.AbstractDiagramEditorTest;
 import org.eclipse.gmf.tests.lite.gen.LiteGeneratorConfiguration;
-import org.eclipse.gmf.tests.lite.setup.LibraryConstrainedSetup;
 import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
@@ -50,7 +49,6 @@ public class ExternalNodeLabelsTest extends AbstractDiagramEditorTest {
 	public ExternalNodeLabelsTest(String name) {
 		super(name, new LiteGeneratorConfiguration());
 		PlatformUI.getWorkbench().getEditorRegistry();
-		myDefaultSetup = LibraryConstrainedSetup.getInstance();
 	}
 
 	public void testExternalNodeLabelsPosition() throws Exception {
