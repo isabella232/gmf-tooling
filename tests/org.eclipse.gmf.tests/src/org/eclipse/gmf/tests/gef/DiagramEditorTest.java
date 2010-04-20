@@ -286,8 +286,6 @@ public class DiagramEditorTest extends AbstractDiagramEditorTest {
 		assertFalse("Diagram node was not created", diagramCopy.getChildren().size() == 0);
 
 		new WorkspaceUtils(getProject()).atomicSave(diagramCopy.eResource().getResourceSet().getResources());
-		System.err.println("[300887] Done saveResources, all resource notifications should be already dispatched");
-		System.err.println("[300887] Test is about to re-get top EP's model:" + getName());
 
 		diagram = getDiagram();
 		assertFalse("Editor is dirty", editorPart.isDirty());
