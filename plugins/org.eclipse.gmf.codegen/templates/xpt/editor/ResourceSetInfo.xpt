@@ -281,7 +281,6 @@ public boolean handleResourceChanged(final org.eclipse.emf.ecore.resource.Resour
 			handleElementChanged(ResourceSetInfo.this, resource, null);
 		}
 	});
-	System.err.println("[300887] added async handleElementChanged " + Thread.currentThread().getName());
 	return true;
 }
 «ENDDEFINE»

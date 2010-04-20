@@ -552,9 +552,6 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 	«IF null = editorGen.application-»
 	org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(changedResource);
 	if (file != null) {
-		// >>>
-		System.err.println("[300887] " + file);
-		// <<<
 		try {
 			file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
 		} catch (org.eclipse.core.runtime.CoreException ex) {
@@ -565,17 +562,11 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 	«ENDIF-»
 	changedResource.unload();
 	
-	// >>>
-	System.err.println("[300887] about to be replaced");
-	// <<<
 	fireElementContentAboutToBeReplaced(info.getEditorInput());
 	removeUnchangedElementListeners(info.getEditorInput(), info);
 	info.fStatus = null;
 	try {
 		setDocumentContent(info.fDocument, info.getEditorInput());
-		// >>>
-		System.err.println("[300887] doc content set");
-		// <<<
 	} catch (org.eclipse.core.runtime.CoreException e) {
 		info.fStatus = e.getStatus();
 	}
@@ -585,9 +576,6 @@ protected void handleElementChanged(ResourceSetInfo info, org.eclipse.emf.ecore.
 	}
 	addUnchangedElementListeners(info.getEditorInput(), info);
 	fireElementContentReplaced(info.getEditorInput());
-	// >>>
-	System.err.println("[300887] content replaced fired");
-	// <<<
 }
 «ENDDEFINE»
 

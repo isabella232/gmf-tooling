@@ -51,12 +51,6 @@ public class «className»  extends org.eclipse.gmf.runtime.diagram.ui.resources
 		«EXPAND getNavigatorSelection FOR editorGen.navigator-»
 	«ENDIF-»
 
-	protected void handleElementContentReplaced() {
-		System.err.println("[300887] DiagramEditor.handleElementContentReplaced.1");
-		super.handleElementContentReplaced();
-		System.err.println("[300887] DiagramEditor.handleElementContentReplaced.2");
-	}
-
 	«EXPAND configureGraphicalViewer-»
 
 	«IF editorGen.diagram.generateCreateShortcutAction()-»
