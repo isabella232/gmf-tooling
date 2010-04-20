@@ -21,7 +21,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaModelMarker;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * @author artem
@@ -30,6 +33,24 @@ import org.eclipse.jdt.core.IJavaModelMarker;
 public class CompileUtil {
 
 	public IStatus build(IProject project) {
+		try {
+			System.err.println("Compiling project " + project.getName());
+			System.err.println("\t" + "Natures:");
+			for (String s : project.getDescription().getNatureIds()) {
+				System.err.println("\t" + s);
+			}
+			IJavaProject jp = JavaCore.create(project);
+			IClasspathEntry[] cpIgoreUnresolved = jp.getResolvedClasspath(true);
+			IClasspathEntry[] cpAllResolved = jp.getResolvedClasspath(false);
+			if (cpIgoreUnresolved.length != cpAllResolved.length) {
+				System.err.println("getResolvedClasspath(boolean ignoreUnresolvedEntry) gives different result: " + cpIgoreUnresolved.length + " vs " + cpAllResolved.length);
+			}
+			for (IClasspathEntry ce : cpAllResolved) {
+				System.err.println("  " + ce.toString());
+			}
+		} catch (Exception ex) {
+			System.err.println("!!! JavaProject games are over with " + ex);
+		}
 		try {
 			project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			IMarker[] compileErrors = getJavaErrors(project);
