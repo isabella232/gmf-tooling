@@ -56,10 +56,10 @@
 «DEFINE fqn FOR gmfgraph::Rectangle»org.eclipse.draw2d.RectangleFigure«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::RoundedRectangle»org.eclipse.draw2d.RoundedRectangle«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Ellipse»org.eclipse.draw2d.Ellipse«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Polygon»org.eclipse.draw2d.Polygon«ENDDEFINE»
+«DEFINE fqn FOR gmfgraph::Polygon»org.eclipse.draw2d.PolygonShape«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::ScalablePolygon»org.eclipse.draw2d.ScalablePolygonShape«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::PolygonDecoration»org.eclipse.draw2d.PolygonDecoration«ENDDEFINE»
-«DEFINE fqn FOR gmfgraph::Polyline»org.eclipse.draw2d.Polyline«ENDDEFINE»
+«DEFINE fqn FOR gmfgraph::Polyline»org.eclipse.draw2d.PolylineShape«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::PolylineDecoration»org.eclipse.draw2d.PolylineDecoration«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::PolylineConnection»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx«ELSE»org.eclipse.draw2d.PolylineConnection«ENDIF»«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::SVGFigure»org.eclipse.gmf.runtime.lite.svg.SVGFigure«ENDDEFINE»

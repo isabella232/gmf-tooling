@@ -14,41 +14,13 @@
 
 «EXTENSION Util»
 
-«DEFINE localCoordinates FOR gmfgraph::RealFigure»
-	/**
-	 * @generated
-	 */
-	private boolean myUseLocalCoordinates = «children[gmfgraph::Polyline]->notEmpty()»;
-
-	/**
-	 * @generated
-	 */
-	protected boolean useLocalCoordinates() {
-		return myUseLocalCoordinates;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-		myUseLocalCoordinates = useLocalCoordinates;
-	}
-«ENDDEFINE»
-
-«DEFINE localCoordinates FOR gmfgraph::Polyline-»
-«ENDDEFINE»
-
-«DEFINE localCoordinates FOR gmfgraph::Label-»
-«ENDDEFINE»
-
-
-«DEFINE extraMethods FOR gmfgraph::Figure-»
-«ENDDEFINE»
+«DEFINE extraMethods FOR gmfgraph::Figure»«ENDDEFINE»
 
 «DEFINE extraMethods FOR gmfgraph::SVGFigure-»
 «EXPAND svgProperty FOREACH properties-»
 «ENDDEFINE»
 
+// XXX move to distinct location (folder)
 «DEFINE svgProperty FOR gmfgraph::SVGProperty-»
 «IF getter <> null-»
 	«EXPAND svgPropertyGetter-»
