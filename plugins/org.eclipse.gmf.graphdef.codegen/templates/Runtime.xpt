@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -11,7 +11,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
 «EXTENSION Util»
 
 «DEFINE newInstance(figureVarName : String) FOR gmfgraph::Figure»«EXPAND fqn» «figureVarName» = «EXPAND newInstance»;«ENDDEFINE»
@@ -57,7 +57,7 @@
 «DEFINE fqn FOR gmfgraph::RoundedRectangle»org.eclipse.draw2d.RoundedRectangle«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Ellipse»org.eclipse.draw2d.Ellipse«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Polygon»org.eclipse.draw2d.Polygon«ENDDEFINE»
-«REM»FIXME«ENDREM»«DEFINE fqn FOR gmfgraph::ScalablePolygon»org.eclipse.draw2d.Shape«ENDDEFINE»
+«DEFINE fqn FOR gmfgraph::ScalablePolygon»org.eclipse.draw2d.ScalablePolygonShape«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::PolygonDecoration»org.eclipse.draw2d.PolygonDecoration«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Polyline»org.eclipse.draw2d.Polyline«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::PolylineDecoration»org.eclipse.draw2d.PolylineDecoration«ENDDEFINE»
