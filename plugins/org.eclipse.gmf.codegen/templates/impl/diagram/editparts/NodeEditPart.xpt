@@ -51,7 +51,7 @@
 «ENDDEFINE»
 
 «DEFINE installCreationRolePolicy FOR gmfgen::GenNode-»
-«IF hasChildren(self) or hasChildrenInListCompartments(self)-»
+«IF self.childNodes->notEmpty() or hasChildrenInListCompartments(self)-»
 	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «EXPAND _creationEditPolicyNewInstance»);
 «ENDIF-»
 «ENDDEFINE»
@@ -176,19 +176,22 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 }
 «ENDDEFINE»
 
+/* 
+  FIXME
+  1. single generation of createNodeShape(), with inner body filled by polymorphic initPrimaryShape, same as in Lite RT
+  2. getPrimaryShape() for SnippetViewmap. Other templates use it regardless of Viewmap kind, perhaps need to add className to SnippetViewmap (with IFigure being default?)
+  3. Common (single and shared with Lite RT) condition when to force useLocalConstraints. Lite checks for compartments isEmpty, shouldn't we do the same?
+*/
 «DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::Viewmap-»
 	«ERROR 'Unknown viewmap: ' + self.repr()-»
 «ENDDEFINE»
+
 
 «DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::FigureViewmap-»
 	«LET (if figureQualifiedClassName = null then 'org.eclipse.draw2d.RectangleFigure' else figureQualifiedClassName endif) AS fqn-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		protected org.eclipse.draw2d.IFigure createNodeShape() {
-			return primaryShape = new «fqn»()«IF node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT»{
-				protected boolean useLocalCoordinates() {
-					return true;
-				}
-			}«ENDIF»;
+			return primaryShape = new «fqn»()«IF node.childNodes->notEmpty() and node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT»«EXPAND forceUseLocalCoordinates»«ENDIF»;
 		}
 
 		«EXPAND getPrimaryShapeMethod FOR fqn-»
@@ -205,14 +208,18 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::InnerClassViewmap-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createNodeShape() {
-		«className» figure = new «className»();
-		«IF node.childNodes->size() > 0 and node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT-»
- 		figure.setUseLocalCoordinates(true);
-		«ENDIF-»
- 		return primaryShape = figure;
+		return primaryShape = new «className»()«IF node.childNodes->notEmpty() and node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT»«EXPAND forceUseLocalCoordinates»«ENDIF»;
 	}
 
 	«EXPAND getPrimaryShapeMethod FOR className-»
+«ENDDEFINE»
+
+«DEFINE forceUseLocalCoordinates FOR OclAny-»
+{
+	protected boolean useLocalCoordinates() {
+		return true;
+	}
+}«-»
 «ENDDEFINE»
 
 «DEFINE getPrimaryShapeMethod FOR String-»

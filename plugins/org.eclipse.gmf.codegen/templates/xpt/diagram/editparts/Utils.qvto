@@ -38,10 +38,6 @@ helper hasFixedChildren(node : gmfgen::GenNode) : Boolean {
 	return getInnerFixedLabels(node)->size() > 0 or getPinnedCompartments(node)->size() > 0
 }
 
-helper hasChildren(node : gmfgen::GenNode) : Boolean {
-	return not node.childNodes->isEmpty()
-}
-
 helper listCompartmentHasChildren(compartment : gmfgen::GenCompartment) : Boolean {
 	return compartment.listLayout and compartment.childNodes->size() > 0
 }

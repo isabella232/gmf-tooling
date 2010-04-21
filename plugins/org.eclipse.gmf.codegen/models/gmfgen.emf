@@ -919,6 +919,9 @@ class FigureViewmap extends Viewmap {
 	attr String[1] figureQualifiedClassName;
 }
 
+// XXX for NodeEditPart#getPrimaryShape() I need figure's FQN. 
+// Full RT doesn't generate this method, although makes no precautions not to use it from outside
+// Lite RT generates (null) in this case.
 class SnippetViewmap extends Viewmap {
 	attr String body;
 }
