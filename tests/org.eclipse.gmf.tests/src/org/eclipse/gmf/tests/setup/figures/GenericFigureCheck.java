@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -17,8 +17,10 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.draw2d.AbstractPointListShape;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ScalablePolygonShape;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Transform;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -164,15 +166,15 @@ public class GenericFigureCheck extends FigureCheck {
 	protected void checkPolylinePoints(Figure gmfFigure, IFigure d2dFigure) {
 
 		if (gmfFigure instanceof ScalablePolygon){
-			checkScalablePolygon((ScalablePolygon) gmfFigure, d2dFigure);
-			//ad hoc code is generated, not related to d2d.Polyline 
-			return;
+			assertNotNull(d2dFigure);
+			assertTrue(ScalablePolygonShape.class.isInstance(d2dFigure));
+			// FALL-THROUGH, test as regular point list owner
 		}
 		
 		if (gmfFigure instanceof Polyline && gmfFigure.eIsSet(GMFGraphPackage.eINSTANCE.getPolyline_Template())) {
 			Polyline gmfPolyline = (Polyline) gmfFigure;
-			assertTrue(d2dFigure instanceof org.eclipse.draw2d.Polyline);
-			org.eclipse.draw2d.Polyline d2dPolyline = (org.eclipse.draw2d.Polyline) d2dFigure;
+			assertTrue(d2dFigure instanceof AbstractPointListShape);
+			AbstractPointListShape d2dPolyline = (AbstractPointListShape) d2dFigure;
 
 			PointList d2dPoints = d2dPolyline.getPoints();
 			List<Point> gmfPoints = gmfPolyline.getTemplate();
@@ -190,12 +192,6 @@ public class GenericFigureCheck extends FigureCheck {
 				checkPoint(transform, ePoint, d2dPoint);
 			}
 		}
-	}
-
-	protected void checkScalablePolygon(ScalablePolygon gmfFigure, IFigure figure) {
-		//hard to write checks -- we do not even know the class of d2d figure
-		//all we may check is that it can be compiled and instantiated
-		assertNotNull(figure);
 	}
 
 	private void checkPoint(Transform tr, Point ePoint, org.eclipse.draw2d.geometry.Point d2dPoint) {
