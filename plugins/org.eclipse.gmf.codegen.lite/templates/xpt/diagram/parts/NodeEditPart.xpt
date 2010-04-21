@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -226,11 +226,13 @@ protected org.eclipse.draw2d.IFigure childNodesPane;
 
 «EXPAND xpt::Common::generatedMemberComment»
 protected org.eclipse.draw2d.IFigure createChildNodesPane() {
-	org.eclipse.draw2d.IFigure result = new org.eclipse.draw2d.RectangleFigure()«IF isXYLayout(self)»«EXPAND forceUseLocalCoordinates»«ENDIF»;
+	org.eclipse.draw2d.IFigure result = new org.eclipse.draw2d.RectangleFigure()«IF isXYLayout(self)»«EXPAND impl::diagram::editparts::NodeEditPart::forceUseLocalCoordinates»«ENDIF»;
 	setupChildNodesPane(result);
 	return result;
 }
 «ENDDEFINE»
+
+// FIXME @see Full RT impl...NodeEditPart for refactoring suggestions
 
 «DEFINE createNodeShape FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::generatedMemberComment»
@@ -243,7 +245,7 @@ protected org.eclipse.draw2d.IFigure createNodeShape() {
 «DEFINE initPrimaryShape(node : gmfgen::GenNode) FOR gmfgen::Viewmap»«ERROR 'Unexpected viewmap type ' + self.repr()»«ENDDEFINE»
 
 «DEFINE initPrimaryShape(node : gmfgen::GenNode) FOR gmfgen::FigureViewmap-»
-primaryShape = new «self.primaryShapeQualifiedClassName()»()«IF node.compartments->size() = 0 and (hasDirectChildren(node) and isXYLayout(node))»«EXPAND forceUseLocalCoordinates»«ENDIF»;
+primaryShape = new «self.primaryShapeQualifiedClassName()»()«IF node.compartments->isEmpty() and node.needsXYLayout()»«EXPAND impl::diagram::editparts::NodeEditPart::forceUseLocalCoordinates»«ENDIF»;
 «ENDDEFINE»
 
 «DEFINE initPrimaryShape(node : gmfgen::GenNode) FOR gmfgen::SnippetViewmap-»
@@ -251,19 +253,8 @@ primaryShape = «body»;
 «ENDDEFINE»
 
 «DEFINE initPrimaryShape(node : gmfgen::GenNode) FOR gmfgen::InnerClassViewmap-»
-«self.primaryShapeQualifiedClassName()» figure = new «self.primaryShapeQualifiedClassName()»();
-«IF node.compartments->size() = 0 and (hasDirectChildren(node) and isXYLayout(node))-»
-figure.setUseLocalCoordinates(true);
-«ENDIF-»
+«self.primaryShapeQualifiedClassName()» figure = new «self.primaryShapeQualifiedClassName()»()«IF node.compartments->isEmpty() and node.needsXYLayout()»«EXPAND impl::diagram::editparts::NodeEditPart::forceUseLocalCoordinates»«ENDIF»;
 primaryShape = figure;
-«ENDDEFINE»
-
-«DEFINE forceUseLocalCoordinates FOR OclAny-»
-{
-	protected boolean useLocalCoordinates() {
-		return true;
-	}
-}«-»
 «ENDDEFINE»
 
 «DEFINE getPrimaryShape FOR String-»
