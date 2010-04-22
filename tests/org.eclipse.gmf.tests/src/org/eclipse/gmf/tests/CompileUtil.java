@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -32,9 +33,13 @@ public class CompileUtil {
 	public IStatus build(IProject project) {
 		try {
 			System.err.println("Compiling project " + project.getName());
-			System.err.println("\t" + "Natures:");
-			for (String s : project.getDescription().getNatureIds()) {
-				System.err.println("\t" + s);
+			if (!project.isAccessible()) {
+				System.err.println("\tNOT ACCESSIBLE!!!");
+			}
+			System.err.println("\t" + "Builders:");
+			ICommand[] buildCommands = project.getDescription().getBuildSpec();
+			for (int i = 0, l = buildCommands.length; i < l; i++) {
+				System.err.println("\t" + buildCommands[i].getBuilderName());
 			}
 		} catch (Exception ex) {
 			System.err.println("!!! JavaProject games are over with " + ex);
