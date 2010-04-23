@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -88,6 +88,7 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassNam
 
 «DEFINE evaluate FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND CodeStyle::SuppressWarnings('"rawtypes"')-»
 	protected abstract Object doEvaluate(Object context, java.util.Map env);
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -95,7 +96,8 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassNam
 		return evaluate(context, java.util.Collections.EMPTY_MAP);
 	}
 
-«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND CodeStyle::SuppressWarnings('"rawtypes"')-»
 	public Object evaluate(Object context, java.util.Map env) {
 		if(context().isInstance(context)) {
 			try {
@@ -120,10 +122,10 @@ public abstract class «editorGen.expressionProviders.abstractExpressionClassNam
 		if (false == value instanceof Number || targetType == null || targetType.getInstanceClass() == null) {
 			return value;
 		}
-		Class targetClass = targetType.getInstanceClass();
+		Class«EXPAND CodeStyle::G('?')» targetClass = targetType.getInstanceClass();
 		Number num = (Number) value;
-		Class valClass = value.getClass();
-		Class targetWrapperClass = targetClass;
+		Class«EXPAND CodeStyle::G('?')» valClass = value.getClass();
+		Class«EXPAND CodeStyle::G('?')» targetWrapperClass = targetClass;
 		if (targetClass.isPrimitive()) {
 			targetWrapperClass = org.eclipse.emf.ecore.util.EcoreUtil.wrapperClassFor(targetClass);
 		}

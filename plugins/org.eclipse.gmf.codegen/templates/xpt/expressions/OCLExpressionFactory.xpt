@@ -63,7 +63,7 @@ public class «className» {
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		«EXPAND CodeStyle::SuppressWarnings('"rawtypes"') FOR container.editorGen.diagram-»
+		«EXPAND CodeStyle::SuppressWarnings('{ "rawtypes", "unchecked" }' /*unchecked needed only until I have .iterator() below. Once I use Java5 for notation there, unchecked is not needed */) FOR container.editorGen.diagram-»
 		protected Object doEvaluate(Object context, java.util.Map env) {
 			if (oclExpression == null) {
 				return null;
