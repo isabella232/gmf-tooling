@@ -444,8 +444,8 @@ if (target != null && («EXPAND featureBoundsConditionClause('target', getTarget
 		return true;
 	}
 	if («constraintFieldName» == null) {
-		java.util.Map env = java.util.Collections.singletonMap(OPPOSITE_END_VAR, «EXPAND MetaModel::MetaClass FOR oppositeEndContext»);
-		«constraintFieldName» = «getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR context», env); «EXPAND xpt::Common::nonNLS»
+		java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» env = java.util.Collections.«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»singletonMap(OPPOSITE_END_VAR, «EXPAND MetaModel::MetaClass FOR oppositeEndContext»);
+		«constraintFieldName» = «EXPAND xpt::expressions::getExpression::getExpression(valueExpr, context, 'env')»;«EXPAND xpt::Common::nonNLS»
 	}
 	Object «sourceEndVar»Val = «constraintFieldName».evaluate(«sourceEndVar», java.util.Collections.singletonMap(OPPOSITE_END_VAR, «targetEndVar»));
 	if (false == «sourceEndVar»Val instanceof Boolean || !((Boolean) «sourceEndVar»Val).booleanValue()) {
