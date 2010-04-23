@@ -33,13 +33,13 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «name»() {
 	«IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-		this.printExpression = «EXPAND xpt::expressions::getExpression::getExpression(viewExpression, self.expressionContext) FOR viewExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;
+		this.printExpression = «EXPAND xpt::expressions::getExpression::getExpression(viewExpression, self.expressionContext) FOR viewExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;«EXPAND xpt::Common::nonNLS»
 	«ENDIF-»
 	«IF not editExpression.oclIsUndefined() and editExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-		this.editExpression = «EXPAND xpt::expressions::getExpression::getExpression(editExpression, self.expressionContext) FOR editExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;
+		this.editExpression = «EXPAND xpt::expressions::getExpression::getExpression(editExpression, self.expressionContext) FOR editExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;«EXPAND xpt::Common::nonNLS»
 	«ENDIF-»
 	«IF not validateExpression.oclIsUndefined() and validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-		this.validateExpression = «EXPAND xpt::expressions::getExpression::getExpression(validateExpression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()') FOR validateExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;
+		this.validateExpression = «EXPAND xpt::expressions::getExpression::getExpression(validateExpression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()') FOR validateExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;«EXPAND xpt::Common::nonNLS»
 	«ENDIF-»
 	}
 «ENDDEFINE»
