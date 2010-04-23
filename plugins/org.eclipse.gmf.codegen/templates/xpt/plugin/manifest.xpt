@@ -12,6 +12,8 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
+«EXTENSION xpt::GenEditorGenerator»
+
 «DEFINE manifest FOR gmfgen::GenPlugin-»
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
@@ -69,4 +71,9 @@ Require-Bundle: org.eclipse.core.runtime,
 «ENDFOREACH-»
  org.eclipse.gef;visibility:=reexport
 Bundle-ActivationPolicy: lazy
+«EXPAND executionEnvironment-»
+«ENDDEFINE»
+
+«DEFINE executionEnvironment FOR gmfgen::GenPlugin-»
+Bundle-RequiredExecutionEnvironment: «IF editorGen.jdkComplianceLevel() > 5»JavaSE-1.6«ELSE»J2SE-1.«editorGen.jdkComplianceLevel()»«ENDIF»
 «ENDDEFINE»
