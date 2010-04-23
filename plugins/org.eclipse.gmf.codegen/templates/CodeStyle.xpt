@@ -35,7 +35,7 @@
 // iterate cycle with explicit iterator variable
 «DEFINE iterate(String elementVar, String elementType, String iteratorVar, String iterationSource) FOR gmfgen::GenCommonBase-»
 for («EXPAND G('java.util.Iterator', elementType)» «iteratorVar» = «iterationSource»; «iteratorVar».hasNext();) {
-	«elementType» «elementVar» = «IF not (self.jdkComplianceLevel() > 4) /*generics are not used then, should cast. Using 'not greater 4' instead of 'less than 5' to handle null/undefined case correctly*/»(«elementType») «ENDIF»«iteratorVar».next();
+	«elementType» «elementVar» = «IF 'Object' <> elementType /*cast to Object is implicit*/ and not (self.jdkComplianceLevel() > 4) /*generics are not used then, should cast. Using 'not greater 4' instead of 'less than 5' to handle null/undefined case correctly*/»(«elementType») «ENDIF»«iteratorVar».next();
 «ENDDEFINE»
 
 // uses default iterator name, 'it'  
@@ -55,8 +55,21 @@ java.util.Collections.emptyList()«ELSE-»
 java.util.Collections.EMPTY_LIST«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE emptyMap(String genericTypes) FOR gmfgen::GenCommonBase-»
+«IF self.jdkComplianceLevel() > 4 -»
+java.util.Collections.<«genericTypes»>emptyMap()«ELSE-»
+java.util.Collections.EMPTY_MAP«ENDIF-»
+«ENDDEFINE»
+
 // when need to cast 1.5-typed variable to be usable in 1.4 code. does nothing for 1.5 and greater. I.e.
 //   List/*[String]*/ coll = ...
 //   String aaa = (String) coll.get(0);
 // cast to string is needed in 1.4
 «DEFINE castTyped(String type) FOR gmfgen::GenCommonBase»«IF not (self.jdkComplianceLevel() > 4)»(«type») «ENDIF»«ENDDEFINE»
+
+// annotations are from Java 5 and above
+«DEFINE SuppressWarnings(String warnToken) FOR gmfgen::GenCommonBase-»
+«IF self.jdkComplianceLevel() > 4 -»
+@SuppressWarnings(«warnToken»)
+«ENDIF-»
+«ENDDEFINE»

@@ -24,121 +24,79 @@ public class «className» {
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(
-			String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
+	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 		return new Expression(body, context, environment);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(
-			String body, org.eclipse.emf.ecore.EClassifier context) {
-		return getExpression(body, context, java.util.Collections.EMPTY_MAP);
+	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
+		return getExpression(body, context, «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static class Expression extends «container.getAbstractExpressionQualifiedClassName()» {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private java.lang.ref.WeakReference queryRef;
-
-		«EXPAND xpt::Common::generatedMemberComment»
 		private final org.eclipse.ocl.ecore.OCL oclInstance;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public Expression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
+		private org.eclipse.ocl.ecore.OCLExpression oclExpression;
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public Expression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 			super(body, context);
 			oclInstance = org.eclipse.ocl.ecore.OCL.newInstance();
 			initCustomEnv(oclInstance.getEnvironment(), environment);
+			«REM»
+			   I've moved expression initialization right into constructor because:
+			   - Caching and weak references done at the caller are more effective for this usecase (we have an instance/static field to reference this Expression anyway)
+			   - Expression's status is known right away, not only after protected getQuery get invoked 
+			«ENDREM»«-»
+			org.eclipse.ocl.ecore.OCL.Helper oclHelper = oclInstance.createOCLHelper();
+			oclHelper.setContext(context());
+			try {
+				oclExpression = oclHelper.createQuery(body());
+				setStatus(org.eclipse.core.runtime.IStatus.OK, null, null);
+			} catch (org.eclipse.ocl.ParserException e) {
+				setStatus(org.eclipse.core.runtime.IStatus.ERROR, e.getMessage(), e);
+			}
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		protected org.eclipse.ocl.Query getQuery() {
-			org.eclipse.ocl.Query oclQuery = null;
-			if (this.queryRef != null) {
-				oclQuery = (org.eclipse.ocl.Query) this.queryRef.get();
-			}
-			if (oclQuery == null) {
-				org.eclipse.ocl.helper.OCLHelper oclHelper = oclInstance.createOCLHelper();
-				oclHelper.setContext(context());
-				try {
-					org.eclipse.ocl.expressions.OCLExpression oclExpression = oclHelper.createQuery(body());
-					oclQuery = oclInstance.createQuery(oclExpression);
-					this.queryRef = new java.lang.ref.WeakReference(oclQuery);
-					setStatus(org.eclipse.core.runtime.IStatus.OK, null, null);
-				} catch (org.eclipse.ocl.ParserException e) {
-					setStatus(org.eclipse.core.runtime.IStatus.ERROR, e.getMessage(), e);
-				}
-			}
-			return oclQuery;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::SuppressWarnings('"rawtypes"') FOR container.editorGen.diagram-»
 		protected Object doEvaluate(Object context, java.util.Map env) {
-			org.eclipse.ocl.Query oclQuery = getQuery();
-			if (oclQuery == null) {
+			if (oclExpression == null) {
 				return null;
 			}
-			org.eclipse.ocl.EvaluationEnvironment evalEnv = oclQuery.getEvaluationEnvironment();
-			// init environment
-			for (java.util.Iterator it = env.entrySet().iterator(); it.hasNext();) {
-				java.util.Map.Entry nextEntry = (java.util.Map.Entry) it.next();
-				evalEnv.replace((String) nextEntry.getKey(), nextEntry.getValue());
+			// on the first call, both evalEnvironment and extentMap are clear, for later we have finally, below.
+			org.eclipse.ocl.EvaluationEnvironment«EXPAND CodeStyle::G('?,?,?,?,?') FOR container.editorGen.diagram»  evalEnv = oclInstance.getEvaluationEnvironment();
+			// initialize environment«REM»Using Object below because Map env comes as raw type, and Object(unlike String) works fine for both Iterator<Type> = iterable.iterator() and for (Type a : iterable) code styles «ENDREM»
+			«EXPAND CodeStyle::iterate('nextKey', 'Object', 'env.keySet().iterator()') FOR container.editorGen.diagram-»
+				evalEnv.replace((String) nextKey, env.get(nextKey));
 			}
 			try {
-				initExtentMap(context);
-				Object result = oclQuery.evaluate(context);
-				return (result != oclInstance.getEnvironment().getOCLStandardLibrary().getOclInvalid()) ? result : null;
+				Object result = oclInstance.evaluate(context, oclExpression);
+				return oclInstance.isInvalid(result) ? null : result;
 			} finally {
 				evalEnv.clear();
-				oclQuery.getExtentMap().clear();
+				oclInstance.setExtentMap(null); // clear allInstances cache, and get the oclInstance ready for the next call
 			}
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private void initExtentMap(Object context) {
-			if (!getStatus().isOK() || context == null) {
-				return;
-			}
-			final org.eclipse.ocl.Query queryToInit = getQuery();
-			final Object extentContext = context;
-			queryToInit.getExtentMap().clear();
-			if (queryToInit.queryText() != null
-					&& queryToInit.queryText().indexOf(org.eclipse.ocl.utilities.PredefinedType.ALL_INSTANCES_NAME) >= 0) {
-				org.eclipse.ocl.utilities.AbstractVisitor visitior = new org.eclipse.ocl.utilities.AbstractVisitor() {
-
-					private boolean usesAllInstances  = false;
-
-					public Object visitOperationCallExp(org.eclipse.ocl.expressions.OperationCallExp oc) {
-						if (!usesAllInstances) {
-							usesAllInstances = org.eclipse.ocl.utilities.PredefinedType.ALL_INSTANCES == oc.getOperationCode();
-							if (usesAllInstances) {
-								queryToInit.getExtentMap().putAll(
-										oclInstance.getEvaluationEnvironment().createExtentMap(extentContext));
-							}
-						}
-						return super.visitOperationCallExp(oc);
-					}
-				};
-				queryToInit.getExpression().accept(visitior);
-			}
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private static void initCustomEnv(org.eclipse.ocl.Environment ecoreEnv, java.util.Map environment) {
+		private static void initCustomEnv(org.eclipse.ocl.Environment«EXPAND CodeStyle::G('?,org.eclipse.emf.ecore.EClassifier,?,?,?,org.eclipse.emf.ecore.EParameter,?,?,?,?,?,?') FOR container.editorGen.diagram» ecoreEnv, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 			«EXPAND initializeEnvironment('ecoreEnv')-»
-			for (java.util.Iterator it = environment.keySet().iterator(); it.hasNext();) {
-				String varName = (String) it.next();
-				org.eclipse.emf.ecore.EClassifier varType = (org.eclipse.emf.ecore.EClassifier) environment.get(varName);
+			«EXPAND CodeStyle::iterate('varName', 'String', 'environment.keySet().iterator()') FOR container.editorGen.diagram-»
+				org.eclipse.emf.ecore.EClassifier varType = «EXPAND CodeStyle::castTyped('org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»environment.get(varName);
 				ecoreEnv.addElement(varName, createVar(ecoreEnv, varName, varType), false);
 			}
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private static org.eclipse.ocl.expressions.Variable createVar(
-				org.eclipse.ocl.Environment ecoreEnv, String name, org.eclipse.emf.ecore.EClassifier type) {
-			org.eclipse.ocl.expressions.Variable var = org.eclipse.ocl.ecore.EcoreFactory.eINSTANCE.createVariable();
+		private static org.eclipse.ocl.ecore.Variable createVar(org.eclipse.ocl.Environment«EXPAND CodeStyle::G('?,org.eclipse.emf.ecore.EClassifier,?,?,?,?,?,?,?,?,?,?') FOR container.editorGen.diagram» ecoreEnv, String name, org.eclipse.emf.ecore.EClassifier type) {
+			org.eclipse.ocl.ecore.Variable var = org.eclipse.ocl.ecore.EcoreFactory.eINSTANCE.createVariable();
 			var.setName(name);
-			var.setType(ecoreEnv.getUMLReflection().getOCLType(type));
+			var.setType(«EXPAND CodeStyle::castTyped('org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»ecoreEnv.getUMLReflection().getOCLType(type));
 			return var;
 		}
 	}
@@ -146,10 +104,11 @@ public class «className» {
 }
 «ENDDEFINE»
 
-/*
- * Clients may override if they don't need
- */
+«REM»
+  Clients may override if they don't need
+«ENDREM»
 «DEFINE initializeEnvironment(String environmentVar) FOR gmfgen::GenExpressionInterpreter-»
+// Use EObject as implicit root class for any object, to allow eContainer() and other EObject operations from OCL expressions
 org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse.ocl.options.ParsingOptions.implicitRootClass(«environmentVar»), org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEObject());
 «ENDDEFINE»
 

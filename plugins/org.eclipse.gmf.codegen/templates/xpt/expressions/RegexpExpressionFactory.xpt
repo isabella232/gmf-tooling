@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -24,15 +24,13 @@ public class «className» {
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(
-			String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
+	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 		return new Expression(body, context, environment);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(
-			String body, org.eclipse.emf.ecore.EClassifier context) {
-		return getExpression(body, context, java.util.Collections.EMPTY_MAP);
+	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
+		return getExpression(body, context, «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -42,6 +40,7 @@ public class «className» {
 		private final java.util.regex.Pattern pattern;
 
 		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::SuppressWarnings('"rawtypes"') FOR container.editorGen.diagram-»
 		public Expression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map environment) {
 			super(body, context);
 			java.util.regex.Pattern p;
@@ -55,6 +54,7 @@ public class «className» {
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::SuppressWarnings('"rawtypes"') FOR container.editorGen.diagram-»
 		protected Object doEvaluate(Object contextInstance, java.util.Map env) {
 			if (pattern == null) {
 				return null;
