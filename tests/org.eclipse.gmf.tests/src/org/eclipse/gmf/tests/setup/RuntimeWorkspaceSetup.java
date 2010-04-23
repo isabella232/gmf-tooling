@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -145,9 +145,9 @@ public class RuntimeWorkspaceSetup {
 	/**
 	 * at least 1.4
 	 */
-	@SuppressWarnings("unchecked")
 	private static void ensureJava14() {
 		if (!JavaCore.VERSION_1_4.equals(JavaCore.getOption(JavaCore.COMPILER_SOURCE))) {
+			@SuppressWarnings("unchecked")
 			Hashtable<String,String> options = JavaCore.getOptions();
 			options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_4);
 			options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_4);
