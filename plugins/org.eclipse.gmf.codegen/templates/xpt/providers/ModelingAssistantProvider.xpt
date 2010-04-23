@@ -195,7 +195,7 @@ public class «modelingAssistantProviderClassName»
 		org.eclipse.gmf.runtime.notation.Diagram diagram =
 				(org.eclipse.gmf.runtime.notation.Diagram) editPart.getRoot().getContents().getModel();
 		«EXPAND CodeStyle::newGenericInstance('java.util.HashSet', 'org.eclipse.emf.ecore.EObject', 'elements')»();
-		«EXPAND CodeStyle::iterate('element', 'org.eclipse.emf.ecore.EObject', 'diagram.getElement().eAllContents()')-»
+		«EXPAND CodeStyle::iterate('element', 'org.eclipse.emf.ecore.EObject', 'it', 'diagram.getElement().eAllContents()')-»
 			if (isApplicableElement(element, types)) {
 				elements.add(element);
 			}

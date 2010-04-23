@@ -140,6 +140,9 @@ public org.eclipse.emf.ecore.resource.ResourceSet getResourceSet() {
 }
 «ENDDEFINE»
 
+«REM»
+	XXX Would be nice to change API and to return List instead of Iterator - there seems to be little sense using latter.
+«ENDREM»
 «DEFINE getLoadedResourcesIterator FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public «EXPAND CodeStyle::G('java.util.Iterator', 'org.eclipse.emf.ecore.resource.Resource')» getLoadedResourcesIterator() {
@@ -161,9 +164,10 @@ public void dispose() {
 	stopResourceListening();
 	«ENDIF-»
 	getResourceSet().eAdapters().remove(myResourceSetListener);
-	«EXPAND CodeStyle::iterate('resource', 'org.eclipse.emf.ecore.resource.Resource', 'getLoadedResourcesIterator()')-»
+	«EXPAND CodeStyle::iterate('resource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'getLoadedResourcesIterator()')-»
 		resource.unload();
 	}
+«REM»FIXME: Perhaps, should wrap unload into transaction, otherwise each unload triggers a lot of root transactions«ENDREM-»
 	getEditingDomain().dispose();
 }
 «ENDDEFINE»

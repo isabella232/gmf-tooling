@@ -65,7 +65,7 @@ protected java.util.List getSemanticChildrenList() {
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.emf.ecore.EObject', 'result')»();
 	«EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName())» childDescriptors = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»(viewObject);
-	«EXPAND CodeStyle::iterate('d', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName(), 'childDescriptors.iterator()')-»
+	«EXPAND CodeStyle::iterate('d', getDiagram().editorGen.diagramUpdater.getNodeDescriptorQualifiedClassName(), 'childDescriptors')-»
 		result.add(d.getModelElement());
 	}
 	return result;
@@ -117,7 +117,7 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'orphaned')»();
 		// we care to check only views we recognize as ours
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'knownViewChildren')»();
-		«EXPAND CodeStyle::iterate('v', 'org.eclipse.gmf.runtime.notation.View', 'getViewChildren().iterator()')-»
+		«EXPAND CodeStyle::iterate('v', 'org.eclipse.gmf.runtime.notation.View', 'getViewChildren()')-»
 			if (isMyDiagramElement(v)) {
 				knownViewChildren.add(v);
 			}
@@ -137,7 +137,7 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 			«IF childrenShareSameMetaclass-»
 			«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View', 'potentialMatch')»(); // semanticElement matches, hint does not
 			«ENDIF-»
-			«EXPAND CodeStyle::iterate('childView', 'org.eclipse.gmf.runtime.notation.View', 'getViewChildren().iterator()')-»
+			«EXPAND CodeStyle::iterate('childView', 'org.eclipse.gmf.runtime.notation.View', 'getViewChildren()')-»
 				org.eclipse.emf.ecore.EObject semanticElement = childView.getElement();
 				if (next.getModelElement().equals(semanticElement)) {
 					if (hint.equals(childView.getType())) {
@@ -176,7 +176,7 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand boundsCommand = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(host().getEditingDomain(), org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages.SetLocationCommand_Label_Resize);
 		«ENDIF-»
 		«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor', 'viewDescriptors')»(childDescriptors.size());		
-		«EXPAND CodeStyle::iterate('next', diagramUpdater.getNodeDescriptorQualifiedClassName(), 'childDescriptors.iterator()')-»
+		«EXPAND CodeStyle::iterate('next', diagramUpdater.getNodeDescriptorQualifiedClassName(), 'childDescriptors')-»
 			String hint = «EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('next.getVisualID()')»;
 			org.eclipse.core.runtime.IAdaptable elementAdapter = new CanonicalElementAdapter(next.getModelElement(), hint);
 			org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor descriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(elementAdapter, org.eclipse.gmf.runtime.notation.Node.class, hint, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, false, host().getDiagramPreferencesHint());
@@ -300,7 +300,7 @@ private «EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.g
 «EXPAND xpt::Common::generatedMemberComment»
 private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.IAdaptable')»  createConnections(«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
 	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable', 'adapters')»();
-	«EXPAND CodeStyle::iterate('nextLinkDescriptor', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'linkDescriptors.iterator()')-»
+	«EXPAND CodeStyle::iterate('nextLinkDescriptor', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'linkDescriptors')-»
 		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {

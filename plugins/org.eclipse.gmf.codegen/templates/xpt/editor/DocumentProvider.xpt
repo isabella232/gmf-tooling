@@ -155,7 +155,7 @@ protected void setupDocument(Object element, org.eclipse.gmf.runtime.diagram.ui.
 	«EXPAND xpt::Common::generatedMemberComment»
 private long computeModificationStamp(ResourceSetInfo info) {
 	int result = 0;
-	«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+	«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 	«IF null = editorGen.application-»
 		org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 		if (file != null) {
@@ -338,7 +338,7 @@ protected void doValidateState(Object element, Object computationContext) throws
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.resources.IFile', 'files2Validate')»();
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null && file.isReadOnly()) {
 				files2Validate.add(file);
@@ -396,7 +396,7 @@ if (info.isUpdateCache()) {
 protected void updateCache(Object element) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 	«IF null = editorGen.application-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null && file.isReadOnly()) {
@@ -444,7 +444,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object elem
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'rules')»();
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
 				rules.add(org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRuleFactory().modifyRule(file));
@@ -462,7 +462,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object eleme
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'rules')»();
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
 				rules.add(computeSchedulingRule(file));
@@ -480,7 +480,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Objec
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'rules')»();
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
 				rules.add(org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRuleFactory().refreshRule(file));
@@ -498,7 +498,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getValidateStateRule(Obj
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
 		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'files')»();
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
 				files.add(file);
@@ -537,7 +537,7 @@ private org.eclipse.core.runtime.jobs.ISchedulingRule computeSchedulingRule(org.
 protected void doSynchronize(Object element, org.eclipse.core.runtime.IProgressMonitor monitor) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			handleElementChanged(info, nextResource, monitor);	
 		}
 		return;
@@ -596,7 +596,7 @@ protected void doSaveDocument(org.eclipse.core.runtime.IProgressMonitor monitor,
 		fireElementStateChanging(element);
 		try {
 			monitor.beginTask(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveDiagramTask(self)) FOR editorGen», info.getResourceSet().getResources().size() + 1); //"Saving diagram"
-			«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'info.getLoadedResourcesIterator()')-»
+			«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 				monitor.setTaskName(org.eclipse.osgi.util.NLS.bind(
 						«EXPAND xpt::Externalizer::accessorCall(i18nKeyForDocumentSaveNextResourceTask(self)) FOR editorGen», 
 						nextResource.getURI()));

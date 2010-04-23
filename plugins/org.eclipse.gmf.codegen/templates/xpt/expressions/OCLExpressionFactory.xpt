@@ -63,7 +63,7 @@ public class «className» {
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		«EXPAND CodeStyle::SuppressWarnings('{ "rawtypes", "unchecked" }' /*unchecked needed only until I have .iterator() below. Once I use Java5 for notation there, unchecked is not needed */) FOR container.editorGen.diagram-»
+		«EXPAND CodeStyle::SuppressWarnings('"rawtypes"') FOR container.editorGen.diagram-»
 		protected Object doEvaluate(Object context, java.util.Map env) {
 			if (oclExpression == null) {
 				return null;
@@ -71,7 +71,7 @@ public class «className» {
 			// on the first call, both evalEnvironment and extentMap are clear, for later we have finally, below.
 			org.eclipse.ocl.EvaluationEnvironment«EXPAND CodeStyle::G('?,?,?,?,?') FOR container.editorGen.diagram»  evalEnv = oclInstance.getEvaluationEnvironment();
 			// initialize environment«REM»Using Object below because Map env comes as raw type, and Object(unlike String) works fine for both Iterator<Type> = iterable.iterator() and for (Type a : iterable) code styles «ENDREM»
-			«EXPAND CodeStyle::iterate('nextKey', 'Object', 'env.keySet().iterator()') FOR container.editorGen.diagram-»
+			«EXPAND CodeStyle::iterate('nextKey', 'Object', 'env.keySet()') FOR container.editorGen.diagram-»
 				evalEnv.replace((String) nextKey, env.get(nextKey));
 			}
 			try {
@@ -86,7 +86,7 @@ public class «className» {
 		«EXPAND xpt::Common::generatedMemberComment»
 		private static void initCustomEnv(org.eclipse.ocl.Environment«EXPAND CodeStyle::G('?,org.eclipse.emf.ecore.EClassifier,?,?,?,org.eclipse.emf.ecore.EParameter,?,?,?,?,?,?') FOR container.editorGen.diagram» ecoreEnv, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 			«EXPAND initializeEnvironment('ecoreEnv')-»
-			«EXPAND CodeStyle::iterate('varName', 'String', 'environment.keySet().iterator()') FOR container.editorGen.diagram-»
+			«EXPAND CodeStyle::iterate('varName', 'String', 'environment.keySet()') FOR container.editorGen.diagram-»
 				org.eclipse.emf.ecore.EClassifier varType = «EXPAND CodeStyle::castTyped('org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»environment.get(varName);
 				ecoreEnv.addElement(varName, createVar(ecoreEnv, varName, varType), false);
 			}

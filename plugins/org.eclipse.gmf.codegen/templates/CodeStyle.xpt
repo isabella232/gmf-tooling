@@ -33,20 +33,21 @@
 «DEFINE newGenericInstance2(String varName, String type, String typeArgument1, String typeArgument2, String typeArgument3) FOR gmfgen::GenCommonBase»«EXPAND _g2_3(type, typeArgument1, typeArgument2, typeArgument3)» «varName»= new «EXPAND _g2_3(type, typeArgument1, typeArgument2, typeArgument3)»«ENDDEFINE»
 
 // iterate cycle with explicit iterator variable
+// use this one if you need access to iterator (i.e. remove elements) or when there's no java.lang.Iterable source (i.e. some API gives Iterator right away)
 «DEFINE iterate(String elementVar, String elementType, String iteratorVar, String iterationSource) FOR gmfgen::GenCommonBase-»
 for («EXPAND G('java.util.Iterator', elementType)» «iteratorVar» = «iterationSource»; «iteratorVar».hasNext();) {
 	«elementType» «elementVar» = «IF 'Object' <> elementType /*cast to Object is implicit*/ and not (self.jdkComplianceLevel() > 4) /*generics are not used then, should cast. Using 'not greater 4' instead of 'less than 5' to handle null/undefined case correctly*/»(«elementType») «ENDIF»«iteratorVar».next();
 «ENDDEFINE»
 
-// uses default iterator name, 'it'  
-TODO Java5-style iterate cycle (no explicit iterator), if possible. Need to complicate iterationSource - whether it's .iterator() (present state) or just collection
-«DEFINE iterate(String elementVar, String elementType, String iterationSource) FOR gmfgen::GenCommonBase-»
-«REM»
-<IF self.getDiagram().domainDiagramElement.jdkComplianceLevel() > 4>
-for (<elementType> <elementVar> : <iterationSource>) {
-<ELSE>
-«ENDREM-»
-«EXPAND iterate(elementVar, elementType, 'it', iterationSource)-»
+//
+// generates Java5-style iterate cycle (no explicit iterator), if possibl, otherwise uses default iterator name, 'it'
+// beware of nested cycles using same 'it' name (relevant for Java 1.4)
+«DEFINE iterate(String elementVar, String elementType, String iterable /*java.lang.Iterable*/) FOR gmfgen::GenCommonBase-»
+«IF self.jdkComplianceLevel() > 4 -»
+for («elementType» «elementVar» : «iterable») {
+«ELSE-»
+«EXPAND iterate(elementVar, elementType, 'it', iterable.concat('.iterator()'))-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE emptyList FOR gmfgen::GenCommonBase-»
