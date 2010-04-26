@@ -187,5 +187,5 @@ public void run() {
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenNavigator-»
-q«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramActionName())-»
+«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramActionName())-»
 «ENDDEFINE»
