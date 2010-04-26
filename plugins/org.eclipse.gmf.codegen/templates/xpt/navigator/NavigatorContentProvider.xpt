@@ -110,6 +110,7 @@ return true;
 	
 	«EXPAND inputChanged-»
 	
+	«REM»unloadAllResources and asyncRefresh are package-visible because are accessed from WorkspaceSynchronizer.Delegate inner class«ENDREM»
 	«EXPAND xpt::Common::generatedMemberComment»
 	void unloadAllResources() {
 		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'myEditingDomain.getResourceSet().getResources()') FOR editorGen.diagram-»
@@ -119,7 +120,7 @@ return true;
 	
 	«EXPAND xpt::Common::generatedMemberComment»
 	void asyncRefresh() {
-		if (myViewer != null && !myViewer.getControl.isDisposed()) {
+		if (myViewer != null && !myViewer.getControl().isDisposed()) {
 			myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
 		}
 	}
