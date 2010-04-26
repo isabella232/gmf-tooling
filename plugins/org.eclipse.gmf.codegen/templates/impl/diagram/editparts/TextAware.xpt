@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -22,7 +22,7 @@
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private java.util.List parserElements;
+	private «EXPAND CodeStyle::G('java.util.List', '?')» parserElements;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultText;
@@ -172,6 +172,7 @@
 
 «DEFINE getModelChildren FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND CodeStyle::SuppressWarnings('"rawtypes"')-»
 	protected java.util.List getModelChildren() {
 		return java.util.Collections.EMPTY_LIST;
 	}
@@ -284,7 +285,7 @@
 					try {
 						org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus valid =
 							(org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus) getEditingDomain().runExclusive(
-								new org.eclipse.emf.transaction.RunnableWithResult.Impl() {
+								new org.eclipse.emf.transaction.RunnableWithResult.Impl«EXPAND CodeStyle::G('org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus')»() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(element), (String) value));
