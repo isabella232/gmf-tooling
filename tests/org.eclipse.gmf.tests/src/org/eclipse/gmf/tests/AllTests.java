@@ -55,6 +55,7 @@ import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
 import org.eclipse.gmf.tests.validate.AllValidateTests;
+import org.eclipse.jdt.core.JavaCore;
 
 public class AllTests {
 
@@ -71,6 +72,8 @@ public class AllTests {
 		
 		SessionSetup.disallowSingleTestCaseUse();
 		
+
+		JavaCore.initializeAfterLoad(null);
 
 		/*
 		 * Temporary workaround: loading all the projects in the
