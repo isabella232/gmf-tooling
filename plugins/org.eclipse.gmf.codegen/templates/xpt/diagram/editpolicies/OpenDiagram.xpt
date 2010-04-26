@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -69,7 +69,7 @@ public class «editPolicyClassName» extends «EXPAND extendsList» {
 				if (diagram == null) {
 					diagram = intializeNewDiagram();
 				}
-				«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput('diagram') FOR subject.getDiagram()-»
+				«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput('diagram', 'editorInput') FOR subject.getDiagram()-»
 				org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 				page.openEditor(editorInput, getEditorID());
 				return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -100,8 +100,8 @@ public void fillContextMenu(org.eclipse.jface.action.IMenuManager menu) {
 «ENDDEFINE»
 
 «DEFINE OpenDiagramAction FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedClassComment»
-private class OpenDiagramAction extends org.eclipse.jface.action.Action {
+«EXPAND xpt::Common::generatedClassComment»
+private static class OpenDiagramAction extends org.eclipse.jface.action.Action {
 
 	«EXPAND ODA_attributes-»
 	
@@ -119,14 +119,14 @@ private class OpenDiagramAction extends org.eclipse.jface.action.Action {
 
 «DEFINE ODA_attributes FOR gmfgen::GenNavigator-»
 	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gmf.runtime.notation.Diagram myDiagram;
+	private org.eclipse.gmf.runtime.notation.Diagram myDiagram;
 		
 	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.ui.navigator.ICommonViewerWorkbenchSite myViewerSite;
+	private org.eclipse.ui.navigator.ICommonViewerWorkbenchSite myViewerSite;
 «ENDDEFINE»
 
 «DEFINE ODA_constructor FOR gmfgen::GenNavigator-»	
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
 public OpenDiagramAction(org.eclipse.ui.navigator.ICommonViewerWorkbenchSite viewerSite) {
 	super(«EXPAND xpt::Externalizer::accessorCall(i18nKeyForOpenDiagramActionName()) FOR editorGen»);
 	myViewerSite = viewerSite;
@@ -134,7 +134,7 @@ public OpenDiagramAction(org.eclipse.ui.navigator.ICommonViewerWorkbenchSite vie
 «ENDDEFINE»
 
 «DEFINE ODA_selectionChanged FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
 public final void selectionChanged(org.eclipse.jface.viewers.IStructuredSelection selection) {
 	myDiagram = null;
 	if (selection.size() == 1) {
@@ -156,13 +156,13 @@ public final void selectionChanged(org.eclipse.jface.viewers.IStructuredSelectio
 «ENDDEFINE»
 
 «DEFINE ODA_run FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
 public void run() {
 	if (myDiagram == null || myDiagram.eResource() == null) {
 		return;
 	}
 			
-	org.eclipse.ui.IEditorInput editorInput = getEditorInput();
+	org.eclipse.ui.IEditorInput editorInput = getEditorInput(myDiagram);
 	org.eclipse.ui.IWorkbenchPage page = myViewerSite.getPage();
  	try {
 		page.openEditor(editorInput, «editorGen.editor.getQualifiedClassName()».ID);
@@ -173,22 +173,7 @@ public void run() {
 «ENDDEFINE»
 		
 «DEFINE ODA_getEditorInput FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.ui.IEditorInput getEditorInput() {
-	«IF null = editorGen.application-»
-	for (java.util.Iterator it = myDiagram.eResource().getContents().iterator(); it.hasNext();) {
-		org.eclipse.emf.ecore.EObject nextEObject = (org.eclipse.emf.ecore.EObject) it.next();
-		if (nextEObject == myDiagram) {
-			return new org.eclipse.ui.part.FileEditorInput(org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(myDiagram.eResource()));
-		}
-		if (nextEObject instanceof org.eclipse.gmf.runtime.notation.Diagram) {
-			break;
-		}
-	}
-	«ENDIF-»
-	«EXPAND xpt::navigator::getEditorInput::defineURIEditorInput('myDiagram') FOR editorGen.diagram-»
-	return editorInput;
-}
+«EXPAND xpt::navigator::getEditorInput::getEditorInput FOR editorGen-»
 «ENDDEFINE»
 
 «DEFINE ODA_additions FOR gmfgen::GenNavigator-»
@@ -202,5 +187,5 @@ private org.eclipse.ui.IEditorInput getEditorInput() {
 «ENDDEFINE»
 
 «DEFINE i18nAccessors FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramActionName())-»
+q«EXPAND xpt::Externalizer::accessorField(i18nKeyForOpenDiagramActionName())-»
 «ENDDEFINE»
