@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -54,8 +54,10 @@
 	return «EXPAND validatorInvocation FOR link»(getSource(), getTarget());
 «ENDDEFINE»
 
+// FIXME In fact, BaseItemSemanticEditPolicy knows what arguments and in which order should be passed to the canCreate method,
+// hence, need to refactor this invocation to delegate complete call to the policy.
 «DEFINE validatorInvocation FOR gmfgen::GenLink-»
-«diagram.getBaseItemSemanticEditPolicyQualifiedClassName()».«diagram.getLinkCreationConstraintsClassName()».canCreate«getUniqueIdentifier()-»
+«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canCreateCall-»
 «ENDDEFINE»
 
 «REM»

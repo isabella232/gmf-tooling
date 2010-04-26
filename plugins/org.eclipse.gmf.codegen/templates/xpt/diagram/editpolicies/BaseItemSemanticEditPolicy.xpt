@@ -299,6 +299,18 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.ec
 	}
 «ENDDEFINE»
 
+«DEFINE _accessLinkConstraints FOR gmfgen::GenDiagram-»
+«getBaseItemSemanticEditPolicyQualifiedClassName()».«getLinkCreationConstraintsClassName()».getInstance()«-»
+«ENDDEFINE»
+
+«DEFINE canExistCall FOR gmfgen::GenLink-»
+«EXPAND _accessLinkConstraints FOR diagram».canExist«getUniqueIdentifier()-»
+«ENDDEFINE»
+
+«DEFINE canCreateCall FOR gmfgen::GenLink-»
+«EXPAND _accessLinkConstraints FOR diagram».canCreate«getUniqueIdentifier()-»
+«ENDDEFINE»
+
 
 «REM»
 		FIXME need to check constraint's provider to ensure we don't generate a field
@@ -315,14 +327,28 @@ public static class «getLinkCreationConstraintsClassName()» {
 «FOREACH getValidLinkConstraints(self) AS lc-»
 «IF lc.sourceEnd <> null-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «sourceConstraintFieldName(lc.link)»;
+	private «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «sourceConstraintFieldName(lc.link)»;
 «ENDIF-»
 «IF lc.targetEnd <> null-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «targetConstraintFieldName(lc.link)»;
+	private «editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» «targetConstraintFieldName(lc.link)»;
 «ENDIF-»
 «ENDFOREACH»
 «ENDIF-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «getLinkCreationConstraintsClassName()»() {
+		// use static method #getInstance() to access instance
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static «getLinkCreationConstraintsClassName()» getInstance() {
+		«getLinkCreationConstraintsClassName()» cached = «EXPAND plugin::Activator::instanceAccess FOR editorGen».getLinkConstraints();
+		if (cached == null) {
+			«EXPAND plugin::Activator::instanceAccess FOR editorGen».setLinkConstraints(cached = new «getLinkCreationConstraintsClassName()»());
+		}
+		return cached;
+	}
 
 	«EXPAND canCreate FOREACH links-»
 	«EXPAND canExist FOREACH links-»
@@ -330,26 +356,25 @@ public static class «getLinkCreationConstraintsClassName()» {
 «ENDDEFINE»
 
 «DEFINE canCreate FOR gmfgen::GenLink»
-
 «EXPAND xpt::Common::generatedMemberComment»
-public static boolean canCreate«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
+public boolean canCreate«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
 	«EXPAND checkEMFConstraints FOR modelFacet-»
 	return canExist«getUniqueIdentifier()»(«EXPAND canCreateValues FOR modelFacet»);
 }
+
 «ENDDEFINE»
 
 «REM»
 		XXX for now, both constraints are injected into single method
-			which may nob be suitable for modification especially when mixing
+			which may not be suitable for modification especially when mixing
 			java and ocl constraints (former requires manual code).
 		Better approach would be:
 			if either is non-null and providers are not the same - introduce two methods, 
 			to check source and target separately. Otherwize, do it inplace.
 «ENDREM»
 «DEFINE canExist FOR gmfgen::GenLink»
-
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static boolean canExist«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
+	public boolean canExist«getUniqueIdentifier()»(«EXPAND canCreateParameters FOR modelFacet») {
 «IF creationConstraints <> null and (creationConstraints.isValid() and null <> getDiagram().editorGen.expressionProviders)-»
 		try {
 «IF null <> creationConstraints.sourceEnd-»

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -34,6 +34,9 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private «editorGen.diagram.getDocumentProviderQualifiedClassName()» documentProvider;
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «editorGen.diagram.getLinkCreationConstraintsQualifiedClassName()» linkConstraints;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «activatorClassName»() {
@@ -51,6 +54,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 	public void stop(org.osgi.framework.BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
+		linkConstraints = null;
 		instance = null;
 		super.stop(context);
 	}
@@ -62,13 +66,13 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.edit.provider.ComposedAdapterFactory createAdapterFactory() {
-		java.util.List factories = new java.util.ArrayList();
+		«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.emf.common.notify.AdapterFactory', 'factories') FOR editorGen.diagram»();
 		fillItemProviderFactories(factories);
 		return new org.eclipse.emf.edit.provider.ComposedAdapterFactory(factories);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	protected void fillItemProviderFactories(java.util.List factories) {
+	protected void fillItemProviderFactories(«EXPAND CodeStyle::G('java.util.List', 'org.eclipse.emf.common.notify.AdapterFactory') FOR editorGen.diagram» factories) {
 «EXPAND MetaModel::PopulateItemProviderFactories('factories') FOR editorGen-»
 		factories.add(new org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory());
 		factories.add(new org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory());
@@ -155,6 +159,16 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 			documentProvider = new «editorGen.diagram.getDocumentProviderQualifiedClassName()»();
 		}
 		return documentProvider;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «editorGen.diagram.getLinkCreationConstraintsQualifiedClassName()» getLinkConstraints() {
+		return linkConstraints;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public void setLinkConstraints(«editorGen.diagram.getLinkCreationConstraintsQualifiedClassName()» lc) {
+		this.linkConstraints = lc;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
