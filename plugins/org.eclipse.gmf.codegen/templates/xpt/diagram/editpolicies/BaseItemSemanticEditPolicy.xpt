@@ -300,7 +300,7 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.ec
 «ENDDEFINE»
 
 «DEFINE _accessLinkConstraints FOR gmfgen::GenDiagram-»
-«getBaseItemSemanticEditPolicyQualifiedClassName()».«getLinkCreationConstraintsClassName()».getInstance()«-»
+«getBaseItemSemanticEditPolicyQualifiedClassName()».getLinkConstraints()«-»
 «ENDDEFINE»
 
 «DEFINE canExistCall FOR gmfgen::GenLink-»
@@ -317,6 +317,17 @@ protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.ec
 		for e.g. Java (or Literal, which is unlikely, though) expressions
 «ENDREM»
 «DEFINE linkConstraints FOR gmfgen::GenDiagram-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static «getLinkCreationConstraintsClassName()» getLinkConstraints() {
+		«getLinkCreationConstraintsClassName()» cached = «EXPAND plugin::Activator::instanceAccess FOR editorGen».getLinkConstraints();
+		if (cached == null) {
+			«EXPAND plugin::Activator::instanceAccess FOR editorGen».setLinkConstraints(cached = new «getLinkCreationConstraintsClassName()»());
+		}
+		return cached;
+	}
+
+
 «EXPAND xpt::Common::generatedClassComment»
 public static class «getLinkCreationConstraintsClassName()» {
 
@@ -337,17 +348,8 @@ public static class «getLinkCreationConstraintsClassName()» {
 «ENDIF-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «getLinkCreationConstraintsClassName()»() {
-		// use static method #getInstance() to access instance
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public static «getLinkCreationConstraintsClassName()» getInstance() {
-		«getLinkCreationConstraintsClassName()» cached = «EXPAND plugin::Activator::instanceAccess FOR editorGen».getLinkConstraints();
-		if (cached == null) {
-			«EXPAND plugin::Activator::instanceAccess FOR editorGen».setLinkConstraints(cached = new «getLinkCreationConstraintsClassName()»());
-		}
-		return cached;
+	«getLinkCreationConstraintsClassName()»() {«REM»package-local for the BaseItemSemanticEditPolicy to instantiate. Perhaps, protected is better (i.e. if someone subclasses it?)«ENDREM»
+		// use static method #getLinkConstraints() to access instance
 	}
 
 	«EXPAND canCreate FOREACH links-»
