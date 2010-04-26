@@ -34,10 +34,12 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private «editorGen.diagram.getDocumentProviderQualifiedClassName()» documentProvider;
-	
+
+«IF editorGen.diagram.links->exists(not sansDomain)-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private «editorGen.diagram.getLinkCreationConstraintsQualifiedClassName()» linkConstraints;
 
+«ENDIF-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «activatorClassName»() {
 	}
@@ -54,7 +56,9 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 	public void stop(org.osgi.framework.BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
+«IF editorGen.diagram.links->exists(not sansDomain)-»
 		linkConstraints = null;
+«ENDIF-»	
 		instance = null;
 		super.stop(context);
 	}
@@ -161,6 +165,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 		return documentProvider;
 	}
 
+«IF editorGen.diagram.links->exists(not sansDomain) -»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «editorGen.diagram.getLinkCreationConstraintsQualifiedClassName()» getLinkConstraints() {
 		return linkConstraints;
@@ -171,6 +176,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 		this.linkConstraints = lc;
 	}
 
+«ENDIF-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void logError(String error) {
 		logError(error, null);
