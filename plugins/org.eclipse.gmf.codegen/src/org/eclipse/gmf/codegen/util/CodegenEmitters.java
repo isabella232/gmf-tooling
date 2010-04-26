@@ -538,7 +538,7 @@ public class CodegenEmitters {
 	// plugin
 
 	public TextEmitter getActivatorEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::Activator"); //$NON-NLS-1$
+		return newXpandEmitter("plugin::Activator::Main"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {

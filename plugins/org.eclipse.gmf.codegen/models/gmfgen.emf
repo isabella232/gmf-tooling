@@ -376,12 +376,14 @@ abstract interface PackageNames {
 	attr String	notationViewFactoriesPackageName;
 }
 
+@deprecated(documentation="Operations supplied by this interface are hardly useful and will be removed soon")
 abstract interface LinkConstraints {
 	@genmodel(documentation="Indicates whether this diagram contains link creation constraints or not")
 	@deprecated(documentation="LinkCreationConstants should be generated if diagram has any links")
 	op boolean[1] hasLinkCreationConstraints();
 	@genmodel(documentation="Gets the name of the constraints holder class")
-	op String[1] getLinkCreationConstraintsClassName();
+	op String[1] getLinkCreationConstraintsClassName(); // FIXME rather, implementation detail? We may want to keep constraints not necessarily inside a class
+	// and they are operations, anyway, can't modify the value.
 	@genmodel(documentation="Gets the qualified name of the constraints holder class")
 	op String[1] getLinkCreationConstraintsQualifiedClassName();	
 }
