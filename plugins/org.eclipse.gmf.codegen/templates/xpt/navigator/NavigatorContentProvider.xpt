@@ -57,7 +57,8 @@ private Runnable myViewerRefreshRunnable;
 «ENDDEFINE»
 
 «DEFINE _constructor FOR gmfgen::GenNavigator-»
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND CodeStyle::SuppressWarnings('{ "unchecked", "serial", "rawtypes" }') FOR editorGen.diagram-»
 public «contentProviderClassName»() {
 	«EXPAND initCommonAttributes-»
 }
