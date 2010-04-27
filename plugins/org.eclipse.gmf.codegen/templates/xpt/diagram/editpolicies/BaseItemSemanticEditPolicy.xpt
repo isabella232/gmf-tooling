@@ -62,7 +62,9 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.run
 
 	«EXPAND addDestroyShortcutsCommand-»
 
+«IF links->exists(not sansDomain) -»
 	«EXPAND linkConstraints-»
+«ENDIF-»
 
 	«EXPAND additions-»
 }
