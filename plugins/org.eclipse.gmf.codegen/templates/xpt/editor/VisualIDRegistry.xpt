@@ -15,7 +15,6 @@
 
 «EXTENSION xpt::editor::Utils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
-«EXTENSION xpt::expressions::ValueExpression»
 
 «DEFINE VisualIDRegistry FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
