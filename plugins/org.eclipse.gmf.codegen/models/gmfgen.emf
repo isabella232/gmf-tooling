@@ -79,7 +79,7 @@ class GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, Lin
 	@genmodel(documentation="All nodes, compartments and diagram itself")
 	op GenContainerBase[*] getAllContainers();
 	@genmodel(documentation="Gets the name of the class to hold the initializer methods for domain elements")
-	op String getElementInitializersClassName();
+	op String getElementInitializersClassName(); // XXX WTF? why not a field?
 	@genmodel(documentation="Gets the name of the package to hold the element initializers class")
 	op String getElementInitializersPackageName();
 	val GenDiagramPreferences[?] preferences;
@@ -793,7 +793,7 @@ class TypeModelFacet extends ModelFacet {
 	@meta(def="context", ocl="metaClass.ecoreClass")	
 	ref GenConstraint[?] modelElementSelector;
 	@genmodel(documentation="State initializer for domain model elements associated with this type model facet")	
-	val GenElementInitializer modelElementInitializer;	
+	val GenElementInitializer modelElementInitializer;
 }
 
 // 'combined' model facets
