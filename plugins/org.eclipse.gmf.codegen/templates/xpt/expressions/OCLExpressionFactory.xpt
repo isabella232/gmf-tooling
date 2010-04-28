@@ -21,12 +21,12 @@ public class «className» {
 
 	«EXPAND _initInterpreterFactory»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment('This is factory method, callers are responsible to keep reference to the return value if they want to reuse parsed expression')»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 		return new Expression(body, context, environment);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment('This method will become private in the next release')»«REM»FIXME private or completely remove in the next release «ENDREM»
+	«EXPAND xpt::Common::generatedMemberComment('This method will become private in the next release')»«REM»FIXME private or completely remove in the next release. Besides, no real need to pass emptyMap when null would suffice «ENDREM»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 		return getExpression(body, context, «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»);
 	}
@@ -123,7 +123,16 @@ org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse
 	}
 	
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(int index, org.eclipse.emf.ecore.EClassifier context) {
+	«REM»
+			- I'm not quite sure indexes instead of string bodies are good approach, may revisit this later.
+			- There's no confidence we shouldn't keep Map/Set instead of fixed length array for expressions.
+			  The reason I didn't use Map/Set right away is uncertainty with the key - i.e. body only, body + context, or
+			  body+context+environment(how). I.e. if it's possible (reasonable) to have same body for different contexts - 
+			  of course, 'self.oclIsUndefined()' may be run in different contexts, but it's useless example.
+			- DGMT and reuse of gmfgen::ValueExpressions might be related here - if we decide identical body is enough to
+			  reuse an expression (and change DGMT#bindToProvider accordingly), then the answer to previous point would become obvious (i.e. "body is enough")   
+	«ENDREM-»
+	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(int index, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 		«className» cached = «EXPAND plugin::Activator::instanceAccess FOR container.editorGen».get«className»();
 		if (cached == null) {
 			«EXPAND plugin::Activator::instanceAccess FOR container.editorGen».set«className»(cached = new «className»());
@@ -136,7 +145,7 @@ org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse
 				«FOREACH expressions.getBodyString() AS b»«b», «EXPAND xpt::Common::nonNLS»
 				«ENDFOREACH-»
 			};
-			cached.expressions[index] = getExpression(exprBodies[index], context);
+			cached.expressions[index] = getExpression(exprBodies[index], context, environment == null ? «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» : environment);
 		}
 		return cached.expressions[index];
 	}

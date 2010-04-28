@@ -47,17 +47,11 @@
 		return false;
 	}
 «ENDIF-»
-	return «EXPAND validatorInvocation FOR link»(«IF hasContainerOtherThanSource(self)»getContainer(), «ENDIF»getSource(), getTarget());
+	return «EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canCreateCall(link, 'getContainer()', 'getSource()', 'getTarget()')»;
 «ENDDEFINE»
 
 «DEFINE canCreateElement(link : gmfgen::GenLink) FOR gmfgen::FeatureLinkModelFacet-»
-	return «EXPAND validatorInvocation FOR link»(getSource(), getTarget());
-«ENDDEFINE»
-
-// FIXME In fact, BaseItemSemanticEditPolicy knows what arguments and in which order should be passed to the canCreate method,
-// hence, need to refactor this invocation to delegate complete call to the policy.
-«DEFINE validatorInvocation FOR gmfgen::GenLink-»
-«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canCreateCall-»
+	return «EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canCreateCall(link, 'getSource()', 'getTarget()')»;
 «ENDDEFINE»
 
 «REM»

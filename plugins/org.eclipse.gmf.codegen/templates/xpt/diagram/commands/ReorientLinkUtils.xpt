@@ -124,8 +124,7 @@
 	}
 «ENDDEFINE»
 
-«DEFINE checkSourceRequestValidity(link : gmfgen::GenLink) FOR gmfgen::LinkModelFacet-»
-«ENDDEFINE»
+«DEFINE checkSourceRequestValidity(link : gmfgen::GenLink) FOR gmfgen::LinkModelFacet»«ENDDEFINE»
 
 «DEFINE checkSourceRequestValidity(link : gmfgen::GenLink) FOR gmfgen::TypeLinkModelFacet-»
 	if (!(«EXPAND MetaModel::IsInstance('oldEnd') FOR getSourceType()» && «EXPAND MetaModel::IsInstance('newEnd') FOR getSourceType()»)) {
@@ -142,11 +141,10 @@
 	if (!(«EXPAND MetaModel::IsInstance('oldEnd') FOR getTargetType()» && «EXPAND MetaModel::IsInstance('newEnd') FOR getSourceType()»)) {
 		return false;
 	}
-	return «EXPAND checkLinkConstraintInvocation FOR link»(getNewSource(), getOldTarget());
+	return «EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canExistCall(link, 'getNewSource()', 'getOldTarget()')»;
 «ENDDEFINE»
 
-«DEFINE checkTargetRequestValidity(link : gmfgen::GenLink) FOR gmfgen::LinkModelFacet-»
-«ENDDEFINE»
+«DEFINE checkTargetRequestValidity(link : gmfgen::GenLink) FOR gmfgen::LinkModelFacet»«ENDDEFINE»
 
 «DEFINE checkTargetRequestValidity(link : gmfgen::GenLink) FOR gmfgen::TypeLinkModelFacet-»
 	if (!(«EXPAND MetaModel::IsInstance('oldEnd') FOR getTargetType()» && «EXPAND MetaModel::IsInstance('newEnd') FOR getTargetType()»)) {
@@ -167,7 +165,7 @@
 	if (!(«EXPAND MetaModel::IsInstance('oldEnd') FOR getTargetType()» && «EXPAND MetaModel::IsInstance('newEnd') FOR getTargetType()»)) {
 		return false;
 	}
-	return «EXPAND checkLinkConstraintInvocation FOR link»(getOldSource(), getNewTarget());
+	return «EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canExistCall(link, 'getOldSource()', 'getNewTarget()')»;
 «ENDDEFINE»
 
 «DEFINE extractFeatureWithCheck(containerVar : String, containerMetaClass : genmodel::GenClass, _var : String, varMetaClass : genmodel::GenClass) FOR genmodel::GenFeature-»
@@ -182,20 +180,13 @@
 «ENDDEFINE»
 
 «DEFINE checkLinkConstraint(link : gmfgen::GenLink, sourceVar : String, targetVar : String) FOR gmfgen::TypeLinkModelFacet-»
-	«IF hasContainerOtherThanSource(self)-»
-		if (!(«EXPAND MetaModel::IsContainerInstance('getLink()', metaClass) FOR containmentMetaFeature.genClass»)) {
-			return false;
-		}
-		«EXPAND MetaModel::DeclareAndAssignContainer('container', 'getLink()', metaClass) FOR containmentMetaFeature.genClass»
-		return «EXPAND checkLinkConstraintInvocation FOR link»(container, «sourceVar», «targetVar»);
-	«ELSE-»
-		return «EXPAND checkLinkConstraintInvocation FOR link»(«sourceVar», «targetVar»);
-	«ENDIF-»
-«ENDDEFINE»
-
-// FIXME refactor: only BaseItemSemanticEditPolicy knows arguments and their order
-«DEFINE checkLinkConstraintInvocation FOR gmfgen::GenLink-»
-«EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canExistCall»
+«IF hasContainerOtherThanSource(self)-»
+	if (!(«EXPAND MetaModel::IsContainerInstance('getLink()', metaClass) FOR containmentMetaFeature.genClass»)) {
+		return false;
+	}
+	«EXPAND MetaModel::DeclareAndAssignContainer('container', 'getLink()', metaClass) FOR containmentMetaFeature.genClass»
+«ENDIF-»
+	return «EXPAND xpt::diagram::editpolicies::BaseItemSemanticEditPolicy::canExistCall(link, 'container', 'getLink()', sourceVar, targetVar)»;
 «ENDDEFINE»
 
 «REM»

@@ -14,15 +14,15 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 
 «DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context) FOR gmfgen::GenExpressionInterpreter-»
-«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«expressions->indexOf(valueExpr) - 1», «EXPAND MetaModel::MetaClass FOR context»)«-»
+«EXPAND getExpression(valueExpr, context, 'null')-»
 «ENDDEFINE»
 
 // occasionally we need to use some well-known context type, i.e. String
 «DEFINE getExpression(gmfgen::ValueExpression valueExpr, String contextMetaClassifier) FOR gmfgen::GenExpressionInterpreter-»
-«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«expressions->indexOf(valueExpr) - 1», «contextMetaClassifier»)«-»
+«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«expressions->indexOf(valueExpr) - 1», «contextMetaClassifier», 'null')«-»
 «ENDDEFINE»
 
 // pass specific environment to obtain expression 
 «DEFINE getExpression(gmfgen::ValueExpression valueExpr, genmodel::GenClassifier context, String environmentArg) FOR gmfgen::GenExpressionInterpreter-»
-«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«valueExpr.getBodyString()», «EXPAND MetaModel::MetaClass FOR context», «environmentArg»)«-»
+«getQualifiedClassName()».«getExpressionAccessor(valueExpr)»(«expressions->indexOf(valueExpr) - 1», «EXPAND MetaModel::MetaClass FOR context», «environmentArg»)«-»
 «ENDDEFINE»
