@@ -59,7 +59,8 @@
 «ENDDEFINE»
 
 «DEFINE getSemanticChildrenListMethod FOR gmfgen::GenContainerBase-»
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND CodeStyle::SuppressWarnings('"rawtypes"')»
 protected java.util.List getSemanticChildrenList() {
 	«IF hasSemanticChildren(self) /*REVISIT: is there real need for this check - Generator seems to consult needsCanonicalEP, which in turns ensures there are semantic children?*/-»
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
@@ -77,7 +78,7 @@ protected java.util.List getSemanticChildrenList() {
 
 «DEFINE isOrphanedMethod FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
-protected boolean isOrphaned(java.util.Collection semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
+protected boolean isOrphaned(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.emf.ecore.EObject')» semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
 	«EXPAND _checkShortcutProperty-»
 	return isMyDiagramElement(view) && !semanticChildren.contains(view.getElement());
 }
@@ -225,7 +226,9 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 				executeCommand(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(boundsCommand.reduce()));
 			}
 			«ENDIF-»
-			«createdViewsVar».addAll((«EXPAND CodeStyle::G('java.util.List', 'org.eclipse.core.runtime.IAdaptable')») request.getNewObject());
+			«EXPAND CodeStyle::SuppressWarnings('"unchecked"')»
+			«EXPAND CodeStyle::G('java.util.List', 'org.eclipse.core.runtime.IAdaptable')» nl = («EXPAND CodeStyle::G('java.util.List', 'org.eclipse.core.runtime.IAdaptable')») request.getNewObject();
+			«createdViewsVar».addAll(nl);
 		}
 		if (changed || «createdViewsVar».size() > 0) {
 			postProcessRefreshSemantic(createdViews);
