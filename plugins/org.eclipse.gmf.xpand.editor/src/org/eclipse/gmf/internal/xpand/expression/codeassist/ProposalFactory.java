@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2010 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,9 +30,9 @@ public interface ProposalFactory {
 
     public ICompletionProposal createTypeProposal(String insertString, String displayString, String prefix);
 
-    public ICompletionProposal createStatementProposal(String insertString, String displayString, int cursor, int marked);
+    public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix, int cursor, int marked);
 
-    public ICompletionProposal createStatementProposal(String insertString, String displayString);
+    public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix);
 
     public ICompletionProposal createKeywordProposal(String insertString, String displayString, String prefix);
 

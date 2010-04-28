@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 committers of openArchitectureWare and others.
+ * Copyright (c) 2005, 2010 committers of openArchitectureWare and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,8 +24,8 @@ import org.eclipse.gmf.internal.xpand.xtend.ast.GenericExtension;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.ocl.ecore.CollectionType;
-import org.eclipse.ocl.ecore.internal.OCLFactoryImpl;
-import org.eclipse.ocl.ecore.internal.UMLReflectionImpl;
+import org.eclipse.ocl.ecore.EcoreEnvironment;
+import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.lpg.AbstractFormattingHelper;
 import org.eclipse.ocl.util.ObjectUtil;
 import org.eclipse.swt.graphics.Image;
@@ -37,12 +37,15 @@ public class ProposalFactoryImpl implements ProposalFactory {
 	private final EditorImages editorImages;
 
 	private final int selectionLen;
+	
+	private final EcoreEnvironment ecoreEnvironment;
 
 	public ProposalFactoryImpl(int offset, int selectionLen, EditorImages images) {
 		this.offset = offset;
 		assert selectionLen >= 0;
 		this.selectionLen = selectionLen;
 		this.editorImages = images;
+		this.ecoreEnvironment = (EcoreEnvironment) EcoreEnvironmentFactory.INSTANCE.createEnvironment();
 	}
 
 	public ICompletionProposal createCollectionSpecificOperationProposal(String insertString, String displayString, String prefix, int cursor, int marked) {
@@ -57,7 +60,7 @@ public class ProposalFactoryImpl implements ProposalFactory {
 	}
 
 	private String computeReturnType(ETypedElement returnType, final boolean onCollection) {
-		EClassifier t = UMLReflectionImpl.INSTANCE.getOCLType(returnType);
+		EClassifier t = ecoreEnvironment.getUMLReflection().getOCLType(returnType);
 		if (onCollection) {
 			// FIXME [artem] not sure why for properties that return list but invoked on collection
 			// I need to use inner type - sort of implicit collect ("a.b.c", where all properties are lists still
@@ -68,7 +71,7 @@ public class ProposalFactoryImpl implements ProposalFactory {
 				// @see EcoreEvaluationEnvironment#getCollectionKind()
 				ObjectUtil.dispose(temp);
 			}
-			t = (EClassifier) OCLFactoryImpl.INSTANCE.createSequenceType(t);
+			t = (EClassifier) ecoreEnvironment.getOCLFactory().createSequenceType(t);
 		}
 		return getTypeName(t);
 	}
@@ -159,12 +162,12 @@ public class ProposalFactoryImpl implements ProposalFactory {
 		return new CompletionProposal(insertStr, offset - prefix.length(), prefix.length() + selectionLen, insertStr.length(), editorImages.getType(), displayStr, null, null);
 	}
 
-	public ICompletionProposal createStatementProposal(String insertString, String displayString, int cursor, int marked) {
-		return new CompletionProposal(insertString, offset, selectionLen, cursor, editorImages.getStatement(), displayString, null, null);
+	public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix, int cursor, int marked) {
+		return new CompletionProposal(insertString, offset - prefix.length(), prefix.length() + selectionLen, cursor, editorImages.getStatement(), displayString, null, null);
 	}
 
-	public ICompletionProposal createStatementProposal(String insertString, String displayString) {
-		return createStatementProposal(insertString, displayString, insertString.length(), 0);
+	public ICompletionProposal createStatementProposal(String insertString, String displayString, String prefix) {
+		return createStatementProposal(insertString, displayString, prefix, insertString.length(), 0);
 	}
 
 	public ICompletionProposal createKeywordProposal(String insertString, String displayString, String prefix) {

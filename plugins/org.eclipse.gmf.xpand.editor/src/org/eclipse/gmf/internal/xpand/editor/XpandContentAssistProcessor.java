@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2009 Sven Efftinge and others.
+ * Copyright (c) 2005, 2010 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -84,7 +84,7 @@ public class XpandContentAssistProcessor implements IContentAssistProcessor {
 				proposals.addAll(kp);
             } else if (p == XpandPartition.EXPAND_STATEMENT) {
                 ctx = FastAnalyzer.computeExecutionContext(txt, ctx);
-                List<ICompletionProposal> ep = new ExpandProposalComputer(f).computeProposals(txt, ctx);
+                List<ICompletionProposal> ep = new ExpandProposalComputer(doc.get(),f).computeProposals(txt, ctx);
     			Collections.sort(ep, comparator);
 				proposals.addAll(ep);
             } else if (p == XpandPartition.DEFAULT) {

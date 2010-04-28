@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2008 Sven Efftinge and others.
+ * Copyright (c) 2005, 2010 Sven Efftinge and others.
  * All rights reserved.   This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,10 +37,10 @@ public class StatementProposalComputer implements ProposalComputer {
 		final Stack<StackElement> s = FastAnalyzer.computeStack(txt);
 		if (s.size() > 0) {
 			final StackElement se = s.peek();
-			result.add(proposalFactory.createStatementProposal(XpandTokens.LT + "END" + se.block + XpandTokens.RT, "END" + se.block));
+			result.add(proposalFactory.createStatementProposal(XpandTokens.LT + "END" + se.block + XpandTokens.RT, "END" + se.block, ""));
 			if (contains(XpandTokens.IF, s)) {
-				result.add(proposalFactory.createStatementProposal(XpandTokens.LT + "ELSE" + XpandTokens.RT, "ELSE"));
-				result.add(proposalFactory.createStatementProposal(XpandTokens.LT + "ELSEIF statement" + XpandTokens.RT, "ELSEIF"));
+				result.add(proposalFactory.createStatementProposal(XpandTokens.LT + "ELSE" + XpandTokens.RT, "ELSE", ""));
+				result.add(proposalFactory.createStatementProposal(XpandTokens.LT + "ELSEIF statement" + XpandTokens.RT, "ELSEIF", ""));
 			}
 			if (!contains(XpandTokens.FILE, s)) {
 				result.add(fileBlockProposal(ws));
@@ -67,12 +67,12 @@ public class StatementProposalComputer implements ProposalComputer {
 
 	private ICompletionProposal importStatementProposal() {
 		final String insertString = XpandTokens.LT + XpandTokens.IMPORT + " my::imported::namespace" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "IMPORT statement", insertString.indexOf("my::imported::namespace"), "my::imported::namespace".length());
+		return proposalFactory.createStatementProposal(insertString, "IMPORT statement", "", insertString.indexOf("my::imported::namespace"), "my::imported::namespace".length());
 	}
 
 	private ICompletionProposal extensionStatementProposal() {
 		final String insertString = XpandTokens.LT + XpandTokens.EXTENSION + " path::to::Extension" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "EXTENSION statement", insertString.indexOf("path::to::Extension"), "path::to::Extension".length());
+		return proposalFactory.createStatementProposal(insertString, "EXTENSION statement", "", insertString.indexOf("path::to::Extension"), "path::to::Extension".length());
 	}
 
 	private final static Pattern WS_PATTERN = Pattern.compile("(\\n?[\\t ]*)\\z");
@@ -85,42 +85,42 @@ public class StatementProposalComputer implements ProposalComputer {
 
 	private ICompletionProposal expandStatementProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "EXPAND definition FOR self" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "EXPAND statement", insertString.indexOf("definition"), "definition".length());
+		return proposalFactory.createStatementProposal(insertString, "EXPAND statement", "", insertString.indexOf("definition"), "definition".length());
 	}
 
 	private ICompletionProposal letBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "LET expression AS e" + XpandTokens.RT + ws + XpandTokens.LT + "ENDLET" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "LET block", insertString.indexOf("expression"), "expression".length());
+		return proposalFactory.createStatementProposal(insertString, "LET block", "", insertString.indexOf("expression"), "expression".length());
 	}
 
 	private ICompletionProposal ifBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "IF condition" + XpandTokens.RT + ws + XpandTokens.LT + "ENDIF" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "IF block", insertString.indexOf("condition"), "condition".length());
+		return proposalFactory.createStatementProposal(insertString, "IF block", "", insertString.indexOf("condition"), "condition".length());
 	}
 
 	private ICompletionProposal foreachBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "FOREACH elements AS e" + XpandTokens.RT + ws + XpandTokens.LT + "ENDFOREACH" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "FOREACH block", insertString.indexOf("elements"), "elements".length());
+		return proposalFactory.createStatementProposal(insertString, "FOREACH block", "", insertString.indexOf("elements"), "elements".length());
 	}
 
 	private ICompletionProposal protectBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "PROTECT CSTART '/*' CEND '*/' ID uniqueId ENABLED" + XpandTokens.RT + ws + XpandTokens.LT + "ENDPROTECT" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "PROTECT region", insertString.indexOf("uniqueId"), "uniqueId".length());
+		return proposalFactory.createStatementProposal(insertString, "PROTECT region", "", insertString.indexOf("uniqueId"), "uniqueId".length());
 	}
 
 	private ICompletionProposal fileBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "FILE fileName" + XpandTokens.RT + ws + XpandTokens.LT + "ENDFILE" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "FILE block", insertString.indexOf("fileName"), "fileName".length());
+		return proposalFactory.createStatementProposal(insertString, "FILE block", "", insertString.indexOf("fileName"), "fileName".length());
 	}
 
 	private ICompletionProposal defineBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "DEFINE definionName FOR Type" + XpandTokens.RT + ws + XpandTokens.LT + "ENDDEFINE" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "new DEFINE", insertString.indexOf("definionName"), "definionName".length());
+		return proposalFactory.createStatementProposal(insertString, "new DEFINE", "", insertString.indexOf("definionName"), "definionName".length());
 	}
 
 	private ICompletionProposal aroundBlockProposal(final String ws) {
 		final String insertString = XpandTokens.LT + "AROUND fullyQualifiedDefinionName FOR Type" + XpandTokens.RT + ws + XpandTokens.LT + "ENDAROUND" + XpandTokens.RT;
-		return proposalFactory.createStatementProposal(insertString, "new AROUND", insertString.indexOf("fullyQualifiedDefinionName"), "fullyQualifiedDefinionName".length());
+		return proposalFactory.createStatementProposal(insertString, "new AROUND", "", insertString.indexOf("fullyQualifiedDefinionName"), "fullyQualifiedDefinionName".length());
 	}
 
 	private boolean contains(final String blockName, final Stack<StackElement> s) {
