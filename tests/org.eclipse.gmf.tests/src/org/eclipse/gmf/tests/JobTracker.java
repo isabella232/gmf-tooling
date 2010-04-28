@@ -75,4 +75,12 @@ public class JobTracker extends JobChangeAdapter {
 		Job.getJobManager().removeJobChangeListener(this);
 		knownJobs.clear();
 	}
+
+	public void dump() {
+		Job[] copy = knownJobs.toArray(new Job[0]);
+		for (Job j : copy) {
+			Thread t = j.getThread();
+			System.err.println(j.getClass().getName() + ":" + j.getName() + "; " + (t == null ? "unknown" : t.getName()));
+		}
+	}
 }

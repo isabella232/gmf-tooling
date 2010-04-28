@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Borland Software Corporation
+ * Copyright (c) 2005, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -31,7 +31,13 @@ public class CompileUtil {
 
 	public IStatus build(IProject project) {
 		try {
+			JobTracker jt = new JobTracker();
+			jt.start();
 			project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+			System.err.println("Build of " + project.getName() + " triggered " + jt.getJobsCount() + " jobs");
+			jt.dump();
+			jt.freeze();
+			Utils.dispatchDisplayMessages(jt.getNonEmptyCondition(), 2);
 			IMarker[] compileErrors = getJavaErrors(project);
 			if (compileErrors.length > 0) {
 				StringBuffer sb = new StringBuffer();
@@ -45,6 +51,7 @@ public class CompileUtil {
 			ex.printStackTrace(System.err);
 			return ex.getStatus();
 		} catch (Exception ex) {
+			ex.printStackTrace(); // record e.g. NPE
 			return Status.CANCEL_STATUS;
 		}
 	}
