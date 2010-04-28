@@ -19,16 +19,14 @@ package «container.expressionsPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «className» {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «className»() {
-	}
+	«EXPAND xpt::expressions::OCLExpressionFactory::_initInterpreterFactory»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 		return new Expression(body, context, environment);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment('This method will become private in the next release')»«REM»FIXME private or completely remove in the next release «ENDREM»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 		return getExpression(body, context, «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»);
 	}

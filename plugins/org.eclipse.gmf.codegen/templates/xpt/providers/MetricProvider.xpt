@@ -66,7 +66,6 @@ public class «metricProviderClassName» {
 
 «EXPAND keysAndToolTipsMethods FOR editorGen.metrics»
 
-«EXPAND metricCalcField FOREACH editorGen.metrics.metrics->select(m | m.rule <> null and (m.target <> null and m.target.getContext() <> null))»
 «EXPAND metricCalcMethod FOREACH editorGen.metrics.metrics->select(m | m.rule <> null and (m.target <> null and m.target.getContext() <> null))»
 
 «EXPAND MetricsResultView::Class»
@@ -359,14 +358,10 @@ public class «metricProviderClassName» {
 «REM»Note, use of QualifiedClassName here assumes it always works the same for the notation model, regardless of 'dynamic model' use (i.e. always gives qName of oeg.runtime.notation.* Java class)«ENDREM»
 «DEFINE calcMethodArgs(metric : gmfgen::GenMetricRule) FOR gmfgen::GenNotationElementTarget»«EXPAND MetaModel::QualifiedClassName FOR element» target«ENDDEFINE»
 
-
 «DEFINE calcMethodBody(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionProviderBase»«ERROR 'No idea how to calculate metric\'s value for ' + self.repr()»«ENDDEFINE»
 
 «DEFINE calcMethodBody(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionInterpreter-»
-	if («exprFieldName(metric)» == null) {
-		«exprFieldName(metric)» = «EXPAND xpt::expressions::getExpression::getExpression(metric.rule, metric.target.getContext())»;
-	}
-	Object val = «exprFieldName(metric)».evaluate(target);
+	Object val = «EXPAND xpt::expressions::getExpression::getExpression(metric.rule, metric.target.getContext())».evaluate(target);
 	if (val instanceof Number) {
 		return val.getClass() == Double.class ? (Double) val : new Double(((Number) val).doubleValue());
 	}
@@ -383,16 +378,6 @@ public class «metricProviderClassName» {
 «ELSE-»
 	return new Double(Double.NaN);
 «ENDIF-»
-«ENDDEFINE»
-
-«DEFINE metricCalcField FOR gmfgen::GenMetricRule-»
-«EXPAND metricCalcField(self) FOR rule.provider-»
-«ENDDEFINE» 
-
-«DEFINE metricCalcField(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionProviderBase»«REM»NO-OP«ENDREM»«ENDDEFINE»
-«DEFINE metricCalcField(metric : gmfgen::GenMetricRule) FOR gmfgen::GenExpressionInterpreter-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static«REM»FIXME: refactor to get rid of static fields«ENDREM» «container.getAbstractExpressionQualifiedClassName()» «exprFieldName(metric)»;
 «ENDDEFINE»
 
 «DEFINE invokeCalcMethod(accessor : String, isSpecific : Boolean) FOR gmfgen::GenMetricRule»

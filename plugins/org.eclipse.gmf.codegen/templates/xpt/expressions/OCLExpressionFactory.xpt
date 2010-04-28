@@ -19,16 +19,14 @@ package «container.expressionsPackageName»;
 «EXPAND xpt::Common::generatedClassComment»
 public class «className» {
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «className»() {
-	}
+	«EXPAND _initInterpreterFactory»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
 		return new Expression(body, context, environment);
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment('This method will become private in the next release')»«REM»FIXME private or completely remove in the next release «ENDREM»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 		return getExpression(body, context, «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram»);
 	}
@@ -113,3 +111,33 @@ org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenExpressionInterpreter»«ENDDEFINE»
+
+// just to avoid identical piece of template in the RegexpExpressionFactory
+«DEFINE _initInterpreterFactory FOR gmfgen::GenExpressionInterpreter-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final «container.getAbstractExpressionQualifiedClassName()»[] expressions; 
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected «className»() {
+		this.expressions = new «container.getAbstractExpressionQualifiedClassName()»[«expressions->size()»];
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(int index, org.eclipse.emf.ecore.EClassifier context) {
+		«className» cached = «EXPAND plugin::Activator::instanceAccess FOR container.editorGen».get«className»();
+		if (cached == null) {
+			«EXPAND plugin::Activator::instanceAccess FOR container.editorGen».set«className»(cached = new «className»());
+		}
+		if (index < 0 || index >= cached.expressions.length) {
+			throw new IllegalArgumentException();
+		}
+		if (cached.expressions[index] == null) {
+			final String[] exprBodies = new String[] {
+				«FOREACH expressions.getBodyString() AS b»«b», «EXPAND xpt::Common::nonNLS»
+				«ENDFOREACH-»
+			};
+			cached.expressions[index] = getExpression(exprBodies[index], context);
+		}
+		return cached.expressions[index];
+	}
+«ENDDEFINE»

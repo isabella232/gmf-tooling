@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2009 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -14,9 +14,8 @@ modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 
 library ValueExpression;
 
-helper constraintFieldName(cb : gmfgen::GenCommonBase) : String {
-	return cb.getUniqueIdentifier() + '_Constraint'
-}
+// next two methods are likely to be removed soon as well 
+// (once we completely support expression caching inside factory
 
 helper sourceConstraintFieldName(l : gmfgen::GenLink) : String {
 	return l.getUniqueIdentifier() + '_SourceExpression'

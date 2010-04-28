@@ -234,11 +234,6 @@ static boolean isInDefaultEditorContext(Object object) {
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static class «getConstraintAdapterLocalClassName()» extends org.eclipse.emf.validation.AbstractModelConstraint {
 
-«IF rule.provider.getLanguage() <> gmfgen::GenLanguage::java-»
-		«EXPAND xpt::Common::generatedMemberComment»
-		private «container.getAbstractExpressionQualifiedClassName()» expression;
-
-«ENDIF-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.core.runtime.IStatus validate(org.eclipse.emf.validation.IValidationContext ctx) {
 			«EXPAND constraintAdapter_initContext(self) FOR target-»
@@ -262,10 +257,7 @@ static boolean isInDefaultEditorContext(Object object) {
 «DEFINE constraintAdapter_validateMethod(audit : gmfgen::GenAuditRule) FOR gmfgen::GenExpressionProviderBase»«ERROR 'No idea how to evaluate an audit rule for ' + self.repr()»«ENDDEFINE»
 
 «DEFINE constraintAdapter_validateMethod(audit : gmfgen::GenAuditRule) FOR gmfgen::GenExpressionInterpreter-»
-			if (expression == null) {
-				expression = «EXPAND xpt::expressions::getExpression::getExpression(audit.rule, audit.target.getContext())»;
-			}
-			Object result = expression.evaluate(context);
+			Object result = «EXPAND xpt::expressions::getExpression::getExpression(audit.rule, audit.target.getContext())».evaluate(context);
 			if (result instanceof Boolean && ((Boolean) result).booleanValue()) {
 				return org.eclipse.core.runtime.Status.OK_STATUS;«REM»XXX why not ctx.createSuccessStatus()???«ENDREM»
 			}

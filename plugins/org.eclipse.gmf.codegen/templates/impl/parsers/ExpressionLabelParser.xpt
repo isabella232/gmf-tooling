@@ -12,35 +12,11 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
-«DEFINE fields FOR gmfgen::ExpressionLabelParser-»
-«IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private final «holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» printExpression;
-«ENDIF-»
-
-«IF not editExpression.oclIsUndefined() and editExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private final «holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» editExpression;
-«ENDIF-»
-
-«IF not validateExpression.oclIsUndefined() and validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private final «holder.editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()» validateExpression;
-«ENDIF-»
-«ENDDEFINE»
+«DEFINE fields FOR gmfgen::ExpressionLabelParser»«ENDDEFINE»
 
 «DEFINE cons(String name) FOR gmfgen::ExpressionLabelParser-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «name»() {
-	«IF not viewExpression.oclIsUndefined() and viewExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-		this.printExpression = «EXPAND xpt::expressions::getExpression::getExpression(viewExpression, self.expressionContext) FOR viewExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;«EXPAND xpt::Common::nonNLS»
-	«ENDIF-»
-	«IF not editExpression.oclIsUndefined() and editExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-		this.editExpression = «EXPAND xpt::expressions::getExpression::getExpression(editExpression, self.expressionContext) FOR editExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;«EXPAND xpt::Common::nonNLS»
-	«ENDIF-»
-	«IF not validateExpression.oclIsUndefined() and validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)-»
-		this.validateExpression = «EXPAND xpt::expressions::getExpression::getExpression(validateExpression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()') FOR validateExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)»;«EXPAND xpt::Common::nonNLS»
-	«ENDIF-»
 	}
 «ENDDEFINE»
 
@@ -48,7 +24,7 @@
 «IF editExpression.oclIsUndefined()-»
 	return getPrintString(element, flags);
 «ELSE-»
-«EXPAND _evaluateAndReturnExpressionResult('this.editExpression', 'evaluateEditExpression', editExpression) FOR editExpression.provider-»
+«EXPAND _evaluateAndReturnExpressionResult(self, 'evaluateEditExpression', editExpression) FOR editExpression.provider-»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -57,27 +33,29 @@
 	// TODO
 	throw new UnsupportedOperationException();
 «ELSE-»
-«EXPAND _evaluateAndReturnExpressionResult('this.printExpression', 'evaluatePrintExpression', viewExpression) FOR viewExpression.provider-»
+«EXPAND _evaluateAndReturnExpressionResult(self, 'evaluatePrintExpression', viewExpression) FOR viewExpression.provider-»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE _evaluateAndReturnExpressionResult(String expressionFieldName, String javaMethodName, ValueExpression expression) FOR gmfgen::GenExpressionProviderBase»«ERROR 'Abstract template call: _evaluateAndReturnExpressionResult'»«ENDDEFINE»
-«DEFINE _evaluateAndReturnExpressionResult(String expressionFieldName, String javaMethodName, ValueExpression expression) FOR gmfgen::GenExpressionInterpreter-»
+«DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenExpressionProviderBase»«ERROR 'Abstract template call: _evaluateAndReturnExpressionResult'»«ENDDEFINE»
+«DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenExpressionInterpreter-»
 org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) element.getAdapter(org.eclipse.emf.ecore.EObject.class);
-Object result = «expressionFieldName».evaluate(target);
+Object result = «EXPAND xpt::expressions::getExpression::getExpression(expression, parser.expressionContext)».evaluate(target);
 return String.valueOf(result);
 «ENDDEFINE»
-«DEFINE _evaluateAndReturnExpressionResult(String expressionFieldName, String javaMethodName, ValueExpression expression) FOR gmfgen::GenJavaExpressionProvider-»
+«DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenJavaExpressionProvider-»
 return «javaMethodName»((org.eclipse.emf.ecore.EObject) element.getAdapter(org.eclipse.emf.ecore.EObject.class));
 «ENDDEFINE»
-«DEFINE _evaluateAndReturnExpressionResult(String expressionFieldName, String javaMethodName, ValueExpression expression) FOR gmfgen::GenLiteralExpressionProvider-»
+«DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenLiteralExpressionProvider-»
 return «expression.body»;
 «ENDDEFINE»
 
 
 «DEFINE accessValidateExpression FOR gmfgen::ExpressionLabelParser-»
 «IF not validateExpression.oclIsUndefined() -»
-	if («IF validateExpression.provider.getLanguage() = gmfgen::GenLanguage::_literal»!«validateExpression.body»«ELSE»Boolean.FALSE.equals(«IF validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»this.validateExpression.evaluate(editString)«ELSEIF validateExpression.provider.oclIsKindOf(gmfgen::GenJavaExpressionProvider)»evaluateValidateExpression(editString)«ENDIF»)«ENDIF») {
+	if («IF validateExpression.provider.getLanguage() = gmfgen::GenLanguage::_literal»!«validateExpression.body»«ELSE-»
+	Boolean.FALSE.equals(«IF validateExpression.provider.oclIsKindOf(gmfgen::GenExpressionInterpreter)»«EXPAND xpt::expressions::getExpression::getExpression(validateExpression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()') FOR validateExpression.provider.oclAsType(gmfgen::GenExpressionInterpreter)».evaluate(editString)«-»
+	«ELSEIF validateExpression.provider.oclIsKindOf(gmfgen::GenJavaExpressionProvider)»evaluateValidateExpression(editString)«ENDIF»)«ENDIF») {
 		return org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.UNEDITABLE_STATUS;
 	} // else fall-through
 «ENDIF-»

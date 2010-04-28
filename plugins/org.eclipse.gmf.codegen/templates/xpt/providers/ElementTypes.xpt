@@ -19,7 +19,7 @@
 package «providersPackageName»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class «elementTypesClassName» extends ElementInitializers {
+public class «elementTypesClassName» {
 
 	«EXPAND _constructor-»
 	

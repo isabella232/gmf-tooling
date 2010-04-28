@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008, 2009 Borland Software Corporation
+ * Copyright (c) 2008, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -29,10 +29,6 @@ helper getDiagramMetrics(c : gmfgen::GenMetricContainer) : Sequence(gmfgen::GenM
 -- MODIFIERS: cached
 helper getDomainMetrics(c : gmfgen::GenMetricContainer) : Sequence(gmfgen::GenMetricRule) {
 	return c.metrics->asSequence()->select(target.oclIsKindOf(gmfgen::GenDomainElementTarget))
-}
-
-helper exprFieldName(m : gmfgen::GenMetricRule) : String {
-	return 'expression' + validJavaIdentifier(m.key).firstToUpper()
 }
 
 helper calcMethodName(m : gmfgen::GenMetricRule) : String {

@@ -20,15 +20,31 @@
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION gmf::GenModelUtils»
 
+// XXX should generate this class only when there is initialization logic defined in the model 
+
 «DEFINE ElementInitializers FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
-package «providersPackageName»;
+package «getElementInitializersPackageName()»;
 
 «EXPAND xpt::Common::generatedClassComment»
-public class ElementInitializers {
+public class «getElementInitializersClassName()» {
+
+	protected «getElementInitializersClassName()»() {
+		// use #getInstance to access cached instance
+	} 
+
 	«EXPAND Initializers»
 	«EXPAND JavaSupport»
 	«EXPAND additions-»
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static «getElementInitializersClassName()» getInstance() {
+		«getElementInitializersClassName()» cached = «EXPAND plugin::Activator::instanceAccess FOR editorGen».getElementInitializers();
+		if (cached == null) {
+			«EXPAND plugin::Activator::instanceAccess FOR editorGen».setElementInitializers(cached = new «getElementInitializersClassName()»());
+		}
+		return cached;
+	}
 }
 «ENDDEFINE»
 
@@ -65,9 +81,9 @@ public class ElementInitializers {
 
 «DEFINE initMethod(diagramElement : gmfgen::GenCommonBase) FOR gmfgen::GenFeatureSeqInitializer-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static void init_«diagramElement.getUniqueIdentifier()»(«EXPAND MetaModel::QualifiedClassName FOR elementClass» instance) {
+	public void init_«diagramElement.getUniqueIdentifier()»(«EXPAND MetaModel::QualifiedClassName FOR elementClass» instance) {
 		try {
-			«FOREACH initializers->asSequence() AS i»«EXPAND performInit(diagramElement, 'instance', elementClass, getSuffixes((initializers->indexOf(i) - 1))) FOR i»«ENDFOREACH-»
+			«FOREACH initializers AS i»«EXPAND performInit(diagramElement, 'instance', elementClass, getSuffixes((initializers->indexOf(i) - 1))) FOR i»«ENDFOREACH-»
 		} catch(RuntimeException e) {
 			«diagramElement.getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
@@ -113,12 +129,12 @@ public class ElementInitializers {
 «ENDDEFINE»
 
 «DEFINE performInit(diagramElement : gmfgen::GenCommonBase, instanceVar : String, instanceClass : genmodel::GenClass, counters : Sequence(Integer)) FOR gmfgen::GenReferenceNewElementSpec-»
-«FOREACH newElementInitializers->asSequence() AS newElemInit-»
+«FOREACH newElementInitializers AS newElemInit-»
 «LET getSuffixes(counters, (newElementInitializers->indexOf(newElemInit) - 1)) AS initializerCounters-»
 «LET getVariableName('newInstance', initializerCounters) AS newInstanceVar-»
 «EXPAND MetaModel::NewInstance(newInstanceVar) FOR newElemInit.elementClass-»
 «EXPAND MetaModel::modifyFeature(instanceVar, instanceClass, newInstanceVar) FOR feature»
-«FOREACH newElemInit.initializers->asSequence() AS i»«EXPAND performInit(diagramElement, newInstanceVar, newElemInit.elementClass, getSuffixes(initializerCounters, (newElemInit.initializers->indexOf(i) - 1))) FOR i»«ENDFOREACH»
+«FOREACH newElemInit.initializers AS i»«EXPAND performInit(diagramElement, newInstanceVar, newElemInit.elementClass, getSuffixes(initializerCounters, (newElemInit.initializers->indexOf(i) - 1))) FOR i»«ENDFOREACH»
 «ENDLET-»
 «ENDLET-»
 «ENDFOREACH-»
@@ -128,10 +144,7 @@ public class ElementInitializers {
 
 «DEFINE evaluateExpr(diagramElement : gmfgen::GenCommonBase, valueExpr : gmfgen::GenFeatureValueSpec, instanceVar : String) FOR gmfgen::GenExpressionProviderBase»«ENDDEFINE»
 
-// XXX perhaps, using instance.eClass() is better option than MetaModel::MetaClass (though, need to rely on instance variable name/type)
-// FIXME - creating new expression each time we need to initialize an element is not very efficient (e.g. OCLFactory.getExpression()).
-// Perhaps, factory implementation should be changed instead, to keep all optimization in a single place? 
-«DEFINE evaluateExpr(diagramElement : gmfgen::GenCommonBase, valueExpr : gmfgen::GenFeatureValueSpec, instanceVar : String) FOR gmfgen::GenExpressionInterpreter-»
+«DEFINE evaluateExpr(gmfgen::GenCommonBase diagramElement, gmfgen::GenFeatureValueSpec valueExpr, String instanceVar) FOR gmfgen::GenExpressionInterpreter-»
 «EXPAND xpt::expressions::getExpression::getExpression(valueExpr.value, valueExpr.featureSeqInitializer.elementClass)».evaluate(«instanceVar»)«-»
 «ENDDEFINE»
 
@@ -162,7 +175,7 @@ public class ElementInitializers {
 «DEFINE javaMethod(diagramElement : gmfgen::GenCommonBase, vs : gmfgen::GenFeatureValueSpec) FOR gmfgen::GenExpressionProviderBase-»«ENDDEFINE»
 «DEFINE javaMethod(diagramElement : gmfgen::GenCommonBase, vs : gmfgen::GenFeatureValueSpec) FOR gmfgen::GenJavaExpressionProvider-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static «EXPAND MetaModel::featureTargetType FOR vs.feature» «javaMethodName(diagramElement, vs)»(«EXPAND MetaModel::QualifiedClassName FOR vs.featureSeqInitializer.elementClass» self) {
+	private «EXPAND MetaModel::featureTargetType FOR vs.feature» «javaMethodName(diagramElement, vs)»(«EXPAND MetaModel::QualifiedClassName FOR vs.featureSeqInitializer.elementClass» self) {
 «IF injectExpressionBody and (vs.value.body <> null and vs.value.body.size() <> 0)-»
 		«vs.value.body»
 «ELSEIF throwException or (injectExpressionBody and (vs.value.body = null or vs.value.body.size() = 0))-»
@@ -174,4 +187,11 @@ public class ElementInitializers {
 		return null;
 «ENDIF-»	
 	}
+«ENDDEFINE»
+
+// GenLink or GenNode
+«DEFINE initMethodCall(gmfgen::TypeModelFacet modelFacet, String newElementVar) FOR gmfgen::GenCommonBase-»
+«IF modelFacet.modelElementInitializer <> null -»
+«getDiagram().getElementInitializersPackageName()».«getDiagram().getElementInitializersClassName()».getInstance().init_«getUniqueIdentifier()»(«newElementVar»);
+«ENDIF-»
 «ENDDEFINE»

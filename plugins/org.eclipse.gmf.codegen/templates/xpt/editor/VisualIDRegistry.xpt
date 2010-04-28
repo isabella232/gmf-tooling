@@ -88,11 +88,6 @@ public class «visualIDRegistryClassName» {
 «DEFINE attributes FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static final String DEBUG_KEY = "«editorGen.plugin.iD»/debug/visualID"; «EXPAND xpt::Common::nonNLS»
-«IF null <> editorGen.expressionProviders-»
-	«EXPAND _constraintField FOREACH topLevelNodes-»
-	«EXPAND _constraintField FOREACH childNodes-»
-	«EXPAND _constraintField FOREACH links-»
-«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getViewVisualID FOR gmfgen::GenDiagram-»
@@ -314,7 +309,7 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR doma
 «IF null <> editorGen.expressionProviders-»
 	«EXPAND _constraintMethod FOREACH topLevelNodes->select(n | n.modelFacet.modelElementSelector <> null)-»
 	«EXPAND _constraintMethod FOREACH childNodes->select(n | n.modelFacet.modelElementSelector <> null)-»
-	«FOREACH links->asSequence() AS l»«EXPAND _constraintMethod(l) FOR l.modelFacet»«ENDFOREACH»
+	«FOREACH links AS l»«EXPAND _constraintMethod(l) FOR l.modelFacet»«ENDFOREACH»
 «ENDIF-»
 «ENDDEFINE»
 
@@ -347,33 +342,14 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR doma
 	}
 «ENDDEFINE»
 
+// FIXME move these methods to ElementInitializers or any other more suitable place
 «DEFINE _domainElementConstraintMethod(diagramElement : gmfgen::GenCommonBase, expression : gmfgen::ValueExpression, context : genmodel::GenClass) FOR gmfgen::GenExpressionInterpreter-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private static boolean «EXPAND _domainElementConstraintMethodName FOR diagramElement»(«EXPAND MetaModel::QualifiedClassName FOR context» domainElement) {
-		if («constraintFieldName(diagramElement)» == null) { // lazy initialization
-			«constraintFieldName(diagramElement)» = «EXPAND xpt::expressions::getExpression::getExpression(expression, context)»; «EXPAND xpt::Common::nonNLS»
-		}
-		Object result = «constraintFieldName(diagramElement)».evaluate(domainElement);
+		Object result = «EXPAND xpt::expressions::getExpression::getExpression(expression, context)».evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean)result).booleanValue();
 	}			
 «ENDDEFINE»
-
-
-«DEFINE _constraintField FOR gmfgen::GenNode»«EXPAND _constraintField(self) FOR modelFacet»«ENDDEFINE»
-«DEFINE _constraintField FOR gmfgen::GenLink»«EXPAND _constraintField(self) FOR modelFacet»«ENDDEFINE»
-
-«DEFINE _constraintField(diagramElement : gmfgen::GenCommonBase) FOR gmfgen::ModelFacet»«ENDDEFINE»
-«DEFINE _constraintField(diagramElement : gmfgen::GenCommonBase) FOR gmfgen::TypeModelFacet-»
-«IF modelElementSelector <> null»«EXPAND _constraintField(diagramElement) FOR modelElementSelector.provider»«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE _constraintField(diagramElement : gmfgen::GenCommonBase) FOR gmfgen::GenExpressionInterpreter»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private static «container.getAbstractExpressionQualifiedClassName()» «constraintFieldName(diagramElement)»;
-«ENDDEFINE»
-
-«DEFINE _constraintField(diagramElement : gmfgen::GenCommonBase) FOR gmfgen::GenExpressionProviderBase»«ERROR 'Need to define approach to constraint fields for ' + self.repr()»«ENDDEFINE»
-«DEFINE _constraintField(diagramElement : gmfgen::GenCommonBase) FOR gmfgen::GenJavaExpressionProvider»«ENDDEFINE»// IOW, no fields for Java
 
 «REM»
 		Constraints support end.
