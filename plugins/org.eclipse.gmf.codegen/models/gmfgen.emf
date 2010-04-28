@@ -376,6 +376,8 @@ abstract interface PackageNames {
 	attr String	notationViewFactoriesPackageName;
 }
 
+// FIXME introduce a separate entity to generate single class that keeps link constraints, model element selectors and initializers
+// Do not use inner class in BaseItemSemanticEditPolicy
 @deprecated(documentation="Operations supplied by this interface are hardly useful and will be removed soon")
 abstract interface LinkConstraints {
 	@genmodel(documentation="Indicates whether this diagram contains link creation constraints or not")
