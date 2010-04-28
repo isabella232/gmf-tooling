@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -82,11 +82,7 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 «ENDIF-»
 «ENDDEFINE»
 
-
-«DEFINE initialize(link : gmfgen::GenLink, newElementvVar : String) FOR gmfgen::TypeModelFacet»«IF modelElementInitializer <> null-»
-«link.diagram.getElementTypesQualifiedClassName()».init_«link.getUniqueIdentifier()»(«newElementvVar»);
-«ENDIF»«ENDDEFINE»
-
+«DEFINE initialize(gmfgen::GenLink link, String newElementVar) FOR gmfgen::TypeModelFacet»«EXPAND xpt::providers::ElementInitializers::initMethodCall(self, newElementVar) FOR link»«ENDDEFINE»
 
 «DEFINE execute(link : gmfgen::GenLink) FOR gmfgen::FeatureLinkModelFacet»
 «IF metaFeature.ecoreFeature.changeable-»
