@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -78,7 +78,7 @@ public class «EXPAND className» extends org.eclipse.jface.wizard.Wizard {
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public boolean performFinish() {
-		java.util.List affectedFiles = new java.util.LinkedList();
+		«EXPAND CodeStyle::newGenericInstance('affectedFiles', 'java.util.LinkedList', 'org.eclipse.core.resources.IFile')»();
 		«IF null = editorGen.application-»
 		org.eclipse.core.resources.IFile diagramFile = myFileCreationPage.createNewFile();
 		«EXPAND xpt::Common::setCharset('diagramFile')-»

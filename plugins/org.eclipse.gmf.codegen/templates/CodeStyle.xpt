@@ -72,6 +72,7 @@ java.util.Collections.EMPTY_MAP«ENDIF-»
 «DEFINE castTyped(String type) FOR gmfgen::GenCommonBase»«IF not (self.jdkComplianceLevel() > 4)»(«type») «ENDIF»«ENDDEFINE»
 
 // annotations are from Java 5 and above
+«DEFINE SuppressWarnings(String warnToken) FOR gmfgen::GenEditorGenerator»«EXPAND SuppressWarnings(warnToken) FOR diagram»«ENDDEFINE»
 «DEFINE SuppressWarnings(String warnToken) FOR gmfgen::GenCommonBase-»
 «IF self.jdkComplianceLevel() > 4 -»
 @SuppressWarnings(«warnToken»)

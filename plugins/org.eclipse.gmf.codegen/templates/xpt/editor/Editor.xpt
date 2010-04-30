@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -114,9 +114,10 @@ public String getContributorId() {
 «ENDDEFINE»
 
 «DEFINE getAdapter FOR gmfgen::GenEditorView-»
-	«IF not hasPropertySheet(self) or hasNavigator(self)-»
+«IF not hasPropertySheet(self) or hasNavigator(self)-»
 	
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND CodeStyle::SuppressWarnings('"rawtypes"') FOR editorGen-»
 public Object getAdapter(Class type) {
 	«IF not hasPropertySheet(self)-»
 	if (type == org.eclipse.ui.views.properties.IPropertySheetPage.class) {
@@ -134,7 +135,7 @@ public Object getAdapter(Class type) {
 	«ENDIF-»
 	return super.getAdapter(type);
 }
-	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getDocumentProvider FOR gmfgen::GenEditorView-»

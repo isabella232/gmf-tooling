@@ -90,7 +90,7 @@ public static «EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.dia
 			«IF null = childMetaFeature-»
 	{ /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify Class here manually*/ childElement = /*FIXME no containment/child feature found in the genmodel, toolsmith need to specify correct one here manually*/;
 			«ELSEIF isListType(childMetaFeature)-»
-	for (java.util.Iterator it = «EXPAND MetaModel::getFeatureValue('modelElement', self.getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
+	for («EXPAND CodeStyle::G('java.util.Iterator', '?')» it = «EXPAND MetaModel::getFeatureValue('modelElement', self.getModelElementType()) FOR childMetaFeature».iterator(); it.hasNext();) {
 		«EXPAND MetaModel::DeclareAndAssign('childElement', 'it.next()', true) FOR getTypeGenClassX(childMetaFeature)»
 			«ELSE-»
 	{ «EXPAND MetaModel::DeclareAndAssign('childElement', 'modelElement', self.getModelElementType(), childMetaFeature) FOR getTypeGenClassX(childMetaFeature)»
@@ -99,16 +99,15 @@ public static «EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.dia
 			«EXPAND checkChildElementVisualID(null <> childMetaFeature and isListType(childMetaFeature)) FOREACH getSemanticChildren(self, childMetaFeature)-»
 	}
 		«ENDFOREACH-»
-		«IF not self.getPhantomNodes()->isEmpty()-»
+«IF self.getPhantomNodes()->notEmpty()-»
 	org.eclipse.emf.ecore.resource.Resource resource = modelElement.eResource();
-	for (java.util.Iterator semanticIterator = getPhantomNodesIterator(resource); semanticIterator.hasNext();) {
-		org.eclipse.emf.ecore.EObject childElement = (org.eclipse.emf.ecore.EObject) semanticIterator.next();
+	«EXPAND CodeStyle::iterate('childElement', 'org.eclipse.emf.ecore.EObject', 'getPhantomNodesIterator(resource)')-»
 		if (childElement == modelElement) {
 			continue;
 		}
-			«EXPAND addNextIfPhantom FOREACH self.getPhantomNodes()-»
+		«EXPAND addNextIfPhantom FOREACH self.getPhantomNodes()-»
 	}
-		«ENDIF-»		
+«ENDIF-»		
 	return result;
 	«ELSE-»
 	return «EXPAND CodeStyle::emptyList»;
@@ -156,13 +155,13 @@ if («EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall FOR getDia
 
 
 «DEFINE getPhantomNodesIterator FOR gmfgen::GenDiagramUpdater-»
-	«IF not editorGen.diagram.getPhantomNodes()->isEmpty()-»
+«IF editorGen.diagram.getPhantomNodes()->notEmpty()-»
 	
-	«EXPAND xpt::Common::generatedMemberComment»
-private static java.util.Iterator getPhantomNodesIterator(org.eclipse.emf.ecore.resource.Resource resource) {
+«EXPAND xpt::Common::generatedMemberComment»
+private static «EXPAND CodeStyle::G('java.util.Iterator', 'org.eclipse.emf.ecore.EObject') FOR editorGen.diagram» getPhantomNodesIterator(org.eclipse.emf.ecore.resource.Resource resource) {
 	return resource.getAllContents();
 }
-	«ENDIF-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE getGenericConnectedLinks(linkContainers : Sequence(gmfgen::GenCommonBase), methodNameSuffix : String) FOR gmfgen::GenDiagramUpdater-»
@@ -207,21 +206,20 @@ public static «EXPAND CodeStyle::G('java.util.List', getLinkDescriptorQualified
 
 «DEFINE getConnectedLinks(genLinks : Sequence(gmfgen::GenLink), methodNameSuffix : String, needCrossReferencer : Boolean) FOR gmfgen::GenCommonBase-»
 
-	«EXPAND xpt::Common::generatedMemberComment»
+«EXPAND xpt::Common::generatedMemberComment»
 public static «EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» «EXPAND linkGetterName(methodNameSuffix)»(org.eclipse.gmf.runtime.notation.View view) {
-	«IF not genLinks->isEmpty()-»
-		«LET self.getMetaClass() AS metaclass-»
+«IF genLinks->notEmpty()-»
+«LET self.getMetaClass() AS metaclass-»
 	«EXPAND MetaModel::DeclareAndAssign('modelElement', 'view.getElement()') FOR metaclass»
-			«IF needCrossReferencer-»
-	java.util.Map crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-			«ENDIF-»
-	«EXPAND CodeStyle::newGenericInstance('result', 'java.util.LinkedList', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())»();
-			«EXPAND colectConnectedLinks(methodNameSuffix, needCrossReferencer, isExternalInterface(metaclass)) FOREACH genLinks-»
-	return result;
-		«ENDLET-»
-	«ELSE-»
-	return «EXPAND CodeStyle::emptyList»;
+	«IF needCrossReferencer»«EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting>')» crossReferences = org.eclipse.emf.ecore.util.EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 	«ENDIF-»
+	«EXPAND CodeStyle::newGenericInstance('result', 'java.util.LinkedList', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())»();
+	«EXPAND colectConnectedLinks(methodNameSuffix, needCrossReferencer, isExternalInterface(metaclass)) FOREACH genLinks-»
+	return result;
+«ENDLET-»
+«ELSE-»
+	return «EXPAND CodeStyle::emptyList»;
+«ENDIF-»
 }
 «ENDDEFINE»
 
@@ -291,7 +289,7 @@ private static «EXPAND CodeStyle::G('java.util.Collection', genLink.getDiagram(
 «EXPAND CodeStyle::newGenericInstance('result', 'java.util.LinkedList', genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()) FOR genLink»();
 	«LET isListType(childMetaFeature) AS inLoop-»
 «IF inLoop-»
-for (java.util.Iterator links = «EXPAND MetaModel::getFeatureValue('container', childMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
+for («EXPAND CodeStyle::G('java.util.Iterator', '?') FOR genLink» links = «EXPAND MetaModel::getFeatureValue('container', childMetaFeature.genClass) FOR childMetaFeature».iterator(); links.hasNext();) {
 	org.eclipse.emf.ecore.EObject linkObject = (org.eclipse.emf.ecore.EObject ) links.next();
 	if («EXPAND MetaModel::NotInstance('linkObject') FOR metaClass») {
 		continue;
@@ -378,13 +376,12 @@ return result;
 
 «DEFINE getIncomingLinksByTypeMethod FOR gmfgen::GenLink-»
 
-	«EXPAND xpt::Common::generatedMemberComment»
-private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» «EXPAND getConnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getTargetType()» target, java.util.Map crossReferences) {
+«EXPAND xpt::Common::generatedMemberComment»
+private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» «EXPAND getConnectedLinksByTypeMethodName(getIncomingLinksMethodNameSuffix())»(«EXPAND MetaModel::QualifiedClassName FOR modelFacet.getTargetType()» target, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting>')» crossReferences) {
 	«EXPAND CodeStyle::newGenericInstance('result', 'java.util.LinkedList', getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())»();
-	java.util.Collection settings = (java.util.Collection) crossReferences.get(target);
-	for (java.util.Iterator it = settings.iterator(); it.hasNext();) {
-		org.eclipse.emf.ecore.EStructuralFeature.Setting setting = (org.eclipse.emf.ecore.EStructuralFeature.Setting) it.next();
-		«EXPAND getIncomingLinksByTypeMethodBody(self) FOR modelFacet-»
+	«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.emf.ecore.EStructuralFeature.Setting')» settings = «EXPAND CodeStyle::castTyped('java.util.Collection')»crossReferences.get(target);
+	«EXPAND CodeStyle::iterate('setting', 'org.eclipse.emf.ecore.EStructuralFeature.Setting', 'settings')-»
+		«EXPAND getIncomingLinksByTypeMethodBody(self /*FIXME pass settings var name inside for completeness */) FOR modelFacet-»
 	}
 	return result;	
 }
@@ -436,7 +433,7 @@ private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editor
 «EXPAND getOutgoingLinksByTypeMethodSignature FOR genLink» {
 	«EXPAND CodeStyle::newGenericInstance('result', 'java.util.LinkedList', genLink.getDiagram().editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName()) FOR genLink»();
 	«IF isListType(metaFeature)-»
-	for (java.util.Iterator destinations = «EXPAND MetaModel::getFeatureValue('source', getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
+	for («EXPAND CodeStyle::G('java.util.Iterator', '?') FOR genLink» destinations = «EXPAND MetaModel::getFeatureValue('source', getSourceType()) FOR metaFeature».iterator(); destinations.hasNext();) {
 		«EXPAND MetaModel::DeclareAndAssign('destination', 'destinations.next()', true) FOR getTargetType()»
 	«ELSE-»
 	«EXPAND MetaModel::DeclareAndAssign('destination', 'source', getSourceType(), metaFeature) FOR getTargetType()»
