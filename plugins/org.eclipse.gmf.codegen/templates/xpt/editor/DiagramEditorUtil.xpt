@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -103,8 +103,8 @@ public class «diagramEditorUtilClassName» {
 
 «DEFINE saveOptions FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static java.util.Map getSaveOptions() {
-		java.util.Map saveOptions = new java.util.HashMap();
+	public static «EXPAND CodeStyle::G2('java.util.Map', '?', '?')» getSaveOptions() {
+		«EXPAND CodeStyle::newGenericInstance2('saveOptions', 'java.util.HashMap', 'String', 'Object')»();
 		saveOptions.put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_ENCODING, "UTF-8"); «EXPAND xpt::Common::nonNLS»
 		saveOptions.put(org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED, org.eclipse.emf.ecore.resource.Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 		return saveOptions;
@@ -259,14 +259,16 @@ public class «diagramEditorUtilClassName» {
 	}
 «ENDDEFINE»
 
+// FIXME only metrics and audits use selectElementsInDiagram and findView (and hence LazyElement2ViewMap and findElementsInDiagramByID)
+// methods, thus it's reasonable to generate these methods iff Metrics or Audits are enabled.
+
 «DEFINE selectElementsMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
-	public static void selectElementsInDiagram(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart, java.util.List/*EditPart*/ editParts) {
+	public static void selectElementsInDiagram(org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart diagramPart, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gef.EditPart')» editParts) {
 		diagramPart.getDiagramGraphicalViewer().deselectAll();
 
 		org.eclipse.gef.EditPart firstPrimary = null;
-		for (java.util.Iterator it = editParts.iterator(); it.hasNext();) {
-			org.eclipse.gef.EditPart nextPart = (org.eclipse.gef.EditPart) it.next();
+		«EXPAND CodeStyle::iterate('nextPart', 'org.eclipse.gef.EditPart', 'editParts')-»
 			diagramPart.getDiagramGraphicalViewer().appendSelection(nextPart);
 			if(firstPrimary == null && nextPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IPrimaryEditPart) {
 				firstPrimary = nextPart;
@@ -281,7 +283,7 @@ public class «diagramEditorUtilClassName» {
 
 «DEFINE findElementsMethod FOR gmfgen::GenDiagram»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static int findElementsInDiagramByID(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramPart, org.eclipse.emf.ecore.EObject element, java.util.List editPartCollector) {
+	private static int findElementsInDiagramByID(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramPart, org.eclipse.emf.ecore.EObject element, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gef.EditPart')» editPartCollector) {
 		org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer viewer = (org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer) diagramPart.getViewer();
 		final int intialNumOfEditParts = editPartCollector.size();
 		
@@ -294,10 +296,10 @@ public class «diagramEditorUtilClassName» {
 		}
 
 		String elementID = org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getProxyID(element);
-		java.util.List associatedParts = viewer.findEditPartsForElement(elementID, org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+		«EXPAND CodeStyle::SuppressWarnings('"unchecked"')-»
+		«EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gef.EditPart')» associatedParts = viewer.findEditPartsForElement(elementID, org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 		// perform the possible hierarchy disjoint -> take the top-most parts only
-		for (java.util.Iterator editPartIt = associatedParts.iterator(); editPartIt.hasNext();) {
-			org.eclipse.gef.EditPart nextPart = (org.eclipse.gef.EditPart) editPartIt.next();
+		«EXPAND CodeStyle::iterate('nextPart', 'org.eclipse.gef.EditPart', 'associatedParts')-»
 			org.eclipse.gef.EditPart parentPart = nextPart.getParent();
 			while (parentPart != null && !associatedParts.contains(parentPart)) {
 				parentPart = parentPart.getParent();
@@ -309,7 +311,7 @@ public class «diagramEditorUtilClassName» {
 
 		if (intialNumOfEditParts == editPartCollector.size()) {
 			if (!associatedParts.isEmpty()) {
-				editPartCollector.add(associatedParts.iterator().next());
+				editPartCollector.add(associatedParts.get(0));
 			} else {
 				if (element.eContainer() != null) {
 					return findElementsInDiagramByID(diagramPart, element.eContainer(), editPartCollector);
@@ -329,48 +331,44 @@ public class «diagramEditorUtilClassName» {
 		}
 		
 		org.eclipse.gmf.runtime.notation.View view = null;
+		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gef.EditPart', 'editPartHolder')»();
 		if(hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
-			view = (org.eclipse.gmf.runtime.notation.View)lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
-		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, lazyElement2ViewMap.editPartTmpHolder) > 0) {
-			org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) lazyElement2ViewMap.editPartTmpHolder.get(0);
-			lazyElement2ViewMap.editPartTmpHolder.clear();
+			view = «EXPAND CodeStyle::castTyped('org.eclipse.gmf.runtime.notation.View')»lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, editPartHolder) > 0) {
+			org.eclipse.gef.EditPart editPart = editPartHolder.get(0);
 			view = editPart.getModel() instanceof org.eclipse.gmf.runtime.notation.View ? (org.eclipse.gmf.runtime.notation.View) editPart.getModel() : null;
 		}
 	
 		return (view == null) ? diagramEditPart.getDiagramView() : view;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND xpt::Common::generatedMemberComment('XXX This is quite suspicious code (especially editPartTmpHolder) and likely to be removed soon')»
 	public static class LazyElement2ViewMap {
 		«EXPAND xpt::Common::generatedMemberComment»
-		private java.util.Map element2ViewMap;
+		private «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» element2ViewMap;
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		private org.eclipse.gmf.runtime.notation.View scope;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private java.util.Set elementSet;
+		private «EXPAND CodeStyle::G('java.util.Set', '? extends org.eclipse.emf.ecore.EObject')» elementSet;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public final java.util.List editPartTmpHolder = new java.util.ArrayList();
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public LazyElement2ViewMap(org.eclipse.gmf.runtime.notation.View scope, java.util.Set elements) {
+		public LazyElement2ViewMap(org.eclipse.gmf.runtime.notation.View scope, «EXPAND CodeStyle::G('java.util.Set', '? extends org.eclipse.emf.ecore.EObject')» elements) {
 			this.scope = scope;
 			this.elementSet = elements;
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		public final java.util.Map getElement2ViewMap() {
+		public final «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» getElement2ViewMap() {
 			if(element2ViewMap == null) {
-				element2ViewMap = new java.util.HashMap();
+				element2ViewMap = new «EXPAND CodeStyle::G2('java.util.HashMap', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')»();
 				// map possible notation elements to itself as these can't be found by view.getElement()
-				for (java.util.Iterator it = elementSet.iterator(); it.hasNext();) {
-					org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) it.next();
+				«EXPAND CodeStyle::iterate('element', 'org.eclipse.emf.ecore.EObject', 'elementSet')-»
 					if(element instanceof org.eclipse.gmf.runtime.notation.View) {
 						org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) element;
 						if(view.getDiagram() == scope.getDiagram()) {
-							element2ViewMap.put(element, element); // take only those that part of our diagram
+							element2ViewMap.put(element, view); // take only those that part of our diagram
 						}
 					}
 				}
@@ -380,27 +378,28 @@ public class «diagramEditorUtilClassName» {
 			return element2ViewMap;
 		}
 		«EXPAND xpt::Common::generatedMemberComment»
-		static java.util.Map buildElement2ViewMap(org.eclipse.gmf.runtime.notation.View parentView, java.util.Map element2ViewMap, java.util.Set elements) {
-			if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+		private static boolean buildElement2ViewMap(org.eclipse.gmf.runtime.notation.View parentView, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» element2ViewMap, «EXPAND CodeStyle::G('java.util.Set', '? extends org.eclipse.emf.ecore.EObject')» elements) {
+			if (elements.size() == element2ViewMap.size()) {
+				return true;
+			}
 
 			if(parentView.isSetElement() && !element2ViewMap.containsKey(parentView.getElement()) && elements.contains(parentView.getElement())) {
 				element2ViewMap.put(parentView.getElement(), parentView);
-				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+				if (elements.size() == element2ViewMap.size()) {
+					return true;
+				}
 			}
-			
-			for (java.util.Iterator it = parentView.getChildren().iterator(); it.hasNext();) {
-				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
-				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			boolean complete = false;
+			for («EXPAND CodeStyle::G('java.util.Iterator', '?')» it = parentView.getChildren().iterator(); it.hasNext() && !complete;) {
+				complete = buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
 			}
-			for (java.util.Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
-				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
-				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			for («EXPAND CodeStyle::G('java.util.Iterator', '?')» it = parentView.getSourceEdges().iterator(); it.hasNext() && !complete;) {
+				complete = buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
 			}
-			for (java.util.Iterator it = parentView.getSourceEdges().iterator(); it.hasNext();) {
-				buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
-				if(elements.size() == element2ViewMap.size()) return element2ViewMap;
+			for («EXPAND CodeStyle::G('java.util.Iterator', '?')» it = parentView.getTargetEdges().iterator(); it.hasNext() && !complete;) {
+				complete = buildElement2ViewMap((org.eclipse.gmf.runtime.notation.View) it.next(), element2ViewMap, elements);			
 			}	
-			return element2ViewMap;
+			return complete;
 		}
 	} //LazyElement2ViewMap	
 «ENDDEFINE»

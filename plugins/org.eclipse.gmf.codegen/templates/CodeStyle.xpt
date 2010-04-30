@@ -29,6 +29,9 @@
 // XXX perhaps, varName should go first, to be consistent with iterate?
 «DEFINE newGenericInstance(String type, String typeArgument, String varName) FOR gmfgen::GenCommonBase»«EXPAND G(type, typeArgument)» «varName» = new «EXPAND G(type, typeArgument)»«ENDDEFINE»
 
+// new HashMap<Object, String>
+«DEFINE newGenericInstance2(String varName, String type, String typeArgument1, String typeArgument2) FOR gmfgen::GenCommonBase»«EXPAND G2(type, typeArgument1, typeArgument2)» «varName»= new «EXPAND G2(type, typeArgument1, typeArgument2)»«ENDDEFINE»
+
 // new HashMap<Object, List<String>>
 «DEFINE newGenericInstance2(String varName, String type, String typeArgument1, String typeArgument2, String typeArgument3) FOR gmfgen::GenCommonBase»«EXPAND _g2_3(type, typeArgument1, typeArgument2, typeArgument3)» «varName»= new «EXPAND _g2_3(type, typeArgument1, typeArgument2, typeArgument3)»«ENDDEFINE»
 

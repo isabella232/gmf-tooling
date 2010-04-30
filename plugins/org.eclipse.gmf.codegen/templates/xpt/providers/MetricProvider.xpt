@@ -90,14 +90,14 @@ public class «metricProviderClassName» {
 
 					public void run() {
 						org.eclipse.gmf.runtime.notation.Diagram diagram = diagramEditPart.getDiagramView();
-						java.util.ArrayList/*<ElementMetrics>*/ metrics = new java.util.ArrayList/*<ElementMetrics>*/(50);
-«IF not getNotationMetrics(editorGen.metrics)->isEmpty()-»
+						«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'ElementMetrics', 'metrics')»(50);
+«IF getNotationMetrics(editorGen.metrics)->notEmpty()-»
 						calculateNotationElementMetrics(diagram, metrics);
 «ENDIF-»
-«IF not getDiagramMetrics(editorGen.metrics)->isEmpty()-»
+«IF getDiagramMetrics(editorGen.metrics)->notEmpty()-»
 						calculateDiagramElementMetrics(diagram, metrics);
 «ENDIF-»
-«IF not getDomainMetrics(editorGen.metrics)->isEmpty()-»
+«IF getDomainMetrics(editorGen.metrics)->notEmpty()-»
 						calculateSemanticElementMetrics(diagramEditPart, metrics);
 «ENDIF-»
 						setResult(metrics);
@@ -108,9 +108,9 @@ public class «metricProviderClassName» {
 		}
 	}
 
-«IF not getNotationMetrics(editorGen.metrics)->isEmpty()»«EXPAND calcNotationMetricsMethod FOR editorGen»«ENDIF»
-«IF not getDiagramMetrics(editorGen.metrics)->isEmpty()»«EXPAND calcDiagramMetricsMethod FOR editorGen»«ENDIF»
-«IF not getDomainMetrics(editorGen.metrics)->isEmpty()»«EXPAND calcDomainMetricsMethod FOR editorGen»«ENDIF»
+«IF getNotationMetrics(editorGen.metrics)->notEmpty()»«EXPAND calcNotationMetricsMethod FOR editorGen»«ENDIF»
+«IF getDiagramMetrics(editorGen.metrics)->notEmpty()»«EXPAND calcDiagramMetricsMethod FOR editorGen»«ENDIF»
+«IF getDomainMetrics(editorGen.metrics)->notEmpty()»«EXPAND calcDomainMetricsMethod FOR editorGen»«ENDIF»
 «ENDDEFINE»
 
 
@@ -207,10 +207,10 @@ public class «metricProviderClassName» {
 
 «DEFINE calcNotationMetricsMethod FOR gmfgen::GenEditorGenerator-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	static void calculateNotationElementMetrics(org.eclipse.gmf.runtime.notation.Diagram diagram, java.util.List/*<ElementMetrics>*/ metricsList) {
+	static void calculateNotationElementMetrics(org.eclipse.gmf.runtime.notation.Diagram diagram, «EXPAND CodeStyle::G('java.util.List', 'ElementMetrics') FOR diagram» metricsList) {
 		ElementMetrics row = null;
 «LET getNotationMetrics(metrics)->select(m | m.target.oclAsType(gmfgen::GenNotationElementTarget).element.ecoreClass.name = 'Diagram') AS diagramMetrics-»
-«IF not diagramMetrics->isEmpty()-»
+«IF diagramMetrics->notEmpty()-»
 		row = new ElementMetrics(diagram, formatViewName(diagram), new Metric[] {
 «EXPAND metricResult('diagram', false) FOREACH diagramMetrics SEPARATOR ',\n'»
 		});
@@ -221,7 +221,7 @@ public class «metricProviderClassName» {
 «LET getNotationMetrics(metrics)->collect(m | m.target.oclAsType(gmfgen::GenNotationElementTarget).element)->asOrderedSet() AS notationTargets»
 		for (java.util.Iterator it = diagram.eAllContents(); it.hasNext(); ) {
 			Object next = it.next();
-«FOREACH (notationTargets)[genmodel::GenClass]->asSequence() AS nt-»
+«FOREACH notationTargets[genmodel::GenClass] AS nt-»
 			if («EXPAND MetaModel::IsInstance('next') FOR nt») {
 				«EXPAND MetaModel::DeclareAndAssign('_' + nt.ecoreClass.name.toLower(), 'next', true) FOR nt»
 				row = new ElementMetrics(«'_' + nt.ecoreClass.name.toLower()», formatViewName(«'_' + nt.ecoreClass.name.toLower()»), new Metric[] {«-»
@@ -240,7 +240,7 @@ public class «metricProviderClassName» {
 
 «DEFINE calcDiagramMetricsMethod FOR gmfgen::GenEditorGenerator-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	static void calculateDiagramElementMetrics(org.eclipse.gmf.runtime.notation.Diagram diagram, java.util.List/*<ElementMetrics>*/ metricsList) {
+	static void calculateDiagramElementMetrics(org.eclipse.gmf.runtime.notation.Diagram diagram, «EXPAND CodeStyle::G('java.util.List', 'ElementMetrics') FOR diagram» metricsList) {
 		org.eclipse.emf.ecore.EObject next = diagram;
 		java.util.Iterator/*<EObject>*/ it = diagram.eAllContents();
 		do {
@@ -278,16 +278,16 @@ public class «metricProviderClassName» {
  */
 «DEFINE calcDomainMetricsMethod FOR gmfgen::GenEditorGenerator»
 	«EXPAND xpt::Common::generatedMemberComment('NOTE: metrics are being collected for domain elements contained in the semantic element associated with diagram view, actual diagram content (elements present there) is not taken into account.')»
-	static void calculateSemanticElementMetrics(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, java.util.List/*<ElementMetrics>*/ metricsList) {
+	static void calculateSemanticElementMetrics(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, «EXPAND CodeStyle::G('java.util.List', 'ElementMetrics') FOR diagram» metricsList) {
 		org.eclipse.gmf.runtime.notation.Diagram diagram = diagramEditPart.getDiagramView();
 		org.eclipse.emf.ecore.EObject next = diagram.getElement();
 		java.util.Iterator/*<EObject>*/ it = next != null ? next.eAllContents() : java.util.Collections.EMPTY_LIST.iterator();
-		java.util.HashMap/*<EObject, ElementMetrics>*/ target2row = new java.util.HashMap/*<EObject, ElementMetrics>*/();
+		«EXPAND CodeStyle::newGenericInstance2('target2row', 'java.util.HashMap', 'org.eclipse.emf.ecore.EObject', 'ElementMetrics') FOR diagram»();
 		while (next != null) {
-			java.util.ArrayList/*<Metric>*/ res = new java.util.ArrayList/*<Metric>*/(5);
-«FOREACH ((metrics.metrics.target)[gmfgen::GenDomainElementTarget].element->asOrderedSet()->asSequence())[genmodel::GenClass] AS e-»
+			«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList','Metric', 'res') FOR diagram»(5);
+«FOREACH metrics.metrics.target[gmfgen::GenDomainElementTarget].element[genmodel::GenClass] AS e-»
 			if («EXPAND MetaModel::MetaClass FOR e».isInstance(next)) {
-«FOREACH metrics.metrics->select(m | m.target.getContext() = e)->asSequence() AS m-»
+«FOREACH metrics.metrics->select(m | m.target.getContext() = e) AS m-»
 				res.add(«EXPAND metricResult('next', true) FOR m»);
 «ENDFOREACH-»
 			}

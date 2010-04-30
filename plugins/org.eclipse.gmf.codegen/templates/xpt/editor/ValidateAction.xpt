@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2009 Borland Software Corporation
+ * Copyright (c) 2007, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -210,10 +210,9 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		}
 		final org.eclipse.core.runtime.IStatus rootStatus = validationStatus;
 		java.util.List allStatuses = new java.util.ArrayList();
-		«getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap element2ViewMap =
-				new «getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap(
+		«getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap element2ViewMap = new «getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap(
 						diagramEditPart.getDiagramView(),
-						collectTargetElements(rootStatus, new java.util.HashSet(), allStatuses));
+						collectTargetElements(rootStatus, new «EXPAND CodeStyle::G('java.util.HashSet', 'org.eclipse.emf.ecore.EObject')»(), allStatuses));
 		for (java.util.Iterator it = allStatuses.iterator(); it.hasNext();) {
 			org.eclipse.emf.validation.model.IConstraintStatus nextStatus =
 					(org.eclipse.emf.validation.model.IConstraintStatus) it.next();
@@ -242,7 +241,7 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 		«getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap element2ViewMap =
 				new «getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap(
 						diagramEditPart.getDiagramView(),
-						collectTargetElements(rootStatus, new java.util.HashSet(), allDiagnostics));
+						collectTargetElements(rootStatus, new «EXPAND CodeStyle::G('java.util.HashSet', 'org.eclipse.emf.ecore.EObject')»(), allDiagnostics));
 		for (java.util.Iterator it = emfValidationStatus.getChildren().iterator(); it.hasNext();) {
 			org.eclipse.emf.common.util.Diagnostic nextDiagnostic = (org.eclipse.emf.common.util.Diagnostic) it.next();
 			java.util.List data = nextDiagnostic.getData();
@@ -299,8 +298,8 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 «DEFINE collectTargetElementsFromStatus FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static java.util.Set collectTargetElements(org.eclipse.core.runtime.IStatus status,
-			java.util.Set targetElementCollector, java.util.List allConstraintStatuses) {
+	private static «EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.emf.ecore.EObject')» collectTargetElements(org.eclipse.core.runtime.IStatus status,
+			«EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.emf.ecore.EObject')» targetElementCollector, java.util.List allConstraintStatuses) {
 		if (status instanceof org.eclipse.emf.validation.model.IConstraintStatus) {
 			targetElementCollector.add(((org.eclipse.emf.validation.model.IConstraintStatus) status).getTarget());
 			allConstraintStatuses.add(status);
@@ -318,8 +317,8 @@ public class «EXPAND className» extends org.eclipse.jface.action.Action {
 «DEFINE collectTargetElementsFromDiagnostic FOR gmfgen::GenDiagram-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private static java.util.Set collectTargetElements(org.eclipse.emf.common.util.Diagnostic diagnostic,
-			java.util.Set targetElementCollector, java.util.List allDiagnostics) {
+	private static «EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.emf.ecore.EObject')» collectTargetElements(org.eclipse.emf.common.util.Diagnostic diagnostic,
+			«EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.emf.ecore.EObject')» targetElementCollector, java.util.List allDiagnostics) {
 		java.util.List data = diagnostic.getData();
 		org.eclipse.emf.ecore.EObject target = null;
 		if (data != null && !data.isEmpty() && data.get(0) instanceof org.eclipse.emf.ecore.EObject) {
