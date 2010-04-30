@@ -333,12 +333,12 @@ public DropTargetListener(org.eclipse.gef.EditPartViewer viewer, org.eclipse.swt
 	«EXPAND xpt::Common::generatedMemberComment»
 protected java.util.List getObjectsBeingDropped() {
 	org.eclipse.swt.dnd.TransferData data = getCurrentEvent().currentDataType;
-	java.util.Collection uris = new java.util.HashSet();
+	«EXPAND CodeStyle::newGenericInstance('uris', 'java.util.HashSet', 'org.eclipse.emf.common.util.URI') FOR editorGen.diagram»();
 
 	Object transferedObject = getJavaObject(data);
 	if (transferedObject instanceof org.eclipse.jface.viewers.IStructuredSelection) {
 		org.eclipse.jface.viewers.IStructuredSelection selection = (org.eclipse.jface.viewers.IStructuredSelection) transferedObject;
-		for (java.util.Iterator it = selection.iterator(); it.hasNext();) {
+		for («EXPAND CodeStyle::G('java.util.Iterator', '?') FOR editorGen.diagram» it = selection.iterator(); it.hasNext();) {
 			Object nextSelectedObject = it.next();
 «REM»
 	TODO: move NavigatorItem to some place available in runtime and remove 
@@ -354,15 +354,13 @@ protected java.util.List getObjectsBeingDropped() {
 
 			if (nextSelectedObject instanceof org.eclipse.emf.ecore.EObject) {
 				org.eclipse.emf.ecore.EObject modelElement = (org.eclipse.emf.ecore.EObject) nextSelectedObject;
-				org.eclipse.emf.ecore.resource.Resource modelElementResource = modelElement.eResource();
-				uris.add(modelElementResource.getURI().appendFragment(modelElementResource.getURIFragment(modelElement)));	
+				uris.add(org.eclipse.emf.ecore.util.EcoreUtil.getURI(modelElement));	
 			}
 		}
 	}
 
-	java.util.List result = new java.util.ArrayList();
-	for (java.util.Iterator it = uris.iterator(); it.hasNext();) {
-		org.eclipse.emf.common.util.URI nextURI = (org.eclipse.emf.common.util.URI) it.next();
+	«EXPAND CodeStyle::newGenericInstance('result', 'java.util.ArrayList', 'org.eclipse.emf.ecore.EObject') FOR editorGen.diagram»(uris.size());
+	«EXPAND CodeStyle::iterate('nextURI', 'org.eclipse.emf.common.util.URI', 'uris') FOR editorGen.diagram -»
 		org.eclipse.emf.ecore.EObject modelObject = getEditingDomain().getResourceSet().getEObject(nextURI, true);
 		result.add(modelObject);
 	}
