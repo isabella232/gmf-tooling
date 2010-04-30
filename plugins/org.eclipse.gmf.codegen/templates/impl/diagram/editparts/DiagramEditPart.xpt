@@ -28,8 +28,8 @@
 	«IF generateCreateShortcutAction() and null = editorGen.application-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {
 			public org.eclipse.gef.commands.Command getDropObjectsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
-				java.util.List viewDescriptors = new java.util.ArrayList();
-				for (java.util.Iterator it = dropRequest.getObjects().iterator(); it.hasNext();) {
+				«EXPAND CodeStyle::newGenericInstance('viewDescriptors', 'java.util.ArrayList', 'org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor')»();
+				for («EXPAND CodeStyle::G('java.util.Iterator', '?')» it = dropRequest.getObjects().iterator(); it.hasNext();) {
 					Object nextObject = it.next();
 					if (false == nextObject instanceof org.eclipse.emf.ecore.EObject) {
 						continue;
@@ -39,7 +39,7 @@
 				return createShortcutsCommand(dropRequest, viewDescriptors);
 			}
 
-			private org.eclipse.gef.commands.Command createShortcutsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest, java.util.List viewDescriptors) {
+			private org.eclipse.gef.commands.Command createShortcutsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor')» viewDescriptors) {
 				org.eclipse.gef.commands.Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
 				if (command != null) {
 					return command.chain(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new «getCreateShortcutDecorationsCommandQualifiedClassName()»(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getModel(), viewDescriptors)));
