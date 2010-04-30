@@ -25,23 +25,7 @@
 	super.createDefaultEditPolicies();
 	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»());
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
-	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new org.eclipse.gef.editpolicies.NonResizableEditPolicy() {
-
-		protected java.util.List createSelectionHandles() {
-			java.util.List handles = new java.util.ArrayList();
-			org.eclipse.gef.handles.NonResizableHandleKit.addMoveHandle((org.eclipse.gef.GraphicalEditPart) getHost(), handles);
-			((org.eclipse.gef.handles.MoveHandle) handles.get(0)).setBorder(null);
-			return handles;
-		}
-
-		public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
-			return null;
-		}
-
-		public boolean understandsRequest(org.eclipse.gef.Request request) {
-			return false;
-		}
-	});
+	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «getDiagram().getEditPartQualifiedClassName()».NodeLabelDragPolicy());
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
 «ENDDEFINE»
 
@@ -67,4 +51,29 @@
 	«ENDIF-»
 	«EXPAND xpt::diagram::editparts::Common::handleText FOR self-»
 	super.handleNotificationEvent(event);
+«ENDDEFINE»
+
+// For now, nested class in Diagram's EditPart class, should graduate to top-level (or even runtime)  
+«DEFINE nodeLabelDragPolicyClass FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	/*package-local*/ static class NodeLabelDragPolicy extends org.eclipse.gef.editpolicies.NonResizableEditPolicy {
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::SuppressWarnings('"rawtypes"')-»
+		protected java.util.List createSelectionHandles() {
+			org.eclipse.gef.handles.MoveHandle h = new org.eclipse.gef.handles.MoveHandle((org.eclipse.gef.GraphicalEditPart) getHost());«REM»org.eclipse.gef.handles.NonResizableHandleKit.moveHandle is better but has return type that needs recast«ENDREM»
+			h.setBorder(null);
+			return java.util.Collections.singletonList(h);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public org.eclipse.gef.commands.Command getCommand(org.eclipse.gef.Request request) {
+			return null;
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		public boolean understandsRequest(org.eclipse.gef.Request request) {
+			return false;
+		}
+	}
 «ENDDEFINE»

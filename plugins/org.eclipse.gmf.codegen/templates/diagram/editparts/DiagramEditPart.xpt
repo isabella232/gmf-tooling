@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -27,6 +27,13 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsLis
 	«EXPAND createDefaultEditPolicies-»
 	
 	«EXPAND impl::diagram::editparts::DiagramEditPart::createFigure-»
+«IF getAllNodes()->exists(n | n.labels->exists(not oclIsKindOf(gmfgen::GenExternalNodeLabel))) /*iow, NodeLabelEditPart template (GenNodeLabel target) will require this EditPolicy*/-»
+	«EXPAND impl::diagram::editparts::NodeLabelEditPart::nodeLabelDragPolicyClass»
+«ENDIF-»
+
+«IF links->exists(labels->notEmpty())-»
+	«EXPAND impl::diagram::editparts::LinkLabelEditPart::linkLabelDragPolicyClass»
+«ENDIF-»
 
 	«EXPAND additions-»
 }
@@ -48,18 +55,6 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsLis
 	protected void createDefaultEditPolicies() {
 		«EXPAND impl::diagram::editparts::DiagramEditPart::createDefaultEditPoliciesBody-»
 	}
-«ENDDEFINE»
-
-«DEFINE definionName FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
-
-«DEFINE definionName FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
-
-«DEFINE definionName FOR gmfgen::GenDiagram-»
-«ENDDEFINE»
-
-«DEFINE definionName FOR gmfgen::GenDiagram-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»
