@@ -109,7 +109,7 @@ org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.
 «ELSE-»
 «LET (if genNodes->isEmpty() then 'LinkToolEntry' else 'NodeToolEntry' endif) AS toolEntryClass-»
 «IF elements->size() > 1-»
-«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types') FOR elements->any(true)»(«elements->size()»);
+«EXPAND CodeStyle::newGenericInstance('types', 'java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR elements->any(true)»(«elements->size()»);
 «FOREACH elements->asSequence() AS e-»
 types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR e»);
 «ENDFOREACH-»

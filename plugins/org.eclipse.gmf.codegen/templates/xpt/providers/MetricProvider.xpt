@@ -90,7 +90,7 @@ public class «metricProviderClassName» {
 
 					public void run() {
 						org.eclipse.gmf.runtime.notation.Diagram diagram = diagramEditPart.getDiagramView();
-						«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'ElementMetrics', 'metrics')»(50);
+						«EXPAND CodeStyle::newGenericInstance('metrics', 'java.util.ArrayList', 'ElementMetrics')»(50);
 «IF getNotationMetrics(editorGen.metrics)->notEmpty()-»
 						calculateNotationElementMetrics(diagram, metrics);
 «ENDIF-»
@@ -284,7 +284,7 @@ public class «metricProviderClassName» {
 		java.util.Iterator/*<EObject>*/ it = next != null ? next.eAllContents() : java.util.Collections.EMPTY_LIST.iterator();
 		«EXPAND CodeStyle::newGenericInstance2('target2row', 'java.util.HashMap', 'org.eclipse.emf.ecore.EObject', 'ElementMetrics') FOR diagram»();
 		while (next != null) {
-			«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList','Metric', 'res') FOR diagram»(5);
+			«EXPAND CodeStyle::newGenericInstance('res', 'java.util.ArrayList','Metric') FOR diagram»(5);
 «FOREACH metrics.metrics.target[gmfgen::GenDomainElementTarget].element[genmodel::GenClass] AS e-»
 			if («EXPAND MetaModel::MetaClass FOR e».isInstance(next)) {
 «FOREACH metrics.metrics->select(m | m.target.getContext() = e) AS m-»

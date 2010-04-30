@@ -331,7 +331,7 @@ public class «diagramEditorUtilClassName» {
 		}
 		
 		org.eclipse.gmf.runtime.notation.View view = null;
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gef.EditPart', 'editPartHolder')»();
+		«EXPAND CodeStyle::newGenericInstance('editPartHolder', 'java.util.LinkedList', 'org.eclipse.gef.EditPart')»();
 		if(hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
 			view = «EXPAND CodeStyle::castTyped('org.eclipse.gmf.runtime.notation.View')»lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
 		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, editPartHolder) > 0) {

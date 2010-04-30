@@ -87,7 +87,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.emf.edit.provider.ComposedAdapterFactory createAdapterFactory() {
-		«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.emf.common.notify.AdapterFactory', 'factories') FOR editorGen.diagram»();
+		«EXPAND CodeStyle::newGenericInstance('factories', 'java.util.ArrayList', 'org.eclipse.emf.common.notify.AdapterFactory') FOR editorGen.diagram»();
 		fillItemProviderFactories(factories);
 		return new org.eclipse.emf.edit.provider.ComposedAdapterFactory(factories);
 	}

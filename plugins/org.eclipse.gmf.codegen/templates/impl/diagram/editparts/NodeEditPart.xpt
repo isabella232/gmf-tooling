@@ -450,7 +450,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 		}
 	}
 «ENDDEFINE»
-
+ 
 «DEFINE setLineWidth FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void setLineWidth(int width) {
@@ -482,7 +482,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE getMARelTypesOnSource FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')» getMARelTypesOnSource() {
-		«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»(«getAssistantOutgoingLinks(self)->size()»);
+		«EXPAND CodeStyle::newGenericInstance('types', 'java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')»(«getAssistantOutgoingLinks(self)->size()»);
 		«FOREACH getAssistantOutgoingLinks(self) AS link-»
 		types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
 		«ENDFOREACH-»
@@ -494,7 +494,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE getMARelTypesOnTarget FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')» getMARelTypesOnTarget() {
-		«EXPAND CodeStyle::newGenericInstance('java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»(«getAssistantIncomingLinks(self)->size()»);
+		«EXPAND CodeStyle::newGenericInstance('types', 'java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')»(«getAssistantIncomingLinks(self)->size()»);
 		«FOREACH getAssistantIncomingLinks(self) AS link-»
 		types.add(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»);
 		«ENDFOREACH-»
@@ -506,7 +506,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE getMARelTypesOnSourceAndTarget FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')» getMARelTypesOnSourceAndTarget(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart targetEditPart) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»();
+		«EXPAND CodeStyle::newGenericInstance('types', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')»();
 		«FOREACH getAssistantOutgoingLinks(self) AS link-»
 			«FOREACH selectGenNodes(link.targets) AS target-»
 		if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
@@ -522,7 +522,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE getMATypesForSource FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')» getMATypesForSource(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»();
+		«EXPAND CodeStyle::newGenericInstance('types', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')»();
 		«FOREACH getAssistantIncomingLinks(self) AS link SEPARATOR ' else '-»
 		if (relationshipType == «EXPAND xpt::providers::ElementTypes::accessElementType FOR link») {
 			«FOREACH selectGenNodes(link.sources) AS source-»
@@ -538,7 +538,7 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE getMATypesForTarget FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')» getMATypesForTarget(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'types')»();
+		«EXPAND CodeStyle::newGenericInstance('types', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')»();
 		«FOREACH getAssistantOutgoingLinks(self) AS link SEPARATOR ' else '-»
 		if (relationshipType == «EXPAND xpt::providers::ElementTypes::accessElementType FOR link») {
 			«FOREACH selectGenNodes(link.targets) AS target-»

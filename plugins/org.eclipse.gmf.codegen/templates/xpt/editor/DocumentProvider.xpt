@@ -337,7 +337,7 @@ protected void disposeElementInfo(Object element, ElementInfo info) {
 protected void doValidateState(Object element, Object computationContext) throws org.eclipse.core.runtime.CoreException {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.resources.IFile', 'files2Validate')»();
+		«EXPAND CodeStyle::newGenericInstance('files2Validate', 'java.util.LinkedList', 'org.eclipse.core.resources.IFile')»();
 		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null && file.isReadOnly()) {
@@ -443,7 +443,7 @@ public boolean isSynchronized(Object element) {
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'rules')»();
+		«EXPAND CodeStyle::newGenericInstance('rules', 'java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule')»();
 		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -461,7 +461,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getResetRule(Object elem
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'rules')»();
+		«EXPAND CodeStyle::newGenericInstance('rules', 'java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule')»();
 		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -479,7 +479,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSaveRule(Object eleme
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'rules')»();
+		«EXPAND CodeStyle::newGenericInstance('rules', 'java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule')»();
 		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {
@@ -497,7 +497,7 @@ protected org.eclipse.core.runtime.jobs.ISchedulingRule getSynchronizeRule(Objec
 protected org.eclipse.core.runtime.jobs.ISchedulingRule getValidateStateRule(Object element) {
 	ResourceSetInfo info = getResourceSetInfo(element);
 	if (info != null) {
-		«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule', 'files')»();
+		«EXPAND CodeStyle::newGenericInstance('files', 'java.util.LinkedList', 'org.eclipse.core.runtime.jobs.ISchedulingRule')»();
 		«EXPAND CodeStyle::iterate('nextResource', 'org.eclipse.emf.ecore.resource.Resource', 'it', 'info.getLoadedResourcesIterator()')-»
 			org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(nextResource);
 			if (file != null) {

@@ -76,7 +76,7 @@ protected class ResourceSetInfo extends ElementInfo {
 		private org.eclipse.emf.workspace.util.WorkspaceSynchronizer mySynchronizer;
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private «EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.emf.ecore.resource.Resource', 'myUnSynchronizedResources')»();
+		private «EXPAND CodeStyle::newGenericInstance('myUnSynchronizedResources', 'java.util.LinkedList', 'org.eclipse.emf.ecore.resource.Resource')»();
 	
 	«ENDIF-»
 	«EXPAND xpt::Common::generatedMemberComment»

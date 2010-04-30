@@ -40,7 +40,7 @@ protected void refreshSemantic() {
 	if (resolveSemanticElement() == null) {
 		return;
 	}
-	«EXPAND CodeStyle::newGenericInstance('java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable', 'createdViews')»();
+	«EXPAND CodeStyle::newGenericInstance('createdViews', 'java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable')»();
 	«EXPAND impl::diagram::update::CanonicalUpdate::refreshSemanticChildren('createdViews', editorGen.diagramUpdater)-»
 
 	«IF links->notEmpty()-»
