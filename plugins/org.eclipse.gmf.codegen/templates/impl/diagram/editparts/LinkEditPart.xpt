@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2006, 2009 Borland Software Corporation
+ * Copyright (c) 2006, 2010 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,20 +30,19 @@
 «ENDDEFINE»
 
 «DEFINE addFixedChild FOR gmfgen::GenLink-»
-	«IF labels->size() > 0-»
-		«EXPAND xpt::Common::generatedMemberComment»
-		protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
-			«FOREACH labels->asSequence() AS label-»
-				«EXPAND addLabel(label) FOR label.viewmap-»
-			«ENDFOREACH-»
-			return false;
-		}
-	«ENDIF»
+«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) -»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
+		«FOREACH labels AS label-»
+			«EXPAND addLabel(label) FOR label.viewmap-»
+		«ENDFOREACH-»
+		return false;
+	}
+«ENDIF»
 «ENDDEFINE»
 
-«DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap-»
-«ENDDEFINE»
-
+// Note, condition in addFixedChild template above should be changed if addLabel support added for Viewmaps other than ParentAssignedViewmap
+«DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap»«ENDDEFINE»
 «DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ParentAssignedViewmap-»
 	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
 		((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName»(
@@ -53,20 +52,19 @@
 «ENDDEFINE»
 
 «DEFINE removeFixedChild FOR gmfgen::GenLink-»
-	«IF labels->size() > 0-»
-		«EXPAND xpt::Common::generatedMemberComment»
-		protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
-			«FOREACH labels->asSequence() AS label-»
-				«EXPAND removeLabel(label) FOR label.viewmap-»
-			«ENDFOREACH-»
-			return false;
-		}
-	«ENDIF»
+«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap))-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
+		«FOREACH labels AS label-»
+			«EXPAND removeLabel(label) FOR label.viewmap-»
+		«ENDFOREACH-»
+		return false;
+	}
+«ENDIF»
 «ENDDEFINE»
 
-«DEFINE removeLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap-»
-«ENDDEFINE»
-
+// Note, condition in removeFixedChild template above should be changed if removeLabel support added for Viewmaps other than ParentAssignedViewmap
+«DEFINE removeLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap»«ENDDEFINE»
 «DEFINE removeLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ParentAssignedViewmap-»
 	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
 		return true;
@@ -74,27 +72,27 @@
 «ENDDEFINE»
 
 «DEFINE addChildVisual FOR gmfgen::GenLink-»
-	«IF labels->size() > 0-»
-		«EXPAND xpt::Common::generatedMemberComment»
-		protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
-			if (addFixedChild(childEditPart)) {
-				return;
-			}
-			super.addChildVisual(childEditPart, -1);
+«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) -»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
 		}
-	«ENDIF»
+		super.addChildVisual(childEditPart, index);
+	}
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE removeChildVisual FOR gmfgen::GenLink-»
-	«IF labels->size() > 0-»
-		«EXPAND xpt::Common::generatedMemberComment»
-		protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
-			if (removeFixedChild(childEditPart)) {
-				return;
-			}
-			super.removeChildVisual(childEditPart);
+«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) -»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
 		}
-	«ENDIF»
+		super.removeChildVisual(childEditPart);
+	}
+«ENDIF»
 «ENDDEFINE»
 
 «DEFINE createLinkFigure FOR gmfgen::GenLink-»
