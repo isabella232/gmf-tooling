@@ -19,6 +19,8 @@
 «DEFINE body FOR gmfgen::GenContainerBase-»
 	«EXPAND attributes-»
 
+	«EXPAND refreshOnActivateMethod-»
+
 	«EXPAND getFeaturesToSynchronizeMethod-»
 	
 	«EXPAND getSemanticChildrenListMethod-»
@@ -37,6 +39,25 @@
 «ENDIF-»
 «ENDDEFINE»
 
+«REM»
+	The canonical update mechanism of the GMF Runtime heavily depends on EditPart listeners being registered
+	prior to actual canonical update (thus, any change from this policy gets known to the interested EditParts.
+	NodeEditPart.activate() installs a transaction post-commit listener that refreshes the edit part. Canonical EditPolicy 
+	is installed on a top (diagram) element, and its activation happens before diagram children get activated (and have a chance
+	to install their listeners). Hence this what I believe to be an questionable hack (at least, GEF's 
+	activation sequence gets violated). See bugzilla https://bugs.eclipse.org/bugs/show_bug.cgi?id=314670  
+«ENDREM»
+«DEFINE refreshOnActivateMethod FOR gmfgen::GenContainerBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void refreshOnActivate() {
+		// Need to activate editpart children before invoking the canonical refresh for EditParts to add event listeners
+		«EXPAND CodeStyle::G('java.util.List', '?')» c = getHost().getChildren();
+		for (int i = 0; i < c.size(); i++) {
+			((org.eclipse.gef.EditPart) c.get(i)).activate();
+		}
+		super.refreshOnActivate();
+	}
+«ENDDEFINE»
 
 «DEFINE getFeaturesToSynchronizeMethod FOR gmfgen::GenContainerBase-»
 «IF getSemanticChildrenChildFeatures(self)->size() = 1-»
@@ -303,6 +324,7 @@ private «EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.g
 «EXPAND xpt::Common::generatedMemberComment»
 private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.IAdaptable')»  createConnections(«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
 	«EXPAND CodeStyle::newGenericInstance('adapters', 'java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable')»();
+	«EXPAND CodeStyle::newGenericInstance('toRefresh', 'java.util.HashSet', 'org.eclipse.gef.EditPart')»();
 	«EXPAND CodeStyle::iterate('nextLinkDescriptor', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'linkDescriptors')-»
 		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
@@ -323,7 +345,12 @@ private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.
 			if (viewAdapter != null) {
 				adapters.add(viewAdapter);
 			}
+			toRefresh.add(sourceEditPart);
+			toRefresh.add(targetEditPart);
 		}
+	}
+	«EXPAND CodeStyle::iterate('ep', 'org.eclipse.gef.EditPart', 'toRefresh')-»
+			ep.refresh();
 	}
 	return adapters;
 }
