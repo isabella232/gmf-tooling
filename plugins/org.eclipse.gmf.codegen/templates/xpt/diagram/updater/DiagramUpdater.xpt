@@ -101,7 +101,7 @@ public static «EXPAND CodeStyle::G('java.util.List', getDiagram().editorGen.dia
 		«ENDFOREACH-»
 «IF self.getPhantomNodes()->notEmpty()-»
 	org.eclipse.emf.ecore.resource.Resource resource = modelElement.eResource();
-	«EXPAND CodeStyle::iterate('childElement', 'org.eclipse.emf.ecore.EObject', 'getPhantomNodesIterator(resource)')-»
+	«EXPAND CodeStyle::iterate('childElement', 'org.eclipse.emf.ecore.EObject', 'it', 'getPhantomNodesIterator(resource)')-»
 		if (childElement == modelElement) {
 			continue;
 		}
