@@ -82,6 +82,8 @@ For purposes of the EPL, &quot;Program&quot; will mean the Content.
          version="0.0.0"
          unpack="false"/>
 
+<!--
+
    <plugin
          id="net.sourceforge.lpg.lpgjavaruntime"
          download-size="0"
@@ -95,7 +97,7 @@ For purposes of the EPL, &quot;Program&quot; will mean the Content.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
+-->
    <plugin
          id="org.eclipse.gmf.xpand.qvtlibrary"
          download-size="0"
