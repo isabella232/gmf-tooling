@@ -35,6 +35,8 @@
 			<property name="report" value="${plugin-name}" />
 			<property name="classname" value="${classname}" />
 			<property name="vmargs" value="-ea -XX:MaxPermSize=128m -Xmx1024m" />
+			<!-- [MG] - trying to fix N201103291303 -->
+			<property name="junit-stylesheet" value="${eclipse-home}/plugins/org.eclipse.test/JUNIT.XSL" />
 		</ant>
 	</target>
 
