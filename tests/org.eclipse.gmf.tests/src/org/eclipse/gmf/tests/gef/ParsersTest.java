@@ -305,7 +305,7 @@ public class ParsersTest extends TestCase {
 		Object epInstance = epc.getConstructor(View.class).newInstance(notationElement);
 		IParser p = (IParser) epc.getMethod("getParser").invoke(epInstance);
 		assertNotNull(p);
-		assertEquals("org.eclipse.gmf.runtime.diagram.ui.providers.internal.parsers.DescriptionParser", p.getClass().getName());
+		assertEquals("org.eclipse.gmf.runtime.diagram.ui.providers.parsers.DescriptionParser", p.getClass().getName());
 	}
 	
 	public void testExpressionLabelParser() throws Exception {
