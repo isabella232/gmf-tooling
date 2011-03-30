@@ -383,7 +383,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		assertTrue(file_cp2.exists());
 	}
 
-	public void testAntScriptEmitsSameStructure() throws Exception {
+	public void _testAntScriptEmitsSameStructure() throws Exception {
 		Mapping mapping = myMapSource.getMapping();
 		//
 		// metrics
@@ -437,7 +437,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		testAntScriptEmitsSameStructure(s);
 	}
 
-	public void testAntScriptEmitsSameStructure_rcp() throws Exception {
+	public void _testAntScriptEmitsSameStructure_rcp() throws Exception {
 		testAntScriptEmitsSameStructure(createLibraryGen(true));
 	}
 
