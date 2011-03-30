@@ -34,7 +34,6 @@
 			<property name="classname" value="${classname}" />
 			<property name="vmargs" value="-ea -XX:MaxPermSize=128m -Xmx1024m" />
 			<property name="junit-stylesheet" value="${eclipse-home}/plugins/org.eclipse.test/JUNIT.XSL" />
-			<!-- [MG] - trying to fix N201103300658 - get rid of jacoco-related params -->
 			<property name="extraVMargs" value=""/>
 		</ant>
 	</target>
