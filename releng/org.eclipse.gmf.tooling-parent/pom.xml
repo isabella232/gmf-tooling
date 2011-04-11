@@ -99,7 +99,7 @@
 		<module>../../features/org.eclipse.gmf.examples.pde-feature</module>
 		
 		<!-- Repo -->
-		<!-- module>../org.eclipse.gmf.updatesite</module -->
+		<module>../org.eclipse.gmf.updatesite</module>
 		
 		<!-- tests, should be a separate build against newly built repo,
 			to test also created repo (whole distribution) -->
