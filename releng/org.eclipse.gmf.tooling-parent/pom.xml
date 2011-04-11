@@ -106,9 +106,9 @@
 		<!-- module>../../features/org.eclipse.gmf.tests.experimental-feature</module -->
 		<!-- module>../../features/org.eclipse.gmf.tests-feature</module>
 		< module>../../tests/org.eclipse.gmf.tests</module>
-		<module>../../tests/org.eclipse.gmf.tests.lite</module-->
+		<module>../../tests/org.eclipse.gmf.tests.lite</module>
 		<module>../../tests/org.eclipse.gmf.tests.xpand</module>
-		<!--module>../../tests/org.eclipse.gmf.tests.xpand.migration</module-->
+		<module>../../tests/org.eclipse.gmf.tests.xpand.migration</module-->
 		
 	</modules>
 
