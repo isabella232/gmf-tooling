@@ -19,8 +19,10 @@
 				<groupId>org.sonatype.tycho</groupId>
 				<artifactId>maven-osgi-test-plugin</artifactId>
 				<configuration>
-					<testSuite>org.eclipse.gmf.tests</testSuite>
-					<testClass>org.eclipse.gmf.tests.AllTests</testClass>
+					<!-- testSuite>org.eclipse.gmf.tests</testSuite>
+					<testClass>org.eclipse.gmf.tests.AllTests</testClass-->
+					<useUIHarness>true</useUIHarness>
+        			<useUIThread>true</useUIThread>
 					<argLine>-Xmx512m</argLine>
 					<bundleStartLevel>
 						<bundle>

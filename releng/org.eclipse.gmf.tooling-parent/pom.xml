@@ -53,9 +53,9 @@
 		<module>../../features/org.eclipse.gmf.europa-feature</module>
 		<module>../../features/org.eclipse.gmf.platform-feature</module>
 		<module>../../features/org.eclipse.gmf.sdk.experimental-feature</module>
-		<module>../../features/org.eclipse.gmf.sdk-feature</module>
+		<module>../../features/org.eclipse.gmf.sdk-feature</module-->
 		<module>../../features/org.eclipse.gmf.tooling-feature</module>
-		<module>../../features/org.eclipse.gmf.xpand-feature</module -->
+		<!-- module>../../features/org.eclipse.gmf.xpand-feature</module -->
 
 		<!-- examples -->
 		<!-- module>../../examples/org.eclipse.gmf.ecore.editor</module -->
@@ -104,11 +104,11 @@
 		<!-- tests, should be a separate build against newly built repo,
 			to test also created repo (whole distribution) -->
 		<!-- module>../../features/org.eclipse.gmf.tests.experimental-feature</module -->
-		<!-- module>../../features/org.eclipse.gmf.tests-feature</module>
-		< module>../../tests/org.eclipse.gmf.tests</module>
+		<!-- module>../../features/org.eclipse.gmf.tests-feature</module-->
+		<module>../../tests/org.eclipse.gmf.tests</module>
 		<module>../../tests/org.eclipse.gmf.tests.lite</module>
 		<module>../../tests/org.eclipse.gmf.tests.xpand</module>
-		<module>../../tests/org.eclipse.gmf.tests.xpand.migration</module-->
+		<module>../../tests/org.eclipse.gmf.tests.xpand.migration</module>
 		
 	</modules>
 
