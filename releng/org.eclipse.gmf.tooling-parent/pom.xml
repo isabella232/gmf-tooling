@@ -9,7 +9,7 @@
 	<description>Parent project for GMF Tooling build</description>
 
 	<properties>
-		<tycho-version>0.10.0</tycho-version>
+		<tycho-version>0.11.1</tycho-version>
 	</properties>
 
 	<modules>

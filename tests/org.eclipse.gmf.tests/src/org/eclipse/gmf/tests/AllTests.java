@@ -55,11 +55,69 @@ import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
 import org.eclipse.gmf.tests.validate.AllValidateTests;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.IJavaModelMarker;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.osgi.baseadaptor.BaseData;
+import org.eclipse.osgi.framework.internal.core.AbstractBundle;
+import org.eclipse.pde.internal.core.PDECore;
+import org.eclipse.pde.internal.core.target.TargetPlatformService;
+import org.eclipse.pde.internal.core.target.provisional.IBundleContainer;
+import org.eclipse.pde.internal.core.target.provisional.ITargetDefinition;
+import org.eclipse.pde.internal.core.target.provisional.ITargetPlatformService;
+import org.eclipse.pde.internal.core.target.provisional.LoadTargetDefinitionJob;
+import org.osgi.framework.Bundle;
+import java.io.File;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class AllTests {
 
+	public static void setTargetPlatform() throws Exception {
+		ITargetPlatformService tpService = TargetPlatformService.getDefault();
+		ITargetDefinition targetDef = tpService.newTarget();
+		targetDef.setName("Tycho platform");
+		Bundle[] bundles =  Platform.getBundle("org.eclipse.core.runtime").getBundleContext().getBundles();
+		List<IBundleContainer> bundleContainers = new ArrayList<IBundleContainer>();
+		Set<File> dirs = new HashSet<File>();
+		for (Bundle bundle : bundles) {
+			AbstractBundle aBundle = (AbstractBundle)bundle;
+			final BaseData bundleData = (BaseData)aBundle.getBundleData();
+			File file = bundleData.getBundleFile().getBaseFile();
+			File folder = file.getParentFile(); 
+			if (!dirs.contains(folder)) {
+				dirs.add(folder);
+				bundleContainers.add(tpService.newDirectoryContainer(folder.getAbsolutePath()));
+			}
+		}
+		targetDef.setBundleContainers(bundleContainers.toArray(new IBundleContainer[0]));
+		targetDef.setArch(Platform.getOSArch());
+		targetDef.setOS(Platform.getOS());
+		targetDef.setWS(Platform.getWS());
+		targetDef.setNL(Platform.getNL());
+		//targetDef.setJREContainer()
+		tpService.saveTargetDefinition(targetDef);
+		LoadTargetDefinitionJob.load(targetDef);
+	}
+	
 	public static Test suite() throws Exception {
+
+		if (System.getProperty("buildingWithTycho") != null) {
+			System.err.println("Generating a target platform");
+			setTargetPlatform();
+		}
+		
+		
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = LinksSessionSetup.newInstance();

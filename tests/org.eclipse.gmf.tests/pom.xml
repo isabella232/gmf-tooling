@@ -19,11 +19,11 @@
 				<groupId>org.sonatype.tycho</groupId>
 				<artifactId>maven-osgi-test-plugin</artifactId>
 				<configuration>
-					<!-- testSuite>org.eclipse.gmf.tests</testSuite>
-					<testClass>org.eclipse.gmf.tests.AllTests</testClass-->
+					<testSuite>org.eclipse.gmf.tests</testSuite>
+					<testClass>org.eclipse.gmf.tests.AllTests</testClass>
 					<useUIHarness>true</useUIHarness>
         			<useUIThread>true</useUIThread>
-					<argLine>-Xmx512m</argLine>
+					<argLine>-Xmx512m -XX:MaxPermSize=128m -DbuildingWithTycho=true</argLine>
 					<bundleStartLevel>
 						<bundle>
 							<id>org.eclipse.equinox.ds</id>
@@ -31,6 +31,20 @@
 							<autoStart>true</autoStart>
 						</bundle>
 					</bundleStartLevel>
+					<dependencies>
+						<dependency>
+              				<type>p2-installable-unit</type>
+              				<artifactId>org.eclipse.gmf.feature.group</artifactId>
+           				</dependency>
+           				<dependency>
+              				<type>p2-installable-unit</type>
+              				<artifactId>org.eclipse.pde.feature.group</artifactId>
+           				</dependency>
+           				<dependency>
+              				<type>p2-installable-unit</type>
+              				<artifactId>org.eclipse.emf.validation.ocl</artifactId>
+           				</dependency>
+					</dependencies>
 				</configuration>
 			</plugin>
 		</plugins>
