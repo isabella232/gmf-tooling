@@ -93,54 +93,66 @@ public class BundleActivationTest extends ConfiguredTestCase {
 		super(name);
 	}
 
+	private boolean isBundleStarted() throws Exception {
+		return getSetup().getGeneratedPlugin().getState() == Bundle.ACTIVE;
+	}
+	
 	private void assertBundleNotStarted(String msg) throws Exception {
-		assertNotSame(msg, Bundle.ACTIVE, getSetup().getGeneratedPlugin().getState());
+		assertFalse(msg, isBundleStarted());
 	}
 
 	public void testViewService() throws Exception {
-		assertBundleNotStarted("[sanity]");
-		Diagram d = NotationFactory.eINSTANCE.createDiagram();
-		ViewService.createNode(d, "a-hint", prefHint);
-		final String msg = "View creation should not trigger generated ViewProvider and plugin activation";
-		assertBundleNotStarted(msg);
-		Node n = NotationFactory.eINSTANCE.createNode();
-		@SuppressWarnings("unchecked")
-		EList<View> children = d.getTransientChildren();
-		children.add(n);
-		ViewService.createEdge(d, n, "b-hint", prefHint);
-		assertBundleNotStarted(msg);
+		if (!isBundleStarted()) {
+			assertBundleNotStarted("[sanity]");
+			Diagram d = NotationFactory.eINSTANCE.createDiagram();
+			ViewService.createNode(d, "a-hint", prefHint);
+			final String msg = "View creation should not trigger generated ViewProvider and plugin activation";
+			assertBundleNotStarted(msg);
+			Node n = NotationFactory.eINSTANCE.createNode();
+			@SuppressWarnings("unchecked")
+			EList<View> children = d.getTransientChildren();
+			children.add(n);
+			ViewService.createEdge(d, n, "b-hint", prefHint);
+			assertBundleNotStarted(msg);
+		}
 	}
 
 	public void testEditPartService() throws Exception {
-		assertBundleNotStarted("[sanity]");
-		Diagram d = NotationFactory.eINSTANCE.createDiagram();
-		RootEditPart p = EditPartService.getInstance().createRootEditPart(d);
-		assertNotNull(p);
-		assertBundleNotStarted("RootEditPart");
-		Node n = NotationFactory.eINSTANCE.createNode();
-		EditPart ep = EditPartService.getInstance().createGraphicEditPart(n);
-		assertNotNull(ep);
-		assertBundleNotStarted("Regular EditPart");
+		if (!isBundleStarted()) {
+			assertBundleNotStarted("[sanity]");
+			Diagram d = NotationFactory.eINSTANCE.createDiagram();
+			RootEditPart p = EditPartService.getInstance().createRootEditPart(d);
+			assertNotNull(p);
+			assertBundleNotStarted("RootEditPart");
+			Node n = NotationFactory.eINSTANCE.createNode();
+			EditPart ep = EditPartService.getInstance().createGraphicEditPart(n);
+			assertNotNull(ep);
+			assertBundleNotStarted("Regular EditPart");
+		}
 	}
 
 	/**
 	 * There are two possible extensions for decoratorProviders extp: shortcut icon and validation markers
 	 */
 	public void testDecoratorService() throws Exception {
-		assertTrue("[sanity]", getSetup().getGenModel().getGenDiagram().generateShortcutIcon());
-		assertBundleNotStarted("[sanity]");
-		DecorationEditPolicy decorationEditPolicy = new DecorationEditPolicy();
-		decorationEditPolicy.setHost(new ShapeEditPart(null) {});
-		DecoratorTarget dt = decorationEditPolicy.new DecoratorTarget();
-		IDecoratorProvider dp = DecoratorService.getInstance();
-		dp.createDecorators(dt);
-		assertBundleNotStarted("DecoratorService");
+		if (!isBundleStarted()) {
+			assertTrue("[sanity]", getSetup().getGenModel().getGenDiagram().generateShortcutIcon());
+			assertBundleNotStarted("[sanity]");
+			DecorationEditPolicy decorationEditPolicy = new DecorationEditPolicy();
+			decorationEditPolicy.setHost(new ShapeEditPart(null) {});
+			DecoratorTarget dt = decorationEditPolicy.new DecoratorTarget();
+			IDecoratorProvider dp = DecoratorService.getInstance();
+			dp.createDecorators(dt);
+			assertBundleNotStarted("DecoratorService");
+		}
 	}
 
 	public void testModelAssistantService() throws Exception {
-		assertBundleNotStarted("[sanity]");
-		EditPart ep = new DefaultNodeEditPart(NotationFactory.eINSTANCE.createNode());
-		ModelingAssistantService.getInstance().getTypesForPopupBar(ep);
-		assertBundleNotStarted("ModelAssistantService#getTypesForPopupBar(EditPart)");
+		if (!isBundleStarted()) {
+			assertBundleNotStarted("[sanity]");
+			EditPart ep = new DefaultNodeEditPart(NotationFactory.eINSTANCE.createNode());
+			ModelingAssistantService.getInstance().getTypesForPopupBar(ep);
+			assertBundleNotStarted("ModelAssistantService#getTypesForPopupBar(EditPart)");
+		}
 	}
 }
