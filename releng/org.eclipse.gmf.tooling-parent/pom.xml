@@ -98,9 +98,6 @@
 		<module>../../features/org.eclipse.gmf.examples-feature</module>
 		<module>../../features/org.eclipse.gmf.examples.pde-feature</module>
 		
-		<!-- Repo -->
-		<module>../org.eclipse.gmf.updatesite</module>
-		
 		<!-- tests, should be a separate build against newly built repo,
 			to test also created repo (whole distribution) -->
 		<!-- module>../../features/org.eclipse.gmf.tests.experimental-feature</module -->
@@ -109,6 +106,9 @@
 		<module>../../tests/org.eclipse.gmf.tests.lite</module>
 		<module>../../tests/org.eclipse.gmf.tests.xpand</module>
 		<module>../../tests/org.eclipse.gmf.tests.xpand.migration</module>
+		
+		<!-- Repo -->
+		<module>../org.eclipse.gmf.tooling-repository</module>
 		
 	</modules>
 
