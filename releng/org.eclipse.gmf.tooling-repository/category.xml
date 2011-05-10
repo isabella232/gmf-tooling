@@ -7,19 +7,18 @@
    <feature url="features/org.eclipse.gmf.tooling_2.4.0.qualifier.jar" id="org.eclipse.gmf.tooling" version="2.4.0.qualifier">
       <category name="GMF Tooling"/>
    </feature>
-   <!--feature url="features/org.eclipse.gmf.examples_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples" version="1.4.0.qualifier">
+   <feature url="features/org.eclipse.gmf.examples_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples" version="1.4.0.qualifier">
       <category name="GMF Tooling - Examples"/>
    </feature>
    <feature url="features/org.eclipse.gmf.examples.pde_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples.pde" version="1.4.0.qualifier">
       <category name="GMF Tooling - Examples"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.tests_2.4.0.qualifier.jar" id="org.eclipse.gmf.tests" version="2.4.0.qualifier">
+   <!-- feature url="features/org.eclipse.gmf.tests_2.4.0.qualifier.jar" id="org.eclipse.gmf.tests" version="2.4.0.qualifier">
       <category name="GMF Tooling - Tests"/>
    </feature>
    <feature url="features/org.eclipse.gmf.tests.experimental_2.4.0.qualifier.jar" id="org.eclipse.gmf.tests.experimental" version="2.4.0.qualifier">
       <category name="GMF Tooling - Tests"/>
    </feature-->
    <category-def name="GMF Tooling" label="GMF Tooling"/>
-   <category-def name="GMF Tooling - Tests" label="GMF Tooling - Tests"/>
    <category-def name="GMF Tooling - Examples" label="GMF Tooling - Examples"/>
 </site>
