@@ -20,7 +20,7 @@
 				<plugins>
 					<plugin>
 						<groupId>org.eclipse.dash.maven</groupId>
-						<artifactId>eclipse-signing-maven-plugin</artifactId>
+						<artifactId>eclipse-maven-signing-plugin</artifactId>
 						<version>1.0.0</version>
 						<executions>
 							<!-- Pack the p2 repository. -->
