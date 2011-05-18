@@ -16,11 +16,6 @@
 	<profiles>
 		<profile>
 			<id>build-at-eclipse-org</id>
-			<activation>
-				<file>
-					<exists>/usr/local/sign</exists>
-				</file>
-			</activation>
 			<build>
 				<plugins>
 					<plugin>
