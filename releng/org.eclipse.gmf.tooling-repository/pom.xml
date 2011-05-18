@@ -19,7 +19,7 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.eclipse.dash.m4e</groupId>
+						<groupId>org.eclipse.dash.maven</groupId>
 						<artifactId>eclipse-signing-maven-plugin</artifactId>
 						<version>1.0.0</version>
 						<executions>
