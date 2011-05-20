@@ -50,7 +50,7 @@
 							<execution>
 								<id>repack</id>
 								<configuration>
-									<inputFile>${project.build.directory}/org.eclipse.gmf.tooling-repository.zip</inputFile>
+									<inputFile>${project.build.directory}/signed/site_assembly.zip</inputFile>
 								</configuration>
 								<phase>package</phase>
 								<goals>
@@ -61,9 +61,6 @@
 							<execution>
 								<id>fixCheckSums</id>
 								<phase>package</phase>
-								<configuration>
-									<inputFile>${project.build.directory}/org.eclipse.gmf.tooling-repository.zip</inputFile>
-								</configuration>
 								<goals>
 									<goal>fixCheckSums</goal>
 								</goals>
