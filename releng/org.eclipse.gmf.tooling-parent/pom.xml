@@ -57,6 +57,10 @@
 		<module>../../plugins/org.eclipse.gmf.xpand.editor</module>
 		<module>../../plugins/org.eclipse.gmf.xpand.migration</module>
 		<module>../../plugins/org.eclipse.gmf.xpand.qvtlibrary</module>
+		<module>../../examples/org.eclipse.gmf.ecore.editor</module>
+		<!-- Doc -->
+		<module>../../doc/org.eclipse.gmf.doc</module>
+		<module>../../doc/org.eclipse.gmf.doc.ui</module>
 		
 		<!-- features -->
 		<!-- Currently disabled since they require sources, not yet handled -->
@@ -71,7 +75,6 @@
 		<!-- module>../../features/org.eclipse.gmf.xpand-feature</module -->
 
 		<!-- examples -->
-		<!-- module>../../examples/org.eclipse.gmf.ecore.editor</module -->
 		<module>../../examples/org.eclipse.gmf.examples</module>
 		<module>../../examples/org.eclipse.gmf.examples.design2d</module>
 		<module>../../examples/org.eclipse.gmf.examples.design2d.notation</module> 
@@ -205,11 +208,33 @@
 		</plugins>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>Helios</id>
-			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/helios</url>
-		</repository>
-	</repositories>
+	<profiles>
+		<profile>
+			<id>helios</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>Helios</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/releases/helios</url>
+				</repository>				
+			</repositories>
+		</profile>
+		<profile>
+			<id>indigo</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>Indigo</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/releases/indigo</url>
+				</repository>				
+			</repositories>
+		</profile>
+	</profiles>
+
 </project>
