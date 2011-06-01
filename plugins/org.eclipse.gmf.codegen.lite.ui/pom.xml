@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.gmf</groupId>
 	<artifactId>org.eclipse.gmf.graphdef.codegen.ui</artifactId>
-	<version>1.0.100-SNAPSHOT</version>
+	<version>1.1.100-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
 
 	<parent>
