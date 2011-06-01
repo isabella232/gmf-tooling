@@ -12,6 +12,7 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::Utils»
+«EXTENSION xpt::OclMigrationProblems»
 
 «DEFINE CreateNodeCommand FOR gmfgen::GenNode-»
 «EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
@@ -101,22 +102,22 @@ protected org.eclipse.emf.ecore.EObject getElementToEdit() {
 «ENDDEFINE»
 
 «DEFINE canExecute_Normal FOR gmfgen::TypeModelFacet-»
-«IF containmentMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0 or (childMetaFeature <> containmentMetaFeature and childMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0)-»
+«IF not isUnbounded(containmentMetaFeature.ecoreFeature) or (childMetaFeature <> containmentMetaFeature and not isUnbounded(childMetaFeature.ecoreFeature))-»
 	«EXPAND MetaModel::DeclareAndAssign('container', 'getElementToEdit()') FOR containmentMetaFeature.genClass-»
-	«IF containmentMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0-»
-			«IF containmentMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) = 1»
+	«IF not isUnbounded(containmentMetaFeature.ecoreFeature)-»
+			«IF isSingleValued(containmentMetaFeature.ecoreFeature)»
 		if («EXPAND MetaModel::getFeatureValue('container', containmentMetaFeature.genClass) FOR containmentMetaFeature» != null) {
 			«ELSE-»
-		if («EXPAND MetaModel::getFeatureValue('container', containmentMetaFeature.genClass) FOR containmentMetaFeature».size() >= «containmentMetaFeature.ecoreFeature.upperBound.oclAsType(Integer)») {
+		if («EXPAND MetaModel::getFeatureValue('container', containmentMetaFeature.genClass) FOR containmentMetaFeature».size() >= «containmentMetaFeature.ecoreFeature.upperBound») {
 			«ENDIF-»
 			return false;
 		}
 		«ENDIF-»
-		«IF childMetaFeature <> containmentMetaFeature and childMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) > 0-»
-			«IF childMetaFeature.ecoreFeature.upperBound.oclAsType(Integer) = 1-»
+		«IF childMetaFeature <> containmentMetaFeature and not isUnbounded(childMetaFeature.ecoreFeature)-»
+			«IF isSingleValued(childMetaFeature.ecoreFeature)-»
 		if («EXPAND MetaModel::getFeatureValue('container', containmentMetaFeature.genClass) FOR childMetaFeature» != null) {
 			«ELSE-»
-		if («EXPAND MetaModel::getFeatureValue('container', containmentMetaFeature.genClass) FOR childMetaFeature».size() >= «childMetaFeature.ecoreFeature.upperBound.oclAsType(Integer)») {
+		if («EXPAND MetaModel::getFeatureValue('container', containmentMetaFeature.genClass) FOR childMetaFeature».size() >= «childMetaFeature.ecoreFeature.upperBound») {
 			«ENDIF-»
 			return false;
 		}

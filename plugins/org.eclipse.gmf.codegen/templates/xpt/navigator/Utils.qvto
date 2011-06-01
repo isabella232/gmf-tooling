@@ -11,6 +11,7 @@
  */
 
 import gmf.CodeGenerationUtils;
+import xpt.OclMigrationProblems;
 
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
 modeltype genmodel uses "http://www.eclipse.org/emf/2002/GenModel";
@@ -49,7 +50,10 @@ helper getNavigatorReference(groupName : String, childReferences : Sequence(gmfg
 }
 
 helper getChildReferencesFrom(navigator : gmfgen::GenNavigator, parent : gmfgen::GenCommonBase) : Sequence(gmfgen::GenNavigatorChildReference) {
-	return navigator.childReferences->select(r | parent.visualID = r.parent.visualID)->asSequence()
+	return if parent.oclIsUndefined() 
+		then Sequence{} 
+		else navigator.childReferences->select(r | undefinedAsFalse(parent.visualID = r.parent.visualID))->asSequence()
+	endif
 }
 
 helper getChildReferencesTo(navigator : gmfgen::GenNavigator, child : gmfgen::GenCommonBase) : Sequence(gmfgen::GenNavigatorChildReference) {

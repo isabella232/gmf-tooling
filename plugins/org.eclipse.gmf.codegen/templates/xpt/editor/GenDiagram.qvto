@@ -35,5 +35,5 @@ helper getDocumentRootSetFeature(genDiagram : gmfgen::GenDiagram) : genmodel::Ge
 }
 
 helper isDocRootSetFeature(gf : genmodel::GenFeature, eType : ecore::EClass) : Boolean {
-	return not isListType(gf) and gf.ecoreFeature.changeable and (-2 = gf.ecoreFeature.upperBound.oclAsType(Integer) and (gf.ecoreFeature.oclAsType(ecore::EObject).eClass().name = 'EReference' and gf.ecoreFeature.eType.oclAsType(ecore::EClass).isSuperTypeOf(eType)))
+	return not isListType(gf) and gf.ecoreFeature.changeable and (-2 = gf.ecoreFeature.upperBound and (gf.ecoreFeature.oclAsType(ecore::EObject).eClass().name = 'EReference' and gf.ecoreFeature.eType.oclAsType(ecore::EClass).isSuperTypeOf(eType)))
 }
