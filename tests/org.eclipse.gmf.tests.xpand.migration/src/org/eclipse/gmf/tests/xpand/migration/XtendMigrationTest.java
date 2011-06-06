@@ -32,6 +32,7 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
 import org.eclipse.m2m.internal.qvt.oml.compiler.ResolverUtils;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitContents;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 
@@ -316,7 +317,7 @@ public class XtendMigrationTest extends TestCase {
 		UnitResolver resolver = new UnitResolver() {
 			public UnitProxy resolveUnit(String qualifiedName) {
 				URI uri = URI.createURI("platform:/plugin/foo").appendSegment(resourceName); //$NON-NLS-1$
-				return ResolverUtils.createUnitProxy(resourceName, uri, resourceContent, this);
+				return createUnitProxy(resourceName, uri, resourceContent, this);
 			}
 		};
 		
@@ -337,6 +338,34 @@ public class XtendMigrationTest extends TestCase {
 
 	private static String getResourceName(String shortName) {
 		return "org::eclipse::gmf::tests::xpand::migration::" + shortName;
+	}
+	
+	// Copy of org.eclipse.m2m.internal.qvt.oml.compiler.ResolverUtil.createUnitProxy
+	// since it has been removed from QVTO during the Indigo release
+	public static UnitProxy  createUnitProxy(String qualifiedName, URI uri, final String contents, final UnitResolver resolver) {
+		String[] segments = ResolverUtils.getNameSegments(qualifiedName);
+		String namespace = null;
+		if(segments.length > 1) {
+			namespace = ResolverUtils.toQualifiedName(segments, 0, segments.length - 2);
+		}
+		String name = segments[segments.length - 1];
+
+		return new UnitProxy(namespace, name, uri) {
+			@Override
+			public UnitContents  getContents() throws IOException {
+				return ResolverUtils.createCSTContents(contents);
+			}
+
+			@Override
+			public int  getContentType() {			
+				return TYPE_CST_STREAM;
+			}
+
+			@Override
+			public UnitResolver getResolver() {			
+				return resolver;
+			}
+		};
 	}
 
 }
