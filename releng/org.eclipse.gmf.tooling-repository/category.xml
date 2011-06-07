@@ -7,6 +7,12 @@
    <feature url="features/org.eclipse.gmf.tooling_2.4.0.qualifier.jar" id="org.eclipse.gmf.tooling" version="2.4.0.qualifier">
       <category name="GMF Tooling"/>
    </feature>
+   <feature url="features/org.eclipse.gmf.sdk_2.4.0.qualifier.jar" id="org.eclipse.gmf.tooling" version="2.4.0.qualifier">
+      <category name="GMF Tooling"/>
+   </feature>
+    <feature url="features/org.eclipse.gmf.sdk.experimental_1.2.0.qualifier.jar" id="org.eclipse.gmf.tooling" version="2.4.0.qualifier">
+      <category name="GMF Tooling"/>
+   </feature>
    <feature url="features/org.eclipse.gmf.examples_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples" version="1.4.0.qualifier">
       <category name="GMF Tooling - Examples"/>
    </feature>
