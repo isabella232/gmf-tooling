@@ -67,6 +67,34 @@
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>deploy</id>
+								<phase>install</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<delete includeemptydirs="false">
+											<fileset
+												dir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots">
+												<include name="**" />
+											</fileset>
+										</delete>
+										<copy includeemptydirs="false"
+											todir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots">
+											<fileset dir="target/checksumFix">
+												<include name="**" />
+											</fileset>
+										</copy>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
