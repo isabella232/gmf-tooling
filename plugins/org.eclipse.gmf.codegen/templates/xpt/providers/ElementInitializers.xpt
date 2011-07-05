@@ -107,7 +107,7 @@ public class «getElementInitializersClassName()» {
 «IF getTypeGenClassifier(feature).expressionResultNeedsCast()-»
 		for (java.util.Iterator it = ((java.util.Collection) «expressionVarName»).iterator(); it.hasNext(); ) {
 			Object next = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(it.next(), «EXPAND MetaModel::MetaClass FOR getTypeGenClassifier(feature)»);
-			«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add(next);
+			«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».add((«EXPAND MetaModel::QualifiedClassName /*XXX sorta hack, better would be MM::setFeatureValue that supports lists*/FOR getTypeGenClassifier(feature)») next);
 		}
 «ELSE-»
 		«EXPAND MetaModel::getFeatureValue(instanceVar, instanceClass, true) FOR feature».addAll(((java.util.Collection) «expressionVarName»));
