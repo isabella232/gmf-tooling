@@ -135,7 +135,12 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 // Alternative implementation of CEP.refreshSemanticChildren
 «DEFINE refreshSemanticChildren(String createdViewsVar, gmfgen::GenDiagramUpdater diagramUpdater) FOR gmfgen::GenContainerBase-»
 «LET hasConformableSemanticChildren(self) AS childrenShareSameMetaclass-»
-		«EXPAND CodeStyle::G('java.util.List', diagramUpdater.getNodeDescriptorQualifiedClassName())» childDescriptors = «EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
+		«EXPAND CodeStyle::G('java.util.List', diagramUpdater.getNodeDescriptorQualifiedClassName())» childDescriptors = «-» 
+			«IF hasSemanticChildren(self) /*REVISIT: is there real need for this check - Generator seems to consult needsCanonicalEP, which in turns ensures there are semantic children?, but with respect to #352271*/-»
+				«EXPAND xpt::diagram::updater::DiagramUpdater::getSemanticChildrenMethodCall»((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
+			«ELSE-»
+				/* see #352271 */ «EXPAND CodeStyle::emptyList»;
+			«ENDIF-»
 		«EXPAND CodeStyle::newGenericInstance('orphaned', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View')»();
 		// we care to check only views we recognize as ours
 		«EXPAND CodeStyle::newGenericInstance('knownViewChildren', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View')»();
