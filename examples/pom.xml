@@ -1,0 +1,63 @@
+<!--
+ * Copyright (c) 2011 PetalsLink
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *  
+ *   Contributors:
+ *      Mickael istria (PetalsLink)
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.eclipse.gmf</groupId>
+	<artifactId>examples</artifactId>
+	<packaging>pom</packaging>
+	<version>2.4.0-SNAPSHOT</version>
+
+	<parent>
+		<groupId>org.eclipse.gmf</groupId>
+		<artifactId>parent</artifactId>
+		<version>2.4.0-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+
+	<modules>
+		<module>org.eclipse.gmf.examples</module>
+		<module>org.eclipse.gmf.examples.design2d</module>
+		<module>org.eclipse.gmf.examples.design2d.notation</module> 
+		<!-- module>org.eclipse.gmf.examples.eclipsecon</module>
+		<module>org.eclipse.gmf.examples.eclipsecon.diagram</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.diagram.custom</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.library</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.library.diagram</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.library.diagram.custom</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.library.edit</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.library.editor</module> 
+		<module>org.eclipse.gmf.examples.eclipsecon.library.notation</module--> 
+		<!-- module>org.eclipse.gmf.examples.mindmap</module>
+		<module>org.eclipse.gmf.examples.mindmap.edit</module> 
+		<module>org.eclipse.gmf.examples.mindmap.diagram</module> 
+		<module>org.eclipse.gmf.examples.mindmap.diagram.pure</module> 
+		<module>org.eclipse.gmf.examples.mindmap.diagram.custom</module> 
+		<module>org.eclipse.gmf.examples.mindmap.lite</module>
+		<module>org.eclipse.gmf.examples.mindmap.lite.edit</module> 
+		<module>org.eclipse.gmf.examples.mindmap.lite.rcp</module> 
+		<module>org.eclipse.gmf.examples.mindmap.rcp.diagram</module--> 
+		<!-- module>org.eclipse.gmf.examples.taipan</module>
+		<module>org.eclipse.gmf.examples.taipan.edit</module> 
+		<module>org.eclipse.gmf.examples.taipan.editor</module>
+		<module>org.eclipse.gmf.examples.taipan.editor.rcp</module> 
+		<module>org.eclipse.gmf.examples.taipan.gmf.editor</module> 
+		<module>org.eclipse.gmf.examples.taipan.gmf.editor.rcp</module> 
+		<module>org.eclipse.gmf.examples.taipan.port.diagram</module> 
+		<module>org.eclipse.gmf.examples.taipan.port.diagram.rcp</module> 
+		<module>org.eclipse.gmf.examples.taipan.ui</module -->
+		<module>org.eclipse.gmf.examples.ui.pde</module>
+		<!-- module>org.eclipse.gmf.sketch</module> <module>org.eclipse.gmf.sketch.edit</module> 
+			<module>org.eclipse.gmf.sketch.editor</module> <module>org.eclipse.gmf.sketch.transformer</module -->
+		<module>org.eclipse.gmf.ecore.editor</module>
+	</modules>
+	
+</project>

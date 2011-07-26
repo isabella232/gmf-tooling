@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site
+      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/modeling/gmp/gmf-tooling/updates/milestones/site.xml&amp;format=xml">
+   <description url="http://download.eclipse.org/modeling/gmp/gmf-tooling/updates/milestones">
+      A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
+   </description>
+   <feature url="features/org.eclipse.gmf.tooling_2.4.0.qualifier.jar" id="org.eclipse.gmf.tooling" version="2.4.0.qualifier">
+      <category name="GMF Tooling"/>
+   </feature>
+   <feature url="features/org.eclipse.gmf.sdk_2.4.0.qualifier.jar" id="org.eclipse.gmf.sdk" version="2.4.0.qualifier">
+      <category name="GMF Tooling"/>
+   </feature>
+    <feature url="features/org.eclipse.gmf.sdk.experimental_1.2.0.qualifier.jar" id="org.eclipse.gmf.sdk.experimental" version="1.2.0.qualifier">
+      <category name="GMF Tooling"/>
+   </feature>
+   <feature url="features/org.eclipse.gmf.examples_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples" version="1.4.0.qualifier">
+      <category name="GMF Tooling - Examples"/>
+   </feature>
+   <feature url="features/org.eclipse.gmf.examples.pde_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples.pde" version="1.4.0.qualifier">
+      <category name="GMF Tooling - Examples"/>
+   </feature>
+   <category-def name="GMF Tooling" label="GMF Tooling"/>
+   <category-def name="GMF Tooling - Examples" label="GMF Tooling - Examples"/>
+</site>
