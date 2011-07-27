@@ -30,8 +30,6 @@
 
 	<properties>
 		<tycho-version>0.12.0</tycho-version>
-		<javadocReportOutputDirectory>${basedir}/doc/org.eclipse.gmf.doc/reference</javadocReportOutputDirectory>
-        <javadocDestDir>api</javadocDestDir>
 	</properties>
 
 	<modules>

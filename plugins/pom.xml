@@ -80,8 +80,8 @@
 						<configuration>
 							<minmemory>128m</minmemory>
           					<maxmemory>1024m</maxmemory>
-          					<reportOutputDirectory>${javadocReportOutputDirectory}</reportOutputDirectory>
-          					<destDir>${javadocDestDir}</destDir>
+          					<reportOutputDirectory>${basedir}/../doc/org.eclipse.gmf.doc/reference</reportOutputDirectory>
+          					<destDir>api</destDir>
 							<excludePackageNames>*.internal:*.internal.*:*.tests:*.tests.*:*.examples:*.examples.*</excludePackageNames>
 						</configuration>
 					</execution>
