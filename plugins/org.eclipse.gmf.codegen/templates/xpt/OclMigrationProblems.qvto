@@ -8,7 +8,7 @@ helper isUnbounded(typedElement : ecore::ETypedElement) : Boolean {
 }
 
 helper isSingleValued(typedElement : ecore::ETypedElement) : Boolean {
-	return typedElement.upperBound = 1
+	return typedElement.upperBound = 1 or typedElement.upperBound = -2
 }
 
 helper firstOrNull(oSet : OrderedSet(gmfgen::DefaultSizeAttributes)) : gmfgen::DefaultSizeAttributes {
