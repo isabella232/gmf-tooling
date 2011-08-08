@@ -16,6 +16,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
+import java.util.WeakHashMap;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -48,6 +49,8 @@ public class SVGFigure extends Figure {
 	private boolean failedToLoadDocument, specifyCanvasWidth = true, specifyCanvasHeight = true;
 	private SimpleImageTranscoder transcoder;
 
+	private static WeakHashMap<String, Document> documentsMap = new WeakHashMap<String, Document>();
+	
 	public final String getURI() {
 		return uri;
 	}
@@ -74,7 +77,13 @@ public class SVGFigure extends Figure {
 		String parser = XMLResourceDescriptor.getXMLParserClassName();
 		SAXSVGDocumentFactory factory = new SAXSVGDocumentFactory(parser);
 		try {
-			Document document = factory.createDocument(uri);
+			Document document;
+			if (documentsMap.containsKey(uri))
+				 document = documentsMap.get(uri);
+			else {
+				document = factory.createDocument(uri);
+				documentsMap.put(uri, document);
+			}
 			transcoder = new SimpleImageTranscoder(document);
 			failedToLoadDocument = false;
 		} catch (IOException e) {
@@ -82,6 +91,7 @@ public class SVGFigure extends Figure {
 		}
 	}
 
+	
 	protected final Document getDocument() {
 		if (failedToLoadDocument) {
 			return null;
