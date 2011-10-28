@@ -64,7 +64,10 @@
 «FOREACH topLevelNodes AS n-»
          <object class="«n.getEditPartQualifiedClassName()»" id="«n.getUniqueIdentifier()»"/>
 «ENDFOREACH-»
-         <context elements="«getUniqueIdentifier()»,«FOREACH topLevelNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»"/>
+«FOREACH childNodes AS n-»
+         <object class="«n.getEditPartQualifiedClassName()»" id="«n.getUniqueIdentifier()»"/>
+«ENDFOREACH-»
+         <context elements="«getUniqueIdentifier()»,«FOREACH topLevelNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»,«FOREACH childNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»"/>
       </modelingAssistantProvider>
    </extension>
 
