@@ -115,9 +115,10 @@ helper setupElementType(inout genLink : GMFGEN::GenLink) {
 	if genLink.modelFacet.oclIsUndefined() then genLink.elementType := object GMFGEN::NotationType {}
 	else if genLink.modelFacet.oclIsKindOf(GMFGEN::TypeModelFacet) then
 			genLink.elementType := genLink.modelFacet.oclAsType(GMFGEN::TypeModelFacet).metaClass.getOrCreateRuntimeMetamodelType()
-		else -- ref-based link; specialize null
-			genLink.elementType := object GMFGEN::SpecializationType {} 
-		endif
+		else{ -- ref-based link; specialize null
+			genLink.elementType := object GMFGEN::SpecializationType {};
+			genLink.elementType.displayName := genLink.modelFacet.oclAsType(FeatureLinkModelFacet).metaFeature.ecoreFeature.name.firstToUpper();}
+ 		endif
 	endif;
 	return;
 }
