@@ -163,7 +163,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/domainFileExtension"/>
       <genFeatures createChild="false" propertyDescription="Set true to enable use of dynamic templates"
           ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/dynamicTemplates"/>
-      <genFeatures createChild="false" propertyDescription="Directory with dynamic templates"
+      <genFeatures createChild="false" propertyDescription="Path to dynamic templates relative to workspace root"
           ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/templateDirectory"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/copyrightText"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/expressionProviders"/>

@@ -38,7 +38,7 @@
 								<id>pack</id>
 								<phase>package</phase>
 								<configuration>
-									<inputFile>${project.build.directory}/${artifactId}.zip</inputFile>
+									<inputFile>${project.build.directory}/${project.artifactId}.zip</inputFile>
 								</configuration>
 								<goals>
 									<goal>pack</goal>
@@ -48,7 +48,7 @@
 							<execution>
 								<id>sign</id>
 								<configuration>
-									<inputFile>${project.build.directory}/${artifactId}.zip</inputFile>
+									<inputFile>${project.build.directory}/${project.artifactId}.zip</inputFile>
 									<signerInputDirectory>/home/data/httpd/download-staging.priv/modeling/gmf/gmf-tooling</signerInputDirectory>
 								</configuration>
 								<phase>package</phase>
