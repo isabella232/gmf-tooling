@@ -32,7 +32,7 @@
 				<configuration>
 					<testSuite>org.eclipse.gmf.tests</testSuite>
 					<testClass>org.eclipse.gmf.tests.AllTests</testClass>
-					<argLine>-Xmx512m</argLine>
+					<argLine>${tycho.testArgLine} -Xmx512m</argLine>
 					<bundleStartLevel>
 						<bundle>
 							<id>org.eclipse.equinox.ds</id>
