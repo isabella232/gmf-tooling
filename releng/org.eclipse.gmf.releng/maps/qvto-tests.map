@@ -1,6 +1,0 @@
-!*** M2M QVT Operational (QVTO) tests map ********************************************
-
-!*** QVTO tests features ***************************************************************************
-
-!*** QVTO tests plug-ins ***************************************************************************
-plugin@org.eclipse.m2m.tests.qvt.oml=v20071214-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.m2m/org.eclipse.m2m.qvt.oml/plugins/org.eclipse.m2m.tests.qvt.oml

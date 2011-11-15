@@ -1,9 +1,0 @@
-!*** Graphical Modeling Framework (GMF) base map *******************************************
-
-!*** features ***************************************************************************
-feature@org.eclipse.gmf.releng.base=v20071107-0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/releng/org.eclipse.gmf.releng.base-feature
-feature@org.eclipse.gmf.runtime.thirdparty=v20080722-1827,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty-feature
-feature@org.eclipse.gmf.runtime.thirdparty.source=v20070608-1200,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/features/org.eclipse.gmf.runtime.thirdparty.source-feature
-
-!*** plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.releng.base=v20070511-1500,:pserver:anonymous@dev.eclipse.org:/cvsroot/modeling,,org.eclipse.gmf/releng/org.eclipse.gmf.releng.base

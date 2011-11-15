@@ -1,1 +1,0 @@
-%JAVA_HOME%\bin\java -Xmx1024m -cp ../../org.eclipse.releng.basebuilder/plugins/org.eclipse.equinox.launcher.jar org.eclipse.core.launcher.Main -application org.eclipse.ant.core.antRunner %*
