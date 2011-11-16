@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Mickael Istria (EBM Websourcing) - Support for target platform creation
  */
 package org.eclipse.gmf.tests;
 
@@ -83,38 +84,11 @@ import java.util.ArrayList;
 
 public class AllTests {
 
-	public static void setTargetPlatform() throws Exception {
-		ITargetPlatformService tpService = TargetPlatformService.getDefault();
-		ITargetDefinition targetDef = tpService.newTarget();
-		targetDef.setName("Tycho platform");
-		Bundle[] bundles =  Platform.getBundle("org.eclipse.core.runtime").getBundleContext().getBundles();
-		List<IBundleContainer> bundleContainers = new ArrayList<IBundleContainer>();
-		Set<File> dirs = new HashSet<File>();
-		for (Bundle bundle : bundles) {
-			AbstractBundle aBundle = (AbstractBundle)bundle;
-			final BaseData bundleData = (BaseData)aBundle.getBundleData();
-			File file = bundleData.getBundleFile().getBaseFile();
-			File folder = file.getParentFile(); 
-			if (!dirs.contains(folder)) {
-				dirs.add(folder);
-				bundleContainers.add(tpService.newDirectoryContainer(folder.getAbsolutePath()));
-			}
-		}
-		targetDef.setBundleContainers(bundleContainers.toArray(new IBundleContainer[0]));
-		targetDef.setArch(Platform.getOSArch());
-		targetDef.setOS(Platform.getOS());
-		targetDef.setWS(Platform.getWS());
-		targetDef.setNL(Platform.getNL());
-		//targetDef.setJREContainer()
-		tpService.saveTargetDefinition(targetDef);
-		LoadTargetDefinitionJob.load(targetDef);
-	}
-	
 	public static Test suite() throws Exception {
 
 		if (System.getProperty("buildingWithTycho") != null) {
 			System.err.println("Generating a target platform");
-			setTargetPlatform();
+			Utils.setTargetPlatform();
 		}
 		
 		

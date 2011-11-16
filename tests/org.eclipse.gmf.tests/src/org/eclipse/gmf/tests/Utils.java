@@ -8,14 +8,21 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Mickael Istria (EBM Websourcing) - Support for target platform creation
  */
 package org.eclipse.gmf.tests;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import junit.framework.Assert;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -24,7 +31,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
+import org.eclipse.osgi.baseadaptor.BaseData;
+import org.eclipse.osgi.framework.internal.core.AbstractBundle;
+import org.eclipse.pde.internal.core.target.TargetPlatformService;
+import org.eclipse.pde.internal.core.target.provisional.IBundleContainer;
+import org.eclipse.pde.internal.core.target.provisional.ITargetDefinition;
+import org.eclipse.pde.internal.core.target.provisional.ITargetPlatformService;
+import org.eclipse.pde.internal.core.target.provisional.LoadTargetDefinitionJob;
 import org.eclipse.swt.widgets.Display;
+import org.osgi.framework.Bundle;
 
 /**
  * @author artem
@@ -118,5 +133,36 @@ public class Utils {
 	public static void assertDispatchDisplayMessages(boolean[] condition, int timeoutSeconds) {
 		boolean conditionSatisfied = Utils.dispatchDisplayMessages(condition, 10);
 		Assert.assertTrue("Timeout while waiting for jobs to complete", conditionSatisfied);
+	}
+	
+	/**
+	 * Sets a target platform in the test platform to get workspace builds OK with PDE.
+	 * @throws Exception
+	 */
+	public static void setTargetPlatform() throws Exception {
+		ITargetPlatformService tpService = TargetPlatformService.getDefault();
+		ITargetDefinition targetDef = tpService.newTarget();
+		targetDef.setName("Tycho platform");
+		Bundle[] bundles =  Platform.getBundle("org.eclipse.core.runtime").getBundleContext().getBundles();
+		List<IBundleContainer> bundleContainers = new ArrayList<IBundleContainer>();
+		Set<File> dirs = new HashSet<File>();
+		for (Bundle bundle : bundles) {
+			AbstractBundle aBundle = (AbstractBundle)bundle;
+			final BaseData bundleData = (BaseData)aBundle.getBundleData();
+			File file = bundleData.getBundleFile().getBaseFile();
+			File folder = file.getParentFile(); 
+			if (!dirs.contains(folder)) {
+				dirs.add(folder);
+				bundleContainers.add(tpService.newDirectoryContainer(folder.getAbsolutePath()));
+			}
+		}
+		targetDef.setBundleContainers(bundleContainers.toArray(new IBundleContainer[0]));
+		targetDef.setArch(Platform.getOSArch());
+		targetDef.setOS(Platform.getOS());
+		targetDef.setWS(Platform.getWS());
+		targetDef.setNL(Platform.getNL());
+		//targetDef.setJREContainer()
+		tpService.saveTargetDefinition(targetDef);
+		LoadTargetDefinitionJob.load(targetDef);
 	}
 }

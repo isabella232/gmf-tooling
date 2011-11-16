@@ -170,26 +170,36 @@
 		<profile>
 			<id>indigo</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<repositories>
 				<repository>
 					<id>Indigo</id>
 					<layout>p2</layout>
 					<url>http://download.eclipse.org/releases/indigo</url>
-				</repository>				
+				</repository>
+				<repository>
+					<id>Orbit for Indigo</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/</url>
+				</repository>			
 			</repositories>
 		</profile>
 		<profile>
 			<id>juno-staging</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<repositories>
 				<repository>
 					<id>staging</id>
 					<layout>p2</layout>
 					<url>http://download.eclipse.org/releases/staging/</url>
+				</repository>
+				<repository>
+					<id>orbit-staging</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/S20111018035124/repository/</url>
 				</repository>
 			</repositories>
 		</profile>
