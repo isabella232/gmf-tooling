@@ -28,6 +28,7 @@
 		<module>org.eclipse.gmf.graphdef</module>
 		<module>org.eclipse.gmf.graphdef.codegen</module>
 		<module>org.eclipse.gmf.graphdef.codegen.ui</module>
+		<module>org.eclipse.gmf.graphdef.runtime</module>
 		<module>org.eclipse.gmf.graphdef.edit</module>
 		<module>org.eclipse.gmf.graphdef.editor</module>
 		<module>org.eclipse.gmf.tooldef</module>
