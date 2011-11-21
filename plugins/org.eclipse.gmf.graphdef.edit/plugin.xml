@@ -47,12 +47,13 @@
 
   <extension point = "org.eclipse.ui.editors">
     <editor
-        id = "org.eclipse.gmf.gmfgraph.presentation.GMFGraphEditorID"
-        name = "%_UI_GMFGraphEditor_label"
-        icon = "icons/full/obj16/GMFGraphModelFile.gif"
-        extensions = "gmfgraph"
-        class = "org.eclipse.gmf.gmfgraph.presentation.GMFGraphEditor" 
-        contributorClass="org.eclipse.gmf.gmfgraph.presentation.GMFGraphActionBarContributor" >
+          class="org.eclipse.gmf.gmfgraph.presentation.GMFGraphEditor"
+          contributorClass="org.eclipse.gmf.gmfgraph.presentation.GMFGraphActionBarContributor"
+          default="true"
+          extensions="gmfgraph"
+          icon="icons/full/obj16/GMFGraphModelFile.gif"
+          id="org.eclipse.gmf.gmfgraph.presentation.GMFGraphEditorID"
+          name="%_UI_GMFGraphEditor_label">
     </editor>
   </extension>    
 </plugin>
