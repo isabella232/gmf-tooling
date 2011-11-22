@@ -12,6 +12,8 @@ package org.eclipse.gmf.graphdef.edit;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.draw2d.GridData;
+import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -23,8 +25,10 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.Page;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -32,21 +36,25 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 class PreviewRenderedFigureOutlinePage extends Page implements IContentOutlinePage, ISelectionChangedListener {
 
 	private RectangleFigure background;
-	private FigureCanvas control;
+	private Control control;
 
 	@Override
 	public void createControl(Composite parent) {
-		FigureCanvas canvas = new FigureCanvas(parent);
+		Composite res = new Composite(parent, SWT.BORDER);
+		res.setLayout(new org.eclipse.swt.layout.GridLayout(1, false));
+		Label disclaimerLabel = new Label(res, SWT.WRAP);
+		disclaimerLabel.setText(Messages.previewDisclaimer);
+		disclaimerLabel.setLayoutData(new org.eclipse.swt.layout.GridData(SWT.FILL, SWT.DEFAULT, true, false));
+		FigureCanvas canvas = new FigureCanvas(res);
 		canvas.setBackground(ColorConstants.white);
 		background = new RectangleFigure();
 		background.setForegroundColor(ColorConstants.white);
 		background.setBackgroundColor(ColorConstants.white);
-		org.eclipse.draw2d.GridLayout rectangleLayout = new org.eclipse.draw2d.GridLayout();
+		GridLayout rectangleLayout = new GridLayout();
 		background.setLayoutManager(rectangleLayout);
-		rectangleLayout.marginHeight = 10;
-		rectangleLayout.marginWidth = 10;
 		canvas.setContents(background);
-		this.control = canvas;
+		canvas.setLayoutData(new org.eclipse.swt.layout.GridData(SWT.FILL, SWT.FILL, true, true));
+		this.control = res;
 	}
 
 	@Override
@@ -107,7 +115,7 @@ class PreviewRenderedFigureOutlinePage extends Page implements IContentOutlinePa
 			
 			if (modelFigure != null) {
 				GMFGraphRenderedFigure draw2figure = new GMFGraphRenderedFigure(modelFigure);
-				background.add(draw2figure);
+				background.add(draw2figure, new GridData(SWT.FILL, SWT.FILL, false, false));
 			}
 		}
 	}

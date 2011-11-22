@@ -13,6 +13,7 @@ package org.eclipse.gmf.runtime.graphdef;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.AbstractPointListShape;
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
@@ -22,8 +23,8 @@ import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
-import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.PolylineShape;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.ScalablePolygonShape;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -77,13 +78,12 @@ public class GMFGraphRenderedFigure extends Figure {
 	private List<Font> toDisposeFonts = new ArrayList<Font>();
 	
 	public GMFGraphRenderedFigure(org.eclipse.gmf.gmfgraph.Figure figureDef) {
-		setLayoutManager(new GridLayout(1, false));
+		GridLayout manager = new GridLayout();
+		setForegroundColor(ColorConstants.black);
+		setLayoutManager(manager);
 		ConvertedFigure res = toDraw2d(figureDef); 
 		mainFigure = res.figure;
-		GridData gridData = new GridData();
-		gridData.widthHint = mainFigure.getPreferredSize().width;
-		gridData.heightHint = mainFigure.getPreferredSize().height;
-		add(mainFigure, gridData);
+		add(mainFigure, new GridData(SWT.FILL, SWT.FILL, false, false));
 	}
 	
 	@Override
@@ -116,13 +116,13 @@ public class GMFGraphRenderedFigure extends Figure {
 		} else if (figureDef instanceof ScalablePolygon) {
 			figure = new ScalablePolygonShape();
 		} else if (figureDef instanceof org.eclipse.gmf.gmfgraph.Polygon) {
-			figure = new org.eclipse.draw2d.Polygon();
+			figure = new org.eclipse.draw2d.PolygonShape();
 		} else if (figureDef instanceof PolylineDecoration) {
 			figure = new PolylineDecoration();
 		} else if (figureDef instanceof PolylineConnection) {
 			figure = new org.eclipse.draw2d.PolylineConnection();
 		} else if (figureDef instanceof org.eclipse.gmf.gmfgraph.Polyline) {
-			figure = new Polyline();
+			figure = new PolylineShape();
 		} else {
 			// TODO connections, label, decoration, custom...
 			// all other concrete types for a Figure
@@ -155,7 +155,10 @@ public class GMFGraphRenderedFigure extends Figure {
 			figure.setForegroundColor(toDraw2d(figureDef.getForegroundColor()));
 		}
 		if (figureDef.getInsets() != null) {
-			// TODO
+			figure.getInsets().bottom = figureDef.getInsets().getBottom();
+			figure.getInsets().top = figureDef.getInsets().getTop();
+			figure.getInsets().right = figureDef.getInsets().getRight();
+			figure.getInsets().left = figureDef.getInsets().getLeft();
 		}
 		if (figureDef.getLayout() != null) {
 			figure.setLayoutManager(toDraw2d(figureDef.getLayout()));
@@ -186,15 +189,6 @@ public class GMFGraphRenderedFigure extends Figure {
 			shape.setLineWidth(shapeDef.getLineWidth());
 		}
 		
-		if (figureDef instanceof RealFigure) {
-			for (EObject child : ((RealFigure)figureDef).getChildren()) {
-				if (child instanceof org.eclipse.gmf.gmfgraph.Figure) {
-					ConvertedFigure converted = toDraw2d((org.eclipse.gmf.gmfgraph.Figure)child);
-					figure.add(converted.figure, converted.layoutData);
-				}
-			}
-		}
-		
 		if (figureDef instanceof RoundedRectangle) {
 			RoundedRectangle rectangleDef = (RoundedRectangle)figureDef;
 			((org.eclipse.draw2d.RoundedRectangle)figure).setCornerDimensions(new Dimension(rectangleDef.getCornerWidth(), rectangleDef.getCornerHeight()));
@@ -203,7 +197,16 @@ public class GMFGraphRenderedFigure extends Figure {
 		if (figureDef instanceof org.eclipse.gmf.gmfgraph.Polyline) {
 			org.eclipse.gmf.gmfgraph.Polyline polylineDef = (org.eclipse.gmf.gmfgraph.Polyline)figureDef;
 			for (Point point : polylineDef.getTemplate()) {
-				((Polyline)figure).addPoint(toDraw2d(point));
+				((AbstractPointListShape)figure).addPoint(toDraw2d(point));
+			}
+		}
+		
+		if (figureDef instanceof RealFigure) {
+			for (EObject child : ((RealFigure)figureDef).getChildren()) {
+				if (child instanceof org.eclipse.gmf.gmfgraph.Figure) {
+					ConvertedFigure converted = toDraw2d((org.eclipse.gmf.gmfgraph.Figure)child);
+					figure.add(converted.figure, converted.layoutData);
+				}
 			}
 		}
 	}
@@ -333,8 +336,10 @@ public class GMFGraphRenderedFigure extends Figure {
 			GridData res = new GridData();
 			res.grabExcessHorizontalSpace = gridLayoutData.isGrabExcessHorizontalSpace();
 			res.grabExcessVerticalSpace = gridLayoutData.isGrabExcessVerticalSpace();
-			res.heightHint = gridLayoutData.getSizeHint().getDx();
-			res.widthHint = gridLayoutData.getSizeHint().getDy();
+			if (gridLayoutData.getSizeHint() != null) {
+				res.heightHint = gridLayoutData.getSizeHint().getDx();
+				res.widthHint = gridLayoutData.getSizeHint().getDy();
+			}
 			res.horizontalAlignment = toDraw2d(gridLayoutData.getHorizontalAlignment());
 			res.verticalAlignment = toDraw2d(((GridLayoutData) layoutData).getVerticalAlignment());
 			res.horizontalIndent = gridLayoutData.getHorizontalIndent();
