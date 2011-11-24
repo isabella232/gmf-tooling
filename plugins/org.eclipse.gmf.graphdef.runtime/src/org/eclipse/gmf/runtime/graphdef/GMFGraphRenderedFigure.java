@@ -22,6 +22,7 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.PolylineShape;
@@ -46,6 +47,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.SVGFigure;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.StackLayout;
@@ -79,11 +81,20 @@ public class GMFGraphRenderedFigure extends Figure {
 	
 	public GMFGraphRenderedFigure(org.eclipse.gmf.gmfgraph.Figure figureDef) {
 		GridLayout manager = new GridLayout();
-		setForegroundColor(ColorConstants.black);
 		setLayoutManager(manager);
 		ConvertedFigure res = toDraw2d(figureDef); 
 		mainFigure = res.figure;
-		add(mainFigure, new GridData(SWT.FILL, SWT.FILL, false, false));
+		if (mainFigure == null) {
+			Label label = new Label();
+			if (getFont() == null) {
+				setFont(Display.getDefault().getSystemFont());
+			}
+			label.setText("Rendering not supported (yet?)");
+			label.setForegroundColor(ColorConstants.black);
+			add(label, new GridData(SWT.FILL, SWT.FILL, true, true));
+		} else {
+			add(mainFigure, new GridData(SWT.FILL, SWT.FILL, false, false));
+		}
 	}
 	
 	@Override
@@ -126,13 +137,16 @@ public class GMFGraphRenderedFigure extends Figure {
 		} else {
 			// TODO connections, label, decoration, custom...
 			// all other concrete types for a Figure
+			// TODO also: pluggability for figureDef, generator and previewer
 		}
 		
 		if (figureDef.getLayoutData() != null) {
 			layoutData = toDraw2d(figureDef.getLayoutData());
 		}
 		
-		populate(figureDef, figure);
+		if (figure != null) {
+			populate(figureDef, figure);
+		}
 		
 		ConvertedFigure res = new ConvertedFigure();
 		res.figure = figure;
@@ -328,8 +342,12 @@ public class GMFGraphRenderedFigure extends Figure {
 		if (layoutData instanceof XYLayoutData) {
 			XYLayoutData xyLayoutData = (XYLayoutData)layoutData;
 			Rectangle res = new Rectangle();
-			res.setSize(toDraw2d(xyLayoutData.getSize()));
-			res.setLocation(toDraw2d(xyLayoutData.getTopLeft()));
+			if (xyLayoutData.getSize() != null) {
+				res.setSize(toDraw2d(xyLayoutData.getSize()));
+			}
+			if (xyLayoutData.getTopLeft() != null) {
+				res.setLocation(toDraw2d(xyLayoutData.getTopLeft()));
+			}
 			return res;
 		} else if (layoutData instanceof GridLayoutData) {
 			GridLayoutData gridLayoutData = (GridLayoutData) layoutData;

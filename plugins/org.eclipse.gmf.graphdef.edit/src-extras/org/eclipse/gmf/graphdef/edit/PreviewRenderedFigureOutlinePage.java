@@ -37,6 +37,7 @@ class PreviewRenderedFigureOutlinePage extends Page implements IContentOutlinePa
 
 	private RectangleFigure background;
 	private Control control;
+	private ISelection selection;
 
 	@Override
 	public void createControl(Composite parent) {
@@ -77,21 +78,22 @@ class PreviewRenderedFigureOutlinePage extends Page implements IContentOutlinePa
 		getControl().setFocus();
 	}
 
-	@Override
 	public void addSelectionChangedListener(ISelectionChangedListener listener) {
 	}
 
-	@Override
 	public ISelection getSelection() {
-		return new StructuredSelection();
+		if (selection != null) {
+			return new StructuredSelection();
+		} else {
+			return selection;
+		}
 	}
 
-	@Override
 	public void removeSelectionChangedListener(ISelectionChangedListener listener) {
 	}
 
-	@Override
 	public void setSelection(ISelection selection) {
+		this.selection = selection;
 		handleSelectionChanged(selection);
 	}
 
@@ -115,12 +117,20 @@ class PreviewRenderedFigureOutlinePage extends Page implements IContentOutlinePa
 			
 			if (modelFigure != null) {
 				GMFGraphRenderedFigure draw2figure = new GMFGraphRenderedFigure(modelFigure);
-				background.add(draw2figure, new GridData(SWT.FILL, SWT.FILL, false, false));
+				try {
+					draw2figure.validate();
+					background.add(draw2figure, new GridData(SWT.FILL, SWT.FILL, false, false));
+				} catch (Exception ex) {
+					org.eclipse.draw2d.Label exceptionLabel = new org.eclipse.draw2d.Label();
+					exceptionLabel.setForegroundColor(ColorConstants.black);
+					exceptionLabel.setText(ex.getLocalizedMessage());
+					background.add(exceptionLabel, new GridData(SWT.FILL, SWT.FILL, true, true));
+				}
+				
 			}
 		}
 	}
 
-	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		handleSelectionChanged(event.getSelection());
 	}
