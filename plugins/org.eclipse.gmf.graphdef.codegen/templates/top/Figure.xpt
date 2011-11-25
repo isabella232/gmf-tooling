@@ -17,10 +17,14 @@
 «DEFINE ClassBody(cuName : String) FOR gmfgraph::Figure»«ERROR 'abstract ClassBody(Figure)'»«ENDDEFINE»
 
 «DEFINE ClassBody(cuName : String) FOR gmfgraph::FigureRef-»
-«EXPAND ClassBody(cuName) FOR figure-»
+«EXPAND ClassBody(cuName, self) FOR figure-»
 «ENDDEFINE»
 
 «DEFINE ClassBody(cuName : String) FOR gmfgraph::RealFigure-»
+«EXPAND ClassBody(cuName, null) FOR self-»
+«ENDDEFINE»
+
+«DEFINE ClassBody(cuName : String, figureRef : gmfgraph::FigureRef) FOR gmfgraph::RealFigure-»
 	/**
 	 * @generated
 	 */
@@ -28,6 +32,12 @@
 «clearBorders()-»
 		«EXPAND Layout::Init('this') FOR layout-»
 		«EXPAND Attrs::Init('this')-»
+«IF not figureRef->isEmpty()-»
+		// «figureRef.figure.name» 
+		// Process FigureRef details
+		«EXPAND Layout::Init('this') FOR figureRef.layout-»
+		«EXPAND Attrs::Init('this') FOR figureRef-»
+«ENDIF-»		
 «IF not (children)[gmfgraph::Figure]->isEmpty()-»
 		createContents();
 	}
@@ -40,7 +50,7 @@
 «EXPAND additions-»
 «ENDDEFINE»
 
-«DEFINE ClassBody(cuName : String) FOR gmfgraph::PolylineConnection-»
+«DEFINE ClassBody(cuName : String, figureRef : gmfgraph::FigureRef) FOR gmfgraph::PolylineConnection-»
 	/**
 	 * @generated
 	 */

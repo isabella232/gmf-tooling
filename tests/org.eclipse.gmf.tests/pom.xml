@@ -29,11 +29,41 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho-version}</version>
+				<executions>
+					<execution>
+						<id>SWTBot tests</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<testClass>org.eclipse.gmf.tests.AllSWTBotTests</testClass>
+		        			<useUIThread>false</useUIThread>
+						</configuration>
+					</execution>
+					<execution>
+						<id>non SWTBot tests</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<testClass>org.eclipse.gmf.tests.AllTests</testClass>
+		        			<useUIThread>true</useUIThread>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Skip default test -->
+						<id>default-test</id>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</execution>
+				</executions>
+				<!-- Inherited configuration -->
 				<configuration>
-					<testSuite>org.eclipse.gmf.tests</testSuite>
-					<testClass>org.eclipse.gmf.tests.AllTests</testClass>
 					<useUIHarness>true</useUIHarness>
-        			<useUIThread>true</useUIThread>
+					<testSuite>org.eclipse.gmf.tests</testSuite>
 					<argLine>${tycho.testArgLine} -Xmx512m -XX:MaxPermSize=128m -DbuildingWithTycho=true</argLine>
 					<bundleStartLevel>
 						<bundle>
@@ -44,17 +74,17 @@
 					</bundleStartLevel>
 					<dependencies>
 						<dependency>
-              				<type>p2-installable-unit</type>
-              				<artifactId>org.eclipse.gmf.feature.group</artifactId>
-           				</dependency>
-           				<dependency>
-              				<type>p2-installable-unit</type>
-              				<artifactId>org.eclipse.pde.feature.group</artifactId>
-           				</dependency>
-           				<dependency>
-              				<type>p2-installable-unit</type>
-              				<artifactId>org.eclipse.emf.validation.ocl</artifactId>
-           				</dependency>
+	             				<type>p2-installable-unit</type>
+	             				<artifactId>org.eclipse.gmf.feature.group</artifactId>
+	          				</dependency>
+	          				<dependency>
+	             				<type>p2-installable-unit</type>
+	             				<artifactId>org.eclipse.pde.feature.group</artifactId>
+	          				</dependency>
+	          				<dependency>
+	             				<type>p2-installable-unit</type>
+	             				<artifactId>org.eclipse.emf.validation.ocl</artifactId>
+	          				</dependency>
 					</dependencies>
 				</configuration>
 			</plugin>

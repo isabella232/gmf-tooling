@@ -28,13 +28,22 @@
 «ENDDEFINE»
 
 «DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::FigureRef-»
-/*FIXME referenced figures are just not yet fully-functional; need process attrs and layout here*/
+«LET figureVariableName(figure, count) AS figureVarName»
 «EXPAND instantiate(count, parentFigure, parentFigureVariable) FOR figure-»
+// Process FigureRef details
+«EXPAND populate(count, parentFigure, parentFigureVariable, figureVarName) FOR self-»
+«ENDLET»
 «ENDDEFINE»
 
 «DEFINE instantiate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String) FOR gmfgraph::RealFigure»
 «LET figureVariableName(self, count) AS figureVarName»
 «EXPAND newFigureInstance(figureVarName)»
+«EXPAND populate(count, parentFigure, parentFigureVariable, figureVarName) FOR self-»
+«EXPAND instantiate(count + 1, self, figureVarName) FOREACH children-»
+«ENDLET»
+«ENDDEFINE»
+
+«DEFINE populate(count : Integer, parentFigure : gmfgraph::RealFigure, parentFigureVariable : String, figureVarName : String) FOR gmfgraph::Figure»
 «EXPAND Attrs::Init(figureVarName)-»
 «IF null = layoutData or null = parentFigure.layout-»«REM»Check for (parentLayout != null) to avoid generating data that won't be used. Not sure it's essential, but it was that way with old jet templates«ENDREM»
 «parentFigureVariable».add(«figureVarName»);
@@ -42,8 +51,6 @@
 «EXPAND LayoutData::Init(parentFigureVariable, figureVarName) FOR layoutData-»
 «ENDIF-»
 «EXPAND Layout::Init(figureVarName) FOR layout-»
-«EXPAND instantiate(count + 1, self, figureVarName) FOREACH children-»
-«ENDLET»
 «ENDDEFINE»
 
 «DEFINE newFigureInstance(figureVarName : String) FOR gmfgraph::RealFigure»«IF needsField(self)»«figureVarName» = «EXPAND Runtime::newInstance»;«ELSE»«EXPAND Runtime::newInstance(figureVarName)»«ENDIF»«ENDDEFINE»
