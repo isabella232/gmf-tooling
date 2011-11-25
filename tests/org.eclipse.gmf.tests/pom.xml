@@ -32,7 +32,6 @@
 				<executions>
 					<execution>
 						<id>SWTBot tests</id>
-						<phase>test</phase>
 						<goals>
 							<goal>test</goal>
 						</goals>
@@ -42,21 +41,13 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>non SWTBot tests</id>
-						<phase>test</phase>
+						<id>default-test</id> <!-- Do not rename, see bug 364856 -->
 						<goals>
 							<goal>test</goal>
 						</goals>
 						<configuration>
 							<testClass>org.eclipse.gmf.tests.AllTests</testClass>
 		        			<useUIThread>true</useUIThread>
-						</configuration>
-					</execution>
-					<execution>
-						<!-- Skip default test -->
-						<id>default-test</id>
-						<configuration>
-							<skipTests>true</skipTests>
 						</configuration>
 					</execution>
 				</executions>
