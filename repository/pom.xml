@@ -89,11 +89,11 @@
 								<configuration>
 									<tasks>
 										<delete includeemptydirs="false">
-											<fileset dir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots">
+											<fileset dir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots/2.4.x-maintenance">
 												<include name="**" />
 											</fileset>
 										</delete>
-										<copy includeemptydirs="false" todir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots">
+										<copy includeemptydirs="false" todir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots/2.4.x-maintenance">
 											<fileset dir="target/checksumFix">
 												<include name="**" />
 											</fileset>
