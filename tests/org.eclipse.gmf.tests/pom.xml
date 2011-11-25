@@ -52,7 +52,15 @@
 		        			<useUIThread>true</useUIThread>
 						</configuration>
 					</execution>
+					<execution>
+						<!-- Skip default test -->
+						<id>default-test</id>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</execution>
 				</executions>
+				<!-- Inherited configuration -->
 				<configuration>
 					<useUIHarness>true</useUIHarness>
 					<testSuite>org.eclipse.gmf.tests</testSuite>

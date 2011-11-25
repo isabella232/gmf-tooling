@@ -63,17 +63,55 @@ public class FigureGenerationTest extends SWTBotEclipseTestCase {
 				return null;
 			}
 		}, 40000);
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("org.eclipse.gmf.testProjectBug267354").getFile(new Path("src/org/eclipse/gmf/testProjectBug267354/Desc.java"));
-					IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), file);
-				} catch (Exception ex) {
-					ex.printStackTrace();
+		{
+			// Check in ChildFigureRef
+			Display.getDefault().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("org.eclipse.gmf.testProjectBug267354").getFile(new Path("src/org/eclipse/gmf/testProjectBug267354/ChildFigureRef.java"));
+						IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), file);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
 				}
-			}
-		});
-		Assert.assertTrue("Did not find specified background color attribute", bot.editorByTitle("Desc.java").toTextEditor().getText().contains("ColorConstants.lightGreen"));
+			});
+			String generatedCode = bot.editorByTitle("ChildFigureRef.java").toTextEditor().getText();
+			Assert.assertTrue("No mention of FigureRef details", generatedCode.contains("Process FigureRef details"));
+			Assert.assertTrue("Did not find specified background color attribute", generatedCode.contains("ColorConstants.lightGreen"));
+		}
+		{
+			// Check in DirectFigureRef
+			Display.getDefault().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("org.eclipse.gmf.testProjectBug267354").getFile(new Path("src/org/eclipse/gmf/testProjectBug267354/DirectFigureRef.java"));
+						IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), file);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+			String generatedCode = bot.editorByTitle("DirectFigureRef.java").toTextEditor().getText();
+			Assert.assertTrue("No mention of FigureRef details", generatedCode.contains("Process FigureRef details"));
+			Assert.assertTrue("Did not find specified background color attribute", generatedCode.contains("ColorConstants.lightGreen"));
+		}
+		{
+			// Check in NoRefFigure: no change for figures without Ref
+			Display.getDefault().asyncExec(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						IFile file = ResourcesPlugin.getWorkspace().getRoot().getProject("org.eclipse.gmf.testProjectBug267354").getFile(new Path("src/org/eclipse/gmf/testProjectBug267354/NoRefFigure.java"));
+						IDE.openEditor(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(), file);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			});
+			String generatedCode = bot.editorByTitle("NoRefFigure.java").toTextEditor().getText();
+			Assert.assertFalse("Mention of 'FigureRef details' in figure without Ref!", generatedCode.contains("Process FigureRef details"));
+		}
 	}
 }
