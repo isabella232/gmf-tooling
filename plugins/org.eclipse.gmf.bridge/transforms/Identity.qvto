@@ -16,41 +16,40 @@ modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
 transformation Identity(in mapModel : GMFMAP, inout gmfgenModel : GMFGEN);
 
-main() {
-	var mapRoot := mapModel.rootObjects()![GMFMAP::Mapping];
-	var editorGen := gmfgenModel.rootObjects()![GMFGEN::GenEditorGenerator];
-	visualIdentity(mapRoot, editorGen.diagram);
-}
+main() {}
 
 -- *************************************************************************************
 -- Visual ID
 -- *************************************************************************************
 
-helper visualIdentity(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiagram) {
-	genDiagram.visualID := 1000;
-	--5.range(1, genDiagram.topLevelNodes->size())->forEach(i) {
-	Sequence { 1..genDiagram.topLevelNodes->size() }->forEach(i) {
-		var n : GenTopLevelNode := genDiagram.topLevelNodes->at(i);
-		n.visualID := 2000 + i;
-	};
-	Sequence { 1..genDiagram.childNodes->size() }->forEach(i) {
-		var n : GenChildNode := genDiagram.childNodes->at(i);
-		n.visualID := 3000 + i;
-	};
-	Sequence { 1..genDiagram.links->size() }->forEach(i) {
-		var l : GenLink := genDiagram.links->at(i);
-		l.visualID := 4000 + i;
-	};
-	Sequence { 1..genDiagram.compartments->size() }->forEach(i) {
-		var c : GenCompartment := genDiagram.compartments->at(i);
-		c.visualID := 7000 + i;
-	};
-	Sequence { 1..genDiagram.getAllNodes().labels->size() }->forEach(i) {
-		var l : GenLabel := genDiagram.getAllNodes().labels->at(i);
-		l.visualID := 5000 + i;
-	};
-	Sequence { 1..genDiagram.links.labels->size() }->forEach(i) {
-		var l : GenLabel := genDiagram.links.labels->at(i);
-		l.visualID := 6000 + i;
-	};
+property topNodeID: Integer = 2000;
+property childNodeID: Integer = 3000;
+property linkNodeID: Integer = 4000;
+property nodeLabelID: Integer = 5000;
+property linkLabelID: Integer = 6000;
+property compartmentID: Integer = 7000;
+
+helper topNodeID(): Integer {
+	topNodeID := this.topNodeID + 1;
+	return this.topNodeID;
+}
+helper childNodeID(): Integer {
+	childNodeID := childNodeID + 1;
+	return childNodeID;
+}
+helper nodeLabelID(): Integer {
+	nodeLabelID := nodeLabelID + 1;
+	return nodeLabelID;
+}
+helper linkNodeID(): Integer {
+	linkNodeID := linkNodeID + 1;
+	return linkNodeID;
+}
+helper compartmentID(): Integer {
+	compartmentID := compartmentID + 1;
+	return compartmentID;
+}
+helper linkLabelID(): Integer {
+	linkLabelID := linkLabelID + 1;
+	return linkLabelID;
 }
