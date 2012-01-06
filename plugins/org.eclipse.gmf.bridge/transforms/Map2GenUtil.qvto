@@ -8,7 +8,7 @@ library Map2GenUtil;
 
 property allChildReferences: Sequence(ChildReference) = Sequence{};
 property childReferences: Sequence(ChildReference) = Sequence{};
-property equivalentChild: Dict(ChildReference, ChildReference) = Dict{};
+property equivalentChild: Dict(ChildReference, Sequence(ChildReference)) = Dict{};
 
 property genModel : GENMODEL::GenModel = null;
 
@@ -20,18 +20,18 @@ query GMFMAP::Mapping::getChildReferences(): Sequence(ChildReference) {
 		var equi: ChildReference = equivalentChild->keys()->selectOne(e | e.matchChildReferenceFeatures(c));
 		if equi.oclIsUndefined() then {
 			rs += c;
-			equivalentChild->put(c, c);
+			equivalentChild->put(c, Sequence{});
 		} else {
-			equivalentChild->put(equi, c)
+			var seq := equivalentChild->get(equi);
+			seq += c;
+			equivalentChild->put(equi, seq);
 		} endif
 	};
-	childReferences;
 	
-	return rs;
--- HACK
---			->reject(e | e.compartment.oclIsUndefined() and 
---				e.containmentFeature = e.childrenFeature and 
---				not e.referencedChild.oclIsUndefined())
+	return rs
+		-- ->reject(e | e.compartment.oclIsUndefined() and 
+			-- 	e.containmentFeature = e.childrenFeature and 
+			-- 	not e.referencedChild.oclIsUndefined());
 }
 
 query NodeMapping::getChildReferences(): Sequence(ChildReference) {
@@ -99,9 +99,9 @@ helper GMFMAP::ChildReference::matchChildReferenceFeatures(node: GMFMAP::ChildRe
 query ChildReference::findProcessableChildReference(): ChildReference {
 	return if childReferences->includes(self) then
 		self
-	else {
-		childReferences->any(e | e.matchChildReferenceFeatures(self))
-	} endif
+	else
+		equivalentChild->keys()->selectOne(e | equivalentChild->get(e)->includes(self))
+	endif
 }
 
 -- XXX review - Specialization type is created again and again - why not reuse it?
