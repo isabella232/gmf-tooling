@@ -12,16 +12,43 @@
  */
 package org.eclipse.gmf.tests;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gef.ParsersTest;
 import org.eclipse.gmf.tests.gef.ParsersTest.ParsersSetup;
-import org.eclipse.gmf.tests.gen.*;
+import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
+import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
+import org.eclipse.gmf.tests.gen.FigureCodegenTest;
+import org.eclipse.gmf.tests.gen.FigureLayoutTest;
+import org.eclipse.gmf.tests.gen.GenFeatureSeqInitializerTest;
+import org.eclipse.gmf.tests.gen.HandcodedContributionItemTest;
+import org.eclipse.gmf.tests.gen.HandcodedGMFMapItemProvidersTest;
+import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
+import org.eclipse.gmf.tests.gen.HandcodedImplTest;
+import org.eclipse.gmf.tests.gen.HandcodedPaletteTest;
+import org.eclipse.gmf.tests.gen.LabelSupportTest;
+import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
+import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
+import org.eclipse.gmf.tests.gen.OrganizeImportsPostprocessorTest;
+import org.eclipse.gmf.tests.gen.RTFigureTest;
+import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
+import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
+import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
+import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
+import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
+import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.migration.AllMigrationTests;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.BundleActivationTest;
@@ -52,36 +79,25 @@ import org.eclipse.gmf.tests.tr.ManifestMergeTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.PluginXMLTextMergerTest;
+import org.eclipse.gmf.tests.tr.QvtGenModelTransformerBasicRTTest;
+import org.eclipse.gmf.tests.tr.QvtGenModelTransformerSimpleTest;
+import org.eclipse.gmf.tests.tr.QvtLabelMappingTransformTest;
+import org.eclipse.gmf.tests.tr.QvtPaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
 import org.eclipse.gmf.tests.validate.AllValidateTests;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jdt.core.IJavaModelMarker;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.osgi.baseadaptor.BaseData;
 import org.eclipse.osgi.framework.internal.core.AbstractBundle;
-import org.eclipse.pde.internal.core.PDECore;
 import org.eclipse.pde.internal.core.target.TargetPlatformService;
 import org.eclipse.pde.internal.core.target.provisional.IBundleContainer;
 import org.eclipse.pde.internal.core.target.provisional.ITargetDefinition;
 import org.eclipse.pde.internal.core.target.provisional.ITargetPlatformService;
 import org.eclipse.pde.internal.core.target.provisional.LoadTargetDefinitionJob;
 import org.osgi.framework.Bundle;
-import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.ArrayList;
 
+@SuppressWarnings("restriction")
 public class AllTests {
 
 	public static Test suite() throws Exception {
@@ -152,6 +168,11 @@ public class AllTests {
 		suite.addTestSuite(ManifestMergeTest.class);
         suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
 
+        suite.addTestSuite(QvtGenModelTransformerSimpleTest.class);
+        suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
+        suite.addTestSuite(QvtLabelMappingTransformTest.class);
+        suite.addTestSuite(QvtPaletteTransformationTest.class);
+        
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
 		suite.addTest(AllMigrationTests.suite());
@@ -237,6 +258,12 @@ public class AllTests {
 		c.register(PaletteTransformationTest.class, SessionSetup.class);
 		c.register(AuditHandcodedTest.class, SessionSetup.class);		
 		c.register(CodegenReconcileTest.class, SessionSetup.class);
+		
+		c.register(QvtGenModelTransformerSimpleTest.class, SessionSetup.class);
+		c.register(QvtGenModelTransformerBasicRTTest.class, SessionSetup.class);
+		c.register(QvtLabelMappingTransformTest.class, SessionSetup.class);
+		c.register(QvtPaletteTransformationTest.class, SessionSetup.class);
+		
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		c.register(TestAllDerivedFeatures.class, SessionSetup.class);
 		c.register(DiagramNodeTest.class, SessionSetup.class);
