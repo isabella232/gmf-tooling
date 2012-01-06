@@ -138,7 +138,7 @@ mapping GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
 	
 	self.child.children->select(e | e.compartment.oclIsUndefined())->forEach(c) {
 		var node := c.findProcessableChildReference();
-		childNodes := node.map structure(node.child);
+		childNodes += node.map structure(node.child);
 	};
 	
 	labels += self.child.labelMappings->map createNodeLabel(self);
@@ -169,7 +169,7 @@ mapping GMFMAP::ChildReference::createGenChildLabelNode(node: GMFMAP::NodeMappin
 
 	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
 		var node := c.findProcessableChildReference();
-		childNodes := node.map structure(node.child);
+		childNodes += node.map structure(node.child);
 	};
 	
 	modelFacet := self.createModelFacet();
@@ -186,7 +186,7 @@ mapping GMFMAP::ChildReference::createGenChildSideAffixedNode(node: GMFMAP::Node
 	
 	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
 		var node := c.findProcessableChildReference();
-		childNodes += node->map structure(node.child);
+		childNodes += node.map structure(node.child);
 	};
 	
 	behaviour += node.relatedDiagrams.handleRelatedDiagram(node);
@@ -200,7 +200,7 @@ mapping GMFMAP::ChildReference::createGenChildNode(node: GMFMAP::NodeMapping) : 
 	
 	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
 		var node := c.findProcessableChildReference();
-		childNodes += node->map structure(node.child);
+		childNodes += node.map structure(node.child);
 	};
 	
 	behaviour += node.relatedDiagrams.handleRelatedDiagram(node);
@@ -236,8 +236,9 @@ mapping GMFMAP::CompartmentMapping::structure(_mapping: GMFMAP::NodeMapping, con
 		if c.child.children->size() > 0 then
 			listLayout := false
 		endif;
-		var node := if equivalentChild->hasKey(c) then c else 
-			equivalentChild->keys()->selectOne(e | equivalentChild->get(e) = c) endif; 
+		var node := c.findProcessableChildReference();
+			-- if equivalentChild->hasKey(c) then c else 
+			-- equivalentChild->keys()->selectOne(e | equivalentChild->get(e)->includes(c)) endif; 
 		childNodes += node.map structure(node.child);	
 	}
 }
