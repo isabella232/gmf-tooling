@@ -27,6 +27,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface MainMenu extends Menu {
+
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->

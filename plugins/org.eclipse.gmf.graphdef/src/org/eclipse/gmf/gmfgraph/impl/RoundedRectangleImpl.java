@@ -137,9 +137,9 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
-				return new Integer(getCornerWidth());
+				return getCornerWidth();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
-				return new Integer(getCornerHeight());
+				return getCornerHeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -153,10 +153,10 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
-				setCornerWidth(((Integer)newValue).intValue());
+				setCornerWidth((Integer)newValue);
 				return;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
-				setCornerHeight(((Integer)newValue).intValue());
+				setCornerHeight((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

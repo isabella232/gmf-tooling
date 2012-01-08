@@ -21,6 +21,7 @@ import org.eclipse.gmf.tooldef.Toolbar;
  * @generated
  */
 public class ToolbarImpl extends MenuImpl implements Toolbar {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -29,6 +29,7 @@ import org.eclipse.gmf.tooldef.GenericTool;
  * @generated
  */
 public class GenericToolImpl extends AbstractToolImpl implements GenericTool {
+
 	/**
 	 * The default value of the '{@link #getToolClass() <em>Tool Class</em>}' attribute.
 	 * <!-- begin-user-doc -->

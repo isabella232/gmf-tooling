@@ -138,9 +138,9 @@ public class PointImpl extends EObjectImpl implements Point {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.POINT__X:
-				return new Integer(getX());
+				return getX();
 			case GMFGraphPackage.POINT__Y:
-				return new Integer(getY());
+				return getY();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,10 +154,10 @@ public class PointImpl extends EObjectImpl implements Point {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.POINT__X:
-				setX(((Integer)newValue).intValue());
+				setX((Integer)newValue);
 				return;
 			case GMFGraphPackage.POINT__Y:
-				setY(((Integer)newValue).intValue());
+				setY((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

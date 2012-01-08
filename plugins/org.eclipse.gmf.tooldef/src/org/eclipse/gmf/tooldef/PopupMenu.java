@@ -23,6 +23,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface PopupMenu extends Menu, ContributionItem {
+
 	/**
 	 * Returns the value of the '<em><b>ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->

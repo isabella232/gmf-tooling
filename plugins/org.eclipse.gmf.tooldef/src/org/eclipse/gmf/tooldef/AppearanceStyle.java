@@ -49,6 +49,7 @@ public enum AppearanceStyle implements Enumerator {
 	 * @ordered
 	 */
 	LINE_LITERAL(2, "Line", "Line");
+
 	/**
 	 * The '<em><b>Font</b></em>' literal value.
 	 * <!-- begin-user-doc -->

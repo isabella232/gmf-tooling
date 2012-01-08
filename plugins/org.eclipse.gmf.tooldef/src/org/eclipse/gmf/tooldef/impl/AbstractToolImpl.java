@@ -36,6 +36,7 @@ import org.eclipse.gmf.tooldef.Image;
  * @generated
  */
 public abstract class AbstractToolImpl extends EObjectImpl implements AbstractTool {
+
 	/**
 	 * The cached value of the '{@link #getSmallIcon() <em>Small Icon</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -44,7 +45,7 @@ public abstract class AbstractToolImpl extends EObjectImpl implements AbstractTo
 	 * @generated
 	 * @ordered
 	 */
-	protected Image smallIcon = null;
+	protected Image smallIcon;
 
 	/**
 	 * The cached value of the '{@link #getLargeIcon() <em>Large Icon</em>}' containment reference.
@@ -54,7 +55,7 @@ public abstract class AbstractToolImpl extends EObjectImpl implements AbstractTo
 	 * @generated
 	 * @ordered
 	 */
-	protected Image largeIcon = null;
+	protected Image largeIcon;
 
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.

@@ -92,7 +92,7 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 	 * @generated
 	 */
 	public FigureDescriptor getOwner() {
-		if (eContainerFeatureID != GMFGraphPackage.CHILD_ACCESS__OWNER) return null;
+		if (eContainerFeatureID() != GMFGraphPackage.CHILD_ACCESS__OWNER) return null;
 		return (FigureDescriptor)eContainer();
 	}
 
@@ -210,7 +210,7 @@ public class ChildAccessImpl extends EObjectImpl implements ChildAccess {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGraphPackage.CHILD_ACCESS__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGraphPackage.FIGURE_DESCRIPTOR__ACCESSORS, FigureDescriptor.class, msgs);
 		}

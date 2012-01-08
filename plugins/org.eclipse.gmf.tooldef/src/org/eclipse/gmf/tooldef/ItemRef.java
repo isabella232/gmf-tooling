@@ -23,6 +23,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface ItemRef extends ItemBase {
+
 	/**
 	 * Returns the value of the '<em><b>Item</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -28,6 +28,7 @@ import org.eclipse.gmf.tooldef.GMFToolPackage;
  * @generated
  */
 public class ContextMenuItemProvider extends MenuItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -62,8 +63,8 @@ public class ContextMenuItemProvider extends MenuItemProvider implements IEditin
 	 */
 	protected void addDefaultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_ContextMenu_default_feature"), getString("_UI_PropertyDescriptor_description", "_UI_ContextMenu_default_feature", "_UI_ContextMenu_type"), GMFToolPackage.eINSTANCE
-						.getContextMenu_Default(), true, false, false, null, null, null));
+				getString("_UI_ContextMenu_default_feature"), getString("_UI_PropertyDescriptor_description", "_UI_ContextMenu_default_feature", "_UI_ContextMenu_type"),
+				GMFToolPackage.eINSTANCE.getContextMenu_Default(), true, false, false, null, null, null));
 	}
 
 	/**
@@ -111,17 +112,6 @@ public class ContextMenuItemProvider extends MenuItemProvider implements IEditin
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GMFToolEditPlugin.INSTANCE;
 	}
 
 }

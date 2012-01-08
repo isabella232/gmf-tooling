@@ -183,7 +183,7 @@ public class BasicFontImpl extends EObjectImpl implements BasicFont {
 			case GMFGraphPackage.BASIC_FONT__FACE_NAME:
 				return getFaceName();
 			case GMFGraphPackage.BASIC_FONT__HEIGHT:
-				return new Integer(getHeight());
+				return getHeight();
 			case GMFGraphPackage.BASIC_FONT__STYLE:
 				return getStyle();
 		}
@@ -202,7 +202,7 @@ public class BasicFontImpl extends EObjectImpl implements BasicFont {
 				setFaceName((String)newValue);
 				return;
 			case GMFGraphPackage.BASIC_FONT__HEIGHT:
-				setHeight(((Integer)newValue).intValue());
+				setHeight((Integer)newValue);
 				return;
 			case GMFGraphPackage.BASIC_FONT__STYLE:
 				setStyle((FontStyle)newValue);

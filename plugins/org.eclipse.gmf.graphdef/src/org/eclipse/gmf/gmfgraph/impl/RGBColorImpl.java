@@ -180,11 +180,11 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.RGB_COLOR__RED:
-				return new Integer(getRed());
+				return getRed();
 			case GMFGraphPackage.RGB_COLOR__GREEN:
-				return new Integer(getGreen());
+				return getGreen();
 			case GMFGraphPackage.RGB_COLOR__BLUE:
-				return new Integer(getBlue());
+				return getBlue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -198,13 +198,13 @@ public class RGBColorImpl extends EObjectImpl implements RGBColor {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.RGB_COLOR__RED:
-				setRed(((Integer)newValue).intValue());
+				setRed((Integer)newValue);
 				return;
 			case GMFGraphPackage.RGB_COLOR__GREEN:
-				setGreen(((Integer)newValue).intValue());
+				setGreen((Integer)newValue);
 				return;
 			case GMFGraphPackage.RGB_COLOR__BLUE:
-				setBlue(((Integer)newValue).intValue());
+				setBlue((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

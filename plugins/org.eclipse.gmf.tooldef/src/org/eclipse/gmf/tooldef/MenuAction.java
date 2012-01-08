@@ -24,6 +24,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface MenuAction extends ContributionItem {
+
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.tooldef.ActionKind}.

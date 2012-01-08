@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EReference;
  * @generated
  */
 public interface GMFToolPackage extends EPackage {
+
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->

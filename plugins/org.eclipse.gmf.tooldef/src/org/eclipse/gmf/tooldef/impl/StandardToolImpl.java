@@ -30,6 +30,7 @@ import org.eclipse.gmf.tooldef.StandardToolKind;
  * @generated
  */
 public class StandardToolImpl extends AbstractToolImpl implements StandardTool {
+
 	/**
 	 * The default value of the '{@link #getToolKind() <em>Tool Kind</em>}' attribute.
 	 * <!-- begin-user-doc -->

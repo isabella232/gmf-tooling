@@ -38,6 +38,7 @@ import org.eclipse.gmf.tooldef.Menu;
  * @generated
  */
 public abstract class MenuImpl extends EObjectImpl implements Menu {
+
 	/**
 	 * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -46,7 +47,7 @@ public abstract class MenuImpl extends EObjectImpl implements Menu {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ItemBase> items = null;
+	protected EList<ItemBase> items;
 
 	/**
 	 * <!-- begin-user-doc -->

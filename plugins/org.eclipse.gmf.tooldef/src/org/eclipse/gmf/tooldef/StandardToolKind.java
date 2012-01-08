@@ -76,6 +76,7 @@ public enum StandardToolKind implements Enumerator {
 	 * @ordered
 	 */
 	ZOOM_OUT_LITERAL(5, "ZOOM_OUT", "ZOOM_OUT");
+
 	/**
 	 * The '<em><b>SELECT</b></em>' literal value.
 	 * <!-- begin-user-doc -->

@@ -30,6 +30,7 @@ import org.eclipse.gmf.tooldef.PredefinedItem;
  * @generated
  */
 public class PredefinedItemImpl extends EObjectImpl implements PredefinedItem {
+
 	/**
 	 * The default value of the '{@link #getIdentifier() <em>Identifier</em>}' attribute.
 	 * <!-- begin-user-doc -->

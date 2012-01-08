@@ -36,6 +36,7 @@ import org.eclipse.gmf.tooldef.ToolContainer;
  * @generated
  */
 public abstract class ToolContainerImpl extends AbstractToolImpl implements ToolContainer {
+
 	/**
 	 * The cached value of the '{@link #getTools() <em>Tools</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -44,7 +45,7 @@ public abstract class ToolContainerImpl extends AbstractToolImpl implements Tool
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AbstractTool> tools = null;
+	protected EList<AbstractTool> tools;
 
 	/**
 	 * <!-- begin-user-doc -->

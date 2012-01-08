@@ -82,7 +82,7 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractTool active = null;
+	protected AbstractTool active;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -192,9 +192,9 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
-			return isCollapsible() ? Boolean.TRUE : Boolean.FALSE;
+			return isCollapsible();
 		case GMFToolPackage.TOOL_GROUP__STACK:
-			return isStack() ? Boolean.TRUE : Boolean.FALSE;
+			return isStack();
 		case GMFToolPackage.TOOL_GROUP__ACTIVE:
 			if (resolve)
 				return getActive();
@@ -212,10 +212,10 @@ public class ToolGroupImpl extends ToolContainerImpl implements ToolGroup {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case GMFToolPackage.TOOL_GROUP__COLLAPSIBLE:
-			setCollapsible(((Boolean) newValue).booleanValue());
+			setCollapsible((Boolean) newValue);
 			return;
 		case GMFToolPackage.TOOL_GROUP__STACK:
-			setStack(((Boolean) newValue).booleanValue());
+			setStack((Boolean) newValue);
 			return;
 		case GMFToolPackage.TOOL_GROUP__ACTIVE:
 			setActive((AbstractTool) newValue);

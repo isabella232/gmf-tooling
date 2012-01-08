@@ -216,7 +216,7 @@ public class DiagramLabelImpl extends NodeImpl implements DiagramLabel {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_LABEL__ELEMENT_ICON:
-				return isElementIcon() ? Boolean.TRUE : Boolean.FALSE;
+				return isElementIcon();
 			case GMFGraphPackage.DIAGRAM_LABEL__ACCESSOR:
 				if (resolve) return getAccessor();
 				return basicGetAccessor();
@@ -224,7 +224,7 @@ public class DiagramLabelImpl extends NodeImpl implements DiagramLabel {
 				if (resolve) return getContainer();
 				return basicGetContainer();
 			case GMFGraphPackage.DIAGRAM_LABEL__EXTERNAL:
-				return isExternal() ? Boolean.TRUE : Boolean.FALSE;
+				return isExternal();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -238,7 +238,7 @@ public class DiagramLabelImpl extends NodeImpl implements DiagramLabel {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_LABEL__ELEMENT_ICON:
-				setElementIcon(((Boolean)newValue).booleanValue());
+				setElementIcon((Boolean)newValue);
 				return;
 			case GMFGraphPackage.DIAGRAM_LABEL__ACCESSOR:
 				setAccessor((ChildAccess)newValue);

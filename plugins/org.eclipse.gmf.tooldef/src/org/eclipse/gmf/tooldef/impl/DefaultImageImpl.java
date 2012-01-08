@@ -23,6 +23,7 @@ import org.eclipse.gmf.tooldef.GMFToolPackage;
  * @generated
  */
 public class DefaultImageImpl extends EObjectImpl implements DefaultImage {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

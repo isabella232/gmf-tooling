@@ -31,6 +31,7 @@ import org.eclipse.gmf.tooldef.GenericStyleSelector;
  * @generated
  */
 public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyleSelector {
+
 	/**
 	 * The cached value of the '{@link #getValues() <em>Values</em>}' attribute list.
 	 * <!-- begin-user-doc -->
@@ -39,7 +40,7 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<AppearanceStyle> values = null;
+	protected EList<AppearanceStyle> values;
 
 	/**
 	 * <!-- begin-user-doc -->

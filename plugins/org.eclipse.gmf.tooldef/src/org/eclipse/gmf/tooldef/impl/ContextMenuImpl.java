@@ -31,6 +31,7 @@ import org.eclipse.gmf.tooldef.MenuAction;
  * @generated
  */
 public class ContextMenuImpl extends MenuImpl implements ContextMenu {
+
 	/**
 	 * The cached value of the '{@link #getDefault() <em>Default</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -39,7 +40,7 @@ public class ContextMenuImpl extends MenuImpl implements ContextMenu {
 	 * @generated
 	 * @ordered
 	 */
-	protected MenuAction default_ = null;
+	protected MenuAction default_;
 
 	/**
 	 * <!-- begin-user-doc -->

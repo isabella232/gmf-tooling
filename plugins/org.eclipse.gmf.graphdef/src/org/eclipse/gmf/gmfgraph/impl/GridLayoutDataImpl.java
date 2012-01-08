@@ -439,7 +439,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGraphPackage.GRID_LAYOUT_DATA__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA, Layoutable.class, msgs);
 		}
@@ -457,19 +457,19 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 			case GMFGraphPackage.GRID_LAYOUT_DATA__OWNER:
 				return getOwner();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__GRAB_EXCESS_HORIZONTAL_SPACE:
-				return isGrabExcessHorizontalSpace() ? Boolean.TRUE : Boolean.FALSE;
+				return isGrabExcessHorizontalSpace();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__GRAB_EXCESS_VERTICAL_SPACE:
-				return isGrabExcessVerticalSpace() ? Boolean.TRUE : Boolean.FALSE;
+				return isGrabExcessVerticalSpace();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__VERTICAL_ALIGNMENT:
 				return getVerticalAlignment();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__HORIZONTAL_ALIGNMENT:
 				return getHorizontalAlignment();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__VERTICAL_SPAN:
-				return new Integer(getVerticalSpan());
+				return getVerticalSpan();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__HORIZONTAL_SPAN:
-				return new Integer(getHorizontalSpan());
+				return getHorizontalSpan();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__HORIZONTAL_INDENT:
-				return new Integer(getHorizontalIndent());
+				return getHorizontalIndent();
 			case GMFGraphPackage.GRID_LAYOUT_DATA__SIZE_HINT:
 				return getSizeHint();
 		}
@@ -488,10 +488,10 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 				setOwner((Layoutable)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__GRAB_EXCESS_HORIZONTAL_SPACE:
-				setGrabExcessHorizontalSpace(((Boolean)newValue).booleanValue());
+				setGrabExcessHorizontalSpace((Boolean)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__GRAB_EXCESS_VERTICAL_SPACE:
-				setGrabExcessVerticalSpace(((Boolean)newValue).booleanValue());
+				setGrabExcessVerticalSpace((Boolean)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__VERTICAL_ALIGNMENT:
 				setVerticalAlignment((Alignment)newValue);
@@ -500,13 +500,13 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 				setHorizontalAlignment((Alignment)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__VERTICAL_SPAN:
-				setVerticalSpan(((Integer)newValue).intValue());
+				setVerticalSpan((Integer)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__HORIZONTAL_SPAN:
-				setHorizontalSpan(((Integer)newValue).intValue());
+				setHorizontalSpan((Integer)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__HORIZONTAL_INDENT:
-				setHorizontalIndent(((Integer)newValue).intValue());
+				setHorizontalIndent((Integer)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT_DATA__SIZE_HINT:
 				setSizeHint((Dimension)newValue);
@@ -618,7 +618,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 	 * @generated
 	 */
 	public Layoutable getOwner() {
-		if (eContainerFeatureID != GMFGraphPackage.GRID_LAYOUT_DATA__OWNER) return null;
+		if (eContainerFeatureID() != GMFGraphPackage.GRID_LAYOUT_DATA__OWNER) return null;
 		return (Layoutable)eContainer();
 	}
 
@@ -638,7 +638,7 @@ public class GridLayoutDataImpl extends EObjectImpl implements GridLayoutData {
 	 * @generated
 	 */
 	public void setOwner(Layoutable newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.GRID_LAYOUT_DATA__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != GMFGraphPackage.GRID_LAYOUT_DATA__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;

@@ -141,9 +141,9 @@ public class LabelOffsetFacetImpl extends EObjectImpl implements LabelOffsetFace
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL_OFFSET_FACET__X:
-				return new Integer(getX());
+				return getX();
 			case GMFGraphPackage.LABEL_OFFSET_FACET__Y:
-				return new Integer(getY());
+				return getY();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -157,10 +157,10 @@ public class LabelOffsetFacetImpl extends EObjectImpl implements LabelOffsetFace
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.LABEL_OFFSET_FACET__X:
-				setX(((Integer)newValue).intValue());
+				setX((Integer)newValue);
 				return;
 			case GMFGraphPackage.LABEL_OFFSET_FACET__Y:
-				setY(((Integer)newValue).intValue());
+				setY((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

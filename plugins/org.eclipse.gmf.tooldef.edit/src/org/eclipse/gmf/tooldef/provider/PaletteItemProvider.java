@@ -30,6 +30,7 @@ import org.eclipse.gmf.tooldef.Palette;
  */
 public class PaletteItemProvider extends ToolContainerItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -64,8 +65,9 @@ public class PaletteItemProvider extends ToolContainerItemProvider implements IE
 	 */
 	protected void addDefaultPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Palette_default_feature"), getString(
-						"_UI_PropertyDescriptor_description", "_UI_Palette_default_feature", "_UI_Palette_type"), GMFToolPackage.eINSTANCE.getPalette_Default(), true, false, false, null, null, null));
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Palette_default_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_Palette_default_feature", "_UI_Palette_type"), GMFToolPackage.eINSTANCE.getPalette_Default(), true, false, false, null,
+						null, null));
 	}
 
 	/**
@@ -133,17 +135,6 @@ public class PaletteItemProvider extends ToolContainerItemProvider implements IE
 			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GMFToolEditPlugin.INSTANCE;
 	}
 
 }

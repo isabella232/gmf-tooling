@@ -24,6 +24,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface ContributionItem extends ItemBase {
+
 	/**
 	 * Returns the value of the '<em><b>Icon</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

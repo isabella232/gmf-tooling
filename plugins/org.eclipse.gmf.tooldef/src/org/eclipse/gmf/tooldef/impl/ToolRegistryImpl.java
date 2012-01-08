@@ -44,6 +44,7 @@ import org.eclipse.gmf.tooldef.ToolRegistry;
  * @generated
  */
 public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
+
 	/**
 	 * The cached value of the '{@link #getSharedActions() <em>Shared Actions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -52,7 +53,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<MenuAction> sharedActions = null;
+	protected EList<MenuAction> sharedActions;
 
 	/**
 	 * The cached value of the '{@link #getAllMenus() <em>All Menus</em>}' containment reference list.
@@ -62,7 +63,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Menu> allMenus = null;
+	protected EList<Menu> allMenus;
 
 	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' containment reference.
@@ -72,7 +73,7 @@ public class ToolRegistryImpl extends EObjectImpl implements ToolRegistry {
 	 * @generated
 	 * @ordered
 	 */
-	protected Palette palette = null;
+	protected Palette palette;
 
 	/**
 	 * <!-- begin-user-doc -->

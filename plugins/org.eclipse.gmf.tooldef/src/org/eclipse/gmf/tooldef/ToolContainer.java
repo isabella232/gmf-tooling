@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface ToolContainer extends AbstractTool {
+
 	/**
 	 * Returns the value of the '<em><b>Tools</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.tooldef.AbstractTool}.
@@ -36,7 +37,7 @@ public interface ToolContainer extends AbstractTool {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tools</em>' containment reference list.
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getToolContainer_Tools()
-	 * @model type="org.eclipse.gmf.tooldef.AbstractTool" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<AbstractTool> getTools();

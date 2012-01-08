@@ -21,6 +21,7 @@ import org.eclipse.gmf.tooldef.PaletteSeparator;
  * @generated
  */
 public class PaletteSeparatorImpl extends AbstractToolImpl implements PaletteSeparator {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

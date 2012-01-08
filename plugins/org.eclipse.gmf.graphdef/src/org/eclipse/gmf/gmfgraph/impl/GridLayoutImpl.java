@@ -265,9 +265,9 @@ public class GridLayoutImpl extends EObjectImpl implements GridLayout {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.GRID_LAYOUT__NUM_COLUMNS:
-				return new Integer(getNumColumns());
+				return getNumColumns();
 			case GMFGraphPackage.GRID_LAYOUT__EQUAL_WIDTH:
-				return isEqualWidth() ? Boolean.TRUE : Boolean.FALSE;
+				return isEqualWidth();
 			case GMFGraphPackage.GRID_LAYOUT__MARGINS:
 				return getMargins();
 			case GMFGraphPackage.GRID_LAYOUT__SPACING:
@@ -285,10 +285,10 @@ public class GridLayoutImpl extends EObjectImpl implements GridLayout {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.GRID_LAYOUT__NUM_COLUMNS:
-				setNumColumns(((Integer)newValue).intValue());
+				setNumColumns((Integer)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT__EQUAL_WIDTH:
-				setEqualWidth(((Boolean)newValue).booleanValue());
+				setEqualWidth((Boolean)newValue);
 				return;
 			case GMFGraphPackage.GRID_LAYOUT__MARGINS:
 				setMargins((Dimension)newValue);

@@ -31,6 +31,7 @@ import org.eclipse.gmf.tooldef.Palette;
  * @generated
  */
 public class PaletteImpl extends ToolContainerImpl implements Palette {
+
 	/**
 	 * The cached value of the '{@link #getDefault() <em>Default</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -39,7 +40,7 @@ public class PaletteImpl extends ToolContainerImpl implements Palette {
 	 * @generated
 	 * @ordered
 	 */
-	protected AbstractTool default_ = null;
+	protected AbstractTool default_;
 
 	/**
 	 * <!-- begin-user-doc -->

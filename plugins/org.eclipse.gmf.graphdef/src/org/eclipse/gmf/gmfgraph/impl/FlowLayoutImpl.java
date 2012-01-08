@@ -352,19 +352,19 @@ public class FlowLayoutImpl extends EObjectImpl implements FlowLayout {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.FLOW_LAYOUT__VERTICAL:
-				return isVertical() ? Boolean.TRUE : Boolean.FALSE;
+				return isVertical();
 			case GMFGraphPackage.FLOW_LAYOUT__MATCH_MINOR_SIZE:
-				return isMatchMinorSize() ? Boolean.TRUE : Boolean.FALSE;
+				return isMatchMinorSize();
 			case GMFGraphPackage.FLOW_LAYOUT__FORCE_SINGLE_LINE:
-				return isForceSingleLine() ? Boolean.TRUE : Boolean.FALSE;
+				return isForceSingleLine();
 			case GMFGraphPackage.FLOW_LAYOUT__MAJOR_ALIGNMENT:
 				return getMajorAlignment();
 			case GMFGraphPackage.FLOW_LAYOUT__MINOR_ALIGNMENT:
 				return getMinorAlignment();
 			case GMFGraphPackage.FLOW_LAYOUT__MAJOR_SPACING:
-				return new Integer(getMajorSpacing());
+				return getMajorSpacing();
 			case GMFGraphPackage.FLOW_LAYOUT__MINOR_SPACING:
-				return new Integer(getMinorSpacing());
+				return getMinorSpacing();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -378,13 +378,13 @@ public class FlowLayoutImpl extends EObjectImpl implements FlowLayout {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.FLOW_LAYOUT__VERTICAL:
-				setVertical(((Boolean)newValue).booleanValue());
+				setVertical((Boolean)newValue);
 				return;
 			case GMFGraphPackage.FLOW_LAYOUT__MATCH_MINOR_SIZE:
-				setMatchMinorSize(((Boolean)newValue).booleanValue());
+				setMatchMinorSize((Boolean)newValue);
 				return;
 			case GMFGraphPackage.FLOW_LAYOUT__FORCE_SINGLE_LINE:
-				setForceSingleLine(((Boolean)newValue).booleanValue());
+				setForceSingleLine((Boolean)newValue);
 				return;
 			case GMFGraphPackage.FLOW_LAYOUT__MAJOR_ALIGNMENT:
 				setMajorAlignment((Alignment)newValue);
@@ -393,10 +393,10 @@ public class FlowLayoutImpl extends EObjectImpl implements FlowLayout {
 				setMinorAlignment((Alignment)newValue);
 				return;
 			case GMFGraphPackage.FLOW_LAYOUT__MAJOR_SPACING:
-				setMajorSpacing(((Integer)newValue).intValue());
+				setMajorSpacing((Integer)newValue);
 				return;
 			case GMFGraphPackage.FLOW_LAYOUT__MINOR_SPACING:
-				setMinorSpacing(((Integer)newValue).intValue());
+				setMinorSpacing((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

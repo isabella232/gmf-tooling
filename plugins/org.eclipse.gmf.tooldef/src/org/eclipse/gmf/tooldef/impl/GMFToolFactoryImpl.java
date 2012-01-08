@@ -24,6 +24,7 @@ import org.eclipse.gmf.tooldef.*;
  * @generated
  */
 public class GMFToolFactoryImpl extends EFactoryImpl implements GMFToolFactory {
+
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->

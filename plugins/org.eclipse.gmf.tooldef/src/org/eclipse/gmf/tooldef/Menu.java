@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Menu extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Items</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.tooldef.ItemBase}.
@@ -38,7 +39,7 @@ public interface Menu extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Items</em>' containment reference list.
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getMenu_Items()
-	 * @model type="org.eclipse.gmf.tooldef.ItemBase" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<ItemBase> getItems();

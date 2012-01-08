@@ -67,6 +67,7 @@ public enum ActionKind implements Enumerator {
 	 * @ordered
 	 */
 	CUSTOM_LITERAL(99, "CUSTOM", "CUSTOM");
+
 	/**
 	 * The '<em><b>CREATE</b></em>' literal value.
 	 * <!-- begin-user-doc -->

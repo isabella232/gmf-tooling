@@ -188,9 +188,9 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPARTMENT__COLLAPSIBLE:
-				return isCollapsible() ? Boolean.TRUE : Boolean.FALSE;
+				return isCollapsible();
 			case GMFGraphPackage.COMPARTMENT__NEEDS_TITLE:
-				return isNeedsTitle() ? Boolean.TRUE : Boolean.FALSE;
+				return isNeedsTitle();
 			case GMFGraphPackage.COMPARTMENT__ACCESSOR:
 				if (resolve) return getAccessor();
 				return basicGetAccessor();
@@ -207,10 +207,10 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.COMPARTMENT__COLLAPSIBLE:
-				setCollapsible(((Boolean)newValue).booleanValue());
+				setCollapsible((Boolean)newValue);
 				return;
 			case GMFGraphPackage.COMPARTMENT__NEEDS_TITLE:
-				setNeedsTitle(((Boolean)newValue).booleanValue());
+				setNeedsTitle((Boolean)newValue);
 				return;
 			case GMFGraphPackage.COMPARTMENT__ACCESSOR:
 				setAccessor((ChildAccess)newValue);

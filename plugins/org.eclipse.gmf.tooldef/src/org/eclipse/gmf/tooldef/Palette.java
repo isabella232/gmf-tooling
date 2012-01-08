@@ -23,6 +23,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface Palette extends ToolContainer {
+
 	/**
 	 * Returns the value of the '<em><b>Default</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -29,6 +29,7 @@ import org.eclipse.gmf.tooldef.MainMenu;
  * @generated
  */
 public class MainMenuImpl extends MenuImpl implements MainMenu {
+
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
 	 * <!-- begin-user-doc -->

@@ -28,6 +28,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface BundleImage extends Image {
+
 	/**
 	 * Returns the value of the '<em><b>Path</b></em>' attribute.
 	 * <!-- begin-user-doc -->

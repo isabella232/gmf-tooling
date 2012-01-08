@@ -31,6 +31,7 @@ import org.eclipse.gmf.tooldef.GMFToolPackage;
  * @generated
  */
 public class BundleImageImpl extends EObjectImpl implements BundleImage {
+
 	/**
 	 * The default value of the '{@link #getPath() <em>Path</em>}' attribute.
 	 * <!-- begin-user-doc -->

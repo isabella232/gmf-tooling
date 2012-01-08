@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface GenericStyleSelector extends StyleSelector {
+
 	/**
 	 * Returns the value of the '<em><b>Values</b></em>' attribute list.
 	 * The list contents are of type {@link org.eclipse.gmf.tooldef.AppearanceStyle}.
@@ -38,7 +39,7 @@ public interface GenericStyleSelector extends StyleSelector {
 	 * @return the value of the '<em>Values</em>' attribute list.
 	 * @see org.eclipse.gmf.tooldef.AppearanceStyle
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getGenericStyleSelector_Values()
-	 * @model type="org.eclipse.gmf.tooldef.AppearanceStyle" required="true"
+	 * @model required="true"
 	 * @generated
 	 */
 	EList<AppearanceStyle> getValues();

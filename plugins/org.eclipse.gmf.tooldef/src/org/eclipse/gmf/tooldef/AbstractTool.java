@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface AbstractTool extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Small Icon</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

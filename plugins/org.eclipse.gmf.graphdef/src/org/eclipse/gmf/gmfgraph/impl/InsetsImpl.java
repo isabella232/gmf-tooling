@@ -222,13 +222,13 @@ public class InsetsImpl extends EObjectImpl implements Insets {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.INSETS__TOP:
-				return new Integer(getTop());
+				return getTop();
 			case GMFGraphPackage.INSETS__LEFT:
-				return new Integer(getLeft());
+				return getLeft();
 			case GMFGraphPackage.INSETS__BOTTOM:
-				return new Integer(getBottom());
+				return getBottom();
 			case GMFGraphPackage.INSETS__RIGHT:
-				return new Integer(getRight());
+				return getRight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -242,16 +242,16 @@ public class InsetsImpl extends EObjectImpl implements Insets {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.INSETS__TOP:
-				setTop(((Integer)newValue).intValue());
+				setTop((Integer)newValue);
 				return;
 			case GMFGraphPackage.INSETS__LEFT:
-				setLeft(((Integer)newValue).intValue());
+				setLeft((Integer)newValue);
 				return;
 			case GMFGraphPackage.INSETS__BOTTOM:
-				setBottom(((Integer)newValue).intValue());
+				setBottom((Integer)newValue);
 				return;
 			case GMFGraphPackage.INSETS__RIGHT:
-				setRight(((Integer)newValue).intValue());
+				setRight((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

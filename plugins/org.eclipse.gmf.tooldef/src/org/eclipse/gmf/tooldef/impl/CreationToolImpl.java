@@ -21,6 +21,7 @@ import org.eclipse.gmf.tooldef.GMFToolPackage;
  * @generated
  */
 public class CreationToolImpl extends AbstractToolImpl implements CreationTool {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

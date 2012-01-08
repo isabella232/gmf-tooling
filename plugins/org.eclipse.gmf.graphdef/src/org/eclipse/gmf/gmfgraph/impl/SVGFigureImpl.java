@@ -292,9 +292,9 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 			case GMFGraphPackage.SVG_FIGURE__AREA_OF_INTEREST:
 				return getAreaOfInterest();
 			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
-				return isNoCanvasWidth() ? Boolean.TRUE : Boolean.FALSE;
+				return isNoCanvasWidth();
 			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
-				return isNoCanvasHeight() ? Boolean.TRUE : Boolean.FALSE;
+				return isNoCanvasHeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -319,10 +319,10 @@ public class SVGFigureImpl extends RealFigureImpl implements SVGFigure {
 				setAreaOfInterest((Rectangle2D)newValue);
 				return;
 			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_WIDTH:
-				setNoCanvasWidth(((Boolean)newValue).booleanValue());
+				setNoCanvasWidth((Boolean)newValue);
 				return;
 			case GMFGraphPackage.SVG_FIGURE__NO_CANVAS_HEIGHT:
-				setNoCanvasHeight(((Boolean)newValue).booleanValue());
+				setNoCanvasHeight((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

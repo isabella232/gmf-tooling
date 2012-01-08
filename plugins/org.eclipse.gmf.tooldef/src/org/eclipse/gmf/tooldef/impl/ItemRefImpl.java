@@ -32,6 +32,7 @@ import org.eclipse.gmf.tooldef.ItemRef;
  * @generated
  */
 public class ItemRefImpl extends EObjectImpl implements ItemRef {
+
 	/**
 	 * The cached value of the '{@link #getItem() <em>Item</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -40,7 +41,7 @@ public class ItemRefImpl extends EObjectImpl implements ItemRef {
 	 * @generated
 	 * @ordered
 	 */
-	protected ItemBase item = null;
+	protected ItemBase item;
 
 	/**
 	 * <!-- begin-user-doc -->

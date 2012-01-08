@@ -23,6 +23,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface PredefinedItem extends ItemBase {
+
 	/**
 	 * Returns the value of the '<em><b>Identifier</b></em>' attribute.
 	 * <!-- begin-user-doc -->

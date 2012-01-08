@@ -204,17 +204,17 @@ public abstract class ShapeImpl extends RealFigureImpl implements Shape {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__OUTLINE:
-				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
+				return isOutline();
 			case GMFGraphPackage.SHAPE__FILL:
-				return isFill() ? Boolean.TRUE : Boolean.FALSE;
+				return isFill();
 			case GMFGraphPackage.SHAPE__LINE_WIDTH:
-				return new Integer(getLineWidth());
+				return getLineWidth();
 			case GMFGraphPackage.SHAPE__LINE_KIND:
 				return getLineKind();
 			case GMFGraphPackage.SHAPE__XOR_FILL:
-				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
+				return isXorFill();
 			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
-				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+				return isXorOutline();
 			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
 				return getResolvedChildren();
 		}
@@ -230,22 +230,22 @@ public abstract class ShapeImpl extends RealFigureImpl implements Shape {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.SHAPE__OUTLINE:
-				setOutline(((Boolean)newValue).booleanValue());
+				setOutline((Boolean)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__FILL:
-				setFill(((Boolean)newValue).booleanValue());
+				setFill((Boolean)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__LINE_WIDTH:
-				setLineWidth(((Integer)newValue).intValue());
+				setLineWidth((Integer)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__LINE_KIND:
 				setLineKind((LineKind)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__XOR_FILL:
-				setXorFill(((Boolean)newValue).booleanValue());
+				setXorFill((Boolean)newValue);
 				return;
 			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
-				setXorOutline(((Boolean)newValue).booleanValue());
+				setXorOutline((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

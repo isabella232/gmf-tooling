@@ -23,6 +23,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface ContextMenu extends Menu {
+
 	/**
 	 * Returns the value of the '<em><b>Default</b></em>' reference.
 	 * <!-- begin-user-doc -->

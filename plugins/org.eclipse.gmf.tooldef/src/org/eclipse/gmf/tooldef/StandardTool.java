@@ -27,6 +27,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface StandardTool extends AbstractTool {
+
 	/**
 	 * Returns the value of the '<em><b>Tool Kind</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.tooldef.StandardToolKind}.

@@ -226,9 +226,9 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__VALUE:
 				return getValue();
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__DIRECT_ACCESS:
-				return isDirectAccess() ? Boolean.TRUE : Boolean.FALSE;
+				return isDirectAccess();
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE:
-				return isMultiStatementValue() ? Boolean.TRUE : Boolean.FALSE;
+				return isMultiStatementValue();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -248,10 +248,10 @@ public class CustomAttributeImpl extends EObjectImpl implements CustomAttribute 
 				setValue((String)newValue);
 				return;
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__DIRECT_ACCESS:
-				setDirectAccess(((Boolean)newValue).booleanValue());
+				setDirectAccess((Boolean)newValue);
 				return;
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE:
-				setMultiStatementValue(((Boolean)newValue).booleanValue());
+				setMultiStatementValue((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

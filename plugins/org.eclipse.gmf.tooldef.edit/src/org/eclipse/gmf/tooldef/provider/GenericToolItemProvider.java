@@ -32,6 +32,7 @@ import org.eclipse.gmf.tooldef.GenericTool;
  */
 public class GenericToolItemProvider extends AbstractToolItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -66,8 +67,8 @@ public class GenericToolItemProvider extends AbstractToolItemProvider implements
 	 */
 	protected void addToolClassPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_GenericTool_toolClass_feature"), getString("_UI_PropertyDescriptor_description", "_UI_GenericTool_toolClass_feature", "_UI_GenericTool_type"), GMFToolPackage.eINSTANCE
-						.getGenericTool_ToolClass(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_GenericTool_toolClass_feature"), getString("_UI_PropertyDescriptor_description", "_UI_GenericTool_toolClass_feature", "_UI_GenericTool_type"),
+				GMFToolPackage.eINSTANCE.getGenericTool_ToolClass(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -141,17 +142,6 @@ public class GenericToolItemProvider extends AbstractToolItemProvider implements
 			return getString("_UI_CreateChild_text2", new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
 		}
 		return super.getCreateChildText(owner, feature, child, selection);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GMFToolEditPlugin.INSTANCE;
 	}
 
 }

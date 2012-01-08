@@ -225,13 +225,13 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.RECTANGLE2_D__X:
-				return new Float(getX());
+				return getX();
 			case GMFGraphPackage.RECTANGLE2_D__Y:
-				return new Float(getY());
+				return getY();
 			case GMFGraphPackage.RECTANGLE2_D__WIDTH:
-				return new Float(getWidth());
+				return getWidth();
 			case GMFGraphPackage.RECTANGLE2_D__HEIGHT:
-				return new Float(getHeight());
+				return getHeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -245,16 +245,16 @@ public class Rectangle2DImpl extends EObjectImpl implements Rectangle2D {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.RECTANGLE2_D__X:
-				setX(((Float)newValue).floatValue());
+				setX((Float)newValue);
 				return;
 			case GMFGraphPackage.RECTANGLE2_D__Y:
-				setY(((Float)newValue).floatValue());
+				setY((Float)newValue);
 				return;
 			case GMFGraphPackage.RECTANGLE2_D__WIDTH:
-				setWidth(((Float)newValue).floatValue());
+				setWidth((Float)newValue);
 				return;
 			case GMFGraphPackage.RECTANGLE2_D__HEIGHT:
-				setHeight(((Float)newValue).floatValue());
+				setHeight((Float)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

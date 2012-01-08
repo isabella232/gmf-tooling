@@ -95,7 +95,7 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 	 * @generated
 	 */
 	public Layoutable getOwner() {
-		if (eContainerFeatureID != GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER) return null;
+		if (eContainerFeatureID() != GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER) return null;
 		return (Layoutable)eContainer();
 	}
 
@@ -115,7 +115,7 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 	 * @generated
 	 */
 	public void setOwner(Layoutable newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -202,7 +202,7 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA, Layoutable.class, msgs);
 		}

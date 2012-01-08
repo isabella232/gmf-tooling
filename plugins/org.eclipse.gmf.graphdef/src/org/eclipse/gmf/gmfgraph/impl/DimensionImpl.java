@@ -138,9 +138,9 @@ public class DimensionImpl extends EObjectImpl implements Dimension {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.DIMENSION__DX:
-				return new Integer(getDx());
+				return getDx();
 			case GMFGraphPackage.DIMENSION__DY:
-				return new Integer(getDy());
+				return getDy();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,10 +154,10 @@ public class DimensionImpl extends EObjectImpl implements Dimension {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGraphPackage.DIMENSION__DX:
-				setDx(((Integer)newValue).intValue());
+				setDx((Integer)newValue);
 				return;
 			case GMFGraphPackage.DIMENSION__DY:
-				setDy(((Integer)newValue).intValue());
+				setDy((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

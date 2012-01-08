@@ -33,6 +33,7 @@ import org.eclipse.gmf.tooldef.PopupMenu;
  * @generated
  */
 public class PopupMenuItemProvider extends MenuItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -174,17 +175,6 @@ public class PopupMenuItemProvider extends MenuItemProvider implements IEditingD
 		newChildDescriptors.add(createChildParameter(GMFToolPackage.eINSTANCE.getContributionItem_Icon(), GMFToolFactory.eINSTANCE.createDefaultImage()));
 
 		newChildDescriptors.add(createChildParameter(GMFToolPackage.eINSTANCE.getContributionItem_Icon(), GMFToolFactory.eINSTANCE.createBundleImage()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return GMFToolEditPlugin.INSTANCE;
 	}
 
 }

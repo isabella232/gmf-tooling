@@ -526,6 +526,9 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkConstraints" abstract="true" interface="true">
+    <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
+      <details key="documentation" value="Operations supplied by this interface are hardly useful and will be removed soon"/>
+    </eAnnotations>
     <eOperations name="hasLinkCreationConstraints" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates whether this diagram contains link creation constraints or not"/>

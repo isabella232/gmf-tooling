@@ -35,6 +35,7 @@ import org.eclipse.gmf.tooldef.GMFToolPackage;
  */
 public class AbstractToolItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -70,8 +71,8 @@ public class AbstractToolItemProvider extends ItemProviderAdapter implements IEd
 	 */
 	protected void addTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_AbstractTool_title_feature"), getString("_UI_PropertyDescriptor_description", "_UI_AbstractTool_title_feature", "_UI_AbstractTool_type"), GMFToolPackage.eINSTANCE
-						.getAbstractTool_Title(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_AbstractTool_title_feature"), getString("_UI_PropertyDescriptor_description", "_UI_AbstractTool_title_feature", "_UI_AbstractTool_type"),
+				GMFToolPackage.eINSTANCE.getAbstractTool_Title(), true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

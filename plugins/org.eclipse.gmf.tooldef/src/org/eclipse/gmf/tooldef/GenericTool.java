@@ -23,6 +23,7 @@ package org.eclipse.gmf.tooldef;
  * @generated
  */
 public interface GenericTool extends AbstractTool {
+
 	/**
 	 * Returns the value of the '<em><b>Tool Class</b></em>' attribute.
 	 * <!-- begin-user-doc -->

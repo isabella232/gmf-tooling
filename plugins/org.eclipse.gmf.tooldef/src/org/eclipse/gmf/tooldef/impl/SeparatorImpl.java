@@ -30,6 +30,7 @@ import org.eclipse.gmf.tooldef.Separator;
  * @generated
  */
 public class SeparatorImpl extends EObjectImpl implements Separator {
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

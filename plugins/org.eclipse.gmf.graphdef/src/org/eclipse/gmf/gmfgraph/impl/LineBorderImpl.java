@@ -169,7 +169,7 @@ public class LineBorderImpl extends EObjectImpl implements LineBorder {
 			case GMFGraphPackage.LINE_BORDER__COLOR:
 				return getColor();
 			case GMFGraphPackage.LINE_BORDER__WIDTH:
-				return new Integer(getWidth());
+				return getWidth();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -186,7 +186,7 @@ public class LineBorderImpl extends EObjectImpl implements LineBorder {
 				setColor((Color)newValue);
 				return;
 			case GMFGraphPackage.LINE_BORDER__WIDTH:
-				setWidth(((Integer)newValue).intValue());
+				setWidth((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

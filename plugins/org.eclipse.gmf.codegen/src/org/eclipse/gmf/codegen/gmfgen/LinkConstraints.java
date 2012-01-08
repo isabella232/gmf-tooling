@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getLinkConstraints()
  * @model interface="true" abstract="true"
+ *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Operations supplied by this interface are hardly useful and will be removed soon'"
  * @generated
  */
 public interface LinkConstraints extends EObject {

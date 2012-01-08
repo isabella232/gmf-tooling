@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface ToolRegistry extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Shared Actions</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.tooldef.MenuAction}.
@@ -39,7 +40,7 @@ public interface ToolRegistry extends EObject {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Shared Actions</em>' containment reference list.
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getToolRegistry_SharedActions()
-	 * @model type="org.eclipse.gmf.tooldef.MenuAction" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<MenuAction> getSharedActions();
@@ -55,7 +56,7 @@ public interface ToolRegistry extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>All Menus</em>' containment reference list.
 	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getToolRegistry_AllMenus()
-	 * @model type="org.eclipse.gmf.tooldef.Menu" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Menu> getAllMenus();

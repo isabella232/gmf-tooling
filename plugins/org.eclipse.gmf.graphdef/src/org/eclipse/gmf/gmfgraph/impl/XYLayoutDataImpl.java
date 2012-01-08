@@ -84,7 +84,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	 * @generated
 	 */
 	public Layoutable getOwner() {
-		if (eContainerFeatureID != GMFGraphPackage.XY_LAYOUT_DATA__OWNER) return null;
+		if (eContainerFeatureID() != GMFGraphPackage.XY_LAYOUT_DATA__OWNER) return null;
 		return (Layoutable)eContainer();
 	}
 
@@ -104,7 +104,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	 * @generated
 	 */
 	public void setOwner(Layoutable newOwner) {
-		if (newOwner != eInternalContainer() || (eContainerFeatureID != GMFGraphPackage.XY_LAYOUT_DATA__OWNER && newOwner != null)) {
+		if (newOwner != eInternalContainer() || (eContainerFeatureID() != GMFGraphPackage.XY_LAYOUT_DATA__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
@@ -246,7 +246,7 @@ public class XYLayoutDataImpl extends EObjectImpl implements XYLayoutData {
 	 */
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-		switch (eContainerFeatureID) {
+		switch (eContainerFeatureID()) {
 			case GMFGraphPackage.XY_LAYOUT_DATA__OWNER:
 				return eInternalContainer().eInverseRemove(this, GMFGraphPackage.LAYOUTABLE__LAYOUT_DATA, Layoutable.class, msgs);
 		}

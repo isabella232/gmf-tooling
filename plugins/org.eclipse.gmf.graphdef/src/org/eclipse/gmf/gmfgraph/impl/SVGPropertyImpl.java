@@ -320,7 +320,7 @@ public class SVGPropertyImpl extends EObjectImpl implements SVGProperty {
 			case GMFGraphPackage.SVG_PROPERTY__SETTER:
 				return getSetter();
 			case GMFGraphPackage.SVG_PROPERTY__CALL_SUPER:
-				return isCallSuper() ? Boolean.TRUE : Boolean.FALSE;
+				return isCallSuper();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -349,7 +349,7 @@ public class SVGPropertyImpl extends EObjectImpl implements SVGProperty {
 				setSetter((String)newValue);
 				return;
 			case GMFGraphPackage.SVG_PROPERTY__CALL_SUPER:
-				setCallSuper(((Boolean)newValue).booleanValue());
+				setCallSuper((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

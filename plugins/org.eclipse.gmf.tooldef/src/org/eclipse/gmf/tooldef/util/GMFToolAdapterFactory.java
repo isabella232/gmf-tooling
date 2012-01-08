@@ -24,6 +24,7 @@ import org.eclipse.gmf.tooldef.*;
  * @generated
  */
 public class GMFToolAdapterFactory extends AdapterFactoryImpl {
+
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
@@ -64,12 +65,13 @@ public class GMFToolAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected GMFToolSwitch<Adapter> modelSwitch = new GMFToolSwitch<Adapter>() {
+
 		@Override
 		public Adapter caseToolRegistry(ToolRegistry object) {
 			return createToolRegistryAdapter();

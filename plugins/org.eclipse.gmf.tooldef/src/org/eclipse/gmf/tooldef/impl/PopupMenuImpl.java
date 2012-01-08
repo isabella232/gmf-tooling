@@ -36,6 +36,7 @@ import org.eclipse.gmf.tooldef.PopupMenu;
  * @generated
  */
 public class PopupMenuImpl extends MenuImpl implements PopupMenu {
+
 	/**
 	 * The cached value of the '{@link #getIcon() <em>Icon</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -44,7 +45,7 @@ public class PopupMenuImpl extends MenuImpl implements PopupMenu {
 	 * @generated
 	 * @ordered
 	 */
-	protected Image icon = null;
+	protected Image icon;
 
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.

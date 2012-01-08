@@ -31,6 +31,7 @@ import org.eclipse.gmf.tooldef.PredefinedMenu;
  * @generated
  */
 public class PredefinedMenuImpl extends MenuImpl implements PredefinedMenu {
+
 	/**
 	 * The default value of the '{@link #getIdentifier() <em>Identifier</em>}' attribute.
 	 * <!-- begin-user-doc -->

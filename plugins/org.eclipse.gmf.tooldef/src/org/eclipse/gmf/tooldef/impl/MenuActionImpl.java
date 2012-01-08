@@ -37,6 +37,7 @@ import org.eclipse.gmf.tooldef.MenuAction;
  * @generated
  */
 public class MenuActionImpl extends EObjectImpl implements MenuAction {
+
 	/**
 	 * The cached value of the '{@link #getIcon() <em>Icon</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -45,7 +46,7 @@ public class MenuActionImpl extends EObjectImpl implements MenuAction {
 	 * @generated
 	 * @ordered
 	 */
-	protected Image icon = null;
+	protected Image icon;
 
 	/**
 	 * The default value of the '{@link #getTitle() <em>Title</em>}' attribute.
