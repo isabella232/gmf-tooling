@@ -10,6 +10,6 @@ Bundle-ClassPath: .
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.4.0,4.0.0)",
  org.eclipse.gmf.xpand;bundle-version="[2.1.0,3.0.0)",
  org.eclipse.ant.core;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.m2m.qvt.oml.runtime;bundle-version="1.0.100"
+ org.eclipse.m2m.qvt.oml.runtime;bundle-version="[3.1.0,4.0.0)"
 Import-Package: org.eclipse.core.resources
 Export-Package: org.eclipse.gmf.internal.xpand.ant;x-internal:=true
