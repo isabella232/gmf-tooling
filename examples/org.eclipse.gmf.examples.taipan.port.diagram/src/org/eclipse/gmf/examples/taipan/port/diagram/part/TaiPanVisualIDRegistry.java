@@ -83,7 +83,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public static String getType(int visualID) {
-		return String.valueOf(visualID);
+		return Integer.toString(visualID);
 	}
 
 	/**
@@ -149,13 +149,13 @@ public class TaiPanVisualIDRegistry {
 			}
 		}
 		switch (containerVisualID) {
-		case BuildingEditPart.VISUAL_ID:
-			if (BuildingInfoEditPart.VISUAL_ID == nodeVisualID) {
+		case PortEditPart.VISUAL_ID:
+			if (BuildingEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
-		case PortEditPart.VISUAL_ID:
-			if (BuildingEditPart.VISUAL_ID == nodeVisualID) {
+		case BuildingEditPart.VISUAL_ID:
+			if (BuildingInfoEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;

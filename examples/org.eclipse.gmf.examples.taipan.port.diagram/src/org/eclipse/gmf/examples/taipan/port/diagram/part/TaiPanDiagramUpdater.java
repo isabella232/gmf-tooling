@@ -30,24 +30,24 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getSemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getSemanticChildren(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID:
 			return getPort_1000SemanticChildren(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getPort_1000SemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getPort_1000SemanticChildren(View view) {
 		if (!view.isSetElement()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Port modelElement = (Port) view.getElement();
-		List result = new LinkedList();
-		for (Iterator it = modelElement.getBuildings().iterator(); it.hasNext();) {
+		LinkedList<TaiPanNodeDescriptor> result = new LinkedList<TaiPanNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getBuildings().iterator(); it.hasNext();) {
 			Building childElement = (Building) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == BuildingEditPart.VISUAL_ID) {
@@ -61,64 +61,64 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getContainedLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getContainedLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID:
 			return getPort_1000ContainedLinks(view);
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001ContainedLinks(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getIncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getIncomingLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001IncomingLinks(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getOutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getOutgoingLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case BuildingEditPart.VISUAL_ID:
 			return getBuilding_2001OutgoingLinks(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getPort_1000ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getPort_1000ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBuilding_2001ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getBuilding_2001ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBuilding_2001IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getBuilding_2001IncomingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBuilding_2001OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getBuilding_2001OutgoingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 }

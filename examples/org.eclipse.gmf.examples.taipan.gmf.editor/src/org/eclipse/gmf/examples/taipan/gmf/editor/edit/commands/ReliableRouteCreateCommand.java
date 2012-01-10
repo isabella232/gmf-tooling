@@ -20,6 +20,7 @@ import org.eclipse.gmf.examples.taipan.Destination;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.ElementInitializers;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -79,7 +80,7 @@ public class ReliableRouteCreateCommand extends EditElementCommand {
 		if (getContainer() == null) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateRoute_4002(getContainer(), getSource(), getTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canCreateRoute_4002(getContainer(), getSource(), getTarget());
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class ReliableRouteCreateCommand extends EditElementCommand {
 		getContainer().getRoutes().add(newElement);
 		newElement.setSource(getSource());
 		newElement.setDestination(getTarget());
-		TaiPanElementTypes.init_Route_4002(newElement);
+		ElementInitializers.getInstance().init_Route_4002(newElement);
 		doConfigure(newElement, monitor, info);
 		((CreateElementRequest) getRequest()).setNewElement(newElement);
 		return CommandResult.newOKCommandResult(newElement);

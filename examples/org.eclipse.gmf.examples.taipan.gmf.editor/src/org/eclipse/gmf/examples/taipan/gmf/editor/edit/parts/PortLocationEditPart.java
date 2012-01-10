@@ -80,7 +80,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	/**
 	 * @generated
 	 */
-	private List parserElements;
+	private List<?> parserElements;
 
 	/**
 	 * @generated
@@ -191,6 +191,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	/**
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	protected List getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -274,7 +275,7 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
-						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
+						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl<IParserEditStatus>() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new EObjectAdapter(element), (String) value));
@@ -314,8 +315,8 @@ public class PortLocationEditPart extends LabelEditPart implements ITextAwareEdi
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Port_2001, getParserElement(), TaiPanVisualIDRegistry
-					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart.VISUAL_ID));
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Port_2001, getParserElement(),
+					TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortLocationEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
