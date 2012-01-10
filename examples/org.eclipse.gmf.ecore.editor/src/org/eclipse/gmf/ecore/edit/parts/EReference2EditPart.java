@@ -49,40 +49,6 @@ public class EReference2EditPart extends ConnectionNodeEditPart implements ITree
 	}
 
 	/**
-	 * @generated
-	 */
-	protected boolean addFixedChild(EditPart childEditPart) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean removeFixedChild(EditPart childEditPart) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -111,7 +77,6 @@ public class EReference2EditPart extends ConnectionNodeEditPart implements ITree
 		 * @generated
 		 */
 		public SolidLineWSrcDiamond() {
-			this.setLineWidth(1);
 
 			setSourceDecoration(createSourceDecoration());
 		}
@@ -122,7 +87,6 @@ public class EReference2EditPart extends ConnectionNodeEditPart implements ITree
 		private RotatableDecoration createSourceDecoration() {
 			PolygonDecoration df = new PolygonDecoration();
 			df.setFill(true);
-			df.setLineWidth(1);
 			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));

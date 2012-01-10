@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
@@ -24,7 +25,9 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.BesiegePortOrder;
 import org.eclipse.gmf.examples.taipan.Destination;
+import org.eclipse.gmf.examples.taipan.EscortShipsOrder;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
@@ -297,7 +300,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected void addDestroyShortcutsCommand(ICompositeCommand cmd, View view) {
-		assert view.getEAnnotation("Shortcut") == null;
+		assert view.getEAnnotation("Shortcut") == null; //$NON-NLS-1$
 		for (Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { //$NON-NLS-1$
@@ -308,32 +311,32 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
+	* @generated
+	*/
+	public static LinkConstraints getLinkConstraints() {
+		LinkConstraints cached = TaiPanDiagramEditorPlugin.getInstance().getLinkConstraints();
+		if (cached == null) {
+			TaiPanDiagramEditorPlugin.getInstance().setLinkConstraints(cached = new LinkConstraints());
+		}
+		return cached;
+	}
+
+	/**
 	 * @generated
 	 */
 	public static class LinkConstraints {
 
 		/**
-		 * @generated
-		 */
-		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+		* @generated
+		*/
+		LinkConstraints() {
+			// use static method #getLinkConstraints() to access instance
+		}
 
 		/**
-		 * @generated
-		 */
-		private static TaiPanAbstractExpression BesiegePortOrder_4005_SourceExpression;
-		/**
-		 * @generated
-		 */
-		private static TaiPanAbstractExpression EscortShipsOrder_4006_SourceExpression;
-		/**
-		 * @generated
-		 */
-		private static TaiPanAbstractExpression EscortShipsOrder_4006_TargetExpression;
-
-		/**
-		 * @generated
-		 */
-		public static boolean canCreateShipDestination_4001(Ship source, Port target) {
+			 * @generated
+			 */
+		public boolean canCreateShipDestination_4001(Ship source, Port target) {
 			if (source != null) {
 				if (source.getDestination() != null) {
 					return false;
@@ -346,21 +349,21 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateRoute_4002(Aquatory container, Destination source, Destination target) {
-			return canExistRoute_4002(container, source, target);
+		public boolean canCreateRoute_4002(Aquatory container, Destination source, Destination target) {
+			return canExistRoute_4002(container, null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateRoute_4003(Aquatory container, Destination source, Destination target) {
-			return canExistRoute_4003(container, source, target);
+		public boolean canCreateRoute_4003(Aquatory container, Destination source, Destination target) {
+			return canExistRoute_4003(container, null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateShipRoute_4004(Ship source, Route target) {
+		public boolean canCreateShipRoute_4004(Ship source, Route target) {
 			if (source != null) {
 				if (source.getRoute() != null) {
 					return false;
@@ -373,26 +376,26 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
-			return canExistBesiegePortOrder_4005(source, target);
+		public boolean canCreateBesiegePortOrder_4005(Warship source, Port target) {
+			return canExistBesiegePortOrder_4005(null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
+		public boolean canCreateEscortShipsOrder_4006(Warship source, Ship target) {
 			if (source != null) {
 				if (source.getEscortOrder() != null) {
 					return false;
 				}
 			}
-			return canExistEscortShipsOrder_4006(source, target);
+			return canExistEscortShipsOrder_4006(null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreatePortRegister_4007(Port source, Ship target) {
+		public boolean canCreatePortRegister_4007(Port source, Ship target) {
 			if (source != null) {
 				if (source.getRegister().contains(target)) {
 					return false;
@@ -405,48 +408,45 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistShipDestination_4001(Ship source, Port target) {
+		public boolean canExistShipDestination_4001(Ship source, Port target) {
 			return true;
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistRoute_4002(Aquatory container, Destination source, Destination target) {
+		* @generated
+		*/
+		public boolean canExistRoute_4002(Aquatory container, Route linkInstance, Destination source, Destination target) {
 			return true;
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistRoute_4003(Aquatory container, Destination source, Destination target) {
+		* @generated
+		*/
+		public boolean canExistRoute_4003(Aquatory container, Route linkInstance, Destination source, Destination target) {
 			return true;
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistShipRoute_4004(Ship source, Route target) {
+			 * @generated
+			 */
+		public boolean canExistShipRoute_4004(Ship source, Route target) {
 			return true;
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistBesiegePortOrder_4005(Warship source, Port target) {
+		* @generated
+		*/
+		public boolean canExistBesiegePortOrder_4005(BesiegePortOrder linkInstance, Warship source, Port target) {
 			try {
 				if (source == null) {
 					return true;
+				} else {
+					Map<String, EClassifier> env = Collections.<String, EClassifier> singletonMap("oppositeEnd", TaiPanPackage.eINSTANCE.getPort()); //$NON-NLS-1$
+					Object sourceVal = TaiPanOCLFactory.getExpression(5, TaiPanPackage.eINSTANCE.getWarship(), env).evaluate(source, Collections.singletonMap("oppositeEnd", target)); //$NON-NLS-1$
+					if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+						return false;
+					} // else fall-through
 				}
-				if (BesiegePortOrder_4005_SourceExpression == null) {
-					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getPort());
-					BesiegePortOrder_4005_SourceExpression = TaiPanOCLFactory.getExpression(
-							"self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
-				}
-				Object sourceVal = BesiegePortOrder_4005_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
-				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
-					return false;
-				} // else fall-through
 				return true;
 			} catch (Exception e) {
 				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
@@ -455,33 +455,28 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistEscortShipsOrder_4006(Warship source, Ship target) {
+		* @generated
+		*/
+		public boolean canExistEscortShipsOrder_4006(EscortShipsOrder linkInstance, Warship source, Ship target) {
 			try {
 				if (source == null) {
 					return true;
+				} else {
+					Map<String, EClassifier> env = Collections.<String, EClassifier> singletonMap("oppositeEnd", TaiPanPackage.eINSTANCE.getShip()); //$NON-NLS-1$
+					Object sourceVal = TaiPanOCLFactory.getExpression(6, TaiPanPackage.eINSTANCE.getWarship(), env).evaluate(source, Collections.singletonMap("oppositeEnd", target)); //$NON-NLS-1$
+					if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
+						return false;
+					} // else fall-through
 				}
-				if (EscortShipsOrder_4006_SourceExpression == null) {
-					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getShip());
-					EscortShipsOrder_4006_SourceExpression = TaiPanOCLFactory.getExpression(
-							"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", TaiPanPackage.eINSTANCE.getWarship(), env); //$NON-NLS-1$
-				}
-				Object sourceVal = EscortShipsOrder_4006_SourceExpression.evaluate(source, Collections.singletonMap(OPPOSITE_END_VAR, target));
-				if (false == sourceVal instanceof Boolean || !((Boolean) sourceVal).booleanValue()) {
-					return false;
-				} // else fall-through
 				if (target == null) {
 					return true;
+				} else {
+					Map<String, EClassifier> env = Collections.<String, EClassifier> singletonMap("oppositeEnd", TaiPanPackage.eINSTANCE.getWarship()); //$NON-NLS-1$
+					Object targetVal = TaiPanOCLFactory.getExpression(7, TaiPanPackage.eINSTANCE.getShip(), env).evaluate(target, Collections.singletonMap("oppositeEnd", source)); //$NON-NLS-1$
+					if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
+						return false;
+					} // else fall-through
 				}
-				if (EscortShipsOrder_4006_TargetExpression == null) {
-					Map env = Collections.singletonMap(OPPOSITE_END_VAR, TaiPanPackage.eINSTANCE.getWarship());
-					EscortShipsOrder_4006_TargetExpression = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip(), env); //$NON-NLS-1$
-				}
-				Object targetVal = EscortShipsOrder_4006_TargetExpression.evaluate(target, Collections.singletonMap(OPPOSITE_END_VAR, source));
-				if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
-					return false;
-				} // else fall-through
 				return true;
 			} catch (Exception e) {
 				TaiPanDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
@@ -490,9 +485,9 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistPortRegister_4007(Port source, Ship target) {
+			 * @generated
+			 */
+		public boolean canExistPortRegister_4007(Port source, Ship target) {
 			return true;
 		}
 	}

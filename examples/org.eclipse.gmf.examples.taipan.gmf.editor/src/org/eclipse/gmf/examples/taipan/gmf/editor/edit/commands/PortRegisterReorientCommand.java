@@ -82,7 +82,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Ship && newEnd instanceof Port)) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistPortRegister_4007(getNewSource(), getOldTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistPortRegister_4007(getNewSource(), getOldTarget());
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class PortRegisterReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Ship && newEnd instanceof Ship)) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistPortRegister_4007(getOldSource(), getNewTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistPortRegister_4007(getOldSource(), getNewTarget());
 	}
 
 	/**

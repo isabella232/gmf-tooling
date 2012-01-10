@@ -68,7 +68,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		View view = (View) getHost().getModel();
 		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
 		cmd.setTransactionNestingEnabled(false);
-		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
+		for (Iterator<?> it = view.getTargetEdges().iterator(); it.hasNext();) {
 			Edge incomingLink = (Edge) it.next();
 			if (TaiPanVisualIDRegistry.getVisualID(incomingLink) == EscortShipsOrderEditPart.VISUAL_ID) {
 				DestroyElementRequest r = new DestroyElementRequest(incomingLink.getElement(), false);
@@ -83,7 +83,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 				continue;
 			}
 		}
-		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
+		for (Iterator<?> it = view.getSourceEdges().iterator(); it.hasNext();) {
 			Edge outgoingLink = (Edge) it.next();
 			if (TaiPanVisualIDRegistry.getVisualID(outgoingLink) == ShipDestinationEditPart.VISUAL_ID) {
 				DestroyReferenceRequest r = new DestroyReferenceRequest(outgoingLink.getSource().getElement(), null, outgoingLink.getTarget().getElement(), false);
@@ -116,11 +116,11 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 */
 	private void addDestroyChildNodesCommand(ICompositeCommand cmd) {
 		View view = (View) getHost().getModel();
-		for (Iterator nit = view.getChildren().iterator(); nit.hasNext();) {
+		for (Iterator<?> nit = view.getChildren().iterator(); nit.hasNext();) {
 			Node node = (Node) nit.next();
 			switch (TaiPanVisualIDRegistry.getVisualID(node)) {
 			case ShipSmallCargoEditPart.VISUAL_ID:
-				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+				for (Iterator<?> cit = node.getChildren().iterator(); cit.hasNext();) {
 					Node cnode = (Node) cit.next();
 					switch (TaiPanVisualIDRegistry.getVisualID(cnode)) {
 					case SmallItemsEditPart.VISUAL_ID:
@@ -132,7 +132,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 				}
 				break;
 			case ShipLargeCargoEditPart.VISUAL_ID:
-				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+				for (Iterator<?> cit = node.getChildren().iterator(); cit.hasNext();) {
 					Node cnode = (Node) cit.next();
 					switch (TaiPanVisualIDRegistry.getVisualID(cnode)) {
 					case LargeItemEditPart.VISUAL_ID:

@@ -68,7 +68,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 		View view = (View) getHost().getModel();
 		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
 		cmd.setTransactionNestingEnabled(false);
-		for (Iterator it = view.getTargetEdges().iterator(); it.hasNext();) {
+		for (Iterator<?> it = view.getTargetEdges().iterator(); it.hasNext();) {
 			Edge incomingLink = (Edge) it.next();
 			if (EcoreVisualIDRegistry.getVisualID(incomingLink) == EAnnotationReferencesEditPart.VISUAL_ID) {
 				DestroyReferenceRequest r = new DestroyReferenceRequest(incomingLink.getSource().getElement(), null, incomingLink.getTarget().getElement(), false);
@@ -95,7 +95,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 				continue;
 			}
 		}
-		for (Iterator it = view.getSourceEdges().iterator(); it.hasNext();) {
+		for (Iterator<?> it = view.getSourceEdges().iterator(); it.hasNext();) {
 			Edge outgoingLink = (Edge) it.next();
 			if (EcoreVisualIDRegistry.getVisualID(outgoingLink) == EReferenceEditPart.VISUAL_ID) {
 				DestroyElementRequest r = new DestroyElementRequest(outgoingLink.getElement(), false);
@@ -134,11 +134,11 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 */
 	private void addDestroyChildNodesCommand(ICompositeCommand cmd) {
 		View view = (View) getHost().getModel();
-		for (Iterator nit = view.getChildren().iterator(); nit.hasNext();) {
+		for (Iterator<?> nit = view.getChildren().iterator(); nit.hasNext();) {
 			Node node = (Node) nit.next();
 			switch (EcoreVisualIDRegistry.getVisualID(node)) {
 			case EClassAttributesEditPart.VISUAL_ID:
-				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+				for (Iterator<?> cit = node.getChildren().iterator(); cit.hasNext();) {
 					Node cnode = (Node) cit.next();
 					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
 					case EAttributeEditPart.VISUAL_ID:
@@ -150,7 +150,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 				}
 				break;
 			case EClassOperationsEditPart.VISUAL_ID:
-				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+				for (Iterator<?> cit = node.getChildren().iterator(); cit.hasNext();) {
 					Node cnode = (Node) cit.next();
 					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
 					case EOperationEditPart.VISUAL_ID:
@@ -162,7 +162,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 				}
 				break;
 			case EClassClassAnnotationsEditPart.VISUAL_ID:
-				for (Iterator cit = node.getChildren().iterator(); cit.hasNext();) {
+				for (Iterator<?> cit = node.getChildren().iterator(); cit.hasNext();) {
 					Node cnode = (Node) cit.next();
 					switch (EcoreVisualIDRegistry.getVisualID(cnode)) {
 					case EAnnotation2EditPart.VISUAL_ID:

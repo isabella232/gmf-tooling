@@ -77,7 +77,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Port target = getLink().getPort();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(getNewSource(), target);
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistBesiegePortOrder_4005(getLink(), getNewSource(), target);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class BesiegePortOrderReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Warship source = (Warship) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistBesiegePortOrder_4005(source, getNewTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistBesiegePortOrder_4005(getLink(), source, getNewTarget());
 	}
 
 	/**

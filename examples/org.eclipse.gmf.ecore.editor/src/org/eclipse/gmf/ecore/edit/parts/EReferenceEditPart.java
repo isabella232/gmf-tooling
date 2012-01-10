@@ -49,40 +49,6 @@ public class EReferenceEditPart extends ConnectionNodeEditPart implements ITreeB
 	}
 
 	/**
-	 * @generated
-	 */
-	protected boolean addFixedChild(EditPart childEditPart) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (addFixedChild(childEditPart)) {
-			return;
-		}
-		super.addChildVisual(childEditPart, -1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean removeFixedChild(EditPart childEditPart) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (removeFixedChild(childEditPart)) {
-			return;
-		}
-		super.removeChildVisual(childEditPart);
-	}
-
-	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -111,7 +77,6 @@ public class EReferenceEditPart extends ConnectionNodeEditPart implements ITreeB
 		 * @generated
 		 */
 		public SolidLineWDstArrow() {
-			this.setLineWidth(1);
 
 			setTargetDecoration(createTargetDecoration());
 		}
@@ -121,7 +86,6 @@ public class EReferenceEditPart extends ConnectionNodeEditPart implements ITreeB
 		 */
 		private RotatableDecoration createTargetDecoration() {
 			PolylineDecoration df = new PolylineDecoration();
-			df.setLineWidth(1);
 			PointList pl = new PointList();
 			pl.addPoint(getMapMode().DPtoLP(-1), getMapMode().DPtoLP(1));
 			pl.addPoint(getMapMode().DPtoLP(0), getMapMode().DPtoLP(0));
