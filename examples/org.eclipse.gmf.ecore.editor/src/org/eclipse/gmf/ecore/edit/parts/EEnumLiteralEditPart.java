@@ -84,7 +84,7 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	private List parserElements;
+	private List<?> parserElements;
 
 	/**
 	 * @generated
@@ -177,6 +177,7 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	protected List getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -264,7 +265,7 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
-						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
+						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl<IParserEditStatus>() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new EObjectAdapter(element), (String) value));
@@ -304,8 +305,8 @@ public class EEnumLiteralEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = EcoreParserProvider.getParser(EcoreElementTypes.EEnumLiteral_3009, getParserElement(), EcoreVisualIDRegistry
-					.getType(org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart.VISUAL_ID));
+			parser = EcoreParserProvider.getParser(EcoreElementTypes.EEnumLiteral_3009, getParserElement(),
+					EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EEnumLiteralEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

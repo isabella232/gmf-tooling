@@ -77,7 +77,7 @@ public class EReferenceReorientCommand extends EditElementCommand {
 			return false;
 		}
 		EClassifier target = getLink().getEType();
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4002(getNewSource(), target);
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canExistEReference_4002(getLink(), getNewSource(), target);
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class EReferenceReorientCommand extends EditElementCommand {
 			return false;
 		}
 		EClass source = (EClass) getLink().eContainer();
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEReference_4002(source, getNewTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canExistEReference_4002(getLink(), source, getNewTarget());
 	}
 
 	/**

@@ -81,7 +81,7 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof EObject && newEnd instanceof EAnnotation)) {
 			return false;
 		}
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEAnnotationReferences_4001(getNewSource(), getOldTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canExistEAnnotationReferences_4001(getNewSource(), getOldTarget());
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class EAnnotationReferencesReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof EObject && newEnd instanceof EObject)) {
 			return false;
 		}
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEAnnotationReferences_4001(getOldSource(), getNewTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canExistEAnnotationReferences_4001(getOldSource(), getNewTarget());
 	}
 
 	/**

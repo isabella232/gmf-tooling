@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.ecore.edit.policies.EcoreBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
+import org.eclipse.gmf.ecore.providers.ElementInitializers;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -70,7 +71,7 @@ public class EReferenceCreateCommand extends EditElementCommand {
 			return true; // link creation is in progress; source is not defined yet
 		}
 		// target may be null here but it's possible to check constraint
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEReference_4002(getSource(), getTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canCreateEReference_4002(getSource(), getTarget());
 	}
 
 	/**
@@ -84,7 +85,7 @@ public class EReferenceCreateCommand extends EditElementCommand {
 		EReference newElement = EcoreFactory.eINSTANCE.createEReference();
 		getSource().getEStructuralFeatures().add(newElement);
 		newElement.setEType(getTarget());
-		EcoreElementTypes.init_EReference_4002(newElement);
+		ElementInitializers.getInstance().init_EReference_4002(newElement);
 		doConfigure(newElement, monitor, info);
 		((CreateElementRequest) getRequest()).setNewElement(newElement);
 		return CommandResult.newOKCommandResult(newElement);
