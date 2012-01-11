@@ -165,9 +165,9 @@ public class ShipDestinationMarkerEditPart extends LabelEditPart implements ITex
 	}
 
 	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
+	* @generated
+	*/
+	public void setLabel(WrappingLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);

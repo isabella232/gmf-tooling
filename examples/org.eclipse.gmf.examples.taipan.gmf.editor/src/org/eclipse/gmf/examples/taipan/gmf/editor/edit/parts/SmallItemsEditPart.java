@@ -164,9 +164,9 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	}
 
 	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
+	* @generated
+	*/
+	public void setLabel(WrappingLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);

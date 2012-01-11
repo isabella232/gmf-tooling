@@ -164,9 +164,9 @@ public class UnreliableRouteRelbEditPart extends LabelEditPart implements ITextA
 	}
 
 	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
+	* @generated
+	*/
+	public void setLabel(WrappingLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);

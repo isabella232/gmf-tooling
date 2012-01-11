@@ -25,8 +25,10 @@
         displayName="Port"
         editHelperClassName="PortEditHelper"/>
     <viewmap
-        xsi:type="gmfgen:FigureViewmap"
-        figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+        xsi:type="gmfgen:ModeledViewmap">
+      <figureModel
+          href="taipan.gmfgraph#taipan"/>
+    </viewmap>
     <domainDiagramElement
         href="taipan.genmodel#//taipan/Port"/>
     <topLevelNodes
@@ -43,9 +45,10 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="BuildingEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="BuildingFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class BuildingFigure extends org.eclipse.gmf.examples.taipan.figures.BuildingShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureBuildingInfoLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public BuildingFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureBuildingInfoLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureBuildingInfoLabel.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureBuildingInfoLabel);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureBuildingInfoLabel() {&#xA;&#x9;&#x9;return fFigureBuildingInfoLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="taipan.gmfgraph#Building"/>
+      </viewmap>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Building"/>
@@ -62,9 +65,10 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureBuildingInfoLabel"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="taipan.gmfgraph#BuildingInfo"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0"
