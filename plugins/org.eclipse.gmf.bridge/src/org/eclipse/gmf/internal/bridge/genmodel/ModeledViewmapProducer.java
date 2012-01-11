@@ -21,7 +21,11 @@ public class ModeledViewmapProducer extends DefaultViewmapProducer {
 
 	@Override
 	public Viewmap create(Node node) {
-		return createModeledViewmap(node);
+		Viewmap viewmap = createModeledViewmap(node);
+		setupResizeConstraints(viewmap, node);
+		setupLayoutType(viewmap, node);
+		setupDefaultSize(viewmap, node);
+		return viewmap;
 	}
 
 	@Override
@@ -47,6 +51,9 @@ public class ModeledViewmapProducer extends DefaultViewmapProducer {
 	private ModeledViewmap createModeledViewmap(DiagramElement diagramElement) {
 		ModeledViewmap result = GMFGenFactory.eINSTANCE.createModeledViewmap();
 		result.setFigureModel(diagramElement);
+		if (diagramElement.getFigure() != null && diagramElement.getFigure().getActualFigure() != null) {
+			setupStyleAttributes(result, diagramElement.getFigure().getActualFigure());
+		}
 		return result;
 	}
 
