@@ -11,6 +11,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
 
 «DEFINE visualIDConstant FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -45,7 +46,23 @@
 	}
 «ENDDEFINE»
 
+«DEFINE labelFigure FOR gmfgen::ModeledViewmap-»
+	«IF not self.figureModel.oclAsType(gmfgraph::DiagramLabel).accessor.oclIsUndefined()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected org.eclipse.draw2d.IFigure createFigure() {
+		// Parent should assign one using «EXPAND impl::diagram::editparts::TextAware::labelSetterName»() method
+		return null;
+	}
+	«ELSE-»
+		«EXPAND _labelFigureDelegateToPrim-»
+	«ENDIF-»
+«ENDDEFINE»
+
 «DEFINE labelFigure FOR gmfgen::Viewmap-»
+	«EXPAND _labelFigureDelegateToPrim-»
+«ENDDEFINE»
+
+«DEFINE _labelFigureDelegateToPrim FOR gmfgen::Viewmap-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.draw2d.IFigure createFigure() {
 		org.eclipse.draw2d.IFigure label = createFigurePrim();
@@ -77,6 +94,11 @@
 	}
 
 	«classBody»
+«ENDDEFINE»
+
+«DEFINE labelFigurePrim FOR gmfgen::ModeledViewmap-»
+	return new «EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapFigureFQN FOR self»();
+	}
 «ENDDEFINE»
 
 «DEFINE labelFigurePrim FOR gmfgen::Viewmap-»

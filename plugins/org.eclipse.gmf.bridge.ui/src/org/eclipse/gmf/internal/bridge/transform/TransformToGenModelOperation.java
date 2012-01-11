@@ -48,6 +48,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.ModeledViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
@@ -360,6 +361,11 @@ public class TransformToGenModelOperation {
 	}
 
 	private ViewmapProducer detectTransformationOptions() {
+		boolean useModeledViewmaps = !getOptions().getUseInTransformationCodeGen();
+		if (useModeledViewmaps){
+			return new ModeledViewmapProducer();
+		}
+
 		String runtimeToken = getOptions().getUseRuntimeFigures() ? "full" : "lite";
 		MapModeCodeGenStrategy mmStrategy = getOptions().getUseMapMode() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 		URL dynamicFigureTemplates = getOptions().getFigureTemplatesPath();

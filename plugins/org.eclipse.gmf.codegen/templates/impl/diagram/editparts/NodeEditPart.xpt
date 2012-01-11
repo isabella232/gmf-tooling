@@ -12,6 +12,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION xpt::diagram::editparts::Utils»
 «EXTENSION xpt::diagram::Utils»
@@ -186,6 +187,21 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 	«ERROR 'Unknown viewmap: ' + self.repr()-»
 «ENDDEFINE»
 
+«DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::ModeledViewmap-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected org.eclipse.draw2d.IFigure createNodeShape() {
+			return primaryShape = new «EXPAND _modeledViewmapFigureFQN»()«-»
+				«IF node.childNodes->notEmpty() and node.getLayoutType() = gmfgen::ViewmapLayoutType::XY_LAYOUT»«EXPAND forceUseLocalCoordinates»«ENDIF»;
+		}
+		
+		«REM»FIXME: we don't have QVTo helper, only EXPAND, so we can't call «EXPAND getPrimaryShapeMethod FOR fqn »«ENDREM»«-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		public «EXPAND _modeledViewmapFigureFQN» getPrimaryShape() {
+			return («EXPAND _modeledViewmapFigureFQN») primaryShape;
+		}
+«ENDDEFINE»
+
+«DEFINE _modeledViewmapFigureFQN FOR gmfgen::ModeledViewmap»«EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapFigureFQN FOR self»«ENDDEFINE»
 
 «DEFINE createNodeShape(node : gmfgen::GenNode) FOR gmfgen::FigureViewmap-»
 	«LET (if figureQualifiedClassName = null then 'org.eclipse.draw2d.RectangleFigure' else figureQualifiedClassName endif) AS fqn-»
@@ -232,20 +248,48 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE addFixedChild FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
-«FOREACH getInnerFixedLabels(self) AS label»«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
+«FOREACH getInnerFixedLabels(self) AS label-»
+«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
+«LET childViewmap.getterName AS getterName-»
 		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-			((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName FOR childViewmap»(getPrimaryShape().«childViewmap.getterName»());
+			((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName FOR childViewmap»(getPrimaryShape().«getterName»());
 			return true;
 		}
-«ENDLET»«ENDFOREACH-»
-«FOREACH getPinnedCompartments(self) AS compartment»«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
+«ENDLET-»
+«ENDLET-»
+«ENDFOREACH-»
+«FOREACH getInnerFixedLabelsWithModeledViewmaps(self) AS label-»
+«LET label.viewmap.oclAsType(gmfgen::ModeledViewmap) AS childViewmap-»
+«LET childViewmap.figureModel.oclAsType(gmfgraph::DiagramLabel).accessor.accessor AS getterName-»
+		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+			((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName FOR childViewmap»(getPrimaryShape().«getterName»());
+			return true;
+		}
+«ENDLET-»
+«ENDLET-»
+«ENDFOREACH-»
+«FOREACH getPinnedCompartments(self) AS compartment-»
+«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
 		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
 			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
 			pane.add(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
 			return true;
 		}	
-«ENDLET»«ENDFOREACH-»
+«ENDLET-»
+«ENDFOREACH-»
+«FOREACH getPinnedCompartmentsWithModeledViewmaps(self) AS compartment-»
+«LET compartment.viewmap.oclAsType(gmfgen::ModeledViewmap) AS childViewmap-»
+«LET childViewmap.figureModel.oclAsType(gmfgraph::Compartment).accessor.accessor AS getterName-»
+		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
+			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«getterName»();
+			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
+			pane.add(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			return true;
+		}	
+«ENDLET-»
+«ENDLET-»
+«ENDFOREACH-»
 «FOREACH getSideAffixedChildren(self) AS child-»
 		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
 			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator = new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(), org.eclipse.draw2d.PositionConstants.«child.preferredSideName»);
@@ -260,19 +304,36 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 «DEFINE removeFixedChild FOR gmfgen::GenNode-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
-«FOREACH getInnerFixedLabels(self) AS label»«LET label.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
+«FOREACH getInnerFixedLabels(self) AS label-»
 		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
 			return true;
 		}
-«ENDLET»«ENDFOREACH-»
-«FOREACH getPinnedCompartments(self) AS compartment»«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
+«ENDFOREACH-»
+«FOREACH getInnerFixedLabelsWithModeledViewmaps(self) AS label-»
+		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+			return true;
+		}
+«ENDFOREACH-»
+«FOREACH getPinnedCompartments(self) AS compartment-»
+«LET compartment.viewmap.oclAsType(gmfgen::ParentAssignedViewmap) AS childViewmap-»
 		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
-			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
 			pane.remove(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
 			return true;
 		}	
-«ENDLET»«ENDFOREACH-»
+«ENDLET-»
+«ENDFOREACH-»
+«FOREACH getPinnedCompartmentsWithModeledViewmaps(self) AS compartment-»
+«LET compartment.viewmap.oclAsType(gmfgen::ModeledViewmap) AS childViewmap-»
+«LET childViewmap.figureModel.oclAsType(gmfgraph::Compartment).accessor.accessor AS getterName-»
+		if (childEditPart instanceof «compartment.getEditPartQualifiedClassName()») {
+			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«getterName»();
+			pane.remove(((«compartment.getEditPartQualifiedClassName()») childEditPart).getFigure());
+			return true;
+		}	
+«ENDLET-»
+«ENDLET-»
+«ENDFOREACH-»
 «FOREACH getSideAffixedChildren(self) AS child-»
 		if (childEditPart instanceof «child.getEditPartQualifiedClassName()») {
 			getBorderedFigure().getBorderItemContainer().remove(((«child.getEditPartQualifiedClassName()») childEditPart).getFigure());
@@ -563,6 +624,10 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 
 «DEFINE innerClassDeclaration FOR gmfgen::InnerClassViewmap»
 	«classBody»
+«ENDDEFINE»
+
+«DEFINE innerClassDeclaration FOR gmfgen::ModeledViewmap»
+	«EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapClassBody FOR self»
 «ENDDEFINE»
 
 «DEFINE getTargetEditPartMethod FOR gmfgen::GenNode»
