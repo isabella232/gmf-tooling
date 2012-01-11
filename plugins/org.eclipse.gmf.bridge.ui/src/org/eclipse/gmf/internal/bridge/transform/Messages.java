@@ -115,6 +115,7 @@ public class Messages extends NLS {
 	public static String ResourceGroup_invalidFilename;
 	public static String ResourceGroup_pathOccupied;
 	public static String WizardNewFileCreationPage_file;
+	public static String ViewmapProducerWizardPage_btnUseModeledViewmap_text;
 
 	
 	static {
