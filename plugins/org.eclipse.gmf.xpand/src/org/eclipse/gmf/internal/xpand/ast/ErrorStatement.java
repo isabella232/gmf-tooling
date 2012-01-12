@@ -38,7 +38,7 @@ public class ErrorStatement extends Statement {
     @Override
     public void evaluateInternal(final ExecutionContext ctx) {
 		String result = String.valueOf(message.evaluate(ctx));
-        throw new RuntimeException(MessageFormat.format("Error in {0}:{1}: ", getFileName(), getLine(), result));
+        throw new RuntimeException(MessageFormat.format("Error in {0}:{1}: {2}", getFileName(), getLine(), result));
     }
 
     ExpressionHelper getMessage() {
