@@ -24,8 +24,54 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.codegen.gmfgen.CustomParser;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAction;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomAction;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.common.codegen.ClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
@@ -256,6 +302,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDiagramItemSemanticEditPolicy();
 		generateEditSupport(myDiagram);
 		generateDiagramEditPart();
+		generateEditPartModelingAssistantProvider(myDiagram);
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
@@ -265,6 +312,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		generateEditSupport(node);
 		generateNodeEditPart(node);
+		generateEditPartModelingAssistantProvider(node);
 		generateBehaviours(node);
 		if (node.needsCanonicalEditPolicy()) {
 			generateChildContainerCanonicalEditPolicy(node);
@@ -290,6 +338,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateEditSupport(child);
 		generateBehaviours(child);
 		generateChildNodeLabelEditPart(child);
+		generateEditPartModelingAssistantProvider(child);
 	}
 
 	// commands
@@ -364,6 +413,10 @@ public class Generator extends GeneratorBase implements Runnable {
 		doGenerateJavaClass(myEmitters.getNodeEditPartEmitter(), node.getEditPartQualifiedClassName(), node);
 	}
 
+	private void generateEditPartModelingAssistantProvider(GenContainerBase container) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getNodeEditPartModelingAssistantProviderClassEmitter(), container);
+	}
+		
 	private void generateNodeLabelEditPart(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getNodeLabelEditPartEmitter(), label.getEditPartQualifiedClassName(), label);
 	}
@@ -967,5 +1020,9 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private static boolean needsGraphicalNodeEditPolicy(GenNode node) {
 		return node.getModelFacet() != null && !node.getReorientedIncomingLinks().isEmpty();
+	}
+	
+	private void doGenerateJavaClass(ClassEmitter classEmitter, GenCommonBase input) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(classEmitter.getTextEmitter(), classEmitter.getPackageName(input), classEmitter.getClassName(input), input);
 	}
 }

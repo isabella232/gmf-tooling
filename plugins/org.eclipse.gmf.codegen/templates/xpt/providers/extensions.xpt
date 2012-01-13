@@ -56,20 +56,10 @@
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
-      «EXPAND xpt::Common::xmlGeneratedTag»
-      <modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
-         <Priority name="«modelingAssistantProviderPriority»"/>
-         <object class="«getEditPartQualifiedClassName()»" id="«getUniqueIdentifier()»"/>
-«FOREACH topLevelNodes AS n-»
-         <object class="«n.getEditPartQualifiedClassName()»" id="«n.getUniqueIdentifier()»"/>
+«EXPAND modelingAssistantProvider»
+«FOREACH getAllNodes() AS n-»
+	«EXPAND modelingAssistantProvider FOR n»
 «ENDFOREACH-»
-«FOREACH childNodes AS n-»
-         <object class="«n.getEditPartQualifiedClassName()»" id="«n.getUniqueIdentifier()»"/>
-«ENDFOREACH-»
-         <context elements="«getUniqueIdentifier()»,«FOREACH topLevelNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»,«FOREACH childNodes AS n SEPARATOR ','»«n.getUniqueIdentifier()»«ENDFOREACH»"/>
-      </modelingAssistantProvider>
-   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       «EXPAND xpt::Common::xmlGeneratedTag»
@@ -192,3 +182,22 @@
 «DEFINE internal_i18n FOR gmfgen::ElementType-»
 «IF null <> displayName and not definedExternally»metatype.name.«diagramElement.getUniqueIdentifier()»=«displayName»«ENDIF»
 «ENDDEFINE»
+
+«DEFINE modelingAssistantProvider FOR gmfgen::GenContainerBase»
+	<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider-«visualID»">
+		«EXPAND xpt::Common::xmlGeneratedTag»
+		<modelingAssistantProvider class="«EXPAND modelingAssistantProviderQualifiedClassName»">
+			<Priority name="«getDiagram().modelingAssistantProviderPriority»"/>
+			<object class="«getEditPartQualifiedClassName()»" id="«getUniqueIdentifier()»"/>         
+			<context elements="«getUniqueIdentifier()»»"/>
+		</modelingAssistantProvider>
+	</extension>
+«ENDDEFINE»
+
+«DEFINE modelingAssistantProviderQualifiedClassName FOR gmfgen::GenContainerBase»«REM»NO-OP, all specific subclasses should be handled«ENDREM»«ENDDEFINE»
+
+«DEFINE modelingAssistantProviderQualifiedClassName FOR gmfgen::GenDiagram»«getModelingAssistantProviderQualifiedClassName()»«ENDDEFINE»
+
+«DEFINE modelingAssistantProviderQualifiedClassName FOR gmfgen::GenNode»«EXPAND xpt::providers::EditPartModelingAssistantProvider::qualifiedClassName»«ENDDEFINE»
+
+
