@@ -30,7 +30,7 @@ helper isBareFigure(figure : gmfgraph::RealFigure) : Boolean {
 		let eClass : ecore::EClass = figure.oclAsType(ecore::EObject).eClass() in 
 		let featuresToCheck : OrderedSet(ecore::EStructuralFeature) = eClass.eAllStructuralFeatures->
 			reject(f : ecore::EStructuralFeature | 
-				isDerived(f) 
+				f._derived  
 				or (f.eContainingClass.name = 'RealFigure' and f.name = 'name')
 				or (f.eContainingClass.name = 'RealFigure' and f.name = 'children')
 				or (f.eContainingClass.name = 'CustomClass' and f.name = 'qualifiedClassName')
@@ -41,12 +41,4 @@ helper isBareFigure(figure : gmfgraph::RealFigure) : Boolean {
 			and not featuresToCheck->exists(f : ecore::EStructuralFeature |
 				figure.oclAsType(ecore::EObject).eIsSet(f)
 			) 
-}
-
-helper isDerived(feature : ecore::EStructuralFeature ) : Boolean {
-	//'derived' is parsed as keyword and not allowed token producing build error
-	// so instead of writing feature.derived we have to write this 
-	return 
-		let metaDerived : ecore::EStructuralFeature = feature.oclAsType(ecore::EObject).eClass().getEStructuralFeature('derived') in 
-		feature.oclAsType(ecore::EObject).eGet(metaDerived).oclAsType(Boolean)	
 }
