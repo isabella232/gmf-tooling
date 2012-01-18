@@ -28,6 +28,8 @@
 	«EXPAND isOrphanedMethod-»
 
 	«EXPAND isMyDiagramElementMethod-»
+	
+	«EXPAND isShortcutMethod-»
 «ENDDEFINE»
 
 // used to be package-local field
@@ -97,10 +99,24 @@ protected java.util.List getSemanticChildrenList() {
 }
 «ENDDEFINE»
 
+«DEFINE isShortcutMethod FOR gmfgen::GenContainerBase»«ENDDEFINE»
+«DEFINE isShortcutMethod FOR gmfgen::GenDiagram-»
+«IF containsShortcutsTo->notEmpty()-»
+«EXPAND xpt::Common::generatedMemberComment»
+private boolean isShortcut(org.eclipse.gmf.runtime.notation.View view) {
+	return view.getEAnnotation("Shortcut") != null; «EXPAND xpt::Common::nonNLS»
+}
+«ENDIF»
+«ENDDEFINE»
+
 «DEFINE isOrphanedMethod FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
 protected boolean isOrphaned(«EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.emf.ecore.EObject')» semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
-	«EXPAND _checkShortcutProperty-»
+	«IF self.oclIsKindOf(gmfgen::GenDiagram) and self.oclAsType(gmfgen::GenDiagram).containsShortcutsTo->notEmpty()-»
+		if (isShortcut(view)) {
+			return «getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(view);
+		}
+	«ENDIF-»
 	return isMyDiagramElement(view) && !semanticChildren.contains(view.getElement());
 }
 «ENDDEFINE»
@@ -142,14 +158,23 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 				/* see #352271 */ «EXPAND CodeStyle::emptyList»;
 			«ENDIF-»
 		«EXPAND CodeStyle::newGenericInstance('orphaned', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View')»();
-		// we care to check only views we recognize as ours
+		«LET self.oclIsKindOf(gmfgen::GenDiagram) and self.oclAsType(gmfgen::GenDiagram).containsShortcutsTo->notEmpty() AS safeHasShortcuts-»
+		// we care to check only views we recognize as ours«IF safeHasShortcuts» and not shortcuts«ENDIF»
 		«EXPAND CodeStyle::newGenericInstance('knownViewChildren', 'java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View')»();
 		«EXPAND CodeStyle::iterate('v', 'org.eclipse.gmf.runtime.notation.View', 'getViewChildren()')-»
+«IF safeHasShortcuts-»
+			if (isShortcut(v)) {
+				if («getDiagram().editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(v)) {
+					orphaned.add(v);
+				}
+				continue;
+			} 
+«ENDIF-»
 			if (isMyDiagramElement(v)) {
 				knownViewChildren.add(v);
 			}
-			«EXPAND _checkOrphanedShortcuts('orphaned', 'v')-»
 		}
+		«ENDLET-»
 		// alternative to #cleanCanonicalSemanticChildren(getViewChildren(), semanticChildren)
 		«IF childrenShareSameMetaclass-»
 		«EXPAND CodeStyle::newGenericInstance2('potentialViews', 'java.util.HashMap', diagramUpdater.getNodeDescriptorQualifiedClassName(), 'java.util.LinkedList', 'org.eclipse.gmf.runtime.notation.View')»();
@@ -381,25 +406,6 @@ private org.eclipse.gmf.runtime.notation.Diagram getDiagram() {
 «DEFINE _addContainmentFeature FOR genmodel::GenFeature-»
 myFeaturesToSynchronize.add(«EXPAND MetaModel::MetaFeature»);
 «ENDDEFINE»
-
-«DEFINE _checkShortcutProperty FOR gmfgen::GenContainerBase»«ENDDEFINE»
-«DEFINE _checkShortcutProperty FOR gmfgen::GenDiagram-»
-«IF containsShortcutsTo->notEmpty()-»
-	if (view.getEAnnotation("Shortcut") != null) {«EXPAND xpt::Common::nonNLS»
-		return «editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(view);
-	}
-«ENDIF-»
-«ENDDEFINE»
-
-«DEFINE _checkOrphanedShortcuts(String orphanedCollectionVar, String viewVar) FOR gmfgen::GenContainerBase»«ENDDEFINE»
-«DEFINE _checkOrphanedShortcuts(String orphanedCollectionVar, String viewVar) FOR gmfgen::GenDiagram-»
-«IF containsShortcutsTo->notEmpty()-»
-	if («viewVar».getEAnnotation("Shortcut") != null && «editorGen.diagramUpdater.getDiagramUpdaterQualifiedClassName()».isShortcutOrphaned(«viewVar»)) {«EXPAND xpt::Common::nonNLS»
-		«orphanedCollectionVar».add(«viewVar»);
-	}
-«ENDIF-»
-«ENDDEFINE»
-
 
 «DEFINE _compareLinkVisualID FOR gmfgen::GenLink» || diagramLinkVisualID == «EXPAND xpt::editor::VisualIDRegistry::visualID»«ENDDEFINE»
 
