@@ -8,7 +8,6 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
- *    Mickael Istria (EBM Websourcing) - Support for target platform creation
  */
 package org.eclipse.gmf.tests;
 
@@ -83,6 +82,12 @@ import org.eclipse.gmf.tests.tr.QvtGenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.QvtGenModelTransformerSimpleTest;
 import org.eclipse.gmf.tests.tr.QvtLabelMappingTransformTest;
 import org.eclipse.gmf.tests.tr.QvtPaletteTransformationTest;
+import org.eclipse.gmf.tests.tr.QvtTransformComparisonAudtisTest;
+import org.eclipse.gmf.tests.tr.QvtTransformComparisonCompartmentRefNodeTest;
+import org.eclipse.gmf.tests.tr.QvtTransformComparisonFullTest;
+import org.eclipse.gmf.tests.tr.QvtTransformComparisonLinksTest;
+import org.eclipse.gmf.tests.tr.QvtTransformComparisonNodeLabelsTest;
+import org.eclipse.gmf.tests.tr.QvtTransformModeledViewmapTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
@@ -100,11 +105,38 @@ import org.osgi.framework.Bundle;
 @SuppressWarnings("restriction")
 public class AllTests {
 
+	public static void setTargetPlatform() throws Exception {
+		ITargetPlatformService tpService = TargetPlatformService.getDefault();
+		ITargetDefinition targetDef = tpService.newTarget();
+		targetDef.setName("Tycho platform");
+		Bundle[] bundles =  Platform.getBundle("org.eclipse.core.runtime").getBundleContext().getBundles();
+		List<IBundleContainer> bundleContainers = new ArrayList<IBundleContainer>();
+		Set<File> dirs = new HashSet<File>();
+		for (Bundle bundle : bundles) {
+			AbstractBundle aBundle = (AbstractBundle)bundle;
+			final BaseData bundleData = (BaseData)aBundle.getBundleData();
+			File file = bundleData.getBundleFile().getBaseFile();
+			File folder = file.getParentFile(); 
+			if (!dirs.contains(folder)) {
+				dirs.add(folder);
+				bundleContainers.add(tpService.newDirectoryContainer(folder.getAbsolutePath()));
+			}
+		}
+		targetDef.setBundleContainers(bundleContainers.toArray(new IBundleContainer[0]));
+		targetDef.setArch(Platform.getOSArch());
+		targetDef.setOS(Platform.getOS());
+		targetDef.setWS(Platform.getWS());
+		targetDef.setNL(Platform.getNL());
+		//targetDef.setJREContainer()
+		tpService.saveTargetDefinition(targetDef);
+		LoadTargetDefinitionJob.load(targetDef);
+	}
+	
 	public static Test suite() throws Exception {
 
 		if (System.getProperty("buildingWithTycho") != null) {
 			System.err.println("Generating a target platform");
-			Utils.setTargetPlatform();
+			setTargetPlatform();
 		}
 		
 		
@@ -172,6 +204,12 @@ public class AllTests {
         suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
         suite.addTestSuite(QvtLabelMappingTransformTest.class);
         suite.addTestSuite(QvtPaletteTransformationTest.class);
+        suite.addTestSuite(QvtTransformComparisonNodeLabelsTest.class);
+        suite.addTestSuite(QvtTransformComparisonLinksTest.class);
+        suite.addTestSuite(QvtTransformComparisonAudtisTest.class);
+        suite.addTestSuite(QvtTransformComparisonCompartmentRefNodeTest.class);
+        suite.addTestSuite(QvtTransformComparisonFullTest.class);
+        suite.addTestSuite(QvtTransformModeledViewmapTest.class);
         
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
@@ -263,6 +301,12 @@ public class AllTests {
 		c.register(QvtGenModelTransformerBasicRTTest.class, SessionSetup.class);
 		c.register(QvtLabelMappingTransformTest.class, SessionSetup.class);
 		c.register(QvtPaletteTransformationTest.class, SessionSetup.class);
+		c.register(QvtTransformComparisonNodeLabelsTest.class, SessionSetup.class);
+		c.register(QvtTransformComparisonLinksTest.class, SessionSetup.class);
+		c.register(QvtTransformComparisonAudtisTest.class, SessionSetup.class);
+		c.register(QvtTransformComparisonCompartmentRefNodeTest.class, SessionSetup.class);
+		c.register(QvtTransformComparisonFullTest.class, SessionSetup.class);
+		c.register(QvtTransformModeledViewmapTest.class, SessionSetup.class);
 		
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		c.register(TestAllDerivedFeatures.class, SessionSetup.class);

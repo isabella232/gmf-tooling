@@ -24,30 +24,39 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
+import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.Utils;
+import org.eclipse.m2m.internal.qvt.oml.InternalTransformationExecutor;
+import org.eclipse.m2m.internal.qvt.oml.trace.Trace;
+import org.eclipse.m2m.internal.qvt.oml.trace.TraceRecord;
 import org.eclipse.m2m.qvt.oml.BasicModelExtent;
 import org.eclipse.m2m.qvt.oml.ExecutionContextImpl;
 import org.eclipse.m2m.qvt.oml.ExecutionDiagnostic;
 import org.eclipse.m2m.qvt.oml.ModelExtent;
-import org.eclipse.m2m.qvt.oml.TransformationExecutor;
 
+@SuppressWarnings("restriction")
 public abstract class QvtGenModelTransformerTest extends AbstractMappingTransformerTest {
 
 	protected GenEditorGenerator myTransformationResult;
-	private final DiagramRunTimeModelHelper myDiagramModelHelper; 
+//	private final DiagramRunTimeModelHelper myDiagramModelHelper; 
+	protected Resource traceResource;
 	
 	protected QvtGenModelTransformerTest(String name, DiagramRunTimeModelHelper rtHelper) {
 		super(name);
 		assert rtHelper != null;
-		myDiagramModelHelper = rtHelper;
+//		myDiagramModelHelper = rtHelper;
 	}
 
 	protected void setUp() throws Exception {
@@ -60,8 +69,15 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 		Mapping mapping = getMapping();
 		
 		ResourceSet resourceSet = genModel.eResource().getResourceSet();
-		
-		TransformationExecutor executor = new TransformationExecutor(URI.createURI("platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto"));
+		traceResource = resourceSet.createResource(URI.createURI("test.qvtotrace"));
+		InternalTransformationExecutor executor = //new TransformationExecutor(URI.createURI("platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto"));
+			new InternalTransformationExecutor(URI.createURI("platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto")) {
+				 @Override
+				    protected void handleExecutionTraces(Trace traces) {
+				        traceResource.getContents().add(traces);
+				        super.handleExecutionTraces(traces);
+				    }
+			};
 		ExecutionContextImpl context = new ExecutionContextImpl();
 		context.setConfigProperty("rcp", false);
 		context.setConfigProperty("useMapMode", false);
@@ -81,17 +97,47 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 		ModelExtent output = new BasicModelExtent();
 		
 		ExecutionDiagnostic result = executor.execute(context, inMap, inGen, inNotation, output);
-		System.out.println( result.getStackTrace() );
 		
 		if(result.getSeverity() == Diagnostic.OK) {
 			
 			List<EObject> outObjects = output.getContents();
-//			assertEquals(1, outObjects.size());
 			assertTrue(outObjects.get(0) instanceof GenEditorGenerator);
 			
 			return (GenEditorGenerator) outObjects.get(0);
 		}
 		
+		return null;
+	}
+	
+	protected GenNode[] find(NodeMapping nodeMap) {
+		assert nodeMap != null;
+		GenNode genNode = findTopNode(nodeMap);
+		return genNode != null ? new GenNode[] {genNode} : new GenNode[]{};//findChildNodes(nodeMap);
+	}
+	
+	protected GenTopLevelNode findTopNode(NodeMapping nodeMap) {
+		assert nodeMap != null;
+		Trace trace = (Trace) traceResource.getContents().get(0);
+		for (TraceRecord record: trace.getTraceRecords()) {
+			if (record.getContext().getContext().getType().equals(GMFMapPackage.eINSTANCE.getTopNodeReference().getName())) {
+				if (record.getContext().getContext().getValue().getModelElement().equals(nodeMap.eContainer())) {
+					return (GenTopLevelNode) record.getResult().getResult().get(0).getValue().getModelElement();
+				}
+			}
+		}
+		return null;
+	}
+	
+	private GenLink find(LinkMapping linkMapping) {
+		assert linkMapping != null;
+		Trace trace = (Trace) traceResource.getContents().get(0);
+		for (TraceRecord record: trace.getTraceRecords()) {
+			if (record.getContext().getContext().getType().equals(GMFMapPackage.eINSTANCE.getLinkMapping().getName())) {
+				if (record.getContext().getContext().getValue().getModelElement().equals(linkMapping)) {
+					return (GenLink) record.getResult().getResult().get(0).getValue().getModelElement();
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -101,28 +147,28 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 		assertNotNull("... as well as GenPlugin is expected to be set", myTransformationResult.getPlugin());
 		assertNotNull("Diagram filename extension not set", myTransformationResult.getDiagramFileExtension());
 		// FIXME add more
-
-//		EList<GenNode> genNodes = myTransformationResult.getDiagram().getAllNodes();
-//		assertEquals("Result model contains no GenNode for nodeMapping", 1, genNodes.size());
+		
+		GenNode[] genNodes = find(getNodeMapping());
+		assertEquals("Result model contains no GenNode for nodeMapping", 1, genNodes.length);
 		// FIXME add more
 
-//		EList<GenLink> genLinks = myTransformationResult.getDiagram().getLinks();
-//		assertEquals("Result model contains no GenLink for linkMapping", 0, genLinks.size());
+		GenLink genLinks = find(getLinkMapping());
+		assertNotNull("Result model contains no GenLink for linkMapping", genLinks);
 		// FIXME add more
 	}
 	
 	public void testCreatedPalette() {
 		final Palette palette = myTransformationResult.getDiagram().getPalette();
 		for (TopNodeReference topNode : getMapping().getNodes()) {
-//			final NodeMapping nodeMapping = topNode.getChild();
-//			GenTopLevelNode genNode = myTransformationResult.getDiagram().getTopLevelNodes().get(0);
-//			assertNotNull(genNode);
-//			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(genNode, palette));
+			final NodeMapping nodeMapping = topNode.getChild();
+			GenTopLevelNode genNode = findTopNode(nodeMapping);
+			assertNotNull(genNode);
+			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(genNode, palette));
 		}
 		for (LinkMapping linkMapping : getMapping().getLinks()) {
-//			GenLink genLink = myTransformer.getTrace().find(linkMapping);
-//			assertNotNull(genLink);
-//			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(genLink, palette));
+			GenLink genLink = find(linkMapping);
+			assertNotNull(genLink);
+			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(genLink, palette));
 		}
 		// TODO add grooping test
 	}

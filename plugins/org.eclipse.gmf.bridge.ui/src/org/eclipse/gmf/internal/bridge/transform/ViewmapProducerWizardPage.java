@@ -17,7 +17,6 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.dialogs.Dialog;
@@ -45,20 +44,35 @@ import org.eclipse.swt.widgets.Text;
 class ViewmapProducerWizardPage extends WizardPage {
 
 	private boolean myInitingControls;
-    private Button generateRCPButton;
-    private Button useMapModeButton;
-    private Button useRuntimeFiguresButton;
-    private Button useModeledViewmapButton;
+
+	private Button generateRCPButton;
+
+	private Button useMapModeButton;
+
+	private Button useRuntimeFiguresButton;
+
+	private Button useModeledViewmapButton;
+
 	private Text templatesPathText;
+
 	private Text qvtoFileControl;
+
 	private Text preReconcileTranfsormText;
+
 	private Text postReconcileTranfsormText;
+
 	private Button radioDGMT;
+
 	private Button radioQVT;
+
 	private Button preReconcileTransformBtn;
+
 	private Button postReconcileTransformBtn;
+
 	private ExpandItem myTemplatePathItem;
+
 	private ExpandItem myTransformsItem;
+
 	private Composite composite;
 
 	protected ViewmapProducerWizardPage(String pageName) {
@@ -66,7 +80,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 		setTitle(Messages.TransformToGenModelWizard_title_options);
 		setDescription(Messages.TransformToGenModelWizard_descr_options);
 	}
-	
+
 	public void createControl(Composite parent) {
 		initializeDialogUnits(parent);
 
@@ -88,23 +102,28 @@ class ViewmapProducerWizardPage extends WizardPage {
 	}
 
 	private void createControls(Composite result) {
-        useMapModeButton = new Button(result, SWT.CHECK);
-        useMapModeButton.setText(Messages.ViewmapProducerWizardPage_btn_mapmode);
-        useMapModeButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
-        useRuntimeFiguresButton = new Button(result, SWT.CHECK);
-        useRuntimeFiguresButton.setText(Messages.ViewmapProducerWizardPage_btn_runtime);
-        useRuntimeFiguresButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
-        generateRCPButton = new Button(result, SWT.CHECK);
-        generateRCPButton.setText(Messages.ViewmapProducerWizardPage_btn_rcp);
-        generateRCPButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
-        useModeledViewmapButton = new Button(composite, SWT.CHECK);
-        useModeledViewmapButton.setText(Messages.ViewmapProducerWizardPage_btnUseModeledViewmap_text);
-        useModeledViewmapButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
-        SelectionListener selectionListener = new SelectionListener() {
-        	public void widgetDefaultSelected(SelectionEvent e) {
-        		widgetSelected(e);
-        	}
-        	
+		useMapModeButton = new Button(result, SWT.CHECK);
+		useMapModeButton.setText(Messages.ViewmapProducerWizardPage_btn_mapmode);
+		useMapModeButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
+
+		useRuntimeFiguresButton = new Button(result, SWT.CHECK);
+		useRuntimeFiguresButton.setText(Messages.ViewmapProducerWizardPage_btn_runtime);
+		useRuntimeFiguresButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
+
+		generateRCPButton = new Button(result, SWT.CHECK);
+		generateRCPButton.setText(Messages.ViewmapProducerWizardPage_btn_rcp);
+		generateRCPButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
+
+		useModeledViewmapButton = new Button(composite, SWT.CHECK);
+		useModeledViewmapButton.setText(Messages.ViewmapProducerWizardPage_btnUseModeledViewmap_text);
+		useModeledViewmapButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_CENTER));
+
+		SelectionListener selectionListener = new SelectionListener() {
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+
 			public void widgetSelected(SelectionEvent e) {
 				if (generateRCPButton == e.widget) {
 					getOperation().getOptions().setGenerateRCP(generateRCPButton.getSelection());
@@ -118,13 +137,15 @@ class ViewmapProducerWizardPage extends WizardPage {
 				validatePage();
 			}
 		};
-        useMapModeButton.addSelectionListener(selectionListener);
-        useRuntimeFiguresButton.addSelectionListener(selectionListener);
-        generateRCPButton.addSelectionListener(selectionListener);
-        useModeledViewmapButton.addSelectionListener(selectionListener);
-        createAdvancedControls(result);
-        Composite glue = new Composite(result, SWT.NONE);
-        glue.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
+
+		useMapModeButton.addSelectionListener(selectionListener);
+		useRuntimeFiguresButton.addSelectionListener(selectionListener);
+		generateRCPButton.addSelectionListener(selectionListener);
+		useModeledViewmapButton.addSelectionListener(selectionListener);
+
+		createAdvancedControls(result);
+		Composite glue = new Composite(result, SWT.NONE);
+		glue.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 	}
 
 	private void createAdvancedControls(Composite result) {
@@ -134,15 +155,16 @@ class ViewmapProducerWizardPage extends WizardPage {
 		parent.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		ExpandBar c = new ExpandBar(parent, SWT.NONE);
 		c.setBackground(parent.getBackground());
-        templatesPathText = new Text(c, SWT.SINGLE | SWT.BORDER);
+		templatesPathText = new Text(c, SWT.SINGLE | SWT.BORDER);
 		Listener modifyListener = new Listener() {
+
 			public void handleEvent(Event event) {
 				validatePage();
 			}
 		};
 		templatesPathText.addListener(SWT.Modify, modifyListener);
-        myTemplatePathItem = new ExpandItem(c, SWT.NONE, 0);
-        myTemplatePathItem.setText("GMFGraph dynamic templates");
+		myTemplatePathItem = new ExpandItem(c, SWT.NONE, 0);
+		myTemplatePathItem.setText("GMFGraph dynamic templates");
 		myTemplatePathItem.setHeight(templatesPathText.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
 		myTemplatePathItem.setControl(templatesPathText);
 		//
@@ -150,23 +172,36 @@ class ViewmapProducerWizardPage extends WizardPage {
 		map2genControls.setLayout(new FillLayout(SWT.VERTICAL));
 		radioDGMT = new Button(map2genControls, SWT.RADIO);
 		radioDGMT.setText("Use Java transformation");
+
 		radioQVT = new Button(map2genControls, SWT.RADIO);
 		radioQVT.setText("Use QVTO transformation");
+
 		qvtoFileControl = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
 		qvtoFileControl.addListener(SWT.Modify, modifyListener);
+
 		class EnablementListener implements Listener {
+
 			private final Button myControl;
+
 			private final Control myTarget;
+
 			public EnablementListener(Button control, Control target) {
 				assert control != null && target != null;
 				myControl = control;
 				myTarget = target;
 			}
+
 			public void handleEvent(Event event) {
 				myTarget.setEnabled(myControl.getSelection());
+
+				if (myControl == radioQVT && !myControl.getSelection()) {
+					TransformOptions options = getOperation().getOptions();
+					options.setTransformation(null);
+				}
 			}
-			
+
 		};
+
 		EnablementListener l = new EnablementListener(radioQVT, qvtoFileControl);
 		radioDGMT.addListener(SWT.Selection, l);
 		radioQVT.addListener(SWT.Selection, l);
@@ -189,7 +224,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 		myTransformsItem.setControl(map2genControls);
 		//
 	}
-	
+
 	void validatePage() {
 		if (myInitingControls) {
 			return;
@@ -237,7 +272,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 				// move expand logic there (based on setInitialValue event
 				myTemplatePathItem.setExpanded(true);
 			}
-	
+
 			radioDGMT.setSelection(options.getMainTransformation() == null);
 			radioQVT.setSelection(!radioDGMT.getSelection());
 			qvtoFileControl.setEnabled(radioQVT.getSelection());
@@ -265,7 +300,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 			setMessage(null);
 			setPageComplete(true);
 		} else {
-    		setMessage(s.getMessage(), IMessageProvider.INFORMATION);
+			setMessage(s.getMessage(), IMessageProvider.INFORMATION);
 			setPageComplete(s.getSeverity() < IStatus.WARNING);
 		}
 	}

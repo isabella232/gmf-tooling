@@ -166,7 +166,7 @@ public class TransformToGenModelOperationTest extends ConfiguredTestCase {
 		myOperation.getOptions().setUseMapMode(false);
 		myOperation.getOptions().setUseRuntimeFigures(false);
 		myOperation.getOptions().setGenerateRCP(true);
-		myOperation.getOptions().setTransformation(new URL(Plugin.createURI("/transforms/Map2Gen.qvto").toString()));
+		myOperation.getOptions().setTransformation(new URL(URI.createURI("platform:/plugin/org.eclipse.gmf.tests/transforms/Map2Gen.qvto").toString()));
 		//
 		IStatus status = myOperation.executeTransformation(null);
 		assertTrue(status.getMessage(), status.isOK());

@@ -107,7 +107,6 @@ query GMFGEN::GenLink::getTargetGenNodes() : OrderedSet(GMFGEN::GenLinkEnd) {
 	if self.modelFacet.oclIsUndefined() then {
 		return self.diagram.getAllPossibleLinkEnds() 
 	} endif;
-	log ("target", Sequence{self.targets->size(), self.visualID}) when true;
 	return self.targets;
 }
 

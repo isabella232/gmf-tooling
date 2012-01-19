@@ -1,0 +1,19 @@
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
+modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
+
+library GmfGenUtil;
+
+query GenCommonBase::parentID(visualID: Integer): Boolean = self.oclAsType(EObject).parentID(visualID);
+query Viewmap::parentID(visualID: Integer): Boolean = self.oclAsType(EObject).parentID(visualID);
+query ModelFacet::parentID(visualID: Integer): Boolean = self.oclAsType(EObject).parentID(visualID);
+query GenLinkConstraints::parentID(visualID: Integer): Boolean = self.oclAsType(EObject).parentID(visualID);
+query GenPreferencePage::parentID(visualID: Integer): Boolean = self.oclAsType(EObject).parentID(visualID);
+
+query EObject::parentID(visualID: Integer): Boolean =
+	if self.eContainer().oclIsKindOf(GenCommonBase) then
+		self.eContainer().oclAsType(GenContainerBase).visualID = visualID
+	else false endif;
+
+query GenPreferencePage::parentID(id: String): Boolean = self.oclAsType(GenPreferencePage).iD = id;
+
+query node(list: Set(GenNode), visualID: Integer): GenNode = list->any(e | e.visualID = visualID);

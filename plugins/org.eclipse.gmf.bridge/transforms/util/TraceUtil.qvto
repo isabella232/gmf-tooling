@@ -1,0 +1,65 @@
+modeltype TRACE  uses trace('http:///www.eclipse.org/m2m/qvt/operational/trace.ecore');
+modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
+modeltype OCL uses ocl('http://www.eclipse.org/ocl/1.1.0/OCL');
+modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
+	
+library TraceUtil;
+
+query traces(): Sequence(TRACE::TraceRecord) {
+	return TRACE::TraceRecord.allInstances()->asSequence();
+}
+query Sequence(TRACE::TraceRecord)::inputElementIs(modelElement: GMFMAP::NeedsContainment): Sequence(TRACE::TraceRecord) {
+	return self->select(e | e.context.context.value.modelElement = modelElement)->asSequence();	
+}
+query Sequence(TRACE::TraceRecord)::inputElementIs(modelElement: GMFMAP::MappingEntry): Sequence(TRACE::TraceRecord) {
+	return self->select(e | e.context.context.value.modelElement = modelElement)->asSequence();	
+}
+query Sequence(TRACE::TraceRecord)::outputElementIs(modelElement: GMFGEN::GenCommonBase): Sequence(TRACE::TraceRecord) {
+	return self->select(e | e._result._result->exists(a | a.value.modelElement = modelElement))->asSequence();
+}
+query TraceRecord::getResultModelElement(): OclAny {
+	return self._result._result->first().value.modelElement;
+}
+query TraceRecord::getContextModelElement(): OclAny {
+	return self.context.context.value.modelElement;	
+}
+query GMFGEN::GenNode::input(): GMFMAP::NodeReference {
+	return switch {
+		case (self.oclIsTypeOf(GenTopLevelNode)) self.oclAsType(GenTopLevelNode).input();
+		case (self.oclIsTypeOf(GenChildNode)) self.oclAsType(GenChildNode).input();
+		else null;
+	};
+}
+query GMFGEN::GenTopLevelNode::input(): GMFMAP::NodeReference {
+	return traces()->outputElementIs(self)->first().getContextModelElement().oclAsType(GMFMAP::TopNodeReference);
+}
+query GMFGEN::GenChildNode::input(): GMFMAP::NodeReference {
+	var records := traces()->outputElementIs(self);
+	if records->size() = 1 then {
+		return records->first().getContextModelElement().oclAsType(GMFMAP::ChildReference)
+	} endif;
+	return null;
+}
+query GMFGEN::GenLink::input(): GMFMAP::LinkMapping {
+	return traces()->outputElementIs(self)->first().getContextModelElement().oclAsType(GMFMAP::LinkMapping);
+}
+query GMFMAP::NeedsContainment::output(): GMFGEN::GenNode {
+	var records := traces()->inputElementIs(self);
+	if records->size() = 1 then {
+		return records->first().getResultModelElement().oclAsType(GenNode)
+	} endif;
+	return null;
+}
+query GMFMAP::MappingEntry::output(): GMFGEN::GenNode {
+	var records := traces()->inputElementIs(self);
+	if records->size() = 1 then {
+		return records->first().getResultModelElement().oclAsType(GenNode)
+	} else {
+		return self.getContainer().output();
+	} endif;
+	return null;
+}
+query GMFMAP::MappingEntry::getContainer(): GMFMAP::NeedsContainment {
+	return self.oclAsType(EObject).eContainer().oclAsType(GMFMAP::NeedsContainment);
+}
