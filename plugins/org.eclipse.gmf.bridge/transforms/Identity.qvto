@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -15,15 +15,8 @@ modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
 modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
--- modeltype TRACE uses trace('http://www.eclipse.org/gmf/2006/Trace');
-
---import gmf.TraceModelFacade;
 
 library Identity;
-
---main() {
---	mapModel.rootObjects()![GMFMAP::Mapping].visualIdentity();
---}
 
 -- *************************************************************************************
 -- Visual ID

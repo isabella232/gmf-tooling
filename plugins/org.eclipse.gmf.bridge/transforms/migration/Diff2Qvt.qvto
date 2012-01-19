@@ -1,3 +1,13 @@
+/**
+* Copyright (c) 2011, 2012 Montages A.G.
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+* 	Guillaume Hillairet (Montages A.G.) : initial implementation
+*/
 modeltype DIFF uses diff('http://www.eclipse.org/emf/compare/diff/1.1');
 modeltype QVT uses qvtoperational::expressions('http://www.eclipse.org/QVT/1.0.0/Operational');
 modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
