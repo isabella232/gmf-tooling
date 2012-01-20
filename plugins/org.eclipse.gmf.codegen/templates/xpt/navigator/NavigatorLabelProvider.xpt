@@ -246,7 +246,11 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.Vie
 
 «DEFINE getText FOR gmfgen::GenNode-»
 «IF labels->isEmpty()-»
-	«EXPAND getLabelFeatureText(modelFacet.metaClass)-»
+	«IF null <> modelFacet-»
+		«EXPAND getLabelFeatureText(modelFacet.metaClass)-»
+	«ELSE-»
+		«EXPAND returnEmptyString-»
+	«ENDIF-»
 «ELSE-»
 	«EXPAND getDiagramLabelText(labels->asSequence())-»
 «ENDIF-»
@@ -255,8 +259,8 @@ private String «EXPAND getTextMethodName»(org.eclipse.gmf.runtime.notation.Vie
 «DEFINE getText FOR gmfgen::GenLink-»
 «IF labels->isEmpty()-»
 	«IF null <> modelFacet-»
-	«EXPAND getText(modelFacet)-»
-«ELSE-»
+		«EXPAND getText(modelFacet)-»
+	«ELSE-»
 		«EXPAND returnEmptyString-»
 	«ENDIF-»
 «ELSE-»
