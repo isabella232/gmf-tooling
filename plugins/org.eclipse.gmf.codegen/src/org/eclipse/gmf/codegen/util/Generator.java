@@ -280,8 +280,18 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateNodeLabelEditPart(label);
 			}
 		}
+		for (Behaviour behaviour : node.getBehaviour()) {
+			if (behaviour instanceof GenVisualEffect) {
+				GenVisualEffect visualEffect = (GenVisualEffect) behaviour;
+				generateVisualEffectEditPolicy(visualEffect);
+			}
+		}
 	}
  
+	private void generateVisualEffectEditPolicy(GenVisualEffect visualEffect) throws InterruptedException {
+		doGenerateJavaClass(myEmitters.getVisualEffectEditPolicyEmitter(), visualEffect.getEditPolicyQualifiedClassName(), visualEffect);
+	}
+
 	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
 		generateNodeItemSemanticEditPolicy(child);
 		if (child.getModelFacet() != null) {
