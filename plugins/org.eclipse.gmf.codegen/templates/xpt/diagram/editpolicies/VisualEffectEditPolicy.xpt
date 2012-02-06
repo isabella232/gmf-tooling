@@ -1,0 +1,124 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/ocl/1.1.0/Ecore'»
+
+«EXTENSION xpt::diagram::Utils»
+
+«DEFINE VisualEffectEditPolicy FOR gmfgen::GenVisualEffect-»
+«EXPAND xpt::Common::copyright FOR subject.getDiagram().editorGen-»
+«EXPAND xpt::Common::packageStatement FOR getEditPolicyQualifiedClassName()»
+
+«EXPAND xpt::Common::generatedClassComment»
+public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualifiedClassName()»«EXPAND extendsList» {
+
+	«EXPAND fields-»
+
+	«EXPAND methods-»
+}
+«ENDDEFINE»
+
+«DEFINE extendsList FOR gmfgen::GenVisualEffect-»
+	«IF isImpactAnalyzerKind(oclExpression)-»
+		extends org.eclipse.gmf.tooling.runtime.ocl.edit.policies.ImpactAnalyzerVisualEffectEditPolicyBase
+	«ELSE-»
+		extends org.eclipse.gmf.tooling.runtime.ocl.edit.policies.ActiveOclVisualEffectEditPolicyBase
+	«ENDIF-»
+«ENDDEFINE» 
+
+«DEFINE fields FOR gmfgen::GenVisualEffect-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static final String KEY = "«getEditPolicyQualifiedClassName()»:KEY";
+«ENDDEFINE»
+
+«DEFINE methods FOR gmfgen::GenVisualEffect-»
+	«EXPAND setVisualEffectValue-»
+	
+	«EXPAND getHostImpl-»
+	
+	«EXPAND getExpressionBody-»
+«ENDDEFINE»
+
+«DEFINE setVisualEffectValue FOR gmfgen::GenVisualEffect-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected void setVisualEffectValue(Object value) {
+		«IF pinKind = 'ColorPin'»
+			«EXPAND setVisualEffectValueOnColorPin»
+		«ELSEIF pinKind = 'VisiblePin'»
+			«EXPAND setVisualEffectValueOnCustomPin»
+		«ELSEIF pinKind = 'CustomPin'»
+			«EXPAND setVisualEffectValueOnCustomPin»
+		«ELSE»
+			«ERROR 'Unsupported Pin kind: ' + pinKind»
+		«ENDIF»
+	}
+«ENDDEFINE»
+
+«DEFINE getHostImpl FOR gmfgen::GenVisualEffect-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected «subject.getEditPartQualifiedClassName()» getHostImpl() {
+		return («subject.getEditPartQualifiedClassName()») super.getHostImpl();
+	}
+«ENDDEFINE»
+
+«DEFINE getExpressionBody FOR gmfgen::GenVisualEffect-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected String getExpressionBody() {
+		return «getOclExpressionString()»; «EXPAND xpt::Common::nonNLS»
+	}
+«ENDDEFINE»
+
+«DEFINE callOperation FOR gmfgen::GenVisualEffect-»
+getHostImpl().getPrimaryShape().«operationName-»
+«ENDDEFINE»
+
+«DEFINE setVisualEffectValueOnColorPin FOR gmfgen::GenVisualEffect-»
+	«LET getOperationRuntimeType().oclAsType(ocl::ecore::TupleType) AS tupleType-»
+		«EXPAND defineTupleParts FOR tupleType»
+		org.eclipse.swt.graphics.Color color = new org.eclipse.swt.graphics.Color(null, «EXPAND enumerateTupleParts FOR tupleType»);			
+		«EXPAND callOperation»(color);
+	«ENDLET-»	
+«ENDDEFINE»
+
+«REM» 
+«DEFINE setVisualEffectValueOnVisiblePin FOR gmfgen::GenVisualEffect-»
+	«EXPAND setVisualEffectValueOfType(self) FOR getOperationRuntimeType()»
+	«EXPAND callOperation»((Boolean)value);	
+«ENDDEFINE»
+«ENDREM»
+
+«DEFINE setVisualEffectValueOnCustomPin FOR gmfgen::GenVisualEffect-»
+	«EXPAND setVisualEffectValueOfType(self) FOR getOperationRuntimeType()»
+«ENDDEFINE»
+
+«DEFINE setVisualEffectValueOfType(visualEffect : gmfgen::GenVisualEffect) FOR ecore::EClassifier-»
+	«ERROR 'Asbtract template call setVisualEffectValueOfType for ' + self.repr()»
+«ENDDEFINE»
+
+«DEFINE setVisualEffectValueOfType(visualEffect : gmfgen::GenVisualEffect) FOR ocl::ecore::PrimitiveType-»
+	«EXPAND callOperation FOR visualEffect»((«instanceTypeName»)value);
+«ENDDEFINE»
+
+«DEFINE setVisualEffectValueOfType(visualEffect : gmfgen::GenVisualEffect) FOR ocl::ecore::TupleType-»
+	«EXPAND defineTupleParts»
+	«EXPAND callOperation FOR visualEffect-»
+	(«-»
+		«EXPAND enumerateTupleParts-»
+	);	
+«ENDDEFINE»
+
+«DEFINE defineTupleParts FOR ocl::ecore::TupleType-»
+	org.eclipse.ocl.util.Tuple<?, ?> tupleValue = (org.eclipse.ocl.util.Tuple<?, ?>) value;
+	«FOREACH eAllAttributes AS attribute -»
+		«attribute.eType.instanceTypeName» «attribute.name» = («attribute.eType.instanceTypeName»)tupleValue.getValue("«attribute.name»");
+	«ENDFOREACH-»
+«ENDDEFINE»
+
+«DEFINE enumerateTupleParts FOR ocl::ecore::TupleType-»
+	«FOREACH eAllAttributes AS attribute SEPARATOR ','-»
+		«attribute.name-»
+	«ENDFOREACH-»
+«ENDDEFINE»
+

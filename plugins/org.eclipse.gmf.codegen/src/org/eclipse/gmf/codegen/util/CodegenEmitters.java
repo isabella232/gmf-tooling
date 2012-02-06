@@ -47,6 +47,7 @@ public class CodegenEmitters {
 	private static final String PATH_SEPARATOR = "::"; //$NON-NLS-1$
 
 	private final ResourceManager myResourceManager;
+
 	private final URL[] myLocations;
 
 	private Map<String, Object> myGlobals;
@@ -60,12 +61,12 @@ public class CodegenEmitters {
 			urls.add(getTemplatesBundle().getEntry("/templates-dynmodel/")); //$NON-NLS-1$
 		}
 		urls.add(getTemplatesBundle().getEntry("/templates/")); //$NON-NLS-1$
-	
+
 		myLocations = urls.toArray(new URL[urls.size()]);
 		myResourceManager = new BundleResourceManager(myLocations);
 	}
-	
-	/*package*/ void setGlobals(Map<String, Object> globals) {
+
+	/* package */void setGlobals(Map<String, Object> globals) {
 		myGlobals = globals;
 	}
 
@@ -74,10 +75,10 @@ public class CodegenEmitters {
 	 */
 	public TextMerger createMergeService() {
 		URL controlFile = getJMergeControlFile();
-		if (controlFile != null){
+		if (controlFile != null) {
 			JControlModel controlModel = new JControlModel();
 			controlModel.initialize(CodeGenUtil.instantiateFacadeHelper(JMerger.DEFAULT_FACADE_HELPER_CLASS), controlFile.toString());
-			if (!controlModel.canMerge()){
+			if (!controlModel.canMerge()) {
 				throw new IllegalStateException("Can not initialize JControlModel");
 			}
 			return new DefaultTextMerger(controlModel);
@@ -88,7 +89,7 @@ public class CodegenEmitters {
 	private static Bundle getTemplatesBundle() {
 		return Platform.getBundle("org.eclipse.gmf.codegen"); //$NON-NLS-1$
 	}
-	
+
 	private static URL getDynamicTemplatesURL(String templateDirectory) {
 		if (templateDirectory != null) {
 			URI templatesURI = templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory, true) : URI.createURI(templateDirectory); //$NON-NLS-1$
@@ -229,6 +230,10 @@ public class CodegenEmitters {
 		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
 	}
 
+	public TextEmitter getVisualEffectEditPolicyEmitter() {
+		return getPrimaryEmitter("xpt::diagram::editpolicies::VisualEffectEditPolicy"); //$NON-NLS-1$
+	}
+
 	// updater
 
 	public TextEmitter getDiagramUpdaterEmitter() {
@@ -264,7 +269,7 @@ public class CodegenEmitters {
 	public TextEmitter getCustomParserEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("parsers::CustomParser::Main"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getExpressionLabelParserEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("parsers::ExpressionLabelParser::Main"); //$NON-NLS-1$
 	}
@@ -301,7 +306,7 @@ public class CodegenEmitters {
 
 	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::providers::MarkerNavigationProvider"); //$NON-NLS-1$
-	}	
+	}
 
 	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::providers::ValidationProvider"); //$NON-NLS-1$
@@ -317,7 +322,7 @@ public class CodegenEmitters {
 
 	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::providers::MetricProvider"); //$NON-NLS-1$
-	}	
+	}
 
 	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::expressions::AbstractExpression"); //$NON-NLS-1$
@@ -325,7 +330,7 @@ public class CodegenEmitters {
 
 	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::expressions::OCLExpressionFactory"); //$NON-NLS-1$
-	}	
+	}
 
 	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::expressions::RegexpExpressionFactory"); //$NON-NLS-1$
@@ -358,7 +363,7 @@ public class CodegenEmitters {
 	public String getValidationMarkerName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("xpt::editor::ValidationMarker", input); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getDiagramContentInitializerEmitter() {
 		return getPrimaryEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$
 	}
@@ -530,7 +535,7 @@ public class CodegenEmitters {
 	public TextEmitter getStandardPreferencePageEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("impl::preferences::StandardPage::Main"); //$NON-NLS-1$
 	}
-	
+
 	public TextEmitter getCustomPreferencePageEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("impl::preferences::CustomPage::Main"); //$NON-NLS-1$
 	}
@@ -561,13 +566,13 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::plugin::options"); //$NON-NLS-1$
 	}
 
-    public TextEmitter getExternalizeEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
-    }
+	public TextEmitter getExternalizeEmitter() {
+		return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
+	}
 
-    public TextEmitter getMessagesEmitter() {
-        return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
-    }
+	public TextEmitter getMessagesEmitter() {
+		return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
+	}
 
 	// application
 
@@ -607,32 +612,31 @@ public class CodegenEmitters {
 
 	// util
 
-    /**
-     * Returns emitter for the primary definition in the specified template.
-     * Primary definition has the same name as template file.
-     */
+	/**
+	 * Returns emitter for the primary definition in the specified template.
+	 * Primary definition has the same name as template file.
+	 */
 	private TextEmitter getPrimaryEmitter(String templateName) {
 		String[] parts = templateName.split(PATH_SEPARATOR);
-		String definition = templateName + PATH_SEPARATOR + parts[parts.length-1];
+		String definition = templateName + PATH_SEPARATOR + parts[parts.length - 1];
 		return newXpandEmitter(definition);
 	}
-	
-    /**
-     * Returns "Main" emitter for the specified template file.
-     */
+
+	/**
+	 * Returns "Main" emitter for the specified template file.
+	 */
 	private TextEmitter getMainEmitter(String templateFilePath) {
 		return newXpandEmitter(templateFilePath + PATH_SEPARATOR + "Main"); //$NON-NLS-1$
 	}
 
-    /**
+	/**
      * Returns emitter for qualified class name definition in the specified template.
      * Definition should be named 'qualifiedClassName'.
-     */
+	 */
 	private TextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
 		String definition = templateName + PATH_SEPARATOR + "qualifiedClassName"; //$NON-NLS-1$
 		return newXpandEmitter(definition);
 	}
-
 
 	/**
 	 * Returns text generated by emitter.
@@ -670,7 +674,7 @@ public class CodegenEmitters {
 		}
 		String templateLocation = JETCompiler.find(templatesPath, relativePath);
 		if (templateLocation == null) {
-			throw new UnexpectedBehaviourException("Template " + relativePath +" not found");
+			throw new UnexpectedBehaviourException("Template " + relativePath + " not found");
 		}
 		return templateLocation;
 	}

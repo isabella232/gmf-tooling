@@ -25,6 +25,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EModelElement;
@@ -32,16 +34,97 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenContextMenu;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
+import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
+import org.eclipse.gmf.codegen.gmfgen.GenParsers;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenVisualEffect;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Direction;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Pin;
+import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.Knowledge;
@@ -50,39 +133,89 @@ import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.navigator.NavigatorHandler;
 import org.eclipse.gmf.internal.bridge.tooldef.PaletteHandler;
 import org.eclipse.gmf.internal.codegen.util.Extras;
-import org.eclipse.gmf.mappings.*;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.AuditedMetricTarget;
+import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.ChildReference;
+import org.eclipse.gmf.mappings.CompartmentMapping;
+import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.DesignLabelMapping;
+import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainAttributeTarget;
+import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.ExpressionLabelMapping;
+import org.eclipse.gmf.mappings.FeatureInitializer;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkConstraints;
+import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.mappings.MetricRule;
+import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
+import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
+import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.TopNodeReference;
+import org.eclipse.gmf.mappings.VisualEffectMapping;
 
 /**
  * Creates generation model from diagram definition.
+ * 
  * @author artem
  */
 public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenEditorGenerator myGenModel;
+
 	protected GenModelMatcher myGenModelMatch;
+
 	private final DiagramRunTimeModelHelper myDRTHelper;
+
 	private final ViewmapProducer myViewmaps;
+
 	private final VisualIdentifierDispenser myVisualIDs;
+
 	private final boolean rcp;
+
 	private final History myHistory;
+
 	private final Map<GenClass, ElementType> myProcessedTypes = new IdentityHashMap<GenClass, ElementType>(); // GenClass -> MetamodelType
+
 	private final Map<org.eclipse.gmf.mappings.ValueExpression, ValueExpression> myProcessedExpressions;
 
 	private final PaletteHandler myPaletteProcessor;
+
 	private final NavigatorHandler myNavigatorProcessor;
+
 	private final PropertySheetHandler myPropertySheetProcessor;
+
 	private final EcoreGenModelMatcher myEcoreGenModelMatch;
+
 	private ExternalParser myDesignLabelParser;
+
 	private ExternalParser myAuxParser;
+
 	private GenContextMenu myDiagramContextMenu;
 
 	private GenAuditContext myDefaultAuditContext;
 
 	public static class Parameters {
+
 		public final DiagramRunTimeModelHelper diagramModelHelper;
+
 		public final ViewmapProducer viewmaps;
+
 		public final VisualIdentifierDispenser vidDispenser;
+
 		public final boolean rcp;
 
 		public Parameters(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, VisualIdentifierDispenser vidDispenser, boolean rcp) {
@@ -120,11 +253,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	/**
-	 * Optionally set GenModel to match ECore elements against. 
-	 * Should be invoked prior to {@link MappingTransformer#transform(Mapping)}, otherwise has no effect.
-	 * Useful for tests (and other cases) when GenModel is not known to EMF 
-	 * (and thus can't be obtained using EMF techniques).
-	 * @param emfGenModel EMF GenModel for domain model
+	 * Optionally set GenModel to match ECore elements against. Should be
+	 * invoked prior to {@link MappingTransformer#transform(Mapping)}, otherwise
+	 * has no effect. Useful for tests (and other cases) when GenModel is not
+	 * known to EMF (and thus can't be obtained using EMF techniques).
+	 * 
+	 * @param emfGenModel
+	 *            EMF GenModel for domain model
 	 */
 	public void setEMFGenModel(GenModel emfGenModel) {
 		myGenModelMatch = new GenModelMatcher(emfGenModel);
@@ -161,14 +296,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			getGenEssence().setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 		}
 	}
-	
+
 	private void initGenUpdater() {
 		if (getGenEssence().getDiagramUpdater() == null) {
 			getGenEssence().setDiagramUpdater(GMFGenFactory.eINSTANCE.createGenDiagramUpdater());
 		}
-		
+
 	}
-	
+
 	private GenNavigator genGenNavigator() {
 		if (getGenEssence().getNavigator() == null) {
 			getGenEssence().setNavigator(GMFGenFactory.eINSTANCE.createGenNavigator());
@@ -238,14 +373,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		} else {
 			getGenDiagram().setElementType(GMFGenFactory.eINSTANCE.createNotationType());
 		}
-		
+
 		initGenPlugin();
 		initGenUpdater();
 
 		myPropertySheetProcessor.initialize(getPropertySheet());
 		myPropertySheetProcessor.process(mapping);
 		addPreferencePages(getGenDiagram());
-		
+
 		if (rcp) {
 			if (getGenEssence().getApplication() == null) {
 				GenApplication app = GMFGenFactory.eINSTANCE.createGenApplication();
@@ -265,35 +400,35 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		final NodeMapping nme = topNode.getChild();
 		assert nme != null;
 		assertNodeMapping(nme);
-		
+
 		GenTopLevelNode genNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		getGenDiagram().getTopLevelNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
-		setupElementType(genNode); 
+		setupElementType(genNode);
 		myPaletteProcessor.process(nme, genNode);
 
 		processAbstractNode(nme, genNode);
 		myHistory.log(nme, genNode);
-		
+
 		if (!rcp) {
 			myNavigatorProcessor.process(genNode);
 		}
 	}
-	
+
 	protected void process(AuditContainer audits) {
-		if(audits != null) {
-			getGenEssence().setAudits(createGenAuditRoot(audits));	
+		if (audits != null) {
+			getGenEssence().setAudits(createGenAuditRoot(audits));
 		}
-	}	
-	
+	}
+
 	protected void process(MetricContainer metrics) {
-		if(metrics != null) {
+		if (metrics != null) {
 			GenMetricContainer genMetricContainer = GMFGenFactory.eINSTANCE.createGenMetricContainer();
 			for (MetricRule next : metrics.getMetrics()) {
-				genMetricContainer.getMetrics().add(createGenMetric(next));				
+				genMetricContainer.getMetrics().add(createGenMetric(next));
 			}
 			getGenEssence().setMetrics(genMetricContainer);
 		}
@@ -323,7 +458,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		if (container instanceof GenCompartment && childNodeMapping.getChildren().size() > 0) {
 			// TODO just layout from childNodeMapping.getDiagramNode()
-			((GenCompartment)container).setListLayout(false);
+			((GenCompartment) container).setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
 		if (!rcp) {
@@ -332,8 +467,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	/**
-	 * Handle case when second-level ChildReference references existing nodemapping, but 
-	 * with different containment/children reference. 
+	 * Handle case when second-level ChildReference references existing
+	 * nodemapping, but with different containment/children reference.
+	 * 
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=129552
 	 */
 	private static boolean matchChildReferenceFeatures(ChildReference childNodeRef, GenChildNode childNode) {
@@ -372,8 +508,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childLabelNode.setLabelElementIcon(soleLabel.getDiagramLabel().isElementIcon());
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
-		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL){
-			GenChildSideAffixedNode sideAffixedNode = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode(); 
+		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL) {
+			GenChildSideAffixedNode sideAffixedNode = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode();
 			sideAffixedNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 			String positionConstantName = getAffixedSideAsPositionConstantsName(childNodeMapping.getDiagramNode());
 			sideAffixedNode.setPreferredSideName(positionConstantName);
@@ -388,10 +524,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().getChildNodes().add(childNode);
 
 		childNode.setModelFacet(createModelFacet(childNodeRef));
-		
+
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setVisualID(myVisualIDs.get(childNode));
-		setupElementType(childNode); 
+		setupElementType(childNode);
 
 		myPaletteProcessor.process(childNodeMapping, childNode);
 		if (needCompartmentChildrenLabelProcessing) {
@@ -399,28 +535,28 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		return childNode;
 	}
-	
+
 	private String getAffixedSideAsPositionConstantsName(Node diagramNode) {
-		Direction affixedSide = diagramNode.getAffixedParentSide(); 
-		final String ANY_SIDE = "NONE"; 
-		switch (affixedSide.getValue()){
-			case Direction.NONE : 
-				throw new IllegalStateException("DiagramNode: " + diagramNode + " is not side-affixed");
-			case Direction.EAST :
-			case Direction.NORTH :
-			case Direction.WEST :
-			case Direction.SOUTH :
-				return affixedSide.getName();
-			
-			case Direction.NSEW:
-				return ANY_SIDE;
-			
-			default:
-				//Runtime does not support this
-				return ANY_SIDE;
+		Direction affixedSide = diagramNode.getAffixedParentSide();
+		final String ANY_SIDE = "NONE";
+		switch (affixedSide.getValue()) {
+		case Direction.NONE:
+			throw new IllegalStateException("DiagramNode: " + diagramNode + " is not side-affixed");
+		case Direction.EAST:
+		case Direction.NORTH:
+		case Direction.WEST:
+		case Direction.SOUTH:
+			return affixedSide.getName();
+
+		case Direction.NSEW:
+			return ANY_SIDE;
+
+		default:
+			//Runtime does not support this
+			return ANY_SIDE;
 		}
 	}
-	
+
 	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {
 		HashMap<CompartmentMapping, GenCompartment> compartments2GenCompartmentsMap = new HashMap<CompartmentMapping, GenCompartment>();
 		for (CompartmentMapping compartmentMapping : mapping.getCompartments()) {
@@ -429,7 +565,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 
 		for (ChildReference childNodeRef : mapping.getChildren()) {
-// Currently childNodeMapping should has compartment but we plan to make this reference optional
+			// Currently childNodeMapping should has compartment but we plan to make this reference optional
 			CompartmentMapping compartmentMapping = childNodeRef.getCompartment();
 			GenChildContainer genChildContainer;
 			if (compartmentMapping != null && compartments2GenCompartmentsMap.containsKey(compartmentMapping)) {
@@ -452,10 +588,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 			genNode.getBehaviour().add(openDiagramPolicy);
 		}
+
+		for (VisualEffectMapping visualEffectMapping : mapping.getVisualEffects()) {
+			createVisualEffect(genNode, visualEffectMapping);
+		}
 	}
 
 	private GenCompartment createGenCompartment(CompartmentMapping mapping, GenNode genNode) {
-		Compartment compartment = mapping.getCompartment(); 
+		Compartment compartment = mapping.getCompartment();
 		assert compartment != null;
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		getGenDiagram().getCompartments().add(childCompartment);
@@ -486,10 +626,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		gl.setViewmap(myViewmaps.create(lme.getDiagramLink()));
 
-		if(lme.getCreationConstraints() != null) {
+		if (lme.getCreationConstraints() != null) {
 			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
 		}
-		
+
 		myHistory.log(lme, gl);
 		if (!rcp) {
 			myNavigatorProcessor.process(gl);
@@ -502,11 +642,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	//	private void process(AppearanceSteward appSteward) {
-//		if (appSteward.getAppearanceStyle() == null) {
-//			return;
-//		}
-//		
-//	}
+	//		if (appSteward.getAppearanceStyle() == null) {
+	//			return;
+	//		}
+	//		
+	//	}
 
 	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {
 		GenNodeLabel label;
@@ -523,6 +663,59 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.setReadOnly(mapping.isReadOnly());
 		label.setElementIcon(mapping.getDiagramLabel().isElementIcon());
 		return label;
+	}
+
+	private void createVisualEffect(GenNode node, VisualEffectMapping mapping) {
+		addOclToolingPlugin();
+		
+		GenVisualEffect visualEffect = GMFGenFactory.eINSTANCE.createGenVisualEffect();
+		node.getBehaviour().add(visualEffect);
+
+		Pin graphPin = mapping.getDiagramPin();
+
+		String name = graphPin.getName();
+
+		visualEffect.setName(name);
+		visualEffect.setPinKind(graphPin.eClass().getName());
+
+		String operationName = graphPin.getOperationName();
+
+		FigureDescriptor graphFigureDescriptor = mapping.getParentNode().getDiagramNode().getFigure();
+
+		if (!hasFigurePin(graphFigureDescriptor.getActualFigure(), graphPin)) {
+			for (ChildAccess graphChildAccess : graphFigureDescriptor.getAccessors()) {
+				if (hasFigurePin(graphChildAccess.getFigure(), graphPin)) {
+					operationName = graphChildAccess.getAccessor() + "()." + operationName;
+					break;
+				}
+			}
+		}
+
+		visualEffect.setOperationName(operationName);
+		visualEffect.setOperationType(graphPin.getOperationType());
+		visualEffect.setOclExpression(mapping.getOclExpression());
+
+		String editPolicyQualifiedClassName = node.getDiagram().getEditPoliciesPackageName() + '.'//
+				+ CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(name)) + node.getVisualID() //
+				+ "Policy";
+
+		visualEffect.setEditPolicyQualifiedClassName(editPolicyQualifiedClassName);
+		visualEffect.setKey(editPolicyQualifiedClassName + ".KEY");
+	}
+
+	private boolean hasFigurePin(Figure figure, Pin pin) {
+		RealFigure realFigure = (figure instanceof FigureRef) //
+		? ((FigureRef) figure).getFigure() //
+				: (RealFigure) figure;
+		return realFigure.getPins().contains(pin);
+	}
+	
+	private void addOclToolingPlugin() {
+		final String pluginId = "org.eclipse.gmf.tooling.runtime.ocl.expressions";
+		EList<String> reguiredPlugins = getGenEssence().getPlugin().getRequiredPlugins();
+		if (!reguiredPlugins.contains(pluginId)) {
+			reguiredPlugins.add(pluginId);
+		}
 	}
 
 	private GenLinkLabel createLinkLabel(GenLink link, LabelMapping mapping) {
@@ -551,6 +744,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		label.getViewmap().getAttributes().add(loa);
 		return label;
 	}
+
 	private static <T extends VisualFacet> T findVF(DiagramElement element, Class<T> facetClass) {
 		for (VisualFacet vf : element.getFacets()) {
 			if (facetClass.isInstance(vf)) {
@@ -562,10 +756,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private LinkLabelAlignment getLinkLabelAlignment(Alignment alignment) {
 		switch (alignment.getValue()) {
-		case Alignment.BEGINNING: return LinkLabelAlignment.SOURCE_LITERAL;
-		case Alignment.CENTER: return LinkLabelAlignment.MIDDLE_LITERAL;
-		case Alignment.END: return LinkLabelAlignment.TARGET_LITERAL;
-		default: throw new IllegalArgumentException("Link doesn't support alignment:" + alignment.getName());
+		case Alignment.BEGINNING:
+			return LinkLabelAlignment.SOURCE_LITERAL;
+		case Alignment.CENTER:
+			return LinkLabelAlignment.MIDDLE_LITERAL;
+		case Alignment.END:
+			return LinkLabelAlignment.TARGET_LITERAL;
+		default:
+			throw new IllegalArgumentException("Link doesn't support alignment:" + alignment.getName());
 		}
 	}
 
@@ -687,7 +885,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myDRTHelper.get(mapping);
 	}
 
-
 	private void assertNodeMapping(NodeMapping mapping) {
 		assert mapping.getDiagramNode() != null;
 		assert checkLabelMappings(mapping);
@@ -738,11 +935,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		return myGenModelMatch.findGenFeature(feature);
 	}
-	
+
 	private void warnNoGenModelMatcher(EModelElement element) {
 		// TODO : emit warning
 	}
-	
+
 	private TypeModelFacet createModelFacet(NodeReference anm) {
 		final NodeMapping nodeMapping = anm.getChild();
 		if (nodeMapping.getDomainContext() == null) {
@@ -772,19 +969,19 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenLinkConstraints createLinkCreationConstraints(LinkConstraints constraints) {
 		LinkMapping lme = constraints.getLinkMapping();
-		if(lme == null) {
+		if (lme == null) {
 			return null;
-		}				
+		}
 		GenLinkConstraints genConstraints = GMFGenFactory.eINSTANCE.createGenLinkConstraints();
 		Constraint sourceConstraint = constraints.getSourceEnd();
-		if(sourceConstraint != null) {
+		if (sourceConstraint != null) {
 			genConstraints.setSourceEnd(createGenConstraint(sourceConstraint));
 		}
 		Constraint targetConstraint = constraints.getTargetEnd();
-		if(targetConstraint != null) {
+		if (targetConstraint != null) {
 			genConstraints.setTargetEnd(createGenConstraint(targetConstraint));
-		}		
-		return genConstraints; 
+		}
+		return genConstraints;
 	}
 
 	private TypeModelFacet setupModelFacet(EClass domainMetaElement, EStructuralFeature containmentFeature, EStructuralFeature childFeature) {
@@ -800,33 +997,33 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	 */
 	private TypeModelFacet setupAux(TypeModelFacet typeModelFacet, Constraint spec, ElementInitializer init) {
 		// construct model element selector for domain EClass specializations if any exist
-		if(spec != null) {
+		if (spec != null) {
 			typeModelFacet.setModelElementSelector(createGenConstraint(spec));
 		}
-		if(init != null) {
-			typeModelFacet.setModelElementInitializer(createElementInitializer(init));			
+		if (init != null) {
+			typeModelFacet.setModelElementInitializer(createElementInitializer(init));
 		}
 		return typeModelFacet;
 	}
 
 	private GenElementInitializer createElementInitializer(ElementInitializer elementInitializer) {
-		if(elementInitializer instanceof FeatureSeqInitializer) {
+		if (elementInitializer instanceof FeatureSeqInitializer) {
 			FeatureSeqInitializer fsInitializer = (FeatureSeqInitializer) elementInitializer;
 			GenFeatureSeqInitializer genFsInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
 			for (FeatureInitializer next : fsInitializer.getInitializers()) {
 				genFsInitializer.getInitializers().add(createGenFeatureInitializer(next));
 			}
-			if(fsInitializer.eIsSet(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_ElementClass())) {
+			if (fsInitializer.eIsSet(GMFMapPackage.eINSTANCE.getFeatureSeqInitializer_ElementClass())) {
 				genFsInitializer.setElementClass(findGenClass(fsInitializer.getElementClass()));
-			}			
+			}
 			return genFsInitializer;
 		}
 		return null;
 	}
-	
+
 	private GenFeatureInitializer createGenFeatureInitializer(FeatureInitializer featureInitializer) {
 		if (featureInitializer instanceof FeatureValueSpec) {
-			FeatureValueSpec featureValSpec = (FeatureValueSpec) featureInitializer;				
+			FeatureValueSpec featureValSpec = (FeatureValueSpec) featureInitializer;
 			GenFeatureValueSpec genFeatureValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();
 			genFeatureValSpec.setFeature(findGenFeature(featureValSpec.getFeature()));
 			genFeatureValSpec.setValue(createValueExpression(featureValSpec.getValue()));
@@ -836,8 +1033,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			ReferenceNewElementSpec newElementSpec = (ReferenceNewElementSpec) featureInitializer;
 			GenReferenceNewElementSpec genNewElementSpec = GMFGenFactory.eINSTANCE.createGenReferenceNewElementSpec();
 			genNewElementSpec.setFeature(findGenFeature(newElementSpec.getFeature()));
-			for (FeatureSeqInitializer next : newElementSpec.getNewElementInitializers()) { 
-				GenFeatureSeqInitializer nextGenFeatureSeqInitializer = (GenFeatureSeqInitializer)createElementInitializer(next);
+			for (FeatureSeqInitializer next : newElementSpec.getNewElementInitializers()) {
+				GenFeatureSeqInitializer nextGenFeatureSeqInitializer = (GenFeatureSeqInitializer) createElementInitializer(next);
 				genNewElementSpec.getNewElementInitializers().add(nextGenFeatureSeqInitializer);
 			}
 			return genNewElementSpec;
@@ -856,7 +1053,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return GenLanguage.REGEXP_LITERAL;
 		case Language.NREGEXP:
 			return GenLanguage.NREGEXP_LITERAL;
-		case Language.LITERAL :
+		case Language.LITERAL:
 			return GenLanguage.LITERAL_LITERAL;
 		default:
 			assert false : mapLang;
@@ -867,6 +1064,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	// may return GenConstraint, based on original expression type
 	// XXX perhaps, combining #createValueExpression and #createGenConstraint into a single method makes sense?
 	private ValueExpression createValueExpression(org.eclipse.gmf.mappings.ValueExpression valueExpression) {
+		addOclToolingPlugin();
+		
 		if (valueExpression instanceof Constraint) {
 			return createGenConstraint((Constraint) valueExpression);
 		}
@@ -876,14 +1075,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private GenConstraint createGenConstraint(Constraint constraint) {
-		if(constraint.getBody() == null) {
+		if (constraint.getBody() == null) {
 			return null;
 		}
 		GenConstraint genConstraint = GMFGenFactory.eINSTANCE.createGenConstraint();
 		genConstraint.setBody(constraint.getBody());
 		return bindToProvider(constraint, genConstraint);
 	}
-	
+
 	private GenAuditRoot createGenAuditRoot(AuditContainer ac) {
 		GenAuditRoot root = GMFGenFactory.eINSTANCE.createGenAuditRoot();
 		LinkedList<AuditContainer> containers = new LinkedList<AuditContainer>();
@@ -926,10 +1125,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 					for (GenCommonBase nextElement : gdet.getElement()) {
 						buf.append('_');
 						int id = nextElement.getVisualID();
-						if(id < 0) {
+						if (id < 0) {
 							buf.append('n');
 						}
-						buf.append(id);			
+						buf.append(id);
 					}
 					String clientContextID = buf.toString();
 					GenAuditContext ctx = null;
@@ -964,37 +1163,37 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genAudit.setMessage(audit.getMessage());
 		genAudit.setDescription(audit.getDescription());
 		genAudit.setUseInLiveMode(audit.isUseInLiveMode());
-		
-		if(audit.getTarget() != null) {
+
+		if (audit.getTarget() != null) {
 			GenRuleTarget genTarget = createRuleTarget(audit.getTarget());
 			assert genTarget instanceof GenAuditable;
-			if(genTarget instanceof GenAuditable) {
-				genAudit.setTarget((GenAuditable)genTarget);
+			if (genTarget instanceof GenAuditable) {
+				genAudit.setTarget((GenAuditable) genTarget);
 			}
 		}
 		Constraint rule = audit.getRule();
-		if(rule != null) {
+		if (rule != null) {
 			genAudit.setRule(createGenConstraint(rule));
 		}
 
 		Severity severity = audit.getSeverity();
 		GenSeverity genSeverity = null;
-		if(severity == Severity.INFO_LITERAL) {
+		if (severity == Severity.INFO_LITERAL) {
 			genSeverity = GenSeverity.INFO_LITERAL;
-		} else if(severity == Severity.WARNING_LITERAL) {
+		} else if (severity == Severity.WARNING_LITERAL) {
 			genSeverity = GenSeverity.WARNING_LITERAL;
-		} else if(severity == Severity.ERROR_LITERAL) {
+		} else if (severity == Severity.ERROR_LITERAL) {
 			genSeverity = GenSeverity.ERROR_LITERAL;
 		}
-		if(genSeverity != null) {
+		if (genSeverity != null) {
 			genAudit.setSeverity(genSeverity);
 		}
 		return genAudit;
 	}
-	
-	private GenRuleTarget createRuleTarget(EObject ruleTarget) {		
+
+	private GenRuleTarget createRuleTarget(EObject ruleTarget) {
 		if (ruleTarget instanceof DomainElementTarget) {
-			DomainElementTarget domainTarget = (DomainElementTarget)ruleTarget;
+			DomainElementTarget domainTarget = (DomainElementTarget) ruleTarget;
 			GenDomainElementTarget genDomainTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
 			genDomainTarget.setElement(domainTarget.getElement() != null ? findGenClass(domainTarget.getElement()) : null);
 			return genDomainTarget;
@@ -1010,13 +1209,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			MappingEntry mappingEntry = ((DiagramElementTarget) ruleTarget).getElement();
 			if (mappingEntry != null) {
 				LinkMapping lm = mappingEntry instanceof LinkMapping ? (LinkMapping) mappingEntry : null;
-				GenCommonBase genBase = null;				
+				GenCommonBase genBase = null;
 				if (lm != null) {
 					genBase = myHistory.find(lm);
 					assert genBase != null;
 					@SuppressWarnings("null")
 					boolean isGenBaseNull = genBase == null;
-					if(!isGenBaseNull) {
+					if (!isGenBaseNull) {
 						diagramTarget.getElement().add(genBase);
 					}
 				} else {
@@ -1024,39 +1223,39 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 					// There may be few GenChildNodes corresponding to same mapping entry.					
 					// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=136701					
 					genBase = myHistory.findTopNode(nm);
-					if(genBase != null) {
+					if (genBase != null) {
 						diagramTarget.getElement().add(genBase);
 					}
-					diagramTarget.getElement().addAll(Arrays.asList(myHistory.findChildNodes(nm)));					
-				}				
+					diagramTarget.getElement().addAll(Arrays.asList(myHistory.findChildNodes(nm)));
+				}
 			}
 			return diagramTarget;
-		} else if(ruleTarget instanceof AuditedMetricTarget) {			
+		} else if (ruleTarget instanceof AuditedMetricTarget) {
 			GenAuditedMetricTarget genMetricTarget = GMFGenFactory.eINSTANCE.createGenAuditedMetricTarget();
-			AuditedMetricTarget metricTarget = (AuditedMetricTarget)ruleTarget;
-			if(metricTarget.getMetric() != null) {
+			AuditedMetricTarget metricTarget = (AuditedMetricTarget) ruleTarget;
+			if (metricTarget.getMetric() != null) {
 				genMetricTarget.setMetric(myHistory.find(metricTarget.getMetric()));
 			}
 			GenClassifier resultClassifier = myEcoreGenModelMatch.findGenClassifier(EcorePackage.eINSTANCE.getEDoubleObject());
 			assert resultClassifier instanceof GenDataType;
-			if(resultClassifier instanceof GenDataType) {
-				genMetricTarget.setMetricValueContext((GenDataType)resultClassifier);
+			if (resultClassifier instanceof GenDataType) {
+				genMetricTarget.setMetricValueContext((GenDataType) resultClassifier);
 			}
 			return genMetricTarget;
-		} else if(ruleTarget instanceof DomainAttributeTarget) {
+		} else if (ruleTarget instanceof DomainAttributeTarget) {
 			DomainAttributeTarget attrTarget = (DomainAttributeTarget) ruleTarget;
 			GenDomainAttributeTarget genAttrTarget = GMFGenFactory.eINSTANCE.createGenDomainAttributeTarget();
-			if(attrTarget.getAttribute() != null) {
+			if (attrTarget.getAttribute() != null) {
 				genAttrTarget.setAttribute(findGenFeature(attrTarget.getAttribute()));
 			}
 			genAttrTarget.setNullAsError(attrTarget.isNullAsError());
-			return genAttrTarget;				
+			return genAttrTarget;
 		} else {
 			assert false : "Unknown rule target type"; //$NON-NLS-1$
 		}
 		return null;
 	}
-	
+
 	private GenMetricRule createGenMetric(MetricRule metric) {
 		GenMetricRule genMetric = GMFGenFactory.eINSTANCE.createGenMetricRule();
 		genMetric.setKey(metric.getKey());
@@ -1064,16 +1263,16 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genMetric.setDescription(metric.getDescription());
 		genMetric.setLowLimit(metric.getLowLimit());
 		genMetric.setHighLimit(metric.getHighLimit());
-		
-		if(metric.getRule() != null) {
+
+		if (metric.getRule() != null) {
 			genMetric.setRule(createValueExpression(metric.getRule()));
 		}
-		
-		if(metric.getTarget() != null) {		
+
+		if (metric.getTarget() != null) {
 			GenRuleTarget genTarget = createRuleTarget(metric.getTarget());
 			assert genTarget instanceof GenMeasurable;
-			if(genTarget instanceof GenMeasurable) {
-				genMetric.setTarget((GenMeasurable)genTarget);
+			if (genTarget instanceof GenMeasurable) {
+				genMetric.setTarget((GenMeasurable) genTarget);
 			}
 		}
 		myHistory.log(metric, genMetric);
@@ -1081,59 +1280,61 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	/**
-	 * ValueExpressions may be reused, as such clients should treat second argument as template and record return value
-	 * as actual expression.
+	 * ValueExpressions may be reused, as such clients should treat second
+	 * argument as template and record return value as actual expression.
 	 * 
-	 * FIXME when ValueExpression in Java language and non-empty body, create JavaProvider with injectBody set to true. Also respect
-	 * this condition in search for existing provider
+	 * FIXME when ValueExpression in Java language and non-empty body, create
+	 * JavaProvider with injectBody set to true. Also respect this condition in
+	 * search for existing provider
 	 * 
 	 * @return actual gmfgen::ValueExpression to reference
 	 */
 	private <T extends ValueExpression> T bindToProvider(org.eclipse.gmf.mappings.ValueExpression expression, T genExpression) {
-		if(myProcessedExpressions.containsKey(expression)) {
+		if (myProcessedExpressions.containsKey(expression)) {
 			// Note: may have already been bound during transformation of reused node mapping
-			@SuppressWarnings("unchecked") T reuse = (T) myProcessedExpressions.get(expression);
+			@SuppressWarnings("unchecked")
+			T reuse = (T) myProcessedExpressions.get(expression);
 			return reuse;
 		}
 		GenLanguage language = detectGenLanguage(expression.getLanguage());
-		if(language == null) {
+		if (language == null) {
 			return genExpression;
 		}
 		GenExpressionProviderContainer providerContainer = getGenEssence().getExpressionProviders();
-		if(providerContainer == null) {
+		if (providerContainer == null) {
 			providerContainer = GMFGenFactory.eINSTANCE.createGenExpressionProviderContainer();
 			getGenEssence().setExpressionProviders(providerContainer);
 		}
 		GenExpressionProviderBase provider = null;
 		for (GenExpressionProviderBase nextProvider : providerContainer.getProviders()) {
-			if(language.equals(nextProvider.getLanguage())) {
+			if (language.equals(nextProvider.getLanguage())) {
 				provider = nextProvider;
 				break;
 			}
 		}
-		if(provider == null) {
+		if (provider == null) {
 			provider = createExpressionProvider(language);
-			providerContainer.getProviders().add(provider);			
+			providerContainer.getProviders().add(provider);
 		}
 		provider.getExpressions().add(genExpression);
 		myProcessedExpressions.put(expression, genExpression);
 		return genExpression;
 	}
-	
+
 	private GenExpressionProviderBase createExpressionProvider(GenLanguage language) {
 		switch (language.getValue()) {
-		case GenLanguage.JAVA :
-			return  GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider();
-		case GenLanguage.OCL : 
-		case GenLanguage.REGEXP :
-		case GenLanguage.NREGEXP : {
+		case GenLanguage.JAVA:
+			return GMFGenFactory.eINSTANCE.createGenJavaExpressionProvider();
+		case GenLanguage.OCL:
+		case GenLanguage.REGEXP:
+		case GenLanguage.NREGEXP: {
 			GenExpressionInterpreter regexpProvider = GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			regexpProvider.setLanguage(language);
 			return regexpProvider;
 		}
-		case GenLanguage.LITERAL :
+		case GenLanguage.LITERAL:
 			return GMFGenFactory.eINSTANCE.createGenLiteralExpressionProvider();
-		default : {
+		default: {
 			assert false : language;
 			return GMFGenFactory.eINSTANCE.createGenExpressionInterpreter();
 			// fake provider with no language set to fail validation (XXX perhaps, makes sense to add 'unrecognized' language?)
