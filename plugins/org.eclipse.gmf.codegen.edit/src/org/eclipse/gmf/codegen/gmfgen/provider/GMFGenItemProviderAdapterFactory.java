@@ -2366,6 +2366,29 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenVisualEffect} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenVisualEffectItemProvider genVisualEffectItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenVisualEffect}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenVisualEffectAdapter() {
+		if (genVisualEffectItemProvider == null) {
+			genVisualEffectItemProvider = new GenVisualEffectItemProvider(this);
+		}
+
+		return genVisualEffectItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2638,6 +2661,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (expressionLabelParserItemProvider != null) expressionLabelParserItemProvider.dispose();
 		if (customParserItemProvider != null) customParserItemProvider.dispose();
 		if (externalParserItemProvider != null) externalParserItemProvider.dispose();
+		if (genVisualEffectItemProvider != null) genVisualEffectItemProvider.dispose();
 	}
 
 }

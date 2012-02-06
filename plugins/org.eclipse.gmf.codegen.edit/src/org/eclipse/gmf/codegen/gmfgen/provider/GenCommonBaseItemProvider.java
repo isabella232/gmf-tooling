@@ -378,6 +378,11 @@ public class GenCommonBaseItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour(),
 				 GMFGenFactory.eINSTANCE.createOpenDiagramBehaviour()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Behaviour(),
+				 GMFGenFactory.eINSTANCE.createGenVisualEffect()));
 	}
 
 	/**

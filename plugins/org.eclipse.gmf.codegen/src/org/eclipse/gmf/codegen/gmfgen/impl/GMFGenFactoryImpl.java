@@ -161,6 +161,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.EXPRESSION_LABEL_PARSER: return createExpressionLabelParser();
 			case GMFGenPackage.CUSTOM_PARSER: return createCustomParser();
 			case GMFGenPackage.EXTERNAL_PARSER: return createExternalParser();
+			case GMFGenPackage.GEN_VISUAL_EFFECT: return createGenVisualEffect();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1264,6 +1265,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public ExternalParser createExternalParser() {
 		ExternalParserImpl externalParser = new ExternalParserImpl();
 		return externalParser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenVisualEffect createGenVisualEffect() {
+		GenVisualEffectImpl genVisualEffect = new GenVisualEffectImpl();
+		return genVisualEffect;
 	}
 
 	/**
