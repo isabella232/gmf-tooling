@@ -1048,5 +1048,14 @@
     <genClasses ecoreClass="gmfgen.ecore#//ExternalParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalParser/hint"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenVisualEffect">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenVisualEffect/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenVisualEffect/pinKind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenVisualEffect/operationName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenVisualEffect/operationType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenVisualEffect/oclExpression"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenVisualEffect/getOclExpressionString"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenVisualEffect/getOperationRuntimeType"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

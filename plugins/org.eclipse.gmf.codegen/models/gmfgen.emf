@@ -19,7 +19,7 @@
 @constraints("import"="http://www.eclipse.org/gmf/runtime/1.0.0/notation")
 package gmfgen;
 
-//import "http://www.eclipse.org/emf/2002/GenModel";
+import "http://www.eclipse.org/emf/2002/Ecore";
 import "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore";
 
 // TODO introduce sourceRoot argument (or few of them?) to allow targets other than /src/
@@ -1624,4 +1624,14 @@ class CustomParser extends GenParserImplementation {
 class ExternalParser extends GenParserImplementation {
 	@genmodel(documentation="Optionally, override hint value")
 	attr String[?] hint;
+}
+
+class GenVisualEffect extends CustomBehaviour {
+	attr String name; 
+	attr String pinKind; // TODO: remove when graphdef will be accessible
+	attr String operationName; // TODO: remove when graphdef will be accessible
+	attr String operationType; // TODO: remove when graphdef will be accessible
+  	attr String oclExpression;
+  	op String getOclExpressionString();
+  	op ecore.EClassifier getOperationRuntimeType(); 
 }

@@ -899,6 +899,15 @@ public interface GMFGenFactory extends EFactory {
 	ExternalParser createExternalParser();
 
 	/**
+	 * Returns a new object of class '<em>Gen Visual Effect</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Visual Effect</em>'.
+	 * @generated
+	 */
+	GenVisualEffect createGenVisualEffect();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
