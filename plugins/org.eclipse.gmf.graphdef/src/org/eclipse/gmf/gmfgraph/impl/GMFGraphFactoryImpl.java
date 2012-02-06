@@ -113,6 +113,9 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.SVG_FIGURE: return createSVGFigure();
 			case GMFGraphPackage.SVG_PROPERTY: return createSVGProperty();
 			case GMFGraphPackage.RECTANGLE2_D: return createRectangle2D();
+			case GMFGraphPackage.CUSTOM_PIN: return createCustomPin();
+			case GMFGraphPackage.COLOR_PIN: return createColorPin();
+			case GMFGraphPackage.VISIBLE_PIN: return createVisiblePin();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -716,6 +719,36 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public Rectangle2D createRectangle2D() {
 		Rectangle2DImpl rectangle2D = new Rectangle2DImpl();
 		return rectangle2D;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomPin createCustomPin() {
+		CustomPinImpl customPin = new CustomPinImpl();
+		return customPin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ColorPin createColorPin() {
+		ColorPinImpl colorPin = new ColorPinImpl();
+		return colorPin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VisiblePin createVisiblePin() {
+		VisiblePinImpl visiblePin = new VisiblePinImpl();
+		return visiblePin;
 	}
 
 	/**

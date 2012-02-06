@@ -100,6 +100,7 @@ public class RealFigureItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getPinOwner_Pins());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 		}
 		return childrenFeatures;
@@ -147,6 +148,7 @@ public class RealFigureItemProvider
 			case GMFGraphPackage.REAL_FIGURE__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGraphPackage.REAL_FIGURE__PINS:
 			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -164,6 +166,21 @@ public class RealFigureItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getPinOwner_Pins(),
+				 GMFGraphFactory.eINSTANCE.createCustomPin()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getPinOwner_Pins(),
+				 GMFGraphFactory.eINSTANCE.createColorPin()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getPinOwner_Pins(),
+				 GMFGraphFactory.eINSTANCE.createVisiblePin()));
 
 		newChildDescriptors.add
 			(createChildParameter

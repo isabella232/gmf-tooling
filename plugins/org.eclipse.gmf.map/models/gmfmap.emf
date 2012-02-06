@@ -107,6 +107,8 @@ class NodeMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward 
 	
 	val CompartmentMapping[*]#parentNode compartments;
 //FIXME no containment feature - persist in resource then. Was: @constraints(ocl="not containmentFeature.oclIsUndefined() ", description="The child node mapping containmentFeature must be set")
+
+	val VisualEffectMapping[*]#parentNode visualEffects; 
 }
 
 class CompartmentMapping {
@@ -452,4 +454,11 @@ enum Language {
 	regexp = 2;
 	nregexp = 3;
 	literal = 4;
+}
+
+class VisualEffectMapping {
+   	ref gmfgraph.Pin[1] diagramPin;
+ 	attr String oclExpression;
+ 	
+ 	readonly ref NodeMapping[1]#visualEffects parentNode;
 }

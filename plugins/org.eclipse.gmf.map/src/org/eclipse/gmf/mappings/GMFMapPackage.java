@@ -551,13 +551,22 @@ public interface GMFMapPackage extends EPackage {
 	int NODE_MAPPING__COMPARTMENTS = MAPPING_ENTRY_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Visual Effects</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_MAPPING__VISUAL_EFFECTS = MAPPING_ENTRY_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 6;
+	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Compartment</b></em>' reference.
@@ -2084,6 +2093,52 @@ public interface GMFMapPackage extends EPackage {
 	int MEASURABLE_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.VisualEffectMappingImpl <em>Visual Effect Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.VisualEffectMappingImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getVisualEffectMapping()
+	 * @generated
+	 */
+	int VISUAL_EFFECT_MAPPING = 37;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Pin</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISUAL_EFFECT_MAPPING__DIAGRAM_PIN = 0;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISUAL_EFFECT_MAPPING__OCL_EXPRESSION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Parent Node</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISUAL_EFFECT_MAPPING__PARENT_NODE = 2;
+
+	/**
+	 * The number of structural features of the '<em>Visual Effect Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISUAL_EFFECT_MAPPING_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.LabelTextAccessMethod <em>Label Text Access Method</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2350,6 +2405,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNodeMapping_Compartments();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.NodeMapping#getVisualEffects <em>Visual Effects</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Visual Effects</em>'.
+	 * @see org.eclipse.gmf.mappings.NodeMapping#getVisualEffects()
+	 * @see #getNodeMapping()
+	 * @generated
+	 */
+	EReference getNodeMapping_VisualEffects();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.CompartmentMapping <em>Compartment Mapping</em>}'.
@@ -3550,6 +3616,49 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getMeasurable();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.VisualEffectMapping <em>Visual Effect Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Visual Effect Mapping</em>'.
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping
+	 * @generated
+	 */
+	EClass getVisualEffectMapping();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getDiagramPin <em>Diagram Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Pin</em>'.
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getDiagramPin()
+	 * @see #getVisualEffectMapping()
+	 * @generated
+	 */
+	EReference getVisualEffectMapping_DiagramPin();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getOclExpression <em>Ocl Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ocl Expression</em>'.
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getOclExpression()
+	 * @see #getVisualEffectMapping()
+	 * @generated
+	 */
+	EAttribute getVisualEffectMapping_OclExpression();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode <em>Parent Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent Node</em>'.
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode()
+	 * @see #getVisualEffectMapping()
+	 * @generated
+	 */
+	EReference getVisualEffectMapping_ParentNode();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.LabelTextAccessMethod <em>Label Text Access Method</em>}'.

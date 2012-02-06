@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface RealFigure extends AbstractFigure {
+public interface RealFigure extends AbstractFigure, PinOwner {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

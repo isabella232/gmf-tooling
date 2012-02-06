@@ -104,6 +104,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.METRIC_CONTAINER: return createMetricContainer();
 			case GMFMapPackage.METRIC_RULE: return createMetricRule();
 			case GMFMapPackage.AUDITED_METRIC_TARGET: return createAuditedMetricTarget();
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING: return createVisualEffectMapping();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -415,6 +416,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public AuditedMetricTarget createAuditedMetricTarget() {
 		AuditedMetricTargetImpl auditedMetricTarget = new AuditedMetricTargetImpl();
 		return auditedMetricTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VisualEffectMapping createVisualEffectMapping() {
+		VisualEffectMappingImpl visualEffectMapping = new VisualEffectMappingImpl();
+		return visualEffectMapping;
 	}
 
 	/**

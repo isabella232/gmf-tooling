@@ -58,6 +58,10 @@ import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
+<<<<<<< OURS
+=======
+import org.eclipse.gmf.mappings.VisualEffectMapping;
+>>>>>>> THEIRS
 import org.eclipse.gmf.tooldef.GMFToolPackage;
 import org.eclipse.gmf.validate.GMFValidator;
 
@@ -333,6 +337,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	private EClass measurableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass visualEffectMappingEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -623,6 +634,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 */
 	public EReference getNodeMapping_Compartments() {
 		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getNodeMapping_VisualEffects() {
+		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1638,6 +1658,42 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getVisualEffectMapping() {
+		return visualEffectMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getVisualEffectMapping_DiagramPin() {
+		return (EReference)visualEffectMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getVisualEffectMapping_OclExpression() {
+		return (EAttribute)visualEffectMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getVisualEffectMapping_ParentNode() {
+		return (EReference)visualEffectMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getLabelTextAccessMethod() {
 		return labelTextAccessMethodEEnum;
 	}
@@ -1723,6 +1779,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(nodeMappingEClass, NODE_MAPPING__DIAGRAM_NODE);
 		createEReference(nodeMappingEClass, NODE_MAPPING__CHILDREN);
 		createEReference(nodeMappingEClass, NODE_MAPPING__COMPARTMENTS);
+		createEReference(nodeMappingEClass, NODE_MAPPING__VISUAL_EFFECTS);
 
 		compartmentMappingEClass = createEClass(COMPARTMENT_MAPPING);
 		createEReference(compartmentMappingEClass, COMPARTMENT_MAPPING__COMPARTMENT);
@@ -1860,6 +1917,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		measurableEClass = createEClass(MEASURABLE);
 
+		visualEffectMappingEClass = createEClass(VISUAL_EFFECT_MAPPING);
+		createEReference(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__DIAGRAM_PIN);
+		createEAttribute(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__OCL_EXPRESSION);
+		createEReference(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__PARENT_NODE);
+
 		// Create enums
 		labelTextAccessMethodEEnum = createEEnum(LABEL_TEXT_ACCESS_METHOD);
 		severityEEnum = createEEnum(SEVERITY);
@@ -1967,6 +2029,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getNodeMapping_DiagramNode(), theGMFGraphPackage.getNode(), null, "diagramNode", null, 1, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeMapping_Children(), this.getChildReference(), this.getChildReference_ParentNode(), "children", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeMapping_Compartments(), this.getCompartmentMapping(), this.getCompartmentMapping_ParentNode(), "compartments", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getNodeMapping_VisualEffects(), this.getVisualEffectMapping(), this.getVisualEffectMapping_ParentNode(), "visualEffects", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(compartmentMappingEClass, CompartmentMapping.class, "CompartmentMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCompartmentMapping_Compartment(), theGMFGraphPackage.getCompartment(), null, "compartment", null, 1, 1, CompartmentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2103,6 +2166,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(auditableEClass, Auditable.class, "Auditable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(measurableEClass, Measurable.class, "Measurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(visualEffectMappingEClass, VisualEffectMapping.class, "VisualEffectMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getVisualEffectMapping_DiagramPin(), theGMFGraphPackage.getPin(), null, "diagramPin", null, 1, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getVisualEffectMapping_OclExpression(), ecorePackage.getEString(), "oclExpression", null, 0, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVisualEffectMapping_ParentNode(), this.getNodeMapping(), this.getNodeMapping_VisualEffects(), "parentNode", null, 1, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(labelTextAccessMethodEEnum, LabelTextAccessMethod.class, "LabelTextAccessMethod");

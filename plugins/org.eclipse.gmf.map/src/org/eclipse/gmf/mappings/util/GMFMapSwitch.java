@@ -355,6 +355,12 @@ public class GMFMapSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING: {
+				VisualEffectMapping visualEffectMapping = (VisualEffectMapping)theEObject;
+				T result = caseVisualEffectMapping(visualEffectMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -926,6 +932,21 @@ public class GMFMapSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMeasurable(Measurable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Visual Effect Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Visual Effect Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVisualEffectMapping(VisualEffectMapping object) {
 		return null;
 	}
 

@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.Pin;
+import org.eclipse.gmf.gmfgraph.PinOwner;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 
 /**
@@ -32,6 +34,7 @@ import org.eclipse.gmf.gmfgraph.RealFigure;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.RealFigureImpl#getPins <em>Pins</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.RealFigureImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.RealFigureImpl#getChildren <em>Children</em>}</li>
  * </ul>
@@ -40,6 +43,16 @@ import org.eclipse.gmf.gmfgraph.RealFigure;
  * @generated
  */
 public abstract class RealFigureImpl extends AbstractFigureImpl implements RealFigure {
+	/**
+	 * The cached value of the '{@link #getPins() <em>Pins</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPins()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Pin> pins;
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -94,6 +107,18 @@ public abstract class RealFigureImpl extends AbstractFigureImpl implements RealF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Pin> getPins() {
+		if (pins == null) {
+			pins = new EObjectContainmentEList<Pin>(Pin.class, this, GMFGraphPackage.REAL_FIGURE__PINS);
+		}
+		return pins;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getName() {
 		return name;
 	}
@@ -130,6 +155,8 @@ public abstract class RealFigureImpl extends AbstractFigureImpl implements RealF
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGraphPackage.REAL_FIGURE__PINS:
+				return ((InternalEList<?>)getPins()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
 				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 		}
@@ -144,6 +171,8 @@ public abstract class RealFigureImpl extends AbstractFigureImpl implements RealF
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGraphPackage.REAL_FIGURE__PINS:
+				return getPins();
 			case GMFGraphPackage.REAL_FIGURE__NAME:
 				return getName();
 			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
@@ -161,6 +190,10 @@ public abstract class RealFigureImpl extends AbstractFigureImpl implements RealF
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGraphPackage.REAL_FIGURE__PINS:
+				getPins().clear();
+				getPins().addAll((Collection<? extends Pin>)newValue);
+				return;
 			case GMFGraphPackage.REAL_FIGURE__NAME:
 				setName((String)newValue);
 				return;
@@ -180,6 +213,9 @@ public abstract class RealFigureImpl extends AbstractFigureImpl implements RealF
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.REAL_FIGURE__PINS:
+				getPins().clear();
+				return;
 			case GMFGraphPackage.REAL_FIGURE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -198,12 +234,46 @@ public abstract class RealFigureImpl extends AbstractFigureImpl implements RealF
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.REAL_FIGURE__PINS:
+				return pins != null && !pins.isEmpty();
 			case GMFGraphPackage.REAL_FIGURE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
 				return children != null && !children.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == PinOwner.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.REAL_FIGURE__PINS: return GMFGraphPackage.PIN_OWNER__PINS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == PinOwner.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.PIN_OWNER__PINS: return GMFGraphPackage.REAL_FIGURE__PINS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 	/**

@@ -26,6 +26,7 @@ import org.eclipse.gmf.gmfgraph.Node;
  *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getCompartments <em>Compartments</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.NodeMapping#getVisualEffects <em>Visual Effects</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,5 +96,23 @@ public interface NodeMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @generated
 	 */
 	EList<CompartmentMapping> getCompartments();
+
+	/**
+	 * Returns the value of the '<em><b>Visual Effects</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.VisualEffectMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode <em>Parent Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Visual Effects</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Visual Effects</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_VisualEffects()
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode
+	 * @model opposite="parentNode" containment="true"
+	 * @generated
+	 */
+	EList<VisualEffectMapping> getVisualEffects();
 
 } // NodeMapping

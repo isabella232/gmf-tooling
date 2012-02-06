@@ -25,6 +25,7 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.ColorPin;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -38,6 +39,7 @@ import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
+import org.eclipse.gmf.gmfgraph.CustomPin;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
@@ -72,6 +74,8 @@ import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Pin;
+import org.eclipse.gmf.gmfgraph.PinOwner;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
@@ -89,10 +93,10 @@ import org.eclipse.gmf.gmfgraph.SVGPropertyType;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.VisiblePin;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.gmfgraph.XYLayout;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
-import org.eclipse.gmf.gmfgraph.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -604,6 +608,41 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass rectangle2DEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customPinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass colorPinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass visiblePinEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pinOwnerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2585,6 +2624,87 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPin() {
+		return pinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomPin() {
+		return customPinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomPin_CustomOperationName() {
+		return (EAttribute)customPinEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomPin_CustomOperationType() {
+		return (EAttribute)customPinEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getColorPin() {
+		return colorPinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColorPin_BackgroundNotForeground() {
+		return (EAttribute)colorPinEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getVisiblePin() {
+		return visiblePinEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPinOwner() {
+		return pinOwnerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPinOwner_Pins() {
+		return (EReference)pinOwnerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getColorConstants() {
 		return colorConstantsEEnum;
 	}
@@ -2932,6 +3052,20 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(rectangle2DEClass, RECTANGLE2_D__WIDTH);
 		createEAttribute(rectangle2DEClass, RECTANGLE2_D__HEIGHT);
 
+		pinEClass = createEClass(PIN);
+
+		customPinEClass = createEClass(CUSTOM_PIN);
+		createEAttribute(customPinEClass, CUSTOM_PIN__CUSTOM_OPERATION_NAME);
+		createEAttribute(customPinEClass, CUSTOM_PIN__CUSTOM_OPERATION_TYPE);
+
+		colorPinEClass = createEClass(COLOR_PIN);
+		createEAttribute(colorPinEClass, COLOR_PIN__BACKGROUND_NOT_FOREGROUND);
+
+		visiblePinEClass = createEClass(VISIBLE_PIN);
+
+		pinOwnerEClass = createEClass(PIN_OWNER);
+		createEReference(pinOwnerEClass, PIN_OWNER__PINS);
+
 		// Create enums
 		colorConstantsEEnum = createEEnum(COLOR_CONSTANTS);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
@@ -2986,6 +3120,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		abstractFigureEClass.getESuperTypes().add(this.getFigure());
 		figureDescriptorEClass.getESuperTypes().add(this.getIdentity());
 		realFigureEClass.getESuperTypes().add(this.getAbstractFigure());
+		realFigureEClass.getESuperTypes().add(this.getPinOwner());
 		figureRefEClass.getESuperTypes().add(this.getAbstractFigure());
 		connectionFigureEClass.getESuperTypes().add(this.getRealFigure());
 		decorationFigureEClass.getESuperTypes().add(this.getRealFigure());
@@ -3033,6 +3168,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		xyLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
 		stackLayoutEClass.getESuperTypes().add(this.getLayout());
 		svgFigureEClass.getESuperTypes().add(this.getRealFigure());
+		pinEClass.getESuperTypes().add(this.getIdentity());
+		customPinEClass.getESuperTypes().add(this.getPin());
+		colorPinEClass.getESuperTypes().add(this.getPin());
+		visiblePinEClass.getESuperTypes().add(this.getPin());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(canvasEClass, Canvas.class, "Canvas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3313,6 +3452,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getRectangle2D_Y(), ecorePackage.getEFloat(), "y", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRectangle2D_Width(), ecorePackage.getEFloat(), "width", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRectangle2D_Height(), ecorePackage.getEFloat(), "height", null, 0, 1, Rectangle2D.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pinEClass, Pin.class, "Pin", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(pinEClass, ecorePackage.getEString(), "getOperationName", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(pinEClass, ecorePackage.getEString(), "getOperationType", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(customPinEClass, CustomPin.class, "CustomPin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomPin_CustomOperationName(), ecorePackage.getEString(), "customOperationName", null, 0, 1, CustomPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomPin_CustomOperationType(), ecorePackage.getEString(), "customOperationType", null, 0, 1, CustomPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(colorPinEClass, ColorPin.class, "ColorPin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getColorPin_BackgroundNotForeground(), ecorePackage.getEBoolean(), "backgroundNotForeground", null, 0, 1, ColorPin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(visiblePinEClass, VisiblePin.class, "VisiblePin", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(pinOwnerEClass, PinOwner.class, "PinOwner", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPinOwner_Pins(), this.getPin(), null, "pins", null, 0, -1, PinOwner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");

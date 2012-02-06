@@ -178,6 +178,7 @@ public class NodeMappingItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_Children());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_Compartments());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_VisualEffects());
 		}
 		return childrenFeatures;
 	}
@@ -242,6 +243,7 @@ public class NodeMappingItemProvider
 		switch (notification.getFeatureID(NodeMapping.class)) {
 			case GMFMapPackage.NODE_MAPPING__CHILDREN:
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
+			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -278,6 +280,11 @@ public class NodeMappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getNodeMapping_Compartments(),
 				 GMFMapFactory.eINSTANCE.createCompartmentMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getNodeMapping_VisualEffects(),
+				 GMFMapFactory.eINSTANCE.createVisualEffectMapping()));
 	}
 
 }
