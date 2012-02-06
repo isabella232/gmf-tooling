@@ -17,6 +17,7 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «EXTENSION xpt::providers::ParserUtils»
+«EXTENSION impl::parsers::expression»
 
 «DEFINE accessorMethod_delegate2providers FOR gmfgen::GenParsers-»
 	«EXPAND xpt::Common::generatedMemberComment('Utility method that consults ParserService')»
@@ -187,7 +188,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 			«parserFieldName(element)» = new «qualifiedName»();
 		}
 		return «parserFieldName(element)»;
-	}
+	}	
 «ENDDEFINE»
 
 «DEFINE _parser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExternalParser-»
@@ -301,6 +302,12 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 
 /*Intentionally modelFacet typed as general LMF, because ExpressionLabelModelFacet is merely a marker*/
 «DEFINE _parser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExpressionLabelParser»
+«IF isViewExpressionDefinedAndOcl()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
+		return new «getQualifiedClassName()»();
+	}
+«ELSE-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private «getQualifiedClassName()» «parserFieldName(element)»;
 
@@ -311,4 +318,5 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 		}
 		return «parserFieldName(element)»;
 	}
+«ENDIF-»	
 «ENDDEFINE»

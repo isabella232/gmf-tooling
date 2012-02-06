@@ -14,6 +14,8 @@
 
 «EXTENSION xpt::StringOperations»
 
+«EXTENSION impl::parsers::expression»
+
 «DEFINE Main FOR gmfgen::ExpressionLabelParser-»
 «EXPAND xpt::Common::copyright FOR holder.editorGen-»
 «EXPAND xpt::Common::packageStatement FOR self.getQualifiedClassName()»
@@ -28,10 +30,43 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::ExpressionLabelParser»«ENDDEFINE»
-«DEFINE extendsList FOR gmfgen::ExpressionLabelParser»«ENDDEFINE»
-«DEFINE implementsList FOR gmfgen::ExpressionLabelParser» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser«ENDDEFINE»
+«DEFINE extendsList FOR gmfgen::ExpressionLabelParser»
+	«IF isViewExpressionDefinedAndOcl()-»		
+		«IF isImpactAnalyzerKind()-»
+			extends org.eclipse.gmf.tooling.runtime.ocl.parsers.ImpactAnalyzerParserBase
+		«ELSE-»
+			extends org.eclipse.gmf.tooling.runtime.ocl.parsers.ActiveOclParserBase
+		«ENDIF-»
+	«ENDIF-»
+«ENDDEFINE»
+«DEFINE implementsList FOR gmfgen::ExpressionLabelParser-»
+	«IF not(isViewExpressionDefinedAndOcl())-»
+		implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser	    
+	«ENDIF-»
+«ENDDEFINE»
 
 «DEFINE body FOR gmfgen::ExpressionLabelParser»
+
+«IF isViewExpressionDefinedAndOcl()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override	
+	protected String getExpressionBody() {
+		return «EXPAND impl::parsers::ExpressionLabelParser::getExpression(self, viewExpression) FOR viewExpression.provider».body();
+	}
+«ELSE-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public String getPrintString(org.eclipse.core.runtime.IAdaptable element, int flags) {
+		«EXPAND impl::parsers::ExpressionLabelParser::accessViewExpression-»
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public boolean isAffectingEvent(Object event, int flags) {
+		// XXX Any event is recognized as important, unless there's a way to extract this information from expression itself.
+		// TODO analyze expressions (e.g. using OCL parser) to find out structural features in use  
+		return true;
+	}
+«ENDIF-»
+
 	«EXPAND xpt::Common::generatedMemberComment»
 	public String getEditString(org.eclipse.core.runtime.IAdaptable element, int flags) {
 		«EXPAND impl::parsers::ExpressionLabelParser::accessEditExpression-»
@@ -58,18 +93,6 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 				return new org.eclipse.gmf.runtime.common.core.command.CommandResult(updateValues(target, newString));
 			}
 		};
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public String getPrintString(org.eclipse.core.runtime.IAdaptable element, int flags) {
-		«EXPAND impl::parsers::ExpressionLabelParser::accessViewExpression-»
-	}
-
-	«EXPAND xpt::Common::generatedMemberComment»
-	public boolean isAffectingEvent(Object event, int flags) {
-		// XXX Any event is recognized as important, unless there's a way to extract this information from expression itself.
-		// TODO analyze expressions (e.g. using OCL parser) to find out structural features in use  
-		return true;
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»

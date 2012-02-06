@@ -14,6 +14,7 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION impl::diagram::editparts::ChoiceUtils»
+«EXTENSION impl::parsers::expression»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -22,7 +23,7 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
-	«IF isOclChoiceLabel()-»
+	«IF isOclChoiceLabel() || isViewExpressionDefiedAndOcl()-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator myOclRegistrator;
 	«ELSE-»
@@ -31,7 +32,7 @@
 	«ENDIF-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	private String defaultText;
+	private String defaultText;	
 «ENDDEFINE»
 
 «DEFINE methods(needsRefreshBounds : Boolean, readOnly : Boolean, useElementIcon : Boolean, viewmap : gmfgen::Viewmap,
@@ -104,7 +105,7 @@
 	
 	«EXPAND getFontStyleOwnerView(viewmap)-»
 		
-«IF isOclChoiceLabelWithShowExpr()-»
+«IF isOclChoiceLabelWithShowExpr() OR isViewExpressionDefiedAndOcl()-»
 	«EXPAND getOclTracker-»
 «ENDIF-»
 	
@@ -515,7 +516,11 @@
 		super.addSemanticListeners();
 		«ENDIF-»
 		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
-«ELSE-»	
+«ELSEIF isViewExpressionDefiedAndOcl()-»
+		«getActiveOclPackageName()».common.OclTracker tracker = getTracker();
+		tracker.initialize(resolveSemanticElement());
+		tracker.installListeners(getEditingDomain(), this, getOclRegistrator());
+«ELSE-»
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 			parserElements = ((org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) getParser()).getSemanticElementsBeingParsed(element);
@@ -532,7 +537,7 @@
 «DEFINE removeSemanticListeners FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
-«IF isOclChoiceLabel()-»		
+«IF isOclChoiceLabel() || isViewExpressionDefiedAndOcl()-»			
 		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).uninstallListeners();
 		«IF isOclChoiceLabelWithShowExpr()-»
 		getTracker().uninstallListeners();	

@@ -82,6 +82,10 @@
 package «LET self.xpandSplit('\\.') AS tmpVar»«FOREACH if tmpVar->size() < 2 then Sequence{}[String] else tmpVar->subSequence(1, tmpVar->size() - 1) endif AS s SEPARATOR '.'»«s»«ENDFOREACH»;«ENDLET»«ENDIF-»
 «ENDDEFINE»
 
+«DEFINE disqualifiedClassName FOR String-»
+«self.xpandSplit('\\.')->last()»
+«ENDDEFINE»
+
 // Provides handy single point to override generation of assert statements
 // TODO refactor this Common.xpt into different flavours - like CommonCodeStyle (nls, assert), CommonSnippets(pkgStmt, setCharset, getSaveOptions) and so on
 // TODO condition.xpandToCharList()->count('"') / 2 gives better guess about number of nonNLS to generate 

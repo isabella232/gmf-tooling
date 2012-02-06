@@ -37,10 +37,15 @@
 «ENDIF-»
 «ENDDEFINE»
 
+«DEFINE getExpression(gmfgen::ExpressionLabelParser parser, ValueExpression expression) FOR gmfgen::GenExpressionProviderBase»«ERROR 'Abstract template call: getExpression'»«ENDDEFINE»
+«DEFINE getExpression(gmfgen::ExpressionLabelParser parser, ValueExpression expression) FOR gmfgen::GenExpressionInterpreter-»
+	«EXPAND xpt::expressions::getExpression::getExpression(expression, parser.expressionContext)-»
+«ENDDEFINE»
+
 «DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenExpressionProviderBase»«ERROR 'Abstract template call: _evaluateAndReturnExpressionResult'»«ENDDEFINE»
 «DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenExpressionInterpreter-»
 org.eclipse.emf.ecore.EObject target = (org.eclipse.emf.ecore.EObject) element.getAdapter(org.eclipse.emf.ecore.EObject.class);
-Object result = «EXPAND xpt::expressions::getExpression::getExpression(expression, parser.expressionContext)».evaluate(target);
+Object result =  «EXPAND getExpression(parser, expression)».evaluate(target);
 return String.valueOf(result);
 «ENDDEFINE»
 «DEFINE _evaluateAndReturnExpressionResult(gmfgen::ExpressionLabelParser parser, String javaMethodName, ValueExpression expression) FOR gmfgen::GenJavaExpressionProvider-»
