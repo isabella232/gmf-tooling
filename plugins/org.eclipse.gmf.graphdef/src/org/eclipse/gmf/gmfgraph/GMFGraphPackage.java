@@ -1333,13 +1333,22 @@ public interface GMFGraphPackage extends EPackage {
 	int REAL_FIGURE__SIZE = ABSTRACT_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REAL_FIGURE__PINS = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_FIGURE__NAME = ABSTRACT_FIGURE_FEATURE_COUNT + 0;
+	int REAL_FIGURE__NAME = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Children</b></em>' containment reference list.
@@ -1348,7 +1357,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_FIGURE__CHILDREN = ABSTRACT_FIGURE_FEATURE_COUNT + 1;
+	int REAL_FIGURE__CHILDREN = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Real Figure</em>' class.
@@ -1357,7 +1366,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int REAL_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 2;
+	int REAL_FIGURE_FEATURE_COUNT = ABSTRACT_FIGURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -1632,6 +1641,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CONNECTION_FIGURE__SIZE = REAL_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__PINS = REAL_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1786,6 +1804,15 @@ public interface GMFGraphPackage extends EPackage {
 	int DECORATION_FIGURE__SIZE = REAL_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__PINS = REAL_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1938,6 +1965,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int SHAPE__SIZE = REAL_FIGURE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__PINS = REAL_FIGURE__PINS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2157,6 +2193,15 @@ public interface GMFGraphPackage extends EPackage {
 	int LABEL__SIZE = REAL_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__PINS = REAL_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2320,6 +2365,15 @@ public interface GMFGraphPackage extends EPackage {
 	int LABELED_CONTAINER__SIZE = REAL_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__PINS = REAL_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2472,6 +2526,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int RECTANGLE__SIZE = SHAPE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__PINS = SHAPE__PINS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2689,6 +2752,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUNDED_RECTANGLE__SIZE = SHAPE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__PINS = SHAPE__PINS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2926,6 +2998,15 @@ public interface GMFGraphPackage extends EPackage {
 	int ELLIPSE__SIZE = SHAPE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__PINS = SHAPE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3141,6 +3222,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE__SIZE = SHAPE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__PINS = SHAPE__PINS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3369,6 +3459,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON__SIZE = POLYLINE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__PINS = POLYLINE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3595,6 +3694,15 @@ public interface GMFGraphPackage extends EPackage {
 	int SCALABLE_POLYGON__SIZE = POLYGON__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SCALABLE_POLYGON__PINS = POLYGON__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3819,6 +3927,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE_CONNECTION__SIZE = POLYLINE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__PINS = POLYLINE__PINS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4065,6 +4182,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_DECORATION__SIZE = POLYLINE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__PINS = POLYLINE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4291,6 +4417,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON_DECORATION__SIZE = POLYGON__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__PINS = POLYGON__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4514,7 +4649,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 73;
+	int FONT_STYLE = 78;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -4886,6 +5021,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_FIGURE__SIZE = REAL_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__PINS = REAL_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5057,6 +5201,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_DECORATION__SIZE = CUSTOM_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__PINS = CUSTOM_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5226,6 +5379,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_CONNECTION__SIZE = CUSTOM_FIGURE__SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__PINS = CUSTOM_FIGURE__PINS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6225,6 +6387,15 @@ public interface GMFGraphPackage extends EPackage {
 	int SVG_FIGURE__SIZE = REAL_FIGURE__SIZE;
 
 	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SVG_FIGURE__PINS = REAL_FIGURE__PINS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6425,6 +6596,173 @@ public interface GMFGraphPackage extends EPackage {
 	int RECTANGLE2_D_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Pin <em>Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.Pin
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPin()
+	 * @generated
+	 */
+	int PIN = 72;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIN__NAME = IDENTITY__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIN_FEATURE_COUNT = IDENTITY_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomPinImpl <em>Custom Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.CustomPinImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomPin()
+	 * @generated
+	 */
+	int CUSTOM_PIN = 73;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_PIN__NAME = PIN__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Custom Operation Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_PIN__CUSTOM_OPERATION_NAME = PIN_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Custom Operation Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_PIN__CUSTOM_OPERATION_TYPE = PIN_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Custom Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_PIN_FEATURE_COUNT = PIN_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.ColorPinImpl <em>Color Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.ColorPinImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorPin()
+	 * @generated
+	 */
+	int COLOR_PIN = 74;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_PIN__NAME = PIN__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Background Not Foreground</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_PIN__BACKGROUND_NOT_FOREGROUND = PIN_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Color Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_PIN_FEATURE_COUNT = PIN_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.VisiblePinImpl <em>Visible Pin</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.VisiblePinImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getVisiblePin()
+	 * @generated
+	 */
+	int VISIBLE_PIN = 75;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISIBLE_PIN__NAME = PIN__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Visible Pin</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VISIBLE_PIN_FEATURE_COUNT = PIN_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.PinOwner <em>Pin Owner</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.PinOwner
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPinOwner()
+	 * @generated
+	 */
+	int PIN_OWNER = 76;
+
+	/**
+	 * The feature id for the '<em><b>Pins</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIN_OWNER__PINS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Pin Owner</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PIN_OWNER_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6432,7 +6770,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 72;
+	int COLOR_CONSTANTS = 77;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -6442,7 +6780,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 74;
+	int DIRECTION = 79;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -6452,7 +6790,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 75;
+	int LINE_KIND = 80;
 
 
 	/**
@@ -6463,7 +6801,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
 	 * @generated
 	 */
-	int ALIGNMENT = 76;
+	int ALIGNMENT = 81;
 
 
 	/**
@@ -6474,7 +6812,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getSVGPropertyType()
 	 * @generated
 	 */
-	int SVG_PROPERTY_TYPE = 77;
+	int SVG_PROPERTY_TYPE = 82;
 
 
 	/**
@@ -8691,6 +9029,100 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRectangle2D_Height();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Pin <em>Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Pin</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Pin
+	 * @generated
+	 */
+	EClass getPin();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomPin <em>Custom Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Pin</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomPin
+	 * @generated
+	 */
+	EClass getCustomPin();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomPin#getCustomOperationName <em>Custom Operation Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Operation Name</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomPin#getCustomOperationName()
+	 * @see #getCustomPin()
+	 * @generated
+	 */
+	EAttribute getCustomPin_CustomOperationName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomPin#getCustomOperationType <em>Custom Operation Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Custom Operation Type</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomPin#getCustomOperationType()
+	 * @see #getCustomPin()
+	 * @generated
+	 */
+	EAttribute getCustomPin_CustomOperationType();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.ColorPin <em>Color Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Color Pin</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.ColorPin
+	 * @generated
+	 */
+	EClass getColorPin();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.ColorPin#isBackgroundNotForeground <em>Background Not Foreground</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Not Foreground</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.ColorPin#isBackgroundNotForeground()
+	 * @see #getColorPin()
+	 * @generated
+	 */
+	EAttribute getColorPin_BackgroundNotForeground();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.VisiblePin <em>Visible Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Visible Pin</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.VisiblePin
+	 * @generated
+	 */
+	EClass getVisiblePin();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.PinOwner <em>Pin Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Pin Owner</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.PinOwner
+	 * @generated
+	 */
+	EClass getPinOwner();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.gmfgraph.PinOwner#getPins <em>Pins</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Pins</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.PinOwner#getPins()
+	 * @see #getPinOwner()
+	 * @generated
+	 */
+	EReference getPinOwner_Pins();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}'.

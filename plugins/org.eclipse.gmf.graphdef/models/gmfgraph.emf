@@ -127,7 +127,7 @@ class ChildAccess {
 }
 
 @genmodel(documentation="This is exact/specific/concrete figure, unlike proxy/reference-nature FigureRef")
-abstract class RealFigure extends AbstractFigure {
+abstract class RealFigure extends AbstractFigure, PinOwner {
 	attr String[?] name; // unlike identity, do not require this attribute (and not necessarily unique)
 	ordered val Figure[*] children;
 }
@@ -489,4 +489,30 @@ class Rectangle2D {
 	attr float y;
 	attr float width;
 	attr float height;
+}
+
+abstract interface Pin extends Identity {
+
+	op String getOperationName();
+	op String getOperationType();   
+}
+
+class CustomPin extends Pin {
+
+	attr String customOperationName; 
+	attr String customOperationType;	  
+}
+
+class ColorPin extends Pin {
+	
+	attr boolean backgroundNotForeground;
+}
+
+class VisiblePin extends Pin {
+   
+}
+
+abstract interface PinOwner {
+ 	
+ 	val Pin[*] pins;
 }

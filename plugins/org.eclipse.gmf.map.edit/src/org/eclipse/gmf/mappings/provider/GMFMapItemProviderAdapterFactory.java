@@ -672,6 +672,29 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.VisualEffectMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VisualEffectMappingItemProvider visualEffectMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.VisualEffectMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVisualEffectMappingAdapter() {
+		if (visualEffectMappingItemProvider == null) {
+			visualEffectMappingItemProvider = new VisualEffectMappingItemProvider(this);
+		}
+
+		return visualEffectMappingItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -796,6 +819,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (metricContainerItemProvider != null) metricContainerItemProvider.dispose();
 		if (metricRuleItemProvider != null) metricRuleItemProvider.dispose();
 		if (auditedMetricTargetItemProvider != null) auditedMetricTargetItemProvider.dispose();
+		if (visualEffectMappingItemProvider != null) visualEffectMappingItemProvider.dispose();
 	}
 
 }

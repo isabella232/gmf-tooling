@@ -139,6 +139,8 @@
         eType="#//ChildReference" containment="true" eOpposite="#//ChildReference/parentNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"
         eType="#//CompartmentMapping" containment="true" eOpposite="#//CompartmentMapping/parentNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="visualEffects" upperBound="-1"
+        eType="#//VisualEffectMapping" containment="true" eOpposite="#//VisualEffectMapping/parentNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompartmentMapping">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
@@ -717,5 +719,12 @@
     <eLiterals name="regexp" value="2"/>
     <eLiterals name="nregexp" value="3"/>
     <eLiterals name="literal" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VisualEffectMapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramPin" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Pin"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
+        eType="#//NodeMapping" changeable="false" eOpposite="#//NodeMapping/visualEffects"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -521,6 +521,33 @@ public interface GMFGraphFactory extends EFactory {
 	Rectangle2D createRectangle2D();
 
 	/**
+	 * Returns a new object of class '<em>Custom Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Pin</em>'.
+	 * @generated
+	 */
+	CustomPin createCustomPin();
+
+	/**
+	 * Returns a new object of class '<em>Color Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Color Pin</em>'.
+	 * @generated
+	 */
+	ColorPin createColorPin();
+
+	/**
+	 * Returns a new object of class '<em>Visible Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Visible Pin</em>'.
+	 * @generated
+	 */
+	VisiblePin createVisiblePin();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -357,6 +357,26 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 				return createRectangle2DAdapter();
 			}
 			@Override
+			public Adapter casePin(Pin object) {
+				return createPinAdapter();
+			}
+			@Override
+			public Adapter caseCustomPin(CustomPin object) {
+				return createCustomPinAdapter();
+			}
+			@Override
+			public Adapter caseColorPin(ColorPin object) {
+				return createColorPinAdapter();
+			}
+			@Override
+			public Adapter caseVisiblePin(VisiblePin object) {
+				return createVisiblePinAdapter();
+			}
+			@Override
+			public Adapter casePinOwner(PinOwner object) {
+				return createPinOwnerAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1381,6 +1401,76 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRectangle2DAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Pin <em>Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Pin
+	 * @generated
+	 */
+	public Adapter createPinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomPin <em>Custom Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomPin
+	 * @generated
+	 */
+	public Adapter createCustomPinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.ColorPin <em>Color Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.ColorPin
+	 * @generated
+	 */
+	public Adapter createColorPinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.VisiblePin <em>Visible Pin</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.VisiblePin
+	 * @generated
+	 */
+	public Adapter createVisiblePinAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.PinOwner <em>Pin Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.PinOwner
+	 * @generated
+	 */
+	public Adapter createPinOwnerAdapter() {
 		return null;
 	}
 

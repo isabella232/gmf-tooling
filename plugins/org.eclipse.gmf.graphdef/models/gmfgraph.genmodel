@@ -318,5 +318,20 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Rectangle2D/width"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Rectangle2D/height"/>
     </genClasses>
+    <genClasses image="false" ecoreClass="gmfgraph.ecore#//Pin">
+      <genOperations ecoreOperation="gmfgraph.ecore#//Pin/getOperationName"/>
+      <genOperations ecoreOperation="gmfgraph.ecore#//Pin/getOperationType"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomPin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomPin/customOperationName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomPin/customOperationType"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//ColorPin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//ColorPin/backgroundNotForeground"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//VisiblePin"/>
+    <genClasses image="false" ecoreClass="gmfgraph.ecore#//PinOwner">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//PinOwner/pins"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

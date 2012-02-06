@@ -214,6 +214,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				RealFigure realFigure = (RealFigure)theEObject;
 				T result = caseRealFigure(realFigure);
 				if (result == null) result = caseAbstractFigure(realFigure);
+				if (result == null) result = casePinOwner(realFigure);
 				if (result == null) result = caseFigure(realFigure);
 				if (result == null) result = caseLayoutable(realFigure);
 				if (result == null) result = defaultCase(theEObject);
@@ -233,6 +234,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				T result = caseConnectionFigure(connectionFigure);
 				if (result == null) result = caseRealFigure(connectionFigure);
 				if (result == null) result = caseAbstractFigure(connectionFigure);
+				if (result == null) result = casePinOwner(connectionFigure);
 				if (result == null) result = caseFigure(connectionFigure);
 				if (result == null) result = caseLayoutable(connectionFigure);
 				if (result == null) result = defaultCase(theEObject);
@@ -243,6 +245,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				T result = caseDecorationFigure(decorationFigure);
 				if (result == null) result = caseRealFigure(decorationFigure);
 				if (result == null) result = caseAbstractFigure(decorationFigure);
+				if (result == null) result = casePinOwner(decorationFigure);
 				if (result == null) result = caseFigure(decorationFigure);
 				if (result == null) result = caseLayoutable(decorationFigure);
 				if (result == null) result = defaultCase(theEObject);
@@ -253,6 +256,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				T result = caseShape(shape);
 				if (result == null) result = caseRealFigure(shape);
 				if (result == null) result = caseAbstractFigure(shape);
+				if (result == null) result = casePinOwner(shape);
 				if (result == null) result = caseFigure(shape);
 				if (result == null) result = caseLayoutable(shape);
 				if (result == null) result = defaultCase(theEObject);
@@ -263,6 +267,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				T result = caseLabel(label);
 				if (result == null) result = caseRealFigure(label);
 				if (result == null) result = caseAbstractFigure(label);
+				if (result == null) result = casePinOwner(label);
 				if (result == null) result = caseFigure(label);
 				if (result == null) result = caseLayoutable(label);
 				if (result == null) result = defaultCase(theEObject);
@@ -273,6 +278,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				T result = caseLabeledContainer(labeledContainer);
 				if (result == null) result = caseRealFigure(labeledContainer);
 				if (result == null) result = caseAbstractFigure(labeledContainer);
+				if (result == null) result = casePinOwner(labeledContainer);
 				if (result == null) result = caseFigure(labeledContainer);
 				if (result == null) result = caseLayoutable(labeledContainer);
 				if (result == null) result = defaultCase(theEObject);
@@ -284,6 +290,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(rectangle);
 				if (result == null) result = caseRealFigure(rectangle);
 				if (result == null) result = caseAbstractFigure(rectangle);
+				if (result == null) result = casePinOwner(rectangle);
 				if (result == null) result = caseFigure(rectangle);
 				if (result == null) result = caseLayoutable(rectangle);
 				if (result == null) result = defaultCase(theEObject);
@@ -295,6 +302,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(roundedRectangle);
 				if (result == null) result = caseRealFigure(roundedRectangle);
 				if (result == null) result = caseAbstractFigure(roundedRectangle);
+				if (result == null) result = casePinOwner(roundedRectangle);
 				if (result == null) result = caseFigure(roundedRectangle);
 				if (result == null) result = caseLayoutable(roundedRectangle);
 				if (result == null) result = defaultCase(theEObject);
@@ -306,6 +314,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(ellipse);
 				if (result == null) result = caseRealFigure(ellipse);
 				if (result == null) result = caseAbstractFigure(ellipse);
+				if (result == null) result = casePinOwner(ellipse);
 				if (result == null) result = caseFigure(ellipse);
 				if (result == null) result = caseLayoutable(ellipse);
 				if (result == null) result = defaultCase(theEObject);
@@ -317,6 +326,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(polyline);
 				if (result == null) result = caseRealFigure(polyline);
 				if (result == null) result = caseAbstractFigure(polyline);
+				if (result == null) result = casePinOwner(polyline);
 				if (result == null) result = caseFigure(polyline);
 				if (result == null) result = caseLayoutable(polyline);
 				if (result == null) result = defaultCase(theEObject);
@@ -329,6 +339,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(polygon);
 				if (result == null) result = caseRealFigure(polygon);
 				if (result == null) result = caseAbstractFigure(polygon);
+				if (result == null) result = casePinOwner(polygon);
 				if (result == null) result = caseFigure(polygon);
 				if (result == null) result = caseLayoutable(polygon);
 				if (result == null) result = defaultCase(theEObject);
@@ -342,6 +353,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(scalablePolygon);
 				if (result == null) result = caseRealFigure(scalablePolygon);
 				if (result == null) result = caseAbstractFigure(scalablePolygon);
+				if (result == null) result = casePinOwner(scalablePolygon);
 				if (result == null) result = caseFigure(scalablePolygon);
 				if (result == null) result = caseLayoutable(scalablePolygon);
 				if (result == null) result = defaultCase(theEObject);
@@ -355,6 +367,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(polylineConnection);
 				if (result == null) result = caseRealFigure(polylineConnection);
 				if (result == null) result = caseAbstractFigure(polylineConnection);
+				if (result == null) result = casePinOwner(polylineConnection);
 				if (result == null) result = caseFigure(polylineConnection);
 				if (result == null) result = caseLayoutable(polylineConnection);
 				if (result == null) result = defaultCase(theEObject);
@@ -368,6 +381,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(polylineDecoration);
 				if (result == null) result = caseRealFigure(polylineDecoration);
 				if (result == null) result = caseAbstractFigure(polylineDecoration);
+				if (result == null) result = casePinOwner(polylineDecoration);
 				if (result == null) result = caseFigure(polylineDecoration);
 				if (result == null) result = caseLayoutable(polylineDecoration);
 				if (result == null) result = defaultCase(theEObject);
@@ -382,6 +396,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseShape(polygonDecoration);
 				if (result == null) result = caseRealFigure(polygonDecoration);
 				if (result == null) result = caseAbstractFigure(polygonDecoration);
+				if (result == null) result = casePinOwner(polygonDecoration);
 				if (result == null) result = caseFigure(polygonDecoration);
 				if (result == null) result = caseLayoutable(polygonDecoration);
 				if (result == null) result = defaultCase(theEObject);
@@ -411,6 +426,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseRealFigure(customFigure);
 				if (result == null) result = caseCustomClass(customFigure);
 				if (result == null) result = caseAbstractFigure(customFigure);
+				if (result == null) result = casePinOwner(customFigure);
 				if (result == null) result = caseFigure(customFigure);
 				if (result == null) result = caseLayoutable(customFigure);
 				if (result == null) result = defaultCase(theEObject);
@@ -424,6 +440,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseRealFigure(customDecoration);
 				if (result == null) result = caseCustomClass(customDecoration);
 				if (result == null) result = caseAbstractFigure(customDecoration);
+				if (result == null) result = casePinOwner(customDecoration);
 				if (result == null) result = caseFigure(customDecoration);
 				if (result == null) result = caseLayoutable(customDecoration);
 				if (result == null) result = defaultCase(theEObject);
@@ -437,6 +454,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseRealFigure(customConnection);
 				if (result == null) result = caseCustomClass(customConnection);
 				if (result == null) result = caseAbstractFigure(customConnection);
+				if (result == null) result = casePinOwner(customConnection);
 				if (result == null) result = caseFigure(customConnection);
 				if (result == null) result = caseLayoutable(customConnection);
 				if (result == null) result = defaultCase(theEObject);
@@ -637,6 +655,7 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				T result = caseSVGFigure(svgFigure);
 				if (result == null) result = caseRealFigure(svgFigure);
 				if (result == null) result = caseAbstractFigure(svgFigure);
+				if (result == null) result = casePinOwner(svgFigure);
 				if (result == null) result = caseFigure(svgFigure);
 				if (result == null) result = caseLayoutable(svgFigure);
 				if (result == null) result = defaultCase(theEObject);
@@ -651,6 +670,43 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 			case GMFGraphPackage.RECTANGLE2_D: {
 				Rectangle2D rectangle2D = (Rectangle2D)theEObject;
 				T result = caseRectangle2D(rectangle2D);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.PIN: {
+				Pin pin = (Pin)theEObject;
+				T result = casePin(pin);
+				if (result == null) result = caseIdentity(pin);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.CUSTOM_PIN: {
+				CustomPin customPin = (CustomPin)theEObject;
+				T result = caseCustomPin(customPin);
+				if (result == null) result = casePin(customPin);
+				if (result == null) result = caseIdentity(customPin);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.COLOR_PIN: {
+				ColorPin colorPin = (ColorPin)theEObject;
+				T result = caseColorPin(colorPin);
+				if (result == null) result = casePin(colorPin);
+				if (result == null) result = caseIdentity(colorPin);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.VISIBLE_PIN: {
+				VisiblePin visiblePin = (VisiblePin)theEObject;
+				T result = caseVisiblePin(visiblePin);
+				if (result == null) result = casePin(visiblePin);
+				if (result == null) result = caseIdentity(visiblePin);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.PIN_OWNER: {
+				PinOwner pinOwner = (PinOwner)theEObject;
+				T result = casePinOwner(pinOwner);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1735,6 +1791,81 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRectangle2D(Rectangle2D object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePin(Pin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Custom Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Custom Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCustomPin(CustomPin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Color Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Color Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseColorPin(ColorPin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Visible Pin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Visible Pin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVisiblePin(VisiblePin object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Pin Owner</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Pin Owner</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePinOwner(PinOwner object) {
 		return null;
 	}
 

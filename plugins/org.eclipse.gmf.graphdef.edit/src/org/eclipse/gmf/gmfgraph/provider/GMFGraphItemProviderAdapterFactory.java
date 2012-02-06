@@ -1353,6 +1353,75 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.CustomPin} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomPinItemProvider customPinItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.CustomPin}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCustomPinAdapter() {
+		if (customPinItemProvider == null) {
+			customPinItemProvider = new CustomPinItemProvider(this);
+		}
+
+		return customPinItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.ColorPin} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ColorPinItemProvider colorPinItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.ColorPin}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createColorPinAdapter() {
+		if (colorPinItemProvider == null) {
+			colorPinItemProvider = new ColorPinItemProvider(this);
+		}
+
+		return colorPinItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.VisiblePin} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VisiblePinItemProvider visiblePinItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.VisiblePin}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVisiblePinAdapter() {
+		if (visiblePinItemProvider == null) {
+			visiblePinItemProvider = new VisiblePinItemProvider(this);
+		}
+
+		return visiblePinItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1533,6 +1602,9 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (svgFigureItemProvider != null) svgFigureItemProvider.dispose();
 		if (svgPropertyItemProvider != null) svgPropertyItemProvider.dispose();
 		if (rectangle2DItemProvider != null) rectangle2DItemProvider.dispose();
+		if (customPinItemProvider != null) customPinItemProvider.dispose();
+		if (colorPinItemProvider != null) colorPinItemProvider.dispose();
+		if (visiblePinItemProvider != null) visiblePinItemProvider.dispose();
 	}
 
 }
