@@ -1,8 +1,9 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«IMPORT 'http://www.eclipse.org/ocl/1.1.0/Ecore'»
 
 «EXTENSION xpt::diagram::Utils»
+«EXTENSION xpt::GenModelUtils»
 
 «DEFINE VisualEffectEditPolicy FOR gmfgen::GenVisualEffect-»
 «EXPAND xpt::Common::copyright FOR subject.getDiagram().editorGen-»
@@ -36,6 +37,8 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 	«EXPAND getHostImpl-»
 	
 	«EXPAND getExpressionBody-»
+	
+	«EXPAND getContext-»	
 «ENDDEFINE»
 
 «DEFINE setVisualEffectValue FOR gmfgen::GenVisualEffect-»
@@ -65,9 +68,41 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 «DEFINE getExpressionBody FOR gmfgen::GenVisualEffect-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	@Override
-	protected String getExpressionBody() {
-		return «getOclExpressionString()»; «EXPAND xpt::Common::nonNLS»
+	protected String getExpressionBody() {	
+			return 
+	«IF subject.oclIsKindOf(gmfgen::GenLink)-»
+		«EXPAND expressionLinkEnds FOR subject.oclAsType(gmfgen::GenLink).modelFacet-»
+	«ENDIF-»   
+		       «getOclExpressionString()»; «EXPAND xpt::Common::nonNLS»
 	}
+«ENDDEFINE»
+
+«DEFINE expressionLinkEnds FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+
+«DEFINE expressionLinkEnds FOR gmfgen::FeatureLinkModelFacet-»
+	«IF metaFeature.ecoreFeature.upperBound = 1-»
+		«EXPAND expressionLinkEnds('', '.'+metaFeature.ecoreFeature.name)-»
+	«ELSE-»	
+		«LET getReverse(metaFeature) AS reverseMetaFeature-»
+			«IF reverseMetaFeature <> null-»
+				«EXPAND expressionLinkEnds('.'+reverseMetaFeature.ecoreFeature.name, '')-»				
+			«ELSEIF metaFeature.ecoreFeature.oclAsType(ecore::EReference).containment-»
+				«EXPAND expressionLinkEnds('.oclAsType(ecore::EObject).eContainer().oclAsType('+getSourceType().ecoreClass.name+')', '')-»
+			«ELSE-»
+				/* unable to set up both link ends */			
+			«ENDIF-»
+		«ENDLET-»
+	«ENDIF-»	
+«ENDDEFINE»
+
+«DEFINE expressionLinkEnds FOR gmfgen::TypeLinkModelFacet-»
+	«EXPAND expressionLinkEnds('.'+sourceMetaFeature.ecoreFeature.name, '.'+targetMetaFeature.ecoreFeature.name)-»
+«ENDDEFINE»
+
+«DEFINE expressionLinkEnds(sourcePath : String, targetPath : String) FOR gmfgen::LinkModelFacet-»
+		" let _src : «getSourceType().ecoreClass.name» = self«sourcePath» in " //
+				+ " let _dst : «getTargetType().ecoreClass.name» = self«targetPath» in " //
+				+
 «ENDDEFINE»
 
 «DEFINE callOperation FOR gmfgen::GenVisualEffect-»
@@ -81,13 +116,6 @@ getHostImpl().getPrimaryShape().«operationName-»
 		«EXPAND callOperation»(color);
 	«ENDLET-»	
 «ENDDEFINE»
-
-«REM» 
-«DEFINE setVisualEffectValueOnVisiblePin FOR gmfgen::GenVisualEffect-»
-	«EXPAND setVisualEffectValueOfType(self) FOR getOperationRuntimeType()»
-	«EXPAND callOperation»((Boolean)value);	
-«ENDDEFINE»
-«ENDREM»
 
 «DEFINE setVisualEffectValueOnCustomPin FOR gmfgen::GenVisualEffect-»
 	«EXPAND setVisualEffectValueOfType(self) FOR getOperationRuntimeType()»
@@ -122,3 +150,64 @@ getHostImpl().getPrimaryShape().«operationName-»
 	«ENDFOREACH-»
 «ENDDEFINE»
 
+«DEFINE getContext FOR gmfgen::GenVisualEffect-»
+	«IF subject.oclIsKindOf(gmfgen::GenLink)-»
+		«EXPAND getContext FOR subject.oclAsType(gmfgen::GenLink).modelFacet-»
+	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE getContext FOR gmfgen::LinkModelFacet»«ENDDEFINE»
+
+«DEFINE getContext FOR gmfgen::FeatureLinkModelFacet-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	protected org.eclipse.emf.ecore.EObject getContext() {
+	«IF metaFeature.ecoreFeature.upperBound = 1-»
+		«EXPAND getContextBody('source', 'target', getSourceType(), getTargetType(), metaFeature)-»
+	«ELSE-»	
+		«LET getReverse(metaFeature) AS reverseMetaFeature-»
+			«IF reverseMetaFeature <> null or metaFeature.ecoreFeature.oclAsType(ecore::EReference).containment-»
+				«EXPAND getContextBody('target', 'source', getTargetType(), getSourceType(), reverseMetaFeature)-»
+			«ELSE-»
+				// unable to pass both link ends 
+				return null;			
+			«ENDIF-»
+		«ENDLET-»
+	«ENDIF-»	
+	}
+«ENDDEFINE»
+
+
+«DEFINE getContextBody(selfName : String, 
+					   oppositeName : String,
+					   selfType : genmodel::GenClass,
+					   oppositeType : genmodel::GenClass,
+					   selfFeature : genmodel::GenFeature) FOR gmfgen::FeatureLinkModelFacet-»
+		org.eclipse.gmf.runtime.notation.Edge hostModel = (org.eclipse.gmf.runtime.notation.Edge) host().getModel();
+		org.eclipse.gmf.runtime.notation.View targetModel = hostModel.getTarget();
+		org.eclipse.gmf.runtime.notation.View sourceModel = hostModel.getSource();
+
+		if (targetModel == null || sourceModel == null) { 
+			return null;
+		}
+
+		org.eclipse.emf.ecore.EObject «selfName»SemanticModel = org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.resolveSemanticElement(«selfName»Model);
+		// need to check actual opposite of the semantic element, since diagram opposite could be not up to date
+		«REM»(selfFeature = null) if link is multiplicity containment without opposite«ENDREM-»
+		«IF selfFeature <> null-»		 
+			«EXPAND MetaModel::QualifiedClassName FOR selfType» «selfName»TypedModel = «EXPAND MetaModel::CastEObject(selfName + 'SemanticModel') FOR selfType»;
+		«ENDIF-»
+		org.eclipse.emf.ecore.EObject «oppositeName»SemanticModel =
+			«IF selfFeature <> null-»
+				«EXPAND MetaModel::getFeatureValue(selfName + 'TypedModel', oppositeType) FOR selfFeature»
+			«ELSE-»
+				«selfName»SemanticModel.eContainer()
+			«ENDIF-»
+		;				
+
+		if («oppositeName»SemanticModel == null) {
+			return null;
+		}
+
+		return «selfName»SemanticModel; 
+«ENDDEFINE»

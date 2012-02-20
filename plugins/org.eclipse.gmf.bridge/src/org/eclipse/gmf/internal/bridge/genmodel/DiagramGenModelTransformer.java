@@ -589,8 +589,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			genNode.getBehaviour().add(openDiagramPolicy);
 		}
 
+		createVisualEffects(mapping, genNode, mapping.getDiagramNode());
+	}
+
+	private void createVisualEffects(MappingEntry mapping, GenCommonBase genCommon, DiagramElement diagramElement) {
 		for (VisualEffectMapping visualEffectMapping : mapping.getVisualEffects()) {
-			createVisualEffect(genNode, visualEffectMapping);
+			createVisualEffect(genCommon, visualEffectMapping, diagramElement);
 		}
 	}
 
@@ -634,6 +638,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (!rcp) {
 			myNavigatorProcessor.process(gl);
 		}
+
+		createVisualEffects(lme, gl, lme.getDiagramLink());
 	}
 
 	@Override
@@ -665,11 +671,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return label;
 	}
 
-	private void createVisualEffect(GenNode node, VisualEffectMapping mapping) {
+	private void createVisualEffect(GenCommonBase parent, VisualEffectMapping mapping, DiagramElement parentDiagramElement) {
 		addOclToolingPlugin();
-		
+
 		GenVisualEffect visualEffect = GMFGenFactory.eINSTANCE.createGenVisualEffect();
-		node.getBehaviour().add(visualEffect);
+		parent.getBehaviour().add(visualEffect);
 
 		Pin graphPin = mapping.getDiagramPin();
 
@@ -680,7 +686,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		String operationName = graphPin.getOperationName();
 
-		FigureDescriptor graphFigureDescriptor = mapping.getParentNode().getDiagramNode().getFigure();
+		FigureDescriptor graphFigureDescriptor = parentDiagramElement.getFigure();
 
 		if (!hasFigurePin(graphFigureDescriptor.getActualFigure(), graphPin)) {
 			for (ChildAccess graphChildAccess : graphFigureDescriptor.getAccessors()) {
@@ -695,8 +701,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		visualEffect.setOperationType(graphPin.getOperationType());
 		visualEffect.setOclExpression(mapping.getOclExpression());
 
-		String editPolicyQualifiedClassName = node.getDiagram().getEditPoliciesPackageName() + '.'//
-				+ CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(name)) + node.getVisualID() //
+		String editPolicyQualifiedClassName = parent.getDiagram().getEditPoliciesPackageName() + '.'//
+				+ CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(name)) + parent.getVisualID() //
 				+ "Policy";
 
 		visualEffect.setEditPolicyQualifiedClassName(editPolicyQualifiedClassName);
@@ -709,9 +715,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				: (RealFigure) figure;
 		return realFigure.getPins().contains(pin);
 	}
-	
+
 	private void addOclToolingPlugin() {
-		final String pluginId = "org.eclipse.gmf.tooling.runtime.ocl.expressions";
+		final String pluginId = "org.eclipse.gmf.tooling.runtime.ocl";
 		EList<String> reguiredPlugins = getGenEssence().getPlugin().getRequiredPlugins();
 		if (!reguiredPlugins.contains(pluginId)) {
 			reguiredPlugins.add(pluginId);
@@ -1065,7 +1071,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	// XXX perhaps, combining #createValueExpression and #createGenConstraint into a single method makes sense?
 	private ValueExpression createValueExpression(org.eclipse.gmf.mappings.ValueExpression valueExpression) {
 		addOclToolingPlugin();
-		
+
 		if (valueExpression instanceof Constraint) {
 			return createGenConstraint((Constraint) valueExpression);
 		}
