@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.gmfgraph.Pin;
 
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.VisualEffectMapping;
 
@@ -30,7 +31,7 @@ import org.eclipse.gmf.mappings.VisualEffectMapping;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.VisualEffectMappingImpl#getDiagramPin <em>Diagram Pin</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.VisualEffectMappingImpl#getOclExpression <em>Ocl Expression</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.VisualEffectMappingImpl#getParentNode <em>Parent Node</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.VisualEffectMappingImpl#getParentMapEntry <em>Parent Map Entry</em>}</li>
  * </ul>
  * </p>
  *
@@ -150,9 +151,9 @@ public class VisualEffectMappingImpl extends EObjectImpl implements VisualEffect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeMapping getParentNode() {
-		if (eContainerFeatureID() != GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE) return null;
-		return (NodeMapping)eContainer();
+	public MappingEntry getParentMapEntry() {
+		if (eContainerFeatureID() != GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY) return null;
+		return (MappingEntry)eContainer();
 	}
 
 	/**
@@ -163,10 +164,10 @@ public class VisualEffectMappingImpl extends EObjectImpl implements VisualEffect
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE:
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE, msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -179,8 +180,8 @@ public class VisualEffectMappingImpl extends EObjectImpl implements VisualEffect
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE:
-				return eBasicSetContainer(null, GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE, msgs);
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY:
+				return eBasicSetContainer(null, GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,8 +194,8 @@ public class VisualEffectMappingImpl extends EObjectImpl implements VisualEffect
 	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
-			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE:
-				return eInternalContainer().eInverseRemove(this, GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS, NodeMapping.class, msgs);
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY:
+				return eInternalContainer().eInverseRemove(this, GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS, MappingEntry.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -212,8 +213,8 @@ public class VisualEffectMappingImpl extends EObjectImpl implements VisualEffect
 				return basicGetDiagramPin();
 			case GMFMapPackage.VISUAL_EFFECT_MAPPING__OCL_EXPRESSION:
 				return getOclExpression();
-			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE:
-				return getParentNode();
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY:
+				return getParentMapEntry();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -266,8 +267,8 @@ public class VisualEffectMappingImpl extends EObjectImpl implements VisualEffect
 				return diagramPin != null;
 			case GMFMapPackage.VISUAL_EFFECT_MAPPING__OCL_EXPRESSION:
 				return OCL_EXPRESSION_EDEFAULT == null ? oclExpression != null : !OCL_EXPRESSION_EDEFAULT.equals(oclExpression);
-			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE:
-				return getParentNode() != null;
+			case GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY:
+				return getParentMapEntry() != null;
 		}
 		return super.eIsSet(featureID);
 	}

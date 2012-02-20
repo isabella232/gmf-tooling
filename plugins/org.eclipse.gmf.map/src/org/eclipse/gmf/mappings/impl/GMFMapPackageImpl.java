@@ -494,6 +494,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMappingEntry_VisualEffects() {
+		return (EReference)mappingEntryEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNeedsContainment() {
 		return needsContainmentEClass;
 	}
@@ -631,15 +640,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 */
 	public EReference getNodeMapping_Compartments() {
 		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_VisualEffects() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1682,7 +1682,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getVisualEffectMapping_ParentNode() {
+	public EReference getVisualEffectMapping_ParentMapEntry() {
 		return (EReference)visualEffectMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1755,6 +1755,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__DOMAIN_INITIALIZER);
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__LABEL_MAPPINGS);
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__RELATED_DIAGRAMS);
+		createEReference(mappingEntryEClass, MAPPING_ENTRY__VISUAL_EFFECTS);
 
 		needsContainmentEClass = createEClass(NEEDS_CONTAINMENT);
 		createEReference(needsContainmentEClass, NEEDS_CONTAINMENT__CONTAINMENT_FEATURE);
@@ -1776,7 +1777,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(nodeMappingEClass, NODE_MAPPING__DIAGRAM_NODE);
 		createEReference(nodeMappingEClass, NODE_MAPPING__CHILDREN);
 		createEReference(nodeMappingEClass, NODE_MAPPING__COMPARTMENTS);
-		createEReference(nodeMappingEClass, NODE_MAPPING__VISUAL_EFFECTS);
 
 		compartmentMappingEClass = createEClass(COMPARTMENT_MAPPING);
 		createEReference(compartmentMappingEClass, COMPARTMENT_MAPPING__COMPARTMENT);
@@ -1917,7 +1917,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		visualEffectMappingEClass = createEClass(VISUAL_EFFECT_MAPPING);
 		createEReference(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__DIAGRAM_PIN);
 		createEAttribute(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__OCL_EXPRESSION);
-		createEReference(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__PARENT_NODE);
+		createEReference(visualEffectMappingEClass, VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY);
 
 		// Create enums
 		labelTextAccessMethodEEnum = createEEnum(LABEL_TEXT_ACCESS_METHOD);
@@ -2003,6 +2003,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getMappingEntry_DomainInitializer(), this.getElementInitializer(), null, "domainInitializer", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_LabelMappings(), this.getLabelMapping(), this.getLabelMapping_MapEntry(), "labelMappings", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_RelatedDiagrams(), this.getCanvasMapping(), null, "relatedDiagrams", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMappingEntry_VisualEffects(), this.getVisualEffectMapping(), this.getVisualEffectMapping_ParentMapEntry(), "visualEffects", null, 0, -1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(mappingEntryEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -2026,7 +2027,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getNodeMapping_DiagramNode(), theGMFGraphPackage.getNode(), null, "diagramNode", null, 1, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeMapping_Children(), this.getChildReference(), this.getChildReference_ParentNode(), "children", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getNodeMapping_Compartments(), this.getCompartmentMapping(), this.getCompartmentMapping_ParentNode(), "compartments", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_VisualEffects(), this.getVisualEffectMapping(), this.getVisualEffectMapping_ParentNode(), "visualEffects", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(compartmentMappingEClass, CompartmentMapping.class, "CompartmentMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCompartmentMapping_Compartment(), theGMFGraphPackage.getCompartment(), null, "compartment", null, 1, 1, CompartmentMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2167,7 +2167,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(visualEffectMappingEClass, VisualEffectMapping.class, "VisualEffectMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getVisualEffectMapping_DiagramPin(), theGMFGraphPackage.getPin(), null, "diagramPin", null, 1, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getVisualEffectMapping_OclExpression(), ecorePackage.getEString(), "oclExpression", null, 0, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getVisualEffectMapping_ParentNode(), this.getNodeMapping(), this.getNodeMapping_VisualEffects(), "parentNode", null, 1, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getVisualEffectMapping_ParentMapEntry(), this.getMappingEntry(), this.getMappingEntry_VisualEffects(), "parentMapEntry", null, 1, 1, VisualEffectMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(labelTextAccessMethodEEnum, LabelTextAccessMethod.class, "LabelTextAccessMethod");

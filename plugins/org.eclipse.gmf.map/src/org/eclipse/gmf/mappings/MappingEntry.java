@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getLabelMappings <em>Label Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getRelatedDiagrams <em>Related Diagrams</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getVisualEffects <em>Visual Effects</em>}</li>
  * </ul>
  * </p>
  *
@@ -142,6 +143,24 @@ public interface MappingEntry extends EObject {
 	 * @generated
 	 */
 	EList<CanvasMapping> getRelatedDiagrams();
+
+	/**
+	 * Returns the value of the '<em><b>Visual Effects</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.VisualEffectMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentMapEntry <em>Parent Map Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Visual Effects</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Visual Effects</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_VisualEffects()
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getParentMapEntry
+	 * @model opposite="parentMapEntry" containment="true"
+	 * @generated
+	 */
+	EList<VisualEffectMapping> getVisualEffects();
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -24,6 +24,7 @@ import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.VisualEffectMapping;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,6 +38,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getLabelMappings <em>Label Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getRelatedDiagrams <em>Related Diagrams</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getVisualEffects <em>Visual Effects</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,6 +94,16 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @ordered
 	 */
 	protected EList<CanvasMapping> relatedDiagrams;
+
+	/**
+	 * The cached value of the '{@link #getVisualEffects() <em>Visual Effects</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVisualEffects()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VisualEffectMapping> visualEffects;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -263,6 +275,18 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<VisualEffectMapping> getVisualEffects() {
+		if (visualEffects == null) {
+			visualEffects = new EObjectContainmentWithInverseEList<VisualEffectMapping>(VisualEffectMapping.class, this, GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS, GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY);
+		}
+		return visualEffects;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public abstract EClass getDomainContext();
@@ -278,6 +302,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 		switch (featureID) {
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLabelMappings()).basicAdd(otherEnd, msgs);
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getVisualEffects()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -296,6 +322,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return basicSetDomainInitializer(null, msgs);
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
 				return ((InternalEList<?>)getLabelMappings()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
+				return ((InternalEList<?>)getVisualEffects()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -319,6 +347,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return getLabelMappings();
 			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
 				return getRelatedDiagrams();
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
+				return getVisualEffects();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -349,6 +379,10 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				getRelatedDiagrams().clear();
 				getRelatedDiagrams().addAll((Collection<? extends CanvasMapping>)newValue);
 				return;
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
+				getVisualEffects().clear();
+				getVisualEffects().addAll((Collection<? extends VisualEffectMapping>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -376,6 +410,9 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
 				getRelatedDiagrams().clear();
 				return;
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
+				getVisualEffects().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -398,6 +435,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return labelMappings != null && !labelMappings.isEmpty();
 			case GMFMapPackage.MAPPING_ENTRY__RELATED_DIAGRAMS:
 				return relatedDiagrams != null && !relatedDiagrams.isEmpty();
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
+				return visualEffects != null && !visualEffects.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

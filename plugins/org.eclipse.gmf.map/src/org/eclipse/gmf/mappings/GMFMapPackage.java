@@ -232,13 +232,22 @@ public interface GMFMapPackage extends EPackage {
 	int MAPPING_ENTRY__RELATED_DIAGRAMS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Visual Effects</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING_ENTRY__VISUAL_EFFECTS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Mapping Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAPPING_ENTRY_FEATURE_COUNT = 5;
+	int MAPPING_ENTRY_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.NeedsContainment <em>Needs Containment</em>}' class.
@@ -497,6 +506,15 @@ public interface GMFMapPackage extends EPackage {
 	int NODE_MAPPING__RELATED_DIAGRAMS = MAPPING_ENTRY__RELATED_DIAGRAMS;
 
 	/**
+	 * The feature id for the '<em><b>Visual Effects</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_MAPPING__VISUAL_EFFECTS = MAPPING_ENTRY__VISUAL_EFFECTS;
+
+	/**
 	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -551,22 +569,13 @@ public interface GMFMapPackage extends EPackage {
 	int NODE_MAPPING__COMPARTMENTS = MAPPING_ENTRY_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Visual Effects</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_MAPPING__VISUAL_EFFECTS = MAPPING_ENTRY_FEATURE_COUNT + 6;
-
-	/**
 	 * The number of structural features of the '<em>Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 7;
+	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Compartment</b></em>' reference.
@@ -648,6 +657,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @ordered
 	 */
 	int LINK_MAPPING__RELATED_DIAGRAMS = MAPPING_ENTRY__RELATED_DIAGRAMS;
+
+	/**
+	 * The feature id for the '<em><b>Visual Effects</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MAPPING__VISUAL_EFFECTS = MAPPING_ENTRY__VISUAL_EFFECTS;
 
 	/**
 	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
@@ -2121,13 +2139,13 @@ public interface GMFMapPackage extends EPackage {
 	int VISUAL_EFFECT_MAPPING__OCL_EXPRESSION = 1;
 
 	/**
-	 * The feature id for the '<em><b>Parent Node</b></em>' container reference.
+	 * The feature id for the '<em><b>Parent Map Entry</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VISUAL_EFFECT_MAPPING__PARENT_NODE = 2;
+	int VISUAL_EFFECT_MAPPING__PARENT_MAP_ENTRY = 2;
 
 	/**
 	 * The number of structural features of the '<em>Visual Effect Mapping</em>' class.
@@ -2234,6 +2252,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMappingEntry_RelatedDiagrams();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.MappingEntry#getVisualEffects <em>Visual Effects</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Visual Effects</em>'.
+	 * @see org.eclipse.gmf.mappings.MappingEntry#getVisualEffects()
+	 * @see #getMappingEntry()
+	 * @generated
+	 */
+	EReference getMappingEntry_VisualEffects();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.NeedsContainment <em>Needs Containment</em>}'.
@@ -2405,17 +2434,6 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNodeMapping_Compartments();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.NodeMapping#getVisualEffects <em>Visual Effects</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Visual Effects</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getVisualEffects()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_VisualEffects();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.CompartmentMapping <em>Compartment Mapping</em>}'.
@@ -3650,15 +3668,15 @@ public interface GMFMapPackage extends EPackage {
 	EAttribute getVisualEffectMapping_OclExpression();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode <em>Parent Node</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentMapEntry <em>Parent Map Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Parent Node</em>'.
-	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode()
+	 * @return the meta object for the container reference '<em>Parent Map Entry</em>'.
+	 * @see org.eclipse.gmf.mappings.VisualEffectMapping#getParentMapEntry()
 	 * @see #getVisualEffectMapping()
 	 * @generated
 	 */
-	EReference getVisualEffectMapping_ParentNode();
+	EReference getVisualEffectMapping_ParentMapEntry();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.LabelTextAccessMethod <em>Label Text Access Method</em>}'.

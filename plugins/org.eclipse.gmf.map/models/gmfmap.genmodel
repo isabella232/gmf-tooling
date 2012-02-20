@@ -45,6 +45,7 @@
           ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/domainInitializer"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/labelMappings"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/relatedDiagrams"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/visualEffects"/>
       <genOperations ecoreOperation="gmfmap.ecore#//MappingEntry/getDomainContext"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//NeedsContainment">
@@ -68,7 +69,6 @@
           ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/diagramNode"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/children"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/compartments"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/visualEffects"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//CompartmentMapping">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
@@ -228,7 +228,7 @@
     <genClasses ecoreClass="gmfmap.ecore#//VisualEffectMapping">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//VisualEffectMapping/diagramPin"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute gmfmap.ecore#//VisualEffectMapping/oclExpression"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//VisualEffectMapping/parentNode"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//VisualEffectMapping/parentMapEntry"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
