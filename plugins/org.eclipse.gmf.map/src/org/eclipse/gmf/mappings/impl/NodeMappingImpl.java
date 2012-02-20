@@ -24,7 +24,6 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.MenuOwner;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.ToolOwner;
-import org.eclipse.gmf.mappings.VisualEffectMapping;
 import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.ContextMenu;
 import org.eclipse.gmf.tooldef.StyleSelector;
@@ -42,7 +41,6 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getCompartments <em>Compartments</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getVisualEffects <em>Visual Effects</em>}</li>
  * </ul>
  * </p>
  *
@@ -108,16 +106,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @ordered
 	 */
 	protected EList<CompartmentMapping> compartments;
-
-	/**
-	 * The cached value of the '{@link #getVisualEffects() <em>Visual Effects</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getVisualEffects()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<VisualEffectMapping> visualEffects;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -319,18 +307,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<VisualEffectMapping> getVisualEffects() {
-		if (visualEffects == null) {
-			visualEffects = new EObjectContainmentWithInverseEList<VisualEffectMapping>(VisualEffectMapping.class, this, GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS, GMFMapPackage.VISUAL_EFFECT_MAPPING__PARENT_NODE);
-		}
-		return visualEffects;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@SuppressWarnings("unchecked")
 		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -339,8 +315,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildren()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getCompartments()).basicAdd(otherEnd, msgs);
-			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getVisualEffects()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -357,8 +331,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				return ((InternalEList<?>)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				return ((InternalEList<?>)getCompartments()).basicRemove(otherEnd, msgs);
-			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
-				return ((InternalEList<?>)getVisualEffects()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -387,8 +359,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				return getChildren();
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				return getCompartments();
-			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
-				return getVisualEffects();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -422,10 +392,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				getCompartments().clear();
 				getCompartments().addAll((Collection<? extends CompartmentMapping>)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
-				getVisualEffects().clear();
-				getVisualEffects().addAll((Collection<? extends VisualEffectMapping>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -456,9 +422,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				getCompartments().clear();
 				return;
-			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
-				getVisualEffects().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -483,8 +446,6 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 				return children != null && !children.isEmpty();
 			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
 				return compartments != null && !compartments.isEmpty();
-			case GMFMapPackage.NODE_MAPPING__VISUAL_EFFECTS:
-				return visualEffects != null && !visualEffects.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

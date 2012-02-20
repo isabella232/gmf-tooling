@@ -144,6 +144,7 @@ public class MappingEntryItemProvider
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_DomainSpecialization());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_DomainInitializer());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_VisualEffects());
 		}
 		return childrenFeatures;
 	}
@@ -187,6 +188,7 @@ public class MappingEntryItemProvider
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_SPECIALIZATION:
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER:
 			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+			case GMFMapPackage.MAPPING_ENTRY__VISUAL_EFFECTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -233,6 +235,11 @@ public class MappingEntryItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
 				 GMFMapFactory.eINSTANCE.createExpressionLabelMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getMappingEntry_VisualEffects(),
+				 GMFMapFactory.eINSTANCE.createVisualEffectMapping()));
 	}
 
 	/**

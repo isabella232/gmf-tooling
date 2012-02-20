@@ -68,6 +68,8 @@
         <details key="documentation" value="Diagrams that may be associated with this diagram element. It's up to client application to define what this association means (e.g. open diagram)"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="visualEffects" upperBound="-1"
+        eType="#//VisualEffectMapping" containment="true" eOpposite="#//VisualEffectMapping/parentMapEntry"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NeedsContainment" abstract="true" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
@@ -139,8 +141,6 @@
         eType="#//ChildReference" containment="true" eOpposite="#//ChildReference/parentNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"
         eType="#//CompartmentMapping" containment="true" eOpposite="#//CompartmentMapping/parentNode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="visualEffects" upperBound="-1"
-        eType="#//VisualEffectMapping" containment="true" eOpposite="#//VisualEffectMapping/parentNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompartmentMapping">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
@@ -724,7 +724,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramPin" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Pin"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
-        eType="#//NodeMapping" changeable="false" eOpposite="#//NodeMapping/visualEffects"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentMapEntry" lowerBound="1"
+        eType="#//MappingEntry" changeable="false" eOpposite="#//MappingEntry/visualEffects"/>
   </eClassifiers>
 </ecore:EPackage>

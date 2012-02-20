@@ -58,6 +58,8 @@ abstract class MappingEntry {
 	ref CanvasMapping[*] relatedDiagrams;
 
 	// ref ecore.EClass drtClass; -> extract to interface NotationInstanceAspect, and use it in CanvasMapping
+	
+	val VisualEffectMapping[*]#parentMapEntry visualEffects;	
 }
 
 abstract interface NeedsContainment {
@@ -107,8 +109,6 @@ class NodeMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward 
 	
 	val CompartmentMapping[*]#parentNode compartments;
 //FIXME no containment feature - persist in resource then. Was: @constraints(ocl="not containmentFeature.oclIsUndefined() ", description="The child node mapping containmentFeature must be set")
-
-	val VisualEffectMapping[*]#parentNode visualEffects; 
 }
 
 class CompartmentMapping {
@@ -450,5 +450,5 @@ class VisualEffectMapping {
    	ref gmfgraph.Pin[1] diagramPin;
  	attr String oclExpression;
  	
- 	readonly ref NodeMapping[1]#visualEffects parentNode;
+ 	readonly ref MappingEntry[1]#visualEffects parentMapEntry;
 }

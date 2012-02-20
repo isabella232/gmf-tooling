@@ -20,7 +20,7 @@ import org.eclipse.gmf.gmfgraph.Pin;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.VisualEffectMapping#getDiagramPin <em>Diagram Pin</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.VisualEffectMapping#getOclExpression <em>Ocl Expression</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentNode <em>Parent Node</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.VisualEffectMapping#getParentMapEntry <em>Parent Map Entry</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,20 +82,20 @@ public interface VisualEffectMapping extends EObject {
 	void setOclExpression(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Parent Node</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.NodeMapping#getVisualEffects <em>Visual Effects</em>}'.
+	 * Returns the value of the '<em><b>Parent Map Entry</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.MappingEntry#getVisualEffects <em>Visual Effects</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Parent Node</em>' container reference isn't clear,
+	 * If the meaning of the '<em>Parent Map Entry</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent Node</em>' container reference.
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getVisualEffectMapping_ParentNode()
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getVisualEffects
+	 * @return the value of the '<em>Parent Map Entry</em>' container reference.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getVisualEffectMapping_ParentMapEntry()
+	 * @see org.eclipse.gmf.mappings.MappingEntry#getVisualEffects
 	 * @model opposite="visualEffects" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
-	NodeMapping getParentNode();
+	MappingEntry getParentMapEntry();
 
 } // VisualEffectMapping
