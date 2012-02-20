@@ -124,6 +124,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			for (GenLinkLabel label : next.getLabels()) {
 				generateLinkLabelEditPart(label);
 			}
+			generateVisualEffectEditPolicies(next);
 		}
 		generateDiagram();
 		//
@@ -280,7 +281,11 @@ public class Generator extends GeneratorBase implements Runnable {
 				generateNodeLabelEditPart(label);
 			}
 		}
-		for (Behaviour behaviour : node.getBehaviour()) {
+		generateVisualEffectEditPolicies(node);
+	}
+	
+	private void generateVisualEffectEditPolicies(GenCommonBase commonBase) throws InterruptedException {
+		for (Behaviour behaviour : commonBase.getBehaviour()) {
 			if (behaviour instanceof GenVisualEffect) {
 				GenVisualEffect visualEffect = (GenVisualEffect) behaviour;
 				generateVisualEffectEditPolicy(visualEffect);
