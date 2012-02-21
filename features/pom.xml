@@ -34,6 +34,8 @@
 		<module>org.eclipse.gmf.sdk-feature</module>
 		<module>org.eclipse.gmf.tooling.source-feature</module>
 		<module>org.eclipse.gmf.tooling-feature</module>
+		<module>org.eclipse.gmf.tooling.runtime.source-feature</module>
+		<module>org.eclipse.gmf.tooling.runtime-feature</module>
 		<!-- module>org.eclipse.gmf.xpand-feature</module -->
 		<module>org.eclipse.gmf.examples-feature</module>
 		<module>org.eclipse.gmf.examples.pde-feature</module>
