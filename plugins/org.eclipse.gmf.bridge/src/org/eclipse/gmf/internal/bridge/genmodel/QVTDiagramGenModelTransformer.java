@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.m2m.internal.qvt.oml.InternalTransformationExecutor;
 import org.eclipse.m2m.internal.qvt.oml.trace.Trace;
@@ -40,8 +41,9 @@ public class QVTDiagramGenModelTransformer {
 	private final ResourceSet resourceSet;
 	private Registry registry;
 	
-	public QVTDiagramGenModelTransformer(ResourceSet resourceSet) {
+	public QVTDiagramGenModelTransformer(ResourceSet resourceSet, VisualIdentifierDispenser idDespenser) {
 		this.resourceSet = resourceSet;
+		VisualIdentifierDispenserFacade.Provider.setDispenser(idDespenser);
 	}
 	
 	public ExecutionDiagnostic transform(final Mapping m, final GenModel genModel, final ModelExtent output, final ExecutionContext context) {
@@ -86,30 +88,18 @@ public class QVTDiagramGenModelTransformer {
 		if (outputGenModel == null) {
 			return result;
 		}
-//		final QvtBridgeExtensionContentAdapter adapter = new QvtBridgeExtensionContentAdapter();
-//		outputGenModel.eAdapters().add(adapter);
+		
 		output = getModelExtent(outputGenModel);
 		for (URI extension: extensions) {
 			final InternalTransformationExecutor exec = registry == null ? 
 					new InternalTransformationExecutor(extension) : new InternalTransformationExecutor(extension, registry);
 			exec.loadTransformation();
-			
-//			adapter.errors().clear();
+
 			if (1 == exec.getTransformation().getModelParameter().size()) {
 				result = exec.execute(context, output);
 			} else {
 				result = exec.execute(context, getModelExtent(m), getModelExtent(myTrace), output);
 			}
-			
-//			if (!adapter.errors().isEmpty()) {
-//				result = new ExecutionDiagnosticImpl(
-//					Diagnostic.ERROR,
-//					0,
-//					"Extension transformation should not modify already set values",
-//					adapter.errors().toArray()
-//				);
-//				return result;
-//			}
 		}
 		
 		return result;

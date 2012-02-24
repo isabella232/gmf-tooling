@@ -193,7 +193,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		node.putBoolean(PREF_USE_RUNTIME_FIGURES, true);
 		node.putBoolean(PREF_IGNORE_MAPMODEL_VALIDATION, false);
 		node.putBoolean(PREF_IGNORE_GMFGEN_VALIDATION, false);
-
+		node.putBoolean(PREF_USE_IN_TRANSFORMATION_CODE_GEN, true);
 	}
 	
 	static boolean checkLiteOptionPresent() {

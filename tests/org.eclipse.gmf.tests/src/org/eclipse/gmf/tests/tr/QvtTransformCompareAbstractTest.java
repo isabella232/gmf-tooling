@@ -64,8 +64,12 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	
 	public void setUp() throws Exception {
 		super.setUp();
-		expectedGenerator = executeBaseTransformation();
-		actualGenerator = executeQvtTransformation();
+		Transformation java = getJavaTransformation(false);
+		expectedGenerator = java.execute();
+		java.saveGenEditor("java");
+		Transformation qvt = getQvtTransformation(false);
+		actualGenerator = qvt.execute();
+		qvt.saveGenEditor("qvt");
 	}
 
 	public void testGenAuditRoot() {
@@ -85,11 +89,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenTopLevelNode() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
-
-		GenDiagram expectedDiagram = expectedGenEditor.getDiagram();
-		GenDiagram actualDiagram = actualGenEditor.getDiagram();
+		GenDiagram expectedDiagram = expectedGenerator.getDiagram();
+		GenDiagram actualDiagram = actualGenerator.getDiagram();
 
 		assertNotNull(expectedDiagram);
 		assertNotNull(actualDiagram);
@@ -113,8 +114,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenChildNode() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenDiagram expectedDiagram = expectedGenEditor.getDiagram();
 		GenDiagram actualDiagram = actualGenEditor.getDiagram();
@@ -149,8 +150,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenLink() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 		
 		GenDiagram expectedDiagram = expectedGenEditor.getDiagram();
 		GenDiagram actualDiagram = actualGenEditor.getDiagram();
@@ -175,8 +176,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenNavigator() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 		
 		GenNavigator baseNavigator = expectedGenEditor.getNavigator();
 		GenNavigator qvtNavigator = actualGenEditor.getNavigator();
@@ -185,8 +186,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenNavigatorChildReferences() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenNavigator expected = expectedGenEditor.getNavigator();
 		GenNavigator actual = actualGenEditor.getNavigator();
@@ -220,8 +221,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenPlugin() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 		
 		GenPlugin basePlugin = expectedGenEditor.getPlugin();
 		GenPlugin qvtPlugin = actualGenEditor.getPlugin();
@@ -231,8 +232,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenPropertySheet() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenPropertySheet basePropSheet = expectedGenEditor.getPropertySheet();
 		GenPropertySheet qvtPropSheet = actualGenEditor.getPropertySheet();
@@ -247,8 +248,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenPropertySheetTabs() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 		
 		GenPropertySheet expected = expectedGenEditor.getPropertySheet();
 		GenPropertySheet actual = actualGenEditor.getPropertySheet();
@@ -269,8 +270,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenDiagramPalette() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		Palette expected = expectedGenEditor.getDiagram().getPalette();
 		Palette actual = actualGenEditor.getDiagram().getPalette();
@@ -279,8 +280,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenDiagramPaletteToolGroup() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		Palette basePalette = expectedGenEditor.getDiagram().getPalette();
 		Palette qvtPalette = actualGenEditor.getDiagram().getPalette();
@@ -315,8 +316,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenDiagramUpdater() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 		
 		GenDiagramUpdater baseUpdater = expectedGenEditor.getDiagramUpdater();
 		GenDiagramUpdater qvtUpdater = actualGenEditor.getDiagramUpdater();
@@ -326,8 +327,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenEditorView() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenEditorView baseEditor = expectedGenEditor.getEditor();
 		GenEditorView qvtEditor = actualGenEditor.getEditor();
@@ -343,8 +344,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testLabelGenParsers() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenParsers baseParser = expectedGenEditor.getLabelParsers();
 		GenParsers qvtParser = actualGenEditor.getLabelParsers();
@@ -364,8 +365,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenContextMenu() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		EList<GenContextMenu> baseContexts = expectedGenEditor.getContextMenus();
 		EList<GenContextMenu> qvtContexts = actualGenEditor.getContextMenus();
@@ -381,8 +382,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenDiagramAttributes() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenDiagram baseDiagram = expectedGenEditor.getDiagram();
 		GenDiagram qvtDiagram = actualGenEditor.getDiagram();
@@ -391,8 +392,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenExpressionProviderContainer() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		GenExpressionProviderContainer baseExpr = expectedGenEditor.getExpressionProviders();
 		GenExpressionProviderContainer qvtExpr = actualGenEditor.getExpressionProviders();
@@ -418,8 +419,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenCompartments() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		EList<GenCompartment> expected = expectedGenEditor.getDiagram().getCompartments();
 		EList<GenCompartment> actual = actualGenEditor.getDiagram().getCompartments();
@@ -432,8 +433,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenDiagramBehaviour() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		EList<Behaviour> expected = expectedGenEditor.getDiagram().getBehaviour();
 		EList<Behaviour> actual = actualGenEditor.getDiagram().getBehaviour();
@@ -446,8 +447,8 @@ public abstract class QvtTransformCompareAbstractTest extends QvtTransformCompar
 	}
 
 	public void testGenDiagramAssistantNodes() {
-		GenEditorGenerator expectedGenEditor = executeBaseTransformation();
-		GenEditorGenerator actualGenEditor = executeQvtTransformation();
+		GenEditorGenerator expectedGenEditor = expectedGenerator;
+		GenEditorGenerator actualGenEditor = actualGenerator;
 
 		EList<GenNode> expected = expectedGenEditor.getDiagram().getAssistantNodes();
 		EList<GenNode> actual = actualGenEditor.getDiagram().getAssistantNodes();

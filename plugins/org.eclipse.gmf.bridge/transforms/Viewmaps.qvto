@@ -21,8 +21,6 @@ modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
 library Viewmaps;
 
-property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/'};
-
 helper viewmaps(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiagram) {
 	
 	genDiagram.viewmap := mapRoot.diagram.diagramCanvas.map viewmap();
@@ -56,6 +54,7 @@ helper viewmaps(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiag
 		link.labels->forEach(label) {
 			var labelMapping := label.invresolveone(LabelMapping);
 			label.viewmap := labelMapping.diagramLabel.viewmap();
+			label.viewmap.attributes += labelMapping.diagramLabel.labelOffSetAttributes(link.labels->indexOf(label));
 		}
 	};
 		
@@ -97,12 +96,6 @@ helper GMFGRAPH::Node::viewmap(): GMFGEN::Viewmap {
 	rs.layoutType := self.getLayoutType();
 	rs.attributes += if self.hasResizeConstraints() then self.map resizeConstraints() endif;
 	rs.attributes += if self.hasDefaultSize() then self.map defaultSize() endif;
-
---	} else {
---		rv := object GMFGEN::ModeledViewmap {
---			figureModel := self.oclAsType(EObject);
---		}
---	} endif;
 	
 	return rs;
 }
@@ -197,27 +190,29 @@ helper GMFGRAPH::DiagramLabel::viewmap(): GMFGEN::Viewmap {
 		rs := object GMFGEN::FigureViewmap {
 			figureQualifiedClassName := "org.eclipse.draw2d.Label"
 		}
-	endif;
-			
-	if self.accessor.oclIsUndefined() then 
-		rs := self.figure.viewmap()
 	else
-	-- for GenLinkLabel, need to specify alignment based on AlignmentFacet
-	-- besides, need to create LabelOffsetAttributes and optionally populate it from LabelOffsetFacet
-		rs := self.figure.viewmap(self.accessor)
+		if self.accessor.oclIsUndefined() then 
+			rs := self.figure.viewmap()
+		else
+			-- for GenLinkLabel, need to specify alignment based on AlignmentFacet
+			-- besides, need to create LabelOffsetAttributes and optionally populate it from LabelOffsetFacet
+			rs := self.figure.viewmap(self.accessor)
+		endif
 	endif;
 	
-	rs.attributes += object LabelOffsetAttributes {
+	return rs;
+}
+
+helper DiagramLabel::labelOffSetAttributes(position: Integer): LabelOffsetAttributes {
+	return object LabelOffsetAttributes {
 		var offsetFacet := self.findOffsetFacet();
 		if not offsetFacet.oclIsUndefined()	then {
 			x := offsetFacet.x;
 			y := offsetFacet.y;
 		} else {
-			y := (self.findIndex() + 1) * 20;
+			y := (position + 1) * 20;
 		} endif;
 	};
-	
-	return rs;
 }
 
 --	=================================================================================================
@@ -229,11 +224,11 @@ helper GMFGRAPH::FigureDescriptor::viewmap() : GMFGEN::Viewmap {
 	
 	if self.actualFigure.isBareInstance() then { 
 		rs := object GMFGEN::FigureViewmap {
-			figureQualifiedClassName := self.actualFigure.xpand('Runtime::fqn', templateRoots);
+			figureQualifiedClassName := self.actualFigure.xpand('Runtime::fqn', templates());
 		}
 	} else {
 		rs := object GMFGEN::InnerClassViewmap { 
-			classBody := self.xpand('top::Descriptor::Inner', templateRoots);
+			classBody := self.xpand('top::Descriptor::Inner', templates());
 			className := self.name.firstToUpper(); -- FIXME InnerClassViewmapProducer has validJavaIdentifier(capName())
 		};
 	} endif;
@@ -256,18 +251,13 @@ helper GMFGRAPH::Figure::createStyleAttributes() : GMFGEN::StyleAttributes {
 	return attributes;
 }
 
-helper GMFGRAPH::FigureDescriptor::viewmap(childAccess : GMFGRAPH::ChildAccess) : GMFGEN::Viewmap {
-	return
---	if useInTransformationCodeGen then
-		object GMFGEN::ParentAssignedViewmap {
-			getterName := childAccess.accessor;
-			figureQualifiedClassName := childAccess.figure.xpand('Runtime::fqn', templateRoots);
-			attributes := childAccess.figure.createStyleAttributes();
-		}
---	else object GMFGEN::ModeledViewmap {
---		figureModel := self.oclAsType(EObject);
---	} endif;
-}
+helper GMFGRAPH::FigureDescriptor::viewmap(childAccess : GMFGRAPH::ChildAccess) : GMFGEN::Viewmap =
+	object GMFGEN::ParentAssignedViewmap {
+		getterName := childAccess.accessor;
+		figureQualifiedClassName := childAccess.figure.xpand('Runtime::fqn', templates());
+		attributes := childAccess.figure.createStyleAttributes();
+	};
+
 query GMFGRAPH::Figure::isBareInstance() : Boolean { return false; }
 query GMFGRAPH::RealFigure::isBareInstance() : Boolean {
 	if self.children->notEmpty() then return false endif;
@@ -320,3 +310,17 @@ query DiagramElement::findIndex(): Integer {
 	
 	return 0;
 }
+
+--	=================================================================================================
+--	Templates
+--	=================================================================================================
+property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/'};
+property mapModeTemplateRoots : String = 'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/rt_mm/';
+property useMapMode : Boolean = false;
+
+helper setMapMode(mapMode: Boolean) {
+	this.useMapMode := mapMode;
+	return;
+}
+query templates(): Sequence(String) =
+	if useMapMode then this.templateRoots->prepend(this.mapModeTemplateRoots) else this.templateRoots endif;

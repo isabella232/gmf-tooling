@@ -80,6 +80,7 @@ import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.PluginXMLTextMergerTest;
 import org.eclipse.gmf.tests.tr.QvtGenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.QvtGenModelTransformerSimpleTest;
+import org.eclipse.gmf.tests.tr.QvtGenModelTransformerVisualIDWithTraceTest;
 import org.eclipse.gmf.tests.tr.QvtLabelMappingTransformTest;
 import org.eclipse.gmf.tests.tr.QvtPaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.QvtTransformComparisonAudtisTest;
@@ -210,6 +211,7 @@ public class AllTests {
         suite.addTestSuite(QvtTransformComparisonCompartmentRefNodeTest.class);
         suite.addTestSuite(QvtTransformComparisonFullTest.class);
         suite.addTestSuite(QvtTransformModeledViewmapTest.class);
+        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
         
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
@@ -307,6 +309,7 @@ public class AllTests {
 		c.register(QvtTransformComparisonCompartmentRefNodeTest.class, SessionSetup.class);
 		c.register(QvtTransformComparisonFullTest.class, SessionSetup.class);
 		c.register(QvtTransformModeledViewmapTest.class, SessionSetup.class);
+		c.register(QvtGenModelTransformerVisualIDWithTraceTest.class, SessionSetup.class);
 		
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		c.register(TestAllDerivedFeatures.class, SessionSetup.class);

@@ -260,7 +260,7 @@ public class TransformToGenModelOperation {
 			idDispenser.acquire();
 
 			GenModelProducer t = createGenModelProducer(idDispenser);
-
+			
 			monitor.subTask(Messages.TransformToGenModelOperation_task_generate);
 			GenEditorGenerator genEditor = t.process(getMapping(), new SubProgressMonitor(monitor, 20));
 			if (monitor.isCanceled()) {
@@ -396,8 +396,8 @@ public class TransformToGenModelOperation {
 			context.setConfigProperty("useFullRunTime", getOptions().getUseRuntimeFigures());
 			context.setConfigProperty("useInTransformationCodeGen", getOptions().getUseInTransformationCodeGen());
 			
-			final QVTDiagramGenModelTransformer transformer = new QVTDiagramGenModelTransformer(getResourceSet());
-
+			final QVTDiagramGenModelTransformer transformer = new QVTDiagramGenModelTransformer(getResourceSet(), idDespenser.get());
+			
 			return new GenModelProducer() {
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
 					progress.beginTask(null, 1);

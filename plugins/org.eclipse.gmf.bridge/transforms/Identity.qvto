@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Borland Software Corporation
+ * Copyright (c) 2009 Borland Software Corporation & others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,26 +8,16 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Guillaume Hillairet (Montages A.G.) 
  */
 import Map2GenMappings; 
- 
+import gmf.VisualIdentifierDispenser;
+
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
-modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
 library Identity;
-
--- *************************************************************************************
--- Visual ID
--- *************************************************************************************
-
-property topNodeID: Integer = 2000;
-property childNodeID: Integer = 3000;
-property linkNodeID: Integer = 4000;
-property nodeLabelID: Integer = 5000;
-property linkLabelID: Integer = 6000;
-property compartmentID: Integer = 7000;
 
 -- *************************************************************************************
 -- Visual Identity
@@ -42,8 +32,9 @@ helper GMFMAP::Mapping::visualIdentity() {
 	self.diagram.resolveone(GenDiagram).visualID := 1000;
 	
 	self.nodes->collect(e |
-		if e.resolveone(GenTopLevelNode).visualID = 0 then {
-		 	e.resolveone(GenTopLevelNode).visualID := topNodeID();
+		if e.resolveone(GenTopLevelNode).visualID <= 0 then {
+		 	var genNode := e.resolveone(GenTopLevelNode);
+		 	genNode.visualID := genNode.getVisualID();
 			e.child.children->collect(visualIdentity());
 			e.child.labelMappings->collect(visualIdentity(e));
 		} endif
@@ -59,17 +50,18 @@ helper GMFMAP::Mapping::visualIdentity() {
 helper GMFMAP::ChildReference::visualIdentity() {
 	var node := self.findProcessableChildReference();
 	if not node.oclIsUndefined() then
-		if node.map structure(node.child).visualID = 0 then {
-			if not node.referencedChild.oclIsUndefined() then
-				node.map structure(node.child).visualID := childNodeID()
-			else {	
-				node.map structure(node.child).visualID := childNodeID();
+		if node.map structure(node.child).visualID <= 0 then {
+			if not node.referencedChild.oclIsUndefined() then {
+				var genNode := node.map structure(node.child);
+				genNode.visualID := genNode.getVisualID();
+			} else {
+				var genNode := node.map structure(node.child);
+				genNode.visualID := genNode.getVisualID();
 				node.child.children->collect(e |
 					if e.needVisualID() then e.visualIdentity() endif
 				);
 			} endif;
 			node.map structure(node.child).labels->collect(e | visualIdentity(e));
-			-- node.child.labelMappings->collect(visualIdentity(node));
 		} endif
 	endif
 }
@@ -78,63 +70,40 @@ query ChildReference::needVisualID(): Boolean {
 	var node := self.findProcessableChildReference();
 	return 
 		if node.oclIsUndefined() then false else
-			node.map structure(node.child).visualID = 0
+			node.map structure(node.child).visualID <= 0
 		endif
 }
 
 helper visualIdentity(inout genNode: GMFGEN::GenNodeLabel) {
-	if genNode.visualID = 0 then
-		genNode.visualID := nodeLabelID()
-	endif;
+	if genNode.visualID <= 0 then {
+		genNode.visualID := genNode.getVisualID();
+	} endif;
 }
 
 helper GMFMAP::LabelMapping::visualIdentity(node: GMFMAP::NodeReference) {
-	if self.map createNodeLabel(node).visualID = 0 then
-		self.map createNodeLabel(node).visualID := nodeLabelID()
-	endif;
+	if self.map createNodeLabel(node).visualID <= 0 then {
+		var genNode := self.map createNodeLabel(node);
+		genNode.visualID := genNode.getVisualID();
+	} endif;
 }
 
 helper visualIdentity(inout label: GenLinkLabel) {
-	if label.visualID = 0 then
-		label.visualID := linkLabelID()
+	if label.visualID <= 0 then
+		label.visualID := label.getVisualID()
 	endif;
 }
 
 helper GMFMAP::LinkMapping::visualIdentity() {
-	if self.map structure().visualID = 0 then {
-		self.map structure().visualID := linkNodeID();
+	if self.map structure().visualID <= 0 then {
+		var genLink := self.map structure();
+		genLink.visualID := genLink.getVisualID();
 		self.map structure().labels->collect(e | visualIdentity(e))
 	} endif;
 }
 
 helper GMFMAP::CompartmentMapping::visualIdentity(_mapping: NodeMapping, node: NodeReference) {
-	if self.map structure(_mapping, node).visualID = 0 then
-		self.map structure(_mapping, node).visualID := compartmentID()
-	endif 
-}
-
-helper topNodeID(): Integer {
-	var nodeID := 
-	topNodeID := this.topNodeID + 1;
-	return this.topNodeID;
-}
-helper childNodeID(): Integer {
-	childNodeID := childNodeID + 1;
-	return childNodeID;
-}
-helper nodeLabelID(): Integer {
-	nodeLabelID := nodeLabelID + 1;
-	return nodeLabelID;
-}
-helper linkNodeID(): Integer {
-	linkNodeID := linkNodeID + 1;
-	return linkNodeID;
-}
-helper compartmentID(): Integer {
-	compartmentID := compartmentID + 1;
-	return compartmentID;
-}
-helper linkLabelID(): Integer {
-	linkLabelID := linkLabelID + 1;
-	return linkLabelID;
+	if self.map structure(_mapping, node).visualID <= 0 then {
+		var genNode := self.map structure(_mapping, node);
+		genNode.visualID := genNode.getVisualID();
+	} endif 
 }

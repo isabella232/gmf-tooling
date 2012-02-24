@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  *    Guillaume Hillairet (Montages A.G.)
  */
- import Map2GenUtil;
+import Map2GenUtil;
 
 library Map2GenMappings;
 

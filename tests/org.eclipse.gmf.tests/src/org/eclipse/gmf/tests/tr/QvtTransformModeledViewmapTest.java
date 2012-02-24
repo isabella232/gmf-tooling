@@ -38,7 +38,7 @@ public class QvtTransformModeledViewmapTest extends QvtTransformCompareTestSuppo
 	
 	public void setUp() throws Exception {
 		super.setUp();
-		actualGenerator = executeQvtTransformation(false, false);
+		actualGenerator = getQvtTransformation(true).execute();
 	}
 	
 	public void testTopNodeModeledViewmap() {

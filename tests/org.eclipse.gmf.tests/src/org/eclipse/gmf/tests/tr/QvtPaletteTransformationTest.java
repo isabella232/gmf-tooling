@@ -243,3 +243,4 @@ public class QvtPaletteTransformationTest extends QvtGenModelTransformerTest {
 		return count;
 	}
 }
+

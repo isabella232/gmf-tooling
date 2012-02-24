@@ -192,3 +192,4 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 		return uses;
 	}
 }
+

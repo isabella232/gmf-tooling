@@ -43,6 +43,7 @@ main() {
 	mapRoot := mapModel.rootObjects()![GMFMAP::Mapping]; 
 	genModel := domainGenModel.rootObjects()![GENMODEL::GenModel];
 	childReferences := mapRoot.getChildReferences();
+	Viewmaps::setMapMode(useMapMode);
 	
 	var genEditor := mapRoot.map structure();
 	
