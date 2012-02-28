@@ -17,6 +17,7 @@
 «EXTENSION xpt::diagram::updater::Utils»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION gmf::GenModelUtils»
+«EXTENSION xpt::GenEditorGenerator»
 
 «DEFINE DiagramUpdater FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
@@ -484,33 +485,39 @@ private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editor
 «ENDDEFINE»
 
 «DEFINE runtimeTypedInstance FOR gmfgen::GenDiagramUpdater-»
+	«IF self.editorGen.jdkComplianceLevel() > 4-»
+	«LET self.getNodeDescriptorQualifiedClassName() AS nodeDescriptorFQN-»
+	«LET self.getLinkDescriptorQualifiedClassName() AS linkDescriptorFQN-»
 	«EXPAND xpt::Common::generatedClassComment»
 	public static final org.eclipse.gmf.tooling.runtime.update.DiagramUpdater TYPED_INSTANCE = new org.eclipse.gmf.tooling.runtime.update.DiagramUpdater() {
-		«REM»Doesn't make sense to use CodeStyle::G -- interface requires generics anyway«ENDREM»«-»
+		«REM»Doesn't make sense to use CodeStyle::G -- interface requires generics anyway, so we checked above for the whole field«ENDREM»«-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		«EXPAND CodeStyle::override FOR editorGen.diagram»
-		public java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterNodeDescriptor> getSemanticChildren(View view) {
-			return (java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterNodeDescriptor>)«diagramUpdaterClassName».getSemanticChildren(view);
+		public java.util.List<«nodeDescriptorFQN»> getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getSemanticChildren(view);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		«EXPAND CodeStyle::override FOR editorGen.diagram»
-		public java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor> getContainedLinks(View view) {
-			return (java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor>)«diagramUpdaterClassName».getContainedLinks(view);
+		public java.util.List<«linkDescriptorFQN»> getContainedLinks(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getContainedLinks(view);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		«EXPAND CodeStyle::override FOR editorGen.diagram»
-		public java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor> getIncomingLinks(View view) {
-			return (java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor>)«diagramUpdaterClassName».getIncomingLinks(view);
+		public java.util.List<«linkDescriptorFQN»> getIncomingLinks(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getIncomingLinks(view);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
 		«EXPAND CodeStyle::override FOR editorGen.diagram»
-		public java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor> getOutgoingLinks(View view) {
-			return (java.util.List<org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor>)«diagramUpdaterClassName».getOutgoingLinks(view);
+		public java.util.List<«linkDescriptorFQN»> getOutgoingLinks(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getOutgoingLinks(view);
 		}
-	} 
+	}; 
+	«ENDLET-»
+	«ENDLET-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»

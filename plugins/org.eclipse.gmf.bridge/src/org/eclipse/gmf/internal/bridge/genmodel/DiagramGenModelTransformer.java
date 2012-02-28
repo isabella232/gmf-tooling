@@ -498,7 +498,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	@Override
 	protected void complete() {
-		getGenEssence().getPlugin().getRequiredPlugins().addAll(Arrays.asList(myViewmaps.dependencies()));
+		List<String> requiredPlugins = getGenEssence().getPlugin().getRequiredPlugins();
+		final String GMF_TOOLING_RUNTIME = "org.eclipse.gmf.tooling.runtime"; //$NON-NLS-1$
+		requiredPlugins.add(GMF_TOOLING_RUNTIME);
+		requiredPlugins.addAll(Arrays.asList(myViewmaps.dependencies()));
 	}
 
 	//	private void process(AppearanceSteward appSteward) {
