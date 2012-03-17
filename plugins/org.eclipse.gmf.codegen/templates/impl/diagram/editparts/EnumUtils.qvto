@@ -1,0 +1,17 @@
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype ecore uses "http://www.eclipse.org/emf/2002/Ecore";
+
+library Utils;
+
+helper isEnumLabel(modelFacet : gmfgen::LabelModelFacet) : Boolean {
+	return modelFacet.parser.oclIsKindOf(gmfgen::PredefinedEnumParser);
+}
+
+helper getDirectManagerFQN(modelFacet : gmfgen::LabelModelFacet) : String {
+	return 
+	 (if isEnumLabel(modelFacet) then 
+		'org.eclipse.gmf.runtime.diagram.ui.tools.ComboDirectEditManager'
+	  else
+		'org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager'
+	  endif);
+}

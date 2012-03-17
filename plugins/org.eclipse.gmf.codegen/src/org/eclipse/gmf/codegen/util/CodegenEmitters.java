@@ -260,6 +260,10 @@ public class CodegenEmitters {
 	public TextEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("parsers::PredefinedParser::Main"); //$NON-NLS-1$
 	}
+	
+	public TextEmitter getPredefinedEnumParserEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("parsers::PredefinedEnumParser::Main"); //$NON-NLS-1$
+	}
 
 	public TextEmitter getCustomParserEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("parsers::CustomParser::Main"); //$NON-NLS-1$

@@ -1596,6 +1596,10 @@ class PredefinedParser extends GenParserImplementation {
 	op String getQualifiedClassName();
 }
 
+class PredefinedEnumParser extends GenParserImplementation {
+    op String getQualifiedClassName();
+}
+
 @genmodel(documentation="Parser implementation that uses expressions to produce string values")
 class ExpressionLabelParser extends GenParserImplementation {
 	@genmodel(documentation="Provides means to alter name of parser implementation class")

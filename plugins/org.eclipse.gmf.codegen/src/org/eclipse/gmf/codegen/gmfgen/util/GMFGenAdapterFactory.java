@@ -613,6 +613,10 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createPredefinedParserAdapter();
 			}
 			@Override
+			public Adapter casePredefinedEnumParser(PredefinedEnumParser object) {
+				return createPredefinedEnumParserAdapter();
+			}
+			@Override
 			public Adapter caseExpressionLabelParser(ExpressionLabelParser object) {
 				return createExpressionLabelParserAdapter();
 			}
@@ -2503,6 +2507,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPredefinedParserAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser <em>Predefined Enum Parser</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser
+	 * @generated
+	 */
+	public Adapter createPredefinedEnumParserAdapter() {
 		return null;
 	}
 

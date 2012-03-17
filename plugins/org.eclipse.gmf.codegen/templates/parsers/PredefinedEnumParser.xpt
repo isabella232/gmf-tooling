@@ -1,0 +1,81 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«DEFINE Main FOR gmfgen::PredefinedEnumParser»
+«EXPAND xpt::Common::copyright FOR holder.editorGen-»
+package «holder.implPackageName»;
+
+«EXPAND xpt::Common::generatedClassComment»
+public class EnumParser extends «EXPAND impl::parsers::AbstractParser::qualifiedClassName FOR holder» implements org.eclipse.gmf.runtime.diagram.ui.tools.ComboDirectEditManager.IChoiceParser {
+
+	«EXPAND xpt::Common::generatedMemberComment»	
+	private static final int SINGLE_FEATURE_INDEX = 0;
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	public EnumParser(org.eclipse.emf.ecore.EAttribute enumFeature) {
+		super(new org.eclipse.emf.ecore.EAttribute[] { enumFeature });
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public String getEditString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
+		org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) adapter.getAdapter(org.eclipse.emf.ecore.EObject.class);
+		return getEditChoice(getEditableValues(element)[SINGLE_FEATURE_INDEX].toString());
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus isValidEditString(org.eclipse.core.runtime.IAdaptable element, String editString) {
+		return getEditChoices().contains(editString) // 
+		? org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus.EDITABLE_STATUS //
+				: new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(org.eclipse.gmf.tests.ocl.model.oclTest.diagram.part.OclTestDiagramEditorPlugin.ID, org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE, editString);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public org.eclipse.gmf.runtime.common.core.command.ICommand getParseCommand(org.eclipse.core.runtime.IAdaptable adapter, String newString, int flags) {
+		return getParseCommand(adapter, new Object[] { findChoiceValue(newString) }, flags);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public String getPrintString(org.eclipse.core.runtime.IAdaptable adapter, int flags) {
+		return getEditString(adapter, flags);
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	@Override
+	public java.util.List<String> getEditChoices() {
+		java.util.List<String> result = new java.util.ArrayList<String>();
+		for (String literal : getLiterals()) {
+			result.add(getEditChoice(literal));
+		}
+		return result;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private java.util.List<String> getLiterals() {
+		java.util.List<String> result = new java.util.ArrayList<String>();
+		org.eclipse.emf.ecore.EAttribute enumFeature = editableFeatures[SINGLE_FEATURE_INDEX];
+		org.eclipse.emf.ecore.EEnum type = (org.eclipse.emf.ecore.EEnum) enumFeature.getEType();
+		for (org.eclipse.emf.ecore.EEnumLiteral literal : type.getELiterals()) {
+			result.add(literal.getLiteral());
+		}
+		return result;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	private String findChoiceValue(String editChoice) {
+		for (String literal : getLiterals()) {
+			if (editChoice.equals(getEditChoice(literal))) {
+				return literal;
+			}
+		}
+		return null;
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected String getEditChoice(String literal) {
+		return literal;
+	}
+}
+«ENDDEFINE» 

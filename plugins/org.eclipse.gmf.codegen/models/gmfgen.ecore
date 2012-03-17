@@ -2298,6 +2298,9 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PredefinedEnumParser" eSuperTypes="#//GenParserImplementation">
+    <eOperations name="getQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpressionLabelParser" eSuperTypes="#//GenParserImplementation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Parser implementation that uses expressions to produce string values"/>

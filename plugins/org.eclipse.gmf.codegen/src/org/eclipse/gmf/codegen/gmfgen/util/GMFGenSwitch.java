@@ -1035,6 +1035,13 @@ public class GMFGenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.PREDEFINED_ENUM_PARSER: {
+				PredefinedEnumParser predefinedEnumParser = (PredefinedEnumParser)theEObject;
+				T result = casePredefinedEnumParser(predefinedEnumParser);
+				if (result == null) result = caseGenParserImplementation(predefinedEnumParser);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.EXPRESSION_LABEL_PARSER: {
 				ExpressionLabelParser expressionLabelParser = (ExpressionLabelParser)theEObject;
 				T result = caseExpressionLabelParser(expressionLabelParser);
@@ -3052,6 +3059,21 @@ public class GMFGenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePredefinedParser(PredefinedParser object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Predefined Enum Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Predefined Enum Parser</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T casePredefinedEnumParser(PredefinedEnumParser object) {
 		return null;
 	}
 

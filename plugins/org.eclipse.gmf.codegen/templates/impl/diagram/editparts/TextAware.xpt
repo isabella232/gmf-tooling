@@ -13,6 +13,7 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
+«EXTENSION impl::diagram::editparts::EnumUtils»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -64,17 +65,19 @@
 	
 	«EXPAND getParser(modelFacet, diagram, host)-»
 	
-	«EXPAND getManager(diagram)-»
+	«EXPAND getManager(diagram, modelFacet)-»
 	
 	«EXPAND setManager-»
 	
 	«EXPAND performDirectEdit-»
 	
-	«EXPAND performDirectEditAtPoint-»
-	
+	«EXPAND performDirectEditAtPoint(modelFacet)-»
+
+«IF not(isEnumLabel(modelFacet))-»
 	«EXPAND performDirectEditWithInitialChar-»
+«ENDIF»	
 	
-	«EXPAND performDirectEditRequest-»
+	«EXPAND performDirectEditRequest(modelFacet)-»
 	
 	«EXPAND refreshVisuals(needsRefreshBounds)-»
 	
@@ -331,12 +334,12 @@
 	}
 «ENDDEFINE»
 
-«DEFINE getManager(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
+«DEFINE getManager(diagram : gmfgen::GenDiagram, modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.tools.DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager(this,
-				org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.getTextCellEditorClass(this),
+			setManager(new «getDirectManagerFQN(modelFacet)»(this,
+				null,
 				«diagram.getEditPartFactoryQualifiedClassName()».getTextCellEditorLocator(this)));
 		}
 		return manager;
@@ -357,11 +360,11 @@
 	}
 «ENDDEFINE»
 	
-«DEFINE performDirectEditAtPoint FOR gmfgen::GenCommonBase-»
+«DEFINE performDirectEditAtPoint(modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEdit(org.eclipse.draw2d.geometry.Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == «getDirectManagerFQN(modelFacet)».class) {
+			((«getDirectManagerFQN(modelFacet)») getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 «ENDDEFINE»
@@ -377,7 +380,7 @@
 	}
 «ENDDEFINE»
 	
-«DEFINE performDirectEditRequest FOR gmfgen::GenCommonBase-»
+«DEFINE performDirectEditRequest(modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEditRequest(org.eclipse.gef.Request request) {
 		final org.eclipse.gef.Request theRequest = request;
@@ -386,10 +389,11 @@
 
 				public void run() {
 					if (isActive() && isEditable()) {
+						«IF not(isEnumLabel(modelFacet))-»
 						if (theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character) {
 							Character initialChar = (Character) theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
 							performDirectEdit(initialChar.charValue());
-						} else if ((theRequest instanceof org.eclipse.gef.requests.DirectEditRequest) && (getEditText().equals(getLabelText()))) {
+						} else «ENDIF» if ((theRequest instanceof org.eclipse.gef.requests.DirectEditRequest) && (getEditText().equals(getLabelText()))) {
 							org.eclipse.gef.requests.DirectEditRequest editRequest = (org.eclipse.gef.requests.DirectEditRequest) theRequest;
 							performDirectEdit(editRequest.getLocation());
 						} else {

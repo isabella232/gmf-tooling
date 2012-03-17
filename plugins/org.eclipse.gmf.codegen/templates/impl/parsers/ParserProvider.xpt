@@ -14,7 +14,6 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-
 «EXTENSION xpt::providers::ParserUtils»
 
 «DEFINE accessorMethod_delegate2providers FOR gmfgen::GenParsers-»
@@ -144,17 +143,24 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExternalParser»«REM»NOTHING TO DO«ENDREM»«ENDDEFINE»
 
 «DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedParser-»
-	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+	«EXPAND _doGetParser(element)-»
+«ENDDEFINE»
+
+«DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedEnumParser»
+	«EXPAND _doGetParser(element)-»
 «ENDDEFINE»
 
 «DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::CustomParser-»
-	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+	«EXPAND _doGetParser(element)-»
 «ENDDEFINE»
 
 «DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExpressionLabelParser-»
-	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+	«EXPAND _doGetParser(element)-»
 «ENDDEFINE»
 
+«DEFINE _doGetParser(element : gmfgen::GenCommonBase) FOR gmfgen::GenParserImplementation-»
+	«EXPAND xpt::Common::caseVisualID FOR element» return «parserAccessorName(element)»();
+«ENDDEFINE»
 
 «DEFINE parsers FOR gmfgen::GenNode»«EXPAND _parser FOREACH labels»«ENDDEFINE»
 «DEFINE parsers FOR gmfgen::GenLink»«EXPAND _parser FOREACH labels»«ENDDEFINE»
@@ -183,12 +189,32 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «ENDDEFINE»
 
 «DEFINE _parser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedParser»
+	«EXPAND _predefinedParser(modelFacet, element)»
+«ENDDEFINE»
+
+«DEFINE _parser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedEnumParser»
+	«EXPAND _predefinedParser(modelFacet, element)»
+«ENDDEFINE»
+
+«DEFINE _predefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::GenParserImplementation»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 		if («parserFieldName(element)» == null) {
+			«EXPAND _createPredefinedParser(modelFacet, 'parser')»		
+			«parserFieldName(element)» = parser;
+		}
+		return «parserFieldName(element)»;
+	}
+«ENDDEFINE»
+
+«DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::GenParserImplementation»
+	«ERROR 'PredefinedParser or PredefinedEnumParser expected but occured: ' + self.repr()»
+«ENDDEFINE»
+
+«DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::PredefinedParser»	
 			org.eclipse.emf.ecore.EAttribute[] features = new org.eclipse.emf.ecore.EAttribute[] {
 				«EXPAND MetaModel::MetaFeature FOREACH modelFacet.metaFeatures SEPARATOR ', ' »
 			};
@@ -197,13 +223,15 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 				«EXPAND MetaModel::MetaFeature FOREACH modelFacet.editableMetaFeatures SEPARATOR ', '»
 			};
 		«ENDIF-»
-		«getQualifiedClassName()» parser = new «getQualifiedClassName()»(features«IF modelFacet.editableMetaFeatures->size() > 0», editableFeatures«ENDIF»);
-		«EXPAND _setPatterns(viewMethod, editMethod, 'parser') FOR modelFacet-»
-			«parserFieldName(element)» = parser;
-		}
-		return «parserFieldName(element)»;
-	}
+		«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(features«IF modelFacet.editableMetaFeatures->size() > 0», editableFeatures«ENDIF»);
+		«EXPAND _setPatterns(viewMethod, editMethod, parserVar) FOR modelFacet-»		
 «ENDDEFINE»
+
+«DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::PredefinedEnumParser»		
+			org.eclipse.emf.ecore.EAttribute editableFeature = «EXPAND MetaModel::MetaFeature FOR modelFacet.editableMetaFeatures->first()»;
+			«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature);
+«ENDDEFINE»
+
 
 «DEFINE _setPatterns(viewMethod : gmfgen::LabelTextAccessMethod, editMethod : gmfgen::LabelTextAccessMethod, parserVar : String) FOR gmfgen::FeatureLabelModelFacet-»
 «IF viewMethod <> gmfgen::LabelTextAccessMethod::NATIVE-»

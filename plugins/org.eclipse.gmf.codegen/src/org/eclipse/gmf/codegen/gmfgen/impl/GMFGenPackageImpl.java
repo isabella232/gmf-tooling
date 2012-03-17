@@ -1003,6 +1003,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass predefinedEnumParserEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass expressionLabelParserEClass = null;
 
 	/**
@@ -7036,9 +7043,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getPredefinedEnumParser() {
+		if (predefinedEnumParserEClass == null) {
+			predefinedEnumParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(152);
+		}
+		return predefinedEnumParserEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getExpressionLabelParser() {
 		if (expressionLabelParserEClass == null) {
-			expressionLabelParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(152);
+			expressionLabelParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(153);
 		}
 		return expressionLabelParserEClass;
 	}
@@ -7095,7 +7114,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getCustomParser() {
 		if (customParserEClass == null) {
-			customParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(153);
+			customParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(154);
 		}
 		return customParserEClass;
 	}
@@ -7125,7 +7144,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getExternalParser() {
 		if (externalParserEClass == null) {
-			externalParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(154);
+			externalParserEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(155);
 		}
 		return externalParserEClass;
 	}

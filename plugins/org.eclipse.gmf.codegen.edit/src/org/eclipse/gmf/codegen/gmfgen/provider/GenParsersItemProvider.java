@@ -297,6 +297,11 @@ public class GenParsersItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenParsers_Implementations(),
+				 GMFGenFactory.eINSTANCE.createPredefinedEnumParser()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenParsers_Implementations(),
 				 GMFGenFactory.eINSTANCE.createExpressionLabelParser()));
 
 		newChildDescriptors.add
