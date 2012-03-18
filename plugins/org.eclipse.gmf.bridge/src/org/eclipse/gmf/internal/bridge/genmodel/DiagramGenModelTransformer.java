@@ -102,6 +102,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OclChoiceParser;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser;
@@ -156,6 +157,7 @@ import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.mappings.OclChoiceLabelMapping;
 import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -698,6 +700,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			// XXX temp code
 			modelFacet.setParser(getOrCreateParser(flMapping));
 			// XXX
+			return modelFacet;
+		}
+		if (mapping instanceof OclChoiceLabelMapping) {
+			OclChoiceLabelMapping oclMapping = (OclChoiceLabelMapping) mapping;
+			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
+			GenFeature feature = findGenFeature(oclMapping.getFeature());
+			modelFacet.getMetaFeatures().add(feature);
+			modelFacet.getEditableMetaFeatures().add(feature);
+			modelFacet.setParser(createOclChoiceParser(oclMapping));
 			return modelFacet;
 		}
 		if (mapping instanceof DesignLabelMapping) {
@@ -1435,6 +1446,18 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 		}
 		PredefinedEnumParser result = GMFGenFactory.eINSTANCE.createPredefinedEnumParser();
+		getGenParsers().getImplementations().add(result);
+		return result;
+	}
+
+	private GenParserImplementation createOclChoiceParser(OclChoiceLabelMapping oclMapping) {
+		OclChoiceParser result = GMFGenFactory.eINSTANCE.createOclChoiceParser();
+		if (oclMapping.getItemsExpression() != null) {
+			result.setItemsExpression(createValueExpression(oclMapping.getItemsExpression()));
+		}
+		if (oclMapping.getShowExpression() != null) {
+			result.setShowExpression(createValueExpression(oclMapping.getShowExpression()));
+		}
 		getGenParsers().getImplementations().add(result);
 		return result;
 	}
