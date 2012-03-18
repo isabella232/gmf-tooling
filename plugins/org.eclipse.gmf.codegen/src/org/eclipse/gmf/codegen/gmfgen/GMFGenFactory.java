@@ -881,6 +881,15 @@ public interface GMFGenFactory extends EFactory {
 	PredefinedEnumParser createPredefinedEnumParser();
 
 	/**
+	 * Returns a new object of class '<em>Ocl Choice Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Ocl Choice Parser</em>'.
+	 * @generated
+	 */
+	OclChoiceParser createOclChoiceParser();
+
+	/**
 	 * Returns a new object of class '<em>Expression Label Parser</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

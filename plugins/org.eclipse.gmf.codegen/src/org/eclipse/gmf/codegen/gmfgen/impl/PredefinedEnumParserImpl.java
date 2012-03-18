@@ -46,11 +46,9 @@ public class PredefinedEnumParserImpl extends GenParserImplementationImpl implem
 	 * @generated NOT
 	 */
 	public String getQualifiedClassName() {
-		String n = "EnumParser";
-		if (getHolder() == null || GenCommonBaseImpl.isEmpty(getHolder().getImplPackageName())) {
-			return n;
-		}
-		return getHolder().getImplPackageName() + '.' + n;
+		final String className = "EnumParser";
+		final String packageName = "org.eclipse.gmf.tooling.runtime.parsers";
+		return packageName + '.' + className;
 	}
 
 } //PredefinedEnumParserImpl

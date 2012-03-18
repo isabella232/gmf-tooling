@@ -1042,6 +1042,13 @@ public class GMFGenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.OCL_CHOICE_PARSER: {
+				OclChoiceParser oclChoiceParser = (OclChoiceParser)theEObject;
+				T result = caseOclChoiceParser(oclChoiceParser);
+				if (result == null) result = caseGenParserImplementation(oclChoiceParser);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.EXPRESSION_LABEL_PARSER: {
 				ExpressionLabelParser expressionLabelParser = (ExpressionLabelParser)theEObject;
 				T result = caseExpressionLabelParser(expressionLabelParser);
@@ -3074,6 +3081,21 @@ public class GMFGenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePredefinedEnumParser(PredefinedEnumParser object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Ocl Choice Parser</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Ocl Choice Parser</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOclChoiceParser(OclChoiceParser object) {
 		return null;
 	}
 
