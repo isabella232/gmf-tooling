@@ -31,8 +31,9 @@ import org.eclipse.gmf.mappings.presentation.FilterUtil;
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeReference} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
- * @generated
+ * @generated NOT
  */
+// TODO: abstract is not generated
 public abstract class NodeReferenceItemProvider
 	extends ItemProviderAdapter
 	implements	

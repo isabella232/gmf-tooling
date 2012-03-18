@@ -227,6 +227,11 @@ public class MappingEntryItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
+				 GMFMapFactory.eINSTANCE.createOclChoiceLabelMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
 				 GMFMapFactory.eINSTANCE.createDesignLabelMapping()));
 
 		newChildDescriptors.add

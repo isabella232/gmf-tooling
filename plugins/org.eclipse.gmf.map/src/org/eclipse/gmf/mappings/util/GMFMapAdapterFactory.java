@@ -141,6 +141,10 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 				return createFeatureLabelMappingAdapter();
 			}
 			@Override
+			public Adapter caseOclChoiceLabelMapping(OclChoiceLabelMapping object) {
+				return createOclChoiceLabelMappingAdapter();
+			}
+			@Override
 			public Adapter caseDesignLabelMapping(DesignLabelMapping object) {
 				return createDesignLabelMappingAdapter();
 			}
@@ -411,6 +415,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureLabelMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.OclChoiceLabelMapping <em>Ocl Choice Label Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.OclChoiceLabelMapping
+	 * @generated
+	 */
+	public Adapter createOclChoiceLabelMappingAdapter() {
 		return null;
 	}
 

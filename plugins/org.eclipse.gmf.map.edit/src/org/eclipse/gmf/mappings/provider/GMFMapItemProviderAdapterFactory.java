@@ -212,6 +212,29 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.OclChoiceLabelMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OclChoiceLabelMappingItemProvider oclChoiceLabelMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.OclChoiceLabelMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOclChoiceLabelMappingAdapter() {
+		if (oclChoiceLabelMappingItemProvider == null) {
+			oclChoiceLabelMappingItemProvider = new OclChoiceLabelMappingItemProvider(this);
+		}
+
+		return oclChoiceLabelMappingItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.DesignLabelMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -779,6 +802,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
 		if (labelMappingItemProvider != null) labelMappingItemProvider.dispose();
 		if (featureLabelMappingItemProvider != null) featureLabelMappingItemProvider.dispose();
+		if (oclChoiceLabelMappingItemProvider != null) oclChoiceLabelMappingItemProvider.dispose();
 		if (designLabelMappingItemProvider != null) designLabelMappingItemProvider.dispose();
 		if (expressionLabelMappingItemProvider != null) expressionLabelMappingItemProvider.dispose();
 		if (constraintItemProvider != null) constraintItemProvider.dispose();
