@@ -1,5 +1,6 @@
 package org.eclipse.gmf.tooling.runtime;
 
+import org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl.ActiveOclTrackerFactory;
 import org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -30,7 +31,7 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 	 * Caller should not make any assumptions against the return implementation type.   
 	 */
 	public OclTrackerFactory getOclTrackerFactory() {
-		return null;
+		return new ActiveOclTrackerFactory();
 	}
 
 	/**
