@@ -13,7 +13,8 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
-«EXTENSION impl::diagram::editparts::EnumUtils»
+«EXTENSION impl::diagram::editparts::ChoiceUtils»
+«EXTENSION impl::parsers::expression»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -22,8 +23,13 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
+	«IF isOclChoiceLabel()-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «EXPAND CodeStyle::G('java.util.List', '?')» parserElements;
+	private «getActiveOclPackageName()».expressions.common.OclRegistrator myOclRegistrator;
+	«ELSE-»
+	«EXPAND xpt::Common::generatedMemberComment»
+ 	private «EXPAND CodeStyle::G('java.util.List', '?')» parserElements;
+	«ENDIF-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultText;
@@ -73,7 +79,7 @@
 	
 	«EXPAND performDirectEditAtPoint(modelFacet)-»
 
-«IF not(isEnumLabel(modelFacet))-»
+«IF not(isChoiceLabel(modelFacet))-»
 	«EXPAND performDirectEditWithInitialChar-»
 «ENDIF»	
 	
@@ -98,6 +104,34 @@
 	«EXPAND getAccessibleEditPart-»
 	
 	«EXPAND getFontStyleOwnerView(viewmap)-»
+		
+	«IF isOclChoiceLabelWithShowExpr()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «getActiveOclPackageName()».expressions.common.OclTracker getTracker() {
+		return ((«getActiveOclPackageName()».expressions.common.OclTrackerParser) getParser()).getOclTracker();
+	}
+	«ENDIF-»
+	
+	«IF isOclChoiceLabel()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private «getActiveOclPackageName()».expressions.common.OclRegistrator getOclRegistrator() {
+		if (myOclRegistrator == null) {
+			myOclRegistrator = new «getActiveOclPackageName()».expressions.common.OclRegistrator() {
+
+				@Override
+				public void registerListener(String filterId, org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener listener, org.eclipse.emf.ecore.EObject element) {
+					addListenerFilter(filterId, listener, element);
+ 				}
+
+				@Override
+				public void unregisterListener(String filterId) {
+					removeListenerFilter(filterId);
+				}
+			};
+		}
+		return myOclRegistrator;
+	}
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-»
@@ -389,7 +423,7 @@
 
 				public void run() {
 					if (isActive() && isEditable()) {
-						«IF not(isEnumLabel(modelFacet))-»
+						«IF not(isChoiceLabel(modelFacet))-»
 						if (theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character) {
 							Character initialChar = (Character) theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
 							performDirectEdit(initialChar.charValue());
@@ -489,6 +523,16 @@
 «DEFINE addSemanticListeners FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addSemanticListeners() {
+«IF isOclChoiceLabel()-»
+		«IF isOclChoiceLabelWithShowExpr()-»
+		«getActiveOclPackageName()».expressions.common.OclTracker tracker = getTracker();
+		tracker.initialize(resolveSemanticElement());
+		tracker.installListeners(getEditingDomain(), this, getOclRegistrator());
+		«ELSE-»
+		super.addSemanticListeners();
+		«ENDIF-»
+		((«getRuntimePackageName()».parsers.OCLChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
+«ELSE-»	
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 			parserElements = ((org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) getParser()).getSemanticElementsBeingParsed(element);
@@ -498,12 +542,21 @@
 		} else {
 			super.addSemanticListeners();
 		}
+«ENDIF-»	
 	}
 «ENDDEFINE»
 	
 «DEFINE removeSemanticListeners FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
+«IF isOclChoiceLabel()-»		
+		((«getRuntimePackageName()».parsers.OCLChoiceParser) getParser()).uninstallListeners();
+		«IF isOclChoiceLabelWithShowExpr()-»
+		getTracker().uninstallListeners();	
+		«ELSE-»
+		super.removeSemanticListeners();
+		«ENDIF-»	
+«ELSE-»		
 		if (parserElements != null) {
 			for (int i = 0; i < parserElements.size(); i++) {
 				removeListenerFilter("SemanticModel" + i); «EXPAND xpt::Common::nonNLS»
@@ -511,6 +564,7 @@
 		} else {
 			super.removeSemanticListeners();
 		}
+«ENDIF-»
 	}
 «ENDDEFINE»
 	

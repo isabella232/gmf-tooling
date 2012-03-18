@@ -116,10 +116,31 @@ org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse
 «DEFINE _initInterpreterFactory FOR gmfgen::GenExpressionInterpreter-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private final «container.getAbstractExpressionQualifiedClassName()»[] expressions; 
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	private final String [] expressionBodies;	
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected «className»() {
 		this.expressions = new «container.getAbstractExpressionQualifiedClassName()»[«expressions->size()»];
+		this.expressionBodies = new String[] {
+				«FOREACH expressions.getBodyString() AS b»«b», «EXPAND xpt::Common::nonNLS»
+				«ENDFOREACH-»
+			};
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	private static «className» getInstance() {
+		«className» instance = «EXPAND plugin::Activator::instanceAccess FOR container.editorGen».get«className»();
+		if (instance == null) {			
+			«EXPAND plugin::Activator::instanceAccess FOR container.editorGen».set«className»(instance = new «className»());
+		}
+		return instance;
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static String getExpressionBody(int index) {
+		return getInstance().expressionBodies[index];
 	}
 	
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -133,19 +154,12 @@ org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse
 			  reuse an expression (and change DGMT#bindToProvider accordingly), then the answer to previous point would become obvious (i.e. "body is enough")   
 	«ENDREM-»
 	public static «container.getAbstractExpressionQualifiedClassName()» getExpression(int index, org.eclipse.emf.ecore.EClassifier context, java.util.Map«EXPAND CodeStyle::G2('String', 'org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» environment) {
-		«className» cached = «EXPAND plugin::Activator::instanceAccess FOR container.editorGen».get«className»();
-		if (cached == null) {
-			«EXPAND plugin::Activator::instanceAccess FOR container.editorGen».set«className»(cached = new «className»());
-		}
+		«className» cached = getInstance();
 		if (index < 0 || index >= cached.expressions.length) {
 			throw new IllegalArgumentException();
 		}
-		if (cached.expressions[index] == null) {
-			final String[] exprBodies = new String[] {
-				«FOREACH expressions.getBodyString() AS b»«b», «EXPAND xpt::Common::nonNLS»
-				«ENDFOREACH-»
-			};
-			cached.expressions[index] = getExpression(exprBodies[index], context, environment == null ? «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» : environment);
+		if (cached.expressions[index] == null) {			
+			cached.expressions[index] = getExpression(cached.expressionBodies[index], context, environment == null ? «EXPAND CodeStyle::emptyMap('String, org.eclipse.emf.ecore.EClassifier') FOR container.editorGen.diagram» : environment);
 		}
 		return cached.expressions[index];
 	}

@@ -14,7 +14,9 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::providers::ParserUtils»
+«EXTENSION impl::parsers::expression»
 
 «DEFINE accessorMethod_delegate2providers FOR gmfgen::GenParsers-»
 	«EXPAND xpt::Common::generatedMemberComment('Utility method that consults ParserService')»
@@ -150,6 +152,10 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 	«EXPAND _doGetParser(element)-»
 «ENDDEFINE»
 
+«DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::OclChoiceParser»
+	«EXPAND _doGetParser(element)-»
+«ENDDEFINE»
+
 «DEFINE _getParser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::CustomParser-»
 	«EXPAND _doGetParser(element)-»
 «ENDDEFINE»
@@ -196,6 +202,10 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 	«EXPAND _predefinedParser(modelFacet, element)»
 «ENDDEFINE»
 
+«DEFINE _parser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::OclChoiceParser»
+	«EXPAND _predefinedParser(modelFacet, element)»
+«ENDDEFINE»
+
 «DEFINE _predefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::GenParserImplementation»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
@@ -211,7 +221,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «ENDDEFINE»
 
 «DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::GenParserImplementation»
-	«ERROR 'PredefinedParser or PredefinedEnumParser expected but occured: ' + self.repr()»
+	«ERROR 'PredefinedParser, PredefinedEnumParser or OclChoiceParser expected but occured: ' + self.repr()»
 «ENDDEFINE»
 
 «DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::PredefinedParser»	
@@ -232,6 +242,32 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 			«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature);
 «ENDDEFINE»
 
+«DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::OclChoiceParser»
+			«LET modelFacet.editableMetaFeatures->first() AS feature-»		
+			org.eclipse.emf.ecore.EStructuralFeature editableFeature = «EXPAND MetaModel::MetaFeature FOR feature»;
+			«LET feature.genClass AS context-»				
+				«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature,
+				«IF itemsExpression = null-»
+					"«feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.name».allInstances()" 
+				«ELSE-»
+					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR itemsExpression»
+				«ENDIF»,
+				«IF showExpression = null-» 
+					null
+				«ELSE-»
+					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR showExpression»
+				«ENDIF»,
+				«holder.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()
+				«IF showExpression <> null-»
+				, new «holder.getActiveOclPackageName()».parsers.«IF showExpression <> null and showExpression.body.startsWith('--IA')-»
+					  ImpactAnalyzerTrackerFactory()
+				  «ELSE-»
+				  	  ActiveOclTrackerFactory() 	  	
+				  «ENDIF-»				  
+				«ENDIF»);
+			«ENDLET-»
+			«ENDLET-»
+«ENDDEFINE»
 
 «DEFINE _setPatterns(viewMethod : gmfgen::LabelTextAccessMethod, editMethod : gmfgen::LabelTextAccessMethod, parserVar : String) FOR gmfgen::FeatureLabelModelFacet-»
 «IF viewMethod <> gmfgen::LabelTextAccessMethod::NATIVE-»
