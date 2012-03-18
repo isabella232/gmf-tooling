@@ -1428,15 +1428,26 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private GenParserImplementation getOrCreateParser(FeatureLabelMapping flMapping) {
-		EList<EAttribute> features = flMapping.getFeatures();
-		EList<EAttribute> editFeatures = flMapping.getEditableFeatures();
-		if (features.size() == 1 && editFeatures.size() == 1 //
-				&& features.get(0) == editFeatures.get(0) //
-				&& features.get(0).getEType() instanceof EEnum) {
+		if (isEnumLabelMapping(flMapping)) {
 			return getOrCreateEnumParser(flMapping);
 		} else {
 			return getOrCreatePredefinedParser(flMapping);
 		}
+	}
+	
+	private boolean isEnumLabelMapping(FeatureLabelMapping flMapping) {
+		EList<EAttribute> features = flMapping.getFeatures();
+		EList<EAttribute> editFeatures = flMapping.getEditableFeatures();
+		if (features.size() != 1){
+			return false;
+		}
+		if (editFeatures.size() > features.size()){
+			return false;
+		}
+		if (!editFeatures.isEmpty() && editFeatures.get(0) != features.get(0)) {
+			return false;
+		}
+		return features.get(0).getEType() instanceof EEnum;
 	}
 
 	private GenParserImplementation getOrCreateEnumParser(FeatureLabelMapping flMapping) {
