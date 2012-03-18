@@ -1,11 +1,11 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector;
+import org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector;
 
 abstract class ActiveOclDependencyCollectorBase<T extends ContextData> implements ActiveOclDependencyCollector {
 

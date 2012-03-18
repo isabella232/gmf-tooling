@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tooling.runtime.ocl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;

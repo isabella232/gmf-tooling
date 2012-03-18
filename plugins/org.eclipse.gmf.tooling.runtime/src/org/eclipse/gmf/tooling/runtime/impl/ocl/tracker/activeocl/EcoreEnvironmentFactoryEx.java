@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EParameter;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector;
+import org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector;
 import org.eclipse.ocl.Environment;
 import org.eclipse.ocl.EvaluationEnvironment;
 import org.eclipse.ocl.EvaluationVisitor;
@@ -25,7 +25,7 @@ class EcoreEnvironmentFactoryEx extends EcoreEnvironmentFactory {
 
 	private final ActiveOclDependencyCollector myDependencyCollector;
 
-	public EcoreEnvironmentFactoryEx(org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector dependencyCollector) {
+	public EcoreEnvironmentFactoryEx(org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector dependencyCollector) {
 		myDependencyCollector = dependencyCollector;
 	}
 

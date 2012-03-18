@@ -1,9 +1,9 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector;
-import org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclEvaluator;
-import org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclResult;
+import org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector;
+import org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclEvaluator;
+import org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclResult;
 import org.eclipse.ocl.ParserException;
 
 class ActiveOclEvaluatorImpl implements ActiveOclEvaluator {

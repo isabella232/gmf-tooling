@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import org.eclipse.emf.ecore.EObject;
 

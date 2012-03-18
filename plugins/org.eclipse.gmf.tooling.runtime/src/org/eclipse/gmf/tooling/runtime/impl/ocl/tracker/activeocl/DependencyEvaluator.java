@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ocl.ParserException;
@@ -13,10 +13,10 @@ class DependencyEvaluator {
 
 	private final OCLExpression myExpression;
 
-	public DependencyEvaluator(EObject context, String oclExp, org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector dependencyCollector) throws ParserException {
+	public DependencyEvaluator(EObject context, String oclExp, org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector dependencyCollector) throws ParserException {
 		myContext = context;
 
-		myOcl = org.eclipse.ocl.ecore.OCL.newInstance(new org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl.EcoreEnvironmentFactoryEx(dependencyCollector));
+		myOcl = org.eclipse.ocl.ecore.OCL.newInstance(new org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl.EcoreEnvironmentFactoryEx(dependencyCollector));
 
 		Helper helper = myOcl.createOCLHelper();
 		helper.setContext(context.eClass());

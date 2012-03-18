@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import java.util.Map;
 import java.util.Set;
@@ -23,12 +23,12 @@ import org.eclipse.ocl.expressions.PropertyCallExp;
 
 public class EvaluationVisitorImplEx extends EvaluationVisitorImpl {
 
-	private final org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector myDependencyCollector;
+	private final org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector myDependencyCollector;
 
 	public EvaluationVisitorImplEx(
 			Environment<EPackage, EClassifier, EOperation, EStructuralFeature, EEnumLiteral, EParameter, EObject, CallOperationAction, SendSignalAction, Constraint, EClass, EObject> env, //
 			EvaluationEnvironment<EClassifier, EOperation, EStructuralFeature, EClass, EObject> evalEnv, Map<? extends EClass, ? extends Set<? extends EObject>> extentMap, //
-			org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclDependencyCollector dependencyCollector) {
+			org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclDependencyCollector dependencyCollector) {
 		super(env, evalEnv, extentMap);
 		myDependencyCollector = dependencyCollector;
 	}

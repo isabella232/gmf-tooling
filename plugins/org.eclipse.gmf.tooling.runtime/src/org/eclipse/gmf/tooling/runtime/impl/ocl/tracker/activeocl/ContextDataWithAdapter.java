@@ -1,15 +1,15 @@
-package org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 
-class ContextDataWithAdapter extends org.eclipse.gmf.tooling.runtime.ocl.impl.activeocl.ContextData {
+class ContextDataWithAdapter extends org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl.ContextData {
 
 	private final Adapter myAdapter;
 
-	public ContextDataWithAdapter(EObject context, final org.eclipse.gmf.tooling.runtime.ocl.activeocl.ActiveOclListener listener) {
+	public ContextDataWithAdapter(EObject context, final org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl.ActiveOclListener listener) {
 		super(context);
 		myAdapter = new AdapterImpl() {
 

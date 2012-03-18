@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tooling.runtime.ocl.activeocl;
+package org.eclipse.gmf.tooling.runtime.impl.ocl.activeocl;
 
 public interface ActiveOclListener {
 
