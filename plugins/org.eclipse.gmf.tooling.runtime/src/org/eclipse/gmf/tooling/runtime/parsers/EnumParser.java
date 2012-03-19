@@ -15,19 +15,24 @@ public class EnumParser extends ChoiceParserBase {
 		super(enumFeature);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected Collection<Object> getItems(EObject element) {
 		List<Object> result = new ArrayList<Object>();
 		EAttribute enumFeature = (EAttribute) getFeature();
 		EEnum type = (EEnum) enumFeature.getEType();
-		for (EEnumLiteral literal : type.getELiterals()) {
-			result.add(literal.getLiteral());
+		@SuppressWarnings("rawtypes")
+		Class<? extends Enum> enumeratorClass = (Class<? extends Enum>) type.getInstanceClass();
+		for (EEnumLiteral eLiteral : type.getELiterals()) {
+			Object literalValue = Enum.valueOf(enumeratorClass, eLiteral.getLiteral());
+			result.add(literalValue);
 		}
 		return result;
 	}
 
 	@Override
 	protected String getEditChoice(EObject element, Object item) {
-		return item.toString();
+		return ((Enum<?>) item).name();
 	}
+
 }
