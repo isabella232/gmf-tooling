@@ -9,17 +9,15 @@ package org.eclipse.gmf.codegen.gmfgen;
 /**
  * <!-- begin-user-doc --> A representation of the model object '
  * <em><b>Ocl Choice Parser</b></em>'. <!-- end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getItemsExpression
- * <em>Items Expression</em>}</li>
- * <li>{@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getShowExpression
- * <em>Show Expression</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getItemsExpression <em>Items Expression</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getShowExpression <em>Show Expression</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getOclChoiceParser()
  * @model
  * @generated
@@ -34,7 +32,6 @@ public interface OclChoiceParser extends GenParserImplementation {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Items Expression</em>' reference.
 	 * @see #setItemsExpression(ValueExpression)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getOclChoiceParser_ItemsExpression()
@@ -44,13 +41,10 @@ public interface OclChoiceParser extends GenParserImplementation {
 	ValueExpression getItemsExpression();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getItemsExpression
-	 * <em>Items Expression</em>}' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Items Expression</em>' reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getItemsExpression <em>Items Expression</em>}' reference.
+	 * <!-- begin-user-doc --> 
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Items Expression</em>' reference.
 	 * @see #getItemsExpression()
 	 * @generated
 	 */
@@ -64,7 +58,6 @@ public interface OclChoiceParser extends GenParserImplementation {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * 
 	 * @return the value of the '<em>Show Expression</em>' reference.
 	 * @see #setShowExpression(ValueExpression)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getOclChoiceParser_ShowExpression()
@@ -74,21 +67,18 @@ public interface OclChoiceParser extends GenParserImplementation {
 	ValueExpression getShowExpression();
 
 	/**
-	 * Sets the value of the '
-	 * {@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getShowExpression
-	 * <em>Show Expression</em>}' reference. <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-	 * 
-	 * @param value
-	 *            the new value of the '<em>Show Expression</em>' reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser#getShowExpression <em>Show Expression</em>}' reference.
+	 * <!-- begin-user-doc --> 
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Show Expression</em>' reference.
 	 * @see #getShowExpression()
 	 * @generated
 	 */
 	void setShowExpression(ValueExpression value);
 
 	/**
-	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * <!-- begin-user-doc --> 
+	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
