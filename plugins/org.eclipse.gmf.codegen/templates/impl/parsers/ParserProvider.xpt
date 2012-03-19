@@ -16,7 +16,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «EXTENSION xpt::providers::ParserUtils»
-«EXTENSION impl::parsers::expression»
 
 «DEFINE accessorMethod_delegate2providers FOR gmfgen::GenParsers-»
 	«EXPAND xpt::Common::generatedMemberComment('Utility method that consults ParserService')»
@@ -213,7 +212,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 	«EXPAND xpt::Common::generatedMemberComment»
 	«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 		if («parserFieldName(element)» == null) {
-			«EXPAND _createPredefinedParser(modelFacet, 'parser')»		
+			«EXPAND _createPredefinedParser(modelFacet, 'parser')-»		
 			«parserFieldName(element)» = parser;
 		}
 		return «parserFieldName(element)»;
@@ -246,27 +245,24 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 			«LET modelFacet.editableMetaFeatures->first() AS feature-»		
 			org.eclipse.emf.ecore.EStructuralFeature editableFeature = «EXPAND MetaModel::MetaFeature FOR feature»;
 			«LET feature.genClass AS context-»				
-				«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature,
+				«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature, //
 				«IF itemsExpression = null-»
-					"«feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.name».allInstances()" 
+					"«feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.name».allInstances()", // 
 				«ELSE-»
-					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR itemsExpression»
-				«ENDIF»,
-				«IF showExpression = null-» 
+					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR itemsExpression-», //
+				«ENDIF»
+				«IF showExpression <> null-» 
+					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR showExpression-»
+					«EXPAND _optionalOclTrackerFactoryTypeHint FOR showExpression-»
+				«ELSE-»
 					null
-				«ELSE-»
-					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR showExpression»
-				«ENDIF»,
-				«holder.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()
-				«IF showExpression <> null-»
-				, new «holder.getActiveOclPackageName()».parsers.«IF showExpression <> null and showExpression.body.startsWith('--IA')-»
-					  ImpactAnalyzerTrackerFactory()
-				  «ELSE-»
-				  	  ActiveOclTrackerFactory() 	  	
-				  «ENDIF-»				  
 				«ENDIF»);
 			«ENDLET-»
 			«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE _optionalOclTrackerFactoryTypeHint FOR gmfgen::ValueExpression-»
+«IF body.startsWith('--IA')», org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory.Type.IMPACT_ANALYZER«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE _setPatterns(viewMethod : gmfgen::LabelTextAccessMethod, editMethod : gmfgen::LabelTextAccessMethod, parserVar : String) FOR gmfgen::FeatureLabelModelFacet-»

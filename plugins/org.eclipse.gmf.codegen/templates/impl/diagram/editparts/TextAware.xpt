@@ -14,7 +14,6 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION impl::diagram::editparts::ChoiceUtils»
-«EXTENSION impl::parsers::expression»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -25,7 +24,7 @@
 
 	«IF isOclChoiceLabel()-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «getActiveOclPackageName()».expressions.common.OclRegistrator myOclRegistrator;
+	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator myOclRegistrator;
 	«ELSE-»
 	«EXPAND xpt::Common::generatedMemberComment»
  	private «EXPAND CodeStyle::G('java.util.List', '?')» parserElements;
@@ -105,33 +104,13 @@
 	
 	«EXPAND getFontStyleOwnerView(viewmap)-»
 		
-	«IF isOclChoiceLabelWithShowExpr()-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «getActiveOclPackageName()».expressions.common.OclTracker getTracker() {
-		return ((«getActiveOclPackageName()».expressions.common.OclTrackerParser) getParser()).getOclTracker();
-	}
-	«ENDIF-»
+«IF isOclChoiceLabelWithShowExpr()-»
+	«EXPAND getOclTracker-»
+«ENDIF-»
 	
-	«IF isOclChoiceLabel()-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	private «getActiveOclPackageName()».expressions.common.OclRegistrator getOclRegistrator() {
-		if (myOclRegistrator == null) {
-			myOclRegistrator = new «getActiveOclPackageName()».expressions.common.OclRegistrator() {
-
-				@Override
-				public void registerListener(String filterId, org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener listener, org.eclipse.emf.ecore.EObject element) {
-					addListenerFilter(filterId, listener, element);
- 				}
-
-				@Override
-				public void unregisterListener(String filterId) {
-					removeListenerFilter(filterId);
-				}
-			};
-		}
-		return myOclRegistrator;
-	}
-	«ENDIF-»
+«IF isOclChoiceLabel()-»
+	«EXPAND getOclRegistrator-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-»
@@ -525,13 +504,13 @@
 	protected void addSemanticListeners() {
 «IF isOclChoiceLabel()-»
 		«IF isOclChoiceLabelWithShowExpr()-»
-		«getActiveOclPackageName()».expressions.common.OclTracker tracker = getTracker();
+		org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker tracker = getTracker();
 		tracker.initialize(resolveSemanticElement());
 		tracker.installListeners(getEditingDomain(), this, getOclRegistrator());
 		«ELSE-»
 		super.addSemanticListeners();
 		«ENDIF-»
-		((«getRuntimePackageName()».parsers.OCLChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
+		((org.eclipse.gmf.tooling.runtime.parsers.OCLChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
 «ELSE-»	
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
@@ -550,7 +529,7 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
 «IF isOclChoiceLabel()-»		
-		((«getRuntimePackageName()».parsers.OCLChoiceParser) getParser()).uninstallListeners();
+		((org.eclipse.gmf.tooling.runtime.parsers.OCLChoiceParser) getParser()).uninstallListeners();
 		«IF isOclChoiceLabelWithShowExpr()-»
 		getTracker().uninstallListeners();	
 		«ELSE-»
@@ -592,4 +571,32 @@
 		return getPrimaryView();
 		«ENDIF-»
 	 }
+«ENDDEFINE»
+
+«DEFINE getOclTracker FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker getTracker() {
+		return ((org.eclipse.gmf.tooling.runtime.ocl.tracker.HasOclTracker) getParser()).getOclTracker();
+	}
+«ENDDEFINE»
+
+«DEFINE getOclRegistrator FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator getOclRegistrator() {
+		if (myOclRegistrator == null) {
+			myOclRegistrator = new org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator() {
+
+				@Override
+				public void registerListener(String filterId, org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener listener, org.eclipse.emf.ecore.EObject element) {
+					addListenerFilter(filterId, listener, element);
+ 				}
+
+				@Override
+				public void unregisterListener(String filterId) {
+					removeListenerFilter(filterId);
+				}
+			};
+		}
+		return myOclRegistrator;
+	}
 «ENDDEFINE»
