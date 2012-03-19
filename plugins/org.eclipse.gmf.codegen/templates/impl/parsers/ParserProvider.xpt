@@ -15,6 +15,7 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+«IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «EXTENSION xpt::providers::ParserUtils»
 
 «DEFINE accessorMethod_delegate2providers FOR gmfgen::GenParsers-»
@@ -244,21 +245,34 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::OclChoiceParser»
 			«LET modelFacet.editableMetaFeatures->first() AS feature-»		
 			org.eclipse.emf.ecore.EStructuralFeature editableFeature = «EXPAND MetaModel::MetaFeature FOR feature»;
-			«LET feature.genClass AS context-»				
-				«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature, //
-				«IF itemsExpression = null-»
-					"«feature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.name».allInstances()", // 
+			«LET feature.genClass AS context-»
+				org.eclipse.gmf.tooling.runtime.parsers.ChoiceParserBase «parserVar» = «-»
+				«IF showExpression <> null-»
+					new org.eclipse.gmf.tooling.runtime.parsers.OclTrackerChoiceParser( // 	
+						editableFeature «-»
+						, «EXPAND _safeItemExpression(feature)-» 
+						, «EXPAND xpt::expressions::getExpression::getExpressionBody FOR showExpression-»
+						, «holder.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()«-»
+						«EXPAND _optionalOclTrackerFactoryTypeHint FOR showExpression-»
+					); 
 				«ELSE-»
-					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR itemsExpression-», //
-				«ENDIF»
-				«IF showExpression <> null-» 
-					«EXPAND xpt::expressions::getExpression::getExpressionBody FOR showExpression-»
-					«EXPAND _optionalOclTrackerFactoryTypeHint FOR showExpression-»
-				«ELSE-»
-					null
-				«ENDIF»);
+					new org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser( // 	
+						editableFeature «-»
+						, «EXPAND _safeItemExpression(feature)-» 
+						, null «-»
+						, «holder.editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory()«-»
+					); 
+				«ENDIF-»
 			«ENDLET-»
 			«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE _safeItemExpression(feature : genmodel::GenFeature) FOR gmfgen::OclChoiceParser-»
+	«IF itemsExpression = null-»
+		"«feature.ecoreFeature.eType.name».allInstances()"«-» 
+	«ELSE-»
+		«EXPAND xpt::expressions::getExpression::getExpressionBody FOR itemsExpression-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE _optionalOclTrackerFactoryTypeHint FOR gmfgen::ValueExpression-»

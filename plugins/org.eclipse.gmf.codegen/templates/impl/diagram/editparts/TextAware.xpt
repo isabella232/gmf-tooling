@@ -510,7 +510,7 @@
 		«ELSE-»
 		super.addSemanticListeners();
 		«ENDIF-»
-		((org.eclipse.gmf.tooling.runtime.parsers.OCLChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
+		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
 «ELSE-»	
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
@@ -529,7 +529,7 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
 «IF isOclChoiceLabel()-»		
-		((org.eclipse.gmf.tooling.runtime.parsers.OCLChoiceParser) getParser()).uninstallListeners();
+		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).uninstallListeners();
 		«IF isOclChoiceLabelWithShowExpr()-»
 		getTracker().uninstallListeners();	
 		«ELSE-»
