@@ -19,6 +19,10 @@ public class OclTrackerChoiceParser extends OclChoiceParser implements HasOclTra
 		this(feature, itemsExpression, showExpression, adapterFactory, GMFToolingRuntimePlugin.getInstance().getOclTrackerFactory());
 	}
 
+	public OclTrackerChoiceParser(EStructuralFeature feature, String itemsExpression, String showExpression, AdapterFactory adapterFactory, OclTrackerFactory.Type factoryType) {
+		this(feature, itemsExpression, showExpression, adapterFactory, GMFToolingRuntimePlugin.getInstance().getOclTrackerFactory(factoryType));
+	}
+
 	public OclTrackerChoiceParser(EStructuralFeature feature, String itemsExpression, String showExpression, AdapterFactory itemProvidersAdapterFactory, OclTrackerFactory oclTrackerFactory) {
 		super(feature, itemsExpression, showExpression, itemProvidersAdapterFactory);
 
