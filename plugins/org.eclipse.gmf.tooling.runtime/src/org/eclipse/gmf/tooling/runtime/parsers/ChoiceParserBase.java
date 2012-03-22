@@ -10,11 +10,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
-import org.eclipse.gmf.runtime.diagram.ui.tools.ComboDirectEditManager;
 import org.eclipse.gmf.tooling.runtime.GMFToolingRuntimePlugin;
+import org.eclipse.gmf.tooling.runtime.directedit.ComboDirectEditManager;
 
 public abstract class ChoiceParserBase extends AbstractFeatureParser implements ComboDirectEditManager.IChoiceParser {
-
 	private static final int SINGLE_FEATURE_INDEX = 0;
 
 	public ChoiceParserBase(EStructuralFeature feature) {

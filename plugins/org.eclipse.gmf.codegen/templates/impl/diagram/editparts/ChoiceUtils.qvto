@@ -35,8 +35,10 @@ helper isChoiceLabel(modelFacet : gmfgen::LabelModelFacet) : Boolean {
 helper getDirectManagerFQN(modelFacet : gmfgen::LabelModelFacet) : String {
 	return 
 	 (if isChoiceLabel(modelFacet) then 
-		'org.eclipse.gmf.runtime.diagram.ui.tools.ComboDirectEditManager'
+		-- 'org.eclipse.gmf.runtime.diagram.ui.tools.ComboDirectEditManager'
+		'org.eclipse.gmf.tooling.runtime.directedit.ComboDirectEditManager'
 	  else
-		'org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager'
+		-- 'org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager'
+		'org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2'
 	  endif);
 }
