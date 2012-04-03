@@ -155,18 +155,5 @@
           namespace="xpt">
        <library class="org.eclipse.gmf.internal.codegen.util.XpandFacadeAccess"/>
     </unit>
-    <unit
-          name="GenPackageUtils"
-          namespace="gmf">
-       <library
-             class="org.eclipse.gmf.internal.codegen.util.GenPackageUtils">
-          <metamodel
-                nsURI="http://www.eclipse.org/emf/2002/GenModel">
-          </metamodel>
-          <metamodel
-                nsURI="http://www.eclipse.org/emf/2002/Ecore">
-          </metamodel>
-       </library>
-    </unit>
   </extension>
 </plugin>
