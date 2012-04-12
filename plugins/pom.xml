@@ -57,6 +57,7 @@
 		<module>org.eclipse.gmf.xpand.ant</module>
 		<module>org.eclipse.gmf.xpand.editor</module>
 		<module>org.eclipse.gmf.xpand.migration</module>
+		<module>org.eclipse.gmf.xpand.qvtlibrary</module>
 
 		<module>org.eclipse.gmf.tooling.runtime</module>
 
