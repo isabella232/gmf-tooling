@@ -99,7 +99,7 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case TaiPanPackage.LARGE_ITEM__WEIGHT:
-			return new Float(getWeight());
+			return getWeight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -113,7 +113,7 @@ public class LargeItemImpl extends ItemImpl implements LargeItem {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case TaiPanPackage.LARGE_ITEM__WEIGHT:
-			setWeight(((Float) newValue).floatValue());
+			setWeight((Float) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

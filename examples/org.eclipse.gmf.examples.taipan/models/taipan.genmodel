@@ -8,6 +8,13 @@
   <foreignModel>taipan.ecore</foreignModel>
   <genPackages prefix="TaiPan" basePackage="org.eclipse.gmf.examples" disposableProviderFactory="true"
       ecorePackage="taipan.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="taipan.ecore#//ShipClass">
+      <genEnumLiterals ecoreEnumLiteral="taipan.ecore#//ShipClass/TRIBAL"/>
+      <genEnumLiterals ecoreEnumLiteral="taipan.ecore#//ShipClass/AMPHION"/>
+      <genEnumLiterals ecoreEnumLiteral="taipan.ecore#//ShipClass/FRIGAT"/>
+      <genEnumLiterals ecoreEnumLiteral="taipan.ecore#//ShipClass/BATTLESHIP"/>
+      <genEnumLiterals ecoreEnumLiteral="taipan.ecore#//ShipClass/CRUISER"/>
+    </genEnums>
     <genClasses ecoreClass="taipan.ecore#//Aquatory">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/ports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/routes"/>
@@ -31,6 +38,7 @@
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//Ship">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Ship/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Ship/shipClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference taipan.ecore#//Ship/destination"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference taipan.ecore#//Ship/route"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Ship/cargo"/>

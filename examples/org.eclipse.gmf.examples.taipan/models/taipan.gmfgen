@@ -16,7 +16,7 @@
         name="Port Location"
         description="Empty port location check"
         id="port_location"
-        rule="//@expressionProviders/@providers.0/@expressions.9"
+        rule="//@expressionProviders/@providers.0/@expressions.10"
         message="Port location should not be empty"
         category="//@audits/@categories.0">
       <target
@@ -45,7 +45,7 @@
         name="Large Item Weight"
         description="Large item weight check"
         id="litem_weight"
-        rule="//@expressionProviders/@providers.0/@expressions.10"
+        rule="//@expressionProviders/@providers.0/@expressions.11"
         message="Large item weight should be greater than zero."
         category="//@audits/@categories.0">
       <target
@@ -59,7 +59,7 @@
         name="Ship Type"
         description="Ship type check"
         id="ship_type"
-        rule="//@expressionProviders/@providers.0/@expressions.11"
+        rule="//@expressionProviders/@providers.0/@expressions.12"
         message="Invalid ship type."
         category="//@audits/@categories.0">
       <target
@@ -78,7 +78,7 @@
         name="Route Reliability"
         description="Safety of the route."
         key="RouteRelb"
-        rule="//@expressionProviders/@providers.0/@expressions.8"
+        rule="//@expressionProviders/@providers.0/@expressions.9"
         lowLimit="0.1"
         highLimit="0.9">
       <target
@@ -105,7 +105,6 @@
       visualID="1000"
       editPartClassName="AquatoryEditPart"
       itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
-      notationViewFactoryClassName="AquatoryViewFactory"
       canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
       iconProviderPriority="Low"
       creationWizardIconPath="{reuseEMFIcon}"
@@ -184,7 +183,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="LargeItemFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LargeItemFigure extends org.eclipse.gmf.examples.taipan.figures.PileShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureLargeItemArticleLabel; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureLargeItemWeightLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LargeItemFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureLargeItemArticleLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureLargeItemArticleLabel.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureLargeItemArticleLabel);&#xA;&#xA;&#xA;&#xA;fFigureLargeItemWeightLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureLargeItemWeightLabel.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureLargeItemWeightLabel);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureLargeItemArticleLabel() {&#xA;&#x9;&#x9;return fFigureLargeItemArticleLabel;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureLargeItemWeightLabel() {&#xA;&#x9;&#x9;return fFigureLargeItemWeightLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LargeItemFigure extends org.eclipse.gmf.examples.taipan.figures.PileShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureLargeItemArticleLabel; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureLargeItemWeightLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LargeItemFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureLargeItemArticleLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureLargeItemArticleLabel.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureLargeItemArticleLabel);&#xA;&#xA;&#xA;&#xA;fFigureLargeItemWeightLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureLargeItemWeightLabel.setText(&quot;&quot;);&#xA;&#xA;this.add(fFigureLargeItemWeightLabel);&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureLargeItemArticleLabel() {&#xA;&#x9;&#x9;return fFigureLargeItemArticleLabel;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureLargeItemWeightLabel() {&#xA;&#x9;&#x9;return fFigureLargeItemWeightLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/LargeItem"/>
@@ -253,7 +252,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="EmptyBoxFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EmptyBoxFigure extends org.eclipse.gmf.runtime.lite.svg.SVGFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EmptyBoxFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setURI(&quot;platform:/plugin/org.eclipse.gmf.examples.taipan/images/box.svg&quot;);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public void setBackgroundColor(org.eclipse.swt.graphics.Color value) {&#xA;&#x9;&#x9;&#x9;&#x9;String svalue = org.eclipse.gmf.runtime.lite.svg.SVGUtils.toSVGColor(getDocument(), value);&#xA;&#x9;&#x9;&#x9;&#x9;org.w3c.dom.NodeList nodes = getNodes(&quot;//:rect&quot;); //$NON-NLS-1$&#xA;&#x9;&#x9;for (int i = 0; i &lt; nodes.getLength(); i++) {&#xA;&#x9;&#x9;&#x9;((org.w3c.dom.Element) nodes.item(i)).setAttributeNS(null, &quot;fill&quot;, //$NON-NLS-1$&#xA;&#x9;&#x9;&#x9;&#x9;svalue);&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;super.setBackgroundColor(value);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public void setForegroundColor(org.eclipse.swt.graphics.Color value) {&#xA;&#x9;&#x9;&#x9;&#x9;String svalue = org.eclipse.gmf.runtime.lite.svg.SVGUtils.toSVGColor(getDocument(), value);&#xA;&#x9;&#x9;&#x9;&#x9;org.w3c.dom.NodeList nodes = getNodes(&quot;//:line|//:rect&quot;); //$NON-NLS-1$&#xA;&#x9;&#x9;for (int i = 0; i &lt; nodes.getLength(); i++) {&#xA;&#x9;&#x9;&#x9;((org.w3c.dom.Element) nodes.item(i)).setAttributeNS(null, &quot;stroke&quot;, //$NON-NLS-1$&#xA;&#x9;&#x9;&#x9;&#x9;svalue);&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;super.setForegroundColor(value);&#xA;&#x9;&#x9;&#x9;}&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EmptyBoxFigure extends org.eclipse.gmf.runtime.lite.svg.SVGFigure {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EmptyBoxFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;this.setURI(&quot;platform:/plugin/org.eclipse.gmf.examples.taipan/images/box.svg&quot;);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public void setBackgroundColor(org.eclipse.swt.graphics.Color value) {&#xA;&#x9;&#x9;&#x9;&#x9;String svalue = org.eclipse.gmf.runtime.lite.svg.SVGUtils.toSVGColor(getDocument(), value);&#xA;&#x9;&#x9;&#x9;&#x9;org.w3c.dom.NodeList nodes = getNodes(&quot;//:rect&quot;); //$NON-NLS-1$&#xA;&#x9;&#x9;for (int i = 0; i &lt; nodes.getLength(); i++) {&#xA;&#x9;&#x9;&#x9;((org.w3c.dom.Element) nodes.item(i)).setAttributeNS(null, &quot;fill&quot;, //$NON-NLS-1$&#xA;&#x9;&#x9;&#x9;&#x9;svalue);&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;super.setBackgroundColor(value);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public void setForegroundColor(org.eclipse.swt.graphics.Color value) {&#xA;&#x9;&#x9;&#x9;&#x9;String svalue = org.eclipse.gmf.runtime.lite.svg.SVGUtils.toSVGColor(getDocument(), value);&#xA;&#x9;&#x9;&#x9;&#x9;org.w3c.dom.NodeList nodes = getNodes(&quot;//:line|//:rect&quot;); //$NON-NLS-1$&#xA;&#x9;&#x9;for (int i = 0; i &lt; nodes.getLength(); i++) {&#xA;&#x9;&#x9;&#x9;((org.w3c.dom.Element) nodes.item(i)).setAttributeNS(null, &quot;stroke&quot;, //$NON-NLS-1$&#xA;&#x9;&#x9;&#x9;&#x9;svalue);&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;super.setForegroundColor(value);&#xA;&#x9;&#x9;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/EmptyBox"/>
@@ -316,6 +315,8 @@
             editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Port/location"/>
+          <editableMetaFeatures
+              href="taipan.genmodel#//taipan/Port/location"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -336,7 +337,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="ShipFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipFigure extends org.eclipse.gmf.examples.taipan.figures.ShipShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureShipNameLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.GridLayout layoutThis = new org.eclipse.draw2d.GridLayout();&#xA;&#x9;layoutThis.numColumns = 2;&#xA;&#x9;layoutThis.makeColumnsEqualWidth = false;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureShipNameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureShipNameLabel.setText(&quot;&quot;);&#xA;&#xA;&#xA;org.eclipse.draw2d.GridData constraintFFigureShipNameLabel = new org.eclipse.draw2d.GridData();&#xA;constraintFFigureShipNameLabel.verticalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureShipNameLabel.horizontalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureShipNameLabel.horizontalIndent = 0;&#xA;constraintFFigureShipNameLabel.horizontalSpan = 1;&#xA;constraintFFigureShipNameLabel.verticalSpan = 1;&#xA;constraintFFigureShipNameLabel.grabExcessHorizontalSpace = false;&#xA;constraintFFigureShipNameLabel.grabExcessVerticalSpace = false;&#xA;this.add(fFigureShipNameLabel, constraintFFigureShipNameLabel);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureShipNameLabel() {&#xA;&#x9;&#x9;return fFigureShipNameLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ShipFigure extends org.eclipse.gmf.examples.taipan.figures.ShipShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureShipNameLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ShipFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.GridLayout layoutThis = new org.eclipse.draw2d.GridLayout();&#xA;&#x9;layoutThis.numColumns = 2;&#xA;&#x9;layoutThis.makeColumnsEqualWidth = false;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureShipNameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureShipNameLabel.setText(&quot;&quot;);&#xA;&#xA;&#xA;org.eclipse.draw2d.GridData constraintFFigureShipNameLabel = new org.eclipse.draw2d.GridData();&#xA;constraintFFigureShipNameLabel.verticalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureShipNameLabel.horizontalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureShipNameLabel.horizontalIndent = 0;&#xA;constraintFFigureShipNameLabel.horizontalSpan = 1;&#xA;constraintFFigureShipNameLabel.verticalSpan = 1;&#xA;constraintFFigureShipNameLabel.grabExcessHorizontalSpace = false;&#xA;constraintFFigureShipNameLabel.grabExcessVerticalSpace = false;&#xA;this.add(fFigureShipNameLabel, constraintFFigureShipNameLabel);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureShipNameLabel() {&#xA;&#x9;&#x9;return fFigureShipNameLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet
           modelElementSelector="//@expressionProviders/@providers.0/@expressions.0">
         <metaClass
@@ -366,6 +367,48 @@
               href="taipan.genmodel#//taipan/Ship/name"/>
         </modelFacet>
       </labels>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5006"
+          editPartClassName="ShipDestination2EditPart"
+          itemSemanticEditPolicyClassName="ShipDestination2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="ShipDestinationViewFactory"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.2">
+          <metaFeatures
+              href="taipan.genmodel#//taipan/Ship/destination"/>
+          <editableMetaFeatures
+              href="taipan.genmodel#//taipan/Ship/destination"/>
+        </modelFacet>
+      </labels>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5007"
+          editPartClassName="ShipShipClassEditPart"
+          itemSemanticEditPolicyClassName="ShipShipClassItemSemanticEditPolicy"
+          notationViewFactoryClassName="ShipShipClassViewFactory"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.3">
+          <metaFeatures
+              href="taipan.genmodel#//taipan/Ship/shipClass"/>
+          <editableMetaFeatures
+              href="taipan.genmodel#//taipan/Ship/shipClass"/>
+        </modelFacet>
+      </labels>
     </topLevelNodes>
     <topLevelNodes
         visualID="2003"
@@ -384,7 +427,7 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="WarshipFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class WarshipFigure extends org.eclipse.gmf.examples.taipan.figures.WarshipShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureWarshipNameLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public WarshipFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.GridLayout layoutThis = new org.eclipse.draw2d.GridLayout();&#xA;&#x9;layoutThis.numColumns = 2;&#xA;&#x9;layoutThis.makeColumnsEqualWidth = false;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureWarshipNameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;fFigureWarshipNameLabel.setText(&quot;&quot;);&#xA;&#xA;&#xA;org.eclipse.draw2d.GridData constraintFFigureWarshipNameLabel = new org.eclipse.draw2d.GridData();&#xA;constraintFFigureWarshipNameLabel.verticalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureWarshipNameLabel.horizontalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureWarshipNameLabel.horizontalIndent = 0;&#xA;constraintFFigureWarshipNameLabel.horizontalSpan = 1;&#xA;constraintFFigureWarshipNameLabel.verticalSpan = 1;&#xA;constraintFFigureWarshipNameLabel.grabExcessHorizontalSpace = false;&#xA;constraintFFigureWarshipNameLabel.grabExcessVerticalSpace = false;&#xA;this.add(fFigureWarshipNameLabel, constraintFFigureWarshipNameLabel);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private boolean myUseLocalCoordinates = false;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected boolean useLocalCoordinates() {&#xA;&#x9;&#x9;return myUseLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;protected void setUseLocalCoordinates(boolean useLocalCoordinates) {&#xA;&#x9;&#x9;myUseLocalCoordinates = useLocalCoordinates;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureWarshipNameLabel() {&#xA;&#x9;&#x9;return fFigureWarshipNameLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class WarshipFigure extends org.eclipse.gmf.examples.taipan.figures.WarshipShape {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureWarshipNameLabel; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public WarshipFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.GridLayout layoutThis = new org.eclipse.draw2d.GridLayout();&#xA;&#x9;layoutThis.numColumns = 2;&#xA;&#x9;layoutThis.makeColumnsEqualWidth = false;&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#xA;&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;fFigureWarshipNameLabel = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureWarshipNameLabel.setText(&quot;&quot;);&#xA;&#xA;&#xA;org.eclipse.draw2d.GridData constraintFFigureWarshipNameLabel = new org.eclipse.draw2d.GridData();&#xA;constraintFFigureWarshipNameLabel.verticalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureWarshipNameLabel.horizontalAlignment = org.eclipse.draw2d.GridData.BEGINNING;&#xA;constraintFFigureWarshipNameLabel.horizontalIndent = 0;&#xA;constraintFFigureWarshipNameLabel.horizontalSpan = 1;&#xA;constraintFFigureWarshipNameLabel.verticalSpan = 1;&#xA;constraintFFigureWarshipNameLabel.grabExcessHorizontalSpace = false;&#xA;constraintFFigureWarshipNameLabel.grabExcessVerticalSpace = false;&#xA;this.add(fFigureWarshipNameLabel, constraintFFigureWarshipNameLabel);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureWarshipNameLabel() {&#xA;&#x9;&#x9;return fFigureWarshipNameLabel;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet>
         <metaClass
             href="taipan.genmodel#//taipan/Warship"/>
@@ -411,6 +454,26 @@
             editMethod="NATIVE">
           <metaFeatures
               href="taipan.genmodel#//taipan/Ship/name"/>
+        </modelFacet>
+      </labels>
+      <labels
+          xsi:type="gmfgen:GenExternalNodeLabel"
+          visualID="5008"
+          editPartClassName="WarshipDestinationEditPart"
+          itemSemanticEditPolicyClassName="WarshipDestinationItemSemanticEditPolicy"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:FigureViewmap"
+            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.4">
+          <metaFeatures
+              href="taipan.genmodel#//taipan/Ship/destination"/>
+          <editableMetaFeatures
+              href="taipan.genmodel#//taipan/Ship/destination"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
@@ -451,7 +514,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:DesignLabelModelFacet"
-            parser="//@labelParsers/@implementations.2"/>
+            parser="//@labelParsers/@implementations.5"/>
       </labels>
     </links>
     <links
@@ -472,7 +535,7 @@
           figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.1">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -483,7 +546,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.2">
+              value="//@expressionProviders/@providers.0/@expressions.3">
             <feature
                 href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
@@ -510,7 +573,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.3"
+            parser="//@labelParsers/@implementations.6"
             viewPattern="route : {0}"
             editorPattern="{0}"
             editPattern="{0}">
@@ -534,7 +597,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.3"
+            parser="//@labelParsers/@implementations.6"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}">
@@ -560,10 +623,10 @@
       <viewmap
           xsi:type="gmfgen:InnerClassViewmap"
           className="UnreliableRouteFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setLineWidth(1);&#xA;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class UnreliableRouteFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public UnreliableRouteFigure() {&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.3">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
         <metaClass
             href="taipan.genmodel#//taipan/Route"/>
         <containmentMetaFeature
@@ -574,7 +637,7 @@
             xsi:type="gmfgen:GenFeatureSeqInitializer">
           <initializers
               xsi:type="gmfgen:GenFeatureValueSpec"
-              value="//@expressionProviders/@providers.0/@expressions.4">
+              value="//@expressionProviders/@providers.0/@expressions.5">
             <feature
                 href="taipan.genmodel#//taipan/Route/reliability"/>
           </initializers>
@@ -601,7 +664,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.3"
+            parser="//@labelParsers/@implementations.6"
             viewPattern="route : {0}"
             editorPattern="{0}"
             editPattern="{0}">
@@ -625,7 +688,7 @@
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.3"
+            parser="//@labelParsers/@implementations.6"
             viewPattern="reliability : {0,number,percent}"
             editorPattern="{0,number,percent}"
             editPattern="{0,number,percent}">
@@ -685,7 +748,7 @@
             href="taipan.genmodel#//taipan/BesiegePortOrder/port"/>
       </modelFacet>
       <creationConstraints
-          sourceEnd="//@expressionProviders/@providers.0/@expressions.5"/>
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.6"/>
     </links>
     <links
         visualID="4006"
@@ -716,8 +779,8 @@
             href="taipan.genmodel#//taipan/EscortShipsOrder/ships"/>
       </modelFacet>
       <creationConstraints
-          sourceEnd="//@expressionProviders/@providers.0/@expressions.6"
-          targetEnd="//@expressionProviders/@providers.0/@expressions.7"/>
+          sourceEnd="//@expressionProviders/@providers.0/@expressions.7"
+          targetEnd="//@expressionProviders/@providers.0/@expressions.8"/>
     </links>
     <links
         visualID="4007"
@@ -992,6 +1055,8 @@
           xsi:type="gmfgen:GenConstraint"
           body="not self.oclIsKindOf(Warship)"/>
       <expressions
+          body="_item.location"/>
+      <expressions
           xsi:type="gmfgen:GenConstraint"
           body="reliability >= 0.5"/>
       <expressions
@@ -1043,6 +1108,16 @@
         uses="//@diagram/@childNodes.0/@labelModelFacet"
         viewMethod="PRINTF"
         editMethod="REGEXP"/>
+    <implementations
+        xsi:type="gmfgen:OclChoiceParser"
+        uses="//@diagram/@topLevelNodes.1/@labels.1/@modelFacet"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedEnumParser"
+        uses="//@diagram/@topLevelNodes.1/@labels.2/@modelFacet"/>
+    <implementations
+        xsi:type="gmfgen:OclChoiceParser"
+        uses="//@diagram/@topLevelNodes.2/@labels.1/@modelFacet"
+        showExpression="//@expressionProviders/@providers.0/@expressions.1"/>
     <implementations
         xsi:type="gmfgen:ExternalParser"
         uses="//@diagram/@links.0/@labels.0/@modelFacet"/>

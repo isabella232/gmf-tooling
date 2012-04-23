@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -368,13 +369,22 @@ public interface TaiPanPackage extends EPackage {
 	int SHIP__NAME = 0;
 
 	/**
+	 * The feature id for the '<em><b>Ship Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHIP__SHIP_CLASS = 1;
+
+	/**
 	 * The feature id for the '<em><b>Destination</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHIP__DESTINATION = 1;
+	int SHIP__DESTINATION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Route</b></em>' reference.
@@ -383,7 +393,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHIP__ROUTE = 2;
+	int SHIP__ROUTE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Cargo</b></em>' containment reference list.
@@ -392,7 +402,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHIP__CARGO = 3;
+	int SHIP__CARGO = 4;
 
 	/**
 	 * The number of structural features of the '<em>Ship</em>' class.
@@ -401,7 +411,7 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SHIP_FEATURE_COUNT = 4;
+	int SHIP_FEATURE_COUNT = 5;
 
 	/**
 	 * The feature id for the '<em><b>Article</b></em>' attribute.
@@ -503,6 +513,15 @@ public interface TaiPanPackage extends EPackage {
 	int WARSHIP__NAME = SHIP__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Ship Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WARSHIP__SHIP_CLASS = SHIP__SHIP_CLASS;
+
+	/**
 	 * The feature id for the '<em><b>Destination</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -600,6 +619,16 @@ public interface TaiPanPackage extends EPackage {
 	 * @ordered
 	 */
 	int BESIEGE_PORT_ORDER_FEATURE_COUNT = ORDER_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.examples.taipan.ShipClass <em>Ship Class</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.examples.taipan.ShipClass
+	 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getShipClass()
+	 * @generated
+	 */
+	int SHIP_CLASS = 14;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Aquatory <em>Aquatory</em>}'.
@@ -717,6 +746,17 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getShip_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.examples.taipan.Ship#getShipClass <em>Ship Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ship Class</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.Ship#getShipClass()
+	 * @see #getShip()
+	 * @generated
+	 */
+	EAttribute getShip_ShipClass();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.examples.taipan.Ship#getDestination <em>Destination</em>}'.
@@ -907,6 +947,16 @@ public interface TaiPanPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getBesiegePortOrder_Port();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.examples.taipan.ShipClass <em>Ship Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Ship Class</em>'.
+	 * @see org.eclipse.gmf.examples.taipan.ShipClass
+	 * @generated
+	 */
+	EEnum getShipClass();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.examples.taipan.Route <em>Route</em>}'.
@@ -1114,6 +1164,14 @@ public interface TaiPanPackage extends EPackage {
 		EAttribute SHIP__NAME = eINSTANCE.getShip_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Ship Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SHIP__SHIP_CLASS = eINSTANCE.getShip_ShipClass();
+
+		/**
 		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1272,6 +1330,16 @@ public interface TaiPanPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BESIEGE_PORT_ORDER__PORT = eINSTANCE.getBesiegePortOrder_Port();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.ShipClass <em>Ship Class</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.ShipClass
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getShipClass()
+		 * @generated
+		 */
+		EEnum SHIP_CLASS = eINSTANCE.getShipClass();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.RouteImpl <em>Route</em>}' class.

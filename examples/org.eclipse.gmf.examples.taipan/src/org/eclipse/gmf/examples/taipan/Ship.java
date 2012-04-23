@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getShipClass <em>Ship Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getRoute <em>Route</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Ship#getCargo <em>Cargo</em>}</li>
@@ -61,6 +62,35 @@ public interface Ship extends EObject {
 	 * @generated
 	 */
 	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Ship Class</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.examples.taipan.ShipClass}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ship Class</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ship Class</em>' attribute.
+	 * @see org.eclipse.gmf.examples.taipan.ShipClass
+	 * @see #setShipClass(ShipClass)
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getShip_ShipClass()
+	 * @model
+	 * @generated
+	 */
+	ShipClass getShipClass();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.examples.taipan.Ship#getShipClass <em>Ship Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ship Class</em>' attribute.
+	 * @see org.eclipse.gmf.examples.taipan.ShipClass
+	 * @see #getShipClass()
+	 * @generated
+	 */
+	void setShipClass(ShipClass value);
 
 	/**
 	 * Returns the value of the '<em><b>Destination</b></em>' reference.

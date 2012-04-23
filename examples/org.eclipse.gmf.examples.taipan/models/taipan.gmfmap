@@ -19,6 +19,8 @@
             href="taipan.gmfgraph#PortLocation"/>
         <features
             href="taipan.ecore#//Port/location"/>
+        <editableFeatures
+            href="taipan.ecore#//Port/location"/>
       </labelMappings>
       <relatedDiagrams
           href="port.gmfmap#//@diagram"/>
@@ -45,6 +47,23 @@
             href="taipan.gmfgraph#ShipName"/>
         <features
             href="taipan.ecore#//Ship/name"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:OclChoiceLabelMapping">
+        <diagramLabel
+            href="taipan.gmfgraph#ShipChoiceDestinationDefaultToString"/>
+        <feature
+            xsi:type="ecore:EReference"
+            href="taipan.ecore#//Ship/destination"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="taipan.gmfgraph#ShipChoiceEnumClass"/>
+        <features
+            href="taipan.ecore#//Ship/shipClass"/>
+        <editableFeatures
+            href="taipan.ecore#//Ship/shipClass"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
@@ -151,6 +170,16 @@
             href="taipan.gmfgraph#WarshipName"/>
         <features
             href="taipan.ecore#//Ship/name"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:OclChoiceLabelMapping">
+        <diagramLabel
+            href="taipan.gmfgraph#ShipChoiceDestinationCustomToString"/>
+        <feature
+            xsi:type="ecore:EReference"
+            href="taipan.ecore#//Ship/destination"/>
+        <showExpression
+            body="_item.location"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"

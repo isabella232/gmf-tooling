@@ -62,6 +62,7 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
+			addShipClassPropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
 			addRoutePropertyDescriptor(object);
 		}
@@ -78,6 +79,18 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_name_feature"), //$NON-NLS-1$
 				getString("_UI_PropertyDescriptor_description", "_UI_Ship_name_feature", "_UI_Ship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				TaiPanPackage.Literals.SHIP__NAME, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Ship Class feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShipClassPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_shipClass_feature"), //$NON-NLS-1$
+				getString("_UI_PropertyDescriptor_description", "_UI_Ship_shipClass_feature", "_UI_Ship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				TaiPanPackage.Literals.SHIP__SHIP_CLASS, true, false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -171,6 +184,7 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 
 		switch (notification.getFeatureID(Ship.class)) {
 		case TaiPanPackage.SHIP__NAME:
+		case TaiPanPackage.SHIP__SHIP_CLASS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case TaiPanPackage.SHIP__CARGO:

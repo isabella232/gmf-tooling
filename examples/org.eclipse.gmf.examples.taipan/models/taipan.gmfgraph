@@ -112,6 +112,18 @@
       <accessors
           figure="//@figures.0/@descriptors.8/@actualFigure/@children.0"/>
     </descriptors>
+    <descriptors
+        name="label_ship_destination">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="label_ship_destination"/>
+    </descriptors>
+    <descriptors
+        name="label_ship_class">
+      <actualFigure
+          xsi:type="gmfgraph:Label"
+          name="label_ship_class"/>
+    </descriptors>
   </figures>
   <figures
       name="links"
@@ -305,4 +317,13 @@
       figure="WarshipFigure"
       elementIcon="false"
       accessor="//@figures.0/@descriptors.8/@accessors.0"/>
+  <labels
+      name="ShipChoiceDestinationCustomToString"
+      figure="label_ship_destination"/>
+  <labels
+      name="ShipChoiceEnumClass"
+      figure="label_ship_class"/>
+  <labels
+      name="ShipChoiceDestinationDefaultToString"
+      figure="label_ship_destination"/>
 </gmfgraph:Canvas>

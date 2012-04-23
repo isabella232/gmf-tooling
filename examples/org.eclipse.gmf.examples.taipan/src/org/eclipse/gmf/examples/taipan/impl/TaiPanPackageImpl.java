@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -30,6 +31,7 @@ import org.eclipse.gmf.examples.taipan.Order;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.ShipClass;
 import org.eclipse.gmf.examples.taipan.SmallItems;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -132,6 +134,13 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum shipClassEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass routeEClass = null;
 
 	/**
@@ -168,20 +177,10 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link TaiPanPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -194,7 +193,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 			return (TaiPanPackage) EPackage.Registry.INSTANCE.getEPackage(TaiPanPackage.eNS_URI);
 
 		// Obtain or create and register package
-		TaiPanPackageImpl theTaiPanPackage = (TaiPanPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof TaiPanPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI)
+		TaiPanPackageImpl theTaiPanPackage = (TaiPanPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof TaiPanPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI)
 				: new TaiPanPackageImpl());
 
 		isInited = true;
@@ -208,6 +207,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		// Mark meta-data to indicate it can't be changed
 		theTaiPanPackage.freeze();
 
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(TaiPanPackage.eNS_URI, theTaiPanPackage);
 		return theTaiPanPackage;
 	}
 
@@ -315,8 +316,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getShip_Destination() {
-		return (EReference) shipEClass.getEStructuralFeatures().get(1);
+	public EAttribute getShip_ShipClass() {
+		return (EAttribute) shipEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -324,7 +325,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getShip_Route() {
+	public EReference getShip_Destination() {
 		return (EReference) shipEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -333,8 +334,17 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getShip_Cargo() {
+	public EReference getShip_Route() {
 		return (EReference) shipEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getShip_Cargo() {
+		return (EReference) shipEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -477,6 +487,15 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getShipClass() {
+		return shipClassEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRoute() {
 		return routeEClass;
 	}
@@ -597,6 +616,7 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 
 		shipEClass = createEClass(SHIP);
 		createEAttribute(shipEClass, SHIP__NAME);
+		createEAttribute(shipEClass, SHIP__SHIP_CLASS);
 		createEReference(shipEClass, SHIP__DESTINATION);
 		createEReference(shipEClass, SHIP__ROUTE);
 		createEReference(shipEClass, SHIP__CARGO);
@@ -623,6 +643,9 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 
 		besiegePortOrderEClass = createEClass(BESIEGE_PORT_ORDER);
 		createEReference(besiegePortOrderEClass, BESIEGE_PORT_ORDER__PORT);
+
+		// Create enums
+		shipClassEEnum = createEEnum(SHIP_CLASS);
 	}
 
 	/**
@@ -701,6 +724,8 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		initEClass(shipEClass, Ship.class, "Ship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getShip_Name(), ecorePackage.getEString(),
 				"name", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getShip_ShipClass(), this.getShipClass(),
+				"shipClass", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getShip_Destination(), this.getPort(), null,
 				"destination", null, 0, 1, Ship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getShip_Route(), this.getRoute(), null,
@@ -737,6 +762,14 @@ public class TaiPanPackageImpl extends EPackageImpl implements TaiPanPackage {
 		initEClass(besiegePortOrderEClass, BesiegePortOrder.class, "BesiegePortOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getBesiegePortOrder_Port(), this.getPort(), null,
 				"port", null, 1, 1, BesiegePortOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Initialize enums and add enum literals
+		initEEnum(shipClassEEnum, ShipClass.class, "ShipClass"); //$NON-NLS-1$
+		addEEnumLiteral(shipClassEEnum, ShipClass.TRIBAL);
+		addEEnumLiteral(shipClassEEnum, ShipClass.AMPHION);
+		addEEnumLiteral(shipClassEEnum, ShipClass.FRIGAT);
+		addEEnumLiteral(shipClassEEnum, ShipClass.BATTLESHIP);
+		addEEnumLiteral(shipClassEEnum, ShipClass.CRUISER);
 
 		// Create resource
 		createResource(eNS_URI);

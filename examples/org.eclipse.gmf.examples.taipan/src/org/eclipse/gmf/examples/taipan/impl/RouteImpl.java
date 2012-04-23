@@ -254,7 +254,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 		case TaiPanPackage.ROUTE__DESCRIPTION:
 			return getDescription();
 		case TaiPanPackage.ROUTE__RELIABILITY:
-			return new Double(getReliability());
+			return getReliability();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -277,7 +277,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 			setDescription((String) newValue);
 			return;
 		case TaiPanPackage.ROUTE__RELIABILITY:
-			setReliability(((Double) newValue).doubleValue());
+			setReliability((Double) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

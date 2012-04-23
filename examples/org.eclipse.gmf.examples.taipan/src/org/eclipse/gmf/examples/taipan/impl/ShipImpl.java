@@ -31,6 +31,7 @@ import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
+import org.eclipse.gmf.examples.taipan.ShipClass;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
@@ -41,6 +42,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getShipClass <em>Ship Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getRoute <em>Route</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl#getCargo <em>Cargo</em>}</li>
@@ -70,6 +72,26 @@ public class ShipImpl extends EObjectImpl implements Ship {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getShipClass() <em>Ship Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShipClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ShipClass SHIP_CLASS_EDEFAULT = ShipClass.TRIBAL;
+
+	/**
+	 * The cached value of the '{@link #getShipClass() <em>Ship Class</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShipClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected ShipClass shipClass = SHIP_CLASS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
@@ -139,6 +161,27 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.SHIP__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ShipClass getShipClass() {
+		return shipClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setShipClass(ShipClass newShipClass) {
+		ShipClass oldShipClass = shipClass;
+		shipClass = newShipClass == null ? SHIP_CLASS_EDEFAULT : newShipClass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, TaiPanPackage.SHIP__SHIP_CLASS, oldShipClass, shipClass));
 	}
 
 	/**
@@ -253,6 +296,8 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		switch (featureID) {
 		case TaiPanPackage.SHIP__NAME:
 			return getName();
+		case TaiPanPackage.SHIP__SHIP_CLASS:
+			return getShipClass();
 		case TaiPanPackage.SHIP__DESTINATION:
 			if (resolve)
 				return getDestination();
@@ -279,6 +324,9 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		case TaiPanPackage.SHIP__NAME:
 			setName((String) newValue);
 			return;
+		case TaiPanPackage.SHIP__SHIP_CLASS:
+			setShipClass((ShipClass) newValue);
+			return;
 		case TaiPanPackage.SHIP__DESTINATION:
 			setDestination((Port) newValue);
 			return;
@@ -304,6 +352,9 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		case TaiPanPackage.SHIP__NAME:
 			setName(NAME_EDEFAULT);
 			return;
+		case TaiPanPackage.SHIP__SHIP_CLASS:
+			setShipClass(SHIP_CLASS_EDEFAULT);
+			return;
 		case TaiPanPackage.SHIP__DESTINATION:
 			setDestination((Port) null);
 			return;
@@ -327,6 +378,8 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		switch (featureID) {
 		case TaiPanPackage.SHIP__NAME:
 			return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+		case TaiPanPackage.SHIP__SHIP_CLASS:
+			return shipClass != SHIP_CLASS_EDEFAULT;
 		case TaiPanPackage.SHIP__DESTINATION:
 			return destination != null;
 		case TaiPanPackage.SHIP__ROUTE:
@@ -350,6 +403,8 @@ public class ShipImpl extends EObjectImpl implements Ship {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
+		result.append(", shipClass: "); //$NON-NLS-1$
+		result.append(shipClass);
 		result.append(')');
 		return result.toString();
 	}

@@ -87,7 +87,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			return new Integer(getQuantity());
+			return getQuantity();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -100,7 +100,7 @@ public class SmallItemsImpl extends ItemImpl implements SmallItems {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case TaiPanPackage.SMALL_ITEMS__QUANTITY:
-			setQuantity(((Integer) newValue).intValue());
+			setQuantity((Integer) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
