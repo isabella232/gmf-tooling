@@ -2100,7 +2100,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getVisualEffectMapping()
 	 * @generated
 	 */
-	int VISUAL_EFFECT_MAPPING = 37;
+	int VISUAL_EFFECT_MAPPING = 11137;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Pin</b></em>' reference.

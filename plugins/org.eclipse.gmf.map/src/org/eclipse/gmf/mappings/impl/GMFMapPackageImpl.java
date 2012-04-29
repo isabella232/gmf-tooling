@@ -58,10 +58,7 @@ import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
-<<<<<<< OURS
-=======
 import org.eclipse.gmf.mappings.VisualEffectMapping;
->>>>>>> THEIRS
 import org.eclipse.gmf.tooldef.GMFToolPackage;
 import org.eclipse.gmf.validate.GMFValidator;
 
