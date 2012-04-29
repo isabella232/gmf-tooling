@@ -2118,7 +2118,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getVisualEffectMapping()
 	 * @generated
 	 */
-	int VISUAL_EFFECT_MAPPING = 11137;
+	int VISUAL_EFFECT_MAPPING = 38;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Pin</b></em>' reference.
@@ -2164,7 +2164,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_TEXT_ACCESS_METHOD = 38;
+	int LABEL_TEXT_ACCESS_METHOD = 39;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}' enum.
@@ -2174,7 +2174,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 39;
+	int SEVERITY = 40;
 
 
 	/**
@@ -2185,7 +2185,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLanguage()
 	 * @generated
 	 */
-	int LANGUAGE = 40;
+	int LANGUAGE = 41;
 
 
 	/**

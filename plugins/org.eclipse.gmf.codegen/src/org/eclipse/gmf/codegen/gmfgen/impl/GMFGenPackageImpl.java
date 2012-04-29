@@ -7209,7 +7209,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenVisualEffect() {
 		if (genVisualEffectEClass == null) {
-			genVisualEffectEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(155);
+			genVisualEffectEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(157);
 		}
 		return genVisualEffectEClass;
 	}
