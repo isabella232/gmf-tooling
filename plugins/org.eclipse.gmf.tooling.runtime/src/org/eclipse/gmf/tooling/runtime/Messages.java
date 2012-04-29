@@ -11,9 +11,9 @@ public class Messages extends NLS {
 	private Messages() {
 	}
 
-	public static String AbstractParser_UnexpectedValueType;
+	public static String AbstractAttributeParser_UnexpectedValueType;
 
-	public static String AbstractParser_WrongStringConversion;
+	public static String AbstractAttributeParser_WrongStringConversion;
 
-	public static String AbstractParser_UnknownLiteral;
+	public static String AbstractAttributeParser_UnknownLiteral;
 }

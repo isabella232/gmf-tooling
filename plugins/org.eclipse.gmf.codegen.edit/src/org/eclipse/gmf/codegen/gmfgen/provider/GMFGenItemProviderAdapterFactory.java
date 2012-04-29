@@ -2251,6 +2251,52 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PredefinedEnumParserItemProvider predefinedEnumParserItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createPredefinedEnumParserAdapter() {
+		if (predefinedEnumParserItemProvider == null) {
+			predefinedEnumParserItemProvider = new PredefinedEnumParserItemProvider(this);
+		}
+
+		return predefinedEnumParserItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OclChoiceParserItemProvider oclChoiceParserItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.OclChoiceParser}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOclChoiceParserAdapter() {
+		if (oclChoiceParserItemProvider == null) {
+			oclChoiceParserItemProvider = new OclChoiceParserItemProvider(this);
+		}
+
+		return oclChoiceParserItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2587,6 +2633,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genApplicationItemProvider != null) genApplicationItemProvider.dispose();
 		if (genParsersItemProvider != null) genParsersItemProvider.dispose();
 		if (predefinedParserItemProvider != null) predefinedParserItemProvider.dispose();
+		if (predefinedEnumParserItemProvider != null) predefinedEnumParserItemProvider.dispose();
+		if (oclChoiceParserItemProvider != null) oclChoiceParserItemProvider.dispose();
 		if (expressionLabelParserItemProvider != null) expressionLabelParserItemProvider.dispose();
 		if (customParserItemProvider != null) customParserItemProvider.dispose();
 		if (externalParserItemProvider != null) externalParserItemProvider.dispose();

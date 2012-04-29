@@ -12,8 +12,16 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gef;visibility:=reexport,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.runtime.common.ui.services,
- org.eclipse.gmf.runtime.emf.type.core
+ org.eclipse.gmf.runtime.emf.type.core,
+ org.eclipse.gmf.runtime.diagram.core,
+ org.eclipse.gmf.runtime.diagram.ui, 
+ org.eclipse.ocl,
+ org.eclipse.ocl.ecore
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.eclipse.gmf.tooling.runtime.GMFToolingRuntimePlugin
+Export-Package: org.eclipse.gmf.tooling.runtime,
+ org.eclipse.gmf.tooling.runtime.directedit,
+ org.eclipse.gmf.tooling.runtime.ocl.tracker,
+ org.eclipse.gmf.tooling.runtime.parsers
 

@@ -80,6 +80,15 @@ public interface GMFMapFactory extends EFactory {
 	FeatureLabelMapping createFeatureLabelMapping();
 
 	/**
+	 * Returns a new object of class '<em>Ocl Choice Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Ocl Choice Label Mapping</em>'.
+	 * @generated
+	 */
+	OclChoiceLabelMapping createOclChoiceLabelMapping();
+
+	/**
 	 * Returns a new object of class '<em>Design Label Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

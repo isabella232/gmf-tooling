@@ -51,13 +51,13 @@ import org.eclipse.gmf.mappings.NeedsContainment;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.mappings.OclChoiceLabelMapping;
 import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.RuleBase;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
-import org.eclipse.gmf.mappings.*;
 import org.eclipse.gmf.tooldef.GMFToolPackage;
 import org.eclipse.gmf.validate.GMFValidator;
 
@@ -144,6 +144,13 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	private EClass featureLabelMappingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass oclChoiceLabelMappingEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -868,6 +875,42 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 */
 	public EAttribute getFeatureLabelMapping_EditMethod() {
 		return (EAttribute)featureLabelMappingEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOclChoiceLabelMapping() {
+		return oclChoiceLabelMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOclChoiceLabelMapping_Feature() {
+		return (EReference)oclChoiceLabelMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOclChoiceLabelMapping_ItemsExpression() {
+		return (EReference)oclChoiceLabelMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOclChoiceLabelMapping_ShowExpression() {
+		return (EReference)oclChoiceLabelMappingEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1714,6 +1757,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__VIEW_METHOD);
 		createEAttribute(featureLabelMappingEClass, FEATURE_LABEL_MAPPING__EDIT_METHOD);
 
+		oclChoiceLabelMappingEClass = createEClass(OCL_CHOICE_LABEL_MAPPING);
+		createEReference(oclChoiceLabelMappingEClass, OCL_CHOICE_LABEL_MAPPING__FEATURE);
+		createEReference(oclChoiceLabelMappingEClass, OCL_CHOICE_LABEL_MAPPING__ITEMS_EXPRESSION);
+		createEReference(oclChoiceLabelMappingEClass, OCL_CHOICE_LABEL_MAPPING__SHOW_EXPRESSION);
+
 		designLabelMappingEClass = createEClass(DESIGN_LABEL_MAPPING);
 
 		expressionLabelMappingEClass = createEClass(EXPRESSION_LABEL_MAPPING);
@@ -1863,6 +1911,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		linkMappingEClass.getESuperTypes().add(this.getToolOwner());
 		linkMappingEClass.getESuperTypes().add(this.getAppearanceSteward());
 		featureLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
+		oclChoiceLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
 		designLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
 		expressionLabelMappingEClass.getESuperTypes().add(this.getLabelMapping());
 		constraintEClass.getESuperTypes().add(this.getValueExpression());
@@ -1951,6 +2000,11 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEAttribute(getFeatureLabelMapping_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_ViewMethod(), this.getLabelTextAccessMethod(), "viewMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelMapping_EditMethod(), this.getLabelTextAccessMethod(), "editMethod", null, 0, 1, FeatureLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(oclChoiceLabelMappingEClass, OclChoiceLabelMapping.class, "OclChoiceLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getOclChoiceLabelMapping_Feature(), ecorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, OclChoiceLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOclChoiceLabelMapping_ItemsExpression(), this.getValueExpression(), null, "itemsExpression", null, 0, 1, OclChoiceLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOclChoiceLabelMapping_ShowExpression(), this.getValueExpression(), null, "showExpression", null, 0, 1, OclChoiceLabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(designLabelMappingEClass, DesignLabelMapping.class, "DesignLabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2095,7 +2149,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																																						
+		   });																																																																																																																										
 	}
 
 	/**
@@ -2112,7 +2166,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																																				
+		   });																																								
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -2385,7 +2439,28 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "editableFeatures->forAll(f | f.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement))",
 			 "description", "Label attributes must be available in \'Domain Element\' EClass of the labeled mapping entry"
-		   });													
+		   });						
+		addAnnotation
+		  (getOclChoiceLabelMapping_Feature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "feature.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement)",
+			 "description", "Label reference must be available in \'Domain Element\' EClass of the labeled mapping entry"
+		   });		
+		addAnnotation
+		  (getOclChoiceLabelMapping_Feature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "feature.oclIsKindOf(ecore::EReference) implies (not(feature.oclAsType(ecore::EReference).containment) and (feature.oclAsType(ecore::EReference).upperBound = 1))",
+			 "description", "Reference feature should not be containment and don\'t be multiple"
+		   });		
+		addAnnotation
+		  (getOclChoiceLabelMapping_Feature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "feature.oclIsKindOf(ecore::EAttribute) implies (itemsExpression <> null)",
+			 "description", "Items expression should be set if feature is an EAttribute"
+		   });										
 		addAnnotation
 		  (linkConstraintsEClass, 
 		   source, 

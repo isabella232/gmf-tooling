@@ -114,6 +114,13 @@
       <genFeatures createChild="false" propertyCategory="Visual representation" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/viewMethod"/>
       <genFeatures createChild="false" propertyCategory="Visual representation" ecoreFeature="ecore:EAttribute gmfmap.ecore#//FeatureLabelMapping/editMethod"/>
     </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//OclChoiceLabelMapping">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfmap.ecore#//OclChoiceLabelMapping/feature"/>
+      <genFeatures children="true" createChild="true" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//OclChoiceLabelMapping/itemsExpression"/>
+      <genFeatures children="true" createChild="true" propertyCategory="Visual representation"
+          propertyDescription="" ecoreFeature="ecore:EReference gmfmap.ecore#//OclChoiceLabelMapping/showExpression"/>
+    </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//DesignLabelMapping"/>
     <genClasses ecoreClass="gmfmap.ecore#//ExpressionLabelMapping">
       <genFeatures children="true" createChild="true" propertyCategory="Visual representation"

@@ -243,6 +243,30 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewMethod" eType="#//LabelTextAccessMethod"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editMethod" eType="#//LabelTextAccessMethod"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OclChoiceLabelMapping" eSuperTypes="#//LabelMapping">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Label based on a feature (reference or attribute) from domain model and list of choices"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="feature.eContainingClass.isSuperTypeOf(mapEntry.domainMetaElement)"/>
+        <details key="description" value="Label reference must be available in 'Domain Element' EClass of the labeled mapping entry"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="feature.oclIsKindOf(ecore::EReference) implies (not(feature.oclAsType(ecore::EReference).containment) and (feature.oclAsType(ecore::EReference).upperBound = 1))"/>
+        <details key="description" value="Reference feature should not be containment and don't be multiple"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="feature.oclIsKindOf(ecore::EAttribute) implies (itemsExpression &lt;> null)"/>
+        <details key="description" value="Items expression should be set if feature is an EAttribute"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="itemsExpression" eType="#//ValueExpression"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="showExpression" eType="#//ValueExpression"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LabelTextAccessMethod">
     <eLiterals name="MESSAGE_FORMAT"/>
     <eLiterals name="NATIVE" value="1"/>

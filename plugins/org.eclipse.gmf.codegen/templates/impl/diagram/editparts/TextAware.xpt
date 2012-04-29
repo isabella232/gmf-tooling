@@ -13,6 +13,7 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
+«EXTENSION impl::diagram::editparts::ChoiceUtils»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -21,8 +22,13 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
+	«IF isOclChoiceLabel()-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	private «EXPAND CodeStyle::G('java.util.List', '?')» parserElements;
+	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator myOclRegistrator;
+	«ELSE-»
+	«EXPAND xpt::Common::generatedMemberComment»
+ 	private «EXPAND CodeStyle::G('java.util.List', '?')» parserElements;
+	«ENDIF-»
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultText;
@@ -64,17 +70,19 @@
 	
 	«EXPAND getParser(modelFacet, diagram, host)-»
 	
-	«EXPAND getManager(diagram)-»
+	«EXPAND getManager(diagram, modelFacet)-»
 	
 	«EXPAND setManager-»
 	
 	«EXPAND performDirectEdit-»
 	
-	«EXPAND performDirectEditAtPoint-»
-	
+	«EXPAND performDirectEditAtPoint(modelFacet)-»
+
+«IF not(isChoiceLabel(modelFacet))-»
 	«EXPAND performDirectEditWithInitialChar-»
+«ENDIF»	
 	
-	«EXPAND performDirectEditRequest-»
+	«EXPAND performDirectEditRequest(modelFacet)-»
 	
 	«EXPAND refreshVisuals(needsRefreshBounds)-»
 	
@@ -95,6 +103,14 @@
 	«EXPAND getAccessibleEditPart-»
 	
 	«EXPAND getFontStyleOwnerView(viewmap)-»
+		
+«IF isOclChoiceLabelWithShowExpr()-»
+	«EXPAND getOclTracker-»
+«ENDIF-»
+	
+«IF isOclChoiceLabel()-»
+	«EXPAND getOclRegistrator-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-»
@@ -331,12 +347,12 @@
 	}
 «ENDDEFINE»
 
-«DEFINE getManager(diagram : gmfgen::GenDiagram) FOR gmfgen::GenCommonBase-»
+«DEFINE getManager(diagram : gmfgen::GenDiagram, modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected org.eclipse.gef.tools.DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager(this,
-				org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.getTextCellEditorClass(this),
+			setManager(new «getDirectManagerFQN(modelFacet)»(this,
+				null,
 				«diagram.getEditPartFactoryQualifiedClassName()».getTextCellEditorLocator(this)));
 		}
 		return manager;
@@ -357,11 +373,11 @@
 	}
 «ENDDEFINE»
 	
-«DEFINE performDirectEditAtPoint FOR gmfgen::GenCommonBase-»
+«DEFINE performDirectEditAtPoint(modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEdit(org.eclipse.draw2d.geometry.Point eventLocation) {
-		if (getManager().getClass() == org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager.class) {
-			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == «getDirectManagerFQN(modelFacet)».class) {
+			((«getDirectManagerFQN(modelFacet)») getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 «ENDDEFINE»
@@ -371,13 +387,17 @@
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
 			((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
-		} else {
+		} else // 
+		if (getManager() instanceof org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2) {
+			((org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2) getManager()).show(initialCharacter);
+		} else //
+		{
 			performDirectEdit();
 		}
 	}
 «ENDDEFINE»
 	
-«DEFINE performDirectEditRequest FOR gmfgen::GenCommonBase-»
+«DEFINE performDirectEditRequest(modelFacet : gmfgen::LabelModelFacet) FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void performDirectEditRequest(org.eclipse.gef.Request request) {
 		final org.eclipse.gef.Request theRequest = request;
@@ -386,10 +406,11 @@
 
 				public void run() {
 					if (isActive() && isEditable()) {
+						«IF not(isChoiceLabel(modelFacet))-»
 						if (theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR) instanceof Character) {
 							Character initialChar = (Character) theRequest.getExtendedData().get(org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_DIRECTEDIT_EXTENDEDDATA_INITIAL_CHAR);
 							performDirectEdit(initialChar.charValue());
-						} else if ((theRequest instanceof org.eclipse.gef.requests.DirectEditRequest) && (getEditText().equals(getLabelText()))) {
+						} else «ENDIF» if ((theRequest instanceof org.eclipse.gef.requests.DirectEditRequest) && (getEditText().equals(getLabelText()))) {
 							org.eclipse.gef.requests.DirectEditRequest editRequest = (org.eclipse.gef.requests.DirectEditRequest) theRequest;
 							performDirectEdit(editRequest.getLocation());
 						} else {
@@ -485,6 +506,16 @@
 «DEFINE addSemanticListeners FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addSemanticListeners() {
+«IF isOclChoiceLabel()-»
+		«IF isOclChoiceLabelWithShowExpr()-»
+		org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker tracker = getTracker();
+		tracker.initialize(resolveSemanticElement());
+		tracker.installListeners(getEditingDomain(), this, getOclRegistrator());
+		«ELSE-»
+		super.addSemanticListeners();
+		«ENDIF-»
+		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).installListeners(this, getOclRegistrator());		
+«ELSE-»	
 		if (getParser() instanceof org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) {
 			org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
 			parserElements = ((org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser) getParser()).getSemanticElementsBeingParsed(element);
@@ -494,12 +525,21 @@
 		} else {
 			super.addSemanticListeners();
 		}
+«ENDIF-»	
 	}
 «ENDDEFINE»
 	
 «DEFINE removeSemanticListeners FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
+«IF isOclChoiceLabel()-»		
+		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).uninstallListeners();
+		«IF isOclChoiceLabelWithShowExpr()-»
+		getTracker().uninstallListeners();	
+		«ELSE-»
+		super.removeSemanticListeners();
+		«ENDIF-»	
+«ELSE-»		
 		if (parserElements != null) {
 			for (int i = 0; i < parserElements.size(); i++) {
 				removeListenerFilter("SemanticModel" + i); «EXPAND xpt::Common::nonNLS»
@@ -507,6 +547,7 @@
 		} else {
 			super.removeSemanticListeners();
 		}
+«ENDIF-»
 	}
 «ENDDEFINE»
 	
@@ -534,4 +575,32 @@
 		return getPrimaryView();
 		«ENDIF-»
 	 }
+«ENDDEFINE»
+
+«DEFINE getOclTracker FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker getTracker() {
+		return ((org.eclipse.gmf.tooling.runtime.ocl.tracker.HasOclTracker) getParser()).getOclTracker();
+	}
+«ENDDEFINE»
+
+«DEFINE getOclRegistrator FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator getOclRegistrator() {
+		if (myOclRegistrator == null) {
+			myOclRegistrator = new org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator() {
+
+				@Override
+				public void registerListener(String filterId, org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener listener, org.eclipse.emf.ecore.EObject element) {
+					addListenerFilter(filterId, listener, element);
+ 				}
+
+				@Override
+				public void unregisterListener(String filterId) {
+					removeListenerFilter(filterId);
+				}
+			};
+		}
+		return myOclRegistrator;
+	}
 «ENDDEFINE»

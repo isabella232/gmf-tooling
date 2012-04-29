@@ -25,15 +25,93 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenDataType;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EModelElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenActionFactoryContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContext;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenContextMenu;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainAttributeTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenGroupMarker;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
+import org.eclipse.gmf.codegen.gmfgen.GenMenuManager;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
+import org.eclipse.gmf.codegen.gmfgen.GenParsers;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
+import org.eclipse.gmf.codegen.gmfgen.GenReferenceNewElementSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenSeparator;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OclChoiceParser;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
@@ -50,8 +128,39 @@ import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.navigator.NavigatorHandler;
 import org.eclipse.gmf.internal.bridge.tooldef.PaletteHandler;
 import org.eclipse.gmf.internal.codegen.util.Extras;
-import org.eclipse.gmf.mappings.*;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.AuditedMetricTarget;
+import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.ChildReference;
+import org.eclipse.gmf.mappings.CompartmentMapping;
+import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.DesignLabelMapping;
+import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainAttributeTarget;
+import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.ExpressionLabelMapping;
+import org.eclipse.gmf.mappings.FeatureInitializer;
+import org.eclipse.gmf.mappings.FeatureLabelMapping;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.Language;
 import org.eclipse.gmf.mappings.LinkConstraints;
+import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.mappings.MetricRule;
+import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
+import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.mappings.OclChoiceLabelMapping;
+import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
+import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
  * Creates generation model from diagram definition.
@@ -591,6 +700,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			// XXX temp code
 			modelFacet.setParser(getOrCreateParser(flMapping));
 			// XXX
+			return modelFacet;
+		}
+		if (mapping instanceof OclChoiceLabelMapping) {
+			OclChoiceLabelMapping oclMapping = (OclChoiceLabelMapping) mapping;
+			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
+			GenFeature feature = findGenFeature(oclMapping.getFeature());
+			modelFacet.getMetaFeatures().add(feature);
+			modelFacet.getEditableMetaFeatures().add(feature);
+			modelFacet.setParser(createOclChoiceParser(oclMapping));
 			return modelFacet;
 		}
 		if (mapping instanceof DesignLabelMapping) {
@@ -1310,6 +1428,52 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private GenParserImplementation getOrCreateParser(FeatureLabelMapping flMapping) {
+		if (isEnumLabelMapping(flMapping)) {
+			return getOrCreateEnumParser(flMapping);
+		} else {
+			return getOrCreatePredefinedParser(flMapping);
+		}
+	}
+	
+	private boolean isEnumLabelMapping(FeatureLabelMapping flMapping) {
+		EList<EAttribute> features = flMapping.getFeatures();
+		EList<EAttribute> editFeatures = flMapping.getEditableFeatures();
+		if (features.size() != 1){
+			return false;
+		}
+		if (editFeatures.size() > features.size()){
+			return false;
+		}
+		if (!editFeatures.isEmpty() && editFeatures.get(0) != features.get(0)) {
+			return false;
+		}
+		return features.get(0).getEType() instanceof EEnum;
+	}
+
+	private GenParserImplementation getOrCreateEnumParser(FeatureLabelMapping flMapping) {
+		for (GenParserImplementation pi : getGenParsers().getImplementations()) {
+			if (pi instanceof PredefinedEnumParser) {
+				return (PredefinedEnumParser) pi;
+			}
+		}
+		PredefinedEnumParser result = GMFGenFactory.eINSTANCE.createPredefinedEnumParser();
+		getGenParsers().getImplementations().add(result);
+		return result;
+	}
+
+	private GenParserImplementation createOclChoiceParser(OclChoiceLabelMapping oclMapping) {
+		OclChoiceParser result = GMFGenFactory.eINSTANCE.createOclChoiceParser();
+		if (oclMapping.getItemsExpression() != null) {
+			result.setItemsExpression(createValueExpression(oclMapping.getItemsExpression()));
+		}
+		if (oclMapping.getShowExpression() != null) {
+			result.setShowExpression(createValueExpression(oclMapping.getShowExpression()));
+		}
+		getGenParsers().getImplementations().add(result);
+		return result;
+	}
+
+	private GenParserImplementation getOrCreatePredefinedParser(FeatureLabelMapping flMapping) {
 		final LabelTextAccessMethod editMethod = LabelTextAccessMethod.get(flMapping.getEditMethod().getValue());
 		final LabelTextAccessMethod viewMethod = LabelTextAccessMethod.get(flMapping.getViewMethod().getValue());
 		for (GenParserImplementation pi : getGenParsers().getImplementations()) {

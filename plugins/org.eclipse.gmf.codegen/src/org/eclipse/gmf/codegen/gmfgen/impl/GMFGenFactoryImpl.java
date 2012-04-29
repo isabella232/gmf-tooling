@@ -156,6 +156,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_APPLICATION: return createGenApplication();
 			case GMFGenPackage.GEN_PARSERS: return createGenParsers();
 			case GMFGenPackage.PREDEFINED_PARSER: return createPredefinedParser();
+			case GMFGenPackage.PREDEFINED_ENUM_PARSER: return createPredefinedEnumParser();
+			case GMFGenPackage.OCL_CHOICE_PARSER: return createOclChoiceParser();
 			case GMFGenPackage.EXPRESSION_LABEL_PARSER: return createExpressionLabelParser();
 			case GMFGenPackage.CUSTOM_PARSER: return createCustomParser();
 			case GMFGenPackage.EXTERNAL_PARSER: return createExternalParser();
@@ -1212,6 +1214,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public PredefinedParser createPredefinedParser() {
 		PredefinedParserImpl predefinedParser = new PredefinedParserImpl();
 		return predefinedParser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PredefinedEnumParser createPredefinedEnumParser() {
+		PredefinedEnumParserImpl predefinedEnumParser = new PredefinedEnumParserImpl();
+		return predefinedEnumParser;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OclChoiceParser createOclChoiceParser() {
+		OclChoiceParserImpl oclChoiceParser = new OclChoiceParserImpl();
+		return oclChoiceParser;
 	}
 
 	/**

@@ -86,6 +86,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
 			case GMFMapPackage.LABEL_MAPPING: return createLabelMapping();
 			case GMFMapPackage.FEATURE_LABEL_MAPPING: return createFeatureLabelMapping();
+			case GMFMapPackage.OCL_CHOICE_LABEL_MAPPING: return createOclChoiceLabelMapping();
 			case GMFMapPackage.DESIGN_LABEL_MAPPING: return createDesignLabelMapping();
 			case GMFMapPackage.EXPRESSION_LABEL_MAPPING: return createExpressionLabelMapping();
 			case GMFMapPackage.CONSTRAINT: return createConstraint();
@@ -204,6 +205,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public FeatureLabelMapping createFeatureLabelMapping() {
 		FeatureLabelMappingImpl featureLabelMapping = new FeatureLabelMappingImpl();
 		return featureLabelMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OclChoiceLabelMapping createOclChoiceLabelMapping() {
+		OclChoiceLabelMappingImpl oclChoiceLabelMapping = new OclChoiceLabelMappingImpl();
+		return oclChoiceLabelMapping;
 	}
 
 	/**

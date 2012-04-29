@@ -940,6 +940,79 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_LABEL_MAPPING_FEATURE_COUNT = LABEL_MAPPING_FEATURE_COUNT + 7;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.OclChoiceLabelMappingImpl <em>Ocl Choice Label Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.OclChoiceLabelMappingImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getOclChoiceLabelMapping()
+	 * @generated
+	 */
+	int OCL_CHOICE_LABEL_MAPPING = 12;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING__DIAGRAM_LABEL = LABEL_MAPPING__DIAGRAM_LABEL;
+
+	/**
+	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING__READ_ONLY = LABEL_MAPPING__READ_ONLY;
+
+	/**
+	 * The feature id for the '<em><b>Map Entry</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING__MAP_ENTRY = LABEL_MAPPING__MAP_ENTRY;
+
+	/**
+	 * The feature id for the '<em><b>Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING__FEATURE = LABEL_MAPPING_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Items Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING__ITEMS_EXPRESSION = LABEL_MAPPING_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Show Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING__SHOW_EXPRESSION = LABEL_MAPPING_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Ocl Choice Label Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OCL_CHOICE_LABEL_MAPPING_FEATURE_COUNT = LABEL_MAPPING_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DesignLabelMappingImpl <em>Design Label Mapping</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -947,7 +1020,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDesignLabelMapping()
 	 * @generated
 	 */
-	int DESIGN_LABEL_MAPPING = 12;
+	int DESIGN_LABEL_MAPPING = 13;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
@@ -993,7 +1066,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getExpressionLabelMapping()
 	 * @generated
 	 */
-	int EXPRESSION_LABEL_MAPPING = 13;
+	int EXPRESSION_LABEL_MAPPING = 14;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
@@ -1066,7 +1139,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 16;
+	int VALUE_EXPRESSION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1112,7 +1185,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getConstraint()
 	 * @generated
 	 */
-	int CONSTRAINT = 14;
+	int CONSTRAINT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1159,7 +1232,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLinkConstraints()
 	 * @generated
 	 */
-	int LINK_CONSTRAINTS = 15;
+	int LINK_CONSTRAINTS = 16;
 
 	/**
 	 * The feature id for the '<em><b>Link Mapping</b></em>' container reference.
@@ -1205,7 +1278,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getElementInitializer()
 	 * @generated
 	 */
-	int ELEMENT_INITIALIZER = 17;
+	int ELEMENT_INITIALIZER = 18;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Entry</b></em>' reference.
@@ -1233,7 +1306,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureSeqInitializer()
 	 * @generated
 	 */
-	int FEATURE_SEQ_INITIALIZER = 18;
+	int FEATURE_SEQ_INITIALIZER = 19;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Entry</b></em>' reference.
@@ -1288,7 +1361,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureInitializer()
 	 * @generated
 	 */
-	int FEATURE_INITIALIZER = 19;
+	int FEATURE_INITIALIZER = 20;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1325,7 +1398,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureValueSpec()
 	 * @generated
 	 */
-	int FEATURE_VALUE_SPEC = 20;
+	int FEATURE_VALUE_SPEC = 21;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1372,7 +1445,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getReferenceNewElementSpec()
 	 * @generated
 	 */
-	int REFERENCE_NEW_ELEMENT_SPEC = 21;
+	int REFERENCE_NEW_ELEMENT_SPEC = 22;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1418,7 +1491,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMenuOwner()
 	 * @generated
 	 */
-	int MENU_OWNER = 22;
+	int MENU_OWNER = 23;
 
 	/**
 	 * The feature id for the '<em><b>Context Menu</b></em>' reference.
@@ -1446,7 +1519,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getToolOwner()
 	 * @generated
 	 */
-	int TOOL_OWNER = 23;
+	int TOOL_OWNER = 24;
 
 	/**
 	 * The feature id for the '<em><b>Tool</b></em>' reference.
@@ -1474,7 +1547,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAppearanceSteward()
 	 * @generated
 	 */
-	int APPEARANCE_STEWARD = 24;
+	int APPEARANCE_STEWARD = 25;
 
 	/**
 	 * The feature id for the '<em><b>Appearance Style</b></em>' reference.
@@ -1502,7 +1575,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditContainer()
 	 * @generated
 	 */
-	int AUDIT_CONTAINER = 25;
+	int AUDIT_CONTAINER = 26;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1575,7 +1648,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getRuleBase()
 	 * @generated
 	 */
-	int RULE_BASE = 26;
+	int RULE_BASE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1612,7 +1685,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditRule()
 	 * @generated
 	 */
-	int AUDIT_RULE = 27;
+	int AUDIT_RULE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1712,7 +1785,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditable()
 	 * @generated
 	 */
-	int AUDITABLE = 35;
+	int AUDITABLE = 36;
 
 	/**
 	 * The number of structural features of the '<em>Auditable</em>' class.
@@ -1731,7 +1804,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainElementTarget()
 	 * @generated
 	 */
-	int DOMAIN_ELEMENT_TARGET = 28;
+	int DOMAIN_ELEMENT_TARGET = 29;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1759,7 +1832,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainAttributeTarget()
 	 * @generated
 	 */
-	int DOMAIN_ATTRIBUTE_TARGET = 29;
+	int DOMAIN_ATTRIBUTE_TARGET = 30;
 
 	/**
 	 * The feature id for the '<em><b>Attribute</b></em>' reference.
@@ -1796,7 +1869,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDiagramElementTarget()
 	 * @generated
 	 */
-	int DIAGRAM_ELEMENT_TARGET = 30;
+	int DIAGRAM_ELEMENT_TARGET = 31;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1824,7 +1897,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNotationElementTarget()
 	 * @generated
 	 */
-	int NOTATION_ELEMENT_TARGET = 31;
+	int NOTATION_ELEMENT_TARGET = 32;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1852,7 +1925,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricContainer()
 	 * @generated
 	 */
-	int METRIC_CONTAINER = 32;
+	int METRIC_CONTAINER = 33;
 
 	/**
 	 * The feature id for the '<em><b>Metrics</b></em>' containment reference list.
@@ -1880,7 +1953,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricRule()
 	 * @generated
 	 */
-	int METRIC_RULE = 33;
+	int METRIC_RULE = 34;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1971,7 +2044,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditedMetricTarget()
 	 * @generated
 	 */
-	int AUDITED_METRIC_TARGET = 34;
+	int AUDITED_METRIC_TARGET = 35;
 
 	/**
 	 * The feature id for the '<em><b>Metric</b></em>' reference.
@@ -1999,7 +2072,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMeasurable()
 	 * @generated
 	 */
-	int MEASURABLE = 36;
+	int MEASURABLE = 37;
 
 	/**
 	 * The number of structural features of the '<em>Measurable</em>' class.
@@ -2018,7 +2091,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_TEXT_ACCESS_METHOD = 37;
+	int LABEL_TEXT_ACCESS_METHOD = 38;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}' enum.
@@ -2028,7 +2101,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 38;
+	int SEVERITY = 39;
 
 
 	/**
@@ -2039,7 +2112,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLanguage()
 	 * @generated
 	 */
-	int LANGUAGE = 39;
+	int LANGUAGE = 40;
 
 
 	/**
@@ -2580,6 +2653,49 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFeatureLabelMapping_EditMethod();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.OclChoiceLabelMapping <em>Ocl Choice Label Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Ocl Choice Label Mapping</em>'.
+	 * @see org.eclipse.gmf.mappings.OclChoiceLabelMapping
+	 * @generated
+	 */
+	EClass getOclChoiceLabelMapping();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.OclChoiceLabelMapping#getFeature <em>Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Feature</em>'.
+	 * @see org.eclipse.gmf.mappings.OclChoiceLabelMapping#getFeature()
+	 * @see #getOclChoiceLabelMapping()
+	 * @generated
+	 */
+	EReference getOclChoiceLabelMapping_Feature();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.OclChoiceLabelMapping#getItemsExpression <em>Items Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Items Expression</em>'.
+	 * @see org.eclipse.gmf.mappings.OclChoiceLabelMapping#getItemsExpression()
+	 * @see #getOclChoiceLabelMapping()
+	 * @generated
+	 */
+	EReference getOclChoiceLabelMapping_ItemsExpression();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.OclChoiceLabelMapping#getShowExpression <em>Show Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Show Expression</em>'.
+	 * @see org.eclipse.gmf.mappings.OclChoiceLabelMapping#getShowExpression()
+	 * @see #getOclChoiceLabelMapping()
+	 * @generated
+	 */
+	EReference getOclChoiceLabelMapping_ShowExpression();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.DesignLabelMapping <em>Design Label Mapping</em>}'.

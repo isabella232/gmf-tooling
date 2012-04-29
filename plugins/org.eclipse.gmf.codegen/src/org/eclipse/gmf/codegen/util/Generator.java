@@ -506,6 +506,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			if (pi instanceof PredefinedParser) {
 				needsAbstractParser = true;
 				doGenerateJavaClass(myEmitters.getPredefinedParserEmitter(), ((PredefinedParser) pi).getQualifiedClassName(), pi);
+			} else if (pi instanceof PredefinedEnumParser) {
+				needsAbstractParser = true;
 			} else if (pi instanceof CustomParser && ((CustomParser) pi).isGenerateBoilerplate()) {
 				doGenerateJavaClass(myEmitters.getCustomParserEmitter(), ((CustomParser) pi).getQualifiedName(), pi);
 			} else if (pi instanceof ExpressionLabelParser) {

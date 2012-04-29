@@ -1033,6 +1033,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PredefinedParser/className"/>
       <genOperations ecoreOperation="gmfgen.ecore#//PredefinedParser/getQualifiedClassName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//PredefinedEnumParser">
+      <genOperations ecoreOperation="gmfgen.ecore#//PredefinedEnumParser/getQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//OclChoiceParser">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//OclChoiceParser/itemsExpression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//OclChoiceParser/showExpression"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//OclChoiceParser/getQualifiedClassName"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ExpressionLabelParser">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExpressionLabelParser/className"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ExpressionLabelParser/expressionContext"/>

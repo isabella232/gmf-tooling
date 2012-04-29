@@ -182,6 +182,13 @@ public class GMFMapSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.OCL_CHOICE_LABEL_MAPPING: {
+				OclChoiceLabelMapping oclChoiceLabelMapping = (OclChoiceLabelMapping)theEObject;
+				T result = caseOclChoiceLabelMapping(oclChoiceLabelMapping);
+				if (result == null) result = caseLabelMapping(oclChoiceLabelMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.DESIGN_LABEL_MAPPING: {
 				DesignLabelMapping designLabelMapping = (DesignLabelMapping)theEObject;
 				T result = caseDesignLabelMapping(designLabelMapping);
@@ -514,6 +521,21 @@ public class GMFMapSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFeatureLabelMapping(FeatureLabelMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Ocl Choice Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Ocl Choice Label Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOclChoiceLabelMapping(OclChoiceLabelMapping object) {
 		return null;
 	}
 
