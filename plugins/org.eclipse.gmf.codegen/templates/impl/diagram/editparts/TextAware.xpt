@@ -23,7 +23,7 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 
-	«IF isOclChoiceLabel() || isViewExpressionDefiedAndOcl()-»
+	«IF isOclChoiceLabel() or isViewExpressionDefiedAndOcl()-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator myOclRegistrator;
 	«ELSE-»
@@ -105,7 +105,7 @@
 	
 	«EXPAND getFontStyleOwnerView(viewmap)-»
 		
-«IF isOclChoiceLabelWithShowExpr() OR isViewExpressionDefiedAndOcl()-»
+«IF isOclChoiceLabelWithShowExpr() or isViewExpressionDefiedAndOcl()-»
 	«EXPAND getOclTracker-»
 «ENDIF-»
 	
@@ -537,7 +537,7 @@
 «DEFINE removeSemanticListeners FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeSemanticListeners() {
-«IF isOclChoiceLabel() || isViewExpressionDefiedAndOcl()-»			
+«IF isOclChoiceLabel() or isViewExpressionDefiedAndOcl()-»			
 		((org.eclipse.gmf.tooling.runtime.parsers.OclChoiceParser) getParser()).uninstallListeners();
 		«IF isOclChoiceLabelWithShowExpr()-»
 		getTracker().uninstallListeners();	
