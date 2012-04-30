@@ -2,7 +2,7 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
-«EXTENSION xpt::diagram::Utils»
+«EXTENSION xpt::expressions::OclTracker»
 «EXTENSION xpt::GenModelUtils»
 
 «DEFINE VisualEffectEditPolicy FOR gmfgen::GenVisualEffect-»
@@ -32,7 +32,7 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 «DEFINE _constructor FOR gmfgen::GenVisualEffect-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualifiedClassName()»() {
-	«IF isImpactAnalyzerKind(oclExpression)-»
+	«IF isForcedImpactAnalyzerKind(oclExpression)-»
 		super(org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory.Type.IMPACT_ANALYZER);
 	«ELSE-»
 		super();

@@ -14,10 +14,10 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «EXTENSION xpt::providers::ParserUtils»
 «EXTENSION impl::parsers::expression»
+«EXTENSION xpt::expressions::OclTracker»
 
 «DEFINE accessorMethod_delegate2providers FOR gmfgen::GenParsers-»
 	«EXPAND xpt::Common::generatedMemberComment('Utility method that consults ParserService')»
@@ -277,7 +277,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «ENDDEFINE»
 
 «DEFINE _optionalOclTrackerFactoryTypeHint FOR gmfgen::ValueExpression-»
-«IF body.startsWith('--IA')», org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory.Type.IMPACT_ANALYZER«ENDIF-»
+«IF isForcedImpactAnalyzerKind(body)», org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory.Type.IMPACT_ANALYZER«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE _setPatterns(viewMethod : gmfgen::LabelTextAccessMethod, editMethod : gmfgen::LabelTextAccessMethod, parserVar : String) FOR gmfgen::FeatureLabelModelFacet-»

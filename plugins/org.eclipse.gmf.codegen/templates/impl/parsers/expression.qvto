@@ -10,14 +10,6 @@ helper gmfgen::GenParserImplementation::isViewExpressionDefinedAndOcl() : Boolea
 	return false;
 }	
 
-helper gmfgen::ExpressionLabelParser::isImpactAnalyzerKind() : Boolean {
-	return isImpactAnalyzerKind(self.viewExpression.body);
-}
-
-helper gmfgen::GenParserImplementation::isImpactAnalyzerKind() : Boolean {
-	return false
-}
-
 helper gmfgen::GenCommonBase::isViewExpressionDefiedAndOcl() : Boolean {
 	return let labelModelFacet : gmfgen::LabelModelFacet 
 		= if self.oclIsKindOf(gmfgen::GenChildLabelNode) then self.oclAsType(gmfgen::GenChildLabelNode).labelModelFacet 
@@ -31,17 +23,3 @@ helper gmfgen::GenCommonBase::isViewExpressionDefiedAndOcl() : Boolean {
 		  	   endif;
 }
 
-helper gmfgen::GenCommonBase::isViewExpressionDefiedAndOclAndImpactAnalyzerKind() : Boolean {
-	return let labelModelFacet : gmfgen::LabelModelFacet 
-		= if self.oclIsKindOf(gmfgen::GenChildLabelNode) then self.oclAsType(gmfgen::GenChildLabelNode).labelModelFacet 
-	      else (if self.oclIsKindOf(gmfgen::GenLabel) then self.oclAsType(gmfgen::GenLabel).modelFacet 
-	 	  else null 
-	 	  endif)
-	 	  endif	 	      
-	in if labelModelFacet = null 
-			   then false 
-			   else (labelModelFacet.parser.isViewExpressionDefinedAndOcl() 
-			   		 and labelModelFacet.parser.isImpactAnalyzerKind()
-			   		)
-			   endif;
-}

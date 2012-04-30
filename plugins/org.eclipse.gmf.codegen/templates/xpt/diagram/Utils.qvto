@@ -62,7 +62,3 @@ helper gmfgen::GenCommonBase::hasFillStyleInCustom() : Boolean {
 helper gmfgen::GenDiagram::isPixelMapMode() : Boolean {
 	return self.units = 'Pixel';
 }
-
-helper isImpactAnalyzerKind(oclExpression : String) : Boolean {
-	return oclExpression.startsWith('--IA');
-}
