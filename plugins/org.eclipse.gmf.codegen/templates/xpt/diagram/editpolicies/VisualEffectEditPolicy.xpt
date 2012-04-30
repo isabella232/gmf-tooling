@@ -54,15 +54,15 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 	«EXPAND xpt::Common::generatedMemberComment»
 	@Override
 	protected void setVisualEffectValue(Object value) {
-		«IF pinKind = 'ColorPin'»
-			«EXPAND setVisualEffectValueOnColorPin»
-		«ELSEIF pinKind = 'VisiblePin'»
-			«EXPAND setVisualEffectValueOnCustomPin»
-		«ELSEIF pinKind = 'CustomPin'»
-			«EXPAND setVisualEffectValueOnCustomPin»
-		«ELSE»
+		«IF pinKind = 'ColorPin'-»
+			«EXPAND setVisualEffectValueOnColorPin-»
+		«ELSEIF pinKind = 'VisiblePin'-»
+			«EXPAND setVisualEffectValueOnCustomPin-»
+		«ELSEIF pinKind = 'CustomPin'-»
+			«EXPAND setVisualEffectValueOnCustomPin-»
+		«ELSE-»
 			«ERROR 'Unsupported Pin kind: ' + pinKind»
-		«ENDIF»
+		«ENDIF-»
 	}
 «ENDDEFINE»
 
@@ -120,7 +120,7 @@ getHostImpl().getPrimaryShape().«operationName-»
 
 «DEFINE setVisualEffectValueOnColorPin FOR gmfgen::GenVisualEffect-»
 	«LET getOperationRuntimeType().oclAsType(ocl::ecore::TupleType) AS tupleType-»
-		«EXPAND defineTupleParts FOR tupleType»
+		«EXPAND defineTupleParts FOR tupleType-»
 		org.eclipse.swt.graphics.Color color = new org.eclipse.swt.graphics.Color(null, «EXPAND enumerateTupleParts FOR tupleType»);			
 		«EXPAND callOperation»(color);
 	«ENDLET-»	
