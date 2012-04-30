@@ -242,6 +242,23 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
+		case ManagerEditPart.VISUAL_ID: {
+			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Manager_2004_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
 		case Department2EditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
 			Node sv = (Node) view;
@@ -261,31 +278,6 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case AllHolderEditPart.VISUAL_ID: {
-			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Diagram sv = (Diagram) view;
-			TOENavigatorGroup links = new TOENavigatorGroup(Messages.NavigatorGroupName_AllHolder_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(EmployeeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
-			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
-			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			connectedViews = getDiagramLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
-			links.addChildren(createNavigatorItems(connectedViews, links, false));
-			if (!links.isEmpty()) {
-				result.add(links);
-			}
-			return result.toArray();
-		}
-
 		case EmployeeEditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
 			Node sv = (Node) view;
@@ -299,19 +291,21 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case ManagerEditPart.VISUAL_ID: {
+		case ManagerLeadsEditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Manager_2004_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Edge sv = (Edge) view;
+			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
 			}
 			return result.toArray();
 		}
@@ -335,21 +329,15 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case ManagerLeadsEditPart.VISUAL_ID: {
+		case Employee2EditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Edge sv = (Edge) view;
-			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Node sv = (Node) view;
+			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Employee_3001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
-			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			if (!target.isEmpty()) {
-				result.add(target);
-			}
-			if (!source.isEmpty()) {
-				result.add(source);
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -375,15 +363,27 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case Employee2EditPart.VISUAL_ID: {
+		case AllHolderEditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Employee_3001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Diagram sv = (Diagram) view;
+			TOENavigatorGroup links = new TOENavigatorGroup(Messages.NavigatorGroupName_AllHolder_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
+			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(EmployeeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			if (!links.isEmpty()) {
+				result.add(links);
 			}
 			return result.toArray();
 		}

@@ -37,7 +37,7 @@ public class TOEOCLFactory {
 	*/
 	protected TOEOCLFactory() {
 		this.expressions = new TOEAbstractExpression[5];
-		this.expressionBodies = new String[] { "not self.oclIsKindOf(oclTest::Manager)", //$NON-NLS-1$
+		this.expressionBodies = new String[] { "not self.oclIsKindOf(toe::Manager)", //$NON-NLS-1$
 				"self.employees->iterate(\r\n\te: Employee; sum : Integer = 0 | \r\n\tsum + e.salary\r\n)", //$NON-NLS-1$
 				"--IA\r\nself.employees->iterate(\r\n\te: Employee; sum : Integer = 0 | \r\n\tsum + e.salary\r\n)", //$NON-NLS-1$
 				"if self.departmentWide \r\nthen \r\n\tself.lead.managedDepartment.employees.name\r\nelse \r\n\tself.projectTeam.name\r\nendif", //$NON-NLS-1$

@@ -904,7 +904,7 @@
         xsi:type="gmfgen:GenExpressionInterpreter">
       <expressions
           xsi:type="gmfgen:GenConstraint"
-          body="not self.oclIsKindOf(oclTest::Manager)"/>
+          body="not self.oclIsKindOf(toe::Manager)"/>
       <expressions
           body="self.employees->iterate(&#xD;&#xA;&#x9;e: Employee; sum : Integer = 0 | &#xD;&#xA;&#x9;sum + e.salary&#xD;&#xA;)"/>
       <expressions

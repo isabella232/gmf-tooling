@@ -13,7 +13,7 @@
       <domainMetaElement
           href="toe.ecore#//Employee"/>
       <domainSpecialization
-          body="not self.oclIsKindOf(oclTest::Manager)"/>
+          body="not self.oclIsKindOf(toe::Manager)"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel

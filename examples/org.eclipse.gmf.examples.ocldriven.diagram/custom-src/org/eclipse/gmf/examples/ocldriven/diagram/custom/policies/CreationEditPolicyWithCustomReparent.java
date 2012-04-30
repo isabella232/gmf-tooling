@@ -23,8 +23,6 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class CreationEditPolicyWithCustomReparent extends CreationEditPolicy {
 
-	public static final String KEY_U2T_EXTENDED_PARAMETERS = CreationEditPolicyWithCustomReparent.class.getSimpleName() + ":u2tParameters"; //$NON-NLS-1$
-
 	private final IVisualIDRegistry myVisualIdRegistry;
 
 	public CreationEditPolicyWithCustomReparent(IVisualIDRegistry visualIdRegistry) {
