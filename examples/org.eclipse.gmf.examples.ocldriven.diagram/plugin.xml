@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="toed"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="toed"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/TOEDiagramFile.gif"
+         extensions="toed"
+         default="true"
+         class="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEMatchingStrategy"
+         contributorClass="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramActionBarContributor">
+      </editor>
+   </extension>
+   
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.examples.ocldriven.toe.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+  	  <wizard
+  	     name="%newWizardName"
+  	     icon="icons/obj16/TOEDiagramFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOECreationWizard"
+  	     id="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOECreationWizardID">
+  	  	 <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="org.eclipse.gmf.examples.ocldriven.diagram.InitDiagram"
+            nameFilter="*.toe"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.ocldriven.diagram.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+	
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="TOEPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="save">
+               </GlobalActionId>
+            </ElementType>        
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="TOEPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="TOERender">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="org.eclipse.gmf.examples.ocldriven.toe.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="org.eclipse.gmf.examples.ocldriven.diagram.general"
+            name="%prefpage.org.eclipse.gmf.examples.ocldriven.diagram.general"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.ocldriven.diagram.appearance"
+            name="%prefpage.org.eclipse.gmf.examples.ocldriven.diagram.appearance"
+            category="org.eclipse.gmf.examples.ocldriven.diagram.general"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.ocldriven.diagram.connections"
+            name="%prefpage.org.eclipse.gmf.examples.ocldriven.diagram.connections"
+            category="org.eclipse.gmf.examples.ocldriven.diagram.general"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.ocldriven.diagram.printing"
+            name="%prefpage.org.eclipse.gmf.examples.ocldriven.diagram.printing"
+            category="org.eclipse.gmf.examples.ocldriven.diagram.general"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.examples.ocldriven.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.gmf.examples.ocldriven.diagram.rulersAndGrid"
+            category="org.eclipse.gmf.examples.ocldriven.diagram.general"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.gmf.examples.ocldriven.diagram"
+            labelProvider="org.eclipse.gmf.examples.ocldriven.toe.diagram.sheet.TOESheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.gmf.examples.ocldriven.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.gmf.examples.ocldriven.diagram">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.sheet.TOEPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="TOE"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2004,3001,3002"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002,4003"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="TOE"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,2002,2003,2004,3001,3002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001,4002,4003"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5001,5006,5007,5008,5009,5010,5011,5012,5002,5003,5004,5005"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="7001,7002"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+      <?gmfgen generated="true"?>
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEModelingAssistantProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.AllHolderEditPart" id="AllHolder_1000"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.EmployeeEditPart" id="Employee_2001"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.DepartmentEditPart" id="Department_2002"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ProjectEditPart" id="Project_2003"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ManagerEditPart" id="Manager_2004"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.Employee2EditPart" id="Employee_3001"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.Department2EditPart" id="Department_3002"/>
+         <context elements="AllHolder_1000,Employee_2001,Department_2002,Project_2003,Manager_2004,Employee_3001,Department_3002"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <metamodelType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.AllHolder_1000"
+               name="%metatype.name.AllHolder_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="AllHolder"
+               edithelper="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.AllHolderEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <metamodelType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Employee_2001"
+               name="%metatype.name.Employee_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Employee"
+               edithelper="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.EmployeeEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <metamodelType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Department_2002"
+               name="%metatype.name.Department_2002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Department"
+               edithelper="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.DepartmentEditHelper">
+            <param name="semanticHint" value="2002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <metamodelType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Project_2003"
+               name="%metatype.name.Project_2003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Project"
+               edithelper="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.ProjectEditHelper">
+            <param name="semanticHint" value="2003"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <metamodelType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Manager_2004"
+               name="%metatype.name.Manager_2004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Manager"
+               edithelper="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.ManagerEditHelper">
+            <param name="semanticHint" value="2004"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <specializationType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Employee_3001"
+               name="%metatype.name.Employee_3001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.examples.ocldriven.diagram.Employee_2001"/>
+            <param name="semanticHint" value="3001"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <specializationType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Department_3002"
+               name="%metatype.name.Department_3002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.examples.ocldriven.diagram.Department_2002"/>
+            <param name="semanticHint" value="3002"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <specializationType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.ManagerManagedDepartment_4001"
+               name="%metatype.name.ManagerManagedDepartment_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4001"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <specializationType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.ManagerLeads_4002"
+               name="%metatype.name.ManagerLeads_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4002"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment">
+         <metamodelType
+               id="org.eclipse.gmf.examples.ocldriven.diagram.Contribution_4003"
+               name="%metatype.name.Contribution_4003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Contribution"
+               edithelper="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.ContributionEditHelper">
+            <param name="semanticHint" value="4003"/>
+         </metamodelType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="org.eclipse.gmf.examples.ocldriven.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="org.eclipse.gmf.examples.ocldriven.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="org.eclipse.gmf.examples.ocldriven.diagram.TypeContext">
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.AllHolder_1000"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Employee_2001"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Department_2002"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Project_2003"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Manager_2004"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Employee_3001"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Department_3002"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.ManagerManagedDepartment_4001"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.ManagerLeads_4002"/>
+         <elementType ref="org.eclipse.gmf.examples.ocldriven.diagram.Contribution_4003"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+       <propertyTester
+           id="org.eclipse.gmf.examples.ocldriven.diagram.URIEditorInputPropertyTester"
+           type="org.eclipse.emf.common.ui.URIEditorInput"
+           namespace="org.eclipse.gmf.examples.ocldriven.diagram"
+           properties="isURIEditorInput"
+           class="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEUriEditorInputTester">
+       </propertyTester>
+   </extension>
+
+	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.gmf.examples.ocldriven.diagram.resourceContent"/>
+			<contentExtension pattern="org.eclipse.gmf.examples.ocldriven.diagram.domainResourceContent"/>
+            <contentExtension pattern="org.eclipse.gmf.examples.ocldriven.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.eclipse.gmf.examples.ocldriven.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="org.eclipse.gmf.examples.ocldriven.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOENavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOENavigatorLabelProvider"
+            icon="icons/obj16/TOEDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="toed"/>
+               </and>
+               <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEAbstractNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+         	   <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEAbstractNavigatorItem"/>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.gmf.examples.ocldriven.diagram.navigatorSorter" 
+               class="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOENavigatorSorter">
+            <parentExpression>
+               <or>
+	              <and>
+    	             <instanceof value="org.eclipse.core.resources.IFile"/>
+        	         <test property="org.eclipse.core.resources.extension" value="toed"/>
+                  </and>
+                  <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.gmf.examples.ocldriven.diagram.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEDomainNavigatorLabelProvider"
+            icon="icons/obj16/TOEDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+	           <and>
+    	          <instanceof value="org.eclipse.core.resources.IFile"/>
+        	      <test property="org.eclipse.core.resources.extension" value="toe"/>
+               </and>
+               <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="org.eclipse.gmf.examples.ocldriven.diagram.navigatorActionProvider"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOENavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEAbstractNavigatorItem"/>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+   
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="org.eclipse.gmf.examples.ocldriven.diagram.navigatorLinkHelper"
+            class="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOENavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.gmf.examples.ocldriven.diagram.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.navigator.TOEAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="org.eclipse.gmf.examples.ocldriven.toe.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="org.eclipse.gmf.examples.ocldriven.toe.diagram.updateDiagram"
+         contextId="org.eclipse.gmf.examples.ocldriven.toe.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.gmf.examples.ocldriven.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.AllHolderEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.gmf.examples.ocldriven.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.examples.ocldriven.toe.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
+</plugin>

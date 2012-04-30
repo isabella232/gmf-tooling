@@ -1,0 +1,7 @@
+# Tracing options for the org.eclipse.gmf.examples.ocldriven.diagram plug-in
+
+# Common issues
+org.eclipse.gmf.examples.ocldriven.diagram/debug=false
+
+# Visual IDs
+org.eclipse.gmf.examples.ocldriven.diagram/debug/visualID=false
