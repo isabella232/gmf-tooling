@@ -45,14 +45,9 @@ public abstract class AbstractOclVisualEffectEditPolicy extends CanonicalEditPol
 
 	private OclTracker getOclTracker() {
 		if (myOclTracker == null) {
-			OclTrackerFactory factory = getOclTrackerFactory();
-			myOclTracker = factory.createOclTracker(getExpressionBody(), false);
+			myOclTracker = myOclTrackerFactory.createOclTracker(getExpressionBody(), false);
 		}
 		return myOclTracker;
-	}
-
-	protected final OclTrackerFactory getOclTrackerFactory() {
-		return myOclTrackerFactory;
 	}
 
 	private boolean initializeOclTracker() {
@@ -94,7 +89,7 @@ public abstract class AbstractOclVisualEffectEditPolicy extends CanonicalEditPol
 		installVisualEffect();
 		refreshVisualEffect();
 	}
-	
+
 	@Override
 	protected void refreshSemantic() {
 		//Important - we are NOT actually CanonicalEditPolicy, and not capable to perform semantic refresh
