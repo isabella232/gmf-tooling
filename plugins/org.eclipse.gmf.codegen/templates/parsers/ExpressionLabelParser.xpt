@@ -31,12 +31,8 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 
 «DEFINE additions FOR gmfgen::ExpressionLabelParser»«ENDDEFINE»
 «DEFINE extendsList FOR gmfgen::ExpressionLabelParser»
-	«IF isViewExpressionDefinedAndOcl()-»		
-		«IF isImpactAnalyzerKind()-»
-			extends org.eclipse.gmf.tooling.runtime.ocl.parsers.ImpactAnalyzerParserBase
-		«ELSE-»
-			extends org.eclipse.gmf.tooling.runtime.ocl.parsers.ActiveOclParserBase
-		«ENDIF-»
+	«IF isViewExpressionDefinedAndOcl()-»
+		extends org.eclipse.gmf.tooling.runtime.parsers.ExpressionLabelParserBase		
 	«ENDIF-»
 «ENDDEFINE»
 «DEFINE implementsList FOR gmfgen::ExpressionLabelParser-»

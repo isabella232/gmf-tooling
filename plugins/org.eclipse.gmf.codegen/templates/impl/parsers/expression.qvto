@@ -10,10 +10,6 @@ helper gmfgen::GenParserImplementation::isViewExpressionDefinedAndOcl() : Boolea
 	return false;
 }	
 
-helper getActiveOclPackageName() : String {
-	return 'org.eclipse.gmf.tooling.runtime.ocl.expressions';
-}
-
 helper gmfgen::ExpressionLabelParser::isImpactAnalyzerKind() : Boolean {
 	return isImpactAnalyzerKind(self.viewExpression.body);
 }

@@ -13,22 +13,31 @@
 public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualifiedClassName()»«EXPAND extendsList» {
 
 	«EXPAND fields-»
+	
+	«EXPAND _constructor-»
 
 	«EXPAND methods-»
 }
 «ENDDEFINE»
 
 «DEFINE extendsList FOR gmfgen::GenVisualEffect-»
-	«IF isImpactAnalyzerKind(oclExpression)-»
-		extends org.eclipse.gmf.tooling.runtime.ocl.edit.policies.ImpactAnalyzerVisualEffectEditPolicyBase
-	«ELSE-»
-		extends org.eclipse.gmf.tooling.runtime.ocl.edit.policies.ActiveOclVisualEffectEditPolicyBase
-	«ENDIF-»
+	extends org.eclipse.gmf.tooling.runtime.edit.policies.effect.AbstractOclVisualEffectEditPolicy
 «ENDDEFINE» 
 
 «DEFINE fields FOR gmfgen::GenVisualEffect-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static final String KEY = "«getEditPolicyQualifiedClassName()»:KEY";
+«ENDDEFINE»
+
+«DEFINE _constructor FOR gmfgen::GenVisualEffect-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualifiedClassName()»() {
+	«IF isImpactAnalyzerKind(oclExpression)-»
+		super(org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory.Type.IMPACT_ANALYZER);
+	«ELSE-»
+		super();
+	«ENDIF-»
+	}
 «ENDDEFINE»
 
 «DEFINE methods FOR gmfgen::GenVisualEffect-»
