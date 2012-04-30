@@ -726,10 +726,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private void addOclToolingPlugin() {
-		final String pluginId = "org.eclipse.gmf.tooling.runtime.ocl";
+		final String GMFT_RUNTIME_OCL = "org.eclipse.gmf.tooling.runtime";
 		EList<String> reguiredPlugins = getGenEssence().getPlugin().getRequiredPlugins();
-		if (!reguiredPlugins.contains(pluginId)) {
-			reguiredPlugins.add(pluginId);
+		if (!reguiredPlugins.contains(GMFT_RUNTIME_OCL)) {
+			reguiredPlugins.add(GMFT_RUNTIME_OCL);
 		}
 	}
 
