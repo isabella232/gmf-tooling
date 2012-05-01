@@ -1,42 +1,18 @@
 package org.eclipse.gmf.examples.ocldriven.toe.diagram.part;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.tooling.runtime.update.UpdaterNodeDescriptor;
 
 /**
 * @generated
 */
-public class TOENodeDescriptor {
-
-	/**
-	* @generated
-	*/
-	private final EObject myModelElement;
-
-	/**
-	* @generated
-	*/
-	private final int myVisualID;
+public class TOENodeDescriptor extends UpdaterNodeDescriptor {
 
 	/**
 	* @generated
 	*/
 	public TOENodeDescriptor(EObject modelElement, int visualID) {
-		myModelElement = modelElement;
-		myVisualID = visualID;
-	}
-
-	/**
-	* @generated
-	*/
-	public EObject getModelElement() {
-		return myModelElement;
-	}
-
-	/**
-	* @generated
-	*/
-	public int getVisualID() {
-		return myVisualID;
+		super(modelElement, visualID);
 	}
 
 }

@@ -32,6 +32,7 @@ import org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ManagerManagedD
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ProjectEditPart;
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEElementTypes;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.update.DiagramUpdater;
 
 /**
 * @generated
@@ -535,5 +536,43 @@ public class TOEDiagramUpdater {
 		}
 		return result;
 	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TOENodeDescriptor> getSemanticChildren(View view) {
+			return TOEDiagramUpdater.getSemanticChildren(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TOELinkDescriptor> getContainedLinks(View view) {
+			return TOEDiagramUpdater.getContainedLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TOELinkDescriptor> getIncomingLinks(View view) {
+			return TOEDiagramUpdater.getIncomingLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TOELinkDescriptor> getOutgoingLinks(View view) {
+			return TOEDiagramUpdater.getOutgoingLinks(view);
+		}
+	};
 
 }
