@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ * 	  Michael Golubev (Montages) - #372479
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
@@ -15,6 +16,8 @@
 
 «EXTENSION xpt::editor::Utils»
 «EXTENSION xpt::diagram::editpolicies::LinkUtils»
+«EXTENSION xpt::diagram::updater::Utils»
+
 
 «DEFINE VisualIDRegistry FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::copyright FOR getDiagram().editorGen-»
@@ -48,6 +51,14 @@ public class «visualIDRegistryClassName» {
 	«EXPAND isDiagram-»
 
 	«EXPAND _constraintMethods-»
+	
+	«EXPAND checkNodeVisualID-»
+
+	«EXPAND isCompartmentVisualID-»
+
+	«EXPAND isSemanticLeafVisualID-»
+
+	«EXPAND runtimeTypedInstance-»
 
 	«EXPAND additions-»	
 }
@@ -357,6 +368,109 @@ private static boolean isDiagram(«EXPAND MetaModel::QualifiedClassName FOR doma
 
 «DEFINE unrecognizedVID FOR gmfgen::GenDiagram-»
 return -1;
+«ENDDEFINE»
+
+«DEFINE checkNodeVisualIDMethodName FOR gmfgen::GenDiagram»checkNodeVisualID«ENDDEFINE»
+«DEFINE checkNodeVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND checkNodeVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE checkNodeVisualID FOR gmfgen::GenDiagram»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND checkNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement, int candidate) {
+		if (candidate == -1){
+			//unrecognized id is always bad
+			return false;
+		}
+		«REM»For now there are only one possibility, but this may be changed in moderately near future«ENDREM»«-»
+		int basic = «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodName»(containerView, domainElement);
+		return basic == candidate;
+	}
+«ENDDEFINE»
+
+«DEFINE isCompartmentVisualIDMethodName FOR gmfgen::GenDiagram»isCompartmentVisualID«ENDDEFINE»
+«DEFINE isCompartmentVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND isCompartmentVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE isCompartmentVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND isCompartmentVisualIDMethodName»(int visualID) {
+		«IF not compartments->isEmpty()-»
+			switch (visualID) {
+				«EXPAND xpt::Common::caseVisualID FOREACH compartments»
+					return true;
+				default:
+					break;
+			}
+		«ENDIF-»
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE isSemanticLeafVisualIDMethodName FOR gmfgen::GenDiagram»isSemanticLeafVisualID«ENDDEFINE»
+«DEFINE isSemanticLeafVisualIDMethodCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND isSemanticLeafVisualIDMethodName»«ENDDEFINE»
+
+«DEFINE isSemanticLeafVisualID FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	public static boolean «EXPAND isSemanticLeafVisualIDMethodName»(int visualID) {
+		switch (visualID) {
+			«REM»We need to ensure at last one case, this is legitimate way«ENDREM»«-»
+			«EXPAND xpt::Common::caseVisualID FOR self»
+				return false;
+			«FOREACH self.getAllNodes()->asSequence()->sortedBy(n | n.visualID) AS nextNode-»
+			«IF getSemanticChildren(nextNode)->isEmpty()-»
+			«IF not nextNode.oclIsKindOf(gmfgen::GenNode) or nextNode.oclAsType(gmfgen::GenNode).compartments->select(c | not getSemanticChildren(c)->isEmpty())->isEmpty()-»
+			«EXPAND xpt::Common::caseVisualID FOR nextNode»
+			«ENDIF-»
+			«ENDIF-»
+			«ENDFOREACH-»
+				return true;
+			default:
+				break;
+		}
+		return false;
+	}
+«ENDDEFINE»
+
+«DEFINE runtimeTypedInstanceName FOR gmfgen::GenDiagram»TYPED_INSTANCE«ENDDEFINE»
+«DEFINE runtimeTypedInstanceCall FOR gmfgen::GenDiagram»«getVisualIDRegistryQualifiedClassName()».«EXPAND runtimeTypedInstanceName»«ENDDEFINE»
+
+«DEFINE runtimeTypedInstance FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedClassComment»
+	public static final org.eclipse.gmf.tooling.runtime.structure.DiagramStructure «EXPAND runtimeTypedInstanceName» = new org.eclipse.gmf.tooling.runtime.structure.DiagramStructure() {
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public int «EXPAND xpt::editor::VisualIDRegistry::getVisualIdMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+			return «EXPAND xpt::editor::VisualIDRegistry::getVisualIDMethodCall»(view);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public String «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodName»(org.eclipse.gmf.runtime.notation.View view) {
+			return «EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public int «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement) {
+			return «EXPAND xpt::editor::VisualIDRegistry::getNodeVisualIDMethodCall»(containerView, domainElement);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public boolean «EXPAND checkNodeVisualIDMethodName»(org.eclipse.gmf.runtime.notation.View containerView, org.eclipse.emf.ecore.EObject domainElement, int candidate) {
+			return «EXPAND checkNodeVisualIDMethodCall»(containerView, domainElement, candidate);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public boolean «EXPAND isCompartmentVisualIDMethodName»(int visualID) {
+			return «EXPAND isCompartmentVisualIDMethodCall»(visualID);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public boolean «EXPAND isSemanticLeafVisualIDMethodName»(int visualID) {
+			return «EXPAND isSemanticLeafVisualIDMethodCall»(visualID);
+		}
+	};
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram»«ENDDEFINE»

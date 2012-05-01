@@ -31,6 +31,7 @@ import org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.WrappingLabelEd
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.expressions.TOEOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
 /**
 * This registry is used to determine which type of visual object should be
@@ -310,5 +311,103 @@ public class TOEVisualIDRegistry {
 		Object result = TOEOCLFactory.getExpression(0, TOEPackage.eINSTANCE.getEmployee(), null).evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
+
+	/**
+	* @generated
+	*/
+	public static boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+		if (candidate == -1) {
+			//unrecognized id is always bad
+			return false;
+		}
+		int basic = getNodeVisualID(containerView, domainElement);
+		return basic == candidate;
+	}
+
+	/**
+	* @generated
+	*/
+	public static boolean isCompartmentVisualID(int visualID) {
+		switch (visualID) {
+		case DepartmentDepartment_staffEditPart.VISUAL_ID:
+		case DepartmentDepartment_staff2EditPart.VISUAL_ID:
+			return true;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/**
+	* @generated
+	*/
+	public static boolean isSemanticLeafVisualID(int visualID) {
+		switch (visualID) {
+		case AllHolderEditPart.VISUAL_ID:
+			return false;
+		case EmployeeEditPart.VISUAL_ID:
+		case ProjectEditPart.VISUAL_ID:
+		case ManagerEditPart.VISUAL_ID:
+		case Employee2EditPart.VISUAL_ID:
+			return true;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramStructure TYPED_INSTANCE = new DiagramStructure() {
+
+		/**
+		* @generated
+		*/
+		@Override
+		public int getVisualID(View view) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry.getVisualID(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public String getModelID(View view) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry.getModelID(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public int getNodeVisualID(View containerView, EObject domainElement) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry.checkNodeVisualID(containerView, domainElement, candidate);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean isCompartmentVisualID(int visualID) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry.isCompartmentVisualID(visualID);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean isSemanticLeafVisualID(int visualID) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry.isSemanticLeafVisualID(visualID);
+		}
+	};
 
 }
