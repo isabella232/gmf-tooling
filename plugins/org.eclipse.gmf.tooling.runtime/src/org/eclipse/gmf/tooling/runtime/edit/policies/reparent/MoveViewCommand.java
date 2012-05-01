@@ -1,4 +1,4 @@
-package org.eclipse.gmf.examples.ocldriven.diagram.custom.policies;
+package org.eclipse.gmf.tooling.runtime.edit.policies.reparent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +19,7 @@ import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
 public class MoveViewCommand extends AbstractTransactionalCommand {
 
@@ -30,7 +31,7 @@ public class MoveViewCommand extends AbstractTransactionalCommand {
 
 	private final PreferencesHint myPreferences;
 
-	private IVisualIDRegistry myVisualIDRegistry;
+	private DiagramStructure myDiagramStructure;
 
 	public MoveViewCommand(TransactionalEditingDomain editingDomain, IAdaptable parent, IAdaptable child, PreferencesHint preferencesHint) {
 		this(editingDomain, parent, child, ViewUtil.APPEND, preferencesHint);
@@ -44,10 +45,11 @@ public class MoveViewCommand extends AbstractTransactionalCommand {
 		myPreferences = preferences;
 	}
 
-	public void setVisualIDRegistry(IVisualIDRegistry visualIDRegistry) {
-		myVisualIDRegistry = visualIDRegistry;
+	public void setVisualIDRegistry(DiagramStructure diagramStructure) {
+		myDiagramStructure = diagramStructure;
 	}
 
+	@Override
 	public List<?> getAffectedFiles() {
 		View view = (View) myParent.getAdapter(View.class);
 		if (view != null) {
@@ -63,11 +65,11 @@ public class MoveViewCommand extends AbstractTransactionalCommand {
 	}
 
 	protected boolean checkCanMoveView(View parentView, View childView, EObject child) {
-		if (myVisualIDRegistry == null) {
+		if (myDiagramStructure == null) {
 			return false;
 		}
-		int actualVisualId = myVisualIDRegistry.getVisualID(childView);
-		return myVisualIDRegistry.checkNodeVisualID(parentView, child, actualVisualId);
+		int actualVisualId = myDiagramStructure.getVisualID(childView);
+		return myDiagramStructure.checkNodeVisualID(parentView, child, actualVisualId);
 	}
 
 	@Override
@@ -88,18 +90,16 @@ public class MoveViewCommand extends AbstractTransactionalCommand {
 		return CommandResult.newOKCommandResult();
 	}
 
-	/**
-	 * Just a hook, default implementation does nothing
-	 */
-	protected void importStyles(View newView, View childView) {
-		//
+	@SuppressWarnings("unchecked")
+	protected void moveStyles(View newViewWillBeIgnored, View oldChildViewWillBeReused) {
+		oldChildViewWillBeReused.getStyles().clear();
+		oldChildViewWillBeReused.getStyles().addAll(newViewWillBeIgnored.getStyles());
 	}
 
 	protected View basicCreateNewView(View parentView, View childView, EObject child) {
 		IAdaptable semanticAdapter = new EObjectAdapter(child);
 		String semanticHint = null;
-		View result = ViewService.getInstance().createView(
-		//
+		View result = ViewService.getInstance().createView(//
 				Node.class, semanticAdapter, parentView, semanticHint, myIndex, true, myPreferences);
 		return result;
 	}
@@ -128,10 +128,9 @@ public class MoveViewCommand extends AbstractTransactionalCommand {
 		for (View childView : edgesToAndFromHierarchy) {
 			ViewUtil.destroy(childView);
 		}
+		
+		moveStyles(newView, oldChildView);
 
-		oldChildView.getStyles().clear();
-
-		oldChildView.getStyles().addAll(newView.getStyles());
 		oldChildView.getPersistedChildren().addAll(newView.getPersistedChildren());
 		oldChildView.getTransientChildren().addAll(newView.getTransientChildren());
 		oldChildView.getSourceEdges().addAll(newView.getSourceEdges());
