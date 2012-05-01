@@ -26,5 +26,6 @@ Export-Package: org.eclipse.gmf.tooling.runtime,
  org.eclipse.gmf.tooling.runtime.edit.policies.effect,
  org.eclipse.gmf.tooling.runtime.ocl.tracker,
  org.eclipse.gmf.tooling.runtime.parsers,
+ org.eclipse.gmf.tooling.runtime.structure,
  org.eclipse.gmf.tooling.runtime.update
 
