@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette
+      title="OCL Demo">
+    <tools
+        xsi:type="gmftool:CreationTool"
+        title="Employee"
+        description="Employee"/>
+    <tools
+        xsi:type="gmftool:CreationTool"
+        title="Department"/>
+    <tools
+        xsi:type="gmftool:CreationTool"
+        title="Project"
+        description="Project"/>
+    <tools
+        xsi:type="gmftool:CreationTool"
+        title="Manager"
+        description="Manager"/>
+    <tools
+        xsi:type="gmftool:CreationTool"
+        title="Manager's Link"
+        description="Manages the Department or Leads the Project"/>
+    <tools
+        xsi:type="gmftool:CreationTool"
+        title="Contribution"
+        description="Contribution of an employee to a project"/>
+  </palette>
+</gmftool:ToolRegistry>

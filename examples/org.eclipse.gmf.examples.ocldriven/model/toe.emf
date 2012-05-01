@@ -1,0 +1,51 @@
+@namespace(uri="http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment", prefix="toe")
+package toe;
+
+class AllHolder {
+ 
+ 	val AllBase[*] all;  
+}
+
+abstract class AllBase {   
+   //
+}
+
+class Employee extends AllBase {
+   attr String name;
+   attr int salary;
+   ref Project[*]#projectTeam projects;
+   ref Department#employees department;
+   
+   ref Contribution[*]#employee contributions;
+}
+
+class Manager extends Employee {
+	ref Project[*]#lead leads;
+	ref Department#manager managedDepartment;
+}
+
+class Contribution extends AllBase {
+   attr String description;
+
+   ref Employee#contributions employee;
+   ref Project#contributions project;
+}
+
+class Department extends AllBase {
+	attr String name; 
+	val Department[*]#parentDepartment subDepartments;
+	val Employee[*]#department employees;
+	ref Department#subDepartments parentDepartment;
+	ref Manager[1]#managedDepartment manager;
+
+	op Department[*] allSubDepartments();
+}
+
+class Project extends AllBase {
+	attr String name;
+	attr boolean departmentWide; 
+	ref Employee[*]#projects projectTeam;
+	ref Manager#leads lead;
+	
+	ref Contribution[*]#project contributions;
+} 
