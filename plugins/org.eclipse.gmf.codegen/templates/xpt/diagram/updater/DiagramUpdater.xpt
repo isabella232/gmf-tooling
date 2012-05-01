@@ -484,12 +484,15 @@ private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editor
 	«ERROR 'Incorrect LinkModelFacet: ' + self.repr()»
 «ENDDEFINE»
 
+«DEFINE runtimeTypedInstanceName FOR gmfgen::GenDiagramUpdater»TYPED_INSTANCE«ENDDEFINE»
+«DEFINE runtimeTypedInstanceCall FOR gmfgen::GenDiagramUpdater»«getDiagramUpdaterQualifiedClassName()».«EXPAND runtimeTypedInstanceName»«ENDDEFINE»
+
 «DEFINE runtimeTypedInstance FOR gmfgen::GenDiagramUpdater-»
 	«IF self.editorGen.jdkComplianceLevel() > 4-»
 	«LET self.getNodeDescriptorQualifiedClassName() AS nodeDescriptorFQN-»
 	«LET self.getLinkDescriptorQualifiedClassName() AS linkDescriptorFQN-»
 	«EXPAND xpt::Common::generatedClassComment»
-	public static final org.eclipse.gmf.tooling.runtime.update.DiagramUpdater TYPED_INSTANCE = new org.eclipse.gmf.tooling.runtime.update.DiagramUpdater() {
+	public static final org.eclipse.gmf.tooling.runtime.update.DiagramUpdater «EXPAND runtimeTypedInstanceName» = new org.eclipse.gmf.tooling.runtime.update.DiagramUpdater() {
 		«REM»Doesn't make sense to use CodeStyle::G -- interface requires generics anyway, so we checked above for the whole field«ENDREM»«-»
 		«EXPAND xpt::Common::generatedMemberComment»
 		«EXPAND CodeStyle::override FOR editorGen.diagram»
