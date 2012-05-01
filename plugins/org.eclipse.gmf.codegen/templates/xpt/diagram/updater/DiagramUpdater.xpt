@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2010 Borland Software Corporation and others
+ * Copyright (c) 2007, 2010, 2012 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -9,6 +9,7 @@
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
  *    Michael Golubev (Borland) - [243151] explicit source/target for links
+ *    Michael Golubev (Montages) - API extracted to gmf.tooling.runtime (#372479)  	  
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
@@ -16,6 +17,7 @@
 «EXTENSION xpt::diagram::updater::Utils»
 «EXTENSION xpt::GenModelUtils»
 «EXTENSION gmf::GenModelUtils»
+«EXTENSION xpt::GenEditorGenerator»
 
 «DEFINE DiagramUpdater FOR gmfgen::GenDiagramUpdater-»
 	«EXPAND xpt::Common::copyright FOR editorGen-»
@@ -42,6 +44,8 @@ public class «diagramUpdaterClassName» {
 	«EXPAND getContainedLinksByTypeMethod FOREACH getAllContainedLinks(editorGen.diagram)-»
 	«EXPAND getIncomingLinksByTypeMethod FOREACH getAllIncomingLinks(editorGen.diagram)-»
 	«EXPAND getOutgoingLinksByTypeMethod FOREACH getAllOutgoingLinks(editorGen.diagram)-»
+	
+	«EXPAND runtimeTypedInstance-»
 
 	«EXPAND additions-»
 }
@@ -478,6 +482,42 @@ private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editor
 
 «DEFINE incorrectLinkModelFacet FOR gmfgen::LinkModelFacet-»
 	«ERROR 'Incorrect LinkModelFacet: ' + self.repr()»
+«ENDDEFINE»
+
+«DEFINE runtimeTypedInstance FOR gmfgen::GenDiagramUpdater-»
+	«IF self.editorGen.jdkComplianceLevel() > 4-»
+	«LET self.getNodeDescriptorQualifiedClassName() AS nodeDescriptorFQN-»
+	«LET self.getLinkDescriptorQualifiedClassName() AS linkDescriptorFQN-»
+	«EXPAND xpt::Common::generatedClassComment»
+	public static final org.eclipse.gmf.tooling.runtime.update.DiagramUpdater TYPED_INSTANCE = new org.eclipse.gmf.tooling.runtime.update.DiagramUpdater() {
+		«REM»Doesn't make sense to use CodeStyle::G -- interface requires generics anyway, so we checked above for the whole field«ENDREM»«-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		public java.util.List<«nodeDescriptorFQN»> getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getSemanticChildren(view);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		public java.util.List<«linkDescriptorFQN»> getContainedLinks(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getContainedLinks(view);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		public java.util.List<«linkDescriptorFQN»> getIncomingLinks(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getIncomingLinks(view);
+		}
+
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		public java.util.List<«linkDescriptorFQN»> getOutgoingLinks(org.eclipse.gmf.runtime.notation.View view) {
+			return «diagramUpdaterClassName».getOutgoingLinks(view);
+		}
+	}; 
+	«ENDLET-»
+	«ENDLET-»
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagramUpdater»«ENDDEFINE»

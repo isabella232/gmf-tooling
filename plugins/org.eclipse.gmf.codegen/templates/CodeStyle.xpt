@@ -78,3 +78,9 @@ java.util.Collections.EMPTY_MAP«ENDIF-»
 @SuppressWarnings(«warnToken»)
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE override FOR gmfgen::GenCommonBase-»
+«IF self.jdkComplianceLevel() > 4-»
+@Override
+«ENDIF-»
+«ENDDEFINE»

@@ -108,8 +108,6 @@ import org.eclipse.gmf.codegen.gmfgen.OclChoiceParser;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser;
-import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
-import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
@@ -168,9 +166,6 @@ import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.mappings.OclChoiceLabelMapping;
-import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
-import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ReferenceNewElementSpec;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -653,7 +648,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	@Override
 	protected void complete() {
-		getGenEssence().getPlugin().getRequiredPlugins().addAll(Arrays.asList(myViewmaps.dependencies()));
+		List<String> requiredPlugins = getGenEssence().getPlugin().getRequiredPlugins();
+		final String GMF_TOOLING_RUNTIME = "org.eclipse.gmf.tooling.runtime"; //$NON-NLS-1$
+		requiredPlugins.add(GMF_TOOLING_RUNTIME);
+		requiredPlugins.addAll(Arrays.asList(myViewmaps.dependencies()));
 	}
 
 	//	private void process(AppearanceSteward appSteward) {
@@ -681,8 +679,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private void createVisualEffect(GenCommonBase parent, VisualEffectMapping mapping, DiagramElement parentDiagramElement) {
-		addOclToolingPlugin();
-
 		GenVisualEffect visualEffect = GMFGenFactory.eINSTANCE.createGenVisualEffect();
 		parent.getBehaviour().add(visualEffect);
 
@@ -723,14 +719,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		? ((FigureRef) figure).getFigure() //
 				: (RealFigure) figure;
 		return realFigure.getPins().contains(pin);
-	}
-
-	private void addOclToolingPlugin() {
-		final String GMFT_RUNTIME_OCL = "org.eclipse.gmf.tooling.runtime";
-		EList<String> reguiredPlugins = getGenEssence().getPlugin().getRequiredPlugins();
-		if (!reguiredPlugins.contains(GMFT_RUNTIME_OCL)) {
-			reguiredPlugins.add(GMFT_RUNTIME_OCL);
-		}
 	}
 
 	private GenLinkLabel createLinkLabel(GenLink link, LabelMapping mapping) {
@@ -1088,8 +1076,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	// may return GenConstraint, based on original expression type
 	// XXX perhaps, combining #createValueExpression and #createGenConstraint into a single method makes sense?
 	private ValueExpression createValueExpression(org.eclipse.gmf.mappings.ValueExpression valueExpression) {
-		addOclToolingPlugin();
-
 		if (valueExpression instanceof Constraint) {
 			return createGenConstraint((Constraint) valueExpression);
 		}
