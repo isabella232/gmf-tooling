@@ -56,7 +56,7 @@
 	«ENDIF-»
 	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
 	«IF childNodes->size() > 0-»
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy());
+		«EXPAND xpt::diagram::editparts::Common::installCreationEditPolicy-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
 	«ENDIF-»
 	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»

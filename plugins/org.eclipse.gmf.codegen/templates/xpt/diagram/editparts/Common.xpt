@@ -151,3 +151,12 @@ installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRole
 installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CANONICAL_ROLE, new «getCanonicalEditPolicyQualifiedClassName()»());
 	«ENDIF-»
 «ENDDEFINE»
+
+«DEFINE installCreationEditPolicy FOR gmfgen::GenCommonBase-»
+installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «EXPAND _creationEditPolicyNewInstance»);
+«ENDDEFINE»
+
+«DEFINE _creationEditPolicyNewInstance FOR gmfgen::GenCommonBase-»
+new org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent(«EXPAND xpt::editor::VisualIDRegistry::runtimeTypedInstanceCall FOR self.getDiagram()»)«-»
+«ENDDEFINE»
+

@@ -52,11 +52,9 @@
 
 «DEFINE installCreationRolePolicy FOR gmfgen::GenNode-»
 «IF self.childNodes->notEmpty() or hasChildrenInListCompartments(self)-»
-	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE, «EXPAND _creationEditPolicyNewInstance»);
+	«EXPAND xpt::diagram::editparts::Common::installCreationEditPolicy-»
 «ENDIF-»
 «ENDDEFINE»
-
-«DEFINE _creationEditPolicyNewInstance FOR gmfgen::GenNode»new org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy()«ENDDEFINE»
 
 «DEFINE installPrimaryDragEditPolicy FOR gmfgen::GenNode»«ENDDEFINE»
 

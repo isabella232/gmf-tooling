@@ -25,6 +25,7 @@
 	super.createDefaultEditPolicies();
 	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
 	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
+	«EXPAND xpt::diagram::editparts::Common::installCreationEditPolicy-»
 	«IF generateCreateShortcutAction() and null = editorGen.application-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {
 			public org.eclipse.gef.commands.Command getDropObjectsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
