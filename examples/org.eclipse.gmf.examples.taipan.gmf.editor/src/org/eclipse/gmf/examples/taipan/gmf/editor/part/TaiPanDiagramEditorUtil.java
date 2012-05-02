@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -40,6 +39,7 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gmf.examples.subdiagrams.SubDiagramManagerImpl;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.TaiPanFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
@@ -153,7 +153,7 @@ public class TaiPanDiagramEditorUtil {
 
 	/**
 	 * This method should be called within a workspace modify operation since it creates resources.
-	 * @generated
+	 * @generated NOT
 	 */
 	public static Resource createDiagram(URI diagramURI, URI modelURI, IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
@@ -174,6 +174,8 @@ public class TaiPanDiagramEditorUtil {
 					diagram.setElement(model);
 				}
 
+				SubDiagramManagerImpl.setupSubsetsSupport(diagram, diagramResource);
+
 				try {
 					modelResource.save(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil.getSaveOptions());
 					diagramResource.save(org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil.getSaveOptions());
@@ -183,6 +185,7 @@ public class TaiPanDiagramEditorUtil {
 				}
 				return CommandResult.newOKCommandResult();
 			}
+
 		};
 		try {
 			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);

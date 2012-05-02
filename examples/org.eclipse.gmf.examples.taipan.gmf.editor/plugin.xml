@@ -628,4 +628,59 @@ Contributors:
    </extension>
 
    <!-- optionally, specify keybindings -->
+   
+	<!-- custom extension points below  -->
+	<!--       subsetting support       --> 
+	<extension point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders" 
+		id="contributionItemProviders-subsets-layers">
+		<?gmfgen generated="false"?>
+	      	<contributionItemProvider
+            	checkPluginLoaded="true"
+            	class="org.eclipse.gmf.examples.subdiagrams.popup.AssignToLayersItemProvider">
+         		<Priority name="Medium"/>
+		 		<popupContribution
+					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
+             		<popupMenuGroup 
+             			id="AssignToLayerGroup"
+						path="/propertiesGroup">
+             		</popupMenuGroup>
+             		<popupMenu
+                  		path="/AssignToLayerGroup"
+                  		id="menu_assign_to_layer">
+             		</popupMenu>     
+             		<!--       
+             		<popupStructuredContributionCriteria
+						objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"
+                   		objectCount="1">
+             		</popupStructuredContributionCriteria>
+             		-->
+             		<popupStructuredContributionCriteria
+						objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart"
+                   		objectCount="1">
+             		</popupStructuredContributionCriteria>
+		 		</popupContribution>
+      		</contributionItemProvider>
+
+			<!-- contributionItemProvider
+            	checkPluginLoaded="true"
+            	class="org.eclipse.uml2.diagram.common.stereo.ApplicableStereotypesItemProvider">
+         		<Priority name="Medium"/>
+				<popupContribution
+               		class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
+			 		<popupMenuGroup
+                  		id="ApplyStereotypeGroup"
+                  		path="/propertiesGroup">
+             		</popupMenuGroup>
+             		<popupMenu
+						path="/ApplyStereotypeGroup"
+						id="menu_apply_unapply_stereotype">
+             		</popupMenu>      
+             		<popupStructuredContributionCriteria
+                   		objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"
+                   		objectCount="1">
+             		</popupStructuredContributionCriteria>
+		 		</popupContribution>
+			</contributionItemProvider -->
+	</extension>
+
 </plugin>
