@@ -1,8 +1,6 @@
 package org.eclipse.gmf.examples.subdiagrams.popup;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -13,6 +11,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.examples.layers.Layer;
 import org.eclipse.gmf.examples.layers.LayersFactory;
+import org.eclipse.gmf.examples.layers.LayersPackage;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -21,7 +20,6 @@ import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
@@ -61,7 +59,7 @@ public class CreateNewLayerAction extends DiagramAction {
 			return UnexecutableCommand.INSTANCE;
 		}
 		IEditCommandRequest request = new DomainOnlyEditRequest(diagramEditPart);
-		return new ICommandProxy(new CreateNewLayerLayer("Creating New Layer", mySupport, mySemanticElements, myDiagram, request, getWorkbenchPart().getSite().getShell()));
+		return new ICommandProxy(new CreateNewLayer("Creating New Layer", mySupport, mySemanticElements, myDiagram, request, getWorkbenchPart().getSite().getShell()));
 	}
 
 	@Override
@@ -69,7 +67,7 @@ public class CreateNewLayerAction extends DiagramAction {
 		return getDiagramEditPart() != null && !mySemanticElements.isEmpty();
 	}
 
-	public static class CreateNewLayerLayer extends EditElementCommand {
+	public static class CreateNewLayer extends EditElementCommand {
 
 		private final SubDiagramSupport mySupport;
 
@@ -79,7 +77,7 @@ public class CreateNewLayerAction extends DiagramAction {
 
 		private final SubDiagramSpec myDiagram;
 
-		protected CreateNewLayerLayer(String label, SubDiagramSupport support, List<EObject> assignees, SubDiagramSpec diagram, IEditCommandRequest request, Shell shell) {
+		protected CreateNewLayer(String label, SubDiagramSupport support, List<EObject> assignees, SubDiagramSpec diagram, IEditCommandRequest request, Shell shell) {
 			super(label, support, request);
 			myAssignees = assignees;
 			mySupport = support;
@@ -89,9 +87,9 @@ public class CreateNewLayerAction extends DiagramAction {
 
 		@Override
 		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-			UniqueNameValidator validator = new UniqueNameValidator(mySupport);
+			UniqueNameValidator validator = new UniqueNameValidator(mySupport.getLayers(), LayersPackage.eINSTANCE.getLayer_Name());
 			InputDialog dialog = new InputDialog(myShell, //
-					"Enter The Name", "New Layer's Name:", validator.guessNewLayerName(), validator);
+					"Enter The Name", "New Layer's Name:", validator.guessNewName("Layer "), validator);
 
 			if (dialog.open() != Window.OK) {
 				return CommandResult.newCancelledCommandResult();
@@ -106,58 +104,6 @@ public class CreateNewLayerAction extends DiagramAction {
 			myDiagram.findLayerEnablement(layer).setVisible(true);
 
 			return CommandResult.newOKCommandResult(layer);
-		}
-
-		private static class UniqueNameValidator implements IInputValidator {
-
-			private final Set<String> myAllNames = new HashSet<String>();
-
-			public UniqueNameValidator(SubDiagramSupport support) {
-				for (Layer next : support.getLayers()) {
-					String nextName = next.getName();
-					if (nextName != null) {
-						myAllNames.add(nextName);
-					}
-				}
-			}
-
-			@Override
-			public String isValid(String newText) {
-				if (newText == null) {
-					return "Empty Name Is Not Allowed";
-				}
-				newText = newText.trim();
-				if (newText.length() == 0) {
-					return "Empty Name Is Not Allowed";
-				}
-				if (myAllNames.contains(newText)) {
-					return "This Name Already Exists";
-				}
-				return null;
-			}
-
-			public String guessNewLayerName() {
-
-				String prefix = "Layer ";
-				for (int i = 0; i < 26; i++) {
-					String nextCandidate = prefix + (char) ('A' + i);
-					if (isValid(nextCandidate) == null) {
-						return nextCandidate;
-					}
-				}
-
-				//wow
-				int i = 0;
-				while (++i < 1000) {
-					String nextCandidate = prefix + i;
-					if (isValid(nextCandidate) == null) {
-						return nextCandidate;
-					}
-				}
-
-				return "<can't guess -- too many names already>";
-			}
-
 		}
 	}
 }

@@ -674,6 +674,28 @@ Contributors:
              		</popupStructuredContributionCriteria>
 		 		</popupContribution>
       		</contributionItemProvider>
+
+	      	<contributionItemProvider
+            	checkPluginLoaded="true"
+            	class="org.eclipse.gmf.examples.subdiagrams.popup.SubDiagramsItemProvider">
+         		<Priority name="Medium"/>
+		 		<popupContribution
+					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
+             		<popupMenuGroup 
+             			id="SubDiagramsGroup"
+						path="/propertiesGroup">
+             		</popupMenuGroup>
+             		<popupMenu
+                  		path="/SubDiagramsGroup"
+                  		id="menu_manage_subdiagrams">
+             		</popupMenu>     
+             		<popupStructuredContributionCriteria
+             			objectCount="1"
+             			objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+             		</popupStructuredContributionCriteria>
+		 		</popupContribution>
+      		</contributionItemProvider>
+
 	</extension>
 
 </plugin>
