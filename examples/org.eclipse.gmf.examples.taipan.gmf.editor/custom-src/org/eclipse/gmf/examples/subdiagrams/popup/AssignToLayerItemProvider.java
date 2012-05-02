@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.layers.Layer;
+import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
 import org.eclipse.gmf.examples.subdiagrams.SubDiagramManager;
 import org.eclipse.gmf.examples.subdiagrams.SubDiagramManagerImpl;
@@ -18,6 +19,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IWorkbenchPage;
 
 public class AssignToLayerItemProvider extends AbstractContributionItemProvider implements IProvider {
@@ -58,12 +60,19 @@ public class AssignToLayerItemProvider extends AbstractContributionItemProvider 
 			SubDiagramManager subsetManager = SubDiagramManagerImpl.findOrCreateSubsetManager(activeDiagram);
 			SubDiagramSupport support = subsetManager.getSubDiagramSupport();
 
+			SubDiagramSpec activeSpec = support.findDiagramSpec(activeDiagram);
+
 			List<EObject> allSelectedEObjects = Collections.unmodifiableList(resolveSelectedSemanticElements());
 			for (Layer next : support.getLayers()) {
 				AssignToLayerAction action = new AssignToLayerAction(getWorkbenchPage(), allSelectedEObjects, next);
 				action.init();
 				manager.add(action);
 			}
+
+			manager.add(new Separator());
+			CreateNewLayerAction createNewAction = new CreateNewLayerAction(getWorkbenchPage(), allSelectedEObjects, support, activeSpec);
+			createNewAction.init();
+			manager.add(createNewAction);
 		}
 
 		private List<EObject> resolveSelectedSemanticElements() {

@@ -4,7 +4,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.gmf.examples.layers.Layer;
 import org.eclipse.gmf.examples.layers.LayersFactory;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
@@ -47,14 +46,14 @@ public class SubDiagramManagerImpl implements SubDiagramManager {
 		support.setMainDiagram(mainDiagramSpec);
 
 		//fake layers
-		Layer layerA = LayersFactory.eINSTANCE.createLayer();
-		layerA.setName("Layer A");
-
-		Layer layerB = LayersFactory.eINSTANCE.createLayer();
-		layerB.setName("Layer B");
-
-		support.getLayers().add(layerA);
-		support.getLayers().add(layerB);
+		//		Layer layerA = LayersFactory.eINSTANCE.createLayer();
+		//		layerA.setName("Layer A");
+		//
+		//		Layer layerB = LayersFactory.eINSTANCE.createLayer();
+		//		layerB.setName("Layer B");
+		//
+		//		support.getLayers().add(layerA);
+		//		support.getLayers().add(layerB);
 		//
 
 		support.ensureAllSubDiagramsHaveEnablementForAllLayers();

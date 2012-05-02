@@ -6,7 +6,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -45,12 +44,11 @@ public class AssignToLayerAction extends DiagramAction {
 
 	@Override
 	protected Command getCommand() {
-		DiagramEditPart packageEditPart = getDiagramEditPart();
-		if (packageEditPart == null) {
+		DiagramEditPart diagramEditPart = getDiagramEditPart();
+		if (diagramEditPart == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		TransactionalEditingDomain editingDomain = packageEditPart.getEditingDomain();
-		IEditCommandRequest request = new DomainOnlyEditRequest(editingDomain);
+		IEditCommandRequest request = new DomainOnlyEditRequest(diagramEditPart);
 		boolean addNotRemove = !isAssignedToLayer(mySemanticElements, myLayerToAssign);
 		return new ICommandProxy(new AssignToLayer("Changing Layer Assignments", myLayerToAssign, mySemanticElements, addNotRemove, request));
 	}
@@ -80,7 +78,7 @@ public class AssignToLayerAction extends DiagramAction {
 		return layer.getParticipants().containsAll(semanticElements);
 	}
 
-	protected class AssignToLayer extends EditElementCommand {
+	public static class AssignToLayer extends EditElementCommand {
 
 		private final Layer myLayer;
 
