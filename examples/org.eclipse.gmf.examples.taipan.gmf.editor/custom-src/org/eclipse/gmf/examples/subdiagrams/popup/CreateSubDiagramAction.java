@@ -6,7 +6,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.examples.layers.LayersFactory;
 import org.eclipse.gmf.examples.layers.LayersPackage;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
@@ -65,7 +64,7 @@ public class CreateSubDiagramAction extends SubDiagramActionBase {
 	}
 
 	protected String calculateText() {
-		return safeGetSubDiagramName(mySpec);
+		return "New...";
 	}
 
 	protected boolean calculateChecked() {
@@ -101,7 +100,7 @@ public class CreateSubDiagramAction extends SubDiagramActionBase {
 			}
 
 			Diagram clone = EcoreUtil.copy(myTemplate.getDiagram());
-			SubDiagramSpec result = LayersFactory.eINSTANCE.createSubDiagramSpec();
+			SubDiagramSpec result = EcoreUtil.copy(myTemplate);
 			result.setDiagram(clone);
 			result.setName(dialog.getValue());
 

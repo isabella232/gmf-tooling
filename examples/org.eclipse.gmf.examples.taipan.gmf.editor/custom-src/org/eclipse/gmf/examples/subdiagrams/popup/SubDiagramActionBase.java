@@ -1,13 +1,22 @@
 package org.eclipse.gmf.examples.subdiagrams.popup;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gef.Request;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.ui.actions.DiagramAction;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
@@ -17,6 +26,7 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 public abstract class SubDiagramActionBase extends DiagramAction {
 
@@ -81,6 +91,8 @@ public abstract class SubDiagramActionBase extends DiagramAction {
 
 			Diagram diagram = spec.getDiagram();
 
+			saveResourceSet(spec);
+
 			URI uri = EcoreUtil.getURI(diagram);
 			String editorName = uri.lastSegment() + '#' + OpenSubDiagramAction.safeGetSubDiagramName(spec);
 			IEditorInput editorInput = new URIEditorInput(uri, editorName);
@@ -93,6 +105,40 @@ public abstract class SubDiagramActionBase extends DiagramAction {
 
 			return CommandResult.newOKCommandResult();
 		}
+
+		protected void saveResourceSet(final SubDiagramSpec diagramSpec) throws ExecutionException {
+			try {
+				new WorkspaceModifyOperation() {
+
+					@Override
+					protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+						try {
+							for (Resource nextResource : diagramSpec.eResource().getResourceSet().getResources()) {
+								if (nextResource.isLoaded() && !getEditingDomain().isReadOnly(nextResource)) {
+									nextResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
+								}
+							}
+						} catch (IOException ex) {
+							throw new InvocationTargetException(ex, "Save operation failed");
+						}
+					}
+				}.run(null);
+			} catch (InvocationTargetException e) {
+				throw new ExecutionException("Can't save diagram file", e);
+			} catch (InterruptedException e) {
+				throw new ExecutionException("Can't save diagram file", e);
+			}
+
+		}
+		
+		protected static Map<?, ?> getSaveOptions() {
+			HashMap<String, Object> saveOptions = new HashMap<String, Object>();
+			saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+			saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+			return saveOptions;
+		}
+
+
 	}
 
 	protected static class Ref<T> {
