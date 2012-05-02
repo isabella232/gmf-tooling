@@ -15,14 +15,9 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IWorkbenchPage;
 
-public class AssignToLayersItemProvider extends AbstractContributionItemProvider implements IProvider {
+public class AssignToLayerItemProvider extends AbstractContributionItemProvider implements IProvider {
 
 	public static final String MENU_ASSIGN_TO_LAYER = "menu_assign_to_layer"; //$NON-NLS-1$
-
-	public AssignToLayersItemProvider() {
-		super();
-		System.out.println("AssignToLayersItemProvider.AssignToLayersItemProvider()");
-	}
 
 	@Override
 	protected IMenuManager createMenuManager(String menuId, IWorkbenchPartDescriptor partDescriptor) {

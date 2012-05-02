@@ -636,7 +636,7 @@ Contributors:
 		<?gmfgen generated="false"?>
 	      	<contributionItemProvider
             	checkPluginLoaded="true"
-            	class="org.eclipse.gmf.examples.subdiagrams.popup.AssignToLayersItemProvider">
+            	class="org.eclipse.gmf.examples.subdiagrams.popup.AssignToLayerItemProvider">
          		<Priority name="Medium"/>
 		 		<popupContribution
 					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
@@ -648,15 +648,8 @@ Contributors:
                   		path="/AssignToLayerGroup"
                   		id="menu_assign_to_layer">
              		</popupMenu>     
-             		<!--       
              		<popupStructuredContributionCriteria
-						objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"
-                   		objectCount="1">
-             		</popupStructuredContributionCriteria>
-             		-->
-             		<popupStructuredContributionCriteria
-						objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart"
-                   		objectCount="1">
+						policyClass="org.eclipse.gmf.examples.subdiagrams.popup.AssignToLayerItemProviderPolicy">
              		</popupStructuredContributionCriteria>
 		 		</popupContribution>
       		</contributionItemProvider>
