@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -14,8 +15,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.Request;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
+import org.eclipse.gmf.examples.layers.SubDiagramSupport;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.ui.actions.DiagramAction;
@@ -27,6 +30,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.part.FileEditorInput;
 
 public abstract class SubDiagramActionBase extends DiagramAction {
 
@@ -90,12 +94,24 @@ public abstract class SubDiagramActionBase extends DiagramAction {
 			}
 
 			Diagram diagram = spec.getDiagram();
+			SubDiagramSupport support = (SubDiagramSupport) spec.eContainer();
 
 			saveResourceSet(spec);
 
-			URI uri = EcoreUtil.getURI(diagram);
-			String editorName = uri.lastSegment() + '#' + OpenSubDiagramAction.safeGetSubDiagramName(spec);
-			IEditorInput editorInput = new URIEditorInput(uri, editorName);
+			IEditorInput editorInput = null;
+			if (spec == support.getMainDiagram()) {
+				//to switch to the main diagram if already open
+				IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
+				if (file != null) {
+					editorInput = new FileEditorInput(file);
+				}
+			}
+			if (editorInput == null) {
+				URI uri = EcoreUtil.getURI(diagram);
+				String editorName = uri.lastSegment() + '#' + OpenSubDiagramAction.safeGetSubDiagramName(spec);
+				editorInput = new URIEditorInput(uri, editorName);
+			}
+
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			try {
 				page.openEditor(editorInput, myEditorId);
@@ -130,14 +146,18 @@ public abstract class SubDiagramActionBase extends DiagramAction {
 			}
 
 		}
-		
+
+		/**
+		 * XXX: this is copied from default diagram save options. 
+		 * It may be a problem if the particular diagram has a custom changed ones
+		 */
 		protected static Map<?, ?> getSaveOptions() {
+
 			HashMap<String, Object> saveOptions = new HashMap<String, Object>();
 			saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
 			saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 			return saveOptions;
 		}
-
 
 	}
 
