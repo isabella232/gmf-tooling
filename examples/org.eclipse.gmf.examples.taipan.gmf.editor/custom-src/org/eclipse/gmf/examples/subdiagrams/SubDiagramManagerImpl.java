@@ -55,6 +55,9 @@ public class SubDiagramManagerImpl implements SubDiagramManager {
 
 		support.getLayers().add(layerA);
 		support.getLayers().add(layerB);
+		//
+
+		support.ensureAllSubDiagramsHaveEnablementForAllLayers();
 	}
 
 	private final Resource myDiagramResource;
