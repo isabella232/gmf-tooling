@@ -654,26 +654,26 @@ Contributors:
 		 		</popupContribution>
       		</contributionItemProvider>
 
-			<!-- contributionItemProvider
+	      	<contributionItemProvider
             	checkPluginLoaded="true"
-            	class="org.eclipse.uml2.diagram.common.stereo.ApplicableStereotypesItemProvider">
+            	class="org.eclipse.gmf.examples.subdiagrams.popup.SwitchLayerVisibilityItemProvider">
          		<Priority name="Medium"/>
-				<popupContribution
-               		class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
-			 		<popupMenuGroup
-                  		id="ApplyStereotypeGroup"
-                  		path="/propertiesGroup">
+		 		<popupContribution
+					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
+             		<popupMenuGroup 
+             			id="SwitchLayerVisibilityGroup"
+						path="/propertiesGroup">
              		</popupMenuGroup>
              		<popupMenu
-						path="/ApplyStereotypeGroup"
-						id="menu_apply_unapply_stereotype">
-             		</popupMenu>      
+                  		path="/SwitchLayerVisibilityGroup"
+                  		id="menu_switch_layer_visibility">
+             		</popupMenu>     
              		<popupStructuredContributionCriteria
-                   		objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart"
-                   		objectCount="1">
+             			objectCount="1"
+             			objectClass="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
              		</popupStructuredContributionCriteria>
 		 		</popupContribution>
-			</contributionItemProvider -->
+      		</contributionItemProvider>
 	</extension>
 
 </plugin>

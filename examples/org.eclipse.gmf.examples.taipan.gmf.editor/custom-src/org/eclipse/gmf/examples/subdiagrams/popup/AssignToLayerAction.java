@@ -1,5 +1,7 @@
 package org.eclipse.gmf.examples.subdiagrams.popup;
 
+import java.util.List;
+
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -14,7 +16,6 @@ import org.eclipse.gmf.runtime.diagram.ui.actions.DiagramAction;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.AbstractEditCommandRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 import org.eclipse.ui.IWorkbenchPage;
 
@@ -24,12 +25,12 @@ public class AssignToLayerAction extends DiagramAction {
 
 	private final Layer myLayerToAssign;
 
-	private final EObject mySemanticElement;
+	private final List<EObject> mySemanticElements;
 
-	public AssignToLayerAction(IWorkbenchPage workbenchPage, EObject semanticElement, Layer layer) {
+	public AssignToLayerAction(IWorkbenchPage workbenchPage, List<EObject> semanticElements, Layer layer) {
 		super(workbenchPage);
+		mySemanticElements = semanticElements;
 		myLayerToAssign = layer;
-		mySemanticElement = semanticElement;
 	}
 
 	@Override
@@ -49,9 +50,9 @@ public class AssignToLayerAction extends DiagramAction {
 			return UnexecutableCommand.INSTANCE;
 		}
 		TransactionalEditingDomain editingDomain = packageEditPart.getEditingDomain();
-		IEditCommandRequest request = new EditRequestWithoutEditHelperContext(editingDomain);
-		boolean addNotRemove = !isAssignedToLayer(mySemanticElement, myLayerToAssign);
-		return new ICommandProxy(new AssignToLayer("Changing Layer Assignments", myLayerToAssign, mySemanticElement, addNotRemove, request));
+		IEditCommandRequest request = new DomainOnlyEditRequest(editingDomain);
+		boolean addNotRemove = !isAssignedToLayer(mySemanticElements, myLayerToAssign);
+		return new ICommandProxy(new AssignToLayer("Changing Layer Assignments", myLayerToAssign, mySemanticElements, addNotRemove, request));
 	}
 
 	@Override
@@ -72,24 +73,24 @@ public class AssignToLayerAction extends DiagramAction {
 	}
 
 	protected boolean calculateChecked() {
-		return isAssignedToLayer(mySemanticElement, myLayerToAssign);
+		return isAssignedToLayer(mySemanticElements, myLayerToAssign);
 	}
 
-	private boolean isAssignedToLayer(EObject semanticElement, Layer layer) {
-		return layer.getParticipants().contains(semanticElement);
+	private boolean isAssignedToLayer(List<EObject> semanticElements, Layer layer) {
+		return layer.getParticipants().containsAll(semanticElements);
 	}
 
 	protected class AssignToLayer extends EditElementCommand {
 
 		private final Layer myLayer;
 
-		private final EObject myAssignee;
+		private final List<EObject> myAssignees;
 
 		private final boolean myAddNotRemove;
 
-		protected AssignToLayer(String label, Layer layer, EObject assignee, boolean addNotRemove, IEditCommandRequest request) {
+		protected AssignToLayer(String label, Layer layer, List<EObject> assignees, boolean addNotRemove, IEditCommandRequest request) {
 			super(label, layer, request);
-			myAssignee = assignee;
+			myAssignees = assignees;
 			myLayer = layer;
 			myAddNotRemove = addNotRemove;
 		}
@@ -97,24 +98,12 @@ public class AssignToLayerAction extends DiagramAction {
 		@Override
 		protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 			if (myAddNotRemove) {
-				myLayer.getParticipants().add(myAssignee);
+				myLayer.getParticipants().addAll(myAssignees);
 			} else {
-				myLayer.getParticipants().remove(myAssignee);
+				myLayer.getParticipants().removeAll(myAssignees);
 			}
 			return CommandResult.newOKCommandResult(myLayer);
 		}
 
-	}
-
-	private static class EditRequestWithoutEditHelperContext extends AbstractEditCommandRequest {
-
-		protected EditRequestWithoutEditHelperContext(TransactionalEditingDomain editingDomain) {
-			super(editingDomain);
-		}
-
-		@Override
-		public Object getEditHelperContext() {
-			return null;
-		}
 	}
 }

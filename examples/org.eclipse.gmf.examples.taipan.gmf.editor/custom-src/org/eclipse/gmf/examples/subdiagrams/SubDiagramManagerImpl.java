@@ -43,6 +43,7 @@ public class SubDiagramManagerImpl implements SubDiagramManager {
 		SubDiagramSpec mainDiagramSpec = LayersFactory.eINSTANCE.createSubDiagramSpec();
 		mainDiagramSpec.setName("Main");
 		mainDiagramSpec.setShowing(true);
+		mainDiagramSpec.setDiagram(diagram);
 		support.setMainDiagram(mainDiagramSpec);
 
 		//fake layers
