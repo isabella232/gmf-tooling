@@ -48,6 +48,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpr
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
 /**
  * This registry is used to determine which type of visual object should be
@@ -62,21 +63,6 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static final String DEBUG_KEY = "org.eclipse.gmf.examples.taipan.gmf.editor/debug/visualID"; //$NON-NLS-1$
-
-	/**
-	 * @generated
-	 */
-	private static TaiPanAbstractExpression Ship_2002_Constraint;
-
-	/**
-	 * @generated
-	 */
-	private static TaiPanAbstractExpression Route_4002_Constraint;
-
-	/**
-	 * @generated
-	 */
-	private static TaiPanAbstractExpression Route_4003_Constraint;
 
 	/**
 	 * @generated
@@ -125,7 +111,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public static String getType(int visualID) {
-		return String.valueOf(visualID);
+		return Integer.toString(visualID);
 	}
 
 	/**
@@ -163,6 +149,17 @@ public class TaiPanVisualIDRegistry {
 			}
 		}
 		switch (containerVisualID) {
+		case AquatoryEditPart.VISUAL_ID:
+			if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElement.eClass())) {
+				return PortEditPart.VISUAL_ID;
+			}
+			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass()) && isShip_2002((Ship) domainElement)) {
+				return ShipEditPart.VISUAL_ID;
+			}
+			if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElement.eClass())) {
+				return WarshipEditPart.VISUAL_ID;
+			}
+			break;
 		case ShipSmallCargoEditPart.VISUAL_ID:
 			if (TaiPanPackage.eINSTANCE.getSmallItems().isSuperTypeOf(domainElement.eClass())) {
 				return SmallItemsEditPart.VISUAL_ID;
@@ -189,17 +186,6 @@ public class TaiPanVisualIDRegistry {
 				return EmptyBoxEditPart.VISUAL_ID;
 			}
 			break;
-		case AquatoryEditPart.VISUAL_ID:
-			if (TaiPanPackage.eINSTANCE.getPort().isSuperTypeOf(domainElement.eClass())) {
-				return PortEditPart.VISUAL_ID;
-			}
-			if (TaiPanPackage.eINSTANCE.getShip().isSuperTypeOf(domainElement.eClass()) && isShip_2002((Ship) domainElement)) {
-				return ShipEditPart.VISUAL_ID;
-			}
-			if (TaiPanPackage.eINSTANCE.getWarship().isSuperTypeOf(domainElement.eClass())) {
-				return WarshipEditPart.VISUAL_ID;
-			}
-			break;
 		}
 		return -1;
 	}
@@ -223,6 +209,17 @@ public class TaiPanVisualIDRegistry {
 			}
 		}
 		switch (containerVisualID) {
+		case AquatoryEditPart.VISUAL_ID:
+			if (PortEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (ShipEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (WarshipEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
 		case PortEditPart.VISUAL_ID:
 			if (PortLocationEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
@@ -281,17 +278,6 @@ public class TaiPanVisualIDRegistry {
 				return true;
 			}
 			if (EmptyBoxEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			break;
-		case AquatoryEditPart.VISUAL_ID:
-			if (PortEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			if (ShipEditPart.VISUAL_ID == nodeVisualID) {
-				return true;
-			}
-			if (WarshipEditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -356,10 +342,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isShip_2002(Ship domainElement) {
-		if (Ship_2002_Constraint == null) { // lazy initialization
-			Ship_2002_Constraint = TaiPanOCLFactory.getExpression("not self.oclIsKindOf(Warship)", TaiPanPackage.eINSTANCE.getShip()); //$NON-NLS-1$
-		}
-		Object result = Ship_2002_Constraint.evaluate(domainElement);
+		Object result = TaiPanOCLFactory.getExpression(0, TaiPanPackage.eINSTANCE.getShip(), null).evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
@@ -367,10 +350,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isRoute_4002(Route domainElement) {
-		if (Route_4002_Constraint == null) { // lazy initialization
-			Route_4002_Constraint = TaiPanOCLFactory.getExpression("reliability >= 0.5", TaiPanPackage.eINSTANCE.getRoute()); //$NON-NLS-1$
-		}
-		Object result = Route_4002_Constraint.evaluate(domainElement);
+		Object result = TaiPanOCLFactory.getExpression(1, TaiPanPackage.eINSTANCE.getRoute(), null).evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
 
@@ -378,11 +358,108 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private static boolean isRoute_4003(Route domainElement) {
-		if (Route_4003_Constraint == null) { // lazy initialization
-			Route_4003_Constraint = TaiPanOCLFactory.getExpression("reliability < 0.5", TaiPanPackage.eINSTANCE.getRoute()); //$NON-NLS-1$
-		}
-		Object result = Route_4003_Constraint.evaluate(domainElement);
+		Object result = TaiPanOCLFactory.getExpression(3, TaiPanPackage.eINSTANCE.getRoute(), null).evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
+
+	/**
+	* @generated
+	*/
+	public static boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+		if (candidate == -1) {
+			//unrecognized id is always bad
+			return false;
+		}
+		int basic = getNodeVisualID(containerView, domainElement);
+		return basic == candidate;
+	}
+
+	/**
+	* @generated
+	*/
+	public static boolean isCompartmentVisualID(int visualID) {
+		switch (visualID) {
+		case ShipSmallCargoEditPart.VISUAL_ID:
+		case ShipLargeCargoEditPart.VISUAL_ID:
+		case WarshipSmallCargoEditPart.VISUAL_ID:
+		case WarshipLargeCargoEditPart.VISUAL_ID:
+			return true;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/**
+	* @generated
+	*/
+	public static boolean isSemanticLeafVisualID(int visualID) {
+		switch (visualID) {
+		case AquatoryEditPart.VISUAL_ID:
+			return false;
+		case PortEditPart.VISUAL_ID:
+		case SmallItemsEditPart.VISUAL_ID:
+		case LargeItemEditPart.VISUAL_ID:
+		case EmptyBoxEditPart.VISUAL_ID:
+			return true;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramStructure TYPED_INSTANCE = new DiagramStructure() {
+
+		/**
+		* @generated
+		*/
+		@Override
+		public int getVisualID(View view) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public String getModelID(View view) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public int getNodeVisualID(View containerView, EObject domainElement) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.checkNodeVisualID(containerView, domainElement, candidate);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean isCompartmentVisualID(int visualID) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.isCompartmentVisualID(visualID);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean isSemanticLeafVisualID(int visualID) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.isSemanticLeafVisualID(visualID);
+		}
+	};
 
 }

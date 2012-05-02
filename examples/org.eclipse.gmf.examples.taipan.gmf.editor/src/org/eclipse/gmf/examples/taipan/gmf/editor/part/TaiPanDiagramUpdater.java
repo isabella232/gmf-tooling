@@ -51,6 +51,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.update.DiagramUpdater;
 
 /**
  * @generated
@@ -67,8 +68,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getSemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getSemanticChildren(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
+		case AquatoryEditPart.VISUAL_ID:
+			return getAquatory_1000SemanticChildren(view);
 		case ShipSmallCargoEditPart.VISUAL_ID:
 			return getShipSmallCargo_7001SemanticChildren(view);
 		case ShipLargeCargoEditPart.VISUAL_ID:
@@ -77,26 +80,24 @@ public class TaiPanDiagramUpdater {
 			return getWarshipSmallCargo_7003SemanticChildren(view);
 		case WarshipLargeCargoEditPart.VISUAL_ID:
 			return getWarshipLargeCargo_7004SemanticChildren(view);
-		case AquatoryEditPart.VISUAL_ID:
-			return getAquatory_1000SemanticChildren(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getShipSmallCargo_7001SemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getShipSmallCargo_7001SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		View containerView = (View) view.eContainer();
 		if (!containerView.isSetElement()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Ship modelElement = (Ship) containerView.getElement();
-		List result = new LinkedList();
-		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
+		LinkedList<TaiPanNodeDescriptor> result = new LinkedList<TaiPanNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SmallItemsEditPart.VISUAL_ID) {
@@ -110,17 +111,17 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShipLargeCargo_7002SemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getShipLargeCargo_7002SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		View containerView = (View) view.eContainer();
 		if (!containerView.isSetElement()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Ship modelElement = (Ship) containerView.getElement();
-		List result = new LinkedList();
-		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
+		LinkedList<TaiPanNodeDescriptor> result = new LinkedList<TaiPanNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == LargeItemEditPart.VISUAL_ID) {
@@ -138,17 +139,17 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarshipSmallCargo_7003SemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getWarshipSmallCargo_7003SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		View containerView = (View) view.eContainer();
 		if (!containerView.isSetElement()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Warship modelElement = (Warship) containerView.getElement();
-		List result = new LinkedList();
-		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
+		LinkedList<TaiPanNodeDescriptor> result = new LinkedList<TaiPanNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SmallItemsEditPart.VISUAL_ID) {
@@ -162,17 +163,17 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarshipLargeCargo_7004SemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getWarshipLargeCargo_7004SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		View containerView = (View) view.eContainer();
 		if (!containerView.isSetElement()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Warship modelElement = (Warship) containerView.getElement();
-		List result = new LinkedList();
-		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
+		LinkedList<TaiPanNodeDescriptor> result = new LinkedList<TaiPanNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getCargo().iterator(); it.hasNext();) {
 			Item childElement = (Item) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == LargeItemEditPart.VISUAL_ID) {
@@ -190,13 +191,13 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getAquatory_1000SemanticChildren(View view) {
+	public static List<TaiPanNodeDescriptor> getAquatory_1000SemanticChildren(View view) {
 		if (!view.isSetElement()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		Aquatory modelElement = (Aquatory) view.getElement();
-		List result = new LinkedList();
-		for (Iterator it = modelElement.getPorts().iterator(); it.hasNext();) {
+		LinkedList<TaiPanNodeDescriptor> result = new LinkedList<TaiPanNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getPorts().iterator(); it.hasNext();) {
 			Port childElement = (Port) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == PortEditPart.VISUAL_ID) {
@@ -204,7 +205,7 @@ public class TaiPanDiagramUpdater {
 				continue;
 			}
 		}
-		for (Iterator it = modelElement.getShips().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getShips().iterator(); it.hasNext();) {
 			Ship childElement = (Ship) it.next();
 			int visualID = TaiPanVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == ShipEditPart.VISUAL_ID) {
@@ -222,7 +223,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getContainedLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getContainedLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case AquatoryEditPart.VISUAL_ID:
 			return getAquatory_1000ContainedLinks(view);
@@ -247,13 +248,13 @@ public class TaiPanDiagramUpdater {
 		case EscortShipsOrderEditPart.VISUAL_ID:
 			return getEscortShipsOrder_4006ContainedLinks(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getIncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getIncomingLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID:
 			return getPort_2001IncomingLinks(view);
@@ -276,13 +277,13 @@ public class TaiPanDiagramUpdater {
 		case EscortShipsOrderEditPart.VISUAL_ID:
 			return getEscortShipsOrder_4006IncomingLinks(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getOutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getOutgoingLinks(View view) {
 		switch (TaiPanVisualIDRegistry.getVisualID(view)) {
 		case PortEditPart.VISUAL_ID:
 			return getPort_2001OutgoingLinks(view);
@@ -305,15 +306,15 @@ public class TaiPanDiagramUpdater {
 		case EscortShipsOrderEditPart.VISUAL_ID:
 			return getEscortShipsOrder_4006OutgoingLinks(view);
 		}
-		return Collections.EMPTY_LIST;
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getAquatory_1000ContainedLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getAquatory_1000ContainedLinks(View view) {
 		Aquatory modelElement = (Aquatory) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getContainedTypeModelFacetLinks_Route_4002(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_Route_4003(modelElement));
 		return result;
@@ -322,9 +323,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getPort_2001ContainedLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getPort_2001ContainedLinks(View view) {
 		Port modelElement = (Port) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Port_Register_4007(modelElement));
 		return result;
 	}
@@ -332,9 +333,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShip_2002ContainedLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getShip_2002ContainedLinks(View view) {
 		Ship modelElement = (Ship) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
@@ -343,9 +344,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarship_2003ContainedLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getWarship_2003ContainedLinks(View view) {
 		Warship modelElement = (Warship) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
@@ -356,59 +357,59 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getSmallItems_3001ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getSmallItems_3001ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getLargeItem_3002ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getLargeItem_3002ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEmptyBox_3003ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getEmptyBox_3003ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getRoute_4002ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getRoute_4002ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getRoute_4003ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getRoute_4003ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getBesiegePortOrder_4005ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getBesiegePortOrder_4005ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEscortShipsOrder_4006ContainedLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getEscortShipsOrder_4006ContainedLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getPort_2001IncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getPort_2001IncomingLinks(View view) {
 		Port modelElement = (Port) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Destination_4001(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_Route_4002(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_Route_4003(modelElement, crossReferences));
@@ -419,10 +420,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShip_2002IncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getShip_2002IncomingLinks(View view) {
 		Ship modelElement = (Ship) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getIncomingTypeModelFacetLinks_EscortShipsOrder_4006(modelElement, crossReferences));
 		result.addAll(getIncomingFeatureModelFacetLinks_Port_Register_4007(modelElement, crossReferences));
 		return result;
@@ -431,10 +432,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarship_2003IncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getWarship_2003IncomingLinks(View view) {
 		Warship modelElement = (Warship) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getIncomingTypeModelFacetLinks_EscortShipsOrder_4006(modelElement, crossReferences));
 		result.addAll(getIncomingFeatureModelFacetLinks_Port_Register_4007(modelElement, crossReferences));
 		return result;
@@ -443,31 +444,31 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getSmallItems_3001IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getSmallItems_3001IncomingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getLargeItem_3002IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getLargeItem_3002IncomingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEmptyBox_3003IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getEmptyBox_3003IncomingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getRoute_4002IncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getRoute_4002IncomingLinks(View view) {
 		Route modelElement = (Route) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getIncomingTypeModelFacetLinks_Route_4002(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_Route_4003(modelElement, crossReferences));
 		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Route_4004(modelElement, crossReferences));
@@ -477,10 +478,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getRoute_4003IncomingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getRoute_4003IncomingLinks(View view) {
 		Route modelElement = (Route) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
-		List result = new LinkedList();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getIncomingTypeModelFacetLinks_Route_4002(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_Route_4003(modelElement, crossReferences));
 		result.addAll(getIncomingFeatureModelFacetLinks_Ship_Route_4004(modelElement, crossReferences));
@@ -490,23 +491,23 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getBesiegePortOrder_4005IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getBesiegePortOrder_4005IncomingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEscortShipsOrder_4006IncomingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getEscortShipsOrder_4006IncomingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getPort_2001OutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getPort_2001OutgoingLinks(View view) {
 		Port modelElement = (Port) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingTypeModelFacetLinks_Route_4002(modelElement));
 		result.addAll(getOutgoingTypeModelFacetLinks_Route_4003(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Port_Register_4007(modelElement));
@@ -516,9 +517,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getShip_2002OutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getShip_2002OutgoingLinks(View view) {
 		Ship modelElement = (Ship) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		return result;
@@ -527,9 +528,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getWarship_2003OutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getWarship_2003OutgoingLinks(View view) {
 		Warship modelElement = (Warship) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(modelElement));
 		result.addAll(getOutgoingFeatureModelFacetLinks_Ship_Route_4004(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_BesiegePortOrder_4005(modelElement));
@@ -540,30 +541,30 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getSmallItems_3001OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getSmallItems_3001OutgoingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getLargeItem_3002OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getLargeItem_3002OutgoingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEmptyBox_3003OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getEmptyBox_3003OutgoingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getRoute_4002OutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getRoute_4002OutgoingLinks(View view) {
 		Route modelElement = (Route) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingTypeModelFacetLinks_Route_4002(modelElement));
 		result.addAll(getOutgoingTypeModelFacetLinks_Route_4003(modelElement));
 		return result;
@@ -572,9 +573,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getRoute_4003OutgoingLinks(View view) {
+	public static List<TaiPanLinkDescriptor> getRoute_4003OutgoingLinks(View view) {
 		Route modelElement = (Route) view.getElement();
-		List result = new LinkedList();
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		result.addAll(getOutgoingTypeModelFacetLinks_Route_4002(modelElement));
 		result.addAll(getOutgoingTypeModelFacetLinks_Route_4003(modelElement));
 		return result;
@@ -583,23 +584,23 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List getBesiegePortOrder_4005OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getBesiegePortOrder_4005OutgoingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List getEscortShipsOrder_4006OutgoingLinks(View view) {
-		return Collections.EMPTY_LIST;
+	public static List<TaiPanLinkDescriptor> getEscortShipsOrder_4006OutgoingLinks(View view) {
+		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedTypeModelFacetLinks_Route_4002(Aquatory container) {
-		Collection result = new LinkedList();
-		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
+	private static Collection<TaiPanLinkDescriptor> getContainedTypeModelFacetLinks_Route_4002(Aquatory container) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		for (Iterator<?> links = container.getRoutes().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
@@ -618,9 +619,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedTypeModelFacetLinks_Route_4003(Aquatory container) {
-		Collection result = new LinkedList();
-		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
+	private static Collection<TaiPanLinkDescriptor> getContainedTypeModelFacetLinks_Route_4003(Aquatory container) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		for (Iterator<?> links = container.getRoutes().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
@@ -639,9 +640,9 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedTypeModelFacetLinks_BesiegePortOrder_4005(Warship container) {
-		Collection result = new LinkedList();
-		for (Iterator links = container.getAttackOrders().iterator(); links.hasNext();) {
+	private static Collection<TaiPanLinkDescriptor> getContainedTypeModelFacetLinks_BesiegePortOrder_4005(Warship container) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		for (Iterator<?> links = container.getAttackOrders().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof BesiegePortOrder) {
 				continue;
@@ -659,8 +660,8 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getContainedTypeModelFacetLinks_EscortShipsOrder_4006(Warship container) {
-		Collection result = new LinkedList();
+	private static Collection<TaiPanLinkDescriptor> getContainedTypeModelFacetLinks_EscortShipsOrder_4006(Warship container) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		EscortShipsOrder link = container.getEscortOrder();
 		if (EscortShipsOrderEditPart.VISUAL_ID != TaiPanVisualIDRegistry.getLinkWithClassVisualID(link)) {
 			return result;
@@ -678,11 +679,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingFeatureModelFacetLinks_Ship_Destination_4001(Port target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingFeatureModelFacetLinks_Ship_Destination_4001(Port target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() == TaiPanPackage.eINSTANCE.getShip_Destination()) {
 				result.add(new TaiPanLinkDescriptor(setting.getEObject(), target, TaiPanElementTypes.ShipDestination_4001, ShipDestinationEditPart.VISUAL_ID));
 			}
@@ -693,11 +693,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_Route_4002(Destination target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingTypeModelFacetLinks_Route_4002(Destination target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() != TaiPanPackage.eINSTANCE.getRoute_Destination() || false == setting.getEObject() instanceof Route) {
 				continue;
 			}
@@ -714,11 +713,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_Route_4003(Destination target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingTypeModelFacetLinks_Route_4003(Destination target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() != TaiPanPackage.eINSTANCE.getRoute_Destination() || false == setting.getEObject() instanceof Route) {
 				continue;
 			}
@@ -735,11 +733,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingFeatureModelFacetLinks_Ship_Route_4004(Route target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingFeatureModelFacetLinks_Ship_Route_4004(Route target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() == TaiPanPackage.eINSTANCE.getShip_Route()) {
 				result.add(new TaiPanLinkDescriptor(setting.getEObject(), target, TaiPanElementTypes.ShipRoute_4004, ShipRouteEditPart.VISUAL_ID));
 			}
@@ -750,11 +747,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_BesiegePortOrder_4005(Port target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingTypeModelFacetLinks_BesiegePortOrder_4005(Port target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() != TaiPanPackage.eINSTANCE.getBesiegePortOrder_Port() || false == setting.getEObject() instanceof BesiegePortOrder) {
 				continue;
 			}
@@ -775,11 +771,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingTypeModelFacetLinks_EscortShipsOrder_4006(Ship target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingTypeModelFacetLinks_EscortShipsOrder_4006(Ship target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() != TaiPanPackage.eINSTANCE.getEscortShipsOrder_Ships() || false == setting.getEObject() instanceof EscortShipsOrder) {
 				continue;
 			}
@@ -800,11 +795,10 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getIncomingFeatureModelFacetLinks_Port_Register_4007(Ship target, Map crossReferences) {
-		Collection result = new LinkedList();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+	private static Collection<TaiPanLinkDescriptor> getIncomingFeatureModelFacetLinks_Port_Register_4007(Ship target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() == TaiPanPackage.eINSTANCE.getPort_Register()) {
 				result.add(new TaiPanLinkDescriptor(setting.getEObject(), target, TaiPanElementTypes.PortRegister_4007, PortRegisterEditPart.VISUAL_ID));
 			}
@@ -815,8 +809,8 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(Ship source) {
-		Collection result = new LinkedList();
+	private static Collection<TaiPanLinkDescriptor> getOutgoingFeatureModelFacetLinks_Ship_Destination_4001(Ship source) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		Port destination = source.getDestination();
 		if (destination == null) {
 			return result;
@@ -828,7 +822,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingTypeModelFacetLinks_Route_4002(Destination source) {
+	private static Collection<TaiPanLinkDescriptor> getOutgoingTypeModelFacetLinks_Route_4002(Destination source) {
 		Aquatory container = null;
 		// Find container element for the link.
 		// Climb up by containment hierarchy starting from the source
@@ -839,10 +833,10 @@ public class TaiPanDiagramUpdater {
 			}
 		}
 		if (container == null) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
-		Collection result = new LinkedList();
-		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		for (Iterator<?> links = container.getRoutes().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
@@ -864,7 +858,7 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingTypeModelFacetLinks_Route_4003(Destination source) {
+	private static Collection<TaiPanLinkDescriptor> getOutgoingTypeModelFacetLinks_Route_4003(Destination source) {
 		Aquatory container = null;
 		// Find container element for the link.
 		// Climb up by containment hierarchy starting from the source
@@ -875,10 +869,10 @@ public class TaiPanDiagramUpdater {
 			}
 		}
 		if (container == null) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
-		Collection result = new LinkedList();
-		for (Iterator links = container.getRoutes().iterator(); links.hasNext();) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		for (Iterator<?> links = container.getRoutes().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof Route) {
 				continue;
@@ -900,8 +894,8 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingFeatureModelFacetLinks_Ship_Route_4004(Ship source) {
-		Collection result = new LinkedList();
+	private static Collection<TaiPanLinkDescriptor> getOutgoingFeatureModelFacetLinks_Ship_Route_4004(Ship source) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
 		Route destination = source.getRoute();
 		if (destination == null) {
 			return result;
@@ -913,13 +907,51 @@ public class TaiPanDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection getOutgoingFeatureModelFacetLinks_Port_Register_4007(Port source) {
-		Collection result = new LinkedList();
-		for (Iterator destinations = source.getRegister().iterator(); destinations.hasNext();) {
+	private static Collection<TaiPanLinkDescriptor> getOutgoingFeatureModelFacetLinks_Port_Register_4007(Port source) {
+		LinkedList<TaiPanLinkDescriptor> result = new LinkedList<TaiPanLinkDescriptor>();
+		for (Iterator<?> destinations = source.getRegister().iterator(); destinations.hasNext();) {
 			Ship destination = (Ship) destinations.next();
 			result.add(new TaiPanLinkDescriptor(source, destination, TaiPanElementTypes.PortRegister_4007, PortRegisterEditPart.VISUAL_ID));
 		}
 		return result;
 	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TaiPanNodeDescriptor> getSemanticChildren(View view) {
+			return TaiPanDiagramUpdater.getSemanticChildren(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TaiPanLinkDescriptor> getContainedLinks(View view) {
+			return TaiPanDiagramUpdater.getContainedLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TaiPanLinkDescriptor> getIncomingLinks(View view) {
+			return TaiPanDiagramUpdater.getIncomingLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public List<TaiPanLinkDescriptor> getOutgoingLinks(View view) {
+			return TaiPanDiagramUpdater.getOutgoingLinks(view);
+		}
+	};
 
 }

@@ -127,7 +127,7 @@ public class TaiPanMetricProvider {
 
 				public void run() {
 					Diagram diagram = diagramEditPart.getDiagramView();
-					ArrayList/*<ElementMetrics>*/metrics = new ArrayList/*<ElementMetrics>*/(50);
+					ArrayList<ElementMetrics> metrics = new ArrayList<ElementMetrics>(50);
 					calculateSemanticElementMetrics(diagramEditPart, metrics);
 					setResult(metrics);
 				}
@@ -141,13 +141,13 @@ public class TaiPanMetricProvider {
 	 * NOTE: metrics are being collected for domain elements contained in the semantic element associated with diagram view, actual diagram content (elements present there) is not taken into account.
 	 * @generated
 	 */
-	static void calculateSemanticElementMetrics(DiagramEditPart diagramEditPart, List/*<ElementMetrics>*/metricsList) {
+	static void calculateSemanticElementMetrics(DiagramEditPart diagramEditPart, List<ElementMetrics> metricsList) {
 		Diagram diagram = diagramEditPart.getDiagramView();
 		EObject next = diagram.getElement();
 		Iterator/*<EObject>*/it = next != null ? next.eAllContents() : Collections.EMPTY_LIST.iterator();
-		HashMap/*<EObject, ElementMetrics>*/target2row = new HashMap/*<EObject, ElementMetrics>*/();
+		HashMap<EObject, ElementMetrics> target2row = new HashMap<EObject, ElementMetrics>();
 		while (next != null) {
-			ArrayList/*<Metric>*/res = new ArrayList/*<Metric>*/(5);
+			ArrayList<Metric> res = new ArrayList<Metric>(5);
 			if (TaiPanPackage.eINSTANCE.getRoute().isInstance(next)) {
 				res.add(new Metric("RouteRelb", calcRouteRelb((Route) next), new Double(0.1), new Double(0.9)));
 			}
@@ -330,16 +330,8 @@ public class TaiPanMetricProvider {
 	/**
 	 * @generated
 	 */
-	private static TaiPanAbstractExpression expressionRouteRelb;
-
-	/**
-	 * @generated
-	 */
 	public static Double calcRouteRelb(Route target) {
-		if (expressionRouteRelb == null) {
-			expressionRouteRelb = TaiPanOCLFactory.getExpression("reliability", TaiPanPackage.eINSTANCE.getRoute());
-		}
-		Object val = expressionRouteRelb.evaluate(target);
+		Object val = TaiPanOCLFactory.getExpression(8, TaiPanPackage.eINSTANCE.getRoute(), null).evaluate(target);
 		if (val instanceof Number) {
 			return val.getClass() == Double.class ? (Double) val : new Double(((Number) val).doubleValue());
 		}

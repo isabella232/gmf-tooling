@@ -54,6 +54,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getPortLocation_5001Parser() {
 		if (portLocation_5001Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getPort_Location() };
 			NativeParser parser = new NativeParser(features);
 			portLocation_5001Parser = parser;
@@ -71,6 +72,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getShipName_5004Parser() {
 		if (shipName_5004Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name() };
 			NativeParser parser = new NativeParser(features);
 			shipName_5004Parser = parser;
@@ -88,6 +90,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getWarshipName_5005Parser() {
 		if (warshipName_5005Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getShip_Name() };
 			NativeParser parser = new NativeParser(features);
 			warshipName_5005Parser = parser;
@@ -105,6 +108,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getSmallItems_3001Parser() {
 		if (smallItems_3001Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article(), TaiPanPackage.eINSTANCE.getSmallItems_Quantity() };
 			PrintfPrintfParser parser = new PrintfPrintfParser(features);
 			parser.setViewPattern("- %1$s [%2$d]"); //$NON-NLS-1$
@@ -125,6 +129,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getLargeItemArticle_5002Parser() {
 		if (largeItemArticle_5002Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article() };
 			NativeParser parser = new NativeParser(features);
 			largeItemArticle_5002Parser = parser;
@@ -142,6 +147,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getLargeItemWeight_5003Parser() {
 		if (largeItemWeight_5003Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getLargeItem_Weight() };
 			NativeParser parser = new NativeParser(features);
 			largeItemWeight_5003Parser = parser;
@@ -159,6 +165,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteDescription_6002Parser() {
 		if (routeDescription_6002Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Description() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("route : {0}"); //$NON-NLS-1$
@@ -179,6 +186,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteReliability_6003Parser() {
 		if (routeReliability_6003Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Reliability() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("reliability : {0,number,percent}"); //$NON-NLS-1$
@@ -199,6 +207,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteDescription_6004Parser() {
 		if (routeDescription_6004Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Description() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("route : {0}"); //$NON-NLS-1$
@@ -219,6 +228,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	private IParser getRouteReliability_6005Parser() {
 		if (routeReliability_6005Parser == null) {
+
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getRoute_Reliability() };
 			MessageFormatParser parser = new MessageFormatParser(features);
 			parser.setViewPattern("reliability : {0,number,percent}"); //$NON-NLS-1$

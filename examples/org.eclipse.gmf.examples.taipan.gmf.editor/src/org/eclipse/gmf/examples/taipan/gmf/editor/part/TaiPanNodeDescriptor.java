@@ -12,42 +12,18 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.tooling.runtime.update.UpdaterNodeDescriptor;
 
 /**
  * @generated
  */
-public class TaiPanNodeDescriptor {
-
-	/**
-	 * @generated
-	 */
-	private final EObject myModelElement;
-
-	/**
-	 * @generated
-	 */
-	private final int myVisualID;
+public class TaiPanNodeDescriptor extends UpdaterNodeDescriptor {
 
 	/**
 	 * @generated
 	 */
 	public TaiPanNodeDescriptor(EObject modelElement, int visualID) {
-		myModelElement = modelElement;
-		myVisualID = visualID;
-	}
-
-	/**
-	 * @generated
-	 */
-	public EObject getModelElement() {
-		return myModelElement;
-	}
-
-	/**
-	 * @generated
-	 */
-	public int getVisualID() {
-		return myVisualID;
+		super(modelElement, visualID);
 	}
 
 }

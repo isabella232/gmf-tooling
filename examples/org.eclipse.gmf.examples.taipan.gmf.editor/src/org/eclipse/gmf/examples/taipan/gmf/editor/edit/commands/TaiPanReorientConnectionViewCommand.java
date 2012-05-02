@@ -67,9 +67,9 @@ public class TaiPanReorientConnectionViewCommand extends AbstractTransactionalCo
 	 * @generated
 	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
-		assert null != edgeAdaptor : "Null child in TaiPanReorientConnectionViewCommand";
+		assert null != edgeAdaptor : "Null child in TaiPanReorientConnectionViewCommand"; //$NON-NLS-1$
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
-		assert null != edge : "Null edge in TaiPanReorientConnectionViewCommand";
+		assert null != edge : "Null edge in TaiPanReorientConnectionViewCommand"; //$NON-NLS-1$
 		View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

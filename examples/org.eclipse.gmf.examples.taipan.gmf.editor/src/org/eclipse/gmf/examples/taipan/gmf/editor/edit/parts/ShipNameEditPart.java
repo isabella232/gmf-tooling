@@ -52,6 +52,7 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.SWT;
@@ -83,7 +84,7 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	/**
 	 * @generated
 	 */
-	private List parserElements;
+	private List<?> parserElements;
 
 	/**
 	 * @generated
@@ -104,23 +105,7 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TaiPanTextSelectionEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
-
-			protected List createSelectionHandles() {
-				List handles = new ArrayList();
-				NonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);
-				((MoveHandle) handles.get(0)).setBorder(null);
-				return handles;
-			}
-
-			public Command getCommand(Request request) {
-				return null;
-			}
-
-			public boolean understandsRequest(Request request) {
-				return false;
-			}
-		});
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new AquatoryEditPart.NodeLabelDragPolicy());
 	}
 
 	/**
@@ -181,6 +166,7 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	/**
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	protected List getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -264,7 +250,7 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
-						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
+						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl<IParserEditStatus>() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new EObjectAdapter(element), (String) value));
@@ -304,8 +290,8 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Ship_2002, getParserElement(), TaiPanVisualIDRegistry
-					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart.VISUAL_ID));
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Ship_2002, getParserElement(),
+					TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipNameEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
@@ -315,7 +301,7 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager(this, TextDirectEditManager.getTextCellEditorClass(this), TaiPanEditPartFactory.getTextCellEditorLocator(this)));
+			setManager(new TextDirectEditManager2(this, null, TaiPanEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -338,8 +324,8 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == TextDirectEditManager.class) {
-			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager2.class) {
+			((TextDirectEditManager2) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -349,7 +335,11 @@ public class ShipNameEditPart extends CompartmentEditPart implements ITextAwareE
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof TextDirectEditManager) {
 			((TextDirectEditManager) getManager()).show(initialCharacter);
-		} else {
+		} else // 
+		if (getManager() instanceof TextDirectEditManager2) {
+			((TextDirectEditManager2) getManager()).show(initialCharacter);
+		} else //
+		{
 			performDirectEdit();
 		}
 	}
