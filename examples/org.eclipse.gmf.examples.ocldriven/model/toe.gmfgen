@@ -18,10 +18,6 @@
     <viewmap
         xsi:type="gmfgen:FigureViewmap"
         figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
-    <behaviour
-        xsi:type="gmfgen:CustomBehaviour"
-        key="org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE"
-        editPolicyQualifiedClassName="org.eclipse.gmf.examples.ocldriven.diagram.custom.policies.TOECreationEditPolicyWithCustomReparent"/>
     <domainDiagramElement
         href="toe.genmodel#//toe/AllHolder"/>
     <childNodes
@@ -631,10 +627,6 @@
           xsi:type="gmfgen:ParentAssignedViewmap"
           getterName="getFigureDepartmentFigure_content_pane"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
-      <behaviour
-          xsi:type="gmfgen:CustomBehaviour"
-          key="org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE"
-          editPolicyQualifiedClassName="org.eclipse.gmf.examples.ocldriven.diagram.custom.policies.TOECreationEditPolicyWithCustomReparent"/>
     </compartments>
     <compartments
         visualID="7002"
@@ -654,10 +646,6 @@
           xsi:type="gmfgen:ParentAssignedViewmap"
           getterName="getFigureDepartmentFigure_content_pane"
           figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
-      <behaviour
-          xsi:type="gmfgen:CustomBehaviour"
-          key="org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CREATION_ROLE"
-          editPolicyQualifiedClassName="org.eclipse.gmf.examples.ocldriven.diagram.custom.policies.TOECreationEditPolicyWithCustomReparent"/>
     </compartments>
     <palette>
       <groups
