@@ -142,6 +142,38 @@ mapping GMFMAP::ChildReference::createGenChildNode(node: GMFMAP::NodeMapping) : 
 	modelFacet := self.createModelFacet();
 	
 	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	
+	behaviour += node.visualEffects->map createVisualEffects(result, _node);
+}
+
+helper GMFGRAPH::DiagramElement::getOperationName(pin: GMFGRAPH::Pin): String =
+	if not self.figure.actualFigure.hasFigurePin(pin) then
+		let graphChildAccess = self.figure.accessors->any(_ | _.figure.hasFigurePin(pin)) in
+		if graphChildAccess.oclIsUndefined() then
+			pin.getOperationName()	
+		else
+			 graphChildAccess.accessor + "()." + pin.getOperationName()
+		endif 
+	else pin.getOperationName() endif;
+
+helper GMFGRAPH::Figure::hasFigurePin(pin: GMFGRAPH::Pin): Boolean =
+	let realFigure = 
+		if self.oclIsTypeOf(FigureRef) then 
+			self.oclAsType(FigureRef).figure 
+		else self.oclAsType(RealFigure) endif
+	in realFigure.pins->includes(pin);
+	
+mapping GMFMAP::VisualEffectMapping::createVisualEffects(parent: GMFGEN::GenNode, _mapping: GMFMAP::NodeMapping): GMFGEN::GenVisualEffect {
+	name := self.diagramPin.name;
+	pinKind := self.diagramPin.oclAsType(EObject).eClass().name;
+	operationName := self.diagramPin.getOperationName();
+	operationType := self.diagramPin.getOperationType();
+	oclExpression := self.oclExpression;
+	
+	-- TODO: need visualID
+--	editPolicyQualifiedClassName := parent.getDiagram().editPoliciesPackageName + '.' + 
+--		self.diagramPin.name.firstToUpper() +
+--	key :=   
 }
 
 mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink {
@@ -330,7 +362,8 @@ mapping GMFMAP::LabelMapping::createLabelModelFacet(node: NeedsContainment) : GM
 		GMFMAP::LabelMapping::createDefaultLabelModelFacet,
 		GMFMAP::FeatureLabelMapping::createFeatureLabelModelFacet,
 		GMFMAP::DesignLabelMapping::createDesignLabelModelFacet,
-		GMFMAP::ExpressionLabelMapping::createExpressionLabelModelFacet
+		GMFMAP::ExpressionLabelMapping::createExpressionLabelModelFacet,
+		GMFMAP::OclChoiceLabelMapping::createOclChoiceLabelModelFacet
 	{}
 mapping GMFMAP::LabelMapping::createDefaultLabelModelFacet(node: NeedsContainment) : GMFGEN::LabelModelFacet 
 	when {self.oclIsTypeOf(LabelMapping)} {
@@ -435,6 +468,24 @@ query GMFMAP::LabelTextAccessMethod::convertLabelTextAccessMethod() : GMFGEN::La
 		else return GMFGEN::LabelTextAccessMethod::MESSAGE_FORMAT;
 	};
 	return GMFGEN::LabelTextAccessMethod::MESSAGE_FORMAT;
+}
+
+mapping GMFMAP::OclChoiceLabelMapping::createOclChoiceLabelModelFacet(node: NeedsContainment): GMFGEN::FeatureLabelModelFacet {
+	var genFeature = self.feature.findGenFeature();  
+	metaFeatures += genFeature;
+	editableMetaFeatures += genFeature;
+	parser := self.map createOclChoiceParser();
+}
+
+mapping GMFMAP::OclChoiceLabelMapping::createOclChoiceParser(): GMFGEN::OclChoiceParser {
+	if not self.itemsExpression.oclIsUndefined() then
+		result.itemsExpression := self.itemsExpression.map createValueExpression() 
+	endif;
+	if not self.showExpression.oclIsUndefined() then
+		result.showExpression := self.showExpression.map createValueExpression()
+	endif;
+	
+	GenEditorGenerator.allInstances()->asSequence()->first().labelParsers.implementations += result;
 }
 
 -- *************************************************************************************
@@ -654,9 +705,18 @@ query String::makeAbsolute(): String {
 
 mapping GMFMAP::Mapping::createGenParsers(): GenParsers {
 --	object GenParsers {
-			implementations += GMFGEN::GenParserImplementation.allInstances();
-			if this.designLabelParser <> null then implementations += this.designLabelParser endif;
-			if this.auxParser <> null then implementations += this.auxParser endif;
-			extensibleViaService := true;
+	implementations += GMFGEN::GenParserImplementation.allInstances();
+	if this.designLabelParser <> null then implementations += this.designLabelParser endif;
+	if this.auxParser <> null then implementations += this.auxParser endif;
+	extensibleViaService := true;
 --		};
 }
+
+helper GMFMAP::FeatureLabelMapping::isEnumLabelMapping(): Boolean =
+	if self.features->size() <> 1 then false else
+		if self.editableFeatures->isEmpty() or self.editableFeatures->size() > self.features->size() then false else
+			let firstFeature = self.features->first() in
+			let firstEditFeature = self.editableFeatures->first() in
+				if firstFeature <> firstEditFeature then false else firstFeature.eType.oclIsKindOf(EEnum) endif
+		endif
+	endif;
