@@ -50,33 +50,33 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
+		if (editPart instanceof AquatoryEditPart) {
+			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
+			types.add(TaiPanElementTypes.Port_2001);
+			types.add(TaiPanElementTypes.Ship_2002);
+			types.add(TaiPanElementTypes.Warship_2003);
+			return types;
+		}
 		if (editPart instanceof ShipEditPart) {
-			ArrayList types = new ArrayList(1);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
 			types.add(TaiPanElementTypes.SmallItems_3001);
 			return types;
 		}
 		if (editPart instanceof WarshipEditPart) {
-			ArrayList types = new ArrayList(1);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
 			types.add(TaiPanElementTypes.SmallItems_3001);
 			return types;
 		}
 		if (editPart instanceof ShipLargeCargoEditPart) {
-			ArrayList types = new ArrayList(2);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 			types.add(TaiPanElementTypes.LargeItem_3002);
 			types.add(TaiPanElementTypes.EmptyBox_3003);
 			return types;
 		}
 		if (editPart instanceof WarshipLargeCargoEditPart) {
-			ArrayList types = new ArrayList(2);
+			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 			types.add(TaiPanElementTypes.LargeItem_3002);
 			types.add(TaiPanElementTypes.EmptyBox_3003);
-			return types;
-		}
-		if (editPart instanceof AquatoryEditPart) {
-			ArrayList types = new ArrayList(3);
-			types.add(TaiPanElementTypes.Port_2001);
-			types.add(TaiPanElementTypes.Ship_2002);
-			types.add(TaiPanElementTypes.Warship_2003);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -194,9 +194,9 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			return null;
 		}
 		Diagram diagram = (Diagram) editPart.getRoot().getContents().getModel();
-		Collection elements = new HashSet();
-		for (Iterator it = diagram.getElement().eAllContents(); it.hasNext();) {
-			EObject element = (EObject) it.next();
+		HashSet<EObject> elements = new HashSet<EObject>();
+		for (Iterator<EObject> it = diagram.getElement().eAllContents(); it.hasNext();) {
+			EObject element = it.next();
 			if (isApplicableElement(element, types)) {
 				elements.add(element);
 			}

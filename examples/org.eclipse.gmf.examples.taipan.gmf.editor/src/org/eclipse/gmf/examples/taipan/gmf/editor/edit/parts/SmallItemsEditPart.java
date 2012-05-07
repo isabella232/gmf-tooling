@@ -84,7 +84,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
-	private List parserElements;
+	private List<?> parserElements;
 
 	/**
 	 * @generated
@@ -164,9 +164,9 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	}
 
 	/**
-	 * @generated
-	 */
-	public void setLabel(IFigure figure) {
+	* @generated
+	*/
+	public void setLabel(WrappingLabel figure) {
 		unregisterVisuals();
 		setFigure(figure);
 		defaultText = getLabelTextHelper(figure);
@@ -177,6 +177,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	/**
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	protected List getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -260,7 +261,7 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
-						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
+						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl<IParserEditStatus>() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new EObjectAdapter(element), (String) value));
@@ -300,8 +301,8 @@ public class SmallItemsEditPart extends CompartmentEditPart implements ITextAwar
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.SmallItems_3001, getParserElement(), TaiPanVisualIDRegistry
-					.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart.VISUAL_ID));
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.SmallItems_3001, getParserElement(),
+					TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

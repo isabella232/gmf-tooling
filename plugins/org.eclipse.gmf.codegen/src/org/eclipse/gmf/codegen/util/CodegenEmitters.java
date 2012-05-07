@@ -25,7 +25,6 @@ import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
@@ -630,8 +629,8 @@ public class CodegenEmitters {
 	}
 
 	/**
-     * Returns emitter for qualified class name definition in the specified template.
-     * Definition should be named 'qualifiedClassName'.
+	 * Returns emitter for qualified class name definition in the specified template.
+	 * Definition should be named 'qualifiedClassName'.
 	 */
 	private TextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
 		String definition = templateName + PATH_SEPARATOR + "qualifiedClassName"; //$NON-NLS-1$

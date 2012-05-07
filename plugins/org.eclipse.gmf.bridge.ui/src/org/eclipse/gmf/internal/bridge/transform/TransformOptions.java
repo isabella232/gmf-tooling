@@ -31,6 +31,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	private static final String PREF_GENERATE_RCP = "generate_rcp"; //$NON-NLS-1$
 	private static final String PREF_USE_MAP_MODE = "use_map_mode"; //$NON-NLS-1$
 	private static final String PREF_USE_RUNTIME_FIGURES = "use_runtime_figures"; //$NON-NLS-1$
+	private static final String PREF_USE_IN_TRANSFORMATION_CODE_GEN = "use_in_transfo_code_gen"; //$NON-NLS-1$
 	private static final String PREF_IGNORE_MAPMODEL_VALIDATION = "ignore_mapmodel_validation"; //$NON-NLS-1$
 	private static final String PREF_IGNORE_GMFGEN_VALIDATION = "ignore_gmfgen_validation"; //$NON-NLS-1$
 	private static final String PREF_FIGURE_TEMPLATES = "dynamic_figure_templates"; //$NON-NLS-1$
@@ -41,6 +42,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	private static String[] PROP_NAMES = new String[] {
 		PREF_GENERATE_RCP, 
 		PREF_USE_MAP_MODE, 
+		PREF_USE_IN_TRANSFORMATION_CODE_GEN,
 		PREF_USE_RUNTIME_FIGURES,
 		PREF_IGNORE_MAPMODEL_VALIDATION,
 		PREF_IGNORE_GMFGEN_VALIDATION,
@@ -110,6 +112,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public boolean getUseRuntimeFigures() {
 		return getBoolean(PREF_USE_RUNTIME_FIGURES);
 	}
+	
+	public boolean getUseInTransformationCodeGen() {
+		return getBoolean(PREF_USE_IN_TRANSFORMATION_CODE_GEN);
+	}
 
 	public boolean getIgnoreMapModelValidation() {
 		return getBoolean(PREF_IGNORE_MAPMODEL_VALIDATION);
@@ -158,6 +164,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public void setIgnoreGMFGenValidation(boolean value) {
 		myInMemPrefs.put(PREF_IGNORE_GMFGEN_VALIDATION, Boolean.toString(value));
 	}
+	
+	public void setInTransformationCodeGen(boolean value) {
+		myInMemPrefs.put(PREF_USE_IN_TRANSFORMATION_CODE_GEN, Boolean.toString(value));
+	}
 
 	public void setFigureTemplatesPath(URL path) {
 		myInMemPrefs.put(PREF_FIGURE_TEMPLATES, path == null ? myNoValueToken : path.toString());
@@ -183,7 +193,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		node.putBoolean(PREF_USE_RUNTIME_FIGURES, true);
 		node.putBoolean(PREF_IGNORE_MAPMODEL_VALIDATION, false);
 		node.putBoolean(PREF_IGNORE_GMFGEN_VALIDATION, false);
-
+		node.putBoolean(PREF_USE_IN_TRANSFORMATION_CODE_GEN, true);
 	}
 	
 	static boolean checkLiteOptionPresent() {
@@ -232,6 +242,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private Preferences getGlobalPrefs() {
 		if (myGlobalPrefs == null) {
 			// no real need to cache, though
@@ -239,6 +250,8 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		}
 		return myGlobalPrefs;
 	}
+	
+	@SuppressWarnings("deprecation")
 	private static Preferences getDefaultPrefs() {
 		return new DefaultScope().getNode(Plugin.getPluginID());
 	}

@@ -83,6 +83,8 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreNodeDescriptor> getSemanticChildren(View view) {
 		switch (EcoreVisualIDRegistry.getVisualID(view)) {
+		case EPackageEditPart.VISUAL_ID:
+			return getEPackage_1000SemanticChildren(view);
 		case EClassAttributesEditPart.VISUAL_ID:
 			return getEClassAttributes_7001SemanticChildren(view);
 		case EClassOperationsEditPart.VISUAL_ID:
@@ -107,8 +109,6 @@ public class EcoreDiagramUpdater {
 			return getEEnumLiterals_7011SemanticChildren(view);
 		case EEnumEnumAnnotationsEditPart.VISUAL_ID:
 			return getEEnumEnumAnnotations_7012SemanticChildren(view);
-		case EPackageEditPart.VISUAL_ID:
-			return getEPackage_1000SemanticChildren(view);
 		}
 		return Collections.emptyList();
 	}
@@ -126,7 +126,7 @@ public class EcoreDiagramUpdater {
 		}
 		EClass modelElement = (EClass) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEAttributes().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEAttributes().iterator(); it.hasNext();) {
 			EAttribute childElement = (EAttribute) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAttributeEditPart.VISUAL_ID) {
@@ -150,7 +150,7 @@ public class EcoreDiagramUpdater {
 		}
 		EClass modelElement = (EClass) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEOperations().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEOperations().iterator(); it.hasNext();) {
 			EOperation childElement = (EOperation) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EOperationEditPart.VISUAL_ID) {
@@ -174,7 +174,7 @@ public class EcoreDiagramUpdater {
 		}
 		EClass modelElement = (EClass) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
@@ -198,7 +198,7 @@ public class EcoreDiagramUpdater {
 		}
 		EPackage modelElement = (EPackage) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EClass2EditPart.VISUAL_ID) {
@@ -222,7 +222,7 @@ public class EcoreDiagramUpdater {
 		}
 		EPackage modelElement = (EPackage) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getESubpackages().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getESubpackages().iterator(); it.hasNext();) {
 			EPackage childElement = (EPackage) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EPackage3EditPart.VISUAL_ID) {
@@ -246,7 +246,7 @@ public class EcoreDiagramUpdater {
 		}
 		EPackage modelElement = (EPackage) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EDataType2EditPart.VISUAL_ID) {
@@ -270,7 +270,7 @@ public class EcoreDiagramUpdater {
 		}
 		EPackage modelElement = (EPackage) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EEnum2EditPart.VISUAL_ID) {
@@ -294,7 +294,7 @@ public class EcoreDiagramUpdater {
 		}
 		EPackage modelElement = (EPackage) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
@@ -318,7 +318,7 @@ public class EcoreDiagramUpdater {
 		}
 		EAnnotation modelElement = (EAnnotation) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getDetails().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getDetails().iterator(); it.hasNext();) {
 			Map.Entry childElement = (Map.Entry) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, (EObject) childElement);
 			if (visualID == EStringToStringMapEntryEditPart.VISUAL_ID) {
@@ -342,7 +342,7 @@ public class EcoreDiagramUpdater {
 		}
 		EDataType modelElement = (EDataType) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
@@ -366,7 +366,7 @@ public class EcoreDiagramUpdater {
 		}
 		EEnum modelElement = (EEnum) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getELiterals().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getELiterals().iterator(); it.hasNext();) {
 			EEnumLiteral childElement = (EEnumLiteral) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EEnumLiteralEditPart.VISUAL_ID) {
@@ -390,7 +390,7 @@ public class EcoreDiagramUpdater {
 		}
 		EEnum modelElement = (EEnum) containerView.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotation2EditPart.VISUAL_ID) {
@@ -410,7 +410,7 @@ public class EcoreDiagramUpdater {
 		}
 		EPackage modelElement = (EPackage) view.getElement();
 		LinkedList<EcoreNodeDescriptor> result = new LinkedList<EcoreNodeDescriptor>();
-		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
 			EClassifier childElement = (EClassifier) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EClassEditPart.VISUAL_ID) {
@@ -426,7 +426,7 @@ public class EcoreDiagramUpdater {
 				continue;
 			}
 		}
-		for (Iterator it = modelElement.getESubpackages().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getESubpackages().iterator(); it.hasNext();) {
 			EPackage childElement = (EPackage) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EPackage2EditPart.VISUAL_ID) {
@@ -434,7 +434,7 @@ public class EcoreDiagramUpdater {
 				continue;
 			}
 		}
-		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
+		for (Iterator<?> it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
 			EAnnotation childElement = (EAnnotation) it.next();
 			int visualID = EcoreVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == EAnnotationEditPart.VISUAL_ID) {
@@ -710,7 +710,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEClass_2001IncomingLinks(View view) {
 		EClass modelElement = (EClass) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_EReference_4002(modelElement, crossReferences));
@@ -724,7 +724,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEPackage_2002IncomingLinks(View view) {
 		EPackage modelElement = (EPackage) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		return result;
@@ -735,7 +735,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEAnnotation_2003IncomingLinks(View view) {
 		EAnnotation modelElement = (EAnnotation) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		return result;
@@ -746,7 +746,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEDataType_2004IncomingLinks(View view) {
 		EDataType modelElement = (EDataType) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_EReference_4002(modelElement, crossReferences));
@@ -759,7 +759,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEEnum_2005IncomingLinks(View view) {
 		EEnum modelElement = (EEnum) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_EReference_4002(modelElement, crossReferences));
@@ -835,7 +835,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEReference_4002IncomingLinks(View view) {
 		EReference modelElement = (EReference) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		return result;
@@ -846,7 +846,7 @@ public class EcoreDiagramUpdater {
 	 */
 	public static List<EcoreLinkDescriptor> getEReference_4003IncomingLinks(View view) {
 		EReference modelElement = (EReference) view.getElement();
-		Map crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer.find(view.eResource().getResourceSet().getResources());
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(modelElement, crossReferences));
 		return result;
@@ -977,7 +977,7 @@ public class EcoreDiagramUpdater {
 	 */
 	private static Collection<EcoreLinkDescriptor> getContainedTypeModelFacetLinks_EReference_4002(EClass container) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
+		for (Iterator<?> links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof EReference) {
 				continue;
@@ -997,7 +997,7 @@ public class EcoreDiagramUpdater {
 	 */
 	private static Collection<EcoreLinkDescriptor> getContainedTypeModelFacetLinks_EReference_4003(EClass container) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		for (Iterator links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
+		for (Iterator<?> links = container.getEStructuralFeatures().iterator(); links.hasNext();) {
 			EObject linkObject = (EObject) links.next();
 			if (false == linkObject instanceof EReference) {
 				continue;
@@ -1015,11 +1015,10 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection<EcoreLinkDescriptor> getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(EObject target, Map crossReferences) {
+	private static Collection<EcoreLinkDescriptor> getIncomingFeatureModelFacetLinks_EAnnotation_References_4001(EObject target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() == EcorePackage.eINSTANCE.getEAnnotation_References()) {
 				result.add(new EcoreLinkDescriptor(setting.getEObject(), target, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
 			}
@@ -1030,11 +1029,10 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection<EcoreLinkDescriptor> getIncomingTypeModelFacetLinks_EReference_4002(EClassifier target, Map crossReferences) {
+	private static Collection<EcoreLinkDescriptor> getIncomingTypeModelFacetLinks_EReference_4002(EClassifier target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() != EcorePackage.eINSTANCE.getETypedElement_EType() || false == setting.getEObject() instanceof EReference) {
 				continue;
 			}
@@ -1055,11 +1053,10 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection<EcoreLinkDescriptor> getIncomingTypeModelFacetLinks_EReference_4003(EClassifier target, Map crossReferences) {
+	private static Collection<EcoreLinkDescriptor> getIncomingTypeModelFacetLinks_EReference_4003(EClassifier target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() != EcorePackage.eINSTANCE.getETypedElement_EType() || false == setting.getEObject() instanceof EReference) {
 				continue;
 			}
@@ -1080,11 +1077,10 @@ public class EcoreDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	private static Collection<EcoreLinkDescriptor> getIncomingFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass target, Map crossReferences) {
+	private static Collection<EcoreLinkDescriptor> getIncomingFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass target, Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		Collection settings = (Collection) crossReferences.get(target);
-		for (Iterator it = settings.iterator(); it.hasNext();) {
-			EStructuralFeature.Setting setting = (EStructuralFeature.Setting) it.next();
+		Collection<EStructuralFeature.Setting> settings = crossReferences.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
 			if (setting.getEStructuralFeature() == EcorePackage.eINSTANCE.getEClass_ESuperTypes()) {
 				result.add(new EcoreLinkDescriptor(setting.getEObject(), target, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
 			}
@@ -1097,7 +1093,7 @@ public class EcoreDiagramUpdater {
 	 */
 	private static Collection<EcoreLinkDescriptor> getOutgoingFeatureModelFacetLinks_EAnnotation_References_4001(EAnnotation source) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		for (Iterator destinations = source.getReferences().iterator(); destinations.hasNext();) {
+		for (Iterator<?> destinations = source.getReferences().iterator(); destinations.hasNext();) {
 			EObject destination = (EObject) destinations.next();
 			result.add(new EcoreLinkDescriptor(source, destination, EcoreElementTypes.EAnnotationReferences_4001, EAnnotationReferencesEditPart.VISUAL_ID));
 		}
@@ -1109,7 +1105,7 @@ public class EcoreDiagramUpdater {
 	 */
 	private static Collection<EcoreLinkDescriptor> getOutgoingFeatureModelFacetLinks_EClass_ESuperTypes_4004(EClass source) {
 		LinkedList<EcoreLinkDescriptor> result = new LinkedList<EcoreLinkDescriptor>();
-		for (Iterator destinations = source.getESuperTypes().iterator(); destinations.hasNext();) {
+		for (Iterator<?> destinations = source.getESuperTypes().iterator(); destinations.hasNext();) {
 			EClass destination = (EClass) destinations.next();
 			result.add(new EcoreLinkDescriptor(source, destination, EcoreElementTypes.EClassESuperTypes_4004, EClassESuperTypesEditPart.VISUAL_ID));
 		}

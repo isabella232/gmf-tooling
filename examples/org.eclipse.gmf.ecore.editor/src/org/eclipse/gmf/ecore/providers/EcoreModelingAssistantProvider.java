@@ -50,6 +50,15 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
+		if (editPart instanceof EPackageEditPart) {
+			ArrayList<IElementType> types = new ArrayList<IElementType>(5);
+			types.add(EcoreElementTypes.EClass_2001);
+			types.add(EcoreElementTypes.EPackage_2002);
+			types.add(EcoreElementTypes.EAnnotation_2003);
+			types.add(EcoreElementTypes.EDataType_2004);
+			types.add(EcoreElementTypes.EEnum_2005);
+			return types;
+		}
 		if (editPart instanceof EClassEditPart) {
 			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
 			types.add(EcoreElementTypes.EAttribute_3001);
@@ -80,15 +89,6 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
 			types.add(EcoreElementTypes.EEnumLiteral_3009);
 			types.add(EcoreElementTypes.EAnnotation_3003);
-			return types;
-		}
-		if (editPart instanceof EPackageEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(5);
-			types.add(EcoreElementTypes.EClass_2001);
-			types.add(EcoreElementTypes.EPackage_2002);
-			types.add(EcoreElementTypes.EAnnotation_2003);
-			types.add(EcoreElementTypes.EDataType_2004);
-			types.add(EcoreElementTypes.EEnum_2005);
 			return types;
 		}
 		return Collections.EMPTY_LIST;

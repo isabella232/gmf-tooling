@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.port.diagram.part;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.gef.Tool;
@@ -21,6 +22,7 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -49,9 +51,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createBuilding1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.Building_2001);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Building1CreationTool_title, Messages.Building1CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Building1CreationTool_title, Messages.Building1CreationTool_desc, Collections.singletonList(TaiPanElementTypes.Building_2001));
 		entry.setId("createBuilding1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Building_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -66,12 +66,12 @@ public class TaiPanPaletteFactory {
 		/**
 		 * @generated
 		 */
-		private final List elementTypes;
+		private final List<IElementType> elementTypes;
 
 		/**
 		 * @generated
 		 */
-		private NodeToolEntry(String title, String description, List elementTypes) {
+		private NodeToolEntry(String title, String description, List<IElementType> elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}

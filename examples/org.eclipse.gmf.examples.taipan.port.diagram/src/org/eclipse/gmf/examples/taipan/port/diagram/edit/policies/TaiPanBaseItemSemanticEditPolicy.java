@@ -286,7 +286,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	 * @generated
 	 */
 	protected void addDestroyShortcutsCommand(ICompositeCommand cmd, View view) {
-		assert view.getEAnnotation("Shortcut") == null;
+		assert view.getEAnnotation("Shortcut") == null; //$NON-NLS-1$
 		for (Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { //$NON-NLS-1$
@@ -294,13 +294,6 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 			}
 			cmd.add(new DeleteCommand(getEditingDomain(), nextView));
 		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class LinkConstraints {
-
 	}
 
 }

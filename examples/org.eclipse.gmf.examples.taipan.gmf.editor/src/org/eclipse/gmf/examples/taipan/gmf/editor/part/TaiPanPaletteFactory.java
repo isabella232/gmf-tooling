@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.gef.Tool;
@@ -22,6 +23,7 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -77,9 +79,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createPort1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.Port_2001);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Port1CreationTool_title, Messages.Port1CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Port1CreationTool_title, Messages.Port1CreationTool_desc, Collections.singletonList(TaiPanElementTypes.Port_2001));
 		entry.setId("createPort1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_2001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -90,9 +90,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createShip2CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.Ship_2002);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Ship2CreationTool_title, Messages.Ship2CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Ship2CreationTool_title, Messages.Ship2CreationTool_desc, Collections.singletonList(TaiPanElementTypes.Ship_2002));
 		entry.setId("createShip2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_2002));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -103,9 +101,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createWarship3CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.Warship_2003);
-		NodeToolEntry entry = new NodeToolEntry(Messages.Warship3CreationTool_title, Messages.Warship3CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.Warship3CreationTool_title, Messages.Warship3CreationTool_desc, Collections.singletonList(TaiPanElementTypes.Warship_2003));
 		entry.setId("createWarship3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Warship_2003));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -116,9 +112,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createSmallItems4CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.SmallItems_3001);
-		NodeToolEntry entry = new NodeToolEntry(Messages.SmallItems4CreationTool_title, Messages.SmallItems4CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.SmallItems4CreationTool_title, Messages.SmallItems4CreationTool_desc, Collections.singletonList(TaiPanElementTypes.SmallItems_3001));
 		entry.setId("createSmallItems4CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.SmallItems_3001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -129,9 +123,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createLargeItem5CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.LargeItem_3002);
-		NodeToolEntry entry = new NodeToolEntry(Messages.LargeItem5CreationTool_title, Messages.LargeItem5CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.LargeItem5CreationTool_title, Messages.LargeItem5CreationTool_desc, Collections.singletonList(TaiPanElementTypes.LargeItem_3002));
 		entry.setId("createLargeItem5CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.LargeItem_3002));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -142,9 +134,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEmptyBox6CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.EmptyBox_3003);
-		NodeToolEntry entry = new NodeToolEntry(Messages.EmptyBox6CreationTool_title, Messages.EmptyBox6CreationTool_desc, types);
+		NodeToolEntry entry = new NodeToolEntry(Messages.EmptyBox6CreationTool_title, Messages.EmptyBox6CreationTool_desc, Collections.singletonList(TaiPanElementTypes.EmptyBox_3003));
 		entry.setId("createEmptyBox6CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EmptyBox_3003));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -155,9 +145,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createReliableRoute1CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.Route_4002);
-		LinkToolEntry entry = new LinkToolEntry(Messages.ReliableRoute1CreationTool_title, Messages.ReliableRoute1CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.ReliableRoute1CreationTool_title, Messages.ReliableRoute1CreationTool_desc, Collections.singletonList(TaiPanElementTypes.Route_4002));
 		entry.setId("createReliableRoute1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/Route.gif")); //$NON-NLS-1$
@@ -168,9 +156,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createUnreliableRoute2CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.Route_4003);
-		LinkToolEntry entry = new LinkToolEntry(Messages.UnreliableRoute2CreationTool_title, Messages.UnreliableRoute2CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.UnreliableRoute2CreationTool_title, Messages.UnreliableRoute2CreationTool_desc, Collections.singletonList(TaiPanElementTypes.Route_4003));
 		entry.setId("createUnreliableRoute2CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/UnreliableRoute.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/UnreliableRoute.gif")); //$NON-NLS-1$
@@ -181,9 +167,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createRegistration3CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.PortRegister_4007);
-		LinkToolEntry entry = new LinkToolEntry(Messages.Registration3CreationTool_title, Messages.Registration3CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.Registration3CreationTool_title, Messages.Registration3CreationTool_desc, Collections.singletonList(TaiPanElementTypes.PortRegister_4007));
 		entry.setId("createRegistration3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRegistration.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRegistration.gif")); //$NON-NLS-1$
@@ -194,9 +178,8 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createShipDestination4CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.ShipDestination_4001);
-		LinkToolEntry entry = new LinkToolEntry(Messages.ShipDestination4CreationTool_title, Messages.ShipDestination4CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.ShipDestination4CreationTool_title, Messages.ShipDestination4CreationTool_desc,
+				Collections.singletonList(TaiPanElementTypes.ShipDestination_4001));
 		entry.setId("createShipDestination4CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipDestination.gif")); //$NON-NLS-1$
@@ -207,9 +190,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createShipRoute5CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.ShipRoute_4004);
-		LinkToolEntry entry = new LinkToolEntry(Messages.ShipRoute5CreationTool_title, Messages.ShipRoute5CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.ShipRoute5CreationTool_title, Messages.ShipRoute5CreationTool_desc, Collections.singletonList(TaiPanElementTypes.ShipRoute_4004));
 		entry.setId("createShipRoute5CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif")); //$NON-NLS-1$
 		entry.setLargeIcon(TaiPanDiagramEditorPlugin.findImageDescriptor("/org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/ShipRoute.gif")); //$NON-NLS-1$
@@ -220,9 +201,8 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createBesiegePortOrder6CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.BesiegePortOrder_4005);
-		LinkToolEntry entry = new LinkToolEntry(Messages.BesiegePortOrder6CreationTool_title, Messages.BesiegePortOrder6CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.BesiegePortOrder6CreationTool_title, Messages.BesiegePortOrder6CreationTool_desc,
+				Collections.singletonList(TaiPanElementTypes.BesiegePortOrder_4005));
 		entry.setId("createBesiegePortOrder6CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.BesiegePortOrder_4005));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -233,9 +213,8 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEscortShipsOrder7CreationTool() {
-		List/*<IElementType>*/types = new ArrayList/*<IElementType>*/(1);
-		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
-		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrder7CreationTool_title, Messages.EscortShipsOrder7CreationTool_desc, types);
+		LinkToolEntry entry = new LinkToolEntry(Messages.EscortShipsOrder7CreationTool_title, Messages.EscortShipsOrder7CreationTool_desc,
+				Collections.singletonList(TaiPanElementTypes.EscortShipsOrder_4006));
 		entry.setId("createEscortShipsOrder7CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.EscortShipsOrder_4006));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -250,12 +229,12 @@ public class TaiPanPaletteFactory {
 		/**
 		 * @generated
 		 */
-		private final List elementTypes;
+		private final List<IElementType> elementTypes;
 
 		/**
 		 * @generated
 		 */
-		private NodeToolEntry(String title, String description, List elementTypes) {
+		private NodeToolEntry(String title, String description, List<IElementType> elementTypes) {
 			super(title, description, null, null);
 			this.elementTypes = elementTypes;
 		}
@@ -278,12 +257,12 @@ public class TaiPanPaletteFactory {
 		/**
 		 * @generated
 		 */
-		private final List relationshipTypes;
+		private final List<IElementType> relationshipTypes;
 
 		/**
 		 * @generated
 		 */
-		private LinkToolEntry(String title, String description, List relationshipTypes) {
+		private LinkToolEntry(String title, String description, List<IElementType> relationshipTypes) {
 			super(title, description, null, null);
 			this.relationshipTypes = relationshipTypes;
 		}

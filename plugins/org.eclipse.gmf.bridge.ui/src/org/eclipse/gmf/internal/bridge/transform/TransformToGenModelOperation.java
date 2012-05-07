@@ -14,9 +14,8 @@ package org.eclipse.gmf.internal.bridge.transform;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +47,8 @@ import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.GenModelProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
-import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
+import org.eclipse.gmf.internal.bridge.genmodel.ModeledViewmapProducer;
+import org.eclipse.gmf.internal.bridge.genmodel.QVTDiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
@@ -56,25 +56,26 @@ import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper;
-import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.ModelExtent;
-import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.TransfExecutionResult;
+import org.eclipse.m2m.qvt.oml.BasicModelExtent;
+import org.eclipse.m2m.qvt.oml.ExecutionContextImpl;
+import org.eclipse.m2m.qvt.oml.ExecutionDiagnostic;
+import org.eclipse.m2m.qvt.oml.TransformationExecutor;
 
 //[artem] XXX Why it's in the bridge.ui??? 
 public class TransformToGenModelOperation {
-	
+
 	private URI myGMFGenModelURI;
 	private TransformOptions myOptions;
 	private Mapping myMapping;
 	private GenModelDetector myGMDetector;
 	private GenModel myGenModel;
-	
+
 	private Diagnostic myMapmodelValidationResult = Diagnostic.CANCEL_INSTANCE;
 	private Diagnostic myGMFGenValidationResult = Diagnostic.CANCEL_INSTANCE;
 
 	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
 	private final ResourceSet myResourceSet;
-	
+
 	public TransformToGenModelOperation(ResourceSet rs) {
 		assert rs != null;
 		myResourceSet = rs;
@@ -84,7 +85,7 @@ public class TransformToGenModelOperation {
 	public TransformOptions getOptions() {
 		return myOptions;
 	}
-	
+
 	public URI getGenURI() {
 		return this.myGMFGenModelURI;
 	}
@@ -104,14 +105,14 @@ public class TransformToGenModelOperation {
 	Mapping getMapping() {
 		return this.myMapping;
 	}
-	
+
 	private void setMapping(Mapping m, Diagnostic validationResult) {
 		this.myMapping = m;
 		this.myMapmodelValidationResult = validationResult;
 		myGMDetector = (m != null) ? new GenModelDetector(m) : null;
 		myGenModel = null;
 	}
-	
+
 	private void setGMFGenValidationResult(Diagnostic validationResult) {
 		this.myGMFGenValidationResult = validationResult;
 	}
@@ -119,7 +120,7 @@ public class TransformToGenModelOperation {
 	public GenModelDetector getGenModelDetector() {
 		return myGMDetector;
 	}
-	
+
 	public Diagnostic getGMFGenValidationResult() {
 		return this.myGMFGenValidationResult;
 	}
@@ -127,7 +128,7 @@ public class TransformToGenModelOperation {
 	public Diagnostic getMapmodelValidationResult() {
 		return this.myMapmodelValidationResult;
 	}
-	
+
 	public IStatus getStaleGenmodelStatus() {
 		return this.myStaleGenmodelStatus;
 	}
@@ -175,7 +176,7 @@ public class TransformToGenModelOperation {
 			}
 		}
 	}
-	
+
 	public GenModel findGenmodel() throws CoreException {
 		IStatus detect;
 		try {
@@ -241,7 +242,7 @@ public class TransformToGenModelOperation {
 			}
 		}
 	}
-	
+
 	public IStatus executeTransformation(IProgressMonitor pm) {
 		IProgressMonitor monitor = null;
 		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
@@ -259,7 +260,7 @@ public class TransformToGenModelOperation {
 			idDispenser.acquire();
 
 			GenModelProducer t = createGenModelProducer(idDispenser);
-
+			
 			monitor.subTask(Messages.TransformToGenModelOperation_task_generate);
 			GenEditorGenerator genEditor = t.process(getMapping(), new SubProgressMonitor(monitor, 20));
 			if (monitor.isCanceled()) {
@@ -269,13 +270,17 @@ public class TransformToGenModelOperation {
 			if (Plugin.needsReconcile()) {
 				handlePreReconcileHooks(genEditor);
 				reconcile(genEditor);
-				handlePostReconcileHooks(genEditor);
+				handlePostReconcileHooks(genEditor);	
+			}
+			if (hasExtensionTransformation(getMapping().eResource().getURI())) {
+				executeExtensionTransformation(getMapping().eResource().getURI(), genEditor);
 			}
 			GenNamingMediatorImpl namer = new GenNamingMediatorImpl();
 			namer.setMode(GenNamingMediatorImpl.Mode.COLLECT_NAMES);
 			namer.traverse(genEditor); // collect reconciled names
 			namer.setMode(GenNamingMediatorImpl.Mode.DISPENSE_NAMES);
 			namer.traverse(genEditor); // dispense names to new elements
+			
 			monitor.worked(20);
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
@@ -312,27 +317,35 @@ public class TransformToGenModelOperation {
 		}
 	}
 
+	protected boolean hasExtensionTransformation(URI uri) {
+		final URI transfURI = uri.trimFileExtension().appendFileExtension("qvto");
+		final TransformationExecutor executor = new TransformationExecutor(transfURI);
+		Diagnostic diag  = executor.loadTransformation();
+		return diag.getCode() == Diagnostic.OK;
+	}
+	
+	protected void executeExtensionTransformation(URI uri, GenEditorGenerator result) {
+		final URI transfURI = uri.trimFileExtension().appendFileExtension("qvto");
+		final TransformationExecutor executor = new TransformationExecutor(transfURI);
+		final ExecutionContextImpl context = new ExecutionContextImpl();
+		executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[]{result})));
+	}
+	
 	protected void handlePreReconcileHooks(GenEditorGenerator result) {
 		if (getOptions().getPreReconcileTransform() != null) {
-			try {
-				URI transfURI = URI.createURI(getOptions().getPreReconcileTransform().toExternalForm());
-				new QvtoTransformationHelper(transfURI).executeTransformation(Collections.<EObject>singletonList(result), Collections.<String, Object>emptyMap(), getResourceSet());
-			} catch (CoreException ex) {
-				Plugin.log(ex);
-			}
+			URI transfURI = URI.createURI(getOptions().getPreReconcileTransform().toExternalForm());
+			final TransformationExecutor executor = new TransformationExecutor(transfURI);
+			final ExecutionContextImpl context = new ExecutionContextImpl();
+			executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[]{result})));
 		}
 	}
 
 	protected void handlePostReconcileHooks(GenEditorGenerator result) {
 		if (getOptions().getPostReconcileTransform() != null) {
-			try {
-				URI transfURI = URI.createURI(getOptions().getPostReconcileTransform().toExternalForm());
-				List<EObject> in = Collections.<EObject>singletonList(result);
-				Map<String, Object> props = Collections.<String, Object>emptyMap();
-				new QvtoTransformationHelper(transfURI).executeTransformation(in, props, getResourceSet());
-			} catch (CoreException ex) {
-				Plugin.log(ex);
-			}
+			URI transfURI = URI.createURI(getOptions().getPostReconcileTransform().toExternalForm());
+			final TransformationExecutor executor = new TransformationExecutor(transfURI);
+			final ExecutionContextImpl context = new ExecutionContextImpl();
+			executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[]{result})));
 		}
 	}
 
@@ -342,7 +355,7 @@ public class TransformToGenModelOperation {
 			throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_mapping);
 		}
 	}
-	
+
 	static IStatus getFirst(Diagnostic d) {
 		if (d == null) {
 			return Status.OK_STATUS;
@@ -354,12 +367,17 @@ public class TransformToGenModelOperation {
 			return BasicDiagnostic.toIStatus(children.get(0));
 		}
 	}
-	
+
 	private DiagramRunTimeModelHelper detectRunTimeModel() {
 		return new BasicDiagramRunTimeModelHelper();
 	}
 
 	private ViewmapProducer detectTransformationOptions() {
+		boolean useModeledViewmaps = !getOptions().getUseInTransformationCodeGen();
+		if (useModeledViewmaps){
+			return new ModeledViewmapProducer();
+		}
+
 		String runtimeToken = getOptions().getUseRuntimeFigures() ? "full" : "lite";
 		MapModeCodeGenStrategy mmStrategy = getOptions().getUseMapMode() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 		URL dynamicFigureTemplates = getOptions().getFigureTemplatesPath();
@@ -372,32 +390,27 @@ public class TransformToGenModelOperation {
 
 	private GenModelProducer createGenModelProducer(VisualIdentifierDispenserProvider idDespenser) {
 		if (getOptions().getMainTransformation() != null) {
-			final Map<String, Object> configProps = new HashMap<String, Object>();
-			configProps.put("useMapMode", getOptions().getUseMapMode());
-			configProps.put("useFullRunTime", getOptions().getUseRuntimeFigures());
-			configProps.put("rcp", getOptions().getGenerateRCP());
+			final ExecutionContextImpl context = new ExecutionContextImpl();
+			context.setConfigProperty("rcp", getOptions().getGenerateRCP());
+			context.setConfigProperty("useMapMode", getOptions().getUseMapMode());
+			context.setConfigProperty("useFullRunTime", getOptions().getUseRuntimeFigures());
+			context.setConfigProperty("useInTransformationCodeGen", getOptions().getUseInTransformationCodeGen());
+			
+			final QVTDiagramGenModelTransformer transformer = new QVTDiagramGenModelTransformer(getResourceSet(), idDespenser.get());
+			
 			return new GenModelProducer() {
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
 					progress.beginTask(null, 1);
 					try {
-						URI transfURI = URI.createURI(getOptions().getMainTransformation().toExternalForm());
-						QvtoTransformationHelper helper = new QvtoTransformationHelper(transfURI);
-						ArrayList<EObject> args = new ArrayList<EObject>(5);
-						args.add(mapping);
-						args.add(getGenModel());
-						RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
-						runtimeAccess.ensure(); 
-						args.add(runtimeAccess.genPackage() == null ? null : runtimeAccess.genPackage().getGenModel());
-						TransfExecutionResult result = helper.executeTransformation(args, configProps, getResourceSet());
+						final BasicModelExtent output = new BasicModelExtent();
+						final ExecutionDiagnostic result = transformer.transform(mapping, getGenModel(), output, context);
+
 						if (Plugin.printTransformationConsole()) {
-							System.err.println(result.getConsoleOutput());
+							System.err.println(result.getMessage());
 						}
-						for (ModelExtent me : result.getOutModelExtents()) {
-							for (EObject r : me.getAllRootElements()) {
-								if (r instanceof GenEditorGenerator) {
-									return (GenEditorGenerator) r;
-								}
-							}
+						if(result.getSeverity() == Diagnostic.OK) {
+							List<EObject> outObjects = output.getContents();
+							return outObjects.get(0) instanceof GenEditorGenerator ? (GenEditorGenerator) outObjects.get(0) : null;
 						}
 						throw new CoreException(new Status(IStatus.ERROR, Plugin.getPluginID(), "Transformation has no out parameter of GenEditorGenerator type"));
 					} finally {
@@ -414,7 +427,7 @@ public class TransformToGenModelOperation {
 				t.setEMFGenModel(getGenModel());
 			}
 			return new GenModelProducer() {
-	
+
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) {
 					progress.beginTask(null, 1);
 					try {
@@ -427,6 +440,8 @@ public class TransformToGenModelOperation {
 			};
 		}
 	}
+
+
 
 	private void reconcile(GenEditorGenerator genBurdern) {
 		GenEditorGenerator old = null;
@@ -516,6 +531,9 @@ public class TransformToGenModelOperation {
 	private static void updateExternalReferences(GenEditorGenerator newEditorGenerator, final GenEditorGenerator oldEditorGenerator, List<EObject> allContentButOldGenerator) {
 		// find references from rest of the content to old generator
 		final Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = new ExternalCrossReferencer(allContentButOldGenerator) {
+
+			private static final long serialVersionUID = 4383601037841211175L;
+
 			@Override
 			protected boolean crossReference(EObject object, EReference reference, EObject crossReferencedEObject) {
 				return super.crossReference(object, reference, crossReferencedEObject) && EcoreUtil.isAncestor(oldEditorGenerator, crossReferencedEObject);
