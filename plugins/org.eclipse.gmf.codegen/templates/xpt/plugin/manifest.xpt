@@ -66,7 +66,7 @@ Require-Bundle: org.eclipse.core.runtime,
 «IF editorGen.application = null-»
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
 «ENDIF-»
-«FOREACH getAllRequiredPlugins()->asSequence() AS id-»
+«FOREACH getAllRequiredPlugins()->including('org.eclipse.gmf.tooling.runtime')->asSequence() AS id-»
  «id»;visibility:=reexport,
 «ENDFOREACH-»
  org.eclipse.gef;visibility:=reexport
