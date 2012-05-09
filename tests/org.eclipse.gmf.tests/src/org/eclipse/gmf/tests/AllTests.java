@@ -193,8 +193,8 @@ public class AllTests {
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 		suite.addTestSuite(EditHelpersTest.class);
-		suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
-		suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
+		//suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
+		//suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
 
 		// slowest test goes last
 		suite.addTestSuite(RuntimeCompilationTest.class);
