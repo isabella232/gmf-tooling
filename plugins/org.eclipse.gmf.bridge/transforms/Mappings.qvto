@@ -1,0 +1,271 @@
+/**
+ * Copyright (c) 2009, 2011, 2012 Borland Software Corporation & others
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Guillaume Hillairet (Montages A.G.)
+ */
+library Mappings;
+
+import Map2GenUtil;
+import ModelFacets;
+import Palette;
+
+modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
+modeltype GMFTOOL uses tooldef('http://www.eclipse.org/gmf/2005/ToolDefinition');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
+modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
+modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
+modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
+
+
+mapping GMFMAP::Mapping::structure() : GMFGEN::GenEditorGenerator {
+	diagram := self.diagram.map structure();
+	
+	diagram.topLevelNodes += self.nodes->map structure()->asOrderedSet();
+	childReferences->forEach(c) { diagram.childNodes += c.map structure(c.child); };
+	
+	diagram.links := self.links->map structure()->asOrderedSet();
+	self.getCompartments()->forEach(e) { diagram.compartments += e.c.map structure(e.n, e.r); };
+	
+	diagram.getAllNodes()->forEach(n) { setupElementType(n) };
+	diagram.links->forEach(l) { setupElementType(l) };
+		 
+	if self.expressionsByLanguages()->notEmpty() then 
+		expressionProviders := self.map createProviderContainer()
+	endif;
+}
+
+mapping GMFMAP::Mapping::createProviderContainer(): GMFGEN::GenExpressionProviderContainer {
+	self.expressionsByLanguages()->forEach(e) {
+		providers += e.map createExpressionProvider()
+	}
+}
+
+mapping GMFMAP::CanvasMapping::structure() : GMFGEN::GenDiagram {
+	domainDiagramElement := self.domainMetaElement.findGenClass();
+	iconProviderPriority := GMFGEN::ProviderPriority::Low;
+	validationProviderPriority := GMFGEN::ProviderPriority::Low;
+	
+	if result.domainDiagramElement.oclIsUndefined() then 
+		result.elementType := object GMFGEN::NotationType {}
+	else
+		result.elementType := result.domainDiagramElement.getOrCreateRuntimeMetamodelType()
+	endif;
+}
+
+-- 
+-- TopLevelNode
+-- 
+
+mapping GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
+	modelFacet := self.createModelFacet();
+	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	
+	self.child.children->select(e | e.compartment.oclIsUndefined())->forEach(c) {
+		var node := c.findProcessableChildReference();
+		childNodes += node.map structure(node.child);
+	};
+	
+	labels += self.child.labelMappings->map createNodeLabel(self);
+	
+--	viewmap := self.child.diagramNode.viewmap();
+	behaviour += self.child.relatedDiagrams.handleRelatedDiagram(self.child);
+}
+
+-- 
+-- GenChildNode
+-- 
+
+mapping GMFMAP::ChildReference::structure(node: GMFMAP::NodeMapping) : GMFGEN::GenChildNode
+	disjuncts 
+		GMFMAP::ChildReference::createGenChildLabelNode, 
+		GMFMAP::ChildReference::createGenChildSideAffixedNode, 
+		GMFMAP::ChildReference::createGenChildNode 
+	{}
+
+mapping GMFMAP::ChildReference::createGenChildLabelNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildLabelNode 
+when { 
+	node.isPureLabelNode() 
+} 
+{	
+	modelFacet := self.createModelFacet();
+	
+	var soleLabel := node.labelMappings->first();
+	labelModelFacet := soleLabel.map createLabelModelFacet(self);
+	labelReadOnly := soleLabel.readOnly;
+	labelElementIcon := soleLabel.diagramLabel.elementIcon;
+--	viewmap := soleLabel.diagramLabel.viewmap();
+	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	
+	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
+		var node := c.findProcessableChildReference();
+		childNodes += node.map structure(node.child);
+	};
+}
+
+mapping GMFMAP::ChildReference::createGenChildSideAffixedNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildSideAffixedNode 
+when { 
+	node.diagramNode.affixedParentSide <> GMFGRAPH::Direction::NONE
+} 
+{
+--	viewmap := node.diagramNode.viewmap();
+	modelFacet := self.createModelFacet();
+	preferredSideName := node.diagramNode.getAffixedSideAsPositionConstantsName();
+	
+	labels += node.labelMappings->map createNodeLabel(self);
+	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	
+	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
+		var node := c.findProcessableChildReference();
+		childNodes += node.map structure(node.child);
+	};
+	
+	behaviour += node.relatedDiagrams.handleRelatedDiagram(node);
+}
+
+mapping GMFMAP::ChildReference::createGenChildNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildNode {
+--	viewmap := node.diagramNode.viewmap();
+	modelFacet := self.createModelFacet();
+	labels += node.labelMappings->map createNodeLabel(self); 
+	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	
+	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
+		var node := c.findProcessableChildReference();
+		childNodes += node.map structure(node.child);
+	};
+	
+	behaviour += node.relatedDiagrams.handleRelatedDiagram(node);	
+	-- behaviour += node.visualEffects->map createVisualEffects(result, _node);
+}
+
+-- 
+-- NodeLabel
+-- 
+
+mapping GMFMAP::LabelMapping::createNodeLabel(node: NodeReference) : GMFGEN::GenNodeLabel {
+	init {
+		if self.diagramLabel.external then
+			result := object GenExternalNodeLabel {}
+		else 
+			result := object GenNodeLabel {}
+		endif
+	}
+	
+	result.modelFacet := self.map createLabelModelFacet(node);
+	result.readOnly := self.readOnly;
+	result.elementIcon := self.diagramLabel.elementIcon;
+--	result.viewmap := self.diagramLabel.viewmap();
+}
+
+mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink {
+	assert(not self.diagramLink.oclIsUndefined()) with log("link diagram link cannot be null");
+	if not self.domainMetaElement.oclIsUndefined() then 
+		assert(not self.linkMetaFeature.oclIsUndefined()) with log("linkMetaFeature cannot be null")
+	endif;
+	
+	-- model facet
+	if not (self.domainMetaElement.oclIsUndefined() and self.linkMetaFeature.oclIsUndefined()) then 
+		modelFacet := self.map createModelFacet()
+	endif;
+	
+	-- labels
+	labels += self.labelMappings->map structure(self);
+	
+	self.tool.map paletteEntry().oclAsType(ToolEntry).genLinks += result;
+	-- setupElementType(result);
+--	result.viewmap := self.diagramLink.viewmap();
+	result.creationConstraints := self.creationConstraints.map structure();
+}
+
+-- 
+-- Compartment
+-- 
+
+mapping GMFMAP::CompartmentMapping::structure(_mapping: GMFMAP::NodeMapping, container: GMFMAP::NodeReference): GMFGEN::GenCompartment {
+	init {
+		result := object GMFGEN::GenCompartment {
+			canCollapse := self.compartment.collapsible;
+			needsTitle := self.compartment.needsTitle;
+			title := self.compartment.name;
+--			viewmap := self.compartment.viewmap();
+		};
+	}
+	
+	if container.oclIsKindOf(GMFMAP::TopNodeReference) then {
+		container.resolveone(GMFGEN::GenNode).compartments += result
+	} else {
+		var node := container.oclAsType(ChildReference).findProcessableChildReference();
+		if not node.oclIsUndefined() then
+			node.map structure(node.child).compartments += result
+		endif
+	} endif;
+	
+	allChildReferences->select(e | e.compartment = self)->forEach(c) {
+		if c.child.children->size() > 0 then
+			listLayout := false
+		endif;
+		var node := c.findProcessableChildReference();
+			-- if equivalentChild->hasKey(c) then c else 
+			-- equivalentChild->keys()->selectOne(e | equivalentChild->get(e)->includes(c)) endif; 
+		childNodes += node.map structure(node.child);	
+	}
+}
+
+mapping LabelMapping::structure(link: GMFMAP::LinkMapping): GenLinkLabel {
+	readOnly := self.readOnly;
+	elementIcon := self.diagramLabel.elementIcon;
+	modelFacet := self.map createLabelModelFacet(link);
+	
+	var alignmentFacet := self.diagramLabel.findAlignmentFacet();
+	if not alignmentFacet.oclIsUndefined() then
+		alignment := switch  {
+			case (alignmentFacet.alignment = GMFGRAPH::Alignment::BEGINNING) LinkLabelAlignment::SOURCE;
+			case (alignmentFacet.alignment = GMFGRAPH::Alignment::CENTER) LinkLabelAlignment::MIDDLE;
+			case (alignmentFacet.alignment = GMFGRAPH::Alignment::END) LinkLabelAlignment::TARGET;
+			else LinkLabelAlignment::MIDDLE;
+		}
+	endif;
+}
+
+--
+--	Helpers
+--
+
+helper GMFMAP::CanvasMapping::handleRelatedDiagram(in mapElement : GMFMAP::MappingEntry) : GMFGEN::OpenDiagramBehaviour =
+	object GMFGEN::OpenDiagramBehaviour {
+		-- XXX alternative approach to tell whether related diagram is the same we are processing now, 
+		-- originally self.eResource() != mapElement.eResource()
+		if self <> mapElement.container() then {
+			diagramKind := 'FIXME put GenEditorGenerator.modelID value here';
+			editorID := 'FIXME put GenEditorView.id value here';
+		} endif;
+	};
+
+--	
+--	Queries
+--
+	
+query GMFMAP::Mapping::expressionsByLanguages(): Sequence(ValueExpression) =
+	GMFMAP::ValueExpression.allInstances()->iterate(it; res: Sequence(ValueExpression) = Sequence{} |
+		if res->exists(e | e.language = it.language) then res else res->including(it) endif
+	);
+
+query GMFGRAPH::Node::getAffixedSideAsPositionConstantsName() : String =
+	switch {
+		case (self.affixedParentSide = GMFGRAPH::Direction::NONE) assert (false) with log('DiagramNode is not side-affixed', self);
+		case (self.affixedParentSide = GMFGRAPH::Direction::EAST) return 'EAST';
+		case (self.affixedParentSide = GMFGRAPH::Direction::WEST) return 'WEST';
+		case (self.affixedParentSide = GMFGRAPH::Direction::NORTH) return 'NORTH';
+		case (self.affixedParentSide = GMFGRAPH::Direction::SOUTH) return 'SOUTH';
+		case (self.affixedParentSide = GMFGRAPH::Direction::NSEW) return 'NONE'; -- any side
+		else return 'NONE'; -- any side
+	};
+
+query DiagramElement::findAlignmentFacet(): AlignmentFacet =
+	self.facets->selectOne(e | e.oclIsKindOf(AlignmentFacet)).oclAsType(AlignmentFacet);

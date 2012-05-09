@@ -1,0 +1,46 @@
+library Parsers;
+
+import ValueExpressions;
+
+modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
+modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
+
+-- 
+-- Parsers
+-- 
+
+property designLabelParser: GenParserImplementation = null;
+property auxParser: GenParserImplementation = null; 
+
+mapping GMFMAP::Mapping::createGenParsers(): GenParsers {
+	implementations += GMFGEN::GenParserImplementation.allInstances();
+	extensibleViaService := true;
+	
+	if this.designLabelParser <> null then 
+		implementations += this.designLabelParser
+	endif;
+	if this.auxParser <> null then 
+		implementations += this.auxParser 
+	endif;
+}
+
+mapping GMFMAP::OclChoiceLabelMapping::createOclChoiceParser(): GMFGEN::OclChoiceParser {
+	if not self.itemsExpression.oclIsUndefined() then
+		result.itemsExpression := self.itemsExpression.map createValueExpression() 
+	endif;
+	if not self.showExpression.oclIsUndefined() then
+		result.showExpression := self.showExpression.map createValueExpression()
+	endif;
+	
+	GenEditorGenerator.allInstances()->asSequence()->first().labelParsers.implementations += result;
+}
+
+helper GMFMAP::FeatureLabelMapping::isEnumLabelMapping(): Boolean =
+	if self.features->size() <> 1 then false else
+		if self.editableFeatures->isEmpty() or self.editableFeatures->size() > self.features->size() then false else
+			let firstFeature = self.features->first() in
+			let firstEditFeature = self.editableFeatures->first() in
+				if firstFeature <> firstEditFeature then false else firstFeature.eType.oclIsKindOf(EEnum) endif
+		endif
+	endif;

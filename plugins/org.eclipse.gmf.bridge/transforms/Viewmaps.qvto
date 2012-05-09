@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2009 Borland Software Corporation & others
+ * Copyright (c) 2009, 2012 Borland Software Corporation & others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -12,7 +12,6 @@
  */
 import xpt.XpandFacade;
 import Map2GenUtil;
-import Map2GenMappings;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
@@ -77,14 +76,12 @@ mapping GMFGRAPH::Canvas::viewmap() : GMFGEN::Viewmap when {true} {
 --	ChildReference
 --	=================================================================================================
 
-helper GMFMAP::ChildReference::viewmap(node: GMFMAP::NodeMapping) : GMFGEN::Viewmap {
-	return
+helper GMFMAP::ChildReference::viewmap(node: GMFMAP::NodeMapping) : GMFGEN::Viewmap =
 	if node.isPureLabelNode() then
 		node.labelMappings->first().diagramLabel.map viewmap()
 	else
 		node.diagramNode.map viewmap()
 	endif;
-}
 
 --	=================================================================================================
 --	Node
@@ -100,9 +97,8 @@ helper GMFGRAPH::Node::viewmap(): GMFGEN::Viewmap {
 	return rs;
 }
 
-query GMFGRAPH::Node::hasResizeConstraints(): Boolean {
-	return not (self.resizeConstraint.oclIsUndefined() or (self.resizeConstraint = Direction::NSEW))
-}
+query GMFGRAPH::Node::hasResizeConstraints(): Boolean =
+	not (self.resizeConstraint.oclIsUndefined() or (self.resizeConstraint = Direction::NSEW));
 
 query GMFGRAPH::Node::hasDefaultSize(): Boolean {
 	var facet : DefaultSizeFacet := self.facets[DefaultSizeFacet]->first();
@@ -203,8 +199,8 @@ helper GMFGRAPH::DiagramLabel::viewmap(): GMFGEN::Viewmap {
 	return rs;
 }
 
-helper DiagramLabel::labelOffSetAttributes(position: Integer): LabelOffsetAttributes {
-	return object LabelOffsetAttributes {
+helper DiagramLabel::labelOffSetAttributes(position: Integer): LabelOffsetAttributes =
+	object LabelOffsetAttributes {
 		var offsetFacet := self.findOffsetFacet();
 		if not offsetFacet.oclIsUndefined()	then {
 			x := offsetFacet.x;
@@ -213,7 +209,6 @@ helper DiagramLabel::labelOffSetAttributes(position: Integer): LabelOffsetAttrib
 			y := (position + 1) * 20;
 		} endif;
 	};
-}
 
 --	=================================================================================================
 --	Figure
@@ -258,7 +253,8 @@ helper GMFGRAPH::FigureDescriptor::viewmap(childAccess : GMFGRAPH::ChildAccess) 
 		attributes := childAccess.figure.createStyleAttributes();
 	};
 
-query GMFGRAPH::Figure::isBareInstance() : Boolean { return false; }
+query GMFGRAPH::Figure::isBareInstance() : Boolean = false;
+
 query GMFGRAPH::RealFigure::isBareInstance() : Boolean {
 	if self.children->notEmpty() then return false endif;
 	if self.oclIsKindOf(GMFGRAPH::Label) then {
@@ -293,9 +289,8 @@ query GMFGRAPH::RealFigure::isBareInstance() : Boolean {
 	return true;
 }
 
-query DiagramElement::findOffsetFacet(): LabelOffsetFacet {
-	return self.facets->selectOne(e | e.oclIsKindOf(LabelOffsetFacet)).oclAsType(LabelOffsetFacet)
-}
+query DiagramElement::findOffsetFacet(): LabelOffsetFacet =
+	self.facets->selectOne(e | e.oclIsKindOf(LabelOffsetFacet)).oclAsType(LabelOffsetFacet);
 
 query DiagramElement::findIndex(): Integer {
 	var container := self.oclAsType(EObject).eContainer();
@@ -314,6 +309,7 @@ query DiagramElement::findIndex(): Integer {
 --	=================================================================================================
 --	Templates
 --	=================================================================================================
+
 property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/'};
 property mapModeTemplateRoots : String = 'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/rt_mm/';
 property useMapMode : Boolean = false;
@@ -322,5 +318,6 @@ helper setMapMode(mapMode: Boolean) {
 	this.useMapMode := mapMode;
 	return;
 }
+
 query templates(): Sequence(String) =
 	if useMapMode then this.templateRoots->prepend(this.mapModeTemplateRoots) else this.templateRoots endif;

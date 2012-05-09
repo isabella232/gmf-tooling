@@ -1,13 +1,15 @@
 /**
-* Copyright (c) 2011, 2012 Montages A.G.
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-* 	Guillaume Hillairet (Montages A.G.) : initial implementation
-*/
+ * Copyright (c) 2009, 2011, 2012 Borland Software Corporation & others
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Guillaume Hillairet (Montages A.G.)
+ */
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
@@ -18,66 +20,16 @@ library Map2GenUtil;
 property allChildReferences: Sequence(ChildReference) = Sequence{};
 property childReferences: Sequence(ChildReference) = Sequence{};
 property equivalentChild: Dict(ChildReference, Sequence(ChildReference)) = Dict{};
-
 property genModel : GENMODEL::GenModel = null;
-
-query GMFMAP::Mapping::getChildReferences(): Sequence(ChildReference) {
-	var rs : Sequence(ChildReference) := Sequence{};
-
-	allChildReferences := self.nodes->collect(e | e.child.getChildReferences());
-	allChildReferences->forEach(c) {
-		var equi: ChildReference = equivalentChild->keys()->selectOne(e | e.matchChildReferenceFeatures(c));
-		if equi.oclIsUndefined() then {
-			rs += c;
-			equivalentChild->put(c, Sequence{});
-		} else {
-			var seq := equivalentChild->get(equi);
-			seq += c;
-			equivalentChild->put(equi, seq);
-		} endif
-	};
-	
-	return rs
-		-- ->reject(e | e.compartment.oclIsUndefined() and 
-			-- 	e.containmentFeature = e.childrenFeature and 
-			-- 	not e.referencedChild.oclIsUndefined());
-}
-
-query NodeMapping::getChildReferences(): Sequence(ChildReference) {
-	processedNodeMappings += self;
-	return self.children->collect(e |  
-			Sequence{e}->union(if processedNodeMappings->includes(e.child) then Sequence {}
-			else
-				e.child.getChildReferences()
-			endif))
-}
 property processedNodeMappings: Sequence(NodeMapping) = Sequence{};
-
 property compartmentsHistory: Sequence(Tuple(c: CompartmentMapping, n: NodeMapping, r: NodeReference)) = Sequence{};
-query GMFMAP::Mapping::getCompartments(): Sequence(Tuple(c: CompartmentMapping, n: NodeMapping, r: NodeReference)) {
-	return 
-		if compartmentsHistory->notEmpty() then compartmentsHistory else
-		self.nodes->collect(e | 
-			if not e.child.oclIsUndefined() then 
-				e.child.compartments->collect(comp | comp.getSubCompartments(e.child, e)
-				)->flatten()
-			endif)->flatten()
-		endif;
-}
-query GMFMAP::CompartmentMapping::getSubCompartments(_mapping: NodeMapping, container: NodeReference): 
-	Sequence(Tuple(c: CompartmentMapping, n: NodeMapping, r: NodeReference)) {
-		
-		compartmentsHistory += Tuple{c = self, n = _mapping, r = container};
-		
-		return Sequence{Tuple{c = self, n = _mapping, r = container}}->union(
-			_mapping.children->collect(e | 
-				if not e.child.oclIsUndefined() then 
-					e.child.compartments->collect(c | 
-						if not compartmentsHistory->exists(t | t.c = c and t.n = e.child and t.r = e) then
-							c.getSubCompartments(e.child, e) 
-						endif)
-				endif))->flatten();
-	}
+
+-- XXX ElementType as return value, disjunct?
+mapping GENMODEL::GenClass::gmfRuntimeMetamodelType() : GMFGEN::MetamodelType {}
+
+--
+-- Helpers
+--
 
 helper GMFMAP::ChildReference::matchChildReferenceFeatures(node: GMFMAP::ChildReference) : Boolean {
 	var containmentFeatureMatch : Boolean;
@@ -105,14 +57,6 @@ helper GMFMAP::ChildReference::matchChildReferenceFeatures(node: GMFMAP::ChildRe
 	return containmentFeatureMatch and childrenFeatureMatch and childMatch;
 }
 
-query ChildReference::findProcessableChildReference(): ChildReference {
-	return if childReferences->includes(self) then
-		self
-	else
-		equivalentChild->keys()->selectOne(e | equivalentChild->get(e)->includes(self))
-	endif
-}
-
 -- XXX review - Specialization type is created again and again - why not reuse it?
 -- static, for some reasons, helpers couldn't specify 'inout' for context element
 -- XXX, actually, don't need GenNode here, GenClass should be sufficient
@@ -121,6 +65,7 @@ helper setupElementType(inout genNode : GMFGEN::GenNode) {
 	else genNode.elementType := genNode.modelFacet.metaClass.getOrCreateRuntimeMetamodelType() endif;
 	return;
 }
+
 helper setupElementType(inout genLink : GMFGEN::GenLink) {
 	if genLink.modelFacet.oclIsUndefined() then genLink.elementType := object GMFGEN::NotationType {}
 	else if genLink.modelFacet.oclIsKindOf(GMFGEN::TypeModelFacet) then
@@ -132,6 +77,41 @@ helper setupElementType(inout genLink : GMFGEN::GenLink) {
 	endif;
 	return;
 }
+
+--
+--	Queries
+--
+
+query GMFMAP::Mapping::getChildReferences(): Sequence(ChildReference) {
+	var rs : Sequence(ChildReference) := Sequence{};
+
+	allChildReferences := self.nodes->collect(e | e.child.getChildReferences());
+	allChildReferences->forEach(c) {
+		var equi: ChildReference = equivalentChild->keys()->selectOne(e | e.matchChildReferenceFeatures(c));
+		if equi.oclIsUndefined() then {
+			rs += c;
+			equivalentChild->put(c, Sequence{});
+		} else {
+			var seq := equivalentChild->get(equi);
+			seq += c;
+			equivalentChild->put(equi, seq);
+		} endif
+	};
+	
+	return rs
+		-- ->reject(e | e.compartment.oclIsUndefined() and 
+			-- 	e.containmentFeature = e.childrenFeature and 
+			-- 	not e.referencedChild.oclIsUndefined());
+}
+
+query GMFMAP::ChildReference::findProcessableChildReference(): ChildReference {
+	return if childReferences->includes(self) then
+		self
+	else
+		equivalentChild->keys()->selectOne(e | equivalentChild->get(e)->includes(self))
+	endif
+}
+
 query GENMODEL::GenClass::getOrCreateRuntimeMetamodelType() : GMFGEN::ElementType {
 	var mmt = self.resolveoneIn(GENMODEL::GenClass::gmfRuntimeMetamodelType, GMFGEN::MetamodelType);
 	if mmt.oclIsUndefined() then 
@@ -139,20 +119,52 @@ query GENMODEL::GenClass::getOrCreateRuntimeMetamodelType() : GMFGEN::ElementTyp
 	endif;
 	return object GMFGEN::SpecializationType { metamodelType := mmt }
 }
--- XXX ElementType as return value, disjunct?
-mapping GENMODEL::GenClass::gmfRuntimeMetamodelType() : GMFGEN::MetamodelType {}
 
-query ECORE::EClass::findGenClass() : GENMODEL::GenClass {
-	return self.ePackage.findGenPackage().genClassifiers[GenClass]->select(gc | gc.ecoreClass.name = self.name)->first();
+query NodeMapping::getChildReferences(): Sequence(ChildReference) {
+	processedNodeMappings += self;
+	return self.children->collect(e |  
+			Sequence{e}->union(if processedNodeMappings->includes(e.child) then Sequence {}
+			else
+				e.child.getChildReferences()
+			endif))
 }
-query ECORE::EPackage::findGenPackage() : GENMODEL::GenPackage {
+
+query GMFMAP::Mapping::getCompartments(): Sequence(Tuple(c: CompartmentMapping, n: NodeMapping, r: NodeReference)) {
+	return 
+		if compartmentsHistory->notEmpty() then compartmentsHistory else
+		self.nodes->collect(e | 
+			if not e.child.oclIsUndefined() then 
+				e.child.compartments->collect(comp | comp.getSubCompartments(e.child, e)
+				)->flatten()
+			endif)->flatten()
+		endif;
+}
+
+query GMFMAP::CompartmentMapping::getSubCompartments(_mapping: NodeMapping, container: NodeReference):  Sequence(Tuple(c: CompartmentMapping, n: NodeMapping, r: NodeReference)) {
+	compartmentsHistory += Tuple{c = self, n = _mapping, r = container};
+	
+	return Sequence{Tuple{c = self, n = _mapping, r = container}}->union(
+		_mapping.children->collect(e | 
+			if not e.child.oclIsUndefined() then 
+				e.child.compartments->collect(c | 
+					if not compartmentsHistory->exists(t | t.c = c and t.n = e.child and t.r = e) then
+						c.getSubCompartments(e.child, e) 
+					endif)
+			endif))->flatten();
+}
+
+query ECORE::EClass::findGenClass() : GENMODEL::GenClass =
+	self.ePackage.findGenPackage().genClassifiers[GenClass]->select(gc | gc.ecoreClass.name = self.name)->first();
+
+query ECORE::EPackage::findGenPackage() : GENMODEL::GenPackage =
 	-- XXX GenModel.findGenPackage does more than this (staticGenPackage and nestedGenPackages). FIXME
 	-- ->union(genModel.staticGenPackages)
-	return this.genModel.genPackages->union(
+	this.genModel.genPackages->union(
 		this.genModel.usedGenPackages)->select(gp | 
 			gp.ecorePackage.nsURI = self.nsURI)->asSequence()->first();
-}
-query ECORE::EStructuralFeature::findGenFeature() : GENMODEL::GenFeature {
-	return self.eContainingClass.findGenClass().genFeatures->select(f | f.ecoreFeature = self)->first();
-}
 
+query ECORE::EStructuralFeature::findGenFeature() : GENMODEL::GenFeature =
+	self.eContainingClass.findGenClass().genFeatures->select(f | f.ecoreFeature = self)->first();
+	
+query GMFMAP::NodeMapping::isPureLabelNode() : Boolean =
+	self.labelMappings->size() = 1 and self.children->isEmpty() and self.labelMappings->first().diagramLabel = self.diagramNode;

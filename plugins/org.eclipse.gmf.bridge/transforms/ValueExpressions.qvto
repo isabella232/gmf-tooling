@@ -1,0 +1,76 @@
+/**
+ * Copyright (c) 2009, 2012 Borland Software Corporation & others
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Guillaume Hillairet (Montages A.G.)
+ */
+library ValueExpressions;
+
+modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
+modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
+
+--	
+--	ValueExpression
+--
+
+mapping GMFMAP::ValueExpression::createValueExpression(): GMFGEN::ValueExpression 
+	disjuncts 
+		GMFMAP::ValueExpression::createGenValueExpression, GMFMAP::Constraint::createConstraint
+	{}
+
+mapping GMFMAP::ValueExpression::createGenValueExpression(): GMFGEN::ValueExpression
+when {
+	self.oclIsTypeOf(ValueExpression)
+}
+{
+		body := self.body;
+}
+
+mapping GMFMAP::Constraint::createConstraint(): GMFGEN::GenConstraint {
+	body := self.body;
+}
+
+mapping GMFMAP::ValueExpression::createExpressionProvider(): GenExpressionProviderBase {
+	init {
+		switch {
+			case (self.language = Language::java) { result := object GenJavaExpressionProvider {} };
+			case (self.language = Language::ocl) { result := object GenExpressionInterpreter { language := self.language() } };
+			case (self.language = Language::regexp) { result := object GenExpressionInterpreter { language := self.language() } };
+			case (self.language = Language::nregexp) { result := object GenExpressionInterpreter { language := self.language() } };
+			case (self.language = GenLanguage::_literal) { result := object GenLiteralExpressionProvider {} };
+			else { result := object GenExpressionInterpreter {}; }
+		};
+	}
+	
+	expressions += ValueExpression.allInstances()->select(e | e.language = self.language)->map createValueExpression();
+}
+
+-- 
+-- Constraints and initializers
+-- 
+
+mapping GMFMAP::LinkConstraints::structure() : GMFGEN::GenLinkConstraints {
+	sourceEnd := self.sourceEnd.map createConstraint();
+	targetEnd := self.targetEnd.map createConstraint();
+}
+
+--	
+--	Helpers
+--
+
+helper GMFMAP::ValueExpression::language(): GenLanguage =
+	switch {
+		case (self.language = Language::java) GenLanguage::java;
+		case (self.language = Language::ocl)  GenLanguage::ocl;
+		case (self.language = Language::regexp) GenLanguage::regexp;
+		case (self.language = Language::nregexp) GenLanguage::nregexp;
+		case (self.language = Language::_literal) return GenLanguage::_literal;
+		else GenLanguage::ocl;
+	};
+	
