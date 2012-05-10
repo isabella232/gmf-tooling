@@ -90,14 +90,12 @@
 								</goals>
 								<configuration>
 									<tasks>
-									<!--
 										<delete includeemptydirs="false">
-											<fileset dir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/milestones">
+											<fileset dir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots/3.0">
 												<include name="**" />
 											</fileset>
 										</delete>
-									-->
-										<copy includeemptydirs="false" todir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/milestones">
+										<copy includeemptydirs="false" todir="/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/dev-snapshots/3.0">
 											<fileset dir="target/checksumFix">
 												<include name="**" />
 											</fileset>
