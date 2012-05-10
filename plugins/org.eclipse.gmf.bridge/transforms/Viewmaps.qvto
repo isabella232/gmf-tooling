@@ -306,9 +306,9 @@ query DiagramElement::findIndex(): Integer {
 	return 0;
 }
 
---	=================================================================================================
+--	
 --	Templates
---	=================================================================================================
+--	
 
 property templateRoots : Sequence(String) = Sequence {'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/'};
 property mapModeTemplateRoots : String = 'platform:/plugin/org.eclipse.gmf.graphdef.codegen/templates/rt_mm/';

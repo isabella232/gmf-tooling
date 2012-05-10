@@ -10,6 +10,8 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  *    Guillaume Hillairet (Montages A.G.) 
  */
+library Identity;
+ 
 import Mappings; 
 import gmf.VisualIdentifierDispenser;
 
@@ -17,11 +19,9 @@ modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
 
-library Identity;
-
--- *************************************************************************************
+-- 
 -- Visual Identity
--- *************************************************************************************
+-- 
 
 property labelNodes: Sequence(LabelMapping) = Sequence{};
 

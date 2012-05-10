@@ -26,10 +26,7 @@ import Parsers;
 import gmf.GenModelAccess;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
-modeltype GMFTOOL uses tooldef('http://www.eclipse.org/gmf/2005/ToolDefinition');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
-modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
-modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
 
 transformation Map2Gen(
@@ -46,7 +43,7 @@ configuration property useInTransformationCodeGen: Boolean;
 main() {
 	var mapRoot := mapModel.rootObjects()![GMFMAP::Mapping]; 
 	genModel := domainGenModel.rootObjects()![GENMODEL::GenModel];
-	childReferences := mapRoot.getChildReferences();
+	-- childReferences := mapRoot.getChildReferences();
 	Viewmaps::setMapMode(useMapMode);
 	
 	var genEditor := mapRoot.map structure();
@@ -87,9 +84,10 @@ main() {
 -- 
 
 mapping GMFMAP::Mapping::editorPlugin() : GMFGEN::GenPlugin {
-	requiredPlugins := Set{'org.eclipse.draw2d'};
+	requiredPlugins := Set{'org.eclipse.gmf.tooling.runtime', 'org.eclipse.draw2d'};
 	
 	if self.links->notEmpty() or GMFMAP::LabelMapping.allInstances()->notEmpty() then
+		
 		requiredPlugins += 'org.eclipse.gmf.runtime.draw2d.ui'
 	endif;
 	
