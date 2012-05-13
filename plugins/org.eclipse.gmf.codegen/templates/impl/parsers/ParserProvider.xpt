@@ -192,7 +192,7 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 «ENDDEFINE»
 
 «DEFINE _parser(modelFacet : gmfgen::LabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::ExternalParser-»
-«REM»NO-OP«ENDREM-»
+«REM»NO-OP«ENDREM»«-»
 «ENDDEFINE»
 
 «DEFINE _parser(modelFacet : gmfgen::FeatureLabelModelFacet, element : gmfgen::GenCommonBase) FOR gmfgen::PredefinedParser»
@@ -238,8 +238,10 @@ org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().ge
 		«EXPAND _setPatterns(viewMethod, editMethod, parserVar) FOR modelFacet-»		
 «ENDDEFINE»
 
-«DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::PredefinedEnumParser»		
-			org.eclipse.emf.ecore.EAttribute editableFeature = «EXPAND MetaModel::MetaFeature FOR modelFacet.editableMetaFeatures->first()»;
+«DEFINE _createPredefinedParser(modelFacet : gmfgen::FeatureLabelModelFacet, parserVar : String) FOR gmfgen::PredefinedEnumParser»
+	«LET if modelFacet.editableMetaFeatures->isEmpty() then modelFacet.metaFeatures->first() else modelFacet.editableMetaFeatures->first() endif AS feature-»
+			org.eclipse.emf.ecore.EAttribute editableFeature = «EXPAND MetaModel::MetaFeature FOR feature»;
+	«ENDLET-»
 			«getQualifiedClassName()» «parserVar» = new «getQualifiedClassName()»(editableFeature);
 «ENDDEFINE»
 
