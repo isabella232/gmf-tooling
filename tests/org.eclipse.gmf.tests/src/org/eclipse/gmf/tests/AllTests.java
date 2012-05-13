@@ -86,8 +86,7 @@ public class AllTests {
 			System.err.println("Generating a target platform");
 			Utils.setTargetPlatform();
 		}
-		
-		
+
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
 		final LinksSessionSetup sessionSetup2 = LinksSessionSetup.newInstance();
@@ -97,16 +96,15 @@ public class AllTests {
 		// subclassing to generate extra code
 		final SessionSetup setupEditHelpersTest = new EditHelpersTest.EditHelpersSessionSetup();
 		final SessionSetup setupBundleActivationTest = new BundleActivationTest.CustomSetup();
-		
+
 		SessionSetup.disallowSingleTestCaseUse();
-		
 
 		JavaCore.initializeAfterLoad(null);
 
 		/*
-		 * Temporary workaround: loading all the projects in the
-		 * beginning to get rid of the problems with runtime registries
-		 * reloading. In particular - ViewService.
+		 * Temporary workaround: loading all the projects in the beginning to
+		 * get rid of the problems with runtime registries reloading. In
+		 * particular - ViewService.
 		 */
 		// since we force initialization, need to make sure our tests would use same initialized setup instances. 
 		Plugin.getConfig().registerInstance(SessionSetup.class, sessionSetup);
@@ -146,10 +144,10 @@ public class AllTests {
 		suite.addTestSuite(TestDefaultMergeService.class);
 		suite.addTestSuite(PluginXMLTextMergerTest.class);
 		suite.addTestSuite(ManifestMergeTest.class);
-        suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
+		suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
 
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
-		suite.addTestSuite(ModelLoadHelperTest.class);		
+		suite.addTestSuite(ModelLoadHelperTest.class);
 		suite.addTest(AllMigrationTests.suite());
 		suite.addTest(AllValidateTests.suite());
 
@@ -163,14 +161,14 @@ public class AllTests {
 		suite.addTestSuite(MapModeStrategyTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
-		suite.addTestSuite(AuditHandcodedTest.class);		
-		suite.addTestSuite(AuditRulesTest.class);		
+		suite.addTestSuite(AuditHandcodedTest.class);
+		suite.addTestSuite(AuditRulesTest.class);
 		suite.addTestSuite(ElementInitializerTest.class);
 		suite.addTestSuite(CodegenReconcileTest.class);
 		// though it might be an overkill to check two setups, it should be fast and won't hurt.
 		suite.addTest(feed(TestAllDerivedFeatures.class, sessionSetup, "-SessionSetup"));
 		suite.addTest(feed(TestAllDerivedFeatures.class, sessionSetup2, "-LinksSessionSetup"));
-		
+
 		suite.addTestSuite(DiagramNodeTest.class);
 		suite.addTestSuite(CompartmentPropertiesTest.class);
 		suite.addTestSuite(NamingStrategyTest.class);
@@ -189,19 +187,19 @@ public class AllTests {
 		
 		suite.addTestSuite(LinkCreationTest.class);
 		suite.addTestSuite(LinkCreationConstraintsTest.class);
-		suite.addTestSuite(MetricRulesTest.class);		
+		suite.addTestSuite(MetricRulesTest.class);
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 		suite.addTestSuite(EditHelpersTest.class);
-		//suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
-		//suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
+		suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
+		suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
 
 		// slowest test goes last
 		suite.addTestSuite(RuntimeCompilationTest.class);
 
-
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
+
 			protected void performCleanup() throws Exception {
 				sessionSetup.cleanup();
 				sessionSetup2.cleanup();
@@ -211,7 +209,7 @@ public class AllTests {
 				setupBundleActivationTest.cleanup();
 			}
 		});
-		
+
 		return suite;
 	}
 
@@ -231,7 +229,7 @@ public class AllTests {
 		c.register(GenModelTransformerSimpleTest.class, SessionSetup.class);
 		c.register(LabelMappingTransformTest.class, SessionSetup.class);
 		c.register(PaletteTransformationTest.class, SessionSetup.class);
-		c.register(AuditHandcodedTest.class, SessionSetup.class);		
+		c.register(AuditHandcodedTest.class, SessionSetup.class);
 		c.register(CodegenReconcileTest.class, SessionSetup.class);
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		c.register(TestAllDerivedFeatures.class, SessionSetup.class);

@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 
 /**
  * Running tests within PDE, we face two major problems:
@@ -79,10 +80,10 @@ public class RuntimeWorkspaceSetup {
 		List<String> l = Arrays.asList(Platform.getCommandLineArgs());
 		int i;
 		if ((i = l.indexOf("-dev")) != -1) {
-			isDevBinPresent = i + 1 < l.size() && l.get(i+1).startsWith("bin");
+			isDevBinPresent = i + 1 < l.size() && l.get(i + 1).startsWith("bin");
 		} else {
 			String osgiDevProp = Plugin.getBundleContext().getProperty("osgi.dev");
-			isDevBinPresent = osgiDevProp!= null && osgiDevProp.contains("bin");
+			isDevBinPresent = osgiDevProp != null && osgiDevProp.contains("bin");
 		}
 	}
 
@@ -145,13 +146,14 @@ public class RuntimeWorkspaceSetup {
 	/**
 	 * at least 1.4
 	 */
+	@SuppressWarnings("restriction")
 	private static void ensureJava14() {
-		if (!JavaCore.VERSION_1_4.equals(JavaCore.getOption(JavaCore.COMPILER_SOURCE))) {
+		String actual = JavaCore.getOption(JavaCore.COMPILER_SOURCE);
+		long comparableValue = CompilerOptions.versionToJdkLevel(actual);
+		if (comparableValue < CompilerOptions.versionToJdkLevel(JavaCore.VERSION_1_4)) {
 			@SuppressWarnings("unchecked")
-			Hashtable<String,String> options = JavaCore.getOptions();
-			options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_4);
-			options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_4);
-			options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_4);
+			Hashtable<String, String> options = JavaCore.getOptions();
+			JavaCore.setComplianceOptions(JavaCore.VERSION_1_4, options);
 			JavaCore.setOptions(options);
 		}
 	}
@@ -163,7 +165,7 @@ public class RuntimeWorkspaceSetup {
 		wd.setFileStateLongevity(0);
 		wd.setMaxFileStates(0);
 		wd.setMaxFileStateSize(0);
-		wd.setSnapshotInterval(60*60*1000);
+		wd.setSnapshotInterval(60 * 60 * 1000);
 	}
 
 	private static void switchAutobuildOff(IWorkspaceDescription wd) {

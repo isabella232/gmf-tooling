@@ -525,8 +525,11 @@ public class ParsersTest extends TestCase {
 			final PredefinedParser printfRegexParser = GMFGenFactory.eINSTANCE.createPredefinedParser();
 			printfRegexParser.setViewMethod(LabelTextAccessMethod.PRINTF);
 			printfRegexParser.setEditMethod(LabelTextAccessMethod.REGEXP);
+			
 			final CustomParser customParser = GMFGenFactory.eINSTANCE.createCustomParser();
 			customParser.setQualifiedName(diagramkin.getEditPartsPackageName() + ".MyCustomParser");
+			customParser.setGenerateBoilerplate(false); // because we will generate this class externally, see ParsersSetup#GenProjectSetup#hookExtraCodeGeneration
+			
 			final ExternalParser externalParser = GMFGenFactory.eINSTANCE.createExternalParser();
 			externalParser.setHint("\"Description\""); // value of CommonParserHint.DESCIPTION constant, 
 			// not the constant itself to manually (visually) assure (in the generated class) the hint is being used.
