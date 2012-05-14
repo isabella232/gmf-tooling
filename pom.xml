@@ -190,7 +190,24 @@
 						<version>2.8</version>
 						<configuration>
 							<minmemory>128m</minmemory>
-		          			<maxmemory>1g</maxmemory>
+							<maxmemory>1g</maxmemory>
+							<tags>
+								<tag>
+									<name>generated</name>
+									<placement>a</placement>
+									<head>Generated</head>								
+								</tag>
+								<tag>
+									<name>ordered</name>
+									<placement>a</placement>
+									<head>Ordered</head>								
+								</tag>
+								<tag>
+									<name>model</name>
+									<placement>a</placement>
+									<head>Model Properties:</head>								
+								</tag>
+							</tags>
 						</configuration>
 						<executions>
 							<execution>
