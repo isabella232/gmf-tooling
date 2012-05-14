@@ -104,6 +104,7 @@ public abstract class AbstractDiagramEditorTest extends AbstractCanvasTest {
 	protected void tearDown() throws Exception {
 		if (myEditor != null) {
 			closeEditor(myEditor);
+			myEditor = null;
 		}
 		// keep project alive for potential workspace investigations
 		// deleteProject();
