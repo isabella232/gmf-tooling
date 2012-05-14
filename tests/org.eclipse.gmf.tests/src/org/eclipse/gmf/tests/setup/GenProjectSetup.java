@@ -19,6 +19,7 @@ import java.util.StringTokenizer;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.commands.contexts.Context;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -36,6 +37,8 @@ import org.eclipse.gmf.tests.JobTracker;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
@@ -46,7 +49,9 @@ import org.osgi.framework.BundleException;
 public class GenProjectSetup extends GenProjectBaseSetup {
 
 	private ArrayList<Bundle> myAllInstalledBundes = new ArrayList<Bundle>();
+
 	private Bundle myBundle;
+
 	private final boolean myIsFullRuntimeRun;
 
 	public GenProjectSetup(GeneratorConfiguration generatorFactory) {
@@ -65,8 +70,9 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 	 * FIXME introduce DiaGenSourceBase with single getDiagram() accessor
 	 */
 	public GenProjectSetup init(GenEditorGenerator genEditor) throws BundleException {
-		final boolean[] extensionChangeNotification = new boolean[] {true};
+		final boolean[] extensionChangeNotification = new boolean[] { true };
 		final IRegistryChangeListener listener = new IRegistryChangeListener() {
+
 			public void registryChanged(IRegistryChangeEvent event) {
 				extensionChangeNotification[0] = false;
 			}
@@ -87,6 +93,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			// System.out.println("Jobs to wait:" + jt.getJobsCount()); 13!
 			registerExtensions(myBundle);
 			registerEMFEditExtensions();
+			registerContexts();
 			// there should be hit, any .diagram plugin is supposed to register extensions we monitor with the listener above.
 			monitorExtensionLoad(extensionChangeNotification, 60);
 			monitorExtensionLoad(jt.getNonEmptyCondition(), 10);
@@ -127,7 +134,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 
 	/**
 	 * Manually registering all extensions from the generated (diagramming) plugin into eclipse registries
-	 */ 
+	 */
 	private void registerExtensions(Bundle bundle) {
 		IConfigurationElement[] configElements = getConfigurationElements(bundle.getSymbolicName(), "org.eclipse.emf.ecore.extension_parser");
 		for (int i = 0; i < configElements.length; i++) {
@@ -141,10 +148,38 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		}
 	}
 
+	private void registerContexts() {
+		IContextService contextService = (IContextService) PlatformUI.getWorkbench().getService(IContextService.class);
+		if (contextService == null) {
+			return;
+		}
+
+		for (Bundle next : myAllInstalledBundes) {
+			IConfigurationElement[] configElements = getConfigurationElements(next.getSymbolicName(), "org.eclipse.ui.contexts");
+			for (int i = 0; i < configElements.length; i++) {
+				IConfigurationElement element = configElements[i];
+				if (element.getName().equals("context")) {
+					String id = element.getAttribute("id");
+					String description = element.getAttribute("description");
+					String name = element.getAttribute("name");
+					String parentId = element.getAttribute("parentId");
+					if (id == null || description == null || name == null || parentId == null) {
+						continue;
+					}
+					Context context = contextService.getContext(id);
+					if (!context.isDefined()) {
+						context.define(name, description, parentId);
+					}
+				}
+			}
+		}
+
+	}
+
 	private void registerEMFEditExtensions() {
-		for(Bundle next : myAllInstalledBundes) {
+		for (Bundle next : myAllInstalledBundes) {
 			IConfigurationElement[] configElements = getConfigurationElements(next.getSymbolicName(), "org.eclipse.emf.edit.itemProviderAdapterFactories");
-			for(int i = 0; i < configElements.length; i++) {
+			for (int i = 0; i < configElements.length; i++) {
 				IConfigurationElement element = configElements[i];
 				if (element.getName().equals("factory")) {
 					String packageURI = element.getAttribute("uri");
@@ -152,24 +187,23 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 					String supportedTypes = element.getAttribute("supportedTypes");
 					if (packageURI == null) {
 						continue;
-					}
-					else if (className == null) {
+					} else if (className == null) {
 						continue;
-					}
-					else if (supportedTypes == null) {
+					} else if (supportedTypes == null) {
 						continue;
 					}
 					class PluginAdapterFactoryDescriptor extends PluginClassDescriptor implements ComposedAdapterFactory.Descriptor {
+
 						public PluginAdapterFactoryDescriptor(IConfigurationElement element, String attributeName) {
 							super(element, attributeName);
 						}
 
 						public AdapterFactory createAdapterFactory() {
-							return (AdapterFactory)createInstance();
+							return (AdapterFactory) createInstance();
 						}
 					}
 
-					for (StringTokenizer stringTokenizer = new StringTokenizer(supportedTypes); stringTokenizer.hasMoreTokens(); ) {
+					for (StringTokenizer stringTokenizer = new StringTokenizer(supportedTypes); stringTokenizer.hasMoreTokens();) {
 						String supportedType = stringTokenizer.nextToken();
 						ArrayList<String> key = new ArrayList<String>(2);
 						key.add(packageURI);
@@ -189,7 +223,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			if (bundlID.equals(configs[i].getContributor().getName())) {
 				ownConfigs.add(configs[i]);
 			}
-		}		
+		}
 		return ownConfigs.toArray(new IConfigurationElement[ownConfigs.size()]);
 	}
 
