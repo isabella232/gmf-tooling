@@ -398,8 +398,11 @@ public abstract class QvtTransformCompareTestSupport  extends ConfiguredTestCase
 					List<?> act = (List<?>) actual.eGet(attr);
 					assertEquals(exp.size(), act.size());
 
+					System.out.println(exp);
+					System.out.println(act);
 					for (int i=0; i<exp.size(); i++) {
-						assertTrue(act.contains(exp.get(i)));
+						assertEquals(exp.get(i), act.get(i));
+//						assertTrue(act.contains(exp.get(i)));
 					}
 				} else {
 					assertEquals(expected.eClass().getName()+" attribute: "+attr.getName(), expected.eGet(attr), actual.eGet(attr));

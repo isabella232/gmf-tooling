@@ -89,6 +89,7 @@ import org.eclipse.gmf.tests.tr.QvtTransformComparisonFullTest;
 import org.eclipse.gmf.tests.tr.QvtTransformComparisonLinksTest;
 import org.eclipse.gmf.tests.tr.QvtTransformComparisonNodeLabelsTest;
 import org.eclipse.gmf.tests.tr.QvtTransformModeledViewmapTest;
+import org.eclipse.gmf.tests.tr.SimpleCompareTransformationEngineTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
@@ -205,13 +206,14 @@ public class AllTests {
         suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
         suite.addTestSuite(QvtLabelMappingTransformTest.class);
         suite.addTestSuite(QvtPaletteTransformationTest.class);
-        suite.addTestSuite(QvtTransformComparisonNodeLabelsTest.class);
-        suite.addTestSuite(QvtTransformComparisonLinksTest.class);
-        suite.addTestSuite(QvtTransformComparisonAudtisTest.class);
-        suite.addTestSuite(QvtTransformComparisonCompartmentRefNodeTest.class);
-        suite.addTestSuite(QvtTransformComparisonFullTest.class);
+        suite.addTestSuite(SimpleCompareTransformationEngineTest.class);
+//        suite.addTestSuite(QvtTransformComparisonNodeLabelsTest.class);
+//        suite.addTestSuite(QvtTransformComparisonLinksTest.class);
+//        suite.addTestSuite(QvtTransformComparisonAudtisTest.class);
+//        suite.addTestSuite(QvtTransformComparisonCompartmentRefNodeTest.class);
+//        suite.addTestSuite(QvtTransformComparisonFullTest.class);
         suite.addTestSuite(QvtTransformModeledViewmapTest.class);
-        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
+//        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
         
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);		
@@ -303,11 +305,12 @@ public class AllTests {
 		c.register(QvtGenModelTransformerBasicRTTest.class, SessionSetup.class);
 		c.register(QvtLabelMappingTransformTest.class, SessionSetup.class);
 		c.register(QvtPaletteTransformationTest.class, SessionSetup.class);
-		c.register(QvtTransformComparisonNodeLabelsTest.class, SessionSetup.class);
-		c.register(QvtTransformComparisonLinksTest.class, SessionSetup.class);
-		c.register(QvtTransformComparisonAudtisTest.class, SessionSetup.class);
-		c.register(QvtTransformComparisonCompartmentRefNodeTest.class, SessionSetup.class);
-		c.register(QvtTransformComparisonFullTest.class, SessionSetup.class);
+		c.register(SimpleCompareTransformationEngineTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonNodeLabelsTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonLinksTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonAudtisTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonCompartmentRefNodeTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonFullTest.class, SessionSetup.class);
 		c.register(QvtTransformModeledViewmapTest.class, SessionSetup.class);
 		c.register(QvtGenModelTransformerVisualIDWithTraceTest.class, SessionSetup.class);
 		

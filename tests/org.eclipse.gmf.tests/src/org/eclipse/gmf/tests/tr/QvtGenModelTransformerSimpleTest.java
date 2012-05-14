@@ -84,6 +84,8 @@ public class QvtGenModelTransformerSimpleTest extends AbstractMappingTransformer
 			assertTrue(outObjects.get(0) instanceof GenEditorGenerator);
 			
 			return (GenEditorGenerator) outObjects.get(0);
+		} else {
+			System.err.println(result.getMessage());
 		}
 		
 		return null;

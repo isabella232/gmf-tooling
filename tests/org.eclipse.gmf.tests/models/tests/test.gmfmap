@@ -11,12 +11,21 @@
     <ownedChild>
       <domainMetaElement
           href="test.ecore#//NodeSrcA"/>
+      <domainSpecialization
+          body="true"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="test.gmfgraph#TestLabel"/>
         <features
             href="test.ecore#//NodeSrcA/label"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:ExpressionLabelMapping">
+        <diagramLabel
+            href="test.gmfgraph#TestLabel"/>
+        <viewExpression
+            body="true"/>
       </labelMappings>
       <contextMenu
           href="test.gmftool#//@allMenus.1"/>
@@ -313,6 +322,47 @@
         xsi:type="ecore:EReference"
         href="test.ecore#//LinkAtoC/refLinkCrossLink"/>
   </links>
+  <links>
+    <domainMetaElement
+        href="test.ecore#//NodeSrcA"/>
+    <domainSpecialization
+        body="true"/>
+    <domainInitializer
+        xsi:type="gmfmap:FeatureSeqInitializer">
+      <initializers
+          xsi:type="gmfmap:FeatureValueSpec">
+        <feature
+            xsi:type="ecore:EAttribute"
+            href="test.ecore#//NodeSrcA/label"/>
+        <value
+            body="'hello'"/>
+      </initializers>
+    </domainInitializer>
+    <labelMappings>
+      <diagramLabel
+          href="test.gmfgraph#TestLabel"/>
+    </labelMappings>
+    <labelMappings
+        xsi:type="gmfmap:ExpressionLabelMapping">
+      <diagramLabel
+          href="test.gmfgraph#TestLabel"/>
+      <viewExpression
+          body="'hello'"/>
+    </labelMappings>
+    <containmentFeature
+        href="test.ecore#//UltimateContainer/all"/>
+    <diagramLink
+        href="test.gmfgraph#Test-dd-link"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="test.ecore#//NodeSrcA/children1OfA"/>
+    <creationConstraints>
+      <sourceEnd
+          body="true"/>
+      <targetEnd
+          body="true"/>
+    </creationConstraints>
+  </links>
   <diagram>
     <diagramCanvas
         href="test.gmfgraph#Test-dd-canvas"/>
@@ -325,4 +375,75 @@
     <menuContributions
         href="test.gmftool#//@allMenus.0"/>
   </diagram>
+  <audits
+      id="test"
+      name="test"
+      description="All Audits">
+    <audits
+        name="Node Label"
+        description="Empty node label check"
+        id="node_label"
+        severity="WARNING"
+        message="Node label should not be empty">
+      <rule
+          body="label.size() > 0"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="test.ecore#//NodeSrcA"/>
+      </target>
+    </audits>
+    <audits
+        name="Node Label 2"
+        description="Node Label should be set"
+        id="node_label_2"
+        severity="WARNING"
+        message="Node Label should be set">
+      <rule
+          body="size() > 0"/>
+      <target
+          xsi:type="gmfmap:DomainAttributeTarget">
+        <attribute
+            href="test.ecore#//NodeSrcA/label"/>
+      </target>
+    </audits>
+    <audits
+        name="Node Type"
+        description="Node type check"
+        id="node_type"
+        message="Invalid Node Type">
+      <rule
+          body="element.eClass().name = 'NodeSrcA'"/>
+      <target
+          xsi:type="gmfmap:DiagramElementTarget"
+          element="//@nodes.0/@ownedChild"/>
+    </audits>
+    <audits
+        name="Node Audit Metric"
+        description="Some Audit Metric"
+        id="NodeAuditMetric"
+        message="Some Stuff">
+      <rule
+          body="true"/>
+      <target
+          xsi:type="gmfmap:AuditedMetricTarget"
+          metric="//@metrics/@metrics.0"/>
+    </audits>
+  </audits>
+  <metrics>
+    <metrics
+        name="Node Metric"
+        description="Some Metric"
+        key="NodeMetric"
+        lowLimit="5.0"
+        highLimit="10.0">
+      <rule
+          body="label->size()"/>
+      <target
+          xsi:type="gmfmap:DomainElementTarget">
+        <element
+            href="test.ecore#//NodeSrcA"/>
+      </target>
+    </metrics>
+  </metrics>
 </gmfmap:Mapping>
