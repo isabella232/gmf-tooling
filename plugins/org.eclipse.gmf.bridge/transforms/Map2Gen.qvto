@@ -23,6 +23,7 @@ import ModeledViewmaps;
 import Identity;
 import Audits;
 import Parsers;
+import CustomBehaviours;
 import gmf.GenModelAccess;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
@@ -53,6 +54,7 @@ main() {
 	genEditor.editor := object GenEditorView {};
 	
 	mapRoot.visualIdentity(); -- generate visual IDs for each node.
+	mapRoot.customBehaviours();
 	
 	if useInTransformationCodeGen then
 		Viewmaps::viewmaps(mapRoot, genEditor.diagram) -- adds viewmaps to each nodes.

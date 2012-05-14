@@ -10,16 +10,50 @@
 */
 library CustomBehaviours;
 
+import Mappings;
+
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
 modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
 --
+--	Custom Behaviour
+--
+
+helper GMFMAP::Mapping::customBehaviours() {
+	self.nodes->collect(e |
+		if e.resolveone(GenTopLevelNode).visualID <= 0 then {
+		 	var genNode := e.resolveone(GenTopLevelNode);
+		 	genNode.behaviour += e.child.visualEffects->map createVisualEffects(genNode); 
+			e.child.children->collect(customBehaviours());
+		} endif
+	);
+	
+	self.links->collect(customBehaviours());
+--	self.getCompartments()->collect(e | e.c.customBehaviours(e.n, e.r));
+	
+	return;
+}
+
+helper GMFMAP::ChildReference::customBehaviours() {
+	var node := self.findProcessableChildReference();
+	if not node.oclIsUndefined() then
+		node.map structure(node.child).behaviour += 
+			node.child.visualEffects->map createVisualEffects(node.map structure(node.child))
+	endif
+}
+
+helper GMFMAP::LinkMapping::customBehaviours() {
+	self.map structure().behaviour += self.visualEffects->map createVisualEffects(self.map structure());
+	return;
+}
+
+--
 --	VisualEffect
 --
 
-mapping GMFMAP::VisualEffectMapping::createVisualEffects(parent: GMFGEN::GenNode): GMFGEN::GenVisualEffect {
+mapping GMFMAP::VisualEffectMapping::createVisualEffects(parent: GMFGEN::GenCommonBase): GMFGEN::GenVisualEffect {
 	name := self.diagramPin.name;
 	pinKind := self.diagramPin.oclAsType(EObject).eClass().name;
 	operationName := self.diagramPin.getOperationName();
