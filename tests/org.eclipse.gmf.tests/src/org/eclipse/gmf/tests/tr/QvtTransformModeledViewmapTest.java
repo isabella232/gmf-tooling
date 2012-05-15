@@ -21,16 +21,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ModeledViewmap;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 
-public class QvtTransformModeledViewmapTest extends QvtTransformCompareTestSupport {
+public class QvtTransformModeledViewmapTest extends ConfiguredTestCase {
 
 	public QvtTransformModeledViewmapTest(String name) {
-		super(	name, 
-				testFolder+"/test.ecore", 
-				testFolder+"/test.genmodel",
-				testFolder+"/test.gmftool", 
-				testFolder+"/test.gmfgraph", 
-				testFolder+"/test.gmfmap" );
+		super(name);
 	}
 	
 	protected GenEditorGenerator actualGenerator;
@@ -38,7 +34,7 @@ public class QvtTransformModeledViewmapTest extends QvtTransformCompareTestSuppo
 	
 	public void setUp() throws Exception {
 		super.setUp();
-		actualGenerator = getQvtTransformation(true).execute();
+//		actualGenerator = getQvtTransformation(true).execute();
 	}
 	
 	public void testTopNodeModeledViewmap() {
