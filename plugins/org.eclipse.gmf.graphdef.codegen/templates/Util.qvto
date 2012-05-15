@@ -42,7 +42,16 @@ helper hasSourceDecoration(figure : gmfgraph::PolylineConnection) : Boolean {
 }
 
 helper requiredBundles(referencedBundles : Sequence(String)) : Sequence(String) {
-	return (if isFullRuntime() then Sequence { 'org.eclipse.core.runtime', 'org.eclipse.draw2d', 'org.eclipse.gmf.runtime.draw2d.ui' }->union(referencedBundles)->asOrderedSet()->asSequence()->asOrderedSet()->asSequence() else Sequence { 'org.eclipse.core.runtime', 'org.eclipse.draw2d' }->union(referencedBundles)->asOrderedSet()->asSequence()->asOrderedSet()->asSequence() endif)
+	return (
+		let fixedBundles : Sequence(String) = 
+			if isFullRuntime() 
+			then Sequence { 'org.eclipse.core.runtime', 'org.eclipse.draw2d', 'org.eclipse.gmf.runtime.draw2d.ui' }  
+			else Sequence { 'org.eclipse.core.runtime', 'org.eclipse.draw2d' }
+			endif
+		in
+			//suspicious '->asOrderedSet()->asSequence()->asOrderedSet()->asSequence()' but I am not brave enough to change it 
+			fixedBundles->union(referencedBundles)->asOrderedSet()->asSequence()->asOrderedSet()->asSequence() 
+	)
 }
 
 helper additionalStaticFields() : String {

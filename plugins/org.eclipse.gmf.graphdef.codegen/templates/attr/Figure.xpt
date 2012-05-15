@@ -22,6 +22,7 @@
 «EXPAND size(figureVarName) FOR size-»
 «EXPAND insets(figureVarName) FOR insets-»
 «EXPAND Border::Init(figureVarName) FOR border-»
+«EXPAND _customAttributes(figureVarName) FOR self-»
 «ENDDEFINE»
 
 «DEFINE foregroundColor(figure : gmfgraph::Figure, figureVarName : String) FOR gmfgraph::Color-»
@@ -90,3 +91,9 @@ static final org.eclipse.swt.graphics.Font «variableName» = new org.eclipse.sw
 «ENDLET»
 «ENDDEFINE»
 
+«DEFINE _customAttributes(figureVarName : String) FOR gmfgraph::Figure -»
+«ENDDEFINE»
+
+«DEFINE _customAttributes(figureVarName : String) FOR gmfgraph::RealFigure -»
+«EXPAND attr::CustomAttributeOwner::customAttributes(figureVarName) FOR self -»
+«ENDDEFINE»

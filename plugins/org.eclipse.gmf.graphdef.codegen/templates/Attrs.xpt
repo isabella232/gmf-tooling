@@ -35,9 +35,16 @@
 «EXPAND attr::Figure::figureAttrs(figureVarName)-»
 «ENDDEFINE»
 
-«DEFINE Init(figureVarName : String) FOR gmfgraph::CustomFigure-»
-«EXPAND attr::CustomClass::Init(figureVarName)-»
+«DEFINE Init(figureVarName : String) FOR gmfgraph::InvisibleRectangle-»
+«figureVarName».setOutline(false);
+«figureVarName».setFill(false);
+«figureVarName».setOpaque(false);
 «EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«ENDDEFINE»
+
+«DEFINE Init(figureVarName : String) FOR gmfgraph::CustomFigure-»
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«REM»#379461 - Custom Attributes are set up as part of the call above«ENDREM»«-»
 «ENDDEFINE»
 
 «DEFINE Init(figureVarName : String) FOR gmfgraph::Polyline-»
