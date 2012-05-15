@@ -19,6 +19,8 @@ import org.eclipse.gmf.codegen.gmfgen.Behaviour;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -41,6 +43,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
+import org.eclipse.gmf.codegen.gmfgen.GenParsers;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
@@ -59,6 +63,7 @@ import org.eclipse.gmf.codegen.gmfgen.StyleAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroupItem;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
@@ -210,6 +215,8 @@ public class SimpleCompareTransformationEngineTest extends ConfiguredTestCase {
 
 		assertNotNull(expected);
 		assertNotNull(actual);
+		
+		assertEquals(expected.getDiagramRunTimeClass().getName(), actual.getDiagramRunTimeClass().getName());
 		
 		for (EAttribute attribute: GMFGenPackage.eINSTANCE.getGenDiagram().getEAllAttributes()) {
 			if (expected.eIsSet(attribute)) {
@@ -423,8 +430,6 @@ public class SimpleCompareTransformationEngineTest extends ConfiguredTestCase {
 		assertNotNull("Expected Palette should not be null", expected);
 		assertNotNull("Actual Palette should not be null", actual);
 		
-		System.out.println(expected + " -> " + actual);
-		
 		assertEquals(expected.getFactoryClassName(), actual.getFactoryClassName());
 		assertEquals(expected.isFlyout(), actual.isFlyout());
 		assertEquals(expected.getPackageName(), actual.getPackageName());
@@ -438,6 +443,78 @@ public class SimpleCompareTransformationEngineTest extends ConfiguredTestCase {
 		}
 	}
 	
+	public void testGenParser() {
+		GenParsers expected = expectedGenerator.getLabelParsers();
+		GenParsers actual = actualGenerator.getLabelParsers();
+		
+		if (expected != null) {
+			assertNotNull(actual);
+		
+			System.out.println(expected.getImplementations());
+			System.out.println(actual.getImplementations());
+			
+			assertEquals(expected.getClassName(), actual.getClassName());
+			assertEquals(expected.getImplPackageName(), actual.getImplPackageName());
+			assertEquals(expected.getPackageName(), actual.getPackageName());
+			assertEquals(expected.getProviderPriority().getLiteral(), actual.getProviderPriority().getLiteral());
+			assertEquals(expected.isExtensibleViaService(), actual.isExtensibleViaService());
+			
+			assertEquals(expected.getImplementations().size(), actual.getImplementations().size());
+			
+			for (int i=0; i<expected.getImplementations().size(); i++) {
+				GenParserImplementation exp = expected.getImplementations().get(i);
+				GenParserImplementation act = actual.getImplementations().get(i);
+				
+				testGenParserImplementation(exp, act);
+			}
+		} else {
+			assertNull(actual);
+		}
+	}
+	
+	private void testGenParserImplementation(GenParserImplementation expected, GenParserImplementation actual) {
+		assertEquals(expected.eClass(), actual.eClass());
+		
+		assertEquals(expected.getUses().size(), actual.getUses().size());
+		
+		if (expected.eClass().equals(GMFGenPackage.eINSTANCE.getExternalParser())) {
+			testExternalParser((ExternalParser)expected, (ExternalParser)actual);
+		} else if (expected.eClass().equals(GMFGenPackage.eINSTANCE.getExpressionLabelParser())) {
+			testExpressionLabelParser((ExpressionLabelParser)expected, (ExpressionLabelParser)actual);
+		}
+	}
+	
+	private void testExpressionLabelParser(ExpressionLabelParser expected, ExpressionLabelParser actual) {
+		assertEquals(expected.getClassName(), actual.getClassName());
+		
+		assertEquals(expected.getExpressionContext().getName(), actual.getExpressionContext().getName());
+		
+		if (expected.getEditExpression() != null) {
+			assertNotNull(actual.getEditExpression());
+			
+			ValueExpression exp = expected.getEditExpression();
+			ValueExpression act = actual.getEditExpression();
+			
+			assertEquals(exp.eClass(), act.eClass());
+			assertEquals(exp.getBody(), act.getBody());
+			assertEquals(exp.getLangName(), act.getLangName());
+
+			if (exp.getProvider() != null) {
+				assertNotNull(act.getProvider());
+			} else {
+				assertNull(act.getProvider());
+			}
+			
+			if (exp.eClass().equals(GMFGenPackage.eINSTANCE.getGenConstraint())) {
+				
+			}
+		}
+	}
+
+	private void testExternalParser(ExternalParser expected, ExternalParser actual) {
+		assertEquals(expected.getHint(), actual.getHint());
+	}
+
 	private void testToolGroup(ToolGroup expected, ToolGroup actual) {
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getDescription(), actual.getDescription());
