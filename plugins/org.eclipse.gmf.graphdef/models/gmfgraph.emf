@@ -127,7 +127,7 @@ class ChildAccess {
 }
 
 @genmodel(documentation="This is exact/specific/concrete figure, unlike proxy/reference-nature FigureRef")
-abstract class RealFigure extends AbstractFigure, PinOwner {
+abstract class RealFigure extends AbstractFigure, PinOwner, CustomAttributeOwner {
 	attr String[?] name; // unlike identity, do not require this attribute (and not necessarily unique)
 	ordered val Figure[*] children;
 }
@@ -180,6 +180,10 @@ class LabeledContainer extends RealFigure {
 class Rectangle extends Shape {
 }
 
+class InvisibleRectangle extends RealFigure {
+   
+}
+
 @genmodel(documentation="org.eclipse.draw2d.RoundedRectangle")
 class RoundedRectangle extends Shape {
 	// FIXME dimension instead of two separate ints?
@@ -228,9 +232,12 @@ class PolygonDecoration extends Polygon, DecorationFigure {
 
 // custom figures 
 
-abstract interface CustomClass {
+abstract interface CustomAttributeOwner {
+	val CustomAttribute[*] attributes;   
+}
+
+abstract interface CustomClass extends CustomAttributeOwner {
 	attr String qualifiedClassName;
-	val CustomAttribute[*] attributes;
 }
 
 class CustomAttribute {
@@ -459,6 +466,9 @@ class XYLayoutData extends LayoutData {
 }
 
 class StackLayout extends Layout {
+}
+
+class CenterLayout extends Layout {
 }
 
 class SVGFigure extends RealFigure {
