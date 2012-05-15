@@ -13,7 +13,6 @@ import org.eclipse.gmf.examples.ocldriven.toe.Department;
 import org.eclipse.gmf.examples.ocldriven.toe.Employee;
 import org.eclipse.gmf.examples.ocldriven.toe.Manager;
 import org.eclipse.gmf.examples.ocldriven.toe.Project;
-import org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.helpers.TOEBaseEditHelper;
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorPlugin;
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEVisualIDRegistry;
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEElementTypes;
@@ -40,6 +39,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase;
 
 /**
  * @generated
@@ -121,13 +121,13 @@ public class TOEBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	private Command getEditHelperCommand(IEditCommandRequest request, Command editPolicyCommand) {
 		if (editPolicyCommand != null) {
 			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
-			request.setParameter(TOEBaseEditHelper.EDIT_POLICY_COMMAND, command);
+			request.setParameter(GeneratedEditHelperBase.EDIT_POLICY_COMMAND, command);
 		}
 		IElementType requestContextElementType = getContextElementType(request);
-		request.setParameter(TOEBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
+		request.setParameter(GeneratedEditHelperBase.CONTEXT_ELEMENT_TYPE, requestContextElementType);
 		ICommand command = requestContextElementType.getEditCommand(request);
-		request.setParameter(TOEBaseEditHelper.EDIT_POLICY_COMMAND, null);
-		request.setParameter(TOEBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
+		request.setParameter(GeneratedEditHelperBase.EDIT_POLICY_COMMAND, null);
+		request.setParameter(GeneratedEditHelperBase.CONTEXT_ELEMENT_TYPE, null);
 		if (command != null) {
 			if (!(command instanceof CompositeTransactionalCommand)) {
 				command = new CompositeTransactionalCommand(getEditingDomain(), command.getLabel()).compose(command);
