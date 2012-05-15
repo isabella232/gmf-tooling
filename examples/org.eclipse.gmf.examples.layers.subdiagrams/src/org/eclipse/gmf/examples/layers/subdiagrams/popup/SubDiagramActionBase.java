@@ -1,4 +1,4 @@
-package org.eclipse.gmf.examples.subdiagrams.popup;
+package org.eclipse.gmf.examples.layers.subdiagrams.popup;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -19,7 +19,7 @@ import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gef.Request;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorUtil;
+import org.eclipse.gmf.examples.layers.subdiagrams.DefaultSaveOptions;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.ui.actions.DiagramAction;
 import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
@@ -131,7 +131,7 @@ public abstract class SubDiagramActionBase extends DiagramAction {
 						try {
 							for (Resource nextResource : diagramSpec.eResource().getResourceSet().getResources()) {
 								if (nextResource.isLoaded() && !getEditingDomain().isReadOnly(nextResource)) {
-									nextResource.save(TaiPanDiagramEditorUtil.getSaveOptions());
+									nextResource.save(DefaultSaveOptions.getSaveOptions());
 								}
 							}
 						} catch (IOException ex) {

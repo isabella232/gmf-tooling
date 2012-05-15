@@ -41,7 +41,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.examples.taipan.ui,
  org.eclipse.emf.validation.ocl;visibility:=reexport,
  org.eclipse.gmf.tooling.runtime,
- org.eclipse.gmf.examples.layers;bundle-version="1.0.0"
+ org.eclipse.gmf.examples.layers.subdiagrams;bundle-version="1.0.0"
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

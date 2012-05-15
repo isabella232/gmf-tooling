@@ -636,7 +636,7 @@ Contributors:
 		<?gmfgen generated="false"?>
 	      	<contributionItemProvider
             	checkPluginLoaded="true"
-            	class="org.eclipse.gmf.examples.subdiagrams.popup.AssignToLayerItemProvider">
+            	class="org.eclipse.gmf.examples.layers.subdiagrams.popup.AssignToLayerItemProvider">
          		<Priority name="Medium"/>
 		 		<popupContribution
 					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
@@ -649,14 +649,14 @@ Contributors:
                   		id="menu_assign_to_layer">
              		</popupMenu>     
              		<popupStructuredContributionCriteria
-						policyClass="org.eclipse.gmf.examples.subdiagrams.popup.AssignToLayerItemProviderPolicy">
+						policyClass="org.eclipse.gmf.examples.layers.subdiagrams.popup.AssignToLayerItemProviderPolicy">
              		</popupStructuredContributionCriteria>
 		 		</popupContribution>
       		</contributionItemProvider>
 
 	      	<contributionItemProvider
             	checkPluginLoaded="true"
-            	class="org.eclipse.gmf.examples.subdiagrams.popup.SwitchLayerVisibilityItemProvider">
+            	class="org.eclipse.gmf.examples.layers.subdiagrams.popup.SwitchLayerVisibilityItemProvider">
          		<Priority name="Medium"/>
 		 		<popupContribution
 					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">
@@ -677,7 +677,7 @@ Contributors:
 
 	      	<contributionItemProvider
             	checkPluginLoaded="true"
-            	class="org.eclipse.gmf.examples.subdiagrams.popup.SubDiagramsItemProvider">
+            	class="org.eclipse.gmf.examples.layers.subdiagrams.popup.SubDiagramsItemProvider">
          		<Priority name="Medium"/>
 		 		<popupContribution
 					class="org.eclipse.gmf.examples.taipan.gmf.editor.part.DiagramEditorContextMenuProvider">

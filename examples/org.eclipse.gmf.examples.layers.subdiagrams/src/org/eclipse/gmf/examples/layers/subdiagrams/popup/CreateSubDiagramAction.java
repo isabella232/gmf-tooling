@@ -1,4 +1,4 @@
-package org.eclipse.gmf.examples.subdiagrams.popup;
+package org.eclipse.gmf.examples.layers.subdiagrams.popup;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;

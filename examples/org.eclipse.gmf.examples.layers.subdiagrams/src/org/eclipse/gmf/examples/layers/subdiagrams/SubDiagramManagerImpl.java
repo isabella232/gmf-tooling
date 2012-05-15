@@ -1,4 +1,4 @@
-package org.eclipse.gmf.examples.subdiagrams;
+package org.eclipse.gmf.examples.layers.subdiagrams;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;

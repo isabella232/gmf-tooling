@@ -1,9 +1,10 @@
-package org.eclipse.gmf.examples.subdiagrams.popup;
+package org.eclipse.gmf.examples.layers.subdiagrams.popup;
 
+import org.eclipse.gmf.examples.layers.Layer;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
-import org.eclipse.gmf.examples.subdiagrams.SubDiagramManager;
-import org.eclipse.gmf.examples.subdiagrams.SubDiagramManagerImpl;
+import org.eclipse.gmf.examples.layers.subdiagrams.SubDiagramManager;
+import org.eclipse.gmf.examples.layers.subdiagrams.SubDiagramManagerImpl;
 import org.eclipse.gmf.runtime.common.core.service.IProvider;
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
@@ -12,19 +13,18 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IWorkbenchPage;
 
-public class SubDiagramsItemProvider extends AbstractContributionItemProvider implements IProvider {
+public class SwitchLayerVisibilityItemProvider extends AbstractContributionItemProvider implements IProvider {
 
-	public static final String MENU_MANAGE_SUB_DIAGRAMS = "menu_manage_subdiagrams"; //$NON-NLS-1$
+	public static final String MENU_SET_LAYER_VISIBILITY = "menu_switch_layer_visibility"; //$NON-NLS-1$
 
 	@Override
 	protected IMenuManager createMenuManager(String menuId, IWorkbenchPartDescriptor partDescriptor) {
-		if (!MENU_MANAGE_SUB_DIAGRAMS.equals(menuId)) {
+		if (!MENU_SET_LAYER_VISIBILITY.equals(menuId)) {
 			return super.createMenuManager(menuId, partDescriptor);
 		}
-		MenuManager menuManager = new MenuManager("Open Sub Diagram");
+		MenuManager menuManager = new MenuManager("Show Layers");
 		MenuBuilder builder = new MenuBuilder(partDescriptor);
 		// XXX: build initial content -- otherwise menu is never shown
 		builder.buildMenu(menuManager);
@@ -56,25 +56,16 @@ public class SubDiagramsItemProvider extends AbstractContributionItemProvider im
 				return;
 			}
 
-			SubDiagramSpec thisSpec = support.findDiagramSpec(diagram);
-			if (thisSpec == null) {
+			SubDiagramSpec diagramSpec = support.findDiagramSpec(diagram);
+			if (diagramSpec == null) {
 				return;
 			}
 
-			for (SubDiagramSpec nextSpec : support.getAllDiagrams()) {
-				if (nextSpec == thisSpec) {
-					continue;
-				}
-				OpenSubDiagramAction action = new OpenSubDiagramAction(getWorkbenchPage(), nextSpec);
+			for (Layer next : support.getLayers()) {
+				SwitchLayerVisibilityAction action = new SwitchLayerVisibilityAction(getWorkbenchPage(), next, diagramSpec);
 				action.init();
 				manager.add(action);
 			}
-
-			manager.add(new Separator());
-
-			CreateSubDiagramAction createNew = new CreateSubDiagramAction(getWorkbenchPage(), thisSpec, support);
-			createNew.init();
-			manager.add(createNew);
 		}
 
 		private IWorkbenchPage getWorkbenchPage() {

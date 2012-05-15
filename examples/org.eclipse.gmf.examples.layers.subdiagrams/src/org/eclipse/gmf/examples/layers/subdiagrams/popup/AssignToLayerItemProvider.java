@@ -1,4 +1,4 @@
-package org.eclipse.gmf.examples.subdiagrams.popup;
+package org.eclipse.gmf.examples.layers.subdiagrams.popup;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.layers.Layer;
 import org.eclipse.gmf.examples.layers.SubDiagramSpec;
 import org.eclipse.gmf.examples.layers.SubDiagramSupport;
-import org.eclipse.gmf.examples.subdiagrams.SubDiagramManager;
-import org.eclipse.gmf.examples.subdiagrams.SubDiagramManagerImpl;
+import org.eclipse.gmf.examples.layers.subdiagrams.SubDiagramManager;
+import org.eclipse.gmf.examples.layers.subdiagrams.SubDiagramManagerImpl;
 import org.eclipse.gmf.runtime.common.core.service.IProvider;
 import org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider;
 import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
