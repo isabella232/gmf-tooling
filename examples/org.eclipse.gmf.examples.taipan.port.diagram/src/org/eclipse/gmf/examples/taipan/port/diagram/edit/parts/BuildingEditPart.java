@@ -86,7 +86,7 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		LayoutEditPolicy lep = new LayoutEditPolicy() {
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
@@ -155,8 +155,7 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShapeGen() {
-		BuildingFigure figure = new BuildingFigure();
-		return primaryShape = figure;
+		return primaryShape = new BuildingFigure();
 	}
 
 	protected IFigure createNodeShape() {
@@ -342,29 +341,11 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 		private void createContents() {
 
 			fFigureBuildingInfoLabel = new WrappingLabel();
+
 			fFigureBuildingInfoLabel.setText("");
 
 			this.add(fFigureBuildingInfoLabel);
 
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
 		/**

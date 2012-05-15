@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2009 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
@@ -18,13 +18,13 @@ transformation DiagramRunTimeModel(in diagramRuntimeGenModel : GENMODEL, inout g
 main() {
 	var genModel = diagramRuntimeGenModel.rootObjects()![GENMODEL::GenModel];
 	var genEditor = gmfgenModel.rootObjects()![GMFGEN::GenEditorGenerator];
-	--
+	
 	var notationPackage = genModel.genPackages[ecorePackage.name = 'notation'];
 	var nodeClass : GENMODEL::GenClass = notationPackage.genClasses![ecoreClass.name = 'Node'];
 	var linkClass : GENMODEL::GenClass = notationPackage.genClasses![ecoreClass.name = 'Edge'];
 	var diagramClass : GENMODEL::GenClass = notationPackage.genClasses![ecoreClass.name = 'Diagram'];
 	var labelClass : GENMODEL::GenClass = nodeClass;
-	--
+	
 	var gd = genEditor.diagram;
 	gd.diagramRunTimeClass := diagramClass;-- Notation.Diagram;
 	genEditor.diagram.getAllNodes()->forEach(n) { n.diagramRunTimeClass := nodeClass };

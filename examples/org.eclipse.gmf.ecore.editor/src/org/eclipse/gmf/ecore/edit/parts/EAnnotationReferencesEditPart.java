@@ -74,7 +74,6 @@ public class EAnnotationReferencesEditPart extends ConnectionNodeEditPart implem
 		 * @generated
 		 */
 		public DashedLineConnection() {
-			this.setLineWidth(1);
 			this.setLineStyle(Graphics.LINE_DASH);
 
 		}

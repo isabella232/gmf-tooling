@@ -84,7 +84,7 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 	/**
 	 * @generated
 	 */
-	private List parserElements;
+	private List<?> parserElements;
 
 	/**
 	 * @generated
@@ -177,6 +177,7 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 	/**
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	protected List getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -264,7 +265,7 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
-						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
+						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl<IParserEditStatus>() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new EObjectAdapter(element), (String) value));
@@ -304,8 +305,8 @@ public class EStringToStringMapEntryEditPart extends CompartmentEditPart impleme
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = EcoreParserProvider.getParser(EcoreElementTypes.EStringToStringMapEntry_3008, getParserElement(), EcoreVisualIDRegistry
-					.getType(org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart.VISUAL_ID));
+			parser = EcoreParserProvider.getParser(EcoreElementTypes.EStringToStringMapEntry_3008, getParserElement(),
+					EcoreVisualIDRegistry.getType(org.eclipse.gmf.ecore.edit.parts.EStringToStringMapEntryEditPart.VISUAL_ID));
 		}
 		return parser;
 	}

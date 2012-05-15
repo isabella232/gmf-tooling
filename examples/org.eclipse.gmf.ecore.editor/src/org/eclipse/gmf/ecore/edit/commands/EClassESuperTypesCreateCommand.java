@@ -62,7 +62,7 @@ public class EClassESuperTypesCreateCommand extends EditElementCommand {
 			return true; // link creation is in progress; source is not defined yet
 		}
 		// target may be null here but it's possible to check constraint
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEClassESuperTypes_4004(getSource(), getTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canCreateEClassESuperTypes_4004(getSource(), getTarget());
 	}
 
 	/**

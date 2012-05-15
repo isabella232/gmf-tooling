@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.parts;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -26,6 +27,8 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.examples.taipan.layouts.PortLayoutProvider;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortItemSemanticEditPolicy;
@@ -153,6 +156,36 @@ public class PortEditPart extends DiagramEditPart {
 				return layoutProvider.layoutLayoutNodes(nodes, offsetFromBoundingBox, layoutHint);
 			}
 		});
+	}
+
+	/**
+	* @generated
+	*/
+	/*package-local*/static class NodeLabelDragPolicy extends NonResizableEditPolicy {
+
+		/**
+		* @generated
+		*/
+		@SuppressWarnings("rawtypes")
+		protected List createSelectionHandles() {
+			MoveHandle h = new MoveHandle((GraphicalEditPart) getHost());
+			h.setBorder(null);
+			return Collections.singletonList(h);
+		}
+
+		/**
+		* @generated
+		*/
+		public Command getCommand(Request request) {
+			return null;
+		}
+
+		/**
+		* @generated
+		*/
+		public boolean understandsRequest(Request request) {
+			return false;
+		}
 	}
 
 	public Command getCommand(Request request) {

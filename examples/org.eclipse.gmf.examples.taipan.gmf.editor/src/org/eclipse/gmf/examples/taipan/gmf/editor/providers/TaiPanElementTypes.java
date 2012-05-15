@@ -46,7 +46,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class TaiPanElementTypes extends ElementInitializers {
+public class TaiPanElementTypes {
 
 	/**
 	 * @generated
@@ -57,7 +57,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	private static Map elements;
+	private static Map<IElementType, ENamedElement> elements;
 
 	/**
 	 * @generated
@@ -67,60 +67,73 @@ public class TaiPanElementTypes extends ElementInitializers {
 	/**
 	 * @generated
 	 */
-	private static Set KNOWN_ELEMENT_TYPES;
+	private static Set<IElementType> KNOWN_ELEMENT_TYPES;
 
 	/**
 	 * @generated
 	 */
 	public static final IElementType Aquatory_1000 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Aquatory_1000"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Port_2001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Port_2001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Ship_2002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Ship_2002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Warship_2003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Warship_2003"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType SmallItems_3001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.SmallItems_3001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType LargeItem_3002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.LargeItem_3002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType EmptyBox_3003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EmptyBox_3003"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType ShipDestination_4001 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipDestination_4001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Route_4002 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType Route_4003 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.Route_4003"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType ShipRoute_4004 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.ShipRoute_4004"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType BesiegePortOrder_4005 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.BesiegePortOrder_4005"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType EscortShipsOrder_4006 = getElementType("org.eclipse.gmf.examples.taipan.gmf.editor.EscortShipsOrder_4006"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
@@ -230,7 +243,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 	public static ENamedElement getElement(IAdaptable hint) {
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
-			elements = new IdentityHashMap();
+			elements = new IdentityHashMap<IElementType, ENamedElement>();
 
 			elements.put(Aquatory_1000, TaiPanPackage.eINSTANCE.getAquatory());
 
@@ -275,7 +288,7 @@ public class TaiPanElementTypes extends ElementInitializers {
 	 */
 	public static boolean isKnownElementType(IElementType elementType) {
 		if (KNOWN_ELEMENT_TYPES == null) {
-			KNOWN_ELEMENT_TYPES = new HashSet();
+			KNOWN_ELEMENT_TYPES = new HashSet<IElementType>();
 			KNOWN_ELEMENT_TYPES.add(Aquatory_1000);
 			KNOWN_ELEMENT_TYPES.add(Port_2001);
 			KNOWN_ELEMENT_TYPES.add(Ship_2002);

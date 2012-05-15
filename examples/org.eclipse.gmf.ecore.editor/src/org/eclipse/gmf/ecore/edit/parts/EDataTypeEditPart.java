@@ -108,8 +108,7 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		NamedNodeRectangle figure = new NamedNodeRectangle();
-		return primaryShape = figure;
+		return primaryShape = new NamedNodeRectangle();
 	}
 
 	/**
@@ -335,7 +334,6 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
-			this.setLineWidth(1);
 			createContents();
 		}
 
@@ -345,29 +343,11 @@ public class EDataTypeEditPart extends ShapeNodeEditPart {
 		private void createContents() {
 
 			fName = new WrappingLabel();
+
 			fName.setText("");
 
 			this.add(fName);
 
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
 		/**

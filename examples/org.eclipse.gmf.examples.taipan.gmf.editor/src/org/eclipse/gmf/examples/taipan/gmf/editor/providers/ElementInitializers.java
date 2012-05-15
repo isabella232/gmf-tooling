@@ -23,12 +23,16 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin
  */
 public class ElementInitializers {
 
+	protected ElementInitializers() {
+		// use #getInstance to access cached instance
+	}
+
 	/**
 	 * @generated
 	 */
-	public static void init_Route_4002(Route instance) {
+	public void init_Route_4002(Route instance) {
 		try {
-			Object value_0 = TaiPanOCLFactory.getExpression("0.8", TaiPanPackage.eINSTANCE.getRoute()).evaluate(instance);
+			Object value_0 = TaiPanOCLFactory.getExpression(2, TaiPanPackage.eINSTANCE.getRoute(), null).evaluate(instance);
 
 			value_0 = TaiPanAbstractExpression.performCast(value_0, EcorePackage.eINSTANCE.getEDouble());
 			instance.setReliability(((Double) value_0).doubleValue());
@@ -40,15 +44,26 @@ public class ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static void init_Route_4003(Route instance) {
+	public void init_Route_4003(Route instance) {
 		try {
-			Object value_0 = TaiPanOCLFactory.getExpression("0.2", TaiPanPackage.eINSTANCE.getRoute()).evaluate(instance);
+			Object value_0 = TaiPanOCLFactory.getExpression(4, TaiPanPackage.eINSTANCE.getRoute(), null).evaluate(instance);
 
 			value_0 = TaiPanAbstractExpression.performCast(value_0, EcorePackage.eINSTANCE.getEDouble());
 			instance.setReliability(((Double) value_0).doubleValue());
 		} catch (RuntimeException e) {
 			TaiPanDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
+	}
+
+	/**
+	* @generated
+	*/
+	public static ElementInitializers getInstance() {
+		ElementInitializers cached = TaiPanDiagramEditorPlugin.getInstance().getElementInitializers();
+		if (cached == null) {
+			TaiPanDiagramEditorPlugin.getInstance().setElementInitializers(cached = new ElementInitializers());
+		}
+		return cached;
 	}
 
 }

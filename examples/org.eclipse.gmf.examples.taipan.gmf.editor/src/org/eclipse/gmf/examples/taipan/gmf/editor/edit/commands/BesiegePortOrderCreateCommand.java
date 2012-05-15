@@ -69,7 +69,7 @@ public class BesiegePortOrderCreateCommand extends EditElementCommand {
 			return true; // link creation is in progress; source is not defined yet
 		}
 		// target may be null here but it's possible to check constraint
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canCreateBesiegePortOrder_4005(getSource(), getTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canCreateBesiegePortOrder_4005(getSource(), getTarget());
 	}
 
 	/**

@@ -146,6 +146,19 @@ public class AllTests {
 		suite.addTestSuite(ManifestMergeTest.class);
 		suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
 
+        suite.addTestSuite(QvtGenModelTransformerSimpleTest.class);
+        suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
+        suite.addTestSuite(QvtLabelMappingTransformTest.class);
+        suite.addTestSuite(QvtPaletteTransformationTest.class);
+        suite.addTestSuite(SimpleCompareTransformationEngineTest.class);
+//        suite.addTestSuite(QvtTransformComparisonNodeLabelsTest.class);
+//        suite.addTestSuite(QvtTransformComparisonLinksTest.class);
+//        suite.addTestSuite(QvtTransformComparisonAudtisTest.class);
+//        suite.addTestSuite(QvtTransformComparisonCompartmentRefNodeTest.class);
+//        suite.addTestSuite(QvtTransformComparisonFullTest.class);
+        suite.addTestSuite(QvtTransformModeledViewmapTest.class);
+//        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
+        
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);
 		suite.addTest(AllMigrationTests.suite());
@@ -231,6 +244,20 @@ public class AllTests {
 		c.register(PaletteTransformationTest.class, SessionSetup.class);
 		c.register(AuditHandcodedTest.class, SessionSetup.class);
 		c.register(CodegenReconcileTest.class, SessionSetup.class);
+		
+		c.register(QvtGenModelTransformerSimpleTest.class, SessionSetup.class);
+		c.register(QvtGenModelTransformerBasicRTTest.class, SessionSetup.class);
+		c.register(QvtLabelMappingTransformTest.class, SessionSetup.class);
+		c.register(QvtPaletteTransformationTest.class, SessionSetup.class);
+		c.register(SimpleCompareTransformationEngineTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonNodeLabelsTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonLinksTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonAudtisTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonCompartmentRefNodeTest.class, SessionSetup.class);
+//		c.register(QvtTransformComparisonFullTest.class, SessionSetup.class);
+		c.register(QvtTransformModeledViewmapTest.class, SessionSetup.class);
+		c.register(QvtGenModelTransformerVisualIDWithTraceTest.class, SessionSetup.class);
+		
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		c.register(TestAllDerivedFeatures.class, SessionSetup.class);
 		c.register(DiagramNodeTest.class, SessionSetup.class);

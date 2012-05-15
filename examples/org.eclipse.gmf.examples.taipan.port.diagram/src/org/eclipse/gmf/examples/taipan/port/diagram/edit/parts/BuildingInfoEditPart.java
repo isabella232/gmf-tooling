@@ -84,7 +84,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
-	private List parserElements;
+	private List<?> parserElements;
 
 	/**
 	 * @generated
@@ -105,23 +105,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new TaiPanTextSelectionEditPolicy());
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new LabelDirectEditPolicy());
-		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new NonResizableEditPolicy() {
-
-			protected List createSelectionHandles() {
-				List handles = new ArrayList();
-				NonResizableHandleKit.addMoveHandle((GraphicalEditPart) getHost(), handles);
-				((MoveHandle) handles.get(0)).setBorder(null);
-				return handles;
-			}
-
-			public Command getCommand(Request request) {
-				return null;
-			}
-
-			public boolean understandsRequest(Request request) {
-				return false;
-			}
-		});
+		installEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE, new PortEditPart.NodeLabelDragPolicy());
 	}
 
 	protected void createDefaultEditPolicies() {
@@ -202,6 +186,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	/**
 	 * @generated
 	 */
+	@SuppressWarnings("rawtypes")
 	protected List getModelChildren() {
 		return Collections.EMPTY_LIST;
 	}
@@ -285,7 +270,7 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 					final EObject element = getParserElement();
 					final IParser parser = getParser();
 					try {
-						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl() {
+						IParserEditStatus valid = (IParserEditStatus) getEditingDomain().runExclusive(new RunnableWithResult.Impl<IParserEditStatus>() {
 
 							public void run() {
 								setResult(parser.isValidEditString(new EObjectAdapter(element), (String) value));
@@ -325,8 +310,8 @@ public class BuildingInfoEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Building_2001, getParserElement(), TaiPanVisualIDRegistry
-					.getType(org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart.VISUAL_ID));
+			parser = TaiPanParserProvider.getParser(TaiPanElementTypes.Building_2001, getParserElement(),
+					TaiPanVisualIDRegistry.getType(org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingInfoEditPart.VISUAL_ID));
 		}
 		return parser;
 	}
