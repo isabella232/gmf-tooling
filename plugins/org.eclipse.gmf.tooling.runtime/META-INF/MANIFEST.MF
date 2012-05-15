@@ -23,6 +23,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.eclipse.gmf.tooling.runtime.GMFToolingRuntimePlugin
 Export-Package: org.eclipse.gmf.tooling.runtime,
  org.eclipse.gmf.tooling.runtime.directedit,
+ org.eclipse.gmf.tooling.runtime.edit.helpers,
  org.eclipse.gmf.tooling.runtime.edit.policies.effect,
  org.eclipse.gmf.tooling.runtime.edit.policies.reparent,
  org.eclipse.gmf.tooling.runtime.ocl.tracker,
