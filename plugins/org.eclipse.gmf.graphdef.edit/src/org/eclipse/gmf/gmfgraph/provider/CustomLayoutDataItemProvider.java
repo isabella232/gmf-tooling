@@ -103,7 +103,7 @@ public class CustomLayoutDataItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomAttributeOwner_Attributes());
 		}
 		return childrenFeatures;
 	}
@@ -181,7 +181,7 @@ public class CustomLayoutDataItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes(),
+				(GMFGraphPackage.eINSTANCE.getCustomAttributeOwner_Attributes(),
 				 GMFGraphFactory.eINSTANCE.createCustomAttribute()));
 	}
 

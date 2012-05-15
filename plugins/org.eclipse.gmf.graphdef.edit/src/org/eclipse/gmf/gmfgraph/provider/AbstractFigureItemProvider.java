@@ -240,6 +240,11 @@ public class AbstractFigureItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createCenterLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(),
 				 GMFGraphFactory.eINSTANCE.createRGBColor()));
 

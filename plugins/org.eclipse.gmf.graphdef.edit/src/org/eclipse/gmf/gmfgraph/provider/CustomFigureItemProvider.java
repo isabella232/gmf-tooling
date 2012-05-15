@@ -100,7 +100,6 @@ public class CustomFigureItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomFigure_CustomChildren());
 		}
 		return childrenFeatures;
@@ -159,7 +158,6 @@ public class CustomFigureItemProvider
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 			case GMFGraphPackage.CUSTOM_FIGURE__CUSTOM_CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -177,11 +175,6 @@ public class CustomFigureItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes(),
-				 GMFGraphFactory.eINSTANCE.createCustomAttribute()));
 
 		newChildDescriptors.add
 			(createChildParameter

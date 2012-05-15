@@ -197,6 +197,11 @@ public class FigureAccessorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
+				 GMFGraphFactory.eINSTANCE.createInvisibleRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
 				 GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
 
 		newChildDescriptors.add

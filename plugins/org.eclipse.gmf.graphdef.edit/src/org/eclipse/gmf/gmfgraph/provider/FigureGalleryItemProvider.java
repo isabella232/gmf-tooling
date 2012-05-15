@@ -227,6 +227,11 @@ public class FigureGalleryItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
+				 GMFGraphFactory.eINSTANCE.createInvisibleRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
 				 GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
 
 		newChildDescriptors.add
@@ -348,6 +353,11 @@ public class FigureGalleryItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
 				 GMFGraphFactory.eINSTANCE.createStackLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createCenterLayout()));
 	}
 
 	/**

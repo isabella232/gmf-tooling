@@ -208,6 +208,11 @@ public class FigureDescriptorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure(),
+				 GMFGraphFactory.eINSTANCE.createInvisibleRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure(),
 				 GMFGraphFactory.eINSTANCE.createRoundedRectangle()));
 
 		newChildDescriptors.add
