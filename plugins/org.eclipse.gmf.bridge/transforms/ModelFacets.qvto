@@ -93,12 +93,13 @@ mapping GMFMAP::LabelMapping::createLabelModelFacet(node: NeedsContainment) : GM
 mapping GMFMAP::LabelMapping::createDefaultLabelModelFacet(node: NeedsContainment) : GMFGEN::LabelModelFacet 
 	when {self.oclIsTypeOf(LabelMapping)} 
 {
-	init {
-		if auxParser = null then 
-			auxParser := object GMFGEN::ExternalParser {}
-		endif;
-	}
-	parser := auxParser;
+--	init {
+--		if auxParser = null then 
+--			auxParser := object GMFGEN::ExternalParser {}
+--		endif;
+--	}
+--	parser := auxParser;
+	parser := self.map createExternalParser();
 }
 
 mapping GMFMAP::FeatureLabelMapping::createFeatureLabelModelFacet(node: NeedsContainment) : GMFGEN::FeatureLabelModelFacet {
@@ -109,37 +110,20 @@ mapping GMFMAP::FeatureLabelMapping::createFeatureLabelModelFacet(node: NeedsCon
 	editorPattern := self.editorPattern;
 	viewMethod := self.viewMethod.convertLabelTextAccessMethod();
 	editMethod := self.editMethod.convertLabelTextAccessMethod();
-
-
---		var r := object GMFGEN::FeatureLabelModelFacet {};
--- 		if exists then select else 
--- 		FIXME allInstances == hack
-	var p = GMFGEN::PredefinedParser.allInstances()->any(pp | 
-			pp.viewMethod = result.oclAsType(FeatureLabelModelFacet).viewMethod and 
-			pp.editMethod = result.oclAsType(FeatureLabelModelFacet).editMethod);
-		
-	if p.oclIsUndefined() then p := object PredefinedParser {
-		viewMethod := result.oclAsType(FeatureLabelModelFacet).viewMethod; 
-		editMethod := result.oclAsType(FeatureLabelModelFacet).editMethod; 
-	} endif;
 	
-	parser := p;
+	parser := if self.isEnumLabelMapping() then self.getOrCreateEnumParser() else self.getOrCreatePredefinedParser() endif;
 }
 
 mapping GMFMAP::DesignLabelMapping::createDesignLabelModelFacet(node: NeedsContainment) : GMFGEN::DesignLabelModelFacet {
-	if designLabelParser = null then 
-		designLabelParser := object GMFGEN::ExternalParser {} 
-	endif;	
-	parser := designLabelParser;
+--	if designLabelParser = null then 
+--		designLabelParser := object GMFGEN::ExternalParser {} 
+--	endif;	
+--	parser := designLabelParser;
+	parser := self.map createExternalParser();
 }
 
 mapping GMFMAP::ExpressionLabelMapping::createExpressionLabelModelFacet(node: NeedsContainment): GMFGEN::ExpressionLabelModelFacet {
-	parser := object ExpressionLabelParser {
-		expressionContext := GENMODEL::GenClass.allInstances()->any(e | e.ecoreClass = self.mapEntry.getDomainContext());
-		viewExpression := if not self.viewExpression.oclIsUndefined() then self.viewExpression.map createValueExpression() endif;
-		editExpression := if not self.editExpression.oclIsUndefined() then self.editExpression.map createValueExpression() endif;	
-		validateExpression := if not self.validateExpression.oclIsUndefined() then self.validateExpression.map createConstraint() endif;
-	};
+	parser := self.map createExpressionLabelParser();
 }
 
 mapping GMFMAP::OclChoiceLabelMapping::createOclChoiceLabelModelFacet(node: NeedsContainment): GMFGEN::FeatureLabelModelFacet {
