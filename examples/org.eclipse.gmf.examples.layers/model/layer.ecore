@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="layers"
+    nsURI="http://www.eclipse.org/examples/gmf/visibility-layers" nsPrefix="vlayers">
+  <eClassifiers xsi:type="ecore:EClass" name="SubDiagramSupport">
+    <eOperations name="getAllDiagrams" upperBound="-1" eType="#//SubDiagramSpec"/>
+    <eOperations name="findDiagramSpec" eType="#//SubDiagramSpec">
+      <eParameters name="diagram" eType="ecore:EClass platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"/>
+    </eOperations>
+    <eOperations name="ensureAllSubDiagramsHaveEnablementForAllLayers"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layers" upperBound="-1"
+        eType="#//Layer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mainDiagram" eType="#//SubDiagramSpec"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subDiagrams" upperBound="-1"
+        eType="#//SubDiagramSpec" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Layer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="colorDef" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="participants" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubDiagramSpec">
+    <eOperations name="findLayerEnablement" eType="#//LayerEnablement">
+      <eParameters name="layer" eType="#//Layer"/>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLayers" upperBound="-1"
+        eType="#//LayerEnablement" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" eType="ecore:EClass platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LayerEnablement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layer" eType="#//Layer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+</ecore:EPackage>

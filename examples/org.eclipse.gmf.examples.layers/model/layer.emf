@@ -1,0 +1,37 @@
+@namespace(uri="http://www.eclipse.org/examples/gmf/visibility-layers", prefix="vlayers")
+package layers;
+
+import "platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore";
+import "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore";
+
+class SubDiagramSupport {
+	val Layer[*] layers;
+	
+	val SubDiagramSpec mainDiagram;
+	val SubDiagramSpec[*] subDiagrams;
+	
+	op SubDiagramSpec[*] getAllDiagrams();
+	op SubDiagramSpec findDiagramSpec(notation.Diagram diagram);
+	
+	op void ensureAllSubDiagramsHaveEnablementForAllLayers();
+}
+
+class Layer {
+	attr String name;
+	attr String colorDef;
+	ref ecore.EObject[*] participants;
+}
+
+class SubDiagramSpec {
+	attr String name;
+	attr boolean showing;
+	val LayerEnablement[*] diagramLayers;
+	ref notation.Diagram diagram; 
+	
+	op LayerEnablement findLayerEnablement(Layer layer);
+}
+
+class LayerEnablement {
+   	ref Layer layer;
+   	attr boolean visible;
+}
