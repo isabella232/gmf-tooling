@@ -22,6 +22,7 @@ import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.BorderRef;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.CenterLayout;
 import org.eclipse.gmf.gmfgraph.ChildAccess;
 import org.eclipse.gmf.gmfgraph.Color;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
@@ -32,6 +33,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomAttributeOwner;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
@@ -63,6 +65,7 @@ import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
+import org.eclipse.gmf.gmfgraph.InvisibleRectangle;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
@@ -299,6 +302,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass invisibleRectangleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass roundedRectangleEClass = null;
 
 	/**
@@ -349,6 +359,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass polygonDecorationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customAttributeOwnerEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -587,6 +604,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass stackLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass centerLayoutEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1508,6 +1532,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getInvisibleRectangle() {
+		return invisibleRectangleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getRoundedRectangle() {
 		return roundedRectangleEClass;
 	}
@@ -1625,6 +1658,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCustomAttributeOwner() {
+		return customAttributeOwnerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCustomAttributeOwner_Attributes() {
+		return (EReference)customAttributeOwnerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomClass() {
 		return customClassEClass;
 	}
@@ -1636,15 +1687,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getCustomClass_QualifiedClassName() {
 		return (EAttribute)customClassEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCustomClass_Attributes() {
-		return (EReference)customClassEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2462,6 +2504,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCenterLayout() {
+		return centerLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSVGFigure() {
 		return svgFigureEClass;
 	}
@@ -2884,6 +2935,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		rectangleEClass = createEClass(RECTANGLE);
 
+		invisibleRectangleEClass = createEClass(INVISIBLE_RECTANGLE);
+
 		roundedRectangleEClass = createEClass(ROUNDED_RECTANGLE);
 		createEAttribute(roundedRectangleEClass, ROUNDED_RECTANGLE__CORNER_WIDTH);
 		createEAttribute(roundedRectangleEClass, ROUNDED_RECTANGLE__CORNER_HEIGHT);
@@ -2905,9 +2958,11 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		polygonDecorationEClass = createEClass(POLYGON_DECORATION);
 
+		customAttributeOwnerEClass = createEClass(CUSTOM_ATTRIBUTE_OWNER);
+		createEReference(customAttributeOwnerEClass, CUSTOM_ATTRIBUTE_OWNER__ATTRIBUTES);
+
 		customClassEClass = createEClass(CUSTOM_CLASS);
 		createEAttribute(customClassEClass, CUSTOM_CLASS__QUALIFIED_CLASS_NAME);
-		createEReference(customClassEClass, CUSTOM_CLASS__ATTRIBUTES);
 
 		customAttributeEClass = createEClass(CUSTOM_ATTRIBUTE);
 		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__NAME);
@@ -3031,6 +3086,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		stackLayoutEClass = createEClass(STACK_LAYOUT);
 
+		centerLayoutEClass = createEClass(CENTER_LAYOUT);
+
 		svgFigureEClass = createEClass(SVG_FIGURE);
 		createEAttribute(svgFigureEClass, SVG_FIGURE__DOCUMENT_URI);
 		createEReference(svgFigureEClass, SVG_FIGURE__PROPERTIES);
@@ -3121,6 +3178,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		figureDescriptorEClass.getESuperTypes().add(this.getIdentity());
 		realFigureEClass.getESuperTypes().add(this.getAbstractFigure());
 		realFigureEClass.getESuperTypes().add(this.getPinOwner());
+		realFigureEClass.getESuperTypes().add(this.getCustomAttributeOwner());
 		figureRefEClass.getESuperTypes().add(this.getAbstractFigure());
 		connectionFigureEClass.getESuperTypes().add(this.getRealFigure());
 		decorationFigureEClass.getESuperTypes().add(this.getRealFigure());
@@ -3128,6 +3186,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		labelEClass.getESuperTypes().add(this.getRealFigure());
 		labeledContainerEClass.getESuperTypes().add(this.getRealFigure());
 		rectangleEClass.getESuperTypes().add(this.getShape());
+		invisibleRectangleEClass.getESuperTypes().add(this.getRealFigure());
 		roundedRectangleEClass.getESuperTypes().add(this.getShape());
 		ellipseEClass.getESuperTypes().add(this.getShape());
 		polylineEClass.getESuperTypes().add(this.getShape());
@@ -3139,6 +3198,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		polylineDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
 		polygonDecorationEClass.getESuperTypes().add(this.getPolygon());
 		polygonDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
+		customClassEClass.getESuperTypes().add(this.getCustomAttributeOwner());
 		customFigureEClass.getESuperTypes().add(this.getRealFigure());
 		customFigureEClass.getESuperTypes().add(this.getCustomClass());
 		customDecorationEClass.getESuperTypes().add(this.getCustomFigure());
@@ -3167,6 +3227,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		xyLayoutEClass.getESuperTypes().add(this.getLayout());
 		xyLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
 		stackLayoutEClass.getESuperTypes().add(this.getLayout());
+		centerLayoutEClass.getESuperTypes().add(this.getLayout());
 		svgFigureEClass.getESuperTypes().add(this.getRealFigure());
 		pinEClass.getESuperTypes().add(this.getIdentity());
 		customPinEClass.getESuperTypes().add(this.getPin());
@@ -3285,6 +3346,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(rectangleEClass, Rectangle.class, "Rectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(invisibleRectangleEClass, InvisibleRectangle.class, "InvisibleRectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(roundedRectangleEClass, RoundedRectangle.class, "RoundedRectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getRoundedRectangle_CornerWidth(), ecorePackage.getEInt(), "cornerWidth", "8", 0, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRoundedRectangle_CornerHeight(), ecorePackage.getEInt(), "cornerHeight", "8", 0, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3306,9 +3369,11 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(polygonDecorationEClass, PolygonDecoration.class, "PolygonDecoration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(customAttributeOwnerEClass, CustomAttributeOwner.class, "CustomAttributeOwner", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCustomAttributeOwner_Attributes(), this.getCustomAttribute(), null, "attributes", null, 0, -1, CustomAttributeOwner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(customClassEClass, CustomClass.class, "CustomClass", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomClass_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCustomClass_Attributes(), this.getCustomAttribute(), null, "attributes", null, 0, -1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customAttributeEClass, CustomAttribute.class, "CustomAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomAttribute_Name(), ecorePackage.getEString(), "name", null, 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3431,6 +3496,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getXYLayoutData_Size(), this.getDimension(), null, "size", null, 1, 1, XYLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(stackLayoutEClass, StackLayout.class, "StackLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(centerLayoutEClass, CenterLayout.class, "CenterLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(svgFigureEClass, SVGFigure.class, "SVGFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSVGFigure_DocumentURI(), ecorePackage.getEString(), "documentURI", null, 0, 1, SVGFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

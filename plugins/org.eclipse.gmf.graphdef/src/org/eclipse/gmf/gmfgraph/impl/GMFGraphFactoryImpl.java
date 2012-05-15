@@ -12,7 +12,74 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.gmf.gmfgraph.*;
+import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
+import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.BorderRef;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.CenterLayout;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.ColorPin;
+import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
+import org.eclipse.gmf.gmfgraph.CustomConnection;
+import org.eclipse.gmf.gmfgraph.CustomDecoration;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
+import org.eclipse.gmf.gmfgraph.CustomPin;
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Dimension;
+import org.eclipse.gmf.gmfgraph.Direction;
+import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.FontStyle;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.GeneralFacet;
+import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
+import org.eclipse.gmf.gmfgraph.Insets;
+import org.eclipse.gmf.gmfgraph.InvisibleRectangle;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
+import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.LayoutRef;
+import org.eclipse.gmf.gmfgraph.LineBorder;
+import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
+import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.Polygon;
+import org.eclipse.gmf.gmfgraph.PolygonDecoration;
+import org.eclipse.gmf.gmfgraph.Polyline;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.PolylineDecoration;
+import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.Rectangle2D;
+import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.SVGFigure;
+import org.eclipse.gmf.gmfgraph.SVGProperty;
+import org.eclipse.gmf.gmfgraph.SVGPropertyType;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
+import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.VisiblePin;
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
  * <!-- begin-user-doc -->
@@ -75,6 +142,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.LABEL: return createLabel();
 			case GMFGraphPackage.LABELED_CONTAINER: return createLabeledContainer();
 			case GMFGraphPackage.RECTANGLE: return createRectangle();
+			case GMFGraphPackage.INVISIBLE_RECTANGLE: return createInvisibleRectangle();
 			case GMFGraphPackage.ROUNDED_RECTANGLE: return createRoundedRectangle();
 			case GMFGraphPackage.ELLIPSE: return createEllipse();
 			case GMFGraphPackage.POLYLINE: return createPolyline();
@@ -110,6 +178,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.XY_LAYOUT: return createXYLayout();
 			case GMFGraphPackage.XY_LAYOUT_DATA: return createXYLayoutData();
 			case GMFGraphPackage.STACK_LAYOUT: return createStackLayout();
+			case GMFGraphPackage.CENTER_LAYOUT: return createCenterLayout();
 			case GMFGraphPackage.SVG_FIGURE: return createSVGFigure();
 			case GMFGraphPackage.SVG_PROPERTY: return createSVGProperty();
 			case GMFGraphPackage.RECTANGLE2_D: return createRectangle2D();
@@ -339,6 +408,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public Rectangle createRectangle() {
 		RectangleImpl rectangle = new RectangleImpl();
 		return rectangle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InvisibleRectangle createInvisibleRectangle() {
+		InvisibleRectangleImpl invisibleRectangle = new InvisibleRectangleImpl();
+		return invisibleRectangle;
 	}
 
 	/**
@@ -689,6 +768,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public StackLayout createStackLayout() {
 		StackLayoutImpl stackLayout = new StackLayoutImpl();
 		return stackLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CenterLayout createCenterLayout() {
+		CenterLayoutImpl centerLayout = new CenterLayoutImpl();
+		return centerLayout;
 	}
 
 	/**

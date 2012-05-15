@@ -7,7 +7,6 @@
 package org.eclipse.gmf.gmfgraph.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.gmf.gmfgraph.AbstractNode;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 

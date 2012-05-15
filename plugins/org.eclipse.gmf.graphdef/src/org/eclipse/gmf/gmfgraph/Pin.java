@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.gmfgraph;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->

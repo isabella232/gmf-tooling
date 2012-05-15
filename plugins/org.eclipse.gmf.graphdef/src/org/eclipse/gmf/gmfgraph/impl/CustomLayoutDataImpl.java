@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomAttributeOwner;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -32,14 +33,24 @@ import org.eclipse.gmf.gmfgraph.Layoutable;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl#getOwner <em>Owner</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl#getAttributes <em>Attributes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutData {
+	/**
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<CustomAttribute> attributes;
+
 	/**
 	 * The default value of the '{@link #getQualifiedClassName() <em>Qualified Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -59,16 +70,6 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 	 * @ordered
 	 */
 	protected String qualifiedClassName = QUALIFIED_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAttributes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<CustomAttribute> attributes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -219,10 +220,10 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER:
 				return getOwner();
-			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
-				return getQualifiedClassName();
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES:
 				return getAttributes();
+			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
+				return getQualifiedClassName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -239,12 +240,12 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER:
 				setOwner((Layoutable)newValue);
 				return;
-			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
-				setQualifiedClassName((String)newValue);
-				return;
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES:
 				getAttributes().clear();
 				getAttributes().addAll((Collection<? extends CustomAttribute>)newValue);
+				return;
+			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
+				setQualifiedClassName((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -261,11 +262,11 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER:
 				setOwner((Layoutable)null);
 				return;
-			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
-				setQualifiedClassName(QUALIFIED_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES:
 				getAttributes().clear();
+				return;
+			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
+				setQualifiedClassName(QUALIFIED_CLASS_NAME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -281,10 +282,10 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__OWNER:
 				return getOwner() != null;
-			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
-				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
+			case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME:
+				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -296,10 +297,15 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == CustomAttributeOwner.class) {
+			switch (derivedFeatureID) {
+				case GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES: return GMFGraphPackage.CUSTOM_ATTRIBUTE_OWNER__ATTRIBUTES;
+				default: return -1;
+			}
+		}
 		if (baseClass == CustomClass.class) {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME;
-				case GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES: return GMFGraphPackage.CUSTOM_CLASS__ATTRIBUTES;
 				default: return -1;
 			}
 		}
@@ -313,10 +319,15 @@ public class CustomLayoutDataImpl extends EObjectImpl implements CustomLayoutDat
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == CustomAttributeOwner.class) {
+			switch (baseFeatureID) {
+				case GMFGraphPackage.CUSTOM_ATTRIBUTE_OWNER__ATTRIBUTES: return GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES;
+				default: return -1;
+			}
+		}
 		if (baseClass == CustomClass.class) {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME;
-				case GMFGraphPackage.CUSTOM_CLASS__ATTRIBUTES: return GMFGraphPackage.CUSTOM_LAYOUT_DATA__ATTRIBUTES;
 				default: return -1;
 			}
 		}

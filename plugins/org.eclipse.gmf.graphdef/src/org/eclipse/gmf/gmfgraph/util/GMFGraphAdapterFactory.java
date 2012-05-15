@@ -10,7 +10,87 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.gmfgraph.*;
+import org.eclipse.gmf.gmfgraph.AbstractFigure;
+import org.eclipse.gmf.gmfgraph.AbstractNode;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
+import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.Border;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.BorderRef;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.CenterLayout;
+import org.eclipse.gmf.gmfgraph.ChildAccess;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.ColorPin;
+import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConnectionFigure;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
+import org.eclipse.gmf.gmfgraph.CustomAttributeOwner;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
+import org.eclipse.gmf.gmfgraph.CustomClass;
+import org.eclipse.gmf.gmfgraph.CustomConnection;
+import org.eclipse.gmf.gmfgraph.CustomDecoration;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
+import org.eclipse.gmf.gmfgraph.CustomPin;
+import org.eclipse.gmf.gmfgraph.DecorationFigure;
+import org.eclipse.gmf.gmfgraph.DefaultSizeFacet;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
+import org.eclipse.gmf.gmfgraph.Dimension;
+import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureAccessor;
+import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
+import org.eclipse.gmf.gmfgraph.Font;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.GeneralFacet;
+import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
+import org.eclipse.gmf.gmfgraph.Identity;
+import org.eclipse.gmf.gmfgraph.Insets;
+import org.eclipse.gmf.gmfgraph.InvisibleRectangle;
+import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.LabelOffsetFacet;
+import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.LayoutRef;
+import org.eclipse.gmf.gmfgraph.Layoutable;
+import org.eclipse.gmf.gmfgraph.LineBorder;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
+import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.Pin;
+import org.eclipse.gmf.gmfgraph.PinOwner;
+import org.eclipse.gmf.gmfgraph.Point;
+import org.eclipse.gmf.gmfgraph.Polygon;
+import org.eclipse.gmf.gmfgraph.PolygonDecoration;
+import org.eclipse.gmf.gmfgraph.Polyline;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.PolylineDecoration;
+import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.RealFigure;
+import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.Rectangle2D;
+import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.SVGFigure;
+import org.eclipse.gmf.gmfgraph.SVGProperty;
+import org.eclipse.gmf.gmfgraph.ScalablePolygon;
+import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.VisiblePin;
+import org.eclipse.gmf.gmfgraph.VisualFacet;
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
  * <!-- begin-user-doc -->
@@ -177,6 +257,10 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 				return createRectangleAdapter();
 			}
 			@Override
+			public Adapter caseInvisibleRectangle(InvisibleRectangle object) {
+				return createInvisibleRectangleAdapter();
+			}
+			@Override
 			public Adapter caseRoundedRectangle(RoundedRectangle object) {
 				return createRoundedRectangleAdapter();
 			}
@@ -207,6 +291,10 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter casePolygonDecoration(PolygonDecoration object) {
 				return createPolygonDecorationAdapter();
+			}
+			@Override
+			public Adapter caseCustomAttributeOwner(CustomAttributeOwner object) {
+				return createCustomAttributeOwnerAdapter();
 			}
 			@Override
 			public Adapter caseCustomClass(CustomClass object) {
@@ -343,6 +431,10 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseStackLayout(StackLayout object) {
 				return createStackLayoutAdapter();
+			}
+			@Override
+			public Adapter caseCenterLayout(CenterLayout object) {
+				return createCenterLayoutAdapter();
 			}
 			@Override
 			public Adapter caseSVGFigure(SVGFigure object) {
@@ -775,6 +867,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.InvisibleRectangle <em>Invisible Rectangle</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.InvisibleRectangle
+	 * @generated
+	 */
+	public Adapter createInvisibleRectangleAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.RoundedRectangle <em>Rounded Rectangle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -883,6 +989,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPolygonDecorationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomAttributeOwner <em>Custom Attribute Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttributeOwner
+	 * @generated
+	 */
+	public Adapter createCustomAttributeOwnerAdapter() {
 		return null;
 	}
 
@@ -1359,6 +1479,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createStackLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CenterLayout <em>Center Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CenterLayout
+	 * @generated
+	 */
+	public Adapter createCenterLayoutAdapter() {
 		return null;
 	}
 
