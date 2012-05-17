@@ -35,6 +35,7 @@ helper GMFMAP::Mapping::visualIdentity() {
 		if e.resolveone(GenTopLevelNode).visualID <= 0 then {
 		 	var genNode := e.resolveone(GenTopLevelNode);
 		 	genNode.visualID := genNode.getVisualID();
+		 	e.child.compartments->collect(c | c.visualIdentity(e.child, e));
 			e.child.children->collect(visualIdentity());
 			e.child.labelMappings->collect(visualIdentity(e));
 		} endif
@@ -42,9 +43,7 @@ helper GMFMAP::Mapping::visualIdentity() {
 	
 	self.links->collect(visualIdentity());
 		
-	self.getCompartments()->collect(e | e.c.visualIdentity(e.n, e.r));
-	
-	return null;
+	return;
 }
 
 helper GMFMAP::ChildReference::visualIdentity() {
@@ -61,6 +60,7 @@ helper GMFMAP::ChildReference::visualIdentity() {
 					if e.needVisualID() then e.visualIdentity() endif
 				);
 			} endif;
+			node.child.compartments->collect(c | c.visualIdentity(node.child, node));
 			node.map structure(node.child).labels->collect(e | visualIdentity(e));
 		} endif
 	endif

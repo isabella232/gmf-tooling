@@ -12,7 +12,7 @@
  */
 library Mappings;
 
-import Map2GenUtil;
+import Utils;
 import ModelFacets;
 import Palette;
 
@@ -27,17 +27,21 @@ modeltype GENMODEL uses genmodel('http://www.eclipse.org/emf/2002/GenModel');
 --	Mapping
 --
 
+property genEditorGenerator : GMFGEN::GenEditorGenerator = null;
+
 mapping GMFMAP::Mapping::structure() : GMFGEN::GenEditorGenerator {
+	init {
+		result := object GMFGEN::GenEditorGenerator {
+			diagram := self.diagram.map structure();
+		}
+	}
+	genEditorGenerator := result;
+	
 	childReferences := self.getChildReferences();
-	
-	diagram := self.diagram.map structure();
-	
 	diagram.topLevelNodes += self.nodes->map structure();
 	diagram.childNodes += childReferences->collect(e | e.map structure(e.child));
-	
 	diagram.links := self.links->map structure()->asOrderedSet();
-	self.getCompartments()->forEach(e) { diagram.compartments += e.c.map structure(e.n, e.r); };
-	
+		
 	diagram.getAllNodes()->forEach(n) { setupElementType(n) };
 	diagram.links->forEach(l) { setupElementType(l) };
 		 
@@ -71,6 +75,7 @@ mapping GMFMAP::CanvasMapping::structure() : GMFGEN::GenDiagram {
 mapping GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
 	modelFacet := self.createModelFacet();
 	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	genEditorGenerator.diagram.compartments += self.child->collect(e | e.compartments->map structure(e, self));
 	
 	self.child.children->select(e | e.compartment.oclIsUndefined())->forEach(c) {
 		var node := c.findProcessableChildReference();
@@ -86,19 +91,22 @@ mapping GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
 -- 
 abstract mapping GMFMAP::ChildReference::abstractStructure(node: GMFMAP::NodeMapping): GMFGEN::GenChildNode {
 	modelFacet := self.createModelFacet();
+	
 	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
 		var node := c.findProcessableChildReference();
 		childNodes += node.map structure(node.child);
 	};
 	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
+	
+	genEditorGenerator.diagram.compartments += self.child->collect(e | e.compartments->map structure(e, self));
 }
 
 mapping GMFMAP::ChildReference::structure(node: GMFMAP::NodeMapping) : GMFGEN::GenChildNode
-	disjuncts 
-		GMFMAP::ChildReference::createGenChildLabelNode, 
-		GMFMAP::ChildReference::createGenChildSideAffixedNode, 
-		GMFMAP::ChildReference::createGenChildNode 
-	{}
+disjuncts 
+	GMFMAP::ChildReference::createGenChildLabelNode, 
+	GMFMAP::ChildReference::createGenChildSideAffixedNode, 
+	GMFMAP::ChildReference::createGenChildNode 
+{}
 
 mapping GMFMAP::ChildReference::createGenChildLabelNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildLabelNode
 inherits GMFMAP::ChildReference::abstractStructure 
@@ -163,7 +171,6 @@ mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink {
 	labels += self.labelMappings->map structure(self);
 	
 	self.tool.map paletteEntry().oclAsType(ToolEntry).genLinks += result;
-	-- setupElementType(result);
 	result.creationConstraints := self.creationConstraints.map structure();
 }
 
@@ -177,26 +184,20 @@ mapping GMFMAP::CompartmentMapping::structure(_mapping: GMFMAP::NodeMapping, con
 			canCollapse := self.compartment.collapsible;
 			needsTitle := self.compartment.needsTitle;
 			title := self.compartment.name;
+			if container.oclIsKindOf(GMFMAP::TopNodeReference) then {
+				node := container.resolveone(GMFGEN::GenNode)
+			} else {
+				node := container.oclAsType(ChildReference).map structure(_mapping)
+			} endif
 		};
 	}
-	
-	if container.oclIsKindOf(GMFMAP::TopNodeReference) then {
-		container.resolveone(GMFGEN::GenNode).compartments += result
-	} else {
-		var node := container.oclAsType(ChildReference).findProcessableChildReference();
-		if not node.oclIsUndefined() then
-			node.map structure(node.child).compartments += result
-		endif
-	} endif;
-	
+		
 	allChildReferences->select(e | e.compartment = self)->forEach(c) {
 		if c.child.children->size() > 0 then
 			listLayout := false
 		endif;
 		
-		var node := c.findProcessableChildReference();
-			-- if equivalentChild->hasKey(c) then c else 
-			-- equivalentChild->keys()->selectOne(e | equivalentChild->get(e)->includes(c)) endif; 
+		var node := c.findProcessableChildReference(); 
 		childNodes += node.map structure(node.child);	
 	};
 }
@@ -218,6 +219,9 @@ mapping LabelMapping::structure(link: GMFMAP::LinkMapping): GenLinkLabel {
 }
 
 
+-- XXX ElementType as return value, disjunct?
+mapping GENMODEL::GenClass::gmfRuntimeMetamodelType() : GMFGEN::MetamodelType {}
+
 --
 --	Helpers
 --
@@ -231,6 +235,38 @@ helper GMFMAP::CanvasMapping::handleRelatedDiagram(in mapElement : GMFMAP::Mappi
 			editorID := 'FIXME put GenEditorView.id value here';
 		} endif;
 	};
+
+
+query GENMODEL::GenClass::getOrCreateRuntimeMetamodelType() : GMFGEN::ElementType {
+	var mmt = self.resolveoneIn(GENMODEL::GenClass::gmfRuntimeMetamodelType, GMFGEN::MetamodelType);
+	if mmt.oclIsUndefined() then 
+		return self.map gmfRuntimeMetamodelType() 
+	endif;
+	return object GMFGEN::SpecializationType { metamodelType := mmt }
+}
+
+-- XXX review - Specialization type is created again and again - why not reuse it?
+-- static, for some reasons, helpers couldn't specify 'inout' for context element
+-- XXX, actually, don't need GenNode here, GenClass should be sufficient
+helper setupElementType(inout genNode : GMFGEN::GenNode) {
+	if genNode.modelFacet.oclIsUndefined() then genNode.elementType := object GMFGEN::NotationType {}
+	else genNode.elementType := genNode.modelFacet.metaClass.getOrCreateRuntimeMetamodelType() endif;
+	return;
+}
+
+helper setupElementType(inout genLink : GMFGEN::GenLink) {
+	if genLink.modelFacet.oclIsUndefined() then 
+		genLink.elementType := object GMFGEN::NotationType {}
+	else 
+		if genLink.modelFacet.oclIsKindOf(GMFGEN::TypeModelFacet) then
+			genLink.elementType := genLink.modelFacet.oclAsType(GMFGEN::TypeModelFacet).metaClass.getOrCreateRuntimeMetamodelType()
+		else { -- ref-based link; specialize null
+			genLink.elementType := object GMFGEN::SpecializationType {};
+		--	genLink.elementType.displayName := genLink.modelFacet.oclAsType(FeatureLinkModelFacet).metaFeature.ecoreFeature.name.firstToUpper();
+		} endif
+	endif;
+	return;
+}
 
 --	
 --	Queries
