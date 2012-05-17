@@ -12,7 +12,7 @@
  */
 library Audits;
  
-import Map2GenUtil;
+import Utils;
 import Mappings;
 import gmf.GenModelAccess;
 

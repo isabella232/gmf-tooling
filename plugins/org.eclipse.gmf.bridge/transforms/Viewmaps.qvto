@@ -11,7 +11,7 @@
  *    Guillaume Hillairet (Montages A.G.)
  */
 import xpt.XpandFacade;
-import Map2GenUtil;
+import Utils;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');

@@ -12,7 +12,7 @@
  */
 library ModelFacets;
 
-import Map2GenUtil;
+import Utils;
 import ValueExpressions;
 import Parsers;
 
