@@ -8,9 +8,7 @@
  * Contributors:
  * 	Guillaume Hillairet (Montages A.G.) : initial implementation
 */
-library CustomBehaviours;
-
-import Mappings;
+library Behaviours;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
@@ -21,42 +19,52 @@ modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 --	Custom Behaviour
 --
 
-helper GMFMAP::Mapping::customBehaviours() {
-	self.nodes->collect(customBehaviours());
-	self.links->collect(customBehaviours());
+helper GMFMAP::CanvasMapping::handleRelatedDiagram(in mapElement : GMFMAP::MappingEntry) : GMFGEN::OpenDiagramBehaviour =
+	object GMFGEN::OpenDiagramBehaviour {
+		-- XXX alternative approach to tell whether related diagram is the same we are processing now, 
+		-- originally self.eResource() != mapElement.eResource()
+		if self <> mapElement.container() then {
+			diagramKind := 'FIXME put GenEditorGenerator.modelID value here';
+			editorID := 'FIXME put GenEditorView.id value here';
+		} endif;
+	};
+
+--helper GMFMAP::Mapping::customBehaviours() {
+--	self.nodes->collect(customBehaviours());
+--	self.links->collect(customBehaviours());
 --	self.getCompartments()->collect(e | e.c.customBehaviours(e.n, e.r));
 	
-	return;
-}
+--	return;
+--}
 
-helper GMFMAP::TopNodeReference::customBehaviours() {
-	var genNode := self.resolveone(GenTopLevelNode);
-	genNode.behaviour += self.child.visualEffects->map createVisualEffects(genNode); 
-	self.child.children->collect(customBehaviours());
-	return;
-}
+--helper GMFMAP::TopNodeReference::customBehaviours() {
+--	var genNode := self.resolveone(GenTopLevelNode);
+--	genNode.behaviour += self.child.visualEffects->map createVisualEffects(genNode, self.child.diagramNode); 
+--	self.child.children->collect(customBehaviours());
+--	return;
+--}
 
-helper GMFMAP::ChildReference::customBehaviours() {
-	var node := self.findProcessableChildReference();
-	if not node.oclIsUndefined() then
-		node.map structure(node.child).behaviour += 
-			node.child.visualEffects->map createVisualEffects(node.map structure(node.child))
-	endif
-}
+--helper GMFMAP::ChildReference::customBehaviours() {
+--	var node := self.findProcessableChildReference();
+--	if not node.oclIsUndefined() then
+--		node.map structure(node.child).behaviour += 
+--			node.child.visualEffects->map createVisualEffects(node.map structure(node.child), node.child.diagramNode)
+--	endif
+--}
 
-helper GMFMAP::LinkMapping::customBehaviours() {
-	self.map structure().behaviour += self.visualEffects->map createVisualEffects(self.map structure());
-	return;
-}
+--helper GMFMAP::LinkMapping::customBehaviours() {
+--	self.map structure().behaviour += self.visualEffects->map createVisualEffects(self.map structure(), self.diagramLink);
+--	return;
+--}
 
 --
 --	VisualEffect
 --
 
-mapping GMFMAP::VisualEffectMapping::createVisualEffects(parent: GMFGEN::GenCommonBase): GMFGEN::GenVisualEffect {
+mapping GMFMAP::VisualEffectMapping::createVisualEffects(parent: GMFGEN::GenCommonBase, diagramElement: GMFGRAPH::DiagramElement): GMFGEN::GenVisualEffect {
 	name := self.diagramPin.name;
 	pinKind := self.diagramPin.oclAsType(EObject).eClass().name;
-	operationName := self.diagramPin.getOperationName();
+	operationName := diagramElement.getOperationName(self.diagramPin);
 	operationType := self.diagramPin.getOperationType();
 	oclExpression := self.oclExpression;
 	
