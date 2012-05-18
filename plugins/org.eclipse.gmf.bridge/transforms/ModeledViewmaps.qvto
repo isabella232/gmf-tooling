@@ -15,48 +15,9 @@ modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 modeltype GMFGRAPH uses gmfgraph('http://www.eclipse.org/gmf/2006/GraphicalDefinition');
 modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
--- *************************************************************************************
+--
 -- Modeled Viewmaps
--- *************************************************************************************
-
-helper viewmaps(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiagram) {
-	
-	genDiagram.viewmap := object ModeledViewmap {
-		figureModel := mapRoot.diagram.diagramCanvas.oclAsType(EObject);
-	};
-	
-	genDiagram.topLevelNodes->forEach(node) {
-		var topReference := node.invresolveone(TopNodeReference); 
-		node.viewmap := topReference.child.diagramNode.viewmap();
-		node.labels->forEach(label) {
-			var labelMapping := label.invresolveone(LabelMapping);
-			label.viewmap := labelMapping.diagramLabel.viewmap();
-		}
-	};
-	
-	genDiagram.childNodes->forEach(node) {
-		var childReference := node.invresolveone(ChildReference);
-		node.viewmap := childReference.child.diagramNode.viewmap();
-		node.labels->forEach(label) {
-			var labelMapping := label.invresolveone(LabelMapping);
-			label.viewmap := labelMapping.diagramLabel.viewmap();
-		}
-	};
-	
-	genDiagram.links->forEach(link) {
-		var linkMapping := link.invresolveone(LinkMapping);
-		link.viewmap := linkMapping.diagramLink.viewmap();
-		link.labels->forEach(label) {
-			var labelMapping := label.invresolveone(LabelMapping);
-			label.viewmap := labelMapping.diagramLabel.viewmap();
-		}
-	};
-	
-	genDiagram.compartments->forEach(cpt) {
-		var cptMapping := cpt.invresolveone(CompartmentMapping);
-		cpt.viewmap := cptMapping.compartment.viewmap();
-	}
-}
+--
 
 helper GMFGRAPH::Node::viewmap() : GMFGEN::Viewmap {
 	var rs := object ModeledViewmap { 

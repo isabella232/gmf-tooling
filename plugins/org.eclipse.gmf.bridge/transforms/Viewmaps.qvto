@@ -20,51 +20,11 @@ modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
 library Viewmaps;
 
-helper viewmaps(in mapRoot : GMFMAP::Mapping, inout genDiagram : GMFGEN::GenDiagram) {
-	
-	genDiagram.viewmap := mapRoot.diagram.diagramCanvas.map viewmap();
-	
-	genDiagram.topLevelNodes->forEach(node) {
-		var topReference := node.invresolveone(TopNodeReference);
-		node.viewmap := topReference.child.diagramNode.viewmap();
-		node.labels->forEach(label) {
-			var labelMapping := label.invresolveone(LabelMapping);
-			label.viewmap := labelMapping.diagramLabel.viewmap();
-		}
-	};
-	
-	genDiagram.childNodes->forEach(node) {
-		var childReference := node.invresolveone(ChildReference);
-		node.viewmap := childReference.viewmap(childReference.child);
-		node.labels->forEach(label) {
-			var labelMapping := label.invresolveone(LabelMapping);
-			label.viewmap := labelMapping.diagramLabel.viewmap();
-		}
-	};
-	
-	genDiagram.compartments->forEach(cpt) {
-		var compartmentMapping := cpt.invresolveone(CompartmentMapping);
-		cpt.viewmap := compartmentMapping.compartment.viewmap();
-	};
-	
-	genDiagram.links->forEach(link) {
-		var linkMapping := link.invresolveone(LinkMapping);
-		link.viewmap := linkMapping.diagramLink.viewmap();
-		link.labels->forEach(label) {
-			var labelMapping := label.invresolveone(LabelMapping);
-			label.viewmap := labelMapping.diagramLabel.viewmap();
-			label.viewmap.attributes += labelMapping.diagramLabel.labelOffSetAttributes(link.labels->indexOf(label));
-		}
-	};
-		
-	return;
-}
-
---	=================================================================================================
+--
 --	Canvas
---	=================================================================================================
+--
 
-mapping GMFGRAPH::Canvas::viewmap() : GMFGEN::Viewmap when {true} {
+mapping GMFGRAPH::Canvas::viewmap() : GMFGEN::Viewmap {
 	init {
 		result := object GMFGEN::FigureViewmap {
 			figureQualifiedClassName := 'org.eclipse.draw2d.FreeformLayer';
@@ -72,9 +32,9 @@ mapping GMFGRAPH::Canvas::viewmap() : GMFGEN::Viewmap when {true} {
 	}
 }
 
---	=================================================================================================
+--
 --	ChildReference
---	=================================================================================================
+--
 
 helper GMFMAP::ChildReference::viewmap(node: GMFMAP::NodeMapping) : GMFGEN::Viewmap =
 	if node.isPureLabelNode() then
@@ -83,9 +43,9 @@ helper GMFMAP::ChildReference::viewmap(node: GMFMAP::NodeMapping) : GMFGEN::View
 		node.diagramNode.map viewmap()
 	endif;
 
---	=================================================================================================
+--
 --	Node
---	=================================================================================================
+--
 
 helper GMFGRAPH::Node::viewmap(): GMFGEN::Viewmap {
 	var rs := self.figure.viewmap();
@@ -142,9 +102,9 @@ query GMFGRAPH::Node::getLayoutType(): GMFGEN::ViewmapLayoutType {
 	return layout;
 }
 
---	=================================================================================================
+--	
 --	Compartment
---	=================================================================================================
+--	
 
 helper GMFGRAPH::Compartment::viewmap() : GMFGEN::Viewmap {
 	if self.figure.oclIsUndefined() then
@@ -157,9 +117,9 @@ helper GMFGRAPH::Compartment::viewmap() : GMFGEN::Viewmap {
 	return self.figure.viewmap(self.accessor);
 }
 
---	=================================================================================================
+--	
 --	Connection
---	=================================================================================================
+--	
 
 helper GMFGRAPH::Connection::viewmap() : GMFGEN::Viewmap {
 	var rs : GMFGEN::Viewmap := null;
@@ -175,9 +135,9 @@ helper GMFGRAPH::Connection::viewmap() : GMFGEN::Viewmap {
 	return rs;
 }
 
---	=================================================================================================
+--	
 --	DiagramLabel
---	=================================================================================================
+--	
 
 helper GMFGRAPH::DiagramLabel::viewmap(): GMFGEN::Viewmap {
 	var rs : GMFGEN::Viewmap := null;
@@ -210,9 +170,9 @@ helper DiagramLabel::labelOffSetAttributes(position: Integer): LabelOffsetAttrib
 		} endif;
 	};
 
---	=================================================================================================
+--	
 --	Figure
---	=================================================================================================
+--	
 
 helper GMFGRAPH::FigureDescriptor::viewmap() : GMFGEN::Viewmap {
 	var rs: GMFGEN::Viewmap := null;
