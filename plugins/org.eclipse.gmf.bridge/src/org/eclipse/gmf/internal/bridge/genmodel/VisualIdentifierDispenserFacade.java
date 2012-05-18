@@ -34,33 +34,34 @@ public class VisualIdentifierDispenserFacade {
 	
 	@Operation(contextual = true, kind = Kind.QUERY)
 	public int getVisualID(Object self) {
-		assert Provider.dispenser != null;
+		VisualIdentifierDispenser dispenser = Provider.getDisenser();
+		assert dispenser != null;
 		
 		int visualID = -1;
 		
 		if (self instanceof GenDiagram)
-			visualID = Provider.getDisenser().get((GenDiagram) self);
+			visualID = dispenser.get((GenDiagram) self);
 		
 		else if (self instanceof GenTopLevelNode)
-			visualID = Provider.getDisenser().get((GenTopLevelNode) self);
+			visualID = dispenser.get((GenTopLevelNode) self);
 		
 		else if (self instanceof GenChildNode)
-			visualID = Provider.getDisenser().get((GenChildNode) self);
+			visualID = dispenser.get((GenChildNode) self);
 		
 		else if (self instanceof GenCompartment)
-			visualID = Provider.getDisenser().get((GenCompartment) self);
+			visualID = dispenser.get((GenCompartment) self);
 		
 		else if (self instanceof GenNodeLabel)
-			visualID = Provider.getDisenser().get((GenNodeLabel) self);
+			visualID = dispenser.get((GenNodeLabel) self);
 		
 		else if (self instanceof GenLink)
-			visualID = Provider.getDisenser().get((GenLink) self);
+			visualID = dispenser.get((GenLink) self);
 		
 		else if (self instanceof GenLinkLabel)
-			visualID = Provider.getDisenser().get((GenLinkLabel) self);
+			visualID = dispenser.get((GenLinkLabel) self);
 		
 		else if (self instanceof ToolGroup)
-			visualID = Provider.getDisenser().get((ToolGroup) self);
+			visualID = dispenser.get((ToolGroup) self);
 		
 		return visualID;
 	}
