@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
-import org.eclipse.gmf.internal.bridge.StatefulVisualIdentifierDispencer;
+import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
@@ -37,13 +37,13 @@ public class TransformationTestSupport {
 	
 	abstract static class Transformation {
 		protected GenEditorGenerator editor;
-		protected StatefulVisualIdentifierDispencer dispenser;
+		protected VisualIdentifierDispenser dispenser;
 				
 		public GenEditorGenerator getEditor() {
 			return editor;
 		}
 		public abstract GenEditorGenerator execute(URI outputURI);
-		public StatefulVisualIdentifierDispencer getDispencer() {return dispenser;}
+		public VisualIdentifierDispenser getDispencer() {return dispenser;}
 	}
 	
 	public static Transformation getJavaTransformation(final GenModel genModel, final Mapping mapping, final boolean useModeledViewmap) {
@@ -53,7 +53,7 @@ public class TransformationTestSupport {
 				VisualIdentifierDispenserProvider provider = new VisualIdentifierDispenserProvider(outputURI); //traceURI.trimFileExtension().appendFileExtension("java.gmfgen")
 				provider.acquire();
 				
-				dispenser = (StatefulVisualIdentifierDispencer) provider.get();
+				dispenser = provider.get();
 				
 				GenModelProducer producer = getJavaGenModelProducer(useModeledViewmap, genModel, provider);
 				try {
@@ -77,7 +77,7 @@ public class TransformationTestSupport {
 				VisualIdentifierDispenserProvider provider = new VisualIdentifierDispenserProvider(outputURI);
 				provider.acquire();
 				
-				dispenser = (StatefulVisualIdentifierDispencer) provider.get();
+				dispenser = provider.get();
 				GenModelProducer producer = getQvtGenModelProducer(useModeledViewmap, genModel, provider, genModel.eResource().getResourceSet());
 				try {
 					editor = producer.process(mapping, null);

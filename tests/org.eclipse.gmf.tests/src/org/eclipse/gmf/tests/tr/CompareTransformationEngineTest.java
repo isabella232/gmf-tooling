@@ -389,7 +389,7 @@ public class CompareTransformationEngineTest extends ConfiguredTestCase {
 	}
 	
 	public void testGenLinksAttributes() {		
-		//	GenTopLevelNode
+		//	GenLink
 		EList<GenLink> expected = expectedGenerator.getDiagram().getLinks();
 		EList<GenLink> actual = actualGenerator.getDiagram().getLinks();
 
@@ -411,8 +411,8 @@ public class CompareTransformationEngineTest extends ConfiguredTestCase {
 			assertEquals(expLink.getNotationViewFactoryQualifiedClassName(), actLink.getNotationViewFactoryQualifiedClassName());
 			assertEquals(expLink.getReorientCommandClassName(), actLink.getReorientCommandClassName());
 			assertEquals(expLink.getReorientCommandQualifiedClassName(), actLink.getReorientCommandQualifiedClassName());
-			assertEquals(expLink.getUniqueIdentifier(), actLink.getUniqueIdentifier());
 			assertEquals(expLink.getVisualID(), actLink.getVisualID());
+			assertEquals(expLink.getUniqueIdentifier(), actLink.getUniqueIdentifier());
 		}
 	}
 	
@@ -425,7 +425,7 @@ public class CompareTransformationEngineTest extends ConfiguredTestCase {
 		for (int i=0; i<expCompartments.size(); i++) {
 			GenCompartment exp = expCompartments.get(i);
 			GenCompartment act = findCompartment(exp, actCompartments);
-			assertNotNull("Identical GenCompartment should be found", act);
+			assertNotNull("Compartment with ID "+exp.getVisualID()+" not found", act);
 			
 			assertEquals("Node visualID should be the same", exp.getVisualID(), act.getVisualID());
 			assertEquals(exp.getCanonicalEditPolicyClassName(), act.getCanonicalEditPolicyClassName());
