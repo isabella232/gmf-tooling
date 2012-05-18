@@ -10,7 +10,7 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  *    Guillaume Hillairet (Montages A.G.)
  */
-import Map2GenUtil;
+import Utils;
 import Mappings;
 import DiagramRunTimeModel;
 import PropertySheet;
@@ -18,13 +18,8 @@ import PreferencePages;
 import Navigator;
 import Actions;
 import RichClientPlatformApp;
-import Viewmaps;
-import ModeledViewmaps;
-import Identity;
 import Audits;
 import Parsers;
-import CustomBehaviours;
-import gmf.GenModelAccess;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
@@ -44,8 +39,9 @@ configuration property useInTransformationCodeGen: Boolean;
 main() {
 	var mapRoot := mapModel.rootObjects()![GMFMAP::Mapping]; 
 	genModel := domainGenModel.rootObjects()![GENMODEL::GenModel];
-	-- childReferences := mapRoot.getChildReferences();
+	
 	Viewmaps::setMapMode(useMapMode);
+	useModeledViewmaps := not useInTransformationCodeGen;
 	
 	var genEditor := mapRoot.map structure();
 	genEditor.diagram.palette := mapRoot.diagram.map palette();
@@ -53,15 +49,8 @@ main() {
 	genEditor.plugin := mapRoot.map editorPlugin();
 	genEditor.editor := object GenEditorView {};
 	
-	mapRoot.visualIdentity(); -- generate visual IDs for each node.
-	mapRoot.customBehaviours();
-	
-	if useInTransformationCodeGen then
-		Viewmaps::viewmaps(mapRoot, genEditor.diagram) -- adds viewmaps to each nodes.
-	else
-		ModeledViewmaps::viewmaps(mapRoot, genEditor.diagram) -- adds modeledViewmaps to each nodes.
-	endif;
-	
+--	mapRoot.customBehaviours();
+		
 	genEditor.diagramUpdater := object GenDiagramUpdater {};
 	genEditor.audits := mapRoot.audits.map audits(); -- these two should go before expression providers collection
 	genEditor.metrics := mapRoot.metrics.map metrics();
