@@ -15,6 +15,10 @@ library Mappings;
 import Utils;
 import ModelFacets;
 import Palette;
+import Viewmaps;
+import ModeledViewmaps;
+import Identity;
+import Behaviours;
 
 modeltype GMFMAP uses mappings('http://www.eclipse.org/gmf/2006/mappings');
 modeltype GMFTOOL uses tooldef('http://www.eclipse.org/gmf/2005/ToolDefinition');
@@ -38,9 +42,8 @@ mapping GMFMAP::Mapping::structure() : GMFGEN::GenEditorGenerator {
 	genEditorGenerator := result;
 	
 	childReferences := self.getChildReferences();
-	diagram.topLevelNodes += self.nodes->map structure();
-	diagram.childNodes += childReferences->collect(e | e.map structure(e.child));
-	diagram.links := self.links->map structure()->asOrderedSet();
+	self.nodes->map structure();
+	diagram.links := self.links->map structure();
 		
 	diagram.getAllNodes()->forEach(n) { setupElementType(n) };
 	diagram.links->forEach(l) { setupElementType(l) };
@@ -57,9 +60,16 @@ mapping GMFMAP::Mapping::createProviderContainer(): GMFGEN::GenExpressionProvide
 }
 
 mapping GMFMAP::CanvasMapping::structure() : GMFGEN::GenDiagram {
-	domainDiagramElement := self.domainMetaElement.findGenClass();
-	iconProviderPriority := GMFGEN::ProviderPriority::Low;
-	validationProviderPriority := GMFGEN::ProviderPriority::Low;
+	init {
+		result := object GenDiagram {
+			viewmap := self.viewmap();
+			domainDiagramElement := self.domainMetaElement.findGenClass();
+			iconProviderPriority := GMFGEN::ProviderPriority::Low;
+			validationProviderPriority := GMFGEN::ProviderPriority::Low;
+		}
+	}
+	
+	result.visualID := result.visualID();
 	
 	if result.domainDiagramElement.oclIsUndefined() then 
 		result.elementType := object GMFGEN::NotationType {}
@@ -73,76 +83,136 @@ mapping GMFMAP::CanvasMapping::structure() : GMFGEN::GenDiagram {
 -- 
 
 mapping GMFMAP::TopNodeReference::structure() : GMFGEN::GenTopLevelNode {
-	modelFacet := self.createModelFacet();
+	init {
+		result := object GenTopLevelNode {
+			modelFacet := self.createModelFacet();
+			viewmap := self.viewmap();		
+		}
+	}
+	genEditorGenerator.diagram.topLevelNodes += result;
+	result.visualID := result.visualID();
 	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
-	genEditorGenerator.diagram.compartments += self.child->collect(e | e.compartments->map structure(e, self));
 	
-	self.child.children->select(e | e.compartment.oclIsUndefined())->forEach(c) {
-		var node := c.findProcessableChildReference();
-		childNodes += node.map structure(node.child);
+	self.child.map abstractStructure(result);
+		
+	labels += self.child.labelMappings->map createNodeLabel(self, result);
+	behaviour += self.child.relatedDiagrams.handleRelatedDiagram(self.child);
+	behaviour += self.child.visualEffects->map createVisualEffects(result, self.child.diagramNode); 
+}
+
+--
+--
+--
+mapping GMFMAP::NodeMapping::abstractStructure(inout genNode: GMFGEN::GenNode) {
+	var mapOfCompartments : Dict(CompartmentMapping, GenCompartment) = Dict{};
+	self.compartments->forEach(c) {
+		var childCompartment := object GMFGEN::GenCompartment {
+			title := c.compartment.name;
+			canCollapse := c.compartment.collapsible;
+			needsTitle := c.compartment.needsTitle;
+			viewmap := c.viewmap();
+		};
+		mapOfCompartments->put(c, childCompartment);
+		genEditorGenerator.diagram.compartments += childCompartment;
+		genNode.compartments += childCompartment;
+		childCompartment.node := genNode;
+		childCompartment.visualID := childCompartment.visualID();
 	};
 	
-	labels += self.child.labelMappings->map createNodeLabel(self);
-	behaviour += self.child.relatedDiagrams.handleRelatedDiagram(self.child);
+	self.children->forEach(childNodeRef) {
+		var compartmentMapping := childNodeRef.compartment;
+		var genChildContainer : GenChildContainer = null; 
+		if not compartmentMapping.oclIsUndefined() and not mapOfCompartments->get(compartmentMapping).oclIsUndefined() then
+			genChildContainer := mapOfCompartments->get(compartmentMapping)
+		else
+			 genChildContainer := genNode
+		endif;
+		
+		var childNodeMapping := childNodeRef.child;
+		var node := childNodeRef.findProcessableChildReference();
+		var childNode := node.map structure(childNodeMapping);
+		if genChildContainer.oclIsKindOf(GenCompartment) and childNodeMapping.children->size() > 0 then
+			genChildContainer.oclAsType(GenCompartment).listLayout := false
+		endif;
+		genChildContainer.childNodes += childNode;
+	};
 }
 
 -- 
 -- GenChildNode
 -- 
-abstract mapping GMFMAP::ChildReference::abstractStructure(node: GMFMAP::NodeMapping): GMFGEN::GenChildNode {
+abstract mapping GMFMAP::ChildReference::abstractStructure(nodeMapping: GMFMAP::NodeMapping): GMFGEN::GenChildNode {
 	modelFacet := self.createModelFacet();
-	
-	self.child.children[ChildReference]->select(e | e.compartment.oclIsUndefined())->forEach(c) {
-		var node := c.findProcessableChildReference();
-		childNodes += node.map structure(node.child);
-	};
+	viewmap := self.viewmap(nodeMapping);
+
 	self.child.tool.map paletteEntry().oclAsType(ToolEntry).genNodes += result;
-	
-	genEditorGenerator.diagram.compartments += self.child->collect(e | e.compartments->map structure(e, self));
 }
 
-mapping GMFMAP::ChildReference::structure(node: GMFMAP::NodeMapping) : GMFGEN::GenChildNode
+mapping GMFMAP::ChildReference::structure(nodeMapping: GMFMAP::NodeMapping) : GMFGEN::GenChildNode
 disjuncts 
 	GMFMAP::ChildReference::createGenChildLabelNode, 
 	GMFMAP::ChildReference::createGenChildSideAffixedNode, 
 	GMFMAP::ChildReference::createGenChildNode 
 {}
 
-mapping GMFMAP::ChildReference::createGenChildLabelNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildLabelNode
+mapping GMFMAP::ChildReference::createGenChildLabelNode(nodeMapping: GMFMAP::NodeMapping) : GMFGEN::GenChildLabelNode
 inherits GMFMAP::ChildReference::abstractStructure 
 when { 
-	node.isPureLabelNode() 
+	nodeMapping.isPureLabelNode() 
 } 
 {
-	var soleLabel := node.labelMappings->first();
+	init {
+		result := object GMFGEN::GenChildLabelNode {}
+	}
+	genEditorGenerator.diagram.childNodes += result;
+	result.visualID := result.visualID();
+	
+	var soleLabel := nodeMapping.labelMappings->first();
 	labelModelFacet := soleLabel.map createLabelModelFacet(self);
 	labelReadOnly := soleLabel.readOnly;
 	labelElementIcon := soleLabel.diagramLabel.elementIcon;
 }
 
-mapping GMFMAP::ChildReference::createGenChildSideAffixedNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildSideAffixedNode
+mapping GMFMAP::ChildReference::createGenChildSideAffixedNode(nodeMapping: GMFMAP::NodeMapping) : GMFGEN::GenChildSideAffixedNode
 inherits GMFMAP::ChildReference::abstractStructure 
 when { 
-	node.diagramNode.affixedParentSide <> GMFGRAPH::Direction::NONE
+	nodeMapping.diagramNode.affixedParentSide <> GMFGRAPH::Direction::NONE
 } 
 {
-	preferredSideName := node.diagramNode.getAffixedSideAsPositionConstantsName();	
-	labels += node.labelMappings->map createNodeLabel(self);
-	behaviour += node.relatedDiagrams.handleRelatedDiagram(node);
+	init {
+		result := object GMFGEN::GenChildSideAffixedNode {}
+	}
+	
+	genEditorGenerator.diagram.childNodes += result;
+	result.visualID := result.visualID();
+	self.child.map abstractStructure(result);
+	
+	preferredSideName := nodeMapping.diagramNode.getAffixedSideAsPositionConstantsName();	
+	labels += nodeMapping.labelMappings->map createNodeLabel(self, result);
+	behaviour += nodeMapping.relatedDiagrams.handleRelatedDiagram(nodeMapping);
+	behaviour +=  nodeMapping.visualEffects->map createVisualEffects(result, nodeMapping.diagramNode);
 }
 
-mapping GMFMAP::ChildReference::createGenChildNode(node: GMFMAP::NodeMapping) : GMFGEN::GenChildNode 
+mapping GMFMAP::ChildReference::createGenChildNode(nodeMapping: GMFMAP::NodeMapping) : GMFGEN::GenChildNode 
 inherits GMFMAP::ChildReference::abstractStructure
 {
-	labels += node.labelMappings->map createNodeLabel(self); 	
-	behaviour += node.relatedDiagrams.handleRelatedDiagram(node);
+	init {
+		result := object GMFGEN::GenChildNode {}
+	}
+	genEditorGenerator.diagram.childNodes += result;
+	result.visualID := result.visualID();
+	self.child.map abstractStructure(result);
+	
+	nodeMapping.labelMappings->map createNodeLabel(self, result); 	
+	behaviour += nodeMapping.relatedDiagrams.handleRelatedDiagram(nodeMapping);
+	behaviour +=  nodeMapping.visualEffects->map createVisualEffects(result, nodeMapping.diagramNode);
 }
 
 -- 
 -- NodeLabel
 -- 
 
-mapping GMFMAP::LabelMapping::createNodeLabel(node: NodeReference) : GMFGEN::GenNodeLabel {
+mapping GMFMAP::LabelMapping::createNodeLabel(node: NodeReference, inout genNode: GMFGEN::GenNode) : GMFGEN::GenNodeLabel {
 	init {
 		if self.diagramLabel.external then
 			result := object GenExternalNodeLabel {}
@@ -151,71 +221,67 @@ mapping GMFMAP::LabelMapping::createNodeLabel(node: NodeReference) : GMFGEN::Gen
 		endif
 	}
 	
+	result.viewmap := self.viewmap();
 	result.modelFacet := self.map createLabelModelFacet(node);
 	result.readOnly := self.readOnly;
-	result.elementIcon := self.diagramLabel.elementIcon;	
+	result.elementIcon := self.diagramLabel.elementIcon;
+	genNode.labels += result;
+	result.visualID := result.visualID();
 }
 
-mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink {
-	assert(not self.diagramLink.oclIsUndefined()) with log("link diagram link cannot be null");
-	if not self.domainMetaElement.oclIsUndefined() then 
-		assert(not self.linkMetaFeature.oclIsUndefined()) with log("linkMetaFeature cannot be null")
-	endif;
+--
+--	GenLink
+--
+mapping GMFMAP::LinkMapping::structure() : GMFGEN::GenLink 
+when {
+	not self.diagramLink.oclIsUndefined() and
+	not self.linkMetaFeature.oclIsUndefined()
+}{
+	init {
+		result := object GMFGEN::GenLink {
+			-- model facet
+			if not (self.domainMetaElement.oclIsUndefined() and self.linkMetaFeature.oclIsUndefined()) then 
+				modelFacet := self.map createModelFacet()
+			endif;
+			
+			viewmap := self.viewmap();		
+		}
+	}
 	
-	-- model facet
-	if not (self.domainMetaElement.oclIsUndefined() and self.linkMetaFeature.oclIsUndefined()) then 
-		modelFacet := self.map createModelFacet()
-	endif;
+	genEditorGenerator.diagram.links += result;
+	result.visualID := result.visualID();
 	
 	-- labels
-	labels += self.labelMappings->map structure(self);
-	
+	self.labelMappings->map structure(self, result);
+			
 	self.tool.map paletteEntry().oclAsType(ToolEntry).genLinks += result;
 	result.creationConstraints := self.creationConstraints.map structure();
+	
+	behaviour += self.visualEffects->map createVisualEffects(result, self.diagramLink);
 }
 
--- 
--- Compartment
--- 
-
-mapping GMFMAP::CompartmentMapping::structure(_mapping: GMFMAP::NodeMapping, container: GMFMAP::NodeReference): GMFGEN::GenCompartment {
+mapping LabelMapping::structure(link: GMFMAP::LinkMapping, inout genLink: GMFGEN::GenLink): GenLinkLabel {
 	init {
-		result := object GMFGEN::GenCompartment {
-			canCollapse := self.compartment.collapsible;
-			needsTitle := self.compartment.needsTitle;
-			title := self.compartment.name;
-			if container.oclIsKindOf(GMFMAP::TopNodeReference) then {
-				node := container.resolveone(GMFGEN::GenNode)
-			} else {
-				node := container.oclAsType(ChildReference).map structure(_mapping)
-			} endif
-		};
-	}
-		
-	allChildReferences->select(e | e.compartment = self)->forEach(c) {
-		if c.child.children->size() > 0 then
-			listLayout := false
-		endif;
-		
-		var node := c.findProcessableChildReference(); 
-		childNodes += node.map structure(node.child);	
-	};
-}
-
-mapping LabelMapping::structure(link: GMFMAP::LinkMapping): GenLinkLabel {
-	readOnly := self.readOnly;
-	elementIcon := self.diagramLabel.elementIcon;
-	modelFacet := self.map createLabelModelFacet(link);
+		result := object GMFGEN::GenLinkLabel {
+			readOnly := self.readOnly;
+			elementIcon := self.diagramLabel.elementIcon;
+			modelFacet := self.map createLabelModelFacet(link);
+			viewmap := self.viewmap();
 			
-	var alignmentFacet := self.diagramLabel.findAlignmentFacet();
-	if not alignmentFacet.oclIsUndefined() then
-		alignment := switch  {
-			case (alignmentFacet.alignment = GMFGRAPH::Alignment::BEGINNING) LinkLabelAlignment::SOURCE;
-			case (alignmentFacet.alignment = GMFGRAPH::Alignment::CENTER) LinkLabelAlignment::MIDDLE;
-			case (alignmentFacet.alignment = GMFGRAPH::Alignment::END) LinkLabelAlignment::TARGET;
-			else LinkLabelAlignment::MIDDLE;
+			var alignmentFacet := self.diagramLabel.findAlignmentFacet();
+			if not alignmentFacet.oclIsUndefined() then
+				alignment := switch  {
+					case (alignmentFacet.alignment = GMFGRAPH::Alignment::BEGINNING) LinkLabelAlignment::SOURCE;
+					case (alignmentFacet.alignment = GMFGRAPH::Alignment::CENTER) LinkLabelAlignment::MIDDLE;
+					case (alignmentFacet.alignment = GMFGRAPH::Alignment::END) LinkLabelAlignment::TARGET;
+					else LinkLabelAlignment::MIDDLE;
+				}
+			endif;
 		}
-	endif;
+	}
+	
+	genLink.labels += result;
+	result.visualID := result.visualID()
 }
 
 
@@ -225,17 +291,6 @@ mapping GENMODEL::GenClass::gmfRuntimeMetamodelType() : GMFGEN::MetamodelType {}
 --
 --	Helpers
 --
-
-helper GMFMAP::CanvasMapping::handleRelatedDiagram(in mapElement : GMFMAP::MappingEntry) : GMFGEN::OpenDiagramBehaviour =
-	object GMFGEN::OpenDiagramBehaviour {
-		-- XXX alternative approach to tell whether related diagram is the same we are processing now, 
-		-- originally self.eResource() != mapElement.eResource()
-		if self <> mapElement.container() then {
-			diagramKind := 'FIXME put GenEditorGenerator.modelID value here';
-			editorID := 'FIXME put GenEditorView.id value here';
-		} endif;
-	};
-
 
 query GENMODEL::GenClass::getOrCreateRuntimeMetamodelType() : GMFGEN::ElementType {
 	var mmt = self.resolveoneIn(GENMODEL::GenClass::gmfRuntimeMetamodelType, GMFGEN::MetamodelType);
@@ -267,6 +322,50 @@ helper setupElementType(inout genLink : GMFGEN::GenLink) {
 	endif;
 	return;
 }
+
+helper GMFMAP::CanvasMapping::viewmap(): Viewmap =
+	if useModeledViewmaps then
+		object ModeledViewmap {
+			figureModel := self.diagramCanvas.oclAsType(EObject);
+		}
+	else
+		self.diagramCanvas.map Viewmaps::viewmap()
+	endif;
+
+helper GMFMAP::TopNodeReference::viewmap(): Viewmap =
+	if useModeledViewmaps then
+		self.child.diagramNode.ModeledViewmaps::viewmap()
+	else
+		self.child.diagramNode.Viewmaps::viewmap()
+	endif;
+
+helper GMFMAP::ChildReference::viewmap(_mapping: NodeMapping): Viewmap =
+	if useModeledViewmaps then
+		self.child.diagramNode.ModeledViewmaps::viewmap()
+	else
+		self.Viewmaps::viewmap(_mapping)
+	endif;
+
+helper GMFMAP::LinkMapping::viewmap(): Viewmap =
+	if useModeledViewmaps then
+		self.diagramLink.ModeledViewmaps::viewmap()
+	else
+		self.diagramLink.Viewmaps::viewmap()
+	endif;
+
+helper GMFMAP::LabelMapping::viewmap(): Viewmap =
+	if useModeledViewmaps then
+		self.diagramLabel.ModeledViewmaps::viewmap()
+	else
+		self.diagramLabel.Viewmaps::viewmap()
+	endif;
+
+helper GMFMAP::CompartmentMapping::viewmap(): Viewmap =
+	if useModeledViewmaps then
+		self.compartment.ModeledViewmaps::viewmap()
+	else
+		self.compartment.Viewmaps::viewmap()
+	endif;
 
 --	
 --	Queries

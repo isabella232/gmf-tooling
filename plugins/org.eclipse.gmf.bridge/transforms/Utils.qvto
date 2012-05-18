@@ -21,10 +21,11 @@ modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 --	Properties
 --
 
+property useModeledViewmaps: Boolean = false;
 property allChildReferences: Sequence(ChildReference) = Sequence{};
 property childReferences: Sequence(ChildReference) = Sequence{};
 property equivalentChild: Dict(ChildReference, Sequence(ChildReference)) = Dict{};
-property genModel : GENMODEL::GenModel = null;
+property genModel: GENMODEL::GenModel = null;
 property processedNodeMappings: Sequence(NodeMapping) = Sequence{};
 
 --
