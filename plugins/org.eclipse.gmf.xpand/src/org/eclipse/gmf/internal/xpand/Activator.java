@@ -24,8 +24,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.xpand.RootManager.RootDescription;
@@ -34,6 +37,7 @@ import org.eclipse.gmf.internal.xpand.build.WorkspaceResourceManager;
 import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin {
+
 	private static Activator anInstance;
 
 	public Activator() {
@@ -56,9 +60,11 @@ public class Activator extends Plugin {
 	public static String getId() {
 		return anInstance == null ? String.valueOf(anInstance) : anInstance.getBundle().getSymbolicName();
 	}
+
 	public static void logWarn(String message) {
 		log(new Status(IStatus.WARNING, getId(), 0, message, null));
 	}
+
 	public static void logError(Exception e) {
 		if (e instanceof CoreException) {
 			log(((CoreException) e).getStatus());
@@ -66,6 +72,7 @@ public class Activator extends Plugin {
 			log(new Status(IStatus.ERROR, getId(), 0, e.getMessage(), e));
 		}
 	}
+
 	public static void log(IStatus status) {
 		if (anInstance != null) {
 			anInstance.getLog().log(status);
@@ -77,7 +84,7 @@ public class Activator extends Plugin {
 	private final Map<IProject, RootManager> rootManagers = new HashMap<IProject, RootManager>();
 
 	public static RootManager getRootManager(IProject project) {
-		synchronized(anInstance.myRootsTracker) {
+		synchronized (anInstance.myRootsTracker) {
 			RootManager result = anInstance.rootManagers.get(project);
 			if (result == null) {
 				result = new RootManager(project);
@@ -86,13 +93,14 @@ public class Activator extends Plugin {
 			return result;
 		}
 	}
-	
+
 	public static WorkspaceResourceManager createWorkspaceResourceManager(IProject project, RootDescription rootDescription) {
 		return rootDescription != null ? new WorkspaceResourceManager(project, rootDescription.getRoots().toArray(new IPath[rootDescription.getRoots().size()]))
 				: new WorkspaceResourceManager(project);
 	}
 
 	private final IResourceChangeListener myRootsTracker = new IResourceChangeListener() {
+
 		public synchronized void resourceChanged(IResourceChangeEvent event) {
 			if (event == null || event.getDelta() == null) {
 				return;
@@ -145,6 +153,7 @@ public class Activator extends Plugin {
 			}
 			return false;
 		}
+
 		private boolean mayAffectOtherResourceManagers(IResourceDelta projectDelta) {
 			if ((projectDelta.getKind() & (IResourceDelta.REMOVED | IResourceDelta.ADDED)) > 0) {
 				return true;
@@ -176,7 +185,7 @@ public class Activator extends Plugin {
 		}
 		return EPackage.Registry.INSTANCE.getEPackage(nsURI);
 	}
-	
+
 	/**
 	 * {@link EcorePlugin#computePlatformURIMap()} analog for GMF Xpand templates.
 	 * Fills supplied registry with metamodels available in the workspace, accessible both with platform:/resource/ and nsURI.
@@ -230,7 +239,40 @@ public class Activator extends Plugin {
 		if (anInstance != null && anInstance.workspaceMetamodelRS != null) {
 			return anInstance.workspaceMetamodelRS;
 		}
-		final ResourceSetImpl resourceSetImpl = new ResourceSetImpl();
+		final ResourceSetImpl resourceSetImpl = new ResourceSetImpl() // 
+//		{
+//
+//			@Override
+//			public String toString() {
+//				return "Activator.getWorkspaceMetamodelsResourceSet(): " + super.toString();
+//			}
+//
+//			@Override
+//			public Resource getResource(URI uri, boolean loadOnDemand) {
+//				int sizeBefore = getResources().size();
+//				Resource result = super.getResource(uri, loadOnDemand);
+//				if (sizeBefore < getResources().size()) {
+//					logWarn("Activator.getWorkspaceMetamodelsResourceSet().: was: " + sizeBefore + //
+//							",\n now: " + getResources().size() + //
+//							",\n requested uri: " + uri + //
+//							",\n loaded: " + result + //
+//							",\n size: " + (result == null ? "null" : result.getContents().size()));
+//					if (!result.getContents().isEmpty()) {
+//						EObject first = result.getContents().get(0);
+//						if (first instanceof EPackage) {
+//							EPackage firstEPackage = (EPackage) first;
+//							logWarn("loaded: package:" + first + //
+//									",\n nsUri: " + firstEPackage.getNsURI() + //
+//									",\n identityHashCode: " + System.identityHashCode(firstEPackage));
+//						} else {
+//							logWarn("loaded: NOT a package:" + first);
+//						}
+//					}
+//				}
+//				return result;
+//			}
+//		}
+		;
 		resourceSetImpl.setURIResourceMap(new EPackageRegistryBasedURIResourceMap(resourceSetImpl.getURIConverter()));
 		// TODO: EcorePlugin.computePlatformURIMap() can return different maps
 		// if some of the project were opened/closed, so it is necessary to
@@ -244,5 +286,4 @@ public class Activator extends Plugin {
 		}
 		return resourceSetImpl;
 	}
-	
 }

@@ -13,6 +13,7 @@ package org.eclipse.gmf.internal.xpand.build;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -40,9 +41,27 @@ import org.eclipse.gmf.internal.xpand.Activator;
  * @author artem
  */
 class WorkspaceModelRegistry implements MetaModelSource {
+
+	/**
+	 * 
+	 * It had been found that having gmfgraph.ecore / gmfgen.ecore from the workspace loaded tp this registry (by platform:resource URIs)
+	 * leads to problems with binding QVTO utility calls, because the xPand code (from this class) supplies the EClass'es from workspace resources 
+	 * while QVTO compiler expects the same-named classes from typed GMFGraphPackageImpl/GmfGenPackageImpl. 
+	 * 
+	 * While we are investigating the problem, as a workaround, we will allow to block all metamodles from given workspace 
+	 * project to be loaded into this registry.
+	 * 
+	 * That is, {@link WorkspaceModelRegistry} in 3.0 release will IGNORE all workspace metamodels from the projects that has the settings file with this name.
+	 * @see #380069  
+	 */
+	private static final String SETTINGS_IGNORE_PROJECT_METAMODELS = ".settings/org.eclipse.gmf.xpand.build.ignore-all-local-metamodels.txt";
+
 	private static class Descriptor {
+
 		final String workspacePath;
+
 		final String nsURI;
+
 		final Resource resource;
 
 		public Descriptor(String workspacePath, String nsURI, Resource res) {
@@ -52,33 +71,38 @@ class WorkspaceModelRegistry implements MetaModelSource {
 			this.resource = res;
 		}
 	}
-	
+
 	private final Map<String, Descriptor> pathToDescriptor = new TreeMap<String, Descriptor>();
+
 	private final Map<String, Descriptor> uriToDescriptor = new TreeMap<String, Descriptor>();
 
 	private final IProject project;
+
 	private boolean isInFullBuild;
+
 	private boolean doneFullBuild;
 
-//	void DEBUG_DUMP() {
-//		System.err.println(">>> " + WorkspaceModelRegistry.class.getSimpleName());
-//		for (Map.Entry<String, Descriptor> e : uriToDescriptor.entrySet()) {
-//			assert e.getKey().equals(e.getValue().nsURI);
-//			System.err.println(e.getKey() + " ==> " + e.getValue().workspacePath);
-//		}
-//		System.err.println("<<< " + WorkspaceModelRegistry.class.getSimpleName());
-//	}
-	
+	//	void DEBUG_DUMP() {
+	//		System.err.println(">>> " + WorkspaceModelRegistry.class.getSimpleName());
+	//		for (Map.Entry<String, Descriptor> e : uriToDescriptor.entrySet()) {
+	//			assert e.getKey().equals(e.getValue().nsURI);
+	//			System.err.println(e.getKey() + " ==> " + e.getValue().workspacePath);
+	//		}
+	//		System.err.println("<<< " + WorkspaceModelRegistry.class.getSimpleName());
+	//	}
+
 	public WorkspaceModelRegistry(IProject project, ResourceSet resolutionResourceSet) {
 		assert project != null;
 		this.project = project;
 		resourceSet = resolutionResourceSet;
 	}
-	
+
 	public WorkspaceModelRegistry(IProject project) {
 		this(project, new ResourceSetImpl());
 		resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 	}
+
+	private Map<String, EPackage> myReturnedResults = new HashMap<String, EPackage>();
 
 	public EPackage find(String nsURI) {
 		Descriptor d = uriToDescriptor.get(nsURI);
@@ -148,6 +172,9 @@ class WorkspaceModelRegistry implements MetaModelSource {
 			filesToAdd.add(f);
 		}
 		for (IFile f : filesToAdd) {
+			if (shouldIgnoreWorkspaceMetamodel(f)) {
+				continue;
+			}
 			try {
 				Resource r = attemptLoad(f);
 				if (r != null && hasSuitableContent(r)) {
@@ -161,6 +188,14 @@ class WorkspaceModelRegistry implements MetaModelSource {
 				// ignore
 			}
 		}
+	}
+
+	private boolean shouldIgnoreWorkspaceMetamodel(IFile metamodelFile) {
+		if (metamodelFile == null) {
+			return false;
+		}
+		IFile ignoreProjectMetamodelsSettings = metamodelFile.getProject().getFile(SETTINGS_IGNORE_PROJECT_METAMODELS);
+		return ignoreProjectMetamodelsSettings != null && ignoreProjectMetamodelsSettings.exists();
 	}
 
 	// TODO per-project?
