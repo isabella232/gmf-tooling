@@ -18,11 +18,13 @@ import java.net.URL;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.internal.bridge.genmodel.QVTDiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
@@ -30,7 +32,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.ExpandBar;
 import org.eclipse.swt.widgets.ExpandItem;
@@ -59,11 +60,13 @@ class ViewmapProducerWizardPage extends WizardPage {
 
 	private Text preReconcileTranfsormText;
 
-	private Text postReconcileTranfsormText;
+	private Text postReconcileTransformText;
 
 	private Button radioDGMT;
 
 	private Button radioQVT;
+
+	private Button radioCustomQVT;
 
 	private Button preReconcileTransformBtn;
 
@@ -157,7 +160,6 @@ class ViewmapProducerWizardPage extends WizardPage {
 		c.setBackground(parent.getBackground());
 		templatesPathText = new Text(c, SWT.SINGLE | SWT.BORDER);
 		Listener modifyListener = new Listener() {
-
 			public void handleEvent(Event event) {
 				validatePage();
 			}
@@ -172,57 +174,116 @@ class ViewmapProducerWizardPage extends WizardPage {
 		map2genControls.setLayout(new FillLayout(SWT.VERTICAL));
 		radioDGMT = new Button(map2genControls, SWT.RADIO);
 		radioDGMT.setText("Use Java transformation");
-
+		
 		radioQVT = new Button(map2genControls, SWT.RADIO);
 		radioQVT.setText("Use QVTO transformation");
 
+		radioCustomQVT = new Button(map2genControls, SWT.RADIO);
+		radioCustomQVT.setText("Use custom QVTO transformation:");
+
 		qvtoFileControl = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
 		qvtoFileControl.addListener(SWT.Modify, modifyListener);
-
-		class EnablementListener implements Listener {
-
-			private final Button myControl;
-
-			private final Control myTarget;
-
-			public EnablementListener(Button control, Control target) {
-				assert control != null && target != null;
-				myControl = control;
-				myTarget = target;
-			}
-
+		
+		radioDGMT.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
-				myTarget.setEnabled(myControl.getSelection());
-
-				if (myControl == radioQVT && !myControl.getSelection()) {
-					TransformOptions options = getOperation().getOptions();
-					options.setTransformation(null);
+				if (event.widget == radioDGMT) {
+					qvtoFileControl.setEditable(false);
+					qvtoFileControl.setEnabled(false);
+					getOperation().getOptions().setTransformation(null);
 				}
 			}
-
-		};
-
-		EnablementListener l = new EnablementListener(radioQVT, qvtoFileControl);
-		radioDGMT.addListener(SWT.Selection, l);
-		radioQVT.addListener(SWT.Selection, l);
+		});
+		radioQVT.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event event) {
+				if (event.widget == radioQVT) {
+					qvtoFileControl.setEditable(false);
+					qvtoFileControl.setEnabled(false);
+					getOperation().getOptions().setTransformation(QVTDiagramGenModelTransformer.getDefaultTransformation());
+				}
+			}
+		});
+		radioCustomQVT.addListener(SWT.Selection, new Listener(){
+			public void handleEvent(Event event) {
+				if (event.widget == radioCustomQVT) {
+					qvtoFileControl.setEditable(true);
+					qvtoFileControl.setEnabled(true);
+					if (qvtoFileControl.getText() != null) {
+						getOperation().getOptions().setTransformation(checkTextFieldURI(qvtoFileControl));
+					}
+				}
+			}
+		});
+		qvtoFileControl.addListener(SWT.CHANGED, new Listener(){
+			public void handleEvent(Event event) {
+				if (event.widget == qvtoFileControl && radioCustomQVT.getSelection() && qvtoFileControl.getText() != null) {
+					getOperation().getOptions().setTransformation(checkTextFieldURI(qvtoFileControl));
+				}
+			}
+		});
 		preReconcileTransformBtn = new Button(map2genControls, SWT.CHECK);
 		preReconcileTransformBtn.setText("Extra in-place gmfgen transformation before a reconcile step");
 		preReconcileTranfsormText = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
 		postReconcileTransformBtn = new Button(map2genControls, SWT.CHECK);
 		postReconcileTransformBtn.setText("Extra in-place gmfgen transformation after a reconcile step");
-		postReconcileTranfsormText = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
-		preReconcileTransformBtn.addListener(SWT.Selection, new EnablementListener(preReconcileTransformBtn, preReconcileTranfsormText));
-		postReconcileTransformBtn.addListener(SWT.Selection, new EnablementListener(postReconcileTransformBtn, postReconcileTranfsormText));
+		postReconcileTransformText = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
+		
+		preReconcileTransformBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (((Button)e.widget).getSelection()) {
+					preReconcileTranfsormText.setEditable(true);
+					preReconcileTranfsormText.setEnabled(true);
+					
+					if (preReconcileTranfsormText.getText() != null) {
+						getOperation().getOptions().setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
+					}
+				} else {
+					preReconcileTranfsormText.setEditable(true);
+					preReconcileTranfsormText.setEnabled(true);
+					getOperation().getOptions().setPreReconcileTransform(null);
+				}
+			}
+		});
+		preReconcileTranfsormText.addListener(SWT.CHANGED, new Listener(){
+			public void handleEvent(Event event) {
+				if (preReconcileTransformBtn.getSelection() && preReconcileTranfsormText.getText() != null) {
+					getOperation().getOptions().setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
+				}
+			}
+		});
+		postReconcileTransformBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if (((Button)e.widget).getSelection()) {
+					postReconcileTransformText.setEditable(true);
+					postReconcileTransformText.setEnabled(true);
+					
+					if (postReconcileTransformText.getText() != null) {
+						getOperation().getOptions().setPostReconcileTransform(checkTextFieldURI(postReconcileTransformText));
+					}
+				} else {
+					postReconcileTransformText.setEditable(true);
+					postReconcileTransformText.setEnabled(true);
+					getOperation().getOptions().setPostReconcileTransform(null);
+				}
+			}
+		});
+		postReconcileTransformText.addListener(SWT.CHANGED, new Listener(){
+			public void handleEvent(Event event) {
+				if (postReconcileTransformBtn.getSelection() && postReconcileTransformText.getText() != null) {
+					getOperation().getOptions().setPostReconcileTransform(checkTextFieldURI(postReconcileTransformText));
+				}
+			}
+		});
 		preReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
-		postReconcileTranfsormText.addListener(SWT.Modify, modifyListener);
+		postReconcileTransformText.addListener(SWT.Modify, modifyListener);
 		String hint = "Transformation should take single inout parameter of GMFGen model type, e.g.\n\nmodeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');\n\ntransformation %s(inout gmfgenModel : GMFGEN);\n\n main() {...}";
 		preReconcileTranfsormText.setToolTipText(String.format(hint, "PreReconcile"));
-		postReconcileTranfsormText.setToolTipText(String.format(hint, "PostReconcile"));
+		postReconcileTransformText.setToolTipText(String.format(hint, "PostReconcile"));
 		myTransformsItem = new ExpandItem(c, SWT.NONE, 1);
 		myTransformsItem.setText("Map to Gen transformation");
 		myTransformsItem.setHeight(map2genControls.computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
 		myTransformsItem.setControl(map2genControls);
-		//
 	}
 
 	void validatePage() {
@@ -241,10 +302,13 @@ class ViewmapProducerWizardPage extends WizardPage {
 		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText));
 		options.setTransformation(checkTextFieldURI(qvtoFileControl));
 		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
-		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTranfsormText));
+		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTransformText));
 	}
 
 	private URL checkTextFieldURI(Text widget) {
+		if (widget == null) {
+			return null;
+		}
 		if (!widget.isEnabled()) {
 			return null;
 		}
@@ -274,16 +338,17 @@ class ViewmapProducerWizardPage extends WizardPage {
 			}
 
 			radioDGMT.setSelection(options.getMainTransformation() == null);
-			radioQVT.setSelection(!radioDGMT.getSelection());
-			qvtoFileControl.setEnabled(radioQVT.getSelection());
-			qvtoFileControl.setText(options.getMainTransformation() != null ? options.getMainTransformation().toString() : ""); //$NON-NLS-1$
+			radioQVT.setSelection(!radioDGMT.getSelection() && !radioCustomQVT.getSelection());
+			radioCustomQVT.setSelection(!radioDGMT.getSelection() && !radioQVT.getSelection());
+			qvtoFileControl.setEnabled(radioCustomQVT.getSelection());
+			qvtoFileControl.setText(options.getMainTransformation() != null ? options.getMainTransformation().toString() : QVTDiagramGenModelTransformer.getDefaultTransformation().toString());
 			preReconcileTransformBtn.setSelection(options.getPreReconcileTransform() != null);
 			preReconcileTranfsormText.setEnabled(preReconcileTransformBtn.getSelection());
 			preReconcileTranfsormText.setText(options.getPreReconcileTransform() != null ? options.getPreReconcileTransform().toString() : ""); //$NON-NLS-1$
 			postReconcileTransformBtn.setSelection(options.getPostReconcileTransform() != null);
-			postReconcileTranfsormText.setEnabled(postReconcileTransformBtn.getSelection());
-			postReconcileTranfsormText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : ""); //$NON-NLS-1$
-			if (radioQVT.getSelection() || preReconcileTransformBtn.getSelection() || postReconcileTransformBtn.getSelection()) {
+			postReconcileTransformText.setEnabled(postReconcileTransformBtn.getSelection());
+			postReconcileTransformText.setText(options.getPostReconcileTransform() != null ? options.getPostReconcileTransform().toString() : ""); //$NON-NLS-1$
+			if (radioQVT.getSelection() || radioCustomQVT.getSelection() || preReconcileTransformBtn.getSelection() || postReconcileTransformBtn.getSelection()) {
 				myTransformsItem.setExpanded(true);
 			}
 		} finally {
