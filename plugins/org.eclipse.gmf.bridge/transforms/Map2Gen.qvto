@@ -48,9 +48,7 @@ main() {
 	genEditor.domainGenModel := mapRoot.diagram.domainModel.findGenPackage().genModel;
 	genEditor.plugin := mapRoot.map editorPlugin();
 	genEditor.editor := object GenEditorView {};
-	
---	mapRoot.customBehaviours();
-		
+			
 	genEditor.diagramUpdater := object GenDiagramUpdater {};
 	genEditor.audits := mapRoot.audits.map audits(); -- these two should go before expression providers collection
 	genEditor.metrics := mapRoot.metrics.map metrics();

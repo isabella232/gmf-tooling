@@ -29,34 +29,6 @@ helper GMFMAP::CanvasMapping::handleRelatedDiagram(in mapElement : GMFMAP::Mappi
 		} endif;
 	};
 
---helper GMFMAP::Mapping::customBehaviours() {
---	self.nodes->collect(customBehaviours());
---	self.links->collect(customBehaviours());
---	self.getCompartments()->collect(e | e.c.customBehaviours(e.n, e.r));
-	
---	return;
---}
-
---helper GMFMAP::TopNodeReference::customBehaviours() {
---	var genNode := self.resolveone(GenTopLevelNode);
---	genNode.behaviour += self.child.visualEffects->map createVisualEffects(genNode, self.child.diagramNode); 
---	self.child.children->collect(customBehaviours());
---	return;
---}
-
---helper GMFMAP::ChildReference::customBehaviours() {
---	var node := self.findProcessableChildReference();
---	if not node.oclIsUndefined() then
---		node.map structure(node.child).behaviour += 
---			node.child.visualEffects->map createVisualEffects(node.map structure(node.child), node.child.diagramNode)
---	endif
---}
-
---helper GMFMAP::LinkMapping::customBehaviours() {
---	self.map structure().behaviour += self.visualEffects->map createVisualEffects(self.map structure(), self.diagramLink);
---	return;
---}
-
 --
 --	VisualEffect
 --
