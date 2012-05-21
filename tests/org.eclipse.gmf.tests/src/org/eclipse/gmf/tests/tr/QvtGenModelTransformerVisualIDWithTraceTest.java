@@ -140,17 +140,14 @@ public class QvtGenModelTransformerVisualIDWithTraceTest extends ConfiguredTestC
 		assertEquals(1, expNodes.size());
 		assertEquals(expNodes.size(), actNodes.size());
 
-//		assertEquals(2001, expNodes.get(0).getVisualID());
+		assertEquals(2001, expNodes.get(0).getVisualID());
 
 		for (int i=0;i<expNodes.size();i++){
 			GenTopLevelNode expNode = expNodes.get(i);
 			GenTopLevelNode actNode = actNodes.get(i);
-
-//			assertEquals(expNode.getVisualID(), actNode.getVisualID());
+			
+			assertEquals(expNode.getVisualID(), actNode.getVisualID());
 		}
-
-		System.out.println(java.getDispencer());
-		System.out.println(qvt.getDispencer());
 		
 		((StatefulVisualIdentifierDispencer) java.getDispencer()).saveState();
 		((StatefulVisualIdentifierDispencer) qvt.getDispencer()).saveState();

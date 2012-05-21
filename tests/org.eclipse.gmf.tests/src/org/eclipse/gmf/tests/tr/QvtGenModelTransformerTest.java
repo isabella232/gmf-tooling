@@ -70,7 +70,7 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 		
 		ResourceSet resourceSet = genModel.eResource().getResourceSet();
 		traceResource = resourceSet.createResource(URI.createURI("test.qvtotrace"));
-		InternalTransformationExecutor executor = //new TransformationExecutor(URI.createURI("platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto"));
+		InternalTransformationExecutor executor = 
 			new InternalTransformationExecutor(URI.createURI("platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto")) {
 				 @Override
 				    protected void handleExecutionTraces(Trace traces) {
@@ -165,13 +165,11 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 			final NodeMapping nodeMapping = topNode.getChild();
 			GenTopLevelNode genNode = findTopNode(nodeMapping);
 			assertNotNull(genNode);
-			System.out.println(nodeMapping.getTool().eContainer());
 			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(genNode, palette));
 		}
 		for (LinkMapping linkMapping : getMapping().getLinks()) {
 			GenLink genLink = find(linkMapping);
 			assertNotNull(genLink);
-			System.out.println(linkMapping.getTool().eContainer());
 			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(genLink, palette));
 		}
 		// TODO add grooping test
