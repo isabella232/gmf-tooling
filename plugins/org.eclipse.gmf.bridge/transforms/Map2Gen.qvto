@@ -66,6 +66,12 @@ main() {
 	new Actions(mapModel, gmfgenModel).transform();
 	
 	if rcp then new RichClientPlatformApp(mapModel, gmfgenModel).transform() endif;
+	
+	-- collect orphan palette items and add them to the Default group.
+	var toolGroup :=  GMFGEN::ToolGroup.allInstances()->any(title = 'Default');
+	GMFGEN::ToolGroupItem.allInstances()->select(e | e.container().oclIsUndefined())->forEach(element) {
+		toolGroup.entries += element;
+	}
 }
 
 -- 
