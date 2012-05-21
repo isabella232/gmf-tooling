@@ -10,6 +10,9 @@
 *******************************************************************************/
 package org.eclipse.gmf.internal.bridge.genmodel;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -36,21 +39,31 @@ import org.eclipse.m2m.qvt.oml.ModelExtent;
 @SuppressWarnings("restriction")
 public class QVTDiagramGenModelTransformer {
 	
+	private final static String myTransfPath = "platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto";
+	private URI myTransfURI;
 	private Trace myTrace;
-	private final URI transfURI = URI.createURI("platform:/plugin/org.eclipse.gmf.bridge/transforms/Map2Gen.qvto");
-	private final ResourceSet resourceSet;
-	private Registry registry;
+	private final ResourceSet myResourceSet;
+	private Registry myRegistry;
 	
 	public QVTDiagramGenModelTransformer(ResourceSet resourceSet, VisualIdentifierDispenser idDespenser) {
-		this.resourceSet = resourceSet;
+		myResourceSet = resourceSet;
 		VisualIdentifierDispenserFacade.Provider.setDispenser(idDespenser);
 	}
 	
+	public static URL getDefaultTransformation() {
+		try {
+			return new URL(myTransfPath);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public ExecutionDiagnostic transform(final Mapping m, final GenModel genModel, final ModelExtent output, final ExecutionContext context) {
-		final Resource trace = m.eResource() == null ? resourceSet.createResource(URI.createURI("trace.qvtotrace")) : resourceSet.createResource(
+		final Resource trace = m.eResource() == null ? myResourceSet.createResource(URI.createURI("trace.qvtotrace")) : myResourceSet.createResource(
 				m.eResource().getURI().trimFileExtension().appendFileExtension("qvtotrace"));
 		
-		final InternalTransformationExecutor executor = new InternalTransformationExecutor(transfURI) {
+		final InternalTransformationExecutor executor = new InternalTransformationExecutor(getTransformation()) {
 			@Override
 			protected void handleExecutionTraces(Trace traces) {
 				super.handleExecutionTraces(traces);
@@ -72,7 +85,7 @@ public class QVTDiagramGenModelTransformer {
 	}
 	
 	public void setRegistry(EPackage.Registry registry) {
-		this.registry = registry;
+		this.myRegistry = registry;
 	}
 	
 	public ExecutionDiagnostic transform(final Mapping m, final GenModel genModel, ModelExtent output, final ExecutionContext context, final URI... extensions) {
@@ -91,8 +104,8 @@ public class QVTDiagramGenModelTransformer {
 		
 		output = getModelExtent(outputGenModel);
 		for (URI extension: extensions) {
-			final InternalTransformationExecutor exec = registry == null ? 
-					new InternalTransformationExecutor(extension) : new InternalTransformationExecutor(extension, registry);
+			final InternalTransformationExecutor exec = myRegistry == null ? 
+					new InternalTransformationExecutor(extension) : new InternalTransformationExecutor(extension, myRegistry);
 			exec.loadTransformation();
 
 			if (1 == exec.getTransformation().getModelParameter().size()) {
@@ -113,5 +126,16 @@ public class QVTDiagramGenModelTransformer {
 		final EList<EObject> mapObjects = new BasicEList<EObject>();
 		mapObjects.add(rootObject);
 		return new BasicModelExtent(mapObjects);
+	}
+
+	public void setTransformationL(URL mainTransformation) {
+		myTransfURI = URI.createURI(mainTransformation.toString());
+	}
+	
+	public URI getTransformation() {
+		if (myTransfURI == null) {
+			myTransfURI = URI.createURI(myTransfPath);
+		}
+		return myTransfURI;
 	}
 }

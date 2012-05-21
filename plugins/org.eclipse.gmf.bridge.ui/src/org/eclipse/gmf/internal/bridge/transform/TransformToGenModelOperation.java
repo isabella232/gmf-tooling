@@ -397,6 +397,7 @@ public class TransformToGenModelOperation {
 			context.setConfigProperty("useInTransformationCodeGen", getOptions().getUseInTransformationCodeGen());
 			
 			final QVTDiagramGenModelTransformer transformer = new QVTDiagramGenModelTransformer(getResourceSet(), idDespenser.get());
+			transformer.setTransformationL(getOptions().getMainTransformation());
 			
 			return new GenModelProducer() {
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
