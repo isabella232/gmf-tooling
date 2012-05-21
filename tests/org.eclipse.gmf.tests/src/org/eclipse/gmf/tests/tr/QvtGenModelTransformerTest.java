@@ -134,7 +134,9 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 		for (TraceRecord record: trace.getTraceRecords()) {
 			if (record.getContext().getContext().getType().equals(GMFMapPackage.eINSTANCE.getLinkMapping().getName())) {
 				if (record.getContext().getContext().getValue().getModelElement().equals(linkMapping)) {
-					return (GenLink) record.getResult().getResult().get(0).getValue().getModelElement();
+					EObject modelElement = record.getResult().getResult().get(0).getValue().getModelElement();
+					if (modelElement instanceof GenLink)
+						return (GenLink) modelElement ;
 				}
 			}
 		}
@@ -163,11 +165,13 @@ public abstract class QvtGenModelTransformerTest extends AbstractMappingTransfor
 			final NodeMapping nodeMapping = topNode.getChild();
 			GenTopLevelNode genNode = findTopNode(nodeMapping);
 			assertNotNull(genNode);
+			System.out.println(nodeMapping.getTool().eContainer());
 			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(genNode, palette));
 		}
 		for (LinkMapping linkMapping : getMapping().getLinks()) {
 			GenLink genLink = find(linkMapping);
 			assertNotNull(genLink);
+			System.out.println(linkMapping.getTool().eContainer());
 			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(genLink, palette));
 		}
 		// TODO add grooping test

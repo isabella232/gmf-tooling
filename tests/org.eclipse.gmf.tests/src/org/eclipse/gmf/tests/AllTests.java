@@ -157,6 +157,8 @@ public class AllTests {
         suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
         suite.addTestSuite(QvtLabelMappingTransformTest.class);
         suite.addTestSuite(QvtPaletteTransformationTest.class);
+        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
+        suite.addTestSuite(QvtTransformModeledViewmapTest.class);
         suite.addTestSuite(CompareTransformationEngineTest.class);
         
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
