@@ -22,12 +22,9 @@ modeltype GMFGEN uses gmfgen('http://www.eclipse.org/gmf/2009/GenModel');
 -- Palette
 -- 
 
-mapping GMFMAP::CanvasMapping::palette() : GMFGEN::Palette 
-when { 
-	not self.palette.oclIsUndefined(); 
-}
+mapping GMFMAP::CanvasMapping::palette() : GMFGEN::Palette
 {
-	var paletteItems : Sequence(GMFGEN::ToolGroupItem) := self.palette.tools.map paletteEntry();
+	var paletteItems := self.palette.tools.map paletteEntry();
 	var topLevelTools := paletteItems->reject(e | e.oclIsKindOf(GMFGEN::ToolGroup));
 	
 	if topLevelTools->notEmpty() then {
