@@ -222,6 +222,11 @@ public class FigureGalleryItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
+				 GMFGraphFactory.eINSTANCE.createVerticalLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
 				 GMFGraphFactory.eINSTANCE.createRectangle()));
 
 		newChildDescriptors.add

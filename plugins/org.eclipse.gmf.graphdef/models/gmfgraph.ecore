@@ -202,7 +202,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//RealFigure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="org.eclipse.draw2d.Label"/>
+      <details key="documentation" value="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -211,12 +211,22 @@
       <details key="documentation" value="org.eclipse.draw2d.LabeledContainer"/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerticalLabel" eSuperTypes="#//RealFigure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="org.eclipse.gmf.tooling.runtime.draw2d.labels.VerticalLabel"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rectangle" eSuperTypes="#//Shape">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.RectangleFigure"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InvisibleRectangle" eSuperTypes="#//RealFigure"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InvisibleRectangle" eSuperTypes="#//RealFigure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="org.eclipse.draw2d.RectangleFigure #opaque=false, #outline=false, #fill=false"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoundedRectangle" eSuperTypes="#//Shape">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.RoundedRectangle"/>

@@ -207,6 +207,11 @@ public class RealFigureItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createVerticalLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
 				 GMFGraphFactory.eINSTANCE.createRectangle()));
 
 		newChildDescriptors.add

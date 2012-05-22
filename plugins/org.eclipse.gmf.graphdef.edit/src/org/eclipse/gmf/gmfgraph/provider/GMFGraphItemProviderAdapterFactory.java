@@ -456,6 +456,29 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.VerticalLabel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected VerticalLabelItemProvider verticalLabelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.VerticalLabel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createVerticalLabelAdapter() {
+		if (verticalLabelItemProvider == null) {
+			verticalLabelItemProvider = new VerticalLabelItemProvider(this);
+		}
+
+		return verticalLabelItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.Rectangle} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1609,6 +1632,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (figureRefItemProvider != null) figureRefItemProvider.dispose();
 		if (labelItemProvider != null) labelItemProvider.dispose();
 		if (labeledContainerItemProvider != null) labeledContainerItemProvider.dispose();
+		if (verticalLabelItemProvider != null) verticalLabelItemProvider.dispose();
 		if (rectangleItemProvider != null) rectangleItemProvider.dispose();
 		if (invisibleRectangleItemProvider != null) invisibleRectangleItemProvider.dispose();
 		if (roundedRectangleItemProvider != null) roundedRectangleItemProvider.dispose();

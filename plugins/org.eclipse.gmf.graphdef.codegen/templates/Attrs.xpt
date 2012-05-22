@@ -29,6 +29,11 @@
 «EXPAND attr::Figure::figureAttrs(figureVarName)-»
 «ENDDEFINE»
 
+«DEFINE Init(figureVarName : String) FOR gmfgraph::VerticalLabel-»
+«figureVarName».setText("«text»");
+«EXPAND attr::Figure::figureAttrs(figureVarName)-»
+«ENDDEFINE»
+
 «DEFINE Init(figureVarName : String) FOR gmfgraph::RoundedRectangle-»
 «figureVarName».setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(«EXPAND MapMode::_map FOR cornerWidth», «EXPAND MapMode::_map FOR cornerHeight»));
 «EXPAND attr::Shape::shapeAttrs(figureVarName)-»

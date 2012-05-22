@@ -170,6 +170,15 @@ public interface GMFGraphFactory extends EFactory {
 	LabeledContainer createLabeledContainer();
 
 	/**
+	 * Returns a new object of class '<em>Vertical Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Vertical Label</em>'.
+	 * @generated
+	 */
+	VerticalLabel createVerticalLabel();
+
+	/**
 	 * Returns a new object of class '<em>Rectangle</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

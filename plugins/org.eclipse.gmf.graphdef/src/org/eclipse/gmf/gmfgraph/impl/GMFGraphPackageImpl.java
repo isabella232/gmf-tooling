@@ -96,6 +96,7 @@ import org.eclipse.gmf.gmfgraph.SVGPropertyType;
 import org.eclipse.gmf.gmfgraph.ScalablePolygon;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.VerticalLabel;
 import org.eclipse.gmf.gmfgraph.VisiblePin;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 import org.eclipse.gmf.gmfgraph.XYLayout;
@@ -289,6 +290,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass labeledContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass verticalLabelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1516,6 +1524,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EClass getLabeledContainer() {
 		return labeledContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getVerticalLabel() {
+		return verticalLabelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getVerticalLabel_Text() {
+		return (EAttribute)verticalLabelEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2933,6 +2959,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		labeledContainerEClass = createEClass(LABELED_CONTAINER);
 
+		verticalLabelEClass = createEClass(VERTICAL_LABEL);
+		createEAttribute(verticalLabelEClass, VERTICAL_LABEL__TEXT);
+
 		rectangleEClass = createEClass(RECTANGLE);
 
 		invisibleRectangleEClass = createEClass(INVISIBLE_RECTANGLE);
@@ -3185,6 +3214,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		shapeEClass.getESuperTypes().add(this.getRealFigure());
 		labelEClass.getESuperTypes().add(this.getRealFigure());
 		labeledContainerEClass.getESuperTypes().add(this.getRealFigure());
+		verticalLabelEClass.getESuperTypes().add(this.getRealFigure());
 		rectangleEClass.getESuperTypes().add(this.getShape());
 		invisibleRectangleEClass.getESuperTypes().add(this.getRealFigure());
 		roundedRectangleEClass.getESuperTypes().add(this.getShape());
@@ -3343,6 +3373,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getLabel_Text(), ecorePackage.getEString(), "text", null, 0, 1, Label.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(labeledContainerEClass, LabeledContainer.class, "LabeledContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(verticalLabelEClass, VerticalLabel.class, "VerticalLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getVerticalLabel_Text(), ecorePackage.getEString(), "text", null, 0, 1, VerticalLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(rectangleEClass, Rectangle.class, "Rectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

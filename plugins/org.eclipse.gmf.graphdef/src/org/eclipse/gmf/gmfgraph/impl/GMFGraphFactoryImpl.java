@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
@@ -141,6 +142,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.FIGURE_REF: return createFigureRef();
 			case GMFGraphPackage.LABEL: return createLabel();
 			case GMFGraphPackage.LABELED_CONTAINER: return createLabeledContainer();
+			case GMFGraphPackage.VERTICAL_LABEL: return createVerticalLabel();
 			case GMFGraphPackage.RECTANGLE: return createRectangle();
 			case GMFGraphPackage.INVISIBLE_RECTANGLE: return createInvisibleRectangle();
 			case GMFGraphPackage.ROUNDED_RECTANGLE: return createRoundedRectangle();
@@ -398,6 +400,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public LabeledContainer createLabeledContainer() {
 		LabeledContainerImpl labeledContainer = new LabeledContainerImpl();
 		return labeledContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public VerticalLabel createVerticalLabel() {
+		VerticalLabelImpl verticalLabel = new VerticalLabelImpl();
+		return verticalLabel;
 	}
 
 	/**

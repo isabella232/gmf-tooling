@@ -192,6 +192,11 @@ public class FigureAccessorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
+				 GMFGraphFactory.eINSTANCE.createVerticalLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureAccessor_TypedFigure(),
 				 GMFGraphFactory.eINSTANCE.createRectangle()));
 
 		newChildDescriptors.add

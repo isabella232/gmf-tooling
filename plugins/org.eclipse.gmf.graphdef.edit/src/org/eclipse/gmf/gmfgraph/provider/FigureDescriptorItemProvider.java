@@ -203,6 +203,11 @@ public class FigureDescriptorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure(),
+				 GMFGraphFactory.eINSTANCE.createVerticalLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureDescriptor_ActualFigure(),
 				 GMFGraphFactory.eINSTANCE.createRectangle()));
 
 		newChildDescriptors.add

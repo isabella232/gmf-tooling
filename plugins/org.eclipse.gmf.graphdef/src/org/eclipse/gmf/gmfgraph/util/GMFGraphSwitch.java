@@ -9,6 +9,7 @@ package org.eclipse.gmf.gmfgraph.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.AbstractFigure;
 import org.eclipse.gmf.gmfgraph.AbstractNode;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
@@ -364,6 +365,18 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 				if (result == null) result = caseCustomAttributeOwner(labeledContainer);
 				if (result == null) result = caseFigure(labeledContainer);
 				if (result == null) result = caseLayoutable(labeledContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.VERTICAL_LABEL: {
+				VerticalLabel verticalLabel = (VerticalLabel)theEObject;
+				T result = caseVerticalLabel(verticalLabel);
+				if (result == null) result = caseRealFigure(verticalLabel);
+				if (result == null) result = caseAbstractFigure(verticalLabel);
+				if (result == null) result = casePinOwner(verticalLabel);
+				if (result == null) result = caseCustomAttributeOwner(verticalLabel);
+				if (result == null) result = caseFigure(verticalLabel);
+				if (result == null) result = caseLayoutable(verticalLabel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1226,6 +1239,21 @@ public class GMFGraphSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseLabeledContainer(LabeledContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Vertical Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Vertical Label</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVerticalLabel(VerticalLabel object) {
 		return null;
 	}
 

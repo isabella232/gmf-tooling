@@ -163,6 +163,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Label/text"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//LabeledContainer"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//VerticalLabel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//VerticalLabel/text"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Rectangle"/>
     <genClasses ecoreClass="gmfgraph.ecore#//InvisibleRectangle"/>
     <genClasses ecoreClass="gmfgraph.ecore#//RoundedRectangle">
