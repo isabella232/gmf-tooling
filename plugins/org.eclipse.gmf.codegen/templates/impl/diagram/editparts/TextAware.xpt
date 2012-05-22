@@ -14,6 +14,7 @@
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::diagram::ViewmapAttributesUtils»
 «EXTENSION impl::diagram::editparts::ChoiceUtils»
+«EXTENSION impl::diagram::editparts::RuntimeLabelsSupport»
 «EXTENSION impl::parsers::expression»
 
 «DEFINE fields FOR gmfgen::GenCommonBase-»
@@ -33,6 +34,9 @@
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultText;	
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate labelDelegate;
 «ENDDEFINE»
 
 «DEFINE methods(needsRefreshBounds : Boolean, readOnly : Boolean, useElementIcon : Boolean, viewmap : gmfgen::Viewmap,
@@ -95,6 +99,8 @@
 	
 	«EXPAND refreshFont-»
 	
+	«EXPAND refreshSelectionFeedback-»
+	
 	«EXPAND setFontColor-»
 	
 	«EXPAND addSemanticListeners-»
@@ -112,6 +118,10 @@
 «IF isOclChoiceLabel() or isViewExpressionDefiedAndOcl()-»
 	«EXPAND getOclRegistrator-»
 «ENDIF-»
+
+  «EXPAND getLabelDelegate -»
+    
+  «EXPAND getAdapter -»
 «ENDDEFINE»
 
 «DEFINE labelSetterName FOR gmfgen::ParentAssignedViewmap-»
@@ -125,9 +135,15 @@
 	protected String getLabelTextHelper(org.eclipse.draw2d.IFigure figure) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getText();
-		} else {
+		} «IF isVerticalLabel(self)-»
+		else if (figure instanceof «getVerticalLabelFQN()») {
+			return ((«getVerticalLabelFQN()») figure).getText();
+    	} «ENDIF-»
+		else if (figure instanceof org.eclipse.draw2d.Label) {
 			return ((org.eclipse.draw2d.Label) figure).getText();
-		}
+		} else {
+			return getLabelDelegate().getText();
+		} 
 	}
 «ENDDEFINE»
 
@@ -136,8 +152,14 @@
 	protected void setLabelTextHelper(org.eclipse.draw2d.IFigure figure, String text) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setText(text);
-		} else {
+		} «IF isVerticalLabel(self)-»
+		else if (figure instanceof «getVerticalLabelFQN()») {
+			((«getVerticalLabelFQN()») figure).setText(text);
+    	} «ENDIF-»
+		else if (figure instanceof org.eclipse.draw2d.Label) {
 			((org.eclipse.draw2d.Label) figure).setText(text);
+		} else {
+			getLabelDelegate().setText(text);
 		}
 	}
 «ENDDEFINE»
@@ -147,8 +169,15 @@
 	protected org.eclipse.swt.graphics.Image getLabelIconHelper(org.eclipse.draw2d.IFigure figure) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getIcon();
-		} else {
+		} «IF isVerticalLabel(self)-»
+		else if (figure instanceof «getVerticalLabelFQN()») {
+			//icons are not supported for verical labels now
+			return null;
+    	} «ENDIF-»
+		else if (figure instanceof org.eclipse.draw2d.Label) {
 			return ((org.eclipse.draw2d.Label) figure).getIcon();
+		} else {
+			return getLabelDelegate().getIcon(0);
 		}
 	}
 «ENDDEFINE»
@@ -158,9 +187,48 @@
 	protected void setLabelIconHelper(org.eclipse.draw2d.IFigure figure, org.eclipse.swt.graphics.Image icon) {
 		if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 			((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setIcon(icon);
-		} else {
+			return;
+		} «IF isVerticalLabel(self)-»
+		else if (figure instanceof «getVerticalLabelFQN()») {
+			//icons are not supported for verical labels now, nothing to do
+			return;
+    	} «ENDIF-»
+		else if (figure instanceof org.eclipse.draw2d.Label) {
 			((org.eclipse.draw2d.Label) figure).setIcon(icon);
+			return;
+		} else {
+			getLabelDelegate().setIcon(icon, 0);
 		}
+	}
+«ENDDEFINE»
+
+«DEFINE getLabelDelegate FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate getLabelDelegate(){
+		if (labelDelegate == null){
+			org.eclipse.draw2d.IFigure label = getFigure();
+      		if (label instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel){
+        		labelDelegate = new org.eclipse.gmf.runtime.diagram.ui.label.WrappingLabelDelegate((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel)label);
+      		} «IF isVerticalLabel(self)-»
+      		else if (figure instanceof «getVerticalLabelFQN()») {
+        		labelDelegate = new «getVerticalLabelDelegateFQN()»((«getVerticalLabelFQN()»)figure); 
+      		} «ENDIF-»
+      		else {
+        		labelDelegate = new «getSimpleLabelDelegateFQN()»((org.eclipse.draw2d.Label)label);
+      		}
+    	}
+		return labelDelegate;
+	}
+«ENDDEFINE»
+
+«DEFINE getAdapter FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND CodeStyle::override-»
+	public Object getAdapter(Class key) {
+		if (org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate.class.equals(key)){
+			return getLabelDelegate();
+		}
+		return super.getAdapter(key);
 	}
 «ENDDEFINE»
 
@@ -256,14 +324,7 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void setLabelText(String text) {
 		setLabelTextHelper(getFigure(), text);
-		Object pdEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») pdEditPolicy).refreshFeedback();
-		}
-		Object sfEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
-		if (sfEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») sfEditPolicy).refreshFeedback();
-		}
+		refreshSelectionFeedback();
 	}
 «ENDDEFINE»
 
@@ -446,14 +507,7 @@
 	protected void refreshLabel() {
 		setLabelTextHelper(getFigure(), getLabelText());
 		setLabelIconHelper(getFigure(), getLabelIcon());
-		Object pdEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
-		if (pdEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») pdEditPolicy).refreshFeedback();
-		}
-		Object sfEditPolicy = getEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
-		if (sfEditPolicy instanceof «diagram.getTextSelectionEditPolicyQualifiedClassName()») {
-			((«diagram.getTextSelectionEditPolicyQualifiedClassName()») sfEditPolicy).refreshFeedback();
-		}
+		refreshSelectionFeedback();
 	}
 «ENDDEFINE»
 	
@@ -496,6 +550,23 @@
 		}
 	}
 «ENDDEFINE»
+
+«DEFINE refreshSelectionFeedback FOR gmfgen::GenCommonBase-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void refreshSelectionFeedback() {
+		requestEditPolicyFeedbackRefresh(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
+		requestEditPolicyFeedbackRefresh(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	private void requestEditPolicyFeedbackRefresh(String editPolicyKey) {
+		Object editPolicy = getEditPolicy(editPolicyKey);
+		if (editPolicy instanceof org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy) {
+			((org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy)editPolicy).refreshFeedback();
+		}
+	}
+«ENDDEFINE»
+
 	
 «DEFINE setFontColor FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
