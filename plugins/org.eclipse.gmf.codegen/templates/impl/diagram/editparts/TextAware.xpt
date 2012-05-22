@@ -129,6 +129,7 @@
 «ENDDEFINE»
 
 «DEFINE labelSetterName FOR gmfgen::Viewmap»setLabel«ENDDEFINE»
+«DEFINE labelSetterName FOR gmfgen::ModeledViewmap»setLabel«ENDDEFINE»
 
 «DEFINE getLabelTextHelper FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -249,6 +250,10 @@
 	«ELSE-»
 	org.eclipse.draw2d.IFigure
 	«ENDIF-»
+«ENDDEFINE»
+
+«DEFINE labelSetterFigureClassName FOR gmfgen::ModeledViewmap-»
+«EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapFigureFQN FOR self-»
 «ENDDEFINE»
 
 «DEFINE labelSetterFigureClassName FOR gmfgen::Viewmap-»

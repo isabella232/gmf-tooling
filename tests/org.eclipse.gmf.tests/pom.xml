@@ -55,7 +55,7 @@
 				<configuration>
 					<useUIHarness>true</useUIHarness>
 					<testSuite>org.eclipse.gmf.tests</testSuite>
-					<argLine>${tycho.testArgLine} -Xmx512m -XX:MaxPermSize=128m -DbuildingWithTycho=true</argLine>
+					<argLine>${tycho.testArgLine} -Xmx512m -XX:MaxPermSize=128m -DbuildingWithTycho=true -XstartOnFirstThread</argLine>
 					<bundleStartLevel>
 						<bundle>
 							<id>org.eclipse.equinox.ds</id>

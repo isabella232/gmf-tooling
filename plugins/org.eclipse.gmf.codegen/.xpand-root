@@ -1,2 +1,3 @@
-templates, templates.nativestubs
+templates, templates.nativestubs, /org.eclipse.gmf.graphdef.codegen/templates
 templates-dynmodel, templates, templates.nativestubs
+

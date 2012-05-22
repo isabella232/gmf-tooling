@@ -11,6 +11,7 @@
  */
 
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype gmfgraph uses "http://www.eclipse.org/gmf/2006/GraphicalDefinition";
 
 library Utils;
 
@@ -30,12 +31,33 @@ helper getInnerFixedLabels(node : gmfgen::GenNode) : Sequence(gmfgen::GenLabel) 
 	return node.labels->asSequence()[not oclIsKindOf(gmfgen::GenExternalNodeLabel)]->select(e | e.oclAsType(gmfgen::GenLabel).viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap));
 }
 
+helper getInnerFixedLabelsWithModeledViewmaps(node : gmfgen::GenNode) : Sequence(gmfgen::GenLabel) {
+	return node.labels->asSequence()[not oclIsKindOf(gmfgen::GenExternalNodeLabel)]
+		->select(e | 
+			let modeledViewmap = e.oclAsType(gmfgen::GenLabel).viewmap.oclAsType(gmfgen::ModeledViewmap) in
+			let diagramLabel = modeledViewmap.figureModel.oclAsType(gmfgraph::DiagramLabel) in
+			not diagramLabel.accessor.oclIsUndefined()
+		);
+}
+
 helper getPinnedCompartments(node : gmfgen::GenNode) : Sequence(gmfgen::GenCompartment) {
-	return node.compartments->select(e | (Sequence { e.viewmap })[gmfgen::ParentAssignedViewmap]->size() > 0)->asSequence()
+	return node.compartments->select(e | e.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap))->asSequence()
+}
+
+helper getPinnedCompartmentsWithModeledViewmaps(node : gmfgen::GenNode) : Sequence(gmfgen::GenCompartment) {
+	return node.compartments->select(c | 
+			let modeledViewmap = c.viewmap.oclAsType(gmfgen::ModeledViewmap) in
+			let compartment = modeledViewmap.figureModel.oclAsType(gmfgraph::Compartment) in
+			not compartment.accessor.oclIsUndefined())
+		->asSequence()
 }
 
 helper hasFixedChildren(node : gmfgen::GenNode) : Boolean {
-	return getInnerFixedLabels(node)->size() > 0 or getPinnedCompartments(node)->size() > 0
+	return 
+		getInnerFixedLabels(node)->size() > 0 
+		or getPinnedCompartments(node)->size() > 0
+		or getInnerFixedLabelsWithModeledViewmaps(node)->size() > 0
+		or getPinnedCompartmentsWithModeledViewmaps(node)->size() > 0
 }
 
 helper listCompartmentHasChildren(compartment : gmfgen::GenCompartment) : Boolean {

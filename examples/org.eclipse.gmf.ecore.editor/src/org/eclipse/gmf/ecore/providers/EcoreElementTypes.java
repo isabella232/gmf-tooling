@@ -51,7 +51,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class EcoreElementTypes extends ElementInitializers {
+public class EcoreElementTypes {
 
 	/**
 	 * @generated

@@ -81,7 +81,7 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, getNewSource(), target);
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistRoute_4003(container, getLink(), getNewSource(), target);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class UnreliableRouteReorientCommand extends EditElementCommand {
 			return false;
 		}
 		Aquatory container = (Aquatory) getLink().eContainer();
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistRoute_4003(container, source, getNewTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistRoute_4003(container, getLink(), source, getNewTarget());
 	}
 
 	/**

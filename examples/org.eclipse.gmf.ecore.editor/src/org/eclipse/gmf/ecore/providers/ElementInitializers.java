@@ -19,10 +19,14 @@ import org.eclipse.gmf.ecore.part.EcoreDiagramEditorPlugin;
  */
 public class ElementInitializers {
 
+	protected ElementInitializers() {
+		// use #getInstance to access cached instance
+	}
+
 	/**
 	 * @generated
 	 */
-	public static void init_EReference_4002(EReference instance) {
+	public void init_EReference_4002(EReference instance) {
 		try {
 			instance.setContainment(false);
 		} catch (RuntimeException e) {
@@ -33,12 +37,23 @@ public class ElementInitializers {
 	/**
 	 * @generated
 	 */
-	public static void init_EReference_4003(EReference instance) {
+	public void init_EReference_4003(EReference instance) {
 		try {
 			instance.setContainment(true);
 		} catch (RuntimeException e) {
 			EcoreDiagramEditorPlugin.getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 		}
+	}
+
+	/**
+	* @generated
+	*/
+	public static ElementInitializers getInstance() {
+		ElementInitializers cached = EcoreDiagramEditorPlugin.getInstance().getElementInitializers();
+		if (cached == null) {
+			EcoreDiagramEditorPlugin.getInstance().setElementInitializers(cached = new ElementInitializers());
+		}
+		return cached;
 	}
 
 }

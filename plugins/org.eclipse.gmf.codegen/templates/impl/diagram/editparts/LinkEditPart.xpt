@@ -109,6 +109,24 @@
 	«ERROR 'Unknown viewmap: ' + self.repr()-»
 «ENDDEFINE»
 
+«DEFINE createLinkFigure(link : gmfgen::GenLink) FOR gmfgen::ModeledViewmap-»
+		«EXPAND xpt::Common::generatedMemberComment»
+		protected org.eclipse.draw2d.Connection createConnectionFigure() {
+			return new «EXPAND _modeledViewmapFigureFQN»();
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		public «EXPAND _modeledViewmapFigureFQN» getPrimaryShape() {
+			return («EXPAND _modeledViewmapFigureFQN») getFigure();
+		}
+		
+		«EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapClassBody-»
+«ENDDEFINE»
+
+«DEFINE _modeledViewmapFigureFQN FOR gmfgen::ModeledViewmap-»
+«EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapFigureFQN FOR self-»
+«ENDDEFINE»
+
 «DEFINE createLinkFigure(link : gmfgen::GenLink) FOR gmfgen::FigureViewmap-»
 	«LET (if figureQualifiedClassName = null then 'org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx' else figureQualifiedClassName endif) AS fqn-»
 		protected org.eclipse.draw2d.Connection createConnectionFigure() {

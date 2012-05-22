@@ -62,7 +62,7 @@ public class EAnnotationReferencesCreateCommand extends EditElementCommand {
 			return true; // link creation is in progress; source is not defined yet
 		}
 		// target may be null here but it's possible to check constraint
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canCreateEAnnotationReferences_4001(getSource(), getTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canCreateEAnnotationReferences_4001(getSource(), getTarget());
 	}
 
 	/**

@@ -81,7 +81,7 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
 			return false;
 		}
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEClassESuperTypes_4004(getNewSource(), getOldTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canExistEClassESuperTypes_4004(getNewSource(), getOldTarget());
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class EClassESuperTypesReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof EClass && newEnd instanceof EClass)) {
 			return false;
 		}
-		return EcoreBaseItemSemanticEditPolicy.LinkConstraints.canExistEClassESuperTypes_4004(getOldSource(), getNewTarget());
+		return EcoreBaseItemSemanticEditPolicy.getLinkConstraints().canExistEClassESuperTypes_4004(getOldSource(), getNewTarget());
 	}
 
 	/**

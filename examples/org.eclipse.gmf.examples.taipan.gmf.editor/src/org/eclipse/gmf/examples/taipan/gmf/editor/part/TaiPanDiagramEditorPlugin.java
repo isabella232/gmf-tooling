@@ -25,6 +25,9 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanBaseItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.ElementInitializers;
 import org.eclipse.gmf.examples.taipan.provider.TaiPanItemProviderAdapterFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -63,6 +66,21 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	private TaiPanDocumentProvider documentProvider;
 
 	/**
+	* @generated
+	*/
+	private TaiPanBaseItemSemanticEditPolicy.LinkConstraints linkConstraints;
+
+	/**
+	* @generated
+	*/
+	private ElementInitializers initializers;
+
+	/**
+	* @generated
+	*/
+	private TaiPanOCLFactory oclFactory;
+
+	/**
 	 * @generated
 	 */
 	public TaiPanDiagramEditorPlugin() {
@@ -84,6 +102,9 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
+		linkConstraints = null;
+		initializers = null;
+		oclFactory = null;
 		instance = null;
 		super.stop(context);
 	}
@@ -99,7 +120,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	protected ComposedAdapterFactory createAdapterFactory() {
-		List factories = new ArrayList();
+		ArrayList<AdapterFactory> factories = new ArrayList<AdapterFactory>();
 		fillItemProviderFactories(factories);
 		return new ComposedAdapterFactory(factories);
 	}
@@ -107,7 +128,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	protected void fillItemProviderFactories(List factories) {
+	protected void fillItemProviderFactories(List<AdapterFactory> factories) {
 		factories.add(new TaiPanItemProviderAdapterFactory());
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
@@ -195,6 +216,48 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 			documentProvider = new TaiPanDocumentProvider();
 		}
 		return documentProvider;
+	}
+
+	/**
+	* @generated
+	*/
+	public TaiPanBaseItemSemanticEditPolicy.LinkConstraints getLinkConstraints() {
+		return linkConstraints;
+	}
+
+	/**
+	* @generated
+	*/
+	public void setLinkConstraints(TaiPanBaseItemSemanticEditPolicy.LinkConstraints lc) {
+		this.linkConstraints = lc;
+	}
+
+	/**
+	* @generated
+	*/
+	public ElementInitializers getElementInitializers() {
+		return initializers;
+	}
+
+	/**
+	* @generated
+	*/
+	public void setElementInitializers(ElementInitializers i) {
+		this.initializers = i;
+	}
+
+	/**
+	* @generated
+	*/
+	public TaiPanOCLFactory getTaiPanOCLFactory() {
+		return oclFactory;
+	}
+
+	/**
+	* @generated
+	*/
+	public void setTaiPanOCLFactory(TaiPanOCLFactory f) {
+		this.oclFactory = f;
 	}
 
 	/**

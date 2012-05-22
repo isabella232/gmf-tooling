@@ -181,8 +181,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createAnnotationdetails3CreationTool() {
-		NodeToolEntry entry = new NodeToolEntry(Messages.Annotationdetails3CreationTool_title, Messages.Annotationdetails3CreationTool_desc, Collections
-				.singletonList(EcoreElementTypes.EStringToStringMapEntry_3008));
+		NodeToolEntry entry = new NodeToolEntry(Messages.Annotationdetails3CreationTool_title, Messages.Annotationdetails3CreationTool_desc,
+				Collections.singletonList(EcoreElementTypes.EStringToStringMapEntry_3008));
 		entry.setId("createAnnotationdetails3CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_3008));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -204,8 +204,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createEAnnotationreference1CreationTool() {
-		LinkToolEntry entry = new LinkToolEntry(Messages.EAnnotationreference1CreationTool_title, Messages.EAnnotationreference1CreationTool_desc, Collections
-				.singletonList(EcoreElementTypes.EAnnotationReferences_4001));
+		LinkToolEntry entry = new LinkToolEntry(Messages.EAnnotationreference1CreationTool_title, Messages.EAnnotationreference1CreationTool_desc,
+				Collections.singletonList(EcoreElementTypes.EAnnotationReferences_4001));
 		entry.setId("createEAnnotationreference1CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EAnnotationReferences_4001));
 		entry.setLargeIcon(entry.getSmallIcon());
@@ -238,8 +238,8 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private ToolEntry createGeneralization4CreationTool() {
-		LinkToolEntry entry = new LinkToolEntry(Messages.Generalization4CreationTool_title, Messages.Generalization4CreationTool_desc, Collections
-				.singletonList(EcoreElementTypes.EClassESuperTypes_4004));
+		LinkToolEntry entry = new LinkToolEntry(Messages.Generalization4CreationTool_title, Messages.Generalization4CreationTool_desc,
+				Collections.singletonList(EcoreElementTypes.EClassESuperTypes_4004));
 		entry.setId("createGeneralization4CreationTool"); //$NON-NLS-1$
 		entry.setSmallIcon(EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EClassESuperTypes_4004));
 		entry.setLargeIcon(entry.getSmallIcon());

@@ -47,13 +47,7 @@ public class EAttributeExpressionLabelParser implements IParser {
 	/**
 	 * @generated
 	 */
-	private final EcoreAbstractExpression printExpression;
-
-	/**
-	 * @generated
-	 */
 	public EAttributeExpressionLabelParser() {
-		this.printExpression = EcoreOCLFactory.getExpression("self.name.concat(\' : \').concat(if self.eType.name.oclIsUndefined() then \'none\' else self.eType.name endif)", EcorePackage.eINSTANCE.getEAttribute());
 	}
 
 	/**
@@ -99,7 +93,7 @@ public class EAttributeExpressionLabelParser implements IParser {
 	 */
 	public String getPrintString(IAdaptable element, int flags) {
 		EObject target = (EObject) element.getAdapter(EObject.class);
-		Object result = this.printExpression.evaluate(target);
+		Object result = EcoreOCLFactory.getExpression(0, EcorePackage.eINSTANCE.getEAttribute(), null).evaluate(target);
 		return String.valueOf(result);
 	}
 
@@ -108,7 +102,7 @@ public class EAttributeExpressionLabelParser implements IParser {
 	 */
 	public boolean isAffectingEvent(Object event, int flags) {
 		// XXX Any event is recognized as important, unless there's a way to extract this information from expression itself.
-		// TODO analyze expressions (e.g. using OCL parser) to find out structural features in use
+		// TODO analyze expressions (e.g. using OCL parser) to find out structural features in use  
 		return true;
 	}
 

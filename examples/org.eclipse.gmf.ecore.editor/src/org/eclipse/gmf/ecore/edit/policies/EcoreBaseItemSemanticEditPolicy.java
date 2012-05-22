@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.Request;
@@ -297,34 +298,32 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
+	* @generated
+	*/
+	public static LinkConstraints getLinkConstraints() {
+		LinkConstraints cached = EcoreDiagramEditorPlugin.getInstance().getLinkConstraints();
+		if (cached == null) {
+			EcoreDiagramEditorPlugin.getInstance().setLinkConstraints(cached = new LinkConstraints());
+		}
+		return cached;
+	}
+
+	/**
 	 * @generated
 	 */
 	public static class LinkConstraints {
 
 		/**
-		 * @generated
-		 */
-		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+		* @generated
+		*/
+		LinkConstraints() {
+			// use static method #getLinkConstraints() to access instance
+		}
 
 		/**
-		 * @generated
-		 */
-		private static EcoreAbstractExpression EReference_4002_TargetExpression;
-
-		/**
-		 * @generated
-		 */
-		private static EcoreAbstractExpression EReference_4003_TargetExpression;
-
-		/**
-		 * @generated
-		 */
-		private static EcoreAbstractExpression EClassESuperTypes_4004_TargetExpression;
-
-		/**
-		 * @generated
-		 */
-		public static boolean canCreateEAnnotationReferences_4001(EAnnotation source, EObject target) {
+			 * @generated
+			 */
+		public boolean canCreateEAnnotationReferences_4001(EAnnotation source, EObject target) {
 			if (source != null) {
 				if (source.getReferences().contains(target)) {
 					return false;
@@ -337,21 +336,21 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEReference_4002(EClass source, EClassifier target) {
-			return canExistEReference_4002(source, target);
+		public boolean canCreateEReference_4002(EClass source, EClassifier target) {
+			return canExistEReference_4002(null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEReference_4003(EClass source, EClassifier target) {
-			return canExistEReference_4003(source, target);
+		public boolean canCreateEReference_4003(EClass source, EClassifier target) {
+			return canExistEReference_4003(null, source, target);
 		}
 
 		/**
 		 * @generated
 		 */
-		public static boolean canCreateEClassESuperTypes_4004(EClass source, EClass target) {
+		public boolean canCreateEClassESuperTypes_4004(EClass source, EClass target) {
 			if (source != null) {
 				if (source.getESuperTypes().contains(target)) {
 					return false;
@@ -364,26 +363,24 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated
 		 */
-		public static boolean canExistEAnnotationReferences_4001(EAnnotation source, EObject target) {
+		public boolean canExistEAnnotationReferences_4001(EAnnotation source, EObject target) {
 			return true;
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistEReference_4002(EClass source, EClassifier target) {
+		* @generated
+		*/
+		public boolean canExistEReference_4002(EReference linkInstance, EClass source, EClassifier target) {
 			try {
 				if (target == null) {
 					return true;
+				} else {
+					Map<String, EClassifier> env = Collections.<String, EClassifier> singletonMap("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+					Object targetVal = EcoreOCLFactory.getExpression(4, EcorePackage.eINSTANCE.getEClassifier(), env).evaluate(target, Collections.singletonMap("oppositeEnd", source)); //$NON-NLS-1$
+					if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
+						return false;
+					} // else fall-through
 				}
-				if (EReference_4002_TargetExpression == null) {
-					Map env = Collections.singletonMap(OPPOSITE_END_VAR, EcorePackage.eINSTANCE.getEClass());
-					EReference_4002_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", EcorePackage.eINSTANCE.getEClassifier(), env); //$NON-NLS-1$
-				}
-				Object targetVal = EReference_4002_TargetExpression.evaluate(target, Collections.singletonMap(OPPOSITE_END_VAR, source));
-				if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
-					return false;
-				} // else fall-through
 				return true;
 			} catch (Exception e) {
 				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
@@ -392,21 +389,19 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistEReference_4003(EClass source, EClassifier target) {
+		* @generated
+		*/
+		public boolean canExistEReference_4003(EReference linkInstance, EClass source, EClassifier target) {
 			try {
 				if (target == null) {
 					return true;
+				} else {
+					Map<String, EClassifier> env = Collections.<String, EClassifier> singletonMap("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+					Object targetVal = EcoreOCLFactory.getExpression(6, EcorePackage.eINSTANCE.getEClassifier(), env).evaluate(target, Collections.singletonMap("oppositeEnd", source)); //$NON-NLS-1$
+					if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
+						return false;
+					} // else fall-through
 				}
-				if (EReference_4003_TargetExpression == null) {
-					Map env = Collections.singletonMap(OPPOSITE_END_VAR, EcorePackage.eINSTANCE.getEClass());
-					EReference_4003_TargetExpression = EcoreOCLFactory.getExpression("self.oclIsKindOf(ecore::EClass)", EcorePackage.eINSTANCE.getEClassifier(), env); //$NON-NLS-1$
-				}
-				Object targetVal = EReference_4003_TargetExpression.evaluate(target, Collections.singletonMap(OPPOSITE_END_VAR, source));
-				if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
-					return false;
-				} // else fall-through
 				return true;
 			} catch (Exception e) {
 				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
@@ -415,22 +410,19 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 
 		/**
-		 * @generated
-		 */
-		public static boolean canExistEClassESuperTypes_4004(EClass source, EClass target) {
+			 * @generated
+			 */
+		public boolean canExistEClassESuperTypes_4004(EClass source, EClass target) {
 			try {
 				if (target == null) {
 					return true;
+				} else {
+					Map<String, EClassifier> env = Collections.<String, EClassifier> singletonMap("oppositeEnd", EcorePackage.eINSTANCE.getEClass()); //$NON-NLS-1$
+					Object targetVal = EcoreOCLFactory.getExpression(7, EcorePackage.eINSTANCE.getEClass(), env).evaluate(target, Collections.singletonMap("oppositeEnd", source)); //$NON-NLS-1$
+					if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
+						return false;
+					} // else fall-through
 				}
-				if (EClassESuperTypes_4004_TargetExpression == null) {
-					Map env = Collections.singletonMap(OPPOSITE_END_VAR, EcorePackage.eINSTANCE.getEClass());
-					EClassESuperTypes_4004_TargetExpression = EcoreOCLFactory.getExpression(
-							"self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", EcorePackage.eINSTANCE.getEClass(), env); //$NON-NLS-1$
-				}
-				Object targetVal = EClassESuperTypes_4004_TargetExpression.evaluate(target, Collections.singletonMap(OPPOSITE_END_VAR, source));
-				if (false == targetVal instanceof Boolean || !((Boolean) targetVal).booleanValue()) {
-					return false;
-				} // else fall-through
 				return true;
 			} catch (Exception e) {
 				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$

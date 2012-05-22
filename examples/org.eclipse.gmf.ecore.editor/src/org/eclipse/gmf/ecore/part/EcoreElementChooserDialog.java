@@ -152,8 +152,7 @@ public class EcoreElementChooserDialog extends Dialog {
 	 */
 	public int open() {
 		int result = super.open();
-		for (Iterator it = myEditingDomain.getResourceSet().getResources().iterator(); it.hasNext();) {
-			Resource resource = (Resource) it.next();
+		for (Resource resource : myEditingDomain.getResourceSet().getResources()) {
 			resource.unload();
 		}
 		myEditingDomain.dispose();

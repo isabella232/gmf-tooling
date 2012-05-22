@@ -1223,7 +1223,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				if (lm != null) {
 					genBase = myHistory.find(lm);
 					assert genBase != null;
-					@SuppressWarnings("null")
 					boolean isGenBaseNull = genBase == null;
 					if (!isGenBaseNull) {
 						diagramTarget.getElement().add(genBase);

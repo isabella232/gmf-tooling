@@ -72,6 +72,13 @@ import org.eclipse.gmf.tests.tr.ManifestMergeTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.PluginXMLTextMergerTest;
+import org.eclipse.gmf.tests.tr.QvtGenModelTransformerBasicRTTest;
+import org.eclipse.gmf.tests.tr.QvtGenModelTransformerSimpleTest;
+import org.eclipse.gmf.tests.tr.QvtGenModelTransformerVisualIDWithTraceTest;
+import org.eclipse.gmf.tests.tr.QvtLabelMappingTransformTest;
+import org.eclipse.gmf.tests.tr.QvtPaletteTransformationTest;
+import org.eclipse.gmf.tests.tr.QvtTransformModeledViewmapTest;
+import org.eclipse.gmf.tests.tr.CompareTransformationEngineTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
@@ -146,6 +153,14 @@ public class AllTests {
 		suite.addTestSuite(ManifestMergeTest.class);
 		suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
 
+        suite.addTestSuite(QvtGenModelTransformerSimpleTest.class);
+        suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
+        suite.addTestSuite(QvtLabelMappingTransformTest.class);
+        suite.addTestSuite(QvtPaletteTransformationTest.class);
+        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
+        suite.addTestSuite(QvtTransformModeledViewmapTest.class);
+        suite.addTestSuite(CompareTransformationEngineTest.class);
+        
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);
 		suite.addTest(AllMigrationTests.suite());
@@ -231,6 +246,15 @@ public class AllTests {
 		c.register(PaletteTransformationTest.class, SessionSetup.class);
 		c.register(AuditHandcodedTest.class, SessionSetup.class);
 		c.register(CodegenReconcileTest.class, SessionSetup.class);
+		
+		c.register(QvtGenModelTransformerSimpleTest.class, SessionSetup.class);
+		c.register(QvtGenModelTransformerBasicRTTest.class, SessionSetup.class);
+		c.register(QvtLabelMappingTransformTest.class, SessionSetup.class);
+		c.register(QvtPaletteTransformationTest.class, SessionSetup.class);
+		c.register(CompareTransformationEngineTest.class, SessionSetup.class);
+		c.register(QvtTransformModeledViewmapTest.class, SessionSetup.class);
+		c.register(QvtGenModelTransformerVisualIDWithTraceTest.class, SessionSetup.class);
+		
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		c.register(TestAllDerivedFeatures.class, SessionSetup.class);
 		c.register(DiagramNodeTest.class, SessionSetup.class);

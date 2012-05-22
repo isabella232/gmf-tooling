@@ -26,6 +26,9 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.gmf.ecore.edit.policies.EcoreBaseItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.expressions.EcoreOCLFactory;
+import org.eclipse.gmf.ecore.providers.ElementInitializers;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -63,6 +66,21 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	private EcoreDocumentProvider documentProvider;
 
 	/**
+	* @generated
+	*/
+	private EcoreBaseItemSemanticEditPolicy.LinkConstraints linkConstraints;
+
+	/**
+	* @generated
+	*/
+	private ElementInitializers initializers;
+
+	/**
+	* @generated
+	*/
+	private EcoreOCLFactory oclFactory;
+
+	/**
 	 * @generated
 	 */
 	public EcoreDiagramEditorPlugin() {
@@ -84,6 +102,9 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
+		linkConstraints = null;
+		initializers = null;
+		oclFactory = null;
 		instance = null;
 		super.stop(context);
 	}
@@ -99,7 +120,7 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	protected ComposedAdapterFactory createAdapterFactory() {
-		List factories = new ArrayList();
+		ArrayList<AdapterFactory> factories = new ArrayList<AdapterFactory>();
 		fillItemProviderFactories(factories);
 		return new ComposedAdapterFactory(factories);
 	}
@@ -107,7 +128,7 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	protected void fillItemProviderFactories(List factories) {
+	protected void fillItemProviderFactories(List<AdapterFactory> factories) {
 		factories.add(new EcoreItemProviderAdapterFactory());
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
@@ -195,6 +216,48 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 			documentProvider = new EcoreDocumentProvider();
 		}
 		return documentProvider;
+	}
+
+	/**
+	* @generated
+	*/
+	public EcoreBaseItemSemanticEditPolicy.LinkConstraints getLinkConstraints() {
+		return linkConstraints;
+	}
+
+	/**
+	* @generated
+	*/
+	public void setLinkConstraints(EcoreBaseItemSemanticEditPolicy.LinkConstraints lc) {
+		this.linkConstraints = lc;
+	}
+
+	/**
+	* @generated
+	*/
+	public ElementInitializers getElementInitializers() {
+		return initializers;
+	}
+
+	/**
+	* @generated
+	*/
+	public void setElementInitializers(ElementInitializers i) {
+		this.initializers = i;
+	}
+
+	/**
+	* @generated
+	*/
+	public EcoreOCLFactory getEcoreOCLFactory() {
+		return oclFactory;
+	}
+
+	/**
+	* @generated
+	*/
+	public void setEcoreOCLFactory(EcoreOCLFactory f) {
+		this.oclFactory = f;
 	}
 
 	/**

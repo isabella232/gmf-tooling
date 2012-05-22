@@ -82,7 +82,7 @@ public class ShipRouteReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Route && newEnd instanceof Ship)) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistShipRoute_4004(getNewSource(), getOldTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistShipRoute_4004(getNewSource(), getOldTarget());
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class ShipRouteReorientCommand extends EditElementCommand {
 		if (!(oldEnd instanceof Route && newEnd instanceof Route)) {
 			return false;
 		}
-		return TaiPanBaseItemSemanticEditPolicy.LinkConstraints.canExistShipRoute_4004(getOldSource(), getNewTarget());
+		return TaiPanBaseItemSemanticEditPolicy.getLinkConstraints().canExistShipRoute_4004(getOldSource(), getNewTarget());
 	}
 
 	/**

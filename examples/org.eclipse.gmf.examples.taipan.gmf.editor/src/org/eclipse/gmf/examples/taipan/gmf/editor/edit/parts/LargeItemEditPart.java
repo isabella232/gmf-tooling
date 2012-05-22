@@ -76,7 +76,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
-		LayoutEditPolicy lep = new LayoutEditPolicy() {
+		org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
 				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
@@ -101,8 +101,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		LargeItemFigure figure = new LargeItemFigure();
-		return primaryShape = figure;
+		return primaryShape = new LargeItemFigure();
 	}
 
 	/**
@@ -116,12 +115,12 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemWeightEditPart) {
-			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightLabel());
-			return true;
-		}
 		if (childEditPart instanceof LargeItemArticleEditPart) {
 			((LargeItemArticleEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemArticleLabel());
+			return true;
+		}
+		if (childEditPart instanceof LargeItemWeightEditPart) {
+			((LargeItemWeightEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLargeItemWeightLabel());
 			return true;
 		}
 		return false;
@@ -131,10 +130,10 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
-		if (childEditPart instanceof LargeItemWeightEditPart) {
+		if (childEditPart instanceof LargeItemArticleEditPart) {
 			return true;
 		}
-		if (childEditPart instanceof LargeItemArticleEditPart) {
+		if (childEditPart instanceof LargeItemWeightEditPart) {
 			return true;
 		}
 		return false;
@@ -269,6 +268,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private WrappingLabel fFigureLargeItemArticleLabel;
+
 		/**
 		 * @generated
 		 */
@@ -288,34 +288,17 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		private void createContents() {
 
 			fFigureLargeItemArticleLabel = new WrappingLabel();
+
 			fFigureLargeItemArticleLabel.setText("");
 
 			this.add(fFigureLargeItemArticleLabel);
 
 			fFigureLargeItemWeightLabel = new WrappingLabel();
+
 			fFigureLargeItemWeightLabel.setText("");
 
 			this.add(fFigureLargeItemWeightLabel);
 
-		}
-
-		/**
-		 * @generated
-		 */
-		private boolean myUseLocalCoordinates = false;
-
-		/**
-		 * @generated
-		 */
-		protected boolean useLocalCoordinates() {
-			return myUseLocalCoordinates;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
-			myUseLocalCoordinates = useLocalCoordinates;
 		}
 
 		/**
