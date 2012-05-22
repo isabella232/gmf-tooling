@@ -36,7 +36,7 @@
 	private String defaultText;	
 
 	«EXPAND xpt::Common::generatedMemberComment»
-	org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate labelDelegate;
+	private org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate labelDelegate;
 «ENDDEFINE»
 
 «DEFINE methods(needsRefreshBounds : Boolean, readOnly : Boolean, useElementIcon : Boolean, viewmap : gmfgen::Viewmap,
@@ -211,8 +211,8 @@
       		if (label instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel){
         		labelDelegate = new org.eclipse.gmf.runtime.diagram.ui.label.WrappingLabelDelegate((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel)label);
       		} «IF isVerticalLabel(self)-»
-      		else if (figure instanceof «getVerticalLabelFQN()») {
-        		labelDelegate = new «getVerticalLabelDelegateFQN()»((«getVerticalLabelFQN()»)figure); 
+      		else if (label instanceof «getVerticalLabelFQN()») {
+        		labelDelegate = new «getVerticalLabelDelegateFQN()»((«getVerticalLabelFQN()»)label); 
       		} «ENDIF-»
       		else {
         		labelDelegate = new «getSimpleLabelDelegateFQN()»((org.eclipse.draw2d.Label)label);
