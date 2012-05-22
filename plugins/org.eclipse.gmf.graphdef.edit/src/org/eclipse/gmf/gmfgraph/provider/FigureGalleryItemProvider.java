@@ -222,7 +222,17 @@ public class FigureGalleryItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
+				 GMFGraphFactory.eINSTANCE.createVerticalLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
 				 GMFGraphFactory.eINSTANCE.createRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Figures(),
+				 GMFGraphFactory.eINSTANCE.createInvisibleRectangle()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -348,6 +358,11 @@ public class FigureGalleryItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
 				 GMFGraphFactory.eINSTANCE.createStackLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigureGallery_Layouts(),
+				 GMFGraphFactory.eINSTANCE.createCenterLayout()));
 	}
 
 	/**

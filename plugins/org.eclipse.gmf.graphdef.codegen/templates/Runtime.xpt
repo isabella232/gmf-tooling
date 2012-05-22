@@ -49,12 +49,17 @@
 «DEFINE fqn FOR gmfgraph::StackLayout»org.eclipse.draw2d.StackLayout«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::BorderLayout»org.eclipse.draw2d.BorderLayout«ENDDEFINE»
 
+«REM»CenterLayout requires dependency to tooling runtime if the stabdalone plugin is generated«ENDREM»
+«DEFINE fqn FOR gmfgraph::CenterLayout»org.eclipse.gmf.tooling.runtime.draw2d.CenterLayout«ENDDEFINE»
+
 ////////////////////////
 «DEFINE fqn FOR gmfgraph::FigureRef»«EXPAND fqn FOR figure»«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Label»«IF isFullRuntime()»org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel«ELSE»org.eclipse.draw2d.Label«ENDIF»«ENDDEFINE»
+«DEFINE fqn FOR gmfgraph::VerticalLabel»org.eclipse.gmf.tooling.runtime.draw2d.labels.VerticalLabel«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::LabeledContainer»org.eclipse.draw2d.LabeledContainer«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Rectangle»org.eclipse.draw2d.RectangleFigure«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::RoundedRectangle»org.eclipse.draw2d.RoundedRectangle«ENDDEFINE»
+«DEFINE fqn FOR gmfgraph::InvisibleRectangle»org.eclipse.draw2d.RectangleFigure«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Ellipse»org.eclipse.draw2d.Ellipse«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::Polygon»org.eclipse.draw2d.PolygonShape«ENDDEFINE»
 «DEFINE fqn FOR gmfgraph::ScalablePolygon»org.eclipse.draw2d.ScalablePolygonShape«ENDDEFINE»

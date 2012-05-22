@@ -42,10 +42,10 @@
 		createContents();
 	}
 «EXPAND Children::CreateChildren-»
-«EXPAND Border::InitMethods»
 «ELSE-»
 	}
 «ENDIF-»
+«EXPAND Border::InitMethods»
 «EXPAND Extras::extraMethods»
 «EXPAND additions-»
 «ENDDEFINE»

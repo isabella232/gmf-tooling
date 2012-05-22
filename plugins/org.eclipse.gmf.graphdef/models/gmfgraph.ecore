@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgraph"
-    nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition" nsPrefix="gmfgraph">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgraph" nsURI="http://www.eclipse.org/gmf/2006/GraphicalDefinition"
+    nsPrefix="gmfgraph">
   <eClassifiers xsi:type="ecore:EClass" name="Canvas" eSuperTypes="#//Identity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="figures" upperBound="-1"
         eType="#//FigureGallery" containment="true">
@@ -158,7 +157,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RealFigure" abstract="true" eSuperTypes="#//AbstractFigure #//PinOwner">
+  <eClassifiers xsi:type="ecore:EClass" name="RealFigure" abstract="true" eSuperTypes="#//AbstractFigure #//PinOwner #//CustomAttributeOwner">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="This is exact/specific/concrete figure, unlike proxy/reference-nature FigureRef"/>
     </eAnnotations>
@@ -203,7 +202,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//RealFigure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="org.eclipse.draw2d.Label"/>
+      <details key="documentation" value="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -212,9 +211,20 @@
       <details key="documentation" value="org.eclipse.draw2d.LabeledContainer"/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VerticalLabel" eSuperTypes="#//RealFigure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="org.eclipse.gmf.tooling.runtime.draw2d.labels.VerticalLabel"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Rectangle" eSuperTypes="#//Shape">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.RectangleFigure"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InvisibleRectangle" eSuperTypes="#//RealFigure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="org.eclipse.draw2d.RectangleFigure #opaque=false, #outline=false, #fill=false"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoundedRectangle" eSuperTypes="#//Shape">
@@ -265,10 +275,14 @@
       <details key="documentation" value="org.eclipse.draw2d.PolygonDecoration"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CustomClass" abstract="true" interface="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomAttributeOwner" abstract="true"
+      interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//CustomAttribute" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomClass" abstract="true" interface="true"
+      eSuperTypes="#//CustomAttributeOwner">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomAttribute">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -510,6 +524,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StackLayout" eSuperTypes="#//Layout"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CenterLayout" eSuperTypes="#//Layout"/>
   <eClassifiers xsi:type="ecore:EClass" name="SVGFigure" eSuperTypes="#//RealFigure">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="documentURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"

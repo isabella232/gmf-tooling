@@ -1,0 +1,37 @@
+modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
+
+library RuntimeLabelsSupport;
+
+helper isVerticalLabel(commonBase : gmfgen::GenCommonBase) : Boolean {
+  return 
+    commonBase.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap) 
+    and commonBase.viewmap.oclAsType(gmfgen::ParentAssignedViewmap).figureQualifiedClassName = getVerticalLabelFQN();
+}
+
+helper getSimpleLabelDelegateFQN() : String {
+  return getRuntimeLabelPackage().concat(".").concat("SimpleLabelDelegate");
+}
+
+helper getVerticalLabelFQN() : String {
+  return getRuntimeLabelPackage().concat(".").concat("VerticalLabel");
+}
+
+helper getVerticalLabelDelegateFQN() : String {
+  return getRuntimeLabelPackage().concat(".").concat("VerticalLabelDelegate");
+}
+
+helper getVerticalLabelCellEditorLocatorFQN() : String {
+  return getRuntimeLabelPackage().concat(".").concat("VerticalLabelCellEditorLocator");
+}
+
+helper getRuntimeLabelPackage() : String {
+  return "org.eclipse.gmf.tooling.runtime.draw2d.labels";
+}
+
+helper supportsVerticalLabels(diagram : gmfgen::GenDiagram) : Boolean {
+  return diagram.getAllNodes()->exists(n | hasVerticalLabels(n))
+}
+
+helper hasVerticalLabels(node : gmfgen::GenNode) : Boolean {
+  return isVerticalLabel(node) or node.labels->exists(label | isVerticalLabel(label))
+}

@@ -101,6 +101,7 @@ public class RealFigureItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getPinOwner_Pins());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomAttributeOwner_Attributes());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getRealFigure_Children());
 		}
 		return childrenFeatures;
@@ -149,6 +150,7 @@ public class RealFigureItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.REAL_FIGURE__PINS:
+			case GMFGraphPackage.REAL_FIGURE__ATTRIBUTES:
 			case GMFGraphPackage.REAL_FIGURE__CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -184,6 +186,11 @@ public class RealFigureItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getCustomAttributeOwner_Attributes(),
+				 GMFGraphFactory.eINSTANCE.createCustomAttribute()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
 				 GMFGraphFactory.eINSTANCE.createFigureRef()));
 
@@ -200,7 +207,17 @@ public class RealFigureItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createVerticalLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
 				 GMFGraphFactory.eINSTANCE.createRectangle()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getRealFigure_Children(),
+				 GMFGraphFactory.eINSTANCE.createInvisibleRectangle()));
 
 		newChildDescriptors.add
 			(createChildParameter

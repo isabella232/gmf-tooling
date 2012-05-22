@@ -127,7 +127,7 @@ class ChildAccess {
 }
 
 @genmodel(documentation="This is exact/specific/concrete figure, unlike proxy/reference-nature FigureRef")
-abstract class RealFigure extends AbstractFigure, PinOwner {
+abstract class RealFigure extends AbstractFigure, PinOwner, CustomAttributeOwner {
 	attr String[?] name; // unlike identity, do not require this attribute (and not necessarily unique)
 	ordered val Figure[*] children;
 }
@@ -161,10 +161,11 @@ abstract class Shape extends RealFigure {
 
 // well-known, predefined Figures
 
-@genmodel(documentation="org.eclipse.draw2d.Label")
+@genmodel(documentation="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel")
 class Label extends RealFigure {
 	attr String text;
 }
+
 @genmodel(documentation="org.eclipse.draw2d.LabeledContainer")
 class LabeledContainer extends RealFigure {
 }
@@ -173,11 +174,20 @@ class LabeledContainer extends RealFigure {
 // Panel?
 // ScrollPane?
 
+@genmodel(documentation="org.eclipse.gmf.tooling.runtime.draw2d.labels.VerticalLabel")
+class VerticalLabel extends RealFigure {
+	attr String text;
+}
 
 // well-known, predefined shapes
 
 @genmodel(documentation="org.eclipse.draw2d.RectangleFigure")
 class Rectangle extends Shape {
+}
+
+@genmodel(documentation="org.eclipse.draw2d.RectangleFigure #opaque=false, #outline=false, #fill=false")
+class InvisibleRectangle extends RealFigure {
+   //
 }
 
 @genmodel(documentation="org.eclipse.draw2d.RoundedRectangle")
@@ -228,9 +238,12 @@ class PolygonDecoration extends Polygon, DecorationFigure {
 
 // custom figures 
 
-abstract interface CustomClass {
+abstract interface CustomAttributeOwner {
+	val CustomAttribute[*] attributes;   
+}
+
+abstract interface CustomClass extends CustomAttributeOwner {
 	attr String qualifiedClassName;
-	val CustomAttribute[*] attributes;
 }
 
 class CustomAttribute {
@@ -459,6 +472,9 @@ class XYLayoutData extends LayoutData {
 }
 
 class StackLayout extends Layout {
+}
+
+class CenterLayout extends Layout {
 }
 
 class SVGFigure extends RealFigure {

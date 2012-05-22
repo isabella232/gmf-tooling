@@ -13,7 +13,7 @@ package org.eclipse.gmf.gmfgraph;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * org.eclipse.draw2d.Label
+ * org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel
  * <!-- end-model-doc -->
  *
  * <p>

@@ -10,29 +10,27 @@
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
-«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
-«EXTENSION Util»
 «EXTENSION NativeUtil»
 
-«DEFINE Init(instanceVarName : String) FOR gmfgraph::CustomClass»
-«EXPAND customAttribute(instanceVarName) FOREACH attributes»
+«DEFINE Init(instanceVarName : String) FOR gmfgraph::CustomClass -»
+«EXPAND customAttribute(instanceVarName) FOREACH attributes -»
 «ENDDEFINE»
 
-«DEFINE customAttribute(instanceVarName : String) FOR gmfgraph::CustomAttribute»
+«DEFINE customAttribute(instanceVarName : String) FOR gmfgraph::CustomAttribute -»
 «EXPAND customAttrValueImpl-»
-«IF directAccess»
+«IF directAccess -»
 «instanceVarName».«name» = «EXPAND customAttrValue»;
-«ELSE»
+«ELSE -»
 «instanceVarName».set«name.firstToUpper()»(«EXPAND customAttrValue»);
-«ENDIF»
+«ENDIF -»
 «ENDDEFINE»
 
-«DEFINE customAttrValueImpl FOR gmfgraph::CustomAttribute»
+«DEFINE customAttrValueImpl FOR gmfgraph::CustomAttribute -»
 «IF multiStatementValue-»
 «messageFormat(value, Sequence { 'attr' + name.firstToUpper() })-»
 «ENDIF-»
 «ENDDEFINE»
 
-«DEFINE customAttrValue FOR gmfgraph::CustomAttribute»
+«DEFINE customAttrValue FOR gmfgraph::CustomAttribute -»
 «IF multiStatementValue»attr«name.firstToUpper()»«ELSE-»«value»«ENDIF-»
 «ENDDEFINE»

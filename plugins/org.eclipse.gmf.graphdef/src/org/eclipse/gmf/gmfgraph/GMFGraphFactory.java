@@ -170,6 +170,15 @@ public interface GMFGraphFactory extends EFactory {
 	LabeledContainer createLabeledContainer();
 
 	/**
+	 * Returns a new object of class '<em>Vertical Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Vertical Label</em>'.
+	 * @generated
+	 */
+	VerticalLabel createVerticalLabel();
+
+	/**
 	 * Returns a new object of class '<em>Rectangle</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -177,6 +186,15 @@ public interface GMFGraphFactory extends EFactory {
 	 * @generated
 	 */
 	Rectangle createRectangle();
+
+	/**
+	 * Returns a new object of class '<em>Invisible Rectangle</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Invisible Rectangle</em>'.
+	 * @generated
+	 */
+	InvisibleRectangle createInvisibleRectangle();
 
 	/**
 	 * Returns a new object of class '<em>Rounded Rectangle</em>'.
@@ -492,6 +510,15 @@ public interface GMFGraphFactory extends EFactory {
 	 * @generated
 	 */
 	StackLayout createStackLayout();
+
+	/**
+	 * Returns a new object of class '<em>Center Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Center Layout</em>'.
+	 * @generated
+	 */
+	CenterLayout createCenterLayout();
 
 	/**
 	 * Returns a new object of class '<em>SVG Figure</em>'.
