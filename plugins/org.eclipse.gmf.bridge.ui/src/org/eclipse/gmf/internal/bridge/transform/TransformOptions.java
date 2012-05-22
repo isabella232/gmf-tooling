@@ -92,6 +92,8 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 					String v = getWithContexts(k);
 					if (v != null && v != myNoValueToken) {
 						myContextPrefs.put(k, v);
+					} else {
+						myContextPrefs.remove(k);
 					}
 				}
 				myContextPrefs.flush();

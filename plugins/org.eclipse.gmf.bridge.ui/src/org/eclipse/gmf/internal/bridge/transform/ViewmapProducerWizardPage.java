@@ -182,7 +182,6 @@ class ViewmapProducerWizardPage extends WizardPage {
 		radioCustomQVT.setText("Use custom QVTO transformation:");
 
 		qvtoFileControl = new Text(map2genControls, SWT.SINGLE | SWT.BORDER);
-		qvtoFileControl.addListener(SWT.Modify, modifyListener);
 		
 		radioDGMT.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
@@ -300,9 +299,6 @@ class ViewmapProducerWizardPage extends WizardPage {
 		TransformOptions options = getOperation().getOptions();
 		// safe to set option value now as they get flushed into storage only on Wizard.performFinish
 		options.setFigureTemplatesPath(checkTextFieldURI(templatesPathText));
-		options.setTransformation(checkTextFieldURI(qvtoFileControl));
-		options.setPreReconcileTransform(checkTextFieldURI(preReconcileTranfsormText));
-		options.setPostReconcileTransform(checkTextFieldURI(postReconcileTransformText));
 	}
 
 	private URL checkTextFieldURI(Text widget) {
