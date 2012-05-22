@@ -85,6 +85,9 @@ public class VerticalLabel extends ImageFigure {
 		if (getText() == null) {
 			return null;
 		}
+		if (getFont() == null) {
+			return null;
+		}
 		Image image = ImageUtilities.createRotatedImageOfString(getText(), getFont(), getForegroundColor(), getBackgroundColor());
 		super.setImage(image);
 		return image;
