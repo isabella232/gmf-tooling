@@ -813,7 +813,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		TypeModelFacet typeModelFacet = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		childNode.setModelFacet(typeModelFacet);
-		assertFalse(typeModelFacet.isPhantomElement());
+		assertTrue(typeModelFacet.isPhantomElement());
 		
 		topLevelNode.setModelFacet(typeModelFacet);
 		assertTrue(typeModelFacet.isPhantomElement());
