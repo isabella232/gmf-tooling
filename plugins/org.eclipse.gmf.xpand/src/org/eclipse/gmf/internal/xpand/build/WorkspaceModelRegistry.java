@@ -158,8 +158,8 @@ class WorkspaceModelRegistry implements MetaModelSource {
 			if (d != null) {
 				Descriptor d2 = uriToDescriptor.remove(d.nsURI);
 				assert d2 == d;
+				delist(d);
 			}
-			delist(d);
 		}
 		Set<IFile> filesToAdd = new HashSet<IFile>(visitor.getNewModelFiles());
 		for (IFile f : visitor.getChangedModelFiles()) {
