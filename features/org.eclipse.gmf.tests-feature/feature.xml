@@ -45,15 +45,15 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.graphdef.codegen" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.tooldef" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.validate" version="1.1.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.map.edit" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.codegen" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.map.edit" version="2.9.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.codegen" version="2.9.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.gmf.xpand" version="2.1.0" match="compatible"/>
       <import plugin="org.eclipse.ant.core" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.xpand.editor" version="2.1.0" match="compatible"/>
-      <import plugin="org.eclipse.gmf.tooling.runtime" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.tooling.runtime" version="2.9.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.gmf.xpand.qvtlibrary" version="1.1.1" match="compatible"/>
       <import plugin="org.eclipse.ocl.ecore"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.runtime"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="3.1.0" match="compatible"/>
    </requires>
 
    <plugin
