@@ -1652,7 +1652,7 @@ class GenVisualEffect extends CustomBehaviour {
 }
 
 class GenCustomGeneratorExtension extends GenCustomTemplateInput {
-	readonly volatile transient derived ref GenEditorGenerator[1]#extensions generator;
+	readonly !resolve ref GenEditorGenerator[1]#extensions generator;
 
 	@genmodel(documentation="User friendly name for this extension, used only in UI")
 	attr String name; 
@@ -1671,7 +1671,7 @@ abstract interface GenCustomTemplateInput {
 }
 
 abstract class GenTemplateInvocationBase {
-	readonly volatile transient derived ref GenCustomGeneratorExtension[1]#invocations extension;
+	readonly !resolve ref GenCustomGeneratorExtension[1]#invocations extension;
 
 	@genmodel(documentation="User friendly description for this invocation, used only in UI")
 	attr String description;

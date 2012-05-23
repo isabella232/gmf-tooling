@@ -35,7 +35,7 @@ public interface GenTemplateInvocationBase extends EObject {
 	 * @return the value of the '<em>Extension</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenTemplateInvocationBase_Extension()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getInvocations
-	 * @model opposite="invocations" required="true" changeable="false" volatile="true" derived="true"
+	 * @model opposite="invocations" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenCustomGeneratorExtension getExtension();

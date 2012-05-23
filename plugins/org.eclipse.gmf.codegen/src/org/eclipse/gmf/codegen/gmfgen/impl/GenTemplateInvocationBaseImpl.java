@@ -7,6 +7,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
@@ -95,9 +96,8 @@ public abstract class GenTemplateInvocationBaseImpl extends EObjectImpl implemen
 	 * @generated
 	 */
 	public GenCustomGeneratorExtension getExtension() {
-		// TODO: implement this method to return the 'Extension' container reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (eContainerFeatureID() != GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION) return null;
+		return (GenCustomGeneratorExtension)eContainer();
 	}
 
 	/**
@@ -140,6 +140,36 @@ public abstract class GenTemplateInvocationBaseImpl extends EObjectImpl implemen
 		templateFqn = newTemplateFqn;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN, oldTemplateFqn, templateFqn));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**

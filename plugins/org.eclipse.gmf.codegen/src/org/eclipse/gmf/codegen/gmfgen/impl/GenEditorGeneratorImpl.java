@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.DynamicModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -397,6 +398,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected String pluginDirectory = PLUGIN_DIRECTORY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExtensions() <em>Extensions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtensions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenCustomGeneratorExtension> extensions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1234,11 +1245,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @generated
 	 */
 	public EList<GenCustomGeneratorExtension> getExtensions() {
-		// TODO: implement this method to return the 'Extensions' containment reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
-		throw new UnsupportedOperationException();
+		if (extensions == null) {
+			extensions = new EObjectContainmentWithInverseEList<GenCustomGeneratorExtension>(GenCustomGeneratorExtension.class, this, GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS, GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR);
+		}
+		return extensions;
 	}
 
 	public String getPluginDirectory() {
@@ -1295,6 +1305,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -1346,6 +1357,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				if (labelParsers != null)
 					msgs = ((InternalEObject)labelParsers).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__LABEL_PARSERS, null, msgs);
 				return basicSetLabelParsers((GenParsers)otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getExtensions()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -1677,7 +1690,7 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
 				return PLUGIN_DIRECTORY_EDEFAULT == null ? pluginDirectory != null : !PLUGIN_DIRECTORY_EDEFAULT.equals(pluginDirectory);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
-				return !getExtensions().isEmpty();
+				return extensions != null && !extensions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

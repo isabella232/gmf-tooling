@@ -39,7 +39,7 @@ public interface GenCustomGeneratorExtension extends GenCustomTemplateInput {
 	 * @return the value of the '<em>Generator</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCustomGeneratorExtension_Generator()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExtensions
-	 * @model opposite="extensions" required="true" changeable="false" volatile="true" derived="true"
+	 * @model opposite="extensions" resolveProxies="false" required="true" transient="false" changeable="false"
 	 * @generated
 	 */
 	GenEditorGenerator getGenerator();

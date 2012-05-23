@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -113,6 +114,16 @@ public class GenCustomGeneratorExtensionImpl extends EObjectImpl implements GenC
 	protected EObject rootInput;
 
 	/**
+	 * The cached value of the '{@link #getInvocations() <em>Invocations</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInvocations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenTemplateInvocationBase> invocations;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -158,9 +169,8 @@ public class GenCustomGeneratorExtensionImpl extends EObjectImpl implements GenC
 	 * @generated
 	 */
 	public GenEditorGenerator getGenerator() {
-		// TODO: implement this method to return the 'Generator' container reference
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (eContainerFeatureID() != GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR) return null;
+		return (GenEditorGenerator)eContainer();
 	}
 
 	/**
@@ -249,11 +259,29 @@ public class GenCustomGeneratorExtensionImpl extends EObjectImpl implements GenC
 	 * @generated
 	 */
 	public EList<GenTemplateInvocationBase> getInvocations() {
-		// TODO: implement this method to return the 'Invocations' containment reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
-		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
-		throw new UnsupportedOperationException();
+		if (invocations == null) {
+			invocations = new EObjectContainmentWithInverseEList<GenTemplateInvocationBase>(GenTemplateInvocationBase.class, this, GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__INVOCATIONS, GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION);
+		}
+		return invocations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR, msgs);
+			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__INVOCATIONS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getInvocations()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -264,6 +292,8 @@ public class GenCustomGeneratorExtensionImpl extends EObjectImpl implements GenC
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR, msgs);
 			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__INVOCATIONS:
 				return ((InternalEList<?>)getInvocations()).basicRemove(otherEnd, msgs);
 		}
@@ -384,7 +414,7 @@ public class GenCustomGeneratorExtensionImpl extends EObjectImpl implements GenC
 			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__ROOT_INPUT:
 				return rootInput != null;
 			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__INVOCATIONS:
-				return !getInvocations().isEmpty();
+				return invocations != null && !invocations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
