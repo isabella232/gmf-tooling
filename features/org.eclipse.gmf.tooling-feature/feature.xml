@@ -45,7 +45,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.emf.codegen.ecore" version="2.4.0" match="compatible"/>
       <import plugin="org.eclipse.draw2d" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.validate" version="1.1.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml" version="3.1.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.codegen" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.emf.edit" version="2.4.0" match="compatible"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.4.0" match="compatible"/>
@@ -108,10 +108,10 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.swt" version="3.3.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.xpand" version="2.1.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.common" version="1.3.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.common" version="2.1.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.project" version="2.1.0" match="compatible"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="2.1.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.common" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.project" version="3.1.0" match="compatible"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="3.1.0" match="compatible"/>
       <import plugin="lpg.runtime.java" version="2.0.17" match="compatible"/>
    </requires>
 

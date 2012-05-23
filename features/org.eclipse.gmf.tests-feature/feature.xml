@@ -53,7 +53,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.tooling.runtime" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.xpand.qvtlibrary" version="1.1.1" match="compatible"/>
       <import plugin="org.eclipse.ocl.ecore"/>
-      <import plugin="org.eclipse.m2m.qvt.oml.runtime"/>
+      <import plugin="org.eclipse.m2m.qvt.oml.runtime" version="3.1.0" match="compatible"/>
    </requires>
 
    <plugin
