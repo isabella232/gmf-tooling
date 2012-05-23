@@ -83,7 +83,9 @@ public interface Copier {
 	};
 
 	// XXX for now, keep this new implementation separate, however, won't hurt to combine it with the old one
-	public static final Copier COMPLETE_COPY_WITH_CROSSREF = new Copier() {
+	public static final Copier COMPLETE_COPY_WITH_CROSSREF = new WithCrossRefsCopier();
+	
+	public static class WithCrossRefsCopier implements Copier {
 
 		public EObject copyToCurrent(EObject currentParent, EObject old, Reconciler reconciler) {
 			final Map<EObject, Collection<Setting>> crossReferences = EcoreUtil.CrossReferencer.find(Collections.singleton(old));

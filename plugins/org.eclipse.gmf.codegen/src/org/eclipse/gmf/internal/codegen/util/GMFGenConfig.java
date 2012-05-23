@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.internal.common.reconcile.Cleaner;
 import org.eclipse.gmf.internal.common.reconcile.Copier;
@@ -24,6 +25,7 @@ import org.eclipse.gmf.internal.common.reconcile.Decision;
 import org.eclipse.gmf.internal.common.reconcile.DefaultDecision;
 import org.eclipse.gmf.internal.common.reconcile.Matcher;
 import org.eclipse.gmf.internal.common.reconcile.MergeListsDecision;
+import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.internal.common.reconcile.ReconcilerConfigBase;
 import org.eclipse.gmf.internal.common.reconcile.ReflectiveMatcher;
 import org.eclipse.gmf.internal.common.reconcile.StringPatternDecision;
@@ -315,6 +317,21 @@ public class GMFGenConfig extends ReconcilerConfigBase {
 		preserveIfSet(GMFGEN.getInitDiagramAction(), GMFGEN.getGenAction_QualifiedClassName());
 		preserveIfSet(GMFGEN.getLoadResourceAction(), GMFGEN.getGenAction_Name());
 		preserveIfSet(GMFGEN.getLoadResourceAction(), GMFGEN.getGenAction_QualifiedClassName());
+		
+		setMatcher(GMFGEN.getGenCustomGeneratorExtension(), GMFGEN.getGenCustomGeneratorExtension_Name());
+		setCopier(GMFGEN.getGenCustomGeneratorExtension(), new Copier.WithCrossRefsCopier(){
+			@Override
+			public EObject copyToCurrent(EObject currentParent, EObject old, Reconciler reconciler) {
+				EObject result = null;
+				if (old instanceof GenCustomGeneratorExtension){
+					GenCustomGeneratorExtension oldExtension = (GenCustomGeneratorExtension)old;
+					if (!oldExtension.isFromCustomBridge()) {
+						result = super.copyToCurrent(currentParent, old, reconciler);
+					}
+				}
+				return result;
+			}
+		});
 	}
 
 	private void restoreOld(EClass eClass, EAttribute feature) {

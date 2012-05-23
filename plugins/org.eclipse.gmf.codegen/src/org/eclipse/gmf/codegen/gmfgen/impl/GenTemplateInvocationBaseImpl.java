@@ -1,0 +1,249 @@
+/**
+ */
+package org.eclipse.gmf.codegen.gmfgen.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension;
+import org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>Gen Template Invocation Base</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationBaseImpl#getExtension <em>Extension</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationBaseImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationBaseImpl#getTemplateFqn <em>Template Fqn</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @generated
+ */
+public abstract class GenTemplateInvocationBaseImpl extends EObjectImpl implements GenTemplateInvocationBase {
+	/**
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String description = DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTemplateFqn() <em>Template Fqn</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTemplateFqn()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TEMPLATE_FQN_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTemplateFqn() <em>Template Fqn</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTemplateFqn()
+	 * @generated
+	 * @ordered
+	 */
+	protected String templateFqn = TEMPLATE_FQN_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenTemplateInvocationBaseImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return GMFGenPackage.eINSTANCE.getGenTemplateInvocationBase();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCustomGeneratorExtension getExtension() {
+		// TODO: implement this method to return the 'Extension' container reference
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTemplateFqn() {
+		return templateFqn;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTemplateFqn(String newTemplateFqn) {
+		String oldTemplateFqn = templateFqn;
+		templateFqn = newTemplateFqn;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN, oldTemplateFqn, templateFqn));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__INVOCATIONS, GenCustomGeneratorExtension.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION:
+				return getExtension();
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION:
+				return getDescription();
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN:
+				return getTemplateFqn();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION:
+				setDescription((String)newValue);
+				return;
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN:
+				setTemplateFqn((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN:
+				setTemplateFqn(TEMPLATE_FQN_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION:
+				return getExtension() != null;
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN:
+				return TEMPLATE_FQN_EDEFAULT == null ? templateFqn != null : !TEMPLATE_FQN_EDEFAULT.equals(templateFqn);
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (description: ");
+		result.append(description);
+		result.append(", templateFqn: ");
+		result.append(templateFqn);
+		result.append(')');
+		return result.toString();
+	}
+
+} //GenTemplateInvocationBaseImpl

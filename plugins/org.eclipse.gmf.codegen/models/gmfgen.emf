@@ -60,6 +60,10 @@ class GenEditorGenerator {
 	val GenContextMenu[*] contextMenus; // XXX perhaps, as GenPlugin attribute instead?
 	@genmodel(documentation="The target directory for generated editor code. Similar to EMF's GenModel#editorDirectory")
 	attr String pluginDirectory; 
+	
+	@genmodel(documentation="Custom extensions for this generator")
+	val GenCustomGeneratorExtension[*]#generator extensions; 
+	
 }
 
 @constraints(ocl="diagramRunTimeClass.ecoreClass.eAllSuperTypes->including(diagramRunTimeClass.ecoreClass)->one(ePackage.name = 'notation' and name = 'Diagram')", description="'Diagram Runtime Class' must be a notation::Diagram or sub-class")
@@ -1646,3 +1650,46 @@ class GenVisualEffect extends CustomBehaviour {
   	op String getOclExpressionString();
   	op ecore.EClassifier getOperationRuntimeType(); 
 }
+
+class GenCustomGeneratorExtension extends GenCustomTemplateInput {
+	readonly volatile transient derived ref GenEditorGenerator[1]#extensions generator;
+
+	@genmodel(documentation="User friendly name for this extension, used only in UI")
+	attr String name; 
+	@genmodel(documentation="Reconciler should try to preserve the contents if set to true")
+	attr boolean fromCustomBridge = false;
+	
+	@genmodel(documentation="Root input element for custom template invocations. GenEditorGenerator single instance will be assumed if not set")
+	ref ecore.EObject[?] rootInput; 
+	
+	val GenTemplateInvocationBase[*]#extension invocations;
+}
+
+abstract interface GenCustomTemplateInput {
+	@genmodel(documentation="OCL Type for this input, if not set generator will try to compute it")
+    attr String oclType;
+}
+
+abstract class GenTemplateInvocationBase {
+	readonly volatile transient derived ref GenCustomGeneratorExtension[1]#invocations extension;
+
+	@genmodel(documentation="User friendly description for this invocation, used only in UI")
+	attr String description;
+	@genmodel(documentation="FQN of xPand template to invoke in the standard form of abc::def::TemplateName#rootExpand")
+	attr String templateFqn;
+}  
+
+class GenTemplateInvocation extends GenTemplateInvocationBase {
+	@genmodel(documentation="Set of referenced inputs for this invocation, ")
+	ref GenCustomTemplateInput[*] inputs;
+	@genmodel(documentation="OCL expression to be executed against the set of other inputs to compute the inputs for template")
+	attr String oclExpression;
+}
+
+class GenFixedInputsTemplateInvocation extends GenTemplateInvocationBase, GenCustomTemplateInput {
+	@genmodel(documentation="Predefined set of input elements for template. 
+		Due to reconciling it normally makes sense only for local links inside the same extension or 
+		for extensions created by custom bridge extension (self.extension.fromCustomBridge = true)")
+	ref ecore.EObject[*] fixedInputs;
+}
+

@@ -2389,6 +2389,75 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCustomGeneratorExtensionItemProvider genCustomGeneratorExtensionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenCustomGeneratorExtensionAdapter() {
+		if (genCustomGeneratorExtensionItemProvider == null) {
+			genCustomGeneratorExtensionItemProvider = new GenCustomGeneratorExtensionItemProvider(this);
+		}
+
+		return genCustomGeneratorExtensionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenTemplateInvocationItemProvider genTemplateInvocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenTemplateInvocationAdapter() {
+		if (genTemplateInvocationItemProvider == null) {
+			genTemplateInvocationItemProvider = new GenTemplateInvocationItemProvider(this);
+		}
+
+		return genTemplateInvocationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenFixedInputsTemplateInvocationItemProvider genFixedInputsTemplateInvocationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenFixedInputsTemplateInvocationAdapter() {
+		if (genFixedInputsTemplateInvocationItemProvider == null) {
+			genFixedInputsTemplateInvocationItemProvider = new GenFixedInputsTemplateInvocationItemProvider(this);
+		}
+
+		return genFixedInputsTemplateInvocationItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2662,6 +2731,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (customParserItemProvider != null) customParserItemProvider.dispose();
 		if (externalParserItemProvider != null) externalParserItemProvider.dispose();
 		if (genVisualEffectItemProvider != null) genVisualEffectItemProvider.dispose();
+		if (genCustomGeneratorExtensionItemProvider != null) genCustomGeneratorExtensionItemProvider.dispose();
+		if (genTemplateInvocationItemProvider != null) genTemplateInvocationItemProvider.dispose();
+		if (genFixedInputsTemplateInvocationItemProvider != null) genFixedInputsTemplateInvocationItemProvider.dispose();
 	}
 
 }

@@ -1045,6 +1045,41 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genCustomGeneratorExtensionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genCustomTemplateInputEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genTemplateInvocationBaseEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genTemplateInvocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genFixedInputsTemplateInvocationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum standardPreferencePagesEEnum = null;
 
 	/**
@@ -1479,6 +1514,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenEditorGenerator_PluginDirectory() {
         return (EAttribute)getGenEditorGenerator().getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenEditorGenerator_Extensions() {
+        return (EReference)getGenEditorGenerator().getEStructuralFeatures().get(23);
 	}
 
 	/**
@@ -7257,6 +7301,174 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenVisualEffect_OclExpression() {
         return (EAttribute)getGenVisualEffect().getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenCustomGeneratorExtension() {
+		if (genCustomGeneratorExtensionEClass == null) {
+			genCustomGeneratorExtensionEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(158);
+		}
+		return genCustomGeneratorExtensionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenCustomGeneratorExtension_Generator() {
+        return (EReference)getGenCustomGeneratorExtension().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomGeneratorExtension_Name() {
+        return (EAttribute)getGenCustomGeneratorExtension().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomGeneratorExtension_FromCustomBridge() {
+        return (EAttribute)getGenCustomGeneratorExtension().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenCustomGeneratorExtension_RootInput() {
+        return (EReference)getGenCustomGeneratorExtension().getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenCustomGeneratorExtension_Invocations() {
+        return (EReference)getGenCustomGeneratorExtension().getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenCustomTemplateInput() {
+		if (genCustomTemplateInputEClass == null) {
+			genCustomTemplateInputEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(159);
+		}
+		return genCustomTemplateInputEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenCustomTemplateInput_OclType() {
+        return (EAttribute)getGenCustomTemplateInput().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenTemplateInvocationBase() {
+		if (genTemplateInvocationBaseEClass == null) {
+			genTemplateInvocationBaseEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(160);
+		}
+		return genTemplateInvocationBaseEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenTemplateInvocationBase_Extension() {
+        return (EReference)getGenTemplateInvocationBase().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenTemplateInvocationBase_Description() {
+        return (EAttribute)getGenTemplateInvocationBase().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenTemplateInvocationBase_TemplateFqn() {
+        return (EAttribute)getGenTemplateInvocationBase().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenTemplateInvocation() {
+		if (genTemplateInvocationEClass == null) {
+			genTemplateInvocationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(161);
+		}
+		return genTemplateInvocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenTemplateInvocation_Inputs() {
+        return (EReference)getGenTemplateInvocation().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenTemplateInvocation_OclExpression() {
+        return (EAttribute)getGenTemplateInvocation().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenFixedInputsTemplateInvocation() {
+		if (genFixedInputsTemplateInvocationEClass == null) {
+			genFixedInputsTemplateInvocationEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(162);
+		}
+		return genFixedInputsTemplateInvocationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenFixedInputsTemplateInvocation_FixedInputs() {
+        return (EReference)getGenFixedInputsTemplateInvocation().getEStructuralFeatures().get(0);
 	}
 
 	/**

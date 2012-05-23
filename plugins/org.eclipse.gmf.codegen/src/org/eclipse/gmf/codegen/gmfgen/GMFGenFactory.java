@@ -926,6 +926,33 @@ public interface GMFGenFactory extends EFactory {
 	GenVisualEffect createGenVisualEffect();
 
 	/**
+	 * Returns a new object of class '<em>Gen Custom Generator Extension</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Custom Generator Extension</em>'.
+	 * @generated
+	 */
+	GenCustomGeneratorExtension createGenCustomGeneratorExtension();
+
+	/**
+	 * Returns a new object of class '<em>Gen Template Invocation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Template Invocation</em>'.
+	 * @generated
+	 */
+	GenTemplateInvocation createGenTemplateInvocation();
+
+	/**
+	 * Returns a new object of class '<em>Gen Fixed Inputs Template Invocation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Fixed Inputs Template Invocation</em>'.
+	 * @generated
+	 */
+	GenFixedInputsTemplateInvocation createGenFixedInputsTemplateInvocation();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

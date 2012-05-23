@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getLabelParsers <em>Label Parsers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getContextMenus <em>Context Menus</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPluginDirectory <em>Plugin Directory</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExtensions <em>Extensions</em>}</li>
  * </ul>
  * </p>
  *
@@ -659,6 +660,23 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setPluginDirectory(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Extensions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getGenerator <em>Generator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Custom extensions for this generator
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Extensions</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Extensions()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getGenerator
+	 * @model opposite="generator" containment="true"
+	 * @generated
+	 */
+	EList<GenCustomGeneratorExtension> getExtensions();
 
 	/**
 	 * <!-- begin-user-doc -->

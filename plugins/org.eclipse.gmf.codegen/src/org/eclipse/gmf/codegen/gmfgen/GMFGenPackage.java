@@ -280,13 +280,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY = 22;
 
 	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__EXTENSIONS = 23;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 23;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 24;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -11122,6 +11131,281 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_VISUAL_EFFECT_FEATURE_COUNT = CUSTOM_BEHAVIOUR_FEATURE_COUNT + 5;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput <em>Gen Custom Template Input</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenCustomTemplateInput()
+	 * @generated
+	 */
+	int GEN_CUSTOM_TEMPLATE_INPUT = 143;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_TEMPLATE_INPUT__OCL_TYPE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Custom Template Input</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCustomGeneratorExtensionImpl <em>Gen Custom Generator Extension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenCustomGeneratorExtensionImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenCustomGeneratorExtension()
+	 * @generated
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION = 142;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION__OCL_TYPE = GEN_CUSTOM_TEMPLATE_INPUT__OCL_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Generator</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR = GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION__NAME = GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>From Custom Bridge</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION__FROM_CUSTOM_BRIDGE = GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Root Input</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION__ROOT_INPUT = GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Invocations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION__INVOCATIONS = GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of structural features of the '<em>Gen Custom Generator Extension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CUSTOM_GENERATOR_EXTENSION_FEATURE_COUNT = GEN_CUSTOM_TEMPLATE_INPUT_FEATURE_COUNT + 5;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationBaseImpl <em>Gen Template Invocation Base</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationBaseImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenTemplateInvocationBase()
+	 * @generated
+	 */
+	int GEN_TEMPLATE_INVOCATION_BASE = 144;
+
+	/**
+	 * The feature id for the '<em><b>Extension</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION_BASE__EXTENSION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Template Fqn</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN = 2;
+
+	/**
+	 * The number of structural features of the '<em>Gen Template Invocation Base</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationImpl <em>Gen Template Invocation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenTemplateInvocationImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenTemplateInvocation()
+	 * @generated
+	 */
+	int GEN_TEMPLATE_INVOCATION = 145;
+
+	/**
+	 * The feature id for the '<em><b>Extension</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION__EXTENSION = GEN_TEMPLATE_INVOCATION_BASE__EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION__DESCRIPTION = GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Template Fqn</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION__TEMPLATE_FQN = GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN;
+
+	/**
+	 * The feature id for the '<em><b>Inputs</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION__INPUTS = GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Expression</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION__OCL_EXPRESSION = GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Template Invocation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TEMPLATE_INVOCATION_FEATURE_COUNT = GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenFixedInputsTemplateInvocationImpl <em>Gen Fixed Inputs Template Invocation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenFixedInputsTemplateInvocationImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenFixedInputsTemplateInvocation()
+	 * @generated
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION = 146;
+
+	/**
+	 * The feature id for the '<em><b>Extension</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION__EXTENSION = GEN_TEMPLATE_INVOCATION_BASE__EXTENSION;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION__DESCRIPTION = GEN_TEMPLATE_INVOCATION_BASE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Template Fqn</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION__TEMPLATE_FQN = GEN_TEMPLATE_INVOCATION_BASE__TEMPLATE_FQN;
+
+	/**
+	 * The feature id for the '<em><b>Ocl Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION__OCL_TYPE = GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Fixed Inputs</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION__FIXED_INPUTS = GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Gen Fixed Inputs Template Invocation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_FIXED_INPUTS_TEMPLATE_INVOCATION_FEATURE_COUNT = GEN_TEMPLATE_INVOCATION_BASE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages <em>Standard Preference Pages</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11129,7 +11413,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardPreferencePages()
 	 * @generated
 	 */
-	int STANDARD_PREFERENCE_PAGES = 142;
+	int STANDARD_PREFERENCE_PAGES = 147;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.RulerUnits <em>Ruler Units</em>}' enum.
@@ -11139,7 +11423,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getRulerUnits()
 	 * @generated
 	 */
-	int RULER_UNITS = 143;
+	int RULER_UNITS = 148;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Routing <em>Routing</em>}' enum.
@@ -11149,7 +11433,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getRouting()
 	 * @generated
 	 */
-	int ROUTING = 144;
+	int ROUTING = 149;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LineStyle <em>Line Style</em>}' enum.
@@ -11159,7 +11443,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLineStyle()
 	 * @generated
 	 */
-	int LINE_STYLE = 145;
+	int LINE_STYLE = 150;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.JFaceFont <em>JFace Font</em>}' enum.
@@ -11169,7 +11453,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getJFaceFont()
 	 * @generated
 	 */
-	int JFACE_FONT = 146;
+	int JFACE_FONT = 151;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.FontStyle <em>Font Style</em>}' enum.
@@ -11179,7 +11463,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 147;
+	int FONT_STYLE = 152;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.DiagramColors <em>Diagram Colors</em>}' enum.
@@ -11189,7 +11473,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDiagramColors()
 	 * @generated
 	 */
-	int DIAGRAM_COLORS = 148;
+	int DIAGRAM_COLORS = 153;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -11199,7 +11483,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 149;
+	int PROVIDER_PRIORITY = 154;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -11209,7 +11493,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 150;
+	int LINK_LABEL_ALIGNMENT = 155;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod <em>Label Text Access Method</em>}' enum.
@@ -11219,7 +11503,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelTextAccessMethod()
 	 * @generated
 	 */
-	int LABEL_TEXT_ACCESS_METHOD = 151;
+	int LABEL_TEXT_ACCESS_METHOD = 156;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType <em>Viewmap Layout Type</em>}' enum.
@@ -11229,7 +11513,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmapLayoutType()
 	 * @generated
 	 */
-	int VIEWMAP_LAYOUT_TYPE = 152;
+	int VIEWMAP_LAYOUT_TYPE = 157;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.StandardEntryKind <em>Standard Entry Kind</em>}' enum.
@@ -11239,7 +11523,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStandardEntryKind()
 	 * @generated
 	 */
-	int STANDARD_ENTRY_KIND = 153;
+	int STANDARD_ENTRY_KIND = 158;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -11249,7 +11533,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 154;
+	int GEN_SEVERITY = 159;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenLanguage <em>Gen Language</em>}' enum.
@@ -11259,7 +11543,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLanguage()
 	 * @generated
 	 */
-	int GEN_LANGUAGE = 155;
+	int GEN_LANGUAGE = 160;
 
 
 	/**
@@ -11270,7 +11554,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNavigatorReferenceType()
 	 * @generated
 	 */
-	int GEN_NAVIGATOR_REFERENCE_TYPE = 156;
+	int GEN_NAVIGATOR_REFERENCE_TYPE = 161;
 
 
 	/**
@@ -11281,7 +11565,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGeneratedType()
 	 * @generated
 	 */
-	int GENERATED_TYPE = 157;
+	int GENERATED_TYPE = 162;
 
 
 	/**
@@ -11546,6 +11830,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenEditorGenerator_PluginDirectory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExtensions <em>Extensions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Extensions</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getExtensions()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EReference getGenEditorGenerator_Extensions();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.
@@ -17950,6 +18245,188 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenVisualEffect_OclExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension <em>Gen Custom Generator Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Custom Generator Extension</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension
+	 * @generated
+	 */
+	EClass getGenCustomGeneratorExtension();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getGenerator <em>Generator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Generator</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getGenerator()
+	 * @see #getGenCustomGeneratorExtension()
+	 * @generated
+	 */
+	EReference getGenCustomGeneratorExtension_Generator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getName()
+	 * @see #getGenCustomGeneratorExtension()
+	 * @generated
+	 */
+	EAttribute getGenCustomGeneratorExtension_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#isFromCustomBridge <em>From Custom Bridge</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>From Custom Bridge</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#isFromCustomBridge()
+	 * @see #getGenCustomGeneratorExtension()
+	 * @generated
+	 */
+	EAttribute getGenCustomGeneratorExtension_FromCustomBridge();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getRootInput <em>Root Input</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Root Input</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getRootInput()
+	 * @see #getGenCustomGeneratorExtension()
+	 * @generated
+	 */
+	EReference getGenCustomGeneratorExtension_RootInput();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getInvocations <em>Invocations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Invocations</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension#getInvocations()
+	 * @see #getGenCustomGeneratorExtension()
+	 * @generated
+	 */
+	EReference getGenCustomGeneratorExtension_Invocations();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput <em>Gen Custom Template Input</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Custom Template Input</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput
+	 * @generated
+	 */
+	EClass getGenCustomTemplateInput();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput#getOclType <em>Ocl Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ocl Type</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput#getOclType()
+	 * @see #getGenCustomTemplateInput()
+	 * @generated
+	 */
+	EAttribute getGenCustomTemplateInput_OclType();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase <em>Gen Template Invocation Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Template Invocation Base</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase
+	 * @generated
+	 */
+	EClass getGenTemplateInvocationBase();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase#getExtension <em>Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Extension</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase#getExtension()
+	 * @see #getGenTemplateInvocationBase()
+	 * @generated
+	 */
+	EReference getGenTemplateInvocationBase_Extension();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase#getDescription()
+	 * @see #getGenTemplateInvocationBase()
+	 * @generated
+	 */
+	EAttribute getGenTemplateInvocationBase_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase#getTemplateFqn <em>Template Fqn</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template Fqn</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase#getTemplateFqn()
+	 * @see #getGenTemplateInvocationBase()
+	 * @generated
+	 */
+	EAttribute getGenTemplateInvocationBase_TemplateFqn();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation <em>Gen Template Invocation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Template Invocation</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation
+	 * @generated
+	 */
+	EClass getGenTemplateInvocation();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation#getInputs <em>Inputs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Inputs</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation#getInputs()
+	 * @see #getGenTemplateInvocation()
+	 * @generated
+	 */
+	EReference getGenTemplateInvocation_Inputs();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation#getOclExpression <em>Ocl Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Ocl Expression</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation#getOclExpression()
+	 * @see #getGenTemplateInvocation()
+	 * @generated
+	 */
+	EAttribute getGenTemplateInvocation_OclExpression();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation <em>Gen Fixed Inputs Template Invocation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Fixed Inputs Template Invocation</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation
+	 * @generated
+	 */
+	EClass getGenFixedInputsTemplateInvocation();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation#getFixedInputs <em>Fixed Inputs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Fixed Inputs</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation#getFixedInputs()
+	 * @see #getGenFixedInputsTemplateInvocation()
+	 * @generated
+	 */
+	EReference getGenFixedInputsTemplateInvocation_FixedInputs();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages <em>Standard Preference Pages</em>}'.

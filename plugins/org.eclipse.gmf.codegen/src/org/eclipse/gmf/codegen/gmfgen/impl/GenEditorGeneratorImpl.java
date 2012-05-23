@@ -29,6 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
 import org.eclipse.gmf.codegen.gmfgen.GenContextMenu;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -70,6 +71,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getLabelParsers <em>Label Parsers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getContextMenus <em>Context Menus</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPluginDirectory <em>Plugin Directory</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getExtensions <em>Extensions</em>}</li>
  * </ul>
  * </p>
  *
@@ -1226,6 +1228,19 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY, oldPluginDirectory, pluginDirectory));
 	}
 	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<GenCustomGeneratorExtension> getExtensions() {
+		// TODO: implement this method to return the 'Extensions' containment reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		// The list is expected to implement org.eclipse.emf.ecore.util.InternalEList and org.eclipse.emf.ecore.EStructuralFeature.Setting
+		// so it's likely that an appropriate subclass of org.eclipse.emf.ecore.util.EcoreEList should be used.
+		throw new UnsupportedOperationException();
+	}
+
 	public String getPluginDirectory() {
 		String value = getPluginDirectoryGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
@@ -1369,6 +1384,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return basicSetLabelParsers(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__CONTEXT_MENUS:
 				return ((InternalEList<?>)getContextMenus()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
+				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1428,6 +1445,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getContextMenus();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
 				return getPluginDirectory();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
+				return getExtensions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1511,6 +1530,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
 				setPluginDirectory((String)newValue);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
+				getExtensions().clear();
+				getExtensions().addAll((Collection<? extends GenCustomGeneratorExtension>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1592,6 +1615,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
 				setPluginDirectory(PLUGIN_DIRECTORY_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
+				getExtensions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1650,6 +1676,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return contextMenus != null && !contextMenus.isEmpty();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN_DIRECTORY:
 				return PLUGIN_DIRECTORY_EDEFAULT == null ? pluginDirectory != null : !PLUGIN_DIRECTORY_EDEFAULT.equals(pluginDirectory);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EXTENSIONS:
+				return !getExtensions().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

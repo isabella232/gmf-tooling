@@ -637,6 +637,26 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenVisualEffectAdapter();
 			}
 			@Override
+			public Adapter caseGenCustomGeneratorExtension(GenCustomGeneratorExtension object) {
+				return createGenCustomGeneratorExtensionAdapter();
+			}
+			@Override
+			public Adapter caseGenCustomTemplateInput(GenCustomTemplateInput object) {
+				return createGenCustomTemplateInputAdapter();
+			}
+			@Override
+			public Adapter caseGenTemplateInvocationBase(GenTemplateInvocationBase object) {
+				return createGenTemplateInvocationBaseAdapter();
+			}
+			@Override
+			public Adapter caseGenTemplateInvocation(GenTemplateInvocation object) {
+				return createGenTemplateInvocationAdapter();
+			}
+			@Override
+			public Adapter caseGenFixedInputsTemplateInvocation(GenFixedInputsTemplateInvocation object) {
+				return createGenFixedInputsTemplateInvocationAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -2599,6 +2619,76 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenVisualEffectAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension <em>Gen Custom Generator Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension
+	 * @generated
+	 */
+	public Adapter createGenCustomGeneratorExtensionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput <em>Gen Custom Template Input</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput
+	 * @generated
+	 */
+	public Adapter createGenCustomTemplateInputAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase <em>Gen Template Invocation Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase
+	 * @generated
+	 */
+	public Adapter createGenTemplateInvocationBaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation <em>Gen Template Invocation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation
+	 * @generated
+	 */
+	public Adapter createGenTemplateInvocationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation <em>Gen Fixed Inputs Template Invocation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation
+	 * @generated
+	 */
+	public Adapter createGenFixedInputsTemplateInvocationAdapter() {
 		return null;
 	}
 

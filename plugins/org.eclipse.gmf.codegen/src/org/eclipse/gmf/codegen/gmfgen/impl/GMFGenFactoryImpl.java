@@ -162,6 +162,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.CUSTOM_PARSER: return createCustomParser();
 			case GMFGenPackage.EXTERNAL_PARSER: return createExternalParser();
 			case GMFGenPackage.GEN_VISUAL_EFFECT: return createGenVisualEffect();
+			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION: return createGenCustomGeneratorExtension();
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION: return createGenTemplateInvocation();
+			case GMFGenPackage.GEN_FIXED_INPUTS_TEMPLATE_INVOCATION: return createGenFixedInputsTemplateInvocation();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -1275,6 +1278,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenVisualEffect createGenVisualEffect() {
 		GenVisualEffectImpl genVisualEffect = new GenVisualEffectImpl();
 		return genVisualEffect;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCustomGeneratorExtension createGenCustomGeneratorExtension() {
+		GenCustomGeneratorExtensionImpl genCustomGeneratorExtension = new GenCustomGeneratorExtensionImpl();
+		return genCustomGeneratorExtension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenTemplateInvocation createGenTemplateInvocation() {
+		GenTemplateInvocationImpl genTemplateInvocation = new GenTemplateInvocationImpl();
+		return genTemplateInvocation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenFixedInputsTemplateInvocation createGenFixedInputsTemplateInvocation() {
+		GenFixedInputsTemplateInvocationImpl genFixedInputsTemplateInvocation = new GenFixedInputsTemplateInvocationImpl();
+		return genFixedInputsTemplateInvocation;
 	}
 
 	/**

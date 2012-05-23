@@ -1078,6 +1078,40 @@ public class GMFGenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION: {
+				GenCustomGeneratorExtension genCustomGeneratorExtension = (GenCustomGeneratorExtension)theEObject;
+				T result = caseGenCustomGeneratorExtension(genCustomGeneratorExtension);
+				if (result == null) result = caseGenCustomTemplateInput(genCustomGeneratorExtension);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_CUSTOM_TEMPLATE_INPUT: {
+				GenCustomTemplateInput genCustomTemplateInput = (GenCustomTemplateInput)theEObject;
+				T result = caseGenCustomTemplateInput(genCustomTemplateInput);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE: {
+				GenTemplateInvocationBase genTemplateInvocationBase = (GenTemplateInvocationBase)theEObject;
+				T result = caseGenTemplateInvocationBase(genTemplateInvocationBase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_TEMPLATE_INVOCATION: {
+				GenTemplateInvocation genTemplateInvocation = (GenTemplateInvocation)theEObject;
+				T result = caseGenTemplateInvocation(genTemplateInvocation);
+				if (result == null) result = caseGenTemplateInvocationBase(genTemplateInvocation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_FIXED_INPUTS_TEMPLATE_INVOCATION: {
+				GenFixedInputsTemplateInvocation genFixedInputsTemplateInvocation = (GenFixedInputsTemplateInvocation)theEObject;
+				T result = caseGenFixedInputsTemplateInvocation(genFixedInputsTemplateInvocation);
+				if (result == null) result = caseGenTemplateInvocationBase(genFixedInputsTemplateInvocation);
+				if (result == null) result = caseGenCustomTemplateInput(genFixedInputsTemplateInvocation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -3164,6 +3198,81 @@ public class GMFGenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGenVisualEffect(GenVisualEffect object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Custom Generator Extension</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Custom Generator Extension</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenCustomGeneratorExtension(GenCustomGeneratorExtension object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Custom Template Input</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Custom Template Input</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenCustomTemplateInput(GenCustomTemplateInput object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Template Invocation Base</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Template Invocation Base</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenTemplateInvocationBase(GenTemplateInvocationBase object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Template Invocation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Template Invocation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenTemplateInvocation(GenTemplateInvocation object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Fixed Inputs Template Invocation</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Fixed Inputs Template Invocation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenFixedInputsTemplateInvocation(GenFixedInputsTemplateInvocation object) {
 		return null;
 	}
 

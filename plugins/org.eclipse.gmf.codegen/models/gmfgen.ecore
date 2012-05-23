@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgen"
-    nsURI="http://www.eclipse.org/gmf/2009/GenModel" nsPrefix="gmfgen">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgen" nsURI="http://www.eclipse.org/gmf/2009/GenModel" nsPrefix="gmfgen">
   <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
     <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
     <details key="meta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
@@ -95,6 +93,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pluginDirectory" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The target directory for generated editor code. Similar to EMF's GenModel#editorDirectory"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extensions" upperBound="-1"
+        eType="#//GenCustomGeneratorExtension" containment="true" eOpposite="#//GenCustomGeneratorExtension/generator">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Custom extensions for this generator"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -2366,5 +2370,72 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operationName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operationType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenCustomGeneratorExtension" eSuperTypes="#//GenCustomTemplateInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="generator" lowerBound="1"
+        eType="#//GenEditorGenerator" changeable="false" volatile="true" transient="true"
+        derived="true" eOpposite="#//GenEditorGenerator/extensions"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="User friendly name for this extension, used only in UI"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fromCustomBridge" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Reconciler should try to preserve the contents if set to true"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rootInput" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Root input element for custom template invocations. GenEditorGenerator single instance will be assumed if not set"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invocations" upperBound="-1"
+        eType="#//GenTemplateInvocationBase" containment="true" eOpposite="#//GenTemplateInvocationBase/extension"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenCustomTemplateInput" abstract="true"
+      interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="OCL Type for this input, if not set generator will try to compute it"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenTemplateInvocationBase" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extension" lowerBound="1"
+        eType="#//GenCustomGeneratorExtension" changeable="false" volatile="true"
+        transient="true" derived="true" eOpposite="#//GenCustomGeneratorExtension/invocations"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="User friendly description for this invocation, used only in UI"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="templateFqn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="FQN of xPand template to invoke in the standard form of abc::def::TemplateName#rootExpand"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenTemplateInvocation" eSuperTypes="#//GenTemplateInvocationBase">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
+        eType="#//GenCustomTemplateInput">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Set of referenced inputs for this invocation, "/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="oclExpression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="OCL expression to be executed against the set of other inputs to compute the inputs for template"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenFixedInputsTemplateInvocation" eSuperTypes="#//GenTemplateInvocationBase #//GenCustomTemplateInput">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fixedInputs" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Predefined set of input elements for template. &#xA;&#x9;&#x9;Due to reconciling it normally makes sense only for local links inside the same extension or &#xA;&#x9;&#x9;for extensions created by custom bridge extension (self.extension.fromCustomBridge = true)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>
