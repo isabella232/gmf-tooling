@@ -1,9 +1,3 @@
-/**
- * <copyright>
- * </copyright>
- *
- * $Id$
- */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -17,7 +11,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
@@ -316,7 +310,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated NOT
 	 */
 	public boolean isPhantomElement() {
-		return eContainer() instanceof GenTopLevelNode && getContainmentMetaFeature() == null;
+		return eContainer() instanceof GenNode && getContainmentMetaFeature() == null;
 	}
 
 	/**
