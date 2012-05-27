@@ -60,7 +60,9 @@ public class CodegenEmitters {
 			urls.add(getTemplatesBundle().getEntry("/templates-dynmodel/")); //$NON-NLS-1$
 		}
 		urls.add(getTemplatesBundle().getEntry("/templates/")); //$NON-NLS-1$
-
+		
+		urls.add(Platform.getBundle("org.eclipse.gmf.graphdef.codegen").getEntry("/templates/")); //$NON-NLS-1$ //$NON-NLS-2$
+		
 		myLocations = urls.toArray(new URL[urls.size()]);
 		myResourceManager = new BundleResourceManager(myLocations);
 	}
