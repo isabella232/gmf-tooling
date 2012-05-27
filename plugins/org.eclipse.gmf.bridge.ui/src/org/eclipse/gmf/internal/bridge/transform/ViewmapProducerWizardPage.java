@@ -325,6 +325,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 			generateRCPButton.setSelection(options.getGenerateRCP());
 			useRuntimeFiguresButton.setSelection(options.getUseRuntimeFigures());
 			useMapModeButton.setSelection(options.getUseMapMode());
+			useModeledViewmapButton.setSelection(!options.getUseInTransformationCodeGen());
 			if (null != options.getFigureTemplatesPath()) {
 				templatesPathText.setText(options.getFigureTemplatesPath().toString());
 				// reveal the value to avoid confusion.
