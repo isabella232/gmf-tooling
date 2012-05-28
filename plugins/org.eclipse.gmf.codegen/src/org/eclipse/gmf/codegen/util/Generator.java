@@ -14,22 +14,84 @@ package org.eclipse.gmf.codegen.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
-import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.gmf.codegen.gmfgen.Behaviour;
+import org.eclipse.gmf.codegen.gmfgen.CustomParser;
+import org.eclipse.gmf.codegen.gmfgen.ElementType;
+import org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser;
+import org.eclipse.gmf.codegen.gmfgen.ExternalParser;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAction;
+import org.eclipse.gmf.codegen.gmfgen.GenApplication;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomAction;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomGeneratorExtension;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenCustomTemplateInput;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation;
+import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenPropertyTab;
+import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
+import org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation;
+import org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.GenVisualEffect;
+import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
+import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.ecore.OCL.Helper;
+import org.eclipse.ocl.ecore.OCLExpression;
+import org.eclipse.ocl.options.ParsingOptions;
 
 /**
  * Invokes templates to populate diagram editor project.
@@ -38,7 +100,7 @@ import org.eclipse.gmf.internal.common.codegen.TextMerger;
  */
 public class Generator extends GeneratorBase implements Runnable {
 
-	private final GenEditorGenerator myEditorGen; 
+	private final GenEditorGenerator myEditorGen;
 
 	private final GenDiagram myDiagram;
 
@@ -50,7 +112,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		myDiagram = genModel.getDiagram();
 		myEmitters = emitters;
 	}
-	
+
 	@Override
 	protected TextMerger createMergeService() {
 		TextMerger service = myEmitters.createMergeService();
@@ -62,16 +124,16 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
 		final Path pluginDirectory = new Path(myEditorGen.getPluginDirectory());
-		initializeEditorProject(pluginDirectory, guessProjectLocation(pluginDirectory.segment(0)), Collections.<IProject>emptyList());
+		initializeEditorProject(pluginDirectory, guessProjectLocation(pluginDirectory.segment(0)), Collections.<IProject> emptyList());
 
 		if (myEditorGen.getModelAccess() != null) {
-			myEmitters.setGlobals(Collections.<String, Object>singletonMap("DynamicModelAccess", myEditorGen.getModelAccess()));
+			myEmitters.setGlobals(Collections.<String, Object> singletonMap("DynamicModelAccess", myEditorGen.getModelAccess()));
 			generateModelAccessFacility();
 		}
 
-        // draft for messages
-        generateExternalizationSupport();
-        
+		// draft for messages
+		generateExternalizationSupport();
+
 		// commands
 		generateReorientLinkViewCommand();
 
@@ -104,7 +166,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		//
 		// Links
-		for (GenLink next: myDiagram.getLinks()) {
+		for (GenLink next : myDiagram.getLinks()) {
 			generateEditSupport(next);
 			generateLinkEditPart(next);
 			generateBehaviours(next);
@@ -240,6 +302,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generatePlugin();
 		generateApplication();
 		generateActions();
+		generateCustomExtensions();
 	}
 
 	private static boolean isPathInsideGenerationTarget(String path) {
@@ -252,7 +315,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateDiagram() throws UnexpectedBehaviourException, InterruptedException {
 		generateBehaviours(myDiagram);
 		if (myDiagram.needsCanonicalEditPolicy()) {
-			generateDiagramCanonicalEditPolicy();	
+			generateDiagramCanonicalEditPolicy();
 		}
 		generateDiagramItemSemanticEditPolicy();
 		generateEditSupport(myDiagram);
@@ -283,7 +346,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		generateVisualEffectEditPolicies(node);
 	}
-	
+
 	private void generateVisualEffectEditPolicies(GenCommonBase commonBase) throws InterruptedException {
 		for (Behaviour behaviour : commonBase.getBehaviour()) {
 			if (behaviour instanceof GenVisualEffect) {
@@ -292,7 +355,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 	}
- 
+
 	private void generateVisualEffectEditPolicy(GenVisualEffect visualEffect) throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getVisualEffectEditPolicyEmitter(), visualEffect.getEditPolicyQualifiedClassName(), visualEffect);
 	}
@@ -390,7 +453,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateChildNodeLabelEditPart(GenChildLabelNode node) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getChildNodeLabelEditPartEmitter(), node.getEditPartQualifiedClassName(), node);
 	}
-	
+
 	private void generateCompartmentEditPart(GenCompartment compartment) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getCompartmentEditPartEmitter(), compartment.getEditPartQualifiedClassName(), compartment);
 	}
@@ -541,6 +604,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			doGenerateJavaClass(myEmitters.getParserProviderEmitter(), myEditorGen.getLabelParsers().getQualifiedClassName(), myEditorGen.getLabelParsers());
 		}
 	}
+
 	// if there's no other parser than external, and provider is not contributed as a Service - 
 	// no need to generate class (only get() method would be there)
 	// XXX although adopters might want to change the logic - what if they generate smth reasonable?
@@ -567,12 +631,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditPartProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getEditPartProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getEditPartProviderClassName(),
-			myDiagram
-		);
+		internalGenerateJavaClass(myEmitters.getEditPartProviderEmitter(), myDiagram.getProvidersPackageName(), myDiagram.getEditPartProviderClassName(), myDiagram);
 	}
 
 	private void generateModelingAssistantProvider() throws UnexpectedBehaviourException, InterruptedException {
@@ -594,14 +653,14 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateShortcutsDecoratorProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getShortcutsDecoratorProviderEmitter(), myDiagram.getShortcutsDecoratorProviderQualifiedClassName(), myDiagram);
 	}
-	
+
 	private void generateShortcutPropertyTester() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getShortcutPropertyTesterEmitter(), myDiagram.getShortcutPropertyTesterQualifiedClassName(), myDiagram);
 	}
 
 	private void generateMetricProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getMetricProviderEmitter(), myDiagram.getMetricProviderQualifiedClassName(), myDiagram);
-	}	
+	}
 
 	private void generateMarkerNavigationProvider() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getMarkerNavigationProviderEmitter(), myDiagram.getMarkerNavigationProviderQualifiedClassName(), myDiagram);
@@ -636,14 +695,9 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramEditorUtil() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(
-			myEmitters.getDiagramEditorUtilEmitter(),
-			myEditorGen.getEditor().getPackageName(),
-			myDiagram.getDiagramEditorUtilClassName(),
-			myDiagram
-		);
+		internalGenerateJavaClass(myEmitters.getDiagramEditorUtilEmitter(), myEditorGen.getEditor().getPackageName(), myDiagram.getDiagramEditorUtilClassName(), myDiagram);
 	}
-	
+
 	private void generateVisualIDRegistry() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getVisualIDRegistryEmitter(), myDiagram.getVisualIDRegistryQualifiedClassName(), myDiagram);
 	}
@@ -668,7 +722,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		final GenEditorView editor = myEditorGen.getEditor();
 		doGenerateJavaClass(myEmitters.getEditorEmitter(), editor.getQualifiedClassName(), editor);
 	}
-	
+
 	private void generateElementChooser() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getElementChooserEmitter(), myDiagram.getElementChooserQualifiedClassName(), myDiagram);
 	}
@@ -680,19 +734,19 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateDocumentProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDocumentProviderEmitter(), myDiagram.getDocumentProviderQualifiedClassName(), myDiagram);
 	}
-	
+
 	private void generateDiagramUpdater() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDiagramUpdaterEmitter(), myEditorGen.getDiagramUpdater().getDiagramUpdaterQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
-	
+
 	private void generateUpdateCommand() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getUpdateCommandEmitter(), myEditorGen.getDiagramUpdater().getUpdateCommandQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
-	
+
 	private void generateNodeDescriptor() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNodeDescriptorEmitter(), myEditorGen.getDiagramUpdater().getNodeDescriptorQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
-	
+
 	private void generateLinkDescriptor() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getLinkDescriptorEmitter(), myEditorGen.getDiagramUpdater().getLinkDescriptorQualifiedClassName(), myEditorGen.getDiagramUpdater());
 	}
@@ -705,57 +759,57 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateMatchingStrategy() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getMatchingStrategyEmitter(), myDiagram.getMatchingStrategyQualifiedClassName(), myDiagram);
 	}
-	
+
 	private void generateNavigatorContentProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorContentProviderEmitter(), myEditorGen.getNavigator().getContentProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateDomainNavigatorContentProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDomainNavigatorContentProviderEmitter(), myEditorGen.getNavigator().getDomainContentProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateDomainNavigatorLabelProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDomainNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getDomainLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateDomainNavigatorItem() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getDomainNavigatorItemEmitter(), myEditorGen.getNavigator().getDomainNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateURIEditorInputTester() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getURIEditorInputTesterEmitter(), myEditorGen.getNavigator().getUriInputTesterQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorLabelProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorLabelProviderEmitter(), myEditorGen.getNavigator().getLabelProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorLinkHelper() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorLinkHelperEmitter(), myEditorGen.getNavigator().getLinkHelperQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorSorter() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorSorterEmitter(), myEditorGen.getNavigator().getSorterQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorActionProvider() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorActionProviderEmitter(), myEditorGen.getNavigator().getActionProviderQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateAbstractNavigatorItem() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getAbstractNavigatorItemEmitter(), myEditorGen.getNavigator().getAbstractNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorGroup() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorGroupEmitter(), myEditorGen.getNavigator().getNavigatorGroupQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorItem() throws InterruptedException {
 		doGenerateJavaClass(myEmitters.getNavigatorItemEmitter(), myEditorGen.getNavigator().getNavigatorItemQualifiedClassName(), myEditorGen.getNavigator());
 	}
-	
+
 	private void generateNavigatorGroupIcons() throws InterruptedException, UnexpectedBehaviourException {
-		Set<String> groupIcons = new HashSet<String>(); 
+		Set<String> groupIcons = new HashSet<String>();
 		for (GenNavigatorChildReference nextReference : myEditorGen.getNavigator().getChildReferences()) {
 			if (nextReference.getGroupIcon() != null && nextReference.getGroupIcon().length() > 0) {
 				groupIcons.add(nextReference.getGroupIcon());
@@ -770,10 +824,7 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	protected void generatePropertySheetSections() throws UnexpectedBehaviourException, InterruptedException {
 		if (myEditorGen.getPropertySheet().isNeedsCaption()) {
-			internalGenerateJavaClass(
-				myEmitters.getPropertySheetLabelProviderEmitter(), 
-				myEditorGen.getPropertySheet().getLabelProviderQualifiedClassName(), 
-				myEditorGen.getPropertySheet());
+			internalGenerateJavaClass(myEmitters.getPropertySheetLabelProviderEmitter(), myEditorGen.getPropertySheet().getLabelProviderQualifiedClassName(), myEditorGen.getPropertySheet());
 		}
 		for (GenPropertyTab tab : myEditorGen.getPropertySheet().getTabs()) {
 			if (tab instanceof GenCustomPropertyTab && ((GenCustomPropertyTab) tab).isGenerateBoilerplate()) {
@@ -793,8 +844,7 @@ public class Generator extends GeneratorBase implements Runnable {
 				if (GenLanguage.OCL_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getOCLExpressionFactoryEmitter();
 					needAbstractExpression = true;
-				} else if (GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage())
-						|| GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
+				} else if (GenLanguage.REGEXP_LITERAL.equals(nextProvider.getLanguage()) || GenLanguage.NREGEXP_LITERAL.equals(nextProvider.getLanguage())) {
 					providerEmitter = myEmitters.getRegexpExpressionFactoryEmitter();
 					needAbstractExpression = true;
 				}
@@ -819,42 +869,40 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);	
+		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);
 	}
 
 	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {
 		// use genModel.prefix if available to match colors of model icons and diagram icons
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelGIFEmitter 
-		Object[] args = new Object[] {myDiagram.getDomainDiagramElement() == null ? myEditorGen.getDiagramFileExtension() : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix() };
+		Object[] args = new Object[] { myDiagram.getDomainDiagramElement() == null ? myEditorGen.getDiagramFileExtension() : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix() };
 		doGenerateBinaryFile(myEmitters.getDiagramIconEmitter(), new Path(path), args);
 	}
 
 	private void generateWizardBanner() throws UnexpectedBehaviourException, InterruptedException {
 		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix(); //$NON-NLS-1$
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
-		Object[] args = new Object[] {stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
+		Object[] args = new Object[] { stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
 		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-    private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
-        String packageName = myEditorGen.getEditor().getPackageName();
-        String messagesClassName = "Messages"; //$NON-NLS-1$
-        doGenerateJavaClass(myEmitters.getExternalizeEmitter(),
-        		packageName, messagesClassName, new Object[] { myEditorGen });
-        doGenerateFile(myEmitters.getMessagesEmitter(),
-        		new Path(messagesClassName.toLowerCase() + ".properties"), new Object[] { myEditorGen }); //$NON-NLS-1$
-    }
+	private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {
+		String packageName = myEditorGen.getEditor().getPackageName();
+		String messagesClassName = "Messages"; //$NON-NLS-1$
+		doGenerateJavaClass(myEmitters.getExternalizeEmitter(), packageName, messagesClassName, new Object[] { myEditorGen });
+		doGenerateFile(myEmitters.getMessagesEmitter(), new Path(messagesClassName.toLowerCase() + ".properties"), new Object[] { myEditorGen }); //$NON-NLS-1$
+	}
 
-    // plugin
+	// plugin
 
-    private void generatePlugin() throws UnexpectedBehaviourException, InterruptedException {
-    	generateActivator();
-    	generateBundleManifest();
-    	generatePluginXml();
-    	generatePluginProperties();
-    	generateBuildProperties();
-    	generateOptionsFile();
-    }
+	private void generatePlugin() throws UnexpectedBehaviourException, InterruptedException {
+		generateActivator();
+		generateBundleManifest();
+		generatePluginXml();
+		generatePluginProperties();
+		generateBuildProperties();
+		generateOptionsFile();
+	}
 
 	private void generateActivator() throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getActivatorEmitter(), myEditorGen.getPlugin().getActivatorQualifiedClassName(), myEditorGen.getPlugin());
@@ -938,6 +986,154 @@ public class Generator extends GeneratorBase implements Runnable {
 				}
 			}
 		}
+	}
+
+	private void generateCustomExtensions() throws UnexpectedBehaviourException, InterruptedException {
+		if (myEditorGen.getExtensions().isEmpty()) {
+			return;
+		}
+		List<GenTemplateInvocationBase> unresolvedInvocations = new ArrayList<GenTemplateInvocationBase>();
+		Map<GenTemplateInvocationBase, Collection<EObject>> boundInputs = bindInvocationsToInputs(unresolvedInvocations);
+		for (Map.Entry<GenTemplateInvocationBase, Collection<EObject>> nextEntry : boundInputs.entrySet()) {
+			GenTemplateInvocationBase invocation = nextEntry.getKey();
+			Collection<EObject> oclInputs = nextEntry.getValue();
+			if (oclInputs == null || oclInputs.isEmpty()) {
+				unresolvedInvocations.add(invocation);
+				continue;
+			}
+			generateTemplateInvocation(invocation, oclInputs);
+		}
+
+		if (!unresolvedInvocations.isEmpty()) {
+			throw new UnexpectedBehaviourException("There were custom templates invocations with unresolved inputs: " + unresolvedInvocations);
+		}
+	}
+
+	private void generateTemplateInvocation(GenTemplateInvocationBase invocation, Collection<EObject> oclInput) throws UnexpectedBehaviourException, InterruptedException {
+		String primaryTemplateFQN = invocation.getTemplateFqn();
+		if (primaryTemplateFQN == null) {
+			handleException(new NullPointerException("Invocation without templateFQN: " + invocation));
+			return;
+		}
+
+		TextEmitter primaryEmitter = myEmitters.newXpandEmitter(primaryTemplateFQN);
+		TextEmitter fqnEmitter = myEmitters.getQualifiedClassNameEmitterForPrimaryTemplate(primaryTemplateFQN);
+
+		Object[] templateInputs;
+		if (invocation instanceof GenFixedInputsTemplateInvocation) {
+			templateInputs = oclInput.toArray();
+		} else if (invocation instanceof GenTemplateInvocation) {
+			templateInputs = computeTemplateInputs((GenTemplateInvocation) invocation, oclInput);
+		} else {
+			throw new UnexpectedBehaviourException("Unknown invocation type: " + invocation);
+		}
+		for (Object nextTemplateInput : templateInputs) {
+			String nextFqn;
+			try {
+				nextFqn = fqnEmitter.generate(new NullProgressMonitor(), new Object[] { nextTemplateInput });
+			} catch (Exception e) {
+				handleException(new UnexpectedBehaviourException(//
+						"Error computing FQN for invocation " + invocation + //
+								" on " + nextTemplateInput, e));
+				continue;
+			}
+			if (nextFqn != null) {
+				doGenerateJavaClass(primaryEmitter, nextFqn, nextTemplateInput);
+			}
+		}
+	}
+
+	private Object[] computeTemplateInputs(GenTemplateInvocation invocation, Collection<EObject> oclInputs) throws UnexpectedBehaviourException {
+		String oclExpressionText = invocation.getOclExpression();
+		if (oclExpressionText == null || oclExpressionText.trim().length() == 0 || "self".equals(oclExpressionText.trim())) {
+			return oclInputs.toArray();
+		}
+
+		List<Object> results = new ArrayList<Object>();
+		OCL ocl = OCL.newInstance();
+		ParsingOptions.setOption(ocl.getEnvironment(), ParsingOptions.implicitRootClass(ocl.getEnvironment()), EcorePackage.eINSTANCE.getEObject());
+		for (EObject nextOclInput : oclInputs) {
+			try {
+				Helper oclHelper = ocl.createOCLHelper();
+				oclHelper.setContext(nextOclInput.eClass());
+				OCLExpression oclExpression = oclHelper.createQuery(oclExpressionText);
+				Object oclResult = ocl.evaluate(nextOclInput, oclExpression);
+				if (oclResult instanceof Collection<?>) {
+					results.addAll((Collection<?>) oclResult);
+				} else {
+					results.add(oclResult);
+				}
+			} catch (Exception e) {
+				throw new UnexpectedBehaviourException("Can't evaluate OCL " + oclExpressionText + " for context: " + nextOclInput, e);
+			}
+		}
+		return results.toArray();
+	}
+
+	private Map<GenCustomTemplateInput, Collection<EObject>> resolveCustomTemplateInputs() {
+		Map<GenCustomTemplateInput, Collection<EObject>> resolvedInputs = new HashMap<GenCustomTemplateInput, Collection<EObject>>();
+		for (GenCustomGeneratorExtension nextExtension : myEditorGen.getExtensions()) {
+			EObject nextInput = nextExtension.getRootInput();
+			if (nextInput == null) {
+				nextInput = myEditorGen;
+			}
+			resolvedInputs.put(nextExtension, Collections.singletonList(nextInput));
+		}
+		for (GenCustomGeneratorExtension nextExtension : myEditorGen.getExtensions()) {
+			for (GenTemplateInvocationBase nextInvocation : nextExtension.getInvocations()) {
+				if (nextInvocation instanceof GenFixedInputsTemplateInvocation) {
+					GenFixedInputsTemplateInvocation hasFixedInputs = (GenFixedInputsTemplateInvocation) nextInvocation;
+					Collection<EObject> nextInputs;
+					if (hasFixedInputs.getFixedInputs().isEmpty()) {
+						nextInputs = resolvedInputs.get(hasFixedInputs.getExtension());
+					} else {
+						nextInputs = new ArrayList<EObject>(hasFixedInputs.getFixedInputs());
+					}
+					resolvedInputs.put(hasFixedInputs, nextInputs);
+				}
+			}
+		}
+		return resolvedInputs;
+	}
+
+	private Map<GenTemplateInvocationBase, Collection<EObject>> bindInvocationsToInputs(List<GenTemplateInvocationBase> unresolvedInvocations) {
+		Map<GenCustomTemplateInput, Collection<EObject>> resolvedInputs = resolveCustomTemplateInputs();
+		Map<GenTemplateInvocationBase, Collection<EObject>> result = new LinkedHashMap<GenTemplateInvocationBase, Collection<EObject>>();
+		for (GenCustomGeneratorExtension extension : myEditorGen.getExtensions()) {
+			for (GenTemplateInvocationBase nextInvocation : extension.getInvocations()) {
+				if (nextInvocation instanceof GenFixedInputsTemplateInvocation) {
+					GenFixedInputsTemplateInvocation nextImpl = (GenFixedInputsTemplateInvocation) nextInvocation;
+					if (resolvedInputs.containsKey(nextImpl)) {
+						result.put(nextInvocation, resolvedInputs.get(nextImpl));
+					} else {
+						unresolvedInvocations.add(nextImpl);
+					}
+				} else if (nextInvocation instanceof GenTemplateInvocation) {
+					GenTemplateInvocation nextImpl = (GenTemplateInvocation) nextInvocation;
+					List<EObject> combinedInputs = new ArrayList<EObject>();
+
+					Collection<? extends GenCustomTemplateInput> inputsFromModel = nextImpl.getInputs();
+					if (inputsFromModel.isEmpty()) {
+						inputsFromModel = Collections.singletonList(nextImpl.getExtension());
+					}
+					boolean hasUnresolvedInputRef = false;
+					for (GenCustomTemplateInput nextInputRef : inputsFromModel) {
+						Collection<EObject> nextResolvedInput = resolvedInputs.get(nextInputRef);
+						if (nextResolvedInput == null) {
+							hasUnresolvedInputRef = true;
+							break;
+						}
+						combinedInputs.addAll(nextResolvedInput);
+					}
+					if (hasUnresolvedInputRef || combinedInputs.isEmpty()) {
+						unresolvedInvocations.add(nextImpl);
+					} else {
+						result.put(nextInvocation, combinedInputs);
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	// util
