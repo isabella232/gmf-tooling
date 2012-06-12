@@ -125,6 +125,7 @@
 	</build>
 
 	<profiles>
+		<!--
 		<profile>
 			<id>helios</id>
 			<activation>
@@ -156,6 +157,7 @@
 				</repository>			
 			</repositories>
 		</profile>
+		-->
 		<profile>
 			<id>juno-staging</id>
 			<activation>
@@ -168,9 +170,9 @@
 					<url>http://download.eclipse.org/releases/staging/</url>
 				</repository>
 				<repository>
-					<id>orbit-staging</id>
+					<id>orbit for Juno</id>
 					<layout>p2</layout>
-					<url>http://download.eclipse.org/tools/orbit/downloads/drops/S20111018035124/repository/</url>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository/</url>
 				</repository>
 			</repositories>
 		</profile>
