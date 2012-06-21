@@ -70,7 +70,6 @@ zip -rq gmf-tooling-sdk-experimental-$outputFilesLabel.zip\
     eclipse/plugins/org.eclipse.gmf.codegen.lite.source_*\
     eclipse/plugins/org.eclipse.gmf.codegen.lite.ui.source_*\
     eclipse/plugins/org.eclipse.gmf.graphdef.editor.source_*\
-    eclipse/plugins/org.eclipse.gmf.bridge.trace.source_*\
     eclipse/plugins/org.eclipse.gmf.runtime.lite.source_*\
     eclipse/plugins/org.eclipse.gmf.runtime.lite.svg.source_*\
     eclipse/plugins/org.eclipse.gmf.map.editor.source_*\
@@ -147,6 +146,7 @@ zip -rq gmf-tooling-sdk-$outputFilesLabel.zip\
     eclipse/plugins/org.eclipse.gmf.xpand.editor_*\
     eclipse/plugins/org.eclipse.gmf.xpand.qvtlibrary_*\
     eclipse/plugins/org.eclipse.gmf.bridge.trace_*\
+	eclipse/plugins/org.eclipse.gmf.bridge.trace.source_*\
     eclipse/plugins/org.eclipse.gmf.tooling.runtime_*\
     eclipse/plugins/org.eclipse.gmf.tooling.runtime.source_*
 
