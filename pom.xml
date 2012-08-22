@@ -159,7 +159,7 @@
 		</profile>
 		-->
 		<profile>
-			<id>juno-staging</id>
+			<id>juno</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -167,7 +167,7 @@
 				<repository>
 					<id>staging</id>
 					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/staging/</url>
+					<url>http://download.eclipse.org/releases/juno/</url>
 				</repository>
 				<repository>
 					<id>orbit for Juno</id>
