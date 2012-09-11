@@ -215,7 +215,6 @@ public class EntriesPage extends WizardPage {
 
 		private FocusListener myListFocusListener = new FocusListener() {
 
-			@Override
 			public void focusGained(FocusEvent e) {
 				if (e.widget == nodesList) {
 					handleNodesListSelectionChange();
@@ -224,7 +223,6 @@ public class EntriesPage extends WizardPage {
 				}
 			}
 
-			@Override
 			public void focusLost(FocusEvent e) {
 				//do nothing
 			}
