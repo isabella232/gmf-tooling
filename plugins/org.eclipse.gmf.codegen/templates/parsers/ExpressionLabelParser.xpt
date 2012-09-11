@@ -46,7 +46,7 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 
 «IF isViewExpressionDefinedAndOcl()-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	«EXPAND CodeStyle::override FOR self.oclAsType(ecore::EObject).eContainer().oclAsType(gmfgen::GenCommonBase)»
+	«EXPAND CodeStyle::override FOR self.holder.editorGen.diagram»
 	protected String getExpressionBody() {
 		return «EXPAND impl::parsers::ExpressionLabelParser::getExpression(self, viewExpression) FOR viewExpression.provider».body();
 	}
