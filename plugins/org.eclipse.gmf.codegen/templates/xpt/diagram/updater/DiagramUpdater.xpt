@@ -495,25 +495,25 @@ private static «EXPAND CodeStyle::G('java.util.Collection', getDiagram().editor
 	public static final org.eclipse.gmf.tooling.runtime.update.DiagramUpdater «EXPAND runtimeTypedInstanceName» = new org.eclipse.gmf.tooling.runtime.update.DiagramUpdater() {
 		«REM»Doesn't make sense to use CodeStyle::G -- interface requires generics anyway, so we checked above for the whole field«ENDREM»«-»
 		«EXPAND xpt::Common::generatedMemberComment»
-		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		«EXPAND CodeStyle::overrideI FOR editorGen.diagram»
 		public java.util.List<«nodeDescriptorFQN»> getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
 			return «diagramUpdaterClassName».getSemanticChildren(view);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		«EXPAND CodeStyle::overrideI FOR editorGen.diagram»
 		public java.util.List<«linkDescriptorFQN»> getContainedLinks(org.eclipse.gmf.runtime.notation.View view) {
 			return «diagramUpdaterClassName».getContainedLinks(view);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		«EXPAND CodeStyle::overrideI FOR editorGen.diagram»
 		public java.util.List<«linkDescriptorFQN»> getIncomingLinks(org.eclipse.gmf.runtime.notation.View view) {
 			return «diagramUpdaterClassName».getIncomingLinks(view);
 		}
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		«EXPAND CodeStyle::override FOR editorGen.diagram»
+		«EXPAND CodeStyle::overrideI FOR editorGen.diagram»
 		public java.util.List<«linkDescriptorFQN»> getOutgoingLinks(org.eclipse.gmf.runtime.notation.View view) {
 			return «diagramUpdaterClassName».getOutgoingLinks(view);
 		}

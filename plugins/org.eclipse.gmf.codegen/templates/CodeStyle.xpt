@@ -84,3 +84,9 @@ java.util.Collections.EMPTY_MAP«ENDIF-»
 @Override
 «ENDIF-»
 «ENDDEFINE»
+
+«DEFINE overrideI FOR gmfgen::GenCommonBase-»
+«IF self.jdkComplianceLevel() > 5-»
+@Override
+«ENDIF-»
+«ENDDEFINE»

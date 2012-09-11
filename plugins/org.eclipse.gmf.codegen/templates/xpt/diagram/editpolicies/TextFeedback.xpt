@@ -258,7 +258,7 @@ public class «textNonResizableEditPolicyClassName» «EXPAND TextNonResizableEd
 
 «DEFINE textFeedback_refreshFeedback FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	«EXPAND CodeStyle::override-»
+	«EXPAND CodeStyle::overrideI-»
 	public void refreshFeedback() {
 		refreshSelectionFeedback();
 		refreshFocusFeedback();
@@ -278,4 +278,3 @@ public class «textNonResizableEditPolicyClassName» «EXPAND TextNonResizableEd
 		return hostPositionListener;
 	}
 «ENDDEFINE»
-
