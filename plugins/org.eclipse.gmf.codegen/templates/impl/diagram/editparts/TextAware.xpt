@@ -671,12 +671,12 @@
 		if (myOclRegistrator == null) {
 			myOclRegistrator = new org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator() {
 
-				«EXPAND CodeStyle::override-»
+				«EXPAND CodeStyle::overrideI-»
 				public void registerListener(String filterId, org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener listener, org.eclipse.emf.ecore.EObject element) {
 					addListenerFilter(filterId, listener, element);
  				}
 
-				«EXPAND CodeStyle::override-»
+				«EXPAND CodeStyle::overrideI-»
 				public void unregisterListener(String filterId) {
 					removeListenerFilter(filterId);
 				}
