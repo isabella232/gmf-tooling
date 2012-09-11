@@ -11,9 +11,12 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
@@ -38,6 +41,8 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -63,6 +68,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
  *
  */
 public class EntriesPage extends WizardPage {
+
 	private final WizardInput myHolder;
 
 	public EntriesPage(WizardInput input) {
@@ -93,35 +99,60 @@ public class EntriesPage extends WizardPage {
 
 	private class PageControl extends Composite {
 
-		private Group group = null;
+		private Group nodesGroup = null;
+
 		private List nodesList = null;
-		private Group group1 = null;
+
+		private Group linksGroup = null;
+
 		private List linksList = null;
+
 		private Composite detailsPart = null;
+
 		private Group groupStructure = null;
+
 		private Group groupEdit = null;
+
 		private Group groupVisual = null;
+
 		private Composite composite2 = null;
+
 		private Composite composite = null;
+
 		private Button asNodeButton = null;
+
 		private Button asLinkButton = null;
+
 		private Button removeButton = null;
+
 		private Button changeDetailsButton = null;
+
 		private Button restoreButton = null;
+
 		private Group groupConstaints = null;
+
 		private Label specLabel = null;
+
 		private Label initLabel = null;
+
 		private Label diagramElementLabel = null;
+
 		private Label metaElementLabel;
+
 		private Label containmentLabel;
+
 		private Label linkMetaFeatureLabel;
 
 		private boolean isNodeInSelection;
+
 		private NodeReference selectedNode;
+
 		private LinkMapping selectedLink;
 
 		private final ILabelProvider myLabelProvider = new LabelProvider() {
+
 			final EcoreItemProviderAdapterFactory helperFactory = new EcoreItemProviderAdapterFactory();
+
 			public String getText(Object element) {
 				if (element instanceof LinkMapping) {
 					LinkMapping next = (LinkMapping) element;
@@ -137,12 +168,12 @@ public class EntriesPage extends WizardPage {
 					}
 					final String dlName = next.getDiagramLink() != null ? next.getDiagramLink().getName() : Messages.unspecifiedValue;
 					final String featureName = next.getContainmentFeature() != null ? next.getContainmentFeature().getName() : Messages.unspecifiedValue;
-					return Messages.bind(Messages.linkLabel, new Object[] {linkName, dlName, featureName});
+					return Messages.bind(Messages.linkLabel, new Object[] { linkName, dlName, featureName });
 				} else {
 					NodeReference next = (NodeReference) element;
 					final String nodeName = next.getChild().getDomainMetaElement() == null ? Messages.unspecifiedValue : getLabel(next.getChild().getDomainMetaElement());
 					final String dnName = next.getChild().getDiagramNode() != null ? next.getChild().getDiagramNode().getName() : Messages.unspecifiedValue;
-					final String featureName; 
+					final String featureName;
 					if (next.getContainmentFeature() != null) {
 						featureName = next.getContainmentFeature().getName();
 					} else if (next.getChildrenFeature() != null) {
@@ -150,9 +181,10 @@ public class EntriesPage extends WizardPage {
 					} else {
 						featureName = Messages.unspecifiedValue;
 					}
-					return Messages.bind(Messages.nodeLabel, new Object[] {nodeName, dnName, featureName});
+					return Messages.bind(Messages.nodeLabel, new Object[] { nodeName, dnName, featureName });
 				}
 			}
+
 			private String getLabel(EObject ecoreElement) {
 				IItemLabelProvider lp = (IItemLabelProvider) helperFactory.adapt((Object) ecoreElement, IItemLabelProvider.class);
 				assert lp != null;
@@ -160,24 +192,43 @@ public class EntriesPage extends WizardPage {
 			}
 		};
 
-		private SelectionListener myListListener = new SelectionListener() {
+		private SelectionListener myListSelectionListener = new SelectionListener() {
+
 			public void widgetSelected(SelectionEvent e) {
-				final boolean nodeSelected = e.widget == nodesList;
 				removeButton.setEnabled(true);
 				changeDetailsButton.setEnabled(true);
 				restoreButton.setEnabled(true);
-				if (nodeSelected) {
+
+				if (e.widget == nodesList) {
 					handleNodesListSelectionChange();
 					linksList.deselectAll();
-				} else {
-					// e.widget == linksList
+				} else if (e.widget == linksList) {
 					handleLinksListSelectionChange();
 					nodesList.deselectAll();
 				}
 			}
+
 			public void widgetDefaultSelected(SelectionEvent e) {
 				widgetSelected(e);
 			}
+		};
+
+		private FocusListener myListFocusListener = new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				if (e.widget == nodesList) {
+					handleNodesListSelectionChange();
+				} else if (e.widget == linksList) {
+					handleLinksListSelectionChange();
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				//do nothing
+			}
+
 		};
 
 		public PageControl(Composite parent) {
@@ -212,7 +263,7 @@ public class EntriesPage extends WizardPage {
 			GridLayout gridLayout = new GridLayout();
 			gridLayout.numColumns = 3;
 			this.setLayout(gridLayout);
-//			setSize(new org.eclipse.swt.graphics.Point(990,612));
+			//			setSize(new org.eclipse.swt.graphics.Point(990,612));
 			createNodesList();
 			createButtonsPane();
 			createLinksList();
@@ -225,12 +276,13 @@ public class EntriesPage extends WizardPage {
 			gridData.grabExcessHorizontalSpace = true;
 			gridData.grabExcessVerticalSpace = true;
 			gridData.verticalAlignment = GridData.FILL;
-			group = new Group(this, SWT.NONE);
-			group.setLayout(new FillLayout());
-			group.setLayoutData(gridData);
-			group.setText(Messages.mapNodesList);
-			nodesList = new List(group, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
-			nodesList.addSelectionListener(myListListener);
+			nodesGroup = new Group(this, SWT.NONE);
+			nodesGroup.setLayout(new FillLayout());
+			nodesGroup.setLayoutData(gridData);
+			nodesGroup.setText(Messages.mapNodesList);
+			nodesList = new List(nodesGroup, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+			nodesList.addSelectionListener(myListSelectionListener);
+			nodesList.addFocusListener(myListFocusListener);
 		}
 
 		private void createLinksList() {
@@ -239,12 +291,13 @@ public class EntriesPage extends WizardPage {
 			gridData1.horizontalAlignment = GridData.FILL;
 			gridData1.verticalAlignment = GridData.FILL;
 			gridData1.grabExcessVerticalSpace = true;
-			group1 = new Group(this, SWT.NONE);
-			group1.setLayout(new FillLayout());
-			group1.setLayoutData(gridData1);
-			group1.setText(Messages.mapLinksList);
-			linksList = new List(group1, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
-			linksList.addSelectionListener(myListListener);
+			linksGroup = new Group(this, SWT.NONE);
+			linksGroup.setLayout(new FillLayout());
+			linksGroup.setLayoutData(gridData1);
+			linksGroup.setText(Messages.mapLinksList);
+			linksList = new List(linksGroup, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
+			linksList.addSelectionListener(myListSelectionListener);
+			linksList.addFocusListener(myListFocusListener);
 		}
 
 		private void createDetailsPart() {
@@ -265,12 +318,13 @@ public class EntriesPage extends WizardPage {
 			changeDetailsButton = new Button(detailsPart, SWT.NONE);
 			changeDetailsButton.setText(Messages.mapChange);
 			changeDetailsButton.addSelectionListener(new SelectionAdapter() {
+
 				public void widgetSelected(SelectionEvent e) {
-					final Object input =  isNodeInSelection ? (Object) selectedNode : (Object) selectedLink;
-					ChangePropertiesDialog changePropertiesDialog = new ChangePropertiesDialog(getShell(), new Object[] {input});
+					final Object input = isNodeInSelection ? (Object) selectedNode : (Object) selectedLink;
+					ChangePropertiesDialog changePropertiesDialog = new ChangePropertiesDialog(getShell(), new Object[] { input });
 					int result = changePropertiesDialog.open();
 					if (result == Window.OK) {
-// TODO: save values to the model here
+						// TODO: save values to the model here
 					}
 				}
 			});
@@ -301,7 +355,7 @@ public class EntriesPage extends WizardPage {
 			l.setText(Messages.labelTargetFeature);
 			linkMetaFeatureLabel = new Label(groupStructure, SWT.NONE);
 			linkMetaFeatureLabel.setLayoutData(newDetailLabelConstraint());
-			
+
 		}
 
 		private void createEditGroup() {
@@ -349,6 +403,7 @@ public class EntriesPage extends WizardPage {
 			asNodeButton.setText(Messages.mapAsNode);
 			asNodeButton.setEnabled(false);
 			asNodeButton.addListener(SWT.Selection, new Listener() {
+
 				public void handleEvent(Event event) {
 					TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
 					NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
@@ -372,9 +427,10 @@ public class EntriesPage extends WizardPage {
 			asLinkButton.setText(Messages.mapAsLink);
 			asLinkButton.setEnabled(false);
 			asLinkButton.addListener(SWT.Selection, new Listener() {
+
 				public void handleEvent(Event event) {
 					LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
-					NodeMapping nodeMapping =  selectedNode.getChild();
+					NodeMapping nodeMapping = selectedNode.getChild();
 					lm.setDomainMetaElement(nodeMapping.getDomainMetaElement());
 					lm.setContainmentFeature(selectedNode.getContainmentFeature());
 					lm.setDomainInitializer(nodeMapping.getDomainInitializer());
@@ -394,6 +450,7 @@ public class EntriesPage extends WizardPage {
 			removeButton.setText(Messages.mapRemove);
 			removeButton.setEnabled(false);
 			removeButton.addListener(SWT.Selection, new Listener() {
+
 				public void handleEvent(Event event) {
 					if (nodesList.getSelectionIndex() != -1) {
 						int i = nodesList.getSelectionIndex();
@@ -433,32 +490,62 @@ public class EntriesPage extends WizardPage {
 			restoreButton.setText(Messages.mapRestore);
 			restoreButton.setEnabled(false);
 			restoreButton.addListener(SWT.Selection, new Listener() {
+
 				public void handleEvent(Event event) {
-					ListDialog d = new ListDialog(getShell());
-					d.setTitle(isNodeInSelection ? Messages.mapRestoreNode : Messages.mapRestoreLink);
-					d.setMessage(Messages.mapRestoreText);
-					d.setContentProvider(new IStructuredContentProvider() {
+					ListDialog dialog = new ListDialog(getShell());
+					dialog.setTitle(isNodeInSelection ? Messages.mapRestoreNode : Messages.mapRestoreLink);
+					dialog.setMessage(Messages.mapRestoreText);
+					dialog.setContentProvider(new IStructuredContentProvider() {
+
 						public Object[] getElements(Object inputElement) {
 							return (Object[]) inputElement;
 						}
+
 						public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 						}
+
 						public void dispose() {
 						}
 					});
-					d.setLabelProvider(PageControl.this.myLabelProvider);
+					dialog.setLabelProvider(PageControl.this.myLabelProvider);
 					if (isNodeInSelection) {
-						d.setInput(getHolder().nodeCandidates());
+						dialog.setInput(getHolder().nodeCandidates());
 					} else {
-						d.setInput(getHolder().linkCandidates());
+						dialog.setInput(getHolder().linkCandidates());
 					}
-					if (d.open() == ListDialog.OK) {
+					if (dialog.open() == ListDialog.OK) {
 						if (isNodeInSelection) {
-							getMapInstance().getNodes().addAll(Arrays.asList((TopNodeReference[]) d.getResult()));
+							EList<TopNodeReference> nodes = getMapInstance().getNodes();
+
+							Set<EClass> usedClassSet = new HashSet<EClass>();
+							for (TopNodeReference nextTopNodeReference : nodes) {
+								usedClassSet.add(nextTopNodeReference.getChild().getDomainMetaElement());
+							}
+
+							for (Object nextObject : dialog.getResult()) {
+								TopNodeReference nextNodeReference = (TopNodeReference) nextObject;
+								if (!usedClassSet.contains((nextNodeReference.getChild().getDomainMetaElement()))) {
+									nodes.add(nextNodeReference);
+								}
+							}
+
 							nodesList.removeAll();
 							populateNodesList();
 						} else {
-							getMapInstance().getLinks().addAll(Arrays.asList((LinkMapping[]) d.getResult()));
+							EList<LinkMapping> links = getMapInstance().getLinks();
+
+							Set<EClass> usedClassSet = new HashSet<EClass>();
+							for (LinkMapping nextLinkMapping : links) {
+								usedClassSet.add(nextLinkMapping.getDomainMetaElement());
+							}
+
+							for (Object nextObject : dialog.getResult()) {
+								LinkMapping nextLinkMapping = (LinkMapping) nextObject;
+								if (!usedClassSet.contains((nextLinkMapping.getDomainMetaElement()))) {
+									links.add(nextLinkMapping);
+								}
+							}
+
 							linksList.removeAll();
 							populateLinksList();
 						}
@@ -572,23 +659,31 @@ public class EntriesPage extends WizardPage {
 
 		void handleNodesListSelectionChange() {
 			asNodeButton.setEnabled(false);
-			asLinkButton.setEnabled(true);
-			assert nodesList.getSelectionIndex() != -1;
-			selectedNode = getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+
+			int selectionIndex = nodesList.getSelectionIndex();
+			if (selectionIndex != -1) {
+				selectedNode = getMapInstance().getNodes().get(selectionIndex);
+				asLinkButton.setEnabled(selectedNode.getChild().getDomainMetaElement() != null);
+				refreshNodeDetails();
+			}
+
 			isNodeInSelection = true;
-			refreshNodeDetails();
 		}
 
 		void handleLinksListSelectionChange() {
-			assert linksList.getSelectionIndex() != -1;
 			asLinkButton.setEnabled(false);
-			selectedLink = getMapInstance().getLinks().get(linksList.getSelectionIndex());
-			asNodeButton.setEnabled(selectedLink.getDomainMetaElement() != null);
+
+			int selectionIndex = linksList.getSelectionIndex();
+			if (selectionIndex != -1) {
+				selectedLink = getMapInstance().getLinks().get(selectionIndex);
+				asNodeButton.setEnabled(selectedLink.getDomainMetaElement() != null);
+				refreshLinkDetails();
+			}
+
 			isNodeInSelection = false;
-			refreshLinkDetails();
 		}
 	}
-	
+
 	private class ChangePropertiesDialog extends Dialog {
 
 		private Object[] mySelection;
@@ -610,7 +705,7 @@ public class EntriesPage extends WizardPage {
 			layout.marginHeight = 0;
 			layout.marginWidth = 0;
 			frame.setLayout(layout);
-			
+
 			PropertySheetPage propertyPage = new PropertySheetPage();
 			propertyPage.createControl(frame);
 			propertyPage.setPropertySourceProvider(new AdapterFactoryContentProvider(myHolder.getAdapterFactory()));
@@ -618,10 +713,10 @@ public class EntriesPage extends WizardPage {
 			propertyPage.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
 			return composite;
 		}
-		
+
 		protected void createButtonsForButtonBar(Composite parent) {
 			createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 		}
-		
+
 	}
 }
