@@ -51,7 +51,7 @@ helper getNavigatorReference(groupName : String, childReferences : Sequence(gmfg
 
 helper getChildReferencesFrom(navigator : gmfgen::GenNavigator, parent : gmfgen::GenCommonBase) : Sequence(gmfgen::GenNavigatorChildReference) {
 	return if parent.oclIsUndefined() 
-		then Sequence{} 
+		then navigator.childReferences->select(r | r.parent.oclIsUndefined())->asSequence()
 		else navigator.childReferences->select(r | undefinedAsFalse(parent.visualID = r.parent.visualID))->asSequence()
 	endif
 }
