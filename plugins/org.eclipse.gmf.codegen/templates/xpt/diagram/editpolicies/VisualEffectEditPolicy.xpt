@@ -52,9 +52,10 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 
 «DEFINE setVisualEffectValue FOR gmfgen::GenVisualEffect-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	@Override
+
+	«EXPAND CodeStyle::override FOR self.oclAsType(ecore::EObject).eContainer().oclAsType(gmfgen::GenCommonBase)»
 	protected void setVisualEffectValue(Object value) {
-		«IF pinKind = 'ColorPin'-»
+		«IF pinKind = 'ColorPin'-»  
 			«EXPAND setVisualEffectValueOnColorPin-»
 		«ELSEIF pinKind = 'VisiblePin'-»
 			«EXPAND setVisualEffectValueOnCustomPin-»
@@ -68,7 +69,7 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 
 «DEFINE getHostImpl FOR gmfgen::GenVisualEffect-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	@Override
+	«EXPAND CodeStyle::override FOR self.oclAsType(ecore::EObject).eContainer().oclAsType(gmfgen::GenCommonBase)»
 	protected «subject.getEditPartQualifiedClassName()» getHostImpl() {
 		return («subject.getEditPartQualifiedClassName()») super.getHostImpl();
 	}
@@ -76,7 +77,7 @@ public class «EXPAND xpt::Common::disqualifiedClassName FOR getEditPolicyQualif
 
 «DEFINE getExpressionBody FOR gmfgen::GenVisualEffect-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	@Override
+	«EXPAND CodeStyle::override FOR self.oclAsType(ecore::EObject).eContainer().oclAsType(gmfgen::GenCommonBase)»
 	protected String getExpressionBody() {	
 			return 
 	«IF subject.oclIsKindOf(gmfgen::GenLink)-»
@@ -169,7 +170,7 @@ getHostImpl().getPrimaryShape().«operationName-»
 
 «DEFINE getContext FOR gmfgen::FeatureLinkModelFacet-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	@Override
+	«EXPAND CodeStyle::override FOR self.oclAsType(ecore::EObject).eContainer().oclAsType(gmfgen::GenCommonBase)»
 	protected org.eclipse.emf.ecore.EObject getContext() {
 	«IF metaFeature.ecoreFeature.upperBound = 1-»
 		«EXPAND getContextBody('source', 'target', getSourceType(), getTargetType(), metaFeature)-»
