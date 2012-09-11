@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2006, 2009, 2012 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
@@ -257,8 +257,7 @@ public class «textNonResizableEditPolicyClassName» «EXPAND TextNonResizableEd
 «ENDDEFINE»
 
 «DEFINE textFeedback_refreshFeedback FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-	«EXPAND CodeStyle::override-»
+	«EXPAND CodeStyle::overrideI-»
 	public void refreshFeedback() {
 		refreshSelectionFeedback();
 		refreshFocusFeedback();
@@ -278,4 +277,3 @@ public class «textNonResizableEditPolicyClassName» «EXPAND TextNonResizableEd
 		return hostPositionListener;
 	}
 «ENDDEFINE»
-

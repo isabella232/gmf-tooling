@@ -11,6 +11,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION xpt::StringOperations»
 
@@ -45,7 +46,7 @@ public class «self.getQualifiedClassName().xpandSplit('\\.')->last()»«EXPAND 
 
 «IF isViewExpressionDefinedAndOcl()-»
 	«EXPAND xpt::Common::generatedMemberComment»
-	@Override	
+	«EXPAND CodeStyle::override FOR self.oclAsType(ecore::EObject).eContainer().oclAsType(gmfgen::GenCommonBase)»
 	protected String getExpressionBody() {
 		return «EXPAND impl::parsers::ExpressionLabelParser::getExpression(self, viewExpression) FOR viewExpression.provider».body();
 	}
