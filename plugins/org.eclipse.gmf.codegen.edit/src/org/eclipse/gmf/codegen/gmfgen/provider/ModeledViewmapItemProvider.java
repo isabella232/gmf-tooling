@@ -12,7 +12,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.provider.AdapterFactoryItemDelegator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -20,10 +21,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.ModeledViewmap;
-import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ModeledViewmap} object.
@@ -39,6 +39,9 @@ public class ModeledViewmapItemProvider
 		ITreeItemContentProvider,
 		IItemLabelProvider,
 		IItemPropertySource {
+	
+	private final AdapterFactoryItemDelegator myReflectiveItemDelegator = new AdapterFactoryItemDelegator(new ReflectiveItemProviderAdapterFactory());
+	
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -112,15 +115,21 @@ public class ModeledViewmapItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		ViewmapLayoutType labelValue = ((ModeledViewmap)object).getLayoutType();
-		String label = labelValue == null ? null : labelValue.toString();
+		String label = null;
+		EObject model = ((ModeledViewmap)object).getFigureModel();
+		if (model != null && false == model instanceof ModeledViewmap) {
+			label = myReflectiveItemDelegator.getText(model);
+		}
+		if (label == null){
+			label = getString("_UI_Unknown_feature");
+		}
 		return label == null || label.length() == 0 ?
 			getString("_UI_ModeledViewmap_type") :
-			getString("_UI_ModeledViewmap_type") + " " + label;
+			getString("_UI_ModeledViewmap_type") + " [" + label + "]";
 	}
 
 	/**
