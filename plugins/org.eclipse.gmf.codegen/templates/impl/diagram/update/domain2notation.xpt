@@ -10,6 +10,8 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 
+«EXTENSION xpt::GenEditorGenerator»
+
 «DEFINE DomainToNotationClassName FOR gmfgen::GenDiagram»Domain2Notation«ENDDEFINE»
 
 «DEFINE DomainToNotationClass FOR gmfgen::GenDiagram-»
@@ -27,7 +29,7 @@
 		
 		«EXPAND xpt::Common::generatedMemberComment»
 		public org.eclipse.gmf.runtime.notation.View getHinted(org.eclipse.emf.ecore.EObject domainEObject, String hint) {
-			return this.get(domainEObject);
+			return «IF self.jdkComplianceLevel() < 5»(org.eclipse.gmf.runtime.notation.View)«ENDIF»this.get(domainEObject);
 		}
 		
 		«EXPAND xpt::Common::generatedMemberComment»
