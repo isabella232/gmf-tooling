@@ -45,7 +45,6 @@ public class TOEParserProvider extends AbstractProvider implements IParserProvid
 	*/
 	private IParser getEmployeeName_5001Parser() {
 		if (employeeName_5001Parser == null) {
-
 			EAttribute[] features = new EAttribute[] { TOEPackage.eINSTANCE.getEmployee_Name() };
 			EAttribute[] editableFeatures = new EAttribute[] { TOEPackage.eINSTANCE.getEmployee_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features, editableFeatures);
@@ -64,7 +63,6 @@ public class TOEParserProvider extends AbstractProvider implements IParserProvid
 	*/
 	private IParser getDepartmentName_5006Parser() {
 		if (departmentName_5006Parser == null) {
-
 			EAttribute[] features = new EAttribute[] { TOEPackage.eINSTANCE.getDepartment_Name() };
 			EAttribute[] editableFeatures = new EAttribute[] { TOEPackage.eINSTANCE.getDepartment_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features, editableFeatures);
@@ -97,7 +95,6 @@ public class TOEParserProvider extends AbstractProvider implements IParserProvid
 	*/
 	private IParser getProjectName_5009Parser() {
 		if (projectName_5009Parser == null) {
-
 			EAttribute[] features = new EAttribute[] { TOEPackage.eINSTANCE.getProject_Name() };
 			EAttribute[] editableFeatures = new EAttribute[] { TOEPackage.eINSTANCE.getProject_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features, editableFeatures);
@@ -130,7 +127,6 @@ public class TOEParserProvider extends AbstractProvider implements IParserProvid
 	*/
 	private IParser getManagerName_5012Parser() {
 		if (managerName_5012Parser == null) {
-
 			EAttribute[] features = new EAttribute[] { TOEPackage.eINSTANCE.getEmployee_Name() };
 			EAttribute[] editableFeatures = new EAttribute[] { TOEPackage.eINSTANCE.getEmployee_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features, editableFeatures);
@@ -149,7 +145,6 @@ public class TOEParserProvider extends AbstractProvider implements IParserProvid
 	*/
 	private IParser getEmployeeName_5002Parser() {
 		if (employeeName_5002Parser == null) {
-
 			EAttribute[] features = new EAttribute[] { TOEPackage.eINSTANCE.getEmployee_Name() };
 			EAttribute[] editableFeatures = new EAttribute[] { TOEPackage.eINSTANCE.getEmployee_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features, editableFeatures);
@@ -168,7 +163,6 @@ public class TOEParserProvider extends AbstractProvider implements IParserProvid
 	*/
 	private IParser getDepartmentName_5003Parser() {
 		if (departmentName_5003Parser == null) {
-
 			EAttribute[] features = new EAttribute[] { TOEPackage.eINSTANCE.getDepartment_Name() };
 			EAttribute[] editableFeatures = new EAttribute[] { TOEPackage.eINSTANCE.getDepartment_Name() };
 			MessageFormatParser parser = new MessageFormatParser(features, editableFeatures);

@@ -153,7 +153,6 @@ public class Department2EditPart extends ShapeNodeEditPart {
 		}
 		if (childEditPart instanceof DepartmentDepartment_staff2EditPart) {
 			IFigure pane = getPrimaryShape().getFigureDepartmentFigure_content_pane();
-			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
 			pane.remove(((DepartmentDepartment_staff2EditPart) childEditPart).getFigure());
 			return true;
 		}
