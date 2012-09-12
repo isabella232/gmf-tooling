@@ -103,7 +103,7 @@ protected java.util.List getSemanticChildrenList() {
 «DEFINE isShortcutMethod FOR gmfgen::GenDiagram-»
 «IF containsShortcutsTo->notEmpty()-»
 «EXPAND xpt::Common::generatedMemberComment»
-private boolean isShortcut(org.eclipse.gmf.runtime.notation.View view) {
+protected static boolean isShortcut(org.eclipse.gmf.runtime.notation.View view) {
 	return view.getEAnnotation("Shortcut") != null; «EXPAND xpt::Common::nonNLS»
 }
 «ENDIF»
@@ -296,7 +296,7 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 «ENDDEFINE»
 
 «DEFINE refreshConnectionsBody FOR gmfgen::GenDiagram-»
-	«EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap = new «EXPAND CodeStyle::G2('java.util.HashMap', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')»();
+	«EXPAND _Domain2Notation» domain2NotationMap = new «EXPAND _Domain2Notation»();
 	«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 	java.util.Collection existingLinks = new java.util.LinkedList(getDiagram().getEdges());
 	for (java.util.Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
@@ -328,11 +328,14 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 	«EXPAND createConnectionsMethod-»
 	«EXPAND getEditPartMethod-»
 	«EXPAND getDiagramMethod-»
+	«EXPAND getSourceEditPartMethod-»
+	«EXPAND getTargetEditPartMethod-»
+	«EXPAND getHintedEditPartMethod-»
 «ENDDEFINE»
 
 «DEFINE collectAllLinksMethod FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
-private «EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» collectAllLinks(org.eclipse.gmf.runtime.notation.View view, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
+private «EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» collectAllLinks(org.eclipse.gmf.runtime.notation.View view, «EXPAND _Domain2Notation» domain2NotationMap) {
 	if (!«EXPAND xpt::editor::VisualIDRegistry::modelID».equals(«EXPAND xpt::editor::VisualIDRegistry::getModelIDMethodCall»(view))) {
 		return «EXPAND CodeStyle::emptyList»;
 	}
@@ -352,11 +355,11 @@ private «EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.g
 
 «DEFINE createConnectionsMethod FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
-private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.IAdaptable')»  createConnections(«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
+private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.IAdaptable')»  createConnections(«EXPAND CodeStyle::G('java.util.Collection', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName())» linkDescriptors, «EXPAND _Domain2Notation» domain2NotationMap) {
 	«EXPAND CodeStyle::newGenericInstance('adapters', 'java.util.LinkedList', 'org.eclipse.core.runtime.IAdaptable')»();
 	«EXPAND CodeStyle::iterate('nextLinkDescriptor', editorGen.diagramUpdater.getLinkDescriptorQualifiedClassName(), 'linkDescriptors')-»
-		org.eclipse.gef.EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
-		org.eclipse.gef.EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
+		org.eclipse.gef.EditPart sourceEditPart = getSourceEditPart(nextLinkDescriptor, domain2NotationMap);
+		org.eclipse.gef.EditPart targetEditPart = getTargetEditPart(nextLinkDescriptor, domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {
 			continue;
 		}
@@ -382,7 +385,7 @@ private «EXPAND CodeStyle::G('java.util.Collection', 'org.eclipse.core.runtime.
 
 «DEFINE getEditPartMethod FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::generatedMemberComment»
-private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domainModelElement, «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.emf.ecore.EObject', 'org.eclipse.gmf.runtime.notation.View')» domain2NotationMap) {
+private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domainModelElement, «EXPAND _Domain2Notation» domain2NotationMap) {
 	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) domain2NotationMap.get(domainModelElement);
 	if (view != null) {
 		return (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);
@@ -390,6 +393,33 @@ private org.eclipse.gef.EditPart getEditPart(org.eclipse.emf.ecore.EObject domai
 	return null;
 }
 «ENDDEFINE»
+
+«DEFINE getHintedEditPartMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+protected final org.eclipse.gef.EditPart getHintedEditPart(org.eclipse.emf.ecore.EObject domainModelElement, «EXPAND _Domain2Notation» domain2NotationMap, int hintVisualId) { 
+	org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) domain2NotationMap.getHinted(domainModelElement, «-»
+											«EXPAND xpt::editor::VisualIDRegistry::typeMethodCall('hintVisualId')»);
+	if (view != null) {
+		return (org.eclipse.gef.EditPart) getHost().getViewer().getEditPartRegistry().get(view);
+	}
+	return null;
+}
+«ENDDEFINE»
+
+«DEFINE getSourceEditPartMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gef.EditPart getSourceEditPart(org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor descriptor, «EXPAND _Domain2Notation» domain2NotationMap) { 
+	return getEditPart(descriptor.getSource(), domain2NotationMap);
+}
+«ENDDEFINE»
+
+«DEFINE getTargetEditPartMethod FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor descriptor, «EXPAND _Domain2Notation» domain2NotationMap) { 
+	return getEditPart(descriptor.getDestination(), domain2NotationMap);
+}
+«ENDDEFINE»
+
 
 «DEFINE getDiagramMethod FOR gmfgen::GenContainerBase-»
 «EXPAND xpt::Common::generatedMemberComment»
@@ -402,6 +432,8 @@ private org.eclipse.gmf.runtime.notation.Diagram getDiagram() {
 
 //
 // privates
+
+«DEFINE _Domain2Notation FOR gmfgen::GenDiagram»«EXPAND impl::diagram::update::domain2notation::DomainToNotationClassName»«ENDDEFINE»
 
 «DEFINE _addContainmentFeature FOR genmodel::GenFeature-»
 myFeaturesToSynchronize.add(«EXPAND MetaModel::MetaFeature»);
@@ -421,12 +453,7 @@ myFeaturesToSynchronize.add(«EXPAND MetaModel::MetaFeature»);
 «ENDREM»«-»
 		result.addAll(«EXPAND xpt::diagram::updater::DiagramUpdater::getContainedLinksMethodCall»(view));
 	}
-	if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { «EXPAND xpt::Common::nonNLS»
-«REM»
-	Storing element view or replacing shortcut by the "original" element view.
-«ENDREM»«-»
-		domain2NotationMap.put(view.getElement(), view);
-	}	
+	domain2NotationMap.putView(view.getElement(), view);
 	break;	
 }
 «ENDDEFINE»
