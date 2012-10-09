@@ -76,7 +76,13 @@ helper GenClass::isSuperTypeOf(subclassCandidate : GenClass) : Boolean {
 -- @returns 4 for Java1.4, 5 for JDK 5.0 and 6 for JDK6.0 
 helper GenClass::jdkComplianceLevel() : Integer {
 	return let l = self.genPackage.genModel.complianceLevel in 
-		if l = GenJDKLevel::JDK14 then 4 else (if l = GenJDKLevel::JDK50 then 5 else (if l = GenJDKLevel::JDK60 then 6 endif) endif) endif; 
+		if l = GenJDKLevel::JDK14 then 4 
+			else (if l = GenJDKLevel::JDK50 then 5 
+			else (if l = GenJDKLevel::JDK60 then 6
+			else (if l = GenJDKLevel::JDK70 then 7 endif )
+		endif) 
+		endif) 
+		endif; 
 }
 
 -- MODIFIERS:private
