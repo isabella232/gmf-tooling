@@ -4,19 +4,19 @@
    <description url="http://download.eclipse.org/modeling/gmp/gmf-tooling/updates/milestones">
       A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
    </description>
-   <feature url="features/org.eclipse.gmf.tooling_3.0.0.qualifier.jar" id="org.eclipse.gmf.tooling" version="3.0.0.qualifier">
+   <feature url="features/org.eclipse.gmf.tooling_3.0.1.qualifier.jar" id="org.eclipse.gmf.tooling" version="3.0.1.qualifier">
       <category name="GMF Tooling"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk_3.0.0.qualifier.jar" id="org.eclipse.gmf.sdk" version="3.0.0.qualifier">
+   <feature url="features/org.eclipse.gmf.sdk_3.0.1.qualifier.jar" id="org.eclipse.gmf.sdk" version="3.0.1.qualifier">
       <category name="GMF Tooling"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.tooling.runtime_3.0.0.qualifier.jar" id="org.eclipse.gmf.tooling.runtime" version="3.0.0.qualifier">
+   <feature url="features/org.eclipse.gmf.tooling.runtime_3.0.1.qualifier.jar" id="org.eclipse.gmf.tooling.runtime" version="3.0.1.qualifier">
       <category name="GMF Tooling"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk.experimental_1.2.0.qualifier.jar" id="org.eclipse.gmf.sdk.experimental" version="1.2.0.qualifier">
+   <feature url="features/org.eclipse.gmf.sdk.experimental_1.2.1.qualifier.jar" id="org.eclipse.gmf.sdk.experimental" version="1.2.1.qualifier">
       <category name="GMF Tooling"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.examples_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples" version="1.4.0.qualifier">
+   <feature url="features/org.eclipse.gmf.examples_1.4.1.qualifier.jar" id="org.eclipse.gmf.examples" version="1.4.1.qualifier">
       <category name="GMF Tooling - Examples"/>
    </feature>
    <feature url="features/org.eclipse.gmf.examples.pde_1.4.0.qualifier.jar" id="org.eclipse.gmf.examples.pde" version="1.4.0.qualifier">
