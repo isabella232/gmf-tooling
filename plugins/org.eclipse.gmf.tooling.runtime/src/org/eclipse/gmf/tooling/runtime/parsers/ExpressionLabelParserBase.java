@@ -29,7 +29,6 @@ public abstract class ExpressionLabelParserBase implements HasOclTracker, IParse
 		};
 	}
 
-	@Override
 	public OclTracker getOclTracker() {
 		return myDelegate.getOclTracker();
 	}

@@ -24,13 +24,11 @@ public abstract class ChoiceParserBase extends AbstractFeatureParser implements 
 		return getEditableFeatures()[SINGLE_FEATURE_INDEX];
 	}
 
-	@Override
 	public String getEditString(IAdaptable adapter, int flags) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		return getEditChoice(element, getEditableValues(element)[SINGLE_FEATURE_INDEX]);
 	}
 
-	@Override
 	public IParserEditStatus isValidEditString(IAdaptable adapter, String editString) {
 		if (getEditChoices(adapter).contains(editString)) {
 			return ParserEditStatus.EDITABLE_STATUS;
@@ -38,18 +36,15 @@ public abstract class ChoiceParserBase extends AbstractFeatureParser implements 
 		return new ParserEditStatus(GMFToolingRuntimePlugin.ID, IParserEditStatus.UNEDITABLE, editString);
 	}
 
-	@Override
 	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		return getParseCommand(adapter, new Object[] { findItem(element, newString) }, flags);
 	}
 
-	@Override
 	public String getPrintString(IAdaptable adapter, int flags) {
 		return getEditString(adapter, flags);
 	}
 
-	@Override
 	public List<String> getEditChoices(IAdaptable adapter) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		List<String> result = new ArrayList<String>();

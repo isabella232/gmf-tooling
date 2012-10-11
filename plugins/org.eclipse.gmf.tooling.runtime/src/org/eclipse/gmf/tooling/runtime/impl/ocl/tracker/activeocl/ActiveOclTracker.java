@@ -32,7 +32,6 @@ class ActiveOclTracker extends OclTrackerBase {
 		myDependecyCollector = new SimpleDependencyCollector();
 	}
 
-	@Override
 	public void installListeners(TransactionalEditingDomain domain, NotificationListener listener, Registrator registrator) {
 		myListener = listener;
 		myRegistrator = registrator;
@@ -40,7 +39,6 @@ class ActiveOclTracker extends OclTrackerBase {
 		registerListeners();
 	}
 
-	@Override
 	public void uninstallListeners() {
 		unregisterListeners();
 	}
@@ -64,7 +62,6 @@ class ActiveOclTracker extends OclTrackerBase {
 		}
 	}
 
-	@Override
 	public Object getValue() {
 		if (!myValueInitialized || !isCached()) {
 			doInitialize();
@@ -72,7 +69,6 @@ class ActiveOclTracker extends OclTrackerBase {
 		return myValue;
 	}
 
-	@Override
 	public boolean handleNotification(Notification notification) {
 		ContextData contextData = myDependecyCollector.getContext2Data().get(notification.getNotifier());
 		boolean affected = contextData != null && contextData.getFeatures().contains(notification.getFeature());

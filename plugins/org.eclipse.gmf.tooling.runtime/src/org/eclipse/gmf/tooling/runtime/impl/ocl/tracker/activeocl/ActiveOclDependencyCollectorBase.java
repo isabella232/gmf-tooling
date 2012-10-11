@@ -15,7 +15,6 @@ abstract class ActiveOclDependencyCollectorBase<T extends ContextData> implement
 		myContext2Data = new HashMap<EObject, T>();
 	}
 
-	@Override
 	public void registerDependency(EObject context, EStructuralFeature feature) {
 		T contextData = myContext2Data.get(context);
 

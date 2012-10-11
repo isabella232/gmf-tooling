@@ -76,7 +76,6 @@ public abstract class AbstractOclVisualEffectEditPolicy extends CanonicalEditPol
 		getOclTracker().installListeners(getHostImpl().getEditingDomain(), //
 				new NotificationListener() {
 
-					@Override
 					public void notifyChanged(Notification notification) {
 						refreshVisualEffect();
 					}
@@ -155,12 +154,10 @@ public abstract class AbstractOclVisualEffectEditPolicy extends CanonicalEditPol
 		if (myOclRegistrator == null) {
 			myOclRegistrator = new Registrator() {
 
-				@Override
 				public void registerListener(String filterId, NotificationListener listener, EObject element) {
 					addListenerFilter(filterId, listener, element);
 				}
 
-				@Override
 				public void unregisterListener(String filterId) {
 					removeListenerFilter(filterId);
 				}

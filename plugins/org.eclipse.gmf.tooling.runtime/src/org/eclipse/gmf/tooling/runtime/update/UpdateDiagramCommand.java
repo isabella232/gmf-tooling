@@ -32,22 +32,18 @@ import org.eclipse.ui.PlatformUI;
  */
 public class UpdateDiagramCommand implements IHandler {
 
-	@Override
 	public void addHandlerListener(IHandlerListener handlerListener) {
 		//
 	}
 
-	@Override
 	public void removeHandlerListener(IHandlerListener handlerListener) {
 		//
 	}
 
-	@Override
 	public void dispose() {
 		//
 	}
 
-	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		ISelection selection = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getSelectionService().getSelection();
 		if (selection instanceof IStructuredSelection) {
@@ -68,12 +64,10 @@ public class UpdateDiagramCommand implements IHandler {
 		return null;
 	}
 
-	@Override
 	public boolean isEnabled() {
 		return true;
 	}
 
-	@Override
 	public boolean isHandled() {
 		return true;
 	}
