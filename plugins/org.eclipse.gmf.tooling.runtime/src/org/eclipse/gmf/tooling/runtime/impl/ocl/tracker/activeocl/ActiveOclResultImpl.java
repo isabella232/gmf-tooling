@@ -29,7 +29,6 @@ class ActiveOclResultImpl implements ActiveOclResult, ActiveOclListener {
 		myResult = myDependencyEvaluator.evaluate();
 	}
 
-	@Override
 	public void onResultChanged() {
 		myDependencyCollector.clear();
 
@@ -45,32 +44,26 @@ class ActiveOclResultImpl implements ActiveOclResult, ActiveOclListener {
 		}
 	}
 
-	@Override
 	public void removeListener(ActiveOclListener listener) {
 		myListeners.remove(listener);
 	}
 
-	@Override
 	public Object getResult() {
 		return myResult;
 	}
 
-	@Override
 	public void dispose() {
 		myDependencyCollector.clear();
 	}
 
-	@Override
 	public boolean canListenForChanges() {
 		return true;
 	}
 
-	@Override
 	public void addListener(ActiveOclListener listener) {
 		myListeners.add(listener);
 	}
 
-	@Override
 	public Notifier adaptToEMFNotifier() {
 		// TODO Auto-generated method stub
 		return null;

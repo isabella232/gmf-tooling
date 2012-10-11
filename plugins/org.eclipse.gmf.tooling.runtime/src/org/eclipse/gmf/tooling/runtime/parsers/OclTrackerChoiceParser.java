@@ -49,7 +49,6 @@ public class OclTrackerChoiceParser extends OclChoiceParser implements HasOclTra
 		return super.getEditString(adapter, flags);
 	}
 
-	@Override
 	public OclTracker getOclTracker() {
 		return myLabelDelegate.getOclTracker();
 	}

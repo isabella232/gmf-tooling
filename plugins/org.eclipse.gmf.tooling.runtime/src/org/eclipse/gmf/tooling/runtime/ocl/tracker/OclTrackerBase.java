@@ -12,12 +12,10 @@ public abstract class OclTrackerBase implements OclTracker {
 		myExpressionBody = expressionBody;
 	}
 
-	@Override
 	public final String getExpressionBody() {
 		return myExpressionBody;
 	}
 
-	@Override
 	public final void initialize(EObject context) {
 		if (myContext == context) {
 			return;

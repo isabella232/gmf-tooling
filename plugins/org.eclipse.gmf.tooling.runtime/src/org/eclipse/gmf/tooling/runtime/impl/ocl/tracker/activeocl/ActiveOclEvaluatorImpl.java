@@ -8,12 +8,10 @@ import org.eclipse.ocl.ParserException;
 
 class ActiveOclEvaluatorImpl implements ActiveOclEvaluator {
 
-	@Override
 	public ActiveOclResult evaluate(EObject context, String oclExp) throws ParserException {
 		return new ActiveOclResultImpl(context, oclExp);
 	}
 
-	@Override
 	public Object evaluate(EObject context, String oclExp, ActiveOclDependencyCollector dependencyCollector) throws ParserException {
 		return new DependencyEvaluator(context, oclExp, dependencyCollector).evaluate();
 	}
