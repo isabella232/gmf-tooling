@@ -37,7 +37,7 @@
 								<id>pack</id>
 								<phase>package</phase>
 								<configuration>
-									<inputFile>${project.build.directory}/${project.artifactId}.zip</inputFile>
+									<inputFile>${project.build.directory}/${project.artifactId}-${project.version}.zip</inputFile>
 								</configuration>
 								<goals>
 									<goal>pack</goal>
