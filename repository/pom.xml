@@ -47,7 +47,7 @@
 							<execution>
 								<id>sign</id>
 								<configuration>
-									<inputFile>${project.build.directory}/${project.artifactId}.zip</inputFile>
+									<inputFile>${project.build.directory}/${project.artifactId}-${project.version}.zip</inputFile>
 									<signerInputDirectory>/home/data/httpd/download-staging.priv/modeling/gmf/gmf-tooling</signerInputDirectory>
 								</configuration>
 								<phase>package</phase>
