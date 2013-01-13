@@ -65,8 +65,10 @@ public class VerticalLabel extends ImageFigure {
 	 *          to display
 	 */
 	public void setText(String text) {
-		myText = text;
-		updateImage();
+		if (!safeEquals(text, myText)) {
+			myText = text;
+			updateImage();
+		}
 	}
 
 	public String getText() {
@@ -88,7 +90,11 @@ public class VerticalLabel extends ImageFigure {
 		if (getFont() == null) {
 			return null;
 		}
-		Image image = ImageUtilities.createRotatedImageOfString(getText(), getFont(), getForegroundColor(), getBackgroundColor());
+		String safeText = getText();
+		if (safeText.length() == 0) {
+			safeText = " "; //#393882, IAE from ImageUtilities for empty string passed 
+		}
+		Image image = ImageUtilities.createRotatedImageOfString(safeText, getFont(), getForegroundColor(), getBackgroundColor());
 		super.setImage(image);
 		return image;
 	}
@@ -98,5 +104,9 @@ public class VerticalLabel extends ImageFigure {
 			return false;
 		}
 		return cachedColor == null || !cachedColor.equals(actualColor);
+	}
+
+	private static boolean safeEquals(String a, String b) {
+		return a == null ? b == null : a.equals(b);
 	}
 }
