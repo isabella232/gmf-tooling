@@ -10,6 +10,7 @@
  *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
 
@@ -97,8 +98,16 @@
 «ENDDEFINE»
 
 «DEFINE labelFigurePrim FOR gmfgen::ModeledViewmap-»
-	return new «EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapFigureFQN FOR self»();
+	return new «EXPAND impl::diagram::editparts::viewmaps::modeledViewmapProducer::viewmapFigureFQN FOR self»(«EXPAND labelTextDefaultValue_ FOR self.figureModel»);
 	}
+«ENDDEFINE»
+
+«DEFINE labelTextDefaultValue_ FOR ecore::EObject»«ENDDEFINE»
+
+«DEFINE labelTextDefaultValue_ FOR gmfgraph::DiagramLabel-»
+«IF not self.figure.actualFigure.oclAsType(gmfgraph::Label).text.oclIsUndefined()-»
+"«self.figure.actualFigure.oclAsType(gmfgraph::Label).text»"«-»
+«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE labelFigurePrim FOR gmfgen::Viewmap-»
