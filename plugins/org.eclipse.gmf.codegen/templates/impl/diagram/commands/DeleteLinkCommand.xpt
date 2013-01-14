@@ -30,7 +30,7 @@
 «EXPAND newDeleteReferenceLinkCommand(genLink, requestVar)-»
 «ENDDEFINE»
 
-«DEFINE newDeleteReferenceLinkCommand(GenLink genLink, String destroyReferenceRequest) FOR gmfgen::FeatureLinkModelFacet-»
+«DEFINE newDeleteReferenceLinkCommand(gmfgen::GenLink genLink, String destroyReferenceRequest) FOR gmfgen::FeatureLinkModelFacet-»
 new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(«destroyReferenceRequest»)«IF isContains(metaFeature)» {
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 		org.eclipse.emf.ecore.EObject referencedObject = getReferencedObject();
@@ -44,7 +44,7 @@ new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand(«des
 }«ENDIF-»
 «ENDDEFINE»
 
-«DEFINE newDeleteLinkWithClassCommand(GenLink genLink, String destroyElementRequest) FOR gmfgen::TypeLinkModelFacet-»
+«DEFINE newDeleteLinkWithClassCommand(gmfgen::GenLink genLink, String destroyElementRequest) FOR gmfgen::TypeLinkModelFacet-»
 new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(«destroyElementRequest»)«-»
 «ENDDEFINE»
 
