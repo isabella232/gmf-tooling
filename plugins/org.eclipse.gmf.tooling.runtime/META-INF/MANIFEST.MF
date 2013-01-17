@@ -4,6 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.runtime;singleton:=true
 Bundle-Version: 3.0.0.qualifier
 Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.core.expressions,
@@ -14,7 +15,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.common.ui.services,
  org.eclipse.gmf.runtime.emf.type.core,
  org.eclipse.gmf.runtime.diagram.core,
- org.eclipse.gmf.runtime.diagram.ui, 
+ org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.ocl,
  org.eclipse.ocl.ecore,
  org.eclipse.gmf.runtime.notation
@@ -24,9 +25,9 @@ Bundle-Activator: org.eclipse.gmf.tooling.runtime.GMFToolingRuntimePlugin
 Export-Package: org.eclipse.gmf.tooling.runtime,
  org.eclipse.gmf.tooling.runtime.directedit,
  org.eclipse.gmf.tooling.runtime.directedit.locator,
- org.eclipse.gmf.tooling.runtime.edit.helpers,
  org.eclipse.gmf.tooling.runtime.draw2d,
  org.eclipse.gmf.tooling.runtime.draw2d.labels,
+ org.eclipse.gmf.tooling.runtime.edit.helpers,
  org.eclipse.gmf.tooling.runtime.edit.policies.effect,
  org.eclipse.gmf.tooling.runtime.edit.policies.labels,
  org.eclipse.gmf.tooling.runtime.edit.policies.reparent,
