@@ -5,9 +5,10 @@
  *  are made available under the terms of the Eclipse Public License v1.0
  *  which accompanies this distribution, and is available at
  *  http://www.eclipse.org/legal/epl-v10.html
- *  
+ *
  *   Contributors:
  *      Mickael istria (PetalsLink)
+ *
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -131,7 +132,7 @@
 					<id>Helios</id>
 					<layout>p2</layout>
 					<url>http://download.eclipse.org/releases/helios</url>
-				</repository>				
+				</repository>
 			</repositories>
 		</profile>
 		<profile>
@@ -149,7 +150,7 @@
 					<id>Orbit for Indigo</id>
 					<layout>p2</layout>
 					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/</url>
-				</repository>			
+				</repository>
 			</repositories>
 		</profile>
 		-->
