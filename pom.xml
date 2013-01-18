@@ -167,7 +167,10 @@
 				<repository>
 					<id>staging</id>
 					<layout>p2</layout>
+					<!--
 					<url>http://download.eclipse.org/releases/juno/</url>
+					-->
+					<url>http://download.eclipse.org/releases/maintenance/</url>
 				</repository>
 				<repository>
 					<id>orbit for Juno</id>
