@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.properties.figure;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties.figure;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,6 +32,7 @@ import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages;
 import org.eclipse.gmf.runtime.diagram.ui.properties.internal.l10n.DiagramUIPropertiesImages;
 import org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ColorPalettePopup;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.tooling.simplemap.diagram.properties.AbstractExtendedPropertiesSection;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -60,7 +61,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
-import org.msl.simple.gmfmap.diagram.properties.AbstractExtendedPropertiesSection;
 
 public class FigurePropertiesSection extends AbstractExtendedPropertiesSection {
 

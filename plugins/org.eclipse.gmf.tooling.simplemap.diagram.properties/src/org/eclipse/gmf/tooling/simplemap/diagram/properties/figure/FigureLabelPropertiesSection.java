@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.properties.figure;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties.figure;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.Figure;

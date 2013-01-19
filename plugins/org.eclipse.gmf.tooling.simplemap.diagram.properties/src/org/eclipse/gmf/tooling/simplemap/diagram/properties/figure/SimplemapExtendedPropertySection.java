@@ -1,7 +1,7 @@
-package org.msl.simple.gmfmap.diagram.properties.figure;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties.figure;
 
+import org.eclipse.gmf.tooling.simplemap.diagram.properties.AbstractExtendedPropertiesSection;
 import org.eclipse.jface.viewers.IFilter;
-import org.msl.simple.gmfmap.diagram.properties.AbstractExtendedPropertiesSection;
 
 /**
  * @generated

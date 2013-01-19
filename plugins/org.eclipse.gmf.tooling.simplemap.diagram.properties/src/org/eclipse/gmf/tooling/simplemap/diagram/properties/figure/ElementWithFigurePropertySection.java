@@ -1,13 +1,13 @@
-package org.msl.simple.gmfmap.diagram.properties.figure;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties.figure;
 
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureDescriptor;
+import org.eclipse.gmf.tooling.simplemap.diagram.properties.AbstractSimplemapPropertySection;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
-import org.msl.simple.gmfmap.diagram.properties.AbstractSimplemapPropertySection;
 
 public abstract class ElementWithFigurePropertySection extends AbstractSimplemapPropertySection {
 

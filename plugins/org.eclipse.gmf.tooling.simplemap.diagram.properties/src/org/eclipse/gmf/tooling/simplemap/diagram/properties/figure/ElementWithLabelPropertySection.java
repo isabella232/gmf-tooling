@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.properties.figure;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties.figure;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
@@ -12,6 +12,7 @@ import org.eclipse.gmf.runtime.diagram.ui.internal.util.FontHelper;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages;
 import org.eclipse.gmf.runtime.diagram.ui.properties.internal.l10n.DiagramUIPropertiesImages;
 import org.eclipse.gmf.runtime.diagram.ui.properties.internal.l10n.DiagramUIPropertiesMessages;
+import org.eclipse.gmf.tooling.simplemap.diagram.properties.AbstractExtendedPropertiesSection;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;
@@ -25,7 +26,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.msl.simple.gmfmap.diagram.properties.AbstractExtendedPropertiesSection;
 
 public abstract class ElementWithLabelPropertySection extends AbstractExtendedPropertiesSection {
 

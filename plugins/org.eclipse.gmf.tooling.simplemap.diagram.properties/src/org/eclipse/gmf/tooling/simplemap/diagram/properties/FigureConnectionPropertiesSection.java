@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.properties;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties;
 
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;

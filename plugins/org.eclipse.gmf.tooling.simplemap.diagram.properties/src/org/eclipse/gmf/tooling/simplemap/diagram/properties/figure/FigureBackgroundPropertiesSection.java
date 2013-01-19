@@ -1,8 +1,8 @@
-package org.msl.simple.gmfmap.diagram.properties.figure;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties.figure;
 
 import org.eclipse.gmf.gmfgraph.Figure;
 
-public class FigureForegroundPropertiesSection extends ElementWithFigurePropertySection {
+public class FigureBackgroundPropertiesSection extends ElementWithFigurePropertySection {
 
 	@Override
 	protected Object transformSelection(Object selected) {
@@ -10,7 +10,7 @@ public class FigureForegroundPropertiesSection extends ElementWithFigureProperty
 		Figure figure = getFigure(selected);
 
 		if (figure != null)
-			return figure.getForegroundColor();
+			return figure.getBackgroundColor();
 
 		return null;
 	}

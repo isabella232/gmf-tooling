@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.properties;
+package org.eclipse.gmf.tooling.simplemap.diagram.properties;
 
 import org.eclipse.gmf.tooling.simplemap.diagram.sheet.SimplemapPropertySection;
 import org.eclipse.jface.viewers.IFilter;
