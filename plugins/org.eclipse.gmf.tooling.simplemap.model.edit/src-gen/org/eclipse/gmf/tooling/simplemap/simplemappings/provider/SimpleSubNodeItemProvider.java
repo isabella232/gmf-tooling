@@ -22,9 +22,9 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
-import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode} object.

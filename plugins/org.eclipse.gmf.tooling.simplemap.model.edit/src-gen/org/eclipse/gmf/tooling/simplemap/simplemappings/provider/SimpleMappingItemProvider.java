@@ -27,9 +27,9 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
+import org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
-import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping} object.

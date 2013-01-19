@@ -8,8 +8,8 @@ Bundle-Activator: org.eclipse.gmf.tooling.simplemap.simplemappings.provider.Simp
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.eclipse.gmf.tooling.simplemap.simplemappings.provider,
- org.msl.simple.gmfmap.model.edit
+Export-Package: org.eclipse.gmf.tooling.simplemap.model.edit,
+ org.eclipse.gmf.tooling.simplemap.simplemappings.provider
 Require-Bundle: org.eclipse.gmf.tooling.simplemap.model;visibility:=reexport,
  org.eclipse.gmf.graphdef.edit;visibility:=reexport,
  org.eclipse.gmf.map.edit;visibility:=reexport,

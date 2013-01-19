@@ -27,10 +27,10 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
-import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 
 /**

@@ -12,12 +12,12 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
-import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 public class SimpleNodeItemPropertyDescriptorProvider extends AdapterImpl implements IItemPropertyDescriptorProvider {
 

@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.model.edit;
+package org.eclipse.gmf.tooling.simplemap.model.edit;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.ResourceLocator;
