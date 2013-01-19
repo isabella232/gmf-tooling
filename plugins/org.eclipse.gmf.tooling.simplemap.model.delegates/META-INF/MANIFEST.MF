@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Delegates
 Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.model.delegates;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: org.msl.simple.gmfmap.model.delegates.Activator
 Bundle-Vendor: ISB
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

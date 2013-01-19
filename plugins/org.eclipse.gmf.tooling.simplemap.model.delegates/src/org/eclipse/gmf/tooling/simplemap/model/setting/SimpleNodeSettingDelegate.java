@@ -13,9 +13,6 @@ import org.eclipse.gmf.mappings.FeatureLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.tooldef.AbstractTool;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
