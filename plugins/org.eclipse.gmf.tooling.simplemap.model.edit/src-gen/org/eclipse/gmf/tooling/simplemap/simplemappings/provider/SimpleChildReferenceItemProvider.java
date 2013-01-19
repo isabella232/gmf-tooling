@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.msl.simple.gmfmap.simplemappings.provider;
+package org.eclipse.gmf.tooling.simplemap.simplemappings.provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,22 +25,21 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SimpleChildReferenceItemProvider extends SimpleNodeReferenceItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -48,7 +47,7 @@ public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SimpleNodeReferenceItemProvider(AdapterFactory adapterFactory) {
+	public SimpleChildReferenceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,25 +62,25 @@ public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter impleme
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addContainmentFeaturePropertyDescriptor(object);
+			addReferencedSimpleNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Containment Feature feature.
+	 * This adds a property descriptor for the Referenced Simple Node feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addContainmentFeaturePropertyDescriptor(Object object) {
+	protected void addReferencedSimpleNodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SimpleNodeReference_containmentFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleNodeReference_containmentFeature_feature", "_UI_SimpleNodeReference_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__CONTAINMENT_FEATURE,
+				 getString("_UI_SimpleChildReference_referencedSimpleNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleChildReference_referencedSimpleNode_feature", "_UI_SimpleChildReference_type"),
+				 SimplemappingsPackage.Literals.SIMPLE_CHILD_REFERENCE__REFERENCED_SIMPLE_NODE,
 				 true,
 				 false,
 				 true,
@@ -91,14 +90,14 @@ public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter impleme
 	}
 
 	/**
-	 * This returns SimpleNodeReference.gif.
+	 * This returns SimpleChildReference.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleNodeReference"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleChildReference"));
 	}
 
 	/**
@@ -109,9 +108,9 @@ public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter impleme
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SimpleNodeReference)object).getName();
+		String label = ((SimpleChildReference)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_SimpleNodeReference_type") :
+			getString("_UI_SimpleChildReference_type") :
 			label;
 	}
 
@@ -125,12 +124,6 @@ public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter impleme
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(SimpleNodeReference.class)) {
-			case SimplemappingsPackage.SIMPLE_NODE_REFERENCE__NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -144,17 +137,6 @@ public class SimpleNodeReferenceItemProvider extends ItemProviderAdapter impleme
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return SimplemapEditPlugin.INSTANCE;
 	}
 
 	/**

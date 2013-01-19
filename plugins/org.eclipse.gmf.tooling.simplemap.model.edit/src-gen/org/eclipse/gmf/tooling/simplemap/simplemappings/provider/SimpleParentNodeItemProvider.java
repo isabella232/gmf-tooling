@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.msl.simple.gmfmap.simplemappings.provider;
+package org.eclipse.gmf.tooling.simplemap.simplemappings.provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,18 +21,19 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleParentNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleParentNode} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SimpleSubNodeItemProvider extends SimpleNodeItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+public class SimpleParentNodeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
 
 	/**
@@ -41,7 +42,7 @@ public class SimpleSubNodeItemProvider extends SimpleNodeItemProvider implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SimpleSubNodeItemProvider(AdapterFactory adapterFactory) {
+	public SimpleParentNodeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,17 +62,6 @@ public class SimpleSubNodeItemProvider extends SimpleNodeItemProvider implements
 	}
 
 	/**
-	 * This returns SimpleSubNode.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleSubNode"));
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -79,10 +69,7 @@ public class SimpleSubNodeItemProvider extends SimpleNodeItemProvider implements
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SimpleSubNode)object).getName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_SimpleSubNode_type") :
-			label;
+		return getString("_UI_SimpleParentNode_type");
 	}
 
 	/**
@@ -96,10 +83,10 @@ public class SimpleSubNodeItemProvider extends SimpleNodeItemProvider implements
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(SimpleSubNode.class)) {
-			case SimplemappingsPackage.SIMPLE_SUB_NODE__CHILDREN:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
+		switch (notification.getFeatureID(SimpleParentNode.class)) {
+		case SimplemappingsPackage.SIMPLE_PARENT_NODE__CHILDREN:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -117,40 +104,30 @@ public class SimpleSubNodeItemProvider extends SimpleNodeItemProvider implements
 	}
 
 	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ItemPropertyDescriptor createItemPropertyDescriptor(AdapterFactory adapterFactory, ResourceLocator resourceLocator, String displayName, String description, EStructuralFeature feature, boolean isSettable, boolean multiLine, boolean sortChoices, Object staticImage, String category, String [] filterFlags) {
-		
-		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(
-				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		
-		IItemPropertyDescriptorProvider descriptorProvider = (IItemPropertyDescriptorProvider)composedAdapterFactory.adapt(getTarget(), IItemPropertyDescriptorProvider.class);
-		
-		if(descriptorProvider!=null)
-			return descriptorProvider.createItemPropertyDescriptor(
-					adapterFactory, 
-					resourceLocator, 
-					displayName, 
-					description, 
-					feature, 
-					isSettable, 
-					multiLine, 
-					sortChoices, 
-					staticImage, 
-					category, 
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return SimplemapEditPlugin.INSTANCE;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected ItemPropertyDescriptor createItemPropertyDescriptor(AdapterFactory adapterFactory, ResourceLocator resourceLocator, String displayName, String description, EStructuralFeature feature,
+			boolean isSettable, boolean multiLine, boolean sortChoices, Object staticImage, String category, String[] filterFlags) {
+
+		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
+		IItemPropertyDescriptorProvider descriptorProvider = (IItemPropertyDescriptorProvider) composedAdapterFactory.adapt(getTarget(), IItemPropertyDescriptorProvider.class);
+
+		if (descriptorProvider != null)
+			return descriptorProvider.createItemPropertyDescriptor(adapterFactory, resourceLocator, displayName, description, feature, isSettable, multiLine, sortChoices, staticImage, category,
 					filterFlags);
 
-		return super.createItemPropertyDescriptor(
-				adapterFactory, 
-				resourceLocator, 
-				displayName, 
-				description, 
-				feature, 
-				isSettable, 
-				multiLine, 
-				sortChoices, 
-				staticImage, 
-				category, 
-				filterFlags);
+		return super.createItemPropertyDescriptor(adapterFactory, resourceLocator, displayName, description, feature, isSettable, multiLine, sortChoices, staticImage, category, filterFlags);
 	}
 }

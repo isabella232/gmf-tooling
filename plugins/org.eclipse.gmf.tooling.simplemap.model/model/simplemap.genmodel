@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.simplemap.model/src-gen" editDirectory="/org.eclipse.gmf.tooling.simplemap.model.edit/src-gen"
-    editorDirectory="/org.eclipse.gmf.tooling.simplemap.model.editor/src-gen" modelPluginID="org.eclipse.gmf.tooling.simplemap.model"
-    templateDirectory="/org.eclipse.gmf.tooling.simplemap.model/templates" dynamicTemplates="true"
-    modelName="Simplemap" reflectiveDelegation="true" importerID="org.eclipse.emf.importer.ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.simplemap.model/src-gen"
+    editDirectory="/org.eclipse.gmf.tooling.simplemap.model.edit/src-gen" editorDirectory="/org.eclipse.gmf.tooling.simplemap.model.editor/src-gen"
+    modelPluginID="org.eclipse.gmf.tooling.simplemap.model" templateDirectory="/org.eclipse.gmf.tooling.simplemap.model/templates"
+    dynamicTemplates="true" modelName="Simplemap" reflectiveDelegation="true" importerID="org.eclipse.emf.importer.ecore"
     featureDelegation="Reflective" complianceLevel="6.0" copyrightFields="false" editPluginID="org.eclipse.gmf.tooling.simplemap.model.edit"
-    editorPluginID="org.eclipse.gmf.tooling.simplemap.model.editor" runtimeVersion="2.7" usedGenPackages="platform:/plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph platform:/plugin/org.eclipse.gmf.map/models/gmfmap.genmodel#//mappings platform:/plugin/org.eclipse.gmf.tooldef/models/tooldef.genmodel#//tooldef"
+    editorPluginID="org.eclipse.gmf.tooling.simplemap.model.editor" runtimeVersion="2.7"
+    usedGenPackages="platform:/plugin/org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph platform:/plugin/org.eclipse.gmf.map/models/gmfmap.genmodel#//mappings platform:/plugin/org.eclipse.gmf.tooldef/models/tooldef.genmodel#//tooldef"
     operationReflection="true">
   <foreignModel>simplemap.ecore</foreignModel>
   <genPackages prefix="Simplemappings" basePackage="org.eclipse.gmf.tooling.simplemap"

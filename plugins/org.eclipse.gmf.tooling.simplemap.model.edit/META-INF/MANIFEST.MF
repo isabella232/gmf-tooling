@@ -4,12 +4,12 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.model.edit;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.msl.simple.gmfmap.simplemappings.provider.SimplemapEditPlugin$Implementation
+Bundle-Activator: org.eclipse.gmf.tooling.simplemap.simplemappings.provider.SimplemapEditPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.msl.simple.gmfmap.model.edit,
- org.msl.simple.gmfmap.simplemappings.provider
+Export-Package: org.eclipse.gmf.tooling.simplemap.simplemappings.provider,
+ org.msl.simple.gmfmap.model.edit
 Require-Bundle: org.eclipse.gmf.tooling.simplemap.model;visibility:=reexport,
  org.eclipse.gmf.graphdef.edit;visibility:=reexport,
  org.eclipse.gmf.map.edit;visibility:=reexport,

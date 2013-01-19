@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.msl.simple.gmfmap.simplemappings.provider;
+package org.eclipse.gmf.tooling.simplemap.simplemappings.provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +13,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,22 +21,19 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.tooldef.GMFToolFactory;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsFactory;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SimpleMappingItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+public class SimpleTopNodeItemProvider extends SimpleNodeItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
 
 	/**
@@ -46,7 +42,7 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SimpleMappingItemProvider(AdapterFactory adapterFactory) {
+	public SimpleTopNodeItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,54 +57,8 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainModelPropertyDescriptor(object);
-			addDomainMetaElementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Model feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainModelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_SimpleMapping_domainModel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleMapping_domainModel_feature", "_UI_SimpleMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_MAPPING__DOMAIN_MODEL,
-				 false,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Meta Element feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_SimpleMapping_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleMapping_domainMetaElement_feature", "_UI_SimpleMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_MAPPING__DOMAIN_META_ELEMENT,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -123,9 +73,7 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(SimplemappingsPackage.Literals.SIMPLE_MAPPING__CANVAS);
-			childrenFeatures.add(SimplemappingsPackage.Literals.SIMPLE_MAPPING__PALETTE);
-			childrenFeatures.add(SimplemappingsPackage.Literals.SIMPLE_MAPPING__MAPPING);
+			childrenFeatures.add(SimplemappingsPackage.Literals.SIMPLE_TOP_NODE__LINKS);
 		}
 		return childrenFeatures;
 	}
@@ -144,14 +92,14 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 	}
 
 	/**
-	 * This returns SimpleMapping.gif.
+	 * This returns SimpleTopNode.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleMapping"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleTopNode"));
 	}
 
 	/**
@@ -162,7 +110,10 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_SimpleMapping_type");
+		String label = ((SimpleTopNode)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_SimpleTopNode_type") :
+			label;
 	}
 
 	/**
@@ -176,13 +127,11 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(SimpleMapping.class)) {
-			case SimplemappingsPackage.SIMPLE_MAPPING__CHILDREN:
+		switch (notification.getFeatureID(SimpleTopNode.class)) {
+			case SimplemappingsPackage.SIMPLE_TOP_NODE__CHILDREN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case SimplemappingsPackage.SIMPLE_MAPPING__CANVAS:
-			case SimplemappingsPackage.SIMPLE_MAPPING__PALETTE:
-			case SimplemappingsPackage.SIMPLE_MAPPING__MAPPING:
+			case SimplemappingsPackage.SIMPLE_TOP_NODE__LINKS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -202,29 +151,8 @@ public class SimpleMappingItemProvider extends ItemProviderAdapter implements IE
 
 		newChildDescriptors.add
 			(createChildParameter
-				(SimplemappingsPackage.Literals.SIMPLE_MAPPING__CANVAS,
-				 GMFGraphFactory.eINSTANCE.createCanvas()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(SimplemappingsPackage.Literals.SIMPLE_MAPPING__PALETTE,
-				 GMFToolFactory.eINSTANCE.createPalette()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(SimplemappingsPackage.Literals.SIMPLE_MAPPING__MAPPING,
-				 GMFMapFactory.eINSTANCE.createMapping()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return SimplemapEditPlugin.INSTANCE;
+				(SimplemappingsPackage.Literals.SIMPLE_TOP_NODE__LINKS,
+				 SimplemappingsFactory.eINSTANCE.createSimpleLinkMapping()));
 	}
 
 	/**

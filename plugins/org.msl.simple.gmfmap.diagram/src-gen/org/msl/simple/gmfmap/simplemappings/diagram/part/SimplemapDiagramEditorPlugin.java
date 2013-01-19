@@ -18,11 +18,11 @@ import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.provider.SimplemappingsItemProviderAdapterFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.msl.simple.gmfmap.simplemappings.diagram.providers.ElementInitializers;
-import org.msl.simple.gmfmap.simplemappings.provider.SimplemappingsItemProviderAdapterFactory;
 import org.osgi.framework.BundleContext;
 
 /**

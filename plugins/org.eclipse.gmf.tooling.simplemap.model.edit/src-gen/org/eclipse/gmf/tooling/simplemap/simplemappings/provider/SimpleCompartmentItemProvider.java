@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.msl.simple.gmfmap.simplemappings.provider;
+package org.eclipse.gmf.tooling.simplemap.simplemappings.provider;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,17 +24,17 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
+public class SimpleCompartmentItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
 
 	/**
@@ -43,7 +43,7 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SimpleLinkMappingItemProvider(AdapterFactory adapterFactory) {
+	public SimpleCompartmentItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,10 +61,9 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 			addNodeFigurePropertyDescriptor(object);
 			addLabelFigurePropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
-			addLinkMappingPropertyDescriptor(object);
-			addDiagramLinkPropertyDescriptor(object);
-			addDiagramLabelPropertyDescriptor(object);
-			addToolPropertyDescriptor(object);
+			addCompartmentPropertyDescriptor(object);
+			addCompartmentLabelPropertyDescriptor(object);
+			addNeedsTitlePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -124,9 +123,9 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SimpleLinkMapping_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleLinkMapping_name_feature", "_UI_SimpleLinkMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_LINK_MAPPING__NAME,
+				 getString("_UI_SimpleCompartment_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleCompartment_name_feature", "_UI_SimpleCompartment_type"),
+				 SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__NAME,
 				 true,
 				 false,
 				 false,
@@ -136,20 +135,20 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 	}
 
 	/**
-	 * This adds a property descriptor for the Link Mapping feature.
+	 * This adds a property descriptor for the Compartment feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLinkMappingPropertyDescriptor(Object object) {
+	protected void addCompartmentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SimpleLinkMapping_linkMapping_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleLinkMapping_linkMapping_feature", "_UI_SimpleLinkMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_LINK_MAPPING__LINK_MAPPING,
-				 true,
+				 getString("_UI_SimpleCompartment_compartment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleCompartment_compartment_feature", "_UI_SimpleCompartment_type"),
+				 SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT,
+				 false,
 				 false,
 				 true,
 				 null,
@@ -158,41 +157,19 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram Link feature.
+	 * This adds a property descriptor for the Compartment Label feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDiagramLinkPropertyDescriptor(Object object) {
+	protected void addCompartmentLabelPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SimpleLinkMapping_diagramLink_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleLinkMapping_diagramLink_feature", "_UI_SimpleLinkMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_LINK_MAPPING__DIAGRAM_LINK,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Diagram Label feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDiagramLabelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_SimpleLinkMapping_diagramLabel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleLinkMapping_diagramLabel_feature", "_UI_SimpleLinkMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_LINK_MAPPING__DIAGRAM_LABEL,
+				 getString("_UI_SimpleCompartment_compartmentLabel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleCompartment_compartmentLabel_feature", "_UI_SimpleCompartment_type"),
+				 SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT_LABEL,
 				 false,
 				 false,
 				 false,
@@ -202,36 +179,36 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 	}
 
 	/**
-	 * This adds a property descriptor for the Tool feature.
+	 * This adds a property descriptor for the Needs Title feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addToolPropertyDescriptor(Object object) {
+	protected void addNeedsTitlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SimpleLinkMapping_tool_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleLinkMapping_tool_feature", "_UI_SimpleLinkMapping_type"),
-				 SimplemappingsPackage.Literals.SIMPLE_LINK_MAPPING__TOOL,
+				 getString("_UI_SimpleCompartment_needsTitle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SimpleCompartment_needsTitle_feature", "_UI_SimpleCompartment_type"),
+				 SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__NEEDS_TITLE,
+				 true,
 				 false,
 				 false,
-				 false,
-				 null,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This returns SimpleLinkMapping.gif.
+	 * This returns SimpleCompartment.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleLinkMapping"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SimpleCompartment"));
 	}
 
 	/**
@@ -242,9 +219,9 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((SimpleLinkMapping)object).getName();
+		String label = ((SimpleCompartment)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_SimpleLinkMapping_type") :
+			getString("_UI_SimpleCompartment_type") :
 			label;
 	}
 
@@ -259,9 +236,10 @@ public class SimpleLinkMappingItemProvider extends ItemProviderAdapter implement
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(SimpleLinkMapping.class)) {
-			case SimplemappingsPackage.SIMPLE_LINK_MAPPING__CHILDREN:
-			case SimplemappingsPackage.SIMPLE_LINK_MAPPING__NAME:
+		switch (notification.getFeatureID(SimpleCompartment.class)) {
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__CHILDREN:
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__NAME:
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__NEEDS_TITLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
