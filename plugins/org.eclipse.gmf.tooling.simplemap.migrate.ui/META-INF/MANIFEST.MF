@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
-Bundle-SymbolicName: org.msl.simple.gmf.migrate.ui;singleton:=true
+Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.migrate.ui;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
