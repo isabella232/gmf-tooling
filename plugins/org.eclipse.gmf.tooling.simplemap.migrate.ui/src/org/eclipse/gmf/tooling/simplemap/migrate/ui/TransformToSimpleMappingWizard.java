@@ -1,4 +1,4 @@
-package org.msl.simple.gmf.migrate.ui;
+package org.eclipse.gmf.tooling.simplemap.migrate.ui;
 
 import java.lang.reflect.InvocationTargetException;
 

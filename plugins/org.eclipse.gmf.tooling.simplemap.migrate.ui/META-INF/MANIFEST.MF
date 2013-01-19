@@ -7,4 +7,4 @@ Bundle-Vendor: %Bundle-Vendor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.msl.simple.gmfmap.diagram;bundle-version="0.1.0",
  org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.4.1"
-Bundle-Activator: org.msl.simple.gmf.migrate.ui.Plugin
+Bundle-Activator: org.eclipse.gmf.tooling.simplemap.migrate.ui.Plugin

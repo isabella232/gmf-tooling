@@ -1,4 +1,4 @@
-package org.msl.simple.gmf.migrate.ui;
+package org.eclipse.gmf.tooling.simplemap.migrate.ui;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;

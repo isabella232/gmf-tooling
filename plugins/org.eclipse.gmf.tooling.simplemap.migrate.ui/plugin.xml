@@ -5,12 +5,12 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="false"
-            id="org.msl.simple.gmf.migrate.ui.migrateMapping"
+            id="org.eclipse.gmf.tooling.simplemap.migrate.ui.migrateMapping"
             nameFilter="*.gmfmap"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               class="org.msl.simple.gmf.migrate.ui.MigrateToSimpleMapAction"
-               id="org.msl.simple.gmf.migrate.ui.migrateMappingAction"
+               class="org.eclipse.gmf.tooling.simplemap.migrate.ui.MigrateToSimpleMapAction"
+               id="org.eclipse.gmf.tooling.simplemap.migrate.ui.migrateMappingAction"
                label="%action.label">
          </action>
       </objectContribution>
