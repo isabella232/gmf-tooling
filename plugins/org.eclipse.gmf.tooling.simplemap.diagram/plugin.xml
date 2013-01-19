@@ -46,7 +46,7 @@
   	     icon="icons/obj16/SimplemappingsDiagramFile.gif"
   	     category="org.eclipse.gmf.tooling.simplemap.diagram"
   	     class="org.eclipse.gmf.tooling.simplemap.diagram.part.SimpleMapEditorCreationWizard"
-  	     id="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapCreationWizardID">
+  	     id="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapCreationWizardID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
      <category
@@ -218,7 +218,7 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
       <?gmfgen generated="true"?>
-      <viewProvider class="org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapViewProvider">
+      <viewProvider class="org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Simplemap"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="1001,1002,2001,2002,2003,2004"/>
@@ -227,7 +227,7 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
       <?gmfgen generated="true"?>
-      <editpartProvider class="org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapEditPartProvider">
+      <editpartProvider class="org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapEditPartProvider">
          <Priority name="Lowest"/>
          <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
             <method name="getType()" value="Simplemap"/>
@@ -252,11 +252,11 @@
       <?gmfgen generated="false"?>
       <modelingAssistantProvider class="org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapModelingAssistantProvider">
          <Priority name="Lowest"/>
-         <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleMappingEditPart" id="SimpleMapping_79"/>
-         <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleTopNodeEditPart" id="SimpleTopNode_1001"/>
-         <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleSubNodeEditPart" id="SimpleSubNode_2003"/>
-         <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleLinkMappingEditPart" id="SimpleLinkMapping_1002"/>
-         <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleCompartmentEditPart" id="SimpleCompartment_2002">
+         <object class="org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleMappingEditPart" id="SimpleMapping_79"/>
+         <object class="org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleTopNodeEditPart" id="SimpleTopNode_1001"/>
+         <object class="org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleSubNodeEditPart" id="SimpleSubNode_2003"/>
+         <object class="org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleLinkMappingEditPart" id="SimpleLinkMapping_1002"/>
+         <object class="org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleCompartmentEditPart" id="SimpleCompartment_2002">
          </object>
          <context elements="SimpleMapping_79,SimpleTopNode_1001,SimpleSubNode_2003,SimpleLinkMapping_1002, SimpleCompartment_2002"/>
       </modelingAssistantProvider>
@@ -489,14 +489,14 @@
          categoryId="org.eclipse.ui.category.edit"
          defaultHandler="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramUpdateCommand"
          description="%update.diagram.description"
-         id="org.msl.simple.gmfmap.simplemappings.diagram.updateDiagram"
+         id="org.eclipse.gmf.tooling.simplemap.diagram.updateDiagram"
          name="%update.diagram.name"/>
    </extension>
    
    <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
       <?gmfgen generated="true"?>
       <key 
-         commandId="org.msl.simple.gmfmap.simplemappings.diagram.updateDiagram"
+         commandId="org.eclipse.gmf.tooling.simplemap.diagram.updateDiagram"
          contextId="org.eclipse.gmf.tooling.simplemap.diagram.ui.diagramContext"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="F5"/>
