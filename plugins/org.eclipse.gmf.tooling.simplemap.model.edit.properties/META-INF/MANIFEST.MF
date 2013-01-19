@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Properties
-Bundle-SymbolicName: org.msl.simple.gmfmap.model.edit.properties;singleton:=true
+Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.model.edit.properties;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: ISB
 Require-Bundle: org.eclipse.core.runtime,
