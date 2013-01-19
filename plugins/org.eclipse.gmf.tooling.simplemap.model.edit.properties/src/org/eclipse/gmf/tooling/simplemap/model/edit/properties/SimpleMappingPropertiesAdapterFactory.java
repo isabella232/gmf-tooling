@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.model.edit.properties;
+package org.eclipse.gmf.tooling.simplemap.model.edit.properties;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider;

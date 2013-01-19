@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
-            class="org.msl.simple.gmfmap.model.edit.properties.SimpleMappingPropertiesAdapterFactory"
+            class="org.eclipse.gmf.tooling.simplemap.model.edit.properties.SimpleMappingPropertiesAdapterFactory"
             supportedTypes="org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider"
             uri="http://org.msl.simple.gmfmap/simplemappings_1.1">
       </factory>
