@@ -50,12 +50,12 @@ public class SimplemapDiagramEditor extends DiagramDocumentEditor implements IGo
 	/**
 	 * @generated
 	 */
-	public static final String ID = "org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorID"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorID"; //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final String CONTEXT_ID = "org.msl.simple.gmfmap.simplemappings.diagram.ui.diagramContext"; //$NON-NLS-1$
+	public static final String CONTEXT_ID = "org.eclipse.gmf.tooling.simplemap.diagram.ui.diagramContext"; //$NON-NLS-1$
 
 	/**
 	 * @generated
