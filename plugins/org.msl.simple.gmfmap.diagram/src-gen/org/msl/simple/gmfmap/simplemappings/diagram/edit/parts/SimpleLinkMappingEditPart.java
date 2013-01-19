@@ -60,8 +60,7 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new SimpleLinkMappingItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SimpleLinkMappingItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -74,8 +73,7 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child
-						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new NonResizableEditPolicy();
 				}
@@ -112,9 +110,7 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof SimpleLinkMappingNameEditPart) {
-			((SimpleLinkMappingNameEditPart) childEditPart)
-					.setLabel(getPrimaryShape()
-							.getFigureLinkMappingNameFigure());
+			((SimpleLinkMappingNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLinkMappingNameFigure());
 			return true;
 		}
 		return false;
@@ -247,8 +243,7 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(SimplemapVisualIDRegistry
-				.getType(SimpleLinkMappingNameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(SimplemapVisualIDRegistry.getType(SimpleLinkMappingNameEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -265,19 +260,14 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public SimpleLinkMappingFigure() {
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8),
-					getMapMode().DPtoLP(8)));
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
 			this.setLineWidth(2);
 			this.setForegroundColor(THIS_FORE);
 			this.setBackgroundColor(THIS_BACK);
-			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(50),
-					getMapMode().DPtoLP(30)));
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(50),
-					getMapMode().DPtoLP(30)));
+			this.setMaximumSize(new Dimension(getMapMode().DPtoLP(50), getMapMode().DPtoLP(30)));
+			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(50), getMapMode().DPtoLP(30)));
 
-			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5),
-					getMapMode().DPtoLP(3), getMapMode().DPtoLP(3),
-					getMapMode().DPtoLP(3)));
+			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5), getMapMode().DPtoLP(3), getMapMode().DPtoLP(3), getMapMode().DPtoLP(3)));
 			createContents();
 		}
 
@@ -290,8 +280,7 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 
 			fFigureLinkMappingNameFigure.setText("<..>");
 
-			fFigureLinkMappingNameFigure
-					.setFont(FFIGURELINKMAPPINGNAMEFIGURE_FONT);
+			fFigureLinkMappingNameFigure.setFont(FFIGURELINKMAPPINGNAMEFIGURE_FONT);
 
 			this.add(fFigureLinkMappingNameFigure);
 
@@ -319,7 +308,6 @@ public class SimpleLinkMappingEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Font FFIGURELINKMAPPINGNAMEFIGURE_FONT = new Font(
-			Display.getCurrent(), "Verdana", 10, SWT.BOLD);
+	static final Font FFIGURELINKMAPPINGNAMEFIGURE_FONT = new Font(Display.getCurrent(), "Verdana", 10, SWT.BOLD);
 
 }

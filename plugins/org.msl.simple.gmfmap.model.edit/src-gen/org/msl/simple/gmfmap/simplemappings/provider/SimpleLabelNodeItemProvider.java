@@ -6,7 +6,6 @@
  */
 package org.msl.simple.gmfmap.simplemappings.provider;
 
-
 import java.util.Collection;
 import java.util.List;
 
@@ -31,14 +30,9 @@ import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SimpleLabelNodeItemProvider
-	extends SimpleNodeItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
+public class SimpleLabelNodeItemProvider extends SimpleNodeItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -114,20 +108,10 @@ public class SimpleLabelNodeItemProvider
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
-    /**
+	/**
 	 * @generated
-     */
-	protected ItemPropertyDescriptor createItemPropertyDescriptor(AdapterFactory adapterFactory,
-															       ResourceLocator resourceLocator,
-															       String displayName,
-															       String description,
-															       EStructuralFeature feature, 
-															       boolean isSettable,
-															       boolean multiLine,
-															       boolean sortChoices,
-															       Object staticImage,
-															       String category,
-															       String [] filterFlags) {
+	 */
+	protected ItemPropertyDescriptor createItemPropertyDescriptor(AdapterFactory adapterFactory, ResourceLocator resourceLocator, String displayName, String description, EStructuralFeature feature, boolean isSettable, boolean multiLine, boolean sortChoices, Object staticImage, String category, String [] filterFlags) {
 		
 		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);

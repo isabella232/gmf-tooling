@@ -16,13 +16,14 @@ import org.msl.simple.gmfmap.simplemappings.SimpleNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleParentNode;
 
 class NewTopNodeTrigger extends NewElementTrigger {
-	
+
 	protected SimpleNode newSimpleNode;
+
 	protected SimpleParentNode parent;
 
 	public NewTopNodeTrigger(TransactionalEditingDomain domain, SimpleParentNode parent, SimpleNode newSimpleNode) {
 		super(domain, newSimpleNode);
-		
+
 		this.newSimpleNode = newSimpleNode;
 		this.parent = parent;
 
@@ -30,28 +31,25 @@ class NewTopNodeTrigger extends NewElementTrigger {
 
 	@Override
 	public void executeTrigger() {
-		
+
 		Node newNode = GMFGraphFactory.eINSTANCE.createNode();
 		DiagramLabel newLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
-		
+
 		Label parentLabel = getLabelFigure(parent);
-		
-		BasicFont parentFont = parentLabel!=null?(BasicFont)parentLabel.getFont():null;
+
+		BasicFont parentFont = parentLabel != null ? (BasicFont) parentLabel.getFont() : null;
 
 		updateCanvas(newNode, newLabel, parentFont);
-		
-		CreationTool newCreationTool =  createNewTool();
 
-		updateMapping((SimpleMapping)parent, newNode, newLabel, newCreationTool);
+		CreationTool newCreationTool = createNewTool();
+
+		updateMapping((SimpleMapping) parent, newNode, newLabel, newCreationTool);
 
 	}
-	
-	
-	protected void updateCanvas(Node newNode, DiagramLabel newLabel, BasicFont parentFont)
-	{
+
+	protected void updateCanvas(Node newNode, DiagramLabel newLabel, BasicFont parentFont) {
 		canvasFactory.createDefaultRoundedRectangleWithLabel(newNode, newLabel, true, parentFont);
 	}
-	
 
 	/**
 	 * El padre es el diagrama:
@@ -60,40 +58,36 @@ class NewTopNodeTrigger extends NewElementTrigger {
 	 * @param newLabel
 	 * @param newCreationTool
 	 */
-	protected void updateMapping(SimpleMapping mapping, Node newNode, DiagramLabel newLabel, CreationTool newCreationTool)
-	{
+	protected void updateMapping(SimpleMapping mapping, Node newNode, DiagramLabel newLabel, CreationTool newCreationTool) {
 		NodeMapping newNodeMapping = createNewNodeMapping(newNode, newLabel, newCreationTool);
 
 		TopNodeReference newTopNodeReference = GMFMapFactory.eINSTANCE.createTopNodeReference();
-		
+
 		newTopNodeReference.setOwnedChild(newNodeMapping);
-		
+
 		mapping.getMapping().getNodes().add(newTopNodeReference);
-		
+
 		newSimpleNode.setNodeReference(newTopNodeReference);
-		
+
 	}
-	
-	
-	protected NodeMapping createNewNodeMapping(Node newNode, DiagramLabel newLabel, CreationTool newCreationTool)
-	{
+
+	protected NodeMapping createNewNodeMapping(Node newNode, DiagramLabel newLabel, CreationTool newCreationTool) {
 		NodeMapping newNodeMapping = GMFMapFactory.eINSTANCE.createNodeMapping();
-		
+
 		//Diagram Node
 		newNodeMapping.setDiagramNode(newNode);
-		
+
 		//Tool
 		newNodeMapping.setTool(newCreationTool);
-		
+
 		//Feature Label Mapping
 		FeatureLabelMapping labelMapping = GMFMapFactory.eINSTANCE.createFeatureLabelMapping();
 		labelMapping.setDiagramLabel(newLabel);
-		
+
 		newNodeMapping.getLabelMappings().add(labelMapping);
-		
+
 		return newNodeMapping;
 
 	}
-	
 
 }

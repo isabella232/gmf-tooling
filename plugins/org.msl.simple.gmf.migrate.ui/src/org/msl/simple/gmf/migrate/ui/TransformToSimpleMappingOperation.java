@@ -15,13 +15,12 @@ import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.mappings.Mapping;
 
 //[artem] XXX Why it's in the bridge.ui??? 
-public class TransformToSimpleMappingOperation 
-{
+public class TransformToSimpleMappingOperation {
 
 	private Mapping myMapping;
-	
+
 	private final ResourceSet myResourceSet;
-	
+
 	public TransformToSimpleMappingOperation(ResourceSet rs) {
 		assert rs != null;
 		myResourceSet = rs;
@@ -34,11 +33,11 @@ public class TransformToSimpleMappingOperation
 	Mapping getMapping() {
 		return this.myMapping;
 	}
-	
+
 	private void setMapping(Mapping m) {
 		this.myMapping = m;
 	}
-	
+
 	public Mapping loadMappingModel(URI uri, IProgressMonitor pm) throws CoreException {
 		Mapping content = null;
 		IStatus status = Status.CANCEL_STATUS;
@@ -47,7 +46,7 @@ public class TransformToSimpleMappingOperation
 			if (uri == null) {
 				throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_map_uri);
 			}
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			String cancelMessage = Messages.TransformToGenModelOperation_e_map_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			subTask(monitor, 0, Messages.TransformToGenModelOperation_task_load, cancelMessage);
@@ -78,7 +77,6 @@ public class TransformToSimpleMappingOperation
 			}
 		}
 	}
-	
 
 	private static void subTask(IProgressMonitor monitor, int ticks, String name, String cancelMessage) throws CoreException {
 		if (monitor == null) {

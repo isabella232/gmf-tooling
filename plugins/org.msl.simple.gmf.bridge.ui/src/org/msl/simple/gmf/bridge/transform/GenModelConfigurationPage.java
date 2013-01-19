@@ -31,20 +31,21 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.PlatformUI;
 
-
 class GenModelConfigurationPage extends ModelConfigurationPage {
-	
+
 	private static final String FILE_EXT_ECORE = "ecore"; //$NON-NLS-1$
+
 	private Button createWizardBtn;
+
 	private Button refreshStaleBtn;
-	
+
 	GenModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
 		super(pageId, rlp, resourceSet);
 		setTitle(Messages.TransformToGenModelWizard_title_genmodel);
 		setDescription(Messages.TransformToGenModelWizard_descr_genmodel);
 		setModelFileExtension("genmodel"); //$NON-NLS-1$
 	}
-	
+
 	@Override
 	protected void createAdditionalControls(Composite parent) {
 		Composite createComposite = new Composite(parent, SWT.NONE);
@@ -60,6 +61,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		setButtonLayoutData(refreshStaleBtn);
 
 		SelectionAdapter selectionAdapter = new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSelection(e.widget);
@@ -75,7 +77,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		gd.grabExcessHorizontalSpace = true;
 		return gd;
 	}
-	
+
 	void handleSelection(Widget w) {
 		if (createWizardBtn.equals(w)) {
 			launchWizard();
@@ -93,7 +95,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 			updateControls();
 		}
 	}
-	
+
 	void findGenmodel() {
 		try {
 			GenModel genModel = getOperation().findGenmodel();
@@ -112,8 +114,11 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.internal.common.ui.ModelSelectionPage#resourceChanged()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.eclipse.gmf.internal.common.ui.ModelSelectionPage#resourceChanged()
 	 */
 	@Override
 	protected void resourceChanged() {
@@ -150,10 +155,11 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 			updateURI();
 		}
 	}
-	
+
 	private static IFile createWithWizard(Shell shell, IFile patternResource) {
 		final IFile[] result = new IFile[1];
 		EMFModelWizard wizard = new EMFModelWizard() {
+
 			@Override
 			public boolean performFinish() {
 				result[0] = ResourcesPlugin.getWorkspace().getRoot().getFile(genModelContainerPath.append(genModelFileName));
@@ -167,6 +173,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		}
 		return null;
 	}
+
 	private static StructuredSelection createSelectionForEMFWizard(IFile patternResource) {
 		final IContainer parent = patternResource.getParent();
 		IFile neighbour = parent.getFile(new Path(patternResource.getName()).removeFileExtension().addFileExtension(FILE_EXT_ECORE));
@@ -195,4 +202,3 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 	}
 
 }
-

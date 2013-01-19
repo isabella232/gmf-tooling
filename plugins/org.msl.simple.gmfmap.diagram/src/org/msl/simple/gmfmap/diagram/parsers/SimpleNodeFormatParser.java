@@ -18,21 +18,18 @@ import org.msl.simple.gmfmap.simplemappings.diagram.parsers.MessageFormatParser;
  * @author xIS05655
  *
  */
-public class SimpleNodeFormatParser extends MessageFormatParser implements ISemanticParser{
+public class SimpleNodeFormatParser extends MessageFormatParser implements ISemanticParser {
 
 	public SimpleNodeFormatParser(EAttribute[] features) {
 		super(features);
 	}
 
-	public SimpleNodeFormatParser(EAttribute[] features,
-			EAttribute[] editableFeatures) {
+	public SimpleNodeFormatParser(EAttribute[] features, EAttribute[] editableFeatures) {
 		super(features, editableFeatures);
 	}
 
-	public static SimpleNodeFormatParser getInstance(EAttribute[] features,
-			EAttribute[] editableFeatures)
-	{
-		if(editableFeatures==null)
+	public static SimpleNodeFormatParser getInstance(EAttribute[] features, EAttribute[] editableFeatures) {
+		if (editableFeatures == null)
 			return new SimpleNodeFormatParser(features);
 		else
 			return new SimpleNodeFormatParser(features, editableFeatures);
@@ -45,38 +42,34 @@ public class SimpleNodeFormatParser extends MessageFormatParser implements ISema
 	@Override
 	public List getSemanticElementsBeingParsed(EObject element) {
 		List<EObject> parserElements = new ArrayList<EObject>(1);
-		
+
 		//Deberia ser siempre EColumn pero alguna vez da un ClassCast y no sabemos por que
-		if(element instanceof SimpleNodeReference)
-		{
-			parserElements.add((SimpleNodeReference)element);
-			parserElements.add(((SimpleNodeReference)element).getNodeReference());
-			
-			if(((SimpleNodeReference)element).getNodeReference()!=null)
-				parserElements.add(((SimpleNodeReference)element).getNodeReference().getChild());
+		if (element instanceof SimpleNodeReference) {
+			parserElements.add((SimpleNodeReference) element);
+			parserElements.add(((SimpleNodeReference) element).getNodeReference());
+
+			if (((SimpleNodeReference) element).getNodeReference() != null)
+				parserElements.add(((SimpleNodeReference) element).getNodeReference().getChild());
 		}
-		
-		if(element instanceof SimpleMappingElementWithFigure)
-		{
-			parserElements.add(getFigureBackgroundColor((SimpleMappingElementWithFigure)element));
-			parserElements.add(getFigureForegroundColor((SimpleMappingElementWithFigure)element));
+
+		if (element instanceof SimpleMappingElementWithFigure) {
+			parserElements.add(getFigureBackgroundColor((SimpleMappingElementWithFigure) element));
+			parserElements.add(getFigureForegroundColor((SimpleMappingElementWithFigure) element));
 		}
-			
+
 		return parserElements;
 	}
 
 	@Override
-	public boolean areSemanticElementsAffected(EObject listener,
-			Object notification) {
+	public boolean areSemanticElementsAffected(EObject listener, Object notification) {
 		return true;
 	}
 
 	private RGBColor getFigureBackgroundColor(SimpleMappingElementWithFigure childNode) {
-		
+
 		Figure nodeFigure = childNode.getNodeFigure();
 
-		if (nodeFigure != null
-				&& nodeFigure.getBackgroundColor() instanceof RGBColor)
+		if (nodeFigure != null && nodeFigure.getBackgroundColor() instanceof RGBColor)
 			return (RGBColor) nodeFigure.getBackgroundColor();
 
 		return null;
@@ -85,8 +78,7 @@ public class SimpleNodeFormatParser extends MessageFormatParser implements ISema
 	private RGBColor getFigureForegroundColor(SimpleMappingElementWithFigure childNode) {
 		Figure nodeFigure = childNode.getNodeFigure();
 
-		if (nodeFigure != null
-				&& nodeFigure.getForegroundColor() instanceof RGBColor)
+		if (nodeFigure != null && nodeFigure.getForegroundColor() instanceof RGBColor)
 			return (RGBColor) nodeFigure.getForegroundColor();
 
 		return null;

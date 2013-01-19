@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface SimpleParentNode extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
 	 * The list contents are of type {@link org.msl.simple.gmfmap.simplemappings.SimpleChildNode}.

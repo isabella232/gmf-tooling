@@ -6,7 +6,6 @@
  */
 package org.msl.simple.gmfmap.simplemappings.provider;
 
-
 import java.util.Collection;
 import java.util.List;
 
@@ -31,14 +30,9 @@ import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SimpleMappingElementItemProvider
-	extends ItemProviderAdapter
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
+public class SimpleMappingElementItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
 		IItemPropertySource {
+
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -122,51 +116,20 @@ public class SimpleMappingElementItemProvider
 		return SimplemapEditPlugin.INSTANCE;
 	}
 
-    /**
+	/**
 	 * @generated
-     */
-	protected ItemPropertyDescriptor createItemPropertyDescriptor(AdapterFactory adapterFactory,
-															       ResourceLocator resourceLocator,
-															       String displayName,
-															       String description,
-															       EStructuralFeature feature, 
-															       boolean isSettable,
-															       boolean multiLine,
-															       boolean sortChoices,
-															       Object staticImage,
-															       String category,
-															       String [] filterFlags) {
-		
-		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(
-				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		
-		IItemPropertyDescriptorProvider descriptorProvider = (IItemPropertyDescriptorProvider)composedAdapterFactory.adapt(getTarget(), IItemPropertyDescriptorProvider.class);
-		
-		if(descriptorProvider!=null)
-			return descriptorProvider.createItemPropertyDescriptor(
-					adapterFactory, 
-					resourceLocator, 
-					displayName, 
-					description, 
-					feature, 
-					isSettable, 
-					multiLine, 
-					sortChoices, 
-					staticImage, 
-					category, 
+	 */
+	protected ItemPropertyDescriptor createItemPropertyDescriptor(AdapterFactory adapterFactory, ResourceLocator resourceLocator, String displayName, String description, EStructuralFeature feature,
+			boolean isSettable, boolean multiLine, boolean sortChoices, Object staticImage, String category, String[] filterFlags) {
+
+		ComposedAdapterFactory composedAdapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
+
+		IItemPropertyDescriptorProvider descriptorProvider = (IItemPropertyDescriptorProvider) composedAdapterFactory.adapt(getTarget(), IItemPropertyDescriptorProvider.class);
+
+		if (descriptorProvider != null)
+			return descriptorProvider.createItemPropertyDescriptor(adapterFactory, resourceLocator, displayName, description, feature, isSettable, multiLine, sortChoices, staticImage, category,
 					filterFlags);
 
-		return super.createItemPropertyDescriptor(
-				adapterFactory, 
-				resourceLocator, 
-				displayName, 
-				description, 
-				feature, 
-				isSettable, 
-				multiLine, 
-				sortChoices, 
-				staticImage, 
-				category, 
-				filterFlags);
+		return super.createItemPropertyDescriptor(adapterFactory, resourceLocator, displayName, description, feature, isSettable, multiLine, sortChoices, staticImage, category, filterFlags);
 	}
 }

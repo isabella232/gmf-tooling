@@ -15,9 +15,8 @@ public class MigrateToSimpleMapAction implements IObjectActionDelegate {
 	 * @generated
 	 */
 	private IWorkbenchPart targetPart;
-	
-	private IStructuredSelection sselection;
 
+	private IStructuredSelection sselection;
 
 	/**
 	 * @generated
@@ -31,26 +30,23 @@ public class MigrateToSimpleMapAction implements IObjectActionDelegate {
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
 		action.setEnabled(false);
-		if (selection instanceof IStructuredSelection == false
-				|| selection.isEmpty()) {
+		if (selection instanceof IStructuredSelection == false || selection.isEmpty()) {
 			return;
 		}
-		
+
 		final IStructuredSelection structuredSelection = ((IStructuredSelection) selection);
 		sselection = structuredSelection;
-		
+
 		action.setEnabled(true);
 	}
-	
 
 	@Override
 	public void run(IAction action) {
-		
+
 		TransformToSimpleMappingWizard wizard = new TransformToSimpleMappingWizard();
 		wizard.init(PlatformUI.getWorkbench(), sselection);
 
-		SimpleMapEditorDiagramEditorUtil.runWizard(getShell(), wizard,
-				"InitDiagramFile"); //$NON-NLS-1$
+		SimpleMapEditorDiagramEditorUtil.runWizard(getShell(), wizard, "InitDiagramFile"); //$NON-NLS-1$
 
 	}
 

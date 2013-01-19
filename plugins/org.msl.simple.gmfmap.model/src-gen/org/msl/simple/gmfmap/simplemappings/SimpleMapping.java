@@ -33,6 +33,7 @@ import org.eclipse.gmf.tooldef.Palette;
  * @generated
  */
 public interface SimpleMapping extends SimpleParentNode {
+
 	/**
 	 * Returns the value of the '<em><b>Canvas</b></em>' reference.
 	 * <!-- begin-user-doc -->

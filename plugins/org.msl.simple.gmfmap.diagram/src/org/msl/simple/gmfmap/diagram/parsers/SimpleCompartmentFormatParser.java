@@ -18,21 +18,18 @@ import org.msl.simple.gmfmap.simplemappings.diagram.parsers.MessageFormatParser;
  * @author xIS05655
  *
  */
-public class SimpleCompartmentFormatParser extends MessageFormatParser implements ISemanticParser{
+public class SimpleCompartmentFormatParser extends MessageFormatParser implements ISemanticParser {
 
 	public SimpleCompartmentFormatParser(EAttribute[] features) {
 		super(features);
 	}
 
-	public SimpleCompartmentFormatParser(EAttribute[] features,
-			EAttribute[] editableFeatures) {
+	public SimpleCompartmentFormatParser(EAttribute[] features, EAttribute[] editableFeatures) {
 		super(features, editableFeatures);
 	}
 
-	public static SimpleCompartmentFormatParser getInstance(EAttribute[] features,
-			EAttribute[] editableFeatures)
-	{
-		if(editableFeatures==null)
+	public static SimpleCompartmentFormatParser getInstance(EAttribute[] features, EAttribute[] editableFeatures) {
+		if (editableFeatures == null)
 			return new SimpleCompartmentFormatParser(features);
 		else
 			return new SimpleCompartmentFormatParser(features, editableFeatures);
@@ -45,37 +42,31 @@ public class SimpleCompartmentFormatParser extends MessageFormatParser implement
 	@Override
 	public List getSemanticElementsBeingParsed(EObject element) {
 		List<EObject> parserElements = new ArrayList<EObject>(1);
-		
+
 		//Deberia ser siempre EColumn pero alguna vez da un ClassCast y no sabemos por que
-		if(element instanceof SimpleCompartment)
-		{
-			parserElements.add((SimpleCompartment)element);
-			parserElements.add(((SimpleCompartment)element).getCompartment());
+		if (element instanceof SimpleCompartment) {
+			parserElements.add((SimpleCompartment) element);
+			parserElements.add(((SimpleCompartment) element).getCompartment());
 		}
-			
-		
-		if(element instanceof SimpleMappingElementWithFigure)
-		{
-			parserElements.add(getFigureBackgroundColor((SimpleMappingElementWithFigure)element));
-			parserElements.add(getFigureForegroundColor((SimpleMappingElementWithFigure)element));
+
+		if (element instanceof SimpleMappingElementWithFigure) {
+			parserElements.add(getFigureBackgroundColor((SimpleMappingElementWithFigure) element));
+			parserElements.add(getFigureForegroundColor((SimpleMappingElementWithFigure) element));
 		}
-		
-		
+
 		return parserElements;
 	}
 
 	@Override
-	public boolean areSemanticElementsAffected(EObject listener,
-			Object notification) {
+	public boolean areSemanticElementsAffected(EObject listener, Object notification) {
 		return true;
 	}
-	
+
 	private RGBColor getFigureBackgroundColor(SimpleMappingElementWithFigure childNode) {
-		
+
 		Figure nodeFigure = childNode.getNodeFigure();
 
-		if (nodeFigure != null
-				&& nodeFigure.getBackgroundColor() instanceof RGBColor)
+		if (nodeFigure != null && nodeFigure.getBackgroundColor() instanceof RGBColor)
 			return (RGBColor) nodeFigure.getBackgroundColor();
 
 		return null;
@@ -84,8 +75,7 @@ public class SimpleCompartmentFormatParser extends MessageFormatParser implement
 	private RGBColor getFigureForegroundColor(SimpleMappingElementWithFigure childNode) {
 		Figure nodeFigure = childNode.getNodeFigure();
 
-		if (nodeFigure != null
-				&& nodeFigure.getForegroundColor() instanceof RGBColor)
+		if (nodeFigure != null && nodeFigure.getForegroundColor() instanceof RGBColor)
 			return (RGBColor) nodeFigure.getForegroundColor();
 
 		return null;

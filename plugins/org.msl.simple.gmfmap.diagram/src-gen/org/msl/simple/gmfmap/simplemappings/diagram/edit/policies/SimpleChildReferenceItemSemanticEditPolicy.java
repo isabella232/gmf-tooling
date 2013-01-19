@@ -12,8 +12,7 @@ import org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapElementTy
 /**
  * @generated
  */
-public class SimpleChildReferenceItemSemanticEditPolicy extends
-		SimplemapBaseItemSemanticEditPolicy {
+public class SimpleChildReferenceItemSemanticEditPolicy extends SimplemapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -27,8 +26,7 @@ public class SimpleChildReferenceItemSemanticEditPolicy extends
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
-		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(
-				getEditingDomain(), null);
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
 		cmd.setTransactionNestingEnabled(false);
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {

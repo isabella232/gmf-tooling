@@ -10,13 +10,15 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.msl.simple.gmfmap.simplemappings.*;
 import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
+import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
 import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
 import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
+import org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure;
 import org.msl.simple.gmfmap.simplemappings.SimpleNode;
+import org.msl.simple.gmfmap.simplemappings.SimpleNodeReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleParentNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
@@ -31,6 +33,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimplemappingsAdapterFactory extends AdapterFactoryImpl {
+
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
@@ -65,7 +68,7 @@ public class SimplemappingsAdapterFactory extends AdapterFactoryImpl {
 			return true;
 		}
 		if (object instanceof EObject) {
-			return ((EObject)object).eClass().getEPackage() == modelPackage;
+			return ((EObject) object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
 	}
@@ -76,61 +79,73 @@ public class SimplemappingsAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SimplemappingsSwitch<Adapter> modelSwitch =
-		new SimplemappingsSwitch<Adapter>() {
-			@Override
-			public Adapter caseSimpleMapping(SimpleMapping object) {
-				return createSimpleMappingAdapter();
-			}
-			@Override
-			public Adapter caseSimpleTopNode(SimpleTopNode object) {
-				return createSimpleTopNodeAdapter();
-			}
-			@Override
-			public Adapter caseSimpleCompartment(SimpleCompartment object) {
-				return createSimpleCompartmentAdapter();
-			}
-			@Override
-			public Adapter caseSimpleLabelNode(SimpleLabelNode object) {
-				return createSimpleLabelNodeAdapter();
-			}
-			@Override
-			public Adapter caseSimpleLinkMapping(SimpleLinkMapping object) {
-				return createSimpleLinkMappingAdapter();
-			}
-			@Override
-			public Adapter caseSimpleNode(SimpleNode object) {
-				return createSimpleNodeAdapter();
-			}
-			@Override
-			public Adapter caseSimpleParentNode(SimpleParentNode object) {
-				return createSimpleParentNodeAdapter();
-			}
-			@Override
-			public Adapter caseSimpleChildNode(SimpleChildNode object) {
-				return createSimpleChildNodeAdapter();
-			}
-			@Override
-			public Adapter caseSimpleSubNode(SimpleSubNode object) {
-				return createSimpleSubNodeAdapter();
-			}
-			@Override
-			public Adapter caseSimpleMappingElementWithFigure(SimpleMappingElementWithFigure object) {
-				return createSimpleMappingElementWithFigureAdapter();
-			}
-			@Override
-			public Adapter caseSimpleChildReference(SimpleChildReference object) {
-				return createSimpleChildReferenceAdapter();
-			}
-			@Override
-			public Adapter caseSimpleNodeReference(SimpleNodeReference object) {
-				return createSimpleNodeReferenceAdapter();
-			}
-			@Override
-			public Adapter defaultCase(EObject object) {
-				return createEObjectAdapter();
-			}
-		};
+	protected SimplemappingsSwitch<Adapter> modelSwitch = new SimplemappingsSwitch<Adapter>() {
+
+		@Override
+		public Adapter caseSimpleMapping(SimpleMapping object) {
+			return createSimpleMappingAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleTopNode(SimpleTopNode object) {
+			return createSimpleTopNodeAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleCompartment(SimpleCompartment object) {
+			return createSimpleCompartmentAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleLabelNode(SimpleLabelNode object) {
+			return createSimpleLabelNodeAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleLinkMapping(SimpleLinkMapping object) {
+			return createSimpleLinkMappingAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleNode(SimpleNode object) {
+			return createSimpleNodeAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleParentNode(SimpleParentNode object) {
+			return createSimpleParentNodeAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleChildNode(SimpleChildNode object) {
+			return createSimpleChildNodeAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleSubNode(SimpleSubNode object) {
+			return createSimpleSubNodeAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleMappingElementWithFigure(SimpleMappingElementWithFigure object) {
+			return createSimpleMappingElementWithFigureAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleChildReference(SimpleChildReference object) {
+			return createSimpleChildReferenceAdapter();
+		}
+
+		@Override
+		public Adapter caseSimpleNodeReference(SimpleNodeReference object) {
+			return createSimpleNodeReferenceAdapter();
+		}
+
+		@Override
+		public Adapter defaultCase(EObject object) {
+			return createEObjectAdapter();
+		}
+	};
 
 	/**
 	 * Creates an adapter for the <code>target</code>.
@@ -142,9 +157,8 @@ public class SimplemappingsAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject) target);
 	}
-
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.msl.simple.gmfmap.simplemappings.SimpleMapping <em>Simple Mapping</em>}'.

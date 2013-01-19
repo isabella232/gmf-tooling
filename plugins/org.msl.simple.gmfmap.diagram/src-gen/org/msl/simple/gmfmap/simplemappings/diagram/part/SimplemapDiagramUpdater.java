@@ -44,18 +44,15 @@ public class SimplemapDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapNodeDescriptor> getSimpleMapping_79SemanticChildren(
-			View view) {
+	public static List<SimplemapNodeDescriptor> getSimpleMapping_79SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
 		}
 		SimpleMapping modelElement = (SimpleMapping) view.getElement();
 		LinkedList<SimplemapNodeDescriptor> result = new LinkedList<SimplemapNodeDescriptor>();
-		for (Iterator<?> it = modelElement.getChildren().iterator(); it
-				.hasNext();) {
+		for (Iterator<?> it = modelElement.getChildren().iterator(); it.hasNext();) {
 			SimpleChildNode childElement = (SimpleChildNode) it.next();
-			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view,
-					childElement);
+			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SimpleTopNodeEditPart.VISUAL_ID) {
 				result.add(new SimplemapNodeDescriptor(childElement, visualID));
 				continue;
@@ -71,18 +68,15 @@ public class SimplemapDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapNodeDescriptor> getSimpleTopNode_1001SemanticChildren(
-			View view) {
+	public static List<SimplemapNodeDescriptor> getSimpleTopNode_1001SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
 		}
 		SimpleTopNode modelElement = (SimpleTopNode) view.getElement();
 		LinkedList<SimplemapNodeDescriptor> result = new LinkedList<SimplemapNodeDescriptor>();
-		for (Iterator<?> it = modelElement.getChildren().iterator(); it
-				.hasNext();) {
+		for (Iterator<?> it = modelElement.getChildren().iterator(); it.hasNext();) {
 			SimpleChildNode childElement = (SimpleChildNode) it.next();
-			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view,
-					childElement);
+			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SimpleLabelNodeEditPart.VISUAL_ID) {
 				result.add(new SimplemapNodeDescriptor(childElement, visualID));
 				continue;
@@ -106,18 +100,15 @@ public class SimplemapDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapNodeDescriptor> getSimpleCompartment_2002SemanticChildren(
-			View view) {
+	public static List<SimplemapNodeDescriptor> getSimpleCompartment_2002SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
 		}
 		SimpleCompartment modelElement = (SimpleCompartment) view.getElement();
 		LinkedList<SimplemapNodeDescriptor> result = new LinkedList<SimplemapNodeDescriptor>();
-		for (Iterator<?> it = modelElement.getChildren().iterator(); it
-				.hasNext();) {
+		for (Iterator<?> it = modelElement.getChildren().iterator(); it.hasNext();) {
 			SimpleChildNode childElement = (SimpleChildNode) it.next();
-			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view,
-					childElement);
+			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SimpleLabelNodeEditPart.VISUAL_ID) {
 				result.add(new SimplemapNodeDescriptor(childElement, visualID));
 				continue;
@@ -137,18 +128,15 @@ public class SimplemapDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapNodeDescriptor> getSimpleSubNode_2003SemanticChildren(
-			View view) {
+	public static List<SimplemapNodeDescriptor> getSimpleSubNode_2003SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
 		}
 		SimpleSubNode modelElement = (SimpleSubNode) view.getElement();
 		LinkedList<SimplemapNodeDescriptor> result = new LinkedList<SimplemapNodeDescriptor>();
-		for (Iterator<?> it = modelElement.getChildren().iterator(); it
-				.hasNext();) {
+		for (Iterator<?> it = modelElement.getChildren().iterator(); it.hasNext();) {
 			SimpleChildNode childElement = (SimpleChildNode) it.next();
-			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view,
-					childElement);
+			int visualID = SimplemapVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == SimpleLabelNodeEditPart.VISUAL_ID) {
 				result.add(new SimplemapNodeDescriptor(childElement, visualID));
 				continue;
@@ -237,152 +225,133 @@ public class SimplemapDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleMapping_79ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleMapping_79ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleTopNode_1001ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleTopNode_1001ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleLinkMapping_1002ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleLinkMapping_1002ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleLabelNode_2001ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleLabelNode_2001ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleCompartment_2002ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleCompartment_2002ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleSubNode_2003ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleSubNode_2003ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleChildReference_2004ContainedLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleChildReference_2004ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleTopNode_1001IncomingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleTopNode_1001IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleLinkMapping_1002IncomingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleLinkMapping_1002IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleLabelNode_2001IncomingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleLabelNode_2001IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleCompartment_2002IncomingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleCompartment_2002IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleSubNode_2003IncomingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleSubNode_2003IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleChildReference_2004IncomingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleChildReference_2004IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleTopNode_1001OutgoingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleTopNode_1001OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleLinkMapping_1002OutgoingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleLinkMapping_1002OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleLabelNode_2001OutgoingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleLabelNode_2001OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleCompartment_2002OutgoingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleCompartment_2002OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleSubNode_2003OutgoingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleSubNode_2003OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<SimplemapLinkDescriptor> getSimpleChildReference_2004OutgoingLinks(
-			View view) {
+	public static List<SimplemapLinkDescriptor> getSimpleChildReference_2004OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 

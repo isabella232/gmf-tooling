@@ -2,9 +2,8 @@ package org.msl.simple.gmf.bridge.transform;
 
 import org.eclipse.emf.common.util.Diagnostic;
 
-
 class MapModelDiagnosticPage extends ModelDiagnosticPage {
-	
+
 	MapModelDiagnosticPage(String pageName) {
 		super(pageName);
 		setTitle(Messages.TransformToGenModelWizard_title_mapdiagnostic);

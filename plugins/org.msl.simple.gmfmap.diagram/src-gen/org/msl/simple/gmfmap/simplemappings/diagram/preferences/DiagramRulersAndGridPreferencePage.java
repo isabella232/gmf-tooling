@@ -12,7 +12,6 @@ public class DiagramRulersAndGridPreferencePage extends RulerGridPreferencePage 
 	 * @generated
 	 */
 	public DiagramRulersAndGridPreferencePage() {
-		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

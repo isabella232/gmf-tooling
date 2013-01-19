@@ -12,7 +12,6 @@ public class DiagramGeneralPreferencePage extends DiagramsPreferencePage {
 	 * @generated
 	 */
 	public DiagramGeneralPreferencePage() {
-		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

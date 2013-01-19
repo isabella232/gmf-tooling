@@ -7,7 +7,6 @@
 package org.msl.simple.gmfmap.simplemappings;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.gmf.gmfgraph.Figure;
 
 /**
@@ -28,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
  * @generated
  */
 public interface SimpleMappingElementWithFigure extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Node Figure</b></em>' reference.
 	 * <!-- begin-user-doc -->

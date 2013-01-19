@@ -32,6 +32,7 @@ import org.eclipse.gmf.tooldef.AbstractTool;
  * @generated
  */
 public interface SimpleLinkMapping extends SimpleChildNode, SimpleParentNode, SimpleMappingElementWithFigure {
+
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

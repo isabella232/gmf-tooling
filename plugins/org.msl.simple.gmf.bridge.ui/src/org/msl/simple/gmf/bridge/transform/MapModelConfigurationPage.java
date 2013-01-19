@@ -9,9 +9,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.mappings.Mapping;
 
-
 class MapModelConfigurationPage extends ModelConfigurationPage {
-	
+
 	MapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
 		super(pageId, rlp, resourceSet);
 		setTitle(Messages.TransformToGenModelWizard_title_mapmodel);
@@ -30,13 +29,13 @@ class MapModelConfigurationPage extends ModelConfigurationPage {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}
-	
+
 	@Override
 	protected void resourceChanged() {
 		super.resourceChanged();
 		Diagnostic load = getOperation().getMapmodelValidationResult();
 		if (load != null) {
-			if ((load.getSeverity() == IStatus.WARNING) || (load.getSeverity() == IStatus.INFO) ) {
+			if ((load.getSeverity() == IStatus.WARNING) || (load.getSeverity() == IStatus.INFO)) {
 				setStatusMessage(SimpleTransformToGenModelOperation.getFirst(load));
 			}
 		}

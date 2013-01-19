@@ -13,25 +13,20 @@ public class SimpleMappingSettingDelegate extends Stateless {
 	}
 
 	@Override
-	protected Object get(InternalEObject owner, boolean resolve,
-			boolean coreType) {
+	protected Object get(InternalEObject owner, boolean resolve, boolean coreType) {
 
-	    if (eStructuralFeature.getEContainingClass() == SimplemappingsPackage.Literals.SIMPLE_MAPPING)
-	    {
-		      switch (eStructuralFeature.getEContainingClass().getEAllStructuralFeatures().indexOf(eStructuralFeature))
-		      {	
-		      	case SimplemappingsPackage.SIMPLE_MAPPING__DOMAIN_MODEL:
-		      		return getDomainModel((SimpleMapping)owner);
-		      	case SimplemappingsPackage.SIMPLE_MAPPING__DOMAIN_META_ELEMENT:
-		      		return getDomainMetaElement((SimpleMapping)owner);		      		
-		      }
-	    
-	    }
-		
+		if (eStructuralFeature.getEContainingClass() == SimplemappingsPackage.Literals.SIMPLE_MAPPING) {
+			switch (eStructuralFeature.getEContainingClass().getEAllStructuralFeatures().indexOf(eStructuralFeature)) {
+			case SimplemappingsPackage.SIMPLE_MAPPING__DOMAIN_MODEL:
+				return getDomainModel((SimpleMapping) owner);
+			case SimplemappingsPackage.SIMPLE_MAPPING__DOMAIN_META_ELEMENT:
+				return getDomainMetaElement((SimpleMapping) owner);
+			}
+
+		}
+
 		return null;
 	}
-	
-	
 
 	private Object getDomainMetaElement(SimpleMapping owner) {
 		return owner.getMapping().getDiagram().getDomainMetaElement();
@@ -41,8 +36,6 @@ public class SimpleMappingSettingDelegate extends Stateless {
 	private Object getDomainModel(SimpleMapping owner) {
 		return owner.getMapping().getDiagram().getDomainModel();
 	}
-
-
 
 	@Override
 	protected boolean isSet(InternalEObject owner) {

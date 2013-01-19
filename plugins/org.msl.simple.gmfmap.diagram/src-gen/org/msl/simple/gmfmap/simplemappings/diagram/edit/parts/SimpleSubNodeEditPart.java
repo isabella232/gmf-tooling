@@ -63,15 +63,11 @@ public class SimpleSubNodeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
-				new CreationEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new SimpleSubNodeItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
-				new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new SimpleSubNodeCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SimpleSubNodeItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SimpleSubNodeCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -115,8 +111,7 @@ public class SimpleSubNodeEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof SimpleSubNodeNameEditPart) {
-			((SimpleSubNodeNameEditPart) childEditPart)
-					.setLabel(getPrimaryShape().getFigureSubNodeNameFigure());
+			((SimpleSubNodeNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureSubNodeNameFigure());
 			return true;
 		}
 		return false;
@@ -249,8 +244,7 @@ public class SimpleSubNodeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(SimplemapVisualIDRegistry
-				.getType(SimpleSubNodeNameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(SimplemapVisualIDRegistry.getType(SimpleSubNodeNameEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -277,16 +271,12 @@ public class SimpleSubNodeEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(6),
-					getMapMode().DPtoLP(6)));
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(6), getMapMode().DPtoLP(6)));
 			this.setForegroundColor(THIS_FORE);
 			this.setBackgroundColor(THIS_BACK);
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(160),
-					getMapMode().DPtoLP(50)));
+			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(160), getMapMode().DPtoLP(50)));
 
-			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5),
-					getMapMode().DPtoLP(5), getMapMode().DPtoLP(5),
-					getMapMode().DPtoLP(5)));
+			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5), getMapMode().DPtoLP(5), getMapMode().DPtoLP(5), getMapMode().DPtoLP(5)));
 			createContents();
 		}
 
@@ -326,7 +316,6 @@ public class SimpleSubNodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Font FFIGURESUBNODENAMEFIGURE_FONT = new Font(
-			Display.getCurrent(), "Verdana", 9, SWT.BOLD);
+	static final Font FFIGURESUBNODENAMEFIGURE_FONT = new Font(Display.getCurrent(), "Verdana", 9, SWT.BOLD);
 
 }

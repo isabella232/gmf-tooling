@@ -9,10 +9,8 @@ package org.msl.simple.gmfmap.simplemappings;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.tooldef.AbstractTool;
 
 /**
@@ -36,6 +34,7 @@ import org.eclipse.gmf.tooldef.AbstractTool;
  * @generated
  */
 public interface SimpleNode extends SimpleChildNode, SimpleMappingElementWithFigure, SimpleNodeReference {
+
 	/**
 	 * Returns the value of the '<em><b>Tool</b></em>' reference.
 	 * <!-- begin-user-doc -->

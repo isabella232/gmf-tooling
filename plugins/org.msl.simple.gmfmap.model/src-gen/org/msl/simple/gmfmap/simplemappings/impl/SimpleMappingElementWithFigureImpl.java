@@ -7,11 +7,8 @@
 package org.msl.simple.gmfmap.simplemappings.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.gmfgraph.Figure;
-
 import org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure;
 import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
 
@@ -30,6 +27,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleMappingElementWithFigureImpl extends EObjectImpl implements SimpleMappingElementWithFigure {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -65,7 +63,7 @@ public class SimpleMappingElementWithFigureImpl extends EObjectImpl implements S
 	 * @generated
 	 */
 	public Figure getNodeFigure() {
-		return (Figure)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE, true);
+		return (Figure) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE, true);
 	}
 
 	/**
@@ -83,7 +81,7 @@ public class SimpleMappingElementWithFigureImpl extends EObjectImpl implements S
 	 * @generated
 	 */
 	public Figure getLabelFigure() {
-		return (Figure)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE, true);
+		return (Figure) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE, true);
 	}
 
 	/**

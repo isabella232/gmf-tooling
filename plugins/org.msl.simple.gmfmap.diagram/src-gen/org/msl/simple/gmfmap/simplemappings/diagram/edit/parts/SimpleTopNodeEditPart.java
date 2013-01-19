@@ -63,15 +63,11 @@ public class SimpleTopNodeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
-				new CreationEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new SimpleTopNodeItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
-				new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new SimpleTopNodeCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SimpleTopNodeItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SimpleTopNodeCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -115,8 +111,7 @@ public class SimpleTopNodeEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof SimpleTopNodeNameEditPart) {
-			((SimpleTopNodeNameEditPart) childEditPart)
-					.setLabel(getPrimaryShape().getFigureTopNodeNameFigure());
+			((SimpleTopNodeNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureTopNodeNameFigure());
 			return true;
 		}
 		return false;
@@ -249,8 +244,7 @@ public class SimpleTopNodeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(SimplemapVisualIDRegistry
-				.getType(SimpleTopNodeNameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(SimplemapVisualIDRegistry.getType(SimpleTopNodeNameEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -277,17 +271,13 @@ public class SimpleTopNodeEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(6),
-					getMapMode().DPtoLP(6)));
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(6), getMapMode().DPtoLP(6)));
 			this.setLineWidth(3);
 			this.setForegroundColor(THIS_FORE);
 			this.setBackgroundColor(THIS_BACK);
-			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(160),
-					getMapMode().DPtoLP(50)));
+			this.setMinimumSize(new Dimension(getMapMode().DPtoLP(160), getMapMode().DPtoLP(50)));
 
-			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5),
-					getMapMode().DPtoLP(5), getMapMode().DPtoLP(3),
-					getMapMode().DPtoLP(5)));
+			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5), getMapMode().DPtoLP(5), getMapMode().DPtoLP(3), getMapMode().DPtoLP(5)));
 			createContents();
 		}
 
@@ -298,10 +288,8 @@ public class SimpleTopNodeEditPart extends ShapeNodeEditPart {
 
 			fFigureTopNodeNameFigure = new WrappingLabelWithColorIcon();
 			fFigureTopNodeNameFigure.setText("<..>");
-			fFigureTopNodeNameFigure
-					.setForegroundColor(FFIGURETOPNODENAMEFIGURE_FORE);
-			fFigureTopNodeNameFigure
-					.setBackgroundColor(FFIGURETOPNODENAMEFIGURE_BACK);
+			fFigureTopNodeNameFigure.setForegroundColor(FFIGURETOPNODENAMEFIGURE_FORE);
+			fFigureTopNodeNameFigure.setBackgroundColor(FFIGURETOPNODENAMEFIGURE_BACK);
 
 			fFigureTopNodeNameFigure.setFont(FFIGURETOPNODENAMEFIGURE_FONT);
 
@@ -331,19 +319,16 @@ public class SimpleTopNodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Color FFIGURETOPNODENAMEFIGURE_FORE = new Color(null, 0, 255,
-			255);
+	static final Color FFIGURETOPNODENAMEFIGURE_FORE = new Color(null, 0, 255, 255);
 
 	/**
 	 * @generated
 	 */
-	static final Color FFIGURETOPNODENAMEFIGURE_BACK = new Color(null, 0, 255,
-			0);
+	static final Color FFIGURETOPNODENAMEFIGURE_BACK = new Color(null, 0, 255, 0);
 
 	/**
 	 * @generated
 	 */
-	static final Font FFIGURETOPNODENAMEFIGURE_FONT = new Font(
-			Display.getCurrent(), "Verdana", 11, SWT.BOLD);
+	static final Font FFIGURETOPNODENAMEFIGURE_FONT = new Font(Display.getCurrent(), "Verdana", 11, SWT.BOLD);
 
 }

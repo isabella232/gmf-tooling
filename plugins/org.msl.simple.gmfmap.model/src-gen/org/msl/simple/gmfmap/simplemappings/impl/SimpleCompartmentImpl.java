@@ -6,12 +6,8 @@
  */
 package org.msl.simple.gmfmap.simplemappings.impl;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -50,6 +46,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartment {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -86,7 +83,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 */
 	@SuppressWarnings("unchecked")
 	public EList<SimpleChildNode> getChildren() {
-		return (EList<SimpleChildNode>)eGet(SimplemappingsPackage.Literals.SIMPLE_PARENT_NODE__CHILDREN, true);
+		return (EList<SimpleChildNode>) eGet(SimplemappingsPackage.Literals.SIMPLE_PARENT_NODE__CHILDREN, true);
 	}
 
 	/**
@@ -95,7 +92,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public SimpleParentNode getParentNode() {
-		return (SimpleParentNode)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_NODE, true);
+		return (SimpleParentNode) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_NODE, true);
 	}
 
 	/**
@@ -113,7 +110,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public SimpleMapping getParentMapping() {
-		return (SimpleMapping)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_MAPPING, true);
+		return (SimpleMapping) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_MAPPING, true);
 	}
 
 	/**
@@ -131,7 +128,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public SimpleNode getParent() {
-		return (SimpleNode)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT, true);
+		return (SimpleNode) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT, true);
 	}
 
 	/**
@@ -149,7 +146,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public EClass getParentMetaElement() {
-		return (EClass)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT, true);
+		return (EClass) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT, true);
 	}
 
 	/**
@@ -167,7 +164,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public CompartmentMapping getCompartmentMapping() {
-		return (CompartmentMapping)eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT_MAPPING, true);
+		return (CompartmentMapping) eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT_MAPPING, true);
 	}
 
 	/**
@@ -185,7 +182,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public String getName() {
-		return (String)eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__NAME, true);
+		return (String) eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__NAME, true);
 	}
 
 	/**
@@ -203,7 +200,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public Compartment getCompartment() {
-		return (Compartment)eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT, true);
+		return (Compartment) eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT, true);
 	}
 
 	/**
@@ -221,7 +218,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public Label getCompartmentLabel() {
-		return (Label)eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT_LABEL, true);
+		return (Label) eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__COMPARTMENT_LABEL, true);
 	}
 
 	/**
@@ -239,7 +236,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public boolean isNeedsTitle() {
-		return (Boolean)eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__NEEDS_TITLE, true);
+		return (Boolean) eGet(SimplemappingsPackage.Literals.SIMPLE_COMPARTMENT__NEEDS_TITLE, true);
 	}
 
 	/**
@@ -257,7 +254,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public Figure getNodeFigure() {
-		return (Figure)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE, true);
+		return (Figure) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE, true);
 	}
 
 	/**
@@ -275,7 +272,7 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	 * @generated
 	 */
 	public Figure getLabelFigure() {
-		return (Figure)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE, true);
+		return (Figure) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE, true);
 	}
 
 	/**
@@ -296,18 +293,26 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == SimpleChildNode.class) {
 			switch (derivedFeatureID) {
-				case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_NODE: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE;
-				case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_MAPPING: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING;
-				case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT;
-				case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_META_ELEMENT: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_NODE:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE;
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_MAPPING:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING;
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT;
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_META_ELEMENT:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT;
+			default:
+				return -1;
 			}
 		}
 		if (baseClass == SimpleMappingElementWithFigure.class) {
 			switch (derivedFeatureID) {
-				case SimplemappingsPackage.SIMPLE_COMPARTMENT__NODE_FIGURE: return SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE;
-				case SimplemappingsPackage.SIMPLE_COMPARTMENT__LABEL_FIGURE: return SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__NODE_FIGURE:
+				return SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE;
+			case SimplemappingsPackage.SIMPLE_COMPARTMENT__LABEL_FIGURE:
+				return SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE;
+			default:
+				return -1;
 			}
 		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
@@ -322,18 +327,26 @@ public class SimpleCompartmentImpl extends EObjectImpl implements SimpleCompartm
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == SimpleChildNode.class) {
 			switch (baseFeatureID) {
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE: return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_NODE;
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING: return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_MAPPING;
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT: return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT;
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT: return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_META_ELEMENT;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE:
+				return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_NODE;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING:
+				return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_MAPPING;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT:
+				return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT:
+				return SimplemappingsPackage.SIMPLE_COMPARTMENT__PARENT_META_ELEMENT;
+			default:
+				return -1;
 			}
 		}
 		if (baseClass == SimpleMappingElementWithFigure.class) {
 			switch (baseFeatureID) {
-				case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE: return SimplemappingsPackage.SIMPLE_COMPARTMENT__NODE_FIGURE;
-				case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE: return SimplemappingsPackage.SIMPLE_COMPARTMENT__LABEL_FIGURE;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__NODE_FIGURE:
+				return SimplemappingsPackage.SIMPLE_COMPARTMENT__NODE_FIGURE;
+			case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE__LABEL_FIGURE:
+				return SimplemappingsPackage.SIMPLE_COMPARTMENT__LABEL_FIGURE;
+			default:
+				return -1;
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);

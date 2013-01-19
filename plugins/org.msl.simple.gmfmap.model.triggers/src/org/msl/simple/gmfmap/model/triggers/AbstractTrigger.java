@@ -31,25 +31,24 @@ import org.eclipse.gmf.tooldef.ToolContainer;
 public abstract class AbstractTrigger extends AbstractOverrideableCommand {
 
 	private RecordingCommand internalCommand;
-	
+
 	public AbstractTrigger(TransactionalEditingDomain domain) {
 		super(domain);
-		
+
 		internalCommand = new RecordingCommand(domain) {
+
 			@Override
 			protected void doExecute() {
-				try
-				{
-					executeTrigger();	
-				}catch(Exception exc)
-				{
+				try {
+					executeTrigger();
+				} catch (Exception exc) {
 					exc.printStackTrace();
 				}
-				
+
 			}
 		};
 	}
-	
+
 	@Override
 	public final void doExecute() {
 		internalCommand.execute();
@@ -59,7 +58,7 @@ public abstract class AbstractTrigger extends AbstractOverrideableCommand {
 
 	@Override
 	public final void doRedo() {
-		internalCommand.redo();		
+		internalCommand.redo();
 	}
 
 	@Override
@@ -74,110 +73,95 @@ public abstract class AbstractTrigger extends AbstractOverrideableCommand {
 	protected boolean prepare() {
 		return true;
 	}
-	
+
 	/**
 	 * Devuelve true si solo tiene una referencia
 	 * @param element
 	 * @return
 	 */
-	protected boolean canRemove(EObject element)
-	{
-		return findReferencingElements(element).size()==1;
-	}
-	
-	/**
-	 * Devuelve true si solo tiene una referencia
-	 * @param element
-	 * @return
-	 */
-	protected boolean canRename(EObject element)
-	{
-		return findReferencingElements(element).size()==1;
+	protected boolean canRemove(EObject element) {
+		return findReferencingElements(element).size() == 1;
 	}
 
-	
-	private List<EObject> findReferencingElements(EObject element)
-	{
+	/**
+	 * Devuelve true si solo tiene una referencia
+	 * @param element
+	 * @return
+	 */
+	protected boolean canRename(EObject element) {
+		return findReferencingElements(element).size() == 1;
+	}
+
+	private List<EObject> findReferencingElements(EObject element) {
 		EClass elementType = GMFGraphPackage.eINSTANCE.getDiagramElement();
-		
-		if(element instanceof DiagramElement || element instanceof AbstractTool)
+
+		if (element instanceof DiagramElement || element instanceof AbstractTool)
 			elementType = GMFMapPackage.eINSTANCE.getMappingEntry();
 
-		if(element instanceof DiagramLabel)
+		if (element instanceof DiagramLabel)
 			elementType = GMFMapPackage.eINSTANCE.getLabelMapping();
-		
-		if(element instanceof Compartment)
+
+		if (element instanceof Compartment)
 			elementType = GMFMapPackage.eINSTANCE.getCompartmentMapping();
 
-		if(element instanceof ChildAccess || element instanceof FigureDescriptor)
-			elementType = GMFGraphPackage.eINSTANCE.getDiagramElement();	
-		
+		if (element instanceof ChildAccess || element instanceof FigureDescriptor)
+			elementType = GMFGraphPackage.eINSTANCE.getDiagramElement();
+
 		return findReferencingElements(element, elementType);
 	}
 
-		
-	private List<EObject> findReferencingElements(EObject element, EClass elementType)
-	{
+	private List<EObject> findReferencingElements(EObject element, EClass elementType) {
 		List<EObject> referencingElements = new ArrayList<EObject>();
-		
-		for(Setting setting: EcoreUtil.UsageCrossReferencer.find(element, domain.getResourceSet()))
-			if(elementType.isSuperTypeOf(setting.getEObject().eClass()) && !referencingElements.contains(setting.getEObject()))
+
+		for (Setting setting : EcoreUtil.UsageCrossReferencer.find(element, domain.getResourceSet()))
+			if (elementType.isSuperTypeOf(setting.getEObject().eClass()) && !referencingElements.contains(setting.getEObject()))
 				referencingElements.add(setting.getEObject());
-		
+
 		return referencingElements;
 	}
-	
-	
-	protected String getNewCanvasElementName(String baseName, Identity elementToRename)
-	{
-		String newName = baseName;
-		
-		int i = 2;
-		
-		while(nameCollides(elementToRename, newName))
-			newName = newName + i++;
-		
-		return newName;
-	}
-	
 
-	protected String getNewToolName(String baseName, AbstractTool toolToRename)
-	{
+	protected String getNewCanvasElementName(String baseName, Identity elementToRename) {
 		String newName = baseName;
-		
+
 		int i = 2;
-		
-		while(nameCollides(toolToRename, newName))
+
+		while (nameCollides(elementToRename, newName))
 			newName = newName + i++;
-		
+
 		return newName;
 	}
-	
-	protected boolean nameCollides(Identity myElement, String baseName)
-	{
+
+	protected String getNewToolName(String baseName, AbstractTool toolToRename) {
+		String newName = baseName;
+
+		int i = 2;
+
+		while (nameCollides(toolToRename, newName))
+			newName = newName + i++;
+
+		return newName;
+	}
+
+	protected boolean nameCollides(Identity myElement, String baseName) {
 		EObject elementContainer = myElement.eContainer();
-		
-		for(EObject child:elementContainer.eContents())
-			if(child instanceof Identity)
-			{
-				Identity element = (Identity)child;
-				if(element!=myElement && 
-						element.getName()!=null && 
-						element.getName().equals(baseName))
+
+		for (EObject child : elementContainer.eContents())
+			if (child instanceof Identity) {
+				Identity element = (Identity) child;
+				if (element != myElement && element.getName() != null && element.getName().equals(baseName))
 					return true;
 			}
-		
+
 		return false;
 	}
-	
-	protected boolean nameCollides(AbstractTool myTool, String baseName)
-	{
-		List<AbstractTool> tools = ((ToolContainer)myTool.eContainer()).getTools();
-		
-		for(AbstractTool tool:tools)
-			if(tool!=myTool && tool.getTitle()!=null && tool.getTitle().equals(baseName))
+
+	protected boolean nameCollides(AbstractTool myTool, String baseName) {
+		List<AbstractTool> tools = ((ToolContainer) myTool.eContainer()).getTools();
+
+		for (AbstractTool tool : tools)
+			if (tool != myTool && tool.getTitle() != null && tool.getTitle().equals(baseName))
 				return true;
-		
+
 		return false;
 	}
 

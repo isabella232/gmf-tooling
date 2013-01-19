@@ -8,7 +8,6 @@ package org.msl.simple.gmfmap.simplemappings;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.gmfgraph.Figure;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,6 +29,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
  * @generated
  */
 public interface SimpleChildNode extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Parent Node</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.msl.simple.gmfmap.simplemappings.SimpleParentNode#getChildren <em>Children</em>}'.

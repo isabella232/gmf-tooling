@@ -34,21 +34,14 @@ import org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapParserPro
 /**
  * @generated
  */
-public class SimplemapNavigatorLabelProvider extends LabelProvider implements
-		ICommonLabelProvider, ITreePathLabelProvider {
+public class SimplemapNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider, ITreePathLabelProvider {
 
 	/**
 	 * @generated
 	 */
 	static {
-		SimplemapDiagramEditorPlugin
-				.getInstance()
-				.getImageRegistry()
-				.put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
-		SimplemapDiagramEditorPlugin
-				.getInstance()
-				.getImageRegistry()
-				.put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
+		SimplemapDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
+		SimplemapDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
 	}
 
 	/**
@@ -56,8 +49,7 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 */
 	public void updateLabel(ViewerLabel label, TreePath elementPath) {
 		Object element = elementPath.getLastSegment();
-		if (element instanceof SimplemapNavigatorItem
-				&& !isOwnView(((SimplemapNavigatorItem) element).getView())) {
+		if (element instanceof SimplemapNavigatorItem && !isOwnView(((SimplemapNavigatorItem) element).getView())) {
 			return;
 		}
 		label.setText(getText(element));
@@ -70,8 +62,7 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	public Image getImage(Object element) {
 		if (element instanceof SimplemapNavigatorGroup) {
 			SimplemapNavigatorGroup group = (SimplemapNavigatorGroup) element;
-			return SimplemapDiagramEditorPlugin.getInstance().getBundledImage(
-					group.getIcon());
+			return SimplemapDiagramEditorPlugin.getInstance().getBundledImage(group.getIcon());
 		}
 
 		if (element instanceof SimplemapNavigatorItem) {
@@ -91,26 +82,19 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	public Image getImage(View view) {
 		switch (SimplemapVisualIDRegistry.getVisualID(view)) {
 		case SimpleMappingEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Diagram?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleMapping", SimplemapElementTypes.SimpleMapping_79); //$NON-NLS-1$
+			return getImage("Navigator?Diagram?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleMapping", SimplemapElementTypes.SimpleMapping_79); //$NON-NLS-1$
 		case SimpleTopNodeEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleTopNode", SimplemapElementTypes.SimpleTopNode_1001); //$NON-NLS-1$
+			return getImage("Navigator?TopLevelNode?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleTopNode", SimplemapElementTypes.SimpleTopNode_1001); //$NON-NLS-1$
 		case SimpleLinkMappingEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleLinkMapping", SimplemapElementTypes.SimpleLinkMapping_1002); //$NON-NLS-1$
+			return getImage("Navigator?TopLevelNode?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleLinkMapping", SimplemapElementTypes.SimpleLinkMapping_1002); //$NON-NLS-1$
 		case SimpleLabelNodeEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleLabelNode", SimplemapElementTypes.SimpleLabelNode_2001); //$NON-NLS-1$
+			return getImage("Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleLabelNode", SimplemapElementTypes.SimpleLabelNode_2001); //$NON-NLS-1$
 		case SimpleCompartmentEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleCompartment", SimplemapElementTypes.SimpleCompartment_2002); //$NON-NLS-1$
+			return getImage("Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleCompartment", SimplemapElementTypes.SimpleCompartment_2002); //$NON-NLS-1$
 		case SimpleSubNodeEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleSubNode", SimplemapElementTypes.SimpleSubNode_2003); //$NON-NLS-1$
+			return getImage("Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleSubNode", SimplemapElementTypes.SimpleSubNode_2003); //$NON-NLS-1$
 		case SimpleChildReferenceEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleChildReference", SimplemapElementTypes.SimpleChildReference_2004); //$NON-NLS-1$
+			return getImage("Navigator?Node?http://org.msl.simple.gmfmap/simplemappings_1.1?SimpleChildReference", SimplemapElementTypes.SimpleChildReference_2004); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -119,11 +103,9 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private Image getImage(String key, IElementType elementType) {
-		ImageRegistry imageRegistry = SimplemapDiagramEditorPlugin
-				.getInstance().getImageRegistry();
+		ImageRegistry imageRegistry = SimplemapDiagramEditorPlugin.getInstance().getImageRegistry();
 		Image image = imageRegistry.get(key);
-		if (image == null && elementType != null
-				&& SimplemapElementTypes.isKnownElementType(elementType)) {
+		if (image == null && elementType != null && SimplemapElementTypes.isKnownElementType(elementType)) {
 			image = SimplemapElementTypes.getImage(elementType);
 			imageRegistry.put(key, image);
 		}
@@ -192,18 +174,12 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getSimpleTopNode_1001Text(View view) {
-		IParser parser = SimplemapParserProvider.getParser(
-				SimplemapElementTypes.SimpleTopNode_1001,
-				view.getElement() != null ? view.getElement() : view,
-				SimplemapVisualIDRegistry
-						.getType(SimpleTopNodeNameEditPart.VISUAL_ID));
+		IParser parser = SimplemapParserProvider.getParser(SimplemapElementTypes.SimpleTopNode_1001, view.getElement() != null ? view.getElement() : view,
+				SimplemapVisualIDRegistry.getType(SimpleTopNodeNameEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(
-					view.getElement() != null ? view.getElement() : view),
-					ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 4003); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4003); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -212,18 +188,12 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getSimpleLinkMapping_1002Text(View view) {
-		IParser parser = SimplemapParserProvider.getParser(
-				SimplemapElementTypes.SimpleLinkMapping_1002,
-				view.getElement() != null ? view.getElement() : view,
-				SimplemapVisualIDRegistry
-						.getType(SimpleLinkMappingNameEditPart.VISUAL_ID));
+		IParser parser = SimplemapParserProvider.getParser(SimplemapElementTypes.SimpleLinkMapping_1002, view.getElement() != null ? view.getElement() : view,
+				SimplemapVisualIDRegistry.getType(SimpleLinkMappingNameEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(
-					view.getElement() != null ? view.getElement() : view),
-					ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 4004); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4004); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -232,18 +202,12 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getSimpleLabelNode_2001Text(View view) {
-		IParser parser = SimplemapParserProvider.getParser(
-				SimplemapElementTypes.SimpleLabelNode_2001,
-				view.getElement() != null ? view.getElement() : view,
-				SimplemapVisualIDRegistry
-						.getType(SimpleLabelNodeEditPart.VISUAL_ID));
+		IParser parser = SimplemapParserProvider.getParser(SimplemapElementTypes.SimpleLabelNode_2001, view.getElement() != null ? view.getElement() : view,
+				SimplemapVisualIDRegistry.getType(SimpleLabelNodeEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(
-					view.getElement() != null ? view.getElement() : view),
-					ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 2001); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 2001); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -252,18 +216,12 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getSimpleCompartment_2002Text(View view) {
-		IParser parser = SimplemapParserProvider.getParser(
-				SimplemapElementTypes.SimpleCompartment_2002,
-				view.getElement() != null ? view.getElement() : view,
-				SimplemapVisualIDRegistry
-						.getType(SimpleCompartmentNameEditPart.VISUAL_ID));
+		IParser parser = SimplemapParserProvider.getParser(SimplemapElementTypes.SimpleCompartment_2002, view.getElement() != null ? view.getElement() : view,
+				SimplemapVisualIDRegistry.getType(SimpleCompartmentNameEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(
-					view.getElement() != null ? view.getElement() : view),
-					ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 4002); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4002); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -272,18 +230,12 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getSimpleSubNode_2003Text(View view) {
-		IParser parser = SimplemapParserProvider.getParser(
-				SimplemapElementTypes.SimpleSubNode_2003,
-				view.getElement() != null ? view.getElement() : view,
-				SimplemapVisualIDRegistry
-						.getType(SimpleSubNodeNameEditPart.VISUAL_ID));
+		IParser parser = SimplemapParserProvider.getParser(SimplemapElementTypes.SimpleSubNode_2003, view.getElement() != null ? view.getElement() : view,
+				SimplemapVisualIDRegistry.getType(SimpleSubNodeNameEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(
-					view.getElement() != null ? view.getElement() : view),
-					ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 4001); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 4001); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -292,18 +244,12 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private String getSimpleChildReference_2004Text(View view) {
-		IParser parser = SimplemapParserProvider.getParser(
-				SimplemapElementTypes.SimpleChildReference_2004, view
-						.getElement() != null ? view.getElement() : view,
-				SimplemapVisualIDRegistry
-						.getType(SimpleChildReferenceEditPart.VISUAL_ID));
+		IParser parser = SimplemapParserProvider.getParser(SimplemapElementTypes.SimpleChildReference_2004, view.getElement() != null ? view.getElement() : view,
+				SimplemapVisualIDRegistry.getType(SimpleChildReferenceEditPart.VISUAL_ID));
 		if (parser != null) {
-			return parser.getPrintString(new EObjectAdapter(
-					view.getElement() != null ? view.getElement() : view),
-					ParserOptions.NONE.intValue());
+			return parser.getPrintString(new EObjectAdapter(view.getElement() != null ? view.getElement() : view), ParserOptions.NONE.intValue());
 		} else {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Parser was not found for label " + 2004); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 2004); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -351,8 +297,7 @@ public class SimplemapNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private boolean isOwnView(View view) {
-		return SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry
-				.getModelID(view));
+		return SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry.getModelID(view));
 	}
 
 }

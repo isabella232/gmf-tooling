@@ -16,24 +16,19 @@ public class SimplemapNavigatorItem extends SimplemapAbstractNavigatorItem {
 	 */
 	static {
 		final Class[] supportedTypes = new Class[] { View.class, EObject.class };
-		Platform.getAdapterManager().registerAdapters(
-				new IAdapterFactory() {
+		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
-					public Object getAdapter(Object adaptableObject,
-							Class adapterType) {
-						if (adaptableObject instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem
-								&& (adapterType == View.class || adapterType == EObject.class)) {
-							return ((org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem) adaptableObject)
-									.getView();
-						}
-						return null;
-					}
+			public Object getAdapter(Object adaptableObject, Class adapterType) {
+				if (adaptableObject instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem) adaptableObject).getView();
+				}
+				return null;
+			}
 
-					public Class[] getAdapterList() {
-						return supportedTypes;
-					}
-				},
-				org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem.class);
+			public Class[] getAdapterList() {
+				return supportedTypes;
+			}
+		}, org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem.class);
 	}
 
 	/**
@@ -74,11 +69,7 @@ public class SimplemapNavigatorItem extends SimplemapAbstractNavigatorItem {
 	 */
 	public boolean equals(Object obj) {
 		if (obj instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem) {
-			return EcoreUtil
-					.getURI(getView())
-					.equals(EcoreUtil
-							.getURI(((org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem) obj)
-									.getView()));
+			return EcoreUtil.getURI(getView()).equals(EcoreUtil.getURI(((org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorItem) obj).getView()));
 		}
 		return super.equals(obj);
 	}

@@ -20,6 +20,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleLabelNodeImpl extends SimpleNodeImpl implements SimpleLabelNode {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

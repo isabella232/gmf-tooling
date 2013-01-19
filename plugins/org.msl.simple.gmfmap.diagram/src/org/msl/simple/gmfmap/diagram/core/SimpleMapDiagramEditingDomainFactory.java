@@ -12,28 +12,27 @@ import org.msl.simple.gmfmap.model.triggers.mapping.MappingEntryTriggerListener;
 import org.msl.simple.gmfmap.model.triggers.parent.ParentNodeTriggerListener;
 import org.msl.simple.gmfmap.model.triggers.references.SimpleChildReferenceTriggerListener;
 
-public class SimpleMapDiagramEditingDomainFactory extends
-		DiagramEditingDomainFactory {
-	
-    /**
-     * The single shared instance of the GMF diagram editing domain factory.
-     */
-    private static SimpleMapDiagramEditingDomainFactory instance = new SimpleMapDiagramEditingDomainFactory();
-	
-    /**
-     * Gets the single shared instance of the GMF diagram editing domain factory.
-     * 
-     * @return the editing domain factory
-     */
-    public static WorkspaceEditingDomainFactory getInstance() {
-        return instance;
-    }  
+public class SimpleMapDiagramEditingDomainFactory extends DiagramEditingDomainFactory {
+
+	/**
+	 * The single shared instance of the GMF diagram editing domain factory.
+	 */
+	private static SimpleMapDiagramEditingDomainFactory instance = new SimpleMapDiagramEditingDomainFactory();
+
+	/**
+	 * Gets the single shared instance of the GMF diagram editing domain factory.
+	 * 
+	 * @return the editing domain factory
+	 */
+	public static WorkspaceEditingDomainFactory getInstance() {
+		return instance;
+	}
 
 	@Override
 	protected void configure(TransactionalEditingDomain domain) {
 		// TODO Auto-generated method stub
 		super.configure(domain);
-		
+
 		domain.addResourceSetListener(new SimpleCompartmentTriggerListener());
 		domain.addResourceSetListener(new ParentNodeTriggerListener());
 		domain.addResourceSetListener(new SimpleLinkMappingTriggerListener());
@@ -44,5 +43,4 @@ public class SimpleMapDiagramEditingDomainFactory extends
 		domain.addResourceSetListener(new SimpleChildReferenceTriggerListener());
 	}
 
-	
 }

@@ -49,8 +49,7 @@ import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegist
 /**
  * @generated
  */
-public class SimplemapViewProvider extends AbstractProvider implements
-		IViewProvider {
+public class SimplemapViewProvider extends AbstractProvider implements IViewProvider {
 
 	/**
 	 * @generated
@@ -75,10 +74,11 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	 */
 	protected boolean provides(CreateViewForKindOperation op) {
 		/*
-		 if (op.getViewKind() == Node.class)
-		 return getNodeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
-		 if (op.getViewKind() == Edge.class)
-		 return getEdgeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
+		 * if (op.getViewKind() == Node.class) return
+		 * getNodeViewClass(op.getSemanticAdapter(), op.getContainerView(),
+		 * op.getSemanticHint()) != null; if (op.getViewKind() == Edge.class)
+		 * return getEdgeViewClass(op.getSemanticAdapter(),
+		 * op.getContainerView(), op.getSemanticHint()) != null;
 		 */
 		return true;
 	}
@@ -87,10 +87,7 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	protected boolean provides(CreateDiagramViewOperation op) {
-		return SimpleMappingEditPart.MODEL_ID.equals(op.getSemanticHint())
-				&& SimplemapVisualIDRegistry
-						.getDiagramVisualID(getSemanticElement(op
-								.getSemanticAdapter())) != -1;
+		return SimpleMappingEditPart.MODEL_ID.equals(op.getSemanticHint()) && SimplemapVisualIDRegistry.getDiagramVisualID(getSemanticElement(op.getSemanticAdapter())) != -1;
 	}
 
 	/**
@@ -100,8 +97,7 @@ public class SimplemapViewProvider extends AbstractProvider implements
 		if (op.getContainerView() == null) {
 			return false;
 		}
-		IElementType elementType = getSemanticElementType(op
-				.getSemanticAdapter());
+		IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
 		EObject domainElement = getSemanticElement(op.getSemanticAdapter());
 		int visualID;
 		if (op.getSemanticHint() == null) {
@@ -111,31 +107,22 @@ public class SimplemapViewProvider extends AbstractProvider implements
 			if (elementType != null || domainElement == null) {
 				return false;
 			}
-			visualID = SimplemapVisualIDRegistry.getNodeVisualID(
-					op.getContainerView(), domainElement);
+			visualID = SimplemapVisualIDRegistry.getNodeVisualID(op.getContainerView(), domainElement);
 		} else {
-			visualID = SimplemapVisualIDRegistry.getVisualID(op
-					.getSemanticHint());
+			visualID = SimplemapVisualIDRegistry.getVisualID(op.getSemanticHint());
 			if (elementType != null) {
-				if (!SimplemapElementTypes.isKnownElementType(elementType)
-						|| (!(elementType instanceof IHintedType))) {
+				if (!SimplemapElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
 					return false; // foreign element type
 				}
-				String elementTypeHint = ((IHintedType) elementType)
-						.getSemanticHint();
+				String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 				if (!op.getSemanticHint().equals(elementTypeHint)) {
 					return false; // if semantic hint is specified it should be the same as in element type
 				}
-				if (domainElement != null
-						&& visualID != SimplemapVisualIDRegistry
-								.getNodeVisualID(op.getContainerView(),
-										domainElement)) {
+				if (domainElement != null && visualID != SimplemapVisualIDRegistry.getNodeVisualID(op.getContainerView(), domainElement)) {
 					return false; // visual id for node EClass should match visual id from element type
 				}
 			} else {
-				if (!SimpleMappingEditPart.MODEL_ID
-						.equals(SimplemapVisualIDRegistry.getModelID(op
-								.getContainerView()))) {
+				if (!SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry.getModelID(op.getContainerView()))) {
 					return false; // foreign diagram
 				}
 				switch (visualID) {
@@ -145,10 +132,7 @@ public class SimplemapViewProvider extends AbstractProvider implements
 				case SimpleCompartmentEditPart.VISUAL_ID:
 				case SimpleSubNodeEditPart.VISUAL_ID:
 				case SimpleChildReferenceEditPart.VISUAL_ID:
-					if (domainElement == null
-							|| visualID != SimplemapVisualIDRegistry
-									.getNodeVisualID(op.getContainerView(),
-											domainElement)) {
+					if (domainElement == null || visualID != SimplemapVisualIDRegistry.getNodeVisualID(op.getContainerView(), domainElement)) {
 						return false; // visual id in semantic hint should match visual id for domain element
 					}
 					break;
@@ -157,35 +141,25 @@ public class SimplemapViewProvider extends AbstractProvider implements
 				}
 			}
 		}
-		return SimpleTopNodeEditPart.VISUAL_ID == visualID
-				|| SimpleLinkMappingEditPart.VISUAL_ID == visualID
-				|| SimpleLabelNodeEditPart.VISUAL_ID == visualID
-				|| SimpleCompartmentEditPart.VISUAL_ID == visualID
-				|| SimpleSubNodeEditPart.VISUAL_ID == visualID
-				|| SimpleChildReferenceEditPart.VISUAL_ID == visualID;
+		return SimpleTopNodeEditPart.VISUAL_ID == visualID || SimpleLinkMappingEditPart.VISUAL_ID == visualID || SimpleLabelNodeEditPart.VISUAL_ID == visualID
+				|| SimpleCompartmentEditPart.VISUAL_ID == visualID || SimpleSubNodeEditPart.VISUAL_ID == visualID || SimpleChildReferenceEditPart.VISUAL_ID == visualID;
 	}
 
 	/**
 	 * @generated
 	 */
 	protected boolean provides(CreateEdgeViewOperation op) {
-		IElementType elementType = getSemanticElementType(op
-				.getSemanticAdapter());
-		if (!SimplemapElementTypes.isKnownElementType(elementType)
-				|| (!(elementType instanceof IHintedType))) {
+		IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
+		if (!SimplemapElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
 			return false; // foreign element type
 		}
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
-		if (elementTypeHint == null
-				|| (op.getSemanticHint() != null && !elementTypeHint.equals(op
-						.getSemanticHint()))) {
+		if (elementTypeHint == null || (op.getSemanticHint() != null && !elementTypeHint.equals(op.getSemanticHint()))) {
 			return false; // our hint is visual id and must be specified, and it should be the same as in element type
 		}
 		int visualID = SimplemapVisualIDRegistry.getVisualID(elementTypeHint);
 		EObject domainElement = getSemanticElement(op.getSemanticAdapter());
-		if (domainElement != null
-				&& visualID != SimplemapVisualIDRegistry
-						.getLinkWithClassVisualID(domainElement)) {
+		if (domainElement != null && visualID != SimplemapVisualIDRegistry.getLinkWithClassVisualID(domainElement)) {
 			return false; // visual id for link EClass should match visual id from element type
 		}
 		return true;
@@ -194,8 +168,7 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Diagram createDiagram(IAdaptable semanticAdapter,
-			String diagramKind, PreferencesHint preferencesHint) {
+	public Diagram createDiagram(IAdaptable semanticAdapter, String diagramKind, PreferencesHint preferencesHint) {
 		Diagram diagram = NotationFactory.eINSTANCE.createDiagram();
 		diagram.getStyles().add(NotationFactory.eINSTANCE.createDiagramStyle());
 		diagram.setType(SimpleMappingEditPart.MODEL_ID);
@@ -207,36 +180,27 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createNode(IAdaptable semanticAdapter, View containerView,
-			String semanticHint, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createNode(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
 		final EObject domainElement = getSemanticElement(semanticAdapter);
 		final int visualID;
 		if (semanticHint == null) {
-			visualID = SimplemapVisualIDRegistry.getNodeVisualID(containerView,
-					domainElement);
+			visualID = SimplemapVisualIDRegistry.getNodeVisualID(containerView, domainElement);
 		} else {
 			visualID = SimplemapVisualIDRegistry.getVisualID(semanticHint);
 		}
 		switch (visualID) {
 		case SimpleTopNodeEditPart.VISUAL_ID:
-			return createSimpleTopNode_1001(domainElement, containerView,
-					index, persisted, preferencesHint);
+			return createSimpleTopNode_1001(domainElement, containerView, index, persisted, preferencesHint);
 		case SimpleLinkMappingEditPart.VISUAL_ID:
-			return createSimpleLinkMapping_1002(domainElement, containerView,
-					index, persisted, preferencesHint);
+			return createSimpleLinkMapping_1002(domainElement, containerView, index, persisted, preferencesHint);
 		case SimpleLabelNodeEditPart.VISUAL_ID:
-			return createSimpleLabelNode_2001(domainElement, containerView,
-					index, persisted, preferencesHint);
+			return createSimpleLabelNode_2001(domainElement, containerView, index, persisted, preferencesHint);
 		case SimpleCompartmentEditPart.VISUAL_ID:
-			return createSimpleCompartment_2002(domainElement, containerView,
-					index, persisted, preferencesHint);
+			return createSimpleCompartment_2002(domainElement, containerView, index, persisted, preferencesHint);
 		case SimpleSubNodeEditPart.VISUAL_ID:
-			return createSimpleSubNode_2003(domainElement, containerView,
-					index, persisted, preferencesHint);
+			return createSimpleSubNode_2003(domainElement, containerView, index, persisted, preferencesHint);
 		case SimpleChildReferenceEditPart.VISUAL_ID:
-			return createSimpleChildReference_2004(domainElement,
-					containerView, index, persisted, preferencesHint);
+			return createSimpleChildReference_2004(domainElement, containerView, index, persisted, preferencesHint);
 		}
 		// can't happen, provided #provides(CreateNodeViewOperation) is correct
 		return null;
@@ -245,9 +209,7 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Edge createEdge(IAdaptable semanticAdapter, View containerView,
-			String semanticHint, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Edge createEdge(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
 		switch (SimplemapVisualIDRegistry.getVisualID(elementTypeHint)) {
@@ -259,91 +221,66 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createSimpleTopNode_1001(EObject domainElement,
-			View containerView, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createSimpleTopNode_1001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(SimplemapVisualIDRegistry
-				.getType(SimpleTopNodeEditPart.VISUAL_ID));
+		node.setType(SimplemapVisualIDRegistry.getType(SimpleTopNodeEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		stampShortcut(containerView, node);
 		// initializeFromPreferences 
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-				.getPreferenceStore();
-		FontStyle nodeFontStyle = (FontStyle) node
-				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
 		if (nodeFontStyle != null) {
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-					IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
 			nodeFontStyle.setFontName(fontData.getName());
 			nodeFontStyle.setFontHeight(fontData.getHeight());
 			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
 			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-					.intValue());
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
 		}
-		Node label4003 = createLabel(node,
-				SimplemapVisualIDRegistry
-						.getType(SimpleTopNodeNameEditPart.VISUAL_ID));
+		Node label4003 = createLabel(node, SimplemapVisualIDRegistry.getType(SimpleTopNodeNameEditPart.VISUAL_ID));
 		return node;
 	}
 
 	/**
 	 * @generated
 	 */
-	public Node createSimpleLinkMapping_1002(EObject domainElement,
-			View containerView, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createSimpleLinkMapping_1002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(SimplemapVisualIDRegistry
-				.getType(SimpleLinkMappingEditPart.VISUAL_ID));
+		node.setType(SimplemapVisualIDRegistry.getType(SimpleLinkMappingEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		stampShortcut(containerView, node);
 		// initializeFromPreferences 
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-				.getPreferenceStore();
-		FontStyle nodeFontStyle = (FontStyle) node
-				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
 		if (nodeFontStyle != null) {
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-					IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
 			nodeFontStyle.setFontName(fontData.getName());
 			nodeFontStyle.setFontHeight(fontData.getHeight());
 			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
 			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-					.intValue());
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
 		}
-		Node label4004 = createLabel(node,
-				SimplemapVisualIDRegistry
-						.getType(SimpleLinkMappingNameEditPart.VISUAL_ID));
+		Node label4004 = createLabel(node, SimplemapVisualIDRegistry.getType(SimpleLinkMappingNameEditPart.VISUAL_ID));
 		return node;
 	}
 
 	/**
 	 * @generated
 	 */
-	public Node createSimpleLabelNode_2001(EObject domainElement,
-			View containerView, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createSimpleLabelNode_2001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
-		node.setType(SimplemapVisualIDRegistry
-				.getType(SimpleLabelNodeEditPart.VISUAL_ID));
+		node.setType(SimplemapVisualIDRegistry.getType(SimpleLabelNodeEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		return node;
@@ -352,96 +289,68 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	/**
 	 * @generated
 	 */
-	public Node createSimpleCompartment_2002(EObject domainElement,
-			View containerView, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createSimpleCompartment_2002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createLineStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(SimplemapVisualIDRegistry
-				.getType(SimpleCompartmentEditPart.VISUAL_ID));
+		node.setType(SimplemapVisualIDRegistry.getType(SimpleCompartmentEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-				.getPreferenceStore();
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
 
-		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
-				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
-		ViewUtil.setStructuralFeatureValue(node,
-				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
-				FigureUtilities.RGBToInteger(lineRGB));
-		FontStyle nodeFontStyle = (FontStyle) node
-				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node, NotationPackage.eINSTANCE.getLineStyle_LineColor(), FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
 		if (nodeFontStyle != null) {
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-					IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
 			nodeFontStyle.setFontName(fontData.getName());
 			nodeFontStyle.setFontHeight(fontData.getHeight());
 			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
 			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-					.intValue());
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
 		}
-		Node label4002 = createLabel(node,
-				SimplemapVisualIDRegistry
-						.getType(SimpleCompartmentNameEditPart.VISUAL_ID));
+		Node label4002 = createLabel(node, SimplemapVisualIDRegistry.getType(SimpleCompartmentNameEditPart.VISUAL_ID));
 		return node;
 	}
 
 	/**
 	 * @generated
 	 */
-	public Node createSimpleSubNode_2003(EObject domainElement,
-			View containerView, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createSimpleSubNode_2003(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
-		node.getStyles()
-				.add(NotationFactory.eINSTANCE.createDescriptionStyle());
+		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
 		node.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
-		node.setType(SimplemapVisualIDRegistry
-				.getType(SimpleSubNodeEditPart.VISUAL_ID));
+		node.setType(SimplemapVisualIDRegistry.getType(SimpleSubNodeEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		// initializeFromPreferences 
-		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
-				.getPreferenceStore();
-		FontStyle nodeFontStyle = (FontStyle) node
-				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint.getPreferenceStore();
+		FontStyle nodeFontStyle = (FontStyle) node.getStyle(NotationPackage.Literals.FONT_STYLE);
 		if (nodeFontStyle != null) {
-			FontData fontData = PreferenceConverter.getFontData(prefStore,
-					IPreferenceConstants.PREF_DEFAULT_FONT);
+			FontData fontData = PreferenceConverter.getFontData(prefStore, IPreferenceConstants.PREF_DEFAULT_FONT);
 			nodeFontStyle.setFontName(fontData.getName());
 			nodeFontStyle.setFontHeight(fontData.getHeight());
 			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
 			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
-			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
-					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
-			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
-					.intValue());
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB).intValue());
 		}
-		Node label4001 = createLabel(node,
-				SimplemapVisualIDRegistry
-						.getType(SimpleSubNodeNameEditPart.VISUAL_ID));
+		Node label4001 = createLabel(node, SimplemapVisualIDRegistry.getType(SimpleSubNodeNameEditPart.VISUAL_ID));
 		return node;
 	}
 
 	/**
 	 * @generated
 	 */
-	public Node createSimpleChildReference_2004(EObject domainElement,
-			View containerView, int index, boolean persisted,
-			PreferencesHint preferencesHint) {
+	public Node createSimpleChildReference_2004(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
-		node.setType(SimplemapVisualIDRegistry
-				.getType(SimpleChildReferenceEditPart.VISUAL_ID));
+		node.setType(SimplemapVisualIDRegistry.getType(SimpleChildReferenceEditPart.VISUAL_ID));
 		ViewUtil.insertChildView(containerView, node, index, persisted);
 		node.setElement(domainElement);
 		return node;
@@ -451,13 +360,10 @@ public class SimplemapViewProvider extends AbstractProvider implements
 	 * @generated
 	 */
 	private void stampShortcut(View containerView, Node target) {
-		if (!SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry
-				.getModelID(containerView))) {
-			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE
-					.createEAnnotation();
+		if (!SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry.getModelID(containerView))) {
+			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
 			shortcutAnnotation.setSource("Shortcut"); //$NON-NLS-1$
-			shortcutAnnotation.getDetails().put(
-					"modelID", SimpleMappingEditPart.MODEL_ID); //$NON-NLS-1$
+			shortcutAnnotation.getDetails().put("modelID", SimpleMappingEditPart.MODEL_ID); //$NON-NLS-1$
 			target.getEAnnotations().add(shortcutAnnotation);
 		}
 	}
@@ -481,8 +387,7 @@ public class SimplemapViewProvider extends AbstractProvider implements
 		}
 		EObject eObject = (EObject) semanticAdapter.getAdapter(EObject.class);
 		if (eObject != null) {
-			return EMFCoreUtil.resolve(
-					TransactionUtil.getEditingDomain(eObject), eObject);
+			return EMFCoreUtil.resolve(TransactionUtil.getEditingDomain(eObject), eObject);
 		}
 		return null;
 	}

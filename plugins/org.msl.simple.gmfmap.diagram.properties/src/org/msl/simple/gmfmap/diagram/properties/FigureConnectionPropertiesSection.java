@@ -10,12 +10,11 @@ public class FigureConnectionPropertiesSection extends AbstractSimplemapProperty
 		Object transformSelection = super.transformSelection(selected);
 
 		LinkMapping linkMapping = null;
-		
-		if(transformSelection instanceof SimpleLinkMapping)
-		{
-			linkMapping = ((SimpleLinkMapping)transformSelection).getLinkMapping();
+
+		if (transformSelection instanceof SimpleLinkMapping) {
+			linkMapping = ((SimpleLinkMapping) transformSelection).getLinkMapping();
 		}
-			
+
 		return linkMapping;
 	}
 

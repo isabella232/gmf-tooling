@@ -121,8 +121,7 @@ public class SimplemapEditPartProvider extends AbstractEditPartProvider {
 	public synchronized boolean provides(IOperation operation) {
 		if (operation instanceof CreateGraphicEditPartOperation) {
 			View view = ((IEditPartOperation) operation).getView();
-			if (!SimpleMappingEditPart.MODEL_ID
-					.equals(SimplemapVisualIDRegistry.getModelID(view))) {
+			if (!SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry.getModelID(view))) {
 				return false;
 			}
 			if (isAllowCaching() && getCachedPart(view) != null) {

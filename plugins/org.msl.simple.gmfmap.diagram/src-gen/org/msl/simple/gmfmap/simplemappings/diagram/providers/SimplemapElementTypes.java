@@ -55,22 +55,27 @@ public class SimplemapElementTypes {
 	 * @generated
 	 */
 	public static final IElementType SimpleMapping_79 = getElementType("org.msl.simple.gmfmap.diagram.SimpleMapping_79"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType SimpleTopNode_1001 = getElementType("org.msl.simple.gmfmap.diagram.SimpleTopNode_1001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType SimpleLinkMapping_1002 = getElementType("org.msl.simple.gmfmap.diagram.SimpleLinkMapping_1002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType SimpleLabelNode_2001 = getElementType("org.msl.simple.gmfmap.diagram.SimpleLabelNode_2001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType SimpleCompartment_2002 = getElementType("org.msl.simple.gmfmap.diagram.SimpleCompartment_2002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
@@ -101,26 +106,21 @@ public class SimplemapElementTypes {
 	/**
 	 * @generated
 	 */
-	private static ImageDescriptor getProvidedImageDescriptor(
-			ENamedElement element) {
+	private static ImageDescriptor getProvidedImageDescriptor(ENamedElement element) {
 		if (element instanceof EStructuralFeature) {
 			EStructuralFeature feature = ((EStructuralFeature) element);
 			EClass eContainingClass = feature.getEContainingClass();
 			EClassifier eType = feature.getEType();
 			if (eContainingClass != null && !eContainingClass.isAbstract()) {
 				element = eContainingClass;
-			} else if (eType instanceof EClass
-					&& !((EClass) eType).isAbstract()) {
+			} else if (eType instanceof EClass && !((EClass) eType).isAbstract()) {
 				element = eType;
 			}
 		}
 		if (element instanceof EClass) {
 			EClass eClass = (EClass) element;
 			if (!eClass.isAbstract()) {
-				return SimplemapDiagramEditorPlugin.getInstance()
-						.getItemImageDescriptor(
-								eClass.getEPackage().getEFactoryInstance()
-										.create(eClass));
+				return SimplemapDiagramEditorPlugin.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
 			}
 		}
 		// TODO : support structural features
@@ -192,26 +192,19 @@ public class SimplemapElementTypes {
 		if (elements == null) {
 			elements = new IdentityHashMap<IElementType, ENamedElement>();
 
-			elements.put(SimpleMapping_79,
-					SimplemappingsPackage.eINSTANCE.getSimpleMapping());
+			elements.put(SimpleMapping_79, SimplemappingsPackage.eINSTANCE.getSimpleMapping());
 
-			elements.put(SimpleTopNode_1001,
-					SimplemappingsPackage.eINSTANCE.getSimpleTopNode());
+			elements.put(SimpleTopNode_1001, SimplemappingsPackage.eINSTANCE.getSimpleTopNode());
 
-			elements.put(SimpleLinkMapping_1002,
-					SimplemappingsPackage.eINSTANCE.getSimpleLinkMapping());
+			elements.put(SimpleLinkMapping_1002, SimplemappingsPackage.eINSTANCE.getSimpleLinkMapping());
 
-			elements.put(SimpleLabelNode_2001,
-					SimplemappingsPackage.eINSTANCE.getSimpleLabelNode());
+			elements.put(SimpleLabelNode_2001, SimplemappingsPackage.eINSTANCE.getSimpleLabelNode());
 
-			elements.put(SimpleCompartment_2002,
-					SimplemappingsPackage.eINSTANCE.getSimpleCompartment());
+			elements.put(SimpleCompartment_2002, SimplemappingsPackage.eINSTANCE.getSimpleCompartment());
 
-			elements.put(SimpleSubNode_2003,
-					SimplemappingsPackage.eINSTANCE.getSimpleSubNode());
+			elements.put(SimpleSubNode_2003, SimplemappingsPackage.eINSTANCE.getSimpleSubNode());
 
-			elements.put(SimpleChildReference_2004,
-					SimplemappingsPackage.eINSTANCE.getSimpleChildReference());
+			elements.put(SimpleChildReference_2004, SimplemappingsPackage.eINSTANCE.getSimpleChildReference());
 		}
 		return (ENamedElement) elements.get(type);
 	}

@@ -10,8 +10,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class SimplemapIconProvider extends AbstractProvider implements
-		IIconProvider {
+public class SimplemapIconProvider extends AbstractProvider implements IIconProvider {
 
 	/**
 	 * @generated

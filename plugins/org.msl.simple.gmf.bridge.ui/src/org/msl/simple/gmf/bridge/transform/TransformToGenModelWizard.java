@@ -27,20 +27,25 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
 
 public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizard {
-	
+
 	private IStructuredSelection mySelection;
 
 	private GMFGenNewFileCreationPage newFileCreationPage;
+
 	private MapModelConfigurationPage mapModelPage;
+
 	private ModelDiagnosticPage mapDiagnosticPage;
+
 	private GenModelConfigurationPage genModelPage;
+
 	private ViewmapProducerWizardPage transformOptionPage;
+
 	private ModelDiagnosticPage genDiagnosticPage;
-	
+
 	private WizardPage myErrorContainer;
-	
+
 	private SimpleTransformToGenModelOperation myOperation;
-	
+
 	@Override
 	public void addPages() {
 		final String defaultName = "My"; //$NON-NLS-1$
@@ -52,14 +57,14 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			newFileCreationPage.setFileName(WizardUtil.getDefaultFileName(mySelection, defaultName, GMFGenNewFileCreationPage.EXT_GMFGEN));
 		}
 		addPage(newFileCreationPage);
-		
+
 		final ResourceSet resourceSet = getTransformOperation().getResourceSet();
 		ResourceLocationProvider rlp = new ResourceLocationProvider(mySelection);
 		mapModelPage = new MapModelConfigurationPage(MapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
 		mapModelPage.setPageComplete(false);
 		mapModelPage.setModelRequired(true);
 		addPage(mapModelPage);
-		
+
 		mapDiagnosticPage = new MapModelDiagnosticPage(MapModelDiagnosticPage.class.getSimpleName());
 		addPage(mapDiagnosticPage);
 
@@ -71,7 +76,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		transformOptionPage = new ViewmapProducerWizardPage(ViewmapProducerWizardPage.class.getSimpleName());
 		transformOptionPage.setPageComplete(false);
 		addPage(transformOptionPage);
-		
+
 		genDiagnosticPage = new GMFGenModelDiagnosticPage(GMFGenModelDiagnosticPage.class.getSimpleName());
 		addPage(genDiagnosticPage);
 	}
@@ -125,24 +130,24 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		}
 		return genModelPage;
 	}
-	
+
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.mySelection = selection;
 		setWindowTitle(Messages.TransformToGenModelWizard_title_wizard);
 		setNeedsProgressMonitor(true);
 		myOperation = new SimpleTransformToGenModelOperation(createResourceSet());
 	}
-	
+
 	@Override
 	public boolean performFinish() {
-		if (getTransformOperation().getOptions().getIgnoreGMFGenValidation() && 
-				getContainer().getCurrentPage() == genDiagnosticPage) {
+		if (getTransformOperation().getOptions().getIgnoreGMFGenValidation() && getContainer().getCurrentPage() == genDiagnosticPage) {
 			saveTransformOptions();
 			return true;
 		}
 		try {
 			final IStatus[] s = new IStatus[1];
 			IRunnableWithProgress iwr = new IRunnableWithProgress() {
+
 				public void run(IProgressMonitor monitor) {
 					SimpleTransformToGenModelOperation op = getTransformOperation();
 					IFile target = getTargetFile();
@@ -172,12 +177,12 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			setErrorMessage(message);
 			Plugin.log(Plugin.createError(message, targetException));
 			return false;
-		} catch (InterruptedException ex){
+		} catch (InterruptedException ex) {
 			setErrorMessage(Messages.TransformToGenModelWizard_e_operation_cancelled);
 			return false;
 		}
 	}
-	
+
 	private boolean processGMFGenValidationResult() {
 		if (checkGMFGenValidationResult()) {
 			setErrorMessage(null);
@@ -187,13 +192,13 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		getContainer().showPage(genDiagnosticPage);
 		return false;
 	}
-	
+
 	private void saveTransformOptions() {
 		if (getTransformOperation() != null) {
 			getTransformOperation().getOptions().flush();
 		}
 	}
-	
+
 	@Override
 	public boolean performCancel() {
 		if (getTransformOperation() != null) {
@@ -205,11 +210,11 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	SimpleTransformToGenModelOperation getTransformOperation() {
 		return myOperation;
 	}
-	
+
 	IFile getTargetFile() {
 		return newFileCreationPage.getModelFile();
 	}
-	
+
 	IFile getMapFile() {
 		URI mapURI = mapModelPage.getURI();
 		if (mapURI != null) {

@@ -2,7 +2,6 @@ package org.msl.simple.gmf.bridge.transform;
 
 import org.eclipse.emf.common.util.Diagnostic;
 
-
 class GMFGenModelDiagnosticPage extends ModelDiagnosticPage {
 
 	GMFGenModelDiagnosticPage(String pageName) {

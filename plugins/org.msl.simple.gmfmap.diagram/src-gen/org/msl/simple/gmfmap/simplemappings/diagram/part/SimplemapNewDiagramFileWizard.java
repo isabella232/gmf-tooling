@@ -52,43 +52,30 @@ public class SimplemapNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	public SimplemapNewDiagramFileWizard(URI domainModelURI,
-			EObject diagramRoot, TransactionalEditingDomain editingDomain) {
+	public SimplemapNewDiagramFileWizard(URI domainModelURI, EObject diagramRoot, TransactionalEditingDomain editingDomain) {
 		assert domainModelURI != null : "Domain model uri must be specified"; //$NON-NLS-1$
 		assert diagramRoot != null : "Doagram root element must be specified"; //$NON-NLS-1$
 		assert editingDomain != null : "Editing domain must be specified"; //$NON-NLS-1$
 
-		myFileCreationPage = new WizardNewFileCreationPage(
-				Messages.SimplemapNewDiagramFileWizard_CreationPageName,
-				StructuredSelection.EMPTY);
-		myFileCreationPage
-				.setTitle(Messages.SimplemapNewDiagramFileWizard_CreationPageTitle);
-		myFileCreationPage.setDescription(NLS.bind(
-				Messages.SimplemapNewDiagramFileWizard_CreationPageDescription,
-				SimpleMappingEditPart.MODEL_ID));
+		myFileCreationPage = new WizardNewFileCreationPage(Messages.SimplemapNewDiagramFileWizard_CreationPageName, StructuredSelection.EMPTY);
+		myFileCreationPage.setTitle(Messages.SimplemapNewDiagramFileWizard_CreationPageTitle);
+		myFileCreationPage.setDescription(NLS.bind(Messages.SimplemapNewDiagramFileWizard_CreationPageDescription, SimpleMappingEditPart.MODEL_ID));
 		IPath filePath;
-		String fileName = URI.decode(domainModelURI.trimFileExtension()
-				.lastSegment());
+		String fileName = URI.decode(domainModelURI.trimFileExtension().lastSegment());
 		if (domainModelURI.isPlatformResource()) {
-			filePath = new Path(domainModelURI.trimSegments(1)
-					.toPlatformString(true));
+			filePath = new Path(domainModelURI.trimSegments(1).toPlatformString(true));
 		} else if (domainModelURI.isFile()) {
 			filePath = new Path(domainModelURI.trimSegments(1).toFileString());
 		} else {
 			// TODO : use some default path
-			throw new IllegalArgumentException(
-					"Unsupported URI: " + domainModelURI); //$NON-NLS-1$
+			throw new IllegalArgumentException("Unsupported URI: " + domainModelURI); //$NON-NLS-1$
 		}
 		myFileCreationPage.setContainerFullPath(filePath);
-		myFileCreationPage.setFileName(SimplemapDiagramEditorUtil
-				.getUniqueFileName(filePath, fileName, "simplemappings")); //$NON-NLS-1$
+		myFileCreationPage.setFileName(SimplemapDiagramEditorUtil.getUniqueFileName(filePath, fileName, "simplemappings")); //$NON-NLS-1$
 
-		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(
-				Messages.SimplemapNewDiagramFileWizard_RootSelectionPageName);
-		diagramRootElementSelectionPage
-				.setTitle(Messages.SimplemapNewDiagramFileWizard_RootSelectionPageTitle);
-		diagramRootElementSelectionPage
-				.setDescription(Messages.SimplemapNewDiagramFileWizard_RootSelectionPageDescription);
+		diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(Messages.SimplemapNewDiagramFileWizard_RootSelectionPageName);
+		diagramRootElementSelectionPage.setTitle(Messages.SimplemapNewDiagramFileWizard_RootSelectionPageTitle);
+		diagramRootElementSelectionPage.setDescription(Messages.SimplemapNewDiagramFileWizard_RootSelectionPageDescription);
 		diagramRootElementSelectionPage.setModelElement(diagramRoot);
 
 		myEditingDomain = editingDomain;
@@ -110,49 +97,32 @@ public class SimplemapNewDiagramFileWizard extends Wizard {
 		IFile diagramFile = myFileCreationPage.createNewFile();
 		SimplemapDiagramEditorUtil.setCharset(diagramFile);
 		affectedFiles.add(diagramFile);
-		URI diagramModelURI = URI.createPlatformResourceURI(diagramFile
-				.getFullPath().toString(), true);
+		URI diagramModelURI = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
 		ResourceSet resourceSet = myEditingDomain.getResourceSet();
-		final Resource diagramResource = resourceSet
-				.createResource(diagramModelURI);
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
-				myEditingDomain,
-				Messages.SimplemapNewDiagramFileWizard_InitDiagramCommand,
-				affectedFiles) {
+		final Resource diagramResource = resourceSet.createResource(diagramModelURI);
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, Messages.SimplemapNewDiagramFileWizard_InitDiagramCommand, affectedFiles) {
 
-			protected CommandResult doExecuteWithResult(
-					IProgressMonitor monitor, IAdaptable info)
-					throws ExecutionException {
-				int diagramVID = SimplemapVisualIDRegistry
-						.getDiagramVisualID(diagramRootElementSelectionPage
-								.getModelElement());
+			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				int diagramVID = SimplemapVisualIDRegistry.getDiagramVisualID(diagramRootElementSelectionPage.getModelElement());
 				if (diagramVID != SimpleMappingEditPart.VISUAL_ID) {
-					return CommandResult
-							.newErrorCommandResult(Messages.SimplemapNewDiagramFileWizard_IncorrectRootError);
+					return CommandResult.newErrorCommandResult(Messages.SimplemapNewDiagramFileWizard_IncorrectRootError);
 				}
-				Diagram diagram = ViewService.createDiagram(
-						diagramRootElementSelectionPage.getModelElement(),
-						SimpleMappingEditPart.MODEL_ID,
-						SimplemapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(diagramRootElementSelectionPage.getModelElement(), SimpleMappingEditPart.MODEL_ID, SimplemapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				diagramResource.getContents().add(diagram);
 				diagramResource.getContents().add(diagram.getElement());
 				return CommandResult.newOKCommandResult();
 			}
 		};
 		try {
-			OperationHistoryFactory.getOperationHistory().execute(command,
-					new NullProgressMonitor(), null);
+			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
 			diagramResource.save(SimplemapDiagramEditorUtil.getSaveOptions());
 			SimplemapDiagramEditorUtil.openDiagram(diagramResource);
 		} catch (ExecutionException e) {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Unable to create model and diagram", e); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		} catch (IOException ex) {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Save operation failed for: " + diagramModelURI, ex); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + diagramModelURI, ex); //$NON-NLS-1$
 		} catch (PartInitException ex) {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Unable to open editor", ex); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
 		}
 		return true;
 	}
@@ -160,8 +130,7 @@ public class SimplemapNewDiagramFileWizard extends Wizard {
 	/**
 	 * @generated
 	 */
-	private static class DiagramRootElementSelectionPage extends
-			ModelElementSelectionPage {
+	private static class DiagramRootElementSelectionPage extends ModelElementSelectionPage {
 
 		/**
 		 * @generated
@@ -185,15 +154,9 @@ public class SimplemapNewDiagramFileWizard extends Wizard {
 				setErrorMessage(Messages.SimplemapNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
-			boolean result = ViewService
-					.getInstance()
-					.provides(
-							new CreateDiagramViewOperation(
-									new EObjectAdapter(selectedModelElement),
-									SimpleMappingEditPart.MODEL_ID,
-									SimplemapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
-			setErrorMessage(result ? null
-					: Messages.SimplemapNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
+			boolean result = ViewService.getInstance().provides(
+					new CreateDiagramViewOperation(new EObjectAdapter(selectedModelElement), SimpleMappingEditPart.MODEL_ID, SimplemapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+			setErrorMessage(result ? null : Messages.SimplemapNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
 			return result;
 		}
 	}

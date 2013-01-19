@@ -10,33 +10,31 @@ import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
 import org.msl.simple.gmfmap.simplemappings.SimpleNode;
 
 class NewCompartmentTrigger extends NewElementTrigger {
-	
+
 	private SimpleCompartment newSimpleCompartment;
+
 	private SimpleNode parent;
-	
 
 	public NewCompartmentTrigger(TransactionalEditingDomain domain, SimpleNode parent, SimpleCompartment newCompartment) {
 		super(domain, newCompartment);
-		
+
 		this.newSimpleCompartment = newCompartment;
 		this.parent = parent;
 	}
 
 	@Override
 	public void executeTrigger() {
-		
+
 		Compartment newCompartment = GMFGraphFactory.eINSTANCE.createCompartment();
-		
+
 		newCompartment.setNeedsTitle(newSimpleCompartment.isNeedsTitle());
 
 		updateCanvas(newCompartment);
 		updateMapping(newCompartment);
 	}
-	
-	
-	private void updateCanvas(Compartment newCompartment)
-	{
-		
+
+	private void updateCanvas(Compartment newCompartment) {
+
 		//Obtenemos la figura del padre:
 		FigureDescriptor parentFigureDesc = parent.getDiagramNode().getFigure();
 
@@ -45,18 +43,13 @@ class NewCompartmentTrigger extends NewElementTrigger {
 		//canvasFactory.createDefaultCompartmentWithLabel(parentFigureDesc, newCompartment);
 	}
 
-	
-	private void updateMapping(Compartment newCompartment)
-	{
+	private void updateMapping(Compartment newCompartment) {
 		CompartmentMapping compartmentMapping = GMFMapFactory.eINSTANCE.createCompartmentMapping();
 		compartmentMapping.setCompartment(newCompartment);
-		
+
 		parent.getNodeReference().getChild().getCompartments().add(compartmentMapping);
-		
+
 		newSimpleCompartment.setCompartmentMapping(compartmentMapping);
 	}
-
-
-
 
 }

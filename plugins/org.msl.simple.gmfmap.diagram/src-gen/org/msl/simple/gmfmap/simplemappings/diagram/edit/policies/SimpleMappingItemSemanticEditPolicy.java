@@ -13,8 +13,7 @@ import org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapElementTy
 /**
  * @generated
  */
-public class SimpleMappingItemSemanticEditPolicy extends
-		SimplemapBaseItemSemanticEditPolicy {
+public class SimpleMappingItemSemanticEditPolicy extends SimplemapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -30,8 +29,7 @@ public class SimpleMappingItemSemanticEditPolicy extends
 		if (SimplemapElementTypes.SimpleTopNode_1001 == req.getElementType()) {
 			return getGEFWrapper(new SimpleTopNodeCreateCommand(req));
 		}
-		if (SimplemapElementTypes.SimpleLinkMapping_1002 == req
-				.getElementType()) {
+		if (SimplemapElementTypes.SimpleLinkMapping_1002 == req.getElementType()) {
 			return getGEFWrapper(new SimpleLinkMappingCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
@@ -41,26 +39,20 @@ public class SimpleMappingItemSemanticEditPolicy extends
 	 * @generated
 	 */
 	protected Command getDuplicateCommand(DuplicateElementsRequest req) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
-				.getEditingDomain();
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 		return getGEFWrapper(new DuplicateAnythingCommand(editingDomain, req));
 	}
 
 	/**
 	 * @generated
 	 */
-	private static class DuplicateAnythingCommand extends
-			DuplicateEObjectsCommand {
+	private static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {
 
 		/**
 		 * @generated
 		 */
-		public DuplicateAnythingCommand(
-				TransactionalEditingDomain editingDomain,
-				DuplicateElementsRequest req) {
-			super(editingDomain, req.getLabel(), req
-					.getElementsToBeDuplicated(), req
-					.getAllDuplicatedElementsMap());
+		public DuplicateAnythingCommand(TransactionalEditingDomain editingDomain, DuplicateElementsRequest req) {
+			super(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
 		}
 
 	}

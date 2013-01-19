@@ -8,11 +8,8 @@ package org.msl.simple.gmfmap.simplemappings.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.mappings.NodeReference;
-
 import org.msl.simple.gmfmap.simplemappings.SimpleNodeReference;
 import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
 
@@ -32,6 +29,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleNodeReferenceImpl extends EObjectImpl implements SimpleNodeReference {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,7 +65,7 @@ public class SimpleNodeReferenceImpl extends EObjectImpl implements SimpleNodeRe
 	 * @generated
 	 */
 	public NodeReference getNodeReference() {
-		return (NodeReference)eGet(SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__NODE_REFERENCE, true);
+		return (NodeReference) eGet(SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__NODE_REFERENCE, true);
 	}
 
 	/**
@@ -85,7 +83,7 @@ public class SimpleNodeReferenceImpl extends EObjectImpl implements SimpleNodeRe
 	 * @generated
 	 */
 	public EReference getContainmentFeature() {
-		return (EReference)eGet(SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__CONTAINMENT_FEATURE, true);
+		return (EReference) eGet(SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__CONTAINMENT_FEATURE, true);
 	}
 
 	/**
@@ -103,7 +101,7 @@ public class SimpleNodeReferenceImpl extends EObjectImpl implements SimpleNodeRe
 	 * @generated
 	 */
 	public String getName() {
-		return (String)eGet(SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__NAME, true);
+		return (String) eGet(SimplemappingsPackage.Literals.SIMPLE_NODE_REFERENCE__NAME, true);
 	}
 
 	/**

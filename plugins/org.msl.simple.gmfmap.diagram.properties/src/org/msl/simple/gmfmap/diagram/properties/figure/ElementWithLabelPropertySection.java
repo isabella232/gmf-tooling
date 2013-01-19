@@ -28,9 +28,8 @@ import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
 import org.msl.simple.gmfmap.simplemappings.SimpleNode;
 
 public abstract class ElementWithLabelPropertySection extends AbstractExtendedPropertiesSection {
-	
-	protected static final String FONTS_AND_COLORS_LABEL = DiagramUIPropertiesMessages.
-		FontAndColor_nameLabel;
+
+	protected static final String FONTS_AND_COLORS_LABEL = DiagramUIPropertiesMessages.FontAndColor_nameLabel;
 
 	// font family drop down
 	protected CCombo fontFamilyCombo;
@@ -41,17 +40,21 @@ public abstract class ElementWithLabelPropertySection extends AbstractExtendedPr
 	private Button fontBoldButton;
 
 	private Button fontItalicButton;
-	
+
 	protected Group fontsGroup;
 
 	private DataBindingContext bindingContext = new DataBindingContext();;
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.gmf.runtime.diagram.ui.properties.sections.AbstractNotationPropertiesSection#initializeControls(org.eclipse.swt.widgets.Composite)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.gmf.runtime.diagram.ui.properties.sections.
+	 * AbstractNotationPropertiesSection
+	 * #initializeControls(org.eclipse.swt.widgets.Composite)
 	 */
 	protected void initializeControls(Composite parent) {
 		super.initializeControls(parent);
-		createFontsAndColorsGroups(composite);		
+		createFontsAndColorsGroups(composite);
 	}
 
 	/**
@@ -60,8 +63,7 @@ public abstract class ElementWithLabelPropertySection extends AbstractExtendedPr
 	 * @param parent - parent composite
 	 */
 	protected Group createFontsAndColorsGroups(Composite parent) {
-		fontsGroup = getWidgetFactory().createGroup(parent,
-			FONTS_AND_COLORS_LABEL);
+		fontsGroup = getWidgetFactory().createGroup(parent, FONTS_AND_COLORS_LABEL);
 		GridLayout layout = new GridLayout(1, false);
 		fontsGroup.setLayout(layout);
 
@@ -70,7 +72,7 @@ public abstract class ElementWithLabelPropertySection extends AbstractExtendedPr
 		return fontsGroup;
 
 	}
-	
+
 	/**
 	 * Create  font tool bar group
 	 * 
@@ -85,15 +87,11 @@ public abstract class ElementWithLabelPropertySection extends AbstractExtendedPr
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
 		familySize.setLayout(layout);
-		
-		
-		
-		fontFamilyCombo = getWidgetFactory().createCCombo(familySize,
-			SWT.DROP_DOWN | SWT.READ_ONLY | SWT.BORDER);
+
+		fontFamilyCombo = getWidgetFactory().createCCombo(familySize, SWT.DROP_DOWN | SWT.READ_ONLY | SWT.BORDER);
 		fontFamilyCombo.setItems(FontHelper.getFontNames());
 
-		fontSizeCombo = getWidgetFactory().createCCombo(familySize,
-			SWT.DROP_DOWN | SWT.READ_ONLY | SWT.BORDER);
+		fontSizeCombo = getWidgetFactory().createCCombo(familySize, SWT.DROP_DOWN | SWT.READ_ONLY | SWT.BORDER);
 		fontSizeCombo.setItems(FontHelper.getFontSizes());
 
 		Composite toolBar = new Composite(parent, SWT.SHADOW_NONE);
@@ -102,145 +100,125 @@ public abstract class ElementWithLabelPropertySection extends AbstractExtendedPr
 
 		fontBoldButton = new Button(toolBar, SWT.TOGGLE);
 		fontBoldButton.setImage(DiagramUIPropertiesImages.get(DiagramUIPropertiesImages.IMG_BOLD));
-        fontBoldButton.getAccessible().addAccessibleListener(new AccessibleAdapter() {
-            public void getName(AccessibleEvent e) {
-                e.result = DiagramUIMessages.PropertyDescriptorFactory_FontStyle_Bold;
-            }
-        });
-	
-		
-		fontItalicButton = new Button(toolBar, SWT.TOGGLE );
-		fontItalicButton.setImage(DiagramUIPropertiesImages.get(DiagramUIPropertiesImages.IMG_ITALIC));
-        fontItalicButton.getAccessible().addAccessibleListener(new AccessibleAdapter() {
-            public void getName(AccessibleEvent e) {
-                e.result = DiagramUIMessages.PropertyDescriptorFactory_FontStyle_Italic;
-            }
-        });
+		fontBoldButton.getAccessible().addAccessibleListener(new AccessibleAdapter() {
 
+			public void getName(AccessibleEvent e) {
+				e.result = DiagramUIMessages.PropertyDescriptorFactory_FontStyle_Bold;
+			}
+		});
+
+		fontItalicButton = new Button(toolBar, SWT.TOGGLE);
+		fontItalicButton.setImage(DiagramUIPropertiesImages.get(DiagramUIPropertiesImages.IMG_ITALIC));
+		fontItalicButton.getAccessible().addAccessibleListener(new AccessibleAdapter() {
+
+			public void getName(AccessibleEvent e) {
+				e.result = DiagramUIMessages.PropertyDescriptorFactory_FontStyle_Italic;
+			}
+		});
 
 		return toolBar;
 	}
 
-
-	protected Figure getLabelFigure(Object transformSelection)
-	{
+	protected Figure getLabelFigure(Object transformSelection) {
 		Figure figure = null;
-		
-		if(transformSelection instanceof SimpleNode)
-		{
-			DiagramLabel diagramLabel = ((SimpleNode)transformSelection).getDiagramLabel();
-			if(diagramLabel!=null && diagramLabel.getAccessor()!=null)
+
+		if (transformSelection instanceof SimpleNode) {
+			DiagramLabel diagramLabel = ((SimpleNode) transformSelection).getDiagramLabel();
+			if (diagramLabel != null && diagramLabel.getAccessor() != null)
 				figure = diagramLabel.getAccessor().getFigure();
 		}
-			
-		if(transformSelection instanceof SimpleLabelNode)
-		{
-			figure = ((SimpleNode)transformSelection).getDiagramLabel().getFigure().getActualFigure();
+
+		if (transformSelection instanceof SimpleLabelNode) {
+			figure = ((SimpleNode) transformSelection).getDiagramLabel().getFigure().getActualFigure();
 		}
 
-		
-		if(transformSelection instanceof SimpleCompartment)
-		{
-			figure = ((SimpleCompartment)transformSelection).getCompartment().getFigure().getActualFigure();
+		if (transformSelection instanceof SimpleCompartment) {
+			figure = ((SimpleCompartment) transformSelection).getCompartment().getFigure().getActualFigure();
 		}
-		
-		if(transformSelection instanceof SimpleLinkMapping)
-		{
-			figure = ((SimpleLinkMapping)transformSelection).getDiagramLabel().getFigure().getActualFigure();
+
+		if (transformSelection instanceof SimpleLinkMapping) {
+			figure = ((SimpleLinkMapping) transformSelection).getDiagramLabel().getFigure().getActualFigure();
 
 		}
-		
+
 		return figure;
 	}
 
-	
-	
 	@Override
 	public void dispose() {
 
-		if(bindingContext!=null)
+		if (bindingContext != null)
 			bindingContext.dispose();
 
-		if(fontFamilyCombo!=null)
+		if (fontFamilyCombo != null)
 			fontFamilyCombo.dispose();
-		
-		if(fontSizeCombo!=null)
+
+		if (fontSizeCombo != null)
 			fontSizeCombo.dispose();
-		
-		if(fontBoldButton!=null)
+
+		if (fontBoldButton != null)
 			fontBoldButton.dispose();
-		
-		if(fontItalicButton!=null)
+
+		if (fontItalicButton != null)
 			fontItalicButton.dispose();
-		
-		super.dispose();		
+
+		super.dispose();
 	}
 
 	/**
 	 * @param object
 	 *            The eObject to set.
-	 */	
+	 */
 	protected void setEObject(EObject object) {
 		this.eObject = object;
-		
-		bindingContext.bindValue(
-				WidgetProperties.selection().observe(fontFamilyCombo),
-				EMFProperties.value(GMFGraphPackage.eINSTANCE.getBasicFont_FaceName())
-						.observe(eObject));
-		
-		bindingContext.bindValue(
-				WidgetProperties.selection().observe(fontSizeCombo),
-				EMFProperties.value(GMFGraphPackage.eINSTANCE.getBasicFont_Height())
-						.observe(eObject), new UpdateSizeTargetToModel(), new UpdateSizeModelToTarget());
 
-		bindingContext.bindValue(
-				WidgetProperties.selection().observe(fontBoldButton),
-				EMFProperties.value(GMFGraphPackage.eINSTANCE.getBasicFont_Style())
-						.observe(eObject), new UpdateBoldButtonTargetToModel(), new UpdateBoldButtonModelToTarget());
+		bindingContext.bindValue(WidgetProperties.selection().observe(fontFamilyCombo), EMFProperties.value(GMFGraphPackage.eINSTANCE.getBasicFont_FaceName()).observe(eObject));
+
+		bindingContext.bindValue(WidgetProperties.selection().observe(fontSizeCombo), EMFProperties.value(GMFGraphPackage.eINSTANCE.getBasicFont_Height()).observe(eObject),
+				new UpdateSizeTargetToModel(), new UpdateSizeModelToTarget());
+
+		bindingContext.bindValue(WidgetProperties.selection().observe(fontBoldButton), EMFProperties.value(GMFGraphPackage.eINSTANCE.getBasicFont_Style()).observe(eObject),
+				new UpdateBoldButtonTargetToModel(), new UpdateBoldButtonModelToTarget());
 
 	}
-	
-	class UpdateSizeTargetToModel extends UpdateValueStrategy
-	{
+
+	class UpdateSizeTargetToModel extends UpdateValueStrategy {
 
 		@Override
 		public Object convert(Object value) {
 			// TODO Auto-generated method stub
-			return Integer.parseInt((String)value);
+			return Integer.parseInt((String) value);
 		}
-		
+
 	}
-	
-	class UpdateSizeModelToTarget extends UpdateValueStrategy
-	{
+
+	class UpdateSizeModelToTarget extends UpdateValueStrategy {
 
 		@Override
 		public Object convert(Object value) {
 			// TODO Auto-generated method stub
-			return Integer.toString((Integer)value);
+			return Integer.toString((Integer) value);
 		}
-		
+
 	}
-	
-	class UpdateBoldButtonTargetToModel extends UpdateValueStrategy
-	{
+
+	class UpdateBoldButtonTargetToModel extends UpdateValueStrategy {
 
 		@Override
 		public Object convert(Object value) {
-			boolean isBold = (Boolean)value;
-			FontStyle style = isBold? FontStyle.BOLD_LITERAL:FontStyle.NORMAL_LITERAL;
+			boolean isBold = (Boolean) value;
+			FontStyle style = isBold ? FontStyle.BOLD_LITERAL : FontStyle.NORMAL_LITERAL;
 			return style;
 		}
-		
+
 	}
-	
-	class UpdateBoldButtonModelToTarget extends UpdateValueStrategy
-	{
+
+	class UpdateBoldButtonModelToTarget extends UpdateValueStrategy {
 
 		@Override
 		public Object convert(Object value) {
-			return value==FontStyle.BOLD_LITERAL;
+			return value == FontStyle.BOLD_LITERAL;
 		}
-		
+
 	}
 }

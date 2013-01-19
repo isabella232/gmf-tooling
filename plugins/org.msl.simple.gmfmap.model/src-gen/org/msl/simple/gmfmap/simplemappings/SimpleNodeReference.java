@@ -6,10 +6,8 @@
  */
 package org.msl.simple.gmfmap.simplemappings;
 
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.gmf.mappings.NodeReference;
 
 /**
@@ -31,6 +29,7 @@ import org.eclipse.gmf.mappings.NodeReference;
  * @generated
  */
 public interface SimpleNodeReference extends EObject {
+
 	/**
 	 * Returns the value of the '<em><b>Node Reference</b></em>' reference.
 	 * <!-- begin-user-doc -->

@@ -7,8 +7,9 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.msl.simple.gmfmap.model.triggers.AbstractTrigger;
 
 class SetActualFigureTrigger extends AbstractTrigger {
-	
+
 	private Figure newFigure;
+
 	private Figure oldFigure;
 
 	/**
@@ -19,28 +20,27 @@ class SetActualFigureTrigger extends AbstractTrigger {
 	 */
 	public SetActualFigureTrigger(TransactionalEditingDomain domain, Figure oldFigure, Figure newFigure) {
 		super(domain);
-		
+
 		this.newFigure = newFigure;
 		this.oldFigure = oldFigure;
 	}
 
 	@Override
 	public void executeTrigger() {
-		
-		if(oldFigure==null || newFigure ==null)
+
+		if (oldFigure == null || newFigure == null)
 			return;
-		
+
 		//Containment references
-		for(EReference reference:oldFigure.eClass().getEAllReferences())
-			if(!reference.isDerived() && newFigure.eClass().getEAllReferences().contains(reference))
+		for (EReference reference : oldFigure.eClass().getEAllReferences())
+			if (!reference.isDerived() && newFigure.eClass().getEAllReferences().contains(reference))
 				newFigure.eSet(reference, oldFigure.eGet(reference));
-		
 
 		//Attributes
-		for(EAttribute attribute:oldFigure.eClass().getEAllAttributes())
-			if(newFigure.eClass().getEAllAttributes().contains(attribute))
+		for (EAttribute attribute : oldFigure.eClass().getEAllAttributes())
+			if (newFigure.eClass().getEAllAttributes().contains(attribute))
 				newFigure.eSet(attribute, oldFigure.eGet(attribute));
-		
+
 	}
-	
+
 }

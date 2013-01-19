@@ -20,7 +20,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-
 /**
  * @generated
  */
@@ -42,7 +41,7 @@ public class SimpleMapEditorCreationWizard extends Wizard implements INewWizard 
 	protected SimplemapCreationWizardPage diagramModelFilePage;
 
 	protected DomainModelSelectionPage domainModelSelectionPage;
-	
+
 	/**
 	 * @generated
 	 */
@@ -84,8 +83,7 @@ public class SimpleMapEditorCreationWizard extends Wizard implements INewWizard 
 	/**
 	 * @generated
 	 */
-	public void setOpenNewlyCreatedDiagramEditor(
-			boolean openNewlyCreatedDiagramEditor) {
+	public void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {
 		this.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;
 	}
 
@@ -96,8 +94,7 @@ public class SimpleMapEditorCreationWizard extends Wizard implements INewWizard 
 		this.workbench = workbench;
 		this.selection = selection;
 		setWindowTitle(Messages.SimplemapCreationWizardTitle);
-		setDefaultPageImageDescriptor(SimplemapDiagramEditorPlugin
-				.getBundledImageDescriptor("icons/wizban/NewSimplemappingsWizard.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(SimplemapDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewSimplemappingsWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 
@@ -105,23 +102,20 @@ public class SimpleMapEditorCreationWizard extends Wizard implements INewWizard 
 	 * @generated
 	 */
 	public void addPages() {
-		
+
 		ResourceLocationProvider rloc = new ResourceLocationProvider(selection);
 		ResourceSet resourceSet = new ResourceSetImpl();
-		
-		diagramModelFilePage = new SimplemapCreationWizardPage(
-				"DiagramModelFile", getSelection(), "simplemappings"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage
-				.setTitle(Messages.SimplemapCreationWizard_DiagramModelFilePageTitle);
-		diagramModelFilePage
-				.setDescription(Messages.SimplemapCreationWizard_DiagramModelFilePageDescription);
+
+		diagramModelFilePage = new SimplemapCreationWizardPage("DiagramModelFile", getSelection(), "simplemappings"); //$NON-NLS-1$ //$NON-NLS-2$
+		diagramModelFilePage.setTitle(Messages.SimplemapCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.SimplemapCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
-		
+
 		domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", rloc, resourceSet);
 		domainModelSelectionPage.setTitle(org.eclipse.gmf.internal.bridge.wizards.Messages.SimpleModelWizardDomainModelSelectionPageTitle);
 		domainModelSelectionPage.setDescription(org.eclipse.gmf.internal.bridge.wizards.Messages.SimpleModelWizardDomainModelSelectionPageDesc);
 		domainModelSelectionPage.setModelRequired(true);
-		
+
 		addPage(domainModelSelectionPage);
 
 	}
@@ -132,23 +126,17 @@ public class SimpleMapEditorCreationWizard extends Wizard implements INewWizard 
 	public boolean performFinish() {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
-			protected void execute(IProgressMonitor monitor)
-					throws CoreException, InterruptedException {
-				
+			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+
 				EClass domainMetaElement = domainModelSelectionPage.getDiagramElement();
 				EPackage domainModel = domainModelSelectionPage.getContents();
-				
-				diagram = SimpleMapEditorDiagramEditorUtil.createDiagram(
-						diagramModelFilePage.getURI(), domainMetaElement, domainModel, monitor);
+
+				diagram = SimpleMapEditorDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainMetaElement, domainModel, monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						SimpleMapEditorDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog
-								.openError(
-										getContainer().getShell(),
-										Messages.SimplemapCreationWizardOpenEditorError,
-										null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.SimplemapCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -159,17 +147,13 @@ public class SimpleMapEditorCreationWizard extends Wizard implements INewWizard 
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(),
-						Messages.SimplemapCreationWizardCreationError, null,
-						((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.SimplemapCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
-				SimplemapDiagramEditorPlugin.getInstance().logError(
-						"Error creating diagram", e.getTargetException()); //$NON-NLS-1$
+				SimplemapDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
 			return false;
 		}
 		return diagram != null;
 	}
 
-	
 }

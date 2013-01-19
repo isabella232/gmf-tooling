@@ -8,7 +8,6 @@ package org.msl.simple.gmfmap.simplemappings;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -30,6 +29,7 @@ import org.eclipse.emf.ecore.EReference;
  * @generated
  */
 public interface SimplemappingsPackage extends EPackage {
+
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -1876,6 +1876,7 @@ public interface SimplemappingsPackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals {
+
 		/**
 		 * The meta object literal for the '{@link org.msl.simple.gmfmap.simplemappings.impl.SimpleMappingImpl <em>Simple Mapping</em>}' class.
 		 * <!-- begin-user-doc -->

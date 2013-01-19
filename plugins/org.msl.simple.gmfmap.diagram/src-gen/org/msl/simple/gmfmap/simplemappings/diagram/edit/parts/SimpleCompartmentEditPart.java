@@ -63,15 +63,11 @@ public class SimpleCompartmentEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE,
-				new CreationEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new SimpleCompartmentItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
-				new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE,
-				new SimpleCompartmentCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new SimpleCompartmentItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new SimpleCompartmentCanonicalEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -115,9 +111,7 @@ public class SimpleCompartmentEditPart extends ShapeNodeEditPart {
 	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof SimpleCompartmentNameEditPart) {
-			((SimpleCompartmentNameEditPart) childEditPart)
-					.setLabel(getPrimaryShape()
-							.getFigureSimpleCompartmentNameFigure());
+			((SimpleCompartmentNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureSimpleCompartmentNameFigure());
 			return true;
 		}
 		return false;
@@ -250,8 +244,7 @@ public class SimpleCompartmentEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(SimplemapVisualIDRegistry
-				.getType(SimpleCompartmentNameEditPart.VISUAL_ID));
+		return getChildBySemanticHint(SimplemapVisualIDRegistry.getType(SimpleCompartmentNameEditPart.VISUAL_ID));
 	}
 
 	/**
@@ -278,13 +271,10 @@ public class SimpleCompartmentEditPart extends ShapeNodeEditPart {
 
 			this.setLayoutManager(layoutThis);
 
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(6),
-					getMapMode().DPtoLP(6)));
+			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(6), getMapMode().DPtoLP(6)));
 			this.setBackgroundColor(THIS_BACK);
 
-			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5),
-					getMapMode().DPtoLP(5), getMapMode().DPtoLP(5),
-					getMapMode().DPtoLP(5)));
+			this.setBorder(new MarginBorder(getMapMode().DPtoLP(5), getMapMode().DPtoLP(5), getMapMode().DPtoLP(5), getMapMode().DPtoLP(5)));
 			createContents();
 		}
 
@@ -296,8 +286,7 @@ public class SimpleCompartmentEditPart extends ShapeNodeEditPart {
 			fFigureSimpleCompartmentNameFigure = new WrappingLabelWithColorIcon();
 			fFigureSimpleCompartmentNameFigure.setText("<..>");
 
-			fFigureSimpleCompartmentNameFigure
-					.setFont(FFIGURESIMPLECOMPARTMENTNAMEFIGURE_FONT);
+			fFigureSimpleCompartmentNameFigure.setFont(FFIGURESIMPLECOMPARTMENTNAMEFIGURE_FONT);
 
 			this.add(fFigureSimpleCompartmentNameFigure);
 
@@ -320,7 +309,6 @@ public class SimpleCompartmentEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	static final Font FFIGURESIMPLECOMPARTMENTNAMEFIGURE_FONT = new Font(
-			Display.getCurrent(), "Arial Rounded MT Bold", 9, SWT.ITALIC);
+	static final Font FFIGURESIMPLECOMPARTMENTNAMEFIGURE_FONT = new Font(Display.getCurrent(), "Arial Rounded MT Bold", 9, SWT.ITALIC);
 
 }

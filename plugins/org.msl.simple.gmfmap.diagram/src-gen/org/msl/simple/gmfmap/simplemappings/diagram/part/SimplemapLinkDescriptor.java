@@ -28,8 +28,7 @@ public class SimplemapLinkDescriptor extends SimplemapNodeDescriptor {
 	/**
 	 * @generated
 	 */
-	private SimplemapLinkDescriptor(EObject source, EObject destination,
-			EObject linkElement, int linkVID) {
+	private SimplemapLinkDescriptor(EObject source, EObject destination, EObject linkElement, int linkVID) {
 		super(linkElement, linkVID);
 		mySource = source;
 		myDestination = destination;
@@ -38,11 +37,11 @@ public class SimplemapLinkDescriptor extends SimplemapNodeDescriptor {
 	/**
 	 * @generated
 	 */
-	public SimplemapLinkDescriptor(EObject source, EObject destination,
-			IElementType elementType, int linkVID) {
+	public SimplemapLinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
 		this(source, destination, (EObject) null, linkVID);
 		final IElementType elementTypeCopy = elementType;
 		mySemanticAdapter = new IAdaptable() {
+
 			public Object getAdapter(Class adapter) {
 				if (IElementType.class.equals(adapter)) {
 					return elementTypeCopy;
@@ -55,11 +54,11 @@ public class SimplemapLinkDescriptor extends SimplemapNodeDescriptor {
 	/**
 	 * @generated
 	 */
-	public SimplemapLinkDescriptor(EObject source, EObject destination,
-			EObject linkElement, IElementType elementType, int linkVID) {
+	public SimplemapLinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
 		this(source, destination, linkElement, linkVID);
 		final IElementType elementTypeCopy = elementType;
 		mySemanticAdapter = new EObjectAdapter(linkElement) {
+
 			public Object getAdapter(Class adapter) {
 				if (IElementType.class.equals(adapter)) {
 					return elementTypeCopy;

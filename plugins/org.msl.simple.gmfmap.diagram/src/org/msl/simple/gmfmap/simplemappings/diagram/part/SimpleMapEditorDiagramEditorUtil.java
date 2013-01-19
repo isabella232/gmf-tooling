@@ -62,7 +62,6 @@ import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
 import org.msl.simple.gmfmap.simplemappings.SimplemappingsFactory;
 import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleMappingEditPart;
 
-
 /**
  * @generated
  */
@@ -74,24 +73,19 @@ public class SimpleMapEditorDiagramEditorUtil {
 	public static Map<?, ?> getSaveOptions() {
 		HashMap<String, Object> saveOptions = new HashMap<String, Object>();
 		saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED,
-				Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
+		saveOptions.put(Resource.OPTION_SAVE_ONLY_IF_CHANGED, Resource.OPTION_SAVE_ONLY_IF_CHANGED_MEMORY_BUFFER);
 		return saveOptions;
 	}
 
 	/**
 	 * @generated
 	 */
-	public static boolean openDiagram(Resource diagram)
-			throws PartInitException {
+	public static boolean openDiagram(Resource diagram) throws PartInitException {
 		String path = diagram.getURI().toPlatformString(true);
-		IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot()
-				.findMember(new Path(path));
+		IResource workspaceResource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(path));
 		if (workspaceResource instanceof IFile) {
-			IWorkbenchPage page = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage();
-			return null != page.openEditor(new FileEditorInput(
-					(IFile) workspaceResource), SimplemapDiagramEditor.ID);
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			return null != page.openEditor(new FileEditorInput((IFile) workspaceResource), SimplemapDiagramEditor.ID);
 		}
 		return false;
 	}
@@ -106,16 +100,14 @@ public class SimpleMapEditorDiagramEditorUtil {
 		try {
 			file.setCharset("UTF-8", new NullProgressMonitor()); //$NON-NLS-1$
 		} catch (CoreException e) {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Unable to set charset for file " + file.getFullPath(), e); //$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	public static String getUniqueFileName(IPath containerFullPath,
-			String fileName, String extension) {
+	public static String getUniqueFileName(IPath containerFullPath, String fileName, String extension) {
 		if (containerFullPath == null) {
 			containerFullPath = new Path(""); //$NON-NLS-1$
 		}
@@ -145,19 +137,15 @@ public class SimpleMapEditorDiagramEditorUtil {
 	 * @generated
 	 */
 	public static void runWizard(Shell shell, Wizard wizard, String settingsKey) {
-		IDialogSettings pluginDialogSettings = SimplemapDiagramEditorPlugin
-				.getInstance().getDialogSettings();
-		IDialogSettings wizardDialogSettings = pluginDialogSettings
-				.getSection(settingsKey);
+		IDialogSettings pluginDialogSettings = SimplemapDiagramEditorPlugin.getInstance().getDialogSettings();
+		IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection(settingsKey);
 		if (wizardDialogSettings == null) {
-			wizardDialogSettings = pluginDialogSettings
-					.addNewSection(settingsKey);
+			wizardDialogSettings = pluginDialogSettings.addNewSection(settingsKey);
 		}
 		wizard.setDialogSettings(wizardDialogSettings);
 		WizardDialog dialog = new WizardDialog(shell, wizard);
 		dialog.create();
-		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x),
-				500);
+		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
 		dialog.open();
 	}
 
@@ -165,48 +153,30 @@ public class SimpleMapEditorDiagramEditorUtil {
 	 * This method should be called within a workspace modify operation since it creates resources.
 	 * @generated not
 	 */
-	public static Resource createDiagram(URI diagramURI, final EClass domainMetaElement, final EPackage domainModel,
-			IProgressMonitor progressMonitor) {
-		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
-				.createEditingDomain();
-		progressMonitor.beginTask(
-				Messages.SimplemapDiagramEditorUtil_CreateDiagramProgressTask,
-				3);
-		final Resource diagramResource = editingDomain.getResourceSet()
-				.createResource(diagramURI);
+	public static Resource createDiagram(URI diagramURI, final EClass domainMetaElement, final EPackage domainModel, IProgressMonitor progressMonitor) {
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		progressMonitor.beginTask(Messages.SimplemapDiagramEditorUtil_CreateDiagramProgressTask, 3);
+		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 
-		URI gmfGraphURI = diagramURI.trimFileExtension().appendFileExtension(
-				"gmfgraph");
-		URI gmfToolURI = diagramURI.trimFileExtension().appendFileExtension(
-				"gmftool");
-		URI gmfMapURI = diagramURI.trimFileExtension().appendFileExtension(
-				"gmfmap");
+		URI gmfGraphURI = diagramURI.trimFileExtension().appendFileExtension("gmfgraph");
+		URI gmfToolURI = diagramURI.trimFileExtension().appendFileExtension("gmftool");
+		URI gmfMapURI = diagramURI.trimFileExtension().appendFileExtension("gmfmap");
 
-		final Resource gmfGraphResource = editingDomain.getResourceSet()
-				.createResource(gmfGraphURI);
+		final Resource gmfGraphResource = editingDomain.getResourceSet().createResource(gmfGraphURI);
 
-		final Resource gmfToolResource = editingDomain.getResourceSet()
-				.createResource(gmfToolURI);
+		final Resource gmfToolResource = editingDomain.getResourceSet().createResource(gmfToolURI);
 
-		final Resource gmfMapResource = editingDomain.getResourceSet()
-				.createResource(gmfMapURI);
+		final Resource gmfMapResource = editingDomain.getResourceSet().createResource(gmfMapURI);
 
 		final String diagramName = diagramURI.lastSegment();
-		AbstractTransactionalCommand command = new AbstractTransactionalCommand(
-				editingDomain,
-				Messages.SimplemapDiagramEditorUtil_CreateDiagramCommandLabel,
-				Collections.EMPTY_LIST) {
-			protected CommandResult doExecuteWithResult(
-					IProgressMonitor monitor, IAdaptable info)
-					throws ExecutionException {
+		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain, Messages.SimplemapDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
 
-				SimpleMapping model = createInitialModel(gmfGraphResource,
-						gmfToolResource, gmfMapResource, domainMetaElement, domainModel);
+			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+
+				SimpleMapping model = createInitialModel(gmfGraphResource, gmfToolResource, gmfMapResource, domainMetaElement, domainModel);
 				attachModelToResource(model, diagramResource);
 
-				Diagram diagram = ViewService.createDiagram(model,
-						SimpleMappingEditPart.MODEL_ID,
-						SimplemapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Diagram diagram = ViewService.createDiagram(model, SimpleMappingEditPart.MODEL_ID, SimplemapDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				if (diagram != null) {
 					diagramResource.getContents().add(diagram);
 					diagram.setName(diagramName);
@@ -215,28 +185,21 @@ public class SimpleMapEditorDiagramEditorUtil {
 
 				try {
 
-					gmfGraphResource
-							.save(getSaveOptions());
-					gmfToolResource
-							.save(getSaveOptions());
-					gmfMapResource
-							.save(getSaveOptions());
-					diagramResource
-							.save(getSaveOptions());
+					gmfGraphResource.save(getSaveOptions());
+					gmfToolResource.save(getSaveOptions());
+					gmfMapResource.save(getSaveOptions());
+					diagramResource.save(getSaveOptions());
 				} catch (IOException e) {
 
-					SimplemapDiagramEditorPlugin.getInstance().logError(
-							"Unable to store model and diagram resources", e); //$NON-NLS-1$
+					SimplemapDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
 				}
 				return CommandResult.newOKCommandResult();
 			}
 		};
 		try {
-			OperationHistoryFactory.getOperationHistory().execute(command,
-					new SubProgressMonitor(progressMonitor, 1), null);
+			OperationHistoryFactory.getOperationHistory().execute(command, new SubProgressMonitor(progressMonitor, 1), null);
 		} catch (ExecutionException e) {
-			SimplemapDiagramEditorPlugin.getInstance().logError(
-					"Unable to create model and diagram", e); //$NON-NLS-1$
+			SimplemapDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
 		}
 
 		setCharset(WorkspaceSynchronizer.getFile(diagramResource));
@@ -249,8 +212,7 @@ public class SimpleMapEditorDiagramEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated not
 	 */
-	private static SimpleMapping createInitialModel(Resource gmfGraphResource,
-			Resource gmfToolResource, Resource gmfMapResource,  EClass domainMetaElement, EPackage domainModel) {
+	private static SimpleMapping createInitialModel(Resource gmfGraphResource, Resource gmfToolResource, Resource gmfMapResource, EClass domainMetaElement, EPackage domainModel) {
 
 		Palette palette = GMFToolFactory.eINSTANCE.createPalette();
 		palette.setTitle("uiPalette");
@@ -258,15 +220,13 @@ public class SimpleMapEditorDiagramEditorUtil {
 		Canvas canvas = GMFGraphFactory.eINSTANCE.createCanvas();
 		canvas.setName("ui");
 
-		FigureGallery defaultFigureGallery = GMFGraphFactory.eINSTANCE
-				.createFigureGallery();
+		FigureGallery defaultFigureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		defaultFigureGallery.setName("Default");
 
 		canvas.getFigures().add(defaultFigureGallery);
 
 		Mapping mapping = GMFMapFactory.eINSTANCE.createMapping();
-		CanvasMapping canvasMapping = GMFMapFactory.eINSTANCE
-				.createCanvasMapping();
+		CanvasMapping canvasMapping = GMFMapFactory.eINSTANCE.createCanvasMapping();
 		canvasMapping.setPalette(palette);
 		canvasMapping.setDiagramCanvas(canvas);
 		canvasMapping.setDomainModel(domainModel);
@@ -278,13 +238,12 @@ public class SimpleMapEditorDiagramEditorUtil {
 		gmfToolResource.getContents().add(palette);
 		gmfMapResource.getContents().add(mapping);
 
-		SimpleMapping simpleMapping = SimplemappingsFactory.eINSTANCE
-				.createSimpleMapping();
+		SimpleMapping simpleMapping = SimplemappingsFactory.eINSTANCE.createSimpleMapping();
 
 		simpleMapping.setCanvas(canvas);
 		simpleMapping.setPalette(palette);
 		simpleMapping.setMapping(mapping);
-		
+
 		return simpleMapping;
 
 	}
@@ -295,16 +254,14 @@ public class SimpleMapEditorDiagramEditorUtil {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static void attachModelToResource(SimpleMapping model,
-			Resource resource) {
+	private static void attachModelToResource(SimpleMapping model, Resource resource) {
 		resource.getContents().add(model);
 	}
 
 	/**
 	 * @generated
 	 */
-	public static void selectElementsInDiagram(
-			IDiagramWorkbenchPart diagramPart, List<EditPart> editParts) {
+	public static void selectElementsInDiagram(IDiagramWorkbenchPart diagramPart, List<EditPart> editParts) {
 		diagramPart.getDiagramGraphicalViewer().deselectAll();
 
 		EditPart firstPrimary = null;
@@ -316,24 +273,19 @@ public class SimpleMapEditorDiagramEditorUtil {
 		}
 
 		if (!editParts.isEmpty()) {
-			diagramPart.getDiagramGraphicalViewer().reveal(
-					firstPrimary != null ? firstPrimary : (EditPart) editParts
-							.get(0));
+			diagramPart.getDiagramGraphicalViewer().reveal(firstPrimary != null ? firstPrimary : (EditPart) editParts.get(0));
 		}
 	}
 
 	/**
 	 * @generated
 	 */
-	private static int findElementsInDiagramByID(DiagramEditPart diagramPart,
-			EObject element, List<EditPart> editPartCollector) {
-		IDiagramGraphicalViewer viewer = (IDiagramGraphicalViewer) diagramPart
-				.getViewer();
+	private static int findElementsInDiagramByID(DiagramEditPart diagramPart, EObject element, List<EditPart> editPartCollector) {
+		IDiagramGraphicalViewer viewer = (IDiagramGraphicalViewer) diagramPart.getViewer();
 		final int intialNumOfEditParts = editPartCollector.size();
 
 		if (element instanceof View) { // support notation element lookup
-			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(
-					element);
+			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(element);
 			if (editPart != null) {
 				editPartCollector.add(editPart);
 				return 1;
@@ -342,8 +294,7 @@ public class SimpleMapEditorDiagramEditorUtil {
 
 		String elementID = EMFCoreUtil.getProxyID(element);
 		@SuppressWarnings("unchecked")
-		List<EditPart> associatedParts = viewer.findEditPartsForElement(
-				elementID, IGraphicalEditPart.class);
+		List<EditPart> associatedParts = viewer.findEditPartsForElement(elementID, IGraphicalEditPart.class);
 		// perform the possible hierarchy disjoint -> take the top-most parts only
 		for (EditPart nextPart : associatedParts) {
 			EditPart parentPart = nextPart.getParent();
@@ -360,8 +311,7 @@ public class SimpleMapEditorDiagramEditorUtil {
 				editPartCollector.add(associatedParts.get(0));
 			} else {
 				if (element.eContainer() != null) {
-					return findElementsInDiagramByID(diagramPart,
-							element.eContainer(), editPartCollector);
+					return findElementsInDiagramByID(diagramPart, element.eContainer(), editPartCollector);
 				}
 			}
 		}
@@ -371,24 +321,19 @@ public class SimpleMapEditorDiagramEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static View findView(DiagramEditPart diagramEditPart,
-			EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
+	public static View findView(DiagramEditPart diagramEditPart, EObject targetElement, LazyElement2ViewMap lazyElement2ViewMap) {
 		boolean hasStructuralURI = false;
 		if (targetElement.eResource() instanceof XMLResource) {
-			hasStructuralURI = ((XMLResource) targetElement.eResource())
-					.getID(targetElement) == null;
+			hasStructuralURI = ((XMLResource) targetElement.eResource()).getID(targetElement) == null;
 		}
 
 		View view = null;
 		LinkedList<EditPart> editPartHolder = new LinkedList<EditPart>();
-		if (hasStructuralURI
-				&& !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
+		if (hasStructuralURI && !lazyElement2ViewMap.getElement2ViewMap().isEmpty()) {
 			view = lazyElement2ViewMap.getElement2ViewMap().get(targetElement);
-		} else if (findElementsInDiagramByID(diagramEditPart, targetElement,
-				editPartHolder) > 0) {
+		} else if (findElementsInDiagramByID(diagramEditPart, targetElement, editPartHolder) > 0) {
 			EditPart editPart = editPartHolder.get(0);
-			view = editPart.getModel() instanceof View ? (View) editPart
-					.getModel() : null;
+			view = editPart.getModel() instanceof View ? (View) editPart.getModel() : null;
 		}
 
 		return (view == null) ? diagramEditPart.getDiagramView() : view;
@@ -399,6 +344,7 @@ public class SimpleMapEditorDiagramEditorUtil {
 	 * @generated
 	 */
 	public static class LazyElement2ViewMap {
+
 		/**
 		 * @generated
 		 */
@@ -446,36 +392,26 @@ public class SimpleMapEditorDiagramEditorUtil {
 		/**
 		 * @generated
 		 */
-		private static boolean buildElement2ViewMap(View parentView,
-				Map<EObject, View> element2ViewMap,
-				Set<? extends EObject> elements) {
+		private static boolean buildElement2ViewMap(View parentView, Map<EObject, View> element2ViewMap, Set<? extends EObject> elements) {
 			if (elements.size() == element2ViewMap.size()) {
 				return true;
 			}
 
-			if (parentView.isSetElement()
-					&& !element2ViewMap.containsKey(parentView.getElement())
-					&& elements.contains(parentView.getElement())) {
+			if (parentView.isSetElement() && !element2ViewMap.containsKey(parentView.getElement()) && elements.contains(parentView.getElement())) {
 				element2ViewMap.put(parentView.getElement(), parentView);
 				if (elements.size() == element2ViewMap.size()) {
 					return true;
 				}
 			}
 			boolean complete = false;
-			for (Iterator<?> it = parentView.getChildren().iterator(); it
-					.hasNext() && !complete;) {
-				complete = buildElement2ViewMap((View) it.next(),
-						element2ViewMap, elements);
+			for (Iterator<?> it = parentView.getChildren().iterator(); it.hasNext() && !complete;) {
+				complete = buildElement2ViewMap((View) it.next(), element2ViewMap, elements);
 			}
-			for (Iterator<?> it = parentView.getSourceEdges().iterator(); it
-					.hasNext() && !complete;) {
-				complete = buildElement2ViewMap((View) it.next(),
-						element2ViewMap, elements);
+			for (Iterator<?> it = parentView.getSourceEdges().iterator(); it.hasNext() && !complete;) {
+				complete = buildElement2ViewMap((View) it.next(), element2ViewMap, elements);
 			}
-			for (Iterator<?> it = parentView.getTargetEdges().iterator(); it
-					.hasNext() && !complete;) {
-				complete = buildElement2ViewMap((View) it.next(),
-						element2ViewMap, elements);
+			for (Iterator<?> it = parentView.getTargetEdges().iterator(); it.hasNext() && !complete;) {
+				complete = buildElement2ViewMap((View) it.next(), element2ViewMap, elements);
 			}
 			return complete;
 		}

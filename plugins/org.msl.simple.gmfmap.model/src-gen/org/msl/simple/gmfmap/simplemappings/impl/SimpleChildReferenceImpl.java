@@ -7,11 +7,7 @@
 package org.msl.simple.gmfmap.simplemappings.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.mappings.NodeMapping;
-
 import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
@@ -38,6 +34,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements SimpleChildReference {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -63,7 +60,7 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	 * @generated
 	 */
 	public SimpleParentNode getParentNode() {
-		return (SimpleParentNode)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_NODE, true);
+		return (SimpleParentNode) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_NODE, true);
 	}
 
 	/**
@@ -81,7 +78,7 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	 * @generated
 	 */
 	public SimpleMapping getParentMapping() {
-		return (SimpleMapping)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_MAPPING, true);
+		return (SimpleMapping) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_MAPPING, true);
 	}
 
 	/**
@@ -99,7 +96,7 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	 * @generated
 	 */
 	public SimpleNode getParent() {
-		return (SimpleNode)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT, true);
+		return (SimpleNode) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT, true);
 	}
 
 	/**
@@ -117,7 +114,7 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	 * @generated
 	 */
 	public EClass getParentMetaElement() {
-		return (EClass)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT, true);
+		return (EClass) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT, true);
 	}
 
 	/**
@@ -135,7 +132,7 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	 * @generated
 	 */
 	public NodeMapping getReferencedChild() {
-		return (NodeMapping)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_REFERENCE__REFERENCED_CHILD, true);
+		return (NodeMapping) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_REFERENCE__REFERENCED_CHILD, true);
 	}
 
 	/**
@@ -153,7 +150,7 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	 * @generated
 	 */
 	public SimpleNode getReferencedSimpleNode() {
-		return (SimpleNode)eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_REFERENCE__REFERENCED_SIMPLE_NODE, true);
+		return (SimpleNode) eGet(SimplemappingsPackage.Literals.SIMPLE_CHILD_REFERENCE__REFERENCED_SIMPLE_NODE, true);
 	}
 
 	/**
@@ -174,11 +171,16 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == SimpleChildNode.class) {
 			switch (derivedFeatureID) {
-				case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_NODE: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE;
-				case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_MAPPING: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING;
-				case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT;
-				case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_META_ELEMENT: return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_NODE:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE;
+			case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_MAPPING:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING;
+			case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT;
+			case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_META_ELEMENT:
+				return SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT;
+			default:
+				return -1;
 			}
 		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
@@ -193,11 +195,16 @@ public class SimpleChildReferenceImpl extends SimpleNodeReferenceImpl implements
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == SimpleChildNode.class) {
 			switch (baseFeatureID) {
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE: return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_NODE;
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING: return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_MAPPING;
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT: return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT;
-				case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT: return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_META_ELEMENT;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_NODE:
+				return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_NODE;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_MAPPING:
+				return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_MAPPING;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT:
+				return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT;
+			case SimplemappingsPackage.SIMPLE_CHILD_NODE__PARENT_META_ELEMENT:
+				return SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__PARENT_META_ELEMENT;
+			default:
+				return -1;
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);

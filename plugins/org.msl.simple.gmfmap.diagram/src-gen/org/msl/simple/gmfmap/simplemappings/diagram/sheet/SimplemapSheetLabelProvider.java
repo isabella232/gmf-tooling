@@ -14,8 +14,7 @@ import org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapElementTy
 /**
  * @generated
  */
-public class SimplemapSheetLabelProvider extends BaseLabelProvider implements
-		ILabelProvider {
+public class SimplemapSheetLabelProvider extends BaseLabelProvider implements ILabelProvider {
 
 	/**
 	 * @generated
@@ -71,8 +70,7 @@ public class SimplemapSheetLabelProvider extends BaseLabelProvider implements
 			if (etype != null) {
 				return etype;
 			}
-			view = view.eContainer() instanceof View ? (View) view.eContainer()
-					: null;
+			view = view.eContainer() instanceof View ? (View) view.eContainer() : null;
 		}
 		return null;
 	}

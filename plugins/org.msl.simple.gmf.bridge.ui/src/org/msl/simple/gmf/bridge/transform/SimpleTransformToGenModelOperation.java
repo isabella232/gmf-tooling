@@ -56,21 +56,26 @@ import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.TransfExecu
 import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
 
 //[artem] XXX Why it's in the bridge.ui??? 
-public class SimpleTransformToGenModelOperation 
-{
+public class SimpleTransformToGenModelOperation {
 
 	private URI myGMFGenModelURI;
+
 	private TransformOptions myOptions;
+
 	private Mapping myMapping;
+
 	private GenModelDetector myGMDetector;
+
 	private GenModel myGenModel;
-	
+
 	private Diagnostic myMapmodelValidationResult = Diagnostic.CANCEL_INSTANCE;
+
 	private Diagnostic myGMFGenValidationResult = Diagnostic.CANCEL_INSTANCE;
 
 	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
+
 	private final ResourceSet myResourceSet;
-	
+
 	public SimpleTransformToGenModelOperation(ResourceSet rs) {
 		assert rs != null;
 		myResourceSet = rs;
@@ -80,7 +85,7 @@ public class SimpleTransformToGenModelOperation
 	public TransformOptions getOptions() {
 		return myOptions;
 	}
-	
+
 	public URI getGenURI() {
 		return this.myGMFGenModelURI;
 	}
@@ -100,14 +105,14 @@ public class SimpleTransformToGenModelOperation
 	Mapping getMapping() {
 		return this.myMapping;
 	}
-	
+
 	private void setMapping(Mapping m, Diagnostic validationResult) {
 		this.myMapping = m;
 		this.myMapmodelValidationResult = validationResult;
 		myGMDetector = (m != null) ? new GenModelDetector(m) : null;
 		myGenModel = null;
 	}
-	
+
 	private void setGMFGenValidationResult(Diagnostic validationResult) {
 		this.myGMFGenValidationResult = validationResult;
 	}
@@ -115,7 +120,7 @@ public class SimpleTransformToGenModelOperation
 	public GenModelDetector getGenModelDetector() {
 		return myGMDetector;
 	}
-	
+
 	public Diagnostic getGMFGenValidationResult() {
 		return this.myGMFGenValidationResult;
 	}
@@ -123,7 +128,7 @@ public class SimpleTransformToGenModelOperation
 	public Diagnostic getMapmodelValidationResult() {
 		return this.myMapmodelValidationResult;
 	}
-	
+
 	public IStatus getStaleGenmodelStatus() {
 		return this.myStaleGenmodelStatus;
 	}
@@ -137,7 +142,7 @@ public class SimpleTransformToGenModelOperation
 			if (uri == null) {
 				throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_map_uri);
 			}
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			String cancelMessage = Messages.TransformToGenModelOperation_e_map_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			subTask(monitor, 0, Messages.TransformToGenModelOperation_task_load, cancelMessage);
@@ -171,7 +176,7 @@ public class SimpleTransformToGenModelOperation
 			}
 		}
 	}
-	
+
 	public GenModel findGenmodel() throws CoreException {
 		IStatus detect;
 		try {
@@ -194,7 +199,7 @@ public class SimpleTransformToGenModelOperation
 		IProgressMonitor monitor = null;
 		try {
 			checkMapping();
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			String cancelMessage = Messages.TransformToGenModelOperation_e_genmodel_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			monitor.subTask(Messages.TransformToGenModelOperation_task_detect);
@@ -203,7 +208,7 @@ public class SimpleTransformToGenModelOperation
 			if (uri == null) {
 				status = gmd.detect();
 			} else {
-				status = gmd.advise(uri); 
+				status = gmd.advise(uri);
 			}
 			if (!status.isOK()) {
 				throw new CoreException(status);
@@ -237,7 +242,7 @@ public class SimpleTransformToGenModelOperation
 			}
 		}
 	}
-	
+
 	public IStatus executeTransformation(IProgressMonitor pm) {
 		IProgressMonitor monitor = null;
 		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
@@ -246,7 +251,7 @@ public class SimpleTransformToGenModelOperation
 				throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_gmfgen_uri);
 			}
 			checkMapping();
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
@@ -312,7 +317,7 @@ public class SimpleTransformToGenModelOperation
 		if (getOptions().getPreReconcileTransform() != null) {
 			try {
 				URI transfURI = URI.createURI(getOptions().getPreReconcileTransform().toExternalForm());
-				new QvtoTransformationHelper(transfURI).executeTransformation(Collections.<EObject>singletonList(result), Collections.<String, Object>emptyMap(), getResourceSet());
+				new QvtoTransformationHelper(transfURI).executeTransformation(Collections.<EObject> singletonList(result), Collections.<String, Object> emptyMap(), getResourceSet());
 			} catch (CoreException ex) {
 				Plugin.log(ex);
 			}
@@ -323,8 +328,8 @@ public class SimpleTransformToGenModelOperation
 		if (getOptions().getPostReconcileTransform() != null) {
 			try {
 				URI transfURI = URI.createURI(getOptions().getPostReconcileTransform().toExternalForm());
-				List<EObject> in = Collections.<EObject>singletonList(result);
-				Map<String, Object> props = Collections.<String, Object>emptyMap();
+				List<EObject> in = Collections.<EObject> singletonList(result);
+				Map<String, Object> props = Collections.<String, Object> emptyMap();
 				new QvtoTransformationHelper(transfURI).executeTransformation(in, props, getResourceSet());
 			} catch (CoreException ex) {
 				Plugin.log(ex);
@@ -332,13 +337,12 @@ public class SimpleTransformToGenModelOperation
 		}
 	}
 
-
 	private void checkMapping() {
 		if (getMapping() == null) {
 			throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_mapping);
 		}
 	}
-	
+
 	static IStatus getFirst(Diagnostic d) {
 		if (d == null) {
 			return Status.OK_STATUS;
@@ -350,7 +354,7 @@ public class SimpleTransformToGenModelOperation
 			return BasicDiagnostic.toIStatus(children.get(0));
 		}
 	}
-	
+
 	private DiagramRunTimeModelHelper detectRunTimeModel() {
 		return new BasicDiagramRunTimeModelHelper();
 	}
@@ -359,7 +363,7 @@ public class SimpleTransformToGenModelOperation
 		String runtimeToken = getOptions().getUseRuntimeFigures() ? "full" : "lite";
 		MapModeCodeGenStrategy mmStrategy = getOptions().getUseMapMode() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 		URL dynamicFigureTemplates = getOptions().getFigureTemplatesPath();
-		return new InnerClassViewmapProducer(runtimeToken, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] {dynamicFigureTemplates});
+		return new InnerClassViewmapProducer(runtimeToken, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] { dynamicFigureTemplates });
 	}
 
 	private VisualIdentifierDispenserProvider getVisualIdDispenser() {
@@ -373,6 +377,7 @@ public class SimpleTransformToGenModelOperation
 			configProps.put("useFullRunTime", getOptions().getUseRuntimeFigures());
 			configProps.put("rcp", getOptions().getGenerateRCP());
 			return new GenModelProducer() {
+
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
 					progress.beginTask(null, 1);
 					try {
@@ -382,7 +387,7 @@ public class SimpleTransformToGenModelOperation
 						args.add(mapping);
 						args.add(getGenModel());
 						RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
-						runtimeAccess.ensure(); 
+						runtimeAccess.ensure();
 						args.add(runtimeAccess.genPackage() == null ? null : runtimeAccess.genPackage().getGenModel());
 						TransfExecutionResult result = helper.executeTransformation(args, configProps, getResourceSet());
 						if (Plugin.printTransformationConsole()) {
@@ -410,7 +415,7 @@ public class SimpleTransformToGenModelOperation
 				t.setEMFGenModel(getGenModel());
 			}
 			return new GenModelProducer() {
-	
+
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) {
 					progress.beginTask(null, 1);
 					try {
@@ -512,6 +517,7 @@ public class SimpleTransformToGenModelOperation
 	private static void updateExternalReferences(GenEditorGenerator newEditorGenerator, final GenEditorGenerator oldEditorGenerator, List<EObject> allContentButOldGenerator) {
 		// find references from rest of the content to old generator
 		final Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = new ExternalCrossReferencer(allContentButOldGenerator) {
+
 			@Override
 			protected boolean crossReference(EObject object, EReference reference, EObject crossReferencedEObject) {
 				return super.crossReference(object, reference, crossReferencedEObject) && EcoreUtil.isAncestor(oldEditorGenerator, crossReferencedEObject);
@@ -523,12 +529,16 @@ public class SimpleTransformToGenModelOperation
 		}.find();
 		// match new and old objects using reconciler without decisions
 		new Reconciler(new GMFGenConfig()) {
+
 			@Override
-			protected void handleNotMatchedCurrent(EObject current) {/*no-op*/};
+			protected void handleNotMatchedCurrent(EObject current) {/* no-op */
+			};
+
 			@Override
 			protected EObject handleNotMatchedOld(EObject currentParent, EObject notMatchedOld) {
-				return null; /*no-op*/
+				return null; /* no-op */
 			};
+
 			@Override
 			protected void reconcileVertex(EObject current, EObject old) {
 				if (!crossReferences.containsKey(old)) {

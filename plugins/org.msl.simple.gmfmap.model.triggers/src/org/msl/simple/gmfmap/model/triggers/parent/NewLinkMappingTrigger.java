@@ -13,13 +13,14 @@ import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
 import org.msl.simple.gmfmap.simplemappings.SimpleParentNode;
 
 class NewLinkMappingTrigger extends NewElementTrigger {
-	
+
 	protected SimpleLinkMapping newSimpleLinkMapping;
+
 	protected SimpleParentNode parent;
 
 	public NewLinkMappingTrigger(TransactionalEditingDomain domain, SimpleParentNode parent, SimpleLinkMapping newSimpleLinkMapping) {
 		super(domain, newSimpleLinkMapping);
-		
+
 		this.newSimpleLinkMapping = newSimpleLinkMapping;
 		this.parent = parent;
 
@@ -27,24 +28,21 @@ class NewLinkMappingTrigger extends NewElementTrigger {
 
 	@Override
 	public void executeTrigger() {
-		
+
 		Connection newConnection = GMFGraphFactory.eINSTANCE.createConnection();
 		DiagramLabel newLabel = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 
 		updateCanvas(newConnection, newLabel);
-		
-		CreationTool newCreationTool =  createNewTool();
 
-		updateMapping((SimpleMapping)parent, newConnection, newLabel, newCreationTool);
+		CreationTool newCreationTool = createNewTool();
+
+		updateMapping((SimpleMapping) parent, newConnection, newLabel, newCreationTool);
 
 	}
-	
-	
-	protected void updateCanvas(Connection newConnection, DiagramLabel newLabel)
-	{
+
+	protected void updateCanvas(Connection newConnection, DiagramLabel newLabel) {
 		canvasFactory.createNewDefaultPolygon(newConnection, newLabel);
 	}
-	
 
 	/**
 	 * El padre es el diagrama:
@@ -53,36 +51,32 @@ class NewLinkMappingTrigger extends NewElementTrigger {
 	 * @param newLabel
 	 * @param newCreationTool
 	 */
-	protected void updateMapping(SimpleMapping mapping, Connection newConnection, DiagramLabel newLabel, CreationTool newCreationTool)
-	{
+	protected void updateMapping(SimpleMapping mapping, Connection newConnection, DiagramLabel newLabel, CreationTool newCreationTool) {
 		LinkMapping newLinkMapping = createNewLinkMapping(newConnection, newLabel, newCreationTool);
 
 		mapping.getMapping().getLinks().add(newLinkMapping);
-		
+
 		newSimpleLinkMapping.setLinkMapping(newLinkMapping);
-		
+
 	}
-	
-	
-	protected LinkMapping createNewLinkMapping(Connection newConnection, DiagramLabel newLabel, CreationTool newCreationTool)
-	{
+
+	protected LinkMapping createNewLinkMapping(Connection newConnection, DiagramLabel newLabel, CreationTool newCreationTool) {
 		LinkMapping newLinkMapping = GMFMapFactory.eINSTANCE.createLinkMapping();
-		
+
 		//Diagram Node
 		newLinkMapping.setDiagramLink(newConnection);
-		
+
 		//Tool
 		newLinkMapping.setTool(newCreationTool);
-		
+
 		//Feature Label Mapping
 		LabelMapping labelMapping = GMFMapFactory.eINSTANCE.createLabelMapping();
 		labelMapping.setDiagramLabel(newLabel);
-		
+
 		newLinkMapping.getLabelMappings().add(labelMapping);
-		
+
 		return newLinkMapping;
 
 	}
-	
 
 }

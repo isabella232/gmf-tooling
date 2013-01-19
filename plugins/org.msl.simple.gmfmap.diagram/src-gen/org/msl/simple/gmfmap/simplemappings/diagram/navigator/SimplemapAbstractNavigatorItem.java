@@ -16,27 +16,24 @@ public abstract class SimplemapAbstractNavigatorItem extends PlatformObject {
 	static {
 		final Class[] supportedTypes = new Class[] { ITabbedPropertySheetPageContributor.class };
 		final ITabbedPropertySheetPageContributor propertySheetPageContributor = new ITabbedPropertySheetPageContributor() {
+
 			public String getContributorId() {
 				return "org.msl.simple.gmfmap.diagram"; //$NON-NLS-1$
 			}
 		};
-		Platform.getAdapterManager().registerAdapters(
-				new IAdapterFactory() {
+		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
-					public Object getAdapter(Object adaptableObject,
-							Class adapterType) {
-						if (adaptableObject instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem
-								&& adapterType == ITabbedPropertySheetPageContributor.class) {
-							return propertySheetPageContributor;
-						}
-						return null;
-					}
+			public Object getAdapter(Object adaptableObject, Class adapterType) {
+				if (adaptableObject instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem && adapterType == ITabbedPropertySheetPageContributor.class) {
+					return propertySheetPageContributor;
+				}
+				return null;
+			}
 
-					public Class[] getAdapterList() {
-						return supportedTypes;
-					}
-				},
-				org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem.class);
+			public Class[] getAdapterList() {
+				return supportedTypes;
+			}
+		}, org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem.class);
 	}
 
 	/**

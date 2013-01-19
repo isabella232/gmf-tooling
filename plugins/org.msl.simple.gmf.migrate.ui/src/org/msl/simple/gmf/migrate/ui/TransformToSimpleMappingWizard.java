@@ -23,47 +23,39 @@ import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapCreationWizard
 import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorPlugin;
 
 public class TransformToSimpleMappingWizard extends SimplemapCreationWizard {
-	
+
 	private Mapping myMapping;
+
 	private Canvas myCanvas;
+
 	private Palette myPalette;
-	
 
 	@Override
 	public boolean performFinish() {
-		
+
 		TransformToSimpleMappingOperation myOperation = new TransformToSimpleMappingOperation(createResourceSet());
-		URI uri = URI.createPlatformResourceURI(getMapFile() .getFullPath()
-				.toString(), true);
+		URI uri = URI.createPlatformResourceURI(getMapFile().getFullPath().toString(), true);
 		try {
-			myOperation.loadMappingModel(uri , new NullProgressMonitor());
+			myOperation.loadMappingModel(uri, new NullProgressMonitor());
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		myMapping = myOperation.getMapping();
-		myCanvas = myMapping!=null?myMapping.getDiagram().getDiagramCanvas():null;
-		myPalette = myMapping!=null?myMapping.getDiagram().getPalette():null;
-		
+		myCanvas = myMapping != null ? myMapping.getDiagram().getDiagramCanvas() : null;
+		myPalette = myMapping != null ? myMapping.getDiagram().getPalette() : null;
+
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
-			protected void execute(IProgressMonitor monitor)
-					throws CoreException, InterruptedException {
-				diagram = new SimplemapMigrationEditorUtil().createDiagram(
-						diagramModelFilePage.getURI(),
-						monitor,
-						myMapping, myCanvas, myPalette);
-				
+			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+				diagram = new SimplemapMigrationEditorUtil().createDiagram(diagramModelFilePage.getURI(), monitor, myMapping, myCanvas, myPalette);
+
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						SimpleMapEditorDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog
-								.openError(
-										getContainer().getShell(),
-										Messages.SimplemapCreationWizardOpenEditorError,
-										null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.SimplemapCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -74,27 +66,24 @@ public class TransformToSimpleMappingWizard extends SimplemapCreationWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(),
-						Messages.SimplemapCreationWizardCreationError, null,
-						((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.SimplemapCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
-				SimplemapDiagramEditorPlugin.getInstance().logError(
-						"Error creating diagram", e.getTargetException()); //$NON-NLS-1$
+				SimplemapDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
 			return false;
 		}
 		return diagram != null;
 
 	}
-	
+
 	protected ResourceSet createResourceSet() {
 		final ResourceSetImpl rs = new ResourceSetImpl();
 		rs.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
 		return rs;
 	}
-	
+
 	protected IFile getMapFile() {
 		return (IFile) selection.getFirstElement();
 	}
-	
+
 }

@@ -17,34 +17,28 @@ public class SimplemapDomainNavigatorItem extends PlatformObject {
 	 * @generated
 	 */
 	static {
-		final Class[] supportedTypes = new Class[] { EObject.class,
-				IPropertySource.class };
-		Platform.getAdapterManager().registerAdapters(
-				new IAdapterFactory() {
+		final Class[] supportedTypes = new Class[] { EObject.class, IPropertySource.class };
+		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
-					public Object getAdapter(Object adaptableObject,
-							Class adapterType) {
-						if (adaptableObject instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) {
-							org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem domainNavigatorItem = (org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) adaptableObject;
-							EObject eObject = domainNavigatorItem.getEObject();
-							if (adapterType == EObject.class) {
-								return eObject;
-							}
-							if (adapterType == IPropertySource.class) {
-								return domainNavigatorItem
-										.getPropertySourceProvider()
-										.getPropertySource(eObject);
-							}
-						}
-
-						return null;
+			public Object getAdapter(Object adaptableObject, Class adapterType) {
+				if (adaptableObject instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) {
+					org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem domainNavigatorItem = (org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) adaptableObject;
+					EObject eObject = domainNavigatorItem.getEObject();
+					if (adapterType == EObject.class) {
+						return eObject;
 					}
-
-					public Class[] getAdapterList() {
-						return supportedTypes;
+					if (adapterType == IPropertySource.class) {
+						return domainNavigatorItem.getPropertySourceProvider().getPropertySource(eObject);
 					}
-				},
-				org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem.class);
+				}
+
+				return null;
+			}
+
+			public Class[] getAdapterList() {
+				return supportedTypes;
+			}
+		}, org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem.class);
 	}
 
 	/**
@@ -65,8 +59,7 @@ public class SimplemapDomainNavigatorItem extends PlatformObject {
 	/**
 	 * @generated
 	 */
-	public SimplemapDomainNavigatorItem(EObject eObject, Object parent,
-			IPropertySourceProvider propertySourceProvider) {
+	public SimplemapDomainNavigatorItem(EObject eObject, Object parent, IPropertySourceProvider propertySourceProvider) {
 		myParent = parent;
 		myEObject = eObject;
 		myPropertySourceProvider = propertySourceProvider;
@@ -98,11 +91,7 @@ public class SimplemapDomainNavigatorItem extends PlatformObject {
 	 */
 	public boolean equals(Object obj) {
 		if (obj instanceof org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) {
-			return EcoreUtil
-					.getURI(getEObject())
-					.equals(EcoreUtil
-							.getURI(((org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) obj)
-									.getEObject()));
+			return EcoreUtil.getURI(getEObject()).equals(EcoreUtil.getURI(((org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem) obj).getEObject()));
 		}
 		return super.equals(obj);
 	}

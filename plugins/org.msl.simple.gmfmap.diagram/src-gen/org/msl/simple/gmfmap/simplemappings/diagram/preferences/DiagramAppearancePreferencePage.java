@@ -12,7 +12,6 @@ public class DiagramAppearancePreferencePage extends AppearancePreferencePage {
 	 * @generated
 	 */
 	public DiagramAppearancePreferencePage() {
-		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

@@ -44,8 +44,7 @@ public class SimplemapVisualIDRegistry {
 				return -1;
 			}
 		}
-		return org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry
-				.getVisualID(view.getType());
+		return org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**
@@ -70,11 +69,8 @@ public class SimplemapVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			if (Boolean.TRUE.toString().equalsIgnoreCase(
-					Platform.getDebugOption(DEBUG_KEY))) {
-				SimplemapDiagramEditorPlugin.getInstance().logError(
-						"Unable to parse view type as a visualID number: "
-								+ type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				SimplemapDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
 			}
 		}
 		return -1;
@@ -94,9 +90,7 @@ public class SimplemapVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		if (SimplemappingsPackage.eINSTANCE.getSimpleMapping().isSuperTypeOf(
-				domainElement.eClass())
-				&& isDiagram((SimpleMapping) domainElement)) {
+		if (SimplemappingsPackage.eINSTANCE.getSimpleMapping().isSuperTypeOf(domainElement.eClass()) && isDiagram((SimpleMapping) domainElement)) {
 			return SimpleMappingEditPart.VISUAL_ID;
 		}
 		return -1;
@@ -109,15 +103,13 @@ public class SimplemapVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		String containerModelID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry
-				.getModelID(containerView);
+		String containerModelID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry.getModelID(containerView);
 		if (!SimpleMappingEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
 		if (SimpleMappingEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry
-					.getVisualID(containerView);
+			containerVisualID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
 				containerVisualID = SimpleMappingEditPart.VISUAL_ID;
@@ -127,62 +119,49 @@ public class SimplemapVisualIDRegistry {
 		}
 		switch (containerVisualID) {
 		case SimpleMappingEditPart.VISUAL_ID:
-			if (SimplemappingsPackage.eINSTANCE.getSimpleTopNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleTopNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleTopNodeEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleLinkMapping()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleLinkMapping().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleLinkMappingEditPart.VISUAL_ID;
 			}
 			break;
 		case SimpleTopNodeEditPart.VISUAL_ID:
-			if (SimplemappingsPackage.eINSTANCE.getSimpleLabelNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleLabelNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleLabelNodeEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleCompartment()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleCompartment().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleCompartmentEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleChildReference()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleChildReference().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleChildReferenceEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleSubNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleSubNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleSubNodeEditPart.VISUAL_ID;
 			}
 			break;
 		case SimpleCompartmentEditPart.VISUAL_ID:
-			if (SimplemappingsPackage.eINSTANCE.getSimpleLabelNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleLabelNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleLabelNodeEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleSubNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleSubNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleSubNodeEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleChildReference()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleChildReference().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleChildReferenceEditPart.VISUAL_ID;
 			}
 			break;
 		case SimpleSubNodeEditPart.VISUAL_ID:
-			if (SimplemappingsPackage.eINSTANCE.getSimpleLabelNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleLabelNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleLabelNodeEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleCompartment()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleCompartment().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleCompartmentEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleChildReference()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleChildReference().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleChildReferenceEditPart.VISUAL_ID;
 			}
-			if (SimplemappingsPackage.eINSTANCE.getSimpleSubNode()
-					.isSuperTypeOf(domainElement.eClass())) {
+			if (SimplemappingsPackage.eINSTANCE.getSimpleSubNode().isSuperTypeOf(domainElement.eClass())) {
 				return SimpleSubNodeEditPart.VISUAL_ID;
 			}
 			break;
@@ -194,15 +173,13 @@ public class SimplemapVisualIDRegistry {
 	 * @generated
 	 */
 	public static boolean canCreateNode(View containerView, int nodeVisualID) {
-		String containerModelID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry
-				.getModelID(containerView);
+		String containerModelID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry.getModelID(containerView);
 		if (!SimpleMappingEditPart.MODEL_ID.equals(containerModelID)) {
 			return false;
 		}
 		int containerVisualID;
 		if (SimpleMappingEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry
-					.getVisualID(containerView);
+			containerVisualID = org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
 				containerVisualID = SimpleMappingEditPart.VISUAL_ID;

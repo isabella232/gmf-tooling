@@ -12,7 +12,6 @@ public class DiagramPrintingPreferencePage extends PrintingPreferencePage {
 	 * @generated
 	 */
 	public DiagramPrintingPreferencePage() {
-		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

@@ -14,48 +14,40 @@ import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleNode;
 import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
 
-public class SimpleChildReferenceTriggerListener extends TriggerListener implements
-		ResourceSetListener {
-	
+public class SimpleChildReferenceTriggerListener extends TriggerListener implements ResourceSetListener {
+
 	public static NotificationFilter setReferencedSimpleNodeFilter;
-	
+
 	public SimpleChildReferenceTriggerListener() {
 		super(NotificationFilter.createNotifierTypeFilter(SimpleChildReference.class));
 	}
 
-	static{
-		
-		setReferencedSimpleNodeFilter = NotificationFilter
-		        .createNotifierTypeFilter(SimpleChildReference.class).and(
-		            NotificationFilter.createEventTypeFilter(Notification.SET)).and(
-		            NotificationFilter.createFeatureFilter(
-		            		SimpleChildReference.class,
-		            		SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__REFERENCED_SIMPLE_NODE));
-		
+	static {
+
+		setReferencedSimpleNodeFilter = NotificationFilter.createNotifierTypeFilter(SimpleChildReference.class).and(NotificationFilter.createEventTypeFilter(Notification.SET))
+				.and(NotificationFilter.createFeatureFilter(SimpleChildReference.class, SimplemappingsPackage.SIMPLE_CHILD_REFERENCE__REFERENCED_SIMPLE_NODE));
+
 	}
 
 	@Override
-	protected Command trigger(TransactionalEditingDomain domain,
-			Notification notification) {
-		
-		if(setReferencedSimpleNodeFilter.matches(notification))
-		{
-			SimpleChildReference simpleChildReference = (SimpleChildReference)notification.getNotifier();
-			SimpleNode newReference = (SimpleNode)notification.getNewValue();
-			
+	protected Command trigger(TransactionalEditingDomain domain, Notification notification) {
+
+		if (setReferencedSimpleNodeFilter.matches(notification)) {
+			SimpleChildReference simpleChildReference = (SimpleChildReference) notification.getNotifier();
+			SimpleNode newReference = (SimpleNode) notification.getNewValue();
+
 			//We set the referenced child
-			ChildReference nodeReference = (ChildReference)simpleChildReference.getNodeReference();
-			
-			if(newReference!=null && newReference.getNodeReference()!=null)
-			{
+			ChildReference nodeReference = (ChildReference) simpleChildReference.getNodeReference();
+
+			if (newReference != null && newReference.getNodeReference() != null) {
 				NodeMapping referencedChild = newReference.getNodeReference().getChild();
-				
-				if(referencedChild!=null)
+
+				if (referencedChild != null)
 					return SetCommand.create(domain, nodeReference, GMFMapPackage.eINSTANCE.getChildReference_ReferencedChild(), referencedChild);
 			}
-			
+
 		}
-		
+
 		return null;
 	}
 

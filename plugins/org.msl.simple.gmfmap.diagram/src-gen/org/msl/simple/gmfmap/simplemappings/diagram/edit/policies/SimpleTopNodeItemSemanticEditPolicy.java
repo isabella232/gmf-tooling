@@ -24,8 +24,7 @@ import org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapElementTy
 /**
  * @generated
  */
-public class SimpleTopNodeItemSemanticEditPolicy extends
-		SimplemapBaseItemSemanticEditPolicy {
+public class SimpleTopNodeItemSemanticEditPolicy extends SimplemapBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -41,12 +40,10 @@ public class SimpleTopNodeItemSemanticEditPolicy extends
 		if (SimplemapElementTypes.SimpleLabelNode_2001 == req.getElementType()) {
 			return getGEFWrapper(new SimpleLabelNodeCreateCommand(req));
 		}
-		if (SimplemapElementTypes.SimpleCompartment_2002 == req
-				.getElementType()) {
+		if (SimplemapElementTypes.SimpleCompartment_2002 == req.getElementType()) {
 			return getGEFWrapper(new SimpleCompartmentCreateCommand(req));
 		}
-		if (SimplemapElementTypes.SimpleChildReference_2004 == req
-				.getElementType()) {
+		if (SimplemapElementTypes.SimpleChildReference_2004 == req.getElementType()) {
 			return getGEFWrapper(new SimpleChildReferenceCreateCommand(req));
 		}
 		if (SimplemapElementTypes.SimpleSubNode_2003 == req.getElementType()) {
@@ -60,8 +57,7 @@ public class SimpleTopNodeItemSemanticEditPolicy extends
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
-		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(
-				getEditingDomain(), null);
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
 		cmd.setTransactionNestingEnabled(false);
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {
@@ -87,26 +83,22 @@ public class SimpleTopNodeItemSemanticEditPolicy extends
 
 			switch (SimplemapVisualIDRegistry.getVisualID(node)) {
 			case SimpleLabelNodeEditPart.VISUAL_ID:
-				cmd.add(new DestroyElementCommand(new DestroyElementRequest(
-						getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case SimpleCompartmentEditPart.VISUAL_ID:
-				cmd.add(new DestroyElementCommand(new DestroyElementRequest(
-						getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case SimpleChildReferenceEditPart.VISUAL_ID:
-				cmd.add(new DestroyElementCommand(new DestroyElementRequest(
-						getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;
 			case SimpleSubNodeEditPart.VISUAL_ID:
-				cmd.add(new DestroyElementCommand(new DestroyElementRequest(
-						getEditingDomain(), node.getElement(), false))); // directlyOwned: true
+				cmd.add(new DestroyElementCommand(new DestroyElementRequest(getEditingDomain(), node.getElement(), false))); // directlyOwned: true
 				// don't need explicit deletion of node as parent's view deletion would clean child views as well 
 				// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), node));
 				break;

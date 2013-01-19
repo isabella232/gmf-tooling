@@ -13,40 +13,41 @@ import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-
 public class TransformOptions extends AbstractPreferenceInitializer {
-	
+
 	private static final String PREF_GENERATE_RCP = "generate_rcp"; //$NON-NLS-1$
+
 	private static final String PREF_USE_MAP_MODE = "use_map_mode"; //$NON-NLS-1$
+
 	private static final String PREF_USE_RUNTIME_FIGURES = "use_runtime_figures"; //$NON-NLS-1$
+
 	private static final String PREF_IGNORE_MAPMODEL_VALIDATION = "ignore_mapmodel_validation"; //$NON-NLS-1$
+
 	private static final String PREF_IGNORE_GMFGEN_VALIDATION = "ignore_gmfgen_validation"; //$NON-NLS-1$
+
 	private static final String PREF_FIGURE_TEMPLATES = "dynamic_figure_templates"; //$NON-NLS-1$
+
 	private static final String PREF_MAIN_TRANSFORM = "main-qvto"; //$NON-NLS-1$
+
 	private static final String PREF_PRE_RECONCILE_TRANSFORM = "pre-reconcile-qvto"; //$NON-NLS-1$
+
 	private static final String PREF_POST_RECONCILE_TRANSFORM = "post-reconcile-qvto"; //$NON-NLS-1$
-	
-	private static String[] PROP_NAMES = new String[] {
-		PREF_GENERATE_RCP, 
-		PREF_USE_MAP_MODE, 
-		PREF_USE_RUNTIME_FIGURES,
-		PREF_IGNORE_MAPMODEL_VALIDATION,
-		PREF_IGNORE_GMFGEN_VALIDATION,
-		PREF_FIGURE_TEMPLATES,
-		PREF_MAIN_TRANSFORM,
-		PREF_PRE_RECONCILE_TRANSFORM,
-		PREF_POST_RECONCILE_TRANSFORM,
-		};
+
+	private static String[] PROP_NAMES = new String[] { PREF_GENERATE_RCP, PREF_USE_MAP_MODE, PREF_USE_RUNTIME_FIGURES, PREF_IGNORE_MAPMODEL_VALIDATION, PREF_IGNORE_GMFGEN_VALIDATION,
+			PREF_FIGURE_TEMPLATES, PREF_MAIN_TRANSFORM, PREF_PRE_RECONCILE_TRANSFORM, PREF_POST_RECONCILE_TRANSFORM, };
 
 	private Preferences myContextPrefs; // may be null
+
 	private Preferences myGlobalPrefs;
+
 	// null value indicates value was not yet accessed, to indicate value removal, use dedicated myNoValueToken 
-	private final HashMap<String,String> myInMemPrefs = new HashMap<String,String>();
+	private final HashMap<String, String> myInMemPrefs = new HashMap<String, String>();
+
 	// explicit "no-value" value to indicate absence of the key
 	// need this when global preferences have e.g. postReconcileTr set, but current transformation cleaned the option, 
 	// hence key absence in the myInMemPrefs map is non-indicative
 	private final String myNoValueToken = new String("no value"); //$NON-NLS-1$
-	
+
 	public TransformOptions() {
 	}
 
@@ -60,7 +61,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public void reset() {
 		myInMemPrefs.clear();
 	}
-	
+
 	public void flush() {
 		try {
 			for (String k : myInMemPrefs.keySet()) {
@@ -86,7 +87,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 			Plugin.log(ex);
 		}
 	}
-	
+
 	public boolean getGenerateRCP() {
 		return getBoolean(PREF_GENERATE_RCP);
 	}
@@ -126,7 +127,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	//
 	//
 	//
-	
+
 	public void setGenerateRCP(boolean value) {
 		myInMemPrefs.put(PREF_GENERATE_RCP, Boolean.toString(value));
 	}
@@ -173,7 +174,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		node.putBoolean(PREF_IGNORE_GMFGEN_VALIDATION, false);
 
 	}
-	
+
 	static boolean checkLiteOptionPresent() {
 		return Platform.getBundle("org.eclipse.gmf.codegen.lite") != null; //$NON-NLS-1$
 	}
@@ -227,6 +228,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		}
 		return myGlobalPrefs;
 	}
+
 	private static Preferences getDefaultPrefs() {
 		return new DefaultScope().getNode(Plugin.getPluginID());
 	}

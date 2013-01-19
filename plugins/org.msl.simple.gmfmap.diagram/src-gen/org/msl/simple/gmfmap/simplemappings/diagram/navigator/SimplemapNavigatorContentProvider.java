@@ -34,8 +34,7 @@ import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapVisualIDRegist
 /**
  * @generated
  */
-public class SimplemapNavigatorContentProvider implements
-		ICommonContentProvider {
+public class SimplemapNavigatorContentProvider implements ICommonContentProvider {
 
 	/**
 	 * @generated
@@ -67,10 +66,10 @@ public class SimplemapNavigatorContentProvider implements
 	 */
 	@SuppressWarnings({ "unchecked", "serial", "rawtypes" })
 	public SimplemapNavigatorContentProvider() {
-		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE
-				.createEditingDomain();
+		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		myEditingDomain = (AdapterFactoryEditingDomain) editingDomain;
 		myEditingDomain.setResourceToReadOnlyMap(new HashMap() {
+
 			public Object get(Object key) {
 				if (!containsKey(key)) {
 					put(key, Boolean.TRUE);
@@ -79,36 +78,36 @@ public class SimplemapNavigatorContentProvider implements
 			}
 		});
 		myViewerRefreshRunnable = new Runnable() {
+
 			public void run() {
 				if (myViewer != null) {
 					myViewer.refresh();
 				}
 			}
 		};
-		myWorkspaceSynchronizer = new WorkspaceSynchronizer(editingDomain,
-				new WorkspaceSynchronizer.Delegate() {
-					public void dispose() {
-					}
+		myWorkspaceSynchronizer = new WorkspaceSynchronizer(editingDomain, new WorkspaceSynchronizer.Delegate() {
 
-					public boolean handleResourceChanged(final Resource resource) {
-						unloadAllResources();
-						asyncRefresh();
-						return true;
-					}
+			public void dispose() {
+			}
 
-					public boolean handleResourceDeleted(Resource resource) {
-						unloadAllResources();
-						asyncRefresh();
-						return true;
-					}
+			public boolean handleResourceChanged(final Resource resource) {
+				unloadAllResources();
+				asyncRefresh();
+				return true;
+			}
 
-					public boolean handleResourceMoved(Resource resource,
-							final URI newURI) {
-						unloadAllResources();
-						asyncRefresh();
-						return true;
-					}
-				});
+			public boolean handleResourceDeleted(Resource resource) {
+				unloadAllResources();
+				asyncRefresh();
+				return true;
+			}
+
+			public boolean handleResourceMoved(Resource resource, final URI newURI) {
+				unloadAllResources();
+				asyncRefresh();
+				return true;
+			}
+		});
 	}
 
 	/**
@@ -135,8 +134,7 @@ public class SimplemapNavigatorContentProvider implements
 	 * @generated
 	 */
 	void unloadAllResources() {
-		for (Resource nextResource : myEditingDomain.getResourceSet()
-				.getResources()) {
+		for (Resource nextResource : myEditingDomain.getResourceSet().getResources()) {
 			nextResource.unload();
 		}
 	}
@@ -146,8 +144,7 @@ public class SimplemapNavigatorContentProvider implements
 	 */
 	void asyncRefresh() {
 		if (myViewer != null && !myViewer.getControl().isDisposed()) {
-			myViewer.getControl().getDisplay()
-					.asyncExec(myViewerRefreshRunnable);
+			myViewer.getControl().getDisplay().asyncExec(myViewerRefreshRunnable);
 		}
 	}
 
@@ -182,13 +179,10 @@ public class SimplemapNavigatorContentProvider implements
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof IFile) {
 			IFile file = (IFile) parentElement;
-			URI fileURI = URI.createPlatformResourceURI(file.getFullPath()
-					.toString(), true);
-			Resource resource = myEditingDomain.getResourceSet().getResource(
-					fileURI, true);
+			URI fileURI = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
+			Resource resource = myEditingDomain.getResourceSet().getResource(fileURI, true);
 			ArrayList<SimplemapNavigatorItem> result = new ArrayList<SimplemapNavigatorItem>();
-			ArrayList<View> topViews = new ArrayList<View>(resource
-					.getContents().size());
+			ArrayList<View> topViews = new ArrayList<View>(resource.getContents().size());
 			for (EObject o : resource.getContents()) {
 				if (o instanceof View) {
 					topViews.add((View) o);
@@ -223,16 +217,10 @@ public class SimplemapNavigatorContentProvider implements
 			LinkedList<SimplemapAbstractNavigatorItem> result = new LinkedList<SimplemapAbstractNavigatorItem>();
 			Diagram sv = (Diagram) view;
 			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleTopNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleLinkMappingEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleTopNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleLinkMappingEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			return result.toArray();
 		}
 
@@ -240,26 +228,14 @@ public class SimplemapNavigatorContentProvider implements
 			LinkedList<SimplemapAbstractNavigatorItem> result = new LinkedList<SimplemapAbstractNavigatorItem>();
 			Node sv = (Node) view;
 			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleLabelNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleCompartmentEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleChildReferenceEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleSubNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleLabelNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleCompartmentEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleChildReferenceEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleSubNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			return result.toArray();
 		}
 
@@ -267,21 +243,12 @@ public class SimplemapNavigatorContentProvider implements
 			LinkedList<SimplemapAbstractNavigatorItem> result = new LinkedList<SimplemapAbstractNavigatorItem>();
 			Node sv = (Node) view;
 			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleLabelNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleSubNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleChildReferenceEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleLabelNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleSubNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleChildReferenceEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			return result.toArray();
 		}
 
@@ -289,26 +256,14 @@ public class SimplemapNavigatorContentProvider implements
 			LinkedList<SimplemapAbstractNavigatorItem> result = new LinkedList<SimplemapAbstractNavigatorItem>();
 			Node sv = (Node) view;
 			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleLabelNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleCompartmentEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleChildReferenceEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
-			connectedViews = getChildrenByType(Collections.singleton(sv),
-					SimplemapVisualIDRegistry
-							.getType(SimpleSubNodeEditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement,
-					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleLabelNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleCompartmentEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleChildReferenceEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), SimplemapVisualIDRegistry.getType(SimpleSubNodeEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			return result.toArray();
 		}
 		}
@@ -318,13 +273,11 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> getLinksSourceByType(Collection<Edge> edges,
-			String type) {
+	private Collection<View> getLinksSourceByType(Collection<Edge> edges, String type) {
 		LinkedList<View> result = new LinkedList<View>();
 		for (Edge nextEdge : edges) {
 			View nextEdgeSource = nextEdge.getSource();
-			if (type.equals(nextEdgeSource.getType())
-					&& isOwnView(nextEdgeSource)) {
+			if (type.equals(nextEdgeSource.getType()) && isOwnView(nextEdgeSource)) {
 				result.add(nextEdgeSource);
 			}
 		}
@@ -334,13 +287,11 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> getLinksTargetByType(Collection<Edge> edges,
-			String type) {
+	private Collection<View> getLinksTargetByType(Collection<Edge> edges, String type) {
 		LinkedList<View> result = new LinkedList<View>();
 		for (Edge nextEdge : edges) {
 			View nextEdgeTarget = nextEdge.getTarget();
-			if (type.equals(nextEdgeTarget.getType())
-					&& isOwnView(nextEdgeTarget)) {
+			if (type.equals(nextEdgeTarget.getType()) && isOwnView(nextEdgeTarget)) {
 				result.add(nextEdgeTarget);
 			}
 		}
@@ -350,8 +301,7 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> getOutgoingLinksByType(
-			Collection<? extends View> nodes, String type) {
+	private Collection<View> getOutgoingLinksByType(Collection<? extends View> nodes, String type) {
 		LinkedList<View> result = new LinkedList<View>();
 		for (View nextNode : nodes) {
 			result.addAll(selectViewsByType(nextNode.getSourceEdges(), type));
@@ -362,8 +312,7 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> getIncomingLinksByType(
-			Collection<? extends View> nodes, String type) {
+	private Collection<View> getIncomingLinksByType(Collection<? extends View> nodes, String type) {
 		LinkedList<View> result = new LinkedList<View>();
 		for (View nextNode : nodes) {
 			result.addAll(selectViewsByType(nextNode.getTargetEdges(), type));
@@ -374,8 +323,7 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> getChildrenByType(
-			Collection<? extends View> nodes, String type) {
+	private Collection<View> getChildrenByType(Collection<? extends View> nodes, String type) {
 		LinkedList<View> result = new LinkedList<View>();
 		for (View nextNode : nodes) {
 			result.addAll(selectViewsByType(nextNode.getChildren(), type));
@@ -386,8 +334,7 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> getDiagramLinksByType(
-			Collection<Diagram> diagrams, String type) {
+	private Collection<View> getDiagramLinksByType(Collection<Diagram> diagrams, String type) {
 		ArrayList<View> result = new ArrayList<View>();
 		for (Diagram nextDiagram : diagrams) {
 			result.addAll(selectViewsByType(nextDiagram.getEdges(), type));
@@ -399,8 +346,7 @@ public class SimplemapNavigatorContentProvider implements
 	/**
 	 * @generated
 	 */
-	private Collection<View> selectViewsByType(Collection<View> views,
-			String type) {
+	private Collection<View> selectViewsByType(Collection<View> views, String type) {
 		ArrayList<View> result = new ArrayList<View>();
 		for (View nextView : views) {
 			if (type.equals(nextView.getType()) && isOwnView(nextView)) {
@@ -414,17 +360,14 @@ public class SimplemapNavigatorContentProvider implements
 	 * @generated
 	 */
 	private boolean isOwnView(View view) {
-		return SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry
-				.getModelID(view));
+		return SimpleMappingEditPart.MODEL_ID.equals(SimplemapVisualIDRegistry.getModelID(view));
 	}
 
 	/**
 	 * @generated
 	 */
-	private Collection<SimplemapNavigatorItem> createNavigatorItems(
-			Collection<View> views, Object parent, boolean isLeafs) {
-		ArrayList<SimplemapNavigatorItem> result = new ArrayList<SimplemapNavigatorItem>(
-				views.size());
+	private Collection<SimplemapNavigatorItem> createNavigatorItems(Collection<View> views, Object parent, boolean isLeafs) {
+		ArrayList<SimplemapNavigatorItem> result = new ArrayList<SimplemapNavigatorItem>(views.size());
 		for (View nextView : views) {
 			result.add(new SimplemapNavigatorItem(nextView, parent, isLeafs));
 		}

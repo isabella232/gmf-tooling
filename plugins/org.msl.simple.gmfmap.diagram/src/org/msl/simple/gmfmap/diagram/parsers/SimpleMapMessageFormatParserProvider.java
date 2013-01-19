@@ -15,35 +15,36 @@ import org.msl.simple.gmfmap.simplemappings.diagram.parsers.MessageFormatParser;
  * @author xIS05655
  *
  */
-public class SimpleMapMessageFormatParserProvider{
+public class SimpleMapMessageFormatParserProvider {
 
-	public static MessageFormatParser getParser(int visualId, EAttribute[] features)
-	{
+	public static MessageFormatParser getParser(int visualId, EAttribute[] features) {
 		return createParser(visualId, features, null);
 	}
-	
-	public static MessageFormatParser getParser(int visualId, EAttribute[] features, EAttribute[] editableFeatures)
-	{
+
+	public static MessageFormatParser getParser(int visualId, EAttribute[] features, EAttribute[] editableFeatures) {
 		return createParser(visualId, features, editableFeatures);
 	}
-	
-	private static MessageFormatParser createParser(int visualId, EAttribute[] features, EAttribute[] editableFeatures)
-	{
-		switch(visualId)
-		{
-			case SimpleTopNodeNameEditPart.VISUAL_ID: return SimpleNodeFormatParser.getInstance(features, editableFeatures); 
-			case SimpleSubNodeNameEditPart.VISUAL_ID: return SimpleNodeFormatParser.getInstance(features, editableFeatures);
-			case SimpleLabelNodeEditPart.VISUAL_ID: return SimpleNodeFormatParser.getInstance(features, editableFeatures); 
-			case SimpleCompartmentNameEditPart.VISUAL_ID:return SimpleCompartmentFormatParser.getInstance(features, editableFeatures);
-			case SimpleChildReferenceEditPart.VISUAL_ID: return SimpleNodeFormatParser.getInstance(features, editableFeatures); 
+
+	private static MessageFormatParser createParser(int visualId, EAttribute[] features, EAttribute[] editableFeatures) {
+		switch (visualId) {
+		case SimpleTopNodeNameEditPart.VISUAL_ID:
+			return SimpleNodeFormatParser.getInstance(features, editableFeatures);
+		case SimpleSubNodeNameEditPart.VISUAL_ID:
+			return SimpleNodeFormatParser.getInstance(features, editableFeatures);
+		case SimpleLabelNodeEditPart.VISUAL_ID:
+			return SimpleNodeFormatParser.getInstance(features, editableFeatures);
+		case SimpleCompartmentNameEditPart.VISUAL_ID:
+			return SimpleCompartmentFormatParser.getInstance(features, editableFeatures);
+		case SimpleChildReferenceEditPart.VISUAL_ID:
+			return SimpleNodeFormatParser.getInstance(features, editableFeatures);
 
 		}
-		
-		if(editableFeatures==null)
+
+		if (editableFeatures == null)
 			return new MessageFormatParser(features);
 		else
 			return new MessageFormatParser(features, editableFeatures);
-		
+
 	}
-	
+
 }

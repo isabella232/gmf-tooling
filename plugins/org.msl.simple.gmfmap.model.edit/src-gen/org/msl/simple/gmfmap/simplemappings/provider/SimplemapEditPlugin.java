@@ -19,6 +19,7 @@ import org.eclipse.gmf.tooldef.provider.GMFToolEditPlugin;
  * @generated
  */
 public final class SimplemapEditPlugin extends EMFPlugin {
+
 	/**
 	 * Keep track of the singleton.
 	 * <!-- begin-user-doc -->
@@ -80,6 +81,7 @@ public final class SimplemapEditPlugin extends EMFPlugin {
 	 * @generated
 	 */
 	public static class Implementation extends EclipsePlugin {
+
 		/**
 		 * Creates an instance.
 		 * <!-- begin-user-doc -->

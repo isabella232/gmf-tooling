@@ -12,7 +12,6 @@ public class DiagramConnectionsPreferencePage extends ConnectionsPreferencePage 
 	 * @generated
 	 */
 	public DiagramConnectionsPreferencePage() {
-		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(SimplemapDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

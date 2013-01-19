@@ -35,6 +35,7 @@ import org.msl.simple.gmfmap.simplemappings.util.SimplemappingsAdapterFactory;
  * @generated
  */
 public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
+
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
 	 * <!-- begin-user-doc -->

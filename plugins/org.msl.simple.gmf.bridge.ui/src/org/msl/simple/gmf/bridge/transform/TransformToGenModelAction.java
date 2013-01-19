@@ -20,6 +20,7 @@ import org.eclipse.ui.PlatformUI;
 public class TransformToGenModelAction implements IObjectActionDelegate {
 
 	private static final int WIZARD_WIDTH_INCH = 6;
+
 	private static final int WIZARD_HEIGHT_INCH = 6;
 
 	private IWorkbenchPart myPart;

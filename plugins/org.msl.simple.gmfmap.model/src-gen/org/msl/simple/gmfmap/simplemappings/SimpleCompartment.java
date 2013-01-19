@@ -31,6 +31,7 @@ import org.eclipse.gmf.mappings.CompartmentMapping;
  * @generated
  */
 public interface SimpleCompartment extends SimpleParentNode, SimpleChildNode, SimpleMappingElementWithFigure {
+
 	/**
 	 * Returns the value of the '<em><b>Compartment Mapping</b></em>' reference.
 	 * <!-- begin-user-doc -->

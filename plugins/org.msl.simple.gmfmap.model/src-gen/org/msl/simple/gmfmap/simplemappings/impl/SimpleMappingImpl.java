@@ -36,6 +36,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -72,7 +73,7 @@ public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
 	 */
 	@SuppressWarnings("unchecked")
 	public EList<SimpleChildNode> getChildren() {
-		return (EList<SimpleChildNode>)eGet(SimplemappingsPackage.Literals.SIMPLE_PARENT_NODE__CHILDREN, true);
+		return (EList<SimpleChildNode>) eGet(SimplemappingsPackage.Literals.SIMPLE_PARENT_NODE__CHILDREN, true);
 	}
 
 	/**
@@ -81,7 +82,7 @@ public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
 	 * @generated
 	 */
 	public Canvas getCanvas() {
-		return (Canvas)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__CANVAS, true);
+		return (Canvas) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__CANVAS, true);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
 	 * @generated
 	 */
 	public Palette getPalette() {
-		return (Palette)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__PALETTE, true);
+		return (Palette) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__PALETTE, true);
 	}
 
 	/**
@@ -117,7 +118,7 @@ public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
 	 * @generated
 	 */
 	public Mapping getMapping() {
-		return (Mapping)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__MAPPING, true);
+		return (Mapping) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__MAPPING, true);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
 	 * @generated
 	 */
 	public EPackage getDomainModel() {
-		return (EPackage)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__DOMAIN_MODEL, true);
+		return (EPackage) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__DOMAIN_MODEL, true);
 	}
 
 	/**
@@ -153,7 +154,7 @@ public class SimpleMappingImpl extends EObjectImpl implements SimpleMapping {
 	 * @generated
 	 */
 	public EClass getDomainMetaElement() {
-		return (EClass)eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__DOMAIN_META_ELEMENT, true);
+		return (EClass) eGet(SimplemappingsPackage.Literals.SIMPLE_MAPPING__DOMAIN_META_ELEMENT, true);
 	}
 
 	/**

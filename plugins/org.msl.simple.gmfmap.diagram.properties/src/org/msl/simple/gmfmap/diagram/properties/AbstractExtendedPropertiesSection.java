@@ -13,24 +13,23 @@ import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
 
-public abstract class AbstractExtendedPropertiesSection extends AbstractModelerPropertySection implements
-IFilter{
+public abstract class AbstractExtendedPropertiesSection extends AbstractModelerPropertySection implements IFilter {
 
 	protected Composite composite;
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.ui.views.properties.tabbed.ISection#createControls(org.eclipse.swt.widgets.Composite,
-	 *      org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage)
+	 * @see
+	 * org.eclipse.ui.views.properties.tabbed.ISection#createControls(org.eclipse
+	 * .swt.widgets.Composite,
+	 * org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage)
 	 */
-	public void createControls(Composite parent,
-			TabbedPropertySheetPage aTabbedPropertySheetPage) {
+	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		initializeControls(parent);
 	}
 
-	
 	/**
 	 * Provides a level of indirection for subclasses which want 'jump' over
 	 * some control creation/initilialization steps and/or chnage thier order
@@ -59,12 +58,11 @@ IFilter{
 	 * @return 'true' if the page is displaying properties for this element
 	 * 
 	 */
-	protected boolean isCurrentSelection(Notification notification,
-			EObject element) {
+	protected boolean isCurrentSelection(Notification notification, EObject element) {
 
 		return true;
 	}
-	
+
 	/**
 	 * Adapt the object to an EObject - if possible
 	 * 
@@ -73,24 +71,23 @@ IFilter{
 	 * @return EObject
 	 */
 	protected EObject adapt(Object object) {
-		
-			EObject adapted = super.adapt(object);
-			
-			if(adapted instanceof View)
-				return ((View)adapted).getElement();
-			
-			return adapted;
+
+		EObject adapted = super.adapt(object);
+
+		if (adapted instanceof View)
+			return ((View) adapted).getElement();
+
+		return adapted;
 	}
 
-	
 	@Override
 	public boolean select(Object toTest) {
-		
+
 		EObject unwraped = unwrap(toTest);
-		
-		if(unwraped instanceof SimpleTopNode || unwraped instanceof SimpleCompartment || unwraped instanceof SimpleSubNode || unwraped instanceof SimpleLabelNode)
+
+		if (unwraped instanceof SimpleTopNode || unwraped instanceof SimpleCompartment || unwraped instanceof SimpleSubNode || unwraped instanceof SimpleLabelNode)
 			return true;
-		
+
 		return false;
 	}
 

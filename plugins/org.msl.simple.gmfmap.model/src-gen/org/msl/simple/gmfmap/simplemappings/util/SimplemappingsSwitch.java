@@ -9,13 +9,15 @@ package org.msl.simple.gmfmap.simplemappings.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.msl.simple.gmfmap.simplemappings.*;
 import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
+import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
 import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
 import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
+import org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure;
 import org.msl.simple.gmfmap.simplemappings.SimpleNode;
+import org.msl.simple.gmfmap.simplemappings.SimpleNodeReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleParentNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
@@ -35,6 +37,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimplemappingsSwitch<T> extends Switch<T> {
+
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -78,105 +81,144 @@ public class SimplemappingsSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case SimplemappingsPackage.SIMPLE_MAPPING: {
-				SimpleMapping simpleMapping = (SimpleMapping)theEObject;
-				T result = caseSimpleMapping(simpleMapping);
-				if (result == null) result = caseSimpleParentNode(simpleMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_TOP_NODE: {
-				SimpleTopNode simpleTopNode = (SimpleTopNode)theEObject;
-				T result = caseSimpleTopNode(simpleTopNode);
-				if (result == null) result = caseSimpleNode(simpleTopNode);
-				if (result == null) result = caseSimpleParentNode(simpleTopNode);
-				if (result == null) result = caseSimpleChildNode(simpleTopNode);
-				if (result == null) result = caseSimpleMappingElementWithFigure(simpleTopNode);
-				if (result == null) result = caseSimpleNodeReference(simpleTopNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_COMPARTMENT: {
-				SimpleCompartment simpleCompartment = (SimpleCompartment)theEObject;
-				T result = caseSimpleCompartment(simpleCompartment);
-				if (result == null) result = caseSimpleParentNode(simpleCompartment);
-				if (result == null) result = caseSimpleChildNode(simpleCompartment);
-				if (result == null) result = caseSimpleMappingElementWithFigure(simpleCompartment);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_LABEL_NODE: {
-				SimpleLabelNode simpleLabelNode = (SimpleLabelNode)theEObject;
-				T result = caseSimpleLabelNode(simpleLabelNode);
-				if (result == null) result = caseSimpleNode(simpleLabelNode);
-				if (result == null) result = caseSimpleChildNode(simpleLabelNode);
-				if (result == null) result = caseSimpleMappingElementWithFigure(simpleLabelNode);
-				if (result == null) result = caseSimpleNodeReference(simpleLabelNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_LINK_MAPPING: {
-				SimpleLinkMapping simpleLinkMapping = (SimpleLinkMapping)theEObject;
-				T result = caseSimpleLinkMapping(simpleLinkMapping);
-				if (result == null) result = caseSimpleChildNode(simpleLinkMapping);
-				if (result == null) result = caseSimpleParentNode(simpleLinkMapping);
-				if (result == null) result = caseSimpleMappingElementWithFigure(simpleLinkMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_NODE: {
-				SimpleNode simpleNode = (SimpleNode)theEObject;
-				T result = caseSimpleNode(simpleNode);
-				if (result == null) result = caseSimpleChildNode(simpleNode);
-				if (result == null) result = caseSimpleMappingElementWithFigure(simpleNode);
-				if (result == null) result = caseSimpleNodeReference(simpleNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_PARENT_NODE: {
-				SimpleParentNode simpleParentNode = (SimpleParentNode)theEObject;
-				T result = caseSimpleParentNode(simpleParentNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_CHILD_NODE: {
-				SimpleChildNode simpleChildNode = (SimpleChildNode)theEObject;
-				T result = caseSimpleChildNode(simpleChildNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_SUB_NODE: {
-				SimpleSubNode simpleSubNode = (SimpleSubNode)theEObject;
-				T result = caseSimpleSubNode(simpleSubNode);
-				if (result == null) result = caseSimpleNode(simpleSubNode);
-				if (result == null) result = caseSimpleParentNode(simpleSubNode);
-				if (result == null) result = caseSimpleChildNode(simpleSubNode);
-				if (result == null) result = caseSimpleMappingElementWithFigure(simpleSubNode);
-				if (result == null) result = caseSimpleNodeReference(simpleSubNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE: {
-				SimpleMappingElementWithFigure simpleMappingElementWithFigure = (SimpleMappingElementWithFigure)theEObject;
-				T result = caseSimpleMappingElementWithFigure(simpleMappingElementWithFigure);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE: {
-				SimpleChildReference simpleChildReference = (SimpleChildReference)theEObject;
-				T result = caseSimpleChildReference(simpleChildReference);
-				if (result == null) result = caseSimpleNodeReference(simpleChildReference);
-				if (result == null) result = caseSimpleChildNode(simpleChildReference);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case SimplemappingsPackage.SIMPLE_NODE_REFERENCE: {
-				SimpleNodeReference simpleNodeReference = (SimpleNodeReference)theEObject;
-				T result = caseSimpleNodeReference(simpleNodeReference);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			default: return defaultCase(theEObject);
+		case SimplemappingsPackage.SIMPLE_MAPPING: {
+			SimpleMapping simpleMapping = (SimpleMapping) theEObject;
+			T result = caseSimpleMapping(simpleMapping);
+			if (result == null)
+				result = caseSimpleParentNode(simpleMapping);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_TOP_NODE: {
+			SimpleTopNode simpleTopNode = (SimpleTopNode) theEObject;
+			T result = caseSimpleTopNode(simpleTopNode);
+			if (result == null)
+				result = caseSimpleNode(simpleTopNode);
+			if (result == null)
+				result = caseSimpleParentNode(simpleTopNode);
+			if (result == null)
+				result = caseSimpleChildNode(simpleTopNode);
+			if (result == null)
+				result = caseSimpleMappingElementWithFigure(simpleTopNode);
+			if (result == null)
+				result = caseSimpleNodeReference(simpleTopNode);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_COMPARTMENT: {
+			SimpleCompartment simpleCompartment = (SimpleCompartment) theEObject;
+			T result = caseSimpleCompartment(simpleCompartment);
+			if (result == null)
+				result = caseSimpleParentNode(simpleCompartment);
+			if (result == null)
+				result = caseSimpleChildNode(simpleCompartment);
+			if (result == null)
+				result = caseSimpleMappingElementWithFigure(simpleCompartment);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_LABEL_NODE: {
+			SimpleLabelNode simpleLabelNode = (SimpleLabelNode) theEObject;
+			T result = caseSimpleLabelNode(simpleLabelNode);
+			if (result == null)
+				result = caseSimpleNode(simpleLabelNode);
+			if (result == null)
+				result = caseSimpleChildNode(simpleLabelNode);
+			if (result == null)
+				result = caseSimpleMappingElementWithFigure(simpleLabelNode);
+			if (result == null)
+				result = caseSimpleNodeReference(simpleLabelNode);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_LINK_MAPPING: {
+			SimpleLinkMapping simpleLinkMapping = (SimpleLinkMapping) theEObject;
+			T result = caseSimpleLinkMapping(simpleLinkMapping);
+			if (result == null)
+				result = caseSimpleChildNode(simpleLinkMapping);
+			if (result == null)
+				result = caseSimpleParentNode(simpleLinkMapping);
+			if (result == null)
+				result = caseSimpleMappingElementWithFigure(simpleLinkMapping);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_NODE: {
+			SimpleNode simpleNode = (SimpleNode) theEObject;
+			T result = caseSimpleNode(simpleNode);
+			if (result == null)
+				result = caseSimpleChildNode(simpleNode);
+			if (result == null)
+				result = caseSimpleMappingElementWithFigure(simpleNode);
+			if (result == null)
+				result = caseSimpleNodeReference(simpleNode);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_PARENT_NODE: {
+			SimpleParentNode simpleParentNode = (SimpleParentNode) theEObject;
+			T result = caseSimpleParentNode(simpleParentNode);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_CHILD_NODE: {
+			SimpleChildNode simpleChildNode = (SimpleChildNode) theEObject;
+			T result = caseSimpleChildNode(simpleChildNode);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_SUB_NODE: {
+			SimpleSubNode simpleSubNode = (SimpleSubNode) theEObject;
+			T result = caseSimpleSubNode(simpleSubNode);
+			if (result == null)
+				result = caseSimpleNode(simpleSubNode);
+			if (result == null)
+				result = caseSimpleParentNode(simpleSubNode);
+			if (result == null)
+				result = caseSimpleChildNode(simpleSubNode);
+			if (result == null)
+				result = caseSimpleMappingElementWithFigure(simpleSubNode);
+			if (result == null)
+				result = caseSimpleNodeReference(simpleSubNode);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE: {
+			SimpleMappingElementWithFigure simpleMappingElementWithFigure = (SimpleMappingElementWithFigure) theEObject;
+			T result = caseSimpleMappingElementWithFigure(simpleMappingElementWithFigure);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE: {
+			SimpleChildReference simpleChildReference = (SimpleChildReference) theEObject;
+			T result = caseSimpleChildReference(simpleChildReference);
+			if (result == null)
+				result = caseSimpleNodeReference(simpleChildReference);
+			if (result == null)
+				result = caseSimpleChildNode(simpleChildReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case SimplemappingsPackage.SIMPLE_NODE_REFERENCE: {
+			SimpleNodeReference simpleNodeReference = (SimpleNodeReference) theEObject;
+			T result = caseSimpleNodeReference(simpleNodeReference);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		default:
+			return defaultCase(theEObject);
 		}
 	}
 

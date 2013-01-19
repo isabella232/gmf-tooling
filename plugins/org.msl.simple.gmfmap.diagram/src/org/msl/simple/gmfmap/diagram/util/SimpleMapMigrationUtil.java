@@ -23,9 +23,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 public class SimpleMapMigrationUtil {
-	
+
 	private static final String LATEST_RELEASE = "http://org.msl.simple.gmfmap/simplemappings_1.1";
-	
+
 	/**
 	 * Get the Java file for a URI
 	 * 
@@ -40,7 +40,7 @@ public class SimpleMapMigrationUtil {
 		}
 		return new File(uri.toFileString());
 	}
-	
+
 	/** Extract the namespace URI from a model file using SAX. */
 	public static String getNamespaceURI_SAX(File file) {
 
@@ -58,7 +58,7 @@ public class SimpleMapMigrationUtil {
 
 		return contentHandler.getNsURI();
 	}
-	
+
 	/** Content handler for extraction of namespace URI using SAX. */
 	private static class ContentHandler extends DefaultHandler {
 
@@ -67,10 +67,8 @@ public class SimpleMapMigrationUtil {
 
 		/** {@inheritDoc} */
 		@Override
-		public void startElement(String uri, String localName, String qName,
-				Attributes attributes) throws SAXException {
-			if (!ExtendedMetaData.XMI_URI.equals(uri)
-					&& !ExtendedMetaData.XML_SCHEMA_URI.equals(uri)) {
+		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+			if (!ExtendedMetaData.XMI_URI.equals(uri) && !ExtendedMetaData.XML_SCHEMA_URI.equals(uri)) {
 				nsURI = uri;
 				throw new SAXException();
 			}
@@ -81,7 +79,7 @@ public class SimpleMapMigrationUtil {
 			return nsURI;
 		}
 	}
-	
+
 	/**
 	 * Convert EMF URI to Eclipse file
 	 */
@@ -95,36 +93,35 @@ public class SimpleMapMigrationUtil {
 	}
 
 	public static boolean needsToMigrate(IEditorInput element) {
-		
+
 		File inputFile = getFile(element);
-		
-		if(inputFile==null)
+
+		if (inputFile == null)
 			return false;
-		
+
 		String nsUri = getNamespaceURI_SAX(inputFile);
-		
-		if(!nsUri.equals(LATEST_RELEASE))
+
+		if (!nsUri.equals(LATEST_RELEASE))
 			return true;
-		
+
 		return false;
 	}
 
 	public static void checkMigration(IEditorInput element) {
 
-		if(needsToMigrate(element))
+		if (needsToMigrate(element))
 			MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incompatible Version", Messages.bind(Messages.SimplemapDocumentProvider_MigrationNeeded, element.getName()));
 	}
-	
+
 	private static File getFile(IEditorInput element) {
-		
+
 		if (element instanceof FileEditorInput)
-			return ((FileEditorInput)element).getPath().toFile();
-		else if (element instanceof URIEditorInput)
-		{
+			return ((FileEditorInput) element).getPath().toFile();
+		else if (element instanceof URIEditorInput) {
 			URI uri = ((URIEditorInput) element).getURI();
 			return getJavaFile(uri);
 		}
-		
+
 		return null;
 	}
 

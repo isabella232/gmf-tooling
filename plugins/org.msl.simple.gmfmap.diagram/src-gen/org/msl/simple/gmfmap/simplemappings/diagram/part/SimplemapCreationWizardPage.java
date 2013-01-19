@@ -21,8 +21,7 @@ public class SimplemapCreationWizardPage extends WizardNewFileCreationPage {
 	/**
 	 * @generated
 	 */
-	public SimplemapCreationWizardPage(String pageName,
-			IStructuredSelection selection, String fileExtension) {
+	public SimplemapCreationWizardPage(String pageName, IStructuredSelection selection, String fileExtension) {
 		super(pageName, selection);
 		this.fileExtension = fileExtension;
 	}
@@ -63,8 +62,7 @@ public class SimplemapCreationWizardPage extends WizardNewFileCreationPage {
 	 */
 	public void createControl(Composite parent) {
 		super.createControl(parent);
-		setFileName(SimplemapDiagramEditorUtil.getUniqueFileName(
-				getContainerFullPath(), getFileName(), getExtension()));
+		setFileName(SimplemapDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), getFileName(), getExtension()));
 		setPageComplete(validatePage());
 	}
 
@@ -76,11 +74,8 @@ public class SimplemapCreationWizardPage extends WizardNewFileCreationPage {
 			return false;
 		}
 		String extension = getExtension();
-		if (extension != null
-				&& !getFilePath().toString().endsWith("." + extension)) {
-			setErrorMessage(NLS.bind(
-					Messages.SimplemapCreationWizardPageExtensionError,
-					extension));
+		if (extension != null && !getFilePath().toString().endsWith("." + extension)) {
+			setErrorMessage(NLS.bind(Messages.SimplemapCreationWizardPageExtensionError, extension));
 			return false;
 		}
 		return true;

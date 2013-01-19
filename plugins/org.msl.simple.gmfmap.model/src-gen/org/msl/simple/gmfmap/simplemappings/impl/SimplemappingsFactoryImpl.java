@@ -11,12 +11,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.msl.simple.gmfmap.simplemappings.*;
+import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
 import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
 import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
+import org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure;
 import org.msl.simple.gmfmap.simplemappings.SimpleNode;
+import org.msl.simple.gmfmap.simplemappings.SimpleNodeReference;
 import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
 import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
 import org.msl.simple.gmfmap.simplemappings.SimplemappingsFactory;
@@ -29,6 +31,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimplemappingsFactoryImpl extends EFactoryImpl implements SimplemappingsFactory {
+
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
@@ -37,12 +40,11 @@ public class SimplemappingsFactoryImpl extends EFactoryImpl implements Simplemap
 	 */
 	public static SimplemappingsFactory init() {
 		try {
-			SimplemappingsFactory theSimplemappingsFactory = (SimplemappingsFactory)EPackage.Registry.INSTANCE.getEFactory("http://org.msl.simple.gmfmap/simplemappings_1.1"); 
+			SimplemappingsFactory theSimplemappingsFactory = (SimplemappingsFactory) EPackage.Registry.INSTANCE.getEFactory("http://org.msl.simple.gmfmap/simplemappings_1.1");
 			if (theSimplemappingsFactory != null) {
 				return theSimplemappingsFactory;
 			}
-		}
-		catch (Exception exception) {
+		} catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new SimplemappingsFactoryImpl();
@@ -66,18 +68,28 @@ public class SimplemappingsFactoryImpl extends EFactoryImpl implements Simplemap
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case SimplemappingsPackage.SIMPLE_MAPPING: return createSimpleMapping();
-			case SimplemappingsPackage.SIMPLE_TOP_NODE: return createSimpleTopNode();
-			case SimplemappingsPackage.SIMPLE_COMPARTMENT: return createSimpleCompartment();
-			case SimplemappingsPackage.SIMPLE_LABEL_NODE: return createSimpleLabelNode();
-			case SimplemappingsPackage.SIMPLE_LINK_MAPPING: return createSimpleLinkMapping();
-			case SimplemappingsPackage.SIMPLE_NODE: return createSimpleNode();
-			case SimplemappingsPackage.SIMPLE_SUB_NODE: return createSimpleSubNode();
-			case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE: return createSimpleMappingElementWithFigure();
-			case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE: return createSimpleChildReference();
-			case SimplemappingsPackage.SIMPLE_NODE_REFERENCE: return createSimpleNodeReference();
-			default:
-				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+		case SimplemappingsPackage.SIMPLE_MAPPING:
+			return createSimpleMapping();
+		case SimplemappingsPackage.SIMPLE_TOP_NODE:
+			return createSimpleTopNode();
+		case SimplemappingsPackage.SIMPLE_COMPARTMENT:
+			return createSimpleCompartment();
+		case SimplemappingsPackage.SIMPLE_LABEL_NODE:
+			return createSimpleLabelNode();
+		case SimplemappingsPackage.SIMPLE_LINK_MAPPING:
+			return createSimpleLinkMapping();
+		case SimplemappingsPackage.SIMPLE_NODE:
+			return createSimpleNode();
+		case SimplemappingsPackage.SIMPLE_SUB_NODE:
+			return createSimpleSubNode();
+		case SimplemappingsPackage.SIMPLE_MAPPING_ELEMENT_WITH_FIGURE:
+			return createSimpleMappingElementWithFigure();
+		case SimplemappingsPackage.SIMPLE_CHILD_REFERENCE:
+			return createSimpleChildReference();
+		case SimplemappingsPackage.SIMPLE_NODE_REFERENCE:
+			return createSimpleNodeReference();
+		default:
+			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -187,7 +199,7 @@ public class SimplemappingsFactoryImpl extends EFactoryImpl implements Simplemap
 	 * @generated
 	 */
 	public SimplemappingsPackage getSimplemappingsPackage() {
-		return (SimplemappingsPackage)getEPackage();
+		return (SimplemappingsPackage) getEPackage();
 	}
 
 	/**

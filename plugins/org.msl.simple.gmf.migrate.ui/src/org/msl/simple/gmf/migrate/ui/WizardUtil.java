@@ -5,7 +5,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.viewers.IStructuredSelection;
 
 public class WizardUtil {
-	
+
 	public static String getDefaultFileName(IStructuredSelection selection, String defaultName, String extension) {
 		if (selection != null && !selection.isEmpty()) {
 			Object selected = selection.getFirstElement();
@@ -15,7 +15,7 @@ public class WizardUtil {
 		}
 		return defaultName + '.' + extension;
 	}
-	
+
 	public static String getDefaultFileName(IFile file, String extension) {
 		String fileNameBase = getFileBaseName(file);
 		String modelFilename = fileNameBase + '.' + extension;
@@ -24,7 +24,7 @@ public class WizardUtil {
 		}
 		return modelFilename;
 	}
-	
+
 	/**
 	 * In case selection points to file resource, tries to find file 
 	 * with same name and specified extension.
@@ -45,7 +45,7 @@ public class WizardUtil {
 		}
 		return null;
 	}
-	
+
 	private static String getFileBaseName(IFile file) {
 		String fileNameBase = file.getName();
 		if (file.getFileExtension() != null) {

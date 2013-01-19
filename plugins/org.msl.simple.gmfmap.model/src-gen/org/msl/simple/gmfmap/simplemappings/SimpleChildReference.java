@@ -6,7 +6,6 @@
  */
 package org.msl.simple.gmfmap.simplemappings;
 
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -27,6 +26,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * @generated
  */
 public interface SimpleChildReference extends SimpleNodeReference, SimpleChildNode {
+
 	/**
 	 * Returns the value of the '<em><b>Referenced Child</b></em>' reference.
 	 * <!-- begin-user-doc -->

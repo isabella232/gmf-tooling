@@ -15,11 +15,9 @@ public class ElementInitializers {
 	 * @generated
 	 */
 	public static ElementInitializers getInstance() {
-		ElementInitializers cached = SimplemapDiagramEditorPlugin.getInstance()
-				.getElementInitializers();
+		ElementInitializers cached = SimplemapDiagramEditorPlugin.getInstance().getElementInitializers();
 		if (cached == null) {
-			SimplemapDiagramEditorPlugin.getInstance().setElementInitializers(
-					cached = new ElementInitializers());
+			SimplemapDiagramEditorPlugin.getInstance().setElementInitializers(cached = new ElementInitializers());
 		}
 		return cached;
 	}

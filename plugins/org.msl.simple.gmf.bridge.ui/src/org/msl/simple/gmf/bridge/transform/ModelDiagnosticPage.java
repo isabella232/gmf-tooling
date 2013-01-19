@@ -10,12 +10,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
-
 abstract class ModelDiagnosticPage extends WizardPage {
-	
-	private DiagnosticComposite myDiagnosticComposite;
-	private Button myIgnoreButton;
 
+	private DiagnosticComposite myDiagnosticComposite;
+
+	private Button myIgnoreButton;
 
 	ModelDiagnosticPage(String pageName) {
 		super(pageName);
@@ -53,18 +52,18 @@ abstract class ModelDiagnosticPage extends WizardPage {
 		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
 		myDiagnosticComposite.setLayoutData(data);
 	}
-	
+
 	private void createIgnoreButton(Composite parent) {
 		myIgnoreButton = new Button(parent, SWT.CHECK);
 		myIgnoreButton.setText(Messages.MapModelDiagnosticPage_btn_ignore_text);
 		setButtonLayoutData(myIgnoreButton);
-		myIgnoreButton.addSelectionListener(new SelectionAdapter(){
-			
+		myIgnoreButton.addSelectionListener(new SelectionAdapter() {
+
 			@Override
 			public void widgetSelected(org.eclipse.swt.events.SelectionEvent e) {
 				applyValidation();
 			}
-			
+
 		});
 	}
 
@@ -74,7 +73,7 @@ abstract class ModelDiagnosticPage extends WizardPage {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}
-	
+
 	protected abstract Diagnostic getValidationResult();
 
 	private void initControls() {
@@ -94,5 +93,5 @@ abstract class ModelDiagnosticPage extends WizardPage {
 		}
 		super.setVisible(visible);
 	}
-	
+
 }

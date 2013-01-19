@@ -29,6 +29,7 @@ import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
  * @generated
  */
 public class SimpleTopNodeImpl extends SimpleNodeImpl implements SimpleTopNode {
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -55,7 +56,7 @@ public class SimpleTopNodeImpl extends SimpleNodeImpl implements SimpleTopNode {
 	 */
 	@SuppressWarnings("unchecked")
 	public EList<SimpleChildNode> getChildren() {
-		return (EList<SimpleChildNode>)eGet(SimplemappingsPackage.Literals.SIMPLE_PARENT_NODE__CHILDREN, true);
+		return (EList<SimpleChildNode>) eGet(SimplemappingsPackage.Literals.SIMPLE_PARENT_NODE__CHILDREN, true);
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class SimpleTopNodeImpl extends SimpleNodeImpl implements SimpleTopNode {
 	 */
 	@SuppressWarnings("unchecked")
 	public EList<SimpleLinkMapping> getLinks() {
-		return (EList<SimpleLinkMapping>)eGet(SimplemappingsPackage.Literals.SIMPLE_TOP_NODE__LINKS, true);
+		return (EList<SimpleLinkMapping>) eGet(SimplemappingsPackage.Literals.SIMPLE_TOP_NODE__LINKS, true);
 	}
 
 	/**
@@ -77,8 +78,10 @@ public class SimpleTopNodeImpl extends SimpleNodeImpl implements SimpleTopNode {
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == SimpleParentNode.class) {
 			switch (derivedFeatureID) {
-				case SimplemappingsPackage.SIMPLE_TOP_NODE__CHILDREN: return SimplemappingsPackage.SIMPLE_PARENT_NODE__CHILDREN;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_TOP_NODE__CHILDREN:
+				return SimplemappingsPackage.SIMPLE_PARENT_NODE__CHILDREN;
+			default:
+				return -1;
 			}
 		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
@@ -93,8 +96,10 @@ public class SimpleTopNodeImpl extends SimpleNodeImpl implements SimpleTopNode {
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == SimpleParentNode.class) {
 			switch (baseFeatureID) {
-				case SimplemappingsPackage.SIMPLE_PARENT_NODE__CHILDREN: return SimplemappingsPackage.SIMPLE_TOP_NODE__CHILDREN;
-				default: return -1;
+			case SimplemappingsPackage.SIMPLE_PARENT_NODE__CHILDREN:
+				return SimplemappingsPackage.SIMPLE_TOP_NODE__CHILDREN;
+			default:
+				return -1;
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);

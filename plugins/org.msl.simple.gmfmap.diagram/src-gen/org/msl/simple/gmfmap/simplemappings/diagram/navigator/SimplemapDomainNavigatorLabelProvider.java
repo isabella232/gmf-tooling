@@ -11,15 +11,12 @@ import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorP
 /**
  * @generated
  */
-public class SimplemapDomainNavigatorLabelProvider implements
-		ICommonLabelProvider {
+public class SimplemapDomainNavigatorLabelProvider implements ICommonLabelProvider {
 
 	/**
 	 * @generated
 	 */
-	private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(
-			SimplemapDiagramEditorPlugin.getInstance()
-					.getItemProvidersAdapterFactory());
+	private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(SimplemapDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 	/**
 	 * @generated
@@ -32,9 +29,7 @@ public class SimplemapDomainNavigatorLabelProvider implements
 	 */
 	public Image getImage(Object element) {
 		if (element instanceof SimplemapDomainNavigatorItem) {
-			return myAdapterFactoryLabelProvider
-					.getImage(((SimplemapDomainNavigatorItem) element)
-							.getEObject());
+			return myAdapterFactoryLabelProvider.getImage(((SimplemapDomainNavigatorItem) element).getEObject());
 		}
 		return null;
 	}
@@ -44,9 +39,7 @@ public class SimplemapDomainNavigatorLabelProvider implements
 	 */
 	public String getText(Object element) {
 		if (element instanceof SimplemapDomainNavigatorItem) {
-			return myAdapterFactoryLabelProvider
-					.getText(((SimplemapDomainNavigatorItem) element)
-							.getEObject());
+			return myAdapterFactoryLabelProvider.getText(((SimplemapDomainNavigatorItem) element).getEObject());
 		}
 		return null;
 	}
