@@ -1,4 +1,4 @@
-package org.msl.simple.gmf.bridge.transform;
+package org.eclipse.gmf.tooling.simplemap.bridge.transform;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;

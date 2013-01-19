@@ -1,4 +1,4 @@
-package org.msl.simple.gmf.bridge.transform;
+package org.eclipse.gmf.tooling.simplemap.bridge.transform;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.action.IAction;

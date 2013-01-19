@@ -1,4 +1,4 @@
-package org.msl.simple.gmf.bridge.transform;
+package org.eclipse.gmf.tooling.simplemap.bridge.transform;
 
 import java.net.MalformedURLException;
 import java.net.URL;
