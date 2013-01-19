@@ -6,17 +6,17 @@
     xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
   <nodes>
     <containmentFeature
-        href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+        href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
     <ownedChild>
       <domainMetaElement
-          href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleTopNode"/>
+          href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleTopNode"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping"
           readOnly="true">
         <diagramLabel
             href="simplegmf.gmfgraph#TopNodeName"/>
         <features
-            href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
+            href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
@@ -25,10 +25,10 @@
           href="simplegmf.gmfgraph#SimpleTopNode"/>
       <children>
         <containmentFeature
-            href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+            href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
         <ownedChild>
           <domainMetaElement
-              href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleLabelNode"/>
+              href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleLabelNode"/>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
               readOnly="true"
@@ -36,7 +36,7 @@
             <diagramLabel
                 href="simplegmf.gmfgraph#LabelNodeName"/>
             <features
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -47,16 +47,16 @@
       </children>
       <children>
         <containmentFeature
-            href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+            href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
         <ownedChild>
           <domainMetaElement
-              href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleCompartment"/>
+              href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleCompartment"/>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping">
             <diagramLabel
                 href="simplegmf.gmfgraph#CompartmentName"/>
             <features
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleCompartment/name"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleCompartment/name"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -66,33 +66,33 @@
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.0/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.3/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.2/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
         </ownedChild>
       </children>
       <children>
         <containmentFeature
-            href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+            href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
         <ownedChild>
           <domainMetaElement
-              href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleChildReference"/>
+              href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleChildReference"/>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
               readOnly="true">
             <diagramLabel
                 href="simplegmf.gmfgraph#ChildReferenceName"/>
             <features
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -103,10 +103,10 @@
       </children>
       <children>
         <containmentFeature
-            href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+            href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
         <ownedChild>
           <domainMetaElement
-              href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleSubNode"/>
+              href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleSubNode"/>
           <labelMappings
               xsi:type="gmfmap:FeatureLabelMapping"
               readOnly="true"
@@ -114,7 +114,7 @@
             <diagramLabel
                 href="simplegmf.gmfgraph#SubNodeName"/>
             <features
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleNodeReference/name"/>
           </labelMappings>
           <tool
               xsi:type="gmftool:CreationTool"
@@ -124,22 +124,22 @@
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.0/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.1/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.2/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
           <children
               referencedChild="//@nodes.0/@ownedChild/@children.3/@ownedChild">
             <containmentFeature
-                href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+                href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
           </children>
         </ownedChild>
       </children>
@@ -147,16 +147,16 @@
   </nodes>
   <nodes>
     <containmentFeature
-        href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
+        href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleParentNode/children"/>
     <ownedChild>
       <domainMetaElement
-          href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleLinkMapping"/>
+          href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleLinkMapping"/>
       <labelMappings
           xsi:type="gmfmap:FeatureLabelMapping">
         <diagramLabel
             href="simplegmf.gmfgraph#LinkMappingName"/>
         <features
-            href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleLinkMapping/name"/>
+            href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleLinkMapping/name"/>
       </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
@@ -169,9 +169,9 @@
     <diagramCanvas
         href="simplegmf.gmfgraph#simplemappings"/>
     <domainModel
-        href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#/"/>
+        href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#/"/>
     <domainMetaElement
-        href="../../org.msl.simple.gmfmap.model/model/simplemap.ecore#//SimpleMapping"/>
+        href="../../org.eclipse.gmf.tooling.simplemap.model/model/simplemap.ecore#//SimpleMapping"/>
     <palette
         href="simplegmf.gmftool#//@palette"/>
   </diagram>
