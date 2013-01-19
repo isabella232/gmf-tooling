@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.parsers;
+package org.eclipse.gmf.tooling.simplemap.diagram.parsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,30 +9,30 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
 import org.eclipse.gmf.tooling.simplemap.diagram.parsers.MessageFormatParser;
-import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
 
 /**
- * MessageFormatParser para ColumnEditPart (Se asocia en DatamodelerParserProvider)
+ * MessageFormatParser para ColumnEditPart (Se asocia en SimpleMapParserProvider)
  * Lo usamos para provocar un refresco del label, ante cambios en la columna y en las propiedades del tipo de dato
  * @author xIS05655
  *
  */
-public class SimpleCompartmentFormatParser extends MessageFormatParser implements ISemanticParser {
+public class SimpleNodeFormatParser extends MessageFormatParser implements ISemanticParser {
 
-	public SimpleCompartmentFormatParser(EAttribute[] features) {
+	public SimpleNodeFormatParser(EAttribute[] features) {
 		super(features);
 	}
 
-	public SimpleCompartmentFormatParser(EAttribute[] features, EAttribute[] editableFeatures) {
+	public SimpleNodeFormatParser(EAttribute[] features, EAttribute[] editableFeatures) {
 		super(features, editableFeatures);
 	}
 
-	public static SimpleCompartmentFormatParser getInstance(EAttribute[] features, EAttribute[] editableFeatures) {
+	public static SimpleNodeFormatParser getInstance(EAttribute[] features, EAttribute[] editableFeatures) {
 		if (editableFeatures == null)
-			return new SimpleCompartmentFormatParser(features);
+			return new SimpleNodeFormatParser(features);
 		else
-			return new SimpleCompartmentFormatParser(features, editableFeatures);
+			return new SimpleNodeFormatParser(features, editableFeatures);
 	}
 
 	/**
@@ -44,9 +44,12 @@ public class SimpleCompartmentFormatParser extends MessageFormatParser implement
 		List<EObject> parserElements = new ArrayList<EObject>(1);
 
 		//Deberia ser siempre EColumn pero alguna vez da un ClassCast y no sabemos por que
-		if (element instanceof SimpleCompartment) {
-			parserElements.add((SimpleCompartment) element);
-			parserElements.add(((SimpleCompartment) element).getCompartment());
+		if (element instanceof SimpleNodeReference) {
+			parserElements.add((SimpleNodeReference) element);
+			parserElements.add(((SimpleNodeReference) element).getNodeReference());
+
+			if (((SimpleNodeReference) element).getNodeReference() != null)
+				parserElements.add(((SimpleNodeReference) element).getNodeReference().getChild());
 		}
 
 		if (element instanceof SimpleMappingElementWithFigure) {
@@ -80,5 +83,4 @@ public class SimpleCompartmentFormatParser extends MessageFormatParser implement
 
 		return null;
 	}
-
 }

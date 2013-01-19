@@ -47,13 +47,13 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.Diagram
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.tooling.simplemap.diagram.core.SimpleMapDiagramEditingDomainFactory;
+import org.eclipse.gmf.tooling.simplemap.diagram.util.SimpleMapMigrationUtil;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
-import org.msl.simple.gmfmap.diagram.core.SimpleMapDiagramEditingDomainFactory;
-import org.msl.simple.gmfmap.diagram.util.SimpleMapMigrationUtil;
 
 /**
  * @generated

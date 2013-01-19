@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.figures;
+package org.eclipse.gmf.tooling.simplemap.diagram.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;

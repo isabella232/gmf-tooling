@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.parsers;
+package org.eclipse.gmf.tooling.simplemap.diagram.parsers;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleChildReferenceEditPart;

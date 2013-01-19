@@ -34,6 +34,7 @@ import org.eclipse.gmf.runtime.notation.FontStyle;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.policies.SimplemapTextSelectionEditPolicy;
+import org.eclipse.gmf.tooling.simplemap.diagram.figures.WrappingLabelWithColorIcon;
 import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapVisualIDRegistry;
 import org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapElementTypes;
 import org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapParserProvider;
@@ -45,7 +46,6 @@ import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
-import org.msl.simple.gmfmap.diagram.figures.WrappingLabelWithColorIcon;
 
 /**
  * @generated

@@ -19,9 +19,9 @@ import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleLinkMappingNam
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleSubNodeNameEditPart;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleTopNodeNameEditPart;
 import org.eclipse.gmf.tooling.simplemap.diagram.parsers.MessageFormatParser;
+import org.eclipse.gmf.tooling.simplemap.diagram.parsers.SimpleMapMessageFormatParserProvider;
 import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapVisualIDRegistry;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
-import org.msl.simple.gmfmap.diagram.parsers.SimpleMapMessageFormatParserProvider;
 
 /**
  * @generated

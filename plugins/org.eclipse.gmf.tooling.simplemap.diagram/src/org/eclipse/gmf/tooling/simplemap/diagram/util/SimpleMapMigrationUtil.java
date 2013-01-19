@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.util;
+package org.eclipse.gmf.tooling.simplemap.diagram.util;
 
 import java.io.File;
 import java.io.FileReader;

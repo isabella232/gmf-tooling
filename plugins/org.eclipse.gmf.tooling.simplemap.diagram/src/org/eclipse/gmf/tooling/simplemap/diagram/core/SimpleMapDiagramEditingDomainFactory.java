@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.diagram.core;
+package org.eclipse.gmf.tooling.simplemap.diagram.core;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;

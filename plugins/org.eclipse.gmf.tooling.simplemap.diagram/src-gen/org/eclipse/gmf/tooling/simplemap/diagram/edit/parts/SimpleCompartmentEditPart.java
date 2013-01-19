@@ -25,12 +25,12 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.policies.SimpleCompartmentCanonicalEditPolicy;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.policies.SimpleCompartmentItemSemanticEditPolicy;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.policies.SimplemapTextSelectionEditPolicy;
+import org.eclipse.gmf.tooling.simplemap.diagram.figures.WrappingLabelWithColorIcon;
 import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapVisualIDRegistry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
-import org.msl.simple.gmfmap.diagram.figures.WrappingLabelWithColorIcon;
 
 /**
  * @generated
