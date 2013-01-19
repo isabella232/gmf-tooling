@@ -4,14 +4,14 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.diagram;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorPlugin
+Bundle-Activator: org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.msl.simple.gmfmap.diagram.core,
- org.msl.simple.gmfmap.simplemappings.diagram.edit.parts,
- org.msl.simple.gmfmap.simplemappings.diagram.part,
- org.msl.simple.gmfmap.simplemappings.diagram.providers,
- org.msl.simple.gmfmap.simplemappings.diagram.sheet
+Export-Package: org.eclipse.gmf.tooling.simplemap.diagram.edit.parts,
+ org.eclipse.gmf.tooling.simplemap.diagram.part,
+ org.eclipse.gmf.tooling.simplemap.diagram.providers,
+ org.eclipse.gmf.tooling.simplemap.diagram.sheet,
+ org.msl.simple.gmfmap.diagram.core
 Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,

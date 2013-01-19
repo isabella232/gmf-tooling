@@ -13,14 +13,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooling.simplemap.diagram.part.Messages;
+import org.eclipse.gmf.tooling.simplemap.diagram.part.SimpleMapEditorDiagramEditorUtil;
+import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapCreationWizard;
+import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorPlugin;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.Messages;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.SimpleMapEditorDiagramEditorUtil;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapCreationWizard;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorPlugin;
 
 public class TransformToSimpleMappingWizard extends SimplemapCreationWizard {
 

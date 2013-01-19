@@ -8,9 +8,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
+import org.eclipse.gmf.tooling.simplemap.diagram.parsers.MessageFormatParser;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
-import org.msl.simple.gmfmap.simplemappings.diagram.parsers.MessageFormatParser;
 
 /**
  * MessageFormatParser para ColumnEditPart (Se asocia en SimpleMapParserProvider)

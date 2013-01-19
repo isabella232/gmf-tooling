@@ -23,9 +23,9 @@
          icon="icons/obj16/SimplemappingsDiagramFile.gif"
          extensions="simplemappings"
          default="true"
-         class="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditor"
-         matchingStrategy="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapMatchingStrategy"
-         contributorClass="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramActionBarContributor">
+         class="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapMatchingStrategy"
+         contributorClass="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramActionBarContributor">
       </editor>
    </extension>
    
@@ -45,7 +45,7 @@
   	     name="%newWizardName"
   	     icon="icons/obj16/SimplemappingsDiagramFile.gif"
   	     category="org.msl.simple.gmfmap.diagram"
-  	     class="org.msl.simple.gmfmap.simplemappings.diagram.part.SimpleMapEditorCreationWizard"
+  	     class="org.eclipse.gmf.tooling.simplemap.diagram.part.SimpleMapEditorCreationWizard"
   	     id="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapCreationWizardID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
@@ -63,7 +63,7 @@
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%initDiagramActionLabel"
-               class="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapInitDiagramFileAction"
+               class="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
                id="org.msl.simple.gmfmap.diagram.InitDiagramAction">
@@ -117,7 +117,7 @@
 
    <extension point="org.eclipse.core.runtime.preferences" id="prefs">
       <?gmfgen generated="true"?>
-      <initializer class="org.msl.simple.gmfmap.simplemappings.diagram.preferences.DiagramPreferenceInitializer"/>
+      <initializer class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramPreferenceInitializer"/>
    </extension>
 
    <extension point="org.eclipse.ui.preferencePages" id="prefpages">
@@ -125,31 +125,31 @@
       <page
             id="org.msl.simple.gmfmap.diagram.general"
             name="%prefpage.org.msl.simple.gmfmap.diagram.general"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.preferences.DiagramGeneralPreferencePage">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.msl.simple.gmfmap.diagram.appearance"
             name="%prefpage.org.msl.simple.gmfmap.diagram.appearance"
             category="org.msl.simple.gmfmap.diagram.general"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.preferences.DiagramAppearancePreferencePage">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.msl.simple.gmfmap.diagram.connections"
             name="%prefpage.org.msl.simple.gmfmap.diagram.connections"
             category="org.msl.simple.gmfmap.diagram.general"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.preferences.DiagramConnectionsPreferencePage">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.msl.simple.gmfmap.diagram.printing"
             name="%prefpage.org.msl.simple.gmfmap.diagram.printing"
             category="org.msl.simple.gmfmap.diagram.general"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.preferences.DiagramPrintingPreferencePage">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.msl.simple.gmfmap.diagram.rulersAndGrid"
             name="%prefpage.org.msl.simple.gmfmap.diagram.rulersAndGrid"
             category="org.msl.simple.gmfmap.diagram.general"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.preferences.DiagramRulersAndGridPreferencePage">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramRulersAndGridPreferencePage">
       </page>
    </extension>
 
@@ -157,7 +157,7 @@
       <?gmfgen generated="true"?>
       <propertyContributor
             contributorId="org.msl.simple.gmfmap.diagram"
-            labelProvider="org.msl.simple.gmfmap.simplemappings.diagram.sheet.SimplemapSheetLabelProvider">
+            labelProvider="org.eclipse.gmf.tooling.simplemap.diagram.sheet.SimplemapSheetLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -208,10 +208,10 @@
          <propertySection
             id="property.section.domain" 
             tab="property.tab.domain"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.sheet.SimplemapPropertySection">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.sheet.SimplemapPropertySection">
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
-            <input type="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem"/>
+            <input type="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapAbstractNavigatorItem"/>
          </propertySection>
       </propertySections>
    </extension>
@@ -250,7 +250,7 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="false"?>
-      <modelingAssistantProvider class="org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapModelingAssistantProvider">
          <Priority name="Lowest"/>
          <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleMappingEditPart" id="SimpleMapping_79"/>
          <object class="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleTopNodeEditPart" id="SimpleTopNode_1001"/>
@@ -264,14 +264,14 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       <?gmfgen generated="true"?>
-      <IconProvider class="org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapIconProvider">
+      <IconProvider class="org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapIconProvider">
          <Priority name="Low"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
       <?gmfgen generated="true"?>
-      <ParserProvider class="org.msl.simple.gmfmap.simplemappings.diagram.providers.SimplemapParserProvider">
+      <ParserProvider class="org.eclipse.gmf.tooling.simplemap.diagram.providers.SimplemapParserProvider">
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
@@ -284,7 +284,7 @@
                name="%metatype.name.SimpleMapping_79"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleMapping"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleMappingEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleMappingEditHelper">
             <param name="semanticHint" value="79"/>
          </metamodelType>
       </metamodel>
@@ -294,7 +294,7 @@
                name="%metatype.name.SimpleTopNode_1001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleTopNode"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleTopNodeEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleTopNodeEditHelper">
             <param name="semanticHint" value="1001"/>
          </metamodelType>
       </metamodel>
@@ -304,7 +304,7 @@
                name="%metatype.name.SimpleLinkMapping_1002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleLinkMapping"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleLinkMappingEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleLinkMappingEditHelper">
             <param name="semanticHint" value="1002"/>
          </metamodelType>
       </metamodel>
@@ -314,7 +314,7 @@
                name="%metatype.name.SimpleLabelNode_2001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleLabelNode"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleLabelNodeEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleLabelNodeEditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
@@ -324,7 +324,7 @@
                name="%metatype.name.SimpleCompartment_2002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleCompartment"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleCompartmentEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleCompartmentEditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
@@ -334,7 +334,7 @@
                name="%metatype.name.SimpleSubNode_2003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleSubNode"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleSubNodeEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleSubNodeEditHelper">
             <param name="semanticHint" value="2003"/>
          </metamodelType>
       </metamodel>
@@ -344,7 +344,7 @@
                name="%metatype.name.SimpleChildReference_2004"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="SimpleChildReference"
-               edithelper="org.msl.simple.gmfmap.simplemappings.diagram.edit.helpers.SimpleChildReferenceEditHelper">
+               edithelper="org.eclipse.gmf.tooling.simplemap.diagram.edit.helpers.SimpleChildReferenceEditHelper">
             <param name="semanticHint" value="2004"/>
          </metamodelType>
       </metamodel>
@@ -377,7 +377,7 @@
            type="org.eclipse.emf.common.ui.URIEditorInput"
            namespace="org.msl.simple.gmfmap.diagram"
            properties="isURIEditorInput"
-           class="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapUriEditorInputTester">
+           class="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapUriEditorInputTester">
        </propertyTester>
    </extension>
 
@@ -403,8 +403,8 @@
             id="org.msl.simple.gmfmap.diagram.resourceContent" 
             name="%navigatorContentName" 
             priority="normal" 
-            contentProvider="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorContentProvider" 
-            labelProvider="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorLabelProvider"
+            contentProvider="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapNavigatorLabelProvider"
             icon="icons/obj16/SimplemappingsDiagramFile.gif"
             activeByDefault="true">
          <triggerPoints>
@@ -413,24 +413,24 @@
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
         	      <test property="org.eclipse.core.resources.extension" value="simplemappings"/>
                </and>
-               <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapAbstractNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
             <or>
-         	   <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem"/>
+         	   <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapAbstractNavigatorItem"/>
             </or>
          </possibleChildren>
          <commonSorter 
                id="org.msl.simple.gmfmap.diagram.navigatorSorter" 
-               class="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorSorter">
+               class="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapNavigatorSorter">
             <parentExpression>
                <or>
 	              <and>
     	             <instanceof value="org.eclipse.core.resources.IFile"/>
         	         <test property="org.eclipse.core.resources.extension" value="simplemappings"/>
                   </and>
-                  <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem"/>
+                  <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapAbstractNavigatorItem"/>
                </or>
             </parentExpression>
          </commonSorter>
@@ -439,8 +439,8 @@
             id="org.msl.simple.gmfmap.diagram.domainResourceContent" 
             name="%domainNavigatorContentName" 
             priority="normal" 
-            contentProvider="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorContentProvider" 
-            labelProvider="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorLabelProvider"
+            contentProvider="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapDomainNavigatorLabelProvider"
             icon="icons/obj16/SimplemappingsDiagramFile.gif"
             activeByDefault="true">
          <triggerPoints>
@@ -449,19 +449,19 @@
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
         	      <test property="org.eclipse.core.resources.extension" value="simplemappings"/>
                </and>
-               <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapDomainNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapDomainNavigatorItem"/>
+            <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapDomainNavigatorItem"/>
          </possibleChildren>
       </navigatorContent>
       <actionProvider
             id="org.msl.simple.gmfmap.diagram.navigatorActionProvider"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorActionProvider">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapNavigatorActionProvider">
          <enablement>
             <or>
-               <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapAbstractNavigatorItem"/>
             </or>
          </enablement>
       </actionProvider>
@@ -471,7 +471,7 @@
       <?gmfgen generated="true"?>
       <linkHelper
             id="org.msl.simple.gmfmap.diagram.navigatorLinkHelper"
-            class="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapNavigatorLinkHelper">
+            class="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapNavigatorLinkHelper">
          <editorInputEnablement>
             <and>
                <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
@@ -479,7 +479,7 @@
             </and>
          </editorInputEnablement>
          <selectionEnablement>
-            <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.navigator.SimplemapAbstractNavigatorItem"/>
+            <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.navigator.SimplemapAbstractNavigatorItem"/>
          </selectionEnablement>
       </linkHelper>
    </extension>
@@ -487,7 +487,7 @@
       <?gmfgen generated="true"?>
       <command
          categoryId="org.eclipse.ui.category.edit"
-         defaultHandler="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramUpdateCommand"
+         defaultHandler="org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramUpdateCommand"
          description="%update.diagram.description"
          id="org.msl.simple.gmfmap.simplemappings.diagram.updateDiagram"
          name="%update.diagram.name"/>
@@ -514,7 +514,7 @@
                <and>
                   <with variable="activePartId"><equals value="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorID"/></with>
                   <with variable="selection"><iterate ifEmpty="false"> 
-                     <instanceof value="org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleMappingEditPart"/>
+                     <instanceof value="org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleMappingEditPart"/>
                   </iterate></with>
                </and>
             </visibleWhen>
@@ -528,7 +528,7 @@
       <command id="org.msl.simple.gmfmap.diagram.LoadResourceAction"
          name="Load Resource"
          categoryId="org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorID"
-         defaultHandler="org.msl.simple.gmfmap.simplemappings.diagram.part.LoadResourceAction"/>
+         defaultHandler="org.eclipse.gmf.tooling.simplemap.diagram.part.LoadResourceAction"/>
    </extension>
 <extension point="org.eclipse.ui.handlers" id="menu-handlers">
       <?gmfgen generated="true"?>

@@ -1,5 +1,6 @@
 package org.eclipse.gmf.tooling.simplemap.migrate.ui;
 
+import org.eclipse.gmf.tooling.simplemap.diagram.part.SimpleMapEditorDiagramEditorUtil;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -7,7 +8,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.SimpleMapEditorDiagramEditorUtil;
 
 public class MigrateToSimpleMapAction implements IObjectActionDelegate {
 

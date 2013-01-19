@@ -1,12 +1,12 @@
 package org.msl.simple.gmfmap.diagram.parsers;
 
 import org.eclipse.emf.ecore.EAttribute;
-import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleChildReferenceEditPart;
-import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleCompartmentNameEditPart;
-import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleLabelNodeEditPart;
-import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleSubNodeNameEditPart;
-import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleTopNodeNameEditPart;
-import org.msl.simple.gmfmap.simplemappings.diagram.parsers.MessageFormatParser;
+import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleChildReferenceEditPart;
+import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleCompartmentNameEditPart;
+import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleLabelNodeEditPart;
+import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleSubNodeNameEditPart;
+import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleTopNodeNameEditPart;
+import org.eclipse.gmf.tooling.simplemap.diagram.parsers.MessageFormatParser;
 
 /**
  * Se encarga de crear un MessageFormatParser para un EditPart en particular

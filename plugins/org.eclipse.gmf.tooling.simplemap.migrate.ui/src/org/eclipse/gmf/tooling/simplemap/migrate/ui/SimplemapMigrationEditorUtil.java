@@ -30,6 +30,9 @@ import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCo
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleMappingEditPart;
+import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorPlugin;
+import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorUtil;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
@@ -42,9 +45,6 @@ import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleParentNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsFactory;
-import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleMappingEditPart;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorPlugin;
-import org.msl.simple.gmfmap.simplemappings.diagram.part.SimplemapDiagramEditorUtil;
 
 /**
  * @generated
@@ -59,12 +59,12 @@ public class SimplemapMigrationEditorUtil extends SimplemapDiagramEditorUtil {
 	 */
 	public Resource createDiagram(URI diagramURI, IProgressMonitor progressMonitor, final Mapping myMapping, final Canvas myCanvas, final Palette myPalette) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
-		progressMonitor.beginTask(org.msl.simple.gmfmap.simplemappings.diagram.part.Messages.SimplemapDiagramEditorUtil_CreateDiagramProgressTask, 3);
+		progressMonitor.beginTask(org.eclipse.gmf.tooling.simplemap.diagram.part.Messages.SimplemapDiagramEditorUtil_CreateDiagramProgressTask, 3);
 		final Resource diagramResource = editingDomain.getResourceSet().createResource(diagramURI);
 
 		final String diagramName = diagramURI.lastSegment();
 		AbstractTransactionalCommand command = new AbstractTransactionalCommand(editingDomain,
-				org.msl.simple.gmfmap.simplemappings.diagram.part.Messages.SimplemapDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
+				org.eclipse.gmf.tooling.simplemap.diagram.part.Messages.SimplemapDiagramEditorUtil_CreateDiagramCommandLabel, Collections.EMPTY_LIST) {
 
 			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 				SimpleMapping model = createInitialModel(myMapping, myCanvas, myPalette);
@@ -78,7 +78,7 @@ public class SimplemapMigrationEditorUtil extends SimplemapDiagramEditorUtil {
 				}
 
 				try {
-					diagramResource.save(org.msl.simple.gmfmap.simplemappings.diagram.part.SimpleMapEditorDiagramEditorUtil.getSaveOptions());
+					diagramResource.save(org.eclipse.gmf.tooling.simplemap.diagram.part.SimpleMapEditorDiagramEditorUtil.getSaveOptions());
 				} catch (IOException e) {
 
 					SimplemapDiagramEditorPlugin.getInstance().logError("Unable to store model and diagram resources", e); //$NON-NLS-1$
