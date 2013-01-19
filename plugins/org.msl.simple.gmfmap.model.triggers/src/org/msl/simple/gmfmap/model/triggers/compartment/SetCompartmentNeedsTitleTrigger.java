@@ -2,8 +2,8 @@ package org.msl.simple.gmfmap.model.triggers.compartment;
 
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.msl.simple.gmfmap.model.triggers.AbstractTrigger;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
 
 class SetCompartmentNeedsTitleTrigger extends AbstractTrigger {
 

@@ -11,9 +11,9 @@ import org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.notation.View;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
-import org.msl.simple.gmfmap.simplemappings.SimpleParentNode;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsFactory;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleParentNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsFactory;
 
 /**
  * @generated

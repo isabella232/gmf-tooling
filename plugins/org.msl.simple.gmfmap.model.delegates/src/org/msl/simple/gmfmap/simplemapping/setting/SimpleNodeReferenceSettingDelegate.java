@@ -6,13 +6,13 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.BasicSettingDelegate.Stateless;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleNodeReference;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
 public class SimpleNodeReferenceSettingDelegate extends Stateless {
 

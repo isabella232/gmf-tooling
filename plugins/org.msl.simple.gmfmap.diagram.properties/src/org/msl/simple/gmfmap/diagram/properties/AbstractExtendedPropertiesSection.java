@@ -4,14 +4,14 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.ui.properties.sections.AbstractModelerPropertySection;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
 
 public abstract class AbstractExtendedPropertiesSection extends AbstractModelerPropertySection implements IFilter {
 

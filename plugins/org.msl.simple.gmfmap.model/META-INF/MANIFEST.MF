@@ -7,8 +7,8 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.msl.simple.gmfmap.simplemappings,
- org.msl.simple.gmfmap.simplemappings.impl,
- org.msl.simple.gmfmap.simplemappings.util
+Export-Package: org.eclipse.gmf.tooling.simplemap.simplemappings,
+ org.eclipse.gmf.tooling.simplemap.simplemappings.impl,
+ org.eclipse.gmf.tooling.simplemap.simplemappings.util
 Require-Bundle: org.eclipse.gmf.map;visibility:=reexport
 Bundle-ActivationPolicy: lazy

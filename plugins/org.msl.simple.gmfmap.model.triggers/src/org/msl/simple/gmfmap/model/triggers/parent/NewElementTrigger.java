@@ -9,12 +9,12 @@ import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.DefaultImage;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
 import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
 import org.msl.simple.gmfmap.model.triggers.AbstractTrigger;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleNode;
 
 public abstract class NewElementTrigger extends AbstractTrigger {
 

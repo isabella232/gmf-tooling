@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.gmf.runtime.notation.View;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode;
 import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleChildReferenceEditPart;
 import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleCompartmentEditPart;
 import org.msl.simple.gmfmap.simplemappings.diagram.edit.parts.SimpleLabelNodeEditPart;

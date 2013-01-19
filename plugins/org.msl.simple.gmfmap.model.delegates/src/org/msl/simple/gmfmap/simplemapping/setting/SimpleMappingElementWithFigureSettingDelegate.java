@@ -8,12 +8,12 @@ import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.Node;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleLabelNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure;
-import org.msl.simple.gmfmap.simplemappings.SimpleNode;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
 public class SimpleMappingElementWithFigureSettingDelegate extends Stateless {
 

@@ -25,7 +25,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
 
 /**
- * This is the item provider adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleChildNode} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated

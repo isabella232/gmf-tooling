@@ -8,8 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure;
-import org.msl.simple.gmfmap.simplemappings.SimpleNodeReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
 import org.msl.simple.gmfmap.simplemappings.diagram.parsers.MessageFormatParser;
 
 /**

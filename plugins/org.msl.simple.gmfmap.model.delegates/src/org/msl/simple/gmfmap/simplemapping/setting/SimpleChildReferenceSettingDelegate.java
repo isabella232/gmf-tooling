@@ -4,8 +4,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.BasicSettingDelegate.Stateless;
 import org.eclipse.gmf.mappings.ChildReference;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
 public class SimpleChildReferenceSettingDelegate extends Stateless {
 

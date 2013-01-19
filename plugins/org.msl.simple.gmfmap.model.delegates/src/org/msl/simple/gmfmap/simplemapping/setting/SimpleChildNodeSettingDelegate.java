@@ -3,12 +3,12 @@ package org.msl.simple.gmfmap.simplemapping.setting;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.BasicSettingDelegate.Stateless;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleParentNode;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleParentNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 
 public class SimpleChildNodeSettingDelegate extends Stateless {
 

@@ -13,7 +13,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="http://org.msl.simple.gmfmap/simplemappings"
-            class="org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage"
+            class="org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage"
             genModel="model/simplemap.genmodel"/>
    </extension>
 

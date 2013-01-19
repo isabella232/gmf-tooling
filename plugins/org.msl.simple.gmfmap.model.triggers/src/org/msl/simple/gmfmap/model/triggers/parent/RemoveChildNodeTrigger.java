@@ -20,13 +20,13 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.tooldef.AbstractTool;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode;
 import org.msl.simple.gmfmap.model.triggers.AbstractTrigger;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleChildReference;
-import org.msl.simple.gmfmap.simplemappings.SimpleCompartment;
-import org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping;
-import org.msl.simple.gmfmap.simplemappings.SimpleNode;
-import org.msl.simple.gmfmap.simplemappings.SimpleSubNode;
 
 public class RemoveChildNodeTrigger extends AbstractTrigger {
 

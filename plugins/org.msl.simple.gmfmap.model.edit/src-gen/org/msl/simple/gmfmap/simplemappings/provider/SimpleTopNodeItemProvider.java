@@ -22,13 +22,13 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsFactory;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
 import org.msl.simple.gmfmap.model.edit.IItemPropertyDescriptorProvider;
-import org.msl.simple.gmfmap.simplemappings.SimpleTopNode;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsFactory;
-import org.msl.simple.gmfmap.simplemappings.SimplemappingsPackage;
 
 /**
- * This is the item provider adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleTopNode} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated

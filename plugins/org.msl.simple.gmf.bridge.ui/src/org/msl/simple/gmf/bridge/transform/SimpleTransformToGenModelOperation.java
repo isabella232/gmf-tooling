@@ -50,10 +50,10 @@ import org.eclipse.gmf.internal.codegen.util.GMFGenConfig;
 import org.eclipse.gmf.internal.common.migrate.ModelLoadHelper;
 import org.eclipse.gmf.internal.common.reconcile.Reconciler;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
 import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper;
 import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.ModelExtent;
 import org.eclipse.m2m.qvt.oml.runtime.util.QvtoTransformationHelper.TransfExecutionResult;
-import org.msl.simple.gmfmap.simplemappings.SimpleMapping;
 
 //[artem] XXX Why it's in the bridge.ui??? 
 public class SimpleTransformToGenModelOperation {

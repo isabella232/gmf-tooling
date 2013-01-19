@@ -23,7 +23,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.msl.simple.gmfmap.simplemappings.util.SimplemappingsAdapterFactory;
+import org.eclipse.gmf.tooling.simplemap.simplemappings.util.SimplemappingsAdapterFactory;
 
 /**
  * This is the factory that is used to provide the interfaces needed to support Viewers.
@@ -75,7 +75,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleMapping} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -83,7 +83,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleMappingItemProvider simpleMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleMapping}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -98,7 +98,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleTopNode} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -106,7 +106,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleTopNodeItemProvider simpleTopNodeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleTopNode}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleTopNode}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -121,7 +121,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleCompartment} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -129,7 +129,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleCompartmentItemProvider simpleCompartmentItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleCompartment}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -144,7 +144,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleLabelNode} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -152,7 +152,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleLabelNodeItemProvider simpleLabelNodeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleLabelNode}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLabelNode}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -167,7 +167,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -175,7 +175,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleLinkMappingItemProvider simpleLinkMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleLinkMapping}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleLinkMapping}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -190,7 +190,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleNode} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -198,7 +198,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleNodeItemProvider simpleNodeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleNode}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNode}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -213,7 +213,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleSubNode} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -221,7 +221,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleSubNodeItemProvider simpleSubNodeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleSubNode}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleSubNode}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -236,7 +236,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -244,7 +244,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleMappingElementWithFigureItemProvider simpleMappingElementWithFigureItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleMappingElementWithFigure}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -259,7 +259,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleChildReference} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -267,7 +267,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleChildReferenceItemProvider simpleChildReferenceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleChildReference}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleChildReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -282,7 +282,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.msl.simple.gmfmap.simplemappings.SimpleNodeReference} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -290,7 +290,7 @@ public class SimplemappingsItemProviderAdapterFactory extends SimplemappingsAdap
 	protected SimpleNodeReferenceItemProvider simpleNodeReferenceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.msl.simple.gmfmap.simplemappings.SimpleNodeReference}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
