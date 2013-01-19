@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/emf/2002/Ecore settingDelegates='org.msl.simple.gmfmap.simplemapping.setting' invocationDelegates='org.msl.simple.gmfmap.simplemapping.invocation'"
+ *        annotation="http://www.eclipse.org/emf/2002/Ecore settingDelegates='org.eclipse.gmf.tooling.simplemap.model.setting' invocationDelegates='org.msl.simple.gmfmap.simplemapping.invocation'"
  * @generated
  */
 public interface SimplemappingsPackage extends EPackage {

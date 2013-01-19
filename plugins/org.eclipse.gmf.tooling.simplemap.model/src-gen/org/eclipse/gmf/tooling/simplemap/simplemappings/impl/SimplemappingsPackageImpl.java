@@ -827,7 +827,7 @@ public class SimplemappingsPackageImpl extends EPackageImpl implements Simplemap
 		// Create annotations
 		// http://www.eclipse.org/emf/2002/Ecore
 		createEcoreAnnotations();
-		// org.msl.simple.gmfmap.simplemapping.setting
+		// org.eclipse.gmf.tooling.simplemap.model.setting
 		createOrgAnnotations();
 	}
 
@@ -839,17 +839,17 @@ public class SimplemappingsPackageImpl extends EPackageImpl implements Simplemap
 	 */
 	protected void createEcoreAnnotations() {
 		String source = "http://www.eclipse.org/emf/2002/Ecore";
-		addAnnotation(this, source, new String[] { "settingDelegates", "org.msl.simple.gmfmap.simplemapping.setting", "invocationDelegates", "org.msl.simple.gmfmap.simplemapping.invocation" });
+		addAnnotation(this, source, new String[] { "settingDelegates", "org.eclipse.gmf.tooling.simplemap.model.setting", "invocationDelegates", "org.msl.simple.gmfmap.simplemapping.invocation" });
 	}
 
 	/**
-	 * Initializes the annotations for <b>org.msl.simple.gmfmap.simplemapping.setting</b>.
+	 * Initializes the annotations for <b>org.eclipse.gmf.tooling.simplemap.model.setting</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected void createOrgAnnotations() {
-		String source = "org.msl.simple.gmfmap.simplemapping.setting";
+		String source = "org.eclipse.gmf.tooling.simplemap.model.setting";
 		addAnnotation(getSimpleMapping_DomainModel(), source, new String[] {});
 		addAnnotation(getSimpleMapping_DomainMetaElement(), source, new String[] {});
 		addAnnotation(getSimpleCompartment_Name(), source, new String[] {});

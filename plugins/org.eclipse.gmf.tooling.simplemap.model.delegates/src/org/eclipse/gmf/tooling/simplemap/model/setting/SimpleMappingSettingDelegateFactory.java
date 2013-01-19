@@ -1,4 +1,4 @@
-package org.msl.simple.gmfmap.simplemapping.setting;
+package org.eclipse.gmf.tooling.simplemap.model.setting;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EStructuralFeature.Internal.SettingDelegate;

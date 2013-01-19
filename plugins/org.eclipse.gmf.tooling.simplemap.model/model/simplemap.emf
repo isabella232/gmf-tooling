@@ -1,4 +1,4 @@
-@Ecore(settingDelegates="org.msl.simple.gmfmap.simplemapping.setting", invocationDelegates="org.msl.simple.gmfmap.simplemapping.invocation")
+@Ecore(settingDelegates="org.eclipse.gmf.tooling.simplemap.model.setting", invocationDelegates="org.msl.simple.gmfmap.simplemapping.invocation")
 @namespace(uri="http://org.msl.simple.gmfmap/simplemappings_1.1", prefix="simplemap")
 package simplemappings;
 
@@ -11,10 +11,10 @@ class SimpleMapping extends SimpleParentNode {
   ref tooldef.Palette palette;
   ref mappings.Mapping mapping;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   ref ecore.EPackage domainModel;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   ref EClass domainMetaElement;
 }
 
@@ -25,13 +25,13 @@ class SimpleTopNode extends SimpleNode, SimpleParentNode {
 class SimpleCompartment extends SimpleParentNode, SimpleChildNode, SimpleMappingElementWithFigure {
   derived ref mappings.CompartmentMapping compartmentMapping;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   attr String name;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref gmfgraph.Compartment compartment;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref gmfgraph.Label compartmentLabel;
   attr boolean needsTitle = true;
 }
@@ -43,31 +43,31 @@ class SimpleLinkMapping extends SimpleChildNode, SimpleParentNode, SimpleMapping
   attr String name;
   derived ref mappings.LinkMapping linkMapping;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   ref gmfgraph.Connection diagramLink;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref gmfgraph.DiagramLabel diagramLabel;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref tooldef.AbstractTool tool;
 }
 
 class SimpleNode extends SimpleChildNode, SimpleMappingElementWithFigure, SimpleNodeReference {
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref tooldef.AbstractTool tool;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   transient ref ecore.EAttribute[*] labelAttributes;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref gmfgraph.Node diagramNode;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   readonly unsettable derived ref gmfgraph.DiagramLabel diagramLabel;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   transient derived ref EClass domainMetaElement;
 }
 
@@ -78,13 +78,13 @@ abstract interface SimpleParentNode {
 abstract interface SimpleChildNode {
   unsettable ref SimpleParentNode#children parentNode;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   transient ref SimpleMapping parentMapping;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   ref SimpleNode parent;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   transient ref EClass parentMetaElement;
 }
 
@@ -93,16 +93,16 @@ class SimpleSubNode extends SimpleNode, SimpleParentNode {
 
 class SimpleMappingElementWithFigure {
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   ref gmfgraph.Figure nodeFigure;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   ref gmfgraph.Figure labelFigure;
 }
 
 class SimpleChildReference extends SimpleNodeReference, SimpleChildNode {
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   transient derived ref mappings.NodeMapping referencedChild;
   ref SimpleNode referencedSimpleNode;
 }
@@ -110,10 +110,10 @@ class SimpleChildReference extends SimpleNodeReference, SimpleChildNode {
 class SimpleNodeReference {
   derived ref mappings.NodeReference nodeReference;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   transient derived ref ecore.EReference containmentFeature;
 
-  @org.msl.simple.gmfmap.simplemapping.setting
+  @org.eclipse.gmf.tooling.simplemap.model.setting
   attr String name;
 }
 
