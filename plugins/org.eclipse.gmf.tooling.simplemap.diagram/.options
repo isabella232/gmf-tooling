@@ -1,7 +1,7 @@
-# Tracing options for the org.msl.simple.gmfmap.diagram plug-in
+# Tracing options for the org.eclipse.gmf.tooling.simplemap.diagram plug-in
 
 # Common issues
-org.msl.simple.gmfmap.diagram/debug=false
+org.eclipse.gmf.tooling.simplemap.diagram/debug=false
 
 # Visual IDs
-org.msl.simple.gmfmap.diagram/debug/visualID=false
+org.eclipse.gmf.tooling.simplemap.diagram/debug/visualID=false

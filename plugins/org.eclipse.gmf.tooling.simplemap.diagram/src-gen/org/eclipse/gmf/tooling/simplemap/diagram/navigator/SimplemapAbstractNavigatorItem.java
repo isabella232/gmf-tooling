@@ -18,7 +18,7 @@ public abstract class SimplemapAbstractNavigatorItem extends PlatformObject {
 		final ITabbedPropertySheetPageContributor propertySheetPageContributor = new ITabbedPropertySheetPageContributor() {
 
 			public String getContributorId() {
-				return "org.msl.simple.gmfmap.diagram"; //$NON-NLS-1$
+				return "org.eclipse.gmf.tooling.simplemap.diagram"; //$NON-NLS-1$
 			}
 		};
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {

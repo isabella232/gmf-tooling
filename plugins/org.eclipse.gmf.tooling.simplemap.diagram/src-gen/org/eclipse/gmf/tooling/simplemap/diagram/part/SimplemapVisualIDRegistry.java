@@ -31,7 +31,7 @@ public class SimplemapVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	private static final String DEBUG_KEY = "org.msl.simple.gmfmap.diagram/debug/visualID"; //$NON-NLS-1$
+	private static final String DEBUG_KEY = "org.eclipse.gmf.tooling.simplemap.diagram/debug/visualID"; //$NON-NLS-1$
 
 	/**
 	 * @generated

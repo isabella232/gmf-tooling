@@ -33,7 +33,7 @@ public class SimplemapDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public static final String ID = "org.msl.simple.gmfmap.diagram"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.gmf.tooling.simplemap.diagram"; //$NON-NLS-1$
 
 	/**
 	 * @generated
