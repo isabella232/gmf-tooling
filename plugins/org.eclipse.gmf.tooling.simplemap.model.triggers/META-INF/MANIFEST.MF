@@ -9,10 +9,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gmf.tooling.simplemap.model;bundle-version="0.1.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.msl.simple.gmfmap.model.triggers,
- org.msl.simple.gmfmap.model.triggers.compartment,
- org.msl.simple.gmfmap.model.triggers.graph,
- org.msl.simple.gmfmap.model.triggers.link,
- org.msl.simple.gmfmap.model.triggers.mapping,
- org.msl.simple.gmfmap.model.triggers.parent,
- org.msl.simple.gmfmap.model.triggers.references
+Export-Package: org.eclipse.gmf.tooling.simplemap.model.triggers,
+ org.eclipse.gmf.tooling.simplemap.model.triggers.compartment,
+ org.eclipse.gmf.tooling.simplemap.model.triggers.graph,
+ org.eclipse.gmf.tooling.simplemap.model.triggers.link,
+ org.eclipse.gmf.tooling.simplemap.model.triggers.mapping,
+ org.eclipse.gmf.tooling.simplemap.model.triggers.parent,
+ org.eclipse.gmf.tooling.simplemap.model.triggers.references

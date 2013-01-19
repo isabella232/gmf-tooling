@@ -3,14 +3,14 @@ package org.msl.simple.gmfmap.diagram.core;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.WorkspaceEditingDomainFactory;
 import org.eclipse.gmf.runtime.diagram.core.DiagramEditingDomainFactory;
-import org.msl.simple.gmfmap.model.triggers.compartment.CompartmentTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.compartment.SimpleCompartmentTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.graph.FigureDescriptorTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.graph.RealFigureTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.link.SimpleLinkMappingTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.mapping.MappingEntryTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.parent.ParentNodeTriggerListener;
-import org.msl.simple.gmfmap.model.triggers.references.SimpleChildReferenceTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.compartment.CompartmentTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.compartment.SimpleCompartmentTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.graph.FigureDescriptorTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.graph.RealFigureTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.link.SimpleLinkMappingTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.mapping.MappingEntryTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.parent.ParentNodeTriggerListener;
+import org.eclipse.gmf.tooling.simplemap.model.triggers.references.SimpleChildReferenceTriggerListener;
 
 public class SimpleMapDiagramEditingDomainFactory extends DiagramEditingDomainFactory {
 
