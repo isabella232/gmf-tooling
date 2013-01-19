@@ -124,30 +124,30 @@
       <?gmfgen generated="true"?>
       <page
             id="org.eclipse.gmf.tooling.simplemap.diagram.general"
-            name="%prefpage.org.msl.simple.gmfmap.diagram.general"
+            name="%prefpage.org.eclipse.gmf.tooling.simplemap.diagram.general"
             class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.simplemap.diagram.appearance"
-            name="%prefpage.org.msl.simple.gmfmap.diagram.appearance"
+            name="%prefpage.org.eclipse.gmf.tooling.simplemap.diagram.appearance"
             category="org.eclipse.gmf.tooling.simplemap.diagram.general"
             class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.simplemap.diagram.connections"
-            name="%prefpage.org.msl.simple.gmfmap.diagram.connections"
+            name="%prefpage.org.eclipse.gmf.tooling.simplemap.diagram.connections"
             category="org.eclipse.gmf.tooling.simplemap.diagram.general"
             class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.simplemap.diagram.printing"
-            name="%prefpage.org.msl.simple.gmfmap.diagram.printing"
+            name="%prefpage.org.eclipse.gmf.tooling.simplemap.diagram.printing"
             category="org.eclipse.gmf.tooling.simplemap.diagram.general"
             class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.simplemap.diagram.rulersAndGrid"
-            name="%prefpage.org.msl.simple.gmfmap.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.gmf.tooling.simplemap.diagram.rulersAndGrid"
             category="org.eclipse.gmf.tooling.simplemap.diagram.general"
             class="org.eclipse.gmf.tooling.simplemap.diagram.preferences.DiagramRulersAndGridPreferencePage">
       </page>
