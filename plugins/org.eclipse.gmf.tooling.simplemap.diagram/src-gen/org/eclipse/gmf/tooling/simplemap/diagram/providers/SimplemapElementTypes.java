@@ -54,37 +54,37 @@ public class SimplemapElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleMapping_79 = getElementType("org.msl.simple.gmfmap.diagram.SimpleMapping_79"); //$NON-NLS-1$
+	public static final IElementType SimpleMapping_79 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleMapping_79"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleTopNode_1001 = getElementType("org.msl.simple.gmfmap.diagram.SimpleTopNode_1001"); //$NON-NLS-1$
+	public static final IElementType SimpleTopNode_1001 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleTopNode_1001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleLinkMapping_1002 = getElementType("org.msl.simple.gmfmap.diagram.SimpleLinkMapping_1002"); //$NON-NLS-1$
+	public static final IElementType SimpleLinkMapping_1002 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleLinkMapping_1002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleLabelNode_2001 = getElementType("org.msl.simple.gmfmap.diagram.SimpleLabelNode_2001"); //$NON-NLS-1$
+	public static final IElementType SimpleLabelNode_2001 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleLabelNode_2001"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleCompartment_2002 = getElementType("org.msl.simple.gmfmap.diagram.SimpleCompartment_2002"); //$NON-NLS-1$
+	public static final IElementType SimpleCompartment_2002 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleCompartment_2002"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleSubNode_2003 = getElementType("org.msl.simple.gmfmap.diagram.SimpleSubNode_2003"); //$NON-NLS-1$
+	public static final IElementType SimpleSubNode_2003 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleSubNode_2003"); //$NON-NLS-1$
 
 	/**
 	 * @generated
 	 */
-	public static final IElementType SimpleChildReference_2004 = getElementType("org.msl.simple.gmfmap.diagram.SimpleChildReference_2004"); //$NON-NLS-1$
+	public static final IElementType SimpleChildReference_2004 = getElementType("org.eclipse.gmf.tooling.simplemap.diagram.SimpleChildReference_2004"); //$NON-NLS-1$
 
 	/**
 	 * @generated

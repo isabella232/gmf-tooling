@@ -141,7 +141,7 @@ public class SimplemapDocumentProvider extends AbstractDocumentProvider implemen
 	private TransactionalEditingDomain createEditingDomain() {
 
 		TransactionalEditingDomain editingDomain = SimpleMapDiagramEditingDomainFactory.getInstance().createEditingDomain();
-		editingDomain.setID("org.msl.simple.gmfmap.diagram.EditingDomain"); //$NON-NLS-1$
+		editingDomain.setID("org.eclipse.gmf.tooling.simplemap.diagram.EditingDomain"); //$NON-NLS-1$
 
 		final NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createNotifierFilter(editingDomain.getResourceSet())
 				.and(NotificationFilter.createEventTypeFilter(Notification.ADD)).and(NotificationFilter.createFeatureFilter(ResourceSet.class, ResourceSet.RESOURCE_SET__RESOURCES));
