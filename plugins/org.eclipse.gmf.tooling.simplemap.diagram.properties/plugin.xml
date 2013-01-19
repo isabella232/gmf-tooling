@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
       <propertyTabs
-            contributorId="org.msl.simple.gmfmap.diagram">
+            contributorId="org.eclipse.gmf.tooling.simplemap.diagram">
 <!--
          <propertyTab
                category="extra"
@@ -54,7 +54,7 @@
    <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
-            contributorId="org.msl.simple.gmfmap.diagram">
+            contributorId="org.eclipse.gmf.tooling.simplemap.diagram">
          <propertySection
                class="org.eclipse.gmf.tooling.simplemap.diagram.properties.FigureConnectionPropertiesSection"
                filter="org.eclipse.gmf.tooling.simplemap.diagram.properties.FigureConnectionPropertiesSection"
