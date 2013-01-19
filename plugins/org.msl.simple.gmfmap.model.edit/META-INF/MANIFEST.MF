@@ -10,7 +10,7 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.msl.simple.gmfmap.model.edit,
  org.msl.simple.gmfmap.simplemappings.provider
-Require-Bundle: org.msl.simple.gmfmap.model;visibility:=reexport,
+Require-Bundle: org.eclipse.gmf.tooling.simplemap.model;visibility:=reexport,
  org.eclipse.gmf.graphdef.edit;visibility:=reexport,
  org.eclipse.gmf.map.edit;visibility:=reexport,
  org.eclipse.gmf.tooldef.edit;visibility:=reexport,
