@@ -6,7 +6,7 @@
     diagramFileExtension="simplemappings"
     dynamicTemplates="true"
     templateDirectory="/org.eclipse.gmf.tooling.simplemap.gmf/templates"
-    pluginDirectory="/org.msl.simple.gmfmap.diagram/src-gen">
+    pluginDirectory="/org.eclipse.gmf.tooling.simplemap.diagram/src-gen">
   <diagram
       visualID="79"
       editPartClassName="SimpleMappingEditPart"
@@ -365,26 +365,26 @@
     </palette>
     <preferencePages
         xsi:type="gmfgen:GenStandardPreferencePage"
-        iD="org.msl.simple.gmfmap.diagram.general"
+        iD="org.eclipse.gmf.tooling.simplemap.diagram.general"
         name="Simplemap Diagram">
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.msl.simple.gmfmap.diagram.appearance"
+          iD="org.eclipse.gmf.tooling.simplemap.diagram.appearance"
           name="Appearance"
           kind="Appearance"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.msl.simple.gmfmap.diagram.connections"
+          iD="org.eclipse.gmf.tooling.simplemap.diagram.connections"
           name="Connections"
           kind="Connections"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.msl.simple.gmfmap.diagram.printing"
+          iD="org.eclipse.gmf.tooling.simplemap.diagram.printing"
           name="Printing"
           kind="Printing"/>
       <children
           xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.msl.simple.gmfmap.diagram.rulersAndGrid"
+          iD="org.eclipse.gmf.tooling.simplemap.diagram.rulersAndGrid"
           name="Rulers And Grid"
           kind="RulersAndGrid"/>
     </preferencePages>
