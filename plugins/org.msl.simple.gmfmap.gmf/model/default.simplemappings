@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" xmlns:gmfmap="http://www.eclipse.org/gmf/2008/mappings" xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:simplemap="http://org.msl.simple.gmfmap/simplemappings_1.1">
+  <simplemap:SimpleMapping xmi:id="_OSKyoa4fEeGiHNn8de9twQ">
+    <children xmi:type="simplemap:SimpleTopNode" xmi:id="_OSKyoq4fEeGiHNn8de9twQ">
+      <nodeReference xmi:type="gmfmap:TopNodeReference" href="simplegmf.gmfmap#//@nodes.0"/>
+      <children xmi:type="simplemap:SimpleLabelNode" xmi:id="_OSKyo64fEeGiHNn8de9twQ">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.0"/>
+      </children>
+      <children xmi:type="simplemap:SimpleSubNode" xmi:id="_OSKypK4fEeGiHNn8de9twQ">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.1"/>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZsK4fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.1/@ownedChild/@children.0"/>
+        </children>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZsa4fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.1/@ownedChild/@children.1"/>
+        </children>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZsq4fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.1/@ownedChild/@children.2"/>
+        </children>
+      </children>
+      <children xmi:type="simplemap:SimpleLabelNode" xmi:id="_OSLZs64fEeGiHNn8de9twQ">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.2"/>
+      </children>
+      <children xmi:type="simplemap:SimpleSubNode" xmi:id="_OSLZtK4fEeGiHNn8de9twQ">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.3"/>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZta4fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.3/@ownedChild/@children.0"/>
+        </children>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZtq4fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.3/@ownedChild/@children.1"/>
+        </children>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZt64fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.3/@ownedChild/@children.2"/>
+        </children>
+        <children xmi:type="simplemap:SimpleChildReference" xmi:id="_OSLZuK4fEeGiHNn8de9twQ">
+          <nodeReference xmi:type="gmfmap:ChildReference" href="simplegmf.gmfmap#//@nodes.0/@ownedChild/@children.3/@ownedChild/@children.3"/>
+        </children>
+      </children>
+    </children>
+    <children xmi:type="simplemap:SimpleTopNode" xmi:id="_OSLZua4fEeGiHNn8de9twQ">
+      <nodeReference xmi:type="gmfmap:TopNodeReference" href="simplegmf.gmfmap#//@nodes.1"/>
+    </children>
+    <canvas xmi:type="gmfgraph:Canvas" href="simplegmf.gmfgraph#simplemappings"/>
+    <palette xmi:type="gmftool:Palette" href="simplegmf.gmftool#//@palette"/>
+    <mapping xmi:type="gmfmap:Mapping" href="simplegmf.gmfmap#/"/>
+  </simplemap:SimpleMapping>
+  <notation:Diagram xmi:id="_OS058K4fEeGiHNn8de9twQ" type="Simplemap" element="_OSKyoa4fEeGiHNn8de9twQ" name="default2.simplemappings" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_Oo9iAK4fEeGiHNn8de9twQ" type="1001" element="_OSKyoq4fEeGiHNn8de9twQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Oo_-QK4fEeGiHNn8de9twQ" type="4003"/>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_Oo9iAa4fEeGiHNn8de9twQ"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_Oo9iAq4fEeGiHNn8de9twQ" fontName="Segoe UI"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Oo9iA64fEeGiHNn8de9twQ" x="24" y="12" width="409" height="361"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_Oo_-Qa4fEeGiHNn8de9twQ" type="1001" element="_OSLZua4fEeGiHNn8de9twQ">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Oo_-Ra4fEeGiHNn8de9twQ" type="4003"/>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_Oo_-Qq4fEeGiHNn8de9twQ"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_Oo_-Q64fEeGiHNn8de9twQ" fontName="Segoe UI"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Oo_-RK4fEeGiHNn8de9twQ" x="464" y="72" width="305"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_OS058a4fEeGiHNn8de9twQ"/>
+  </notation:Diagram>
+</xmi:XMI>

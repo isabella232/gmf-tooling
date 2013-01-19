@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.msl.simple.gmfmap.model;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.msl.simple.gmfmap.simplemappings,
+ org.msl.simple.gmfmap.simplemappings.impl,
+ org.msl.simple.gmfmap.simplemappings.util
+Require-Bundle: org.eclipse.gmf.map;visibility:=reexport
+Bundle-ActivationPolicy: lazy
