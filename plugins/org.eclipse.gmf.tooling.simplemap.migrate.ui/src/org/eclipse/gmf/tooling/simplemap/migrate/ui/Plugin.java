@@ -8,7 +8,7 @@ import org.osgi.framework.BundleContext;
 public class Plugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.msl.simple.gmf.bridge.ui"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.gmf.tooling.simplemap.migrate.ui"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Plugin plugin;
