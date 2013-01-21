@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Delegates
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.model.delegates;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: ISB
+Bundle-Vendor: %providerName
+Bundle-localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gmf.tooling.simplemap.model;bundle-version="0.1.0"
