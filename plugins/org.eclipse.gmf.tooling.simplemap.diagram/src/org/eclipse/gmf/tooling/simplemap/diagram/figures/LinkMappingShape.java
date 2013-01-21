@@ -1,13 +1,15 @@
-/*
- * Copyright (c) 2007 Borland Software Corporation
+/**
+ * Copyright (c) 2010-2012 ISBAN S.L, 2007 Borland Software Corporation
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *  
  * Contributors:
- *    Dmitry Stadnik (Borland) - initial API and implementation
+ * 		Dmitry Stadnik (Borland) - initial API and implementation
+ * 		Ruben De Dios (ISBAN S.L)
+ * 		Andrez Alvarez Mattos (ISBAN S.L)
  */
 package org.eclipse.gmf.tooling.simplemap.diagram.figures;
 

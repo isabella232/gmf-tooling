@@ -1,8 +1,14 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
+ * Copyright (c) 2010-2012 ISBAN S.L
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *  
+ * Contributors:
+ * 		Ruben De Dios (ISBAN S.L)
+ * 		Andrez Alvarez Mattos (ISBAN S.L)
  */
 package org.eclipse.gmf.tooling.simplemap.simplemappings.provider;
 
@@ -27,8 +33,6 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.tooling.simplemap.model.edit.IItemPropertyDescriptorProvider;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsPackage;
-
-
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleNodeReference} object.

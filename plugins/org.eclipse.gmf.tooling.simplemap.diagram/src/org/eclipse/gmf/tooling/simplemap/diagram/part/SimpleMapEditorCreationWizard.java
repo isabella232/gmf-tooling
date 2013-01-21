@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2010-2012 ISBAN S.L
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *  
+ * Contributors:
+ * 		Ruben De Dios (ISBAN S.L)
+ * 		Andrez Alvarez Mattos (ISBAN S.L)
+ */
 package org.eclipse.gmf.tooling.simplemap.diagram.part;
 
 import java.lang.reflect.InvocationTargetException;
@@ -11,9 +23,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.internal.bridge.wizards.pages.simple.DomainModelSelectionPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
-import org.eclipse.gmf.tooling.simplemap.diagram.part.Messages;
-import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapCreationWizardPage;
-import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorPlugin;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.diagram;singleton:=true
+Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.diagram; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorPlugin
@@ -45,6 +45,7 @@ Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.gmf.map.edit;visibility:=reexport,
  org.eclipse.gmf.tooldef;visibility:=reexport,
  org.eclipse.gmf.tooldef.edit;visibility:=reexport,
- org.eclipse.gef;visibility:=reexport
+ org.eclipse.gef;visibility:=reexport,
+ org.eclipse.gmf.tooling.runtime;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

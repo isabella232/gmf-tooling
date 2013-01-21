@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2010-2012 ISBAN S.L
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *  
+ * Contributors:
+ * 		Ruben De Dios (ISBAN S.L)
+ * 		Andrez Alvarez Mattos (ISBAN S.L)
+ */
 package org.eclipse.gmf.tooling.simplemap.diagram.part;
 
 import java.io.IOException;
@@ -51,9 +63,6 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
 import org.eclipse.gmf.tooldef.Palette;
 import org.eclipse.gmf.tooling.simplemap.diagram.edit.parts.SimpleMappingEditPart;
-import org.eclipse.gmf.tooling.simplemap.diagram.part.Messages;
-import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditor;
-import org.eclipse.gmf.tooling.simplemap.diagram.part.SimplemapDiagramEditorPlugin;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMapping;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimplemappingsFactory;
 import org.eclipse.jface.dialogs.IDialogSettings;

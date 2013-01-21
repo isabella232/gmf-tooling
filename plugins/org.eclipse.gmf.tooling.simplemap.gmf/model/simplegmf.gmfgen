@@ -9,6 +9,7 @@
     diagramFileExtension="simplemappings"
     dynamicTemplates="true"
     templateDirectory="/org.eclipse.gmf.tooling.simplemap.gmf/templates"
+    copyrightText="/**&#xA; * Copyright (c) 2010-2012 ISBAN S.L&#xA; * &#xA; * All rights reserved. This program and the accompanying materials&#xA; * are made available under the terms of the Eclipse Public License v1.0&#xA; * which accompanies this distribution, and is available at&#xA; * http://www.eclipse.org/legal/epl-v10.html&#xA; *  &#xA; * Contributors:&#xA; * &#x9;&#x9;Ruben De Dios (ISBAN S.L)&#xA; * &#x9;&#x9;Andrez Alvarez Mattos (ISBAN S.L)&#xA; */&#xA;"
     pluginDirectory="/org.eclipse.gmf.tooling.simplemap.diagram/src-gen">
   <diagram
       visualID="79"

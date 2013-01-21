@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2010-2012 ISBAN S.L
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *  
+ * Contributors:
+ * 		Ruben De Dios (ISBAN S.L)
+ * 		Andrez Alvarez Mattos (ISBAN S.L)
+ */
 package org.eclipse.gmf.tooling.simplemap.diagram.parsers;
 
 import java.util.ArrayList;
@@ -8,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.runtime.emf.ui.services.parser.ISemanticParser;
-import org.eclipse.gmf.tooling.simplemap.diagram.parsers.MessageFormatParser;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleCompartment;
 import org.eclipse.gmf.tooling.simplemap.simplemappings.SimpleMappingElementWithFigure;
 
