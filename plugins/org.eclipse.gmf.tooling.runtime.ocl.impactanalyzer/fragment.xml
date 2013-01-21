@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<fragment>
+	<extension point="org.eclipse.gmf.tooling.runtime.ocl_tracker_factory">
+		<oclTrackerFactory
+        	class="org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.impactanalyzer.ImpactAnalyzerTrackerFactory"
+        	default="true"/>
+	</extension>
+</fragment>
