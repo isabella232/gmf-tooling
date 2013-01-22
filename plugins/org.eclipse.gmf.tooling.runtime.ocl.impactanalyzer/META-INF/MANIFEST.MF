@@ -2,8 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ImpactAnalyzer-based OCLTracker implementation for GMF Tooling
 Bundle-SymbolicName: org.eclipse.gmf.tooling.runtime.ocl.impactanalyzer;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 3.1.0.qualifier
 Bundle-Vendor: Eclipse Modeling Project
+Bundle-Localization: fragment
 Fragment-Host: org.eclipse.gmf.tooling.runtime;bundle-version="3.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.ocl.examples.impactanalyzer;bundle-version="3.2.0",
