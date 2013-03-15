@@ -13,6 +13,9 @@
    <feature url="features/org.eclipse.gmf.tooling.runtime_3.0.0.qualifier.jar" id="org.eclipse.gmf.tooling.runtime" version="3.0.0.qualifier">
       <category name="GMF Tooling"/>
    </feature>
+   <feature url="features/org.eclipse.gmf.tooling.simplemap_1.0.0.qualifier.jar" id="org.eclipse.gmf.tooling.simplemap" version="1.0.0.qualifier">
+      <category name="GMF Tooling"/>
+   </feature>
    <feature url="features/org.eclipse.gmf.sdk.experimental_1.2.0.qualifier.jar" id="org.eclipse.gmf.sdk.experimental" version="1.2.0.qualifier">
       <category name="GMF Tooling"/>
    </feature>
