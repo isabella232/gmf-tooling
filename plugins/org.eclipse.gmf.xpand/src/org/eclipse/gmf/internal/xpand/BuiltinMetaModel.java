@@ -42,12 +42,13 @@ import org.eclipse.ocl.utilities.UMLReflection;
  * @author artem
  */
 public class BuiltinMetaModel {
-    public final static String SET = "Set";
-    public final static String LIST = "List";
 
-	
+	public final static String SET = "Set";
+
+	public final static String LIST = "List";
+
 	private static EPackage XECORE = EcoreFactory.eINSTANCE.createEPackage();
-	
+
 	static {
 		XECORE.setName("xecore");
 		XECORE.setNsPrefix("xecore");
@@ -103,26 +104,26 @@ public class BuiltinMetaModel {
 	public static EClassifier getType(EcoreEnvironment env, Object obj) {
 		// XXX (1) not sure how Collections are handled
 		// FIXME (2) need to support own types (IteratorType and DefinitionType)
-//		if (obj instanceof Collection) {
-//		EClassifier type = null;
-//		if (!((Collection) obj).isEmpty()) {
-//			// FIXME respect all! elements in the collection, not only the first one
-//			type = getType(((Collection) obj).iterator().next());
-//		}
-//		if (obj instanceof Set) {
-//			return collectionTypes.getSetType(type);
-//		}
-//		if (obj instanceof List) {
-//			return collectionTypes.getListType(type);
-//		}
-//		return collectionTypes.getCollectionType(type);
-//	}
-//	if (obj instanceof XpandDefinitionWrap) {
-//		return DEFINITION_TYPE;
-//	}
-//	if (obj instanceof XpandIterator) {
-//		return ITERATOR_TYPE;
-//	}
+		//		if (obj instanceof Collection) {
+		//		EClassifier type = null;
+		//		if (!((Collection) obj).isEmpty()) {
+		//			// FIXME respect all! elements in the collection, not only the first one
+		//			type = getType(((Collection) obj).iterator().next());
+		//		}
+		//		if (obj instanceof Set) {
+		//			return collectionTypes.getSetType(type);
+		//		}
+		//		if (obj instanceof List) {
+		//			return collectionTypes.getListType(type);
+		//		}
+		//		return collectionTypes.getCollectionType(type);
+		//	}
+		//	if (obj instanceof XpandDefinitionWrap) {
+		//		return DEFINITION_TYPE;
+		//	}
+		//	if (obj instanceof XpandIterator) {
+		//		return ITERATOR_TYPE;
+		//	}
 		if (obj instanceof Collection<?>) {
 			EClassifier firstElementType = ((Collection<?>) obj).isEmpty() ? null : getType(env, ((Collection<?>) obj).iterator().next());
 			TypeResolver<EClassifier, EOperation, EStructuralFeature> tr = env.getTypeResolver();
@@ -152,10 +153,13 @@ public class BuiltinMetaModel {
 		if (obj == null) {
 			return env.getOCLStandardLibrary().getOclVoid();
 		}
+		if (obj == env.getOCLStandardLibrary().getInvalid()) {
+			return env.getOCLStandardLibrary().getOclInvalid();
+		}
 		return EcoreEnvironmentFactory.INSTANCE.createEvaluationEnvironment().getType(obj);
-//		return TypeUtil.resolveType(ctx.getOCLEnvironment(), ee.getType(obj));
+		//		return TypeUtil.resolveType(ctx.getOCLEnvironment(), ee.getType(obj));
 	}
-	
+
 	/**
 	 * @param ctx 
 	 * @return true if first argument is more general and second is more
@@ -165,7 +169,7 @@ public class BuiltinMetaModel {
 	public static boolean isAssignableFrom(ExecutionContext ctx, EClassifier t1, EClassifier t2) {
 		return 0 != (UMLReflection.SUBTYPE & getRelationship(ctx.getOCLEnvironment(), t1, t2));
 	}
-	
+
 	public static int getRelationship(EcoreEnvironment env, EClassifier t1, EClassifier t2) {
 		/**
 		 * Special processing for EEnumerator returned as a type for any
