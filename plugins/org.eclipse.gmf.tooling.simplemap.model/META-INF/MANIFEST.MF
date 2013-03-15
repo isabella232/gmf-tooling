@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.model;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: org.eclipse.gmf.tooling.simplemap.simplemappings,
+ org.eclipse.gmf.tooling.simplemap.simplemappings.impl,
+ org.eclipse.gmf.tooling.simplemap.simplemappings.util
+Require-Bundle: org.eclipse.gmf.map;visibility:=reexport
+Bundle-ActivationPolicy: lazy

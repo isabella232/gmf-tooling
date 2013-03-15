@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name
+Bundle-SymbolicName: org.eclipse.gmf.tooling.simplemap.migrate.ui;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: %Bundle-Vendor
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.gmf.tooling.simplemap.diagram;bundle-version="0.1.0",
+ org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.4.1"
+Bundle-Activator: org.eclipse.gmf.tooling.simplemap.migrate.ui.Plugin
