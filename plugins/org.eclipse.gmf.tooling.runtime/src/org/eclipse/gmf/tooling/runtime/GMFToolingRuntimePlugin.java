@@ -1,5 +1,13 @@
 package org.eclipse.gmf.tooling.runtime;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.tooling.runtime.impl.ocl.tracker.activeocl.ActiveOclTrackerFactory;
 import org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -11,9 +19,12 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 
 	private static GMFToolingRuntimePlugin ourInstance;
 
+	private Map<OclTrackerFactory.Type, OclTrackerFactory> myOclTrackerFactories;
+
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		ourInstance = this;
+		myOclTrackerFactories = loadOclTrackerFactories();
 	}
 
 	public void stop(BundleContext context) throws Exception {
@@ -31,7 +42,12 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 	 * Caller should not make any assumptions against the return implementation type.   
 	 */
 	public OclTrackerFactory getOclTrackerFactory() {
-		return new ActiveOclTrackerFactory();
+		OclTrackerFactory result = myOclTrackerFactories.get(OclTrackerFactory.Type.ANY);
+		if (result == null) {
+			result = new ActiveOclTrackerFactory();
+			myOclTrackerFactories.put(OclTrackerFactory.Type.ANY, result);
+		}
+		return result;
 	}
 
 	/**
@@ -43,8 +59,37 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 	 * Caller still is not recommended to make any assumptions about the returned implementation type.   
 	 */
 	public OclTrackerFactory getOclTrackerFactory(OclTrackerFactory.Type type) {
-		//XXX: without IA included to Eclipse distribution, this method always return the default GMFT implementation.
-		return getOclTrackerFactory();
+		OclTrackerFactory result = myOclTrackerFactories.get(type);
+		return result == null ? result : getOclTrackerFactory();
+	}
+
+	private Map<OclTrackerFactory.Type, OclTrackerFactory> loadOclTrackerFactories() {
+		Map<OclTrackerFactory.Type, OclTrackerFactory> result = new HashMap<OclTrackerFactory.Type, OclTrackerFactory>();
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint extensionPoint = registry.getExtensionPoint(ID + ".ocl_tracker_factory");
+		IConfigurationElement points[] = extensionPoint.getConfigurationElements();
+		for (IConfigurationElement point : points) {
+			if ("oclTrackerFactory".equals(point.getName())) {
+				Object impl;
+				try {
+					impl = point.createExecutableExtension("class");
+				} catch (CoreException e) {
+					getLog().log(e.getStatus());
+					continue;
+				}
+				if (impl instanceof OclTrackerFactory) {
+					OclTrackerFactory factory = (OclTrackerFactory) impl;
+					result.put(factory.getImplementationType(), factory);
+					if (Boolean.valueOf(point.getAttribute("default"))) {
+						result.put(OclTrackerFactory.Type.ANY, factory);
+					}
+				}
+			}
+		}
+		if (!result.containsKey(OclTrackerFactory.Type.DEFAULT_GMFT)) {
+			result.put(OclTrackerFactory.Type.DEFAULT_GMFT, new ActiveOclTrackerFactory());
+		}
+		return result;
 	}
 
 }
