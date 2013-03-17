@@ -57,6 +57,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor;
 
 /**
  * @generated
@@ -98,7 +99,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 	 * @generated
 	 */
 	protected boolean isOrphaned(Collection<EObject> semanticChildren, final View view) {
-		if (view.getEAnnotation("Shortcut") != null) { //$NON-NLS-1$
+		if (isShortcut(view)) {
 			return TaiPanDiagramUpdater.isShortcutOrphaned(view);
 		}
 		return isMyDiagramElement(view) && !semanticChildren.contains(view.getElement());
@@ -110,6 +111,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 	private boolean isMyDiagramElement(View view) {
 		int visualID = TaiPanVisualIDRegistry.getVisualID(view);
 		return visualID == PortEditPart.VISUAL_ID || visualID == ShipEditPart.VISUAL_ID || visualID == WarshipEditPart.VISUAL_ID;
+	}
+
+	/**
+	* @generated
+	*/
+	protected static boolean isShortcut(View view) {
+		return view.getEAnnotation("Shortcut") != null; //$NON-NLS-1$
 	}
 
 	/**
@@ -134,14 +142,17 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 		LinkedList<IAdaptable> createdViews = new LinkedList<IAdaptable>();
 		List<TaiPanNodeDescriptor> childDescriptors = TaiPanDiagramUpdater.getAquatory_1000SemanticChildren((View) getHost().getModel());
 		LinkedList<View> orphaned = new LinkedList<View>();
-		// we care to check only views we recognize as ours
+		// we care to check only views we recognize as ours and not shortcuts
 		LinkedList<View> knownViewChildren = new LinkedList<View>();
 		for (View v : getViewChildren()) {
+			if (isShortcut(v)) {
+				if (TaiPanDiagramUpdater.isShortcutOrphaned(v)) {
+					orphaned.add(v);
+				}
+				continue;
+			}
 			if (isMyDiagramElement(v)) {
 				knownViewChildren.add(v);
-			}
-			if (v.getEAnnotation("Shortcut") != null && TaiPanDiagramUpdater.isShortcutOrphaned(v)) { //$NON-NLS-1$
-				orphaned.add(v);
 			}
 		}
 		// alternative to #cleanCanonicalSemanticChildren(getViewChildren(), semanticChildren)
@@ -218,10 +229,66 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 	}
 
 	/**
+	* @generated
+	*/
+	private EditPart getSourceEditPart(UpdaterLinkDescriptor descriptor, Domain2Notation domain2NotationMap) {
+		return getEditPart(descriptor.getSource(), domain2NotationMap);
+	}
+
+	/**
+	* @generated
+	*/
+	private EditPart getTargetEditPart(UpdaterLinkDescriptor descriptor, Domain2Notation domain2NotationMap) {
+		return getEditPart(descriptor.getDestination(), domain2NotationMap);
+	}
+
+	/**
+	* @generated
+	*/
+	protected final EditPart getHintedEditPart(EObject domainModelElement, Domain2Notation domain2NotationMap, int hintVisualId) {
+		View view = (View) domain2NotationMap.getHinted(domainModelElement, TaiPanVisualIDRegistry.getType(hintVisualId));
+		if (view != null) {
+			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);
+		}
+		return null;
+	}
+
+	/**
+	* @generated
+	*/
+	@SuppressWarnings("serial")
+	protected static class Domain2Notation extends HashMap<EObject, View> {
+
+		/**
+		* @generated
+		*/
+		public boolean containsDomainElement(EObject domainElement) {
+			return this.containsKey(domainElement);
+		}
+
+		/**
+		* @generated
+		*/
+		public View getHinted(EObject domainEObject, String hint) {
+			return this.get(domainEObject);
+		}
+
+		/**
+		* @generated
+		*/
+		public void putView(EObject domainElement, View view) {
+			if (!containsKey(view.getElement()) || !isShortcut(view)) {
+				this.put(domainElement, view);
+			}
+		}
+
+	}
+
+	/**
 	 * @generated
 	 */
 	private Collection<IAdaptable> refreshConnections() {
-		Map<EObject, View> domain2NotationMap = new HashMap<EObject, View>();
+		Domain2Notation domain2NotationMap = new Domain2Notation();
 		Collection<TaiPanLinkDescriptor> linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 		Collection existingLinks = new LinkedList(getDiagram().getEdges());
 		for (Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
@@ -251,9 +318,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 	}
 
 	/**
-	 * @generated
-	 */
-	private Collection<TaiPanLinkDescriptor> collectAllLinks(View view, Map<EObject, View> domain2NotationMap) {
+	* @generated
+	*/
+	private Collection<TaiPanLinkDescriptor> collectAllLinks(View view, Domain2Notation domain2NotationMap) {
 		if (!AquatoryEditPart.MODEL_ID.equals(TaiPanVisualIDRegistry.getModelID(view))) {
 			return Collections.emptyList();
 		}
@@ -263,90 +330,70 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getAquatory_1000ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case PortEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getPort_2001ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case ShipEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getShip_2002ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case WarshipEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getWarship_2003ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case LargeItemEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getLargeItem_3002ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case EmptyBoxEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getEmptyBox_3003ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case ReliableRouteEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getRoute_4002ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case UnreliableRouteEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getRoute_4003ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case BesiegePortOrderEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getBesiegePortOrder_4005ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		case EscortShipsOrderEditPart.VISUAL_ID: {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(TaiPanDiagramUpdater.getEscortShipsOrder_4006ContainedLinks(view));
 			}
-			if (!domain2NotationMap.containsKey(view.getElement()) || view.getEAnnotation("Shortcut") == null) { //$NON-NLS-1$
-				domain2NotationMap.put(view.getElement(), view);
-			}
+			domain2NotationMap.putView(view.getElement(), view);
 			break;
 		}
 		}
@@ -360,13 +407,13 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 	}
 
 	/**
-	 * @generated
-	 */
-	private Collection<IAdaptable> createConnections(Collection<TaiPanLinkDescriptor> linkDescriptors, Map<EObject, View> domain2NotationMap) {
+	* @generated
+	*/
+	private Collection<IAdaptable> createConnections(Collection<TaiPanLinkDescriptor> linkDescriptors, Domain2Notation domain2NotationMap) {
 		LinkedList<IAdaptable> adapters = new LinkedList<IAdaptable>();
 		for (TaiPanLinkDescriptor nextLinkDescriptor : linkDescriptors) {
-			EditPart sourceEditPart = getEditPart(nextLinkDescriptor.getSource(), domain2NotationMap);
-			EditPart targetEditPart = getEditPart(nextLinkDescriptor.getDestination(), domain2NotationMap);
+			EditPart sourceEditPart = getSourceEditPart(nextLinkDescriptor, domain2NotationMap);
+			EditPart targetEditPart = getTargetEditPart(nextLinkDescriptor, domain2NotationMap);
 			if (sourceEditPart == null || targetEditPart == null) {
 				continue;
 			}
@@ -391,9 +438,9 @@ public class AquatoryCanonicalEditPolicy extends CanonicalEditPolicy {
 	}
 
 	/**
-	 * @generated
-	 */
-	private EditPart getEditPart(EObject domainModelElement, Map<EObject, View> domain2NotationMap) {
+	* @generated
+	*/
+	private EditPart getEditPart(EObject domainModelElement, Domain2Notation domain2NotationMap) {
 		View view = (View) domain2NotationMap.get(domainModelElement);
 		if (view != null) {
 			return (EditPart) getHost().getViewer().getEditPartRegistry().get(view);

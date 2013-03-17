@@ -65,6 +65,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase;
 
 /**
  * @generated
@@ -148,13 +149,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	private Command getEditHelperCommand(IEditCommandRequest request, Command editPolicyCommand) {
 		if (editPolicyCommand != null) {
 			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
-			request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
+			request.setParameter(GeneratedEditHelperBase.EDIT_POLICY_COMMAND, command);
 		}
 		IElementType requestContextElementType = getContextElementType(request);
-		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
+		request.setParameter(GeneratedEditHelperBase.CONTEXT_ELEMENT_TYPE, requestContextElementType);
 		ICommand command = requestContextElementType.getEditCommand(request);
-		request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, null);
-		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
+		request.setParameter(GeneratedEditHelperBase.EDIT_POLICY_COMMAND, null);
+		request.setParameter(GeneratedEditHelperBase.CONTEXT_ELEMENT_TYPE, null);
 		if (command != null) {
 			if (!(command instanceof CompositeTransactionalCommand)) {
 				command = new CompositeTransactionalCommand(getEditingDomain(), command.getLabel()).compose(command);
