@@ -32,6 +32,7 @@ import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gmf.examples.taipan.layouts.PortLayoutProvider;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.policies.PortItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.util.ObjectAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds;
@@ -48,6 +49,7 @@ import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.services.layout.LayoutType;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
 
 /**
  * @generated
@@ -80,6 +82,7 @@ public class PortEditPart extends DiagramEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PortItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new PortCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicyWithCustomReparent(TaiPanVisualIDRegistry.TYPED_INSTANCE));
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
 	}
 

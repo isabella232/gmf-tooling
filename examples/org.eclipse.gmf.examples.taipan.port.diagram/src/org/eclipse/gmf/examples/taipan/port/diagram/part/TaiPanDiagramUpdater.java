@@ -21,6 +21,7 @@ import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart;
 import org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.update.DiagramUpdater;
 
 /**
  * @generated
@@ -120,5 +121,43 @@ public class TaiPanDiagramUpdater {
 	public static List<TaiPanLinkDescriptor> getBuilding_2001OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanNodeDescriptor> getSemanticChildren(View view) {
+			return TaiPanDiagramUpdater.getSemanticChildren(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanLinkDescriptor> getContainedLinks(View view) {
+			return TaiPanDiagramUpdater.getContainedLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanLinkDescriptor> getIncomingLinks(View view) {
+			return TaiPanDiagramUpdater.getIncomingLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanLinkDescriptor> getOutgoingLinks(View view) {
+			return TaiPanDiagramUpdater.getOutgoingLinks(view);
+		}
+	};
 
 }

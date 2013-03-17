@@ -11,29 +11,22 @@
  */
 package org.eclipse.gmf.examples.taipan.port.diagram.edit.policies;
 
-import java.util.Collections;
 import java.util.Iterator;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
-import org.eclipse.gmf.examples.taipan.port.diagram.edit.helpers.TaiPanBaseEditHelper;
 import org.eclipse.gmf.examples.taipan.port.diagram.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.ICompositeCommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
@@ -49,8 +42,8 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase;
 
 /**
  * @generated
@@ -134,13 +127,13 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	private Command getEditHelperCommand(IEditCommandRequest request, Command editPolicyCommand) {
 		if (editPolicyCommand != null) {
 			ICommand command = editPolicyCommand instanceof ICommandProxy ? ((ICommandProxy) editPolicyCommand).getICommand() : new CommandProxy(editPolicyCommand);
-			request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, command);
+			request.setParameter(GeneratedEditHelperBase.EDIT_POLICY_COMMAND, command);
 		}
 		IElementType requestContextElementType = getContextElementType(request);
-		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, requestContextElementType);
+		request.setParameter(GeneratedEditHelperBase.CONTEXT_ELEMENT_TYPE, requestContextElementType);
 		ICommand command = requestContextElementType.getEditCommand(request);
-		request.setParameter(TaiPanBaseEditHelper.EDIT_POLICY_COMMAND, null);
-		request.setParameter(TaiPanBaseEditHelper.CONTEXT_ELEMENT_TYPE, null);
+		request.setParameter(GeneratedEditHelperBase.EDIT_POLICY_COMMAND, null);
+		request.setParameter(GeneratedEditHelperBase.CONTEXT_ELEMENT_TYPE, null);
 		if (command != null) {
 			if (!(command instanceof CompositeTransactionalCommand)) {
 				command = new CompositeTransactionalCommand(getEditingDomain(), command.getLabel()).compose(command);
