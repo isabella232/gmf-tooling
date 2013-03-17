@@ -38,7 +38,7 @@ helper getNavigatorContainedNodes(navigator : gmfgen::GenNavigator) : Sequence(g
 
 -- MODIFIERS: private
 helper getNavigatorNodes(navigator : gmfgen::GenNavigator) : Sequence(gmfgen::GenCommonBase) {
-	return navigator.editorGen.diagram.getAllContainers()[gmfgen::GenCommonBase]->union(navigator.editorGen.diagram.links)->asSequence()
+	return navigator.editorGen.diagram.getAllContainers()[gmfgen::GenCommonBase]->union(navigator.editorGen.diagram.links)->asSequence()->sortedBy(n | n.visualID)
 }
 
 helper getGroupNames(_references : Sequence(gmfgen::GenNavigatorChildReference)) : Set(String) {
