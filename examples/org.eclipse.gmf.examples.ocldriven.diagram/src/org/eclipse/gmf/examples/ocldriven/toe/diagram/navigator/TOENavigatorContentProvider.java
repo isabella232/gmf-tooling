@@ -194,6 +194,7 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 					topViews.add((View) o);
 				}
 			}
+			result.addAll(createNavigatorItems(selectViewsByType(topViews, AllHolderEditPart.MODEL_ID), file, false));
 			return result.toArray();
 		}
 
@@ -219,85 +220,15 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 	private Object[] getViewChildren(View view, Object parentElement) {
 		switch (TOEVisualIDRegistry.getVisualID(view)) {
 
-		case ContributionEditPart.VISUAL_ID: {
+		case ManagerManagedDepartmentEditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
 			Edge sv = (Edge) view;
-			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_Contribution_4003_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_Contribution_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerManagedDepartment_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerManagedDepartment_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
-			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(EmployeeEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(Employee2EditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			if (!target.isEmpty()) {
-				result.add(target);
-			}
-			if (!source.isEmpty()) {
-				result.add(source);
-			}
-			return result.toArray();
-		}
-
-		case ManagerEditPart.VISUAL_ID: {
-			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Manager_2004_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case Department2EditPart.VISUAL_ID: {
-			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			TOENavigatorGroup incominglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Department_3002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentDepartment_staff2EditPart.VISUAL_ID));
-			connectedViews = getChildrenByType(connectedViews, TOEVisualIDRegistry.getType(Employee2EditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentDepartment_staff2EditPart.VISUAL_ID));
-			connectedViews = getChildrenByType(connectedViews, TOEVisualIDRegistry.getType(Department2EditPart.VISUAL_ID));
-			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
-			connectedViews = getIncomingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			if (!incominglinks.isEmpty()) {
-				result.add(incominglinks);
-			}
-			return result.toArray();
-		}
-
-		case EmployeeEditPart.VISUAL_ID: {
-			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Node sv = (Node) view;
-			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Employee_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
-			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
-			if (!outgoinglinks.isEmpty()) {
-				result.add(outgoinglinks);
-			}
-			return result.toArray();
-		}
-
-		case ManagerLeadsEditPart.VISUAL_ID: {
-			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Edge sv = (Edge) view;
-			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			Collection<View> connectedViews;
-			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(Department2EditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target, true));
 			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source, true));
@@ -329,10 +260,29 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case Employee2EditPart.VISUAL_ID: {
+		case ManagerLeadsEditPart.VISUAL_ID: {
+			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerLeads_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case EmployeeEditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
 			Node sv = (Node) view;
-			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Employee_3001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Employee_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
@@ -342,23 +292,30 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case ManagerManagedDepartmentEditPart.VISUAL_ID: {
+		case ProjectEditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
-			Edge sv = (Edge) view;
-			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerManagedDepartment_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
-			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_ManagerManagedDepartment_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Node sv = (Node) view;
+			TOENavigatorGroup incominglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Project_2003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
-			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentEditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(Department2EditPart.VISUAL_ID));
-			target.addChildren(createNavigatorItems(connectedViews, target, true));
-			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
-			source.addChildren(createNavigatorItems(connectedViews, source, true));
-			if (!target.isEmpty()) {
-				result.add(target);
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
 			}
-			if (!source.isEmpty()) {
-				result.add(source);
+			return result.toArray();
+		}
+
+		case Employee2EditPart.VISUAL_ID: {
+			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Employee_3001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
 			}
 			return result.toArray();
 		}
@@ -388,17 +345,61 @@ public class TOENavigatorContentProvider implements ICommonContentProvider {
 			return result.toArray();
 		}
 
-		case ProjectEditPart.VISUAL_ID: {
+		case Department2EditPart.VISUAL_ID: {
 			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
 			Node sv = (Node) view;
-			TOENavigatorGroup incominglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Project_2003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup incominglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Department_3002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
-			connectedViews = getIncomingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
-			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
-			connectedViews = getIncomingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentDepartment_staff2EditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(connectedViews, TOEVisualIDRegistry.getType(Employee2EditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getChildrenByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(DepartmentDepartment_staff2EditPart.VISUAL_ID));
+			connectedViews = getChildrenByType(connectedViews, TOEVisualIDRegistry.getType(Department2EditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
 			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
+			}
+			return result.toArray();
+		}
+
+		case ManagerEditPart.VISUAL_ID: {
+			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			TOENavigatorGroup outgoinglinks = new TOENavigatorGroup(Messages.NavigatorGroupName_Manager_2004_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerManagedDepartmentEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerLeadsEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ContributionEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
+		case ContributionEditPart.VISUAL_ID: {
+			LinkedList<TOEAbstractNavigatorItem> result = new LinkedList<TOEAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			TOENavigatorGroup target = new TOENavigatorGroup(Messages.NavigatorGroupName_Contribution_4003_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			TOENavigatorGroup source = new TOENavigatorGroup(Messages.NavigatorGroupName_Contribution_4003_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ProjectEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(EmployeeEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(ManagerEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), TOEVisualIDRegistry.getType(Employee2EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
 			}
 			return result.toArray();
 		}

@@ -283,10 +283,10 @@ public class EmployeeEditPart extends AbstractBorderedShapeEditPart {
 			BorderLayout layoutThis = new BorderLayout();
 			this.setLayoutManager(layoutThis);
 
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(8), getMapMode().DPtoLP(8)));
+			this.setCornerDimensions(new Dimension(8, 8));
 			this.setBackgroundColor(ColorConstants.green);
 
-			this.setBorder(new MarginBorder(getMapMode().DPtoLP(10), getMapMode().DPtoLP(10), getMapMode().DPtoLP(10), getMapMode().DPtoLP(10)));
+			this.setBorder(new MarginBorder(10, 10, 10, 10));
 			createContents();
 		}
 
@@ -297,7 +297,7 @@ public class EmployeeEditPart extends AbstractBorderedShapeEditPart {
 
 			RectangleFigure employeeMiddleFigure0 = new RectangleFigure();
 
-			employeeMiddleFigure0.setBorder(new MarginBorder(getMapMode().DPtoLP(10), getMapMode().DPtoLP(10), getMapMode().DPtoLP(10), getMapMode().DPtoLP(10)));
+			employeeMiddleFigure0.setBorder(new MarginBorder(10, 10, 10, 10));
 
 			this.add(employeeMiddleFigure0, BorderLayout.CENTER);
 

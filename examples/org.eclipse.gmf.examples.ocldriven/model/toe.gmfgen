@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgen:GenEditorGenerator xmi:version="2.0"
+<gmfgen:GenEditorGenerator
+    xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel" diagramFileExtension="toed">
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel"
+    diagramFileExtension="toed">
   <diagram
       visualID="1000"
       editPartClassName="AllHolderEditPart"
@@ -16,8 +18,10 @@
         xsi:type="gmfgen:MetamodelType"
         editHelperClassName="AllHolderEditHelper"/>
     <viewmap
-        xsi:type="gmfgen:FigureViewmap"
-        figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+        xsi:type="gmfgen:ModeledViewmap">
+      <figureModel
+          href="toe.gmfgraph#ocl-labels"/>
+    </viewmap>
     <domainDiagramElement
         href="toe.genmodel#//toe/AllHolder"/>
     <childNodes
@@ -35,12 +39,12 @@
           xsi:type="gmfgen:SpecializationType"
           metamodelType="//@diagram/@topLevelNodes.0/@elementType"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="EmployeeFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EmployeeFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber fInnerEmployeeFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EmployeeFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8)&#xA;, getMapMode().DPtoLP(8)&#xA;));&#xA;&#x9;this.setBackgroundColor(org.eclipse.draw2d.ColorConstants.green);&#xA;&#xA;this.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure employeeMiddleFigure0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;employeeMiddleFigure0.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;this.add(employeeMiddleFigure0, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutEmployeeMiddleFigure0 = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;employeeMiddleFigure0.setLayoutManager(layoutEmployeeMiddleFigure0);&#xA;&#xA;&#xA;&#xA;fInnerEmployeeFigure = new org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber();&#xA;&#xA;&#xA;&#xA;&#xA;employeeMiddleFigure0.add(fInnerEmployeeFigure, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber getInnerEmployeeFigure() {&#xA;&#x9;&#x9;return fInnerEmployeeFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          xsi:type="gmfgen:ModeledViewmap">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedBackground="true"/>
+        <figureModel
+            href="toe.gmfgraph#Employee"/>
       </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
@@ -79,8 +83,10 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Employee_name"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0">
@@ -107,9 +113,10 @@
           xsi:type="gmfgen:SpecializationType"
           metamodelType="//@diagram/@topLevelNodes.1/@elementType"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="DepartmentFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DepartmentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RectangleFigure fFigureDepartmentFigure_content_pane; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDepartmentFigure_name; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDepartmentFigure_ocl_gmf; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDepartmentFigure_ocl_ia; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DepartmentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_name_container0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(departmentFigure_name_container0, org.eclipse.draw2d.BorderLayout.TOP);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_name_container0 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_name_container0.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_name_container0.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_name_container0.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_name_container0.setVertical(true);&#xA;&#xA;&#x9;departmentFigure_name_container0.setLayoutManager(layoutDepartmentFigure_name_container0);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_name = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_name.setAlignment(&#xA;org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_name.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_name_container0.add(fFigureDepartmentFigure_name);&#xA;&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_content_pane = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(fFigureDepartmentFigure_content_pane, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;fFigureDepartmentFigure_content_pane.setLayoutManager(new org.eclipse.draw2d.StackLayout());&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_labels_container0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;departmentFigure_labels_container0.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(2)&#xA;, getMapMode().DPtoLP(2)&#xA;, getMapMode().DPtoLP(2)&#xA;, getMapMode().DPtoLP(2)&#xA;));&#xA;&#xA;this.add(departmentFigure_labels_container0, org.eclipse.draw2d.BorderLayout.BOTTOM);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_labels_container0 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_labels_container0.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_labels_container0.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_labels_container0.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_labels_container0.setVertical(true);&#xA;&#xA;&#x9;departmentFigure_labels_container0.setLayoutManager(layoutDepartmentFigure_labels_container0);&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_firstRow1 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;departmentFigure_firstRow1.setOutline(false);&#xA;&#xA;departmentFigure_labels_container0.add(departmentFigure_firstRow1);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_firstRow1 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_firstRow1.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_firstRow1.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_firstRow1.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_firstRow1.setVertical(false);&#xA;&#xA;&#x9;departmentFigure_firstRow1.setLayoutManager(layoutDepartmentFigure_firstRow1);&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel departmentFigure_fixed_total_salary_gmf2 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;departmentFigure_fixed_total_salary_gmf2.setText(&quot;Total Salary (GMF):&quot;);&#xA;&#xA;departmentFigure_fixed_total_salary_gmf2.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_firstRow1.add(departmentFigure_fixed_total_salary_gmf2);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_ocl_gmf = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureDepartmentFigure_ocl_gmf.setText(&quot;&lt;gmf>&quot;);&#xA;&#x9;fFigureDepartmentFigure_ocl_gmf.setForegroundColor(org.eclipse.draw2d.ColorConstants.red);&#xA;&#xA;fFigureDepartmentFigure_ocl_gmf.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_firstRow1.add(fFigureDepartmentFigure_ocl_gmf);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_secondRow1 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;departmentFigure_secondRow1.setOutline(false);&#xA;&#xA;departmentFigure_labels_container0.add(departmentFigure_secondRow1);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_secondRow1 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_secondRow1.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_secondRow1.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_secondRow1.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_secondRow1.setVertical(false);&#xA;&#xA;&#x9;departmentFigure_secondRow1.setLayoutManager(layoutDepartmentFigure_secondRow1);&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel departmentFigure_fixed_total_salary_ia2 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;departmentFigure_fixed_total_salary_ia2.setText(&quot;Total Salary (IA):&quot;);&#xA;&#xA;departmentFigure_fixed_total_salary_ia2.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_secondRow1.add(departmentFigure_fixed_total_salary_ia2);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_ocl_ia = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureDepartmentFigure_ocl_ia.setText(&quot;&lt;ia>&quot;);&#xA;&#x9;fFigureDepartmentFigure_ocl_ia.setForegroundColor(org.eclipse.draw2d.ColorConstants.yellow);&#xA;&#xA;fFigureDepartmentFigure_ocl_ia.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_secondRow1.add(fFigureDepartmentFigure_ocl_ia);&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.RectangleFigure getFigureDepartmentFigure_content_pane() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_content_pane;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDepartmentFigure_name() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_name;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDepartmentFigure_ocl_gmf() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_ocl_gmf;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDepartmentFigure_ocl_ia() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_ocl_ia;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="toe.gmfgraph#Department"/>
+      </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
           key="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.policies.DepartmentPinForeground3002Policy.KEY"
@@ -136,9 +143,10 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDepartmentFigure_name"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Department_name"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0">
@@ -157,12 +165,9 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDepartmentFigure_ocl_gmf"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
-          <attributes
-              xsi:type="gmfgen:StyleAttributes"
-              fixedForeground="true"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Department_ocl_gmf"/>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:ExpressionLabelModelFacet"
@@ -177,12 +182,9 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDepartmentFigure_ocl_ia"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
-          <attributes
-              xsi:type="gmfgen:StyleAttributes"
-              fixedForeground="true"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Department_ocl_ia"/>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:ExpressionLabelModelFacet"
@@ -203,12 +205,12 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="EmployeeEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="EmployeeFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class EmployeeFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber fInnerEmployeeFigure; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public EmployeeFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(8)&#xA;, getMapMode().DPtoLP(8)&#xA;));&#xA;&#x9;this.setBackgroundColor(org.eclipse.draw2d.ColorConstants.green);&#xA;&#xA;this.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure employeeMiddleFigure0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;employeeMiddleFigure0.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;this.add(employeeMiddleFigure0, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutEmployeeMiddleFigure0 = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;employeeMiddleFigure0.setLayoutManager(layoutEmployeeMiddleFigure0);&#xA;&#xA;&#xA;&#xA;fInnerEmployeeFigure = new org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber();&#xA;&#xA;&#xA;&#xA;&#xA;employeeMiddleFigure0.add(fInnerEmployeeFigure, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber getInnerEmployeeFigure() {&#xA;&#x9;&#x9;return fInnerEmployeeFigure;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          xsi:type="gmfgen:ModeledViewmap">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedBackground="true"/>
+        <figureModel
+            href="toe.gmfgraph#Employee"/>
       </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
@@ -247,8 +249,10 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Employee_name"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0">
@@ -274,9 +278,10 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="DepartmentEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="DepartmentFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class DepartmentFigure extends org.eclipse.draw2d.RectangleFigure {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.draw2d.RectangleFigure fFigureDepartmentFigure_content_pane; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDepartmentFigure_name; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDepartmentFigure_ocl_gmf; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureDepartmentFigure_ocl_ia; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public DepartmentFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_name_container0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(departmentFigure_name_container0, org.eclipse.draw2d.BorderLayout.TOP);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_name_container0 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_name_container0.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_name_container0.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_name_container0.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_name_container0.setVertical(true);&#xA;&#xA;&#x9;departmentFigure_name_container0.setLayoutManager(layoutDepartmentFigure_name_container0);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_name = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_name.setAlignment(&#xA;org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_name.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_name_container0.add(fFigureDepartmentFigure_name);&#xA;&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_content_pane = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;this.add(fFigureDepartmentFigure_content_pane, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;fFigureDepartmentFigure_content_pane.setLayoutManager(new org.eclipse.draw2d.StackLayout());&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_labels_container0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;&#xA;departmentFigure_labels_container0.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(2)&#xA;, getMapMode().DPtoLP(2)&#xA;, getMapMode().DPtoLP(2)&#xA;, getMapMode().DPtoLP(2)&#xA;));&#xA;&#xA;this.add(departmentFigure_labels_container0, org.eclipse.draw2d.BorderLayout.BOTTOM);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_labels_container0 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_labels_container0.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_labels_container0.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_labels_container0.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_labels_container0.setVertical(true);&#xA;&#xA;&#x9;departmentFigure_labels_container0.setLayoutManager(layoutDepartmentFigure_labels_container0);&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_firstRow1 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;departmentFigure_firstRow1.setOutline(false);&#xA;&#xA;departmentFigure_labels_container0.add(departmentFigure_firstRow1);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_firstRow1 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_firstRow1.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_firstRow1.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_firstRow1.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_firstRow1.setVertical(false);&#xA;&#xA;&#x9;departmentFigure_firstRow1.setLayoutManager(layoutDepartmentFigure_firstRow1);&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel departmentFigure_fixed_total_salary_gmf2 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;departmentFigure_fixed_total_salary_gmf2.setText(&quot;Total Salary (GMF):&quot;);&#xA;&#xA;departmentFigure_fixed_total_salary_gmf2.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_firstRow1.add(departmentFigure_fixed_total_salary_gmf2);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_ocl_gmf = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureDepartmentFigure_ocl_gmf.setText(&quot;&lt;gmf>&quot;);&#xA;&#x9;fFigureDepartmentFigure_ocl_gmf.setForegroundColor(org.eclipse.draw2d.ColorConstants.red);&#xA;&#xA;fFigureDepartmentFigure_ocl_gmf.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_firstRow1.add(fFigureDepartmentFigure_ocl_gmf);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure departmentFigure_secondRow1 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;departmentFigure_secondRow1.setOutline(false);&#xA;&#xA;departmentFigure_labels_container0.add(departmentFigure_secondRow1);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutDepartmentFigure_secondRow1 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutDepartmentFigure_secondRow1.setStretchMinorAxis(false);&#xA;&#x9;layoutDepartmentFigure_secondRow1.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutDepartmentFigure_secondRow1.setSpacing(5);&#xA;&#x9;layoutDepartmentFigure_secondRow1.setVertical(false);&#xA;&#xA;&#x9;departmentFigure_secondRow1.setLayoutManager(layoutDepartmentFigure_secondRow1);&#xA;&#xA;&#xA;&#xA;org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel departmentFigure_fixed_total_salary_ia2 = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;departmentFigure_fixed_total_salary_ia2.setText(&quot;Total Salary (IA):&quot;);&#xA;&#xA;departmentFigure_fixed_total_salary_ia2.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_secondRow1.add(departmentFigure_fixed_total_salary_ia2);&#xA;&#xA;&#xA;&#xA;fFigureDepartmentFigure_ocl_ia = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureDepartmentFigure_ocl_ia.setText(&quot;&lt;ia>&quot;);&#xA;&#x9;fFigureDepartmentFigure_ocl_ia.setForegroundColor(org.eclipse.draw2d.ColorConstants.yellow);&#xA;&#xA;fFigureDepartmentFigure_ocl_ia.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;departmentFigure_secondRow1.add(fFigureDepartmentFigure_ocl_ia);&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.draw2d.RectangleFigure getFigureDepartmentFigure_content_pane() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_content_pane;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDepartmentFigure_name() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_name;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDepartmentFigure_ocl_gmf() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_ocl_gmf;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureDepartmentFigure_ocl_ia() {&#xA;&#x9;&#x9;return fFigureDepartmentFigure_ocl_ia;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="toe.gmfgraph#Department"/>
+      </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
           key="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.policies.DepartmentPinForeground2002Policy.KEY"
@@ -303,9 +308,10 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDepartmentFigure_name"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Department_name"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0">
@@ -324,12 +330,9 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDepartmentFigure_ocl_gmf"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
-          <attributes
-              xsi:type="gmfgen:StyleAttributes"
-              fixedForeground="true"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Department_ocl_gmf"/>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:ExpressionLabelModelFacet"
@@ -344,12 +347,9 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureDepartmentFigure_ocl_ia"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel">
-          <attributes
-              xsi:type="gmfgen:StyleAttributes"
-              fixedForeground="true"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Department_ocl_ia"/>
         </viewmap>
         <modelFacet
             xsi:type="gmfgen:ExpressionLabelModelFacet"
@@ -370,9 +370,7 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="ProjectEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ProjectFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ProjectFigure extends org.eclipse.draw2d.RoundedRectangle {&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureProjectFigure_name; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureProjectFigure_ocl_gmf; &#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel fFigureProjectFigure_ocl_ia; &#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ProjectFigure() {&#xA;&#x9;&#x9;&#xA;&#x9;org.eclipse.draw2d.BorderLayout layoutThis = new org.eclipse.draw2d.BorderLayout();&#xA;&#x9;layoutThis.setHorizontalSpacing(4);// TODO mapMode?&#xA;&#x9;layoutThis.setVerticalSpacing(4);&#xA;&#x9;this.setLayoutManager(layoutThis);&#xA;&#xA;&#x9;&#x9;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;));&#xA;this.setLineWidth(2);&#xA;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.green);&#xA;&#xA;this.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;, getMapMode().DPtoLP(12)&#xA;));&#xA;&#x9;&#x9;createContents();&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;private void createContents(){&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure projectFigure_name_container0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;projectFigure_name_container0.setOutline(false);&#xA;&#xA;this.add(projectFigure_name_container0, org.eclipse.draw2d.BorderLayout.TOP);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutProjectFigure_name_container0 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutProjectFigure_name_container0.setStretchMinorAxis(false);&#xA;&#x9;layoutProjectFigure_name_container0.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutProjectFigure_name_container0.setSpacing(5);&#xA;&#x9;layoutProjectFigure_name_container0.setVertical(true);&#xA;&#xA;&#x9;projectFigure_name_container0.setLayoutManager(layoutProjectFigure_name_container0);&#xA;&#xA;&#xA;&#xA;fFigureProjectFigure_name = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;fFigureProjectFigure_name.setAlignment(&#xA;org.eclipse.draw2d.PositionConstants.CENTER);&#xA;&#xA;&#xA;&#xA;fFigureProjectFigure_name.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(3)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;projectFigure_name_container0.add(fFigureProjectFigure_name);&#xA;&#xA;&#xA;&#xA;&#xA;org.eclipse.draw2d.RectangleFigure projectFigure_content_pane0 = new org.eclipse.draw2d.RectangleFigure();&#xA;&#xA;projectFigure_content_pane0.setOutline(false);&#xA;&#xA;this.add(projectFigure_content_pane0, org.eclipse.draw2d.BorderLayout.CENTER);&#xA;&#xA;&#x9;org.eclipse.draw2d.ToolbarLayout layoutProjectFigure_content_pane0 = new org.eclipse.draw2d.ToolbarLayout();&#xA;&#x9;layoutProjectFigure_content_pane0.setStretchMinorAxis(false);&#xA;&#x9;layoutProjectFigure_content_pane0.setMinorAlignment(org.eclipse.draw2d.ToolbarLayout.ALIGN_CENTER&#xA;);&#xA;&#xA;&#x9;layoutProjectFigure_content_pane0.setSpacing(5);&#xA;&#x9;layoutProjectFigure_content_pane0.setVertical(true);&#xA;&#xA;&#x9;projectFigure_content_pane0.setLayoutManager(layoutProjectFigure_content_pane0);&#xA;&#xA;&#xA;&#xA;fFigureProjectFigure_ocl_gmf = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureProjectFigure_ocl_gmf.setText(&quot;&lt;gmf>&quot;);&#xA;&#xA;fFigureProjectFigure_ocl_gmf.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;projectFigure_content_pane0.add(fFigureProjectFigure_ocl_gmf);&#xA;&#xA;&#xA;&#xA;fFigureProjectFigure_ocl_ia = new org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel();&#xA;&#xA;fFigureProjectFigure_ocl_ia.setText(&quot;&lt;ia>&quot;);&#xA;&#xA;fFigureProjectFigure_ocl_ia.setBorder(new org.eclipse.draw2d.MarginBorder(getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(10)&#xA;, getMapMode().DPtoLP(5)&#xA;, getMapMode().DPtoLP(10)&#xA;));&#xA;&#xA;projectFigure_content_pane0.add(fFigureProjectFigure_ocl_ia);&#xA;&#xA;&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureProjectFigure_name() {&#xA;&#x9;&#x9;return fFigureProjectFigure_name;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureProjectFigure_ocl_gmf() {&#xA;&#x9;&#x9;return fFigureProjectFigure_ocl_gmf;&#xA;&#x9;}&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel getFigureProjectFigure_ocl_ia() {&#xA;&#x9;&#x9;return fFigureProjectFigure_ocl_ia;&#xA;&#x9;}&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          xsi:type="gmfgen:ModeledViewmap">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"/>
@@ -380,6 +378,8 @@
             xsi:type="gmfgen:DefaultSizeAttributes"
             width="400"
             height="50"/>
+        <figureModel
+            href="toe.gmfgraph#Project"/>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -398,9 +398,13 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureProjectFigure_name"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <attributes
+              xsi:type="gmfgen:StyleAttributes"
+              fixedForeground="true"/>
+          <figureModel
+              href="toe.gmfgraph#Project_name"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0">
@@ -420,9 +424,13 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureProjectFigure_ocl_gmf"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <attributes
+              xsi:type="gmfgen:StyleAttributes"
+              fixedForeground="true"/>
+          <figureModel
+              href="toe.gmfgraph#Project_ocl_gmf"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:ExpressionLabelModelFacet"
             parser="//@labelParsers/@implementations.5"/>
@@ -437,9 +445,13 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:ParentAssignedViewmap"
-            getterName="getFigureProjectFigure_ocl_ia"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <attributes
+              xsi:type="gmfgen:StyleAttributes"
+              fixedForeground="true"/>
+          <figureModel
+              href="toe.gmfgraph#Project_ocl_ia"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:ExpressionLabelModelFacet"
             parser="//@labelParsers/@implementations.6"/>
@@ -459,13 +471,13 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="ManagerEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ManagerFigure"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ManagerFigure extends org.eclipse.gmf.examples.ocldriven.diagram.figures.StickManWithNumber {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ManagerFigure() {&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#xA;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.red);&#xA;&#x9;this.setBackgroundColor(org.eclipse.draw2d.ColorConstants.yellow);&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          xsi:type="gmfgen:ModeledViewmap">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"
             fixedBackground="true"/>
+        <figureModel
+            href="toe.gmfgraph#Manager"/>
       </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
@@ -494,8 +506,10 @@
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap
-            xsi:type="gmfgen:FigureViewmap"
-            figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="toe.gmfgraph#Manager_name"/>
+        </viewmap>
         <modelFacet
             xsi:type="gmfgen:FeatureLabelModelFacet"
             parser="//@labelParsers/@implementations.0">
@@ -518,12 +532,12 @@
       <elementType
           xsi:type="gmfgen:SpecializationType"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ManagesDepartmentConnection"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ManagesDepartmentConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ManagesDepartmentConnection() {&#xA;&#x9;&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.blue);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;">
+          xsi:type="gmfgen:ModeledViewmap">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"/>
+        <figureModel
+            href="toe.gmfgraph#ManagesDepartment"/>
       </viewmap>
       <modelFacet
           xsi:type="gmfgen:FeatureLinkModelFacet">
@@ -543,9 +557,10 @@
       <elementType
           xsi:type="gmfgen:SpecializationType"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="LeadsProjectConnection"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class LeadsProjectConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public LeadsProjectConnection() {&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="toe.gmfgraph#LeadsProject"/>
+      </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
           key="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.policies.LeadsProjectConnectionPinForeground4002Policy.KEY"
@@ -583,9 +598,10 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="ContributionEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:InnerClassViewmap"
-          className="ContributionConnection"
-          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ContributionConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ContributionConnection() {&#xA;&#x9;&#x9;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="toe.gmfgraph#Contribution"/>
+      </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
           key="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.policies.ContributionConnectionPinForeground4003Policy.KEY"
@@ -624,9 +640,10 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
-          xsi:type="gmfgen:ParentAssignedViewmap"
-          getterName="getFigureDepartmentFigure_content_pane"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="toe.gmfgraph#Department_staff"/>
+      </viewmap>
     </compartments>
     <compartments
         visualID="7002"
@@ -643,9 +660,10 @@
       <diagramRunTimeClass
           href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap
-          xsi:type="gmfgen:ParentAssignedViewmap"
-          getterName="getFigureDepartmentFigure_content_pane"
-          figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+          xsi:type="gmfgen:ModeledViewmap">
+        <figureModel
+            href="toe.gmfgraph#Department_staff"/>
+      </viewmap>
     </compartments>
     <palette>
       <groups

@@ -153,7 +153,6 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 		}
 		if (childEditPart instanceof DepartmentDepartment_staffEditPart) {
 			IFigure pane = getPrimaryShape().getFigureDepartmentFigure_content_pane();
-			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
 			pane.remove(((DepartmentDepartment_staffEditPart) childEditPart).getFigure());
 			return true;
 		}
@@ -359,9 +358,8 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 
 			fFigureDepartmentFigure_name = new WrappingLabel();
 
+			fFigureDepartmentFigure_name.setBorder(new MarginBorder(3, 10, 3, 10));
 			fFigureDepartmentFigure_name.setAlignment(PositionConstants.CENTER);
-
-			fFigureDepartmentFigure_name.setBorder(new MarginBorder(getMapMode().DPtoLP(3), getMapMode().DPtoLP(10), getMapMode().DPtoLP(3), getMapMode().DPtoLP(10)));
 
 			departmentFigure_name_container0.add(fFigureDepartmentFigure_name);
 
@@ -372,7 +370,7 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 
 			RectangleFigure departmentFigure_labels_container0 = new RectangleFigure();
 
-			departmentFigure_labels_container0.setBorder(new MarginBorder(getMapMode().DPtoLP(2), getMapMode().DPtoLP(2), getMapMode().DPtoLP(2), getMapMode().DPtoLP(2)));
+			departmentFigure_labels_container0.setBorder(new MarginBorder(2, 2, 2, 2));
 
 			this.add(departmentFigure_labels_container0, BorderLayout.BOTTOM);
 
@@ -404,7 +402,7 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 
 			departmentFigure_fixed_total_salary_gmf2.setText("Total Salary (GMF):");
 
-			departmentFigure_fixed_total_salary_gmf2.setBorder(new MarginBorder(getMapMode().DPtoLP(3), getMapMode().DPtoLP(10), getMapMode().DPtoLP(3), getMapMode().DPtoLP(10)));
+			departmentFigure_fixed_total_salary_gmf2.setBorder(new MarginBorder(3, 10, 3, 10));
 
 			departmentFigure_firstRow1.add(departmentFigure_fixed_total_salary_gmf2);
 
@@ -413,7 +411,7 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 			fFigureDepartmentFigure_ocl_gmf.setText("<gmf>");
 			fFigureDepartmentFigure_ocl_gmf.setForegroundColor(ColorConstants.red);
 
-			fFigureDepartmentFigure_ocl_gmf.setBorder(new MarginBorder(getMapMode().DPtoLP(3), getMapMode().DPtoLP(10), getMapMode().DPtoLP(3), getMapMode().DPtoLP(10)));
+			fFigureDepartmentFigure_ocl_gmf.setBorder(new MarginBorder(3, 10, 3, 10));
 
 			departmentFigure_firstRow1.add(fFigureDepartmentFigure_ocl_gmf);
 
@@ -436,7 +434,7 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 
 			departmentFigure_fixed_total_salary_ia2.setText("Total Salary (IA):");
 
-			departmentFigure_fixed_total_salary_ia2.setBorder(new MarginBorder(getMapMode().DPtoLP(3), getMapMode().DPtoLP(10), getMapMode().DPtoLP(3), getMapMode().DPtoLP(10)));
+			departmentFigure_fixed_total_salary_ia2.setBorder(new MarginBorder(3, 10, 3, 10));
 
 			departmentFigure_secondRow1.add(departmentFigure_fixed_total_salary_ia2);
 
@@ -445,7 +443,7 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 			fFigureDepartmentFigure_ocl_ia.setText("<ia>");
 			fFigureDepartmentFigure_ocl_ia.setForegroundColor(ColorConstants.yellow);
 
-			fFigureDepartmentFigure_ocl_ia.setBorder(new MarginBorder(getMapMode().DPtoLP(3), getMapMode().DPtoLP(10), getMapMode().DPtoLP(3), getMapMode().DPtoLP(10)));
+			fFigureDepartmentFigure_ocl_ia.setBorder(new MarginBorder(3, 10, 3, 10));
 
 			departmentFigure_secondRow1.add(fFigureDepartmentFigure_ocl_ia);
 

@@ -284,7 +284,6 @@ public class ManagerEditPart extends AbstractBorderedShapeEditPart {
 		 * @generated
 		 */
 		public ManagerFigure() {
-
 			this.setForegroundColor(ColorConstants.red);
 			this.setBackgroundColor(ColorConstants.yellow);
 		}
