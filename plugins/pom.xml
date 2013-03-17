@@ -70,6 +70,8 @@
 		<module>org.eclipse.gmf.tooling.simplemap.model.edit</module>
 		<module>org.eclipse.gmf.tooling.simplemap.model.edit.properties</module>
 		<module>org.eclipse.gmf.tooling.simplemap.model.triggers</module>
+		
+		<module>org.eclipse.gmf.tooling.runtime.ocl.impactanalyzer</module>
 
 	</modules>
 
