@@ -371,6 +371,15 @@ new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolic
 			return getPrimaryShape().«childViewmap.getterName»();
 		}	
 «ENDLET»«ENDFOREACH-»
+«FOREACH getPinnedCompartmentsWithModeledViewmaps(self) AS compartment-»
+«LET compartment.viewmap.oclAsType(gmfgen::ModeledViewmap) AS childViewmap-»
+«LET childViewmap.figureModel.oclAsType(gmfgraph::Compartment).accessor.accessor AS getterName-»
+		if (editPart instanceof «compartment.getEditPartQualifiedClassName()») {
+			return getPrimaryShape().«getterName»();
+		}	
+«ENDLET-»
+«ENDLET-»
+«ENDFOREACH-»
 «IF hasBorderItems(self)-»
 		if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart) {
 			return getBorderedFigure().getBorderItemContainer();
