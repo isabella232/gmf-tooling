@@ -1,0 +1,27 @@
+@namespace(uri="http://www.eclipse.org/gmf-tooling/bug403577", prefix="lesscode")
+package lesscode;
+
+class RootContainer {
+	val Subject[*] rootSubjects;
+	val OneContainmentGroup[*] oneContainmentGroups;
+	val MultiContainmentGroup[*] multiContainmentGroups;
+}
+
+abstract class WithSomeAttributes {
+	attr String name;
+	attr String value;
+} 
+
+class Subject extends WithSomeAttributes {
+	val Subject[*] recursiveContainment;
+}
+
+class OneContainmentGroup extends WithSomeAttributes {
+   val Subject[*] subjects;
+}
+
+class MultiContainmentGroup extends WithSomeAttributes {
+   val Subject[*] subjectsTypeA;
+   val Subject[*] subjectsTypeB;
+}
+

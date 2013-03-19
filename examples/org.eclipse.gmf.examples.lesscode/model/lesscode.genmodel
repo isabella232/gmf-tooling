@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.examples.lesscode/src" modelPluginID="org.eclipse.gmf.examples.lesscode"
+    modelName="Lesscode" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false">
+  <foreignModel>lesscode.ecore</foreignModel>
+  <genPackages prefix="Lesscode" basePackage="org.eclipse.gmf.example" disposableProviderFactory="true"
+      ecorePackage="lesscode.ecore#/">
+    <genClasses ecoreClass="lesscode.ecore#//RootContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//RootContainer/rootSubjects"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//RootContainer/oneContainmentGroups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//RootContainer/multiContainmentGroups"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="lesscode.ecore#//WithSomeAttributes">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lesscode.ecore#//WithSomeAttributes/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute lesscode.ecore#//WithSomeAttributes/value"/>
+    </genClasses>
+    <genClasses ecoreClass="lesscode.ecore#//Subject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//Subject/recursiveContainment"/>
+    </genClasses>
+    <genClasses ecoreClass="lesscode.ecore#//OneContainmentGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//OneContainmentGroup/subjects"/>
+    </genClasses>
+    <genClasses ecoreClass="lesscode.ecore#//MultiContainmentGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//MultiContainmentGroup/subjectsTypeA"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference lesscode.ecore#//MultiContainmentGroup/subjectsTypeB"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
