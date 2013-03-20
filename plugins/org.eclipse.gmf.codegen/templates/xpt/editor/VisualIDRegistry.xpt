@@ -414,14 +414,12 @@ return -1;
 			«REM»We need to ensure at last one case, this is legitimate way«ENDREM»«-»
 			«EXPAND xpt::Common::caseVisualID FOR self»
 				return false;
-			«FOREACH self.getAllNodes()->asSequence()->sortedBy(n | n.visualID) AS nextNode-»
-			«IF getSemanticChildren(nextNode)->isEmpty()-»
-			«IF not nextNode.oclIsKindOf(gmfgen::GenNode) or not nextNode.oclAsType(gmfgen::GenNode).compartments->select(c | not getSemanticChildren(c)->isEmpty())->isEmpty()-»
-			«EXPAND xpt::Common::caseVisualID FOR nextNode»
-			«ENDIF-»
-			«ENDIF-»
-			«ENDFOREACH-»
+			«LET self.getAllNodes()->asSequence()->select(n | getSemanticChildren(n)->isEmpty() and n.compartments->forAll(c | getSemanticChildren(c)->isEmpty())) AS leafs-»
+			«IF not leafs->isEmpty()-»
+			«EXPAND xpt::Common::caseVisualID FOREACH leafs->sortedBy(n | n.visualID)»
 				return true;
+			«ENDIF-»
+			«ENDLET-»
 			default:
 				break;
 		}
