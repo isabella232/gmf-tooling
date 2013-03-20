@@ -278,7 +278,6 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public LargeItemFigure() {
-
 			createContents();
 		}
 

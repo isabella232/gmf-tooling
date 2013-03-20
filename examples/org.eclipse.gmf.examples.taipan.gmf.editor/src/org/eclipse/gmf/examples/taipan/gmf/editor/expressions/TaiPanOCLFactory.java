@@ -46,38 +46,58 @@ public class TaiPanOCLFactory {
 	private final TaiPanAbstractExpression[] expressions;
 
 	/**
+	* @generated
+	*/
+	private final String[] expressionBodies;
+
+	/**
 	 * @generated
 	 */
 	protected TaiPanOCLFactory() {
 		this.expressions = new TaiPanAbstractExpression[12];
+		this.expressionBodies = new String[] { "not self.oclIsKindOf(Warship)", //$NON-NLS-1$
+				"reliability >= 0.5", //$NON-NLS-1$
+				"0.8", //$NON-NLS-1$
+				"reliability < 0.5", //$NON-NLS-1$
+				"0.2", //$NON-NLS-1$
+				"self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", //$NON-NLS-1$
+				"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", //$NON-NLS-1$
+				"not self.oclIsKindOf(Warship)", //$NON-NLS-1$
+				"reliability", //$NON-NLS-1$
+				"location.size() > 0", //$NON-NLS-1$
+				"weight > 0", //$NON-NLS-1$
+				"element.eClass().name = \'Ship\'", //$NON-NLS-1$
+		};
+	}
+
+	/**
+	* @generated
+	*/
+	private static TaiPanOCLFactory getInstance() {
+		TaiPanOCLFactory instance = TaiPanDiagramEditorPlugin.getInstance().getTaiPanOCLFactory();
+		if (instance == null) {
+			TaiPanDiagramEditorPlugin.getInstance().setTaiPanOCLFactory(instance = new TaiPanOCLFactory());
+		}
+		return instance;
+	}
+
+	/**
+	* @generated
+	*/
+	public static String getExpressionBody(int index) {
+		return getInstance().expressionBodies[index];
 	}
 
 	/**
 	* @generated
 	*/
 	public static TaiPanAbstractExpression getExpression(int index, EClassifier context, Map<String, EClassifier> environment) {
-		TaiPanOCLFactory cached = TaiPanDiagramEditorPlugin.getInstance().getTaiPanOCLFactory();
-		if (cached == null) {
-			TaiPanDiagramEditorPlugin.getInstance().setTaiPanOCLFactory(cached = new TaiPanOCLFactory());
-		}
+		TaiPanOCLFactory cached = getInstance();
 		if (index < 0 || index >= cached.expressions.length) {
 			throw new IllegalArgumentException();
 		}
 		if (cached.expressions[index] == null) {
-			final String[] exprBodies = new String[] { "not self.oclIsKindOf(Warship)", //$NON-NLS-1$
-					"reliability >= 0.5", //$NON-NLS-1$
-					"0.8", //$NON-NLS-1$
-					"reliability < 0.5", //$NON-NLS-1$
-					"0.2", //$NON-NLS-1$
-					"self.attackOrders->select(order | order.port = oppositeEnd)->isEmpty()", //$NON-NLS-1$
-					"self.escortOrder->isEmpty() or self.escortOrder.ships->select(ship | ship = oppositeEnd)->isEmpty()", //$NON-NLS-1$
-					"not self.oclIsKindOf(Warship)", //$NON-NLS-1$
-					"reliability", //$NON-NLS-1$
-					"location.size() > 0", //$NON-NLS-1$
-					"weight > 0", //$NON-NLS-1$
-					"element.eClass().name = \'Ship\'", //$NON-NLS-1$
-			};
-			cached.expressions[index] = getExpression(exprBodies[index], context, environment == null ? Collections.<String, EClassifier> emptyMap() : environment);
+			cached.expressions[index] = getExpression(cached.expressionBodies[index], context, environment == null ? Collections.<String, EClassifier> emptyMap() : environment);
 		}
 		return cached.expressions[index];
 	}
