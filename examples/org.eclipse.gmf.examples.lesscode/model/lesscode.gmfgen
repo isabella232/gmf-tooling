@@ -27,6 +27,7 @@
         visualID="3001"
         editPartClassName="Subject2EditPart"
         itemSemanticEditPolicyClassName="Subject2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectViewFactory"
         canonicalEditPolicyClassName="Subject2CanonicalEditPolicy"
         compartments="//@diagram/@compartments.1"
         graphicalNodeEditPolicyClassName="Subject2GraphicalNodeEditPolicy"
@@ -58,6 +59,7 @@
           visualID="5001"
           editPartClassName="SubjectName2EditPart"
           itemSemanticEditPolicyClassName="SubjectName2ItemSemanticEditPolicy"
+          notationViewFactoryClassName="SubjectNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -82,6 +84,7 @@
         visualID="3002"
         editPartClassName="Subject3EditPart"
         itemSemanticEditPolicyClassName="Subject3ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectViewFactory"
         canonicalEditPolicyClassName="Subject3CanonicalEditPolicy"
         compartments="//@diagram/@compartments.3"
         graphicalNodeEditPolicyClassName="Subject3GraphicalNodeEditPolicy"
@@ -113,6 +116,7 @@
           visualID="5003"
           editPartClassName="SubjectName3EditPart"
           itemSemanticEditPolicyClassName="SubjectName3ItemSemanticEditPolicy"
+          notationViewFactoryClassName="SubjectNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -137,6 +141,7 @@
         visualID="3003"
         editPartClassName="Subject4EditPart"
         itemSemanticEditPolicyClassName="Subject4ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectViewFactory"
         canonicalEditPolicyClassName="Subject4CanonicalEditPolicy"
         compartments="//@diagram/@compartments.5"
         graphicalNodeEditPolicyClassName="Subject4GraphicalNodeEditPolicy"
@@ -168,6 +173,7 @@
           visualID="5005"
           editPartClassName="SubjectName4EditPart"
           itemSemanticEditPolicyClassName="SubjectName4ItemSemanticEditPolicy"
+          notationViewFactoryClassName="SubjectNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -192,6 +198,7 @@
         visualID="3004"
         editPartClassName="Subject5EditPart"
         itemSemanticEditPolicyClassName="Subject5ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectViewFactory"
         canonicalEditPolicyClassName="Subject5CanonicalEditPolicy"
         compartments="//@diagram/@compartments.6"
         graphicalNodeEditPolicyClassName="Subject5GraphicalNodeEditPolicy"
@@ -223,6 +230,7 @@
           visualID="5006"
           editPartClassName="SubjectName5EditPart"
           itemSemanticEditPolicyClassName="SubjectName5ItemSemanticEditPolicy"
+          notationViewFactoryClassName="SubjectNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -247,6 +255,7 @@
         visualID="2001"
         editPartClassName="SubjectEditPart"
         itemSemanticEditPolicyClassName="SubjectItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectViewFactory"
         canonicalEditPolicyClassName="SubjectCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0"
         graphicalNodeEditPolicyClassName="SubjectGraphicalNodeEditPolicy"
@@ -277,6 +286,7 @@
           visualID="5002"
           editPartClassName="SubjectNameEditPart"
           itemSemanticEditPolicyClassName="SubjectNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="SubjectNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -301,6 +311,7 @@
         visualID="2002"
         editPartClassName="OneContainmentGroupEditPart"
         itemSemanticEditPolicyClassName="OneContainmentGroupItemSemanticEditPolicy"
+        notationViewFactoryClassName="OneContainmentGroupViewFactory"
         canonicalEditPolicyClassName="OneContainmentGroupCanonicalEditPolicy"
         compartments="//@diagram/@compartments.2"
         graphicalNodeEditPolicyClassName="OneContainmentGroupGraphicalNodeEditPolicy"
@@ -331,6 +342,7 @@
           visualID="5004"
           editPartClassName="OneContainmentGroupNameEditPart"
           itemSemanticEditPolicyClassName="OneContainmentGroupNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="OneContainmentGroupNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -355,6 +367,7 @@
         visualID="2003"
         editPartClassName="MultiContainmentGroupEditPart"
         itemSemanticEditPolicyClassName="MultiContainmentGroupItemSemanticEditPolicy"
+        notationViewFactoryClassName="MultiContainmentGroupViewFactory"
         canonicalEditPolicyClassName="MultiContainmentGroupCanonicalEditPolicy"
         compartments="//@diagram/@compartments.4"
         graphicalNodeEditPolicyClassName="MultiContainmentGroupGraphicalNodeEditPolicy"
@@ -365,8 +378,7 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="MultiContainmentGroupEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:ModeledViewmap"
-          layoutType="TOOLBAR_LAYOUT">
+          xsi:type="gmfgen:ModeledViewmap">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"
@@ -386,6 +398,7 @@
           visualID="5007"
           editPartClassName="MultiContainmentGroupNameEditPart"
           itemSemanticEditPolicyClassName="MultiContainmentGroupNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="MultiContainmentGroupNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -410,6 +423,7 @@
         visualID="7001"
         editPartClassName="SubjectInSubjectEditPart"
         itemSemanticEditPolicyClassName="SubjectInSubjectItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectInSubjectViewFactory"
         canonicalEditPolicyClassName="SubjectInSubjectCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="inSubject"
@@ -433,6 +447,7 @@
         visualID="7002"
         editPartClassName="SubjectInSubject2EditPart"
         itemSemanticEditPolicyClassName="SubjectInSubject2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectInSubjectViewFactory"
         canonicalEditPolicyClassName="SubjectInSubject2CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="inSubject"
@@ -456,6 +471,7 @@
         visualID="7003"
         editPartClassName="OneContainmentGroupInGroupOneEditPart"
         itemSemanticEditPolicyClassName="OneContainmentGroupInGroupOneItemSemanticEditPolicy"
+        notationViewFactoryClassName="OneContainmentGroupInGroupOneViewFactory"
         canonicalEditPolicyClassName="OneContainmentGroupInGroupOneCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.1"
         title="inGroupOne"
@@ -479,6 +495,7 @@
         visualID="7004"
         editPartClassName="SubjectInSubject3EditPart"
         itemSemanticEditPolicyClassName="SubjectInSubject3ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectInSubjectViewFactory"
         canonicalEditPolicyClassName="SubjectInSubject3CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="inSubject"
@@ -502,6 +519,7 @@
         visualID="7005"
         editPartClassName="MultiContainmentGroupInGroupManyEditPart"
         itemSemanticEditPolicyClassName="MultiContainmentGroupInGroupManyItemSemanticEditPolicy"
+        notationViewFactoryClassName="MultiContainmentGroupInGroupManyViewFactory"
         canonicalEditPolicyClassName="MultiContainmentGroupInGroupManyCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.2 //@diagram/@childNodes.3"
         title="inGroupMany"
@@ -525,6 +543,7 @@
         visualID="7006"
         editPartClassName="SubjectInSubject4EditPart"
         itemSemanticEditPolicyClassName="SubjectInSubject4ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectInSubjectViewFactory"
         canonicalEditPolicyClassName="SubjectInSubject4CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="inSubject"
@@ -548,6 +567,7 @@
         visualID="7007"
         editPartClassName="SubjectInSubject5EditPart"
         itemSemanticEditPolicyClassName="SubjectInSubject5ItemSemanticEditPolicy"
+        notationViewFactoryClassName="SubjectInSubjectViewFactory"
         canonicalEditPolicyClassName="SubjectInSubject5CanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="inSubject"
