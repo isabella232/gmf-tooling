@@ -369,14 +369,6 @@ public class LesscodeVisualIDRegistry {
 		switch (visualID) {
 		case RootContainerEditPart.VISUAL_ID:
 			return false;
-		case SubjectEditPart.VISUAL_ID:
-		case OneContainmentGroupEditPart.VISUAL_ID:
-		case MultiContainmentGroupEditPart.VISUAL_ID:
-		case Subject2EditPart.VISUAL_ID:
-		case Subject3EditPart.VISUAL_ID:
-		case Subject4EditPart.VISUAL_ID:
-		case Subject5EditPart.VISUAL_ID:
-			return true;
 		default:
 			break;
 		}
