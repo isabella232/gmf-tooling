@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.runtime;singleton:=true
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 3.1.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -33,6 +33,7 @@ Export-Package: org.eclipse.gmf.tooling.runtime,
  org.eclipse.gmf.tooling.runtime.edit.policies.reparent,
  org.eclipse.gmf.tooling.runtime.ocl.tracker,
  org.eclipse.gmf.tooling.runtime.parsers,
+ org.eclipse.gmf.tooling.runtime.providers,
  org.eclipse.gmf.tooling.runtime.structure,
  org.eclipse.gmf.tooling.runtime.update
 
