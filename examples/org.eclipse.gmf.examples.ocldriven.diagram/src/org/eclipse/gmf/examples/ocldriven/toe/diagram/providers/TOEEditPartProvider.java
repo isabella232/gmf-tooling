@@ -11,10 +11,9 @@ import org.eclipse.gmf.tooling.runtime.providers.DefaultEditPartProvider;
 public class TOEEditPartProvider extends DefaultEditPartProvider {
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public TOEEditPartProvider() {
 		super(new TOEEditPartFactory(), TOEVisualIDRegistry.TYPED_INSTANCE, AllHolderEditPart.MODEL_ID);
 	}
-
 }

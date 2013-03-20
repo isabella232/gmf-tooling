@@ -1,3 +1,15 @@
+/*
+ * Copyright (c) 2007-2012 Borland Software Corporation and others
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ * 	  Michael Golubev (Montages) - API extracted to GMF-T runtime 
+ */
 package org.eclipse.gmf.tooling.runtime.providers;
 
 import java.lang.ref.WeakReference;
@@ -12,6 +24,9 @@ import org.eclipse.gmf.runtime.diagram.ui.services.editpart.IEditPartOperation;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
+/**
+ * @since 3.1
+ */
 public class DefaultEditPartProvider extends AbstractEditPartProvider {
 
 	private EditPartFactory factory;
