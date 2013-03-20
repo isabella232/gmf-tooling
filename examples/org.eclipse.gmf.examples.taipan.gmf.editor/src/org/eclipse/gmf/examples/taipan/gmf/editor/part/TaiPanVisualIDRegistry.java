@@ -44,10 +44,10 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanAbstractExpression;
 import org.eclipse.gmf.examples.taipan.gmf.editor.expressions.TaiPanOCLFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
 /**
  * This registry is used to determine which type of visual object should be
@@ -360,5 +360,105 @@ public class TaiPanVisualIDRegistry {
 		Object result = TaiPanOCLFactory.getExpression(3, TaiPanPackage.eINSTANCE.getRoute(), null).evaluate(domainElement);
 		return result instanceof Boolean && ((Boolean) result).booleanValue();
 	}
+
+	/**
+	* @generated
+	*/
+	public static boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+		if (candidate == -1) {
+			//unrecognized id is always bad
+			return false;
+		}
+		int basic = getNodeVisualID(containerView, domainElement);
+		return basic == candidate;
+	}
+
+	/**
+	* @generated
+	*/
+	public static boolean isCompartmentVisualID(int visualID) {
+		switch (visualID) {
+		case ShipSmallCargoEditPart.VISUAL_ID:
+		case ShipLargeCargoEditPart.VISUAL_ID:
+		case WarshipSmallCargoEditPart.VISUAL_ID:
+		case WarshipLargeCargoEditPart.VISUAL_ID:
+			return true;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/**
+	* @generated
+	*/
+	public static boolean isSemanticLeafVisualID(int visualID) {
+		switch (visualID) {
+		case AquatoryEditPart.VISUAL_ID:
+			return false;
+		case PortEditPart.VISUAL_ID:
+		case SmallItemsEditPart.VISUAL_ID:
+		case LargeItemEditPart.VISUAL_ID:
+		case EmptyBoxEditPart.VISUAL_ID:
+			return true;
+		default:
+			break;
+		}
+		return false;
+	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramStructure TYPED_INSTANCE = new DiagramStructure() {
+
+		/**
+		* @generated
+		*/
+
+		public int getVisualID(View view) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getVisualID(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public String getModelID(View view) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getModelID(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public int getNodeVisualID(View containerView, EObject domainElement) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.getNodeVisualID(containerView, domainElement);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.checkNodeVisualID(containerView, domainElement, candidate);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public boolean isCompartmentVisualID(int visualID) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.isCompartmentVisualID(visualID);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public boolean isSemanticLeafVisualID(int visualID) {
+			return org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry.isSemanticLeafVisualID(visualID);
+		}
+	};
 
 }

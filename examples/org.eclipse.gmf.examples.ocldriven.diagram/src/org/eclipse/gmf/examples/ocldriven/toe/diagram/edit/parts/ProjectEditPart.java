@@ -323,11 +323,11 @@ public class ProjectEditPart extends ShapeNodeEditPart {
 			layoutThis.setVerticalSpacing(4);
 			this.setLayoutManager(layoutThis);
 
-			this.setCornerDimensions(new Dimension(getMapMode().DPtoLP(12), getMapMode().DPtoLP(12)));
+			this.setCornerDimensions(new Dimension(12, 12));
 			this.setLineWidth(2);
 			this.setForegroundColor(ColorConstants.green);
 
-			this.setBorder(new MarginBorder(getMapMode().DPtoLP(12), getMapMode().DPtoLP(12), getMapMode().DPtoLP(12), getMapMode().DPtoLP(12)));
+			this.setBorder(new MarginBorder(12, 12, 12, 12));
 			createContents();
 		}
 
@@ -353,9 +353,8 @@ public class ProjectEditPart extends ShapeNodeEditPart {
 
 			fFigureProjectFigure_name = new WrappingLabel();
 
+			fFigureProjectFigure_name.setBorder(new MarginBorder(3, 10, 3, 10));
 			fFigureProjectFigure_name.setAlignment(PositionConstants.CENTER);
-
-			fFigureProjectFigure_name.setBorder(new MarginBorder(getMapMode().DPtoLP(3), getMapMode().DPtoLP(10), getMapMode().DPtoLP(3), getMapMode().DPtoLP(10)));
 
 			projectFigure_name_container0.add(fFigureProjectFigure_name);
 
@@ -378,7 +377,7 @@ public class ProjectEditPart extends ShapeNodeEditPart {
 
 			fFigureProjectFigure_ocl_gmf.setText("<gmf>");
 
-			fFigureProjectFigure_ocl_gmf.setBorder(new MarginBorder(getMapMode().DPtoLP(5), getMapMode().DPtoLP(10), getMapMode().DPtoLP(5), getMapMode().DPtoLP(10)));
+			fFigureProjectFigure_ocl_gmf.setBorder(new MarginBorder(5, 10, 5, 10));
 
 			projectFigure_content_pane0.add(fFigureProjectFigure_ocl_gmf);
 
@@ -386,7 +385,7 @@ public class ProjectEditPart extends ShapeNodeEditPart {
 
 			fFigureProjectFigure_ocl_ia.setText("<ia>");
 
-			fFigureProjectFigure_ocl_ia.setBorder(new MarginBorder(getMapMode().DPtoLP(5), getMapMode().DPtoLP(10), getMapMode().DPtoLP(5), getMapMode().DPtoLP(10)));
+			fFigureProjectFigure_ocl_ia.setBorder(new MarginBorder(5, 10, 5, 10));
 
 			projectFigure_content_pane0.add(fFigureProjectFigure_ocl_ia);
 

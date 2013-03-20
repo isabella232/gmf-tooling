@@ -51,6 +51,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tooling.runtime.update.DiagramUpdater;
 
 /**
  * @generated
@@ -914,5 +915,43 @@ public class TaiPanDiagramUpdater {
 		}
 		return result;
 	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanNodeDescriptor> getSemanticChildren(View view) {
+			return TaiPanDiagramUpdater.getSemanticChildren(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanLinkDescriptor> getContainedLinks(View view) {
+			return TaiPanDiagramUpdater.getContainedLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanLinkDescriptor> getIncomingLinks(View view) {
+			return TaiPanDiagramUpdater.getIncomingLinks(view);
+		}
+
+		/**
+		* @generated
+		*/
+
+		public List<TaiPanLinkDescriptor> getOutgoingLinks(View view) {
+			return TaiPanDiagramUpdater.getOutgoingLinks(view);
+		}
+	};
 
 }

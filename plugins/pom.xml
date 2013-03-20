@@ -59,6 +59,19 @@
 		<module>org.eclipse.gmf.xpand.qvtlibrary</module>
 
 		<module>org.eclipse.gmf.tooling.runtime</module>
+		
+		<module>org.eclipse.gmf.tooling.simplemap.bridge.ui</module>
+		<module>org.eclipse.gmf.tooling.simplemap.diagram</module>
+		<module>org.eclipse.gmf.tooling.simplemap.diagram.properties</module>
+		<module>org.eclipse.gmf.tooling.simplemap.gmf</module>
+		<module>org.eclipse.gmf.tooling.simplemap.migrate.ui</module>
+		<module>org.eclipse.gmf.tooling.simplemap.model</module>
+		<module>org.eclipse.gmf.tooling.simplemap.model.delegates</module>
+		<module>org.eclipse.gmf.tooling.simplemap.model.edit</module>
+		<module>org.eclipse.gmf.tooling.simplemap.model.edit.properties</module>
+		<module>org.eclipse.gmf.tooling.simplemap.model.triggers</module>
+		
+		<module>org.eclipse.gmf.tooling.runtime.ocl.impactanalyzer</module>
 
 	</modules>
 

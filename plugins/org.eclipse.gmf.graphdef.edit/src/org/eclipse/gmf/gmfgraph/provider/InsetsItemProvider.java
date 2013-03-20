@@ -173,12 +173,14 @@ public class InsetsItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		Insets insets = (Insets)object;
-		return getString("_UI_Insets_type") + " " + insets.getTop();
+		return getString("_UI_Insets_toStringPattern", new Object[] {
+			insets.getTop(), insets.getBottom(), insets.getLeft(), insets.getRight(), //	
+		});
 	}
 
 	/**

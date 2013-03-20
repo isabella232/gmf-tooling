@@ -254,7 +254,7 @@ public class «diagramEditorUtilClassName» {
 		return model;
 		«ELSE»
 			«EXPAND MetaModel::NewInstance('docRoot') FOR getDocumentRoot(self)»
-			«LET getDocumentRootSetFeature(self) AS f»«IF f = null-»
+			«LET getDocumentRootSetFeature(self) AS f»«IF f.oclIsUndefined()-»
 		docRoot.set«domainDiagramElement.ecoreClass.name»(model); // FIXME name of the set method is pure guess«ELSE-»
 		«EXPAND MetaModel::modifyFeature('docRoot', getDocumentRoot(self), 'model') FOR f»«ENDIF»
 			«ENDLET-»

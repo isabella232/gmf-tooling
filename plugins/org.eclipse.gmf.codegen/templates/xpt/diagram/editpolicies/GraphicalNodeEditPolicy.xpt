@@ -23,7 +23,7 @@ public class «graphicalNodeEditPolicyClassName» extends org.eclipse.gmf.runtim
 	protected org.eclipse.gef.commands.Command getConnectionCompleteCommand(
 			org.eclipse.gef.requests.CreateConnectionRequest request) {
 		org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getElementType(request);
-		«FOREACH reorientedIncomingLinks->asSequence() AS link-»
+		«FOREACH reorientedIncomingLinks->sortedBy(l | l.visualID) AS link-»
 		if («EXPAND xpt::providers::ElementTypes::accessElementType FOR link» == elementType) {
 			«IF link.outgoingCreationAllowed-»
 			if (request.getSourceEditPart() != getHost()) {

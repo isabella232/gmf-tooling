@@ -1,0 +1,119 @@
+@Ecore(settingDelegates="org.eclipse.gmf.tooling.simplemap.model.setting", invocationDelegates="org.msl.simple.gmfmap.simplemapping.invocation")
+@namespace(uri="http://org.msl.simple.gmfmap/simplemappings_1.1", prefix="simplemap")
+package simplemappings;
+
+import "platform:/plugin/org.eclipse.gmf.map/models/gmfmap.ecore";
+import "platform:/plugin/org.eclipse.gmf.graphdef/models/gmfgraph.ecore";
+import "platform:/plugin/org.eclipse.gmf.tooldef/models/tooldef.ecore";
+
+class SimpleMapping extends SimpleParentNode {
+  ref gmfgraph.Canvas canvas;
+  ref tooldef.Palette palette;
+  ref mappings.Mapping mapping;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  ref ecore.EPackage domainModel;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  ref EClass domainMetaElement;
+}
+
+class SimpleTopNode extends SimpleNode, SimpleParentNode {
+  val SimpleLinkMapping[*] links;
+}
+
+class SimpleCompartment extends SimpleParentNode, SimpleChildNode, SimpleMappingElementWithFigure {
+  derived ref mappings.CompartmentMapping compartmentMapping;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  attr String name;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref gmfgraph.Compartment compartment;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref gmfgraph.Label compartmentLabel;
+  attr boolean needsTitle = true;
+}
+
+class SimpleLabelNode extends SimpleNode {
+}
+
+class SimpleLinkMapping extends SimpleChildNode, SimpleParentNode, SimpleMappingElementWithFigure {
+  attr String name;
+  derived ref mappings.LinkMapping linkMapping;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  ref gmfgraph.Connection diagramLink;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref gmfgraph.DiagramLabel diagramLabel;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref tooldef.AbstractTool tool;
+}
+
+class SimpleNode extends SimpleChildNode, SimpleMappingElementWithFigure, SimpleNodeReference {
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref tooldef.AbstractTool tool;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  transient ref ecore.EAttribute[*] labelAttributes;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref gmfgraph.Node diagramNode;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  readonly unsettable derived ref gmfgraph.DiagramLabel diagramLabel;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  transient derived ref EClass domainMetaElement;
+}
+
+abstract interface SimpleParentNode {
+  val SimpleChildNode[*]#parentNode children;
+}
+
+abstract interface SimpleChildNode {
+  unsettable ref SimpleParentNode#children parentNode;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  transient ref SimpleMapping parentMapping;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  ref SimpleNode parent;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  transient ref EClass parentMetaElement;
+}
+
+class SimpleSubNode extends SimpleNode, SimpleParentNode {
+}
+
+class SimpleMappingElementWithFigure {
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  ref gmfgraph.Figure nodeFigure;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  ref gmfgraph.Figure labelFigure;
+}
+
+class SimpleChildReference extends SimpleNodeReference, SimpleChildNode {
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  transient derived ref mappings.NodeMapping referencedChild;
+  ref SimpleNode referencedSimpleNode;
+}
+
+class SimpleNodeReference {
+  derived ref mappings.NodeReference nodeReference;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  transient derived ref ecore.EReference containmentFeature;
+
+  @org.eclipse.gmf.tooling.simplemap.model.setting
+  attr String name;
+}
+

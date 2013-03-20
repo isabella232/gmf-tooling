@@ -331,7 +331,6 @@ public class BuildingEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		public BuildingFigure() {
-
 			createContents();
 		}
 

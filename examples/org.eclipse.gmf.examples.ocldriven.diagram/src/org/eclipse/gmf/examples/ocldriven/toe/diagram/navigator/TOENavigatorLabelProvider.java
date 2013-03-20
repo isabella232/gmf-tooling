@@ -87,26 +87,26 @@ public class TOENavigatorLabelProvider extends LabelProvider implements ICommonL
 	*/
 	public Image getImage(View view) {
 		switch (TOEVisualIDRegistry.getVisualID(view)) {
-		case ContributionEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Contribution", TOEElementTypes.Contribution_4003); //$NON-NLS-1$
-		case ManagerEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Manager", TOEElementTypes.Manager_2004); //$NON-NLS-1$
-		case Department2EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Department", TOEElementTypes.Department_3002); //$NON-NLS-1$
-		case EmployeeEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Employee", TOEElementTypes.Employee_2001); //$NON-NLS-1$
-		case ManagerLeadsEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Manager?leads", TOEElementTypes.ManagerLeads_4002); //$NON-NLS-1$
-		case DepartmentEditPart.VISUAL_ID:
-			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Department", TOEElementTypes.Department_2002); //$NON-NLS-1$
-		case Employee2EditPart.VISUAL_ID:
-			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Employee", TOEElementTypes.Employee_3001); //$NON-NLS-1$
-		case ManagerManagedDepartmentEditPart.VISUAL_ID:
-			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Manager?managedDepartment", TOEElementTypes.ManagerManagedDepartment_4001); //$NON-NLS-1$
 		case AllHolderEditPart.VISUAL_ID:
 			return getImage("Navigator?Diagram?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?AllHolder", TOEElementTypes.AllHolder_1000); //$NON-NLS-1$
+		case EmployeeEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Employee", TOEElementTypes.Employee_2001); //$NON-NLS-1$
+		case DepartmentEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Department", TOEElementTypes.Department_2002); //$NON-NLS-1$
 		case ProjectEditPart.VISUAL_ID:
 			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Project", TOEElementTypes.Project_2003); //$NON-NLS-1$
+		case ManagerEditPart.VISUAL_ID:
+			return getImage("Navigator?TopLevelNode?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Manager", TOEElementTypes.Manager_2004); //$NON-NLS-1$
+		case Employee2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Employee", TOEElementTypes.Employee_3001); //$NON-NLS-1$
+		case Department2EditPart.VISUAL_ID:
+			return getImage("Navigator?Node?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Department", TOEElementTypes.Department_3002); //$NON-NLS-1$
+		case ManagerManagedDepartmentEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Manager?managedDepartment", TOEElementTypes.ManagerManagedDepartment_4001); //$NON-NLS-1$
+		case ManagerLeadsEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Manager?leads", TOEElementTypes.ManagerLeads_4002); //$NON-NLS-1$
+		case ContributionEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/examples/gmf/ocldriven/table-of-organization-and-equipment?Contribution", TOEElementTypes.Contribution_4003); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -157,26 +157,26 @@ public class TOENavigatorLabelProvider extends LabelProvider implements ICommonL
 			return getUnresolvedDomainElementProxyText(view);
 		}
 		switch (TOEVisualIDRegistry.getVisualID(view)) {
-		case ContributionEditPart.VISUAL_ID:
-			return getContribution_4003Text(view);
-		case ManagerEditPart.VISUAL_ID:
-			return getManager_2004Text(view);
-		case Department2EditPart.VISUAL_ID:
-			return getDepartment_3002Text(view);
-		case EmployeeEditPart.VISUAL_ID:
-			return getEmployee_2001Text(view);
-		case ManagerLeadsEditPart.VISUAL_ID:
-			return getManagerLeads_4002Text(view);
-		case DepartmentEditPart.VISUAL_ID:
-			return getDepartment_2002Text(view);
-		case Employee2EditPart.VISUAL_ID:
-			return getEmployee_3001Text(view);
-		case ManagerManagedDepartmentEditPart.VISUAL_ID:
-			return getManagerManagedDepartment_4001Text(view);
 		case AllHolderEditPart.VISUAL_ID:
 			return getAllHolder_1000Text(view);
+		case EmployeeEditPart.VISUAL_ID:
+			return getEmployee_2001Text(view);
+		case DepartmentEditPart.VISUAL_ID:
+			return getDepartment_2002Text(view);
 		case ProjectEditPart.VISUAL_ID:
 			return getProject_2003Text(view);
+		case ManagerEditPart.VISUAL_ID:
+			return getManager_2004Text(view);
+		case Employee2EditPart.VISUAL_ID:
+			return getEmployee_3001Text(view);
+		case Department2EditPart.VISUAL_ID:
+			return getDepartment_3002Text(view);
+		case ManagerManagedDepartmentEditPart.VISUAL_ID:
+			return getManagerManagedDepartment_4001Text(view);
+		case ManagerLeadsEditPart.VISUAL_ID:
+			return getManagerLeads_4002Text(view);
+		case ContributionEditPart.VISUAL_ID:
+			return getContribution_4003Text(view);
 		}
 		return getUnknownElementText(view);
 	}
