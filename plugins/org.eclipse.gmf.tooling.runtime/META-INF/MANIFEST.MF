@@ -23,6 +23,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Activator: org.eclipse.gmf.tooling.runtime.GMFToolingRuntimePlugin
 Export-Package: org.eclipse.gmf.tooling.runtime,
+ org.eclipse.gmf.tooling.runtime.actions,
  org.eclipse.gmf.tooling.runtime.directedit,
  org.eclipse.gmf.tooling.runtime.directedit.locator,
  org.eclipse.gmf.tooling.runtime.draw2d,
