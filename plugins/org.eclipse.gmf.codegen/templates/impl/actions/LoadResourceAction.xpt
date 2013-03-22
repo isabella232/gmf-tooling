@@ -8,7 +8,8 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
- *    Artem Tikhomirov (Borland) - [174961] migration to Commands/Handlers 
+ *    Artem Tikhomirov (Borland) - [174961] migration to Commands/Handlers
+ *    Michael Golubev - [403581] - not generation-dependent code extracted to gmft.runtime 
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
@@ -21,23 +22,17 @@
 «EXPAND xpt::Common::generatedClassComment»
 public class «qualifiedClassName.xpandSplit('\\.')->last()»«EXPAND extendsList»«EXPAND implementsList» {
 «EXPAND executeMethod»
-«EXPAND additions-»
+«EXPAND additions»
 }
 «ENDDEFINE»
 
-«DEFINE extendsList FOR gmfgen::LoadResourceAction» extends org.eclipse.core.commands.AbstractHandler«ENDDEFINE»
+«DEFINE extendsList FOR gmfgen::LoadResourceAction» extends org.eclipse.gmf.tooling.runtime.actions.DefaultLoadResourceAction«ENDDEFINE»
 «DEFINE implementsList FOR gmfgen::LoadResourceAction»«ENDDEFINE» 
 
 «DEFINE executeMethod FOR gmfgen::LoadResourceAction-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
-		org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
-		org.eclipse.swt.widgets.Shell shell = diagramEditor.getEditorSite().getShell();
-		«EXPAND xpt::Common::_assert('diagramEditor instanceof org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor')-»
-		org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor) diagramEditor).getEditingDomain();
-		org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog loadResourceDialog = new org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog(shell, editingDomain);
-		loadResourceDialog.open();
-		return null;
+		return super.execute(event);
 	}
 «ENDDEFINE»
 
