@@ -70,6 +70,7 @@ import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
+import org.eclipse.gmf.map.edit.ocl.providers.CustomAdapterFactoryContentProvider;
 import org.eclipse.gmf.mappings.provider.EcoreItemProviderAdapterFactoryEx;
 import org.eclipse.gmf.mappings.provider.GMFMapEditPlugin;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
@@ -1364,7 +1365,7 @@ public class GMFMapEditor
 						getActionBarContributor().shareGlobalActions(this, actionBars);
 					}
 				};
-			propertySheetPage.setPropertySourceProvider(new AdapterFactoryContentProvider(adapterFactory));
+			propertySheetPage.setPropertySourceProvider(new CustomAdapterFactoryContentProvider(adapterFactory));
 		}
 
 		return propertySheetPage;
