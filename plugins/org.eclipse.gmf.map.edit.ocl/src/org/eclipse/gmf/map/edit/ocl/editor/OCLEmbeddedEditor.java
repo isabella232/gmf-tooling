@@ -25,6 +25,7 @@ import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditor;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorFactory;
 import org.eclipse.xtext.ui.editor.embedded.IEditedResourceProvider;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
 import com.google.inject.Injector;
 
@@ -68,11 +69,18 @@ public class OCLEmbeddedEditor implements MetaModelManagerListener {
 		});
 	}
 
-	public void setContext(EClassifier context, final Map<String, EClassifier> parameters) {
+	public void setContext(final EClassifier context, final Map<String, EClassifier> parameters) {
 		if (handle != null) {
-			XtextDocument document = handle.getDocument();
+			final XtextDocument document = handle.getDocument();
 			if (document instanceof BaseDocument) {
-				((BaseDocument) document).setContext(context, parameters);
+				((BaseDocument) document).modify(new IUnitOfWork<Object, XtextResource>() {
+					@Override
+					public Object exec(XtextResource state) throws Exception {
+						((BaseDocument) document).setContext(context, parameters);
+						state.reparse(document.get());
+						return null;
+					}
+				});
 			}
 		}
 	}
