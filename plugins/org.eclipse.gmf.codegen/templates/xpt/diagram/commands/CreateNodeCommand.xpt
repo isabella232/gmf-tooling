@@ -29,7 +29,9 @@ public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type
 
 	«EXPAND doExecuteWithResultMethod»
 
-	«EXPAND doConfigureMethod»	
+	«EXPAND doConfigureMethod»
+	
+	«EXPAND additions»	
 }
 «ENDDEFINE»
 
@@ -155,3 +157,5 @@ protected org.eclipse.emf.ecore.EObject getElementToEdit() {
 «ENDDEFINE»
 
 «DEFINE initialize(node : gmfgen::GenNode, newElementVar : String) FOR gmfgen::TypeModelFacet»«EXPAND xpt::providers::ElementInitializers::initMethodCall(self, newElementVar) FOR node»«ENDDEFINE»
+
+«DEFINE additions FOR gmfgen::GenNode»«ENDDEFINE»
