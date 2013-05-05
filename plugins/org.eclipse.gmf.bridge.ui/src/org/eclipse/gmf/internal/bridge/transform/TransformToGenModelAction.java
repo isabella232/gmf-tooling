@@ -47,7 +47,7 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 	}
 
 	public void run(IAction action) {
-		final TransformToGenModelWizard wiz = new TransformToGenModelWizard();
+		final TransformToGenModelWizard wiz = createTransformToGenModelWizard();
 		wiz.setWindowTitle(action.getText());
 		wiz.init(PlatformUI.getWorkbench(), sselection);
 		WizardDialog wd = new WizardDialog(getShell(), wiz);
@@ -70,6 +70,10 @@ public class TransformToGenModelAction implements IObjectActionDelegate {
 		wd.getShell().setLocation(x, y);
 		wd.getShell().setSize(width, height);
 		wd.open();
+	}
+	
+	protected TransformToGenModelWizard createTransformToGenModelWizard(){
+		return new TransformToGenModelWizard();
 	}
 
 	private Shell getShell() {

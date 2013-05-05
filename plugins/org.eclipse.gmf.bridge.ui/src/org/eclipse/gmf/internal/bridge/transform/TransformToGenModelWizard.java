@@ -50,7 +50,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 	
 	private WizardPage myErrorContainer;
 	
-	private TransformToGenModelOperation myOperation;
+	private ITransformToGenModelOperation myOperation;
 	
 	@Override
 	public void addPages() {
@@ -66,7 +66,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		
 		final ResourceSet resourceSet = getTransformOperation().getResourceSet();
 		ResourceLocationProvider rlp = new ResourceLocationProvider(mySelection);
-		mapModelPage = new MapModelConfigurationPage(MapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
+		mapModelPage = createMapModelConfigurationPage(MapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
 		mapModelPage.setPageComplete(false);
 		mapModelPage.setModelRequired(true);
 		addPage(mapModelPage);
@@ -85,6 +85,10 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		
 		genDiagnosticPage = new GMFGenModelDiagnosticPage(GMFGenModelDiagnosticPage.class.getSimpleName());
 		addPage(genDiagnosticPage);
+	}
+	
+	protected MapModelConfigurationPage createMapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet){
+		return new MapModelConfigurationPage(pageId, rlp, resourceSet);
 	}
 
 	private boolean checkGMFGenValidationResult() {
@@ -141,13 +145,16 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		this.mySelection = selection;
 		setWindowTitle(Messages.TransformToGenModelWizard_title_wizard);
 		setNeedsProgressMonitor(true);
-		myOperation = new TransformToGenModelOperation(createResourceSet());
+		myOperation = createTransformOperation(createResourceSet());
 	}
 	
+	protected ITransformToGenModelOperation createTransformOperation(ResourceSet resourceSet){
+		return new TransformToGenModelOperation(resourceSet);
+	}
+
 	@Override
 	public boolean performFinish() {
-		if (getTransformOperation().getOptions().getIgnoreGMFGenValidation() && 
-				getContainer().getCurrentPage() == genDiagnosticPage) {
+		if (getTransformOperation().getOptions().getIgnoreGMFGenValidation() && getContainer().getCurrentPage() == genDiagnosticPage) {
 			saveTransformOptions();
 			return true;
 		}
