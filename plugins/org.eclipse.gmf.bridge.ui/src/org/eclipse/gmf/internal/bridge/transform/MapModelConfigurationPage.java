@@ -21,9 +21,9 @@ import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.mappings.Mapping;
 
 
-class MapModelConfigurationPage extends ModelConfigurationPage {
+public class MapModelConfigurationPage extends ModelConfigurationPage {
 	
-	MapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
+	public MapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
 		super(pageId, rlp, resourceSet);
 		setTitle(Messages.TransformToGenModelWizard_title_mapmodel);
 		setDescription(Messages.TransformToGenModelWizard_descr_mapmodel);

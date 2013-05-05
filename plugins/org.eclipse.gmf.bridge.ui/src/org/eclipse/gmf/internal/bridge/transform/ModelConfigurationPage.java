@@ -27,7 +27,6 @@ import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-
 public class ModelConfigurationPage extends ModelSelectionPage {
 
 	public ModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
@@ -40,15 +39,14 @@ public class ModelConfigurationPage extends ModelSelectionPage {
 		if (current != null) {
 			current.getResourceSet().getResources().remove(current);
 		}
-		
+
 		final Resource[] result = new Resource[1];
-	    WorkspaceModifyOperation initializeOperation = new WorkspaceModifyOperation()
-	      {
+		WorkspaceModifyOperation initializeOperation = new WorkspaceModifyOperation() {
 
 			protected void execute(IProgressMonitor progressMonitor) throws CoreException {
 				IProgressMonitor monitor = null;
 				try {
-					monitor = (progressMonitor != null) ? new SubProgressMonitor(progressMonitor, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+					monitor = (progressMonitor != null) ? new SubProgressMonitor(progressMonitor, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 					setStatusMessage(Status.OK_STATUS);
 					result[0] = doLoadResource(monitor);
 				} catch (CoreException exception) {
@@ -92,7 +90,7 @@ public class ModelConfigurationPage extends ModelSelectionPage {
 			}
 		}
 	}
-	
+
 	void setStatusMessage(IStatus status) {
 		if (status == null || status.isOK()) {
 			setMessage(null);
