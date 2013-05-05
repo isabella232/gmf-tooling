@@ -21,7 +21,9 @@ public class SimpleTransformToGenModelWizard extends org.eclipse.gmf.internal.br
 
 	@Override
 	protected MapModelConfigurationPage createMapModelConfigurationPage(String pageId, ResourceLocationProvider rlp, ResourceSet resourceSet) {
-		return new SimpleMapModelConfigurationPage(pageId, rlp, resourceSet);
+		MapModelConfigurationPage result = new MapModelConfigurationPage(pageId, rlp, resourceSet);
+		result.setModelFileExtension("simplemappings"); //$NON-NLS-1$
+		return result;
 	}
 
 	@Override
