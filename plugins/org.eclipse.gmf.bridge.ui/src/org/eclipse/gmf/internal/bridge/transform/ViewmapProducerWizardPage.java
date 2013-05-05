@@ -353,7 +353,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 	}
 
-	private TransformToGenModelOperation getOperation() {
+	private ITransformToGenModelOperation getOperation() {
 		return ((TransformToGenModelWizard) getWizard()).getTransformOperation();
 	}
 

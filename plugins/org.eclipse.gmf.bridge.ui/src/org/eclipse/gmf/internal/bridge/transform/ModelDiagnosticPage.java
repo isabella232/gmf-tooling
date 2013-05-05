@@ -81,7 +81,7 @@ abstract class ModelDiagnosticPage extends WizardPage {
 
 	protected abstract boolean getIgnoreOption();
 
-	protected TransformToGenModelOperation getOperation() {
+	protected ITransformToGenModelOperation getOperation() {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}

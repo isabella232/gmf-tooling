@@ -166,7 +166,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 
 	private void createDefault() {
 		try {
-			TransformToGenModelOperation to = getOperation();
+			ITransformToGenModelOperation to = getOperation();
 			GenModelDetector gmd = to.getGenModelDetector();
 			TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 			IFile mapFile = wizard.getMapFile();
@@ -227,7 +227,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		updateURI();
 	}
 
-	private TransformToGenModelOperation getOperation() {
+	private ITransformToGenModelOperation getOperation() {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}

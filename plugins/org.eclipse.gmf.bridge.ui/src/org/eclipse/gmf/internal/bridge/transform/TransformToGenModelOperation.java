@@ -62,7 +62,7 @@ import org.eclipse.m2m.qvt.oml.ExecutionDiagnostic;
 import org.eclipse.m2m.qvt.oml.TransformationExecutor;
 
 //[artem] XXX Why it's in the bridge.ui??? 
-public class TransformToGenModelOperation {
+public class TransformToGenModelOperation implements ITransformToGenModelOperation {
 
 	private URI myGMFGenModelURI;
 	private TransformOptions myOptions;

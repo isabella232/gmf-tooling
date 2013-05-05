@@ -32,12 +32,12 @@ class MapModelConfigurationPage extends ModelConfigurationPage {
 
 	@Override
 	protected Resource doLoadResource(IProgressMonitor monitor) throws CoreException {
-		TransformToGenModelOperation o = getOperation();
+		ITransformToGenModelOperation o = getOperation();
 		Mapping mapping = o.loadMappingModel(getURI(), monitor);
 		return mapping.eResource();
 	}
 
-	TransformToGenModelOperation getOperation() {
+	ITransformToGenModelOperation getOperation() {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}
