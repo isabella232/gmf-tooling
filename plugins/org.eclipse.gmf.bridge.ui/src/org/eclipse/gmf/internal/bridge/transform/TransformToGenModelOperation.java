@@ -65,15 +65,21 @@ import org.eclipse.m2m.qvt.oml.TransformationExecutor;
 public class TransformToGenModelOperation implements ITransformToGenModelOperation {
 
 	private URI myGMFGenModelURI;
+
 	private TransformOptions myOptions;
+
 	private Mapping myMapping;
+
 	private GenModelDetector myGMDetector;
+
 	private GenModel myGenModel;
 
 	private Diagnostic myMapmodelValidationResult = Diagnostic.CANCEL_INSTANCE;
+
 	private Diagnostic myGMFGenValidationResult = Diagnostic.CANCEL_INSTANCE;
 
 	private IStatus myStaleGenmodelStatus = Status.CANCEL_STATUS;
+
 	private final ResourceSet myResourceSet;
 
 	public TransformToGenModelOperation(ResourceSet rs) {
@@ -135,14 +141,13 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 
 	public Mapping loadMappingModel(URI uri, IProgressMonitor pm) throws CoreException {
 		Mapping content = null;
-		IStatus status = Status.CANCEL_STATUS;
 		Diagnostic validation = Diagnostic.CANCEL_INSTANCE;
 		IProgressMonitor monitor = null;
 		try {
 			if (uri == null) {
 				throw new IllegalArgumentException(Messages.TransformToGenModelOperation_e_null_map_uri);
 			}
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			String cancelMessage = Messages.TransformToGenModelOperation_e_map_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			subTask(monitor, 0, Messages.TransformToGenModelOperation_task_load, cancelMessage);
@@ -151,13 +156,11 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 				throw new CoreException(loadHelper.getStatus());
 			}
 			subTask(monitor, 20, Messages.TransformToGenModelOperation_task_validate, cancelMessage);
-			EObject root = loadHelper.getContentsRoot();
-			if (!(root instanceof Mapping)) {
-				String msg = MessageFormat.format(Messages.TransformToGenModelOperation_e_wrong_root_element, root.getClass().getName());
-				status = Plugin.createError(msg, null);
-				throw new CoreException(status);
+			content = findMappingFromMappingModelRoot(loadHelper.getContentsRoot());
+			if (content == null) {
+				String msg = MessageFormat.format(Messages.TransformToGenModelOperation_e_wrong_root_element, loadHelper.getContentsRoot().getClass().getName());
+				throw new CoreException(Plugin.createError(msg, null));
 			}
-			content = (Mapping) loadHelper.getContentsRoot();
 			validation = ValidationHelper.validate(content, true, monitor);
 			monitor.worked(60);
 			if (Diagnostic.CANCEL == validation.getSeverity()) {
@@ -175,6 +178,10 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 				monitor.done();
 			}
 		}
+	}
+
+	protected Mapping findMappingFromMappingModelRoot(EObject mappingModelRoot) {
+		return mappingModelRoot instanceof Mapping ? (Mapping)mappingModelRoot : null;
 	}
 
 	public GenModel findGenmodel() throws CoreException {
@@ -199,7 +206,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 		IProgressMonitor monitor = null;
 		try {
 			checkMapping();
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			String cancelMessage = Messages.TransformToGenModelOperation_e_genmodel_load_cancelled;
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			monitor.subTask(Messages.TransformToGenModelOperation_task_detect);
@@ -208,7 +215,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			if (uri == null) {
 				status = gmd.detect();
 			} else {
-				status = gmd.advise(uri); 
+				status = gmd.advise(uri);
 			}
 			if (!status.isOK()) {
 				throw new CoreException(status);
@@ -251,7 +258,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 				throw new IllegalStateException(Messages.TransformToGenModelOperation_e_null_gmfgen_uri);
 			}
 			checkMapping();
-			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor(); 
+			monitor = (pm != null) ? new SubProgressMonitor(pm, 1, SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK) : new NullProgressMonitor();
 			monitor.beginTask("", 100); //$NON-NLS-1$
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
@@ -260,7 +267,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			idDispenser.acquire();
 
 			GenModelProducer t = createGenModelProducer(idDispenser);
-			
+
 			monitor.subTask(Messages.TransformToGenModelOperation_task_generate);
 			GenEditorGenerator genEditor = t.process(getMapping(), new SubProgressMonitor(monitor, 20));
 			if (monitor.isCanceled()) {
@@ -270,7 +277,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			if (Plugin.needsReconcile()) {
 				handlePreReconcileHooks(genEditor);
 				reconcile(genEditor);
-				handlePostReconcileHooks(genEditor);	
+				handlePostReconcileHooks(genEditor);
 			}
 			if (hasExtensionTransformation(getMapping().eResource().getURI())) {
 				executeExtensionTransformation(getMapping().eResource().getURI(), genEditor);
@@ -280,7 +287,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			namer.traverse(genEditor); // collect reconciled names
 			namer.setMode(GenNamingMediatorImpl.Mode.DISPENSE_NAMES);
 			namer.traverse(genEditor); // dispense names to new elements
-			
+
 			monitor.worked(20);
 			if (monitor.isCanceled()) {
 				return Status.CANCEL_STATUS;
@@ -320,23 +327,23 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 	protected boolean hasExtensionTransformation(URI uri) {
 		final URI transfURI = uri.trimFileExtension().appendFileExtension("qvto");
 		final TransformationExecutor executor = new TransformationExecutor(transfURI);
-		Diagnostic diag  = executor.loadTransformation();
+		Diagnostic diag = executor.loadTransformation();
 		return diag.getCode() == Diagnostic.OK;
 	}
-	
+
 	protected void executeExtensionTransformation(URI uri, GenEditorGenerator result) {
 		final URI transfURI = uri.trimFileExtension().appendFileExtension("qvto");
 		final TransformationExecutor executor = new TransformationExecutor(transfURI);
 		final ExecutionContextImpl context = new ExecutionContextImpl();
-		executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[]{result})));
+		executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[] { result })));
 	}
-	
+
 	protected void handlePreReconcileHooks(GenEditorGenerator result) {
 		if (getOptions().getPreReconcileTransform() != null) {
 			URI transfURI = URI.createURI(getOptions().getPreReconcileTransform().toExternalForm());
 			final TransformationExecutor executor = new TransformationExecutor(transfURI);
 			final ExecutionContextImpl context = new ExecutionContextImpl();
-			executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[]{result})));
+			executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[] { result })));
 		}
 	}
 
@@ -345,10 +352,9 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			URI transfURI = URI.createURI(getOptions().getPostReconcileTransform().toExternalForm());
 			final TransformationExecutor executor = new TransformationExecutor(transfURI);
 			final ExecutionContextImpl context = new ExecutionContextImpl();
-			executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[]{result})));
+			executor.execute(context, new BasicModelExtent(Arrays.asList(new GenEditorGenerator[] { result })));
 		}
 	}
-
 
 	private void checkMapping() {
 		if (getMapping() == null) {
@@ -374,14 +380,14 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 
 	private ViewmapProducer detectTransformationOptions() {
 		boolean useModeledViewmaps = !getOptions().getUseInTransformationCodeGen();
-		if (useModeledViewmaps){
+		if (useModeledViewmaps) {
 			return new ModeledViewmapProducer();
 		}
 
 		String runtimeToken = getOptions().getUseRuntimeFigures() ? "full" : "lite";
 		MapModeCodeGenStrategy mmStrategy = getOptions().getUseMapMode() ? MapModeCodeGenStrategy.DYNAMIC : MapModeCodeGenStrategy.STATIC;
 		URL dynamicFigureTemplates = getOptions().getFigureTemplatesPath();
-		return new InnerClassViewmapProducer(runtimeToken, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] {dynamicFigureTemplates});
+		return new InnerClassViewmapProducer(runtimeToken, mmStrategy, dynamicFigureTemplates == null ? null : new URL[] { dynamicFigureTemplates });
 	}
 
 	private VisualIdentifierDispenserProvider getVisualIdDispenser() {
@@ -395,11 +401,12 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			context.setConfigProperty("useMapMode", getOptions().getUseMapMode());
 			context.setConfigProperty("useFullRunTime", getOptions().getUseRuntimeFigures());
 			context.setConfigProperty("useInTransformationCodeGen", getOptions().getUseInTransformationCodeGen());
-			
+
 			final QVTDiagramGenModelTransformer transformer = new QVTDiagramGenModelTransformer(getResourceSet(), idDespenser.get());
 			transformer.setTransformationL(getOptions().getMainTransformation());
-			
+
 			return new GenModelProducer() {
+
 				public GenEditorGenerator process(Mapping mapping, IProgressMonitor progress) throws CoreException {
 					progress.beginTask(null, 1);
 					try {
@@ -409,7 +416,7 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 						if (Plugin.printTransformationConsole()) {
 							System.err.println(result.getMessage());
 						}
-						if(result.getSeverity() == Diagnostic.OK) {
+						if (result.getSeverity() == Diagnostic.OK) {
 							List<EObject> outObjects = output.getContents();
 							return outObjects.get(0) instanceof GenEditorGenerator ? (GenEditorGenerator) outObjects.get(0) : null;
 						}
@@ -441,8 +448,6 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 			};
 		}
 	}
-
-
 
 	private void reconcile(GenEditorGenerator genBurdern) {
 		GenEditorGenerator old = null;
@@ -546,12 +551,16 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 		}.find();
 		// match new and old objects using reconciler without decisions
 		new Reconciler(new GMFGenConfig()) {
+
 			@Override
-			protected void handleNotMatchedCurrent(EObject current) {/*no-op*/};
+			protected void handleNotMatchedCurrent(EObject current) {/* no-op */
+			};
+
 			@Override
 			protected EObject handleNotMatchedOld(EObject currentParent, EObject notMatchedOld) {
-				return null; /*no-op*/
+				return null; /* no-op */
 			};
+
 			@Override
 			protected void reconcileVertex(EObject current, EObject old) {
 				if (!crossReferences.containsKey(old)) {
