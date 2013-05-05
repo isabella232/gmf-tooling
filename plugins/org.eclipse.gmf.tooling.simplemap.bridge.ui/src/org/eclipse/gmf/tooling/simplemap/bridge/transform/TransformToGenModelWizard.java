@@ -24,7 +24,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.internal.bridge.transform.GMFGenModelDiagnosticPage;
+import org.eclipse.gmf.internal.bridge.transform.ITransformToGenModelOperation;
 import org.eclipse.gmf.internal.bridge.transform.Messages;
+import org.eclipse.gmf.internal.bridge.transform.ModelDiagnosticPage;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.common.URIUtil;
@@ -56,7 +59,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 
 	private WizardPage myErrorContainer;
 
-	private SimpleTransformToGenModelOperation myOperation;
+	private ITransformToGenModelOperation myOperation;
 
 	@Override
 	public void addPages() {
@@ -161,7 +164,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 			IRunnableWithProgress iwr = new IRunnableWithProgress() {
 
 				public void run(IProgressMonitor monitor) {
-					SimpleTransformToGenModelOperation op = getTransformOperation();
+					ITransformToGenModelOperation op = getTransformOperation();
 					IFile target = getTargetFile();
 					op.setGenURI(URI.createPlatformResourceURI(target.getFullPath().toString(), true));
 					s[0] = op.executeTransformation(monitor);
@@ -219,7 +222,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 		return super.performCancel();
 	}
 
-	SimpleTransformToGenModelOperation getTransformOperation() {
+	ITransformToGenModelOperation getTransformOperation() {
 		return myOperation;
 	}
 

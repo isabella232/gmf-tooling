@@ -18,6 +18,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.gmf.internal.bridge.transform.ITransformToGenModelOperation;
+import org.eclipse.gmf.internal.bridge.transform.ModelConfigurationPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.gmf.mappings.Mapping;
 
@@ -32,12 +34,12 @@ class MapModelConfigurationPage extends ModelConfigurationPage {
 
 	@Override
 	protected Resource doLoadResource(IProgressMonitor monitor) throws CoreException {
-		SimpleTransformToGenModelOperation o = getOperation();
+		ITransformToGenModelOperation o = getOperation();
 		Mapping mapping = o.loadMappingModel(getURI(), monitor);
 		return mapping.eResource();
 	}
 
-	SimpleTransformToGenModelOperation getOperation() {
+	ITransformToGenModelOperation getOperation() {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}

@@ -18,6 +18,8 @@ import java.net.URL;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.gmf.internal.bridge.transform.ITransformToGenModelOperation;
+import org.eclipse.gmf.internal.bridge.transform.TransformOptions;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -267,7 +269,7 @@ class ViewmapProducerWizardPage extends WizardPage {
 		}
 	}
 
-	private SimpleTransformToGenModelOperation getOperation() {
+	private ITransformToGenModelOperation getOperation() {
 		return ((TransformToGenModelWizard) getWizard()).getTransformOperation();
 	}
 

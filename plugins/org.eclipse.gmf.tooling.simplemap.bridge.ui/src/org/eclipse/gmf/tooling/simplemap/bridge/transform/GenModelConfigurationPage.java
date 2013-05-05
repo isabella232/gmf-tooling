@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.importer.ui.EMFModelWizard;
 import org.eclipse.emf.importer.ui.GenModelReloadActionDelegate;
+import org.eclipse.gmf.internal.bridge.transform.ITransformToGenModelOperation;
+import org.eclipse.gmf.internal.bridge.transform.ModelConfigurationPage;
 import org.eclipse.gmf.internal.common.ui.ResourceLocationProvider;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -208,7 +210,7 @@ class GenModelConfigurationPage extends ModelConfigurationPage {
 		updateURI();
 	}
 
-	private SimpleTransformToGenModelOperation getOperation() {
+	private ITransformToGenModelOperation getOperation() {
 		TransformToGenModelWizard wizard = (TransformToGenModelWizard) getWizard();
 		return wizard.getTransformOperation();
 	}

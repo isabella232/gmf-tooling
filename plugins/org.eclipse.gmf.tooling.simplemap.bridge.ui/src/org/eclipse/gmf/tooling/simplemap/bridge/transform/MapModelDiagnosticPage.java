@@ -13,6 +13,7 @@
 package org.eclipse.gmf.tooling.simplemap.bridge.transform;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.gmf.internal.bridge.transform.ModelDiagnosticPage;
 
 class MapModelDiagnosticPage extends ModelDiagnosticPage {
 
