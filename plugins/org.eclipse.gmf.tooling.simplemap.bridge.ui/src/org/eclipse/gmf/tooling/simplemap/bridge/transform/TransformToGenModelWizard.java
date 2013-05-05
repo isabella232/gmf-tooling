@@ -51,7 +51,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 
 	private GMFGenNewFileCreationPage newFileCreationPage;
 
-	private MapModelConfigurationPage mapModelPage;
+	private SimpleMapModelConfigurationPage mapModelPage;
 
 	private ModelDiagnosticPage mapDiagnosticPage;
 
@@ -79,7 +79,7 @@ public class TransformToGenModelWizard extends Wizard implements IWorkbenchWizar
 
 		final ResourceSet resourceSet = getTransformOperation().getResourceSet();
 		ResourceLocationProvider rlp = new ResourceLocationProvider(mySelection);
-		mapModelPage = new MapModelConfigurationPage(MapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
+		mapModelPage = new SimpleMapModelConfigurationPage(SimpleMapModelConfigurationPage.class.getSimpleName(), rlp, resourceSet);
 		mapModelPage.setPageComplete(false);
 		mapModelPage.setModelRequired(true);
 		addPage(mapModelPage);
