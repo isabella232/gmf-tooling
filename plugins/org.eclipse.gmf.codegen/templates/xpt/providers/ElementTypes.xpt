@@ -190,6 +190,9 @@ KNOWN_ELEMENT_TYPES.add(«getUniqueIdentifier()»);
 		return «getUniqueIdentifier()»;
 «ENDDEFINE»
 
+«DEFINE typedInstanceName FOR gmfgen::GenDiagram»TYPED_INSTANCE«ENDDEFINE»
+«DEFINE typedInstanceCall FOR gmfgen::GenDiagram»«EXPAND qualifiedClassName».«EXPAND typedInstanceName»«ENDDEFINE»
+
 «DEFINE typedInstance FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedClassComment»
 	public static final org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypes TYPED_INSTANCE 
