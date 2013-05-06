@@ -27,12 +27,6 @@ public class «elementTypesClassName» {
 	
 	«EXPAND elementTypeField FOREACH getAllTypedElements()-»
 	
-	«EXPAND getImageRegistry-»
-
-	«EXPAND getImageRegistryKey-»
-
-	«EXPAND getProvidedImageDescriptor-»
-
 	«EXPAND getNamedElementImageDescriptor-»
 
 	«EXPAND getNamedElementImage-»
@@ -64,85 +58,35 @@ private «elementTypesClassName»() {
 private static «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'org.eclipse.emf.ecore.ENamedElement')» elements;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static org.eclipse.jface.resource.ImageRegistry imageRegistry;
+private static org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeImages elementTypeImages = new org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeImages(«-»
+	«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory());
 
 	«EXPAND xpt::Common::generatedMemberComment»
 private static «EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.gmf.runtime.emf.type.core.IElementType')» KNOWN_ELEMENT_TYPES;
 «ENDDEFINE»
 
 
-«DEFINE getImageRegistry FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private static org.eclipse.jface.resource.ImageRegistry getImageRegistry() {
-	if (imageRegistry == null) {
-		imageRegistry = new org.eclipse.jface.resource.ImageRegistry();
-	}
-	return imageRegistry;
-}
-«ENDDEFINE»
+«REM»
+	Since 3.1, GMFT delegates ImageRegistry-related code to non-generated DefaultElementTypeImages, so methods below are not generated anymore.  
+	If you still need one, you always can get it from 'elementTypeImages.getXXX()' call. 
+	The only exception is 'DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram', which is not compatible with the delegation and removed completely.
 
-«DEFINE getImageRegistryKey FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private static String getImageRegistryKey(org.eclipse.emf.ecore.ENamedElement element) {
-	return element.getName();
-}
-«ENDDEFINE»
+«DEFINE getImageRegistry FOR gmfgen::GenDiagram»«ENDDEFINE»
+«DEFINE getImageRegistryKey FOR gmfgen::GenDiagram»«ENDDEFINE»
+«DEFINE getProvidedImageDescriptor FOR gmfgen::GenDiagram»«ENDDEFINE»
 
-«DEFINE getProvidedImageDescriptor FOR gmfgen::GenDiagram-»
-	«EXPAND xpt::Common::generatedMemberComment»
-private static org.eclipse.jface.resource.ImageDescriptor getProvidedImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
-	if (element instanceof org.eclipse.emf.ecore.EStructuralFeature) {
-		org.eclipse.emf.ecore.EStructuralFeature feature = ((org.eclipse.emf.ecore.EStructuralFeature) element);
-		org.eclipse.emf.ecore.EClass eContainingClass = feature.getEContainingClass();
-		org.eclipse.emf.ecore.EClassifier eType = feature.getEType();
-		if (eContainingClass != null && !eContainingClass.isAbstract()){
-			element = eContainingClass;
-		} else if (eType instanceof org.eclipse.emf.ecore.EClass && !((org.eclipse.emf.ecore.EClass)eType).isAbstract()){
-			element = eType;
-		}
-	}
-	if (element instanceof org.eclipse.emf.ecore.EClass) {
-		org.eclipse.emf.ecore.EClass eClass = (org.eclipse.emf.ecore.EClass) element;
-		if (!eClass.isAbstract()) {
-			return «editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemImageDescriptor(
-				eClass.getEPackage().getEFactoryInstance().create(eClass));
-		}
-	}
-	// TODO : support structural features
-	return null;
-}
-«ENDDEFINE»
-
+«ENDREM»
 «DEFINE getNamedElementImageDescriptor FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.emf.ecore.ENamedElement element) {
-	String key = getImageRegistryKey(element);
-	org.eclipse.jface.resource.ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
-	if (imageDescriptor == null) {
-		«EXPAND loadProvidedImageDescriptor-»
-	}
-	return imageDescriptor;
+	return elementTypeImages.getImageDescriptor(element);
 }
-«ENDDEFINE»
-
-«DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram-»
-imageDescriptor = getProvidedImageDescriptor(element);
-if (imageDescriptor == null) {
-	imageDescriptor = org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor();
-}
-getImageRegistry().put(key, imageDescriptor);
 «ENDDEFINE»
 
 «DEFINE getNamedElementImage FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENamedElement element) {
-	String key = getImageRegistryKey(element);
-	org.eclipse.swt.graphics.Image image = getImageRegistry().get(key);
-	if (image == null) {
-		org.eclipse.jface.resource.ImageDescriptor «EXPAND loadProvidedImageDescriptor-»
-		image = getImageRegistry().get(key);
-	}
-	return image;
+	return elementTypeImages.getImage(element);
 }
 «ENDDEFINE»
 
