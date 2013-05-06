@@ -21,7 +21,8 @@ import org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ProjectEditPart
 import org.eclipse.gmf.examples.ocldriven.toe.diagram.part.TOEDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeImages;
+import org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages;
+import org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypes;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
@@ -44,7 +45,7 @@ public class TOEElementTypes {
 	/**
 	* @generated
 	*/
-	private static DefaultElementTypeImages elementTypeImages = new DefaultElementTypeImages(TOEDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
+	private static DiagramElementTypeImages elementTypeImages = new DiagramElementTypeImages(TOEDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 	/**
 	* @generated
@@ -217,5 +218,35 @@ public class TOEElementTypes {
 		}
 		return null;
 	}
+
+	/**
+	* @generated
+	*/
+	public static final DiagramElementTypes TYPED_INSTANCE = new DiagramElementTypes(elementTypeImages) {
+
+		/**
+		* @generated
+		*/
+		@Override
+		public boolean isKnownElementType(IElementType elementType) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEElementTypes.isKnownElementType(elementType);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public IElementType getElementTypeForVisualId(int visualID) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEElementTypes.getElementType(visualID);
+		}
+
+		/**
+		* @generated
+		*/
+		@Override
+		public ENamedElement getDefiningNamedElement(IAdaptable elementTypeAdapter) {
+			return org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEElementTypes.getElement(elementTypeAdapter);
+		}
+	};
 
 }
