@@ -93,23 +93,14 @@ public static org.eclipse.swt.graphics.Image getImage(org.eclipse.emf.ecore.ENam
 «DEFINE getAdaptableImageDescriptor FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.jface.resource.ImageDescriptor getImageDescriptor(org.eclipse.core.runtime.IAdaptable hint) {
-	«EXPAND getNamedElement-»
-	return getImageDescriptor(element);
-}
-«ENDDEFINE»
-
-«DEFINE getNamedElement FOR gmfgen::GenDiagram-»
-org.eclipse.emf.ecore.ENamedElement element = getElement(hint);
-if (element == null) {
-	return null;
+	return getImageDescriptor(getElement(hint));
 }
 «ENDDEFINE»
 
 «DEFINE getAdaptableImage FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 public static org.eclipse.swt.graphics.Image getImage(org.eclipse.core.runtime.IAdaptable hint) {
-	«EXPAND getNamedElement-»
-	return getImage(element);
+	return getImage(getElement(hint));
 }
 «ENDDEFINE»
 

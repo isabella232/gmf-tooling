@@ -20,7 +20,12 @@ public class DefaultElementTypeImages {
 	private ImageRegistry myImageRegistry;
 
 	public DefaultElementTypeImages(AdapterFactory adapterFactory) {
+		this(adapterFactory, new ImageRegistry());
+	}
+
+	public DefaultElementTypeImages(AdapterFactory adapterFactory, ImageRegistry imageRegistry) {
 		myAdapterFactory = adapterFactory;
+		myImageRegistry = imageRegistry;
 	}
 
 	public ImageRegistry getImageRegistry() {
@@ -35,12 +40,18 @@ public class DefaultElementTypeImages {
 	}
 
 	public Image getImage(ENamedElement element) {
+		if (element == null) {
+			return null;
+		}
 		getImageDescriptor(element); //ensures is cached in registry
 		String key = getImageRegistryKey(element);
 		return getImageRegistry().get(key);
 	}
 
 	public ImageDescriptor getImageDescriptor(ENamedElement element) {
+		if (element == null) {
+			return null;
+		}
 		String key = getImageRegistryKey(element);
 		ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
 		if (imageDescriptor == null) {
