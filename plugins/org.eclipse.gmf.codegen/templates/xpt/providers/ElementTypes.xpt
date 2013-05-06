@@ -14,6 +14,8 @@
 «IMPORT 'http://www.eclipse.org/emf/2002/GenModel'»
 «EXTENSION xpt::diagram::Utils»
 
+«DEFINE qualifiedClassName FOR gmfgen::GenDiagram»«providersPackageName».«elementTypesClassName»«ENDDEFINE»
+
 «DEFINE ElementTypes FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
 package «providersPackageName»;
@@ -42,6 +44,8 @@ public class «elementTypesClassName» {
 	«EXPAND isKnownElementType-»
 	
 	«EXPAND getElementTypeByVisualID-»
+	
+	«EXPAND typedInstance-»
 
 	«EXPAND additions-»
 }
@@ -184,6 +188,31 @@ KNOWN_ELEMENT_TYPES.add(«getUniqueIdentifier()»);
 «DEFINE caseElementType FOR gmfgen::GenCommonBase-»
 	«EXPAND xpt::Common::caseVisualID-»
 		return «getUniqueIdentifier()»;
+«ENDDEFINE»
+
+«DEFINE typedInstance FOR gmfgen::GenDiagram-»
+	«EXPAND xpt::Common::generatedClassComment»
+	public static final org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypes TYPED_INSTANCE 
+		= new org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypes(elementTypeImages) {
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public boolean isKnownElementType(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
+			return «EXPAND qualifiedClassName».isKnownElementType(elementType);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public org.eclipse.gmf.runtime.emf.type.core.IElementType getElementTypeForVisualId(int visualID) {
+			return «EXPAND qualifiedClassName».getElementType(visualID);
+		}
+		
+		«EXPAND xpt::Common::generatedMemberComment»
+		«EXPAND CodeStyle::override»
+		public org.eclipse.emf.ecore.ENamedElement getDefiningNamedElement(org.eclipse.core.runtime.IAdaptable elementTypeAdapter) {
+			return «EXPAND qualifiedClassName».getElement(elementTypeAdapter);
+		}
+	}; 
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenDiagram-»
