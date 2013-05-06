@@ -58,7 +58,7 @@ private «elementTypesClassName»() {
 private static «EXPAND CodeStyle::G2('java.util.Map', 'org.eclipse.gmf.runtime.emf.type.core.IElementType', 'org.eclipse.emf.ecore.ENamedElement')» elements;
 
 	«EXPAND xpt::Common::generatedMemberComment»
-private static org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeImages elementTypeImages = new org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeImages(«-»
+private static org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages elementTypeImages = new org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages(«-»
 	«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory());
 
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -67,7 +67,7 @@ private static «EXPAND CodeStyle::G('java.util.Set', 'org.eclipse.gmf.runtime.e
 
 
 «REM»
-	Since 3.1, GMFT delegates ImageRegistry-related code to non-generated DefaultElementTypeImages, so methods below are not generated anymore.  
+	Since 3.1, GMFT delegates ImageRegistry-related code to non-generated DiagramElementTypeImages, so methods below are not generated anymore.  
 	If you still need one, you always can get it from 'elementTypeImages.getXXX()' call. 
 	The only exception is 'DEFINE loadProvidedImageDescriptor FOR gmfgen::GenDiagram', which is not compatible with the delegation and removed completely.
 

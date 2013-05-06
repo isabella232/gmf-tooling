@@ -13,17 +13,17 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 
-public class DefaultElementTypeImages {
+public class DiagramElementTypeImages {
 
 	private AdapterFactory myAdapterFactory;
 
 	private ImageRegistry myImageRegistry;
 
-	public DefaultElementTypeImages(AdapterFactory adapterFactory) {
+	public DiagramElementTypeImages(AdapterFactory adapterFactory) {
 		this(adapterFactory, new ImageRegistry());
 	}
 
-	public DefaultElementTypeImages(AdapterFactory adapterFactory, ImageRegistry imageRegistry) {
+	public DiagramElementTypeImages(AdapterFactory adapterFactory, ImageRegistry imageRegistry) {
 		myAdapterFactory = adapterFactory;
 		myImageRegistry = imageRegistry;
 	}
