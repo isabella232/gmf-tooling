@@ -12,7 +12,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.gmf-tooling.features</groupId>
   <artifactId>org.eclipse.gmf.tooling</artifactId>
-  <version>3.0.0-SNAPSHOT</version>
+  <version>3.1.0-SNAPSHOT</version>
   <packaging>eclipse-feature</packaging>
   
   <parent>
