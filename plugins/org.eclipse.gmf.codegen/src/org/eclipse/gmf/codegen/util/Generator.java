@@ -78,6 +78,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenVisualEffect;
 import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.OpenDiagramBehaviour;
+import org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser;
 import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
@@ -578,14 +579,21 @@ public class Generator extends GeneratorBase implements Runnable {
 		if (myEditorGen.getLabelParsers() == null) {
 			return;
 		}
+		boolean needsAbstractParser = false;
 		for (GenParserImplementation pi : myEditorGen.getLabelParsers().getImplementations()) {
 			if (pi instanceof PredefinedParser) {
+				needsAbstractParser = true;
 				doGenerateJavaClass(myEmitters.getPredefinedParserEmitter(), ((PredefinedParser) pi).getQualifiedClassName(), pi);
+			} else if (pi instanceof PredefinedEnumParser) {
+				needsAbstractParser = true;
 			} else if (pi instanceof CustomParser && ((CustomParser) pi).isGenerateBoilerplate()) {
 				doGenerateJavaClass(myEmitters.getCustomParserEmitter(), ((CustomParser) pi).getQualifiedName(), pi);
 			} else if (pi instanceof ExpressionLabelParser) {
 				doGenerateJavaClass(myEmitters.getExpressionLabelParserEmitter(), ((ExpressionLabelParser) pi).getQualifiedClassName(), pi);
 			}
+		}
+		if (needsAbstractParser) {
+			doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myEditorGen.getLabelParsers()), myEditorGen.getLabelParsers());
 		}
 	}
 

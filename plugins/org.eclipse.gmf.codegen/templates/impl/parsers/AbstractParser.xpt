@@ -24,23 +24,12 @@ which are still used in the extend's clauses for generated PredefinedParser's
 «DEFINE className FOR gmfgen::GenParsers»AbstractAttributeParser«ENDDEFINE»
 «DEFINE qualifiedClassName FOR gmfgen::GenParsers»org.eclipse.gmf.tooling.runtime.parsers.«EXPAND className»«ENDDEFINE»
 
-
 «REM»
-However, for 3.1 release we MAY still will generate @deprecated empty class, 
+However, for 3.1 release we still will generate empty file (without any java content), 
 to ensure that the old code, including calls to non existing i18n fields in Messages is cleaned up.
-In this case, uncomment the code below and rollback Generator#generateParsers() and CodegenEmitters#getAbstractParserEmitter  
-
-«DEFINE deprecatedClassName FOR gmfgen::GenParsers»AbstractParser«ENDDEFINE»
-«DEFINE deprecatedQualifiedClassName FOR gmfgen::GenParsers»«implPackageName».«EXPAND className»«ENDDEFINE»
-
-«DEFINE Main FOR gmfgen::GenParsers-»
-«EXPAND xpt::Common::generatedClassComment('@deprecated use org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser instead')»
-@Deprecated
-public abstract class «EXPAND deprecatedClassName» implements org.eclipse.gmf.runtime.common.ui.services.parser.IParser {
-
-	«EXPAND additions-»
-}
-«ENDDEFINE»
-
-«DEFINE additions FOR gmfgen::GenParsers»«ENDDEFINE»
 «ENDREM»
+
+«DEFINE deprecatedQualifiedClassName FOR gmfgen::GenParsers»«implPackageName».AbstractParser«ENDDEFINE»
+«DEFINE Main FOR gmfgen::GenParsers-»
+//Since GMFT 3.1 we don't generate class AbstractParser into every diagram, instead extend org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser.
+«ENDDEFINE»

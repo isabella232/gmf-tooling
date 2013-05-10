@@ -255,9 +255,16 @@ public class CodegenEmitters {
 
 	// parsers
 
+	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
+		return newXpandEmitter("impl::parsers::AbstractParser::Main"); //$NON-NLS-1$
+	}
 
+	/**
+	 * @deprecated we don't want to generate this class anymore, but the changes in i18n may create compilation errors if we don't explicitly clear the contents of generated file. 
+	 * @see comments in template impl::parsers::AbstractParser for details 
+	 */
 	public String getAbstractParserName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("impl::parsers::AbstractParser", input); //$NON-NLS-1$
+		return getText(newXpandEmitter("impl::parsers::AbstractParser::deprecatedQualifiedClassName"), input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
