@@ -130,7 +130,7 @@ public abstract class AbstractFeatureParser implements IParser {
 		return null;
 	}
 
-	protected class InvalidValue {
+	protected static class InvalidValue {
 
 		private String description;
 

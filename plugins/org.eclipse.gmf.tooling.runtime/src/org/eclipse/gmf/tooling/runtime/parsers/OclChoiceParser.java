@@ -16,6 +16,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.gmf.runtime.diagram.core.listener.NotificationListener;
 import org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator;
 import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.common.OCLConstants;
 import org.eclipse.ocl.ecore.EcoreEnvironmentFactory;
 import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.ocl.ecore.OCL.Helper;
@@ -60,7 +61,7 @@ public class OclChoiceParser extends ChoiceParserBase {
 		} else {
 			Map<String, EClassifier> parameters = new HashMap<String, EClassifier>();
 			parameters.put(ITEM_PARAM_NAME, getFeature().getEType());
-			myShowOclQuery = new OCLQueryDelegateFactory().createQueryDelegate(contextClass, parameters, showExpression);
+			myShowOclQuery = new OCLQueryDelegateFactory(OCLConstants.OCL_DELEGATE_URI).createQueryDelegate(contextClass, parameters, showExpression);
 		}
 
 		myTracker = new Tracker();
