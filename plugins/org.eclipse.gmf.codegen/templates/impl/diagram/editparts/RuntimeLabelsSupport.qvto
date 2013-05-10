@@ -1,11 +1,25 @@
+import xpt.OclMigrationProblems;
+
 modeltype gmfgen uses "http://www.eclipse.org/gmf/2009/GenModel";
+modeltype gmfgraph uses "http://www.eclipse.org/gmf/2006/GraphicalDefinition";
 
 library RuntimeLabelsSupport;
 
+
 helper isVerticalLabel(commonBase : gmfgen::GenCommonBase) : Boolean {
   return 
-    commonBase.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap) 
-    and commonBase.viewmap.oclAsType(gmfgen::ParentAssignedViewmap).figureQualifiedClassName = getVerticalLabelFQN();
+    (commonBase.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap) and isVerticalLabelParentAssignedViewmap(commonBase.viewmap.oclAsType(gmfgen::ParentAssignedViewmap)))
+    or 
+    (commonBase.viewmap.oclIsKindOf(gmfgen::ModeledViewmap) and isVerticalLabelModeledViewmap(commonBase.viewmap.oclAsType(gmfgen::ModeledViewmap)))
+}
+
+helper isVerticalLabelParentAssignedViewmap(vm : gmfgen::ParentAssignedViewmap) : Boolean {
+	return vm.figureQualifiedClassName = getVerticalLabelFQN()
+}
+
+helper isVerticalLabelModeledViewmap(vm : gmfgen::ModeledViewmap) : Boolean {
+	return 
+		undefinedAsFalse(vm.figureModel.oclAsType(gmfgraph::DiagramLabel).accessor.figure.oclIsKindOf(gmfgraph::VerticalLabel))
 }
 
 helper getSimpleLabelDelegateFQN() : String {
