@@ -8,19 +8,29 @@ library RuntimeLabelsSupport;
 
 helper isVerticalLabel(commonBase : gmfgen::GenCommonBase) : Boolean {
   return 
-    (commonBase.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap) and isVerticalLabelParentAssignedViewmap(commonBase.viewmap.oclAsType(gmfgen::ParentAssignedViewmap)))
-    or 
-    (commonBase.viewmap.oclIsKindOf(gmfgen::ModeledViewmap) and isVerticalLabelModeledViewmap(commonBase.viewmap.oclAsType(gmfgen::ModeledViewmap)))
+  	not commonBase.viewmap.oclIsUndefined() and (
+    	(commonBase.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap) and isVerticalLabelParentAssignedViewmap(commonBase.viewmap.oclAsType(gmfgen::ParentAssignedViewmap)))
+    	or 
+    	(commonBase.viewmap.oclIsKindOf(gmfgen::ModeledViewmap) and isVerticalLabelModeledViewmap(commonBase.viewmap.oclAsType(gmfgen::ModeledViewmap)))
+    )
 }
 
 helper isVerticalLabelParentAssignedViewmap(vm : gmfgen::ParentAssignedViewmap) : Boolean {
-	return vm.figureQualifiedClassName = getVerticalLabelFQN()
+	return undefinedAsFalse(vm.figureQualifiedClassName = getVerticalLabelFQN())
 }
 
 helper isVerticalLabelModeledViewmap(vm : gmfgen::ModeledViewmap) : Boolean {
 	return 
-		undefinedAsFalse(vm.figureModel.oclAsType(gmfgraph::DiagramLabel).accessor.figure.oclIsKindOf(gmfgraph::VerticalLabel))
+		not vm.figureModel.oclIsUndefined()
+		and vm.figureModel.oclIsKindOf(gmfgraph::DiagramLabel)
+		and isVerticalDiagramLabel(vm.figureModel.oclAsType(gmfgraph::DiagramLabel))
 }
+
+helper isVerticalDiagramLabel(dl : gmfgraph::DiagramLabel) : Boolean {
+	return 
+		not dl.accessor.figure.oclIsUndefined() and dl.accessor.figure.oclIsKindOf(gmfgraph::VerticalLabel)
+}
+
 
 helper getSimpleLabelDelegateFQN() : String {
   return getRuntimeLabelPackage().concat(".").concat("SimpleLabelDelegate");
