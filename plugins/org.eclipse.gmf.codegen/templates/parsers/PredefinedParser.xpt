@@ -43,7 +43,8 @@ public class «className» extends «EXPAND impl::parsers::AbstractParser::quali
 «IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT or viewMethod = gmfgen::LabelTextAccessMethod::PRINTF-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultPattern;
-
+«ENDIF-»
+«IF viewMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT or viewMethod = gmfgen::LabelTextAccessMethod::PRINTF or editMethod = gmfgen::LabelTextAccessMethod::MESSAGE_FORMAT or editMethod = gmfgen::LabelTextAccessMethod::PRINTF-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	private String defaultEditablePattern;
 «ENDIF-»
