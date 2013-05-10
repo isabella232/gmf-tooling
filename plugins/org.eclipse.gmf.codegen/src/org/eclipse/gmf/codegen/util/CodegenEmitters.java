@@ -255,9 +255,6 @@ public class CodegenEmitters {
 
 	// parsers
 
-	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("impl::parsers::AbstractParser::Main"); //$NON-NLS-1$
-	}
 
 	public String getAbstractParserName(Object... input) throws UnexpectedBehaviourException {
 		return getQualifiedClassName("impl::parsers::AbstractParser", input); //$NON-NLS-1$
