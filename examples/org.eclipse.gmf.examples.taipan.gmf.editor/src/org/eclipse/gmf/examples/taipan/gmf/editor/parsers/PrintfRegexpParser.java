@@ -18,39 +18,40 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
+import org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser;
 
 /**
  * @generated
  */
-public class PrintfPrintfParser extends AbstractParser {
+public class PrintfRegexpParser extends AbstractAttributeParser {
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	private String defaultPattern;
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	private String defaultEditablePattern;
 
 	/**
-	 * @generated
-	 */
-	public PrintfPrintfParser(EAttribute[] features) {
+	* @generated
+	*/
+	public PrintfRegexpParser(EAttribute[] features) {
 		super(features);
 	}
 
 	/**
-	 * @generated
-	 */
-	public PrintfPrintfParser(EAttribute[] features, EAttribute[] editableFeatures) {
+	* @generated
+	*/
+	public PrintfRegexpParser(EAttribute[] features, EAttribute[] editableFeatures) {
 		super(features, editableFeatures);
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	protected String getDefaultPattern() {
 		if (defaultPattern == null) {
 			StringBuffer sb = new StringBuffer();
@@ -69,8 +70,8 @@ public class PrintfPrintfParser extends AbstractParser {
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	protected String getDefaultEditablePattern() {
 		if (defaultEditablePattern == null) {
 			StringBuffer sb = new StringBuffer();
@@ -89,16 +90,16 @@ public class PrintfPrintfParser extends AbstractParser {
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public String getEditPattern() {
 		String pattern = super.getEditPattern();
 		return pattern != null ? pattern : " "; //$NON-NLS-1$
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public String getEditString(IAdaptable adapter, int flags) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		String pattern = getEditorPattern() == null ? getDefaultEditablePattern() : getEditorPattern();
@@ -106,8 +107,8 @@ public class PrintfPrintfParser extends AbstractParser {
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public IParserEditStatus isValidEditString(IAdaptable adapter, String editString) {
 		if (editString == null) {
 			return ParserEditStatus.UNEDITABLE_STATUS;
@@ -117,8 +118,8 @@ public class PrintfPrintfParser extends AbstractParser {
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
 		if (newString == null) {
 			return UnexecutableCommand.INSTANCE;
@@ -128,8 +129,8 @@ public class PrintfPrintfParser extends AbstractParser {
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public String getPrintString(IAdaptable adapter, int flags) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		return String.format(getViewPattern() == null ? getDefaultPattern() : getViewPattern(), getValues(element));

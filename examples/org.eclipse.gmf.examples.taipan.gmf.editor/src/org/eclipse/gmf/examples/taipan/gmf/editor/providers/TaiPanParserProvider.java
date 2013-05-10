@@ -27,7 +27,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.UnreliableRouteRelb
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.parsers.MessageFormatParser;
 import org.eclipse.gmf.examples.taipan.gmf.editor.parsers.NativeParser;
-import org.eclipse.gmf.examples.taipan.gmf.editor.parsers.PrintfPrintfParser;
+import org.eclipse.gmf.examples.taipan.gmf.editor.parsers.PrintfRegexpParser;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -106,7 +106,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	private IParser getSmallItems_3001Parser() {
 		if (smallItems_3001Parser == null) {
 			EAttribute[] features = new EAttribute[] { TaiPanPackage.eINSTANCE.getItem_Article(), TaiPanPackage.eINSTANCE.getSmallItems_Quantity() };
-			PrintfPrintfParser parser = new PrintfPrintfParser(features);
+			PrintfRegexpParser parser = new PrintfRegexpParser(features);
 			parser.setViewPattern("- %1$s [%2$d]"); //$NON-NLS-1$
 			parser.setEditorPattern("%1$s:%2$s"); //$NON-NLS-1$
 			parser.setEditPattern(":"); //$NON-NLS-1$

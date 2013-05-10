@@ -20,11 +20,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
+import org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser;
 
 /**
  * @generated
  */
-public class NativeParser extends AbstractParser {
+public class NativeParser extends AbstractAttributeParser {
 
 	/**
 	 * @generated
