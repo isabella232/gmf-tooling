@@ -172,7 +172,7 @@ public class PredefinedParserImpl extends GenParserImplementationImpl implements
 		}
 	}
 	private String getFriendlyName(LabelTextAccessMethod m) {
-		switch (viewMethod) {
+		switch (m) {
 		case MESSAGE_FORMAT : return "MessageFormat"; //$NON-NLS-1$
 		case NATIVE : return "Native"; //$NON-NLS-1$
 		case REGEXP : return "Regexp"; //$NON-NLS-1$
