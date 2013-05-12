@@ -106,22 +106,6 @@ public class AquatoryEditPart extends DiagramEditPart {
 	}
 
 	/**
-	* @generated
-	*/
-	/*package-local*/static class LinkLabelDragPolicy extends NonResizableLabelEditPolicy {
-
-		/**
-		* @generated
-		*/
-		@SuppressWarnings("rawtypes")
-		protected List createSelectionHandles() {
-			MoveHandle mh = new MoveHandle((GraphicalEditPart) getHost());
-			mh.setBorder(null);
-			return Collections.singletonList(mh);
-		}
-	}
-
-	/**
 	 * Replaces default figure with layered pane. Lower layer for decorations, upper is original figure.
 	 */
 	protected IFigure createFigure() {
