@@ -14,7 +14,7 @@ public class TOEPropertySection extends DefaultPropertySection implements IPrope
 	*/
 	@Override
 	protected Object transformSelection(Object selected) {
-		selected = /* super. */transformSelectionToDomain(selected);
+		selected = /*super.*/transformSelectionToDomain(selected);
 		return selected;
 	}
 
