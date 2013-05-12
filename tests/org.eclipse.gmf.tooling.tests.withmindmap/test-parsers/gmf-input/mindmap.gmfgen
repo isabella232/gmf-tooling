@@ -45,7 +45,7 @@
             width="100"
             height="50"/>
         <figureModel
-            href="mindmap.gmfgraph#WithVerticalLabelNode"/>
+            href="mindmap.gmfgraph#TopicNode"/>
       </viewmap>
       <modelFacet>
         <metaClass
@@ -205,6 +205,46 @@
               href="mindmap.genmodel#//mindmap/Topic/name"/>
         </modelFacet>
       </labels>
+      <labels
+          visualID="5008"
+          editPartClassName="TopicName8EditPart"
+          itemSemanticEditPolicyClassName="TopicName8ItemSemanticEditPolicy"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="mindmap.gmfgraph#Topic_ParserTest_printf_msg"/>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.6"
+            editMethod="PRINTF">
+          <metaFeatures
+              href="mindmap.genmodel#//mindmap/Topic/name"/>
+        </modelFacet>
+      </labels>
+      <labels
+          visualID="5009"
+          editPartClassName="TopicName9EditPart"
+          itemSemanticEditPolicyClassName="TopicName9ItemSemanticEditPolicy"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="mindmap.gmfgraph#Topic_ParserTest_msg_printf"/>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.7"
+            viewMethod="PRINTF">
+          <metaFeatures
+              href="mindmap.genmodel#//mindmap/Topic/name"/>
+        </modelFacet>
+      </labels>
     </topLevelNodes>
     <palette>
       <groups
@@ -215,42 +255,6 @@
             title="Topic"
             description="Create new Topic"
             genNodes="//@diagram/@topLevelNodes.0"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Thread"
-            description="Create new Thread"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="ThreadItem"
-            description="Create new Thread Item"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Resource"
-            description="Create new Resource"/>
-      </groups>
-      <groups
-          title="Links"
-          collapse="true">
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Subtopic"
-            description="Create new Subtopic link"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Dependency"
-            description="Create new Dependency"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Includes"
-            description="Create new Includes"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Extends"
-            description="Create new Extends"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="Topic Thread"
-            description=""/>
       </groups>
     </palette>
     <preferencePages
@@ -345,6 +349,14 @@
         uses="//@diagram/@topLevelNodes.0/@labels.6/@modelFacet"
         viewMethod="REGEXP"
         editMethod="REGEXP"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@topLevelNodes.0/@labels.7/@modelFacet"
+        editMethod="PRINTF"/>
+    <implementations
+        xsi:type="gmfgen:PredefinedParser"
+        uses="//@diagram/@topLevelNodes.0/@labels.8/@modelFacet"
+        viewMethod="PRINTF"/>
   </labelParsers>
   <contextMenus
       context="//@diagram">

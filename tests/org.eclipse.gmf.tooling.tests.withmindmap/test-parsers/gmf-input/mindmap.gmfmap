@@ -70,11 +70,27 @@
         <features
             href="mindmap.ecore#//Topic/name"/>
       </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping"
+          editMethod="PRINTF">
+        <diagramLabel
+            href="mindmap.gmfgraph#Topic_ParserTest_printf_msg"/>
+        <features
+            href="mindmap.ecore#//Topic/name"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping"
+          viewMethod="PRINTF">
+        <diagramLabel
+            href="mindmap.gmfgraph#Topic_ParserTest_msg_printf"/>
+        <features
+            href="mindmap.ecore#//Topic/name"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="mindmap.gmftool#//@palette/@tools.0/@tools.0"/>
       <diagramNode
-          href="mindmap.gmfgraph#WithVerticalLabelNode"/>
+          href="mindmap.gmfgraph#TopicNode"/>
     </ownedChild>
   </nodes>
   <diagram>

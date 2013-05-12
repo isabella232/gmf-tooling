@@ -1,406 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgraph:Canvas
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition"
-    name="mindmap">
-  <figures
-      name="Default">
-    <descriptors
-        name="StickyNoteFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Rectangle"
-          name="StickyNoteFigure">
-        <layout
-            xsi:type="gmfgraph:FlowLayout"
-            vertical="true"
-            matchMinorSize="true"
-            forceSingleLine="true"
-            minorAlignment="CENTER"
-            majorSpacing="0"
-            minorSpacing="0"/>
-        <backgroundColor
-            xsi:type="gmfgraph:RGBColor"
-            red="250"
-            green="250"
-            blue="190"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="StickyNoteNameFigure"
-            text="Thread"/>
-        <children
-            xsi:type="gmfgraph:Rectangle"
-            name="ThreadItems">
-          <layout
-              xsi:type="gmfgraph:StackLayout"/>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="mindmap">
+  <figures name="Default">
+    <descriptors name="WithVerticalLabel">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="WithVerticalLabel_Panel">
+        <layout xsi:type="gmfgraph:BorderLayout"/>
+        <children xsi:type="gmfgraph:Rectangle" name="WithVerticalLabel_left">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" alignment="BEGINNING"/>
+          <layout xsi:type="gmfgraph:CenterLayout"/>
+          <minimumSize dx="30" dy="-1"/>
+          <children xsi:type="gmfgraph:VerticalLabel" name="WithVerticalLabel_label" text="&lt;vertical>"/>
+        </children>
+        <children xsi:type="gmfgraph:Rectangle" name="WithVerticalLabel_center">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData"/>
+          <layout xsi:type="gmfgraph:FlowLayout" vertical="true" forceSingleLine="true"/>
+          <minimumSize dx="300" dy="200"/>
+          <children xsi:type="gmfgraph:Label" name="label_MsgMsg" text="Msg-Msg"/>
+          <children xsi:type="gmfgraph:Label" name="label_NativeNative" text="Native-Native"/>
+          <children xsi:type="gmfgraph:Label" name="label_PrintfPrintf" text="Printf-Printf"/>
+          <children xsi:type="gmfgraph:Label" name="label_RegexpRegexp" text="Regexp-Regexp"/>
+          <children xsi:type="gmfgraph:Label" name="label_MsgNative" text="Msg-Native"/>
+          <children xsi:type="gmfgraph:Label" name="label_NativePrintf" text="Native-Printf"/>
+          <children xsi:type="gmfgraph:Label" name="label_MsgPrintf" text="Msg-Printf"/>
+          <children xsi:type="gmfgraph:Label" name="label_PrintfMsg" text="Printf-Msg"/>
         </children>
       </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.0/@actualFigure/@children.1"/>
-      <accessors
-          figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
-    </descriptors>
-    <descriptors
-        name="TopicSubtopicsFigure">
-      <actualFigure
-          xsi:type="gmfgraph:PolylineConnection"
-          name="TopicSubtopicsFigure">
-        <children
-            xsi:type="gmfgraph:PolygonDecoration">
-          <template
-              x="10"/>
-          <template
-              y="10"/>
-          <template
-              x="20"
-              y="10"/>
-        </children>
-      </actualFigure>
-    </descriptors>
-    <descriptors
-        name="RoundedTopicFigure">
-      <actualFigure
-          xsi:type="gmfgraph:RoundedRectangle"
-          name="RoundedTopicFigure"
-          lineWidth="4"
-          lineKind="LINE_DASH"
-          cornerWidth="25"
-          cornerHeight="25">
-        <layout
-            xsi:type="gmfgraph:StackLayout"/>
-        <foregroundColor
-            xsi:type="gmfgraph:ConstantColor"
-            value="darkGray"/>
-        <backgroundColor
-            xsi:type="gmfgraph:ConstantColor"
-            value="lightBlue"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="TopicNameFigure"
-            text="Topic"/>
-        <children
-            xsi:type="gmfgraph:Rectangle"
-            name="CompartmentRect"
-            outline="false">
-          <layout
-              xsi:type="gmfgraph:XYLayout"/>
-        </children>
-      </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
-      <accessors
-          figure="//@figures.0/@descriptors.2/@actualFigure/@children.1"/>
-    </descriptors>
-    <descriptors
-        name="ThreadItemLabelFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Label"
-          name="ThreadItemLabelFigure"
-          text="ThreadItem"/>
-    </descriptors>
-    <descriptors
-        name="DashedLineOpenArrow">
-      <actualFigure
-          xsi:type="gmfgraph:PolylineConnection"
-          name="DashedLineOpenArrow"
-          lineKind="LINE_DASH"
-          targetDecoration="//@figures.0/@descriptors.4/@actualFigure/@children.0">
-        <children
-            xsi:type="gmfgraph:PolylineDecoration"
-            name="OpenArrow"/>
-      </actualFigure>
-    </descriptors>
-    <descriptors
-        name="DashedLineLabelFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Label"
-          name="DashedLineLabelFigure"/>
-    </descriptors>
-    <descriptors
-        name="BasicLabelFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Label"
-          name="BasicLabelFigure"/>
-    </descriptors>
-    <descriptors
-        name="ResourceFigure">
-      <actualFigure
-          xsi:type="gmfgraph:Rectangle"
-          name="ResourceFigure"
-          outline="false"
-          fill="false">
-        <layout
-            xsi:type="gmfgraph:StackLayout"/>
-        <children
-            xsi:type="gmfgraph:Label"
-            name="ResourceLabel"
-            text="Resource"/>
-        <children
-            xsi:type="gmfgraph:Rectangle"
-            name="Resource"
-            outline="false"
-            fill="false">
-          <layout
-              xsi:type="gmfgraph:FlowLayout"
-              vertical="true"
-              forceSingleLine="true"
-              minorAlignment="CENTER"
-              majorSpacing="0"
-              minorSpacing="0"/>
-          <children
-              xsi:type="gmfgraph:Ellipse"
-              name="Head">
-            <foregroundColor
-                xsi:type="gmfgraph:RGBColor"
-                red="220"
-                green="220"
-                blue="250"/>
-            <backgroundColor
-                xsi:type="gmfgraph:RGBColor"
-                red="230"
-                green="230"
-                blue="255"/>
-            <size
-                x="40"
-                y="20"/>
-          </children>
-          <children
-              xsi:type="gmfgraph:Polygon"
-              name="Body">
-            <foregroundColor
-                xsi:type="gmfgraph:RGBColor"
-                red="220"
-                green="220"
-                blue="250"/>
-            <backgroundColor
-                xsi:type="gmfgraph:RGBColor"
-                red="230"
-                green="230"
-                blue="255"/>
-            <template
-                x="23"
-                y="19"/>
-            <template
-                x="23"
-                y="24"/>
-            <template
-                x="39"
-                y="24"/>
-            <template
-                x="39"
-                y="29"/>
-            <template
-                x="23"
-                y="29"/>
-            <template
-                x="23"
-                y="36"/>
-            <template
-                x="39"
-                y="48"/>
-            <template
-                x="39"
-                y="53"/>
-            <template
-                x="20"
-                y="42"/>
-            <template
-                x="1"
-                y="53"/>
-            <template
-                x="1"
-                y="48"/>
-            <template
-                x="17"
-                y="36"/>
-            <template
-                x="17"
-                y="29"/>
-            <template
-                x="1"
-                y="29"/>
-            <template
-                x="1"
-                y="24"/>
-            <template
-                x="17"
-                y="24"/>
-            <template
-                x="17"
-                y="19"/>
-            <template
-                x="23"
-                y="19"/>
-          </children>
-        </children>
-      </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
-    </descriptors>
-    <descriptors
-        name="WithVerticalLabel">
-      <actualFigure
-          xsi:type="gmfgraph:Rectangle"
-          name="WithVerticalLabel_Panel">
-        <layout
-            xsi:type="gmfgraph:BorderLayout"/>
-        <children
-            xsi:type="gmfgraph:Rectangle"
-            name="WithVerticalLabel_left">
-          <layoutData
-              xsi:type="gmfgraph:BorderLayoutData"
-              alignment="BEGINNING"/>
-          <layout
-              xsi:type="gmfgraph:CenterLayout"/>
-          <minimumSize
-              dx="30"
-              dy="-1"/>
-          <children
-              xsi:type="gmfgraph:VerticalLabel"
-              name="WithVerticalLabel_label"
-              text="&lt;vertical>"/>
-        </children>
-        <children
-            xsi:type="gmfgraph:Rectangle"
-            name="WithVerticalLabel_center">
-          <layoutData
-              xsi:type="gmfgraph:BorderLayoutData"/>
-          <layout
-              xsi:type="gmfgraph:FlowLayout"
-              vertical="true"
-              forceSingleLine="true"/>
-          <minimumSize
-              dx="300"
-              dy="200"/>
-          <children
-              xsi:type="gmfgraph:Label"
-              name="label_MsgMsg"
-              text="Msg-Msg"/>
-          <children
-              xsi:type="gmfgraph:Label"
-              name="label_NativeNative"
-              text="Native-Native"/>
-          <children
-              xsi:type="gmfgraph:Label"
-              name="label_PrintfPrintf"
-              text="Printf-Printf"/>
-          <children
-              xsi:type="gmfgraph:Label"
-              name="label_RegexpRegexp"
-              text="Regexp-Regexp"/>
-          <children
-              xsi:type="gmfgraph:Label"
-              name="label_MsgNative"
-              text="Msg-Native"/>
-          <children
-              xsi:type="gmfgraph:Label"
-              name="label_NativePrintf"
-              text="Native-Printf"/>
-        </children>
-      </actualFigure>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.0/@children.0"/>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.1/@children.0"/>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.1/@children.4"/>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.1/@children.1"/>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.1/@children.5"/>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.1/@children.2"/>
-      <accessors
-          figure="//@figures.0/@descriptors.8/@actualFigure/@children.1/@children.3"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.0/@children.0"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.0"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.4"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.1"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.5"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.2"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.3"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.6"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1/@children.7"/>
     </descriptors>
   </figures>
-  <nodes
-      name="Topic"
-      figure="RoundedTopicFigure"/>
-  <nodes
-      name="Thread"
-      figure="StickyNoteFigure"/>
-  <nodes
-      name="Resource"
-      figure="ResourceFigure">
-    <facets
-        xsi:type="gmfgraph:DefaultSizeFacet">
-      <defaultSize
-          dx="40"
-          dy="60"/>
-    </facets>
-  </nodes>
-  <nodes
-      name="WithVerticalLabelNode"
-      figure="WithVerticalLabel">
-    <facets
-        xsi:type="gmfgraph:DefaultSizeFacet">
-      <defaultSize
-          dx="100"
-          dy="50"/>
-    </facets>
-  </nodes>
-  <connections
-      name="TopicSubtopics"
-      figure="TopicSubtopicsFigure"/>
-  <connections
-      name="RelationshipLink"
-      figure="DashedLineOpenArrow"/>
-  <compartments
-      name="ThreadCompartment"
-      figure="StickyNoteFigure"
-      collapsible="true"
-      accessor="//@figures.0/@descriptors.2/@accessors.1"/>
-  <compartments
-      name="ThreadItemCompartment"
-      figure="ThreadItemLabelFigure"
-      accessor="//@figures.0/@descriptors.0/@accessors.0"/>
-  <labels
-      name="WithVerticalLabel_verticalName"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.0"/>
-  <labels
-      name="TopicName"
-      figure="RoundedTopicFigure"
-      accessor="//@figures.0/@descriptors.2/@accessors.0"/>
-  <labels
-      name="ThreadName"
-      figure="StickyNoteFigure"
-      accessor="//@figures.0/@descriptors.0/@accessors.1"/>
-  <labels
-      name="ThreadItemLabel"
-      figure="ThreadItemLabelFigure"
-      elementIcon="false"/>
-  <labels
-      name="RelationshipLabel"
-      figure="DashedLineLabelFigure"
-      elementIcon="false"/>
-  <labels
-      name="ResourceLabel"
-      accessor="//@figures.0/@descriptors.7/@accessors.0"/>
-  <labels
-      name="Topic_ParserTest_msg_msg"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.1"/>
-  <labels
-      name="Topic_ParserTest_msg_native"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.2"/>
-  <labels
-      name="Topic_ParserTest_native_native"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.3"/>
-  <labels
-      name="Topic_ParserTest_native_printf"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.4"/>
-  <labels
-      name="Topic_ParserTest_printf_printf"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.5"/>
-  <labels
-      name="Topic_ParserTest_regexp_regexp"
-      figure="WithVerticalLabel"
-      accessor="//@figures.0/@descriptors.8/@accessors.6"/>
+  <nodes name="TopicNode" figure="WithVerticalLabel"/>
+  <labels name="WithVerticalLabel_verticalName" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <labels name="Topic_ParserTest_msg_msg" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.1"/>
+  <labels name="Topic_ParserTest_msg_native" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.2"/>
+  <labels name="Topic_ParserTest_native_native" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.3"/>
+  <labels name="Topic_ParserTest_native_printf" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.4"/>
+  <labels name="Topic_ParserTest_printf_printf" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.5"/>
+  <labels name="Topic_ParserTest_regexp_regexp" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.6"/>
+  <labels name="Topic_ParserTest_msg_printf" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.7"/>
+  <labels name="Topic_ParserTest_printf_msg" figure="WithVerticalLabel" accessor="//@figures.0/@descriptors.0/@accessors.8"/>
 </gmfgraph:Canvas>
