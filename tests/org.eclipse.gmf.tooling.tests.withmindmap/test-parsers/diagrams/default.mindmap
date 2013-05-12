@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mindmap:DocumentRoot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mindmap="http://www.example.org/mindmap">
+  <map>
+    <rootTopics name="SomeName"/>
+  </map>
+</mindmap:DocumentRoot>

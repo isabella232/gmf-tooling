@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:mindmap="http://www.example.org/mindmap" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_BTsskLmmEeKDztLlJdFTiQ" type="Mindmap" name="default.test_parsers" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_Qcrd4LmmEeK_WOzggWKJyg" type="2001" fontName="Lucida Grande">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QctTELmmEeK_WOzggWKJyg" type="5001"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qct6ILmmEeK_WOzggWKJyg" type="5002"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qct6IbmmEeK_WOzggWKJyg" type="5003"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qct6IrmmEeK_WOzggWKJyg" type="5004"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qct6I7mmEeK_WOzggWKJyg" type="5005"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qct6JLmmEeK_WOzggWKJyg" type="5006"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qct6JbmmEeK_WOzggWKJyg" type="5007"/>
+    <element xmi:type="mindmap:Topic" href="default.mindmap#//@map/@rootTopics.0"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QcsE8LmmEeK_WOzggWKJyg" x="90" y="108" width="289" height="181"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_BTsskbmmEeKDztLlJdFTiQ"/>
+  <element xmi:type="mindmap:Map" href="default.mindmap#//@map"/>
+</notation:Diagram>
