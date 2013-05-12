@@ -289,6 +289,7 @@ public class LargeItemEditPart extends ShapeNodeEditPart {
 			fFigureLargeItemArticleLabel = new WrappingLabel();
 
 			fFigureLargeItemArticleLabel.setText("");
+			fFigureLargeItemArticleLabel.setTextWrap(true);
 
 			this.add(fFigureLargeItemArticleLabel);
 
