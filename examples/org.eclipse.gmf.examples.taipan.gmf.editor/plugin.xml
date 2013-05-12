@@ -31,7 +31,7 @@ Contributors:
       <editor
          id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
          name="%editorName"
-         icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
+         icon="icons/obj16/TaiPanDiagramFile.gif"
          extensions="taipan_diagram"
          default="true"
          class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor"
@@ -54,7 +54,7 @@ Contributors:
       <?gmfgen generated="true"?>
   	  <wizard
   	     name="%newWizardName"
-  	     icon="../org.eclipse.gmf.examples.taipan.editor/icons/full/obj16/TaiPanModelFile.gif"
+  	     icon="icons/obj16/TaiPanDiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
   	     id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">

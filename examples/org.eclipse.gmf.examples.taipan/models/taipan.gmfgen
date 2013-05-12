@@ -109,7 +109,6 @@
       itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy"
       canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy"
       iconProviderPriority="Low"
-      creationWizardIconPath="{reuseEMFIcon}"
       validationProviderPriority="Low"
       validationEnabled="true"
       validationDecorators="true">
