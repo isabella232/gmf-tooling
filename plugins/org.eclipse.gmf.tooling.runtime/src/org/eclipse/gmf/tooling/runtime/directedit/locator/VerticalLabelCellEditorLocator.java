@@ -7,7 +7,7 @@ import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gmf.tooling.runtime.draw2d.labels.VerticalLabel;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * A cell editor locator for rotated images.
@@ -22,7 +22,7 @@ public class VerticalLabelCellEditorLocator implements CellEditorLocator {
 
 	/** {@inheritDoc} */
 	public void relocate(final CellEditor celleditor) {
-		Text text = (Text) celleditor.getControl();
+		Control text = celleditor.getControl();
 		Rectangle rect = myVerticalLabel.getBounds().getCopy();
 		myVerticalLabel.translateToAbsolute(rect);
 		int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();

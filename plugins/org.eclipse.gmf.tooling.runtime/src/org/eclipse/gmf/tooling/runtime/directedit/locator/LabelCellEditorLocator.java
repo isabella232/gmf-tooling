@@ -7,7 +7,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Control;
 
 public class LabelCellEditorLocator implements CellEditorLocator {
 
@@ -22,7 +22,7 @@ public class LabelCellEditorLocator implements CellEditorLocator {
 	}
 
 	public void relocate(CellEditor celleditor) {
-		Text text = (Text) celleditor.getControl();
+		Control text = celleditor.getControl();
 		Rectangle rect = getLabel().getTextBounds().getCopy();
 		getLabel().translateToAbsolute(rect);
 		int avr = FigureUtilities.getFontMetrics(text.getFont()).getAverageCharWidth();
