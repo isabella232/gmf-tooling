@@ -60,7 +60,7 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 	 */
 	public OclTrackerFactory getOclTrackerFactory(OclTrackerFactory.Type type) {
 		OclTrackerFactory result = myOclTrackerFactories.get(type);
-		return result == null ? result : getOclTrackerFactory();
+		return result != null ? result : getOclTrackerFactory();
 	}
 
 	private Map<OclTrackerFactory.Type, OclTrackerFactory> loadOclTrackerFactories() {
