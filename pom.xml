@@ -181,7 +181,8 @@
 				<repository>
 					<id>staging</id>
 					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/kepler/</url>
+					<!-- temporarily switched back to Juno repo, see problems with build #450 --> 
+					<url>http://download.eclipse.org/releases/juno/</url>
 				</repository>
 				<repository>
 					<id>orbit for Juno</id>
