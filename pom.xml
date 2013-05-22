@@ -152,10 +152,8 @@
 				</repository>			
 			</repositories>
 		</profile>
-		-->
 		<profile>
 			<id>juno</id>
-			<!-- Bug 396054: replace by usage of a .target file -->
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -169,6 +167,26 @@
 					<id>orbit for Juno</id>
 					<layout>p2</layout>
 					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository/</url>
+				</repository>
+			</repositories>
+		</profile>
+		-->
+		<profile>
+			<id>kepler</id>
+			<!-- Bug 396054: replace by usage of a .target file -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>staging</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/releases/kepler/</url>
+				</repository>
+				<repository>
+					<id>orbit for Juno</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
 				</repository>
 			</repositories>
 		</profile>
