@@ -1,6 +1,7 @@
 package org.eclipse.gmf.codegen.util;
 
 import com.google.common.base.Objects;
+import com.google.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.core.resources.IProject;
@@ -24,7 +25,6 @@ import org.eclipse.gmf.internal.common.codegen.GeneratorBase.Counter;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
@@ -34,12 +34,8 @@ public class GMFGenGenerator extends GeneratorBase implements IGenerator {
   
   private GenEditorGenerator genEditor;
   
-  private NodeEditPart nodeEditPartGen = new Function0<NodeEditPart>() {
-    public NodeEditPart apply() {
-      NodeEditPart _nodeEditPart = new NodeEditPart();
-      return _nodeEditPart;
-    }
-  }.apply();
+  @Inject
+  private NodeEditPart nodeEditPartGen;
   
   public void doGenerate(final Resource resource, final IFileSystemAccess fsa) {
     try {
@@ -61,7 +57,7 @@ public class GMFGenGenerator extends GeneratorBase implements IGenerator {
         this.genEditor = ((GenEditorGenerator) _get_1);
         this.customRun();
       }
-    } catch (Exception _e) {
+    } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
   }
@@ -90,7 +86,7 @@ public class GMFGenGenerator extends GeneratorBase implements IGenerator {
   }
   
   private void generateEditPart(final GenNode genNode) {
-    final String qualifiedName = genNode.getEditPartQualifiedClassName();
+    final String qualifiedName = this.nodeEditPartGen.getFilePath(genNode);
     String _replaceAll = qualifiedName.replaceAll("\\.", "/");
     final String fileName = _replaceAll.concat(".java");
     CharSequence _generate = this.nodeEditPartGen.generate(genNode);
