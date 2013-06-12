@@ -43,7 +43,7 @@ import org.osgi.framework.Bundle;
  */
 public class CodegenEmitters {
 
-	private static final String PATH_SEPARATOR = "::"; //$NON-NLS-1$
+	protected static final String PATH_SEPARATOR = "::"; //$NON-NLS-1$
 
 	private final ResourceManager myResourceManager;
 
