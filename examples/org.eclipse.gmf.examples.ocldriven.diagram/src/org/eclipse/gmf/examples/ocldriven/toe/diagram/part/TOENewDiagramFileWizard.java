@@ -149,12 +149,12 @@ public class TOENewDiagramFileWizard extends Wizard {
 		* @generated
 		*/
 		protected boolean validatePage() {
-			if (selectedModelElement == null) {
+			if (getModelElement() == null) {
 				setErrorMessage(Messages.TOENewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(
-					new CreateDiagramViewOperation(new EObjectAdapter(selectedModelElement), AllHolderEditPart.MODEL_ID, TOEDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+					new CreateDiagramViewOperation(new EObjectAdapter(getModelElement()), AllHolderEditPart.MODEL_ID, TOEDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 			setErrorMessage(result ? null : Messages.TOENewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
 			return result;
 		}
