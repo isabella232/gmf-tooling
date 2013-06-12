@@ -47,8 +47,11 @@ class LinkEditPart {
 			installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy());
 		«ENDIF»
 		«xptEditpartsCommon.installSemanticEditPolicy(it)»
+		«installGraphicalNodeEditPolicy(it)»
 		«xptEditpartsCommon.behaviour(it)»
 	'''
+	
+	def installGraphicalNodeEditPolicy(GenLink it) ''''''
 
 	/**
 	 * FIXME: [MG] check counterpart for ModeledViewmap, 

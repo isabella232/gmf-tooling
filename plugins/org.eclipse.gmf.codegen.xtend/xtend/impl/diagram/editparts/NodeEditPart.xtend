@@ -66,9 +66,7 @@ class NodeEditPart {
 		super.createDefaultEditPolicies();
 		«installPrimaryDragEditPolicy(it)»
 		«xptEditpartsCommon.installSemanticEditPolicy(it)»
-		«IF needsGraphicalNodeEditPolicy(it)»
-			installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «graphicalNodeEditPolicyQualifiedClassName»());
-		«ENDIF»
+		«installGraphicalNodeEditPolicy(it)»
 		«IF !childNodes.empty»
 			installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy());
 		«ENDIF»
@@ -77,6 +75,12 @@ class NodeEditPart {
 		«xptEditpartsCommon.behaviour(it)»
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+	'''
+	
+	def installGraphicalNodeEditPolicy(GenNode it) '''
+		«IF needsGraphicalNodeEditPolicy(it)»
+			installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «graphicalNodeEditPolicyQualifiedClassName»());
+		«ENDIF»
 	'''
 
 	def installCreationRolePolicy(GenNode it) '''
