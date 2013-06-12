@@ -26,7 +26,11 @@
 		installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy());
 	«ENDIF-»
 	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
+	«EXPAND installGraphicalNodeEditPolicy-»
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+«ENDDEFINE»
+
+«DEFINE installGraphicalNodeEditPolicy FOR gmfgen::GenLink-»
 «ENDDEFINE»
 
 «DEFINE addFixedChild FOR gmfgen::GenLink-»
