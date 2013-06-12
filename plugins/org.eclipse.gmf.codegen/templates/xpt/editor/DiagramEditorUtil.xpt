@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright (c) 2007, 2010 Borland Software Corporation and others
+ * Copyright (c) 2007, 2010, 2013 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -147,33 +147,8 @@ public class «diagramEditorUtilClassName» {
 «DEFINE getUniqueFileNameMethod FOR gmfgen::GenDiagram-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public static String getUniqueFileName(org.eclipse.core.runtime.IPath containerFullPath, String fileName, String extension) {
-		if (containerFullPath == null) {
-			containerFullPath = new org.eclipse.core.runtime.Path(""); «EXPAND xpt::Common::nonNLS»
-		}
-		if (fileName == null || fileName.trim().length() == 0) {
-			fileName = "default"; «EXPAND xpt::Common::nonNLS»
-		}
-		org.eclipse.core.runtime.IPath filePath = containerFullPath.append(fileName);
-		if (extension != null && !extension.equals(filePath.getFileExtension())) {
-			filePath = filePath.addFileExtension(extension);
-		}
-		extension = filePath.getFileExtension();
-		fileName = filePath.removeFileExtension().lastSegment();
-		int i = 1;
-		while (
-		«IF editorGen.application = null-»
-			org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().exists(filePath)
-		«ELSE-»
-			filePath.toFile().exists()
-		«ENDIF-»
-		) {
-			i++;
-			filePath = containerFullPath.append(fileName + i);
-			if (extension != null) {
-				filePath = filePath.addFileExtension(extension);
-			}
-		}
-		return filePath.lastSegment();
+		return org.eclipse.gmf.tooling.runtime.part.DefaultDiagramEditorUtil.getUniqueFileName(containerFullPath, fileName, extension, «-»
+			org.eclipse.gmf.tooling.runtime.part.DefaultDiagramEditorUtil.«IF editorGen.application = null»EXISTS_IN_WORKSPACE«ELSE»EXISTS_AS_IO_FILE«ENDIF»);
 	}
 «ENDDEFINE»
 
