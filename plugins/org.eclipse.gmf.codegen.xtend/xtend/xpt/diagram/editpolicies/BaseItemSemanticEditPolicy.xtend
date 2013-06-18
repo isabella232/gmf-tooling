@@ -34,7 +34,7 @@ import xpt.expressions.getExpression
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import xpt.providers.ElementTypes
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class BaseItemSemanticEditPolicy {
 	@Inject extension Common;
@@ -48,6 +48,7 @@ class BaseItemSemanticEditPolicy {
 	@Inject MetaModel xptMetaModel;
 	@Inject getExpression xptGetExpression;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+	@Inject ElementTypes xptElementTypes;
 	
 
 def BaseItemSemanticEditPolicy(GenDiagram it) '''
@@ -59,7 +60,7 @@ public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.run
 
 	«attributes(it)»
 	
-	«_constructor(it)»
+	«constructor(it)»
 
 	«generatedMemberComment(it, 
 		'Extended request data key to hold editpart visual id.\n' + 
@@ -110,7 +111,7 @@ def attributes(GenDiagram it) '''
 	private final org.eclipse.gmf.runtime.emf.type.core.IElementType myElementType;
 '''
 
-def _constructor(GenDiagram it) '''
+def constructor(GenDiagram it) '''
 	«generatedMemberComment(it)»
 	protected «baseItemSemanticEditPolicyClassName»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 		myElementType = elementType;
@@ -123,7 +124,7 @@ def addDestroyShortcutsCommand(GenDiagram it) '''
 		«_assert('view.getEAnnotation(\"Shortcut\") == null')»
 		for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
 			org.eclipse.gmf.runtime.notation.View nextView = (org.eclipse.gmf.runtime.notation.View) it.next();
-			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) {«nonNLS()»
+			if (nextView.getEAnnotation("Shortcut") == null || !nextView.isSetElement() || nextView.getElement() != view.getElement()) { «nonNLS()»
 				continue;
 			}
 			cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), nextView));
@@ -396,7 +397,7 @@ def canExist(GenLink it) '''
 	«ENDIF»
 			return true;
 		} catch(Exception e) {	
-			«xptPluginActivator.instanceAccess(it.diagram.editorGen)».logError("Link constraint evaluation error", e);«nonNLS()»
+			«xptPluginActivator.instanceAccess(it.diagram.editorGen)».logError("Link constraint evaluation error", e); «nonNLS()»
 			return false;
 		}
 	«ELSE»
@@ -464,6 +465,7 @@ if (source != null) {
 if (target != null && («featureBoundsConditionClause(metaFeature.reverse, 'target', getTargetType())»)) {
 	return false;
 }
+«extraLineBreak»
 «ENDIF»
 '''
 
@@ -487,8 +489,8 @@ def dispatch checkAdditionalConstraint(GenExpressionInterpreter it, ValueExpress
 	if («sourceEndVar» == null) {
 		return true;
 	} else {«/** else is important here as it gives scope for the env variable */»
-		java.util.Map<String, org.eclipse.emf.ecore.EClassifier> env = java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>singletonMap(«oppositeEndVariableNameValue(it)», «xptMetaModel.MetaClass(oppositeEndContext)»);«nonNLS()»
-		Object «sourceEndVar»Val = «xptGetExpression.getExpression(it, valueExpr, context, 'env')».evaluate(«sourceEndVar», java.util.Collections.singletonMap(«oppositeEndVariableNameValue(it)», «targetEndVar»));«nonNLS()»
+		java.util.Map<String, org.eclipse.emf.ecore.EClassifier> env = java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>singletonMap(«oppositeEndVariableNameValue(it)», «xptMetaModel.MetaClass(oppositeEndContext)»); «nonNLS()»
+		Object «sourceEndVar»Val = «xptGetExpression.getExpression(it, valueExpr, context, 'env')».evaluate(«sourceEndVar», java.util.Collections.singletonMap(«oppositeEndVariableNameValue(it)», «targetEndVar»)); «nonNLS()»
 		if (false == «sourceEndVar»Val instanceof Boolean || !((Boolean) «sourceEndVar»Val).booleanValue()) {
 			return false;
 		} // else fall-through
@@ -503,7 +505,7 @@ def dispatch checkAdditionalConstraint(GenJavaExpressionProvider it, ValueExpres
 	// to access link source and target, respectively
 	// Ensure that you remove @generated or mark it @generated NOT
 	if (Boolean.TRUE.booleanValue()) {
-		throw new java.lang.UnsupportedOperationException("No java implementation provided");«nonNLS()»
+		throw new java.lang.UnsupportedOperationException("No java implementation provided"); «nonNLS()»
 	}
 «ELSE»
 	if (Boolean.TRUE.booleanValue()) {«/*just in case there are two consecutive java expression with neither throw nor inject - avoid unreachable code.*/»
@@ -535,7 +537,7 @@ def dispatch checkAdditionalConstraint(GenJavaExpressionProvider it, ValueExpres
 
 	@MetaDef private def _accessLinkConstraints(GenDiagram xptSelf) '''«xptSelf.baseItemSemanticEditPolicyQualifiedClassName».getLinkConstraints()'''
 
-	def oppositeEndVariableNameValue(Object any)'''oppositeEnd'''
+	def oppositeEndVariableNameValue(Object any)'''"oppositeEnd"'''
 
 	def additions(GenDiagram it) ''''''
 
@@ -552,7 +554,7 @@ def dispatch checkAdditionalConstraint(GenJavaExpressionProvider it, ValueExpres
 	«IF genCommon.elementType == null»
 		«ERROR("No element type in the passed node. Only diagram, node or link are supported in this template: " + genCommon)»
 	«ENDIF»
-	super(«ElementTypes::accessElementType(genCommon)»);
+	super(«xptElementTypes.accessElementType(genCommon)»);
 	'''
 
 }

@@ -21,6 +21,7 @@ import xpt.Externalizer
 import xpt.Common_qvto
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
+import org.eclipse.gmf.codegen.xtend.annotations.Localization
 
 class CompartmentEditPart {
 	@Inject extension Common;
@@ -127,26 +128,26 @@ class CompartmentEditPart {
 		}
 	'''
 
-	def i18nAccessors(GenDiagram it) '''
-«FOR compartment : it.compartments»
-	«internal_i18nAccessors(compartment)»
-«ENDFOR»
-'''
+	@Localization def i18nAccessors(GenDiagram it) '''
+	«FOR compartment : it.compartments»
+		«internal_i18nAccessors(compartment)»
+	«ENDFOR»
+	'''
 
-	def internal_i18nAccessors(GenCompartment it) //
+	@Localization def internal_i18nAccessors(GenCompartment it) //
 	'''«IF null != title»«xptExternalizer.accessorField(i18nKeyForCompartmentTitle(it))»«ENDIF»'''
 
-	def i18nValues(GenDiagram it) '''
+	@Localization def i18nValues(GenDiagram it) '''
 		«FOR compartment : it.compartments»
 			«internal_i18nValues(compartment)»
 		«ENDFOR»
 	'''
 
-	def internal_i18nValues(GenCompartment it) '''
+	@Localization def internal_i18nValues(GenCompartment it) '''
 		«IF null != title»«xptExternalizer.messageEntry(i18nKeyForCompartmentTitle(it), title)»«ENDIF»
 	'''
 
-	def String i18nKeyForCompartmentTitle(GenCompartment compartment) {
+	@Localization def String i18nKeyForCompartmentTitle(GenCompartment compartment) {
 		return compartment.editPartClassName + '.title'
 	}
 

@@ -71,6 +71,6 @@ public class «reorientConnectionViewCommandClassName»
 }
 '''
 	
-	def additions(GenDiagram it) '''«stampXtend2(it)»'''
+	def additions(GenDiagram it) ''''''
 
 }

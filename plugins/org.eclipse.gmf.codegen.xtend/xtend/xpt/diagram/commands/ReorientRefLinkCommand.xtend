@@ -56,6 +56,6 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.ty
 }
 '''
 	
-	def additions(GenLink it) '''«stampXtend2(it)»'''
+	def additions(GenLink it) ''''''
 	
 }

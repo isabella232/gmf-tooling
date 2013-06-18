@@ -25,9 +25,9 @@ public class EditHelper {
 		
 		public class «editHelperClassName» extends «diagramElement.diagram.baseEditHelperQualifiedClassName» {
 			
-			«additions()»
+			«additions(it)»
 		}
 	'''
 
-	def additions(MetamodelType it) '''«stampXtend2(it.diagramElement.diagram)»'''
+	def additions(MetamodelType it) ''''''
 }

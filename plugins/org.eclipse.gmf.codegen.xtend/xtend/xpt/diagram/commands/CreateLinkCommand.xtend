@@ -30,6 +30,7 @@ class CreateLinkCommand {
 
 	@Inject CreateLinkUtils xptCreateLinkUtils;
 	@Inject MetaModel xptMetaModel;
+	@Inject ElementInitializers xptElementInitializers;
 
 	private def GenFeature sourceOrContainmentFeature(TypeLinkModelFacet it) {
 		if(sourceMetaFeature == null) containmentMetaFeature else sourceMetaFeature;
@@ -118,7 +119,7 @@ class CreateLinkCommand {
 	'''
 
 	def initialize(TypeModelFacet it, GenLink link, String newElementVar) //
-	'''«ElementInitializers::initMethodCall(link, it, newElementVar)»'''
+	'''«xptElementInitializers.initMethodCall(link, it, newElementVar)»'''
 
 	def dispatch doConfigure(LinkModelFacet it, GenLink link) ''''''
 
@@ -143,6 +144,6 @@ class CreateLinkCommand {
 		}
 	'''
 
-	def additions(GenLink it) '''«stampXtend2(it)»'''
+	def additions(GenLink it) ''''''
 
 }

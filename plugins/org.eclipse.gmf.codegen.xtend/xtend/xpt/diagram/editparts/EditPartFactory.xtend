@@ -1,5 +1,5 @@
-/*
- * Copyright (c) 2006, 2010 Borland Software Corporation and others
+/**
+ * Copyright (c) 2006, 2010, 2013 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -30,13 +30,13 @@ class EditPartFactory {
 		«generatedClassComment()»
 		public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFactory {
 		
-			«createEditPartMethod()»
+			«createEditPartMethod(it)»
 			
-			«createUnrecognizedEditPart()»
+			«createUnrecognizedEditPart(it)»
 			
-			«getTextCellEditorLocator()»
+			«getTextCellEditorLocator(it)»
 			
-			«additions()»
+			«additions(it)»
 		}
 	'''
 
@@ -70,7 +70,7 @@ class EditPartFactory {
 	'''
 
 	private def createEditPart(GenCommonBase it) '''
-		«caseVisualID()»
+		«caseVisualID(it)»
 			return new «getEditPartQualifiedClassName()»(view);
 			
 	'''
@@ -91,6 +91,6 @@ class EditPartFactory {
 		}
 	'''
 
-	def additions(GenDiagram it) '''«stampXtend2»'''
+	def additions(GenDiagram it) ''''''
 
 }

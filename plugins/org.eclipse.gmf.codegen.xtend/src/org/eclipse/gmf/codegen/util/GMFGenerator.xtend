@@ -7,11 +7,11 @@ import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import org.eclipse.gmf.codegen.gmfgen.GenNode
-import org.eclipse.gmf.codegen.templates.diagram.editparts.NodeEditPart
 import org.eclipse.gmf.common.UnexpectedBehaviourException
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator
+import diagram.editparts.NodeEditPart
 
 class GMFGenGenerator extends GeneratorBase implements IGenerator {
 
@@ -40,9 +40,9 @@ class GMFGenGenerator extends GeneratorBase implements IGenerator {
 	}
 
 	def private generateEditPart(GenNode genNode) {
-		val qualifiedName = nodeEditPartGen.getFilePath(genNode);
+		val qualifiedName = genNode.editPartQualifiedClassName;
 		val fileName = qualifiedName.replaceAll("\\.", "/").concat(".java")
-		fileSystemAccess.generateFile(fileName, nodeEditPartGen.generate(genNode))
+		fileSystemAccess.generateFile(fileName, nodeEditPartGen.Main(genNode))
 	}
 
 	def private guessProjectLocation(GenEditorGenerator genEditor) {

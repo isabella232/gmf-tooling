@@ -35,7 +35,7 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle
 import org.eclipse.gmf.gmfgraph.SVGProperty
 import org.eclipse.gmf.gmfgraph.SVGPropertyType
 import org.eclipse.gmf.gmfgraph.Shape
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common_qvto
 import com.google.inject.Inject
 

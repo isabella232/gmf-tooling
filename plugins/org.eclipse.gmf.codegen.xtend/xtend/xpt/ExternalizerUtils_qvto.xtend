@@ -13,6 +13,7 @@
 package xpt
 
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class ExternalizerUtils_qvto {
 

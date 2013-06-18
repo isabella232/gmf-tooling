@@ -22,7 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap
 import org.eclipse.gmf.gmfgraph.DiagramLabel
 import org.eclipse.gmf.gmfgraph.VerticalLabel
 import xpt.Common_qvto
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class RuntimeLabelsSupport_qvto {
 	@Inject extension Common_qvto

@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenParsers
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 import xpt.Common
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class ParserProvider {
 	@Inject extension Common;

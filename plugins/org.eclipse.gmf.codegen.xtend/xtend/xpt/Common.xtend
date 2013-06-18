@@ -21,20 +21,14 @@ import xpt.editor.VisualIDRegistry
  * XXX: [MG] I don't like dependency from Common -> VisualIdRegistry 
  */
 class Common {
-//	def stampXtend2(GenCommonBase it) '''
-//		«generatedMemberComment(it)»
-//		private void __$$$___generatedWithXtend2() {}
-//	'''
-	def stampXtend2(GenCommonBase it) ''''''
-	
 	def copyright(GenEditorGenerator it) 
-'''
-		«IF copyrightText != null»
-		/*
-		 * «copyrightText.replaceAll('\n', '\n * ')»
-		 */
-	 	«ENDIF»
-'''
+	'''
+	«IF copyrightText != null»
+	/*
+	 * «copyrightText.replaceAll('\n', '\n * ')»
+	 */
+ 	«ENDIF»
+	'''
 	def generatedClassComment(){
 		doGeneratedComment('')
 	}
@@ -63,16 +57,16 @@ class Common {
 	 * XXX: FIXME: merge all generatedXXXcomment to go here
 	 */ 
 	def doGeneratedComment(String comment) 
-'''
-		/**
-		«IF comment.length > 0» * «comment.replaceAll('\n', '\n * ')»«ENDIF»
-		 * @generated
-		 */
-'''
+	'''
+	/**
+	«IF comment.length > 0»* «comment.replaceAll('\n', '\n * ')»«ENDIF»
+	* @generated
+	*/
+	'''
 
+	def xmlGeneratedTag() '''<?gmfgen generated="true"?>'''
 	
-
-	def xmlGeneratedTag(Object it) '''<?gmfgen generated="true"?>'''
+	def nonNLS_All(Iterable<?> list) '''«IF !list.empty»«FOR i : 1..list.size SEPARATOR ' '»«nonNLS(i)»«ENDFOR»«ENDIF»'''
 	
 	def nonNLS() '''«nonNLS(1)»'''
 	
@@ -80,6 +74,9 @@ class Common {
 
 	def nonNLS(int xptSelf) '''//$NON-NLS-«xptSelf»$'''
 	
+	/**
+	 * XXX:[MG] move this to VIDRegistry(?)
+	 */
 	def caseVisualID(GenCommonBase xptSelf) '''case «VisualIDRegistry::visualID(xptSelf)»:'''
 	
 	/**
@@ -93,7 +90,7 @@ class Common {
 	def addShortcutAnnotation(GenDiagram it, String viewVar) '''
 		org.eclipse.emf.ecore.EAnnotation shortcutAnnotation = org.eclipse.emf.ecore.EcoreFactory.eINSTANCE.createEAnnotation();
 		shortcutAnnotation.setSource("Shortcut"); «nonNLS()»
-		shortcutAnnotation.getDetails().put("modelID", «VisualIDRegistry::modelID(it)»);«nonNLS()»
+		shortcutAnnotation.getDetails().put("modelID", «VisualIDRegistry::modelID(it)»); «nonNLS()»
 		«viewVar».getEAnnotations().add(shortcutAnnotation);
 	'''
 	

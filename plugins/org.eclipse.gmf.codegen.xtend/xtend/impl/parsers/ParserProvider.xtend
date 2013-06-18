@@ -38,7 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.PredefinedParser
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression
 import xpt.Common
 import xpt.Common_qvto
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.editor.VisualIDRegistry
 import xpt.expressions.OclTracker_qvto
 import xpt.expressions.getExpression
@@ -56,6 +56,7 @@ class ParserProvider {
 	@Inject getExpression xptGetExpression;
 	@Inject MetaModel xptMetaModel;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+	@Inject ElementTypes xptElementTypes; 
 	
 	def accessorMethod_delegate2providers(GenParsers it) '''
 		«generatedMemberComment(it, "Utility method that consults ParserService")»
@@ -68,7 +69,7 @@ class ParserProvider {
 	 * invokes method generated with accessorMethod_delegate2providers template
 	 */
 	@MetaDef def accessorCall_delegate2providers(GenCommonBase it, GenCommonBase elementTypeHolder, LabelModelFacet labelModelFacet, String parsedElement) // 
-		'''«it.diagram.editorGen.labelParsers.qualifiedClassName».getParser(«ElementTypes::accessElementType(elementTypeHolder)», «parsedElement», «IF labelModelFacet == null»«xptVisualIDRegistry.typeMethodCall(it)»«ELSE»«dispatch4_parserHint(labelModelFacet.parser, labelModelFacet, it)»«ENDIF»)'''
+		'''«it.diagram.editorGen.labelParsers.qualifiedClassName».getParser(«xptElementTypes.accessElementType(elementTypeHolder)», «parsedElement», «IF labelModelFacet == null»«xptVisualIDRegistry.typeMethodCall(it)»«ELSE»«dispatch4_parserHint(labelModelFacet.parser, labelModelFacet, it)»«ENDIF»)'''
 	
 	protected def dispatch dispatch4_parserHint(GenParserImplementation it, LabelModelFacet labelFacet, GenCommonBase hintHolder) //
 		'''«xptVisualIDRegistry.typeMethodCall(hintHolder)»'''
@@ -108,7 +109,7 @@ class ParserProvider {
 	 */
 	def accessorCall_direct(GenCommonBase it, GenCommonBase elementTypeHolder, LabelModelFacet labelModelFacet, String parsedElement) '''
 	«IF labelModelFacet == null || labelModelFacet.parser.oclIsKindOf(typeof(ExternalParser))»
-	org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(/*«ElementTypes::accessElementType(elementTypeHolder)», */«parsedElement», «IF labelModelFacet == null»«xptVisualIDRegistry.typeMethodCall(it)»«ELSE»«dispatch4_parserHint(labelModelFacet.parser, labelModelFacet, it)»«ENDIF»))
+	org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(/*«xptElementTypes.accessElementType(elementTypeHolder)», */«parsedElement», «IF labelModelFacet == null»«xptVisualIDRegistry.typeMethodCall(it)»«ELSE»«dispatch4_parserHint(labelModelFacet.parser, labelModelFacet, it)»«ENDIF»))
 	«ELSE»
 	«getDiagram().editorGen.labelParsers.getQualifiedClassName()».get().«parserAccessorName(it)»()
 	«ENDIF»

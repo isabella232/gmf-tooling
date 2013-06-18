@@ -18,6 +18,68 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		myInjector = Guice.createInjector(new GMFGeneratorModule());
 	}
 
+	//60 to go
+	
+	@Override
+	public TextEmitter getPreferenceInitializerEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::diagram::preferences::PreferenceInitializer"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getCustomPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return getXtendEmitter("impl::preferences::CustomPage::Main"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getStandardPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return getXtendEmitter("impl::preferences::StandardPage::Main"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::propsheet::PropertySection"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::propsheet::LabelProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::expressions::RegexpExpressionFactory"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::expressions::AbstractExpression"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::expressions::OCLExpressionFactory"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
+		return getMainXtendEmitter("parsers::PredefinedParser"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getExpressionLabelParserEmitter() throws UnexpectedBehaviourException {
+		return getMainXtendEmitter("parsers::ExpressionLabelParser"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
+		return getMainXtendEmitter("impl::parsers::AbstractParser"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getCustomParserEmitter() throws UnexpectedBehaviourException {
+		return getMainXtendEmitter("parsers::CustomParser"); //$NON-NLS-1$
+	}
+
 	@Override
 	public TextEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::diagram::editparts::EditPartFactory"); //$NON-NLS-1$
@@ -136,6 +198,116 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	@Override
 	public TextEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainXtendEmitter("diagram::editparts::NodeLabelEditPart"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getVisualIDRegistryEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::VisualIDRegistry"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::diagram::editpolicies::GraphicalNodeEditPolicy"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::diagram::editpolicies::OpenDiagram"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return getXtendEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return getXtendEmitter("xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getVisualEffectEditPolicyEmitter() {
+		return getPrimaryXtendEmitter("xpt::diagram::editpolicies::VisualEffectEditPolicy"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
+		return getXtendEmitter("xpt::editor::palette::PaletteFactory::Factory"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::ElementTypes"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDiagramUpdaterEmitter() {
+		return getPrimaryXtendEmitter("xpt::diagram::updater::DiagramUpdater"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getLinkDescriptorEmitter() {
+		return getPrimaryXtendEmitter("xpt::diagram::updater::LinkDescriptor"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNodeDescriptorEmitter() {
+		return getPrimaryXtendEmitter("xpt::diagram::updater::NodeDescriptor"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getUpdateCommandEmitter() {
+		return getPrimaryXtendEmitter("xpt::diagram::updater::UpdateCommand"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::EditPartProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getShortcutsDecoratorProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::providers::ShortcutsDecoratorProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::ValidationDecoratorProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::ValidationProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getViewProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::providers::ViewProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::ElementInitializers"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::MarkerNavigationProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::IconProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::providers::MetricProvider"); //$NON-NLS-1$
 	}
 
 	private TextEmitter getMainXtendEmitter(String templateFilePath) {

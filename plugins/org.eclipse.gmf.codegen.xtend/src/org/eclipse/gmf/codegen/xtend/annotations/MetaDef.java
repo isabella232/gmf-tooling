@@ -1,4 +1,4 @@
-package xpt;
+package org.eclipse.gmf.codegen.xtend.annotations;
 
 public @interface MetaDef {
 	//XXX [MG] for now just a temporary way to mark some def's that generates code 

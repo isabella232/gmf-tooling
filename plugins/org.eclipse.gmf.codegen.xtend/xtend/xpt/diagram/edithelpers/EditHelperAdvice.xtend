@@ -23,15 +23,15 @@ public class EditHelperAdvice {
 		«copyright(diagramElement.diagram.editorGen)»
 		package «diagramElement.getDiagram().editHelpersPackageName»;
 		
-		public class «editHelperAdviceClassName» extends «superClass()» {
+		public class «editHelperAdviceClassName» «extendsClause(it)» {
 			
-			«additions()»
+			«additions(it)»
 		}
 	'''
 
-	def additions(SpecializationType it) '''«stampXtend2(diagramElement.diagram)»'''
+	def additions(SpecializationType it) ''''''
 
-	def extendsClause(SpecializationType it) '''extends «superClass()»'''
+	def extendsClause(SpecializationType it) '''extends «superClass(it)»'''
 
 	def superClass(SpecializationType it) '''org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice'''
 

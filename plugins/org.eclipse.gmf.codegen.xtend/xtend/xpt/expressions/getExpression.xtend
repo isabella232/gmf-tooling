@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression
 import xpt.Common_qvto
 import metamodel.MetaModel
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class getExpression {
 	@Inject extension Common_qvto;

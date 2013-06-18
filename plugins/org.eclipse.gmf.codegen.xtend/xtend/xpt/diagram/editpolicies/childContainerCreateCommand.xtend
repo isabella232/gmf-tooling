@@ -20,6 +20,8 @@ import xpt.providers.ElementTypes
 class childContainerCreateCommand {
 	
 	@Inject extension Common;
+	
+	@Inject ElementTypes xptElementTypes;
  
  	def childContainerCreateCommand(Iterable<? extends GenNode> nodes) '''
 	«IF !nodes.empty»
@@ -36,7 +38,7 @@ class childContainerCreateCommand {
 
 
 	def childNodeCreateCommand(GenNode node) '''
-	if («ElementTypes::accessElementType(node)» == req.getElementType()) {
+	if («xptElementTypes.accessElementType(node)» == req.getElementType()) {
 		return getGEFWrapper(new «node.createCommandQualifiedClassName»(req));
 	}
 	'''

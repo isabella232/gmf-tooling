@@ -1,5 +1,7 @@
 package xpt
 
+import java.util.regex.Pattern
+
 class Common_qvto {
 
 	def oclIsKindOf(Object obj, Class<?> clazz) {
@@ -15,13 +17,19 @@ class Common_qvto {
 	}
 
 	def String lastSegment(String qualifiedName, String separator) {
-		qualifiedName.split(separator).last;
+		qualifiedName.split(Pattern::quote(separator)).last;
 	}
 
 	def String withoutLastSegment(String qualifiedName, String separator) {
-		var parts = qualifiedName.split(separator);
-		parts.remove(parts.size - 1)
-		return parts.join(separator)
+		var parts = qualifiedName.split(Pattern::quote(separator))
+		return parts.take(parts.size - 1).join(separator)
+	}
+	
+	def String substringAfter(String name, String prefix){
+		if (!name.startsWith(prefix)){
+			throw new IllegalArgumentException("String " + name + " does not startWith: " + prefix)
+		}
+		return name.substring(prefix.length);
 	}
 
 	def ERROR(String msg) {

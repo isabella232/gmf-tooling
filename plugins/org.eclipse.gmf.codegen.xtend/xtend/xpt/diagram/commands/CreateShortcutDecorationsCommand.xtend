@@ -68,6 +68,6 @@ public class «createShortcutDecorationsCommandClassName»
 }
 '''
 
-	def additions(GenDiagram diagram) '''«stampXtend2(diagram)»'''
+	def additions(GenDiagram diagram) ''''''
 
 }

@@ -116,11 +116,6 @@ class Utils_qvto {
 		return canBeTarget(link, linkEnd) && !canBeSource(link, linkEnd)
 	}
 
-	//XXX: [MG] revisit i18n for Xtend
-	def String _i18nKeyForOpenCommandName() {
-		return 'CommandName.OpenDiagram'
-	}
-
 	/**
 	 * if child's containment feature comes from the node, assume deletion of the parent would delete the child.
 	 */

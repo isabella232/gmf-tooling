@@ -14,6 +14,7 @@ package xpt
 
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class Externalizer {
 	@Inject extension Common;

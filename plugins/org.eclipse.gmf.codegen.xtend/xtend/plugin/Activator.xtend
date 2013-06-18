@@ -13,17 +13,16 @@
 package plugin
 
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
-class Activator {
-	
-//	/**
-//	 * FIXME[artem]: For 2.3, delegates to legacy xpt::plugin::Activator template.
-//	 * Refactoring (moving templates out from xpt) pending.
-//	 */
-//	def Main(GenPlugin it) '''«xpt::plugin::Activator::Activator(it)»'''
-
+class Activator { 
+	//	/**
+	//	 * FIXME[artem]: For 2.3, delegates to legacy xpt::plugin::Activator template.
+	//	 * Refactoring (moving templates out from xpt) pending.
+	//	 */
+	//	def Main(GenPlugin it) '''«xpt::plugin::Activator::Activator(it)»'''
 	// access to the sole Activator instance
-	@MetaDef def instanceAccess(GenEditorGenerator it)'''«it.plugin.activatorQualifiedClassName».getInstance()'''
-	
+	@MetaDef def instanceAccess(GenEditorGenerator it) '''«it.plugin.activatorQualifiedClassName».getInstance()'''
+
+	@MetaDef def preferenceHintAccess(GenEditorGenerator it) '''«it.plugin.activatorQualifiedClassName».DIAGRAM_PREFERENCES_HINT'''
 }

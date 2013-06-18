@@ -13,7 +13,7 @@
 package xpt.providers
 
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
 class ParserUtils_qvto {
 

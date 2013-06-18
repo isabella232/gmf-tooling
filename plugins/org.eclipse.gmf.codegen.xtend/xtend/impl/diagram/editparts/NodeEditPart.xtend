@@ -31,7 +31,7 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel
 import org.eclipse.gmf.gmfgraph.Compartment
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel
 import xpt.providers.ElementTypes
-import xpt.MetaDef
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
 
 class NodeEditPart {
@@ -45,6 +45,7 @@ class NodeEditPart {
 	@Inject impl.diagram.editparts.viewmaps.modeledViewmapProducer xptModeledViewmapProducer;
 	@Inject TextAware xptTextAware;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+	@Inject ElementTypes xptElementTypes;
 	
 	def dispatch extendsListContents(GenNode it) '''
 	«IF hasBorderItems(it)»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart«ENDIF»
@@ -592,7 +593,7 @@ class NodeEditPart {
 		public java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> getMARelTypesOnSource() {
 			«newArrayListOfElementTypes('types')»(«getAssistantOutgoingLinks(it).size»);
 			«FOR link : getAssistantOutgoingLinks(it)»
-			types.add(«ElementTypes::accessElementType(link)»);
+			types.add(«xptElementTypes.accessElementType(link)»);
 			«ENDFOR»
 			return types;
 		}
@@ -604,7 +605,7 @@ class NodeEditPart {
 		public java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> getMARelTypesOnTarget() {
 			«newArrayListOfElementTypes('types')»(«getAssistantIncomingLinks(it).size»);
 			«FOR link : getAssistantIncomingLinks(it)»
-			types.add(«ElementTypes::accessElementType(link)»);
+			types.add(«xptElementTypes.accessElementType(link)»);
 			«ENDFOR»
 			return types;
 		}
@@ -618,7 +619,7 @@ class NodeEditPart {
 			«FOR link : getAssistantOutgoingLinks(it)»
 				«FOR target : selectGenNodes(link.targets)»
 				if (targetEditPart instanceof «target.editPartQualifiedClassName») {
-					types.add(«ElementTypes::accessElementType(link)»);
+					types.add(«xptElementTypes.accessElementType(link)»);
 				}
 				«ENDFOR»
 			«ENDFOR»
@@ -632,9 +633,9 @@ class NodeEditPart {
 		public java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> getMATypesForSource(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 			«newLinkedListOfElementTypes('types')»();
 			«FOR link : getAssistantIncomingLinks(it) SEPARATOR ' else '»
-			if (relationshipType == «ElementTypes::accessElementType(link)») {
+			if (relationshipType == «xptElementTypes.accessElementType(link)») {
 				«FOR source : selectGenNodes(link.sources)»
-					types.add(«ElementTypes::accessElementType(source)»);
+					types.add(«xptElementTypes.accessElementType(source)»);
 				«ENDFOR»
 			}
 			«ENDFOR»
@@ -648,9 +649,9 @@ class NodeEditPart {
 		public java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> getMATypesForTarget(org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 			«newLinkedListOfElementTypes('types')»();
 			«FOR link : getAssistantOutgoingLinks(it) SEPARATOR ' else '»
-			if (relationshipType == «ElementTypes::accessElementType(link)») {
+			if (relationshipType == «xptElementTypes.accessElementType(link)») {
 				«FOR target : selectGenNodes(link.targets)»
-				types.add(«ElementTypes::accessElementType(target)»);
+				types.add(«xptElementTypes.accessElementType(target)»);
 				«ENDFOR»
 			}
 			«ENDFOR»
@@ -683,7 +684,7 @@ class NodeEditPart {
 	«FOR compartment : compartments»
 	«IF listCompartmentHasChildren(compartment)»
 		«FOR childNode : compartment.childNodes»
-			if (type == «ElementTypes::accessElementType(childNode)») {
+			if (type == «xptElementTypes.accessElementType(childNode)») {
 				return getChildBySemanticHint(«xptVisualIDRegistry.typeMethodCall(compartment)»);
 			}
 		«ENDFOR»

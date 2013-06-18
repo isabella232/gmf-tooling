@@ -2,7 +2,8 @@ package org.eclipse.gmf.codegen.xtend.ui.handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -30,7 +31,12 @@ public class Xtend2Emitter implements TextEmitter {
 			throw new InterruptedException();
 		}
 		if (arguments.length > 1) {
-			throw new UnexpectedBehaviourException("Passing parameters to Xtend templates is not implemented yet: " + this + ": " + Arrays.toString(arguments));
+			List<Object> rejectedArgs = new LinkedList<Object>();
+			for (int i = 1; i < arguments.length; i++) {
+				rejectedArgs.add(arguments[i]);
+			}
+			System.err.println("Template: " + this + " received additional arguments that had been rejected: " + rejectedArgs);
+			arguments = new Object[] { arguments[0] };
 		}
 		Object generator = instantiateGenerator();
 		Method method = getGeneratorMethod(arguments.length);

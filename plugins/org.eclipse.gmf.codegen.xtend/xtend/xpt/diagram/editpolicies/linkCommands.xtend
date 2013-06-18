@@ -45,6 +45,8 @@ class linkCommands {
 	@Inject extension Utils_qvto;
 	@Inject extension Common;
 	
+	@Inject ElementTypes xptElementTypes;
+	
 	def aaa() '''aaa'''
 
 	def linkCommands(GenLinkEnd it) '''
@@ -89,7 +91,7 @@ class linkCommands {
 	'''
 
 	def startLinkCommands(GenLink it, GenLinkEnd linkEnd) '''
-		if («ElementTypes::accessElementType(it)» == req.getElementType()) {
+		if («xptElementTypes.accessElementType(it)» == req.getElementType()) {
 			«IF createStartLinkCommand(it, linkEnd)»
 				return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
 					«IF createStartIncomingLinkCommand(it, linkEnd)»
@@ -105,7 +107,7 @@ class linkCommands {
 	'''
 
 	def completeLinkCommands(GenLink it, GenLinkEnd linkEnd) '''
-		if («ElementTypes::accessElementType(it)» == req.getElementType()) {
+		if («xptElementTypes.accessElementType(it)» == req.getElementType()) {
 			«IF createCompleteLinkCommand(it, linkEnd)»
 				return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
 					«IF createCompleteOutgoingLinkCommand(it, linkEnd)»

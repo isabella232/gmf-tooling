@@ -27,6 +27,7 @@ class CreateNodeCommand {
 	@Inject extension OclMigrationProblems_qvto;
 
 	@Inject MetaModel xptMetaModel;
+	@Inject ElementInitializers xptElementInitializers;
 
 	def CreateNodeCommand(GenNode it) '''
 		«copyright(it.diagram.editorGen)»
@@ -60,14 +61,14 @@ class CreateNodeCommand {
 	 * TODO: either use setElementToEdit, or generate downcasted version (which may be troublesome if containment and child features point to a different parent) 
 	 */
 	def getElementToEdit(GenNode it) '''
-		«generatedMemberComment(it, 'FIXME: replace with setElementToEdit()')»
-	protected org.eclipse.emf.ecore.EObject getElementToEdit() {
-		org.eclipse.emf.ecore.EObject container = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer();
-		if (container instanceof org.eclipse.gmf.runtime.notation.View) {
-			container = ((org.eclipse.gmf.runtime.notation.View) container).getElement();
+			«generatedMemberComment(it, 'FIXME: replace with setElementToEdit()')»
+		protected org.eclipse.emf.ecore.EObject getElementToEdit() {
+			org.eclipse.emf.ecore.EObject container = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer();
+			if (container instanceof org.eclipse.gmf.runtime.notation.View) {
+				container = ((org.eclipse.gmf.runtime.notation.View) container).getElement();
+			}
+			return container;
 		}
-		return container;
-	}
 	'''
 
 	def doExecuteWithResultMethod(GenNode it) '''
@@ -124,13 +125,15 @@ class CreateNodeCommand {
 	'''
 
 	def canExecute_Normal(TypeModelFacet it) '''
-«IF !isUnbounded(it.containmentMetaFeature.ecoreFeature) || (childMetaFeature != containmentMetaFeature && !isUnbounded(it.childMetaFeature.ecoreFeature))»
+«IF !isUnbounded(it.containmentMetaFeature.ecoreFeature) ||
+		(childMetaFeature != containmentMetaFeature && !isUnbounded(it.childMetaFeature.ecoreFeature))»
 	«xptMetaModel.DeclareAndAssign(it.containmentMetaFeature.genClass, 'container', 'getElementToEdit()')»
 	«IF !isUnbounded(it.containmentMetaFeature.ecoreFeature)»
 		«IF isSingleValued(containmentMetaFeature.ecoreFeature)»
 		if («xptMetaModel.getFeatureValue(containmentMetaFeature, 'container', containmentMetaFeature.genClass)» != null) {
 		«ELSE»
-		if («xptMetaModel.getFeatureValue(containmentMetaFeature, 'container', containmentMetaFeature.genClass)».size() >= «containmentMetaFeature.ecoreFeature.upperBound») {
+		if («xptMetaModel.getFeatureValue(containmentMetaFeature, 'container', containmentMetaFeature.genClass)».size() >= «containmentMetaFeature.
+		ecoreFeature.upperBound») {
 		«ENDIF»
 			return false;
 		}
@@ -139,7 +142,8 @@ class CreateNodeCommand {
 		«IF isSingleValued(childMetaFeature.ecoreFeature)»
 		if («xptMetaModel.getFeatureValue(childMetaFeature, 'container', containmentMetaFeature.genClass)» != null) {
 		«ELSE»
-		if («xptMetaModel.getFeatureValue(childMetaFeature, 'container', containmentMetaFeature.genClass)».size() >= «childMetaFeature.ecoreFeature.upperBound») {
+		if («xptMetaModel.getFeatureValue(childMetaFeature, 'container', containmentMetaFeature.genClass)».size() >= «childMetaFeature.
+		ecoreFeature.upperBound») {
 		«ENDIF»
 			return false;
 		}
@@ -177,9 +181,9 @@ class CreateNodeCommand {
 		«ENDIF»
 	'''
 
-	def initialize(TypeModelFacet it, GenNode node, String newElementVar) '''«ElementInitializers::initMethodCall(
-		node, it, newElementVar)»'''
+	def initialize(TypeModelFacet it, GenNode node, String newElementVar) // 
+		'''«xptElementInitializers.initMethodCall(node, it, newElementVar)»'''
 
-	def additions(GenNode it) '''«stampXtend2(it)»'''
+	def additions(GenNode it) ''''''
 
 }

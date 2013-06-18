@@ -70,6 +70,6 @@ public class BaseEditHelper {
 
 	def getDestroyReferenceCommand(GenDiagram it) ''''''
 
-	def additions(GenDiagram it) '''«stampXtend2»'''
+	def additions(GenDiagram it) ''''''
 
 }
