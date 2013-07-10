@@ -49,7 +49,9 @@ class Border {
 		«generatedMemberComment()»
 		private org.eclipse.draw2d.Border createBorder«c»() {
 			«xptRuntime.newInstance(it, 'result')»
+			«extraLineBreak»
 			«xptCustomAttributeOwner.Init(it, 'result')»
+			«extraLineBreak»
 			return result;
 		}
 	'''

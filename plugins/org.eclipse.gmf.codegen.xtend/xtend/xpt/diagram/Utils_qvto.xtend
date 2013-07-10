@@ -20,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet
 
 class Utils_qvto {
+
 	/**
 	 * @return all elements that may have element type: diagram, nodes and links
 	 */
@@ -64,25 +65,6 @@ class Utils_qvto {
 		return pages
 	}
 
-	//XXX[MG] I doubt this commented code below ever worked, oclIsKindOf here should (?) always return false
-	///**
-	// * check if there's notation::FontStyle among diagram element's custom styles
-	// * XXX the reason this is not inlined mostly because of troubles importing notation model into xpt
-	// */
-	//helper gmfgen::GenCommonBase::hasFontStyleInCustom() : Boolean {
-	//	return xptSelf.styles->exists(s | s.ecoreClass.oclIsKindOf(notation::FontStyle));
-	//} 
-	//
-	//helper gmfgen::GenCommonBase::hasLineStyleInCustom() : Boolean {
-	//	return xptSelf.styles->exists(s | s.ecoreClass.oclIsKindOf(notation::LineStyle));
-	//}
-	//
-	//helper gmfgen::GenCommonBase::hasFillStyleInCustom() : Boolean {
-	//	return xptSelf.styles->exists(s | s.ecoreClass.oclIsKindOf(notation::FillStyle));
-	//}
-	//
-	//
-	
 	/**
 	 * if diagram is in pixel map mode, no reason to use getMapMode()
 	 * XXX [MG] we don't use map mode anymore, do we?

@@ -473,6 +473,7 @@ class DiagramUpdater {
 		«ELSE»
 			«defineLinkContainer(it, true)»
 			«addLinkDescriptor(it, genLink, 'container', 'target')»
+			«extraLineBreak»
 			«/*TODO: continue here.*/ //
 		ENDIF»
 	'''

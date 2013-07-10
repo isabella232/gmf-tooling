@@ -36,6 +36,10 @@ import xpt.diagram.ViewmapAttributesUtils_qvto
 import xpt.diagram.editpolicies.LinkUtils_qvto
 import xpt.diagram.views.ViewStyles
 import xpt.editor.VisualIDRegistry
+import org.eclipse.gmf.runtime.notation.FontStyle
+import org.eclipse.gmf.runtime.notation.LineStyle
+import org.eclipse.gmf.runtime.notation.FillStyle
+import org.eclipse.gmf.runtime.notation.Style
 
 class ViewProvider {
 	@Inject extension Common;
@@ -490,5 +494,25 @@ class ViewProvider {
 	'''
 
 	def additions(GenDiagram it) ''''''
+	
+		def boolean hasFontStyleInCustom(GenCommonBase it) {
+		return hasNotationStyleInCustomStyles(it, typeof(FontStyle));
+	}
+
+	def boolean hasLineStyleInCustom(GenCommonBase it) {
+		return hasNotationStyleInCustomStyles(it, typeof(LineStyle));
+	}
+
+	def boolean hasFillStyleInCustom(GenCommonBase it) {
+		return hasNotationStyleInCustomStyles(it, typeof(FillStyle));
+	}
+
+	/**
+	 * check if there's notation::[styleType] among diagram element's custom styles
+	 */
+	def boolean hasNotationStyleInCustomStyles(GenCommonBase it, Class<? extends Style> styleType) {
+		return it.styles.exists[s|s.ecoreClass.oclIsKindOf(styleType)];
+	}
+	
 
 }

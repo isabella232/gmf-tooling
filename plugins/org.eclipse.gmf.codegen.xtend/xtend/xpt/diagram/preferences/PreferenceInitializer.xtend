@@ -57,6 +57,7 @@ class PreferenceInitializer {
 					«FOR pref : allPreferencePages(it)»
 						«initDefaults(pref, 'store')»
 					«ENDFOR»
+					«extraLineBreak»
 				«ELSE/*default values for predefined pages will be set manually */»
 					«FOR pref : allPreferencePages(it).filter(typeof(GenCustomPreferencePage))»
 						«initDefaults(pref, 'store')»
@@ -83,6 +84,7 @@ class PreferenceInitializer {
 	'''
 
 	def dispatch initDefaults(GenDiagramPreferences it, String storeVar) '''
+		«extraLineBreak»
 		«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_SHOW_CONNECTION_HANDLES, «showConnectionHandles»);
 		«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_SHOW_POPUP_BARS, «showPopupBars»);
 		«storeVar».setDefault(org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.PREF_ENABLE_ANIMATED_LAYOUT, «enableAnimatedLayout»);
@@ -107,6 +109,7 @@ class PreferenceInitializer {
 
 	def initDefaultColor(String storeVar, String prefName, GenColor color) '''
 		«IF color != null»
+			«extraLineBreak»
 			org.eclipse.jface.preference.PreferenceConverter.setDefault(«storeVar»,
 				org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.«prefName», «rgb(color)»);
 		«ENDIF»
@@ -114,6 +117,7 @@ class PreferenceInitializer {
 
 	def initDefaultFont(String storeVar, String prefName, GenFont font) '''
 		«IF font != null»
+			«extraLineBreak»
 			org.eclipse.jface.preference.PreferenceConverter.setDefault(«storeVar»,
 				org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants.«prefName», «fontData(font)»);
 		«ENDIF»

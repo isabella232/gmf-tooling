@@ -29,7 +29,7 @@ class MarkerNavigationProvider {
 		
 			«generatedMemberComment»
 			public static final String MARKER_TYPE =
-				«editorGen.plugin.getActivatorQualifiedClassName()».ID + ".«getValidationDiagnosticMarkerType()»"; «nonNLS(1)»
+				«editorGen.plugin.activatorQualifiedClassName».ID + ".«getValidationDiagnosticMarkerType()»"; «nonNLS(1)»
 		
 			«generatedMemberComment»
 			protected void doGotoMarker(org.eclipse.core.resources.IMarker marker) {
@@ -56,7 +56,7 @@ class MarkerNavigationProvider {
 				try {
 					resource.deleteMarkers(MARKER_TYPE, true, org.eclipse.core.resources.IResource.DEPTH_ZERO);
 				} catch (org.eclipse.core.runtime.CoreException e) {
-					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
 							"Failed to delete validation markers", e); «nonNLS(1)»
 				}
 			}
@@ -79,7 +79,7 @@ class MarkerNavigationProvider {
 				}
 				marker.setAttribute(org.eclipse.core.resources.IMarker.SEVERITY, markerSeverity);
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
 						"Failed to create validation marker", e); «nonNLS(1)»
 			}
 			return marker;		

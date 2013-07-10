@@ -204,9 +204,14 @@ class ParserProvider {
 		«ENDFOR»
 	'''
 
-	def dispatch dispatch_getParsers(GenChildLabelNode it) '''«doGetParser(it.labelModelFacet.parser, it)»'''
+	def dispatch dispatch_getParsers(GenChildLabelNode it) '''
+		«doGetParser(it.labelModelFacet.parser, it)»
+	'''
 	
 	def doGetParser(GenParserImplementation parser, GenCommonBase element) '''
+		«IF parser.oclIsKindOf(typeof(PredefinedEnumParser)) || parser.oclIsKindOf(typeof(OclChoiceParser))»
+			«extraLineBreak»
+		«ENDIF»
 		«IF parser == null || parser.oclIsKindOf(typeof(ExternalParser))»«/* NOTHING TO DO */»
 		«ELSE»
 			«caseVisualID(element)» return «parserAccessorName(element)»();
@@ -249,11 +254,13 @@ class ParserProvider {
 	def dispatch dispatch_parser(PredefinedParser it, FeatureLabelModelFacet modelFacet, GenCommonBase element) //
 		'''«doPredefinedParser(it, modelFacet, element)»'''
 
-	def dispatch dispatch_parser(PredefinedEnumParser it, FeatureLabelModelFacet modelFacet, GenCommonBase element) //
-		'''«doPredefinedParser(it, modelFacet, element)»'''
+	def dispatch dispatch_parser(PredefinedEnumParser it, FeatureLabelModelFacet modelFacet, GenCommonBase element) '''
+		«doPredefinedParser(it, modelFacet, element)»
+	'''
 
-	def dispatch dispatch_parser(OclChoiceParser it, FeatureLabelModelFacet modelFacet, GenCommonBase element) 
-		'''«doPredefinedParser(it, modelFacet, element)»'''
+	def dispatch dispatch_parser(OclChoiceParser it, FeatureLabelModelFacet modelFacet, GenCommonBase element) '''
+		«doPredefinedParser(it, modelFacet, element)»
+	'''
 		
 	/**
 	 * Intentionally modelFacet typed as general LMF, because ExpressionLabelModelFacet is merely a marker
@@ -346,19 +353,19 @@ class ParserProvider {
 	def setPatterns(FeatureLabelModelFacet it, LabelTextAccessMethod viewMethod, LabelTextAccessMethod editMethod, String parserVar) '''
 	«IF viewMethod != LabelTextAccessMethod::NATIVE»
 		«IF !viewPattern.nullOrEmpty»
-			«parserVar».setViewPattern("«viewPattern»");«nonNLS(1)»
+			«parserVar».setViewPattern("«viewPattern»"); «nonNLS(1)»
 		«ENDIF»
 		«IF !editorPattern.nullOrEmpty»
-			«parserVar».setEditorPattern("«editorPattern»");«nonNLS(1)»
+			«parserVar».setEditorPattern("«editorPattern»"); «nonNLS(1)»
 		«ELSEIF !viewPattern.nullOrEmpty»
-			«parserVar».setEditorPattern("«viewPattern»");«nonNLS(1)»
+			«parserVar».setEditorPattern("«viewPattern»"); «nonNLS(1)»
 		«ENDIF»
 	«ENDIF»
 	«IF editMethod != LabelTextAccessMethod::NATIVE»
 		«IF !editPattern.nullOrEmpty»
-			«parserVar».setEditPattern("«editPattern»");«nonNLS(1)»
+			«parserVar».setEditPattern("«editPattern»"); «nonNLS(1)»
 		«ELSEIF !viewPattern.nullOrEmpty»
-			«parserVar».setEditPattern("«viewPattern»");«nonNLS(1)»
+			«parserVar».setEditPattern("«viewPattern»"); «nonNLS(1)»
 		«ENDIF»
 	«ENDIF»
 	'''

@@ -85,7 +85,7 @@ class MetricProvider {
 						page.activate(metricsView);
 					}
 				} catch (org.eclipse.ui.PartInitException e) {
-					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Diagram metric view failure", e); «nonNLS(
+					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Diagram metric view failure", e); «nonNLS(
 			1)»
 				}
 			}
@@ -419,7 +419,7 @@ class MetricProvider {
 		«ELSEIF throwException || (injectExpressionBody && metric.rule.body.nullOrEmpty)»
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
-		throw new java.lang.UnsupportedOperationException("No user java implementation provided");«nonNLS(1)»
+		throw new java.lang.UnsupportedOperationException("No user java implementation provided"); «nonNLS(1)»
 		«ELSE»
 		return new Double(Double.NaN);
 		«ENDIF»
@@ -439,14 +439,15 @@ class MetricProvider {
 		«generatedMemberComment»
 		private static String[] getMetricToolTips() {
 			return new String[] {
-				«FOR m : it.metrics SEPARATOR ',\n'»
-					«toStringLiteral(nameOrKey(m))»«IF m.description != null» + '\n' + «toStringLiteral(m.description)» + '\n'«ENDIF»«IF null !=
-			m.lowLimit» + «toStringLiteral('low: ' + m.lowLimit)»«ENDIF»«IF null != m.highLimit» + «toStringLiteral(
-			'high: ' + m.highLimit)»«ENDIF»
-				«ENDFOR»
+				«FOR m : it.metrics SEPARATOR ',\n'»«singleMetricTooltip(m)»«ENDFOR»
 			};
 		} 
 	'''
+	
+	def singleMetricTooltip(GenMetricRule m) 
+	'''«toStringLiteral(nameOrKey(m))»«IF m.description != null» + '\n' + «toStringLiteral(m.description)» + '\n'«ENDIF //
+	»«IF null != m.lowLimit» + «toStringLiteral('low: ' + m.lowLimit)»«ENDIF //
+	»«IF null != m.highLimit» + «toStringLiteral('high: ' + m.highLimit)»«ENDIF»'''
 
 	def protected String nameOrKey(GenMetricRule metric) {
 		return if(metric.name == null) metric.key else metric.name

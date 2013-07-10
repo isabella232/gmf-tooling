@@ -1,7 +1,8 @@
 package org.eclipse.gmf.codegen.xtend.ui.handlers;
 
-import java.net.URL;
+import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gmf.codegen.util.CodegenEmitters;
 import org.eclipse.gmf.codegen.util.GMFGeneratorModule;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
@@ -16,187 +17,6 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 
 	private final Injector myInjector;
 
-	@Override
-	public TextEmitter getDiagramCanonicalEditPolicyEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDiagramCanonicalEditPolicyEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
-		// TODO Auto-generated method stub
-		return super.getChildContainerCanonicalEditPolicyEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getParserProviderEmitter();
-	}
-
-
-
-	@Override
-	public String getValidateActionName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getValidateActionName(input);
-	}
-
-
-
-
-
-	@Override
-	public String getValidationMarkerName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getValidationMarkerName(input);
-	}
-
-
-
-	@Override
-	public TextEmitter getDiagramContentInitializerEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDiagramContentInitializerEmitter();
-	}
-
-
-
-
-
-
-	@Override
-	public String getShortcutCreationWizardName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getShortcutCreationWizardName(input);
-	}
-
-
-
-
-	@Override
-	public String getModelElementSelectionPageName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getModelElementSelectionPageName(input);
-	}
-
-
-
-	@Override
-	public TextEmitter getModelElementSelectionPageEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getModelElementSelectionPageEmitter();
-	}
-
-
-
-	@Override
-	public String getNewDiagramFileWizardName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getNewDiagramFileWizardName(input);
-	}
-
-
-
-	@Override
-	public TextEmitter getNewDiagramFileWizardEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNewDiagramFileWizardEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getDiagramEditorUtilEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getCreationWizardEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getCreationWizardPageEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getDeleteElementActionEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDeleteElementActionEmitter();
-	}
-
-
-
-	@Override
-	public String getDeleteElementActionName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getDeleteElementActionName(input);
-	}
-
-
-
-	@Override
-	public TextEmitter getDiagramEditorContextMenuProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDiagramEditorContextMenuProviderEmitter();
-	}
-
-
-
-	@Override
-	public String getDiagramEditorContextMenuProviderName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getDiagramEditorContextMenuProviderName(input);
-	}
-
-
-
-	@Override
-	public TextEmitter getElementChooserEmitter() {
-		// TODO Auto-generated method stub
-		return super.getElementChooserEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getDocumentProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDocumentProviderEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getActionBarContributorEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getMatchingStrategyEmitter() {
-		// TODO Auto-generated method stub
-		return super.getMatchingStrategyEmitter();
-	}
-
-
 
 	@Override
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
@@ -204,15 +24,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getShortcutImageEmitter();
 	}
 
-
-
 	@Override
 	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
 		// TODO Auto-generated method stub
 		return super.getDiagramIconEmitter();
 	}
-
-
 
 	@Override
 	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
@@ -220,103 +36,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getWizardBannerImageEmitter();
 	}
 
-
-
 	@Override
 	public TextEmitter getModelAccessFacilityEmitter() {
 		// TODO Auto-generated method stub
 		return super.getModelAccessFacilityEmitter();
 	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorContentProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorContentProviderEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getDomainNavigatorContentProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDomainNavigatorContentProviderEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getDomainNavigatorLabelProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDomainNavigatorLabelProviderEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getDomainNavigatorItemEmitter() {
-		// TODO Auto-generated method stub
-		return super.getDomainNavigatorItemEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorLabelProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorLabelProviderEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorLinkHelperEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorLinkHelperEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorSorterEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorSorterEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorActionProviderEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorActionProviderEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getAbstractNavigatorItemEmitter() {
-		// TODO Auto-generated method stub
-		return super.getAbstractNavigatorItemEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorGroupEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorGroupEmitter();
-	}
-
-
-
-	@Override
-	public TextEmitter getNavigatorItemEmitter() {
-		// TODO Auto-generated method stub
-		return super.getNavigatorItemEmitter();
-	}
-
-
 
 	@Override
 	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
@@ -324,23 +48,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getGroupIconEmitter();
 	}
 
-
-
-	@Override
-	public String getPreferenceInitializerName(Object... input) throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getPreferenceInitializerName(input);
-	}
-
-
-
 	@Override
 	public TextEmitter getActivatorEmitter() throws UnexpectedBehaviourException {
 		// TODO Auto-generated method stub
 		return super.getActivatorEmitter();
 	}
-
-
 
 	@Override
 	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
@@ -348,15 +60,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getBundleManifestEmitter();
 	}
 
-
-
 	@Override
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
 		// TODO Auto-generated method stub
 		return super.getPluginXmlEmitter();
 	}
-
-
 
 	@Override
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
@@ -364,15 +72,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getPluginPropertiesEmitter();
 	}
 
-
-
 	@Override
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
 		// TODO Auto-generated method stub
 		return super.getBuildPropertiesEmitter();
 	}
-
-
 
 	@Override
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
@@ -380,15 +84,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getOptionsFileEmitter();
 	}
 
-
-
 	@Override
 	public TextEmitter getExternalizeEmitter() {
 		// TODO Auto-generated method stub
 		return super.getExternalizeEmitter();
 	}
-
-
 
 	@Override
 	public TextEmitter getMessagesEmitter() {
@@ -396,58 +96,220 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return super.getMessagesEmitter();
 	}
 
-
-
-
-
-
-	@Override
-	public TextEmitter getPredefinedActionEmitter() {
-		// TODO Auto-generated method stub
-		return super.getPredefinedActionEmitter();
-	}
-
-
-
 	public CodegenEmittersWithXtend2(boolean useBaseTemplatesOnly, String templateDirectory, boolean includeDynamicModelTemplates) {
 		super(useBaseTemplatesOnly, templateDirectory, includeDynamicModelTemplates);
 		myInjector = Guice.createInjector(new GMFGeneratorModule());
 	}
-	
-	//-----------------------------------------------------------------------------------------
 
-	//48 to go
+	//-----------------------------------------------------------------------------------------
+	// names emotters 
+	@Override
+	public String getPreferenceInitializerName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::preferences::PreferenceInitializer", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getValidateActionName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ValidateAction", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getValidationMarkerName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ValidationMarker", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getShortcutCreationWizardName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ShortcutCreationWizard", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getModelElementSelectionPageName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::ModelElementSelectionPage", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getNewDiagramFileWizardName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::NewDiagramFileWizard", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getDeleteElementActionName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::DeleteElementAction", input); //$NON-NLS-1$
+	}
+
+	@Override
+	public String getDiagramEditorContextMenuProviderName(Object... input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::editor::DiagramEditorContextMenuProvider", input); //$NON-NLS-1$
+	}
+	
+	//14 to go
+
+	@Override
+	public TextEmitter getDiagramCanonicalEditPolicyEmitter() {
+		return getXtendEmitter("diagram::editpolicies::DiagramCanonicalEditPolicy::Main"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
+		return getXtendEmitter("diagram::editpolicies::ChildContainerCanonicalEditPolicy::Main"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::editor::CreationWizardPage"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
+		return getXtendEmitter("parsers::ParserProvider::Main"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getPredefinedActionEmitter() {
+		return getXtendEmitter("impl::actions::PredefinedAction::Main"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDomainNavigatorLabelProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::DomainNavigatorLabelProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDomainNavigatorItemEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::DomainNavigatorItem"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDomainNavigatorContentProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::DomainNavigatorContentProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorContentProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorContentProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getEditorEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::Editor"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorLinkHelperEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorLinkHelper"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorLabelProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorLabelProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorActionProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorActionProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorItemEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorItem"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorGroupEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorGroup"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNavigatorSorterEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::NavigatorSorter"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getAbstractNavigatorItemEmitter() {
+		return getPrimaryXtendEmitter("xpt::navigator::AbstractNavigatorItem"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDocumentProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::DocumentProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDiagramContentInitializerEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDiagramEditorContextMenuProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::DiagramEditorContextMenuProvider"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::editor::ActionBarContributor"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::editor::DiagramEditorUtil"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getElementChooserEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::ElementChooser"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getMatchingStrategyEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::MatchingStrategy"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getModelElementSelectionPageEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::editor::ModelElementSelectionPage"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getNewDiagramFileWizardEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::NewDiagramFileWizard"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getDeleteElementActionEmitter() {
+		return getPrimaryXtendEmitter("xpt::editor::DeleteElementAction"); //$NON-NLS-1$
+	}
+
+	@Override
+	public TextEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
+		return getPrimaryXtendEmitter("xpt::editor::CreationWizard"); //$NON-NLS-1$
+	}
+
 	@Override
 	public TextEmitter getShortcutCreationWizardEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::editor::ShortcutCreationWizard"); //$NON-NLS-1$
 	}
-	
-	
+
 	@Override
 	public TextEmitter getShortcutPropertyTesterEmitter() {
 		return getPrimaryXtendEmitter("xpt::editor::ShortcutPropertyTester"); //$NON-NLS-1$
 	}
 
-	
 	@Override
 	public TextEmitter getURIEditorInputTesterEmitter() {
 		return getPrimaryXtendEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
 	}
 
-	
 	@Override
 	public TextEmitter getValidateActionEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::editor::ValidateAction"); //$NON-NLS-1$
 	}
 
-	
 	@Override
 	public TextEmitter getValidationMarkerEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::editor::ValidationMarker"); //$NON-NLS-1$
 	}
 
-
-	
 	@Override
 	public TextEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::application::ActionBarAdvisor"); //$NON-NLS-1$
@@ -472,12 +334,12 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::application::WorkbenchWindowAdvisor"); //$NON-NLS-1$
 	}
-	
+
 	@Override
 	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::application::WizardNewFileCreationPage"); //$NON-NLS-1$
 	}
-	
+
 	@Override
 	public TextEmitter getPreferenceInitializerEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::diagram::preferences::PreferenceInitializer"); //$NON-NLS-1$
@@ -796,4 +658,35 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return new Xtend2Emitter(myInjector, clazz, parts[parts.length - 1]);
 	}
 
+	/**
+	 * @deprecated copy pasted, make protected in super-class
+	 */
+	@Deprecated
+	private String getQualifiedClassName(String templateName, Object... input) throws UnexpectedBehaviourException {
+		TextEmitter emitter = getQualifiedClassNameEmitter(templateName);
+		return getText(emitter, input);
+	}
+
+	/**
+	 * @deprecated copy pasted, make protected in super-class
+	 */
+	@Deprecated
+	private TextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
+		String definition = templateName + PATH_SEPARATOR + "qualifiedClassName"; //$NON-NLS-1$
+		return getXtendEmitter(definition);
+	}
+
+	/**
+	 * @deprecated copy pasted, make protected in super-class
+	 */
+	@Deprecated
+	private String getText(TextEmitter emitter, Object... input) throws UnexpectedBehaviourException {
+		try {
+			return emitter.generate(new NullProgressMonitor(), input).trim();
+		} catch (InterruptedException ie) {
+			return null;
+		} catch (InvocationTargetException ite) {
+			throw new UnexpectedBehaviourException(ite.getCause());
+		}
+	}
 }

@@ -107,8 +107,10 @@ class NodeEditPart {
 		«IF ViewmapLayoutType::XY_LAYOUT_LITERAL == getLayoutType()»
 			«createLayoutEditPolicyBody_XY_LAYOUT(it)»
 		«ELSEIF ViewmapLayoutType::TOOLBAR_LAYOUT_LITERAL == getLayoutType()»
+			«extraLineBreak»
 			«createLayoutEditPolicyBody_TOOLBAR_LAYOUT(it)»
 		«ELSEIF ViewmapLayoutType::FLOW_LAYOUT_LITERAL == getLayoutType()»
+			«extraLineBreak»
 			«createLayoutEditPolicyBody_FLOW_LAYOUT(it)»
 		«ELSE»
 			«createLayoutEditPolicyBody_DEFAULT(it)»

@@ -42,7 +42,7 @@ public class «validationDecoratorProviderClassName»
 	«IF editorGen.application == null»
 
 	«generatedMemberComment»
-	private static final String MARKER_TYPE = «editorGen.plugin.getActivatorQualifiedClassName()».ID +
+	private static final String MARKER_TYPE = «editorGen.plugin.activatorQualifiedClassName».ID +
 			".«getValidationDiagnosticMarkerType()»"; «nonNLS(1)»
 
 	«generatedMemberComment»
@@ -114,7 +114,7 @@ public class «validationDecoratorProviderClassName»
 						}
 					});
 				} catch (Exception e) {
-					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
 							"Decorator refresh failure", e); «nonNLS(1)»
 				}
 			}
@@ -141,7 +141,7 @@ public class «validationDecoratorProviderClassName»
 					}
 				});
 			} catch (Exception e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
 						"ViewID access failure", e); «nonNLS(1)»			
 			}
 		}
@@ -175,7 +175,7 @@ public class «validationDecoratorProviderClassName»
 			try {
 				markers = resource.findMarkers(MARKER_TYPE, true, org.eclipse.core.resources.IResource.DEPTH_INFINITE);
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
 						"Validation markers refresh failure", e); «nonNLS(1)»
 			}
 			«ELSE»
@@ -393,7 +393,7 @@ public class «validationDecoratorProviderClassName»
 			try {
 				return marker.getType();
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
 						"Validation marker refresh failure", e); «nonNLS(1)»
 				return ""; «nonNLS(1)»
 			}

@@ -35,6 +35,7 @@ class Children {
 			«FOR child : it.children»
 				«instantiate(child, 0, it, 'this')»
 			«ENDFOR»
+			«extraLineBreak»
 		}
 	'''
 
@@ -47,20 +48,25 @@ class Children {
 		«instantiate(it.figure, count, parentFigure, parentFigureVariable)»
 		// Process FigureRef details
 		«populate(it, count, parentFigure, parentFigureVariable, figureVariableName(figure, count))»
+		«extraLineBreak»
 	'''
 
 	def dispatch CharSequence instantiate(RealFigure it, int count, RealFigure parentFigure, String parentFigureVariable) '''
 		«extraLineBreak»
 		«newFigureInstance(it, figureVariableName(it, count))»
+		«extraLineBreak»
 		«populate(it, count, parentFigure, parentFigureVariable, figureVariableName(it, count))»
 		«FOR c : it.children»
 			«instantiate(c, count + 1, it, figureVariableName(it, count))» 
 		«ENDFOR»
+		«extraLineBreak»
 	'''
 
 	def populate(Figure it, int count, RealFigure parentFigure, String parentFigureVariable, String figureVarName) '''
+		«extraLineBreak»
 		«xptAttrs.Init(it, figureVarName)»
 		«IF null == layoutData || null == parentFigure.layout /*Check for (parentLayout != null) to avoid generating data that won't be used*/»
+			«extraLineBreak»
 			«parentFigureVariable».add(«figureVarName»);
 		«ELSE»
 			«xptLayoutData.Init(layoutData, parentFigureVariable, figureVarName)»

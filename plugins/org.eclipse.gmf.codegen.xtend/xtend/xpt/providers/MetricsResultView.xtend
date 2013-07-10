@@ -92,7 +92,7 @@ class MetricsResultView {
 			org.eclipse.swt.graphics.GC gc = new org.eclipse.swt.graphics.GC(table);
 		
 			gc.setFont(org.eclipse.jface.resource.JFaceResources.getDialogFont());
-			int padding = gc.stringExtent("X").x * 2;«nonNLS(1)»
+			int padding = gc.stringExtent("X").x * 2; «nonNLS(1)»
 			for (int i = 0; i < getMetricKeys().length; i++) {
 			final String nextKey = getMetricKeys()[i];
 			String valueStr = (String) maxValStrMap.get(nextKey);
@@ -196,7 +196,7 @@ class MetricsResultView {
 					}
 				}
 			} catch (org.eclipse.ui.PartInitException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
+				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Can't open diagram editor", e); //$NON-NLS-1$
 			}
 		}
 	'''

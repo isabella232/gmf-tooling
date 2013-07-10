@@ -33,4 +33,20 @@ class ExternalizerUtils_qvto {
 		return message.replaceAll('!', '\\\\!')
 	}
 
+	def String titleKey(String dialogKey) {
+		return dialogKey + 'Title'
+	}
+
+	def String messageKey(String dialogKey) {
+		return dialogKey + 'Message'
+	}
+
+	def String nameKey(String dialogKey) {
+		return dialogKey + 'Name'
+	}
+
+	def String descriptionKey(String dialogKey) {
+		return dialogKey + 'Description'
+	}
+
 }

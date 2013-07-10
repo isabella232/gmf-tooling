@@ -65,6 +65,7 @@ class Figure {
 		}
 		«ENDIF»
 		«xptBorder.InitMethods(it)»
+		«extraLineBreak»
 		«xptExtras.extraMethods(it)»
 		«additions(it)»
 	'''
@@ -81,7 +82,9 @@ class Figure {
 	def dispatch ClassBody(PolylineConnection it, String cuName, FigureRef figureRef) '''
 		«generatedMemberComment»
 		public «cuName»() {
+			«clearState()»
 			«xptAttrs.Init(it, 'this')»
+			«extraLineBreak»
 			«IF it.hasChildLabels»
 					createContents();
 			«ENDIF»
@@ -104,6 +107,7 @@ class Figure {
 			«FOR l : it.childLabels»
 				«xptChildren.instantiate(l, 0, it, 'this')»
 			«ENDFOR»
+			«extraLineBreak»
 		}
 		«ENDIF»
 		«IF it.sourceDecoration != null»

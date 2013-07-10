@@ -133,7 +133,7 @@ class ElementInitializers {
 					«performInit(i, diagramElement, 'instance', elementClass, <Integer>newLinkedList(initializers.indexOf(i)))»
 				«ENDFOR»
 			} catch(RuntimeException e) {
-				«diagramElement.getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
+				«diagramElement.getDiagram().editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 			}
 		}
 	'''
@@ -148,6 +148,7 @@ class ElementInitializers {
 		GenClass instanceClass, List<Integer> counters) '''
 		«IF it.value.provider.getLanguage() == GenLanguage::LITERAL_LITERAL»
 			«xptMetaModel.modifyFeature(feature, instanceVar, instanceClass, value.body)»
+			«extraLineBreak»
 		«ELSE»
 			«var expressionVarName = getVariableName('value', counters)»
 			Object «expressionVarName» = «evaluateExpr(value.provider, diagramElement, it, instanceVar)»;
@@ -175,6 +176,7 @@ class ElementInitializers {
 				}
 			«ELSE»
 				«IF feature.typeGenClassifier.expressionResultNeedsCast()»
+					«extraLineBreak»
 					«expressionVarName» = «diagramElement.getDiagram().editorGen.expressionProviders.
 			getAbstractExpressionQualifiedClassName()».performCast(«expressionVarName», «xptMetaModel.MetaClass(
 			feature.typeGenClassifier)»);

@@ -39,7 +39,7 @@ class Perspective {
 				"right", org.eclipse.ui.IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); «nonNLS(1)»
 			right.addView(org.eclipse.ui.IPageLayout.ID_OUTLINE);
 			org.eclipse.ui.IFolderLayout bottomRight = layout.createFolder(
-				"bottomRight", org.eclipse.ui.IPageLayout.BOTTOM, 0.6f, "right"); «nonNLS(1)»	«nonNLS(2)»
+				"bottomRight", org.eclipse.ui.IPageLayout.BOTTOM, 0.6f, "right"); «nonNLS(1)»	 «nonNLS(2)»
 			bottomRight.addView(org.eclipse.ui.IPageLayout.ID_PROP_SHEET);
 			«layoutAdditions(it)»
 		}

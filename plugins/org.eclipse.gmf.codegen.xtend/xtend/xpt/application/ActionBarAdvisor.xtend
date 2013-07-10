@@ -28,10 +28,12 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
+import xpt.ExternalizerUtils_qvto
 
 class ActionBarAdvisor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
+	@Inject extension ExternalizerUtils_qvto;
 
 	@Inject Externalizer xptExternalizer;
 
@@ -67,7 +69,6 @@ class ActionBarAdvisor {
 				      «FOR ci : sharedContributionItems»
 				      	«makeAction(ci, 'window')»
 				      «ENDFOR»
-				
 			}
 		
 			«generatedMemberComment»
@@ -128,10 +129,12 @@ class ActionBarAdvisor {
 	'''
 
 	def dispatch makeAction(GenActionFactoryContributionItem it, String windowVar) '''
+		«extraLineBreak»
 		register(org.eclipse.ui.actions.ActionFactory.«name».create(«windowVar»));
 	'''
 
 	def fill(GenContributionManager it, String managerVar) '''
+		«extraLineBreak»
 		«FOR i : items»
 			«contribute(i, managerVar)»
 		«ENDFOR»
@@ -142,14 +145,17 @@ class ActionBarAdvisor {
 	'''
 
 	def dispatch CharSequence contribute(GenGroupMarker it, String managerVar) '''
+		«extraLineBreak»
 		«managerVar».add(new org.eclipse.jface.action.GroupMarker(«groupName»));
 	'''
 
 	def dispatch CharSequence contribute(GenSeparator it, String managerVar) '''
+		«extraLineBreak»
 		«managerVar».add(new org.eclipse.jface.action.Separator(«IF null != groupName»«groupName»«ENDIF»));
 	'''
 
 	def dispatch CharSequence contribute(GenMenuManager it, String managerVar) '''
+		«extraLineBreak»
 		«var menuVar = managerVar + 'X'»
 		{
 			org.eclipse.jface.action.IMenuManager «menuVar» = new  org.eclipse.jface.action.MenuManager(
@@ -162,18 +168,19 @@ class ActionBarAdvisor {
 	'''
 
 	def dispatch CharSequence contribute(GenToolBarManager it, String managerVar) '''
+		«extraLineBreak»
 		«var toolBarVar = managerVar + 'X'»
 		{
 			org.eclipse.jface.action.IToolBarManager «toolBarVar» = new  org.eclipse.jface.action.ToolBarManager();
 			«FOR i : it.items»
 				«contribute(i, toolBarVar)»
 			«ENDFOR»
-		
 			«managerVar».add(new org.eclipse.jface.action.ToolBarContributionItem(«toolBarVar»«IF null != ID», «ID»«ENDIF»));
 		}
 	'''
 
 	def dispatch CharSequence contribute(GenSharedContributionItem it, String managerVar) '''
+		«extraLineBreak»
 		«contributeShared(actualItem, managerVar)»
 	'''
 
@@ -182,6 +189,7 @@ class ActionBarAdvisor {
 	'''
 
 	def dispatch contributeShared(GenActionFactoryContributionItem it, String managerVar) '''
+		«extraLineBreak»
 		«managerVar».add(getAction(org.eclipse.ui.actions.ActionFactory.«name».getId()));
 	'''
 
@@ -341,11 +349,4 @@ class ActionBarAdvisor {
 		return app.actionBarAdvisorClassName + '.DefaultEditorOpenError'
 	}
 
-	protected def String titleKey(String dialogKey) {
-		return dialogKey + 'Title'
-	}
-
-	protected def String messageKey(String dialogKey) {
-		return dialogKey + 'Message'
-	}
 }

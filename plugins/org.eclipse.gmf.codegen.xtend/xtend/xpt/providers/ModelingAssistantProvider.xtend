@@ -14,17 +14,19 @@
 package xpt.providers
 
 import com.google.inject.Inject
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram
+import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Common_qvto
-import xpt.diagram.editparts.Utils_qvto
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Externalizer
-import org.eclipse.gmf.codegen.xtend.annotations.Localization
+import xpt.ExternalizerUtils_qvto
+import xpt.diagram.editparts.Utils_qvto
 
 class ModelingAssistantProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
+	@Inject extension ExternalizerUtils_qvto;
 
 	@Inject ElementTypes xptElementTypes;
 	@Inject Externalizer xptExternalizer;
@@ -124,11 +126,11 @@ class ModelingAssistantProvider {
 		public java.util.List getRelTypesOnSourceAndTarget(
 				org.eclipse.core.runtime.IAdaptable source, org.eclipse.core.runtime.IAdaptable target) {
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart sourceEditPart =
-				(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) source.getAdapter(
-						org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+			(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) source.getAdapter(
+					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart targetEditPart =
-				(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) target.getAdapter(
-						org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+			(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) target.getAdapter(
+					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR source : getAllNodes()»
 			«IF getAssistantOutgoingLinks(source).notEmpty»
 				if (sourceEditPart instanceof «source.getEditPartQualifiedClassName()») {
@@ -145,8 +147,8 @@ class ModelingAssistantProvider {
 		public java.util.List getTypesForSource(org.eclipse.core.runtime.IAdaptable target,
 				org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart targetEditPart =
-				(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) target.getAdapter(
-						org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+			(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) target.getAdapter(
+					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR target : getAllNodes()»
 			«IF getAssistantIncomingLinks(target).notEmpty»
 				if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
@@ -163,8 +165,8 @@ class ModelingAssistantProvider {
 		public java.util.List getTypesForTarget(org.eclipse.core.runtime.IAdaptable source,
 				org.eclipse.gmf.runtime.emf.type.core.IElementType relationshipType) {
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart sourceEditPart =
-				(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) source.getAdapter(
-						org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+			(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) source.getAdapter(
+					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR source : getAllNodes()»
 			«IF getAssistantOutgoingLinks(source).notEmpty»
 				if (sourceEditPart instanceof «source.getEditPartQualifiedClassName()») {
@@ -202,25 +204,25 @@ class ModelingAssistantProvider {
 			return null;
 			}
 			org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart editPart =
-				(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) host.getAdapter(
-						org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
+			(org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) host.getAdapter(
+					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			if (editPart == null) {
 			return null;
 			}
 			org.eclipse.gmf.runtime.notation.Diagram diagram =
-				(org.eclipse.gmf.runtime.notation.Diagram) editPart.getRoot().getContents().getModel();
+			(org.eclipse.gmf.runtime.notation.Diagram) editPart.getRoot().getContents().getModel();
 			java.util.HashSet<org.eclipse.emf.ecore.EObject> elements = new java.util.HashSet<org.eclipse.emf.ecore.EObject>();
 			for (java.util.Iterator<org.eclipse.emf.ecore.EObject> it = diagram.getElement().eAllContents(); it.hasNext();) {
 			org.eclipse.emf.ecore.EObject element = it.next();
 			if (isApplicableElement(element, types)) {
-				elements.add(element);
+			elements.add(element);
 			}
 			}
 			if (elements.isEmpty()) {
 			return null;
 			}
 			return selectElement((org.eclipse.emf.ecore.EObject[]) elements.toArray(
-				new org.eclipse.emf.ecore.EObject[elements.size()]));
+			new org.eclipse.emf.ecore.EObject[elements.size()]));
 		}
 	'''
 
@@ -239,7 +241,7 @@ class ModelingAssistantProvider {
 			org.eclipse.swt.widgets.Shell shell = org.eclipse.swt.widgets.Display.getCurrent().getActiveShell();
 			org.eclipse.jface.viewers.ILabelProvider labelProvider =
 				new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(
-					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory());
+					«editorGen.plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory());
 			org.eclipse.ui.dialogs.ElementListSelectionDialog dialog =
 					new org.eclipse.ui.dialogs.ElementListSelectionDialog(shell, labelProvider);
 			dialog.setMessage(«xptExternalizer.accessorCall(editorGen, messageKey(i18nKeyForModelingAssistantProvider(it)))»);
@@ -262,14 +264,6 @@ class ModelingAssistantProvider {
 
 	@Localization protected def String i18nKeyForModelingAssistantProvider(GenDiagram it) {
 		return diagram.modelingAssistantProviderClassName
-	}
-
-	@Localization protected def String titleKey(String dialogKey) {
-		return dialogKey + 'Title'
-	}
-
-	@Localization protected def String messageKey(String dialogKey) {
-		return dialogKey + 'Message'
 	}
 
 	@Localization def i18nValues(GenDiagram it) '''

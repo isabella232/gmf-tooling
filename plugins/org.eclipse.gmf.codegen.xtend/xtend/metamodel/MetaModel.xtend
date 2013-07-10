@@ -26,29 +26,29 @@ class MetaModel {
 	/**
 	 * Does instanceof check.
 	 */
-	def dispatch IsInstance(GenClass xptSelf, String accessor) '''«accessor» instanceof «getQualifiedInterfaceName(xptSelf)»'''
+	def IsInstance(GenClass xptSelf, String accessor) '''«accessor» instanceof «getQualifiedInterfaceName(xptSelf)»'''
 
 	/**
 	 * Shorthand, negates IsInstance - handy if you consider
 	 * different approaches for generated and dynamic models: false == instanceof
 	 *  vs. !MetaModelFacility.isInstance
 	 */
-	def dispatch NotInstance(GenClass xptSelf, String accessor) '''false == «IsInstance(xptSelf, accessor)»'''
+	def NotInstance(GenClass xptSelf, String accessor) '''false == «IsInstance(xptSelf, accessor)»'''
 
 	/**
 	 * Special kind of instanceof check, that compares eContainer() of the object.
 	 * Since metaClass may be an external interface, eContainer() might need cast to EObject  
  	*/
-	def dispatch IsContainerInstance(GenClass it, String _object, GenClass metaClass) // 
-		'''«_getEObjectFeature(metaClass, _object, 'eContainer()')» instanceof «getQualifiedInterfaceName(it)»'''
+	def IsContainerInstance(GenClass it, String _object, GenClass metaClass) // 
+		'''«getEObjectFeature(metaClass, _object, 'eContainer()')» instanceof «getQualifiedInterfaceName(it)»'''
 
-	private def _getEObjectFeature(GenClass it, String _object, String feature) //
+	protected def getEObjectFeature(GenClass it, String _object, String feature) //
 		'''«IF it.externalInterface»((org.eclipse.emf.ecore.EObject) «_object»).«feature»«ELSE»«_object».«feature»«ENDIF»'''
 
 	// Public/API-sort templates are named with first letter capitalized.
 	// FIXME getFeatureValue* and setFeatureValue start with lowercase to indicate pending refactoring
 
-	def dispatch getFeatureValue(GenFeature it, String containerVar, GenClass containerClass) // 
+	def getFeatureValue(GenFeature it, String containerVar, GenClass containerClass) // 
 	'''
 	«IF containerClass.externalInterface»((«featureTargetType») ((org.eclipse.emf.ecore.EObject) «containerVar»).eGet(«MetaFeature(it)»))«ELSE»«containerVar».«it.getAccessor»()«ENDIF»
 	'''
@@ -65,47 +65,47 @@ class MetaModel {
 	 * @param containerMetaClass the <code>GenClass</code> of the container, or <code>null</code>, if the container is declared as an <code>org.eclipse.emf.ecore.EObject</code>.
 	 * @param needsCastToResultType whether the cast to the result type is required (this parameter is only used if the <code>org.eclipse.emf.ecore.EClass</code> this feature belongs to is an external interface). 
 	 */
-	def dispatch getFeatureValue(GenFeature it, String containerVar, GenClass container, boolean needsCastToResultType) // 
+	def getFeatureValue(GenFeature it, String containerVar, GenClass container, boolean needsCastToResultType) // 
 	'''
 	«IF genClass.externalInterface»«IF needsCastToResultType»((«featureTargetType(it)») «ENDIF»«parenthesizedCast(containerVar, container, null)».eGet(«MetaFeature(it)»)«IF needsCastToResultType»)«ENDIF»«ELSE»«parenthesizedCast(containerVar, container, genClass)».«it.getAccessor»()«ENDIF»
 	'''
 
-	def dispatch modifyFeature(GenFeature it, String targetVar, GenClass targetType, String value) //
+	def modifyFeature(GenFeature it, String targetVar, GenClass targetType, String value) //
 	'''«IF it.listType»«getFeatureValue(it, targetVar, targetType)».add(«value»);«ELSE»«setFeatureValue(it, targetVar, targetType, value)»;«ENDIF»'''
 
-	def dispatch replaceFeatureValue(GenFeature it, String targetVar, GenClass targetType, String oldValue, String newValue) //
+	def replaceFeatureValue(GenFeature it, String targetVar, GenClass targetType, String oldValue, String newValue) //
 	'''
 	«IF it.listType»«getFeatureValue(it, targetVar, targetType)».remove(«oldValue»);«ENDIF»
 	«modifyFeature(it, targetVar, targetType, newValue)»
 	'''
 
-	def dispatch moveFeatureValue(GenFeature it, String oldTarget, String newTarget, GenClass targetType, String value) //
+	def moveFeatureValue(GenFeature it, String oldTarget, String newTarget, GenClass targetType, String value) //
 	'''
 	«IF it.listType»«getFeatureValue(it, oldTarget, targetType)».remove(«value»);«ELSE»«setFeatureValue(it, oldTarget, targetType, 'null')»;«ENDIF»
 	«modifyFeature(it, newTarget, targetType, value)»
 	'''
 
-	def dispatch setFeatureValue(GenFeature it, String targetVar, GenClass targetType, String valueVar) //
+	def setFeatureValue(GenFeature it, String targetVar, GenClass targetType, String valueVar) //
 	'''«setFeatureValue(it, targetVar, targetType, valueVar, false)»'''
 
 	// FIXME support list features as well, i.e. do .add() instead of eSet
-	def dispatch setFeatureValue(GenFeature it, String targetVar, GenClass targetType, String valueVar, boolean isPlainObjectValue) //
+	def setFeatureValue(GenFeature it, String targetVar, GenClass targetType, String valueVar, boolean isPlainObjectValue) //
 	'''
-	«IF targetType.externalInterface»((org.eclipse.emf.ecore.EObject) «targetVar»).eSet(«MetaFeature(it)», «valueVar»)«ELSE»«targetVar».set«it.accessorName»(«IF !isPlainObjectValue»«valueVar»«ELSE»«IF isPrimitiveType(it)»«_unwrapObjectToPrimitiveValue(it, valueVar)»«ELSE»(«featureTargetType(it)») «valueVar»«ENDIF»«ENDIF»)«ENDIF»
+	«IF targetType.externalInterface»((org.eclipse.emf.ecore.EObject) «targetVar»).eSet(«MetaFeature(it)», «valueVar»)«ELSE»«targetVar».set«it.accessorName»(«IF !isPlainObjectValue»«valueVar»«ELSE»«IF isPrimitiveType(it)»«unwrapObjectToPrimitiveValue(it, valueVar)»«ELSE»(«featureTargetType(it)») «valueVar»«ENDIF»«ENDIF»)«ENDIF»
 	'''
 
-	private def _unwrapObjectToPrimitiveValue(GenFeature it, String valueVar) '''((«featureTargetType(it)») «valueVar»).«ecoreFeature.EType.instanceClassName»Value()'''
+	protected def unwrapObjectToPrimitiveValue(GenFeature it, String valueVar) '''((«featureTargetType(it)») «valueVar»).«ecoreFeature.EType.instanceClassName»Value()'''
 
-	def dispatch MetaClass(GenClassifier it)'''«getQualifiedPackageInterfaceName(it.genPackage)».eINSTANCE.get«getClassifierAccessorName(it)»()'''
+	def MetaClass(GenClassifier it)'''«getQualifiedPackageInterfaceName(it.genPackage)».eINSTANCE.get«getClassifierAccessorName(it)»()'''
 
-	def dispatch MetaFeature(GenFeature it)'''«getQualifiedPackageInterfaceName(it.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(it)»()'''
+	def MetaFeature(GenFeature it)'''«getQualifiedPackageInterfaceName(it.genClass.genPackage)».eINSTANCE.get«getFeatureAccessorName(it)»()'''
 
 	/**
 	* SomeFactory.eINSTANCE.createBlaBla();
 	* NB: for map entries, the resulting type is EObject, not the qualified interface name. If cast is needed, use (un)parenthesizedCast() extension.
 	* @see GenClassImpl#hasFactoryInterfaceCreateMethod() for details why map entries should be treated differently
 	*/
-	def dispatch NewInstance(GenClass it)'''
+	def NewInstance(GenClass it)'''
 	«IF it.mapEntry»
 		«getQualifiedFactoryInterfaceName(it.genPackage)».«getFactoryInstanceName(it.genPackage)».create(«MetaClass(it)»)«ELSE»
 		«getQualifiedFactoryInterfaceName(genPackage)».«getFactoryInstanceName(genPackage)».create«ecoreClass.name»()«ENDIF»
@@ -116,7 +116,7 @@ class MetaModel {
 	* // e.g. Notation or Ecore 
 	* // FIXME be consistent on final line feed - e.g. NewInstance adds a LF, while modifyFeature not, hence together they look odd.
 	*/
-	def dispatch NewInstance(GenClass it, String varName) '''
+	def NewInstance(GenClass it, String varName) '''
 		«getQualifiedInterfaceName(it)» «varName» = «IF it.mapEntry»(«getQualifiedInterfaceName(it)») «ENDIF»«NewInstance(it)»;
 	'''
 
@@ -125,12 +125,12 @@ class MetaModel {
 	 * Note, injected value is not surrounded with parenthesis, may need to introduce another
 	 * template to accomplish that if needed.
 	 */
-	def dispatch DowncastToEObject(GenClass it, String value) '''«IF it.externalInterface»(org.eclipse.emf.ecore.EObject) «ENDIF»«value»'''
+	def DowncastToEObject(GenClass it, String value) '''«IF it.externalInterface»(org.eclipse.emf.ecore.EObject) «ENDIF»«value»'''
 	
 	/**
 	 * Declares new variable of appropriate type and assigns casted value to it.
 	 */
-	def dispatch DeclareAndAssign(GenClass it, String assignee, String value) '''«getQualifiedInterfaceName(it)» «assignee» = («getQualifiedInterfaceName(it)») «value»;'''
+	def DeclareAndAssign(GenClass it, String assignee, String value) '''«getQualifiedInterfaceName(it)» «assignee» = («getQualifiedInterfaceName(it)») «value»;'''
 	
 	/**
 	 * third boolean parameter is to indicate the value is not EObject, so may
@@ -140,13 +140,11 @@ class MetaModel {
 	
 	def dispatch DeclareAndAssign(GenClassifier it, String assignee, String value, boolean isPlainObjectValue) '''«getQualifiedClassName(it)» «assignee» = («getQualifiedClassName(it)») «value»;'''
 
-
-
 	/**
 	 *  @see IsContainerInstance
 	 */
-	def dispatch DeclareAndAssignContainer(GenClass it, String assignee, String _object, GenClass metaClass) //
-		'''«getQualifiedInterfaceName(it)» «assignee» = («getQualifiedInterfaceName(it)») «_getEObjectFeature(metaClass, _object, 'eContainer()')»;'''
+	def DeclareAndAssignContainer(GenClass it, String assignee, String _object, GenClass metaClass) //
+		'''«getQualifiedInterfaceName(it)» «assignee» = («getQualifiedInterfaceName(it)») «getEObjectFeature(metaClass, _object, 'eContainer()')»;'''
 
 	/**
 	 * Declares new variable of context type and assignes a value obtained from 'src',
@@ -154,20 +152,20 @@ class MetaModel {
 	 *
 	 * XXX in certain scenarions may need extra cast of the feature value
 	 */
-	def dispatch DeclareAndAssign(GenClass it, String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature) //
+	def DeclareAndAssign(GenClass it, String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature) //
 		'''«getQualifiedInterfaceName(it)» «assignee» = «getFeatureValue(srcFeature, src, srcMetaClass)»;'''
 	
 	/**
 	 * Same as DeclareAndAssign, with extra operation applied to source object
 	 */
-	def dispatch DeclareAndAssign2(GenClass it, String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature, String srcExt, boolean needCast) //
+	def DeclareAndAssign2(GenClass it, String assignee, String src, GenClass srcMetaClass, GenFeature srcFeature, String srcExt, boolean needCast) //
 		'''«getQualifiedInterfaceName(it)» «assignee» = «IF needCast»(«getQualifiedInterfaceName(it)») «ENDIF»«getFeatureValue(srcFeature, src, srcMetaClass)».«srcExt»;'''
 
 	/**
 	 * Cast value of type EObject to specific type. Would be no-op with dynamic model instances,
 	 * therefore, the fact eObjectValue is actually EObject is essential
 	 */
-	def dispatch CastEObject(GenClass xptSelf, String eObjectValue) '''(«getQualifiedInterfaceName(xptSelf)») «eObjectValue»'''
+	def CastEObject(GenClass xptSelf, String eObjectValue) '''(«getQualifiedInterfaceName(xptSelf)») «eObjectValue»'''
 
 	/**
 	 * Qualified interface name of the generated EClass, or EObject for dynamic models.

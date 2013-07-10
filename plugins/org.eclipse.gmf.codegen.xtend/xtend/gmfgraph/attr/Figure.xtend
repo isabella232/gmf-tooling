@@ -100,6 +100,7 @@ class Figure {
 	 */
 	def insets(Insets insets, String figureVarName) '''
 		«IF insets != null»
+		«extraLineBreak»
 		«figureVarName».setBorder(new org.eclipse.draw2d.MarginBorder(«xptMapMode.mapMode(insets)»));
 		«ENDIF»
 	'''
@@ -129,8 +130,10 @@ class Figure {
 	'''
 	
 	def dispatch font(BasicFont it, String figureVarName) '''
+		«extraLineBreak»
 		«figureVarName».setFont(«fontVariableName(it, figureVarName)»);
 		«addToStaticStream('''«font_staticFields(it, figureVarName)»''')»
+		«extraLineBreak»
 	'''
 	
 	def dispatch font_staticFields(Font it, String figureVarName) ''''''

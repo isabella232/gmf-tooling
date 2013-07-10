@@ -87,7 +87,6 @@ class ValidateAction {
 		
 						public void run(org.eclipse.core.runtime.IProgressMonitor monitor)
 							throws InterruptedException, java.lang.reflect.InvocationTargetException {
-							
 							runValidation(part.getDiagramEditPart(), part.getDiagram());
 						}
 					}
@@ -337,7 +336,7 @@ class ValidateAction {
 		private static java.util.Set<org.eclipse.emf.ecore.EObject> collectTargetElements(org.eclipse.emf.common.util.Diagnostic diagnostic,
 				java.util.Set<org.eclipse.emf.ecore.EObject> targetElementCollector, java.util.List allDiagnostics) {
 			java.util.List data = diagnostic.getData();
-			org.eclipse.emf.ecore.EObject target == null;
+			org.eclipse.emf.ecore.EObject target = null;
 			if (data != null && !data.isEmpty() && data.get(0) instanceof org.eclipse.emf.ecore.EObject) {
 			target = (org.eclipse.emf.ecore.EObject) data.get(0);
 			targetElementCollector.add(target);	

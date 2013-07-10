@@ -98,7 +98,7 @@ class ValidationProvider {
 			try {
 				editingDomain.runExclusive(task);
 			} catch (Exception e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Validation failed", e); «nonNLS(1)»
+				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Validation failed", e); «nonNLS(1)»
 			}
 		} else {
 			task.run();
@@ -317,8 +317,7 @@ class ValidationProvider {
 		 * For now, leave reflective access that gives Object-compatible result.
 		 * FIXME: introduce xptMetaModel.DeclareAndAssignAttributeValueAsObject, that would 
 		 *	check if attibute type is primitive and wrap accordingly, but access attribute directly!
-		 */»
-		if (context == null) {
+		 */»if (context == null) {
 		«IF nullAsError»
 			return ctx.createFailureStatus(new Object[] { formatElement(ctx.getTarget()) });
 		«ELSE»

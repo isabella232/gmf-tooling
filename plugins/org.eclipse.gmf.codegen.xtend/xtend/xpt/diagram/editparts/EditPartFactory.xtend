@@ -46,7 +46,6 @@ class EditPartFactory {
 			if (model instanceof org.eclipse.gmf.runtime.notation.View) {
 				org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;
 				switch («xptVisualIDRegistry.getVisualIDMethodCall(it)»(view)) {
-					
 				«createEditPart(it)»
 				«FOR node : it.allNodes»
 					«createEditPart(node)»
@@ -62,6 +61,7 @@ class EditPartFactory {
 					«FOR label : link.labels»
 						«createEditPart(label)»
 					«ENDFOR»
+					«extraLineBreak»
 				«ENDFOR»
 				}
 			}
@@ -70,9 +70,9 @@ class EditPartFactory {
 	'''
 
 	private def createEditPart(GenCommonBase it) '''
+		«extraLineBreak»
 		«caseVisualID(it)»
 			return new «getEditPartQualifiedClassName()»(view);
-			
 	'''
 
 	def createUnrecognizedEditPart(GenDiagram it) '''

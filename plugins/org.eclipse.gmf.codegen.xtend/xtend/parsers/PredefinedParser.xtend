@@ -255,7 +255,7 @@ class PredefinedParser {
 			Object[] values = getEditProcessor().parse(editString, pos);
 			if (values == null) {
 				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
-						«holder.editorGen.plugin.getActivatorQualifiedClassName()».ID,
+						«holder.editorGen.plugin.activatorQualifiedClassName».ID,
 						org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
 						org.eclipse.osgi.util.NLS.bind(
 								«xptExternalizer.accessorCall(holder.editorGen, i18nKeyForMessageFormatParserInvalidInputError())»,

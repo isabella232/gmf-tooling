@@ -54,7 +54,7 @@ class GMFGenGenerator extends GeneratorBase implements IGenerator {
 	}
 
 	override protected setupProgressMonitor() {
-		val c = new GeneratorBase$Counter()
+		val c = new _Counter2()
 		c.registerFactor(GMFGenPackage::eINSTANCE.genNode, 7)
 		c.registerFactor(GMFGenPackage::eINSTANCE.genChildLabelNode, 5)
 		c.registerFactor(GMFGenPackage::eINSTANCE.genLink, 6)

@@ -72,7 +72,7 @@ class LayoutData {
 
 	def newRectangle(XYLayoutData it) '''
 		new org.eclipse.draw2d.geometry.Rectangle(«IF 
-			null != topLeft»«xptMapMode.mapMode(topLeft)»«ELSE»0, 0«ENDIF»«IF  
+			null != topLeft»«xptMapMode.mapMode(topLeft)», «ELSE»0, 0, «ENDIF»«IF  
 			null != size»«xptMapMode.mapMode(size)»«ELSE»0, 0«ENDIF»)
 	'''
 

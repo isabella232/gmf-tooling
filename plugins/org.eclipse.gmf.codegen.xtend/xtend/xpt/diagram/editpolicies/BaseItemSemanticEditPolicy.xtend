@@ -465,8 +465,8 @@ if (source != null) {
 if (target != null && («featureBoundsConditionClause(metaFeature.reverse, 'target', getTargetType())»)) {
 	return false;
 }
-«extraLineBreak»
 «ENDIF»
+«extraLineBreak»
 '''
 
 def featureBoundsConditionClause(GenFeature it, String targetVar, GenClass targetType) '''

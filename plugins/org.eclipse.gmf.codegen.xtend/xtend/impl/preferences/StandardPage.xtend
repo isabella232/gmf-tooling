@@ -30,7 +30,7 @@ class StandardPage {
 		
 			«generatedMemberComment»
 			public «getClassName()»() {
-				setPreferenceStore(«getDiagram().editorGen.plugin.getActivatorQualifiedClassName()».getInstance().getPreferenceStore());
+				setPreferenceStore(«getDiagram().editorGen.plugin.activatorQualifiedClassName».getInstance().getPreferenceStore());
 			}
 		}
 	'''

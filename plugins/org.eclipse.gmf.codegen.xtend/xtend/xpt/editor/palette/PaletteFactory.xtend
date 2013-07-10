@@ -193,7 +193,9 @@ class PaletteFactory {
 	«IF null != smallIconPath»
 		«toolVarName».setSmallIcon(«palette.activatorFQN».findImageDescriptor("«smallIconPath»")); «nonNLS(1)»
 	«ELSEIF it.oclIsKindOf(typeof(ToolEntry))»
-		«toolVarName».setSmallIcon(«palette.diagram.elementTypesQualifiedClassName».getImageDescriptor(«xptElementTypes.accessElementType((it as ToolEntry).elements.head)»));
+		«IF (it as ToolEntry).elements.head != null»
+			«toolVarName».setSmallIcon(«palette.diagram.elementTypesQualifiedClassName».getImageDescriptor(«xptElementTypes.accessElementType((it as ToolEntry).elements.head)»));
+		«ENDIF»
 	«ENDIF»
 	'''
 
@@ -201,7 +203,9 @@ class PaletteFactory {
 	«IF null != largeIconPath»
 		«toolVarName».setLargeIcon(«palette.activatorFQN».findImageDescriptor("«largeIconPath»")); «nonNLS(1)»
 	«ELSEIF it.oclIsKindOf(typeof(ToolEntry))»
-		«toolVarName».setLargeIcon(«toolVarName».getSmallIcon());
+		«IF (it as ToolEntry).elements.head != null»
+			«toolVarName».setLargeIcon(«toolVarName».getSmallIcon());
+		«ENDIF»
 	«ENDIF»
 	'''
 

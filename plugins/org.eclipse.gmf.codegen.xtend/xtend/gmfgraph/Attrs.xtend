@@ -23,6 +23,7 @@ import org.eclipse.gmf.gmfgraph.CustomFigure
 import org.eclipse.gmf.gmfgraph.Polyline
 import org.eclipse.gmf.gmfgraph.SVGFigure
 import org.eclipse.gmf.gmfgraph.Rectangle2D
+import xpt.Common
 
 /**
  * Defines attributes for Figures (for DecorationFigure subclasses see Decoration.xpt)
@@ -31,12 +32,13 @@ class Attrs {
 	@Inject gmfgraph.attr.Shape xptShape;
 	@Inject gmfgraph.attr.Figure xptFigure;
 	@Inject MapMode xptMapMode;
-
+	@Inject extension Common;
 	/**
 	 * Polymorphic entry point for any Figure's subclass attributes 
 	 */
 	def dispatch Init(Figure it, String figureVarName) '''
 		«xptFigure.figureAttrs(it, figureVarName)»
+		«extraLineBreak»
 	'''
 
 	def dispatch Init(Shape it, String figureVarName) '''
@@ -45,11 +47,13 @@ class Attrs {
 	'''
 
 	def dispatch Init(Label it, String figureVarName) '''
+		«extraLineBreak»
 		«figureVarName».setText("«text»");
 		«xptFigure.figureAttrs(it, figureVarName)»
 	'''
 
 	def dispatch Init(VerticalLabel it, String figureVarName) '''
+		«extraLineBreak»
 		«figureVarName».setText("«text»");
 		«xptFigure.figureAttrs(it, figureVarName)»
 	'''

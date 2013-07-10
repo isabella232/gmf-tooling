@@ -80,7 +80,7 @@ class ShortcutCreationWizard {
 					org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
 						command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 				} catch (org.eclipse.core.commands.ExecutionException ee) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Unable to create shortcut", ee);«nonNLS(1)»
+					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Unable to create shortcut", ee); «nonNLS(1)»
 				}
 				return true;
 			}

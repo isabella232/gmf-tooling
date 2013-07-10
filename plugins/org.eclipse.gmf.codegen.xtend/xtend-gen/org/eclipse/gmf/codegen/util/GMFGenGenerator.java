@@ -2,6 +2,7 @@ package org.eclipse.gmf.codegen.util;
 
 import com.google.common.base.Objects;
 import com.google.inject.Inject;
+import diagram.editparts.NodeEditPart;
 import java.util.Collections;
 import java.util.List;
 import org.eclipse.core.resources.IProject;
@@ -17,11 +18,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
-import org.eclipse.gmf.codegen.templates.diagram.editparts.NodeEditPart;
 import org.eclipse.gmf.codegen.util.MergeFileSystemAccess;
+import org.eclipse.gmf.codegen.util._Counter2;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
-import org.eclipse.gmf.internal.common.codegen.GeneratorBase.Counter;
 import org.eclipse.xtext.generator.IFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.xbase.lib.Exceptions;
@@ -86,11 +86,11 @@ public class GMFGenGenerator extends GeneratorBase implements IGenerator {
   }
   
   private void generateEditPart(final GenNode genNode) {
-    final String qualifiedName = this.nodeEditPartGen.getFilePath(genNode);
+    final String qualifiedName = genNode.getEditPartQualifiedClassName();
     String _replaceAll = qualifiedName.replaceAll("\\.", "/");
     final String fileName = _replaceAll.concat(".java");
-    CharSequence _generate = this.nodeEditPartGen.generate(genNode);
-    this.fileSystemAccess.generateFile(fileName, _generate);
+    CharSequence _Main = this.nodeEditPartGen.Main(genNode);
+    this.fileSystemAccess.generateFile(fileName, _Main);
   }
   
   private IPath guessProjectLocation(final GenEditorGenerator genEditor) {
@@ -111,8 +111,8 @@ public class GMFGenGenerator extends GeneratorBase implements IGenerator {
   }
   
   protected void setupProgressMonitor() {
-    Counter _counter = new Counter();
-    final Counter c = _counter;
+    _Counter2 __Counter2 = new _Counter2();
+    final _Counter2 c = __Counter2;
     EClass _genNode = GMFGenPackage.eINSTANCE.getGenNode();
     c.registerFactor(_genNode, 7);
     EClass _genChildLabelNode = GMFGenPackage.eINSTANCE.getGenChildLabelNode();

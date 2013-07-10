@@ -231,7 +231,7 @@ class VisualIDRegistry {
 				return Integer.parseInt(type);
 			} catch (NumberFormatException e) {
 				if (Boolean.TRUE.toString().equalsIgnoreCase(org.eclipse.core.runtime.Platform.getDebugOption(DEBUG_KEY))) {
-					«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Unable to parse view type as a visualID number: " + type);
+					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Unable to parse view type as a visualID number: " + type);
 				}
 			}
 			«unrecognizedVID(it)»

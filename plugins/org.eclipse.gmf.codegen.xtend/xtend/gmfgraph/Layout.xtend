@@ -45,6 +45,7 @@ class Layout {
 	'''
 
 	def dispatch CharSequence dispatch_Init(BorderLayout it, String owningFigureVariable) '''
+		«extraLineBreak»
 		«var layoutVarName = layoutVarName(owningFigureVariable)»
 		«xptRuntime.newInstance(it, layoutVarName)»
 		«IF null != it.spacing»
@@ -52,9 +53,11 @@ class Layout {
 			«layoutVarName».setVerticalSpacing(«spacing.dy»);
 		«ENDIF»
 		«owningFigureVariable».setLayoutManager(«layoutVarName»);
+		«extraLineBreak»
 	'''
 
 	def dispatch CharSequence dispatch_Init(GridLayout it, String owningFigureVariable) '''
+		«extraLineBreak»
 		«var layoutVarName = layoutVarName(owningFigureVariable)»
 		«xptRuntime.newInstance(it, layoutVarName)»
 		«layoutVarName».numColumns = «it.numColumns»;
@@ -68,6 +71,7 @@ class Layout {
 			«layoutVarName».marginHeight = «margins.dy»;
 		«ENDIF»
 		«owningFigureVariable».setLayoutManager(«layoutVarName»);
+		«extraLineBreak»
 	'''
 
 	def dispatch CharSequence dispatch_Init(FlowLayout it, String owningFigureVariable) '''
@@ -89,13 +93,16 @@ class Layout {
 		«ENDIF»
 		«extraLineBreak»
 		«owningFigureVariable».setLayoutManager(«layoutVarName»);
+		«extraLineBreak»
 	'''
 
 	def dispatch CharSequence dispatch_Init(CustomLayout it, String owningFigureVariable) '''
+		«extraLineBreak»
 		«var String layoutVarName = layoutVarName(owningFigureVariable)»
 		«xptRuntime.newInstance(it, layoutVarName)»
 		«xptCustomAttributeOwner.Init(it, layoutVarName)»
 		«owningFigureVariable».setLayoutManager(«layoutVarName»);
+		«extraLineBreak»
 	'''
 
 	def String layoutVarName(String owningFigureVariable) {
