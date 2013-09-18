@@ -208,13 +208,6 @@
 					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
 				</repository>
 			</repositories>
-			<pluginRepositories>
-				<pluginRepository>
-					<id>nexus</id>
-					<layout>p2</layout>
-					<url>http://maven.eclipse.org/nexus/content/repositories/milestone-kepler/</url>
-				</pluginRepository>
-			</pluginRepositories>
 		</profile>
 	</profiles>
 
