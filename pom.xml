@@ -170,6 +170,24 @@
 				</repository>
 			</repositories>
 		</profile>
+		<profile>
+			<id>kepler</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<repository>
+					<id>staging</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/releases/juno/</url>
+				</repository>
+				<repository>
+					<id>orbit for Juno</id>
+					<layout>p2</layout>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
+				</repository>
+			</repositories>
+		</profile>
 		-->
 		<profile>
 			<id>kepler</id>
@@ -182,14 +200,21 @@
 					<id>staging</id>
 					<layout>p2</layout>
 					<!-- temporarily switched back to Juno repo, see problems with build #450 --> 
-					<url>http://download.eclipse.org/releases/juno/</url>
+					<url>http://download.eclipse.org/releases/kepler/</url>
 				</repository>
 				<repository>
-					<id>orbit for Juno</id>
+					<id>orbit for Kepler</id>
 					<layout>p2</layout>
 					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
 				</repository>
 			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>nexus</id>
+					<layout>p2</layout>
+					<url>http://maven.eclipse.org/nexus/content/repositories/milestone-kepler/</url>
+				</pluginRepository>
+			</pluginRepositories>
 		</profile>
 	</profiles>
 
