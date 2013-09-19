@@ -53,9 +53,9 @@
                         <groupId>org.eclipse.cbi.maven.plugins</groupId>
                         <artifactId>eclipse-jarsigner-plugin</artifactId>
                         <version>1.0.4</version>
-                        <configuration>
+                        <!-- <configuration>
                             <signerUrl>/home/data/httpd/download-staging.priv/modeling/gmf/gmf-tooling</signerUrl>
-                        </configuration>
+                        </configuration> -->
                         <executions>
                             <execution>
                                 <id>sign</id>
