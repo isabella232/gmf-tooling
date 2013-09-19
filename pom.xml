@@ -120,75 +120,6 @@
 	</build>
 
 	<profiles>
-		<!--
-		<profile>
-			<id>helios</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>Helios</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/helios</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>indigo</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>Indigo</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/indigo</url>
-				</repository>
-				<repository>
-					<id>Orbit for Indigo</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>juno</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>staging</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/juno/</url>
-				</repository>
-				<repository>
-					<id>orbit for Juno</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository/</url>
-				</repository>
-			</repositories>
-		</profile>
-		<profile>
-			<id>kepler</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<repositories>
-				<repository>
-					<id>staging</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/releases/juno/</url>
-				</repository>
-				<repository>
-					<id>orbit for Juno</id>
-					<layout>p2</layout>
-					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
-				</repository>
-			</repositories>
-		</profile>
-		-->
 		<profile>
 			<id>kepler</id>
 			<!-- Bug 396054: replace by usage of a .target file -->
@@ -199,13 +130,12 @@
 				<repository>
 					<id>staging</id>
 					<layout>p2</layout>
-					<!-- temporarily switched back to Juno repo, see problems with build #450 -->
 					<url>http://download.eclipse.org/releases/kepler/</url>
 				</repository>
 				<repository>
-					<id>orbit for Kepler</id>
+					<id>orbit for Kepler SR1</id>
 					<layout>p2</layout>
-					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/</url>
 				</repository>
 			</repositories>
         </profile>
