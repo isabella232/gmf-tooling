@@ -106,22 +106,19 @@ public class RuntimeCompilationTest extends CompilationTest {
 		DynamicModelAccess dma = GMFGenFactory.eINSTANCE.createDynamicModelAccess();
 		editorGen.setModelAccess(dma);
 		generateAndCompile(s, new GenDiagramMutator("dynmodel") {
+
 			@Override
 			public void doMutation(GenDiagram d) {
 				final DynamicModelAccess modelAccess = d.getEditorGen().getModelAccess();
 				modelAccess.setClassName("NonDefaultDynamicAccessorName");
 			}
+
 			@Override
 			public void undoMutation(GenDiagram d) {
 				final DynamicModelAccess modelAccess = d.getEditorGen().getModelAccess();
 				modelAccess.setClassName(null);
 			}
 		});
-	}
-	
-	@Override
-	public void testCompileInstanceClassNames() throws Exception {
-		//temporary disabled to have a build 
 	}
 
 	public void testPreferencePages() throws Exception {
@@ -135,7 +132,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 			p[i].setClassName("Page" + i);
 			p[i].setKind(StandardPreferencePages.values()[i]);
 			if (i > 0) {
-				p[i-1].getChildren().add(p[i]);
+				p[i - 1].getChildren().add(p[i]);
 			}
 		}
 		gd.getPreferencePages().clear();
@@ -316,8 +313,8 @@ public class RuntimeCompilationTest extends CompilationTest {
 		assertTrue(file1.exists());
 		assertTrue(file2.exists());
 		//
-//		DiaGenSource s2 = createLibraryGen(true);
-//		fail("TODO");
+		//		DiaGenSource s2 = createLibraryGen(true);
+		//		fail("TODO");
 	}
 
 	public void testCustomPreferences() throws Exception {
@@ -359,7 +356,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		assertTrue(Flags.isStatic(p2field.getFlags()));
 		assertEquals('"' + p1.getKey() + '"', p1field.getConstant());
 		assertEquals('"' + p2.getKey() + '"', p2field.getConstant());
-		IMethod initMethod = mainClass.getMethod("initDefaults",  new String[] { "Q" + IPreferenceStore.class.getSimpleName() + ";" });
+		IMethod initMethod = mainClass.getMethod("initDefaults", new String[] { "Q" + IPreferenceStore.class.getSimpleName() + ";" });
 		assertNotNull(initMethod);
 		String methodText = initMethod.getSource();
 		assertTrue(methodText.indexOf(p1.getName()) != -1);
@@ -413,13 +410,13 @@ public class RuntimeCompilationTest extends CompilationTest {
 		ac.setId("ac1"); //$NON-NLS-1$
 		ac.setName(ac.getId());
 		AuditRule ar = GMFMapFactory.eINSTANCE.createAuditRule();
-		String ar_id = "audit.rule1"; 
+		String ar_id = "audit.rule1";
 		ar.setId(ar_id);
 		ar.setName("Name of " + ar_id); //$NON-NLS-1$
 		ar.setMessage("Violation of " + ar_id); //$NON-NLS-1$
 		ar.setDescription("Description of " + ar_id); //$NON-NLS-1$
 		DomainElementTarget classLibrary = GMFMapFactory.eINSTANCE.createDomainElementTarget();
-		classLibrary.setElement(mapping.getDiagram().getDomainMetaElement()); 	
+		classLibrary.setElement(mapping.getDiagram().getDomainMetaElement());
 		ar.setTarget(classLibrary);
 		Constraint rule = GMFMapFactory.eINSTANCE.createConstraint();
 		// body is not essential, just to look nice
@@ -438,7 +435,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 		s.getGenDiagram().getContainsShortcutsTo().add("ecore");
 		s.getGenDiagram().getShortcutsProvidedFor().add("ecore");
 		s.getGenDiagram().eResource().save(null);
-		
+
 		testAntScriptEmitsSameStructure(s);
 	}
 
@@ -492,8 +489,11 @@ public class RuntimeCompilationTest extends CompilationTest {
 	}
 
 	static class FileCollector {
+
 		private final TreeSet<File> myResult;
+
 		private boolean myIsRecursive = true;
+
 		private final List<Pattern> myFilters = new LinkedList<Pattern>();
 
 		public FileCollector() {
@@ -505,7 +505,7 @@ public class RuntimeCompilationTest extends CompilationTest {
 				myFilters.add(Pattern.compile(f));
 			}
 		}
-		
+
 		public void setRecursive(boolean recurseIntoSubfolders) {
 			myIsRecursive = recurseIntoSubfolders;
 		}
