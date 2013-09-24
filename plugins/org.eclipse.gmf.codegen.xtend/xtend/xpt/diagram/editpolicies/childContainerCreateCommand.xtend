@@ -16,10 +16,12 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.providers.ElementTypes
+import xpt.QualifiedClassNameProvider
 
 class childContainerCreateCommand {
 	
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject ElementTypes xptElementTypes;
  
@@ -39,7 +41,7 @@ class childContainerCreateCommand {
 
 	def childNodeCreateCommand(GenNode node) '''
 	if («xptElementTypes.accessElementType(node)» == req.getElementType()) {
-		return getGEFWrapper(new «node.createCommandQualifiedClassName»(req));
+		return getGEFWrapper(new «getCreateCommandQualifiedClassName(node)»(req));
 	}
 	'''
 

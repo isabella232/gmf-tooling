@@ -29,19 +29,25 @@ class CustomPage {
 		}
 	}
 
+	def className(GenCustomPreferencePage it) '''«getClassName()»'''
+
+	def packageName(GenCustomPreferencePage it) '''«computePackageName(it)»'''
+
+	def qualifiedClassName(GenCustomPreferencePage it) '''«packageName(it)».«className(it)»'''
+
 	def Main(GenCustomPreferencePage it) '''
 		«copyright(it.diagram.editorGen)»
-		package «computePackageName(it)»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «getClassName()» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«FOR pref : preferences»
 				«constant(pref)»
 			«ENDFOR»
 		
 			«generatedMemberComment»
-			public «getClassName()»() {
+			public «className(it)»() {
 				setPreferenceStore(«diagram.editorGen.plugin.activatorQualifiedClassName».getInstance().getPreferenceStore());
 			}
 		
@@ -95,7 +101,7 @@ class CustomPage {
 	 * however, call_initDefaults may get invoked for any CustomPreferencePage
 	 */
 	@MetaDef def call_initDefaults(GenCustomPreferencePage it, String storeVarName) '''
-		«IF generateBoilerplate»«qualifiedClassName».initDefaults(«storeVarName»);«ENDIF»
+		«IF generateBoilerplate»«qualifiedClassName(it)».initDefaults(«storeVarName»);«ENDIF»
 	'''
 
 	def constant(GenPreference it) '''

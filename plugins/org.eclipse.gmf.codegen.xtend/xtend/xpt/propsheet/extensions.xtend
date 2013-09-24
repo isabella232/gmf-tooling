@@ -27,14 +27,14 @@ import xpt.Common_qvto
 class extensions {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
-
+	
+	@Inject LabelProvider labelProvider;
 	def extensions(GenPropertySheet it) 
 	'''
 		<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
 			«xmlGeneratedTag»
 			<propertyContributor
-				contributorId="«editorGen.plugin.ID»"«IF needsCaption»
-				labelProvider="«getLabelProviderQualifiedClassName()»"«ENDIF»>
+				contributorId="«editorGen.plugin.ID»"«IF needsCaption» labelProvider="«labelProvider.qualifiedClassName(it)»"«ENDIF»>
 			<propertyCategory category="domain"/>
 			<propertyCategory category="visual"/>
 			<propertyCategory category="extra"/>

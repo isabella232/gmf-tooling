@@ -111,11 +111,11 @@ class Utils_qvto {
 	}
 
 	def dispatch GenClass getMetaClass(GenNode some) {
-		return some.modelFacet.metaClass
+		return if (some.modelFacet == null) null else some.modelFacet.metaClass
 	}
 
 	def dispatch GenClass getMetaClass(GenLink some) {
-		if(some.modelFacet == null) null else getMetaClass(some.modelFacet)
+		return if(some.modelFacet == null) null else getMetaClass(some.modelFacet)
 	}
 
 	def dispatch GenClass getMetaClass(LinkModelFacet facet) {

@@ -17,9 +17,12 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel
 import xpt.diagram.editparts.Common
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 
 class ExternalNodeLabelEditPart {
 	@Inject extension xpt.Common;
+	@Inject extension diagram.editparts.ExternalNodeLabelEditPart;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Common xptEditpartsCommon;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
@@ -33,7 +36,7 @@ class ExternalNodeLabelEditPart {
 
 	def constructor(GenExternalNodeLabel it) '''
 		«generatedMemberComment»
-		public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		public «className(it)»(org.eclipse.gmf.runtime.notation.View view) {
 			super(view);
 		}
 	'''
@@ -41,8 +44,7 @@ class ExternalNodeLabelEditPart {
 	def createDefaultEditPoliciesBody(GenExternalNodeLabel it) '''
 		super.createDefaultEditPolicies();
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
-		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().
-			getTextSelectionEditPolicyQualifiedClassName()»());
+		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getTextSelectionEditPolicyQualifiedClassName(getDiagram())»());
 		«xptEditpartsCommon.behaviour(it)»
 	'''
 

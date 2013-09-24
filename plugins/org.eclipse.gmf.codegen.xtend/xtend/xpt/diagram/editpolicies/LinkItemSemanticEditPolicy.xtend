@@ -21,22 +21,32 @@ import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.Common
 import xpt.Common_qvto
+import xpt.QualifiedClassNameProvider
 
 class LinkItemSemanticEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension LinkUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
 	@Inject linkCommands xptLinkCommands;
 	@Inject DeleteLinkCommand xptDeleteLinkCommand;
 
+	def className(GenLink it) '''«it.itemSemanticEditPolicyClassName»'''
+
+	def packageName(GenLink it) '''«it.getDiagram().editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenLink it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenLink it) '''«qualifiedClassName(it)»'''
+
 	def LinkItemSemanticEditPolicy(GenLink it) '''
 		«copyright(diagram.editorGen)»
-		package «getDiagram().editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «itemSemanticEditPolicyClassName» extends «diagram.baseItemSemanticEditPolicyQualifiedClassName» {
+		public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(it.diagram)» {
 		
 			«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 		

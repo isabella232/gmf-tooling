@@ -23,12 +23,20 @@ class UpdateCommand {
 
 	def implementsList(GenDiagramUpdater it) '''implements org.eclipse.core.commands.IHandler'''
 
+	def className(GenDiagramUpdater it) '''«updateCommandClassName»'''
+	
+	def packageName(GenDiagramUpdater it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagramUpdater it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagramUpdater it) '''«qualifiedClassName(it)»'''
+
 	def UpdateCommand(GenDiagramUpdater it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «updateCommandClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«addHandlerListener(it)»
 		

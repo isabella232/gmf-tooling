@@ -17,6 +17,7 @@ import xpt.Common
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.editor.VisualIDRegistry
 import xpt.editor.ValidationMarker
+import xpt.QualifiedClassNameProvider
 
 /**
  * FIXME: [MG] monolithic template with most of the code "same-generated".
@@ -24,16 +25,24 @@ import xpt.editor.ValidationMarker
  */
 class ValidationDecoratorProvider {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ValidationMarker xptValidationMarker; 
 	
+	def className(GenDiagram it) '''«it.validationDecoratorProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 def ValidationDecoratorProvider(GenDiagram it) '''
 «copyright(editorGen)»
-package «providersPackageName»;
+package «packageName(it)»;
 
 «generatedClassComment»
-public class «validationDecoratorProviderClassName»
+public class «className(it)»
 		extends org.eclipse.gmf.runtime.common.core.service.AbstractProvider
 		implements org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorProvider {
 
@@ -42,7 +51,7 @@ public class «validationDecoratorProviderClassName»
 	«IF editorGen.application == null»
 
 	«generatedMemberComment»
-	private static final String MARKER_TYPE = «editorGen.plugin.activatorQualifiedClassName».ID +
+	private static final String MARKER_TYPE = «getActivatorQualifiedClassName(editorGen.plugin)».ID +
 			".«getValidationDiagnosticMarkerType()»"; «nonNLS(1)»
 
 	«generatedMemberComment»
@@ -69,7 +78,7 @@ public class «validationDecoratorProviderClassName»
 				return;
 			}
 			if (((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain) ed).getEditorPart() instanceof
-					«editorGen.editor.getQualifiedClassName()») {
+					«getEditorQualifiedClassName(editorGen.editor)») {
 				decoratorTarget.installDecorator(KEY, new StatusDecorator(decoratorTarget));
 			}
 		}
@@ -114,7 +123,7 @@ public class «validationDecoratorProviderClassName»
 						}
 					});
 				} catch (Exception e) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 							"Decorator refresh failure", e); «nonNLS(1)»
 				}
 			}
@@ -141,7 +150,7 @@ public class «validationDecoratorProviderClassName»
 					}
 				});
 			} catch (Exception e) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"ViewID access failure", e); «nonNLS(1)»			
 			}
 		}
@@ -175,7 +184,7 @@ public class «validationDecoratorProviderClassName»
 			try {
 				markers = resource.findMarkers(MARKER_TYPE, true, org.eclipse.core.resources.IResource.DEPTH_INFINITE);
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"Validation markers refresh failure", e); «nonNLS(1)»
 			}
 			«ELSE»
@@ -393,7 +402,7 @@ public class «validationDecoratorProviderClassName»
 			try {
 				return marker.getType();
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"Validation marker refresh failure", e); «nonNLS(1)»
 				return ""; «nonNLS(1)»
 			}

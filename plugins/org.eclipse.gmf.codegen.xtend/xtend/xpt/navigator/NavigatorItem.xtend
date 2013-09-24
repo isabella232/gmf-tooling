@@ -19,14 +19,22 @@ import xpt.Common
 class NavigatorItem {
 	@Inject extension Common;
 
+	def className(GenNavigator it) '''«it.navigatorItemClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
+
 	def extendsList(GenNavigator it) '''extends «it.abstractNavigatorItemQualifiedClassName»'''
 
 	def NavigatorItem(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 			«generatedClassComment()»
-		public class «navigatorItemClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			
 			«registerAdapterFactory(it)»
 			
@@ -53,8 +61,8 @@ class NavigatorItem {
 			org.eclipse.core.runtime.Platform.getAdapterManager().registerAdapters(new org.eclipse.core.runtime.IAdapterFactory() {
 				
 				public Object getAdapter(Object adaptableObject, Class adapterType) {
-					if (adaptableObject instanceof «getNavigatorItemQualifiedClassName()» && (adapterType == org.eclipse.gmf.runtime.notation.View.class || adapterType == org.eclipse.emf.ecore.EObject.class)) {
-						return ((«getNavigatorItemQualifiedClassName()») adaptableObject).getView();
+					if (adaptableObject instanceof «qualifiedClassName(it)» && (adapterType == org.eclipse.gmf.runtime.notation.View.class || adapterType == org.eclipse.emf.ecore.EObject.class)) {
+						return ((«qualifiedClassName(it)») adaptableObject).getView();
 					}
 					return null;
 				}
@@ -62,7 +70,7 @@ class NavigatorItem {
 				public Class[] getAdapterList() {
 					return supportedTypes;
 				}
-			}, «getNavigatorItemQualifiedClassName()».class);
+			}, «qualifiedClassName(it)».class);
 		}
 	'''
 
@@ -76,7 +84,7 @@ class NavigatorItem {
 
 	def constructor(GenNavigator it) '''
 		«generatedMemberComment()»
-		public «navigatorItemClassName»(org.eclipse.gmf.runtime.notation.View view, Object parent, boolean isLeaf) {
+		public «className(it)»(org.eclipse.gmf.runtime.notation.View view, Object parent, boolean isLeaf) {
 			super(parent);
 			myView = view;
 			myLeaf = isLeaf;
@@ -100,7 +108,7 @@ class NavigatorItem {
 	def equals(GenNavigator it) '''
 		«generatedMemberComment()»
 		public boolean equals(Object obj) {
-			if (obj instanceof «getNavigatorItemQualifiedClassName()») {
+			if (obj instanceof «qualifiedClassName(it)») {
 				return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getView()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((«getNavigatorItemQualifiedClassName()») obj).getView()));
 			}
 			return super.equals(obj);

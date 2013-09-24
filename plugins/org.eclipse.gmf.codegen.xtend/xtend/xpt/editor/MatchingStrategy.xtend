@@ -18,15 +18,23 @@ import xpt.Common
 
 class MatchingStrategy {
 	@Inject extension Common;
+
+	def className(GenDiagram it) '''«it.matchingStrategyClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 	
 	def implementsList(GenDiagram it) '''implements org.eclipse.ui.IEditorMatchingStrategy'''
 
 	def MatchingStrategy(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «matchingStrategyClassName» «implementsList(it)» {
+		public class «className(it)» «implementsList(it)» {
 		
 			«matches(it)»
 		

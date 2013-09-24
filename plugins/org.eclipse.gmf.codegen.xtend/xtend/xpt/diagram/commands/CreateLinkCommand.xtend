@@ -32,6 +32,14 @@ class CreateLinkCommand {
 	@Inject MetaModel xptMetaModel;
 	@Inject ElementInitializers xptElementInitializers;
 
+	def className(GenLink it) '''«it.createCommandClassName»'''
+
+	def packageName(GenLink it) '''«it.diagram.editCommandsPackageName»'''
+
+	def qualifiedClassName(GenLink it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenLink it) '''«qualifiedClassName(it)»'''
+
 	private def GenFeature sourceOrContainmentFeature(TypeLinkModelFacet it) {
 		if(sourceMetaFeature == null) containmentMetaFeature else sourceMetaFeature;
 	}
@@ -40,14 +48,14 @@ class CreateLinkCommand {
 
 	def Main(GenLink it) '''
 		«copyright(diagram.editorGen)»
-		package «diagram.editCommandsPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
+		public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
 			«xptCreateLinkUtils.fields(it.modelFacet)»
 		
 			«generatedMemberComment(it)»
-			public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request, org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {
+			public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request, org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {
 				super(request.getLabel(), null, request);
 				«xptCreateLinkUtils.initAndDeduceContainerIfNeeded(it.modelFacet)»
 			}

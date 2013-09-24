@@ -20,22 +20,28 @@ import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class ShortcutCreationWizard {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
-
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject ModelElementSelectionPage xptModelElementSelectionPage;
 
 	@MetaDef def className(GenDiagram it) '''ShortcutCreationWizard'''
 
-	@MetaDef def qualifiedClassName(GenDiagram it) '''«editorGen.editor.packageName».«className(it)»'''
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def ShortcutCreationWizard(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it, 'Allows to select foreign model element and add shortcut to the diagram.')»
 		public class «className(it)» extends org.eclipse.jface.wizard.Wizard {
@@ -74,13 +80,13 @@ class ShortcutCreationWizard {
 				org.eclipse.gmf.runtime.common.core.command.ICommand command =
 						new org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand(
 								editingDomain, viewDescriptor, referencedElementSelectionPage.getView());
-				command = command.compose(new «getCreateShortcutDecorationsCommandQualifiedClassName()»(
+				command = command.compose(new «getCreateShortcutDecorationsCommandQualifiedClassName(it)»(
 						editingDomain, referencedElementSelectionPage.getView(), viewDescriptor));
 				try {
 					org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
 						command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 				} catch (org.eclipse.core.commands.ExecutionException ee) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Unable to create shortcut", ee); «nonNLS(1)»
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to create shortcut", ee); «nonNLS(1)»
 				}
 				return true;
 			}

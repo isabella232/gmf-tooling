@@ -20,11 +20,13 @@ import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class NewDiagramFileWizard {
 	@Inject extension Common;
 
 	@Inject extension ExternalizerUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject DiagramEditorUtil xptDiagramEditorUtil;
@@ -32,13 +34,17 @@ class NewDiagramFileWizard {
 
 	@Inject ModelElementSelectionPage xptModelElementSelectionPage;
 
-	@MetaDef def className(GenDiagram it) '''«newDiagramFileWizardClassName»'''
+	def className(GenDiagram it) '''«newDiagramFileWizardClassName»'''
 
-	@MetaDef def qualifiedClassName(GenDiagram it) '''«editorGen.editor.packageName».«className(it)»'''
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def NewDiagramFileWizard(GenDiagram it) '''
 	«copyright(editorGen)»
-	package «editorGen.editor.packageName»;
+	package «packageName(it)»;
 	
 	«generatedClassComment»
 	public class «className(it)» extends org.eclipse.jface.wizard.Wizard {
@@ -78,7 +84,7 @@ class NewDiagramFileWizard {
 				throw new IllegalArgumentException("Unsupported URI: " + domainModelURI); «nonNLS(1)»
 			}
 			myFileCreationPage.setContainerFullPath(filePath);
-			myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
+			myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName(it)».getUniqueFileName(
 					filePath, fileName, "«editorGen.diagramFileExtension»")); «nonNLS(1)»
 	
 			diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(«xptExternalizer.accessorCall(editorGen,
@@ -133,7 +139,7 @@ class NewDiagramFileWizard {
 					diagramResource.getContents().add(diagram.getElement());
 					«ENDIF»
 					«IF !it.synchronized»
-					new «getDiagramContentInitializerQualifiedClassName()»().initDiagramContent(diagram);			
+					new «getDiagramContentInitializerQualifiedClassName(it)»().initDiagramContent(diagram);			
 					«ENDIF»
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 				}
@@ -142,15 +148,15 @@ class NewDiagramFileWizard {
 				org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
 					command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 				diagramResource.save(«xptDiagramEditorUtil.callGetSaveOptions(it)»);
-				«getDiagramEditorUtilQualifiedClassName()».openDiagram(diagramResource);
+				«getDiagramEditorUtilQualifiedClassName(it)».openDiagram(diagramResource);
 			} catch (org.eclipse.core.commands.ExecutionException e) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Unable to create model and diagram", e); «nonNLS(1)»
 			} catch (java.io.IOException ex) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Save operation failed for: " + diagramModelURI, ex); «nonNLS(1)»
 			} catch (org.eclipse.ui.PartInitException ex) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Unable to open editor", ex); «nonNLS(1)»
 			}			
 			return true;
@@ -230,7 +236,7 @@ class NewDiagramFileWizard {
 	'''
 
 	@Localization def String i18nKeyForNewDiagramFileWizard(GenDiagram diagram) {
-		return diagram.newDiagramFileWizardClassName
+		return '' + className(diagram)
 	}
 
 	@Localization def String i18nKeyForNewDiagramFileWizardCreationPage(GenDiagram diagram) {

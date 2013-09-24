@@ -23,13 +23,21 @@ public class BaseEditHelper {
 	def extendsClause(GenDiagram it) '''extends «superClass(it)»'''
 
 	def superClass(GenDiagram it) '''org.eclipse.gmf.tooling.runtime.edit.helpers.GeneratedEditHelperBase'''
+	
+	def className(GenDiagram it) '''«it.baseEditHelperClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editHelpersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def BaseEditHelper(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editHelpersPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «baseEditHelperClassName» «extendsClause(it)» {
+		public class «className(it)» «extendsClause(it)» {
 		
 			«attributes(it)»
 			

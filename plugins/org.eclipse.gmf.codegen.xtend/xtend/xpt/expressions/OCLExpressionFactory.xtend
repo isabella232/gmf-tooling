@@ -16,33 +16,43 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import plugin.Activator
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class OCLExpressionFactory {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Activator xptActivator;
 	
+	def className(GenExpressionInterpreter it) '''«it.className»'''
+
+	def packageName(GenExpressionInterpreter it) '''«it.container.expressionsPackageName»'''
+
+	def qualifiedClassName(GenExpressionInterpreter it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenExpressionInterpreter it) '''«qualifiedClassName(it)»'''
+	
 	def OCLExpressionFactory(GenExpressionInterpreter it) '''
 	«copyright(it.container.editorGen)»
-	package «it.container.expressionsPackageName»;
+	package «packageName(it)»;
 	
 	«generatedClassComment»
-	public class «className» {
+	public class «className(it)» {
 	
 		«initInterpreterFactory(it)»
 	
 		«generatedMemberComment(it, 'This is factory method, callers are responsible to keep reference to the return value if they want to reuse parsed expression')»
-		public static «it.container.abstractExpressionQualifiedClassName» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
+		public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
 			return new Expression(body, context, environment);
 		}
 	
 		«generatedMemberComment(it, 'This method will become private in the next release')»«/* FIXME [MG] private or completely remove in the next release. Besides, no real need to pass emptyMap when null would suffice  */»
-		public static «it.container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
+		public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 			return getExpression(body, context, java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>emptyMap());
 		}
 	
 		«generatedMemberComment»
-		private static class Expression extends «it.container.getAbstractExpressionQualifiedClassName()» {
+		private static class Expression extends «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» {
 	
 			«generatedMemberComment»
 			private final org.eclipse.ocl.ecore.OCL oclInstance;
@@ -126,14 +136,14 @@ class OCLExpressionFactory {
 	 */
 	def initInterpreterFactory(GenExpressionInterpreter it) '''
 	«generatedMemberComment»
-	private final «it.container.getAbstractExpressionQualifiedClassName()»[] expressions; 
+	private final «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)»[] expressions; 
 	
 	«generatedMemberComment»
 	private final String [] expressionBodies;	
 
 	«generatedMemberComment»
 	protected «className»() {
-		this.expressions = new «it.container.getAbstractExpressionQualifiedClassName()»[«expressions.size»];
+		this.expressions = new «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)»[«expressions.size»];
 		this.expressionBodies = new String[] {
 				«FOR e : expressions»
 				«e.bodyString», «nonNLS(1)»
@@ -164,7 +174,7 @@ class OCLExpressionFactory {
 	 * - DGMT and reuse of gmfgen::ValueExpressions might be related here - if we decide identical body is enough to
 	 * reuse an expression (and change DGMT#bindToProvider accordingly), then the answer to previous point would become obvious (i.e. "body is enough")
 	 */generatedMemberComment»
-	public static «it.container.getAbstractExpressionQualifiedClassName()» getExpression(int index, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
+	public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(int index, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
 		«className» cached = getInstance();
 		if (index < 0 || index >= cached.expressions.length) {
 			throw new IllegalArgumentException();

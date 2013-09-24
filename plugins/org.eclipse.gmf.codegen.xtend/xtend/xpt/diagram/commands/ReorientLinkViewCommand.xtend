@@ -19,19 +19,27 @@ import xpt.Common
 class ReorientLinkViewCommand {
 	@Inject extension Common;
 
+	def className(GenDiagram it) '''«it.reorientConnectionViewCommandClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editCommandsPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def ReorientLinkViewCommand(GenDiagram it) '''
 «copyright(editorGen)»
-package «editCommandsPackageName»;
+package «packageName(it)»;
 
 «generatedClassComment(it)»
-public class «reorientConnectionViewCommandClassName»
+public class «className(it)»
 		extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
 	«generatedMemberComment(it)»
 	private org.eclipse.core.runtime.IAdaptable edgeAdaptor;
 
 	«generatedMemberComment(it)»
-	public «reorientConnectionViewCommandClassName»(
+	public «className(it)»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain, String label) {
 		super(editingDomain, label, null);
 	}
@@ -58,9 +66,9 @@ public class «reorientConnectionViewCommandClassName»
 
 	«generatedMemberComment(it)»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
-		«_assert('null != edgeAdaptor : \"Null child in ' + reorientConnectionViewCommandClassName + '\"')»
+		«_assert('null != edgeAdaptor : \"Null child in ' + className(it) + '\"')»
 		org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) getEdgeAdaptor().getAdapter(org.eclipse.gmf.runtime.notation.Edge.class);
-		«_assert('null != edge : \"Null edge in ' + reorientConnectionViewCommandClassName + '\"')»
+		«_assert('null != edge : \"Null edge in ' + className(it) + '\"')»
 		org.eclipse.gmf.runtime.notation.View tempView = edge.getSource();
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);

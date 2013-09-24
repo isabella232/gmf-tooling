@@ -22,12 +22,20 @@ class CustomAction {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 
+	def className(GenCustomAction it) '''«lastSegment(it.qualifiedClassName)»'''
+
+	def packageName(GenCustomAction it) '''«withoutLastSegment(qualifiedClassName)»'''
+
+	def qualifiedClassName(GenCustomAction it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenCustomAction it) '''«qualifiedClassName(it)»'''
+
 	def Main(GenCustomAction it) '''
 		«copyright(it.owner.editorGen)»
-		package «withoutLastSegment(it.qualifiedClassName)»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «lastSegment(it.qualifiedClassName)» extends org.eclipse.core.commands.AbstractHandler {
+		public class «className(it)» extends org.eclipse.core.commands.AbstractHandler {
 		
 			«generatedMemberComment(it)»
 			public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {

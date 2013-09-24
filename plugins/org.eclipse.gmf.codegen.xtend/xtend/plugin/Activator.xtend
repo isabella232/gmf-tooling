@@ -14,15 +14,32 @@ package plugin
 
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin
+import com.google.inject.Inject
+import xpt.QualifiedClassNameProvider
+import xpt.plugin.ActivatorImpl
 
 class Activator { 
+	
+	@Inject extension QualifiedClassNameProvider;
+	@Inject ActivatorImpl activatorImpl;
+	
+	def className(GenPlugin it) '''«it.activatorClassName»'''
+
+	def packageName(GenPlugin it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenPlugin it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenPlugin it) '''«qualifiedClassName(it)»'''
 	//	/**
 	//	 * FIXME[artem]: For 2.3, delegates to legacy xpt::plugin::Activator template.
 	//	 * Refactoring (moving templates out from xpt) pending.
 	//	 */
 	//	def Main(GenPlugin it) '''«xpt::plugin::Activator::Activator(it)»'''
 	// access to the sole Activator instance
-	@MetaDef def instanceAccess(GenEditorGenerator it) '''«it.plugin.activatorQualifiedClassName».getInstance()'''
+	@MetaDef def instanceAccess(GenEditorGenerator it) '''«getActivatorQualifiedClassName(it.plugin)».getInstance()'''
 
-	@MetaDef def preferenceHintAccess(GenEditorGenerator it) '''«it.plugin.activatorQualifiedClassName».DIAGRAM_PREFERENCES_HINT'''
+	@MetaDef def preferenceHintAccess(GenEditorGenerator it) '''«getActivatorQualifiedClassName(it.plugin)».DIAGRAM_PREFERENCES_HINT'''
+	
+	def Main(GenPlugin it) '''«activatorImpl.ActivatorImpl(it)»'''
 }

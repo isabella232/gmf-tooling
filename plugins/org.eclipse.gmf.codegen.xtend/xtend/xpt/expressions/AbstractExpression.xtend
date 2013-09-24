@@ -15,18 +15,28 @@ package xpt.expressions
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class AbstractExpression {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	def extendsList(GenDiagram it) ''''''
 
+	def className(GenDiagram it) '''«it.editorGen.expressionProviders.abstractExpressionClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editorGen.expressionProviders.expressionsPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def AbstractExpression(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.expressionProviders.expressionsPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public abstract class «editorGen.expressionProviders.abstractExpressionClassName» «extendsList(it)»{
+		public abstract class «className(it)» «extendsList(it)»{
 		
 		«status(it)»
 		
@@ -52,11 +62,11 @@ class AbstractExpression {
 		
 			«generatedMemberComment»
 			protected void setStatus(int severity, String message, Throwable throwable) {		
-				String pluginID = «editorGen.plugin.activatorQualifiedClassName».ID;
+				String pluginID = «getActivatorQualifiedClassName(editorGen.plugin)».ID;
 				this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable); «nonNLS(
 			1)»
 				if(!this.status.isOK()) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable); «nonNLS(
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable); «nonNLS(
 			1)» «nonNLS(2)»
 				}
 			}
@@ -89,7 +99,7 @@ class AbstractExpression {
 
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
-		protected «editorGen.expressionProviders.abstractExpressionClassName»(String body, org.eclipse.emf.ecore.EClassifier context) {
+		protected «className(it)»(String body, org.eclipse.emf.ecore.EClassifier context) {
 			myBody = body;
 			myContext = context;
 		}
@@ -112,7 +122,7 @@ class AbstractExpression {
 					try {
 						return doEvaluate(context, env);
 					} catch(Exception e) {
-						«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Expression evaluation failure: " + body(), e); «nonNLS(
+						«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Expression evaluation failure: " + body(), e); «nonNLS(
 			1)»
 					}
 				}

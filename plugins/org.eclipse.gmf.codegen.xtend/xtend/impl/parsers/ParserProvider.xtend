@@ -44,6 +44,7 @@ import xpt.expressions.OclTracker_qvto
 import xpt.expressions.getExpression
 import xpt.providers.ElementTypes
 import xpt.providers.ParserUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class ParserProvider {
 	@Inject extension Common
@@ -53,10 +54,15 @@ class ParserProvider {
 	@Inject extension ParserUtils_qvto
 	@Inject extension expression_qvto
 	
+	@Inject extension QualifiedClassNameProvider;
+	@Inject extension parsers.ExpressionLabelParser;
+	@Inject extension parsers.PredefinedParser;
+	
 	@Inject getExpression xptGetExpression;
 	@Inject MetaModel xptMetaModel;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ElementTypes xptElementTypes; 
+	@Inject parsers.ParserProvider xptParsers;
 	
 	def accessorMethod_delegate2providers(GenParsers it) '''
 		«generatedMemberComment(it, "Utility method that consults ParserService")»
@@ -93,11 +99,11 @@ class ParserProvider {
 	 * Complementary method to accessorMethod_delegate2providers, although for direct access need an instance of this class
 	 */
 	def accessorMethod_direct(GenParsers it) '''
-		private static «getQualifiedClassName()» ourInstance;
+		private static «xptParsers.className(it)» ourInstance;
 		
-		public static «getQualifiedClassName()» get() {
+		public static «xptParsers.className(it)» get() {
 			if (ourInstance == null) {
-				ourInstance = new «getQualifiedClassName()»();
+				ourInstance = new «xptParsers.qualifiedClassName(it)»();
 			}
 			return ourInstance;
 		}
@@ -111,7 +117,7 @@ class ParserProvider {
 	«IF labelModelFacet == null || labelModelFacet.parser.oclIsKindOf(typeof(ExternalParser))»
 	org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter(/*«xptElementTypes.accessElementType(elementTypeHolder)», */«parsedElement», «IF labelModelFacet == null»«xptVisualIDRegistry.typeMethodCall(it)»«ELSE»«dispatch4_parserHint(labelModelFacet.parser, labelModelFacet, it)»«ENDIF»))
 	«ELSE»
-	«getDiagram().editorGen.labelParsers.getQualifiedClassName()».get().«parserAccessorName(it)»()
+	«xptParsers.qualifiedClassName(getDiagram().editorGen.labelParsers)».get().«parserAccessorName(it)»()
 	«ENDIF»
 	'''
 
@@ -138,7 +144,7 @@ class ParserProvider {
 			if (operation instanceof org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) {
 				org.eclipse.core.runtime.IAdaptable hint =
 						((org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) operation).getHint();
-				if («editorGen.diagram.getElementTypesQualifiedClassName()».getElement(hint) == null) {
+				if («getElementTypesQualifiedClassName(editorGen.diagram)».getElement(hint) == null) {
 					return false;
 				}
 				return getParser(hint) != null;
@@ -269,16 +275,16 @@ class ParserProvider {
 	«IF isParserViewExpressionDefinedAndOcl(it)»
 		«generatedMemberComment(it)»
 		«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
-			return new «getQualifiedClassName()»();
+			return new «qualifiedClassName(it)»();
 		}
 	«ELSE»
 		«generatedMemberComment(it)»
-		private «getQualifiedClassName()» «parserFieldName(element)»;
+		private «qualifiedClassName(it)» «parserFieldName(element)»;
 
 		«generatedMemberComment(it)»
 		«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 			if («parserFieldName(element)» == null) {
-				«parserFieldName(element)» = new «getQualifiedClassName()»();
+				«parserFieldName(element)» = new «qualifiedClassName(it)»();
 			}
 			return «parserFieldName(element)»;
 		}
@@ -316,7 +322,7 @@ class ParserProvider {
 				«ENDFOR» 
 				};
 			«ENDIF»
-			«it.qualifiedClassName» «parserVar» = new «getQualifiedClassName()»(features«IF modelFacet.editableMetaFeatures.size > 0», editableFeatures«ENDIF»);
+			«qualifiedClassName(it)» «parserVar» = new «qualifiedClassName(it)»(features«IF modelFacet.editableMetaFeatures.size > 0», editableFeatures«ENDIF»);
 			«setPatterns(modelFacet, viewMethod, editMethod, parserVar)»
 	'''
 
@@ -343,7 +349,7 @@ class ParserProvider {
 		«ENDIF»
 	'''
 
-	def itemProviderAdapterFactory(OclChoiceParser it) '''«it.holder.editorGen.plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory()''' 
+	def itemProviderAdapterFactory(OclChoiceParser it) '''«getActivatorQualifiedClassName(it.holder.editorGen.plugin)».getInstance().getItemProvidersAdapterFactory()''' 
 
 	def safeItemExpression(OclChoiceParser it, GenFeature feature) 
 		'''«IF itemsExpression == null»"«feature.ecoreFeature.EType.name».allInstances()"«ELSE»«xptGetExpression.getExpressionBody(itemsExpression)»«ENDIF»'''

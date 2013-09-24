@@ -15,16 +15,26 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class Perspective {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+	
+	def className(GenApplication it) '''«it.perspectiveClassName»'''
+
+	def packageName(GenApplication it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenApplication it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenApplication it) '''«qualifiedClassName(it)»'''
 
 	def Perspective(GenApplication it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «perspectiveClassName» implements org.eclipse.ui.IPerspectiveFactory {
+		public class «className(it)» implements org.eclipse.ui.IPerspectiveFactory {
 			«createInitialLayout(it)»
 			«additions(it)»
 		}
@@ -34,7 +44,7 @@ class Perspective {
 		«generatedMemberComment»
 		public void createInitialLayout(org.eclipse.ui.IPageLayout layout) {
 			layout.setEditorAreaVisible(true);
-			layout.addPerspectiveShortcut(«getWorkbenchAdvisorQualifiedClassName()».PERSPECTIVE_ID);
+			layout.addPerspectiveShortcut(«getWorkbenchAdvisorQualifiedClassName(it)».PERSPECTIVE_ID);
 			org.eclipse.ui.IFolderLayout right = layout.createFolder(
 				"right", org.eclipse.ui.IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); «nonNLS(1)»
 			right.addView(org.eclipse.ui.IPageLayout.ID_OUTLINE);

@@ -23,12 +23,20 @@ class WizardNewFileCreationPage {
 
 	@Inject Externalizer xptExternalizer;
 
+	def className(GenApplication it) '''WizardNewFileCreationPage'''
+
+	def packageName(GenApplication it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenApplication it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenApplication it) '''«qualifiedClassName(it)»'''
+
 	def WizardNewFileCreationPage(GenApplication it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class WizardNewFileCreationPage extends org.eclipse.jface.wizard.WizardPage {
+		public class «className(it)» extends org.eclipse.jface.wizard.WizardPage {
 		
 			«generatedMemberComment»
 			private final org.eclipse.jface.viewers.IStructuredSelection currentSelection;
@@ -43,7 +51,7 @@ class WizardNewFileCreationPage {
 			private org.eclipse.swt.widgets.Text fileNameEditor;
 		
 			«generatedMemberComment»
-			public WizardNewFileCreationPage(String name, org.eclipse.jface.viewers.IStructuredSelection currentSelection) {
+			public «className(it)»(String name, org.eclipse.jface.viewers.IStructuredSelection currentSelection) {
 				super(name);
 				this.currentSelection = currentSelection;
 				String home = System.getProperty("user.home"); //$NON-NLS-1$
@@ -212,28 +220,24 @@ class WizardNewFileCreationPage {
 		«xptExternalizer.accessorField(i18nKeyForNewFileWizardInvalid(it))»
 	'''
 
-	def String wizardNewFileCreationPageClassName(GenApplication app) {
-		return 'WizardNewFileCreationPage'
-	}
-
 	@Localization def String i18nKeyForNewFileWizardFileLabel(GenApplication app) {
-		return wizardNewFileCreationPageClassName(app) + '.FileLabel'
+		return className(app) + '.FileLabel'
 	}
 
 	@Localization def String i18nKeyForNewFileWizardBrowseButton(GenApplication app) {
-		return wizardNewFileCreationPageClassName(app) + '.BrowseButton'
+		return className(app) + '.BrowseButton'
 	}
 
 	@Localization def String i18nKeyForNewFileWizardSelectDialog(GenApplication app) {
-		return wizardNewFileCreationPageClassName(app) + '.SelectNewFileDialog'
+		return className(app) + '.SelectNewFileDialog'
 	}
 
 	@Localization def String i18nKeyForNewFileWizardEmpty(GenApplication app) {
-		return wizardNewFileCreationPageClassName(app) + '.EmptyFileNameError'
+		return className(app) + '.EmptyFileNameError'
 	}
 
 	@Localization def String i18nKeyForNewFileWizardInvalid(GenApplication app) {
-		return wizardNewFileCreationPageClassName(app) + '.InvalidFileNameError'
+		return className(app) + '.InvalidFileNameError'
 	}
 
 }

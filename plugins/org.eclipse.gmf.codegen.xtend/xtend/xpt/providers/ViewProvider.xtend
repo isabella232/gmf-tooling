@@ -36,6 +36,7 @@ import xpt.diagram.ViewmapAttributesUtils_qvto
 import xpt.diagram.editpolicies.LinkUtils_qvto
 import xpt.diagram.views.ViewStyles
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 import org.eclipse.gmf.runtime.notation.FontStyle
 import org.eclipse.gmf.runtime.notation.LineStyle
 import org.eclipse.gmf.runtime.notation.FillStyle
@@ -44,6 +45,7 @@ import org.eclipse.gmf.runtime.notation.Style
 class ViewProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject extension Utils_qvto;
 	@Inject extension LinkUtils_qvto;
@@ -52,16 +54,24 @@ class ViewProvider {
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ViewStyles xptViewStyles;
 	
+	def className(GenDiagram it) '''«it.notationViewProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+	
 	def extendsList(GenDiagram it) ''' extends org.eclipse.gmf.runtime.common.core.service.AbstractProvider'''
 	def implementsList(GenDiagram it) ''' implements org.eclipse.gmf.runtime.diagram.core.providers.IViewProvider'''
 
 	
 	def ViewProvider(GenDiagram it) '''
 	«copyright(editorGen)»
-	package «providersPackageName»;
+	package «packageName(it)»;
 	
 	«generatedClassComment»
-	public class «notationViewProviderClassName» «extendsList(it)»«implementsList(it)» {
+	public class «className(it)» «extendsList(it)»«implementsList(it)» {
 	
 		«generatedMemberComment»
 		public final boolean provides(org.eclipse.gmf.runtime.common.core.service.IOperation operation) {
@@ -118,7 +128,7 @@ class ViewProvider {
 					Both parameters should describe exactly the same diagram element.
 					In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
 					domainElement (if specified) is the same as in element type. */»
-					if (!«getElementTypesQualifiedClassName()».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
+					if (!«getElementTypesQualifiedClassName(it)».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
 						return false; // foreign element type
 					}
 					String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
@@ -170,7 +180,7 @@ class ViewProvider {
 		«generatedMemberComment»«/* XXX: unlike createNode, we don't check op.containerView() for null here. On purpose? */»
 		protected boolean provides(org.eclipse.gmf.runtime.diagram.core.services.view.CreateEdgeViewOperation op) {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
-			if (!«getElementTypesQualifiedClassName()».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
+			if (!«getElementTypesQualifiedClassName(it)».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
 				return false; // foreign element type
 			}
 			String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
@@ -495,7 +505,7 @@ class ViewProvider {
 
 	def additions(GenDiagram it) ''''''
 	
-		def boolean hasFontStyleInCustom(GenCommonBase it) {
+	def boolean hasFontStyleInCustom(GenCommonBase it) {
 		return hasNotationStyleInCustomStyles(it, typeof(FontStyle));
 	}
 

@@ -15,9 +15,24 @@ package xpt.propsheet
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet
 import xpt.Common
+import xpt.navigator.NavigatorGroup
+import xpt.QualifiedClassNameProvider
+import xpt.editor.VisualIDRegistry
 
 class LabelProvider {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+
+	@Inject NavigatorGroup group;
+	@Inject VisualIDRegistry visualId;
+
+	def className(GenPropertySheet it) '''«it.labelProviderClassName»'''
+
+	def packageName(GenPropertySheet it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenPropertySheet it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenPropertySheet it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenPropertySheet it) '''extends org.eclipse.jface.viewers.BaseLabelProvider'''
 
@@ -25,10 +40,10 @@ class LabelProvider {
 
 	def LabelProvider(GenPropertySheet it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «labelProviderClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«getTextMethod(it)»
 			«getImageMethod(it)»
@@ -43,8 +58,8 @@ class LabelProvider {
 		public String getText(Object element) {
 			element = unwrap(element);
 			«IF editorGen.navigator != null»
-				if (element instanceof «editorGen.navigator.getNavigatorGroupQualifiedClassName()») {
-					return ((«editorGen.navigator.getNavigatorGroupQualifiedClassName()») element).getGroupName();
+				if (element instanceof «group.qualifiedClassName(editorGen.navigator)») {
+					return ((«group.qualifiedClassName(editorGen.navigator)») element).getGroupName();
 				}
 			«ENDIF»
 			org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(element));
@@ -56,7 +71,7 @@ class LabelProvider {
 		«generatedMemberComment»
 		public org.eclipse.swt.graphics.Image getImage(Object element) {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(unwrap(element)));
-			return etype == null ? null : «editorGen.diagram.getElementTypesQualifiedClassName()».getImage(etype);
+			return etype == null ? null : «getElementTypesQualifiedClassName(editorGen.diagram)».getImage(etype);
 		}
 	'''
 
@@ -85,9 +100,9 @@ class LabelProvider {
 		private org.eclipse.gmf.runtime.emf.type.core.IElementType getElementType(org.eclipse.gmf.runtime.notation.View view) {
 			// For intermediate views climb up the containment hierarchy to find the one associated with an element type.
 			while (view != null) {
-				int vid = «editorGen.diagram.getVisualIDRegistryQualifiedClassName()».getVisualID(view);
+				int vid = «visualId.qualifiedClassName(editorGen.diagram)».getVisualID(view);
 				org.eclipse.gmf.runtime.emf.type.core.IElementType etype =
-						«editorGen.diagram.getElementTypesQualifiedClassName()».getElementType(vid);
+						«getElementTypesQualifiedClassName(editorGen.diagram)».getElementType(vid);
 				if (etype != null) {
 					return etype;
 				}

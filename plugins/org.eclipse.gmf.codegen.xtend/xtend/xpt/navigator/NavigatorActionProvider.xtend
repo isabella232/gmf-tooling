@@ -18,20 +18,30 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 
 class NavigatorActionProvider {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Externalizer xptExternalizer;  
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject getEditorInput xptGetEditorInput;
 
+	def className(GenNavigator it) '''«it.actionProviderClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
+
 	def NavigatorActionProvider(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «actionProviderClassName»  extends org.eclipse.ui.navigator.CommonActionProvider {
+		public class «className(it)»  extends org.eclipse.ui.navigator.CommonActionProvider {
 		
 			«attributes(it)»
 			
@@ -151,8 +161,8 @@ class NavigatorActionProvider {
 			myDiagram = null;
 			if (selection.size() == 1) {
 				Object selectedElement = selection.getFirstElement();
-				if (selectedElement instanceof «getNavigatorItemQualifiedClassName()») {
-					selectedElement = ((«getNavigatorItemQualifiedClassName()») selectedElement).getView();
+				if (selectedElement instanceof «getNavigatorItemQualifiedClassName(it)») {
+					selectedElement = ((«getNavigatorItemQualifiedClassName(it)») selectedElement).getView();
 				} else if (selectedElement instanceof org.eclipse.core.runtime.IAdaptable) {
 					selectedElement = ((org.eclipse.core.runtime.IAdaptable) selectedElement).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
 				}
@@ -177,9 +187,9 @@ class NavigatorActionProvider {
 			org.eclipse.ui.IEditorInput editorInput = getEditorInput(myDiagram);
 			org.eclipse.ui.IWorkbenchPage page = myViewerSite.getPage();
 		 	try {
-				page.openEditor(editorInput, «editorGen.editor.getQualifiedClassName()».ID);
+				page.openEditor(editorInput, «getEditorQualifiedClassName(editorGen.editor)».ID);
 			} catch (org.eclipse.ui.PartInitException e) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError("Exception while openning diagram", e);  «nonNLS(1)»
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Exception while openning diagram", e);  «nonNLS(1)»
 			}
 		}
 	'''

@@ -23,12 +23,20 @@ class PropertySection {
 
 	@Inject CodeStyle xptCodeStyle;
 
+	def className(GenCustomPropertyTab it) '''«it.className»'''
+
+	def packageName(GenCustomPropertyTab it) '''«it.sheet.packageName»'''
+
+	def qualifiedClassName(GenCustomPropertyTab it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenCustomPropertyTab it) '''«qualifiedClassName(it)»'''
+
 	def PropertySection(GenCustomPropertyTab it) '''
 		«copyright(sheet.editorGen)»
-		package «sheet.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className» «extendsList(it)» «implementsClause(it)» {
+		public class «className(it)» «extendsList(it)» «implementsClause(it)» {
 		
 			«IF sheet.readOnly»
 				«createReadonlyControlsMethod(it)»

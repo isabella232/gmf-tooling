@@ -19,19 +19,31 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 import xpt.Common
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 
 class NavigatorLinkHelper {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject getEditorInput xptGetEditorInput;
+	@Inject AbstractNavigatorItem abstractNavigatorItem;
+	@Inject NavigatorGroup navigatorGroup;
+	
+	def className(GenNavigator it) '''«it.linkHelperClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
 
 	def NavigatorLinkHelper(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «linkHelperClassName» implements org.eclipse.ui.navigator.ILinkHelper {
+		public class «className(it)» implements org.eclipse.ui.navigator.ILinkHelper {
 		
 			«xptGetEditorInput.getEditorInput(editorGen)»
 		
@@ -52,7 +64,7 @@ class NavigatorLinkHelper {
 	'''
 
 	def defineDiagramDocument(GenPlugin it) '''
-		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = «activatorQualifiedClassName».getInstance().getDocumentProvider().getDiagramDocument(anInput);
+		org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument document = «getActivatorQualifiedClassName(it)».getInstance().getDocumentProvider().getDiagramDocument(anInput);
 	'''
 
 	def findSelectionBody(GenNavigator it) '''
@@ -72,11 +84,11 @@ class NavigatorLinkHelper {
 		org.eclipse.core.resources.IFile file = org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(diagram.eResource());
 		if (file != null) {
 			«IF isInsideGroup()»
-				«navigator.getNavigatorGroupQualifiedClassName()» parentGroup = new «navigator.
-			getNavigatorGroupQualifiedClassName()»("«groupName»", "«groupIcon»", «VisualIDRegistry::modelID(
+				«navigatorGroup.qualifiedClassName(navigator)» parentGroup = new «navigatorGroup.
+				qualifiedClassName(navigator)»("«groupName»", "«groupIcon»", «VisualIDRegistry::modelID(
 			navigator.editorGen.diagram)», file);
 			«ENDIF»
-			«navigator.getNavigatorItemQualifiedClassName()» item = new «navigator.getNavigatorItemQualifiedClassName()»(diagram, «IF isInsideGroup()»parentGroup«ELSE»file«ENDIF», false);
+			«getNavigatorItemQualifiedClassName(navigator)» item = new «getNavigatorItemQualifiedClassName(navigator)»(diagram, «IF isInsideGroup()»parentGroup«ELSE»file«ENDIF», false);
 			«IF isInsideGroup()»
 				parentGroup.addChild(item);
 			«ENDIF»
@@ -97,18 +109,18 @@ class NavigatorLinkHelper {
 			if (aSelection == null || aSelection.isEmpty()) {
 				return;
 			}
-			if (false == aSelection.getFirstElement() instanceof «getAbstractNavigatorItemQualifiedClassName()») {
+			if (false == aSelection.getFirstElement() instanceof «abstractNavigatorItem.qualifiedClassName(it)») {
 				return;
 			}
 				
-			«getAbstractNavigatorItemQualifiedClassName()» abstractNavigatorItem = («getAbstractNavigatorItemQualifiedClassName()») aSelection.getFirstElement();
+			«abstractNavigatorItem.qualifiedClassName(it)» abstractNavigatorItem = («abstractNavigatorItem.qualifiedClassName(it)») aSelection.getFirstElement();
 			org.eclipse.gmf.runtime.notation.View navigatorView = null;
-			if (abstractNavigatorItem instanceof «getNavigatorItemQualifiedClassName()») {
-				navigatorView = ((«getNavigatorItemQualifiedClassName()») abstractNavigatorItem).getView();
-			} else if (abstractNavigatorItem instanceof «getNavigatorGroupQualifiedClassName()») {
-				«getNavigatorGroupQualifiedClassName()» navigatorGroup = («getNavigatorGroupQualifiedClassName()») abstractNavigatorItem;
-				if (navigatorGroup.getParent() instanceof «getNavigatorItemQualifiedClassName()») {
-					navigatorView = ((«getNavigatorItemQualifiedClassName()») navigatorGroup.getParent()).getView();
+			if (abstractNavigatorItem instanceof «getNavigatorItemQualifiedClassName(it)») {
+				navigatorView = ((«getNavigatorItemQualifiedClassName(it)») abstractNavigatorItem).getView();
+			} else if (abstractNavigatorItem instanceof «navigatorGroup.qualifiedClassName(it)») {
+				«navigatorGroup.qualifiedClassName(it)» navigatorGroup = («navigatorGroup.qualifiedClassName(it)») abstractNavigatorItem;
+				if (navigatorGroup.getParent() instanceof «getNavigatorItemQualifiedClassName(it)») {
+					navigatorView = ((«getNavigatorItemQualifiedClassName(it)») navigatorGroup.getParent()).getView();
 				}«getViewFromShortcut(it)»
 			}
 			if (navigatorView == null) {

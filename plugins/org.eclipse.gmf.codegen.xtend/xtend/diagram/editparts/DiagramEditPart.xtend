@@ -28,12 +28,20 @@ class DiagramEditPart {
 	@Inject impl.diagram.editparts.LinkLabelEditPart xptLinkLabelEditPart;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
+	def className(GenDiagram it) '''«editPartClassName»'''
+
+	def packageName(GenDiagram it) '''«getDiagram().editPartsPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def Main(GenDiagram it) '''
 «copyright(editorGen)»
-package «editPartsPackageName»;
+package «packageName(it)»;
 
 «generatedClassComment»
-public class «editPartClassName» «extendsList(it)» «implementsList(it)» {
+public class «className(it)» «extendsList(it)» «implementsList(it)» {
 
 	«attributes(it)»
 	

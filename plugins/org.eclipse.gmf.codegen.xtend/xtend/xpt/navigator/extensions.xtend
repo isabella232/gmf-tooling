@@ -15,17 +15,33 @@ package xpt.navigator
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
+import xpt.editor.UriEditorInputTester
+import xpt.editor.ShortcutPropertyTester
+import xpt.QualifiedClassNameProvider
 
+/**
+ * FIXME: [MG]: xptXXX forfields
+ */
 class extensions {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+	
+	@Inject UriEditorInputTester uriTester;
+	@Inject ShortcutPropertyTester shortcutTester;
+	@Inject AbstractNavigatorItem abstractNavigatorItem;
+	@Inject NavigatorLabelProvider labelProvider;
+	@Inject NavigatorContentProvider contentProvider;
+	@Inject DomainNavigatorContentProvider domainContentProvider;
+	@Inject DomainNavigatorLabelProvider domainLabelNavigator;
 
 	def extensions(GenNavigator it) '''
+	«IF it != null»
 		«editorInputPropertyTester(it, 'URIEditorInput', 'org.eclipse.emf.common.ui.URIEditorInput',
-			it.uriInputTesterQualifiedClassName)»
+			'' + uriTester.qualifiedClassName(it))»
 		
 		«IF editorGen.diagram.generateShortcutIcon()»
 			«editorInputPropertyTester(it, 'Shortcut', 'org.eclipse.gmf.runtime.notation.View',
-			editorGen.diagram.shortcutPropertyTesterQualifiedClassName)»
+			shortcutTester.qualifiedClassName(editorGen.diagram).toString)»
 		«ENDIF»
 		
 		«registerBindings(it)»
@@ -36,8 +52,8 @@ class extensions {
 					id="«contentExtensionID»" 
 					name="«contentExtensionName»" 
 					priority="«contentExtensionPriority»" 
-					contentProvider="«getContentProviderQualifiedClassName()»" 
-					labelProvider="«getLabelProviderQualifiedClassName()»"
+					contentProvider="«contentProvider.qualifiedClassName(it)»" 
+					labelProvider="«labelProvider.qualifiedClassName(it)»"
 					icon="«editorGen.editor.iconPathX»"
 					activeByDefault="true">
 			<triggerPoints>
@@ -46,7 +62,7 @@ class extensions {
 						<instanceof value="org.eclipse.core.resources.IFile"/>
 						<test property="org.eclipse.core.resources.extension" value="«editorGen.diagramFileExtension»"/>
 					</and>
-					<instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+					<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 				«IF editorGen.diagram.generateShortcutIcon()»
 					<adapt type="org.eclipse.gmf.runtime.notation.View">
 						<test property="«editorGen.plugin.ID».isShortcut"/>
@@ -56,7 +72,7 @@ class extensions {
 			</triggerPoints>
 			<possibleChildren>
 				<or>
-					<instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+					<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 				«IF editorGen.diagram.generateShortcutIcon()»
 					<adapt type="org.eclipse.gmf.runtime.notation.View">
 						<test property="«editorGen.plugin.ID».isShortcut"/>
@@ -73,7 +89,7 @@ class extensions {
 							<instanceof value="org.eclipse.core.resources.IFile"/>
 							<test property="org.eclipse.core.resources.extension" value="«editorGen.diagramFileExtension»"/>
 						</and>
-						<instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+						<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 					</or>
 				</parentExpression>
 			</commonSorter>
@@ -83,8 +99,8 @@ class extensions {
 					id="«domainContentExtensionID»" 
 					name="«domainContentExtensionName»" 
 					priority="«domainContentExtensionPriority»" 
-					contentProvider="«getDomainContentProviderQualifiedClassName()»" 
-					labelProvider="«getDomainLabelProviderQualifiedClassName()»"
+					contentProvider="«domainContentProvider.qualifiedClassName(it)»" 
+					labelProvider="«domainLabelNavigator.qualifiedClassName(it)»"
 					icon="«editorGen.editor.iconPathX»"
 					activeByDefault="true">
 			<triggerPoints>
@@ -93,11 +109,11 @@ class extensions {
 					<instanceof value="org.eclipse.core.resources.IFile"/>
 					<test property="org.eclipse.core.resources.extension" value="«editorGen.domainFileExtension»"/>
 					</and>
-					<instanceof value="«getDomainNavigatorItemQualifiedClassName()»"/>
+					<instanceof value="«getDomainNavigatorItemQualifiedClassName(it)»"/>
 				</or>
 			</triggerPoints>
 			<possibleChildren>
-				<instanceof value="«getDomainNavigatorItemQualifiedClassName()»"/>
+				<instanceof value="«getDomainNavigatorItemQualifiedClassName(it)»"/>
 			</possibleChildren>
 			</navigatorContent>
 		«ENDIF»
@@ -106,7 +122,7 @@ class extensions {
 			class="«getActionProviderQualifiedClassName()»">
 			<enablement>
 				<or>
-					<instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+					<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 				«IF editorGen.diagram.generateShortcutIcon()»
 					<adapt type="org.eclipse.gmf.runtime.notation.View">
 						<test property="«editorGen.plugin.ID».isShortcut"/>
@@ -118,6 +134,7 @@ class extensions {
 		</extension>
 			
 		«registerLinkHelper(it)»
+	«ENDIF»
 	'''
 
 	def editorInputPropertyTester(GenNavigator it, String property, String type, String testerClass) '''
@@ -166,7 +183,7 @@ class extensions {
 				</and>
 			</editorInputEnablement>
 			<selectionEnablement>
-				<instanceof value="«getAbstractNavigatorItemQualifiedClassName()»"/>
+				<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 			</selectionEnablement>
 			</linkHelper>
 		</extension>

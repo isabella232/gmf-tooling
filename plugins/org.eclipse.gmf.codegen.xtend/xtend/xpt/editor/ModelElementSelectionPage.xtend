@@ -16,26 +16,31 @@ package xpt.editor
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
-import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class ModelElementSelectionPage {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
-
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject Externalizer xptExternalizer;
 
-	@MetaDef def className(GenDiagram it) '''ModelElementSelectionPage'''
+	def className(GenDiagram it) '''ModelElementSelectionPage'''
 
-	@MetaDef def qualifiedClassName(GenDiagram it) '''«editorGen.editor.packageName».«className(it)»'''
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenDiagram it) '''extends org.eclipse.gmf.tooling.runtime.part.DefaultModelElementSelectionPage'''
 
 	def ModelElementSelectionPage(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it, 'Wizard page that allows to select element from model.')»
 		public class «className(it)» «extendsList(it)» {
@@ -62,7 +67,7 @@ class ModelElementSelectionPage {
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
 		public «className(it)»(String pageName) {
-			super(«editorGen.plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory(), pageName);
+			super(«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory(), pageName);
 		}
 	'''
 

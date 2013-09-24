@@ -22,13 +22,23 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class InitDiagramFileAction {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ExternalizerUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	@Inject Externalizer xptExternalizer;
+
+	def className(GenDiagram it) '''«lastSegment(it.initDiagramFileActionQualifiedClassName)»'''
+
+	def packageName(GenDiagram it) '''«withoutLastSegment(it.initDiagramFileActionQualifiedClassName)»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def InitDiagramFileAction(InitDiagramAction it, GenEditorGenerator editorGen) '''
 		«InitDiagramFileAction(editorGen, it.qualifiedClassName)»
@@ -53,10 +63,10 @@ class InitDiagramFileAction {
 
 	def InitDiagramFileAction(GenEditorGenerator editorGen, String qualifiedClassName) '''
 		«copyright(editorGen)»
-		package «withoutLastSegment(qualifiedClassName)»;
+		package «packageName(editorGen.diagram)»;
 		
 		«generatedClassComment»
-		public class «lastSegment(qualifiedClassName)» «implementsList(editorGen)» {
+		public class «className(editorGen.diagram)» «implementsList(editorGen)» {
 			«IF editorGen.application == null»
 				«classBody_PDE(editorGen.diagram)»
 			«ELSE»
@@ -93,17 +103,17 @@ class InitDiagramFileAction {
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain =
 				org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 			org.eclipse.emf.ecore.resource.Resource resource =
-					«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».openModel(getShell(), 
+					«getDiagramEditorUtilQualifiedClassName(editorGen.diagram)».openModel(getShell(), 
 						«xptExternalizer.accessorCall(editorGen, i18nKeyForInitDiagramOpenFileDialogTitle())», editingDomain);
 			if (resource == null || resource.getContents().isEmpty()) {
 				return;
 			}
 			org.eclipse.emf.ecore.EObject diagramRoot = (org.eclipse.emf.ecore.EObject) resource.getContents().get(0);
-			org.eclipse.jface.wizard.Wizard wizard = new «editorGen.diagram.getNewDiagramFileWizardQualifiedClassName()»(resource.getURI(), diagramRoot, editingDomain);
+			org.eclipse.jface.wizard.Wizard wizard = new «getNewDiagramFileWizardQualifiedClassName(editorGen.diagram)»(resource.getURI(), diagramRoot, editingDomain);
 			wizard.setWindowTitle(org.eclipse.osgi.util.NLS.bind(
 					    «xptExternalizer.accessorCall(editorGen, i18nKeyForInitDiagramFileWizardTitle())»,
 					    «VisualIDRegistry::modelID(editorGen.diagram)»));
-			«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); «nonNLS(
+			«getDiagramEditorUtilQualifiedClassName(editorGen.diagram)».runWizard(getShell(), wizard, "InitDiagramFile"); «nonNLS(
 			1)»
 		}
 	'''
@@ -152,7 +162,7 @@ class InitDiagramFileAction {
 				org.eclipse.emf.ecore.resource.Resource resource = resourceSet.getResource(domainModelURI, true);
 				diagramRoot = (org.eclipse.emf.ecore.EObject) resource.getContents().get(0);
 			} catch (org.eclipse.emf.common.util.WrappedException ex) {
-				«editorGen.plugin.getActivatorQualifiedClassName()».getInstance().logError(
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Unable to load resource: " + domainModelURI, ex); «nonNLS(1)»
 			}
 			if (diagramRoot == null) {
@@ -165,7 +175,7 @@ class InitDiagramFileAction {
 			wizard.setWindowTitle(org.eclipse.osgi.util.NLS.bind(
 					    «xptExternalizer.accessorCall(editorGen, i18nKeyForInitDiagramFileWizardTitle())»,
 					    «VisualIDRegistry::modelID(editorGen.diagram)»));
-			«editorGen.diagram.getDiagramEditorUtilQualifiedClassName()».runWizard(getShell(), wizard, "InitDiagramFile"); «nonNLS(
+			«getDiagramEditorUtilQualifiedClassName(editorGen.diagram)».runWizard(getShell(), wizard, "InitDiagramFile"); «nonNLS(
 			1)»
 		}
 	'''

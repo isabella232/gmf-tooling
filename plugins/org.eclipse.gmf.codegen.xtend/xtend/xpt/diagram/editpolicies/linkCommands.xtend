@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd
 import xpt.Common
 import xpt.providers.ElementTypes
+import xpt.QualifiedClassNameProvider
 
 /**
  * Start  		start of link creation. 
@@ -44,6 +45,7 @@ import xpt.providers.ElementTypes
 class linkCommands {
 	@Inject extension Utils_qvto;
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject ElementTypes xptElementTypes;
 	
@@ -93,7 +95,7 @@ class linkCommands {
 	def startLinkCommands(GenLink it, GenLinkEnd linkEnd) '''
 		if («xptElementTypes.accessElementType(it)» == req.getElementType()) {
 			«IF createStartLinkCommand(it, linkEnd)»
-				return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
+				return getGEFWrapper(new «getCreateCommandQualifiedClassName(it)»(req,
 					«IF createStartIncomingLinkCommand(it, linkEnd)»
 						req.getTarget(), req.getSource()
 					«ELSE»
@@ -109,7 +111,7 @@ class linkCommands {
 	def completeLinkCommands(GenLink it, GenLinkEnd linkEnd) '''
 		if («xptElementTypes.accessElementType(it)» == req.getElementType()) {
 			«IF createCompleteLinkCommand(it, linkEnd)»
-				return getGEFWrapper(new «getCreateCommandQualifiedClassName()»(req,
+				return getGEFWrapper(new «getCreateCommandQualifiedClassName(it)»(req,
 					«IF createCompleteOutgoingLinkCommand(it, linkEnd)»
 						req.getTarget(), req.getSource()
 					«ELSE»
@@ -160,7 +162,7 @@ class linkCommands {
 
 	def reorientLinkCommand(GenLink it) '''
 		«caseVisualID(it)»
-			return getGEFWrapper(new «getReorientCommandQualifiedClassName()»(req));
+			return getGEFWrapper(new «getReorientCommandQualifiedClassName(it)»(req));
 	'''
 
 }

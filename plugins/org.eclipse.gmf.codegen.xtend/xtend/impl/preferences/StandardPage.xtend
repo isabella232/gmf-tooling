@@ -15,21 +15,29 @@ package impl.preferences
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages
-import xpt.Common
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
+import xpt.Common
 
 class StandardPage {
 	@Inject extension Common;
 
+	def className(GenStandardPreferencePage it) '''«getClassName()»'''
+
+	def packageName(GenStandardPreferencePage it) '''«getDiagram().preferencesPackageName»'''
+
+	def qualifiedClassName(GenStandardPreferencePage it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenStandardPreferencePage it) '''«qualifiedClassName(it)»'''
+
 	def Main(GenStandardPreferencePage it) '''
 		«copyright(it.diagram.editorGen)»
-		package «getDiagram().preferencesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «getClassName()» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«generatedMemberComment»
-			public «getClassName()»() {
+			public «className(it)»() {
 				setPreferenceStore(«getDiagram().editorGen.plugin.activatorQualifiedClassName».getInstance().getPreferenceStore());
 			}
 		}
@@ -52,6 +60,6 @@ class StandardPage {
 	def implementsList(GenStandardPreferencePage it) '''«/* no-op */»'''
 
 	@MetaDef def call_initDefaults(GenStandardPreferencePage it, String storeVarName) //
-	'''«IF kind != StandardPreferencePages::PATHMAPS_LITERAL»«getQualifiedClassName()».initDefaults(«storeVarName»);«ENDIF»'''
+	'''«IF kind != StandardPreferencePages::PATHMAPS_LITERAL»«qualifiedClassName(it)».initDefaults(«storeVarName»);«ENDIF»'''
 
 }

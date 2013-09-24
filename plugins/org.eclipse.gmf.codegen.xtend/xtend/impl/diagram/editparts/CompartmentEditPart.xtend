@@ -32,9 +32,11 @@ class CompartmentEditPart {
 	@Inject Externalizer xptExternalizer;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
+	@Inject extension diagram.editparts.CompartmentEditPart
+
 	def constructor(GenCompartment it) '''
 		«generatedMemberComment»
-		public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		public «className(it)»(org.eclipse.gmf.runtime.notation.View view) {
 			super(view);
 		}
 	'''
@@ -148,7 +150,7 @@ class CompartmentEditPart {
 	'''
 
 	@Localization def String i18nKeyForCompartmentTitle(GenCompartment compartment) {
-		return compartment.editPartClassName + '.title'
+		return className(compartment) + '.title'
 	}
 
 }

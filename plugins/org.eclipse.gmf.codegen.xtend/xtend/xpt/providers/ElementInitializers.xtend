@@ -39,6 +39,7 @@ import plugin.Activator
 import xpt.Common
 import xpt.Common_qvto
 import xpt.expressions.getExpression
+import xpt.QualifiedClassNameProvider
 
 /**
  * XXX should generate this class only when there is initialization logic defined in the model
@@ -47,6 +48,7 @@ class ElementInitializers {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ElementInitializers_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Activator xptActivator;
 	@Inject MetaModel xptMetaModel
@@ -59,16 +61,24 @@ class ElementInitializers {
 	'''
 
 	@MetaDef protected def elementInitializersInstanceCall(GenCommonBase base) // 
-	'''«base.diagram.elementInitializersPackageName».«base.diagram.elementInitializersClassName».getInstance()'''
+	'''«qualifiedClassName(base.getDiagram())».getInstance()'''
+
+	def className(GenDiagram it) '''«it.getElementInitializersClassName()»'''
+
+	def packageName(GenDiagram it) '''«it.getElementInitializersPackageName()»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def ElementInitializers(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «getElementInitializersPackageName()»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «getElementInitializersClassName()» {
+		public class «className(it)» {
 		
-			protected «getElementInitializersClassName()»() {
+			protected «className(it)»() {
 				// use #getInstance to access cached instance
 			} 
 		
@@ -77,10 +87,10 @@ class ElementInitializers {
 			«additions(it)»
 		
 			«generatedMemberComment»
-			public static «getElementInitializersClassName()» getInstance() {
-				«getElementInitializersClassName()» cached = «xptActivator.instanceAccess(editorGen)».getElementInitializers();
+			public static «className(it)» getInstance() {
+				«className(it)» cached = «xptActivator.instanceAccess(editorGen)».getElementInitializers();
 				if (cached == null) {
-					«xptActivator.instanceAccess(editorGen)».setElementInitializers(cached = new «getElementInitializersClassName()»());
+					«xptActivator.instanceAccess(editorGen)».setElementInitializers(cached = new «className(it)»());
 				}
 				return cached;
 			}
@@ -110,9 +120,9 @@ class ElementInitializers {
 
 	def additions(GenDiagram it) ''''''
 
-	def dispatch CharSequence initMethod(GenNode it) '''«initMethod(it.modelFacet, it)»'''
+	def dispatch CharSequence initMethod(GenNode it) '''«IF it.modelFacet != null»«initMethod(it.modelFacet, it)»«ENDIF»'''
 
-	def dispatch CharSequence initMethod(GenLink it) '''«initMethod(it.modelFacet, it)»'''
+	def dispatch CharSequence initMethod(GenLink it) '''«IF it.modelFacet != null»«initMethod(it.modelFacet, it)»«ENDIF»'''
 
 	def dispatch CharSequence initMethod(ModelFacet it, GenCommonBase diagramElement) ''''''
 
@@ -122,8 +132,8 @@ class ElementInitializers {
 		«ENDIF»
 	'''
 
-	def dispatch CharSequence initMethod(GenElementInitializer it, GenCommonBase diagramElement) '''«ERROR(
-		'No idea how to init using ' + it)»'''
+	def dispatch CharSequence initMethod(GenElementInitializer it, GenCommonBase diagramElement) '''«IF it !=null && it.typeModelFacet != null»«ERROR(
+		'No idea how to init using ' + it)»«ENDIF»'''
 
 	def dispatch CharSequence initMethod(GenFeatureSeqInitializer it, GenCommonBase diagramElement) '''
 		«generatedMemberComment»
@@ -133,7 +143,7 @@ class ElementInitializers {
 					«performInit(i, diagramElement, 'instance', elementClass, <Integer>newLinkedList(initializers.indexOf(i)))»
 				«ENDFOR»
 			} catch(RuntimeException e) {
-				«diagramElement.getDiagram().editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
+				«getActivatorQualifiedClassName(diagramElement.getDiagram().editorGen.plugin)».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 			}
 		}
 	'''
@@ -157,7 +167,7 @@ class ElementInitializers {
 					«xptMetaModel.getFeatureValue(feature, instanceVar, instanceClass, true)».clear();
 					«IF feature.typeGenClassifier.expressionResultNeedsCast()»
 						for (java.util.Iterator it = ((java.util.Collection) «expressionVarName»).iterator(); it.hasNext(); ) {
-							Object next = «diagramElement.getDiagram().editorGen.expressionProviders.getAbstractExpressionQualifiedClassName()».performCast(it.next(), «xptMetaModel.
+							Object next = «getAbstractExpressionQualifiedClassName(diagramElement.getDiagram())».performCast(it.next(), «xptMetaModel.
 			MetaClass(feature.typeGenClassifier)»);
 							«xptMetaModel.getFeatureValue(feature, instanceVar, instanceClass, true)».add((«xptMetaModel.
 			QualifiedClassName(feature.typeGenClassifier/*XXX sorta hack, better would be MM::setFeatureValue that supports lists*/)») next);
@@ -177,8 +187,8 @@ class ElementInitializers {
 			«ELSE»
 				«IF feature.typeGenClassifier.expressionResultNeedsCast()»
 					«extraLineBreak»
-					«expressionVarName» = «diagramElement.getDiagram().editorGen.expressionProviders.
-			getAbstractExpressionQualifiedClassName()».performCast(«expressionVarName», «xptMetaModel.MetaClass(
+					«expressionVarName» = «
+			getAbstractExpressionQualifiedClassName(diagramElement.getDiagram())».performCast(«expressionVarName», «xptMetaModel.MetaClass(
 			feature.typeGenClassifier)»);
 					«ENDIF»
 					«xptMetaModel.setFeatureValue(feature, instanceVar, instanceClass, expressionVarName, true)»;

@@ -16,28 +16,36 @@
 package parsers
 
 import com.google.inject.Inject
-import impl.parsers.AbstractParser
 import org.eclipse.gmf.codegen.gmfgen.GenParsers
 import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
+import xpt.QualifiedClassNameProvider
 
 class PredefinedParser {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
-	@Inject AbstractParser xptAbstractParser;
 	@Inject Externalizer xptExternalizer;
+	
+	def className(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''«it.className»'''
 
+	def packageName(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''«it.holder.implPackageName»'''
+
+	def qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''«qualifiedClassName(it)»'''
+	
 	def extendsList(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) //
-	'''extends «xptAbstractParser.qualifiedClassName(it.holder)»'''
+	'''extends org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser'''
 
 	def Main(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''
 	«copyright(it.holder.editorGen)»
-	package «holder.implPackageName»;
+	package «packageName(it)»;
 	
 	«generatedClassComment»
-	public class «className» «extendsList(it)» {
+	public class «className(it)» «extendsList(it)» {
 	
 		«fields(it)»
 		«constructor(it)»
@@ -79,7 +87,7 @@ class PredefinedParser {
 
 	def constructor(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''
 		«generatedMemberComment»
-		public «className»(org.eclipse.emf.ecore.EAttribute[] features) {
+		public «className(it)»(org.eclipse.emf.ecore.EAttribute[] features) {
 			super(features);
 		«IF viewMethod == LabelTextAccessMethod::NATIVE || editMethod == LabelTextAccessMethod::NATIVE»
 			if (features.length != 1) {
@@ -89,7 +97,7 @@ class PredefinedParser {
 		}
 		
 		«generatedMemberComment»
-		public «className»(org.eclipse.emf.ecore.EAttribute[] features, org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
+		public «className(it)»(org.eclipse.emf.ecore.EAttribute[] features, org.eclipse.emf.ecore.EAttribute[] editableFeatures) {
 			super(features, editableFeatures);
 		«IF viewMethod == LabelTextAccessMethod::NATIVE || editMethod == LabelTextAccessMethod::NATIVE»
 			if (features.length != 1) {
@@ -255,7 +263,7 @@ class PredefinedParser {
 			Object[] values = getEditProcessor().parse(editString, pos);
 			if (values == null) {
 				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
-						«holder.editorGen.plugin.activatorQualifiedClassName».ID,
+						«getActivatorQualifiedClassName(holder.editorGen.plugin)».ID,
 						org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
 						org.eclipse.osgi.util.NLS.bind(
 								«xptExternalizer.accessorCall(holder.editorGen, i18nKeyForMessageFormatParserInvalidInputError())»,
@@ -321,16 +329,20 @@ class PredefinedParser {
 	def parser_getCompletionProcessorMethod(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''«/* NO-OP, rely on superclass for now */»'''
 
 	def i18nValues(GenParsers it) '''
-		«IF implementations.filter(typeof(org.eclipse.gmf.codegen.gmfgen.PredefinedParser)).exists(
-			p|p.editMethod == LabelTextAccessMethod::MESSAGE_FORMAT)»
-			«xptExternalizer.messageEntry(i18nKeyForMessageFormatParserInvalidInputError(), 'Invalid input at {0}')»
+		«IF implementations != null»
+			«IF implementations.filter(typeof(org.eclipse.gmf.codegen.gmfgen.PredefinedParser)).exists(
+				p|p.editMethod == LabelTextAccessMethod::MESSAGE_FORMAT)»
+				«xptExternalizer.messageEntry(i18nKeyForMessageFormatParserInvalidInputError(), 'Invalid input at {0}')»
+			«ENDIF»
 		«ENDIF»
 	'''
 
 	def i18nAccessors(GenParsers it) '''
-		«IF implementations.filter(typeof(org.eclipse.gmf.codegen.gmfgen.PredefinedParser)).exists(
-			p|p.editMethod == LabelTextAccessMethod::MESSAGE_FORMAT)»
-			«xptExternalizer.accessorField(i18nKeyForMessageFormatParserInvalidInputError())»
+		«IF implementations != null»
+			«IF implementations.filter(typeof(org.eclipse.gmf.codegen.gmfgen.PredefinedParser)).exists(
+				p|p.editMethod == LabelTextAccessMethod::MESSAGE_FORMAT)»
+				«xptExternalizer.accessorField(i18nKeyForMessageFormatParserInvalidInputError())»
+			«ENDIF»
 		«ENDIF»
 	'''
 

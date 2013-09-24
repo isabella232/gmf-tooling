@@ -17,18 +17,29 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 
 class EditPartFactory {
 
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+
+	def className(GenDiagram it) '''«it.editPartFactoryClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editPartsPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def EditPartFactory(GenDiagram it) '''
 		«copyright(getDiagram().editorGen)»
-		package «editPartsPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «editPartFactoryClassName» implements org.eclipse.gef.EditPartFactory {
+		public class «className(it)» implements org.eclipse.gef.EditPartFactory {
 		
 			«createEditPartMethod(it)»
 			
@@ -72,7 +83,7 @@ class EditPartFactory {
 	private def createEditPart(GenCommonBase it) '''
 		«extraLineBreak»
 		«caseVisualID(it)»
-			return new «getEditPartQualifiedClassName()»(view);
+			return new «getEditPartQualifiedClassName(it)»(view);
 	'''
 
 	def createUnrecognizedEditPart(GenDiagram it) '''

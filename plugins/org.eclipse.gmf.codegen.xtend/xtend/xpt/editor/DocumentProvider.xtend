@@ -17,24 +17,34 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
+import xpt.QualifiedClassNameProvider
 
 class DocumentProvider {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Externalizer xptExternalizer;
 	@Inject ResourceSetInfo xptResourceSetInfo;
 	@Inject ResourceSetModificationListener xptResourceSetModificationListener;
 	@Inject DiagramEditorUtil xptDiagramEditorUtil;
 	
+	def className(GenDiagram it) '''«documentProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+	
 	def extendsList(GenDiagram it) '''extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.AbstractDocumentProvider'''
 	def implementsList(GenDiagram it) '''implements org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocumentProvider'''
 
 	def DocumentProvider(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «documentProviderClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			
 			«createElementInfo(it)»
 			
@@ -131,7 +141,7 @@ class DocumentProvider {
 	'''
 	
 	def throwIncorrectInputException(GenDiagram it) '''
-	throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.activatorQualifiedClassName».ID, 0, 
+	throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(editorGen.plugin)».ID, 0, 
 			org.eclipse.osgi.util.NLS.bind(
 				«xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentProviderIncorrectInputError(it))»,
 				new Object[] {element, «IF null == it.editorGen.application»"«fileEditorInputClassFQName(it)»", «ENDIF»"«uriEditorInputClassFQName(it)»"}), «nonNLS(1)»«IF null == editorGen.application» «nonNLS(2)»«ENDIF» 
@@ -289,7 +299,7 @@ class DocumentProvider {
 						thrownExcp = (org.eclipse.core.runtime.CoreException) e;
 					} else {
 						String msg = e.getLocalizedMessage();
-						thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «it.editorGen.plugin.activatorQualifiedClassName».ID, 0, 
+						thrownExcp = new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(it.editorGen.plugin)».ID, 0, 
 						msg != null ? msg : «xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentProviderDiagramLoadingError(it))», e));
 					}
 					throw thrownExcp;
@@ -403,7 +413,7 @@ class DocumentProvider {
 			try {
 				updateCache(element);
 			} catch (org.eclipse.core.runtime.CoreException ex) {
-				«it.editorGen.plugin.activatorQualifiedClassName».getInstance().logError(«xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentProviderIsModifiable(it))», ex);
+				«getActivatorQualifiedClassName(it.editorGen.plugin)».getInstance().logError(«xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentProviderIsModifiable(it))», ex);
 				// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.StorageDocumentProvider_isModifiable
 			}
 		}
@@ -579,7 +589,7 @@ class DocumentProvider {
 				try {
 					file.refreshLocal(org.eclipse.core.resources.IResource.DEPTH_INFINITE, monitor);
 				} catch (org.eclipse.core.runtime.CoreException ex) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(«xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentProviderHandleElementContentChanged(it))», ex);
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(«xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentProviderHandleElementContentChanged(it))», ex);
 					// Error message to log was initially taken from org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.internal.l10n.EditorMessages.FileDocumentProvider_handleElementContentChanged
 				}
 			}
@@ -609,7 +619,7 @@ class DocumentProvider {
 			ResourceSetInfo info = getResourceSetInfo(element);
 			if (info != null) {
 				if (!overwrite && !info.isSynchronized()) {
-					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.activatorQualifiedClassName».ID, 
+					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(editorGen.plugin)».ID, 
 						«IF null == editorGen.application»org.eclipse.core.resources.IResourceStatus.OUT_OF_SYNC_LOCAL«ELSE»org.eclipse.core.runtime.IStatus.ERROR«ENDIF», 
 						«xptExternalizer.accessorCall(editorGen, i18nKeyForDocumentUnsynchronizedFileSaveError(it))», 
 						null));
@@ -630,7 +640,7 @@ class DocumentProvider {
 								nextResource.save(«xptDiagramEditorUtil.callGetSaveOptions(it)»);
 							} catch (java.io.IOException e) {
 								fireElementStateChangeFailed(element);
-								throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.activatorQualifiedClassName».ID, org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
+								throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(editorGen.plugin)».ID, org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.EditorStatusCodes.RESOURCE_FAILURE, e.getLocalizedMessage(), null));
 							}
 						}
 						monitor.worked(1);
@@ -658,7 +668,7 @@ class DocumentProvider {
 				}
 				if (false == document instanceof org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) {
 					fireElementStateChangeFailed(element);
-					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.activatorQualifiedClassName».ID, 0,
+					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(editorGen.plugin)».ID, 0,
 					"Incorrect document used: " + document + " instead of org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument", null)); «nonNLS(1)» «nonNLS(2)»
 				}
 				org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument diagramDocument = (org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument) document;
@@ -674,10 +684,10 @@ class DocumentProvider {
 					newResource.save(«xptDiagramEditorUtil.callGetSaveOptions(it)»);
 				} catch (org.eclipse.core.commands.ExecutionException e) {
 					fireElementStateChangeFailed(element);
-					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.activatorQualifiedClassName».ID, 0, e.getLocalizedMessage(), null));
+					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(editorGen.plugin)».ID, 0, e.getLocalizedMessage(), null));
 				} catch (java.io.IOException e) {
 					fireElementStateChangeFailed(element);
-					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «editorGen.plugin.activatorQualifiedClassName».ID, 0, e.getLocalizedMessage(), null));
+					throw new org.eclipse.core.runtime.CoreException(new org.eclipse.core.runtime.Status(org.eclipse.core.runtime.IStatus.ERROR, «getActivatorQualifiedClassName(editorGen.plugin)».ID, 0, e.getLocalizedMessage(), null));
 				}
 				newResource.unload();
 			}
@@ -766,7 +776,7 @@ class DocumentProvider {
 	def additions(GenDiagram it) ''''''	
 
 	@Localization def String i18nKeyForDocumentProvider(GenDiagram diagram) {
-		return diagram.documentProviderClassName
+		return '' + className(diagram)
 	}
 	
 	@Localization def String i18nKeyForDocumentProviderIsModifiable(GenDiagram diagram) {

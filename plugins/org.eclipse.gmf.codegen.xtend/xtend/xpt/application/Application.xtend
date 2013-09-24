@@ -15,16 +15,26 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class Application {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+
+	def className(GenApplication it) '''«it.actionBarAdvisorClassName»'''
+
+	def packageName(GenApplication it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenApplication it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenApplication it) '''«qualifiedClassName(it)»'''
 
 	def Application(GenApplication it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className» implements org.eclipse.equinox.app.IApplication {
+		public class «className(it)» implements org.eclipse.equinox.app.IApplication {
 			
 			«run(it)»
 			
@@ -43,7 +53,7 @@ class Application {
 			org.eclipse.swt.widgets.Display display = org.eclipse.ui.PlatformUI.createDisplay();
 			try {
 				int returnCode = org.eclipse.ui.PlatformUI.createAndRunWorkbench(display,
-					new «getWorkbenchAdvisorQualifiedClassName()»());
+					new «getWorkbenchAdvisorQualifiedClassName(it)»());
 				if (returnCode == org.eclipse.ui.PlatformUI.RETURN_RESTART) {
 					return org.eclipse.equinox.app.IApplication.EXIT_RESTART;
 				}

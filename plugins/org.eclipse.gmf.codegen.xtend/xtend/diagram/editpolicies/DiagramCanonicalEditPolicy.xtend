@@ -26,14 +26,22 @@ class DiagramCanonicalEditPolicy {
 	@Inject CanonicalUpdate xptCanonicalUpdate;
 	@Inject domain2notation xptDomain2notation;
 
+	def className(GenDiagram it) '''«canonicalEditPolicyClassName»'''
+
+	def packageName(GenDiagram it) '''«editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def extendsList(GenDiagram it) '''extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy'''
 
 	def Main(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «canonicalEditPolicyClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			«/**
 			 * Perhaps, we need to supply implementation of refreshOnActivate() identical to that in CanonicalConnectionEditPolicy,
 			 * if we observe troubles like in the bug 114992. Although I suspect the fact we do no check for EP being active when creating

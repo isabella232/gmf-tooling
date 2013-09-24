@@ -20,12 +20,20 @@ class LoadResourceAction {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 
+	def className(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«lastSegment(it.qualifiedClassName)»'''
+
+	def packageName(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«withoutLastSegment(qualifiedClassName)»'''
+
+	def qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«qualifiedClassName(it)»'''
+
 	def Main(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''
 		«copyright(it.owner.editorGen)»
-		package «withoutLastSegment(it.qualifiedClassName)»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «lastSegment(it.qualifiedClassName)» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			«executeMethod(it)»
 			«additions(it)»
 		}

@@ -19,12 +19,20 @@ import xpt.Common
 class AbstractNavigatorItem {
 	@Inject extension Common;
 
+	def className(GenNavigator it) '''«it.abstractNavigatorItemClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
+
 	def AbstractNavigatorItem(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public abstract class «abstractNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject {
+		public abstract class «className(it)» extends org.eclipse.core.runtime.PlatformObject {
 			
 			«IF null != editorGen.propertySheet»
 				«registerAdapterFactory(it)»
@@ -52,7 +60,7 @@ class AbstractNavigatorItem {
 			org.eclipse.core.runtime.Platform.getAdapterManager().registerAdapters(new org.eclipse.core.runtime.IAdapterFactory() {
 				
 				public Object getAdapter(Object adaptableObject, Class adapterType) {
-					if (adaptableObject instanceof «getAbstractNavigatorItemQualifiedClassName()» && adapterType == org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class) {
+					if (adaptableObject instanceof «qualifiedClassName(it)» && adapterType == org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor.class) {
 						return propertySheetPageContributor;				
 					}
 					return null;
@@ -61,7 +69,7 @@ class AbstractNavigatorItem {
 				public Class[] getAdapterList() {
 					return supportedTypes;
 				}
-			}, «getAbstractNavigatorItemQualifiedClassName()».class);
+			}, «qualifiedClassName(it)».class);
 		}
 	'''
 
@@ -72,7 +80,7 @@ class AbstractNavigatorItem {
 
 	def constructor(GenNavigator it) '''
 		«generatedMemberComment()»
-		protected «abstractNavigatorItemClassName»(Object parent) {
+		protected «className(it)»(Object parent) {
 			myParent = parent;
 		}
 	'''

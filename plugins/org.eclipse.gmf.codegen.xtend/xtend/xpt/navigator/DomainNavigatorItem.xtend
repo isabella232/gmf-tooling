@@ -21,12 +21,20 @@ class DomainNavigatorItem {
 
 	@Inject AbstractNavigatorItem xptAbstractNavigatorItem;
 
+	def className(GenNavigator it) '''«it.domainNavigatorItemClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
+
 	def DomainNavigatorItem(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «domainNavigatorItemClassName» extends org.eclipse.core.runtime.PlatformObject {
+		public class «className(it)» extends org.eclipse.core.runtime.PlatformObject {
 		
 			«registerAdapterFactory(it)»
 			
@@ -57,8 +65,8 @@ class DomainNavigatorItem {
 			org.eclipse.core.runtime.Platform.getAdapterManager().registerAdapters(new org.eclipse.core.runtime.IAdapterFactory() {
 				
 				public Object getAdapter(Object adaptableObject, Class adapterType) {
-					if (adaptableObject instanceof «getDomainNavigatorItemQualifiedClassName()») {
-						«getDomainNavigatorItemQualifiedClassName()» domainNavigatorItem = («getDomainNavigatorItemQualifiedClassName()») adaptableObject;
+					if (adaptableObject instanceof «qualifiedClassName(it)») {
+						«qualifiedClassName(it)» domainNavigatorItem = («qualifiedClassName(it)») adaptableObject;
 						org.eclipse.emf.ecore.EObject eObject = domainNavigatorItem.getEObject();
 						if (adapterType == org.eclipse.emf.ecore.EObject.class) {
 							return eObject;
@@ -74,7 +82,7 @@ class DomainNavigatorItem {
 				public Class[] getAdapterList() {
 					return supportedTypes;
 				}
-			}, «getDomainNavigatorItemQualifiedClassName()».class);
+			}, «qualifiedClassName(it)».class);
 		}
 	'''
 
@@ -88,7 +96,7 @@ class DomainNavigatorItem {
 
 	def constructor(GenNavigator it) '''
 		«generatedMemberComment()»
-		public «domainNavigatorItemClassName»(org.eclipse.emf.ecore.EObject eObject, Object parent, org.eclipse.ui.views.properties.IPropertySourceProvider propertySourceProvider) {
+		public «className(it)»(org.eclipse.emf.ecore.EObject eObject, Object parent, org.eclipse.ui.views.properties.IPropertySourceProvider propertySourceProvider) {
 			myParent = parent;
 			myEObject = eObject;
 			myPropertySourceProvider = propertySourceProvider;
@@ -112,8 +120,8 @@ class DomainNavigatorItem {
 	def equals(GenNavigator it) '''
 		«generatedMemberComment()»
 		public boolean equals(Object obj) {
-			if (obj instanceof «getDomainNavigatorItemQualifiedClassName()») {
-				return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((«getDomainNavigatorItemQualifiedClassName()») obj).getEObject()));
+			if (obj instanceof «qualifiedClassName(it)») {
+				return org.eclipse.emf.ecore.util.EcoreUtil.getURI(getEObject()).equals(org.eclipse.emf.ecore.util.EcoreUtil.getURI(((«qualifiedClassName(it)») obj).getEObject()));
 			}
 			return super.equals(obj);
 		}

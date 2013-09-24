@@ -21,13 +21,17 @@ class DeleteElementAction {
 
 	def className(GenDiagram it) '''DeleteElementAction'''
 
-	def qualifiedClassName(GenDiagram it) '''«editorGen.editor.packageName».«className(it)»'''
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenDiagram it) '''extends org.eclipse.gmf.tooling.runtime.actions.DefaultDeleteElementAction'''
 
 	def DeleteElementAction(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
 		public class «className(it)» «extendsList(it)» {

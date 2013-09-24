@@ -23,12 +23,20 @@ import xpt.Common
 class UriEditorInputTester {
 	@Inject extension Common;
 
+	def className(GenNavigator it) '''«uriInputTesterClassName»'''
+
+	def packageName(GenNavigator it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
+
 	def UriEditorInputTester(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «uriInputTesterClassName» extends org.eclipse.core.expressions.PropertyTester {
+		public class «className(it)» extends org.eclipse.core.expressions.PropertyTester {
 		
 			«test(editorGen)»
 		

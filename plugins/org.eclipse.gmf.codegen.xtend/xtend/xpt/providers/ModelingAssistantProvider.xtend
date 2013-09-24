@@ -21,24 +21,34 @@ import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.diagram.editparts.Utils_qvto
+import xpt.QualifiedClassNameProvider
 
 class ModelingAssistantProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
 	@Inject extension ExternalizerUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject ElementTypes xptElementTypes;
 	@Inject Externalizer xptExternalizer;
+
+	def className(GenDiagram it) '''«it.modelingAssistantProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenDiagram it) '''extends org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider'''
 
 	def ModelingAssistantProvider(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «providersPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «modelingAssistantProviderClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 		
 			«getTypesForPopupBar(it)»
 		
@@ -74,7 +84,7 @@ class ModelingAssistantProvider {
 							org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR container : getAllContainers()»
 				«IF container.assistantNodes.notEmpty»
-					if (editPart instanceof «container.getEditPartQualifiedClassName()») {
+					if (editPart instanceof «getEditPartQualifiedClassName(container)») {
 					«newArrayListOfElementTypes('types')»(«container.assistantNodes.size»);
 					«FOR node : container.assistantNodes»
 						types.add(«xptElementTypes.accessElementType(node)»);
@@ -95,8 +105,8 @@ class ModelingAssistantProvider {
 							org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR source : getAllNodes()»
 				«IF getAssistantOutgoingLinks(source).notEmpty»
-					if (sourceEditPart instanceof «source.getEditPartQualifiedClassName()») {
-						return ((«source.getEditPartQualifiedClassName()») sourceEditPart).getMARelTypesOnSource();
+					if (sourceEditPart instanceof «getEditPartQualifiedClassName(source)») {
+						return ((«getEditPartQualifiedClassName(source)») sourceEditPart).getMARelTypesOnSource();
 					}
 				«ENDIF»
 			«ENDFOR»
@@ -112,8 +122,8 @@ class ModelingAssistantProvider {
 							org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR target : getAllNodes()»
 				«IF getAssistantIncomingLinks(target).notEmpty»
-					if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
-						return ((«target.getEditPartQualifiedClassName()») targetEditPart).getMARelTypesOnTarget();
+					if (targetEditPart instanceof «getEditPartQualifiedClassName(target)») {
+						return ((«getEditPartQualifiedClassName(target)») targetEditPart).getMARelTypesOnTarget();
 					}
 				«ENDIF»
 			«ENDFOR»
@@ -133,8 +143,8 @@ class ModelingAssistantProvider {
 					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR source : getAllNodes()»
 			«IF getAssistantOutgoingLinks(source).notEmpty»
-				if (sourceEditPart instanceof «source.getEditPartQualifiedClassName()») {
-					return ((«source.getEditPartQualifiedClassName()») sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
+				if (sourceEditPart instanceof «getEditPartQualifiedClassName(source)») {
+					return ((«getEditPartQualifiedClassName(source)») sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
 				}
 			«ENDIF»
 			«ENDFOR»
@@ -151,8 +161,8 @@ class ModelingAssistantProvider {
 					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR target : getAllNodes()»
 			«IF getAssistantIncomingLinks(target).notEmpty»
-				if (targetEditPart instanceof «target.getEditPartQualifiedClassName()») {
-					return ((«target.getEditPartQualifiedClassName()») targetEditPart).getMATypesForSource(relationshipType);
+				if (targetEditPart instanceof «getEditPartQualifiedClassName(target)») {
+					return ((«getEditPartQualifiedClassName(target)») targetEditPart).getMATypesForSource(relationshipType);
 				}
 			«ENDIF»
 			«ENDFOR»
@@ -169,8 +179,8 @@ class ModelingAssistantProvider {
 					org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart.class);
 			«FOR source : getAllNodes()»
 			«IF getAssistantOutgoingLinks(source).notEmpty»
-				if (sourceEditPart instanceof «source.getEditPartQualifiedClassName()») {
-					return ((«source.getEditPartQualifiedClassName()») sourceEditPart).getMATypesForTarget(relationshipType);
+				if (sourceEditPart instanceof «getEditPartQualifiedClassName(source)») {
+					return ((«getEditPartQualifiedClassName(source)») sourceEditPart).getMATypesForTarget(relationshipType);
 				}
 			«ENDIF»
 			«ENDFOR»
@@ -241,7 +251,7 @@ class ModelingAssistantProvider {
 			org.eclipse.swt.widgets.Shell shell = org.eclipse.swt.widgets.Display.getCurrent().getActiveShell();
 			org.eclipse.jface.viewers.ILabelProvider labelProvider =
 				new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory());
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 			org.eclipse.ui.dialogs.ElementListSelectionDialog dialog =
 					new org.eclipse.ui.dialogs.ElementListSelectionDialog(shell, labelProvider);
 			dialog.setMessage(«xptExternalizer.accessorCall(editorGen, messageKey(i18nKeyForModelingAssistantProvider(it)))»);
@@ -263,7 +273,7 @@ class ModelingAssistantProvider {
 	'''
 
 	@Localization protected def String i18nKeyForModelingAssistantProvider(GenDiagram it) {
-		return diagram.modelingAssistantProviderClassName
+		return '' + className(it)
 	}
 
 	@Localization def i18nValues(GenDiagram it) '''

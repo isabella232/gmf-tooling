@@ -16,15 +16,21 @@ package impl.diagram.editparts
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
+/**
+ * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
+ */
 class ChildNodeLabelEditPart {
 	@Inject extension Common;
+	@Inject extension diagram.editparts.ChildNodeLabelEditPart
+	@Inject extension QualifiedClassNameProvider
 
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
 	def constructor(GenChildLabelNode it) '''
 		«generatedMemberComment»
-		public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		public «className(it)»(org.eclipse.gmf.runtime.notation.View view) {
 			super(view);
 		}
 	'''
@@ -38,9 +44,8 @@ class ChildNodeLabelEditPart {
 
 	def createDefaultEditPoliciesBody(GenChildLabelNode it) '''
 		super.createDefaultEditPolicies();
-		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new «getItemSemanticEditPolicyQualifiedClassName()»());
-		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «getDiagram().
-			getTextNonResizableEditPolicyQualifiedClassName()»());
+		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.SEMANTIC_ROLE, new «getItemSemanticEditPolicyQualifiedClassName(it)»());
+		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «getTextNonResizableEditPolicyQualifiedClassName(getDiagram())»());
 		installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy());
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 		«xptEditpartsCommon.behaviour(it)»

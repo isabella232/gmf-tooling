@@ -16,6 +16,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import xpt.editor.VisualIDRegistry
+import org.eclipse.gmf.internal.common.codegen.Conversions
 
 /**
  * XXX: [MG] I don't like dependency from Common -> VisualIdRegistry 
@@ -29,6 +30,20 @@ class Common {
 	 */
  	«ENDIF»
 	'''
+	
+	def xcopyright(GenEditorGenerator it) 
+	'''
+	«IF copyrightText != null»
+	<!--
+	«escapeXML(it.copyrightText)»
+	-->
+	«ENDIF»
+	'''
+	
+	def escapeXML(CharSequence forXML) {
+		Conversions::escapeXML(forXML.toString) 
+	}
+	
 	def generatedClassComment(){
 		doGeneratedComment('')
 	}

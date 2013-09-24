@@ -25,18 +25,24 @@ import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap
 import org.eclipse.gmf.codegen.gmfgen.Viewmap
 import xpt.Common
 import xpt.Common_qvto
+import xpt.QualifiedClassNameProvider
 
+/**
+ * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
+ */
 class LinkEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
-
+	@Inject extension diagram.editparts.LinkEditPart
+	@Inject extension QualifiedClassNameProvider
+	
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 	@Inject TextAware xptTextAware;
 	@Inject modeledViewmapProducer xptModeledViewmapProducer;
 
 	def constructor(GenLink it) '''
 		«generatedMemberComment»
-		public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		public «className(it)»(org.eclipse.gmf.runtime.notation.View view) {
 			super(view);
 		}
 	'''
@@ -72,8 +78,8 @@ class LinkEditPart {
 	def dispatch addLabel(Viewmap it, GenLinkLabel label) ''''''
 
 	def dispatch addLabel(ParentAssignedViewmap it, GenLinkLabel label) '''
-		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-			((«label.getEditPartQualifiedClassName()») childEditPart).«xptTextAware.labelSetterName(it)»(
+		if (childEditPart instanceof «getEditPartQualifiedClassName(label)») {
+			((«getEditPartQualifiedClassName(label)») childEditPart).«xptTextAware.labelSetterName(it)»(
 					getPrimaryShape().«getterName»());
 			return true;
 		}
@@ -95,7 +101,7 @@ class LinkEditPart {
 	def dispatch removeLabel(Viewmap it, GenLinkLabel label) ''''''
 
 	def dispatch removeLabel(ParentAssignedViewmap it, GenLinkLabel label) '''
-		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+		if (childEditPart instanceof «getEditPartQualifiedClassName(label)») {
 			return true;
 		}
 	'''

@@ -22,6 +22,7 @@ import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.editor.ShortcutCreationWizard
+import xpt.diagram.commands.CreateShortcutDecorationsCommand
 
 class CreateShortcutAction {
 	@Inject extension Common;
@@ -31,14 +32,22 @@ class CreateShortcutAction {
 	@Inject ShortcutCreationWizard xptShortcutCreationWizard;
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
+	@Inject CreateShortcutDecorationsCommand xptCreateShortcutDecorationCommand;
 	
+	def className(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«lastSegment(qualifiedClassName)»'''
+
+	def packageName(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«withoutLastSegment(qualifiedClassName)»'''
+
+	def qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«qualifiedClassName(it)»'''
 	
 	def Main(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''
 	«copyright(it.owner.editorGen)»
-	package «withoutLastSegment(qualifiedClassName)»;
+	package «packageName(it)»;
 	
 	«generatedClassComment»
-	public class «lastSegment(qualifiedClassName)» «extendsList(it)» «implementsList(it)» {
+	public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		«executeMethod(it)»
 		«additions(it)»
 	}
@@ -80,7 +89,7 @@ class CreateShortcutAction {
 			}
 			org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(selectedElement), org.eclipse.gmf.runtime.notation.Node.class, null, «xptActivator.preferenceHintAccess(owner.editorGen)»);
 			org.eclipse.gmf.runtime.common.core.command.ICommand command = new org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand(editingDomain, viewDescriptor, view);
-			command = command.compose(new «owner.editorGen.diagram.getCreateShortcutDecorationsCommandQualifiedClassName()»(editingDomain, view, viewDescriptor));
+			command = command.compose(new «xptCreateShortcutDecorationCommand.qualifiedClassName(it.owner.editorGen.diagram)»(editingDomain, view, viewDescriptor));
 			try {
 				org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 			} catch (org.eclipse.core.commands.ExecutionException e) {

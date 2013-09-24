@@ -22,14 +22,22 @@ class ChildContainerCanonicalEditPolicy {
 
 	@Inject CanonicalUpdate xptCanonicalUpdate;
 
+	def className(GenChildContainer it) '''«canonicalEditPolicyClassName»'''
+
+	def packageName(GenChildContainer it) '''«it.diagram.editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenChildContainer it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenChildContainer it) '''«qualifiedClassName(it)»'''
+
 	def extendsList(GenChildContainer it) '''extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy'''
 
 	def Main(GenChildContainer it) '''
 		«copyright(it.diagram.editorGen)»
-		package «it.diagram.editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «canonicalEditPolicyClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			«xptCanonicalUpdate.body(it)»
 			
 			«refreshSemanticMethod(it)»

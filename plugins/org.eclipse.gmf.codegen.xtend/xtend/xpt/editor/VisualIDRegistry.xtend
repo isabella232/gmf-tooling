@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import xpt.diagram.updater.Utils_qvto
 import xpt.CodeStyle
 import xpt.diagram.editpolicies.LinkUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 //XXX: [MG] decide what to do with @MetaDef methods
 class VisualIDRegistry {
@@ -40,6 +41,8 @@ class VisualIDRegistry {
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
 	@Inject extension LinkUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
+	
 	
 	@Inject CodeStyle xptCodeStyle;
 	@Inject MetaModel xptMetaModel;
@@ -49,9 +52,9 @@ class VisualIDRegistry {
 
 	@MetaDef def getModelIDMethodName(GenDiagram xptSelf) '''getModelID'''
 
-	@MetaDef def getVisualIDMethodCall(GenDiagram it) '''«it.visualIDRegistryQualifiedClassName».«getVisualIdMethodName(it)»'''
+	@MetaDef def getVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«getVisualIdMethodName(it)»'''
 
-	@MetaDef def getModelIDMethodCall(GenDiagram it) '''«it.visualIDRegistryQualifiedClassName».«getModelIDMethodName(it)»'''
+	@MetaDef def getModelIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«getModelIDMethodName(it)»'''
 
 	/**
 	 * FIXME: static because its used from xpt.Common (also imported here), to avoid cyclic injection 
@@ -70,27 +73,27 @@ class VisualIDRegistry {
 	@MetaDef def /*!dispatch*/ typeMethodCall(GenCommonBase xptSelf, CharSequence visualIdVar) '''«xptSelf.diagram.
 		visualIDRegistryQualifiedClassName».«getTypeMethodName(xptSelf.diagram)»(«visualIdVar»)'''
 
-	@MetaDef def /*!dispatch*/ typeMethodCall(GenCommonBase xptSelf) '''«typeMethodCall(xptSelf, visualID(xptSelf))»'''
+	@MetaDef def /*!dispatch*/ typeMethodCall(GenCommonBase xptSelf) '''«typeMethodCall(xptSelf, visualID(xptSelf).toString)»'''
 
 	@MetaDef def getTypeMethodName(GenDiagram xptSelf) '''getType'''
 
 	@MetaDef def runtimeTypedInstanceName(GenDiagram it) '''TYPED_INSTANCE'''
 
-	@MetaDef def runtimeTypedInstanceCall(GenDiagram it) '''«visualIDRegistryQualifiedClassName».«runtimeTypedInstanceName(it)»'''
+	@MetaDef def runtimeTypedInstanceCall(GenDiagram it) '''«qualifiedClassName(it)».«runtimeTypedInstanceName(it)»'''
 	
 	@MetaDef def getDiagramVisualIDMethodName(GenDiagram it) '''getDiagramVisualID'''
 	
-	@MetaDef def getDiagramVisualIDMethodCall(GenDiagram it) '''«it.visualIDRegistryQualifiedClassName».«getDiagramVisualIDMethodName(it)»'''
+	@MetaDef def getDiagramVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«getDiagramVisualIDMethodName(it)»'''
 	
 	@MetaDef def getNodeVisualIDMethodName(GenDiagram it) '''getNodeVisualID'''
 
-	@MetaDef def getNodeVisualIDMethodCall(GenDiagram it) '''«it.visualIDRegistryQualifiedClassName».«getNodeVisualIDMethodName(it)»'''
+	@MetaDef def getNodeVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«getNodeVisualIDMethodName(it)»'''
 	
 	@MetaDef def canCreateNodeMethodName(GenDiagram it) '''canCreateNode'''
 	
-	@MetaDef def canCreateNodeMethodCall(GenDiagram it) '''«it.visualIDRegistryQualifiedClassName».«canCreateNodeMethodName(it)»'''
+	@MetaDef def canCreateNodeMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«canCreateNodeMethodName(it)»'''
 
-	@MetaDef def getLinkWithClassVisualIDMethodCall(GenDiagram it) '''«it.visualIDRegistryQualifiedClassName».«getLinkWithClassVisualIDMethodName(it)»'''
+	@MetaDef def getLinkWithClassVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«getLinkWithClassVisualIDMethodName(it)»'''
 	
 	@MetaDef def getLinkWithClassVisualIDMethodName(GenDiagram it) '''getLinkWithClassVisualID'''
 	
@@ -98,15 +101,15 @@ class VisualIDRegistry {
 	
 	@MetaDef def checkNodeVisualIDMethodName(GenDiagram it) '''checkNodeVisualID'''
 	
-	@MetaDef def checkNodeVisualIDMethodCall(GenDiagram it) '''«getVisualIDRegistryQualifiedClassName()».«checkNodeVisualIDMethodName(it)»'''
+	@MetaDef def checkNodeVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«checkNodeVisualIDMethodName(it)»'''
 	
 	@MetaDef def isCompartmentVisualIDMethodName(GenDiagram it) '''isCompartmentVisualID'''
 
-	@MetaDef def isCompartmentVisualIDMethodCall(GenDiagram it) '''«getVisualIDRegistryQualifiedClassName()».«isCompartmentVisualIDMethodName(it)»'''
+	@MetaDef def isCompartmentVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«isCompartmentVisualIDMethodName(it)»'''
 	
 	@MetaDef def isSemanticLeafVisualIDMethodName(GenDiagram it) '''isSemanticLeafVisualID'''
 	
-	@MetaDef def isSemanticLeafVisualIDMethodCall(GenDiagram it) '''«getVisualIDRegistryQualifiedClassName()».«isSemanticLeafVisualIDMethodName(it)»'''
+	@MetaDef def isSemanticLeafVisualIDMethodCall(GenDiagram it) '''«qualifiedClassName(it)».«isSemanticLeafVisualIDMethodName(it)»'''
 
 	
 	/**
@@ -145,16 +148,24 @@ class VisualIDRegistry {
 		return container.containedNodes.filter[node | null != node.modelFacet]
 	}
 	
+	def className(GenDiagram it) '''«visualIDRegistryClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+	
 	def VisualIDRegistry(GenDiagram it) '''
 	«copyright(getDiagram().editorGen)»
-	package «editorGen.editor.packageName»;
+	package «packageName(it)»;
 
 	«generatedClassComment(
 		'This registry is used to determine which type of visual object should be\n' + 
 		'created for the corresponding Diagram, Node, ChildNode or Link represented\n' + 
 		'by a domain model object.\n'	
 	)»
-	public class «visualIDRegistryClassName» {
+	public class «className(it)» {
 
 		«attributes(it)»
 	
@@ -231,7 +242,7 @@ class VisualIDRegistry {
 				return Integer.parseInt(type);
 			} catch (NumberFormatException e) {
 				if (Boolean.TRUE.toString().equalsIgnoreCase(org.eclipse.core.runtime.Platform.getDebugOption(DEBUG_KEY))) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Unable to parse view type as a visualID number: " + type);
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to parse view type as a visualID number: " + type);
 				}
 			}
 			«unrecognizedVID(it)»

@@ -16,18 +16,28 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.providers.ElementTypes
+import xpt.QualifiedClassNameProvider
 
 class GraphicalNodeEditPolicy {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject ElementTypes xptElementTypes;
 
+	def className(GenNode it) '''«it.graphicalNodeEditPolicyClassName»'''
+
+	def packageName(GenNode it) '''«it.getDiagram().editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenNode it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNode it) '''«qualifiedClassName(it)»'''
+
 	def GraphicalNodeEditPolicy(GenNode it) '''
 		«copyright(it.diagram.editorGen)»
-		package «getDiagram().editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «graphicalNodeEditPolicyClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			
 			«getConnectionCompleteCommand(it)»
 			
@@ -88,8 +98,8 @@ class GraphicalNodeEditPolicy {
 			(org.eclipse.gmf.runtime.common.core.command.CompositeCommand) c.getICommand();
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain =
 			((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-			«getDiagram().getReorientConnectionViewCommandQualifiedClassName()» rcvCommand =
-			new «getDiagram().getReorientConnectionViewCommandQualifiedClassName()»(editingDomain, null);
+			«getReorientConnectionViewCommandQualifiedClassName(getDiagram())» rcvCommand =
+			new «getReorientConnectionViewCommandQualifiedClassName(getDiagram())»(editingDomain, null);
 			rcvCommand.setEdgeAdaptor(getViewAdapter());
 			cc.compose(rcvCommand);
 			return c;

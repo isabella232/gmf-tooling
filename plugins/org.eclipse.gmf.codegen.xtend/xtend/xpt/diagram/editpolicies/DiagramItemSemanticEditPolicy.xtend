@@ -15,19 +15,29 @@ package xpt.diagram.editpolicies
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class DiagramItemSemanticEditPolicy {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
 	
+	def className(GenDiagram it) '''«it.itemSemanticEditPolicyClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+	
 	def DiagramItemSemanticEditPolicy(GenDiagram it) '''
 		«copyright(getDiagram().editorGen)»
-		package «editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «itemSemanticEditPolicyClassName» extends «getBaseItemSemanticEditPolicyQualifiedClassName()» {
+		public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(it)» {
 		
 			«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 		

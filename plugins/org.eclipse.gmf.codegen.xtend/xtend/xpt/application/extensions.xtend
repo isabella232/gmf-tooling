@@ -15,15 +15,18 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class extensions {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	def extensions(GenApplication it) '''
+	«IF it != null»
 		<extension id="«ID»" point="org.eclipse.core.runtime.applications">
 			«xmlGeneratedTag»
 			<application>
-				<run class="«getQualifiedClassName()»"/>
+				<run class="«getApplicationQualifiedClassName(it)»"/>
 			</application>
 		</extension>
 			<extension point="org.eclipse.ui.perspectives" id="rcp-perspective">
@@ -31,7 +34,7 @@ class extensions {
 			<perspective
 				id="«perspectiveId»"
 				name="%perspectiveName"
-				class="«getPerspectiveQualifiedClassName()»">
+				class="«getPerspectiveQualifiedClassName(it)»">
 			</perspective>
 		</extension>
 			<extension point="org.eclipse.ui.commands" id="rcp-menu-commands">
@@ -68,32 +71,33 @@ class extensions {
 				id="«editorGen.plugin.ID».ActionSet">
 				<action
 					label="%newDiagramActionLabel"
-					class="«getActionBarAdvisorQualifiedClassName()»$NewDiagramAction"
+					class="«getActionBarAdvisorQualifiedClassName(it)»$NewDiagramAction"
 					menubarPath="file/new/additions"
 					id="«editorGen.plugin.ID».NewDiagramAction">
 				</action>
 				<action
 					label="%aboutActionLabel"
-					class="«getActionBarAdvisorQualifiedClassName()»$AboutAction"
+					class="«getActionBarAdvisorQualifiedClassName(it)»$AboutAction"
 					menubarPath="help/additions"
 					id="«editorGen.plugin.ID».AboutAction">
 				</action>
 				<action
 					label="%openURIActionLabel"
 					definitionId="«editorGen.plugin.ID».OpenURICommand"
-					class="«getActionBarAdvisorQualifiedClassName()»$OpenURIAction"
+					class="«getActionBarAdvisorQualifiedClassName(it)»$OpenURIAction"
 					menubarPath="file/additions"
 					id="«editorGen.plugin.ID».OpenURIAction">
 				</action>
 				<action
 					label="%openActionLabel"
 					definitionId="«editorGen.plugin.ID».OpenCommand"
-					class="«getActionBarAdvisorQualifiedClassName()»$OpenAction"
+					class="«getActionBarAdvisorQualifiedClassName(it)»$OpenAction"
 					menubarPath="file/additions"
 					id="«editorGen.plugin.ID».OpenAction">
 				</action>
 			</actionSet>
 		</extension>
+	«ENDIF»
 	'''
 
 }

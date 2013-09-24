@@ -19,6 +19,10 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Common_qvto
 import xpt.diagram.Utils_qvto
+import impl.preferences.CustomPage
+import impl.preferences.StandardPage
+import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage
+import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
 
 class extensions {
 	@Inject extension Common;
@@ -26,6 +30,8 @@ class extensions {
 	@Inject extension Utils_qvto;
 
 	@Inject PreferenceInitializer xptPreferenceInitializer;
+	@Inject CustomPage xptCustomPage;
+	@Inject StandardPage xptStandardPage;
 
 	def extensions(GenDiagram it) '''
 		
@@ -53,7 +59,7 @@ class extensions {
 			«ELSEIF !parentCategory.nullOrEmpty»
 				category="«parentCategory»"
 			«ENDIF»
-			class="«it.qualifiedClassName»">
+			class="«getQualifiedPageName(it)»">
 		</page>
 	'''
 
@@ -63,4 +69,7 @@ class extensions {
 			prefpage.«pref.ID»=«pref.name»
 		«ENDFOR»
 	'''
+	def dispatch getQualifiedPageName(GenPreferencePage it) ''''''
+	def dispatch getQualifiedPageName(GenCustomPreferencePage it) '''«xptCustomPage.qualifiedClassName(it)»'''
+	def dispatch getQualifiedPageName(GenStandardPreferencePage it) '''«xptStandardPage.qualifiedClassName(it)»'''
 }

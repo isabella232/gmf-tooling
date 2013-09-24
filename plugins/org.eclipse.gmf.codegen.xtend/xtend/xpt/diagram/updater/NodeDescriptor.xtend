@@ -20,12 +20,20 @@ import xpt.Common
 class NodeDescriptor {
 	@Inject extension Common;
 
+	def className(GenDiagramUpdater it) '''«nodeDescriptorClassName»'''
+	
+	def packageName(GenDiagramUpdater it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagramUpdater it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagramUpdater it) '''«qualifiedClassName(it)»'''
+
 	def NodeDescriptor(GenDiagramUpdater it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «nodeDescriptorClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			«constructor(it)»
 		
 			«additions(it)»
@@ -36,7 +44,7 @@ class NodeDescriptor {
 
 	def constructor(GenDiagramUpdater it) '''
 		«generatedMemberComment»
-		public «nodeDescriptorClassName»(org.eclipse.emf.ecore.EObject modelElement, int visualID) {
+		public «className(it)»(org.eclipse.emf.ecore.EObject modelElement, int visualID) {
 			super(modelElement, visualID);
 		}
 	'''

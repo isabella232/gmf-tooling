@@ -19,12 +19,20 @@ import xpt.Common
 class ShortcutPropertyTester {
 	@Inject extension Common;
 
+	def className(GenDiagram it) '''«shortcutPropertyTesterClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def ShortcutPropertyTester(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «shortcutPropertyTesterClassName» extends org.eclipse.core.expressions.PropertyTester {
+		public class «className(it)» extends org.eclipse.core.expressions.PropertyTester {
 			
 			«attributes(it)»
 			

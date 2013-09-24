@@ -22,30 +22,35 @@ class IconProvider {
 
 	@Inject ElementTypes xptElementTypes;
 
+	def className(GenDiagram it) '''«it.iconProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def IconProvider(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «providersPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «iconProviderClassName» extends «extendsList(it)» implements «implementsList(it)» {
-		
+		public class «className(it)» extends «extendsList(it)» {
+			
 			«constructor(it)»
-		
+			
 			«additions(it)»
 		}
 	'''
 
 	def extendsList(GenDiagram it) '''org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeIconProvider'''
 
-	def implementsList(GenDiagram it) '''org.eclipse.gmf.runtime.common.ui.services.icon.IIconProvider'''
-
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
-		public «iconProviderClassName»() {
+		public «className(it)»() {
 			super(«xptElementTypes.typedInstanceCall(it)»);
 		}
 	'''
 
 	def additions(GenDiagram it) ''''''
-
 }

@@ -25,26 +25,34 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet
+import xpt.QualifiedClassNameProvider
 
 class ElementTypes {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
-
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject CodeStyle xptCodeStyle;
 	@Inject MetaModel xptMetaModel;
 
 	@MetaDef def accessElementType(GenCommonBase it) '''«it.diagram.elementTypesQualifiedClassName».«it.uniqueIdentifier»'''
 
-	@MetaDef def qualifiedClassName(GenDiagram it) '''«providersPackageName».«elementTypesClassName»'''
+	def className(GenDiagram it) '''«it.elementTypesClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def ElementTypes(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «providersPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «elementTypesClassName» {
+		public class «className(it)» {
 		
 			«constructor(it)»
 			
@@ -78,7 +86,7 @@ class ElementTypes {
 
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
-		private «elementTypesClassName»() {
+		private «className(it)»() {
 		}
 	'''
 
@@ -88,7 +96,7 @@ class ElementTypes {
 		
 		«generatedMemberComment»
 		private static org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages elementTypeImages = new org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages(« //
-		editorGen.plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory());
+		getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 		
 		«generatedMemberComment»
 		private static java.util.Set<org.eclipse.gmf.runtime.emf.type.core.IElementType> KNOWN_ELEMENT_TYPES;
@@ -137,12 +145,12 @@ class ElementTypes {
 			Object type = hint.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
 			if (elements == null) {
 				elements = new java.util.IdentityHashMap<org.eclipse.gmf.runtime.emf.type.core.IElementType, org.eclipse.emf.ecore.ENamedElement>();
-				«bindUniqueIdentifierToNamedElement(domainDiagramElement, getUniqueIdentifier())»
+				«IF domainDiagramElement != null»«bindUniqueIdentifierToNamedElement(domainDiagramElement, getUniqueIdentifier())»«ENDIF»
 				«FOR node : getAllNodes()»
-					«bindUniqueIdentifierToNamedElement(node.modelFacet, node.getUniqueIdentifier())»
+					«IF node.modelFacet != null»«bindUniqueIdentifierToNamedElement(node.modelFacet, node.getUniqueIdentifier())»«ENDIF»
 				«ENDFOR»
 				«FOR link : it.links»
-					«bindUniqueIdentifierToNamedElement(link.modelFacet, link.getUniqueIdentifier())»
+					«IF link.modelFacet != null»«bindUniqueIdentifierToNamedElement(link.modelFacet, link.getUniqueIdentifier())»«ENDIF»
 				«ENDFOR»
 			}
 			return (org.eclipse.emf.ecore.ENamedElement) elements.get(type);

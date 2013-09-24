@@ -20,12 +20,20 @@ class ReorientLinkCommand {
 	@Inject extension Common;
 	@Inject ReorientLinkUtils xptReorientLinkUtils;
 
+	def className(GenLink it) '''«it.reorientCommandClassName»'''
+
+	def packageName(GenLink it) '''«diagram.editCommandsPackageName»'''
+
+	def qualifiedClassName(GenLink it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenLink it) '''«qualifiedClassName(it)»'''
+
 	def ReorientLinkCommand(GenLink it) '''
 «copyright(diagram.editorGen)»
-package «diagram.editCommandsPackageName»;
+package «packageName(it)»;
 
 «generatedClassComment(it)»
-public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
+public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
 
 	«generatedMemberComment(it)»
 	private final int reorientDirection;
@@ -37,7 +45,7 @@ public class «reorientCommandClassName» extends org.eclipse.gmf.runtime.emf.ty
 	private final org.eclipse.emf.ecore.EObject newEnd;
 
 	«generatedMemberComment(it)»
-	public «reorientCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest request) {
+	public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest request) {
 		super(request.getLabel(), request.getRelationship(), request);
 		reorientDirection = request.getDirection();
 		oldEnd = request.getOldRelationshipEnd();

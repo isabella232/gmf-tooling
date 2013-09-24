@@ -23,12 +23,20 @@ class LinkEditPart {
 	@Inject impl.diagram.editparts.LinkEditPart xptLinkEditPart;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
+	def className(GenLink it) '''«editPartClassName»'''
+
+	def packageName(GenLink it) '''«getDiagram().editPartsPackageName»'''
+
+	def qualifiedClassName(GenLink it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenLink it) '''«qualifiedClassName(it)»'''
+
 	def Main(GenLink it) '''
 	«copyright(getDiagram().editorGen)»
-		package «getDiagram().editPartsPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «editPartClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«attributes(it)»
 			

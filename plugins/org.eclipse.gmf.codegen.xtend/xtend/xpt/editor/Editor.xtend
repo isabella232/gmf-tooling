@@ -24,17 +24,29 @@ import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.navigator.NavigatorLinkHelper
+import xpt.QualifiedClassNameProvider
+import xpt.editor.palette.PaletteFactory
 
 class Editor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 
 	@Inject extension ExternalizerUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject NavigatorLinkHelper xptNavigatorLinkHelper;
 	@Inject DiagramEditorContextMenuProvider xptDiagramEditorContextMenuProvider;
+	@Inject PaletteFactory pallette;
+
+	def className(GenEditorView it) '''«it.className»'''
+
+	def packageName(GenEditorView it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenEditorView it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenEditorView it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenEditorView it) '''extends org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditor'''
 
@@ -44,10 +56,10 @@ class Editor {
 
 	def Editor(GenEditorView it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«attributes(it)»
 			
@@ -110,7 +122,7 @@ class Editor {
 
 	def constructor(GenEditorView it) '''
 	«generatedMemberComment»
-		public «className»() {
+		public «className(it)»() {
 			super(«null != editorGen.diagram.palette && editorGen.diagram.palette.flyout»);
 		}
 	'''
@@ -127,7 +139,7 @@ class Editor {
 		«generatedMemberComment»
 		protected org.eclipse.gef.palette.PaletteRoot createPaletteRoot(org.eclipse.gef.palette.PaletteRoot existingPaletteRoot) {
 			org.eclipse.gef.palette.PaletteRoot root = super.createPaletteRoot(existingPaletteRoot);
-			new «getFactoryQualifiedClassName()»().fillPalette(root);
+			new «pallette.qualifiedClassName(it)»().fillPalette(root);
 			return root;
 		}
 	'''
@@ -144,7 +156,7 @@ class Editor {
 	def getContributorId(GenEditorView it) '''
 		«generatedMemberComment»
 		public String getContributorId() {
-			return «editorGen.plugin.activatorQualifiedClassName».ID;
+			return «getActivatorQualifiedClassName(editorGen.plugin)».ID;
 		}
 	'''
 
@@ -177,7 +189,7 @@ class Editor {
 		«generatedMemberComment»
 		protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider getDocumentProvider(org.eclipse.ui.IEditorInput input) {
 			if («checkEditorInput(it)») {
-				return «editorGen.plugin.activatorQualifiedClassName».getInstance().getDocumentProvider();
+				return «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getDocumentProvider();
 			}
 			return super.getDocumentProvider(input);
 		}
@@ -198,7 +210,7 @@ class Editor {
 		«generatedMemberComment»
 		protected void setDocumentProvider(org.eclipse.ui.IEditorInput input) {
 			if («checkEditorInput(it)») {
-				setDocumentProvider(«editorGen.plugin.activatorQualifiedClassName».getInstance().getDocumentProvider());
+				setDocumentProvider(«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getDocumentProvider());
 			} else {
 				super.setDocumentProvider(input);
 			}
@@ -384,8 +396,8 @@ class Editor {
 				  * FIXME [MG]: move NavigatorItem to some place available in runtime and remove 
 				  * "genEditor.getEditorGen().getNavigator() != null" test
 				  */
-		IF hasNavigator(it)»if (nextSelectedObject instanceof «it.editorGen.navigator.getNavigatorItemQualifiedClassName()») {
-										org.eclipse.gmf.runtime.notation.View view = ((«it.editorGen.navigator.getNavigatorItemQualifiedClassName()») nextSelectedObject).getView();
+		IF hasNavigator(it)»if (nextSelectedObject instanceof «getNavigatorItemQualifiedClassName(it.editorGen.navigator)») {
+										org.eclipse.gmf.runtime.notation.View view = ((«getNavigatorItemQualifiedClassName(it.editorGen.navigator)») nextSelectedObject).getView();
 										nextSelectedObject = view.getElement();
 					} else «ENDIF»if (nextSelectedObject instanceof org.eclipse.core.runtime.IAdaptable) {
 						org.eclipse.core.runtime.IAdaptable adaptable = (org.eclipse.core.runtime.IAdaptable) nextSelectedObject;
@@ -447,7 +459,7 @@ class Editor {
 	}
 
 	@Localization def String i18nKeyForEditor(GenEditorView editor) {
-		return editor.className
+		return '' + className(editor)
 	}
 
 	def Iterable<String> buildImplementsList(GenEditorView it) {

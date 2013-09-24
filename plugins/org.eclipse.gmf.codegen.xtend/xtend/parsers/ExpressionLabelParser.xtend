@@ -16,24 +16,31 @@ import com.google.inject.Inject
 import impl.parsers.expression_qvto
 import xpt.CodeStyle
 import xpt.Common
-import xpt.Common_qvto
 
 class ExpressionLabelParser {
 	@Inject extension Common;
-	@Inject extension Common_qvto;
-
 	@Inject extension expression_qvto;
+	@Inject extension ParsersUtil;
+	
 	@Inject impl.parsers.ExpressionLabelParser xptImplExpressionLabelParser;
 	@Inject CodeStyle xptCodeStyle;
 
+	def className(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it) '''«classNameExpressionLabelParser(it)»'''
+
+	def packageName(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it) '''«packageNameExpressionLabelParser(it)»'''
+
+	def qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it) '''«qualifiedClassName(it)»'''
+
 	def Main(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it) '''
 		«copyright(it.holder.editorGen)»
-		package «withoutLastSegment(it.qualifiedClassName)»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «lastSegment(it.qualifiedClassName)» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			«xptImplExpressionLabelParser.fields(it)»
-			«xptImplExpressionLabelParser.constructor(it, lastSegment(it.qualifiedClassName))»
+			«xptImplExpressionLabelParser.constructor(it, className(it).toString)»
 			«body(it)»
 			«additions(it)»
 		}

@@ -15,20 +15,30 @@ package xpt.navigator
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class DomainNavigatorLabelProvider {
 	@Inject extension Common;
-
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject NavigatorContentProvider xptNavigatorContentProvider;
+
+	def className(GenNavigator it) '''«it.domainLabelProviderClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
 	
 	def implementsList(GenNavigator it) '''implements org.eclipse.ui.navigator.ICommonLabelProvider'''
 
 	def DomainNavigatorLabelProvider(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «domainLabelProviderClassName» «implementsList(it)» {
+		public class «className(it)» «implementsList(it)» {
 			
 			«attributes(it)»
 			
@@ -48,8 +58,8 @@ class DomainNavigatorLabelProvider {
 
 	def attributes(GenNavigator it) '''
 		«generatedMemberComment()»
-		private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«editorGen.
-			plugin.getActivatorQualifiedClassName()».getInstance().getItemProvidersAdapterFactory());
+		private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«
+			getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 	'''
 
 	def iCommonLabelProvider(GenNavigator it) '''
@@ -112,19 +122,19 @@ class DomainNavigatorLabelProvider {
 	def getImage(GenNavigator it) '''
 		«generatedMemberComment()»
 		public org.eclipse.swt.graphics.Image getImage(Object element) {
-			if (element instanceof «getDomainNavigatorItemQualifiedClassName()») {
+			if (element instanceof «getDomainNavigatorItemQualifiedClassName(it)») {
 				return myAdapterFactoryLabelProvider.getImage(«getEObject(it)»);
 			}
 			return null;
 		}
 	'''
 
-	def getEObject(GenNavigator it) '''((«getDomainNavigatorItemQualifiedClassName()») element).getEObject()'''
+	def getEObject(GenNavigator it) '''((«getDomainNavigatorItemQualifiedClassName(it)») element).getEObject()'''
 
 	def getText(GenNavigator it) '''
 		«generatedMemberComment()»
 		public String getText(Object element) {
-			if (element instanceof «getDomainNavigatorItemQualifiedClassName()») {
+			if (element instanceof «getDomainNavigatorItemQualifiedClassName(it)») {
 				return myAdapterFactoryLabelProvider.getText(«getEObject(it)»);
 			}
 			return null;

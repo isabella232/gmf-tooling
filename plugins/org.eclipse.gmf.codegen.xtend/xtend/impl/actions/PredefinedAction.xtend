@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction
 import xpt.Common_qvto
 import xpt.editor.InitDiagramFileAction
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 
 class PredefinedAction {
 
@@ -31,6 +32,17 @@ class PredefinedAction {
 
 	def dispatch Main(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«xptLoadResourceAction.Main(it)»'''
 
+	def dispatch qualifiedClassName(GenAction it) '''«ERROR('Action not supported ' + it)»'''
+
+	def dispatch qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«xptLoadResourceAction.qualifiedClassName(it)»'''
+	def dispatch className(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«xptLoadResourceAction.className(it)»'''
+	def dispatch fullPath(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''«qualifiedClassName(it)»'''
+	def dispatch qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«xptCreateShortcutAction.qualifiedClassName(it)»'''
+	def dispatch className(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«xptCreateShortcutAction.className(it)»'''
+	def dispatch fullPath(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«qualifiedClassName(it)»'''
+	def dispatch qualifiedClassName(GenDiagram it) '''«xptInitDiagramFileAction.qualifiedClassName(it)»'''
+	def dispatch className(GenDiagram it) '''«xptInitDiagramFileAction.className(it)»'''
+	def dispatch fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 	/**
 	 * XXX The reason we need editorGen here as an arument (not xptSelf.owner.editorGen) 
 	 * is we don't have 'honest' InitDiagramAction at the moment, and create it on the fly

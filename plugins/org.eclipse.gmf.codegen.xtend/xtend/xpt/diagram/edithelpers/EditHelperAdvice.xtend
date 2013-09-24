@@ -19,11 +19,19 @@ import xpt.Common
 public class EditHelperAdvice {
 	@Inject extension Common;
 
+	def className(SpecializationType it) '''«it.editHelperAdviceClassName»'''
+
+	def packageName(SpecializationType it) '''«it.diagramElement.getDiagram().editHelpersPackageName»'''
+
+	def qualifiedClassName(SpecializationType it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(SpecializationType it) '''«qualifiedClassName(it)»'''
+
 	def EditHelperAdvice(SpecializationType it) '''
 		«copyright(diagramElement.diagram.editorGen)»
-		package «diagramElement.getDiagram().editHelpersPackageName»;
+		package «packageName(it)»;
 		
-		public class «editHelperAdviceClassName» «extendsClause(it)» {
+		public class «className(it)» «extendsClause(it)» {
 			
 			«additions(it)»
 		}

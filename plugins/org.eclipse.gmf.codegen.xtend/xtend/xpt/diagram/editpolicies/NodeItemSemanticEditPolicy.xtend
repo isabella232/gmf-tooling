@@ -20,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 
 /**
  *	This template should be called only for non-design nodes (modelFacet != null) 
@@ -30,6 +31,7 @@ class NodeItemSemanticEditPolicy {
 	
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;
@@ -37,12 +39,20 @@ class NodeItemSemanticEditPolicy {
 	@Inject DeleteLinkCommand xptDeleteLinkCommand;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	
+	def className(GenNode it) '''«it.itemSemanticEditPolicyClassName»'''
+
+	def packageName(GenNode it) '''«it.getDiagram().editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenNode it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenNode it) '''«qualifiedClassName(it)»'''
+	
 	def NodeItemSemanticEditPolicy(GenNode it) '''
 	«copyright(getDiagram().editorGen)»
-	package «getDiagram().editPoliciesPackageName»;
+	package «packageName(it)»;
 	
 	«generatedClassComment(it)»
-	public class «itemSemanticEditPolicyClassName» extends «getDiagram().getBaseItemSemanticEditPolicyQualifiedClassName()» {
+	public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(getDiagram())» {
 	
 		«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 	

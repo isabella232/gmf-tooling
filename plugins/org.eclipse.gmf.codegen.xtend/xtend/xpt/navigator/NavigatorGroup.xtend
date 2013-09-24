@@ -19,14 +19,22 @@ import xpt.Common
 class NavigatorGroup {
 	@Inject extension Common;
 
+	def className(GenNavigator it) '''«it.navigatorGroupClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
+
 	def extendsList(GenNavigator it) '''extends «getAbstractNavigatorItemQualifiedClassName()»'''
 
 	def NavigatorGroup(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «navigatorGroupClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 		
 			«attributes(it)»
 		
@@ -65,7 +73,7 @@ class NavigatorGroup {
 
 	def constructor(GenNavigator it) '''
 		«generatedMemberComment()»
-		«navigatorGroupClassName»(String groupName, String icon, Object parent) {
+		«className(it)»(String groupName, String icon, Object parent) {
 			super(parent);
 			myGroupName = groupName;
 			myIcon = icon;
@@ -117,8 +125,8 @@ class NavigatorGroup {
 	def equals(GenNavigator it) '''
 		«generatedMemberComment()»
 		public boolean equals(Object obj) {
-			if (obj instanceof «getNavigatorGroupQualifiedClassName()») {
-				«getNavigatorGroupQualifiedClassName()» anotherGroup = («getNavigatorGroupQualifiedClassName()») obj;
+			if (obj instanceof «qualifiedClassName(it)») {
+				«qualifiedClassName(it)» anotherGroup = («qualifiedClassName(it)») obj;
 				if (getGroupName().equals(anotherGroup.getGroupName())) {
 					return getParent().equals(anotherGroup.getParent());
 				}

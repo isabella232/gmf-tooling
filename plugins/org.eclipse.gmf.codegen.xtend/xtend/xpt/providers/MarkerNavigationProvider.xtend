@@ -19,12 +19,20 @@ import xpt.Common
 class MarkerNavigationProvider {
 	@Inject extension Common;
 
+	def className(GenDiagram it) '''«it.markerNavigationProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def MarkerNavigationProvider(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «providersPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «markerNavigationProviderClassName»
+		public class «className(it)»
 				extends org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider {
 		
 			«generatedMemberComment»

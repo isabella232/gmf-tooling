@@ -21,13 +21,17 @@ class TextFeedback {
 	@Inject extension Common;
 
 	@Inject CodeStyle xptCodeStyle;
+	@Inject TextSelectionEditPolicy xptTextSelection;
+	@Inject TextNonResizableEditPolicy xptTextNonResizeble;
+	
+	def TextSelectionEditPolicyInvocation(GenDiagram it) '''«TextSelectionEditPolicy(it)»'''
 
 	def TextSelectionEditPolicy(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editPoliciesPackageName»;
+		package «xptTextSelection.packageName(it)»;
 		
 		«generatedClassComment»
-		public class «textSelectionEditPolicyClassName» «TextSelectionEditPolicy_extendsClause(it)» «TextSelectionEditPolicy_implementsClause(
+		public class «xptTextSelection.className(it)» «TextSelectionEditPolicy_extendsClause(it)» «TextSelectionEditPolicy_implementsClause(
 			it)» {
 		
 			«textFeedback(it)»
@@ -42,12 +46,14 @@ class TextFeedback {
 
 	def TextSelectionEditPolicy_additions(GenDiagram it) ''''''
 
+	def TextNonResizableEditPolicyInvocation(GenDiagram it) '''«TextNonResizableEditPolicy(it)»'''
+
 	def TextNonResizableEditPolicy(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editPoliciesPackageName»;
+		package «xptTextNonResizeble.packageName(it)»;
 		
 		«generatedClassComment»
-		public class «textNonResizableEditPolicyClassName» «TextNonResizableEditPolicy_extendsClause(it)» «TextNonResizableEditPolicy_implementsClause(
+		public class «xptTextNonResizeble.className(it)» «TextNonResizableEditPolicy_extendsClause(it)» «TextNonResizableEditPolicy_implementsClause(
 			it)» {
 		
 			«textFeedback(it)»

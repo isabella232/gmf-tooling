@@ -21,20 +21,30 @@ import xpt.Externalizer
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.editor.VisualIDRegistry
 import xpt.navigator.getEditorInput
+import xpt.QualifiedClassNameProvider
 
 class OpenDiagram {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
 	@Inject getEditorInput xptGetEditorInput;
 	@Inject Activator xptActivator;
 
+	def className(OpenDiagramBehaviour it) '''«it.editPolicyClassName»'''
+
+	def packageName(OpenDiagramBehaviour it) '''«it.subject.getDiagram().editPoliciesPackageName»'''
+
+	def qualifiedClassName(OpenDiagramBehaviour it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(OpenDiagramBehaviour it) '''«qualifiedClassName(it)»'''
+
 	def OpenDiagram(OpenDiagramBehaviour it) '''
 		«copyright(it.subject.diagram.editorGen)»
-		package «subject.getDiagram().editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «editPolicyClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«getOpenCommand(it)»
 		
@@ -161,7 +171,7 @@ class OpenDiagram {
 			for (java.util.Iterator it = diagramFacet.eResource().getResourceSet().getResources().iterator(); it.hasNext();) {
 				org.eclipse.emf.ecore.resource.Resource nextResource = (org.eclipse.emf.ecore.resource.Resource) it.next();
 				if (nextResource.isLoaded() && !getEditingDomain().isReadOnly(nextResource)) {
-					nextResource.save(«subject.diagram.diagramEditorUtilQualifiedClassName».getSaveOptions());
+					nextResource.save(«getDiagramEditorUtilQualifiedClassName(subject.diagram)».getSaveOptions());
 				}
 			}
 			«IF null == subject.diagram.editorGen.application»
@@ -210,7 +220,7 @@ class OpenDiagram {
 	def openCommandClass_getEditorID(OpenDiagramBehaviour it) '''
 		«generatedMemberComment»
 		protected String getEditorID() {
-			return «IF editorID == null»«subject.diagram.editorGen.editor.qualifiedClassName».ID«ELSE»"«editorID»"«ENDIF»;
+			return «IF editorID == null»«getEditorQualifiedClassName(subject.diagram.editorGen.editor)».ID«ELSE»"«editorID»"«ENDIF»;
 		}
 	'''
 

@@ -83,7 +83,9 @@ class ElementInitializers_qvto { //
 		Collection<GenFeatureValueSpec> acc) {
 		acc.addAll(si.initializers.filter(typeof(GenFeatureValueSpec)))
 		for (ref : si.initializers.filter(typeof(GenReferenceNewElementSpec))) {
-			recurseCollectValueSpec(si, acc)
+			for (featureSeqInit : ref.newElementInitializers) {
+				recurseCollectValueSpec(featureSeqInit, acc)
+			}
 		}
 		return acc
 	}

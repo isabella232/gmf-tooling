@@ -27,11 +27,15 @@ import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Common_qvto
+import xpt.QualifiedClassNameProvider
 
 class extensions {
 	@Inject extension Common_qvto;
 	@Inject extension Common;
 	@Inject extension MenuAction_qvto;
+
+	//[MG] why different pattern here, @Inject extension is normally usd for QCNP
+	@Inject QualifiedClassNameProvider classNameProvider;
 
 	def Main(GenEditorGenerator it) '''
 		<extension point="org.eclipse.ui.menus" id="context-menus">
@@ -122,7 +126,7 @@ class extensions {
 		<command id="«commandIdentifier(it)»"
 			name="«name/*FIXME: into i18n keys*/»"
 			categoryId="«owner.editorGen.editor.ID»"
-			defaultHandler="«qualifiedClassName»"/>
+			defaultHandler="«classNameProvider.getActionQualifiedClassName(it)»"/>
 	'''
 
 	def dispatch CharSequence handlerContribution(GenCustomAction it) '''
@@ -138,13 +142,12 @@ class extensions {
 	def dispatch CharSequence commandIdentifier(GenCustomAction it) '''«owner.editorGen.plugin.ID».«lastSegment(
 		qualifiedClassName)»'''
 
-	def dispatch CharSequence commandIdentifier(GenAction it) '''«owner.editorGen.plugin.ID».«lastSegment(
-		qualifiedClassName)»'''
+	def dispatch CharSequence commandIdentifier(GenAction it) '''«owner.editorGen.plugin.ID».«classNameProvider.getActionClassName(it)»'''
 
 	def dispatch CharSequence menuEntry(GenContributionItem it, GenContextMenu contextMenu) '''«/* NO-OP XXX or ERROR? */»'''
 
 	def dispatch CharSequence menuEntry(GenSeparator it, GenContextMenu contextMenu) '''
-		<separator «IF groupName != null»name="«groupName»" «ENDIF»visible="true"/>
+		<separator name=«IF groupName != null»"«groupName»"«ELSE»"withoutname"«ENDIF» visible="true"/>
 	'''
 
 	def dispatch CharSequence menuEntry(GenGroupMarker it, GenContextMenu contextMenu) '''
@@ -188,7 +191,7 @@ class extensions {
 			<with variable="activePartId"><equals value="«editorGen.editor.ID»"/></with>
 			<with variable="selection"><iterate ifEmpty="false">«IF context.size > 1»<or>«ENDIF» 
 			«/* XXX, perhaps, <adapt type="EditPart">? */FOR de : context»
-				<instanceof value="«de.getEditPartQualifiedClassName()»"/>
+				<instanceof value="«classNameProvider.getEditPartQualifiedClassName(de)»"/>
 			«ENDFOR»
 			«IF context.size > 1»</or>«ENDIF»</iterate></with>
 		</and>

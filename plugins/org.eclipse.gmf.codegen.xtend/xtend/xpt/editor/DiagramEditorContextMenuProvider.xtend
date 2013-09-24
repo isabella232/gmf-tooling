@@ -16,19 +16,25 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class DiagramEditorContextMenuProvider {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject DeleteElementAction xptDeleteElementAction;
 
 	@MetaDef def className(GenDiagram it) '''DiagramEditorContextMenuProvider'''
 
-	@MetaDef def qualifiedClassName(GenDiagram it) '''«editorGen.editor.packageName».«className(it)»'''
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def DiagramEditorContextMenuProvider(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
 		public class «className(it)» extends org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider {
@@ -71,7 +77,7 @@ class DiagramEditorContextMenuProvider {
 						}
 					});
 				} catch (Exception e) {
-			«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Error building context menu", e);
+			«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Error building context menu", e);
 			}
 			}
 			«additions(it)»

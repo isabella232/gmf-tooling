@@ -41,26 +41,37 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
+import xpt.QualifiedClassNameProvider
 
 class NavigatorLabelProvider {
 	@com.google.inject.Inject extension xpt.Common;
 	@com.google.inject.Inject extension xpt.Common_qvto;
 	@com.google.inject.Inject extension xpt.navigator.Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ElementTypes xptElementTypes;
 	@Inject ParserProvider xptParserProvider;
 	@Inject MetaModel xptMetaModel;
+	@Inject NavigatorGroup navigatorGroup;
+	
+	def className(GenNavigator it) '''«it.labelProviderClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+	
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
 	
 	def extendsList(GenNavigator it) '''extends org.eclipse.jface.viewers.LabelProvider'''
 	def implementsList(GenNavigator it) '''implements org.eclipse.ui.navigator.ICommonLabelProvider, org.eclipse.jface.viewers.ITreePathLabelProvider'''
 
 	def NavigatorLabelProvider(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «labelProviderClassName» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«staticInitializer(it)»
 			
@@ -101,8 +112,8 @@ class NavigatorLabelProvider {
 	def staticInitializer(GenNavigator it) '''
 		«generatedMemberComment()»
 		static {
-			«editorGen.plugin.activatorQualifiedClassName».getInstance().getImageRegistry().put(«unknownElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
-			«editorGen.plugin.activatorQualifiedClassName».getInstance().getImageRegistry().put(«notFoundElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
+			«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry().put(«unknownElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
+			«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry().put(«notFoundElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
 		}
 	'''
 
@@ -110,7 +121,7 @@ class NavigatorLabelProvider {
 		«generatedMemberComment()»
 		public void updateLabel(org.eclipse.jface.viewers.ViewerLabel label, org.eclipse.jface.viewers.TreePath elementPath) {
 			Object element = elementPath.getLastSegment();
-			if (element instanceof «getNavigatorItemQualifiedClassName()» && !isOwnView(((«getNavigatorItemQualifiedClassName()») element).getView())) {
+			if (element instanceof «getNavigatorItemQualifiedClassName(it)» && !isOwnView(((«getNavigatorItemQualifiedClassName(it)») element).getView())) {
 				return;
 			}
 			label.setText(getText(element));
@@ -133,15 +144,15 @@ class NavigatorLabelProvider {
 	'''
 
 	def getNavigatorGroupImage(GenNavigator it) '''
-		if (element instanceof «getNavigatorGroupQualifiedClassName()») {
-			«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
-			return «editorGen.plugin.activatorQualifiedClassName».getInstance().getBundledImage(group.getIcon());
+		if (element instanceof «navigatorGroup.qualifiedClassName(it)») {
+			«navigatorGroup.qualifiedClassName(it)» group = («navigatorGroup.qualifiedClassName(it)») element;
+			return «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getBundledImage(group.getIcon());
 		}
 	'''
 	
 	def getNavigatorItemImage(GenNavigator it) '''
-		if (element instanceof «getNavigatorItemQualifiedClassName()») {
-			«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
+		if (element instanceof «getNavigatorItemQualifiedClassName(it)») {
+			«getNavigatorItemQualifiedClassName(it)» navigatorItem = («getNavigatorItemQualifiedClassName(it)») element;
 			if (!isOwnView(navigatorItem.getView())) {
 				return super.getImage(element);
 			}
@@ -169,7 +180,9 @@ class NavigatorLabelProvider {
 			«IF getNavigatorContainedNodes(it).notEmpty»
 			switch («xptVisualIDRegistry.getVisualIDMethodCall(editorGen.diagram)»(view)) {
 				«FOR n : getNavigatorContainedNodes(it)»
-				«caseImage(n)»
+					«IF n != null»
+						«caseImage(n)»
+					«ENDIF»
 				«ENDFOR»
 			}
 			«ENDIF»
@@ -185,10 +198,10 @@ class NavigatorLabelProvider {
 	def getImageByKey(GenNavigator it) '''
 		«generatedMemberComment()»
 		private org.eclipse.swt.graphics.Image getImage(String key, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
-			org.eclipse.jface.resource.ImageRegistry imageRegistry = «editorGen.plugin.activatorQualifiedClassName».getInstance().getImageRegistry();
+			org.eclipse.jface.resource.ImageRegistry imageRegistry = «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry();
 			org.eclipse.swt.graphics.Image image = imageRegistry.get(key);
-			if (image == null && elementType != null && «editorGen.diagram.getElementTypesQualifiedClassName()».isKnownElementType(elementType)) {
-				image = «editorGen.diagram.getElementTypesQualifiedClassName()».getImage(elementType);
+			if (image == null && elementType != null && «getElementTypesQualifiedClassName(editorGen.diagram)».isKnownElementType(elementType)) {
+				image = «getElementTypesQualifiedClassName(editorGen.diagram)».getImage(elementType);
 				imageRegistry.put(key, image);
 			}
 					
@@ -215,15 +228,15 @@ class NavigatorLabelProvider {
 	'''
 	
 	def getNavigatorGroupText(GenNavigator it) '''
-		if (element instanceof «getNavigatorGroupQualifiedClassName()») {
-			«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») element;
+		if (element instanceof «navigatorGroup.qualifiedClassName(it)») {
+			«navigatorGroup.qualifiedClassName(it)» group = («navigatorGroup.qualifiedClassName(it)») element;
 			return group.getGroupName();
 		}
 	'''
 	
 	def getNavigatorItemText(GenNavigator it) '''
-		if (element instanceof «getNavigatorItemQualifiedClassName()») {
-			«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») element;
+		if (element instanceof «getNavigatorItemQualifiedClassName(it)») {
+			«getNavigatorItemQualifiedClassName(it)» navigatorItem = («getNavigatorItemQualifiedClassName(it)») element;
 			if (!isOwnView(navigatorItem.getView())) {
 				return null;
 			}
@@ -344,7 +357,7 @@ class NavigatorLabelProvider {
 		if (parser != null) {
 			return parser.getPrintString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(view.getElement() != null ? view.getElement() : view), org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 		} else {
-			«getDiagram().editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Parser was not found for label " + «visualID»); «nonNLS(1)»
+			«getActivatorQualifiedClassName(getDiagram().editorGen.plugin)».getInstance().logError("Parser was not found for label " + «visualID»); «nonNLS(1)»
 			«returnEmptyString()»
 		}
 	'''
@@ -356,7 +369,7 @@ class NavigatorLabelProvider {
 			if (domainModelElement != null) {
 				return «IF !isStringFeature(genClass.labelFeature)»String.valueOf(«ENDIF»«xptMetaModel.getFeatureValue(genClass.labelFeature, 'domainModelElement', genClass)»«IF !isStringFeature(genClass.labelFeature)»)«ENDIF»;
 			} else {
-				«getDiagram().editorGen.plugin.activatorQualifiedClassName».getInstance().logError("No domain element for view with visualID = " + «visualID»);  «nonNLS(1)»
+				«getActivatorQualifiedClassName(getDiagram().editorGen.plugin)».getInstance().logError("No domain element for view with visualID = " + «visualID»);  «nonNLS(1)»
 					«returnEmptyString()»
 			}
 		«ELSE»
@@ -420,7 +433,7 @@ class NavigatorLabelProvider {
 	
 	def dispatch CharSequence key(GenCommonBase it) '''«ERROR('Incorrect GenCommonBase: ' + it)»'''
 	
-	def dispatch CharSequence key(GenDiagram it) '''«commonKeyPrefix()»Diagram?«keyFragment(it.domainDiagramElement)»'''
+	def dispatch CharSequence key(GenDiagram it) '''«commonKeyPrefix()»Diagram?«IF it.domainDiagramElement != null»«keyFragment(it.domainDiagramElement)»«ENDIF»'''
 	
 	def dispatch CharSequence key(GenNode it) '''«commonKeyPrefix()»«keyFragment(it)»«IF null != modelFacet»«keyFragment(modelFacet.metaClass)»«ELSE»«keyFragment(viewmap)»«ENDIF»'''
 	

@@ -30,21 +30,31 @@ import xpt.CodeStyle
 import xpt.Common
 import xpt.Common_qvto
 import xpt.expressions.OclTracker_qvto
+import xpt.QualifiedClassNameProvider
 
 class VisualEffectEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension OclTracker_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject MetaModel xptMetaModel;
 	@Inject CodeStyle xptCodeStyle;
 
+	def className(GenVisualEffect it) '''«lastSegment(it.editPolicyQualifiedClassName)»'''
+
+	def packageName(GenVisualEffect it) '''«withoutLastSegment(it.editPolicyQualifiedClassName)»'''
+
+	def qualifiedClassName(GenVisualEffect it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenVisualEffect it) '''«qualifiedClassName(it)»'''
+
 	def VisualEffectEditPolicy(GenVisualEffect it) '''
 «copyright(subject.diagram.editorGen)»
-package «withoutLastSegment(it.editPolicyQualifiedClassName)»;
+package «packageName(it)»;
 
 «generatedClassComment»
-public class «lastSegment(it.editPolicyQualifiedClassName)» «extendsList(it)» {
+public class «className(it)» «extendsList(it)» {
 
 	«fields(it)»
 	
@@ -66,12 +76,12 @@ public class «lastSegment(it.editPolicyQualifiedClassName)» «extendsList(it)�
 
 	def fields(GenVisualEffect it) '''
 		«generatedMemberComment»
-		public static final String KEY = "«getEditPolicyQualifiedClassName()»:KEY";
+		public static final String KEY = "«qualifiedClassName(it)»:KEY";
 	'''
 
 	def constructor(GenVisualEffect it) '''
 		«generatedMemberComment»
-		public «lastSegment(it.editPolicyQualifiedClassName)»() {
+		public «className(it)»() {
 		«IF isForcedImpactAnalyzerKind(oclExpression)»
 			super(org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTrackerFactory.Type.IMPACT_ANALYZER);
 		«ELSE»
@@ -99,8 +109,8 @@ public class «lastSegment(it.editPolicyQualifiedClassName)» «extendsList(it)�
 	def getHostImpl(GenVisualEffect it) '''
 		«generatedMemberComment»
 		«overrideAnnotationC(it)»
-		protected «subject.getEditPartQualifiedClassName()» getHostImpl() {
-			return («subject.getEditPartQualifiedClassName()») super.getHostImpl();
+		protected «getEditPartQualifiedClassName(subject)» getHostImpl() {
+			return («getEditPartQualifiedClassName(subject)») super.getHostImpl();
 		}
 	'''
 

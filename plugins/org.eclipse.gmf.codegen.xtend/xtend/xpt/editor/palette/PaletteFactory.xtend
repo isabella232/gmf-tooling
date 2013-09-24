@@ -28,21 +28,31 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.providers.ElementTypes
+import xpt.QualifiedClassNameProvider
 
 class PaletteFactory {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject ElementTypes xptElementTypes;
 	@Inject Externalizer xptExternalizer;
 
+	def className(Palette it) '''«it.factoryClassName»'''
+
+	def packageName(Palette it) '''«it.packageName»'''
+
+	def qualifiedClassName(Palette it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(Palette it) '''«qualifiedClassName(it)»'''
+
 	def Factory(Palette it) '''
 		«copyright(diagram.editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «factoryClassName» {
+		public class «className(it)» {
 		
 			«generatedMemberComment»
 			public void fillPalette(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
@@ -194,7 +204,7 @@ class PaletteFactory {
 		«toolVarName».setSmallIcon(«palette.activatorFQN».findImageDescriptor("«smallIconPath»")); «nonNLS(1)»
 	«ELSEIF it.oclIsKindOf(typeof(ToolEntry))»
 		«IF (it as ToolEntry).elements.head != null»
-			«toolVarName».setSmallIcon(«palette.diagram.elementTypesQualifiedClassName».getImageDescriptor(«xptElementTypes.accessElementType((it as ToolEntry).elements.head)»));
+			«toolVarName».setSmallIcon(«getElementTypesQualifiedClassName(palette.diagram)».getImageDescriptor(«xptElementTypes.accessElementType((it as ToolEntry).elements.head)»));
 		«ENDIF»
 	«ENDIF»
 	'''

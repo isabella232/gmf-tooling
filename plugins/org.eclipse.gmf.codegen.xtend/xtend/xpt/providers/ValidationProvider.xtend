@@ -32,23 +32,33 @@ import xpt.Common_qvto
 import xpt.GenAuditRoot_qvto
 import xpt.editor.VisualIDRegistry
 import xpt.expressions.getExpression
+import xpt.QualifiedClassNameProvider
 
 class ValidationProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension GenAuditRoot_qvto; 
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject MetaModel xptMetaModel;
 	@Inject getExpression xptGetExpression;
 	@Inject MetricProvider xptMetricProvider;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 
+	def className(GenDiagram it) '''«it.validationProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def ValidationProvider(GenDiagram it) '''
 		«copyright(it.editorGen)»
-		package «providersPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «validationProviderClassName» {
+		public class «className(it)» {
 		
 			«constraintsActive(it)»
 		
@@ -98,7 +108,7 @@ class ValidationProvider {
 			try {
 				editingDomain.runExclusive(task);
 			} catch (Exception e) {
-				«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Validation failed", e); «nonNLS(1)»
+				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Validation failed", e); «nonNLS(1)»
 			}
 		} else {
 			task.run();

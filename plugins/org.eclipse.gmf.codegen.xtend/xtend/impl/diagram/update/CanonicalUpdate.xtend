@@ -27,12 +27,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater
+import xpt.QualifiedClassNameProvider
 
 class CanonicalUpdate {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject MetaModel xptMetaModel;
 	@Inject DiagramUpdater xptDiagramUpdater;
@@ -113,8 +115,8 @@ protected java.util.List getSemanticChildrenList() {
 	«IF hasSemanticChildren(it) /*REVISIT: is there real need for this check - Generator seems to consult needsCanonicalEP, which in turns ensures there are semantic children?*/»
 	org.eclipse.gmf.runtime.notation.View viewObject = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 	java.util.LinkedList<org.eclipse.emf.ecore.EObject> result = new java.util.LinkedList<org.eclipse.emf.ecore.EObject>();
-	java.util.List<«it.diagram.editorGen.diagramUpdater.nodeDescriptorQualifiedClassName»> childDescriptors = «xptDiagramUpdater.getSemanticChildrenMethodCall(it)»(viewObject);
-	for («it.diagram.editorGen.diagramUpdater.nodeDescriptorQualifiedClassName» d : childDescriptors) {
+	java.util.List<«getNodeDescriptorQualifiedClassName(it.diagram.editorGen.diagramUpdater)»> childDescriptors = «xptDiagramUpdater.getSemanticChildrenMethodCall(it)»(viewObject);
+	for («getNodeDescriptorQualifiedClassName(it.diagram.editorGen.diagramUpdater)» d : childDescriptors) {
 		result.add(d.getModelElement());
 	}
 	return result;
@@ -143,7 +145,7 @@ def isOrphanedMethod(GenContainerBase it) '''
 protected boolean isOrphaned(java.util.Collection<org.eclipse.emf.ecore.EObject> semanticChildren, final org.eclipse.gmf.runtime.notation.View view) {
 	«IF isDiagramThatContainsShortcurs(it)»
 		if (isShortcut(view)) {
-			return «it.diagram.editorGen.diagramUpdater.diagramUpdaterQualifiedClassName».isShortcutOrphaned(view);
+			return «getDiagramUpdaterQualifiedClassName(it.diagram.editorGen.diagramUpdater)».isShortcutOrphaned(view);
 		}
 	«ENDIF»
 	return isMyDiagramElement(view) && !semanticChildren.contains(view.getElement());
@@ -181,7 +183,7 @@ private boolean isMyDiagramElement(org.eclipse.gmf.runtime.notation.View view) {
 // Alternative implementation of CEP.refreshSemanticChildren
 def refreshSemanticChildren(GenContainerBase it, String createdViewsVar, GenDiagramUpdater diagramUpdater) '''
 	«var childrenShareSameMetaclass = hasConformableSemanticChildren(it)»
-	java.util.List<«diagramUpdater.nodeDescriptorQualifiedClassName»> childDescriptors = «
+	java.util.List<«getNodeDescriptorQualifiedClassName(diagramUpdater)»> childDescriptors = «
 		IF hasSemanticChildren(it) /*REVISIT: is there real need for this check - Generator seems to consult needsCanonicalEP, which in turns ensures there are semantic children?, but with respect to #352271*/»
 			«xptDiagramUpdater.getSemanticChildrenMethodCall(it)»((org.eclipse.gmf.runtime.notation.View) getHost().getModel());
 		«ELSE»
@@ -193,7 +195,7 @@ def refreshSemanticChildren(GenContainerBase it, String createdViewsVar, GenDiag
 		for (org.eclipse.gmf.runtime.notation.View v : getViewChildren()) {
 			«IF isDiagramThatContainsShortcurs(it)»
 			if (isShortcut(v)) {
-				if («it.diagram.editorGen.diagramUpdater.diagramUpdaterQualifiedClassName».isShortcutOrphaned(v)) {
+				if («getDiagramUpdaterQualifiedClassName(it.diagram.editorGen.diagramUpdater)».isShortcutOrphaned(v)) {
 					orphaned.add(v);
 				}
 				continue;
@@ -205,14 +207,14 @@ def refreshSemanticChildren(GenContainerBase it, String createdViewsVar, GenDiag
 		}
 		// alternative to #cleanCanonicalSemanticChildren(getViewChildren(), semanticChildren)
 		«IF childrenShareSameMetaclass»
-		java.util.HashMap<«diagramUpdater.nodeDescriptorQualifiedClassName», java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>> = new java.util.HashMap<«diagramUpdater.nodeDescriptorQualifiedClassName», java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>>(); 
+		java.util.HashMap<«getNodeDescriptorQualifiedClassName(diagramUpdater)», java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>> potentialViews = new java.util.HashMap<«getNodeDescriptorQualifiedClassName(diagramUpdater)», java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>>(); 
 		«ENDIF»
 		//
 		// iteration happens over list of desired semantic elements, trying to find best matching View, while original CEP
 		// iterates views, potentially losing view (size/bounds) information - i.e. if there are few views to reference same EObject, only last one 
 		// to answer isOrphaned == true will be used for the domain element representation, see #cleanCanonicalSemanticChildren()
 		for (java.util.Iterator<«diagramUpdater.nodeDescriptorQualifiedClassName»> descriptorsIterator = childDescriptors.iterator(); descriptorsIterator.hasNext();) {
-			«diagramUpdater.nodeDescriptorQualifiedClassName» next = descriptorsIterator.next();
+			«getNodeDescriptorQualifiedClassName(diagramUpdater)» next = descriptorsIterator.next();
 			String hint = «xptVisualIDRegistry.typeMethodCall(it, 'next.getVisualID()')»;
 			java.util.LinkedList<org.eclipse.gmf.runtime.notation.View> perfectMatch = new java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>(); // both semanticElement and hint match that of NodeDescriptor
 			«IF childrenShareSameMetaclass»
@@ -255,7 +257,7 @@ def refreshSemanticChildren(GenContainerBase it, String createdViewsVar, GenDiag
 		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand boundsCommand = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(host().getEditingDomain(), org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages.SetLocationCommand_Label_Resize);
 		«ENDIF»
 		java.util.ArrayList<org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor> viewDescriptors = new java.util.ArrayList<org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor>(childDescriptors.size());
-		for («diagramUpdater.nodeDescriptorQualifiedClassName» next : childDescriptors) {
+		for («getNodeDescriptorQualifiedClassName(diagramUpdater)» next : childDescriptors) {
 			String hint = «xptVisualIDRegistry.typeMethodCall(it, 'next.getVisualID()')»;
 			org.eclipse.core.runtime.IAdaptable elementAdapter = new CanonicalElementAdapter(next.getModelElement(), hint);
 			org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor descriptor = new org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor(elementAdapter, org.eclipse.gmf.runtime.notation.Node.class, hint, org.eclipse.gmf.runtime.diagram.core.util.ViewUtil.APPEND, false, host().getDiagramPreferencesHint());
@@ -321,7 +323,7 @@ def executeLayoutCommand(GenContainerBase it, String createdViewsVar) '''
 
 def refreshConnectionsBody(GenDiagram it) '''
 	«Domain2Notation(it)» domain2NotationMap = new «Domain2Notation(it)»();
-	java.util.Collection<«editorGen.diagramUpdater.linkDescriptorQualifiedClassName»> linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
+	java.util.Collection<«getLinkDescriptorQualifiedClassName(editorGen.diagramUpdater)»> linkDescriptors = collectAllLinks(getDiagram(), domain2NotationMap);
 	java.util.Collection existingLinks = new java.util.LinkedList(getDiagram().getEdges());
 	for (java.util.Iterator linksIterator = existingLinks.iterator(); linksIterator.hasNext();) {
 		org.eclipse.gmf.runtime.notation.Edge nextDiagramLink = (org.eclipse.gmf.runtime.notation.Edge) linksIterator.next();
@@ -336,7 +338,7 @@ def refreshConnectionsBody(GenDiagram it) '''
 		org.eclipse.emf.ecore.EObject diagramLinkSrc = nextDiagramLink.getSource().getElement();
 		org.eclipse.emf.ecore.EObject diagramLinkDst = nextDiagramLink.getTarget().getElement();
 		for (java.util.Iterator<«it.editorGen.diagramUpdater.linkDescriptorQualifiedClassName»> linkDescriptorsIterator = linkDescriptors.iterator(); linkDescriptorsIterator.hasNext();) {
-			«it.editorGen.diagramUpdater.linkDescriptorQualifiedClassName» nextLinkDescriptor = linkDescriptorsIterator.next();
+			«getLinkDescriptorQualifiedClassName(it.editorGen.diagramUpdater)» nextLinkDescriptor = linkDescriptorsIterator.next();
 			if (diagramLinkObject == nextLinkDescriptor.getModelElement() && diagramLinkSrc == nextLinkDescriptor.getSource() && diagramLinkDst == nextLinkDescriptor.getDestination() && diagramLinkVisualID == nextLinkDescriptor.getVisualID()) {
 				linksIterator.remove();
 				linkDescriptorsIterator.remove();
@@ -360,11 +362,11 @@ def refreshConnectionsAuxMethods(GenDiagram it) '''
 
 def collectAllLinksMethod(GenDiagram it) '''
 «generatedMemberComment»
-private java.util.Collection<«it.editorGen.diagramUpdater.linkDescriptorQualifiedClassName»> collectAllLinks(org.eclipse.gmf.runtime.notation.View view, «Domain2Notation(it)» domain2NotationMap) {
+private java.util.Collection<«getLinkDescriptorQualifiedClassName(it.editorGen.diagramUpdater)»> collectAllLinks(org.eclipse.gmf.runtime.notation.View view, «Domain2Notation(it)» domain2NotationMap) {
 	if (!«VisualIDRegistry::modelID(it)».equals(«xptVisualIDRegistry.getModelIDMethodCall(it)»(view))) {
 		return java.util.Collections.emptyList();
 	}
-	java.util.LinkedList<«it.editorGen.diagramUpdater.linkDescriptorQualifiedClassName»> result = new java.util.LinkedList<«it.editorGen.diagramUpdater.linkDescriptorQualifiedClassName»>();
+	java.util.LinkedList<«getLinkDescriptorQualifiedClassName(it.editorGen.diagramUpdater)»> result = new java.util.LinkedList<«getLinkDescriptorQualifiedClassName(it.editorGen.diagramUpdater)»>();
 	switch («xptVisualIDRegistry.getVisualIDMethodCall(it)»(view)) {
 		«FOR se : it.allSemanticElements»
 		«caseSemanticElement(se)»
@@ -382,9 +384,9 @@ private java.util.Collection<«it.editorGen.diagramUpdater.linkDescriptorQualifi
 
 def createConnectionsMethod(GenDiagram it) '''
 «generatedMemberComment»
-private java.util.Collection<org.eclipse.core.runtime.IAdaptable> createConnections(java.util.Collection<«it.editorGen.diagramUpdater.linkDescriptorQualifiedClassName»> linkDescriptors, «Domain2Notation(it)» domain2NotationMap) {
+private java.util.Collection<org.eclipse.core.runtime.IAdaptable> createConnections(java.util.Collection<«getLinkDescriptorQualifiedClassName(it.editorGen.diagramUpdater)»> linkDescriptors, «Domain2Notation(it)» domain2NotationMap) {
 	java.util.LinkedList<org.eclipse.core.runtime.IAdaptable> adapters = new java.util.LinkedList<org.eclipse.core.runtime.IAdaptable>();
-	for («editorGen.diagramUpdater.linkDescriptorQualifiedClassName» nextLinkDescriptor : linkDescriptors) {
+	for («getLinkDescriptorQualifiedClassName(editorGen.diagramUpdater)» nextLinkDescriptor : linkDescriptors) {
 		org.eclipse.gef.EditPart sourceEditPart = getSourceEditPart(nextLinkDescriptor, domain2NotationMap);
 		org.eclipse.gef.EditPart targetEditPart = getTargetEditPart(nextLinkDescriptor, domain2NotationMap);
 		if (sourceEditPart == null || targetEditPart == null) {

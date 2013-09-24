@@ -16,33 +16,43 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class RegexpExpressionFactory {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject OCLExpressionFactory xptOCLExpressionFactory;
 
+	def className(GenExpressionInterpreter it) '''«it.className»'''
+
+	def packageName(GenExpressionInterpreter it) '''«it.container.expressionsPackageName»'''
+
+	def qualifiedClassName(GenExpressionInterpreter it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenExpressionInterpreter it) '''«qualifiedClassName(it)»'''
+
 	def RegexpExpressionFactory(GenExpressionInterpreter it) '''
 		«copyright(it.container.editorGen)»
-		package «container.expressionsPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className» {
+		public class «className(it)» {
 		
 			«xptOCLExpressionFactory.initInterpreterFactory(it)»
 		
 			«generatedMemberComment»
-			public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
+			public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
 				return new Expression(body, context, environment);
 			}
 		
 			«generatedMemberComment(it, 'This method will become private in the next release')»/* FIXME [MG] private or completely remove in the next release  */
-			public static «container.getAbstractExpressionQualifiedClassName()» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
+			public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 				return getExpression(body, context, java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>emptyMap());
 			}
 		
 			«generatedMemberComment»
-			private static class Expression extends «container.getAbstractExpressionQualifiedClassName()» {
+			private static class Expression extends «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» {
 		
 				«generatedMemberComment»
 				private final java.util.regex.Pattern pattern;

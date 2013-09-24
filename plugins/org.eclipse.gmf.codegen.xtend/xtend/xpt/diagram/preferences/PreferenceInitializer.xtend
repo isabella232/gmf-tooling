@@ -26,26 +26,31 @@ import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage
 import org.eclipse.gmf.codegen.gmfgen.GenRGBColor
 import org.eclipse.gmf.codegen.gmfgen.GenStandardFont
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
-import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
 import xpt.Common_qvto
 import xpt.diagram.Utils_qvto
+import xpt.QualifiedClassNameProvider
 
 class PreferenceInitializer {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject CustomPage xptCustomPage;
 	@Inject StandardPage xptStandardPage;
 
 	def className(GenDiagram it) '''DiagramPreferenceInitializer'''
+	
+	def packageName(GenDiagram it) '''«preferencesPackageName»'''
 
-	@MetaDef def qualifiedClassName(GenDiagram it) '''«preferencesPackageName».«className(it)»'''
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def PreferenceInitializer(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «preferencesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
 		public class «className(it)» extends org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer {
@@ -68,7 +73,7 @@ class PreferenceInitializer {
 		
 			«generatedMemberComment»
 			protected org.eclipse.jface.preference.IPreferenceStore getPreferenceStore() {
-				return «editorGen.plugin.activatorQualifiedClassName».getInstance().getPreferenceStore();
+				return «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getPreferenceStore();
 			}
 		} 
 	'''

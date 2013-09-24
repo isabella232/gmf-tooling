@@ -25,21 +25,33 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment
+import xpt.QualifiedClassNameProvider
 
 class NavigatorContentProvider {
 	@com.google.inject.Inject extension xpt.Common;
 	@com.google.inject.Inject extension xpt.Common_qvto;
 	@com.google.inject.Inject extension xpt.navigator.Utils_qvto;
+	@com.google.inject.Inject extension QualifiedClassNameProvider;
 
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject Externalizer xptExternalizer;
+	@Inject NavigatorGroup navigatorGroup;
+	@Inject AbstractNavigatorItem abstractNavigatorItem;
+
+	def className(GenNavigator it) '''«it.contentProviderClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
 
 	def NavigatorContentProvider(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «contentProviderClassName» implements org.eclipse.ui.navigator.ICommonContentProvider {
+		public class «className(it)» implements org.eclipse.ui.navigator.ICommonContentProvider {
 		
 			«attributes(it)»
 			
@@ -79,7 +91,7 @@ class NavigatorContentProvider {
 	def constructor(GenNavigator it) '''
 		«generatedMemberComment()»
 		@SuppressWarnings({ "unchecked", "serial", "rawtypes" })
-		public «contentProviderClassName»() {
+		public «className(it)»() {
 			«initCommonAttributes(it)»
 		}
 	'''
@@ -204,11 +216,11 @@ class NavigatorContentProvider {
 				«getFileChildren(it)»
 				 	} 
 				 		
-				 	if (parentElement instanceof «getNavigatorGroupQualifiedClassName()») {
+				 	if (parentElement instanceof «navigatorGroup.qualifiedClassName(it)») {
 				«getGroupChildren(it)»
 			} 
 				
-			if (parentElement instanceof «getNavigatorItemQualifiedClassName()») {
+			if (parentElement instanceof «getNavigatorItemQualifiedClassName(it)») {
 				«getItemChildren()»
 			}
 				
@@ -226,8 +238,8 @@ class NavigatorContentProvider {
 	def getParent(GenNavigator it) '''
 		«generatedMemberComment()»
 		public Object getParent(Object element) {
-			if (element instanceof «getAbstractNavigatorItemQualifiedClassName()») {
-			   	«getAbstractNavigatorItemQualifiedClassName()» abstractNavigatorItem = («getAbstractNavigatorItemQualifiedClassName()») element;
+			if (element instanceof «abstractNavigatorItem.qualifiedClassName(it)») {
+			   	«abstractNavigatorItem.qualifiedClassName(it)» abstractNavigatorItem = («abstractNavigatorItem.qualifiedClassName(it)») element;
 			return abstractNavigatorItem.getParent();
 			}
 			return null;
@@ -244,7 +256,7 @@ class NavigatorContentProvider {
 	def getFileChildren(GenNavigator it) '''
 		«var references = getChildReferencesFrom(it, null)»
 		«getFileResource(it)»
-		java.util.ArrayList<«navigatorItemQualifiedClassName»> result = new java.util.ArrayList<«navigatorItemQualifiedClassName»>();
+		java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»> result = new java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»>();
 		«FOR groupName : getGroupNames(references)» 
 			«initGroupVariables(groupName, it, references, 'file', null)»
 		«ENDFOR»
@@ -271,12 +283,12 @@ class NavigatorContentProvider {
 	'''
 
 	def getGroupChildren(GenNavigator it) '''
-		«getNavigatorGroupQualifiedClassName()» group = («getNavigatorGroupQualifiedClassName()») parentElement;
+		«navigatorGroup.qualifiedClassName(it)» group = («navigatorGroup.qualifiedClassName(it)») parentElement;
 		return group.getChildren();
 	'''
 
 	def getItemChildren(GenNavigator it) '''
-		«getNavigatorItemQualifiedClassName()» navigatorItem = («getNavigatorItemQualifiedClassName()») parentElement;
+		«getNavigatorItemQualifiedClassName(it)» navigatorItem = («getNavigatorItemQualifiedClassName(it)») parentElement;
 		if (navigatorItem.isLeaf() || !isOwnView(navigatorItem.getView())) {
 			return EMPTY_ARRAY;
 		}
@@ -392,10 +404,10 @@ class NavigatorContentProvider {
 		}
 			
 		«generatedMemberComment()»
-		private java.util.Collection<«navigatorItemQualifiedClassName»> createNavigatorItems(java.util.Collection<org.eclipse.gmf.runtime.notation.View> views, Object parent, boolean isLeafs) {
-			java.util.ArrayList<«navigatorItemQualifiedClassName»> result = new java.util.ArrayList<«navigatorItemQualifiedClassName»>(views.size());
+		private java.util.Collection<«getNavigatorItemQualifiedClassName(it)»> createNavigatorItems(java.util.Collection<org.eclipse.gmf.runtime.notation.View> views, Object parent, boolean isLeafs) {
+			java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»> result = new java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»>(views.size());
 			for (org.eclipse.gmf.runtime.notation.View nextView : views) {
-				result.add(new «getNavigatorItemQualifiedClassName()»(nextView, parent, isLeafs));
+				result.add(new «getNavigatorItemQualifiedClassName(it)»(nextView, parent, isLeafs));
 			}
 			return result;
 		}
@@ -406,7 +418,7 @@ class NavigatorContentProvider {
 		«IF editorGen.diagram.generateCreateShortcutAction() && getChildReferencesFrom(it, editorGen.diagram).notEmpty»
 			
 				«generatedMemberComment()»
-				private java.util.Collection<«navigatorItemQualifiedClassName»> getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
+				private java.util.Collection<«getNavigatorItemQualifiedClassName(it)»> getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
 					java.util.LinkedList<org.eclipse.gmf.runtime.notation.View> result = new java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>();
 					for (java.util.Iterator<org.eclipse.gmf.runtime.notation.View> it = diagram.getChildren().iterator(); it.hasNext();) {
 						org.eclipse.gmf.runtime.notation.View nextView = it.next();
@@ -423,8 +435,7 @@ class NavigatorContentProvider {
 
 	def initGroupVariables(String groupName, GenNavigator navigator, Iterable<GenNavigatorChildReference> references,
 		String parentVarName, GenCommonBase contextElement) '''
-		«navigator.getNavigatorGroupQualifiedClassName()» «CodeGenUtil::validJavaIdentifier(groupName)» = new «navigator.
-			navigatorGroupQualifiedClassName»(
+		«navigatorGroup.qualifiedClassName(navigator)» «CodeGenUtil::validJavaIdentifier(groupName)» = new «navigatorGroup.qualifiedClassName(navigator)»(
 		«xptExternalizer.accessorCall(navigator.editorGen, i18nKeyForGroup(groupName, contextElement))»,
 		"«getNavigatorReference(groupName, references).groupIcon»", «parentVarName»); «nonNLS(1)»
 	'''
@@ -458,8 +469,8 @@ class NavigatorContentProvider {
 	def caseNavigatorNode(GenCommonBase it, GenNavigator navigator) '''
 	
 		case «VisualIDRegistry::visualID(it)»: {
-			java.util.LinkedList<«navigator.abstractNavigatorItemQualifiedClassName»> result = new java.util.LinkedList<«navigator.
-				abstractNavigatorItemQualifiedClassName»>(); 
+			java.util.LinkedList<«abstractNavigatorItem.qualifiedClassName(navigator)»> result = new java.util.LinkedList<«abstractNavigatorItem.
+			qualifiedClassName(navigator)»>(); 
 			«addForeignShortcuts(it)»
 			«nailedDownVariable(it, 'sv', 'view')»
 			«var references = getChildReferencesFrom(navigator, it)»

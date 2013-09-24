@@ -29,12 +29,20 @@ class CreateNodeCommand {
 	@Inject MetaModel xptMetaModel;
 	@Inject ElementInitializers xptElementInitializers;
 
+	def className(GenNode it) '''«it.createCommandClassName»'''
+
+	def packageName(GenNode it) '''«it.getDiagram().editCommandsPackageName»'''
+
+	def qualifiedClassName(GenNode it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNode it) '''«qualifiedClassName(it)»'''
+
 	def CreateNodeCommand(GenNode it) '''
 		«copyright(it.diagram.editorGen)»
-		package «getDiagram().editCommandsPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «createCommandClassName» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
+		public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
 		
 			«_constructor(it)»
 		
@@ -52,7 +60,7 @@ class CreateNodeCommand {
 
 	def _constructor(GenNode it) '''
 		«generatedMemberComment(it)»
-		public «createCommandClassName»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
+		public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 			super(req.getLabel(), null, req);
 		}
 	'''

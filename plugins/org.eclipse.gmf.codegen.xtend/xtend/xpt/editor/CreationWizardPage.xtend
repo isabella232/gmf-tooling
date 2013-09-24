@@ -17,10 +17,21 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
+import xpt.QualifiedClassNameProvider
 
 class CreationWizardPage {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject Externalizer xptExternalizer;
+	
+	def className(GenDiagram it) '''«creationWizardPageClassName»'''
+	
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenDiagram it) '''extends « //
 		IF editorGen.application == null»org.eclipse.ui.dialogs.WizardNewFileCreationPage« //
@@ -28,16 +39,16 @@ class CreationWizardPage {
 
 	def CreationWizardPage(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «creationWizardPageClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			
 			«generatedMemberComment»
 			private final String fileExtension;
 			
 			«generatedMemberComment»
-			public «creationWizardPageClassName»(String pageName,
+			public «className(it)»(String pageName,
 					org.eclipse.jface.viewers.IStructuredSelection selection, String fileExtension) {
 			super(pageName, selection);
 			this.fileExtension = fileExtension;
@@ -75,7 +86,7 @@ class CreationWizardPage {
 			«generatedMemberComment»
 			public void createControl(org.eclipse.swt.widgets.Composite parent) {
 				super.createControl(parent);
-				setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
+				setFileName(«getDiagramEditorUtilQualifiedClassName(it)».getUniqueFileName(
 						getContainerFullPath(), getFileName(), getExtension()));
 				setPageComplete(validatePage());
 			}
@@ -108,7 +119,7 @@ class CreationWizardPage {
 	'''
 
 	@Localization def String i18nKeyForCreationWizardPageExtensionError(GenDiagram diagram) {
-		return diagram.creationWizardPageClassName + 'ExtensionError'
+		return className(diagram) + 'ExtensionError'
 	}
 
 }

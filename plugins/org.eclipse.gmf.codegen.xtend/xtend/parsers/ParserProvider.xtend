@@ -15,23 +15,32 @@
 package parsers
 
 import com.google.inject.Inject
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
-import org.eclipse.gmf.codegen.gmfgen.GenParsers
-import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 import xpt.Common
+import org.eclipse.gmf.codegen.gmfgen.GenParsers
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 
 class ParserProvider {
 	@Inject extension Common;
+	@Inject extension ParsersUtil;
 
 	@Inject impl.parsers.ParserProvider xptImplParserProvider;
 
+	def className(GenParsers it) '''«classNameGenParsers(it)»'''
+
+	def packageName(GenParsers it) '''«packageNameGenParsers(it)»'''
+
+	def qualifiedClassName(GenParsers it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenParsers it) '''«qualifiedClassName(it)»'''
+
 	def Main(GenParsers it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className»«extendsList(it)»«implementsList(it)» {
+		public class «className(it)»«extendsList(it)»«implementsList(it)» {
 			«FOR node : it.editorGen.diagram.topLevelNodes»
 				«xptImplParserProvider.dispatch_parsers(node)»
 			«ENDFOR»

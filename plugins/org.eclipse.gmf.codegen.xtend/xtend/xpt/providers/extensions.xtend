@@ -23,16 +23,30 @@ import org.eclipse.gmf.codegen.gmfgen.ElementType
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType
 import org.eclipse.gmf.codegen.gmfgen.NotationType
+import xpt.QualifiedClassNameProvider
+import parsers.ParserProvider
+import xpt.diagram.edithelpers.EditHelper
+import xpt.diagram.edithelpers.EditHelperAdvice
 
 class extensions {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
+	@Inject ViewProvider viewProvider;
+	@Inject IconProvider iconProvider;
+	@Inject EditPartProvider editPartProvider;
+	@Inject ModelingAssistantProvider modelAssistant;
+	@Inject ParserProvider labelParsers;
+	@Inject ShortcutsDecoratorProvider shorcutProvider;
+	@Inject EditHelper editHelper;
+	@Inject EditHelperAdvice editHelperAdvice;
+	
 	def extensions(GenDiagram it) '''
 		<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
 			«xmlGeneratedTag»
-			<viewProvider class="«getNotationViewProviderQualifiedClassName()»">
+			<viewProvider class="«viewProvider.qualifiedClassName(it)»">
 				<Priority name="«notationViewProviderPriority»"/>
 				«IF shortcutsProvidedFor.notEmpty/*allow provider activation when another diagram tries to create a node, perhaps ours*/»
 				<object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
@@ -50,7 +64,7 @@ class extensions {
 		
 		<extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
 			«xmlGeneratedTag»
-			<editpartProvider class="«getEditPartProviderQualifiedClassName()»">
+			<editpartProvider class="«editPartProvider.qualifiedClassName(it)»">
 				<Priority name="«editPartProviderPriority»"/>
 				<object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
 				         	<method name="getType()" value="«editorGen.modelID»"/>
@@ -73,14 +87,14 @@ class extensions {
 		
 		<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
 			«xmlGeneratedTag»
-			<modelingAssistantProvider class="«getModelingAssistantProviderQualifiedClassName()»">
+			<modelingAssistantProvider class="«modelAssistant.qualifiedClassName(it)»">
 				<Priority name="«modelingAssistantProviderPriority»"/>
-				<object class="«getEditPartQualifiedClassName()»" id="«uniqueIdentifier»"/>
+				<object class="«getEditPartQualifiedClassName(it)»" id="«uniqueIdentifier»"/>
 				«FOR n : topLevelNodes»
-				<object class="«n.getEditPartQualifiedClassName()»" id="«n.uniqueIdentifier»"/>
+				<object class="«getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
 				«FOR n : childNodes»
-				<object class="«n.getEditPartQualifiedClassName()»" id="«n.uniqueIdentifier»"/>
+				<object class="«getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
 				<context elements="«uniqueIdentifier»,«commaSeparatedVisualIDs(topLevelNodes)»,«commaSeparatedVisualIDs(
 			childNodes)»"/>
@@ -89,14 +103,14 @@ class extensions {
 		
 		<extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
 			«xmlGeneratedTag»
-			<IconProvider class="«getIconProviderQualifiedClassName()»">
+			<IconProvider class="«iconProvider.qualifiedClassName(it)»">
 				<Priority name="«iconProviderPriority»"/>
 			</IconProvider>
 		</extension>
 		«IF editorGen.labelParsers != null && editorGen.labelParsers.extensibleViaService»
 			<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
 				«xmlGeneratedTag»
-				<ParserProvider class="«editorGen.labelParsers.getQualifiedClassName()»">
+				<ParserProvider class="«labelParsers.qualifiedClassName(editorGen.labelParsers)»">
 					<Priority name="«editorGen.labelParsers.providerPriority»"/>
 				</ParserProvider>
 			</extension>
@@ -104,7 +118,7 @@ class extensions {
 		«IF generateShortcutIcon()»
 			<extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
 				«xmlGeneratedTag»
-				<decoratorProvider class="«getShortcutsDecoratorProviderQualifiedClassName()»">
+				<decoratorProvider class="«shorcutProvider.qualifiedClassName(it)»">
 					<Priority name="«shortcutsDecoratorProviderPriority»"/>
 					<object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
 					         	<method name="getType()" value="«commaSeparatedVisualIDs(topLevelNodes)/*generated code supports shortcuts only to top-level nodes*/»"/>
@@ -156,7 +170,7 @@ class extensions {
 				«ENDIF»
 				kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
 				eclass="«getMetaClass().ecoreClass.name»"
-				edithelper="«getEditHelperQualifiedClassName()»">
+				edithelper="«editHelper.qualifiedClassName(it)»">
 				          	<param name="semanticHint" value="«diagramElement.visualID»"/>
 			</metamodelType>
 		</metamodel>
@@ -179,7 +193,7 @@ class extensions {
 				name="%metatype.name.«diagramElement.uniqueIdentifier»"
 			«ENDIF»
 			kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"«IF editHelperAdviceClassName != null»
-			edithelperadvice="«getEditHelperAdviceQualifiedClassName()»"«ENDIF»>
+			edithelperadvice="«editHelperAdvice.qualifiedClassName(it)»"«ENDIF»>
 			<specializes id="«IF (null == metamodelType)»org.eclipse.gmf.runtime.emf.type.core.null«ELSE»«metamodelType.
 				uniqueIdentifier»«ENDIF»"/>
 				<param name="semanticHint" value="«diagramElement.visualID»"/>

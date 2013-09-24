@@ -19,22 +19,32 @@ import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class ElementChooser {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject extension ExternalizerUtils_qvto;
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 
+	def className(GenDiagram it) '''«it.elementChooserClassName»'''
+
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def extendsList(GenDiagram it) '''extends org.eclipse.jface.dialogs.Dialog'''
 
 	def ElementChooser(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «elementChooserClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			
 			«attributes(it)»
 			
@@ -82,7 +92,7 @@ class ElementChooser {
 
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
-		public «elementChooserClassName»(org.eclipse.swt.widgets.Shell parentShell, org.eclipse.gmf.runtime.notation.View view) {
+		public «className(it)»(org.eclipse.swt.widgets.Shell parentShell, org.eclipse.gmf.runtime.notation.View view) {
 			super(parentShell);
 			setShellStyle(getShellStyle() | org.eclipse.swt.SWT.RESIZE);
 			myView = view;
@@ -188,7 +198,7 @@ class ElementChooser {
 		
 		«generatedMemberComment»
 		private org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider myAdapterFctoryContentProvier = new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(« //
-		editorGen.plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory());
+		getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 	'''
 
 	def METCP_getChildren(GenDiagram it) '''
@@ -206,7 +216,7 @@ class ElementChooser {
 					org.eclipse.emf.ecore.resource.Resource modelResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(resourcePath.toString(), true), true);
 					return myAdapterFctoryContentProvier.getChildren(modelResource);
 				} catch (org.eclipse.emf.common.util.WrappedException e) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); «nonNLS(
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); «nonNLS(
 			1)»
 				}
 				return java.util.Collections.EMPTY_LIST.toArray();
@@ -295,8 +305,8 @@ class ElementChooser {
 			private org.eclipse.ui.model.WorkbenchLabelProvider myWorkbenchLabelProvider = new org.eclipse.ui.model.WorkbenchLabelProvider();
 		
 		«generatedMemberComment»
-			private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«editorGen.
-			plugin.activatorQualifiedClassName».getInstance().getItemProvidersAdapterFactory());
+			private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«
+			getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 	'''
 
 	def METLP_getImage(GenDiagram it) '''
@@ -430,7 +440,7 @@ class ElementChooser {
 	}
 
 	@Localization def String i18nKeyForElementChooser(GenDiagram diagram) {
-		return diagram.elementChooserClassName
+		return '' + className(diagram)
 	}
 
 }

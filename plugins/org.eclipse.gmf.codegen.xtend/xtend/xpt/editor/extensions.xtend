@@ -15,10 +15,15 @@ package xpt.editor
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class extensions {
 	@Inject extension Common;
-		
+	@Inject extension QualifiedClassNameProvider;
+	
+	@Inject MatchingStrategy xptMatching;
+	@Inject ActionBarContributor xptActionBarContributor;
+	
 	def extensions(GenEditorGenerator it) '''
 		<extension point="org.eclipse.ui.editors" id="gmf-editor">
 			«xmlGeneratedTag()»
@@ -28,9 +33,9 @@ class extensions {
 				icon="«editor.iconPathX»"
 				extensions="«diagramFileExtension»"
 				default="true"
-				class="«editor.getQualifiedClassName()»"
-				matchingStrategy="«diagram.getMatchingStrategyQualifiedClassName()»"
-				contributorClass="«editor.getActionBarContributorQualifiedClassName()»">
+				class="«getEditorQualifiedClassName(editor)»"
+				matchingStrategy="«xptMatching.qualifiedClassName(diagram)»"
+				contributorClass="«xptActionBarContributor.qualifiedClassName(editor)»">
 			</editor>
 		</extension>
 		
@@ -50,8 +55,8 @@ class extensions {
 				name="%newWizardName"
 				icon="«diagram.creationWizardIconPathX»"
 				category="«diagram.creationWizardCategoryID»"
-				class="«diagram.getCreationWizardQualifiedClassName()»"
-				id="«diagram.getCreationWizardQualifiedClassName()»ID">
+				class="«getCreationWizardQualifiedClassName(diagram)»"
+				id="«getCreationWizardQualifiedClassName(diagram)»ID">
 				<description>%newWizardDesc</description>  
 			</wizard>
 		</extension>
@@ -65,7 +70,7 @@ class extensions {
 					objectClass="org.eclipse.core.resources.IFile">
 					<action
 						label="%initDiagramActionLabel"
-						class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+						class="«getInitDiagramFileActionQualifiedClassName(diagram)»"
 						menubarPath="additions"
 						enablesFor="1"
 						id="«plugin.ID».InitDiagramAction">
@@ -81,7 +86,7 @@ class extensions {
 					id="«plugin.ID».InitDiagram">
 					<action
 						label="%initDiagramActionLabel"
-						class="«diagram.getInitDiagramFileActionQualifiedClassName()»"
+						class="«getInitDiagramFileActionQualifiedClassName(diagram)»"
 						menubarPath="file/additions"
 						id="«plugin.ID».InitDiagramAction">
 					</action>

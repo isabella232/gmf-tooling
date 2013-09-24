@@ -17,6 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView
 import xpt.Common
 import xpt.Common_qvto
 import xpt.GenEditorGenerator_qvto
+import xpt.QualifiedClassNameProvider
 
 class ActionBarContributor {
 	@Inject extension Common;
@@ -24,25 +25,35 @@ class ActionBarContributor {
 
 	@Inject extension GenEditorGenerator_qvto;
 
+	@Inject extension QualifiedClassNameProvider;
+
 	@Inject ValidateAction xptValidateAction;
+
+	def className(GenEditorView it) '''«actionBarContributorClassName»'''
+	
+	def packageName(GenEditorView it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenEditorView it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenEditorView it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenEditorView it) '''extends org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor'''
 
 	def ActionBarContributor(GenEditorView it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «actionBarContributorClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 		
 			«generatedMemberComment»
 			protected Class getEditorClass() {
-				return «getQualifiedClassName()».class;
+				return «getEditorQualifiedClassName(it)».class;
 			}
 		
 			«generatedMemberComment»
 			protected String getEditorId() {
-				return «getQualifiedClassName()».ID;
+				return «getEditorQualifiedClassName(it)».ID;
 			}
 			«initMethod(it)»
 			«additions(it)»
@@ -74,7 +85,7 @@ class ActionBarContributor {
 					editMenu.appendToGroup("validationGroup", validateAction); «nonNLS(1)»
 				«ENDIF»
 				«IF editorGen.metrics != null && editorGen.metrics.metrics.notEmpty»
-					org.eclipse.jface.action.IAction metricsAction = new «editorGen.diagram.getMetricProviderQualifiedClassName()».MetricsAction(page);
+					org.eclipse.jface.action.IAction metricsAction = new «getMetricProviderQualifiedClassName(editorGen.diagram)».MetricsAction(page);
 					editMenu.appendToGroup("validationGroup", metricsAction); «nonNLS(1)»
 				«ENDIF»
 			«ENDIF/*hasAudits || hasMetrics */»

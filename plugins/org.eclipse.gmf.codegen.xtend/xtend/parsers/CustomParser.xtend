@@ -14,18 +14,25 @@ package parsers
 
 import com.google.inject.Inject
 import xpt.Common
-import xpt.Common_qvto
 
 class CustomParser {
 	@Inject extension Common;
-	@Inject extension Common_qvto;
+	@Inject extension ParsersUtil;
+
+	def className(org.eclipse.gmf.codegen.gmfgen.CustomParser it) '''«classNameCustomParser(it)»'''
+
+	def packageName(org.eclipse.gmf.codegen.gmfgen.CustomParser it) '''«packageNameCustomParser(it)»'''
+
+	def qualifiedClassName(org.eclipse.gmf.codegen.gmfgen.CustomParser it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(org.eclipse.gmf.codegen.gmfgen.CustomParser it) '''«qualifiedClassName(it)»'''
 
 	def Main(org.eclipse.gmf.codegen.gmfgen.CustomParser it) '''
 		«copyright(holder.editorGen)»
-		package «withoutLastSegment(qualifiedName)»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «lastSegment(qualifiedName)» «extendsList(it)» «implementsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			«body(it)»
 			«additions(it)»
 		}

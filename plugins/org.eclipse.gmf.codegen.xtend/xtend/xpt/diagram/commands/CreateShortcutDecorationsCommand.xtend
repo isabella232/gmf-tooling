@@ -19,19 +19,27 @@ import xpt.Common
 class CreateShortcutDecorationsCommand {
 	@Inject extension Common;
 
+	def className(GenDiagram it) '''«it.createShortcutDecorationsCommandClassName»'''
+
+	def packageName(GenDiagram it) '''«editCommandsPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def CreateShortcutDecorationsCommand(GenDiagram it) '''
 «copyright(it.editorGen)»
-package «editCommandsPackageName»;
+package «packageName(it)»;
 
 «generatedClassComment(it)»
-public class «createShortcutDecorationsCommandClassName»
+public class «className(it)»
 		extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
 	«generatedMemberComment(it)»
 	private java.util.List myDescriptors;
 
 	«generatedMemberComment(it)»
-	public «createShortcutDecorationsCommandClassName»(
+	public «className(it)»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain,
 			org.eclipse.gmf.runtime.notation.View parentView,
 			java.util.List viewDescriptors) {
@@ -40,7 +48,7 @@ public class «createShortcutDecorationsCommandClassName»
 	}
 
 	«generatedMemberComment(it)»
-	public «createShortcutDecorationsCommandClassName»(
+	public «className(it)»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain,
 			org.eclipse.gmf.runtime.notation.View parentView,
 			org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor viewDescriptor) {

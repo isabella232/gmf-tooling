@@ -15,16 +15,26 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class WorkbenchAdvisor {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
+
+	def className(GenApplication it) '''«it.workbenchAdvisorClassName»'''
+
+	def packageName(GenApplication it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenApplication it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenApplication it) '''«qualifiedClassName(it)»'''
 
 	def WorkbenchAdvisor(GenApplication it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «workbenchAdvisorClassName» extends org.eclipse.ui.application.WorkbenchAdvisor {
+		public class «className(it)» extends org.eclipse.ui.application.WorkbenchAdvisor {
 			«perspectiveId(it)»
 			
 			«getInitialWindowPerspectiveId(it)»
@@ -61,7 +71,7 @@ class WorkbenchAdvisor {
 		«generatedMemberComment»
 		public org.eclipse.ui.application.WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
 				org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
-			return new «getWorkbenchWindowAdvisorQualifiedClassName()»(configurer);
+			return new «getWorkbenchWindowAdvisorQualifiedClassName(it)»(configurer);
 		}
 	'''
 

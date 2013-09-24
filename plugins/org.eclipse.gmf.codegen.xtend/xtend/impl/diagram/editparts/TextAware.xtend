@@ -27,6 +27,7 @@ import parsers.ParserProvider
 import xpt.CodeStyle
 import xpt.Common
 import xpt.diagram.ViewmapAttributesUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class TextAware {
 	@Inject extension Common
@@ -35,6 +36,7 @@ class TextAware {
 	@Inject extension ChoiceUtils_qvto
 	@Inject extension RuntimeLabelsSupport_qvto
 	@Inject extension expression_qvto
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject modeledViewmapProducer xptModeledViewmapProducer;
 	@Inject ParserProvider xptParserProvider;
@@ -311,7 +313,7 @@ class TextAware {
 				if (parserElement == null) {
 					return null;
 				}
-				return «diagram.getElementTypesQualifiedClassName()».getImage(parserElement.eClass());
+				return «getElementTypesQualifiedClassName(diagram)».getImage(parserElement.eClass());
 			«ELSE»
 				return null;
 			«ENDIF»
@@ -430,7 +432,7 @@ class TextAware {
 			if (manager == null) {
 				setManager(new «getDirectManagerFQN(modelFacet)»(this,
 					null,
-					«diagram.getEditPartFactoryQualifiedClassName()».getTextCellEditorLocator(this)));
+					«getEditPartFactoryQualifiedClassName(diagram)».getTextCellEditorLocator(this)));
 			}
 			return manager;
 		}

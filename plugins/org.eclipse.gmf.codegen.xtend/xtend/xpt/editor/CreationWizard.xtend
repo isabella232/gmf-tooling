@@ -18,13 +18,23 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class CreationWizard {
 	@Inject extension Common;
 	@Inject extension GenDiagram_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject extension ExternalizerUtils_qvto;
 	@Inject Externalizer xptExternalizer;
+
+	def className(GenDiagram it) '''«creationWizardClassName»'''
+	
+	def packageName(GenDiagram it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 	def extendsList(GenDiagram it) '''extends org.eclipse.jface.wizard.Wizard'''
 
@@ -32,10 +42,10 @@ class CreationWizard {
 
 	def CreationWizard(GenDiagram it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «creationWizardClassName»
+		public class «className(it)»
 				«extendsList(it)» «implementsList(it)» {
 		
 			«generatedMemberComment»
@@ -45,11 +55,11 @@ class CreationWizard {
 			   protected org.eclipse.jface.viewers.IStructuredSelection selection;
 			   
 			«generatedMemberComment»
-			protected «getCreationWizardPageQualifiedClassName()» diagramModelFilePage;
+			protected «getCreationWizardPageQualifiedClassName(it)» diagramModelFilePage;
 			
 			«IF standaloneDomainModel(it)»
 				«generatedMemberComment»
-				protected «getCreationWizardPageQualifiedClassName()» domainModelFilePage;
+				protected «getCreationWizardPageQualifiedClassName(it)» domainModelFilePage;
 			«ENDIF»
 			
 			«generatedMemberComment»
@@ -88,14 +98,14 @@ class CreationWizard {
 			       this.workbench = workbench;
 			       this.selection = selection;
 			setWindowTitle(«xptExternalizer.accessorCall(editorGen, titleKey(i18nKeyForCreationWizard(it)))»);
-			setDefaultPageImageDescriptor(«editorGen.plugin.activatorQualifiedClassName».getBundledImageDescriptor(
+			setDefaultPageImageDescriptor(«getActivatorQualifiedClassName(editorGen.plugin)».getBundledImageDescriptor(
 					"icons/wizban/New«IF domainDiagramElement != null»«domainDiagramElement.genPackage.prefix»«ENDIF»Wizard.gif")); //$NON-NLS-1$
 			setNeedsProgressMonitor(true);
 			}
 			
 			«generatedMemberComment»
 			public void addPages() {
-				diagramModelFilePage = new «getCreationWizardPageQualifiedClassName()»(
+				diagramModelFilePage = new «getCreationWizardPageQualifiedClassName(it)»(
 						"DiagramModelFile", getSelection(), "«editorGen.diagramFileExtension»"); //$NON-NLS-1$ //$NON-NLS-2$
 				diagramModelFilePage.setTitle(«xptExternalizer.accessorCall(editorGen,
 			titleKey(i18nKeyForCreationWizardDiagramPage(it)))»);
@@ -104,14 +114,14 @@ class CreationWizard {
 				addPage(diagramModelFilePage);
 			«IF standaloneDomainModel(it)»
 				
-					domainModelFilePage = new «getCreationWizardPageQualifiedClassName()»(
+					domainModelFilePage = new «getCreationWizardPageQualifiedClassName(it)»(
 							"DomainModelFile", getSelection(), "«editorGen.domainFileExtension»") { //$NON-NLS-1$ //$NON-NLS-2$
 							
 					public void setVisible(boolean visible) {
 						if (visible) {
 							String fileName = diagramModelFilePage.getFileName();
 							fileName = fileName.substring(0, fileName.length() - ".«editorGen.diagramFileExtension»".length()); //$NON-NLS-1$
-							setFileName(«getDiagramEditorUtilQualifiedClassName()».getUniqueFileName(
+							setFileName(«getDiagramEditorUtilQualifiedClassName(it)».getUniqueFileName(
 									getContainerFullPath(), fileName, "«editorGen.domainFileExtension»")); //$NON-NLS-1$
 						}
 						super.setVisible(visible);
@@ -139,14 +149,14 @@ class CreationWizard {
 					public void run(org.eclipse.core.runtime.IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
 			«ENDIF»
-			diagram = «getDiagramEditorUtilQualifiedClassName()».createDiagram(diagramModelFilePage.getURI(),
+			diagram = «getDiagramEditorUtilQualifiedClassName(it)».createDiagram(diagramModelFilePage.getURI(),
 			«IF standaloneDomainModel(it)»
 				domainModelFilePage.getURI(),
 			«ENDIF»
 			monitor);
 			if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 				try {
-					«getDiagramEditorUtilQualifiedClassName()».openDiagram(diagram);
+					«getDiagramEditorUtilQualifiedClassName(it)».openDiagram(diagram);
 				} catch (org.eclipse.ui.PartInitException e) {
 					org.eclipse.jface.dialogs.ErrorDialog.openError(getContainer().getShell(),
 							«xptExternalizer.accessorCall(editorGen, i18nKeyForCreationWizardOpenEditorError(it))», null, e.getStatus());
@@ -164,7 +174,7 @@ class CreationWizard {
 							«xptExternalizer.accessorCall(editorGen, i18nKeyForCreationWizardCreationError(it))», null,
 							((org.eclipse.core.runtime.CoreException) e.getTargetException()).getStatus());
 				} else {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError(
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
 							"Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 				}
 				return false;
@@ -207,23 +217,23 @@ class CreationWizard {
 	'''
 
 	@Localization def String i18nKeyForCreationWizard(GenDiagram diagram) {
-		return diagram.creationWizardClassName
+		return '' + className(diagram)
 	}
 
 	@Localization def String i18nKeyForCreationWizardDiagramPage(GenDiagram diagram) {
-		return diagram.creationWizardClassName + '.DiagramModelFilePage'
+		return '' + className(diagram) + '.DiagramModelFilePage'
 	}
 
 	@Localization def String i18nKeyForCreationWizardDomainPage(GenDiagram diagram) {
-		return diagram.creationWizardClassName + '.DomainModelFilePage'
+		return '' + className(diagram) + '.DomainModelFilePage'
 	}
 
 	@Localization def String i18nKeyForCreationWizardOpenEditorError(GenDiagram diagram) {
-		return diagram.creationWizardClassName + 'OpenEditorError'
+		return '' + className(diagram) + 'OpenEditorError'
 	}
 
 	@Localization def String i18nKeyForCreationWizardCreationError(GenDiagram diagram) {
-		return diagram.creationWizardClassName + 'CreationError'
+		return '' + className(diagram) + 'CreationError'
 	}
 
 }

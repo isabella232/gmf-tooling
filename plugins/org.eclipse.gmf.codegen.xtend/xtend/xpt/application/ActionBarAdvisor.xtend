@@ -29,20 +29,30 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
+import xpt.QualifiedClassNameProvider
 
 class ActionBarAdvisor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ExternalizerUtils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
 
+	def className(GenApplication it) '''«it.actionBarAdvisorClassName»'''
+
+	def packageName(GenApplication it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenApplication it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenApplication it) '''«qualifiedClassName(it)»'''
+
 	def ActionBarAdvisor(GenApplication it) '''
 		«copyright(it.editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «actionBarAdvisorClassName» extends org.eclipse.ui.application.ActionBarAdvisor {
+		public class «className(it)» extends org.eclipse.ui.application.ActionBarAdvisor {
 		
 			«generatedMemberComment»
 			private org.eclipse.ui.actions.ActionFactory.IWorkbenchAction lockToolBarAction;
@@ -51,7 +61,7 @@ class ActionBarAdvisor {
 			   private org.eclipse.ui.actions.ActionFactory.IWorkbenchAction toggleCoolbarAction;
 		
 			«generatedMemberComment»
-			public «actionBarAdvisorClassName»(org.eclipse.ui.application.IActionBarConfigurer configurer) {
+			public «className(it)»(org.eclipse.ui.application.IActionBarConfigurer configurer) {
 				super(configurer);
 			}
 		
@@ -206,8 +216,8 @@ class ActionBarAdvisor {
 		
 			«generatedMemberComment»
 			public void run(org.eclipse.jface.action.IAction action) {
-				«editorGen.diagram.getCreationWizardQualifiedClassName()» wizard =
-					new «editorGen.diagram.getCreationWizardQualifiedClassName()»();
+				«getCreationWizardQualifiedClassName(editorGen.diagram)» wizard =
+					new «getCreationWizardQualifiedClassName(editorGen.diagram)»();
 				wizard.init(getWindow().getWorkbench(), org.eclipse.jface.viewers.StructuredSelection.EMPTY);
 				org.eclipse.jface.wizard.WizardDialog wizardDialog =
 					new org.eclipse.jface.wizard.WizardDialog(getWindow().getShell(), wizard);
@@ -334,19 +344,19 @@ class ActionBarAdvisor {
 	}
 
 	@Localization protected def String i18nKeyForWindowTitle(GenApplication app) {
-		return app.workbenchWindowAdvisorClassName + '.Title'
+		return getWorkbenchWindowAdvisorClassName(app) + '.Title'
 	}
 
 	@Localization protected def String i18nKeyForAboutDialog(GenApplication app) {
-		return app.actionBarAdvisorClassName + '.AboutDialog'
+		return className(app) + '.AboutDialog'
 	}
 
 	@Localization protected def String i18nKeyForDefaultFileEditorErrorDialog(GenApplication app) {
-		return app.actionBarAdvisorClassName + '.DefaultFileEditor'
+		return className(app) + '.DefaultFileEditor'
 	}
 
 	@Localization protected def String i18nKeyForDefaultEditorOpenErrorDialog(GenApplication app) {
-		return app.actionBarAdvisorClassName + '.DefaultEditorOpenError'
+		return className(app) + '.DefaultEditorOpenError'
 	}
 
 }

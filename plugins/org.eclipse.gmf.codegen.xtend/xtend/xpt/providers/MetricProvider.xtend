@@ -34,11 +34,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer
+import xpt.QualifiedClassNameProvider
 
 class MetricProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Metrics_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject MetaModel xptMetaModel;
 	@Inject MetricsResultView xptMetricsResultView;
@@ -46,16 +48,24 @@ class MetricProvider {
 	@Inject xpt.expressions.getExpression xptGetExpression;
 
 	@MetaDef def invokeCalcMethod(GenMetricRule it, String accessor, boolean isSpecific) //
-	'''«container.editorGen.diagram.metricProviderQualifiedClassName».«calcMethodName(it)»(« //
+	'''«qualifiedClassName(container.editorGen.diagram)».«calcMethodName(it)»(« //
 	IF !isSpecific/*CastEObject would be better, however need GenClassifier*/»(«xptMetaModel.
 		QualifiedClassName(target.getContext())») «ENDIF»«accessor»)'''
 
+	def className(GenDiagram it) '''«it.metricProviderClassName»'''
+
+	def packageName(GenDiagram it) '''«it.providersPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
+
 	def MetricProvider(GenDiagram it) '''
 	«copyright(editorGen)»
-	package «providersPackageName»;
+	package «packageName(it)»;
 	
 	«generatedClassComment»
-	public class «metricProviderClassName» {
+	public class «className(it)» {
 	
 		«generatedMemberComment»
 		public static class MetricsAction extends org.eclipse.jface.action.Action {
@@ -85,7 +95,7 @@ class MetricProvider {
 						page.activate(metricsView);
 					}
 				} catch (org.eclipse.ui.PartInitException e) {
-					«editorGen.plugin.activatorQualifiedClassName».getInstance().logError("Diagram metric view failure", e); «nonNLS(
+					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Diagram metric view failure", e); «nonNLS(
 			1)»
 				}
 			}
@@ -110,7 +120,7 @@ class MetricProvider {
 	}
 	'''
 
-	def resultViewQualifiedClassName(GenDiagram it) '''«providersPackageName».«metricProviderClassName».«xptMetricsResultView.
+	def resultViewQualifiedClassName(GenDiagram it) '''«qualifiedClassName(it)».«xptMetricsResultView.
 		className(it)»'''
 
 	def resultViewID(GenDiagram it) '''«resultViewQualifiedClassName(it)».VIEW_ID'''
@@ -238,7 +248,7 @@ class MetricProvider {
 		}
 	'''
 
-	def getImageAccessor(GenDiagram it, String imageClassVar) '''«it.elementTypesQualifiedClassName».getImage(«imageClassVar»)'''
+	def getImageAccessor(GenDiagram it, String imageClassVar) '''«getElementTypesQualifiedClassName(it)».getImage(«imageClassVar»)'''
 
 	def calcNotationMetricsMethod(GenEditorGenerator it) '''
 		«generatedMemberComment»
@@ -337,12 +347,12 @@ class MetricProvider {
 			}
 			if (!target2row.isEmpty()) { // list was modified, need to process only semantic metrics
 				// bind semantic elements to notation
-				«diagram.getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap element2ViewMap = new «diagram.
-			getDiagramEditorUtilQualifiedClassName()».LazyElement2ViewMap(diagram, target2row.keySet());
+				«getDiagramEditorUtilQualifiedClassName(diagram)».LazyElement2ViewMap element2ViewMap = new «
+			getDiagramEditorUtilQualifiedClassName(diagram)».LazyElement2ViewMap(diagram, target2row.keySet());
 				for (java.util.Iterator it2 = target2row.entrySet().iterator(); it2.hasNext();) {
 					java.util.Map.Entry entry = (java.util.Map.Entry) it2.next();
 					org.eclipse.emf.ecore.EObject semanticElement = (org.eclipse.emf.ecore.EObject) entry.getKey();
-					org.eclipse.gmf.runtime.notation.View targetView = «diagram.getDiagramEditorUtilQualifiedClassName()».findView(diagramEditPart, semanticElement, element2ViewMap);
+					org.eclipse.gmf.runtime.notation.View targetView = «getDiagramEditorUtilQualifiedClassName(diagram)».findView(diagramEditPart, semanticElement, element2ViewMap);
 					ElementMetrics elementMetrics = (ElementMetrics) entry.getValue();
 					elementMetrics.diagramElementID = targetView.eResource().getURIFragment(targetView);
 				}

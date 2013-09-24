@@ -17,21 +17,31 @@ import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
+import xpt.QualifiedClassNameProvider
 
 class WorkbenchWindowAdvisor {
 	@Inject extension Common;
-
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject Externalizer xptExternalizer;
+
+	def className(GenApplication it) '''«it.workbenchWindowAdvisorClassName»'''
+
+	def packageName(GenApplication it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenApplication it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenApplication it) '''«qualifiedClassName(it)»'''
 
 	def WorkbenchWindowAdvisor(GenApplication it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «workbenchWindowAdvisorClassName» extends org.eclipse.ui.application.WorkbenchWindowAdvisor {
+		public class «className(it)» extends org.eclipse.ui.application.WorkbenchWindowAdvisor {
 		
 			«generatedMemberComment»
-			public «workbenchWindowAdvisorClassName»(org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
+			public «className(it)»(org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
 				super(configurer);
 			}
 		
@@ -46,7 +56,7 @@ class WorkbenchWindowAdvisor {
 	def createActionBarAdvisor(GenApplication it) '''
 		«generatedMemberComment»
 		public org.eclipse.ui.application.ActionBarAdvisor createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer configurer) {
-			return new «getActionBarAdvisorQualifiedClassName()»(configurer);
+			return new «getActionBarAdvisorQualifiedClassName(it)»(configurer);
 		}
 	'''
 
@@ -71,7 +81,7 @@ class WorkbenchWindowAdvisor {
 	'''
 
 	@Localization protected def String i18nKeyForWindowTitle(GenApplication app) {
-		return app.workbenchWindowAdvisorClassName + '.Title'
+		return className(app) + '.Title'
 	}
 
 }

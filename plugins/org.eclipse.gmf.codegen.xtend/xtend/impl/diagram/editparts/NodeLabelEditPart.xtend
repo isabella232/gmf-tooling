@@ -18,24 +18,27 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel
 import xpt.Common
 import xpt.diagram.editparts.Utils_qvto
+import xpt.QualifiedClassNameProvider
 
 class NodeLabelEditPart {
 	@Inject extension Common;
+	@Inject extension diagram.editparts.NodeLabelEditPart;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
 	def constructor(GenNodeLabel it) '''
 		«generatedMemberComment»
-		public «editPartClassName»(org.eclipse.gmf.runtime.notation.View view) {
+		public «className(it)»(org.eclipse.gmf.runtime.notation.View view) {
 			super(view);
 		}
 	'''
 
 	def createDefaultEditPoliciesBody(GenNodeLabel it) '''
 		super.createDefaultEditPolicies();
-		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().
-			getTextSelectionEditPolicyQualifiedClassName()»());
+		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «
+			getTextSelectionEditPolicyQualifiedClassName(getDiagram())»());
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «nodeLabelDragPolicyQualifiedClassName(it.diagram)»());
 		«xptEditpartsCommon.behaviour(it)»

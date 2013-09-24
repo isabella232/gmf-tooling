@@ -27,6 +27,7 @@ import xpt.expressions.getExpression
 class ExpressionLabelParser {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
+	@Inject extension parsers.ExpressionLabelParser
 
 	@Inject getExpression xptGetExpression;
 
@@ -34,7 +35,7 @@ class ExpressionLabelParser {
 
 	def constructor(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it, String name) '''
 		«generatedMemberComment»
-		public «name»() {
+		public «className(it)»() {
 		}
 	'''
 
@@ -101,12 +102,12 @@ class ExpressionLabelParser {
 	/**
 	 * The xpt behavior, that is compilation error in generated code, is preserved, but additional comment had been added in Xtend version
 	 */
-	def dispatchCheckValidateExpression(GenExpressionProviderBase it, GenConstraint expression) '''/*FIXME: unkwnown expression provider */'''
+	def dispatch dispatchCheckValidateExpression(GenExpressionProviderBase it, GenConstraint expression) '''/*FIXME: unkwnown expression provider */'''
 
-	def dispatchCheckValidateExpression(GenExpressionInterpreter it, GenConstraint expression) // 
+	def dispatch dispatchCheckValidateExpression(GenExpressionInterpreter it, GenConstraint expression) // 
 	'''«xptGetExpression.getExpression(it, expression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()')».evaluate(editString)»'''
 
-	def dispatchCheckValidateExpression(GenJavaExpressionProvider it, GenConstraint expression) // 
+	def dispatch dispatchCheckValidateExpression(GenJavaExpressionProvider it, GenConstraint expression) // 
 	'''evaluateValidateExpression(editString)'''
 
 	def extraMethods(org.eclipse.gmf.codegen.gmfgen.ExpressionLabelParser it) '''
@@ -127,7 +128,7 @@ class ExpressionLabelParser {
 	def javaMethod(GenJavaExpressionProvider it, String methodName, String returnType, String paramType,
 		ValueExpression expression) '''
 		«generatedMemberComment»
-		private «returnType» «methodName»(«paramType» it) {
+		private «returnType» «methodName»(«paramType» self) {
 		«IF injectExpressionBody && expression != null && !expression.body.nullOrEmpty»
 			«expression.body»
 		«ELSEIF throwException || (injectExpressionBody && (expression == null || expression.body.nullOrEmpty))»

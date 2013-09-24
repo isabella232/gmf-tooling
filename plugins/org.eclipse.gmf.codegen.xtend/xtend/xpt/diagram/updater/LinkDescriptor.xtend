@@ -20,12 +20,20 @@ import xpt.Common
 class LinkDescriptor {
 	@Inject extension Common;
 
+	def className(GenDiagramUpdater it) '''«linkDescriptorClassName»'''
+	
+	def packageName(GenDiagramUpdater it) '''«it.editorGen.editor.packageName»'''
+
+	def qualifiedClassName(GenDiagramUpdater it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagramUpdater it) '''«qualifiedClassName(it)»'''
+
 	def LinkDescriptor(GenDiagramUpdater it) '''
 		«copyright(editorGen)»
-		package «editorGen.editor.packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «linkDescriptorClassName» «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» {
 			«refOnlyLinkConstructor(it)»
 			
 			«typeLinkConstructor(it)»
@@ -38,14 +46,14 @@ class LinkDescriptor {
 
 	def refOnlyLinkConstructor(GenDiagramUpdater it) '''
 		«generatedMemberComment»
-		public «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType, int linkVID) {
+		public «className(it)»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType, int linkVID) {
 			super(source, destination, elementType, linkVID);
 		}
 	'''
 
 	def typeLinkConstructor(GenDiagramUpdater it) '''
 		«generatedMemberComment»
-		public «linkDescriptorClassName»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.emf.ecore.EObject linkElement, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType, int linkVID) {
+		public «className(it)»(org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject destination, org.eclipse.emf.ecore.EObject linkElement, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType, int linkVID) {
 			super(source, destination, linkElement, elementType, linkVID);
 		}
 	'''

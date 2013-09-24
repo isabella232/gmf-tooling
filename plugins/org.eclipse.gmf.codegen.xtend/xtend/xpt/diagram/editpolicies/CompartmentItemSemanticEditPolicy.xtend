@@ -15,20 +15,29 @@ package xpt.diagram.editpolicies
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment
 import xpt.Common
+import xpt.QualifiedClassNameProvider
 
 class CompartmentItemSemanticEditPolicy {
 	@Inject extension Common;
+	@Inject extension QualifiedClassNameProvider;
 
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
 
+	def className(GenCompartment it) '''«it.itemSemanticEditPolicyClassName»'''
+
+	def packageName(GenCompartment it) '''«it.getDiagram().editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenCompartment it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenCompartment it) '''«qualifiedClassName(it)»'''
+
 	def CompartmentItemSemanticEditPolicy(GenCompartment it) '''
 		«copyright(getDiagram().editorGen)»
-		package «getDiagram().editPoliciesPackageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «itemSemanticEditPolicyClassName» extends «getDiagram().
-			getBaseItemSemanticEditPolicyQualifiedClassName()» {
+		public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(getDiagram())» {
 		
 			«_constructor(it)»
 		
@@ -40,7 +49,7 @@ class CompartmentItemSemanticEditPolicy {
 
 	def _constructor(GenCompartment it) '''
 		«generatedMemberComment(it)»
-		public «itemSemanticEditPolicyClassName»() {
+		public «className(it)»() {
 			«xptBaseItemSemanticEditPolicy.defaultConstructorBody(node)»
 		}
 	'''

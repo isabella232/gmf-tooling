@@ -16,19 +16,29 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 import xpt.editor.VisualIDRegistry
+import xpt.QualifiedClassNameProvider
 
 class NavigatorSorter {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
-
+	@Inject extension QualifiedClassNameProvider;
+	
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+
+	def className(GenNavigator it) '''«it.sorterClassName»'''
+
+	def packageName(GenNavigator it) '''«it.packageName»'''
+
+	def qualifiedClassName(GenNavigator it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenNavigator it) '''«qualifiedClassName(it)»'''
 
 	def NavigatorSorter(GenNavigator it) '''
 		«copyright(editorGen)»
-		package «packageName»;
+		package «packageName(it)»;
 		
 		«generatedClassComment()»
-		public class «sorterClassName»  extends org.eclipse.jface.viewers.ViewerSorter {
+		public class «className(it)»  extends org.eclipse.jface.viewers.ViewerSorter {
 			
 			«attributes(it)»
 			
@@ -52,7 +62,7 @@ class NavigatorSorter {
 		«generatedMemberComment()»
 		public int category(Object element) {
 			if (element instanceof «getNavigatorItemQualifiedClassName()») {
-				«getNavigatorItemQualifiedClassName()» item = («getNavigatorItemQualifiedClassName()») element;
+				«getNavigatorItemQualifiedClassName(it)» item = («getNavigatorItemQualifiedClassName(it)») element;
 			«IF editorGen.diagram.generateCreateShortcutAction()»
 				if (item.getView().getEAnnotation("Shortcut") != null) {  «nonNLS(1)»
 					return SHORTCUTS_CATEGORY;

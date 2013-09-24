@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import xpt.providers.ElementTypes
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
+import xpt.QualifiedClassNameProvider
 
 class BaseItemSemanticEditPolicy {
 	@Inject extension Common;
@@ -42,6 +43,7 @@ class BaseItemSemanticEditPolicy {
 	@Inject extension xpt.diagram.Utils_qvto;
 	@Inject extension OclMigrationProblems_qvto;
 	@Inject extension Utils_qvto;
+	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject BaseEditHelper xptBaseEditHelper;
 	@Inject Activator xptPluginActivator;
@@ -50,13 +52,20 @@ class BaseItemSemanticEditPolicy {
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ElementTypes xptElementTypes;
 	
+	def className(GenDiagram it) '''«it.baseItemSemanticEditPolicyClassName»'''
+
+	def packageName(GenDiagram it) '''«it.getDiagram().editPoliciesPackageName»'''
+
+	def qualifiedClassName(GenDiagram it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenDiagram it) '''«qualifiedClassName(it)»'''
 
 def BaseItemSemanticEditPolicy(GenDiagram it) '''
 «copyright(editorGen)»
-package «getDiagram().editPoliciesPackageName»;
+package «packageName(it)»;
 
 «generatedClassComment(it)»
-public class «baseItemSemanticEditPolicyClassName» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
+public class «className(it)» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
 
 	«attributes(it)»
 	
@@ -113,7 +122,7 @@ def attributes(GenDiagram it) '''
 
 def constructor(GenDiagram it) '''
 	«generatedMemberComment(it)»
-	protected «baseItemSemanticEditPolicyClassName»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
+	protected «className(it)»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 		myElementType = elementType;
 	}
 '''
@@ -193,7 +202,7 @@ def getEditHelperCommand(GenDiagram it) '''
 def getContextElementType(GenDiagram it) '''
 	«generatedMemberComment(it)»
 	private org.eclipse.gmf.runtime.emf.type.core.IElementType getContextElementType(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
-		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName()».getElementType(getVisualID(request));
+		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName(it)».getElementType(getVisualID(request));
 		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
 '''
@@ -535,7 +544,7 @@ def dispatch checkAdditionalConstraint(GenJavaExpressionProvider it, ValueExpres
 		String targetVar) //
 	'''«_accessLinkConstraints(link.diagram)».canCreate«link.uniqueIdentifier»(«IF hasContainerOtherThanSource(xptSelf)»«containerVar», «ENDIF»«sourceVar», «targetVar»)'''
 
-	@MetaDef private def _accessLinkConstraints(GenDiagram xptSelf) '''«xptSelf.baseItemSemanticEditPolicyQualifiedClassName».getLinkConstraints()'''
+	@MetaDef private def _accessLinkConstraints(GenDiagram xptSelf) '''«qualifiedClassName(xptSelf)».getLinkConstraints()'''
 
 	def oppositeEndVariableNameValue(Object any)'''"oppositeEnd"'''
 
@@ -543,7 +552,7 @@ def dispatch checkAdditionalConstraint(GenJavaExpressionProvider it, ValueExpres
 
 	def defaultConstructor(GenCommonBase it) '''
 		«generatedMemberComment(it)»
-		public «itemSemanticEditPolicyClassName»() {
+		public «getItemSemanticEditPolicyClassName(it)»() {
 			«defaultConstructorBody(it)»
 		}
 	'''
