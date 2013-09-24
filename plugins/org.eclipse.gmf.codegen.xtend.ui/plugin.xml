@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-    <extension
-        point="org.eclipse.ui.handlers">
-     <handler
-           class="org.eclipse.gmf.codegen.xtend.ui.GMFExecutableExtensionFactory:org.eclipse.gmf.codegen.xtend.ui.handlers.ExecuteTemplatesHandler"
-           commandId="org.eclipse.gmf.codegen.xtend.ui.handler.GenerationCommand">
-     </handler>
-     
-  </extension>
-  
-  <extension
-        point="org.eclipse.ui.commands">
-        <command name="Generate Code"
-              id="org.eclipse.gmf.codegen.xtend.ui.handler.GenerationCommand">
-        </command>
-  </extension>
-  
   <extension point="org.eclipse.ui.menus">
     <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
         <command

@@ -8,11 +8,10 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
-import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 import com.google.inject.Injector;
 
-public class Xtend2Emitter implements TextEmitter {
+public class Xtend2Emitter implements GeneratorTextEmitter {
 
 	private final Class<?> myXtendGenerator;
 

@@ -47,7 +47,10 @@ class PaletteFactory {
 
 	def fullPath(Palette it) '''«qualifiedClassName(it)»'''
 
-	def Factory(Palette it) '''
+	@Deprecated
+	def Factory(Palette it) '''«PaletteFactory(it)»'''
+	
+	def PaletteFactory(Palette it) '''
 		«copyright(diagram.editorGen)»
 		package «packageName(it)»;
 		

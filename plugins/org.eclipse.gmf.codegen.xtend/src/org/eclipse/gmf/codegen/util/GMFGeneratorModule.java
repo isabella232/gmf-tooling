@@ -2,27 +2,17 @@ package org.eclipse.gmf.codegen.util;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.xtext.generator.IGenerator;
-import org.eclipse.xtext.resource.generic.AbstractGenericResourceRuntimeModule;
+import org.eclipse.xtext.service.AbstractGenericModule;
 
-public class GMFGeneratorModule extends AbstractGenericResourceRuntimeModule {
+public class GMFGeneratorModule extends AbstractGenericModule {
 
-	public static String GMF_GEN = "org.eclipse.gmf.codegen.gmfgen";
+	//private final IExtensionTemplatesProvider myExtensionTemplatesProvider;
 
-	public static String GMF_GEN_EXT = "gmfgen";
+	//	public GMFGeneratorModule(IExtensionTemplatesProvider extProvider) {
+	//		myExtensionTemplatesProvider = extProvider;
+	//	}
 
-	@Override
-	protected String getLanguageName() {
-		return GMF_GEN;
-	}
-
-	@Override
-	protected String getFileExtensions() {
-		return GMF_GEN_EXT;
-	}
-
-	public Class<? extends IGenerator> bindIGenerator() {
-		return GMFGenGenerator.class;
+	public GMFGeneratorModule() {
 	}
 
 	public Class<? extends ResourceSet> bindResourceSet() {
@@ -36,4 +26,26 @@ public class GMFGeneratorModule extends AbstractGenericResourceRuntimeModule {
 	public org.eclipse.core.resources.IWorkspaceRoot bindIWorkspaceRootToInstance() {
 		return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot();
 	}
+
+	public void configure(com.google.inject.Binder binder) {
+		//		if (getExtensionTemplateProvider() != null) {
+		//			if (getExtensionTemplateProvider().hasDynamicTemplates()) {
+		//				List<Class<?>> dynamicTemplates = getExtensionTemplateProvider().getDynamicTemplateClasses();
+		//				for (Class _class : dynamicTemplates) {
+		//					Class<?> superClass = getExtensionTemplateProvider().getSuperClassForDynamic(_class);
+		//					binder.bind(superClass).to(_class);
+		//				}
+		//			}
+		//			if (getExtensionTemplateProvider().hasCustomTemplates()) {
+		//				List<Class<?>> cusomTemplates = getExtensionTemplateProvider().getCustomTemplateClasses();
+		//				for (Class _class : cusomTemplates) {
+		//					binder.bind(_class); // I'm not sure that this worked
+		//				}
+		//			}
+		//		}
+	}
+
+	//	public IExtensionTemplatesProvider getExtensionTemplateProvider() {
+	//		return myExtensionTemplatesProvider;
+	//	}
 }
