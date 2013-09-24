@@ -14,9 +14,11 @@ package metamodel
 
 import com.google.inject.Inject
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature
-import xpt.GenModelUtils_qvto
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier
+import org.eclipse.emf.codegen.ecore.genmodel.GenEnum
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature
+import org.eclipse.emf.codegen.ecore.genmodel.impl.GenClassImpl
+import xpt.GenModelUtils_qvto
 
 class MetaModel {
 
@@ -91,7 +93,17 @@ class MetaModel {
 	// FIXME support list features as well, i.e. do .add() instead of eSet
 	def setFeatureValue(GenFeature it, String targetVar, GenClass targetType, String valueVar, boolean isPlainObjectValue) //
 	'''
-	«IF targetType.externalInterface»((org.eclipse.emf.ecore.EObject) «targetVar»).eSet(«MetaFeature(it)», «valueVar»)«ELSE»«targetVar».set«it.accessorName»(«IF !isPlainObjectValue»«valueVar»«ELSE»«IF isPrimitiveType(it)»«unwrapObjectToPrimitiveValue(it, valueVar)»«ELSE»(«featureTargetType(it)») «valueVar»«ENDIF»«ENDIF»)«ENDIF»
+	«IF targetType.externalInterface»
+		((org.eclipse.emf.ecore.EObject) «targetVar»).eSet(«MetaFeature(it)», «valueVar»)
+	«ELSE»
+		«targetVar».set«it.accessorName»(
+			«IF !isPlainObjectValue»«valueVar»
+			«ELSE»
+				«IF isPrimitiveType(it)»«unwrapObjectToPrimitiveValue(it, valueVar)»
+				«ELSE»(«featureTargetType(it)») «valueVar»
+				«ENDIF»
+			«ENDIF»)
+	«ENDIF»
 	'''
 
 	protected def unwrapObjectToPrimitiveValue(GenFeature it, String valueVar) '''((«featureTargetType(it)») «valueVar»).«ecoreFeature.EType.instanceClassName»Value()'''
@@ -173,6 +185,8 @@ class MetaModel {
 	 * SHOULD NEVER APPEAR in instanceof or any other similar comparison operation
 	 */
 	def dispatch QualifiedClassName(GenClass xptSelf) '''«xptSelf.qualifiedInterfaceName»'''
+
+	def dispatch QualifiedClassName(GenEnum xptSelf) '''«xptSelf.qualifiedName»'''
 
 	def dispatch QualifiedClassName(GenClassifier xptSelf) '''«getQualifiedClassName(xptSelf)»'''
 

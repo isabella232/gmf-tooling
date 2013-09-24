@@ -172,7 +172,7 @@ class ResourceSetInfo {
 			stopResourceListening();
 			«ENDIF»
 			getResourceSet().eAdapters().remove(myResourceSetListener);
-			for (Iterator<org.eclipse.emf.ecore.resource.Resource> it = getLoadedResourcesIterator(); it.hasNext();) {
+			for (java.util.Iterator<org.eclipse.emf.ecore.resource.Resource> it = getLoadedResourcesIterator(); it.hasNext();) {
 				org.eclipse.emf.ecore.resource.Resource resource = it.next();
 				resource.unload();
 			}«/* FIXME: Perhaps, should wrap unload into transaction, otherwise each unload triggers a lot of root transactions */»

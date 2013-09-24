@@ -56,9 +56,11 @@ class Utils_qvto {
 
 	def Iterable<ToolGroup> collectGroups(Palette palette) {
 		var result = <ToolGroup>newLinkedHashSet()
-		result.addAll(palette.groups)
-		for (group : palette.groups) {
-			result.addAll(collectSubGroups(group))
+		if (palette != null) {
+			result.addAll(palette.groups)
+			for (group : palette.groups) {
+				result.addAll(collectSubGroups(group))
+			}
 		}
 		return result
 	}

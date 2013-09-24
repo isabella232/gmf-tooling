@@ -69,7 +69,7 @@ class MetaModel_qvto {
 	}
 
 	def dispatch String getQualifiedClassName(GenEnum xptSelf) {
-		return xptSelf.qualifiedClassName
+		return xptSelf.genPackage + xptSelf.qualifiedName
 	}
 
 	//--

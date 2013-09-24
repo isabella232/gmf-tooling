@@ -276,7 +276,11 @@ class DiagramUpdater {
 		return «linkGetterName(linkType)»(view);
 	'''
 
-	def getContainedLinks(GenCommonBase it) '''
+	def dispatch getContainedLinks(GenCommonBase it) '''
+		«getConnectedLinks(it, computeContainedLinks(it.metaClass, diagram), UpdaterLinkType::CONTAINED, false)»
+	'''
+	
+	def dispatch getContainedLinks(GenLink it) '''
 		«getConnectedLinks(it, computeContainedLinks(it.metaClass, diagram), UpdaterLinkType::CONTAINED, false)»
 	'''
 	
@@ -309,13 +313,15 @@ class DiagramUpdater {
 	'''
 
 	def colectConnectedLinks(GenLink it, UpdaterLinkType linkType, boolean needCrossReferencer, boolean isExternalInterface) '''
-	«IF isExternalInterface»
-		if («xptMetaModel.IsInstance(it.modelFacet.getLinkEndType(linkType), 'modelElement')») {
-	«ENDIF»
-		result.addAll(«chooseConnectedLinksByTypeMethodName(it.modelFacet, linkType, it)»(« //
-			IF isExternalInterface»«xptMetaModel.CastEObject(it.modelFacet.getLinkEndType(linkType), 'modelElement')»«ELSE»modelElement«ENDIF»«IF needCrossReferencer», crossReferences«ENDIF»));	
-	«IF isExternalInterface»
-		}
+	«IF it.modelFacet != null»
+		«IF isExternalInterface && !it.modelFacet.oclIsKindOf(typeof(FeatureLinkModelFacet))»
+			if («xptMetaModel.IsInstance(it.modelFacet.getLinkEndType(linkType), 'modelElement')») {
+		«ENDIF»
+			result.addAll(«chooseConnectedLinksByTypeMethodName(it.modelFacet, linkType, it)»(« //
+				IF isExternalInterface && !it.modelFacet.oclIsKindOf(typeof(FeatureLinkModelFacet))»«xptMetaModel.CastEObject(it.modelFacet.getLinkEndType(linkType), 'modelElement')»«ELSE»modelElement«ENDIF»«IF needCrossReferencer», crossReferences«ENDIF»));	
+		«IF isExternalInterface && !it.modelFacet.oclIsKindOf(typeof(FeatureLinkModelFacet))»
+			}
+		«ENDIF»
 	«ENDIF»
 	'''
 
