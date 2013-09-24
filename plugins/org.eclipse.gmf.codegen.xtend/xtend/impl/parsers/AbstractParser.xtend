@@ -12,10 +12,7 @@
  */
 package impl.parsers
 
-import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenParsers
-import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
-import xpt.Common_qvto
 
 /**
  * Since GMFT 3.1 we don't generate class AbstractParser into every diagram, by extending the 
@@ -27,11 +24,14 @@ import xpt.Common_qvto
  * to ensure that the old code, including calls to non existing i18n fields in Messages is cleaned up.
  */
 class AbstractParser {
-	@Inject extension Common_qvto;
 
-	@MetaDef def className(GenParsers it) '''«lastSegment(qualifiedClassName(it))»'''
+	def className(GenParsers it) '''AbstractAttributeParser'''
 
-	@MetaDef def String qualifiedClassName(GenParsers it) '''org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser'''
+	def packageName(GenParsers it) '''org.eclipse.gmf.tooling.runtime.parsers'''
+
+	def String qualifiedClassName(GenParsers it) '''«packageName(it)».«className(it)»'''
+
+	def fullPath(GenParsers it) '''«qualifiedClassName(it)»'''
 
 	def Main(GenParsers it) '''
 		//Since GMFT 3.1 we don't generate class AbstractParser into every diagram, instead extend org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser.
