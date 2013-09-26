@@ -144,7 +144,7 @@ class QualifiedClassNameProvider {
 	
 	def getActionQualifiedClassName(GenAction it) '''«predAction.qualifiedClassName(it)»'''
 	
-	def getActionClassName(GenAction it) '''«predAction.qualifiedClassName(it)»'''
+	def getActionClassName(GenAction it) '''«predAction.className(it)»'''
 	
 	def dispatch getEditPartQualifiedClassName(GenCommonBase it) ''''''
 	def dispatch getEditPartQualifiedClassName(GenNode it) '''«nodeEditPart.qualifiedClassName(it)»'''

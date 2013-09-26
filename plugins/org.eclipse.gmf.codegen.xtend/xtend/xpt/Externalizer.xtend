@@ -90,7 +90,7 @@ public class «accessClassName(it)» extends org.eclipse.osgi.util.NLS {
 
 	«generatedMemberComment»
 	static {
-		org.eclipse.osgi.util.NLS.initializeMessages("«accessClassName(it).toString().toLowerCase.toFirstUpper»", «accessClassName(it)».class); «nonNLS»
+		org.eclipse.osgi.util.NLS.initializeMessages("«accessClassName(it).toString().toLowerCase»", «accessClassName(it)».class); «nonNLS»
 	}
 
 	«generatedMemberComment»

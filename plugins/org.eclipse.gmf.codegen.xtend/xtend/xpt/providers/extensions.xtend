@@ -96,8 +96,7 @@ class extensions {
 				«FOR n : childNodes»
 				<object class="«getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
-				<context elements="«uniqueIdentifier»,«commaSeparatedVisualIDs(topLevelNodes)»,«commaSeparatedVisualIDs(
-			childNodes)»"/>
+				<context elements="«uniqueIdentifier»,«FOR tn: topLevelNodes SEPARATOR ','»«tn.uniqueIdentifier»«ENDFOR»,«FOR cn: childNodes SEPARATOR ','»«cn.uniqueIdentifier»«ENDFOR»"/>
 			</modelingAssistantProvider>
 		</extension>
 		

@@ -34,7 +34,8 @@ class extensions {
 		<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
 			«xmlGeneratedTag»
 			<propertyContributor
-				contributorId="«editorGen.plugin.ID»"«IF needsCaption» labelProvider="«labelProvider.qualifiedClassName(it)»"«ENDIF»>
+				contributorId="«editorGen.plugin.ID»"
+				«IF needsCaption»labelProvider="«labelProvider.qualifiedClassName(it)»"«ENDIF»>
 			<propertyCategory category="domain"/>
 			<propertyCategory category="visual"/>
 			<propertyCategory category="extra"/>

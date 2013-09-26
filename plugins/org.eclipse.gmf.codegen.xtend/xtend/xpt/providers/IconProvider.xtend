@@ -35,7 +35,7 @@ class IconProvider {
 		package «packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className(it)» extends «extendsList(it)» {
+		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			
 			«constructor(it)»
 			
@@ -43,7 +43,9 @@ class IconProvider {
 		}
 	'''
 
-	def extendsList(GenDiagram it) '''org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeIconProvider'''
+	def extendsList(GenDiagram it) '''extends org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeIconProvider'''
+	
+	def implementsList(GenDiagram it) '''implements org.eclipse.gmf.runtime.common.ui.services.icon.IIconProvider'''
 
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
