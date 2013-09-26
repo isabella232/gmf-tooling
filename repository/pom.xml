@@ -52,8 +52,8 @@
                                         </copy>
                                         <ant
                                             antfile="/shared/modeling/tools/promotion/manage-composite.xml"
-                                            dir="${composite-path}"
                                             target="add">
+                                            <property name="user.dir" value="${composite-path}"/>
                                             <property name="composite.name" value="GMF Tooling"/>
                                             <property name="child.repository" value="${buildQualifier}"/>
                                         </ant>
