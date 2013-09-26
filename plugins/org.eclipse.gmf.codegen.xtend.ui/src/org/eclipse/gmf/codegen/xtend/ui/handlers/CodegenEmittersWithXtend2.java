@@ -1,11 +1,14 @@
 package org.eclipse.gmf.codegen.xtend.ui.handlers;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.CodegenEmitters;
+import org.eclipse.gmf.codegen.util.ExtensionTemplatesProviderImpl;
 import org.eclipse.gmf.codegen.util.GMFGeneratorModule;
+import org.eclipse.gmf.codegen.util.IExtensionTemplatesProvider;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
@@ -18,6 +21,8 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 
 	private final Injector myInjector;
 
+	private final IExtensionTemplatesProvider myExtensionTemplateProvider;
+	
 	@Override
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
 		// TODO Auto-generated method stub
@@ -99,7 +104,13 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 
 	public CodegenEmittersWithXtend2(boolean useBaseTemplatesOnly, String templateDirectory, boolean includeDynamicModelTemplates) {
 		super(useBaseTemplatesOnly, templateDirectory, includeDynamicModelTemplates);
-		myInjector = Guice.createInjector(new GMFGeneratorModule());
+		if (!useBaseTemplatesOnly) {
+			myExtensionTemplateProvider = new ExtensionTemplatesProviderImpl(templateDirectory);
+			myInjector = Guice.createInjector(new GMFGeneratorModule(myExtensionTemplateProvider));
+		} else {
+			myExtensionTemplateProvider = null;
+			myInjector = Guice.createInjector(new GMFGeneratorModule());
+		}
 	}
 
 	//-----------------------------------------------------------------------------------------
@@ -662,7 +673,19 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		try {
 			clazz = Class.forName(classFqn);
 		} catch (ClassNotFoundException e) {
-			throw new IllegalStateException("Can't load: " + classFqn, e);
+			if (myExtensionTemplateProvider != null) {
+				List<Class<?>> customClasses = myExtensionTemplateProvider.getCustomTemplateClasses();
+				for (Class<?> _class : customClasses) {
+					String name = _class.getName();
+					if (name.equals(classFqn)) {
+						clazz = _class;
+						break;
+					}
+				}
+			}
+			if (clazz == null) {
+				throw new IllegalStateException("Can't load: " + classFqn, e);
+			}
 		}
 		return new Xtend2Emitter(myInjector, clazz, mainMethod);
 	}
@@ -708,6 +731,8 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	
 
 	public void disposeEmitters() {
-		//nothing to dispose for now
+		if (myExtensionTemplateProvider != null) {
+			myExtensionTemplateProvider.dispose();
+		}
 	}
 }
