@@ -1070,12 +1070,13 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         buf = new StringBuffer();
         buf.append(nl);
         buf.append("import java.util.ArrayList;").append(nl);
+        buf.append(nl);
+        buf.append(nl);
+        buf.append(nl);
+        buf.append(nl);
+        buf.append(nl);
         buf.append("import java.util.List;").append(nl);
         buf.append("import java.util.Map;").append(nl);
-        buf.append(nl);
-        buf.append(nl);
-        buf.append(nl);
-        buf.append(nl);
         buf.append(nl);
         buf.append("import org.eclipse.draw2d.RectangleFigure;").append(nl);
         buf.append("import org.eclipse.gmf.runtime.common.ui.resources.IMarker;").append(nl);
