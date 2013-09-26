@@ -22,4 +22,49 @@
         <relativePath>../</relativePath>
     </parent>
 
+    <profiles>
+        <profile>
+            <id>deploy</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.7</version>
+                        <executions>
+                            <execution>
+                                <id>deploy</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <delete includeemptydirs="false" quiet="true">
+                                            <fileset dir="${publish-path}">
+                                                <include name="**" />
+                                            </fileset>
+                                        </delete>
+                                        <copy includeemptydirs="false" todir="${publish-path}">
+                                            <fileset dir="target/repository/">
+                                                <include name="**" />
+                                            </fileset>
+                                        </copy>
+                                        <ant
+                                            antfile="/shared/modeling/tools/promotion/manage-composite.xml"
+                                            dir="${composite-path}"
+                                            target="add">
+                                            <property name="composite.name" value="GMF Tooling"/>
+                                            <property name="child.repository" value="${buildQualifier}"/>
+                                        </ant>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
