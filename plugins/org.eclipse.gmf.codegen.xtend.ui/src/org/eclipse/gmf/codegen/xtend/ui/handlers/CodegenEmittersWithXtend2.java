@@ -21,7 +21,7 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 
 	private final Injector myInjector;
 
-	private final IExtensionTemplatesProvider myExtensionTemplateProvider;
+	private IExtensionTemplatesProvider myExtensionTemplateProvider = null;
 	
 	@Override
 	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
@@ -106,11 +106,8 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		super(useBaseTemplatesOnly, templateDirectory, includeDynamicModelTemplates);
 		if (!useBaseTemplatesOnly) {
 			myExtensionTemplateProvider = new ExtensionTemplatesProviderImpl(templateDirectory);
-			myInjector = Guice.createInjector(new GMFGeneratorModule(myExtensionTemplateProvider));
-		} else {
-			myExtensionTemplateProvider = null;
-			myInjector = Guice.createInjector(new GMFGeneratorModule());
 		}
+		myInjector = Guice.createInjector(new GMFGeneratorModule(myExtensionTemplateProvider));
 	}
 
 	//-----------------------------------------------------------------------------------------
@@ -734,5 +731,26 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		if (myExtensionTemplateProvider != null) {
 			myExtensionTemplateProvider.dispose();
 		}
+	}
+	
+	@Override
+	protected TextEmitter newXpandEmitter(String definition) {
+		String[] parts = definition.split(PATH_SEPARATOR);
+		String templateFQN = createXpandPath(parts);
+		return getXtendEmitter(templateFQN, parts[parts.length-1]);
+	}
+	
+	@Override
+	protected TextEmitter getQualifiedClassNameEmitterForPrimaryTemplate(String templateName) throws UnexpectedBehaviourException {
+		return getQualifiedClassNameEmitter(createXpandPath(templateName.split(PATH_SEPARATOR)));
+	}
+	
+	private String createXpandPath(String[] parts) {
+		StringBuilder builder = new StringBuilder(parts[0]);
+		for( int i = 1 ; i < parts.length-2 ; i++ ) {
+			builder.append(PATH_SEPARATOR);
+			builder.append(parts[i]);
+		}
+		return builder.toString();
 	}
 }

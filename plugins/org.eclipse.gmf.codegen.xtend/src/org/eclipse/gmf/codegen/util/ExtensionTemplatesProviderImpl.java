@@ -20,78 +20,69 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 	public static String DEFAULT_DYNAMIC_TEMPLATES_FOLDER = "/aspects";
 
 	public static String POINT_SEPARATOR = ".";
-	
+
 	public static String EMPLTY_STRING = "";
-	
+
 	public static String TEMPLATE_FILE_EXTENSIION = "xtend";
-	
-	private String myCustomTemplatePath;
 
-	private List<Class<?>> myDinamicClasses = null;
+	private final String myCustomTemplatePath;
 
-	private List<Class<?>> myCustomClasses = null;
+	private final IProject myProject;
 
-	private Bundle myBundle;
-	
-	public ExtensionTemplatesProviderImpl() {
-		this(null);
-	}
-	
+	private List<Class<?>> myDinamicClasses;
+
+	private List<Class<?>> myCustomClasses;
+
+	private static final String SLASH = "/";
+
+	private final Bundle myBundle;
+
 	public ExtensionTemplatesProviderImpl(String customPath) {
-		if (customPath != null) {
-			if (customPath.indexOf('/') == 0) {
-				myCustomTemplatePath = customPath.substring(1, customPath.length() - 1);
-			} else {
-				myCustomTemplatePath = customPath;
-			}
-			init();
+		if (customPath.startsWith(SLASH)) {
+			customPath = customPath.substring(1, customPath.length() - 1);
 		}
-	}
-
-	private void init() {
-		String projectName = getProjectName(myCustomTemplatePath);
-		IProject currentProject = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-		ManifestUtil.get().checkManifest(currentProject);
-		String url;
+		String[] parts = customPath.split(SLASH);
+		myProject = ResourcesPlugin.getWorkspace().getRoot().getProject(parts[0]);
+		myCustomTemplatePath = concatWithoutFirst(parts);
+		ManifestUtil.createOrFillManifest(myProject);
 		try {
-			url = currentProject.getLocation().toFile().toURI().toURL().toExternalForm();
-			myBundle = CodegenXtendPlugin.getInstance().getContext().installBundle(url);
+			myBundle = loadBundle(myProject);
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Cannot create correct URL for Bundle.", e);
 		} catch (BundleException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Error. Bundle was not load.", e);
 		}
 	}
-	
-	@Override
-	public boolean hasCustomTemplates() {
-		return (null != myCustomTemplatePath) && (null != getCustomTemplateClasses());
+
+	private static Bundle loadBundle(IProject project) throws MalformedURLException, BundleException {
+		String url = project.getLocation().toFile().toURI().toURL().toExternalForm();
+		return CodegenXtendPlugin.getInstance().getContext().installBundle(url);
 	}
 
-	@Override
-	public boolean hasDynamicTemplates() {
-		return  (null != myCustomTemplatePath) && (null != getDynamicTemplateClasses());
+	private static String concatWithoutFirst(String[] parts) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 1; i < parts.length; i++) {
+			builder.append(SLASH).append(parts[i]);
+		}
+		return builder.toString();
 	}
 
 	@Override
 	public List<Class<?>> getCustomTemplateClasses() {
 		if (myCustomClasses == null) {
 			myCustomClasses = new LinkedList<Class<?>>();
-			String projectName = getProjectName(myCustomTemplatePath);
-			String templatesFolderPath = getCustomTemplateFolderPath(myCustomTemplatePath);
-			myCustomClasses = loadCustomClasses(projectName, templatesFolderPath, false);
+			myCustomClasses.addAll(loadCustomClasses(EMPLTY_STRING, false));
 		}
-		return myCustomClasses.size() > 0 ? myCustomClasses : null;
+		return myCustomClasses;
 	}
 
 	@Override
 	public List<Class<?>> getDynamicTemplateClasses() {
 		if (myDinamicClasses == null) {
-			String projectName = getProjectName(myCustomTemplatePath);
-			String aspectFolderPath = getAspectTemplateFolder(myCustomTemplatePath);
-			myDinamicClasses = loadCustomClasses(projectName, aspectFolderPath, true);
+			myDinamicClasses = new LinkedList<Class<?>>();
+			myDinamicClasses.addAll(loadCustomClasses(DEFAULT_DYNAMIC_TEMPLATES_FOLDER, true));
 		}
-		return myDinamicClasses.size() > 0 ? myDinamicClasses : null;
+		return myDinamicClasses;
 	}
 
 	@Override
@@ -99,15 +90,11 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		return _class.getSuperclass();
 	}
 
-	private List<Class<?>> loadCustomClasses(String project, String folder, boolean aspectNotCustom) {
-		List<Class<?>> result = new LinkedList<Class<?>>();
-		IProject currentProject = ResourcesPlugin.getWorkspace().getRoot().getProject(project);
-		IFolder rootFolder = currentProject.getFolder(folder);
-		result = loadFolder(rootFolder, currentProject, aspectNotCustom ? "aspects" : "");
-		return result;
+	private List<Class<?>> loadCustomClasses(String pathSuffix, boolean aspectNotCustom) {
+		return loadFolder(myProject.getFolder(myCustomTemplatePath + pathSuffix), aspectNotCustom ? "aspects" : "");
 	}
 
-	private List<Class<?>> loadFolder(IFolder parentFolder, IProject currentProject, String relativPath) {
+	private List<Class<?>> loadFolder(IFolder parentFolder, String relativPath) {
 		List<Class<?>> result = new LinkedList<Class<?>>();
 		IFile[] files = null;
 		IFolder[] folders = null;
@@ -119,11 +106,11 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		if (files != null && files.length > 0) {
 			for (IFile fileToLoad : files) {
 				try {
-					result.add(loadClass(currentProject, fileToLoad, relativPath));
+					result.add(loadClass(fileToLoad, relativPath));
 				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+					throw new RuntimeException("Error. Did not load " + fileToLoad.getName() + ". Class not found.", e);
 				} catch (IOException e) {
-					e.printStackTrace();
+					throw new RuntimeException("Error has occurred when try to load " + fileToLoad.getName(), e);
 				}
 			}
 		}
@@ -131,11 +118,11 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 			folders = (IFolder[]) getSubResources(parentFolder, false);
 			if (folders != null && folders.length > 0) {
 				for (IFolder folderToLoad : folders) {
-					result.addAll(loadFolder(folderToLoad, currentProject, createRelativPath(relativPath, folderToLoad.getName())));
+					result.addAll(loadFolder(folderToLoad, createRelativPath(relativPath, folderToLoad.getName())));
 				}
 			}
 		} catch (CoreException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Error.  Cannot load folder/package " + parentFolder.getName(), e);
 		}
 		return result;
 	}
@@ -169,36 +156,9 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		return null;
 	}
 
-	private Class<?> loadClass(IProject proj, IFile classFile, String relativePath) throws ClassNotFoundException, IOException {
-		Class<?> result = null;
-		try {
-			String className = createRelativPath(relativePath, classFile.getName().replace(POINT_SEPARATOR+TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING));
-			result = myBundle.loadClass(className);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		return result;
-	}
-
-	private String getProjectName(String templateFolderPath) {
-		String[] pathParts = templateFolderPath.split("/");
-		return pathParts.length > 0 ? pathParts[0] : null;
-	}
-
-	private String getAspectTemplateFolder(String expression) {
-		StringBuilder aspectFolderPath = new StringBuilder(getCustomTemplateFolderPath(expression));
-		aspectFolderPath.append(DEFAULT_DYNAMIC_TEMPLATES_FOLDER);
-		return aspectFolderPath.toString();
-	}
-
-	private String getCustomTemplateFolderPath(String expression) {
-		StringBuilder templateFolderPath = new StringBuilder();
-		String[] folders = expression.split("/");
-		for (int i = 1; i < folders.length; i++) {
-			templateFolderPath.append("/");
-			templateFolderPath.append(folders[i]);
-		}
-		return templateFolderPath.toString();
+	private Class<?> loadClass(IFile classFile, String relativePath) throws ClassNotFoundException, IOException {
+		String className = createRelativPath(relativePath, classFile.getName().replace(POINT_SEPARATOR + TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING));
+		return myBundle.loadClass(className);
 	}
 
 	@Override
@@ -206,11 +166,10 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		try {
 			Bundle systemBundle = CodegenXtendPlugin.getInstance().getContext().getBundle(0);
 			myBundle.uninstall();
-            FrameworkWiring frameworkWiring = systemBundle.adapt(FrameworkWiring.class);
-            frameworkWiring.refreshBundles(frameworkWiring.getRemovalPendingBundles());
+			FrameworkWiring frameworkWiring = systemBundle.adapt(FrameworkWiring.class);
+			frameworkWiring.refreshBundles(frameworkWiring.getRemovalPendingBundles());
 		} catch (BundleException e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+			throw new RuntimeException("Error while unloading bundle.", e);
 		}
 	}
 }

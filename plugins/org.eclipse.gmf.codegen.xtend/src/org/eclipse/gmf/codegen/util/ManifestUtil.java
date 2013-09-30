@@ -27,57 +27,43 @@ import org.eclipse.core.runtime.NullProgressMonitor;
  */
 public class ManifestUtil {
 
-	private static ManifestUtil instance;
-	
-	private static final String defaultManifestContent =  "Manifest-Version: 1.0\n"
-														+ "Bundle-ManifestVersion: 2\n"
-														+ "Bundle-Version: 2.9.0.qualifier\n"
-														+ "Bundle-Activator: org.eclipse.gmf.codegen.util.Activator\n"
-														+ "Bundle-RequiredExecutionEnvironment: JavaSE-1.6\n"
-														+ "Require-Bundle: org.eclipse.gmf.codegen";
+	private static final String defaultManifestContent = "" //
+			+ "Manifest-Version: 1.0\n" //
+			+ "Bundle-ManifestVersion: 2\n" //
+			+ "Bundle-Version: 2.9.0.qualifier\n" //
+			+ "Bundle-Activator: org.eclipse.gmf.codegen.util.Activator\n" //
+			+ "Bundle-RequiredExecutionEnvironment: JavaSE-1.6\n" //
+			+ "Require-Bundle: org.eclipse.gmf.codegen"; //
 
-	private ManifestUtil() {
-	}
-	
-	public static ManifestUtil get() {
-		if (instance == null) {
-			instance = new ManifestUtil();
-		}
-		return instance;
-	}
-
-	public void checkManifest(IProject project) {
+	public static void createOrFillManifest(IProject project) {
 		try {
 			IFile manifest = project.getFile("META-INF/MANIFEST.MF");
 			if (!manifest.exists()) {
-					createManifest(manifest);
-					return;
+				createManifest(manifest);
+				return;
 			} else {
 				BufferedReader manifestStream = new BufferedReader(new InputStreamReader(manifest.getContents(), manifest.getCharset()));
 				StringBuilder manifestContent = checkRequiredBundles(manifestStream);
 				manifest.setContents(new ByteArrayInputStream(manifestContent.toString().getBytes(manifest.getCharset())), true, false, new NullProgressMonitor());
 			}
 		} catch (CoreException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Cannot create or read mainfest file in " + project.getName());
-		}
-		catch (Exception ex) {
-			ex.printStackTrace();
-			throw new RuntimeException("Can't get project " + project.getName() + " ready to be started as bundle:" + ex);
+			throw new RuntimeException("Cannot create or read mainfest file in " + project.getName(), e);
+		} catch (Exception ex) {
+			throw new RuntimeException("Can't get project " + project.getName() + " ready to be started as bundle", ex);
 		}
 	}
-	
+
 	public static void createManifest(IFile file) throws CoreException {
 		StringBuilder manifestContent = new StringBuilder(defaultManifestContent);
 		String projectName = file.getProject().getName();
-		manifestContent.append( "Bundle-Name: " + projectName + "\n");
-		manifestContent.append( "Bundle-SymbolicName: " + projectName + "\n");
-		manifestContent.append( "Bundle-ClassPath: bin/, .\n");
-		manifestContent.append( "Bundle-Activator: org.eclipse.gmf.codegen.util.DefaultActivator\n");
+		manifestContent.append("Bundle-Name: " + projectName + "\n");
+		manifestContent.append("Bundle-SymbolicName: " + projectName + "\n");
+		manifestContent.append("Bundle-ClassPath: bin/, .\n");
+		manifestContent.append("Bundle-Activator: org.eclipse.gmf.codegen.util.DefaultActivator\n");
 		InputStream manifestInputStream = new ByteArrayInputStream(manifestContent.toString().getBytes());
 		file.create(manifestInputStream, false, null);
 	}
-	
+
 	public static StringBuilder checkRequiredBundles(BufferedReader manifestStream) throws IOException {
 		StringBuilder result = new StringBuilder();
 		String line;
@@ -99,7 +85,7 @@ public class ManifestUtil {
 		if (!foundClassPath) {
 			result.insert(0, "Bundle-ClassPath: bin/, .\n");
 		}
-		if (!foundActivator) {                  
+		if (!foundActivator) {
 			result.insert(0, "Bundle-Activator: org.eclipse.gmf.codegen.util.DefaultActivator\n");
 		}
 		return result;

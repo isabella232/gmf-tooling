@@ -70,7 +70,7 @@ public class Activator extends AbstractUIPlugin {
 	}
 
 	protected Module getRuntimeModule() {
-		return new GMFGeneratorModule();
+		return new GMFGeneratorModule(null);
 	}
 
 }

@@ -6,16 +6,6 @@ import java.util.List;
 public interface IExtensionTemplatesProvider {
 	
 	/**
-	 * @return true if GenCustomTemplates consist template to invocation.
-	 */
-	public boolean hasCustomTemplates();
-	
-	/**
-	 * @return true if folder /aspect is exist and not empty.
-	 */
-	public boolean hasDynamicTemplates();
-	
-	/**
 	 * Get Classes for Custom Templates from Custom Generator Extension.
 	 * 
 	 */
@@ -34,5 +24,9 @@ public interface IExtensionTemplatesProvider {
 	 */
 	public Class<?> getSuperClassForDynamic(Class<?> _class);
 	
+	/**
+	 * Unload bundle from runtime. Necessarily to call this function
+	 * 
+	 */
 	public void dispose();
 }
