@@ -16,13 +16,13 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenPropertySheet
 import xpt.Common
 import xpt.navigator.NavigatorGroup
-import xpt.QualifiedClassNameProvider
 import xpt.editor.VisualIDRegistry
+import xpt.providers.ElementTypes
 
 class LabelProvider {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
+	@Inject ElementTypes xptElementTypes;
 	@Inject NavigatorGroup group;
 	@Inject VisualIDRegistry visualId;
 
@@ -71,7 +71,7 @@ class LabelProvider {
 		«generatedMemberComment»
 		public org.eclipse.swt.graphics.Image getImage(Object element) {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType etype = getElementType(getView(unwrap(element)));
-			return etype == null ? null : «getElementTypesQualifiedClassName(editorGen.diagram)».getImage(etype);
+			return etype == null ? null : «xptElementTypes.qualifiedClassName(editorGen.diagram)».getImage(etype);
 		}
 	'''
 
@@ -102,7 +102,7 @@ class LabelProvider {
 			while (view != null) {
 				int vid = «visualId.qualifiedClassName(editorGen.diagram)».getVisualID(view);
 				org.eclipse.gmf.runtime.emf.type.core.IElementType etype =
-						«getElementTypesQualifiedClassName(editorGen.diagram)».getElementType(vid);
+						«xptElementTypes.qualifiedClassName(editorGen.diagram)».getElementType(vid);
 				if (etype != null) {
 					return etype;
 				}

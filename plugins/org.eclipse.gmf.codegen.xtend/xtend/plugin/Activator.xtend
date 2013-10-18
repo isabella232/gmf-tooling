@@ -16,12 +16,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 import com.google.inject.Inject
-import xpt.QualifiedClassNameProvider
 import xpt.plugin.ActivatorImpl
 
 class Activator { 
 	
-	@Inject extension QualifiedClassNameProvider;
 	@Inject ActivatorImpl activatorImpl;
 	
 	def className(GenPlugin it) '''«it.activatorClassName»'''
@@ -37,9 +35,9 @@ class Activator {
 	//	 */
 	//	def Main(GenPlugin it) '''«xpt::plugin::Activator::Activator(it)»'''
 	// access to the sole Activator instance
-	@MetaDef def instanceAccess(GenEditorGenerator it) '''«getActivatorQualifiedClassName(it.plugin)».getInstance()'''
+	@MetaDef def instanceAccess(GenEditorGenerator it) '''«qualifiedClassName(it.plugin)».getInstance()'''
 
-	@MetaDef def preferenceHintAccess(GenEditorGenerator it) '''«getActivatorQualifiedClassName(it.plugin)».DIAGRAM_PREFERENCES_HINT'''
+	@MetaDef def preferenceHintAccess(GenEditorGenerator it) '''«qualifiedClassName(it.plugin)».DIAGRAM_PREFERENCES_HINT'''
 	
 	def Main(GenPlugin it) '''«activatorImpl.ActivatorImpl(it)»'''
 }
