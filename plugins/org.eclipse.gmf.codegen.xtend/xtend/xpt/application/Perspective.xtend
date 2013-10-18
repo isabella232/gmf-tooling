@@ -15,11 +15,10 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 class Perspective {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
+	@Inject WorkbenchAdvisor xptWorkbenchAdvisor;
 	
 	def className(GenApplication it) '''«it.perspectiveClassName»'''
 
@@ -44,7 +43,7 @@ class Perspective {
 		«generatedMemberComment»
 		public void createInitialLayout(org.eclipse.ui.IPageLayout layout) {
 			layout.setEditorAreaVisible(true);
-			layout.addPerspectiveShortcut(«getWorkbenchAdvisorQualifiedClassName(it)».PERSPECTIVE_ID);
+			layout.addPerspectiveShortcut(«xptWorkbenchAdvisor.qualifiedClassName(it)».PERSPECTIVE_ID);
 			org.eclipse.ui.IFolderLayout right = layout.createFolder(
 				"right", org.eclipse.ui.IPageLayout.RIGHT, 0.6f, layout.getEditorArea()); «nonNLS(1)»
 			right.addView(org.eclipse.ui.IPageLayout.ID_OUTLINE);

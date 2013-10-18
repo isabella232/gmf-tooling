@@ -25,20 +25,16 @@ class LinkLabelEditPart {
 	@Inject TextAware xptTextAware;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
-	def className(GenLinkLabel it) '''«editPartClassName»'''
-
-	def packageName(GenLinkLabel it) '''«getDiagram().editPartsPackageName»'''
-
-	def qualifiedClassName(GenLinkLabel it) '''«packageName(it)».«className(it)»'''
+	def qualifiedClassName(GenLinkLabel it) '''«xptLinkLabelEditPart.packageName(it)».«xptLinkLabelEditPart.className(it)»'''
 
 	def fullPath(GenLinkLabel it) '''«qualifiedClassName(it)»'''
 
 	def Main(GenLinkLabel it) '''
 		«copyright(getDiagram().editorGen)»
-		package «packageName(it)»;
+		package «xptLinkLabelEditPart.packageName(it)»;
 		
 		«generatedClassComment»
-		public class «className(it)» «extendsList(it)» «implementsList(it)» {
+		public class «xptLinkLabelEditPart.className(it)» «extendsList(it)» «implementsList(it)» {
 		
 			«attributes(it)»
 			

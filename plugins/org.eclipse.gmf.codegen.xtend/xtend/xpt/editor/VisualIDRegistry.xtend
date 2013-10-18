@@ -33,7 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import xpt.diagram.updater.Utils_qvto
 import xpt.CodeStyle
 import xpt.diagram.editpolicies.LinkUtils_qvto
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 //XXX: [MG] decide what to do with @MetaDef methods
 class VisualIDRegistry {
@@ -41,9 +41,8 @@ class VisualIDRegistry {
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
 	@Inject extension LinkUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
-	
+	@Inject Activator xptActivator
 	@Inject CodeStyle xptCodeStyle;
 	@Inject MetaModel xptMetaModel;
 	@Inject xpt.expressions.getExpression xptGetExpression;
@@ -242,7 +241,7 @@ class VisualIDRegistry {
 				return Integer.parseInt(type);
 			} catch (NumberFormatException e) {
 				if (Boolean.TRUE.toString().equalsIgnoreCase(org.eclipse.core.runtime.Platform.getDebugOption(DEBUG_KEY))) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to parse view type as a visualID number: " + type);
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to parse view type as a visualID number: " + type);
 				}
 			}
 			«unrecognizedVID(it)»
@@ -537,6 +536,8 @@ class VisualIDRegistry {
 			}
 		};
 	'''
+
+	def caseVisualID(GenCommonBase xptSelf) '''case «VisualIDRegistry::visualID(xptSelf)»:'''
 
 	def additions(GenDiagram it) ''''''
 }

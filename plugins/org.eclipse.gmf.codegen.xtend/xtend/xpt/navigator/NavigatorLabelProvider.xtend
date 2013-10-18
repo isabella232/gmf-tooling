@@ -41,19 +41,20 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class NavigatorLabelProvider {
 	@com.google.inject.Inject extension xpt.Common;
 	@com.google.inject.Inject extension xpt.Common_qvto;
 	@com.google.inject.Inject extension xpt.navigator.Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
+	@Inject Activator xptActivator;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ElementTypes xptElementTypes;
 	@Inject ParserProvider xptParserProvider;
 	@Inject MetaModel xptMetaModel;
 	@Inject NavigatorGroup navigatorGroup;
+	@Inject NavigatorItem xptNavigatorItem;
 	
 	def className(GenNavigator it) '''«it.labelProviderClassName»'''
 
@@ -112,8 +113,8 @@ class NavigatorLabelProvider {
 	def staticInitializer(GenNavigator it) '''
 		«generatedMemberComment()»
 		static {
-			«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry().put(«unknownElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
-			«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry().put(«notFoundElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
+			«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry().put(«unknownElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
+			«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry().put(«notFoundElementKey()», org.eclipse.jface.resource.ImageDescriptor.getMissingImageDescriptor());  «nonNLS(1)»
 		}
 	'''
 
@@ -121,7 +122,7 @@ class NavigatorLabelProvider {
 		«generatedMemberComment()»
 		public void updateLabel(org.eclipse.jface.viewers.ViewerLabel label, org.eclipse.jface.viewers.TreePath elementPath) {
 			Object element = elementPath.getLastSegment();
-			if (element instanceof «getNavigatorItemQualifiedClassName(it)» && !isOwnView(((«getNavigatorItemQualifiedClassName(it)») element).getView())) {
+			if (element instanceof «xptNavigatorItem.qualifiedClassName(it)» && !isOwnView(((«xptNavigatorItem.qualifiedClassName(it)») element).getView())) {
 				return;
 			}
 			label.setText(getText(element));
@@ -146,13 +147,13 @@ class NavigatorLabelProvider {
 	def getNavigatorGroupImage(GenNavigator it) '''
 		if (element instanceof «navigatorGroup.qualifiedClassName(it)») {
 			«navigatorGroup.qualifiedClassName(it)» group = («navigatorGroup.qualifiedClassName(it)») element;
-			return «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getBundledImage(group.getIcon());
+			return «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getBundledImage(group.getIcon());
 		}
 	'''
 	
 	def getNavigatorItemImage(GenNavigator it) '''
-		if (element instanceof «getNavigatorItemQualifiedClassName(it)») {
-			«getNavigatorItemQualifiedClassName(it)» navigatorItem = («getNavigatorItemQualifiedClassName(it)») element;
+		if (element instanceof «xptNavigatorItem.qualifiedClassName(it)») {
+			«xptNavigatorItem.qualifiedClassName(it)» navigatorItem = («xptNavigatorItem.qualifiedClassName(it)») element;
 			if (!isOwnView(navigatorItem.getView())) {
 				return super.getImage(element);
 			}
@@ -198,10 +199,10 @@ class NavigatorLabelProvider {
 	def getImageByKey(GenNavigator it) '''
 		«generatedMemberComment()»
 		private org.eclipse.swt.graphics.Image getImage(String key, org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
-			org.eclipse.jface.resource.ImageRegistry imageRegistry = «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry();
+			org.eclipse.jface.resource.ImageRegistry imageRegistry = «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getImageRegistry();
 			org.eclipse.swt.graphics.Image image = imageRegistry.get(key);
-			if (image == null && elementType != null && «getElementTypesQualifiedClassName(editorGen.diagram)».isKnownElementType(elementType)) {
-				image = «getElementTypesQualifiedClassName(editorGen.diagram)».getImage(elementType);
+			if (image == null && elementType != null && «xptElementTypes.qualifiedClassName(editorGen.diagram)».isKnownElementType(elementType)) {
+				image = «xptElementTypes.qualifiedClassName(editorGen.diagram)».getImage(elementType);
 				imageRegistry.put(key, image);
 			}
 					
@@ -235,8 +236,8 @@ class NavigatorLabelProvider {
 	'''
 	
 	def getNavigatorItemText(GenNavigator it) '''
-		if (element instanceof «getNavigatorItemQualifiedClassName(it)») {
-			«getNavigatorItemQualifiedClassName(it)» navigatorItem = («getNavigatorItemQualifiedClassName(it)») element;
+		if (element instanceof «xptNavigatorItem.qualifiedClassName(it)») {
+			«xptNavigatorItem.qualifiedClassName(it)» navigatorItem = («xptNavigatorItem.qualifiedClassName(it)») element;
 			if (!isOwnView(navigatorItem.getView())) {
 				return null;
 			}
@@ -357,7 +358,7 @@ class NavigatorLabelProvider {
 		if (parser != null) {
 			return parser.getPrintString(new org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter(view.getElement() != null ? view.getElement() : view), org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE.intValue());
 		} else {
-			«getActivatorQualifiedClassName(getDiagram().editorGen.plugin)».getInstance().logError("Parser was not found for label " + «visualID»); «nonNLS(1)»
+			«xptActivator.qualifiedClassName(getDiagram().editorGen.plugin)».getInstance().logError("Parser was not found for label " + «visualID»); «nonNLS(1)»
 			«returnEmptyString()»
 		}
 	'''
@@ -369,7 +370,7 @@ class NavigatorLabelProvider {
 			if (domainModelElement != null) {
 				return «IF !isStringFeature(genClass.labelFeature)»String.valueOf(«ENDIF»«xptMetaModel.getFeatureValue(genClass.labelFeature, 'domainModelElement', genClass)»«IF !isStringFeature(genClass.labelFeature)»)«ENDIF»;
 			} else {
-				«getActivatorQualifiedClassName(getDiagram().editorGen.plugin)».getInstance().logError("No domain element for view with visualID = " + «visualID»);  «nonNLS(1)»
+				«xptActivator.qualifiedClassName(getDiagram().editorGen.plugin)».getInstance().logError("No domain element for view with visualID = " + «visualID»);  «nonNLS(1)»
 					«returnEmptyString()»
 			}
 		«ELSE»

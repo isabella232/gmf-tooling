@@ -16,14 +16,14 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.editparts.EditPartFactory
 
 class EditPartProvider {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject VisualIDRegistry xptVisualIDRegistry;
-
+	@Inject EditPartFactory xptEditPartFactory;
+	
 	def className(GenDiagram it) '''«it.editPartProviderClassName»'''
 
 	def packageName(GenDiagram it) '''«it.providersPackageName»'''
@@ -52,9 +52,9 @@ class EditPartProvider {
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
 		public «className(it)»() {
-			super(new «getEditPartFactoryQualifiedClassName(it)»(), «»
+			super(new «xptEditPartFactory.qualifiedClassName(it)»(), «»
 				«xptVisualIDRegistry.runtimeTypedInstanceCall(it)», «»
-				«getEditPartQualifiedClassName(it)».MODEL_ID			
+				«xptEditPartFactory.getEditPartQualifiedClassName(it)».MODEL_ID			
 			);
 		}
 	'''

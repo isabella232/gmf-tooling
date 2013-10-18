@@ -32,19 +32,20 @@ import xpt.Common_qvto
 import xpt.GenModelUtils_qvto
 import xpt.editor.VisualIDRegistry
 import xpt.providers.ElementTypes
-import xpt.QualifiedClassNameProvider
 
 class DiagramUpdater {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
 	@Inject extension GenModelUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject MetaModel xptMetaModel;
 	@Inject ElementTypes xptElementTypes;
 	@Inject CodeStyle xptCodeStyle;
+	@Inject NodeDescriptor nodeDescriptor;
+	@Inject LinkDescriptor linkDescriptor;
+	
 	
 	@MetaDef def getSemanticChildrenMethodName(GenContainerBase it) '''get«getUniqueIdentifier()»SemanticChildren'''
 
@@ -56,13 +57,13 @@ class DiagramUpdater {
 	
 	@MetaDef def getOutgoingLinksMethodCall(GenCommonBase it) '''«doGetSomeLinksMethodCall(it, UpdaterLinkType::OUTGOING)»'''
 	
-	@MetaDef protected def doGetSomeLinksMethodCall(GenCommonBase it, UpdaterLinkType linkType) '''«getDiagramUpdaterQualifiedClassName(it.getDiagram().diagramUpdater)».«linkGetterName(linkType)»'''
+	@MetaDef protected def doGetSomeLinksMethodCall(GenCommonBase it, UpdaterLinkType linkType) '''«qualifiedClassName(it.getDiagram().diagramUpdater)».«linkGetterName(linkType)»'''
 	
 	@MetaDef protected def linkGetterName(GenCommonBase it, UpdaterLinkType linkType) '''get«it.uniqueIdentifier»«linkType.linkMethodSuffix»Links'''
 	
 	@MetaDef def runtimeTypedInstanceName(GenDiagramUpdater it) '''TYPED_INSTANCE'''
 
-	@MetaDef def runtimeTypedInstanceCall(GenDiagramUpdater it) '''«getDiagramUpdaterQualifiedClassName(it)».«runtimeTypedInstanceName(it)»'''
+	@MetaDef def runtimeTypedInstanceCall(GenDiagramUpdater it) '''«qualifiedClassName(it)».«runtimeTypedInstanceName(it)»'''
 	
 	def className(GenDiagramUpdater it) '''«diagramUpdaterClassName»'''
 	
@@ -133,15 +134,15 @@ class DiagramUpdater {
 	protected def GenDiagramUpdater diagramUpdater(GenCommonBase base) {
 		return base.diagram.editorGen.diagramUpdater
 	}
-	protected def nodeDescriptorQualifiedClassName(GenCommonBase it) '''«getNodeDescriptorQualifiedClassName(it.diagramUpdater)»'''
-	protected def linkDescriptorQualifiedClassName(GenCommonBase it) '''«getLinkDescriptorQualifiedClassName(it.diagramUpdater)»'''
-	protected def dispatch CharSequence listOfNodeDescriptors(GenDiagramUpdater it) '''java.util.List<«getNodeDescriptorQualifiedClassName(it)»>'''
+	protected def nodeDescriptorQualifiedClassName(GenCommonBase it) '''«nodeDescriptor.qualifiedClassName(it.diagramUpdater)»'''
+	protected def linkDescriptorQualifiedClassName(GenCommonBase it) '''«linkDescriptor.qualifiedClassName(it.diagramUpdater)»'''
+	protected def dispatch CharSequence listOfNodeDescriptors(GenDiagramUpdater it) '''java.util.List<«nodeDescriptor.qualifiedClassName(it)»>'''
 	protected def dispatch CharSequence listOfNodeDescriptors(GenCommonBase it) '''«listOfNodeDescriptors(it.diagramUpdater)»'''
-	protected def dispatch CharSequence listOfLinkDescriptors(GenDiagramUpdater it) '''java.util.List<«getLinkDescriptorQualifiedClassName(it)»>'''
+	protected def dispatch CharSequence listOfLinkDescriptors(GenDiagramUpdater it) '''java.util.List<«linkDescriptor.qualifiedClassName(it)»>'''
 	protected def dispatch CharSequence listOfLinkDescriptors(GenCommonBase it) '''«listOfLinkDescriptors(it.diagramUpdater)»'''
 	protected def CharSequence newEmptyList() '''java.util.Collections.emptyList()'''
-	protected def CharSequence newLinkedListOfNodeDescriptors(GenDiagramUpdater it, String varName) '''java.util.LinkedList<«getNodeDescriptorQualifiedClassName(it)»> result = new java.util.LinkedList<«it.nodeDescriptorQualifiedClassName»>'''
-	protected def CharSequence newLinkedListOfLinkDescriptors(GenDiagramUpdater it, String varName) '''java.util.LinkedList<«getLinkDescriptorQualifiedClassName(it)»> result = new java.util.LinkedList<«it.linkDescriptorQualifiedClassName»>'''
+	protected def CharSequence newLinkedListOfNodeDescriptors(GenDiagramUpdater it, String varName) '''java.util.LinkedList<«nodeDescriptor.qualifiedClassName(it)»> result = new java.util.LinkedList<«it.nodeDescriptorQualifiedClassName»>'''
+	protected def CharSequence newLinkedListOfLinkDescriptors(GenDiagramUpdater it, String varName) '''java.util.LinkedList<«linkDescriptor.qualifiedClassName(it)»> result = new java.util.LinkedList<«it.linkDescriptorQualifiedClassName»>'''
 	protected def typeOfCrossReferenceMap() '''java.util.Map<org.eclipse.emf.ecore.EObject, java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting>>'''
 
 	def getGenericSemanticChildrenOfView(GenDiagramUpdater it, Iterable<GenContainerBase> semanticContainers) '''
@@ -160,7 +161,7 @@ class DiagramUpdater {
 	'''
 
 	def getSemanticChildrenCase(GenContainerBase it) '''
-	«caseVisualID(it)»
+	«xptVisualIDRegistry.caseVisualID(it)»
 		return «getSemanticChildrenMethodName(it)»(view);
 	'''
 
@@ -232,7 +233,7 @@ class DiagramUpdater {
 	 */
 	def checkChildElementVisualID(GenNode it, Boolean inLoop) '''
 	if (visualID == «VisualIDRegistry::visualID(it)») {
-		result.add(new «getNodeDescriptorQualifiedClassName(it.getDiagram().diagramUpdater)»(«IF null != modelFacet.childMetaFeature»«xptMetaModel.DowncastToEObject(modelFacet.childMetaFeature.typeGenClass, 'childElement')», «ENDIF»visualID));
+		result.add(new «nodeDescriptor.qualifiedClassName(it.getDiagram().diagramUpdater)»(«IF null != modelFacet.childMetaFeature»«xptMetaModel.DowncastToEObject(modelFacet.childMetaFeature.typeGenClass, 'childElement')», «ENDIF»visualID));
 	«IF inLoop»
 		continue;
 	«ENDIF»
@@ -241,7 +242,7 @@ class DiagramUpdater {
 
 	def addNextIfPhantom(GenNode it) '''
 	if («xptVisualIDRegistry.getNodeVisualIDMethodCall(it.diagram)»(view, childElement) == «VisualIDRegistry::visualID(it)») {
-		result.add(new «getNodeDescriptorQualifiedClassName(it.getDiagram().diagramUpdater)»(childElement, «VisualIDRegistry::visualID(it)»));
+		result.add(new «nodeDescriptor.qualifiedClassName(it.getDiagram().diagramUpdater)»(childElement, «VisualIDRegistry::visualID(it)»));
 		continue;
 	}
 	'''
@@ -272,7 +273,7 @@ class DiagramUpdater {
 	'''
 
 	def getContainedLinksCase(GenCommonBase it, UpdaterLinkType linkType) '''
-	«caseVisualID»
+	«xptVisualIDRegistry.caseVisualID(it)»
 		return «linkGetterName(linkType)»(view);
 	'''
 
@@ -366,7 +367,7 @@ class DiagramUpdater {
 	def dispatch getContainedLinksByTypeMethod(TypeLinkModelFacet it, GenLink genLink) '''
 
 	«generatedMemberComment»
-	private static java.util.Collection<«getLinkDescriptorQualifiedClassName(genLink.diagramUpdater)»> «getConnectedLinksByTypeMethodName(genLink, UpdaterLinkType::CONTAINED)»(«xptMetaModel.QualifiedClassName(childMetaFeature.genClass)» container) {
+	private static java.util.Collection<«linkDescriptor.qualifiedClassName(genLink.diagramUpdater)»> «getConnectedLinksByTypeMethodName(genLink, UpdaterLinkType::CONTAINED)»(«xptMetaModel.QualifiedClassName(childMetaFeature.genClass)» container) {
 		«getContainedLinksByTypeMethodBody(it, genLink, false)»
 	}
 	'''
@@ -410,7 +411,7 @@ class DiagramUpdater {
 	'''
 
 	def addLinkDescriptor(TypeLinkModelFacet it, GenLink genLink, String srcVar, String dstVar) '''
-	result.add(new «getLinkDescriptorQualifiedClassName(genLink.diagramUpdater)»(«//
+	result.add(new «linkDescriptor.qualifiedClassName(genLink.diagramUpdater)»(«//
 		xptMetaModel.DowncastToEObject(it.sourceType, srcVar)», «//
 		xptMetaModel.DowncastToEObject(it.targetType, dstVar)», «//
 		xptMetaModel.DowncastToEObject(metaClass, 'link')», «//
@@ -466,7 +467,7 @@ class DiagramUpdater {
 	def getIncomingLinksByTypeMethod(GenLink it) '''
 	
 	«generatedMemberComment»
-	private static java.util.Collection<«getLinkDescriptorQualifiedClassName(it.diagramUpdater)»> «getConnectedLinksByTypeMethodName(UpdaterLinkType::INCOMING)»(«xptMetaModel.QualifiedClassName(it.modelFacet.targetType)» target, «typeOfCrossReferenceMap» crossReferences) {
+	private static java.util.Collection<«linkDescriptor.qualifiedClassName(it.diagramUpdater)»> «getConnectedLinksByTypeMethodName(UpdaterLinkType::INCOMING)»(«xptMetaModel.QualifiedClassName(it.modelFacet.targetType)» target, «typeOfCrossReferenceMap» crossReferences) {
 		«newLinkedListOfLinkDescriptors(it.diagramUpdater, 'result')»();
 		java.util.Collection<org.eclipse.emf.ecore.EStructuralFeature.Setting> settings = crossReferences.get(target);
 		for (org.eclipse.emf.ecore.EStructuralFeature.Setting setting : settings) {
@@ -502,7 +503,7 @@ class DiagramUpdater {
 
 	def dispatch getIncomingLinksByTypeMethodBody(FeatureLinkModelFacet it, GenLink genLink) '''
 	if (setting.getEStructuralFeature() == «xptMetaModel.MetaFeature(it.metaFeature)») {
-		result.add(new «getLinkDescriptorQualifiedClassName(genLink.diagramUpdater)»(setting.getEObject(), « //
+		result.add(new «linkDescriptor.qualifiedClassName(genLink.diagramUpdater)»(setting.getEObject(), « //
 			xptMetaModel.DowncastToEObject(it.targetType, 'target')», « //
 			xptElementTypes.accessElementType(genLink)», « //
 			VisualIDRegistry::visualID(genLink)»));
@@ -516,7 +517,7 @@ class DiagramUpdater {
 	'''
 
 	def getOutgoingLinksByTypeMethodSignature(GenLink it) //
-	'''private static java.util.Collection<«getLinkDescriptorQualifiedClassName(it.diagramUpdater)»> «getConnectedLinksByTypeMethodName(UpdaterLinkType::OUTGOING)»(«xptMetaModel.QualifiedClassName(it.modelFacet.sourceType)» source)'''
+	'''private static java.util.Collection<«linkDescriptor.qualifiedClassName(it.diagramUpdater)»> «getConnectedLinksByTypeMethodName(UpdaterLinkType::OUTGOING)»(«xptMetaModel.QualifiedClassName(it.modelFacet.sourceType)» source)'''
 
 	def dispatch getOutgoingLinksByTypeMethod(FeatureLinkModelFacet it, GenLink genLink) '''
 		«generatedMemberComment»
@@ -531,7 +532,7 @@ class DiagramUpdater {
 				return result;
 			}
 			«ENDIF»
-			result.add(new «getLinkDescriptorQualifiedClassName(genLink.diagramUpdater)»(«xptMetaModel.DowncastToEObject(sourceType, 'source')», «xptMetaModel.DowncastToEObject(targetType, 'destination')», «xptElementTypes.accessElementType(genLink)», «VisualIDRegistry::visualID(genLink)»));
+			result.add(new «linkDescriptor.qualifiedClassName(genLink.diagramUpdater)»(«xptMetaModel.DowncastToEObject(sourceType, 'source')», «xptMetaModel.DowncastToEObject(targetType, 'destination')», «xptElementTypes.accessElementType(genLink)», «VisualIDRegistry::visualID(genLink)»));
 			«IF metaFeature.listType»
 			}
 			«ENDIF»
@@ -572,25 +573,25 @@ class DiagramUpdater {
 		public static final org.eclipse.gmf.tooling.runtime.update.DiagramUpdater «runtimeTypedInstanceName(it)» = new org.eclipse.gmf.tooling.runtime.update.DiagramUpdater() {
 			«generatedMemberComment»
 			«xptCodeStyle.overrideI(it.editorGen.diagram)»
-			public java.util.List<«getNodeDescriptorQualifiedClassName(it)»> getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
+			public java.util.List<«nodeDescriptor.qualifiedClassName(it)»> getSemanticChildren(org.eclipse.gmf.runtime.notation.View view) {
 				return «className(it)».getSemanticChildren(view);
 			}
 			
 			«generatedMemberComment»
 			«xptCodeStyle.overrideI(it.editorGen.diagram)»
-			public java.util.List<«getLinkDescriptorQualifiedClassName(it)»> getContainedLinks(org.eclipse.gmf.runtime.notation.View view) {
+			public java.util.List<«linkDescriptor.qualifiedClassName(it)»> getContainedLinks(org.eclipse.gmf.runtime.notation.View view) {
 				return «className(it)».getContainedLinks(view);
 			}
 			
 			«generatedMemberComment»
 			«xptCodeStyle.overrideI(it.editorGen.diagram)»
-			public java.util.List<«getLinkDescriptorQualifiedClassName(it)»> getIncomingLinks(org.eclipse.gmf.runtime.notation.View view) {
+			public java.util.List<«linkDescriptor.qualifiedClassName(it)»> getIncomingLinks(org.eclipse.gmf.runtime.notation.View view) {
 				return «className(it)».getIncomingLinks(view);
 			}
 			
 			«generatedMemberComment»
 			«xptCodeStyle.overrideI(it.editorGen.diagram)»
-			public java.util.List<«getLinkDescriptorQualifiedClassName(it)»> getOutgoingLinks(org.eclipse.gmf.runtime.notation.View view) {
+			public java.util.List<«linkDescriptor.qualifiedClassName(it)»> getOutgoingLinks(org.eclipse.gmf.runtime.notation.View view) {
 				return «className(it)».getOutgoingLinks(view);
 			}
 		}; 

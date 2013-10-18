@@ -20,6 +20,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd
 import xpt.Common
 import xpt.providers.ElementTypes
 import xpt.QualifiedClassNameProvider
+import xpt.diagram.commands.ReorientLinkCommand
+import xpt.editor.VisualIDRegistry
 
 /**
  * Start  		start of link creation. 
@@ -48,6 +50,8 @@ class linkCommands {
 	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject ElementTypes xptElementTypes;
+	@Inject ReorientLinkCommand xptReorientLinkCommand;
+	@Inject VisualIDRegistry xptVisualIDRegistry;
 	
 	def aaa() '''aaa'''
 
@@ -161,8 +165,8 @@ class linkCommands {
 	'''
 
 	def reorientLinkCommand(GenLink it) '''
-		«caseVisualID(it)»
-			return getGEFWrapper(new «getReorientCommandQualifiedClassName(it)»(req));
+		«xptVisualIDRegistry.caseVisualID(it)»
+			return getGEFWrapper(new «xptReorientLinkCommand.qualifiedClassName(it)»(req));
 	'''
 
 }

@@ -15,14 +15,12 @@ package xpt.diagram.edithelpers;
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 public class EditHelper {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
 	def className(MetamodelType it) '''«it.editHelperClassName»'''
-
+	
 	def packageName(MetamodelType it) '''«it.diagramElement.getDiagram().editHelpersPackageName»'''
 
 	def qualifiedClassName(MetamodelType it) '''«packageName(it)».«className(it)»'''
@@ -33,7 +31,7 @@ public class EditHelper {
 		«copyright(diagramElement.diagram.editorGen)»
 		package «packageName(it)»;
 		
-		public class «className(it)» extends «getBaseEditHelperQualifiedClassName(diagramElement.diagram)» {
+		public class «className(it)» extends «qualifiedClassName(it)» {
 			
 			«additions(it)»
 		}

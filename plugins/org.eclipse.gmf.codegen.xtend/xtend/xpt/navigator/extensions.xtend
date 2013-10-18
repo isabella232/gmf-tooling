@@ -17,14 +17,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 import xpt.editor.UriEditorInputTester
 import xpt.editor.ShortcutPropertyTester
-import xpt.QualifiedClassNameProvider
 
 /**
  * FIXME: [MG]: xptXXX forfields
  */
 class extensions {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject UriEditorInputTester uriTester;
 	@Inject ShortcutPropertyTester shortcutTester;
@@ -33,6 +31,7 @@ class extensions {
 	@Inject NavigatorContentProvider contentProvider;
 	@Inject DomainNavigatorContentProvider domainContentProvider;
 	@Inject DomainNavigatorLabelProvider domainLabelNavigator;
+	@Inject DomainNavigatorItem xptDomainNavigatorItem;
 
 	def extensions(GenNavigator it) '''
 	«IF it != null»
@@ -109,11 +108,11 @@ class extensions {
 					<instanceof value="org.eclipse.core.resources.IFile"/>
 					<test property="org.eclipse.core.resources.extension" value="«editorGen.domainFileExtension»"/>
 					</and>
-					<instanceof value="«getDomainNavigatorItemQualifiedClassName(it)»"/>
+					<instanceof value="«xptDomainNavigatorItem.qualifiedClassName(it)»"/>
 				</or>
 			</triggerPoints>
 			<possibleChildren>
-				<instanceof value="«getDomainNavigatorItemQualifiedClassName(it)»"/>
+				<instanceof value="«xptDomainNavigatorItem.qualifiedClassName(it)»"/>
 			</possibleChildren>
 			</navigatorContent>
 		«ENDIF»

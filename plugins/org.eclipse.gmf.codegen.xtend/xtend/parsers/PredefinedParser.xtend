@@ -21,13 +21,13 @@ import org.eclipse.gmf.codegen.gmfgen.LabelTextAccessMethod
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class PredefinedParser {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
+	@Inject Activator xptActivator;
 	
 	def className(org.eclipse.gmf.codegen.gmfgen.PredefinedParser it) '''«it.className»'''
 
@@ -263,7 +263,7 @@ class PredefinedParser {
 			Object[] values = getEditProcessor().parse(editString, pos);
 			if (values == null) {
 				return new org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus(
-						«getActivatorQualifiedClassName(holder.editorGen.plugin)».ID,
+						«xptActivator.qualifiedClassName(holder.editorGen.plugin)».ID,
 						org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus.UNEDITABLE,
 						org.eclipse.osgi.util.NLS.bind(
 								«xptExternalizer.accessorCall(holder.editorGen, i18nKeyForMessageFormatParserInvalidInputError())»,

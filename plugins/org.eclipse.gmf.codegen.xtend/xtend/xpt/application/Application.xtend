@@ -15,11 +15,10 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 class Application {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
+	@Inject WorkbenchAdvisor xptWorkbenchAdvisor
 
 	def className(GenApplication it) '''«it.actionBarAdvisorClassName»'''
 
@@ -53,7 +52,7 @@ class Application {
 			org.eclipse.swt.widgets.Display display = org.eclipse.ui.PlatformUI.createDisplay();
 			try {
 				int returnCode = org.eclipse.ui.PlatformUI.createAndRunWorkbench(display,
-					new «getWorkbenchAdvisorQualifiedClassName(it)»());
+					new «xptWorkbenchAdvisor.qualifiedClassName(it)»());
 				if (returnCode == org.eclipse.ui.PlatformUI.RETURN_RESTART) {
 					return org.eclipse.equinox.app.IApplication.EXIT_RESTART;
 				}

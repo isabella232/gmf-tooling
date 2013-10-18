@@ -29,16 +29,17 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.editor.CreationWizard
 
 class ActionBarAdvisor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
-
+	@Inject CreationWizard xptCreationWizard;
+	@Inject WorkbenchWindowAdvisor xptWorkbenchWindowAdvisor
+	
 	def className(GenApplication it) '''«it.actionBarAdvisorClassName»'''
 
 	def packageName(GenApplication it) '''«it.packageName»'''
@@ -216,8 +217,8 @@ class ActionBarAdvisor {
 		
 			«generatedMemberComment»
 			public void run(org.eclipse.jface.action.IAction action) {
-				«getCreationWizardQualifiedClassName(editorGen.diagram)» wizard =
-					new «getCreationWizardQualifiedClassName(editorGen.diagram)»();
+				«xptCreationWizard.qualifiedClassName(editorGen.diagram)» wizard =
+					new «xptCreationWizard.qualifiedClassName(editorGen.diagram)»();
 				wizard.init(getWindow().getWorkbench(), org.eclipse.jface.viewers.StructuredSelection.EMPTY);
 				org.eclipse.jface.wizard.WizardDialog wizardDialog =
 					new org.eclipse.jface.wizard.WizardDialog(getWindow().getShell(), wizard);
@@ -344,7 +345,7 @@ class ActionBarAdvisor {
 	}
 
 	@Localization protected def String i18nKeyForWindowTitle(GenApplication app) {
-		return getWorkbenchWindowAdvisorClassName(app) + '.Title'
+		return xptWorkbenchWindowAdvisor.className(app) + '.Title'
 	}
 
 	@Localization protected def String i18nKeyForAboutDialog(GenApplication app) {

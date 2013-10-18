@@ -39,7 +39,7 @@ import plugin.Activator
 import xpt.Common
 import xpt.Common_qvto
 import xpt.expressions.getExpression
-import xpt.QualifiedClassNameProvider
+import xpt.expressions.AbstractExpression
 
 /**
  * XXX should generate this class only when there is initialization logic defined in the model
@@ -48,9 +48,9 @@ class ElementInitializers {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ElementInitializers_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Activator xptActivator;
+	@Inject AbstractExpression xptAbstractExpression;
 	@Inject MetaModel xptMetaModel
 	@Inject getExpression xptGetExpression;
 
@@ -143,7 +143,7 @@ class ElementInitializers {
 					«performInit(i, diagramElement, 'instance', elementClass, <Integer>newLinkedList(initializers.indexOf(i)))»
 				«ENDFOR»
 			} catch(RuntimeException e) {
-				«getActivatorQualifiedClassName(diagramElement.getDiagram().editorGen.plugin)».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
+				«xptActivator.qualifiedClassName(diagramElement.getDiagram().editorGen.plugin)».getInstance().logError("Element initialization failed", e); //$NON-NLS-1$						
 			}
 		}
 	'''
@@ -167,7 +167,7 @@ class ElementInitializers {
 					«xptMetaModel.getFeatureValue(feature, instanceVar, instanceClass, true)».clear();
 					«IF feature.typeGenClassifier.expressionResultNeedsCast()»
 						for (java.util.Iterator it = ((java.util.Collection) «expressionVarName»).iterator(); it.hasNext(); ) {
-							Object next = «getAbstractExpressionQualifiedClassName(diagramElement.getDiagram())».performCast(it.next(), «xptMetaModel.
+							Object next = «xptAbstractExpression.qualifiedClassName(diagramElement.getDiagram())».performCast(it.next(), «xptMetaModel.
 			MetaClass(feature.typeGenClassifier)»);
 							«xptMetaModel.getFeatureValue(feature, instanceVar, instanceClass, true)».add((«xptMetaModel.
 			QualifiedClassName(feature.typeGenClassifier/*XXX sorta hack, better would be MM::setFeatureValue that supports lists*/)») next);
@@ -177,8 +177,8 @@ class ElementInitializers {
 					«ENDIF»
 				} else {
 					«IF feature.typeGenClassifier.expressionResultNeedsCast()»
-						«expressionVarName» = «diagramElement.getDiagram().editorGen.expressionProviders.
-			getAbstractExpressionQualifiedClassName()».performCast(«expressionVarName», «xptMetaModel.MetaClass(
+						«expressionVarName» = «xptAbstractExpression
+			.qualifiedClassName(diagramElement.getDiagram())».performCast(«expressionVarName», «xptMetaModel.MetaClass(
 			feature.typeGenClassifier)»);
 					«ENDIF»
 					«xptMetaModel.getFeatureValue(feature, instanceVar, instanceClass, true)».add((«xptMetaModel.
@@ -188,7 +188,7 @@ class ElementInitializers {
 				«IF feature.typeGenClassifier.expressionResultNeedsCast()»
 					«extraLineBreak»
 					«expressionVarName» = «
-			getAbstractExpressionQualifiedClassName(diagramElement.getDiagram())».performCast(«expressionVarName», «xptMetaModel.MetaClass(
+			xptAbstractExpression.qualifiedClassName(diagramElement.getDiagram())».performCast(«expressionVarName», «xptMetaModel.MetaClass(
 			feature.typeGenClassifier)»);
 					«ENDIF»
 					«xptMetaModel.setFeatureValue(feature, instanceVar, instanceClass, expressionVarName, true)»;

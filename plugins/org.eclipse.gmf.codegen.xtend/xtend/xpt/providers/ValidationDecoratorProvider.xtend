@@ -17,7 +17,8 @@ import xpt.Common
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.editor.VisualIDRegistry
 import xpt.editor.ValidationMarker
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
+import xpt.editor.Editor
 
 /**
  * FIXME: [MG] monolithic template with most of the code "same-generated".
@@ -25,8 +26,9 @@ import xpt.QualifiedClassNameProvider
  */
 class ValidationDecoratorProvider {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
+	@Inject Activator xptActivator;
+	@Inject Editor xptEditor;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ValidationMarker xptValidationMarker; 
 	
@@ -51,7 +53,7 @@ public class «className(it)»
 	«IF editorGen.application == null»
 
 	«generatedMemberComment»
-	private static final String MARKER_TYPE = «getActivatorQualifiedClassName(editorGen.plugin)».ID +
+	private static final String MARKER_TYPE = «xptActivator.qualifiedClassName(editorGen.plugin)».ID +
 			".«getValidationDiagnosticMarkerType()»"; «nonNLS(1)»
 
 	«generatedMemberComment»
@@ -78,7 +80,7 @@ public class «className(it)»
 				return;
 			}
 			if (((org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain) ed).getEditorPart() instanceof
-					«getEditorQualifiedClassName(editorGen.editor)») {
+					«xptEditor.qualifiedClassName(editorGen.editor)») {
 				decoratorTarget.installDecorator(KEY, new StatusDecorator(decoratorTarget));
 			}
 		}
@@ -123,7 +125,7 @@ public class «className(it)»
 						}
 					});
 				} catch (Exception e) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 							"Decorator refresh failure", e); «nonNLS(1)»
 				}
 			}
@@ -150,7 +152,7 @@ public class «className(it)»
 					}
 				});
 			} catch (Exception e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"ViewID access failure", e); «nonNLS(1)»			
 			}
 		}
@@ -184,7 +186,7 @@ public class «className(it)»
 			try {
 				markers = resource.findMarkers(MARKER_TYPE, true, org.eclipse.core.resources.IResource.DEPTH_INFINITE);
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"Validation markers refresh failure", e); «nonNLS(1)»
 			}
 			«ELSE»
@@ -402,7 +404,7 @@ public class «className(it)»
 			try {
 				return marker.getType();
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"Validation marker refresh failure", e); «nonNLS(1)»
 				return ""; «nonNLS(1)»
 			}

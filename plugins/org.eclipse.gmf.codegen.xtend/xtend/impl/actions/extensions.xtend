@@ -27,16 +27,18 @@ import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Common_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.editparts.EditPartFactory
 
 class extensions {
 	@Inject extension Common_qvto;
 	@Inject extension Common;
 	@Inject extension MenuAction_qvto;
+	
+	@Inject EditPartFactory xptEditPartFactory;
 
 	//[MG] why different pattern here, @Inject extension is normally usd for QCNP
-	@Inject QualifiedClassNameProvider classNameProvider;
-
+	@Inject PredefinedAction predefinedAction;
+	
 	def Main(GenEditorGenerator it) '''
 		<extension point="org.eclipse.ui.menus" id="context-menus">
 			«xmlGeneratedTag»
@@ -126,7 +128,7 @@ class extensions {
 		<command id="«commandIdentifier(it)»"
 			name="«name/*FIXME: into i18n keys*/»"
 			categoryId="«owner.editorGen.editor.ID»"
-			defaultHandler="«classNameProvider.getActionQualifiedClassName(it)»"/>
+			defaultHandler="«predefinedAction.qualifiedClassName(it)»"/>
 	'''
 
 	def dispatch CharSequence handlerContribution(GenCustomAction it) '''
@@ -142,7 +144,7 @@ class extensions {
 	def dispatch CharSequence commandIdentifier(GenCustomAction it) '''«owner.editorGen.plugin.ID».«lastSegment(
 		qualifiedClassName)»'''
 
-	def dispatch CharSequence commandIdentifier(GenAction it) '''«owner.editorGen.plugin.ID».«classNameProvider.getActionClassName(it)»'''
+	def dispatch CharSequence commandIdentifier(GenAction it) '''«owner.editorGen.plugin.ID».«predefinedAction.className(it)»'''
 
 	def dispatch CharSequence menuEntry(GenContributionItem it, GenContextMenu contextMenu) '''«/* NO-OP XXX or ERROR? */»'''
 
@@ -191,7 +193,7 @@ class extensions {
 			<with variable="activePartId"><equals value="«editorGen.editor.ID»"/></with>
 			<with variable="selection"><iterate ifEmpty="false">«IF context.size > 1»<or>«ENDIF» 
 			«/* XXX, perhaps, <adapt type="EditPart">? */FOR de : context»
-				<instanceof value="«classNameProvider.getEditPartQualifiedClassName(de)»"/>
+				<instanceof value="«xptEditPartFactory.getEditPartQualifiedClassName(de)»"/>
 			«ENDFOR»
 			«IF context.size > 1»</or>«ENDIF»</iterate></with>
 		</and>

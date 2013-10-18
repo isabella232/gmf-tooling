@@ -16,13 +16,13 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class ShortcutsDecoratorProvider {
 
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
+	@Inject Activator xptActivator;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 
 	def className(GenDiagram it) '''«it.shortcutsDecoratorProviderClassName»'''
@@ -120,7 +120,7 @@ class ShortcutsDecoratorProvider {
 		public void refresh() {
 			removeDecoration();
 			org.eclipse.gef.EditPart editPart = (org.eclipse.gef.EditPart) getDecoratorTarget().getAdapter(org.eclipse.gef.EditPart.class);
-			org.eclipse.swt.graphics.Image image = «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getBundledImage("icons/shortcut.gif"); «nonNLS(1)»
+			org.eclipse.swt.graphics.Image image = «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getBundledImage("icons/shortcut.gif"); «nonNLS(1)»
 			if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeEditPart) {
 				setDecoration(getDecoratorTarget().addShapeDecoration(image, org.eclipse.gmf.runtime.diagram.ui.services.decorator.IDecoratorTarget.Direction.SOUTH_WEST, 0, false));
 			} else if (editPart instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionEditPart) {

@@ -18,15 +18,17 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class CreationWizard {
 	@Inject extension Common;
 	@Inject extension GenDiagram_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject extension ExternalizerUtils_qvto;
 	@Inject Externalizer xptExternalizer;
+	@Inject CreationWizardPage xptCreationWizardPage
+	@Inject DiagramEditorUtil xptDiagramEditorUtil
+	@Inject Activator xptActivator
 
 	def className(GenDiagram it) '''«creationWizardClassName»'''
 	
@@ -55,11 +57,11 @@ class CreationWizard {
 			   protected org.eclipse.jface.viewers.IStructuredSelection selection;
 			   
 			«generatedMemberComment»
-			protected «getCreationWizardPageQualifiedClassName(it)» diagramModelFilePage;
+			protected «xptCreationWizardPage.qualifiedClassName(it)» diagramModelFilePage;
 			
 			«IF standaloneDomainModel(it)»
 				«generatedMemberComment»
-				protected «getCreationWizardPageQualifiedClassName(it)» domainModelFilePage;
+				protected «xptCreationWizardPage.qualifiedClassName(it)» domainModelFilePage;
 			«ENDIF»
 			
 			«generatedMemberComment»
@@ -98,14 +100,14 @@ class CreationWizard {
 			       this.workbench = workbench;
 			       this.selection = selection;
 			setWindowTitle(«xptExternalizer.accessorCall(editorGen, titleKey(i18nKeyForCreationWizard(it)))»);
-			setDefaultPageImageDescriptor(«getActivatorQualifiedClassName(editorGen.plugin)».getBundledImageDescriptor(
+			setDefaultPageImageDescriptor(«xptActivator.qualifiedClassName(editorGen.plugin)».getBundledImageDescriptor(
 					"icons/wizban/New«IF domainDiagramElement != null»«domainDiagramElement.genPackage.prefix»«ENDIF»Wizard.gif")); //$NON-NLS-1$
 			setNeedsProgressMonitor(true);
 			}
 			
 			«generatedMemberComment»
 			public void addPages() {
-				diagramModelFilePage = new «getCreationWizardPageQualifiedClassName(it)»(
+				diagramModelFilePage = new «xptCreationWizardPage.qualifiedClassName(it)»(
 						"DiagramModelFile", getSelection(), "«editorGen.diagramFileExtension»"); //$NON-NLS-1$ //$NON-NLS-2$
 				diagramModelFilePage.setTitle(«xptExternalizer.accessorCall(editorGen,
 			titleKey(i18nKeyForCreationWizardDiagramPage(it)))»);
@@ -114,14 +116,14 @@ class CreationWizard {
 				addPage(diagramModelFilePage);
 			«IF standaloneDomainModel(it)»
 				
-					domainModelFilePage = new «getCreationWizardPageQualifiedClassName(it)»(
+					domainModelFilePage = new «xptCreationWizardPage.qualifiedClassName(it)»(
 							"DomainModelFile", getSelection(), "«editorGen.domainFileExtension»") { //$NON-NLS-1$ //$NON-NLS-2$
 							
 					public void setVisible(boolean visible) {
 						if (visible) {
 							String fileName = diagramModelFilePage.getFileName();
 							fileName = fileName.substring(0, fileName.length() - ".«editorGen.diagramFileExtension»".length()); //$NON-NLS-1$
-							setFileName(«getDiagramEditorUtilQualifiedClassName(it)».getUniqueFileName(
+							setFileName(«xptDiagramEditorUtil.qualifiedClassName(it)».getUniqueFileName(
 									getContainerFullPath(), fileName, "«editorGen.domainFileExtension»")); //$NON-NLS-1$
 						}
 						super.setVisible(visible);
@@ -149,14 +151,14 @@ class CreationWizard {
 					public void run(org.eclipse.core.runtime.IProgressMonitor monitor)
 						throws InvocationTargetException, InterruptedException {
 			«ENDIF»
-			diagram = «getDiagramEditorUtilQualifiedClassName(it)».createDiagram(diagramModelFilePage.getURI(),
+			diagram = «xptDiagramEditorUtil.qualifiedClassName(it)».createDiagram(diagramModelFilePage.getURI(),
 			«IF standaloneDomainModel(it)»
 				domainModelFilePage.getURI(),
 			«ENDIF»
 			monitor);
 			if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 				try {
-					«getDiagramEditorUtilQualifiedClassName(it)».openDiagram(diagram);
+					«xptDiagramEditorUtil.qualifiedClassName(it)».openDiagram(diagram);
 				} catch (org.eclipse.ui.PartInitException e) {
 					org.eclipse.jface.dialogs.ErrorDialog.openError(getContainer().getShell(),
 							«xptExternalizer.accessorCall(editorGen, i18nKeyForCreationWizardOpenEditorError(it))», null, e.getStatus());
@@ -174,7 +176,7 @@ class CreationWizard {
 							«xptExternalizer.accessorCall(editorGen, i18nKeyForCreationWizardCreationError(it))», null,
 							((org.eclipse.core.runtime.CoreException) e.getTargetException()).getStatus());
 				} else {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 							"Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 				}
 				return false;

@@ -36,7 +36,6 @@ import xpt.diagram.ViewmapAttributesUtils_qvto
 import xpt.diagram.editpolicies.LinkUtils_qvto
 import xpt.diagram.views.ViewStyles
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
 import org.eclipse.gmf.runtime.notation.FontStyle
 import org.eclipse.gmf.runtime.notation.LineStyle
 import org.eclipse.gmf.runtime.notation.FillStyle
@@ -45,12 +44,12 @@ import org.eclipse.gmf.runtime.notation.Style
 class ViewProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject extension Utils_qvto;
 	@Inject extension LinkUtils_qvto;
 	@Inject extension ViewmapAttributesUtils_qvto;
 	
+	@Inject ElementTypes xptElementTypes
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ViewStyles xptViewStyles;
 	
@@ -128,7 +127,7 @@ class ViewProvider {
 					Both parameters should describe exactly the same diagram element.
 					In addition we check that visualID returned by VisualIDRegistry.getNodeVisualID() for
 					domainElement (if specified) is the same as in element type. */»
-					if (!«getElementTypesQualifiedClassName(it)».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
+					if (!«xptElementTypes.qualifiedClassName(it)».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
 						return false; // foreign element type
 					}
 					String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
@@ -180,7 +179,7 @@ class ViewProvider {
 		«generatedMemberComment»«/* XXX: unlike createNode, we don't check op.containerView() for null here. On purpose? */»
 		protected boolean provides(org.eclipse.gmf.runtime.diagram.core.services.view.CreateEdgeViewOperation op) {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
-			if (!«getElementTypesQualifiedClassName(it)».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
+			if (!«xptElementTypes.qualifiedClassName(it)».isKnownElementType(elementType) || (!(elementType instanceof org.eclipse.gmf.runtime.emf.type.core.IHintedType))) {
 				return false; // foreign element type
 			}
 			String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
@@ -224,7 +223,7 @@ class ViewProvider {
 			}
 			switch(visualID) {
 			«FOR n : getAllNodes()»
-			«caseVisualID(n)»
+			«xptVisualIDRegistry.caseVisualID(n)»
 				return create«n.uniqueIdentifier»(domainElement, containerView, index, persisted, preferencesHint);
 			«ENDFOR»
 			}
@@ -238,7 +237,7 @@ class ViewProvider {
 			String elementTypeHint = ((org.eclipse.gmf.runtime.emf.type.core.IHintedType) elementType).getSemanticHint();
 			switch («xptVisualIDRegistry.getVisualIDMethodCall(it)»(elementTypeHint)) {
 			«FOR link : links»
-			«caseVisualID(link)»
+			«xptVisualIDRegistry.caseVisualID(link)»
 				return create«link.uniqueIdentifier»(«IF link.isTypeLink()» getSemanticElement(semanticAdapter), «ENDIF»containerView, index, persisted, preferencesHint);
 			«ENDFOR»
 			}

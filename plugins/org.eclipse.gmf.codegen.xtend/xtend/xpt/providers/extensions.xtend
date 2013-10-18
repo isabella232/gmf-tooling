@@ -27,12 +27,12 @@ import xpt.QualifiedClassNameProvider
 import parsers.ParserProvider
 import xpt.diagram.edithelpers.EditHelper
 import xpt.diagram.edithelpers.EditHelperAdvice
+import xpt.diagram.editparts.EditPartFactory
 
 class extensions {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject ViewProvider viewProvider;
 	@Inject IconProvider iconProvider;
@@ -42,6 +42,7 @@ class extensions {
 	@Inject ShortcutsDecoratorProvider shorcutProvider;
 	@Inject EditHelper editHelper;
 	@Inject EditHelperAdvice editHelperAdvice;
+	@Inject EditPartFactory xptEditPartFactory;
 	
 	def extensions(GenDiagram it) '''
 		<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
@@ -89,12 +90,12 @@ class extensions {
 			«xmlGeneratedTag»
 			<modelingAssistantProvider class="«modelAssistant.qualifiedClassName(it)»">
 				<Priority name="«modelingAssistantProviderPriority»"/>
-				<object class="«getEditPartQualifiedClassName(it)»" id="«uniqueIdentifier»"/>
+				<object class="«xptEditPartFactory.getEditPartQualifiedClassName(it)»" id="«uniqueIdentifier»"/>
 				«FOR n : topLevelNodes»
-				<object class="«getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
+				<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
 				«FOR n : childNodes»
-				<object class="«getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
+				<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
 				<context elements="«uniqueIdentifier»,«FOR tn: topLevelNodes SEPARATOR ','»«tn.uniqueIdentifier»«ENDFOR»,«FOR cn: childNodes SEPARATOR ','»«cn.uniqueIdentifier»«ENDFOR»"/>
 			</modelingAssistantProvider>

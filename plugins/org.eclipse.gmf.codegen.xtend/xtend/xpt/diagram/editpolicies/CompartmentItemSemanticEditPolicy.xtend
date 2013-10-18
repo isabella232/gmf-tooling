@@ -15,11 +15,9 @@ package xpt.diagram.editpolicies
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 class CompartmentItemSemanticEditPolicy {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
@@ -37,7 +35,7 @@ class CompartmentItemSemanticEditPolicy {
 		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(getDiagram())» {
+		public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(getDiagram())» {
 		
 			«_constructor(it)»
 		

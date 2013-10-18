@@ -20,16 +20,16 @@ import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.commands.CreateShortcutDecorationsCommand
 
 class ShortcutCreationWizard {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject ModelElementSelectionPage xptModelElementSelectionPage;
+	@Inject CreateShortcutDecorationsCommand xptCreateShortcutDecorationsCommand;
 
 	@MetaDef def className(GenDiagram it) '''ShortcutCreationWizard'''
 
@@ -80,13 +80,13 @@ class ShortcutCreationWizard {
 				org.eclipse.gmf.runtime.common.core.command.ICommand command =
 						new org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand(
 								editingDomain, viewDescriptor, referencedElementSelectionPage.getView());
-				command = command.compose(new «getCreateShortcutDecorationsCommandQualifiedClassName(it)»(
+				command = command.compose(new «xptCreateShortcutDecorationsCommand.qualifiedClassName(it)»(
 						editingDomain, referencedElementSelectionPage.getView(), viewDescriptor));
 				try {
 					org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
 						command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 				} catch (org.eclipse.core.commands.ExecutionException ee) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to create shortcut", ee); «nonNLS(1)»
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to create shortcut", ee); «nonNLS(1)»
 				}
 				return true;
 			}

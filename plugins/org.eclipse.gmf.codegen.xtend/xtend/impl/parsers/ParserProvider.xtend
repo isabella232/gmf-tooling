@@ -44,7 +44,7 @@ import xpt.expressions.OclTracker_qvto
 import xpt.expressions.getExpression
 import xpt.providers.ElementTypes
 import xpt.providers.ParserUtils_qvto
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class ParserProvider {
 	@Inject extension Common
@@ -54,7 +54,6 @@ class ParserProvider {
 	@Inject extension ParserUtils_qvto
 	@Inject extension expression_qvto
 	
-	@Inject extension QualifiedClassNameProvider;
 	@Inject extension parsers.ExpressionLabelParser;
 	@Inject extension parsers.PredefinedParser;
 	
@@ -63,6 +62,7 @@ class ParserProvider {
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ElementTypes xptElementTypes; 
 	@Inject parsers.ParserProvider xptParsers;
+	@Inject Activator xptActivator;
 	
 	def accessorMethod_delegate2providers(GenParsers it) '''
 		«generatedMemberComment(it, "Utility method that consults ParserService")»
@@ -144,7 +144,7 @@ class ParserProvider {
 			if (operation instanceof org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) {
 				org.eclipse.core.runtime.IAdaptable hint =
 						((org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) operation).getHint();
-				if («getElementTypesQualifiedClassName(editorGen.diagram)».getElement(hint) == null) {
+				if («xptElementTypes.qualifiedClassName(editorGen.diagram)».getElement(hint) == null) {
 					return false;
 				}
 				return getParser(hint) != null;
@@ -220,7 +220,7 @@ class ParserProvider {
 		«ENDIF»
 		«IF parser == null || parser.oclIsKindOf(typeof(ExternalParser))»«/* NOTHING TO DO */»
 		«ELSE»
-			«caseVisualID(element)» return «parserAccessorName(element)»();
+			«xptVisualIDRegistry.caseVisualID(element)» return «parserAccessorName(element)»();
 		«ENDIF»
 	'''
 
@@ -349,7 +349,7 @@ class ParserProvider {
 		«ENDIF»
 	'''
 
-	def itemProviderAdapterFactory(OclChoiceParser it) '''«getActivatorQualifiedClassName(it.holder.editorGen.plugin)».getInstance().getItemProvidersAdapterFactory()''' 
+	def itemProviderAdapterFactory(OclChoiceParser it) '''«xptActivator.qualifiedClassName(it.holder.editorGen.plugin)».getInstance().getItemProvidersAdapterFactory()''' 
 
 	def safeItemExpression(OclChoiceParser it, GenFeature feature) 
 		'''«IF itemsExpression == null»"«feature.ecoreFeature.EType.name».allInstances()"«ELSE»«xptGetExpression.getExpressionBody(itemsExpression)»«ENDIF»'''

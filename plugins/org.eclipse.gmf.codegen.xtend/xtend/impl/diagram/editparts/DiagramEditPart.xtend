@@ -17,8 +17,8 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 import xpt.diagram.editparts.Utils_qvto
+import xpt.diagram.commands.CreateShortcutDecorationsCommand
 
 /**
  * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
@@ -26,10 +26,13 @@ import xpt.diagram.editparts.Utils_qvto
 class DiagramEditPart {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
-	@Inject extension diagram.editparts.DiagramEditPart
-	@Inject extension QualifiedClassNameProvider
 	
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
+	@Inject CreateShortcutDecorationsCommand createShoutrtcutDecorationCommand;
+
+	def className(GenDiagram it) '''«editPartClassName»'''
+
+	def packageName(GenDiagram it) '''«getDiagram().editPartsPackageName»'''
 
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
@@ -60,7 +63,7 @@ class DiagramEditPart {
 			private org.eclipse.gef.commands.Command createShortcutsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest, java.util.List<org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor> viewDescriptors) {
 				org.eclipse.gef.commands.Command command = createViewsAndArrangeCommand(dropRequest, viewDescriptors);
 				if (command != null) {
-					return command.chain(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new «getCreateShortcutDecorationsCommandQualifiedClassName(it)»(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getModel(), viewDescriptors)));
+					return command.chain(new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(new «createShoutrtcutDecorationCommand.qualifiedClassName(it)»(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getModel(), viewDescriptors)));
 				}
 				return null;
 			}

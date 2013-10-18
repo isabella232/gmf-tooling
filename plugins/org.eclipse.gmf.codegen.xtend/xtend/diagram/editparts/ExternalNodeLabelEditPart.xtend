@@ -25,20 +25,16 @@ class ExternalNodeLabelEditPart {
 	@Inject impl.diagram.editparts.ExternalNodeLabelEditPart xptExternalNodeLabelEditPart;
 	@Inject TextAware xptTextAware
 
-	def className(GenExternalNodeLabel it) '''«editPartClassName»'''
-
-	def packageName(GenExternalNodeLabel it) '''«getDiagram().editPartsPackageName»'''
-
-	def qualifiedClassName(GenExternalNodeLabel it) '''«packageName(it)».«className(it)»'''
+	def qualifiedClassName(GenExternalNodeLabel it) '''«xptExternalNodeLabelEditPart.packageName(it)».«xptExternalNodeLabelEditPart.className(it)»'''
 
 	def fullPath(GenExternalNodeLabel it) '''«qualifiedClassName(it)»'''
 
 	def Main(GenExternalNodeLabel it) '''
 «copyright(getDiagram().editorGen)»
-package «packageName(it)»;
+package «xptExternalNodeLabelEditPart.packageName(it)»;
 
 «generatedClassComment»
-public class «className(it)» «extendsList(it)» «implementsList(it)» {
+public class «xptExternalNodeLabelEditPart.className(it)» «extendsList(it)» «implementsList(it)» {
 
 	«attributes(it)»
 	

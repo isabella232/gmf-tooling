@@ -17,13 +17,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
-import xpt.QualifiedClassNameProvider
 
 class CreationWizardPage {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Externalizer xptExternalizer;
+	@Inject DiagramEditorUtil xptDiagramEditorUtil;
 	
 	def className(GenDiagram it) '''«creationWizardPageClassName»'''
 	
@@ -86,7 +85,7 @@ class CreationWizardPage {
 			«generatedMemberComment»
 			public void createControl(org.eclipse.swt.widgets.Composite parent) {
 				super.createControl(parent);
-				setFileName(«getDiagramEditorUtilQualifiedClassName(it)».getUniqueFileName(
+				setFileName(«xptDiagramEditorUtil.qualifiedClassName(it)».getUniqueFileName(
 						getContainerFullPath(), getFileName(), getExtension()));
 				setPageComplete(validatePage());
 			}

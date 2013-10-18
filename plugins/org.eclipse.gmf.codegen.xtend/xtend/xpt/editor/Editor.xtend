@@ -24,19 +24,19 @@ import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.navigator.NavigatorLinkHelper
-import xpt.QualifiedClassNameProvider
 import xpt.editor.palette.PaletteFactory
+import xpt.navigator.NavigatorItem
 
 class Editor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject NavigatorLinkHelper xptNavigatorLinkHelper;
+	@Inject NavigatorItem xptNavigatorItem;
 	@Inject DiagramEditorContextMenuProvider xptDiagramEditorContextMenuProvider;
 	@Inject PaletteFactory pallette;
 
@@ -156,7 +156,7 @@ class Editor {
 	def getContributorId(GenEditorView it) '''
 		«generatedMemberComment»
 		public String getContributorId() {
-			return «getActivatorQualifiedClassName(editorGen.plugin)».ID;
+			return «xptActivator.qualifiedClassName(editorGen.plugin)».ID;
 		}
 	'''
 
@@ -189,7 +189,7 @@ class Editor {
 		«generatedMemberComment»
 		protected org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocumentProvider getDocumentProvider(org.eclipse.ui.IEditorInput input) {
 			if («checkEditorInput(it)») {
-				return «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getDocumentProvider();
+				return «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getDocumentProvider();
 			}
 			return super.getDocumentProvider(input);
 		}
@@ -210,7 +210,7 @@ class Editor {
 		«generatedMemberComment»
 		protected void setDocumentProvider(org.eclipse.ui.IEditorInput input) {
 			if («checkEditorInput(it)») {
-				setDocumentProvider(«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getDocumentProvider());
+				setDocumentProvider(«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getDocumentProvider());
 			} else {
 				super.setDocumentProvider(input);
 			}
@@ -396,8 +396,8 @@ class Editor {
 				  * FIXME [MG]: move NavigatorItem to some place available in runtime and remove 
 				  * "genEditor.getEditorGen().getNavigator() != null" test
 				  */
-		IF hasNavigator(it)»if (nextSelectedObject instanceof «getNavigatorItemQualifiedClassName(it.editorGen.navigator)») {
-										org.eclipse.gmf.runtime.notation.View view = ((«getNavigatorItemQualifiedClassName(it.editorGen.navigator)») nextSelectedObject).getView();
+		IF hasNavigator(it)»if (nextSelectedObject instanceof «xptNavigatorItem.qualifiedClassName(it.editorGen.navigator)») {
+										org.eclipse.gmf.runtime.notation.View view = ((«xptNavigatorItem.qualifiedClassName(it.editorGen.navigator)») nextSelectedObject).getView();
 										nextSelectedObject = view.getElement();
 					} else «ENDIF»if (nextSelectedObject instanceof org.eclipse.core.runtime.IAdaptable) {
 						org.eclipse.core.runtime.IAdaptable adaptable = (org.eclipse.core.runtime.IAdaptable) nextSelectedObject;

@@ -19,13 +19,13 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class ModelElementSelectionPage {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
-	
+
+	@Inject Activator xptActivator;	
 	@Inject Externalizer xptExternalizer;
 
 	def className(GenDiagram it) '''ModelElementSelectionPage'''
@@ -67,7 +67,7 @@ class ModelElementSelectionPage {
 	def constructor(GenDiagram it) '''
 		«generatedMemberComment»
 		public «className(it)»(String pageName) {
-			super(«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory(), pageName);
+			super(«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory(), pageName);
 		}
 	'''
 

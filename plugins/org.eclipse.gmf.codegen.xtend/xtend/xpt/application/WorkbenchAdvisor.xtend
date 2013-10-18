@@ -15,11 +15,11 @@ package xpt.application
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 class WorkbenchAdvisor {
+	
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
+	@Inject WorkbenchWindowAdvisor xptWorkbenchWindowAdvisor
 
 	def className(GenApplication it) '''«it.workbenchAdvisorClassName»'''
 
@@ -71,7 +71,7 @@ class WorkbenchAdvisor {
 		«generatedMemberComment»
 		public org.eclipse.ui.application.WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
 				org.eclipse.ui.application.IWorkbenchWindowConfigurer configurer) {
-			return new «getWorkbenchWindowAdvisorQualifiedClassName(it)»(configurer);
+			return new «xptWorkbenchWindowAdvisor.qualifiedClassName(it)»(configurer);
 		}
 	'''
 

@@ -25,20 +25,16 @@ class CompartmentEditPart {
 	@Inject impl.diagram.editparts.CompartmentEditPart xptCompartmentEditPartImpl;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
-	def className(GenCompartment it) '''«editPartClassName»'''
-
-	def packageName(GenCompartment it) '''«getDiagram().editPartsPackageName»'''
-
-	def qualifiedClassName(GenCompartment it) '''«packageName(it)».«className(it)»'''
+	def qualifiedClassName(GenCompartment it) '''«xptCompartmentEditPartImpl.packageName(it)».«xptCompartmentEditPartImpl.className(it)»'''
 
 	def fullPath(GenCompartment it) '''«qualifiedClassName(it)»'''
 
 	def Main(GenCompartment it) '''
 «copyright(getDiagram().editorGen)»
-package «packageName(it)»;
+package «xptCompartmentEditPartImpl.packageName(it)»;
 
 «generatedClassComment»
-public class «className(it)» «extendsList(it)» «implementsList(it)» {
+public class «xptCompartmentEditPartImpl.className(it)» «extendsList(it)» «implementsList(it)» {
 
 	«attributes(it)»
 	

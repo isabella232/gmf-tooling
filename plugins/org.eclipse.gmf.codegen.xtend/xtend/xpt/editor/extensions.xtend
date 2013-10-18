@@ -15,14 +15,15 @@ package xpt.editor
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 class extensions {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject MatchingStrategy xptMatching;
 	@Inject ActionBarContributor xptActionBarContributor;
+	@Inject Editor xptEditor;
+	@Inject CreationWizard xptCreationWizard;
+	@Inject InitDiagramFileAction xptInitDiagramFileAction;
 	
 	def extensions(GenEditorGenerator it) '''
 		<extension point="org.eclipse.ui.editors" id="gmf-editor">
@@ -33,7 +34,7 @@ class extensions {
 				icon="«editor.iconPathX»"
 				extensions="«diagramFileExtension»"
 				default="true"
-				class="«getEditorQualifiedClassName(editor)»"
+				class="«xptEditor.qualifiedClassName(editor)»"
 				matchingStrategy="«xptMatching.qualifiedClassName(diagram)»"
 				contributorClass="«xptActionBarContributor.qualifiedClassName(editor)»">
 			</editor>
@@ -55,8 +56,8 @@ class extensions {
 				name="%newWizardName"
 				icon="«diagram.creationWizardIconPathX»"
 				category="«diagram.creationWizardCategoryID»"
-				class="«getCreationWizardQualifiedClassName(diagram)»"
-				id="«getCreationWizardQualifiedClassName(diagram)»ID">
+				class="«xptCreationWizard.qualifiedClassName(diagram)»"
+				id="«xptCreationWizard.qualifiedClassName(diagram)»ID">
 				<description>%newWizardDesc</description>  
 			</wizard>
 		</extension>
@@ -70,7 +71,7 @@ class extensions {
 					objectClass="org.eclipse.core.resources.IFile">
 					<action
 						label="%initDiagramActionLabel"
-						class="«getInitDiagramFileActionQualifiedClassName(diagram)»"
+						class="«xptInitDiagramFileAction.qualifiedClassName(diagram)»"
 						menubarPath="additions"
 						enablesFor="1"
 						id="«plugin.ID».InitDiagramAction">
@@ -86,7 +87,7 @@ class extensions {
 					id="«plugin.ID».InitDiagram">
 					<action
 						label="%initDiagramActionLabel"
-						class="«getInitDiagramFileActionQualifiedClassName(diagram)»"
+						class="«xptInitDiagramFileAction.qualifiedClassName(diagram)»"
 						menubarPath="file/additions"
 						id="«plugin.ID».InitDiagramAction">
 					</action>

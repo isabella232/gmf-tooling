@@ -21,17 +21,16 @@ import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
 
 class DiagramEditorUtil {
 	@Inject extension Common;
 	@Inject extension GenDiagram_qvto;
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject Externalizer xptExternalizer;
 	@Inject MetaModel xptMetaModel;
 	@Inject Activator xptActivator;
+	@Inject Editor xptEditor;
 
 	@MetaDef def callSetCharset(GenDiagram it, String varName) '''
 		«it.diagramEditorUtilQualifiedClassName».setCharset(«varName»);
@@ -101,7 +100,7 @@ class DiagramEditorUtil {
 			try {
 				resource = editingDomain.getResourceSet().getResource(uri, true);
 			} catch (org.eclipse.emf.common.util.WrappedException we) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to load resource: " + uri, we);  «nonNLS(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to load resource: " + uri, we);  «nonNLS(
 			1)»
 				org.eclipse.jface.dialogs.MessageDialog.openError(shell, 
 				          «xptExternalizer.accessorCall(editorGen, titleKey(i18nKeyForOpenModelResourceErrorDialog(it)))»,
@@ -115,7 +114,7 @@ class DiagramEditorUtil {
 		
 			«generatedMemberComment(it, 'Runs the wizard in a dialog.')»
 			public static void runWizard(org.eclipse.swt.widgets.Shell shell, org.eclipse.jface.wizard.Wizard wizard, String settingsKey) {
-				org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getDialogSettings();
+				org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getDialogSettings();
 				org.eclipse.jface.dialogs.IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection(settingsKey);
 				if (wizardDialogSettings == null) {
 					wizardDialogSettings = pluginDialogSettings.addNewSection(settingsKey);
@@ -162,12 +161,12 @@ class DiagramEditorUtil {
 			org.eclipse.core.resources.IResource workspaceResource = org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot().findMember(new org.eclipse.core.runtime.Path(path));
 			if (workspaceResource instanceof org.eclipse.core.resources.IFile) {
 				org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-				return null != page.openEditor(new org.eclipse.ui.part.FileEditorInput((org.eclipse.core.resources.IFile) workspaceResource), «getEditorQualifiedClassName(editorGen.editor)».ID);
+				return null != page.openEditor(new org.eclipse.ui.part.FileEditorInput((org.eclipse.core.resources.IFile) workspaceResource), «xptEditor.qualifiedClassName(editorGen.editor)».ID);
 			}
 			return false;
 		«ELSE»
 			org.eclipse.ui.IWorkbenchPage page = org.eclipse.ui.PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(diagram.getURI()), «getEditorQualifiedClassName(editorGen.editor)».ID);
+			page.openEditor(new org.eclipse.emf.common.ui.URIEditorInput(diagram.getURI()), «xptEditor.qualifiedClassName(editorGen.editor)».ID);
 			return true;
 		«ENDIF»
 		}
@@ -182,7 +181,7 @@ class DiagramEditorUtil {
 			try {
 				file.setCharset("UTF-8", new org.eclipse.core.runtime.NullProgressMonitor());  «nonNLS(1)»
 			} catch (org.eclipse.core.runtime.CoreException e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e);  «nonNLS(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to set charset for file " + file.getFullPath(), e);  «nonNLS(
 			1)»
 			}
 		}	
@@ -240,7 +239,7 @@ class DiagramEditorUtil {
 						 * TODO CommandResult.newErrorCommandResult(e) would be better? Or even throw ExecutionEx?
 						 * */
 						extraLineBreak»
-						«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to store model and diagram resources", e);  «nonNLS(1)»
+						«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to store model and diagram resources", e);  «nonNLS(1)»
 					}
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 				}
@@ -248,7 +247,7 @@ class DiagramEditorUtil {
 			try {
 				org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.SubProgressMonitor(progressMonitor, 1), null);
 			} catch (org.eclipse.core.commands.ExecutionException e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to create model and diagram", e);  «nonNLS(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to create model and diagram", e);  «nonNLS(
 			1)»
 			}
 			«IF editorGen.application == null»

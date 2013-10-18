@@ -17,13 +17,12 @@ import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
-import xpt.QualifiedClassNameProvider
 
 class WorkbenchWindowAdvisor {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Externalizer xptExternalizer;
+	@Inject ActionBarAdvisor xptActionBarAdvisor;
 
 	def className(GenApplication it) '''«it.workbenchWindowAdvisorClassName»'''
 
@@ -56,7 +55,7 @@ class WorkbenchWindowAdvisor {
 	def createActionBarAdvisor(GenApplication it) '''
 		«generatedMemberComment»
 		public org.eclipse.ui.application.ActionBarAdvisor createActionBarAdvisor(org.eclipse.ui.application.IActionBarConfigurer configurer) {
-			return new «getActionBarAdvisorQualifiedClassName(it)»(configurer);
+			return new «xptActionBarAdvisor.qualifiedClassName(it)»(configurer);
 		}
 	'''
 

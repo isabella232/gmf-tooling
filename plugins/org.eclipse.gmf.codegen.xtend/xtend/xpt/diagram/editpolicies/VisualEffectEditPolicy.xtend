@@ -30,16 +30,16 @@ import xpt.CodeStyle
 import xpt.Common
 import xpt.Common_qvto
 import xpt.expressions.OclTracker_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.editparts.EditPartFactory
 
 class VisualEffectEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension OclTracker_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject MetaModel xptMetaModel;
 	@Inject CodeStyle xptCodeStyle;
+	@Inject EditPartFactory xptEditPartFactory;
 
 	def className(GenVisualEffect it) '''«lastSegment(it.editPolicyQualifiedClassName)»'''
 
@@ -109,8 +109,8 @@ public class «className(it)» «extendsList(it)» {
 	def getHostImpl(GenVisualEffect it) '''
 		«generatedMemberComment»
 		«overrideAnnotationC(it)»
-		protected «getEditPartQualifiedClassName(subject)» getHostImpl() {
-			return («getEditPartQualifiedClassName(subject)») super.getHostImpl();
+		protected «xptEditPartFactory.getEditPartQualifiedClassName(subject)» getHostImpl() {
+			return («xptEditPartFactory.getEditPartQualifiedClassName(subject)») super.getHostImpl();
 		}
 	'''
 

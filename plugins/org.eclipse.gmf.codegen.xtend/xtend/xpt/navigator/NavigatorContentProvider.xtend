@@ -25,18 +25,17 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment
-import xpt.QualifiedClassNameProvider
 
 class NavigatorContentProvider {
-	@com.google.inject.Inject extension xpt.Common;
-	@com.google.inject.Inject extension xpt.Common_qvto;
-	@com.google.inject.Inject extension xpt.navigator.Utils_qvto;
-	@com.google.inject.Inject extension QualifiedClassNameProvider;
+	@Inject extension xpt.Common;
+	@Inject extension xpt.Common_qvto;
+	@Inject extension xpt.navigator.Utils_qvto;
 
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject Externalizer xptExternalizer;
 	@Inject NavigatorGroup navigatorGroup;
 	@Inject AbstractNavigatorItem abstractNavigatorItem;
+	@Inject NavigatorItem xptNavigatorItem
 
 	def className(GenNavigator it) '''«it.contentProviderClassName»'''
 
@@ -220,7 +219,7 @@ class NavigatorContentProvider {
 				«getGroupChildren(it)»
 			} 
 				
-			if (parentElement instanceof «getNavigatorItemQualifiedClassName(it)») {
+			if (parentElement instanceof «xptNavigatorItem.qualifiedClassName(it)») {
 				«getItemChildren()»
 			}
 				
@@ -256,7 +255,7 @@ class NavigatorContentProvider {
 	def getFileChildren(GenNavigator it) '''
 		«var references = getChildReferencesFrom(it, null)»
 		«getFileResource(it)»
-		java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»> result = new java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»>();
+		java.util.ArrayList<«xptNavigatorItem.qualifiedClassName(it)»> result = new java.util.ArrayList<«xptNavigatorItem.qualifiedClassName(it)»>();
 		«FOR groupName : getGroupNames(references)» 
 			«initGroupVariables(groupName, it, references, 'file', null)»
 		«ENDFOR»
@@ -288,7 +287,7 @@ class NavigatorContentProvider {
 	'''
 
 	def getItemChildren(GenNavigator it) '''
-		«getNavigatorItemQualifiedClassName(it)» navigatorItem = («getNavigatorItemQualifiedClassName(it)») parentElement;
+		«xptNavigatorItem.qualifiedClassName(it)» navigatorItem = («xptNavigatorItem.qualifiedClassName(it)») parentElement;
 		if (navigatorItem.isLeaf() || !isOwnView(navigatorItem.getView())) {
 			return EMPTY_ARRAY;
 		}
@@ -404,10 +403,10 @@ class NavigatorContentProvider {
 		}
 			
 		«generatedMemberComment()»
-		private java.util.Collection<«getNavigatorItemQualifiedClassName(it)»> createNavigatorItems(java.util.Collection<org.eclipse.gmf.runtime.notation.View> views, Object parent, boolean isLeafs) {
-			java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»> result = new java.util.ArrayList<«getNavigatorItemQualifiedClassName(it)»>(views.size());
+		private java.util.Collection<«xptNavigatorItem.qualifiedClassName(it)»> createNavigatorItems(java.util.Collection<org.eclipse.gmf.runtime.notation.View> views, Object parent, boolean isLeafs) {
+			java.util.ArrayList<«xptNavigatorItem.qualifiedClassName(it)»> result = new java.util.ArrayList<«xptNavigatorItem.qualifiedClassName(it)»>(views.size());
 			for (org.eclipse.gmf.runtime.notation.View nextView : views) {
-				result.add(new «getNavigatorItemQualifiedClassName(it)»(nextView, parent, isLeafs));
+				result.add(new «xptNavigatorItem.qualifiedClassName(it)»(nextView, parent, isLeafs));
 			}
 			return result;
 		}
@@ -418,7 +417,7 @@ class NavigatorContentProvider {
 		«IF editorGen.diagram.generateCreateShortcutAction() && getChildReferencesFrom(it, editorGen.diagram).notEmpty»
 			
 				«generatedMemberComment()»
-				private java.util.Collection<«getNavigatorItemQualifiedClassName(it)»> getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
+				private java.util.Collection<«xptNavigatorItem.qualifiedClassName(it)»> getForeignShortcuts(org.eclipse.gmf.runtime.notation.Diagram diagram, Object parent) {
 					java.util.LinkedList<org.eclipse.gmf.runtime.notation.View> result = new java.util.LinkedList<org.eclipse.gmf.runtime.notation.View>();
 					for (java.util.Iterator<org.eclipse.gmf.runtime.notation.View> it = diagram.getChildren().iterator(); it.hasNext();) {
 						org.eclipse.gmf.runtime.notation.View nextView = it.next();

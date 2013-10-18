@@ -12,7 +12,6 @@
  */
 package xpt;
 
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import xpt.editor.VisualIDRegistry
@@ -92,7 +91,7 @@ class Common {
 	/**
 	 * XXX:[MG] move this to VIDRegistry(?)
 	 */
-	def caseVisualID(GenCommonBase xptSelf) '''case «VisualIDRegistry::visualID(xptSelf)»:'''
+	
 	
 	/**
 	 * Provides handy single point to override generation of assert statements
