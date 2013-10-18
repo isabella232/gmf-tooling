@@ -18,6 +18,7 @@ import xpt.Common
 
 public class EditHelper {
 	@Inject extension Common;
+	@Inject BaseEditHelper xptBaseEditHelper;
 
 	def className(MetamodelType it) '''«it.editHelperClassName»'''
 	
@@ -31,7 +32,7 @@ public class EditHelper {
 		«copyright(diagramElement.diagram.editorGen)»
 		package «packageName(it)»;
 		
-		public class «className(it)» extends «qualifiedClassName(it)» {
+		public class «className(it)» extends «xptBaseEditHelper.qualifiedClassName(it.diagramElement.diagram)» {
 			
 			«additions(it)»
 		}
