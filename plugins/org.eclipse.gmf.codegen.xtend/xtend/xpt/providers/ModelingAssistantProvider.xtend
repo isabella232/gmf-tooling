@@ -73,7 +73,6 @@ class ModelingAssistantProvider {
 			«isApplicableElement(it)»
 		
 			«selectElement(it)»
-		
 			«additions(it)»
 		}
 	'''

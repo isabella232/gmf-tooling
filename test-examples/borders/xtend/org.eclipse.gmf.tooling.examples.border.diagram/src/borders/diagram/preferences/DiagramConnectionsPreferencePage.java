@@ -13,7 +13,6 @@ public class DiagramConnectionsPreferencePage extends ConnectionsPreferencePage 
 	 * @generated
 	 */
 	public DiagramConnectionsPreferencePage() {
-		setPreferenceStore(BordersDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(BordersDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

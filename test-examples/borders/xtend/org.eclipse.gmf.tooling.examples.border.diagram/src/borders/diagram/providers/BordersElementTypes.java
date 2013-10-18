@@ -41,9 +41,7 @@ public class BordersElementTypes {
 	/**
 	 * @generated
 	 */
-	private static DiagramElementTypeImages elementTypeImages = new DiagramElementTypeImages(
-			BordersDiagramEditorPlugin.getInstance()
-					.getItemProvidersAdapterFactory());
+	private static DiagramElementTypeImages elementTypeImages = new DiagramElementTypeImages(BordersDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 	/**
 	 * @generated
@@ -54,18 +52,22 @@ public class BordersElementTypes {
 	 * @generated
 	 */
 	public static final IElementType Diagram_1000 = getElementType("org.eclipse.gmf.tooling.examples.border.diagram.Diagram_1000"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType MarginBorder_2001 = getElementType("org.eclipse.gmf.tooling.examples.border.diagram.MarginBorder_2001"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType CustomBorder_2002 = getElementType("org.eclipse.gmf.tooling.examples.border.diagram.CustomBorder_2002"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
 	public static final IElementType CompoundBorder_2003 = getElementType("org.eclipse.gmf.tooling.examples.border.diagram.CompoundBorder_2003"); //$NON-NLS-1$
+
 	/**
 	 * @generated
 	 */
@@ -111,17 +113,13 @@ public class BordersElementTypes {
 
 			elements.put(Diagram_1000, BordersPackage.eINSTANCE.getDiagram());
 
-			elements.put(MarginBorder_2001,
-					BordersPackage.eINSTANCE.getMarginBorder());
+			elements.put(MarginBorder_2001, BordersPackage.eINSTANCE.getMarginBorder());
 
-			elements.put(CustomBorder_2002,
-					BordersPackage.eINSTANCE.getCustomBorder());
+			elements.put(CustomBorder_2002, BordersPackage.eINSTANCE.getCustomBorder());
 
-			elements.put(CompoundBorder_2003,
-					BordersPackage.eINSTANCE.getCompoundBorder());
+			elements.put(CompoundBorder_2003, BordersPackage.eINSTANCE.getCompoundBorder());
 
-			elements.put(LineBorder_2004,
-					BordersPackage.eINSTANCE.getLineBorder());
+			elements.put(LineBorder_2004, BordersPackage.eINSTANCE.getLineBorder());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -170,35 +168,30 @@ public class BordersElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final DiagramElementTypes TYPED_INSTANCE = new DiagramElementTypes(
-			elementTypeImages) {
+	public static final DiagramElementTypes TYPED_INSTANCE = new DiagramElementTypes(elementTypeImages) {
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public boolean isKnownElementType(IElementType elementType) {
-			return borders.diagram.providers.BordersElementTypes
-					.isKnownElementType(elementType);
+			return borders.diagram.providers.BordersElementTypes.isKnownElementType(elementType);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public IElementType getElementTypeForVisualId(int visualID) {
-			return borders.diagram.providers.BordersElementTypes
-					.getElementType(visualID);
+			return borders.diagram.providers.BordersElementTypes.getElementType(visualID);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
-		public ENamedElement getDefiningNamedElement(
-				IAdaptable elementTypeAdapter) {
-			return borders.diagram.providers.BordersElementTypes
-					.getElement(elementTypeAdapter);
+		public ENamedElement getDefiningNamedElement(IAdaptable elementTypeAdapter) {
+			return borders.diagram.providers.BordersElementTypes.getElement(elementTypeAdapter);
 		}
 	};
 

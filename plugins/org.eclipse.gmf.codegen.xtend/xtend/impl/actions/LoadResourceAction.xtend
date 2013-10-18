@@ -36,6 +36,7 @@ import xpt.Common_qvto
 		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			«executeMethod(it)»
 			«additions(it)»
+			«extraLineBreak»
 		}
 	'''
 

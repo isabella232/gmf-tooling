@@ -12,15 +12,12 @@ import borders.diagram.part.BordersDiagramEditorPlugin;
 /**
  * @generated
  */
-public class BordersDomainNavigatorLabelProvider implements
-		ICommonLabelProvider {
+public class BordersDomainNavigatorLabelProvider implements ICommonLabelProvider {
 
 	/**
 	 * @generated
 	 */
-	private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(
-			BordersDiagramEditorPlugin.getInstance()
-					.getItemProvidersAdapterFactory());
+	private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(BordersDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 	/**
 	 * @generated
@@ -33,9 +30,7 @@ public class BordersDomainNavigatorLabelProvider implements
 	 */
 	public Image getImage(Object element) {
 		if (element instanceof BordersDomainNavigatorItem) {
-			return myAdapterFactoryLabelProvider
-					.getImage(((BordersDomainNavigatorItem) element)
-							.getEObject());
+			return myAdapterFactoryLabelProvider.getImage(((BordersDomainNavigatorItem) element).getEObject());
 		}
 		return null;
 	}
@@ -45,9 +40,7 @@ public class BordersDomainNavigatorLabelProvider implements
 	 */
 	public String getText(Object element) {
 		if (element instanceof BordersDomainNavigatorItem) {
-			return myAdapterFactoryLabelProvider
-					.getText(((BordersDomainNavigatorItem) element)
-							.getEObject());
+			return myAdapterFactoryLabelProvider.getText(((BordersDomainNavigatorItem) element).getEObject());
 		}
 		return null;
 	}

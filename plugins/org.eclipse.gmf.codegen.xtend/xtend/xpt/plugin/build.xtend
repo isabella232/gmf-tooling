@@ -19,7 +19,7 @@ bin.includes = .,\
                plugin.xml,\
                plugin.properties,\
                messages.properties,\
-               .options	
+               .options
 '''
 def compileOrders(GenPlugin it)'''
 jars.compile.order = .

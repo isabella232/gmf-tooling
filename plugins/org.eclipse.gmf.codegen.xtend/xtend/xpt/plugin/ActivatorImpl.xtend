@@ -55,7 +55,7 @@ import xpt.providers.ElementInitializers
 
 def attrs(GenPlugin it)'''
 	«generatedMemberComment»
-	public static final String ID = "«ID»"; //$NONNLS1$
+	public static final String ID = "«ID»"; //$NON-NLS-1$
 
 	«generatedMemberComment»
 	public static final org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint DIAGRAM_PREFERENCES_HINT =
@@ -174,10 +174,10 @@ def getItemImageDescriptor(GenPlugin it)'''
 '''
 
 def getBundleDescriptorImage(GenPlugin it)'''
-	«generatedMemberComment(
-	  'Returns an image descriptor(the image file at the given\n'
-	+ 'plugin relative path.\n',
-	  'param path the path\n'
+	«generatedMemberComment(it,
+	  'Returns an image descriptor for the image file at the given\n'
+	+ 'plug-in relative path.\n',
+	  '@param path the path\n'
 	+ '@return the image descriptor')»
 	public static org.eclipse.jface.resource.ImageDescriptor getBundledImageDescriptor(String path) {
 		return org.eclipse.ui.plugin.AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
@@ -185,11 +185,11 @@ def getBundleDescriptorImage(GenPlugin it)'''
 '''
 
 def findImageDescriptor(GenPlugin it)'''
-	«generatedMemberComment(
-	  'Respects images residing in any plugin. If path is relative,\n'
-	+ 'then this bundle is looked up(the image, otherwise,(absolute\n'
-	+ 'path, first segment is taken as id of plugin with image\n',
-	  '@param path the path to image, either absolute (with plugin id as first segment), or relative(bundled images\n'
+	«generatedMemberComment(it,
+	  'Respects images residing in any plug-in. If path is relative,\n'
+	+ 'then this bundle is looked up for the image, otherwise, for absolute\n'
+	+ 'path, first segment is taken as id of plug-in with image\n',
+	  '@param path the path to image, either absolute (with plug-in id as first segment), or relative for bundled images\n'
 	+ '@return the image descriptor')»
 	public static org.eclipse.jface.resource.ImageDescriptor findImageDescriptor(String path) {
 		final org.eclipse.core.runtime.IPath p = new org.eclipse.core.runtime.Path(path);
@@ -204,9 +204,10 @@ def findImageDescriptor(GenPlugin it)'''
 '''
 
 def getBundleImage(GenPlugin it)'''
-	«generatedMemberComment('Returns an image(the image file at the given plugin relative path.\n'
+	«generatedMemberComment(it,
+	  'Returns an image for the image file at the given plugin relative path.\n'
 	+ 'Client do not need to dispose this image. Images will be disposed automatically.\n',
-	  'param path the path\n'
+	  '@param path the path\n'
 	+ '@return image instance')»
 	public org.eclipse.swt.graphics.Image getBundledImage(String path) {
 		org.eclipse.swt.graphics.Image image = getImageRegistry().get(path);
@@ -219,7 +220,7 @@ def getBundleImage(GenPlugin it)'''
 '''
 
 def getString(GenPlugin it)'''
-	«generatedMemberComment('Returns string from plugins resource bundle')»
+	«generatedMemberComment(it, 'Returns string from plug-in\'s resource bundle\n')»
 	public static String getString(String key) {
 		return org.eclipse.core.runtime.Platform.getResourceString(
 				getInstance().getBundle(), "%" + key); «nonNLS»

@@ -71,6 +71,7 @@ class InitDiagramFileAction {
 		«generatedClassComment»
 		public class «className(editorGen.diagram)» «implementsList(editorGen)» {
 			«IF editorGen.application == null»
+			
 				«classBody_PDE(editorGen.diagram)»
 			«ELSE»
 				«classBody_RCP(editorGen.diagram)»

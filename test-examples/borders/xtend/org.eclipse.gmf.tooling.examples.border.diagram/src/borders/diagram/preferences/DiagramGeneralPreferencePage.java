@@ -13,7 +13,6 @@ public class DiagramGeneralPreferencePage extends DiagramsPreferencePage {
 	 * @generated
 	 */
 	public DiagramGeneralPreferencePage() {
-		setPreferenceStore(BordersDiagramEditorPlugin.getInstance()
-				.getPreferenceStore());
+		setPreferenceStore(BordersDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}
 }

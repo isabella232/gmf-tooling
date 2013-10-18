@@ -68,6 +68,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
 		«FOR pref : allPreferencePages(it)»
 			prefpage.«pref.ID»=«pref.name»
 		«ENDFOR»
+		«extraLineBreak»
 	'''
 	def dispatch getQualifiedPageName(GenPreferencePage it) ''''''
 	def dispatch getQualifiedPageName(GenCustomPreferencePage it) '''«xptCustomPage.qualifiedClassName(it)»'''

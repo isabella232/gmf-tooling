@@ -39,8 +39,7 @@ public class BordersVisualIDRegistry {
 				return -1;
 			}
 		}
-		return borders.diagram.part.BordersVisualIDRegistry.getVisualID(view
-				.getType());
+		return borders.diagram.part.BordersVisualIDRegistry.getVisualID(view.getType());
 	}
 
 	/**
@@ -65,11 +64,8 @@ public class BordersVisualIDRegistry {
 		try {
 			return Integer.parseInt(type);
 		} catch (NumberFormatException e) {
-			if (Boolean.TRUE.toString().equalsIgnoreCase(
-					Platform.getDebugOption(DEBUG_KEY))) {
-				BordersDiagramEditorPlugin.getInstance().logError(
-						"Unable to parse view type as a visualID number: "
-								+ type);
+			if (Boolean.TRUE.toString().equalsIgnoreCase(Platform.getDebugOption(DEBUG_KEY))) {
+				BordersDiagramEditorPlugin.getInstance().logError("Unable to parse view type as a visualID number: " + type);
 			}
 		}
 		return -1;
@@ -89,9 +85,7 @@ public class BordersVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		if (BordersPackage.eINSTANCE.getDiagram().isSuperTypeOf(
-				domainElement.eClass())
-				&& isDiagram((borders.Diagram) domainElement)) {
+		if (BordersPackage.eINSTANCE.getDiagram().isSuperTypeOf(domainElement.eClass()) && isDiagram((borders.Diagram) domainElement)) {
 			return DiagramEditPart.VISUAL_ID;
 		}
 		return -1;
@@ -104,15 +98,13 @@ public class BordersVisualIDRegistry {
 		if (domainElement == null) {
 			return -1;
 		}
-		String containerModelID = borders.diagram.part.BordersVisualIDRegistry
-				.getModelID(containerView);
+		String containerModelID = borders.diagram.part.BordersVisualIDRegistry.getModelID(containerView);
 		if (!DiagramEditPart.MODEL_ID.equals(containerModelID)) {
 			return -1;
 		}
 		int containerVisualID;
 		if (DiagramEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = borders.diagram.part.BordersVisualIDRegistry
-					.getVisualID(containerView);
+			containerVisualID = borders.diagram.part.BordersVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
 				containerVisualID = DiagramEditPart.VISUAL_ID;
@@ -122,20 +114,16 @@ public class BordersVisualIDRegistry {
 		}
 		switch (containerVisualID) {
 		case DiagramEditPart.VISUAL_ID:
-			if (BordersPackage.eINSTANCE.getMarginBorder().isSuperTypeOf(
-					domainElement.eClass())) {
+			if (BordersPackage.eINSTANCE.getMarginBorder().isSuperTypeOf(domainElement.eClass())) {
 				return MarginBorderEditPart.VISUAL_ID;
 			}
-			if (BordersPackage.eINSTANCE.getCustomBorder().isSuperTypeOf(
-					domainElement.eClass())) {
+			if (BordersPackage.eINSTANCE.getCustomBorder().isSuperTypeOf(domainElement.eClass())) {
 				return CustomBorderEditPart.VISUAL_ID;
 			}
-			if (BordersPackage.eINSTANCE.getCompoundBorder().isSuperTypeOf(
-					domainElement.eClass())) {
+			if (BordersPackage.eINSTANCE.getCompoundBorder().isSuperTypeOf(domainElement.eClass())) {
 				return CompoundBorderEditPart.VISUAL_ID;
 			}
-			if (BordersPackage.eINSTANCE.getLineBorder().isSuperTypeOf(
-					domainElement.eClass())) {
+			if (BordersPackage.eINSTANCE.getLineBorder().isSuperTypeOf(domainElement.eClass())) {
 				return LineBorderEditPart.VISUAL_ID;
 			}
 			break;
@@ -147,15 +135,13 @@ public class BordersVisualIDRegistry {
 	 * @generated
 	 */
 	public static boolean canCreateNode(View containerView, int nodeVisualID) {
-		String containerModelID = borders.diagram.part.BordersVisualIDRegistry
-				.getModelID(containerView);
+		String containerModelID = borders.diagram.part.BordersVisualIDRegistry.getModelID(containerView);
 		if (!DiagramEditPart.MODEL_ID.equals(containerModelID)) {
 			return false;
 		}
 		int containerVisualID;
 		if (DiagramEditPart.MODEL_ID.equals(containerModelID)) {
-			containerVisualID = borders.diagram.part.BordersVisualIDRegistry
-					.getVisualID(containerView);
+			containerVisualID = borders.diagram.part.BordersVisualIDRegistry.getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
 				containerVisualID = DiagramEditPart.VISUAL_ID;
@@ -205,8 +191,7 @@ public class BordersVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public static boolean checkNodeVisualID(View containerView,
-			EObject domainElement, int candidate) {
+	public static boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
 		if (candidate == -1) {
 			//unrecognized id is always bad
 			return false;
@@ -244,59 +229,53 @@ public class BordersVisualIDRegistry {
 	 * @generated
 	 */
 	public static final DiagramStructure TYPED_INSTANCE = new DiagramStructure() {
+
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public int getVisualID(View view) {
-			return borders.diagram.part.BordersVisualIDRegistry
-					.getVisualID(view);
+			return borders.diagram.part.BordersVisualIDRegistry.getVisualID(view);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public String getModelID(View view) {
-			return borders.diagram.part.BordersVisualIDRegistry
-					.getModelID(view);
+			return borders.diagram.part.BordersVisualIDRegistry.getModelID(view);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public int getNodeVisualID(View containerView, EObject domainElement) {
-			return borders.diagram.part.BordersVisualIDRegistry
-					.getNodeVisualID(containerView, domainElement);
+			return borders.diagram.part.BordersVisualIDRegistry.getNodeVisualID(containerView, domainElement);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
-		public boolean checkNodeVisualID(View containerView,
-				EObject domainElement, int candidate) {
-			return borders.diagram.part.BordersVisualIDRegistry
-					.checkNodeVisualID(containerView, domainElement, candidate);
+		public boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
+			return borders.diagram.part.BordersVisualIDRegistry.checkNodeVisualID(containerView, domainElement, candidate);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public boolean isCompartmentVisualID(int visualID) {
-			return borders.diagram.part.BordersVisualIDRegistry
-					.isCompartmentVisualID(visualID);
+			return borders.diagram.part.BordersVisualIDRegistry.isCompartmentVisualID(visualID);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public boolean isSemanticLeafVisualID(int visualID) {
-			return borders.diagram.part.BordersVisualIDRegistry
-					.isSemanticLeafVisualID(visualID);
+			return borders.diagram.part.BordersVisualIDRegistry.isSemanticLeafVisualID(visualID);
 		}
 	};
 

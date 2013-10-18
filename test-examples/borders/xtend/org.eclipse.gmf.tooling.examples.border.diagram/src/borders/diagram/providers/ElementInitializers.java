@@ -15,11 +15,9 @@ public class ElementInitializers {
 	 * @generated
 	 */
 	public static ElementInitializers getInstance() {
-		ElementInitializers cached = BordersDiagramEditorPlugin.getInstance()
-				.getElementInitializers();
+		ElementInitializers cached = BordersDiagramEditorPlugin.getInstance().getElementInitializers();
 		if (cached == null) {
-			BordersDiagramEditorPlugin.getInstance().setElementInitializers(
-					cached = new ElementInitializers());
+			BordersDiagramEditorPlugin.getInstance().setElementInitializers(cached = new ElementInitializers());
 		}
 		return cached;
 	}

@@ -78,13 +78,12 @@ class PaletteFactory {
 		
 		«IF needsNodeToolEntryClass(it)»«nodeToolEntry(it)»«ENDIF»
 		«IF needsLinkToolEntryClass(it)»«linkToolEntry(it)»«ENDIF»
-		
 		«additions(it)»
 		}
 	'''
 
 	def createGroup(ToolGroup it) '''
-		«generatedMemberComment('Creates \"' + title + '\" palette tool group')»
+		«generatedMemberComment(it, 'Creates \"' + title + '\" palette tool group')»
 		private org.eclipse.gef.palette.PaletteContainer «createMethodName»() {
 			«newContainer(it, 'paletteContainer')»
 			«setIdentity(it, 'paletteContainer')»

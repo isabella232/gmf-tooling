@@ -70,6 +70,7 @@ import xpt.providers.ModelingAssistantProvider
 		'''«it.externalizerPackageName».«accessClassName(it)».«escapeIllegalKeySymbols(key)»'''
 
 	@MetaDef def accessorField(String key) '''
+		«extraLineBreak»
 		«generatedMemberComment»
 		public static String «escapeIllegalKeySymbols(key)»;
 	'''
@@ -98,6 +99,7 @@ public class «accessClassName(it)» extends org.eclipse.osgi.util.NLS {
 	}
 
 	«Fields»
+	«extraLineBreak»
     //TODO: put accessor fields manually	
 }
 '''
@@ -132,6 +134,7 @@ def Fields(GenEditorGenerator it)'''
 '''
 
 def Values(GenEditorGenerator it)'''
+«extraLineBreak»
 # TODO: manually put keys and values
 «createShortcutAction.i18nValues(diagram)»
 «creationWizard.i18nValues(diagram)»

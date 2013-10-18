@@ -6,8 +6,7 @@ import org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeIconProvider;
 /**
  * @generated
  */
-public class BordersIconProvider extends DefaultElementTypeIconProvider
-		implements IIconProvider {
+public class BordersIconProvider extends DefaultElementTypeIconProvider implements IIconProvider {
 
 	/**
 	 * @generated

@@ -44,7 +44,7 @@ import org.eclipse.gmf.internal.common.codegen.Conversions
 	}
 	
 	def generatedClassComment(){
-		doGeneratedComment('')
+		doGeneratedComment(null, '', '')
 	}
 
 	def generatedClassComment(Object it){
@@ -52,29 +52,34 @@ import org.eclipse.gmf.internal.common.codegen.Conversions
 	}
 	
 	def generatedClassComment(Object it, String comment) {
-		doGeneratedComment(comment)
+		doGeneratedComment(it, comment, '')
 	} 
 
 	def generatedMemberComment() {
-		doGeneratedComment('')	
+		doGeneratedComment(null, '', '')	
 	}
 
 	def generatedMemberComment(Object it) {
-		doGeneratedComment('')	
+		doGeneratedComment(it, '', '')	
 	}
 
 	def generatedMemberComment(Object it, String comment) {
-		doGeneratedComment(comment)
+		doGeneratedComment(it, comment, '')
 	} 
+
+	def generatedMemberComment(Object it, String comment, String comment2) {
+		doGeneratedComment(it, comment, comment2)
+	}
 
 	/**
 	 * XXX: FIXME: merge all generatedXXXcomment to go here
 	 */ 
-	def doGeneratedComment(String comment) 
+	def doGeneratedComment(Object it, String comment, String comment2) 
 	'''
 	/**
 	«IF comment.length > 0»* «comment.replaceAll('\n', '\n * ')»«ENDIF»
 	* @generated
+	«IF comment2.length > 0»* «comment2.replaceAll('\n', '\n * ')»«ENDIF»
 	*/
 	'''
 
@@ -114,7 +119,7 @@ import org.eclipse.gmf.internal.common.codegen.Conversions
 	 * In future this extra lines should be removed, this is single point of removal 
 	 */
 	def extraLineBreak() '''
-		«/*FIXME: artificially inserting new line break to reduce diff against xpand templates */»
+«/*FIXME: artificially inserting new line break to reduce diff against xpand templates */»
 	'''
 
 }

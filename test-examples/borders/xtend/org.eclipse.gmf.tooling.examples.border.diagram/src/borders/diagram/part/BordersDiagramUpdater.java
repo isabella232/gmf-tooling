@@ -35,18 +35,15 @@ public class BordersDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<BordersNodeDescriptor> getDiagram_1000SemanticChildren(
-			View view) {
+	public static List<BordersNodeDescriptor> getDiagram_1000SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
 		}
 		Diagram modelElement = (Diagram) view.getElement();
 		LinkedList<BordersNodeDescriptor> result = new LinkedList<BordersNodeDescriptor>();
-		for (Iterator<?> it = modelElement.getBorders().iterator(); it
-				.hasNext();) {
+		for (Iterator<?> it = modelElement.getBorders().iterator(); it.hasNext();) {
 			Border childElement = (Border) it.next();
-			int visualID = BordersVisualIDRegistry.getNodeVisualID(view,
-					childElement);
+			int visualID = BordersVisualIDRegistry.getNodeVisualID(view, childElement);
 			if (visualID == MarginBorderEditPart.VISUAL_ID) {
 				result.add(new BordersNodeDescriptor(childElement, visualID));
 				continue;
@@ -123,104 +120,91 @@ public class BordersDiagramUpdater {
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getDiagram_1000ContainedLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getDiagram_1000ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getMarginBorder_2001ContainedLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getMarginBorder_2001ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getCustomBorder_2002ContainedLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getCustomBorder_2002ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getCompoundBorder_2003ContainedLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getCompoundBorder_2003ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getLineBorder_2004ContainedLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getLineBorder_2004ContainedLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getMarginBorder_2001IncomingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getMarginBorder_2001IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getCustomBorder_2002IncomingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getCustomBorder_2002IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getCompoundBorder_2003IncomingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getCompoundBorder_2003IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getLineBorder_2004IncomingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getLineBorder_2004IncomingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getMarginBorder_2001OutgoingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getMarginBorder_2001OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getCustomBorder_2002OutgoingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getCustomBorder_2002OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getCompoundBorder_2003OutgoingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getCompoundBorder_2003OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * @generated
 	 */
-	public static List<BordersLinkDescriptor> getLineBorder_2004OutgoingLinks(
-			View view) {
+	public static List<BordersLinkDescriptor> getLineBorder_2004OutgoingLinks(View view) {
 		return Collections.emptyList();
 	}
 
@@ -228,33 +212,34 @@ public class BordersDiagramUpdater {
 	 * @generated
 	 */
 	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
+
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public List<BordersNodeDescriptor> getSemanticChildren(View view) {
 			return BordersDiagramUpdater.getSemanticChildren(view);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public List<BordersLinkDescriptor> getContainedLinks(View view) {
 			return BordersDiagramUpdater.getContainedLinks(view);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public List<BordersLinkDescriptor> getIncomingLinks(View view) {
 			return BordersDiagramUpdater.getIncomingLinks(view);
 		}
 
 		/**
-		 * @generated
-		 */
+		* @generated
+		*/
 		@Override
 		public List<BordersLinkDescriptor> getOutgoingLinks(View view) {
 			return BordersDiagramUpdater.getOutgoingLinks(view);

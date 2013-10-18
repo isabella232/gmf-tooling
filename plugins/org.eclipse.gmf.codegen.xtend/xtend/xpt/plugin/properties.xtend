@@ -25,12 +25,11 @@ def properties(GenPlugin it)'''
 «application(editorGen)»
 
 «navigator(editorGen)»
-
 «diagramUpdater(editorGen)»
 
 «IF editorGen.propertySheet != null»«i18n(editorGen.propertySheet)»«ENDIF»
-«i18n(editorGen.diagram)»
 «i18n_diagramPreferences(editorGen.diagram)»
+«i18n(editorGen.diagram)»
 «i18n(editorGen)»
 «additions»
 '''

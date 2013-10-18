@@ -70,6 +70,7 @@ import xpt.Common
 		
 		«IF null == editorGen.application»
 			«SynchronizerDelegate(it)»
+			«extraLineBreak»
 		«ENDIF»
 			«additions(it)»
 		}

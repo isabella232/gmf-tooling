@@ -13,8 +13,7 @@ import borders.diagram.providers.BordersElementTypes;
 /**
  * @generated
  */
-public class MarginBorderItemSemanticEditPolicy extends
-		BordersBaseItemSemanticEditPolicy {
+public class MarginBorderItemSemanticEditPolicy extends BordersBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -28,8 +27,7 @@ public class MarginBorderItemSemanticEditPolicy extends
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
-		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(
-				getEditingDomain(), null);
+		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
 		cmd.setTransactionNestingEnabled(false);
 		EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 		if (annotation == null) {

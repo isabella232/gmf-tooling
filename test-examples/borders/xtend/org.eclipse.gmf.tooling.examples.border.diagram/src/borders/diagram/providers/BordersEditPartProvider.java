@@ -15,9 +15,7 @@ public class BordersEditPartProvider extends DefaultEditPartProvider {
 	 * @generated
 	 */
 	public BordersEditPartProvider() {
-		super(new BordersEditPartFactory(),
-				BordersVisualIDRegistry.TYPED_INSTANCE,
-				DiagramEditPart.MODEL_ID);
+		super(new BordersEditPartFactory(), BordersVisualIDRegistry.TYPED_INSTANCE, DiagramEditPart.MODEL_ID);
 	}
 
 }

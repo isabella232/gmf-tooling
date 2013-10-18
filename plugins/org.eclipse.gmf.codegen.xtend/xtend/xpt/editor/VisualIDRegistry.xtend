@@ -159,7 +159,7 @@ class VisualIDRegistry {
 	«copyright(getDiagram().editorGen)»
 	package «packageName(it)»;
 
-	«generatedClassComment(
+	«generatedClassComment(it,
 		'This registry is used to determine which type of visual object should be\n' + 
 		'created for the corresponding Diagram, Node, ChildNode or Link represented\n' + 
 		'by a domain model object.\n'	
@@ -380,7 +380,7 @@ class VisualIDRegistry {
 
 	def isDiagram(GenDiagram it) '''
 	«IF null != domainDiagramElement»
-		«generatedMemberComment(
+		«generatedMemberComment(it,
 				'User can change implementation of this method to handle some specific\n' + 
 				'situations not covered by default logic.\n'
 		)»

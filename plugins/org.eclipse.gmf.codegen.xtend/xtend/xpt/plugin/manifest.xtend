@@ -3,10 +3,12 @@ package xpt.plugin
 import com.google.inject.Inject
 import xpt.GenEditorGenerator_qvto
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
+import xpt.Common
 
 @com.google.inject.Singleton class manifest {
 
 @Inject extension GenEditorGenerator_qvto
+@Inject extension Common
 
 def qualifiedClassName(GenPlugin it) '''META-INF/MANIFEST.MF'''
 def fullPath(GenPlugin it) '''«qualifiedClassName(it)»'''
@@ -74,10 +76,11 @@ Require-Bundle: org.eclipse.core.runtime,
 «IF editorGen.application == null» org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
 «ENDIF»
 «var reqPlugins = getAllRequiredPlugins()»
-«IF reqPlugins.add('org.eclipse.gmf.tooling.runtime')»
-«FOR reqId : reqPlugins» «reqId»;visibility:=reexport,
- «ENDFOR» org.eclipse.gef;visibility:=reexport
- «ENDIF»
+«IF !reqPlugins.contains('org.eclipse.gmf.tooling.runtime')»
+«var notUsetBooleanVar = reqPlugins.add('org.eclipse.gmf.tooling.runtime')»
+«ENDIF»
+«FOR reqId : reqPlugins» «reqId»;visibility:=reexport,«extraLineBreak»
+«ENDFOR» org.eclipse.gef;visibility:=reexport
 '''
 
 def executionEnvironment(GenPlugin it) '''

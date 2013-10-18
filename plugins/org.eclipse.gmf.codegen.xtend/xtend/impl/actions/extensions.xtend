@@ -205,6 +205,7 @@ class extensions {
 			cmdcategory.name=«modelID» Editor Commands
 			cmdcategory.desc=«modelID» Editor Commands
 		«ENDIF»
+		«extraLineBreak»
 	'''
 
 }

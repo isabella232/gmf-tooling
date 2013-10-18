@@ -8,6 +8,7 @@ import org.eclipse.gmf.tooling.runtime.actions.DefaultLoadResourceAction;
  * @generated
  */
 public class LoadResourceAction extends DefaultLoadResourceAction {
+
 	/**
 	 * @generated
 	 */

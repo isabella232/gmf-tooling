@@ -183,7 +183,6 @@ class CreationWizard {
 			}
 			return diagram != null;
 			}
-			
 			«additions(it)»
 		}
 	'''

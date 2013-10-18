@@ -19,10 +19,8 @@ public class BordersNavigatorItem extends BordersAbstractNavigatorItem {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof borders.diagram.navigator.BordersNavigatorItem
-						&& (adapterType == View.class || adapterType == EObject.class)) {
-					return ((borders.diagram.navigator.BordersNavigatorItem) adaptableObject)
-							.getView();
+				if (adaptableObject instanceof borders.diagram.navigator.BordersNavigatorItem && (adapterType == View.class || adapterType == EObject.class)) {
+					return ((borders.diagram.navigator.BordersNavigatorItem) adaptableObject).getView();
 				}
 				return null;
 			}
@@ -71,11 +69,7 @@ public class BordersNavigatorItem extends BordersAbstractNavigatorItem {
 	 */
 	public boolean equals(Object obj) {
 		if (obj instanceof borders.diagram.navigator.BordersNavigatorItem) {
-			return EcoreUtil
-					.getURI(getView())
-					.equals(EcoreUtil
-							.getURI(((borders.diagram.navigator.BordersNavigatorItem) obj)
-									.getView()));
+			return EcoreUtil.getURI(getView()).equals(EcoreUtil.getURI(((borders.diagram.navigator.BordersNavigatorItem) obj).getView()));
 		}
 		return super.equals(obj);
 	}

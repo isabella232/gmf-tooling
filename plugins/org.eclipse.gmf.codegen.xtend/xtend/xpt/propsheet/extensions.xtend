@@ -156,7 +156,7 @@ import xpt.Common_qvto
 	# Property Sheet
 	«FOR tab : tabs»
 	tab.«tab.ID»=«tab.label»
-	«ENDFOR»
+	«ENDFOR»«extraLineBreak»
 	'''
 
 }

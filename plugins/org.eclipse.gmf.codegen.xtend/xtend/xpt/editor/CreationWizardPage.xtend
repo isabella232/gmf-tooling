@@ -53,7 +53,7 @@ class CreationWizardPage {
 			this.fileExtension = fileExtension;
 			}
 			
-			«generatedMemberComment(it, 'Override to create files with this extension.')» 
+			«generatedMemberComment(it, 'Override to create files with this extension.\n')» 
 			protected String getExtension() {
 				return fileExtension;
 			}

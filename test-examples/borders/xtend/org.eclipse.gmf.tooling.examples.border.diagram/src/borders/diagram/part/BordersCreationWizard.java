@@ -80,8 +80,7 @@ public class BordersCreationWizard extends Wizard implements INewWizard {
 	/**
 	 * @generated
 	 */
-	public void setOpenNewlyCreatedDiagramEditor(
-			boolean openNewlyCreatedDiagramEditor) {
+	public void setOpenNewlyCreatedDiagramEditor(boolean openNewlyCreatedDiagramEditor) {
 		this.openNewlyCreatedDiagramEditor = openNewlyCreatedDiagramEditor;
 	}
 
@@ -92,8 +91,7 @@ public class BordersCreationWizard extends Wizard implements INewWizard {
 		this.workbench = workbench;
 		this.selection = selection;
 		setWindowTitle(Messages.BordersCreationWizardTitle);
-		setDefaultPageImageDescriptor(BordersDiagramEditorPlugin
-				.getBundledImageDescriptor("icons/wizban/NewBordersWizard.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(BordersDiagramEditorPlugin.getBundledImageDescriptor("icons/wizban/NewBordersWizard.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 
@@ -101,32 +99,24 @@ public class BordersCreationWizard extends Wizard implements INewWizard {
 	 * @generated
 	 */
 	public void addPages() {
-		diagramModelFilePage = new BordersCreationWizardPage(
-				"DiagramModelFile", getSelection(), "borders_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
-		diagramModelFilePage
-				.setTitle(Messages.BordersCreationWizard_DiagramModelFilePageTitle);
-		diagramModelFilePage
-				.setDescription(Messages.BordersCreationWizard_DiagramModelFilePageDescription);
+		diagramModelFilePage = new BordersCreationWizardPage("DiagramModelFile", getSelection(), "borders_diagram"); //$NON-NLS-1$ //$NON-NLS-2$
+		diagramModelFilePage.setTitle(Messages.BordersCreationWizard_DiagramModelFilePageTitle);
+		diagramModelFilePage.setDescription(Messages.BordersCreationWizard_DiagramModelFilePageDescription);
 		addPage(diagramModelFilePage);
 
-		domainModelFilePage = new BordersCreationWizardPage(
-				"DomainModelFile", getSelection(), "borders") { //$NON-NLS-1$ //$NON-NLS-2$
+		domainModelFilePage = new BordersCreationWizardPage("DomainModelFile", getSelection(), "borders") { //$NON-NLS-1$ //$NON-NLS-2$
 
 			public void setVisible(boolean visible) {
 				if (visible) {
 					String fileName = diagramModelFilePage.getFileName();
-					fileName = fileName.substring(0, fileName.length()
-							- ".borders_diagram".length()); //$NON-NLS-1$
-					setFileName(BordersDiagramEditorUtil.getUniqueFileName(
-							getContainerFullPath(), fileName, "borders")); //$NON-NLS-1$
+					fileName = fileName.substring(0, fileName.length() - ".borders_diagram".length()); //$NON-NLS-1$
+					setFileName(BordersDiagramEditorUtil.getUniqueFileName(getContainerFullPath(), fileName, "borders")); //$NON-NLS-1$
 				}
 				super.setVisible(visible);
 			}
 		};
-		domainModelFilePage
-				.setTitle(Messages.BordersCreationWizard_DomainModelFilePageTitle);
-		domainModelFilePage
-				.setDescription(Messages.BordersCreationWizard_DomainModelFilePageDescription);
+		domainModelFilePage.setTitle(Messages.BordersCreationWizard_DomainModelFilePageTitle);
+		domainModelFilePage.setDescription(Messages.BordersCreationWizard_DomainModelFilePageDescription);
 		addPage(domainModelFilePage);
 	}
 
@@ -136,18 +126,13 @@ public class BordersCreationWizard extends Wizard implements INewWizard {
 	public boolean performFinish() {
 		IRunnableWithProgress op = new WorkspaceModifyOperation(null) {
 
-			protected void execute(IProgressMonitor monitor)
-					throws CoreException, InterruptedException {
-				diagram = BordersDiagramEditorUtil.createDiagram(
-						diagramModelFilePage.getURI(),
-						domainModelFilePage.getURI(), monitor);
+			protected void execute(IProgressMonitor monitor) throws CoreException, InterruptedException {
+				diagram = BordersDiagramEditorUtil.createDiagram(diagramModelFilePage.getURI(), domainModelFilePage.getURI(), monitor);
 				if (isOpenNewlyCreatedDiagramEditor() && diagram != null) {
 					try {
 						BordersDiagramEditorUtil.openDiagram(diagram);
 					} catch (PartInitException e) {
-						ErrorDialog.openError(getContainer().getShell(),
-								Messages.BordersCreationWizardOpenEditorError,
-								null, e.getStatus());
+						ErrorDialog.openError(getContainer().getShell(), Messages.BordersCreationWizardOpenEditorError, null, e.getStatus());
 					}
 				}
 			}
@@ -158,12 +143,9 @@ public class BordersCreationWizard extends Wizard implements INewWizard {
 			return false;
 		} catch (InvocationTargetException e) {
 			if (e.getTargetException() instanceof CoreException) {
-				ErrorDialog.openError(getContainer().getShell(),
-						Messages.BordersCreationWizardCreationError, null,
-						((CoreException) e.getTargetException()).getStatus());
+				ErrorDialog.openError(getContainer().getShell(), Messages.BordersCreationWizardCreationError, null, ((CoreException) e.getTargetException()).getStatus());
 			} else {
-				BordersDiagramEditorPlugin.getInstance().logError(
-						"Error creating diagram", e.getTargetException()); //$NON-NLS-1$
+				BordersDiagramEditorPlugin.getInstance().logError("Error creating diagram", e.getTargetException()); //$NON-NLS-1$
 			}
 			return false;
 		}

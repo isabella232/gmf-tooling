@@ -25,21 +25,14 @@ import borders.diagram.providers.BordersElementTypes;
 /**
  * @generated
  */
-public class BordersNavigatorLabelProvider extends LabelProvider implements
-		ICommonLabelProvider, ITreePathLabelProvider {
+public class BordersNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider, ITreePathLabelProvider {
 
 	/**
 	 * @generated
 	 */
 	static {
-		BordersDiagramEditorPlugin
-				.getInstance()
-				.getImageRegistry()
-				.put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
-		BordersDiagramEditorPlugin
-				.getInstance()
-				.getImageRegistry()
-				.put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
+		BordersDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
+		BordersDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
 	}
 
 	/**
@@ -47,8 +40,7 @@ public class BordersNavigatorLabelProvider extends LabelProvider implements
 	 */
 	public void updateLabel(ViewerLabel label, TreePath elementPath) {
 		Object element = elementPath.getLastSegment();
-		if (element instanceof BordersNavigatorItem
-				&& !isOwnView(((BordersNavigatorItem) element).getView())) {
+		if (element instanceof BordersNavigatorItem && !isOwnView(((BordersNavigatorItem) element).getView())) {
 			return;
 		}
 		label.setText(getText(element));
@@ -61,8 +53,7 @@ public class BordersNavigatorLabelProvider extends LabelProvider implements
 	public Image getImage(Object element) {
 		if (element instanceof BordersNavigatorGroup) {
 			BordersNavigatorGroup group = (BordersNavigatorGroup) element;
-			return BordersDiagramEditorPlugin.getInstance().getBundledImage(
-					group.getIcon());
+			return BordersDiagramEditorPlugin.getInstance().getBundledImage(group.getIcon());
 		}
 
 		if (element instanceof BordersNavigatorItem) {
@@ -82,20 +73,15 @@ public class BordersNavigatorLabelProvider extends LabelProvider implements
 	public Image getImage(View view) {
 		switch (BordersVisualIDRegistry.getVisualID(view)) {
 		case DiagramEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?Diagram?http://org.eclipse.gmf.tooling.examples.borders?Diagram", BordersElementTypes.Diagram_1000); //$NON-NLS-1$
+			return getImage("Navigator?Diagram?http://org.eclipse.gmf.tooling.examples.borders?Diagram", BordersElementTypes.Diagram_1000); //$NON-NLS-1$
 		case MarginBorderEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?MarginBorder", BordersElementTypes.MarginBorder_2001); //$NON-NLS-1$
+			return getImage("Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?MarginBorder", BordersElementTypes.MarginBorder_2001); //$NON-NLS-1$
 		case CustomBorderEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?CustomBorder", BordersElementTypes.CustomBorder_2002); //$NON-NLS-1$
+			return getImage("Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?CustomBorder", BordersElementTypes.CustomBorder_2002); //$NON-NLS-1$
 		case CompoundBorderEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?CompoundBorder", BordersElementTypes.CompoundBorder_2003); //$NON-NLS-1$
+			return getImage("Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?CompoundBorder", BordersElementTypes.CompoundBorder_2003); //$NON-NLS-1$
 		case LineBorderEditPart.VISUAL_ID:
-			return getImage(
-					"Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?LineBorder", BordersElementTypes.LineBorder_2004); //$NON-NLS-1$
+			return getImage("Navigator?TopLevelNode?http://org.eclipse.gmf.tooling.examples.borders?LineBorder", BordersElementTypes.LineBorder_2004); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -104,11 +90,9 @@ public class BordersNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private Image getImage(String key, IElementType elementType) {
-		ImageRegistry imageRegistry = BordersDiagramEditorPlugin.getInstance()
-				.getImageRegistry();
+		ImageRegistry imageRegistry = BordersDiagramEditorPlugin.getInstance().getImageRegistry();
 		Image image = imageRegistry.get(key);
-		if (image == null && elementType != null
-				&& BordersElementTypes.isKnownElementType(elementType)) {
+		if (image == null && elementType != null && BordersElementTypes.isKnownElementType(elementType)) {
 			image = BordersElementTypes.getImage(elementType);
 			imageRegistry.put(key, image);
 		}
@@ -240,8 +224,7 @@ public class BordersNavigatorLabelProvider extends LabelProvider implements
 	 * @generated
 	 */
 	private boolean isOwnView(View view) {
-		return DiagramEditPart.MODEL_ID.equals(BordersVisualIDRegistry
-				.getModelID(view));
+		return DiagramEditPart.MODEL_ID.equals(BordersVisualIDRegistry.getModelID(view));
 	}
 
 }

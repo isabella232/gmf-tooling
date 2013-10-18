@@ -218,8 +218,7 @@ class extensions {
 		
 		# Providers
 		«FOR next : getAllTypedElements().map[t|t.elementType]»
-			«internal_i18n(next)»
-		«ENDFOR»
+			«internal_i18n(next)»«ENDFOR»«extraLineBreak»
 	'''
 
 	@Localization def internal_i18n(ElementType it) '''

@@ -57,8 +57,7 @@ public class CompoundBorderEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE,
-				new CompoundBorderItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new CompoundBorderItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
@@ -71,8 +70,7 @@ public class CompoundBorderEditPart extends ShapeNodeEditPart {
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 
 			protected EditPolicy createChildEditPolicy(EditPart child) {
-				EditPolicy result = child
-						.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
+				EditPolicy result = child.getEditPolicy(EditPolicy.PRIMARY_DRAG_ROLE);
 				if (result == null) {
 					result = new NonResizableEditPolicy();
 				}
@@ -195,12 +193,8 @@ public class CompoundBorderEditPart extends ShapeNodeEditPart {
 		 */
 		public CompoundBorderFigure() {
 			this.setLayoutManager(new StackLayout());
-			this.setBorder(new CompoundBorder(new LineBorder(
-					ColorConstants.cyan, 10), new CompoundBorder(
-					new LineBorder(ColorConstants.green, 10),
-					new CompoundBorder(
-							new LineBorder(ColorConstants.white, 10),
-							new LineBorder(ColorConstants.red, 10)))));
+			this.setBorder(new CompoundBorder(new LineBorder(ColorConstants.cyan, 10), new CompoundBorder(new LineBorder(ColorConstants.green, 10), new CompoundBorder(new LineBorder(
+					ColorConstants.white, 10), new LineBorder(ColorConstants.red, 10)))));
 			createContents();
 		}
 

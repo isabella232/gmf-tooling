@@ -16,6 +16,7 @@ public abstract class BordersAbstractNavigatorItem extends PlatformObject {
 	static {
 		final Class[] supportedTypes = new Class[] { ITabbedPropertySheetPageContributor.class };
 		final ITabbedPropertySheetPageContributor propertySheetPageContributor = new ITabbedPropertySheetPageContributor() {
+
 			public String getContributorId() {
 				return "org.eclipse.gmf.tooling.examples.border.diagram"; //$NON-NLS-1$
 			}
@@ -23,8 +24,7 @@ public abstract class BordersAbstractNavigatorItem extends PlatformObject {
 		Platform.getAdapterManager().registerAdapters(new IAdapterFactory() {
 
 			public Object getAdapter(Object adaptableObject, Class adapterType) {
-				if (adaptableObject instanceof borders.diagram.navigator.BordersAbstractNavigatorItem
-						&& adapterType == ITabbedPropertySheetPageContributor.class) {
+				if (adaptableObject instanceof borders.diagram.navigator.BordersAbstractNavigatorItem && adapterType == ITabbedPropertySheetPageContributor.class) {
 					return propertySheetPageContributor;
 				}
 				return null;

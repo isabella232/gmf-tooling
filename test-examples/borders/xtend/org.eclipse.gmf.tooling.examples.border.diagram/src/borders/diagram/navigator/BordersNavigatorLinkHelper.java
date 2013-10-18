@@ -36,16 +36,14 @@ public class BordersNavigatorLinkHelper implements ILinkHelper {
 		Resource diagramResource = diagram.eResource();
 		for (EObject nextEObject : diagramResource.getContents()) {
 			if (nextEObject == diagram) {
-				return new FileEditorInput(
-						WorkspaceSynchronizer.getFile(diagramResource));
+				return new FileEditorInput(WorkspaceSynchronizer.getFile(diagramResource));
 			}
 			if (nextEObject instanceof Diagram) {
 				break;
 			}
 		}
 		URI uri = EcoreUtil.getURI(diagram);
-		String editorName = uri.lastSegment() + '#'
-				+ diagram.eResource().getContents().indexOf(diagram);
+		String editorName = uri.lastSegment() + '#' + diagram.eResource().getContents().indexOf(diagram);
 		IEditorInput editorInput = new URIEditorInput(uri, editorName);
 		return editorInput;
 	}
@@ -54,8 +52,7 @@ public class BordersNavigatorLinkHelper implements ILinkHelper {
 	 * @generated
 	 */
 	public IStructuredSelection findSelection(IEditorInput anInput) {
-		IDiagramDocument document = BordersDiagramEditorPlugin.getInstance()
-				.getDocumentProvider().getDiagramDocument(anInput);
+		IDiagramDocument document = BordersDiagramEditorPlugin.getInstance().getDocumentProvider().getDiagramDocument(anInput);
 		if (document == null) {
 			return StructuredSelection.EMPTY;
 		}
@@ -65,8 +62,7 @@ public class BordersNavigatorLinkHelper implements ILinkHelper {
 		}
 		IFile file = WorkspaceSynchronizer.getFile(diagram.eResource());
 		if (file != null) {
-			BordersNavigatorItem item = new BordersNavigatorItem(diagram, file,
-					false);
+			BordersNavigatorItem item = new BordersNavigatorItem(diagram, file, false);
 			return new StructuredSelection(item);
 		}
 		return StructuredSelection.EMPTY;
@@ -75,8 +71,7 @@ public class BordersNavigatorLinkHelper implements ILinkHelper {
 	/**
 	 * @generated
 	 */
-	public void activateEditor(IWorkbenchPage aPage,
-			IStructuredSelection aSelection) {
+	public void activateEditor(IWorkbenchPage aPage, IStructuredSelection aSelection) {
 		if (aSelection == null || aSelection.isEmpty()) {
 			return;
 		}
@@ -84,17 +79,14 @@ public class BordersNavigatorLinkHelper implements ILinkHelper {
 			return;
 		}
 
-		BordersAbstractNavigatorItem abstractNavigatorItem = (BordersAbstractNavigatorItem) aSelection
-				.getFirstElement();
+		BordersAbstractNavigatorItem abstractNavigatorItem = (BordersAbstractNavigatorItem) aSelection.getFirstElement();
 		View navigatorView = null;
 		if (abstractNavigatorItem instanceof BordersNavigatorItem) {
-			navigatorView = ((BordersNavigatorItem) abstractNavigatorItem)
-					.getView();
+			navigatorView = ((BordersNavigatorItem) abstractNavigatorItem).getView();
 		} else if (abstractNavigatorItem instanceof BordersNavigatorGroup) {
 			BordersNavigatorGroup navigatorGroup = (BordersNavigatorGroup) abstractNavigatorItem;
 			if (navigatorGroup.getParent() instanceof BordersNavigatorItem) {
-				navigatorView = ((BordersNavigatorItem) navigatorGroup
-						.getParent()).getView();
+				navigatorView = ((BordersNavigatorItem) navigatorGroup.getParent()).getView();
 			}
 		}
 		if (navigatorView == null) {
@@ -108,17 +100,13 @@ public class BordersNavigatorLinkHelper implements ILinkHelper {
 		aPage.bringToTop(editor);
 		if (editor instanceof DiagramEditor) {
 			DiagramEditor diagramEditor = (DiagramEditor) editor;
-			ResourceSet diagramEditorResourceSet = diagramEditor
-					.getEditingDomain().getResourceSet();
-			EObject selectedView = diagramEditorResourceSet.getEObject(
-					EcoreUtil.getURI(navigatorView), true);
+			ResourceSet diagramEditorResourceSet = diagramEditor.getEditingDomain().getResourceSet();
+			EObject selectedView = diagramEditorResourceSet.getEObject(EcoreUtil.getURI(navigatorView), true);
 			if (selectedView == null) {
 				return;
 			}
-			GraphicalViewer graphicalViewer = (GraphicalViewer) diagramEditor
-					.getAdapter(GraphicalViewer.class);
-			EditPart selectedEditPart = (EditPart) graphicalViewer
-					.getEditPartRegistry().get(selectedView);
+			GraphicalViewer graphicalViewer = (GraphicalViewer) diagramEditor.getAdapter(GraphicalViewer.class);
+			EditPart selectedEditPart = (EditPart) graphicalViewer.getEditPartRegistry().get(selectedView);
 			if (selectedEditPart != null) {
 				graphicalViewer.select(selectedEditPart);
 			}
