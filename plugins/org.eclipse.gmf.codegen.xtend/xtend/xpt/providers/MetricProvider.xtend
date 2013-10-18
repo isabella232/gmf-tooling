@@ -34,18 +34,21 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderBase
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import org.eclipse.gmf.codegen.gmfgen.GenJavaExpressionProvider
 import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
+import xpt.editor.DiagramEditorUtil
 
 class MetricProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Metrics_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
+	@Inject Activator xptActivator;
 	@Inject MetaModel xptMetaModel;
 	@Inject MetricsResultView xptMetricsResultView;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject xpt.expressions.getExpression xptGetExpression;
+	@Inject ElementTypes xptElementTypes;
+	@Inject DiagramEditorUtil xptDiagramEditorUtil;
 
 	@MetaDef def invokeCalcMethod(GenMetricRule it, String accessor, boolean isSpecific) //
 	'''«qualifiedClassName(container.editorGen.diagram)».«calcMethodName(it)»(« //
@@ -95,7 +98,7 @@ class MetricProvider {
 						page.activate(metricsView);
 					}
 				} catch (org.eclipse.ui.PartInitException e) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Diagram metric view failure", e); «nonNLS(
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Diagram metric view failure", e); «nonNLS(
 			1)»
 				}
 			}
@@ -248,7 +251,7 @@ class MetricProvider {
 		}
 	'''
 
-	def getImageAccessor(GenDiagram it, String imageClassVar) '''«getElementTypesQualifiedClassName(it)».getImage(«imageClassVar»)'''
+	def getImageAccessor(GenDiagram it, String imageClassVar) '''«xptElementTypes.qualifiedClassName(it)».getImage(«imageClassVar»)'''
 
 	def calcNotationMetricsMethod(GenEditorGenerator it) '''
 		«generatedMemberComment»
@@ -347,12 +350,12 @@ class MetricProvider {
 			}
 			if (!target2row.isEmpty()) { // list was modified, need to process only semantic metrics
 				// bind semantic elements to notation
-				«getDiagramEditorUtilQualifiedClassName(diagram)».LazyElement2ViewMap element2ViewMap = new «
-			getDiagramEditorUtilQualifiedClassName(diagram)».LazyElement2ViewMap(diagram, target2row.keySet());
+				«xptDiagramEditorUtil.qualifiedClassName(diagram)».LazyElement2ViewMap element2ViewMap = new «
+			xptDiagramEditorUtil.qualifiedClassName(diagram)».LazyElement2ViewMap(diagram, target2row.keySet());
 				for (java.util.Iterator it2 = target2row.entrySet().iterator(); it2.hasNext();) {
 					java.util.Map.Entry entry = (java.util.Map.Entry) it2.next();
 					org.eclipse.emf.ecore.EObject semanticElement = (org.eclipse.emf.ecore.EObject) entry.getKey();
-					org.eclipse.gmf.runtime.notation.View targetView = «getDiagramEditorUtilQualifiedClassName(diagram)».findView(diagramEditPart, semanticElement, element2ViewMap);
+					org.eclipse.gmf.runtime.notation.View targetView = «xptDiagramEditorUtil.qualifiedClassName(diagram)».findView(diagramEditPart, semanticElement, element2ViewMap);
 					ElementMetrics elementMetrics = (ElementMetrics) entry.getValue();
 					elementMetrics.diagramElementID = targetView.eResource().getURIFragment(targetView);
 				}

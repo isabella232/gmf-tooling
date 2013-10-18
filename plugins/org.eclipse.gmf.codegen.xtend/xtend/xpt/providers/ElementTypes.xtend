@@ -25,17 +25,19 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
+import xpt.editor.VisualIDRegistry
 
 class ElementTypes {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
+	@Inject Activator xptActivator;
 	@Inject CodeStyle xptCodeStyle;
 	@Inject MetaModel xptMetaModel;
+	@Inject VisualIDRegistry xptVisualIDRegistry;
 
 	@MetaDef def accessElementType(GenCommonBase it) '''«it.diagram.elementTypesQualifiedClassName».«it.uniqueIdentifier»'''
 
@@ -96,7 +98,7 @@ class ElementTypes {
 		
 		«generatedMemberComment»
 		private static org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages elementTypeImages = new org.eclipse.gmf.tooling.runtime.providers.DiagramElementTypeImages(« //
-		getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
+		xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 		
 		«generatedMemberComment»
 		private static java.util.Set<org.eclipse.gmf.runtime.emf.type.core.IElementType> KNOWN_ELEMENT_TYPES;
@@ -223,7 +225,7 @@ class ElementTypes {
 	'''
 
 	def caseElementType(GenCommonBase it) '''
-		«caseVisualID(it)»
+		«xptVisualIDRegistry.caseVisualID(it)»
 			return «getUniqueIdentifier()»;
 	'''
 
