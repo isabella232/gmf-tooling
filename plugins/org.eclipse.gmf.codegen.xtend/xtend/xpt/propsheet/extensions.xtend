@@ -24,7 +24,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Common_qvto
 
-class extensions {
+@com.google.inject.Singleton class extensions {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	

@@ -17,7 +17,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import xpt.Common
 
-class LinkEditPart {
+@com.google.inject.Singleton class LinkEditPart {
 	@Inject extension Common;
 
 	@Inject impl.diagram.editparts.LinkEditPart xptLinkEditPart;

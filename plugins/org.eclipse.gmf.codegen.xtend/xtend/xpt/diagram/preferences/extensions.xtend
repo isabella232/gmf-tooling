@@ -24,7 +24,7 @@ import impl.preferences.StandardPage
 import org.eclipse.gmf.codegen.gmfgen.GenCustomPreferencePage
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
 
-class extensions {
+@com.google.inject.Singleton class extensions {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

@@ -3,7 +3,7 @@ package xpt.plugin
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 
-class propUtils {
+@com.google.inject.Singleton class propUtils {
 	
 	@Inject extension xpt.diagram.preferences.extensions
 	

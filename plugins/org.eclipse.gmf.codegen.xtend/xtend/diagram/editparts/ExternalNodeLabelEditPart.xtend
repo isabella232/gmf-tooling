@@ -18,7 +18,7 @@ import impl.diagram.editparts.TextAware
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel
 import xpt.Common
 
-class ExternalNodeLabelEditPart {
+@com.google.inject.Singleton class ExternalNodeLabelEditPart {
 	@Inject extension Common;
 
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;

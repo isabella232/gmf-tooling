@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 
-class DeleteElementAction {
+@com.google.inject.Singleton class DeleteElementAction {
 	@Inject extension Common;
 
 	def className(GenDiagram it) '''DeleteElementAction'''

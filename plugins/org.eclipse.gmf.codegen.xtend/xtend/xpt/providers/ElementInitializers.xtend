@@ -44,7 +44,7 @@ import xpt.expressions.AbstractExpression
 /**
  * XXX should generate this class only when there is initialization logic defined in the model
  */
-class ElementInitializers {
+@com.google.inject.Singleton class ElementInitializers {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ElementInitializers_qvto;

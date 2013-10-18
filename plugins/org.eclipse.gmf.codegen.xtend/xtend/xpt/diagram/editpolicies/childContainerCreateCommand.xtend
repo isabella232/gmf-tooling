@@ -18,7 +18,7 @@ import xpt.Common
 import xpt.providers.ElementTypes
 import xpt.QualifiedClassNameProvider
 
-class childContainerCreateCommand {
+@com.google.inject.Singleton class childContainerCreateCommand {
 	
 	@Inject extension Common;
 	@Inject extension QualifiedClassNameProvider;

@@ -19,7 +19,7 @@ import org.eclipse.gmf.gmfgraph.RealFigure
 import xpt.Common
 import xpt.Common_qvto
 
-class Children {
+@com.google.inject.Singleton class Children {
 	@Inject extension Common
 	@Inject extension Common_qvto
 	@Inject extension Utils_qvto

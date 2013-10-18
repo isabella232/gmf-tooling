@@ -19,7 +19,7 @@ import xpt.diagram.editparts.Utils_qvto
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
 
-class NodeEditPart {
+@com.google.inject.Singleton class NodeEditPart {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 	

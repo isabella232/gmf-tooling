@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 
-class GenEditorGenerator_qvto {
+@com.google.inject.Singleton class GenEditorGenerator_qvto {
 	@Inject extension GenModelUtils_qvto;
 
 	/** 

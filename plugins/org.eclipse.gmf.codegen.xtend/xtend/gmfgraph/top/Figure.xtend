@@ -27,7 +27,7 @@ import org.eclipse.gmf.gmfgraph.RealFigure
 import xpt.Common
 import xpt.Common_qvto
 
-class Figure {
+@com.google.inject.Singleton class Figure {
 	@Inject extension Common_qvto;
 	@Inject extension Common;
 	@Inject extension Utils_Statefull_qvto;

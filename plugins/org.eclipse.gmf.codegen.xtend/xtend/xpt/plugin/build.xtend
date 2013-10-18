@@ -2,7 +2,7 @@ package xpt.plugin
 
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 
-class build {
+@com.google.inject.Singleton class build {
 
 def qualifiedClassName(GenPlugin it) '''build.properties'''
 def fullPath(GenPlugin it) '''«qualifiedClassName(it)»'''

@@ -24,7 +24,7 @@ import xpt.Common
 import xpt.diagram.Utils_qvto
 import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 
-class ReorientLinkUtils {
+@com.google.inject.Singleton class ReorientLinkUtils {
 
 	@Inject extension Common;
 	@Inject extension Utils_qvto;

@@ -21,7 +21,7 @@ import xpt.diagram.Utils_qvto
 import xpt.providers.ElementInitializers
 import xpt.OclMigrationProblems_qvto
 
-class CreateNodeCommand {
+@com.google.inject.Singleton class CreateNodeCommand {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 	@Inject extension OclMigrationProblems_qvto;

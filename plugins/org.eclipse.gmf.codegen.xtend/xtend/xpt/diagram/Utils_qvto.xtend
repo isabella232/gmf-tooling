@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet
 
-class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 
 	/**
 	 * @return all elements that may have element type: diagram, nodes and links

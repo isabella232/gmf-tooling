@@ -17,7 +17,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 
-class IconProvider {
+@com.google.inject.Singleton class IconProvider {
 	@Inject extension Common;
 
 	@Inject ElementTypes xptElementTypes;

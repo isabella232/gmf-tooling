@@ -24,7 +24,7 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.expressions.getExpression
 
-class ExpressionLabelParser {
+@com.google.inject.Singleton class ExpressionLabelParser {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension parsers.ExpressionLabelParser

@@ -8,7 +8,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.editor.extensions
 
-class plugin {
+@com.google.inject.Singleton class plugin {
 
 @Inject extension GenEditorGenerator_qvto
 @Inject extension Common

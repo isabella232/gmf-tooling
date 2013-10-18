@@ -37,7 +37,7 @@ import xpt.providers.ElementTypes
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.QualifiedClassNameProvider
 
-class BaseItemSemanticEditPolicy {
+@com.google.inject.Singleton class BaseItemSemanticEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension xpt.diagram.Utils_qvto;

@@ -18,7 +18,7 @@ import org.eclipse.gmf.gmfgraph.FigureDescriptor
 import org.eclipse.gmf.gmfgraph.RealFigure
 import xpt.Common_qvto
 
-class BareFigure_qvto {
+@com.google.inject.Singleton class BareFigure_qvto {
 	@Inject extension Common_qvto
 
 	def boolean isBareFigureDescriptor(FigureDescriptor descriptor) {

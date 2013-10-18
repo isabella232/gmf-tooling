@@ -33,7 +33,7 @@ import xpt.diagram.ViewmapAttributesUtils_qvto
  * Renamed from xpt::diagram::views::Utils.xpt 
  * in order to have consistent naming between Xtend files migrated from _qvto helpers and xpt templates
  */
-class ViewStyles {
+@com.google.inject.Singleton class ViewStyles {
 	@Inject extension Common;
 	@Inject extension ViewmapAttributesUtils_qvto;
 	@Inject extension Utils_qvto;

@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 
-class MarkerNavigationProvider {
+@com.google.inject.Singleton class MarkerNavigationProvider {
 	@Inject extension Common;
 
 	def className(GenDiagram it) '''«it.markerNavigationProviderClassName»'''

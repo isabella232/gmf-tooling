@@ -22,7 +22,7 @@ import xpt.Common
 import xpt.diagram.Utils_qvto
 import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 
-class CreateLinkUtils {
+@com.google.inject.Singleton class CreateLinkUtils {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 

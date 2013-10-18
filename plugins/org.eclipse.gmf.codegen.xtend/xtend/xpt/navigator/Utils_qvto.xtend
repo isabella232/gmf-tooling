@@ -20,7 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference
 import xpt.Common_qvto
 
-class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto;
 
 	def int getMaxVisualID(GenNavigator navigator) {

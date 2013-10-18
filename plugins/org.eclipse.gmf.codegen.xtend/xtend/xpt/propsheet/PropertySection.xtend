@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCustomPropertyTab
 import xpt.CodeStyle
 import xpt.Common
 
-class PropertySection {
+@com.google.inject.Singleton class PropertySection {
 	@Inject extension Common;
 
 	@Inject CodeStyle xptCodeStyle;
@@ -75,7 +75,7 @@ class PropertySection {
 	'''
 
 	/**
-	 * DEFINE's below are not supported anymore (code moved to superclass in 3.1). 
+	 * DEFINE's below are not supported anymore (code moved to super@com.google.inject.Singleton class in 3.1). 
 	 * If your xpt version have them, call it from custom version of additions
 	 * <p>
 	 * def dispatch getPropertySourceMethod(GenCustomPropertyTab it) '''''' 

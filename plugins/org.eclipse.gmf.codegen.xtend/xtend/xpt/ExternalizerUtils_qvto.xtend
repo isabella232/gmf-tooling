@@ -15,7 +15,7 @@ package xpt
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
-class ExternalizerUtils_qvto {
+@com.google.inject.Singleton class ExternalizerUtils_qvto {
 
 	@MetaDef def String getExternalizerPackageName(GenEditorGenerator generator) {
 		return generator.editor.packageName

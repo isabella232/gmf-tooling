@@ -2,7 +2,7 @@ package xpt.plugin
 
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 
-class options {
+@com.google.inject.Singleton class options {
 
 def qualifiedClassName(GenPlugin it) '''.options'''
 def fullPath(GenPlugin it) '''«qualifiedClassName(it)»'''

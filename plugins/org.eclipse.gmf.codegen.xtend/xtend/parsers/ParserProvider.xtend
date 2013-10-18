@@ -21,7 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 
-class ParserProvider {
+@com.google.inject.Singleton class ParserProvider {
 	@Inject extension Common;
 	@Inject extension ParsersUtil;
 

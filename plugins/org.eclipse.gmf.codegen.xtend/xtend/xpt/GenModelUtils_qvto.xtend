@@ -20,7 +20,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenJDKLevel
 import org.eclipse.emf.codegen.ecore.genmodel.impl.GenFeatureImpl
 import org.eclipse.emf.ecore.EDataType
 
-class GenModelUtils_qvto {
+@com.google.inject.Singleton class GenModelUtils_qvto {
 	private static final Set<String> PRIMITIVES = newHashSet('boolean', 'byte', 'char', 'double', 'float', 'int', 'long',
 		'short');
 

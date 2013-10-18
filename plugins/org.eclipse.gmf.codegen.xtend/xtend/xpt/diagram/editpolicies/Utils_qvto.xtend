@@ -23,7 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.GenModelUtils_qvto
 
-class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 	@Inject extension LinkUtils_qvto;
 	@Inject extension GenModelUtils_qvto;
 

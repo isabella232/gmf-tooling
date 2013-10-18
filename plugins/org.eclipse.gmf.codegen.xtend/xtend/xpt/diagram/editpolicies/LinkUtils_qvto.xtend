@@ -23,7 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.Common_qvto
 import xpt.GenModelUtils_qvto
 
-class LinkUtils_qvto {
+@com.google.inject.Singleton class LinkUtils_qvto {
 	@Inject extension Common_qvto;
 	@Inject extension GenModelUtils_qvto;
 

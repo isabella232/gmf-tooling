@@ -21,7 +21,7 @@ import org.eclipse.gmf.gmfgraph.XYLayoutData
 import xpt.Common_qvto
 import xpt.Common
 
-class LayoutData {
+@com.google.inject.Singleton class LayoutData {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

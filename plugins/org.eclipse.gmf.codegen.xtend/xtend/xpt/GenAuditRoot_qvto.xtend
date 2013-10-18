@@ -23,7 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget
 /**
  * FIXME: [MG] Why it is here, in xpt?  
  */
-class GenAuditRoot_qvto {
+@com.google.inject.Singleton class GenAuditRoot_qvto {
 	@Inject extension Common_qvto;
 
 	def Iterable<GenPackage> getAllTargetedModelPackages(GenAuditRoot root) {

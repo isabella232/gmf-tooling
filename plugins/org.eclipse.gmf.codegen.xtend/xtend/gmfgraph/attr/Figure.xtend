@@ -29,7 +29,7 @@ import org.eclipse.gmf.gmfgraph.BasicFont
 import org.eclipse.gmf.gmfgraph.RealFigure
 import gmfgraph.Utils_Statefull_qvto
 
-class Figure {
+@com.google.inject.Singleton class Figure {
 	@Inject extension Common_qvto
 	@Inject extension Common
 	@Inject extension Utils_qvto

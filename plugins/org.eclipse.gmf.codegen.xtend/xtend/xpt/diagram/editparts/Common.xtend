@@ -32,7 +32,7 @@ import org.eclipse.gmf.gmfgraph.Label
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase
 import xpt.editor.VisualIDRegistry
 
-class Common {
+@com.google.inject.Singleton class Common {
 	@Inject extension xpt.Common;
 	@Inject extension Common_qvto;
 	

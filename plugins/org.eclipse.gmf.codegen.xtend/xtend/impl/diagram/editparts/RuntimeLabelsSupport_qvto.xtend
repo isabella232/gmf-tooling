@@ -24,7 +24,7 @@ import org.eclipse.gmf.gmfgraph.VerticalLabel
 import xpt.Common_qvto
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
-class RuntimeLabelsSupport_qvto {
+@com.google.inject.Singleton class RuntimeLabelsSupport_qvto {
 	@Inject extension Common_qvto
 
 	def boolean isVerticalLabel(GenCommonBase commonBase) {

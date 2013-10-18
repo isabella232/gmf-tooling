@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 
-class CreateShortcutDecorationsCommand {
+@com.google.inject.Singleton class CreateShortcutDecorationsCommand {
 	@Inject extension Common;
 
 	def className(GenDiagram it) '''«it.createShortcutDecorationsCommandClassName»'''

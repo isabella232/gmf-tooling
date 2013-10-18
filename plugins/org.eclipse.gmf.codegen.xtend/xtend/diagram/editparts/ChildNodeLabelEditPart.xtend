@@ -20,7 +20,7 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.diagram.editparts.Utils_qvto
 
-class ChildNodeLabelEditPart {
+@com.google.inject.Singleton class ChildNodeLabelEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

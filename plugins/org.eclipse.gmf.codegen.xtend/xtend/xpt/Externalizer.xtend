@@ -38,7 +38,7 @@ import xpt.navigator.NavigatorActionProvider
 import parsers.PredefinedParser
 import xpt.providers.ModelingAssistantProvider
 
-class Externalizer {
+@com.google.inject.Singleton class Externalizer {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
 

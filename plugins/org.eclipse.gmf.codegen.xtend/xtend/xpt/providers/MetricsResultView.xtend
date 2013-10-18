@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView
 import xpt.Common
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
-class MetricsResultView {
+@com.google.inject.Singleton class MetricsResultView {
 
 	@Inject extension Common;
 

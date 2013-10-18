@@ -16,7 +16,7 @@ import xpt.Common_qvto
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
-class domain2notation {
+@com.google.inject.Singleton class domain2notation {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

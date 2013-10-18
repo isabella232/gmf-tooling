@@ -21,7 +21,7 @@ import org.eclipse.gmf.gmfgraph.Polygon
  *	lineAttributes.width = 1.0
  *	lineAttributes.style = LINE_SOLID
  */
-class Shape {
+@com.google.inject.Singleton class Shape {
 
 	def shapeAttrs(org.eclipse.gmf.gmfgraph.Shape it, String figureVarName) '''
 	«fill(it, figureVarName)»

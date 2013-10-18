@@ -3,7 +3,7 @@ package xpt
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import com.google.inject.Inject
 
-class Access {
+@com.google.inject.Singleton class Access {
 	
 	@Inject Externalizer ext;
 	

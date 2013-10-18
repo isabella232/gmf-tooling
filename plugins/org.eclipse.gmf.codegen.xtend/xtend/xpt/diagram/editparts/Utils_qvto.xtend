@@ -30,7 +30,7 @@ import org.eclipse.gmf.gmfgraph.DiagramElement
 import org.eclipse.gmf.gmfgraph.DiagramLabel
 import xpt.Common_qvto
 
-public class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto
 
 	private def <T extends DiagramElement> modeledDiagramElement(GenCommonBase gc, Class<? extends T> clazz) {

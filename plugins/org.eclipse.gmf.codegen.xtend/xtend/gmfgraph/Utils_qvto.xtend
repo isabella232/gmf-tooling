@@ -39,7 +39,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common_qvto
 import com.google.inject.Inject
 
-class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto;
 
 	def String compilationUnitName(FigureDescriptor figure) {

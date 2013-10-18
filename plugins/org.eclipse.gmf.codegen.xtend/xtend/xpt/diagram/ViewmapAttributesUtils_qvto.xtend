@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.StyleAttributes
 import org.eclipse.gmf.codegen.gmfgen.Viewmap
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 
-class ViewmapAttributesUtils_qvto {
+@com.google.inject.Singleton class ViewmapAttributesUtils_qvto {
 
 	def boolean isStoringChildPositions(ViewmapLayoutType layoutType) {
 		return ViewmapLayoutType::XY_LAYOUT == layoutType

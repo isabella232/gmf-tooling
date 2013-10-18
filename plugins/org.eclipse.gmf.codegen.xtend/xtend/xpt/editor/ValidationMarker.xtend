@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
 
-class ValidationMarker {
+@com.google.inject.Singleton class ValidationMarker {
 	@Inject extension Common;
 
 	@MetaDef def className(GenDiagram it) '''ValidationMarker'''

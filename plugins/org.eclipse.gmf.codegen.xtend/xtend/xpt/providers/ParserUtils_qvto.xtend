@@ -15,7 +15,7 @@ package xpt.providers
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 
-class ParserUtils_qvto {
+@com.google.inject.Singleton class ParserUtils_qvto {
 
 	@MetaDef def String parserFieldName(GenCommonBase element) {
 		return element.uniqueIdentifier.toFirstLower + 'Parser'

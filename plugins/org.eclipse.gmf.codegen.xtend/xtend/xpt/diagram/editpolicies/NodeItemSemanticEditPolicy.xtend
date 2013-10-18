@@ -26,7 +26,7 @@ import xpt.editor.VisualIDRegistry
  *	because *ItemSemanticEditPolicy responsible for dealing with semantic model 
  *	elements and meaningless (should not be generated) for pure design nodes.   
  */
-class NodeItemSemanticEditPolicy {
+@com.google.inject.Singleton class NodeItemSemanticEditPolicy {
 	
 	@Inject extension Common;
 	@Inject extension Utils_qvto;

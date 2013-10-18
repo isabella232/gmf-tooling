@@ -23,7 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl
 import xpt.GenModelUtils_qvto
 
 /*package local*/
-class MetaModel_qvto {
+@com.google.inject.Singleton class MetaModel_qvto {
 	@Inject extension GenModelUtils_qvto
 
 	def String getQualifiedPackageInterfaceName(GenPackage gp) {

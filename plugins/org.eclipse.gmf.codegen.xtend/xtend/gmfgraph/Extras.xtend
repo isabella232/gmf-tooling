@@ -19,7 +19,7 @@ import org.eclipse.gmf.gmfgraph.SVGProperty
 import org.eclipse.gmf.gmfgraph.SVGPropertyType
 import xpt.Common
 
-class Extras {
+@com.google.inject.Singleton class Extras {
 	@Inject extension Utils_qvto
 	@Inject extension Common
 

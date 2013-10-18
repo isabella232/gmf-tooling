@@ -21,7 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.OclChoiceParser
 import org.eclipse.gmf.codegen.gmfgen.PredefinedEnumParser
 import xpt.Common_qvto
 
-class ChoiceUtils_qvto {
+@com.google.inject.Singleton class ChoiceUtils_qvto {
 	@Inject extension Common_qvto
 
 	def boolean isOclChoiceLabel(GenCommonBase xptSelf) {

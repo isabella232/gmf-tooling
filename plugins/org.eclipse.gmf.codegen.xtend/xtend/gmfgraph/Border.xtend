@@ -23,7 +23,7 @@ import org.eclipse.gmf.gmfgraph.MarginBorder
 import xpt.Common
 import xpt.Common_qvto
 
-class Border {
+@com.google.inject.Singleton class Border {
 	@Inject extension Common
 	@Inject extension Common_qvto
 	@Inject extension Utils_Statefull_qvto

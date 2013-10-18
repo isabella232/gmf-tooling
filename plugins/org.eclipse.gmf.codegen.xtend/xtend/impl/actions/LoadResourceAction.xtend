@@ -15,7 +15,7 @@ import com.google.inject.Inject
 import xpt.Common
 import xpt.Common_qvto
 
-class LoadResourceAction {
+@com.google.inject.Singleton class LoadResourceAction {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;

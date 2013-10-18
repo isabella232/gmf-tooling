@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 
-class properties {
+@com.google.inject.Singleton class properties {
 
 @Inject extension xpt.propsheet.extensions
 @Inject extension xpt.providers.extensions

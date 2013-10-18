@@ -25,7 +25,7 @@ import xpt.Common_qvto
 /**
  * FIXME: [MG] - fieldNames should be xptXXX
  */
-class getExpression {
+@com.google.inject.Singleton class getExpression {
 	@Inject extension Common_qvto;
 	
 	@Inject MetaModel xptMetaModel;

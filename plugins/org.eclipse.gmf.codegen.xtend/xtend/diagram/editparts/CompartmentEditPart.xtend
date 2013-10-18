@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment
 import xpt.Common
 import xpt.diagram.editparts.Utils_qvto
 
-class CompartmentEditPart {
+@com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 

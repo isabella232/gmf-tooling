@@ -24,7 +24,7 @@ import xpt.Common
 import xpt.diagram.Utils_qvto
 import xpt.providers.ElementInitializers
 
-class CreateLinkCommand {
+@com.google.inject.Singleton class CreateLinkCommand {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 

@@ -19,7 +19,7 @@ import org.eclipse.gmf.gmfgraph.CustomClass
 /**
  * During Xpand->Xtend2 conversion this class had been merged with CustomClass.xpt
  */
-class CustomAttributeOwner {
+@com.google.inject.Singleton class CustomAttributeOwner {
 
 	def customAttributes(org.eclipse.gmf.gmfgraph.CustomAttributeOwner it, String instanceVarName) '''
 		«FOR attr : it.attributes»

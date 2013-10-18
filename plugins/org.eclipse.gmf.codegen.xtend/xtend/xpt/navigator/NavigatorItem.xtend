@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 
-class NavigatorItem {
+@com.google.inject.Singleton class NavigatorItem {
 	@Inject extension Common;
 
 	def className(GenNavigator it) '''«it.navigatorItemClassName»'''

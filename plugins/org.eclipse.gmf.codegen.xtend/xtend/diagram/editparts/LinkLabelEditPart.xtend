@@ -18,7 +18,7 @@ import impl.diagram.editparts.TextAware
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel
 import xpt.Common
 
-class LinkLabelEditPart {
+@com.google.inject.Singleton class LinkLabelEditPart {
 	@Inject extension Common;
 
 	@Inject impl.diagram.editparts.LinkLabelEditPart xptLinkLabelEditPart;

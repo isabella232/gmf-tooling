@@ -12,7 +12,7 @@ import xpt.expressions.OCLExpressionFactory
 import xpt.expressions.getExpression
 import xpt.providers.ElementInitializers
 
-class ActivatorImpl {
+@com.google.inject.Singleton class ActivatorImpl {
 	@Inject extension Common;
 	
 	@Inject Activator xptActivator;

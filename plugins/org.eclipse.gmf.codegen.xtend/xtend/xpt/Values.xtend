@@ -3,7 +3,7 @@ package xpt
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 
-class Values {
+@com.google.inject.Singleton class Values {
 	
 	@Inject Externalizer ext;
 	

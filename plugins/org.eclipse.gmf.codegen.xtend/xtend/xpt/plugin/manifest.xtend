@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import xpt.GenEditorGenerator_qvto
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 
-class manifest {
+@com.google.inject.Singleton class manifest {
 
 @Inject extension GenEditorGenerator_qvto
 

@@ -19,7 +19,7 @@ import org.eclipse.gmf.gmfgraph.Point
 /**
  * No mapMode at all, provided only as hook for extenders
  */
-class MapMode {
+@com.google.inject.Singleton class MapMode {
 	def dispatch mapMode(Dimension it) '''«dx», «dy»'''
 
 	def dispatch mapMode(Point it) '''«x», «y»'''

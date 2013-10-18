@@ -15,7 +15,7 @@ package parsers
 import com.google.inject.Inject
 import xpt.Common
 
-class CustomParser {
+@com.google.inject.Singleton class CustomParser {
 	@Inject extension Common;
 	@Inject extension ParsersUtil;
 

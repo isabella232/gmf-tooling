@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.ETypedElement
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 
-class GenDiagram_qvto {
+@com.google.inject.Singleton class GenDiagram_qvto {
 	def boolean standaloneDomainModel(GenDiagram genDiagram) {
 		return !genDiagram.editorGen.sameFileForDiagramAndModel && genDiagram.domainDiagramElement != null
 	}

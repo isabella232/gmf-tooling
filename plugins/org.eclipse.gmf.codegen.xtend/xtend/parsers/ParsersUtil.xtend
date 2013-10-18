@@ -7,7 +7,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenParsers
 /**
  * [MG] FIXME: revisit, he same problem as with the QualifiedClassNameProvider
 */ 	
-class ParsersUtil {
+@com.google.inject.Singleton class ParsersUtil {
 	
 	@Inject extension Common_qvto;
 	

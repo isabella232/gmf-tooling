@@ -20,7 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.Common_qvto
 import xpt.GenModelUtils_qvto
 
-class DeleteLinkCommand {
+@com.google.inject.Singleton class DeleteLinkCommand {
 	@Inject extension GenModelUtils_qvto;
 	@Inject extension Common_qvto;
 

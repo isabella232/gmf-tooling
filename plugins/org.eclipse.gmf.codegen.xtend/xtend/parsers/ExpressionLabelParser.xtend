@@ -17,7 +17,7 @@ import impl.parsers.expression_qvto
 import xpt.CodeStyle
 import xpt.Common
 
-class ExpressionLabelParser {
+@com.google.inject.Singleton class ExpressionLabelParser {
 	@Inject extension Common;
 	@Inject extension expression_qvto;
 	@Inject extension ParsersUtil;

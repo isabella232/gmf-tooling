@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 
-class DomainNavigatorItem {
+@com.google.inject.Singleton class DomainNavigatorItem {
 	@Inject extension Common;
 
 	@Inject AbstractNavigatorItem xptAbstractNavigatorItem;

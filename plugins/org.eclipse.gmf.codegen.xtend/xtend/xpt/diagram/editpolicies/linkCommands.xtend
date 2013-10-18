@@ -44,7 +44,7 @@ import xpt.editor.VisualIDRegistry
  *              because RefLinks don't have underlying semantic identity   
  *
 */
-class linkCommands {
+@com.google.inject.Singleton class linkCommands {
 	@Inject extension Utils_qvto;
 	@Inject extension Common;
 	@Inject extension QualifiedClassNameProvider;

@@ -2,7 +2,11 @@ package xpt
 
 import java.util.regex.Pattern
 
-class Common_qvto {
+@com.google.inject.Singleton class Common_qvto {
+
+	new(){
+		System.out.println("xpt.Common_qvto");
+	}
 
 	def oclIsKindOf(Object obj, Class<?> clazz) {
 		return obj != null && clazz.isInstance(obj);

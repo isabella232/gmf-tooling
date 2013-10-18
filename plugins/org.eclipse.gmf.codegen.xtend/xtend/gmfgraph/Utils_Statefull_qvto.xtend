@@ -2,14 +2,12 @@ package gmfgraph
 
 import java.util.List
 import org.eclipse.gmf.gmfgraph.CustomBorder
-import com.google.inject.Singleton
 
 /**
  * FIXME: @Singleton is ugly way to workaround the absence of FILE directive and QVTO properties.
  * Fortunately, it is the only place across all GMFT templates where those 2 features had been used
  */
-@Singleton
-class Utils_Statefull_qvto {
+@com.google.inject.Singleton class Utils_Statefull_qvto {
 	
 	private List<CustomBorder> myBordersInUse;
 

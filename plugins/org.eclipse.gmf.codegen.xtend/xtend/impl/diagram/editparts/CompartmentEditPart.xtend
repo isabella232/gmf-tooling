@@ -23,7 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 
-class CompartmentEditPart {
+@com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

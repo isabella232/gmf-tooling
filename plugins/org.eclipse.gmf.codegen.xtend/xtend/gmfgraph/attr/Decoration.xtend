@@ -19,7 +19,7 @@ import org.eclipse.gmf.gmfgraph.PolygonDecoration
 import org.eclipse.gmf.gmfgraph.Polyline
 import org.eclipse.gmf.gmfgraph.PolylineDecoration
 
-class Decoration {
+@com.google.inject.Singleton class Decoration {
 	@Inject Figure xptFigure;
 	@Inject MapMode xptMapMode;
 	@Inject Shape xptShape;

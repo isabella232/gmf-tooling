@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import xpt.Common
 
-class getEditorInput {
+@com.google.inject.Singleton class getEditorInput {
 	@Inject extension Common;
 
 	def getEditorInput(GenEditorGenerator it) '''

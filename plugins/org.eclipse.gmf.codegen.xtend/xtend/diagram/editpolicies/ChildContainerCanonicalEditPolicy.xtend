@@ -17,7 +17,7 @@ import impl.diagram.update.CanonicalUpdate
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer
 import xpt.Common
 
-class ChildContainerCanonicalEditPolicy {
+@com.google.inject.Singleton class ChildContainerCanonicalEditPolicy {
 	@Inject extension Common;
 
 	@Inject CanonicalUpdate xptCanonicalUpdate;

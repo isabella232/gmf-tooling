@@ -20,7 +20,7 @@ import org.eclipse.gmf.internal.common.codegen.Conversions
 /**
  * XXX: [MG] I don't like dependency from Common -> VisualIdRegistry 
  */
-class Common {
+@com.google.inject.Singleton class Common {
 	def copyright(GenEditorGenerator it) 
 	'''
 	«IF copyrightText != null»

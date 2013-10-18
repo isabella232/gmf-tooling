@@ -23,7 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenParsers
  * However, for 3.1 release we still will generate empty file (without any java content), 
  * to ensure that the old code, including calls to non existing i18n fields in Messages is cleaned up.
  */
-class AbstractParser {
+@com.google.inject.Singleton class AbstractParser {
 
 	def className(GenParsers it) '''AbstractAttributeParser'''
 

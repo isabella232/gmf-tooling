@@ -20,7 +20,7 @@ import xpt.Common_qvto
 import xpt.editor.InitDiagramFileAction
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 
-class PredefinedAction {
+@com.google.inject.Singleton class PredefinedAction {
 
 	@Inject extension Common_qvto
 

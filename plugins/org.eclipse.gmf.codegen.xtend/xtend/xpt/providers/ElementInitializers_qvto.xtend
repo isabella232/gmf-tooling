@@ -26,7 +26,7 @@ import java.util.List
 /**
  * FIXME: [MG] commented getSuffixes below
  */
-class ElementInitializers_qvto { // 
+@com.google.inject.Singleton class ElementInitializers_qvto { // 
 
 	def List<Integer> newListAppending(List<Integer> list, int toAppend) {
 		var result = <Integer>newLinkedList()

@@ -20,7 +20,7 @@ import xpt.Common
 /**
  * FIXME: [MG] why here? move to .navigator?
  */
-class UriEditorInputTester {
+@com.google.inject.Singleton class UriEditorInputTester {
 	@Inject extension Common;
 
 	def className(GenNavigator it) '''«uriInputTesterClassName»'''

@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCustomAction
 import xpt.Common
 import xpt.Common_qvto
 
-class CustomAction {
+@com.google.inject.Singleton class CustomAction {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;

@@ -21,7 +21,7 @@ import org.eclipse.gmf.gmfgraph.PolylineDecoration
 /**
  * Instantiate and define attributes for DecorationFigures
  */
-class Decoration {
+@com.google.inject.Singleton class Decoration {
 
 	@Inject Runtime xptRuntime;
 	@Inject Attrs xptAttrs;

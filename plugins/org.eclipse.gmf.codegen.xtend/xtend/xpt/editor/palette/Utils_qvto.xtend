@@ -22,7 +22,7 @@ import xpt.Common_qvto
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import org.eclipse.gmf.codegen.gmfgen.EntryBase
 
-class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto;
 
 	def dispatch String activatorFQN(Palette palette) {

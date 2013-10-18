@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPreference
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
 
-class CustomPage {
+@com.google.inject.Singleton class CustomPage {
 	@Inject extension Common;
 
 	def protected String computePackageName(GenCustomPreferencePage it) {
@@ -65,7 +65,7 @@ class CustomPage {
 
 	/**
 	 * [artem]: the reason I didn't split this template up into two distinct, addFieldsMethod and initHelpMethod, is that
-	 * using superclass other than oe.gmf...AbstractPreferencePage may require implementation of completely different
+	 * using super class other than oe.gmf...AbstractPreferencePage may require implementation of completely different
 	 * set of methods. Besides, there's not to much generated, anyway.
 	 */
 	def methods(GenCustomPreferencePage it) '''

@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import xpt.Common
 
-class ReorientLinkCommand {
+@com.google.inject.Singleton class ReorientLinkCommand {
 	@Inject extension Common;
 	@Inject ReorientLinkUtils xptReorientLinkUtils;
 

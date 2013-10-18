@@ -15,7 +15,7 @@ package xpt.diagram.updater
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater
 
-class extensions {
+@com.google.inject.Singleton class extensions {
 	@Inject extension xpt.Common;
 
 	def extensions(GenDiagramUpdater it) '''

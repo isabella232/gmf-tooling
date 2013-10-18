@@ -17,7 +17,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 
-public class BaseEditHelper {
+@com.google.inject.Singleton public class BaseEditHelper {
 	@Inject extension Common;
 
 	def extendsClause(GenDiagram it) '''extends «superClass(it)»'''

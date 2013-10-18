@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater
 import xpt.Common
 
-class UpdateCommand {
+@com.google.inject.Singleton class UpdateCommand {
 	@Inject extension Common;
 
 	def extendsList(GenDiagramUpdater it) ''''''

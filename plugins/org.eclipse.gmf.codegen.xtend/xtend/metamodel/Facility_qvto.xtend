@@ -2,7 +2,7 @@ package metamodel;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
 
-class Facility_qvto {
+@com.google.inject.Singleton class Facility_qvto {
 	def getNameToken(GenPackage gp) {
 		return gp.prefix
 	}

@@ -17,7 +17,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater
 import xpt.Common
 
-class LinkDescriptor {
+@com.google.inject.Singleton class LinkDescriptor {
 	@Inject extension Common;
 
 	def className(GenDiagramUpdater it) '''«linkDescriptorClassName»'''

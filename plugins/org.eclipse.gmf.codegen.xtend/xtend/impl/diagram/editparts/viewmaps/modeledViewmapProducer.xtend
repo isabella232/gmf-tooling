@@ -20,7 +20,7 @@ import org.eclipse.gmf.gmfgraph.Node
 import org.eclipse.gmf.gmfgraph.Connection
 import org.eclipse.gmf.gmfgraph.DiagramElement
 
-class modeledViewmapProducer {
+@com.google.inject.Singleton class modeledViewmapProducer {
 	@Inject extension Common_qvto
 	@Inject extension BareFigure_qvto
 	

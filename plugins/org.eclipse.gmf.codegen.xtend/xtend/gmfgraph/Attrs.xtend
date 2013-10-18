@@ -28,7 +28,7 @@ import xpt.Common
 /**
  * Defines attributes for Figures (for DecorationFigure subclasses see Decoration.xpt)
  */
-class Attrs {
+@com.google.inject.Singleton class Attrs {
 	@Inject gmfgraph.attr.Shape xptShape;
 	@Inject gmfgraph.attr.Figure xptFigure;
 	@Inject MapMode xptMapMode;

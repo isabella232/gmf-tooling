@@ -20,7 +20,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature
 import org.eclipse.emf.codegen.ecore.genmodel.impl.GenClassImpl
 import xpt.GenModelUtils_qvto
 
-class MetaModel {
+@com.google.inject.Singleton class MetaModel {
 
 	@Inject extension MetaModel_qvto;
 	@Inject extension GenModelUtils_qvto;

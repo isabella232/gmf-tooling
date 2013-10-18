@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
 
-class StandardPage {
+@com.google.inject.Singleton class StandardPage {
 	@Inject extension Common;
 
 	def className(GenStandardPreferencePage it) '''«getClassName()»'''

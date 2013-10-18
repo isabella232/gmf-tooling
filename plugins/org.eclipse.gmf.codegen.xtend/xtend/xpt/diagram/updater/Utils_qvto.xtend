@@ -35,7 +35,7 @@ enum UpdaterLinkType {
 	OUTGOING
 }
 
-class Utils_qvto {
+@com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto;
 	@Inject extension LinkUtils_qvto;
 

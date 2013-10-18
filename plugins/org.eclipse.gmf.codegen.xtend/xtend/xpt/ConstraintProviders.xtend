@@ -5,7 +5,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer
 
-class ConstraintProviders {
+@com.google.inject.Singleton class ConstraintProviders {
 
 	@Inject extension Common
 	@Inject extension GenAuditRoot_qvto

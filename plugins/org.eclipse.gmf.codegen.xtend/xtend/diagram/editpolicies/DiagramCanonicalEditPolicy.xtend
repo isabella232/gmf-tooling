@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 import xpt.Common_qvto
 
-class DiagramCanonicalEditPolicy {
+@com.google.inject.Singleton class DiagramCanonicalEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

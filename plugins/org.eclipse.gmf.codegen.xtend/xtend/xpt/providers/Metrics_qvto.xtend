@@ -22,7 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common_qvto
 
-class Metrics_qvto {
+@com.google.inject.Singleton class Metrics_qvto {
 	@Inject extension Common_qvto;
 
 	def Iterable<GenMetricRule> getNotationMetrics(GenMetricContainer c) {

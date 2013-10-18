@@ -21,7 +21,7 @@ import org.eclipse.gmf.gmfgraph.FigureAccessor
 import org.eclipse.gmf.gmfgraph.FigureDescriptor
 import xpt.Common
 
-class Descriptor {
+@com.google.inject.Singleton class Descriptor {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 	@Inject extension Utils_Statefull_qvto;

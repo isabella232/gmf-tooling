@@ -19,7 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel
 import xpt.Common
 import xpt.Common_qvto
 
-class DiagramEditPart {
+@com.google.inject.Singleton class DiagramEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

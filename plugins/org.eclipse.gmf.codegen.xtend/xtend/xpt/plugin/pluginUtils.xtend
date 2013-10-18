@@ -3,7 +3,7 @@ package xpt.plugin
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 
-class pluginUtils {
+@com.google.inject.Singleton class pluginUtils {
 	
 	
 	@Inject extension xpt.ConstraintProviders

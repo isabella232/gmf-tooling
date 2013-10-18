@@ -22,7 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenParserImplementation
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 import xpt.Common_qvto
 
-class expression_qvto {
+@com.google.inject.Singleton class expression_qvto {
 	@Inject extension Common_qvto
 
 	def boolean isViewExpressionDefinedAndOcl(GenCommonBase xptSelf) {

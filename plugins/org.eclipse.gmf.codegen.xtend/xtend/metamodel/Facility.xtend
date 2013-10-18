@@ -5,7 +5,7 @@ import com.google.inject.Inject
 import xpt.Common
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage
 
-class Facility {
+@com.google.inject.Singleton class Facility {
 
 	@Inject extension Common;
 	@Inject extension Facility_qvto;

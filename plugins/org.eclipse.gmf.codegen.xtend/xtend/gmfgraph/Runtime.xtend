@@ -44,7 +44,7 @@ import org.eclipse.gmf.gmfgraph.XYLayout
 import org.eclipse.gmf.gmfgraph.XYLayoutData
 import xpt.Common_qvto
 
-class Runtime {
+@com.google.inject.Singleton class Runtime {
 	@Inject extension Utils_qvto
 	@Inject extension Common_qvto
 

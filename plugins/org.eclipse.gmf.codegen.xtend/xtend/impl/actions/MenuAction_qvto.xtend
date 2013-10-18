@@ -14,7 +14,7 @@ package impl.actions
 
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
 
-class MenuAction_qvto {
+@com.google.inject.Singleton class MenuAction_qvto {
 
 	def boolean hasCommandsToContribute(GenEditorGenerator editorGen) {
 		return !editorGen.contextMenus.empty

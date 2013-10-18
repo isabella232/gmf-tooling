@@ -22,7 +22,7 @@ import org.eclipse.gmf.gmfgraph.GridLayout
 import org.eclipse.gmf.gmfgraph.LayoutRef
 import xpt.Common
 
-class Layout {
+@com.google.inject.Singleton class Layout {
 	@Inject extension Common;
 	
 	@Inject Runtime xptRuntime;
