@@ -24,18 +24,20 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.diagram.updater.DiagramUpdater
 import xpt.diagram.updater.Utils_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.updater.NodeDescriptor
+import xpt.diagram.updater.LinkDescriptor
 
 class DiagramContentInitializer {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject MetaModel xptMetaModel;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject DiagramUpdater xptDiagramUpdater;
 	@Inject Activator xptActivator;
+	@Inject NodeDescriptor nodeDescriptor
+	@Inject LinkDescriptor linkDescriptor
 
 	def className(GenDiagram it) '''«diagramContentInitializerClassName»'''
 
@@ -84,11 +86,11 @@ class DiagramContentInitializer {
 		«generatedMemberComment»
 		public void initDiagramContent(org.eclipse.gmf.runtime.notation.Diagram diagram) {
 			if (!«VisualIDRegistry::modelID(it)».equals(diagram.getType())) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Incorrect diagram passed as a parameter: " + diagram.getType());
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Incorrect diagram passed as a parameter: " + diagram.getType());
 				return;
 			}
 			if («xptMetaModel.NotInstance(domainDiagramElement, 'diagram.getElement()')») {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Incorrect diagram element specified: " + diagram.getElement() + " instead of «domainDiagramElement.
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Incorrect diagram element specified: " + diagram.getElement() + " instead of «domainDiagramElement.
 			ecoreClass.name»");
 				return;
 			}
@@ -106,7 +108,7 @@ class DiagramContentInitializer {
 			«IF hasSemanticChildren(it)»
 				java.util.Collection childNodeDescriptors = «xptDiagramUpdater.getSemanticChildrenMethodCall(it)»(view);
 				for (java.util.Iterator it = childNodeDescriptors.iterator(); it.hasNext();) {
-					createNode(view, («getNodeDescriptorQualifiedClassName(diagram.editorGen.diagramUpdater)») it.next());
+					createNode(view, («nodeDescriptor.qualifiedClassName(diagram.editorGen.diagramUpdater)») it.next());
 				}
 			«ENDIF»
 			«createCompartmentsChildren(it)»
@@ -139,7 +141,7 @@ class DiagramContentInitializer {
 
 	def createNode(GenDiagram it) '''
 		«generatedMemberComment»
-		private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «getNodeDescriptorQualifiedClassName(editorGen.diagramUpdater)» nodeDescriptor) {
+		private void createNode(org.eclipse.gmf.runtime.notation.View parentView, «nodeDescriptor.qualifiedClassName(editorGen.diagramUpdater)» nodeDescriptor) {
 			final String nodeType = «xptVisualIDRegistry.typeMethodCall(it, 'nodeDescriptor.getVisualID()')»;
 			org.eclipse.gmf.runtime.notation.Node node = org.eclipse.gmf.runtime.diagram.core.services.ViewService.createNode(parentView, nodeDescriptor.getModelElement(), nodeType, «xptActivator.
 			preferenceHintAccess(editorGen)»);
@@ -163,8 +165,8 @@ class DiagramContentInitializer {
 				continueLinkCreation = false;
 				java.util.Collection additionalDescriptors = new java.util.LinkedList();
 				for (java.util.Iterator it = myLinkDescriptors.iterator(); it.hasNext();) {
-					«getLinkDescriptorQualifiedClassName(editorGen.diagramUpdater)» nextLinkDescriptor = («
-			getLinkDescriptorQualifiedClassName(editorGen.diagramUpdater)») it.next();
+					«linkDescriptor.qualifiedClassName(editorGen.diagramUpdater)» nextLinkDescriptor = («
+			linkDescriptor.qualifiedClassName(editorGen.diagramUpdater)») it.next();
 					if (!myDomain2NotationMap.containsKey(nextLinkDescriptor.getSource()) || !myDomain2NotationMap.containsKey(nextLinkDescriptor.getDestination())) {
 						continue;
 					}

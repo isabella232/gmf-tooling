@@ -20,16 +20,23 @@ import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.GenAuditRoot_qvto
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
+import xpt.providers.ValidationProvider
+import xpt.providers.MarkerNavigationProvider
+import xpt.providers.ValidationDecoratorProvider
 
 class ValidateAction {
 	@Inject extension Common;
 	@Inject extension GenAuditRoot_qvto;
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
+	@Inject Activator xptActivator;
 	@Inject ValidationMarker xptValidationMarker;
 	@Inject Externalizer xptExternalizer;
+	@Inject DiagramEditorUtil xptDiagramEditorUtil;
+	@Inject ValidationProvider xptValidationProvider;
+	@Inject MarkerNavigationProvider xptMarkerNavigationProvider;
+	@Inject ValidationDecoratorProvider xptValidationDecoratorProvider;
 
 	@MetaDef def className(GenDiagram it) '''ValidateAction'''
 
@@ -101,7 +108,7 @@ class ValidateAction {
 					«ENDIF»
 					.run(new org.eclipse.core.runtime.NullProgressMonitor());			
 				} catch (Exception e) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Validation action failed", e); «nonNLS(1)»
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Validation action failed", e); «nonNLS(1)»
 				}
 			}
 		}
@@ -112,7 +119,7 @@ class ValidateAction {
 		«generatedMemberComment»
 		public static void runValidation(org.eclipse.gmf.runtime.notation.View view) {
 			try {
-				if («getDiagramEditorUtilQualifiedClassName(it)».openDiagram(view.eResource())) {
+				if («xptDiagramEditorUtil.qualifiedClassName(it)».openDiagram(view.eResource())) {
 					org.eclipse.ui.IEditorPart editorPart = org.eclipse.ui.PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 					if (editorPart instanceof org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart) {
@@ -123,7 +130,7 @@ class ValidateAction {
 					}
 				}
 			} catch (Exception e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 						"Validation action failed", e); «nonNLS(1)»
 			}
 		}
@@ -147,7 +154,7 @@ class ValidateAction {
 			final org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart fpart = diagramEditPart;
 			final org.eclipse.gmf.runtime.notation.View fview = view;
 			org.eclipse.emf.transaction.TransactionalEditingDomain txDomain = org.eclipse.emf.transaction.util.TransactionUtil.getEditingDomain(view);
-			«getValidationProviderQualifiedClassName(it)».runWithConstraints(txDomain, new Runnable() {
+			«xptValidationProvider.qualifiedClassName(it)».runWithConstraints(txDomain, new Runnable() {
 		
 			public void run() {
 				validate(fpart, fview);
@@ -182,7 +189,7 @@ class ValidateAction {
 			org.eclipse.core.resources.IFile target = view.eResource() != null ?
 					org.eclipse.emf.workspace.util.WorkspaceSynchronizer.getFile(view.eResource()) : null;
 			if (target != null) {
-				«getMarkerNavigationProviderQualifiedClassName(it)».deleteMarkers(target);
+				«xptMarkerNavigationProvider.qualifiedClassName(it)».deleteMarkers(target);
 			}
 			«ELSE»
 			org.eclipse.gmf.runtime.notation.View target = view;
@@ -201,17 +208,17 @@ class ValidateAction {
 			}
 			«IF shouldRunValidateOnDiagram(editorGen.audits)»
 			«IF hasDiagramElementTargetRule(editorGen.audits)»
-				validator.setTraversalStrategy(«getValidationProviderQualifiedClassName(it)».getNotationTraversalStrategy(validator));
+				validator.setTraversalStrategy(«xptValidationProvider.qualifiedClassName(it)».getNotationTraversalStrategy(validator));
 			«ENDIF»
 			org.eclipse.core.runtime.IStatus status = validator.validate(view);
 			createMarkers(target, status, diagramEditPart);
 			«ENDIF»
 			«IF editorGen.application != null && validationDecorators»
-			«getValidationDecoratorProviderQualifiedClassName(it)».refreshDecorators(view);
+			«xptValidationDecoratorProvider.qualifiedClassName(it)».refreshDecorators(view);
 			for (java.util.Iterator it = view.eAllContents(); it.hasNext();) {
 				org.eclipse.emf.ecore.EObject next = (org.eclipse.emf.ecore.EObject) it.next();
 				if (next instanceof org.eclipse.gmf.runtime.notation.View) {
-					«getValidationDecoratorProviderQualifiedClassName(it)».refreshDecorators(
+					«xptValidationDecoratorProvider.qualifiedClassName(it)».refreshDecorators(
 							(org.eclipse.gmf.runtime.notation.View) next);
 				}
 			}
@@ -232,13 +239,13 @@ class ValidateAction {
 			}
 			final org.eclipse.core.runtime.IStatus rootStatus = validationStatus;
 			java.util.List allStatuses = new java.util.ArrayList();
-			«getDiagramEditorUtilQualifiedClassName(it)».LazyElement2ViewMap element2ViewMap = new «getDiagramEditorUtilQualifiedClassName(it)».LazyElement2ViewMap(
+			«xptDiagramEditorUtil.qualifiedClassName(it)».LazyElement2ViewMap element2ViewMap = new «xptDiagramEditorUtil.qualifiedClassName(it)».LazyElement2ViewMap(
 				diagramEditPart.getDiagramView(),
 				collectTargetElements(rootStatus, new java.util.HashSet<org.eclipse.emf.ecore.EObject>(), allStatuses));
 			for (java.util.Iterator it = allStatuses.iterator(); it.hasNext();) {
 			org.eclipse.emf.validation.model.IConstraintStatus nextStatus =
 			(org.eclipse.emf.validation.model.IConstraintStatus) it.next();
-			org.eclipse.gmf.runtime.notation.View view = «getDiagramEditorUtilQualifiedClassName(it)».findView(
+			org.eclipse.gmf.runtime.notation.View view = «xptDiagramEditorUtil.qualifiedClassName(it)».findView(
 			diagramEditPart, nextStatus.getTarget(), element2ViewMap);			
 			addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view), 
 			org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(nextStatus.getTarget(), true), 
@@ -260,8 +267,8 @@ class ValidateAction {
 			}
 			final org.eclipse.emf.common.util.Diagnostic rootStatus = emfValidationStatus;
 			java.util.List allDiagnostics = new java.util.ArrayList();
-			«getDiagramEditorUtilQualifiedClassName(it)».LazyElement2ViewMap element2ViewMap =
-			new «getDiagramEditorUtilQualifiedClassName(it)».LazyElement2ViewMap(
+			«xptDiagramEditorUtil.qualifiedClassName(it)».LazyElement2ViewMap element2ViewMap =
+			new «xptDiagramEditorUtil.qualifiedClassName(it)».LazyElement2ViewMap(
 				diagramEditPart.getDiagramView(),
 				collectTargetElements(rootStatus, new java.util.HashSet<org.eclipse.emf.ecore.EObject>(), allDiagnostics));
 			for (java.util.Iterator it = emfValidationStatus.getChildren().iterator(); it.hasNext();) {
@@ -269,7 +276,7 @@ class ValidateAction {
 			java.util.List data = nextDiagnostic.getData();
 			if (data != null && !data.isEmpty() && data.get(0) instanceof org.eclipse.emf.ecore.EObject) {
 			org.eclipse.emf.ecore.EObject element = (org.eclipse.emf.ecore.EObject) data.get(0);
-			org.eclipse.gmf.runtime.notation.View view = «getDiagramEditorUtilQualifiedClassName(it)».findView(
+			org.eclipse.gmf.runtime.notation.View view = «xptDiagramEditorUtil.qualifiedClassName(it)».findView(
 				diagramEditPart, element, element2ViewMap);
 			addMarker(diagramEditPart.getViewer(), target, view.eResource().getURIFragment(view),
 				org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil.getQualifiedName(element, true),
@@ -290,7 +297,7 @@ class ValidateAction {
 			return;
 			}
 			«IF editorGen.application == null»
-			«getMarkerNavigationProviderQualifiedClassName(it)».addMarker(
+			«xptMarkerNavigationProvider.qualifiedClassName(it)».addMarker(
 					target, elementId, location, message, statusSeverity);
 			«ELSE»
 			new «xptValidationMarker.qualifiedClassName(it)»(

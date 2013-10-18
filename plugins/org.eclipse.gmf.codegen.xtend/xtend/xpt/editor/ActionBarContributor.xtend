@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView
 import xpt.Common
 import xpt.Common_qvto
 import xpt.GenEditorGenerator_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.providers.MetricProvider
 
 class ActionBarContributor {
 	@Inject extension Common;
@@ -25,9 +25,9 @@ class ActionBarContributor {
 
 	@Inject extension GenEditorGenerator_qvto;
 
-	@Inject extension QualifiedClassNameProvider;
-
+	@Inject Editor xptEditor;
 	@Inject ValidateAction xptValidateAction;
+	@Inject MetricProvider xptMetricProvider;
 
 	def className(GenEditorView it) '''«actionBarContributorClassName»'''
 	
@@ -48,12 +48,12 @@ class ActionBarContributor {
 		
 			«generatedMemberComment»
 			protected Class getEditorClass() {
-				return «getEditorQualifiedClassName(it)».class;
+				return «xptEditor.qualifiedClassName(it)».class;
 			}
 		
 			«generatedMemberComment»
 			protected String getEditorId() {
-				return «getEditorQualifiedClassName(it)».ID;
+				return «xptEditor.qualifiedClassName(it)».ID;
 			}
 			«initMethod(it)»
 			«additions(it)»
@@ -85,7 +85,7 @@ class ActionBarContributor {
 					editMenu.appendToGroup("validationGroup", validateAction); «nonNLS(1)»
 				«ENDIF»
 				«IF editorGen.metrics != null && editorGen.metrics.metrics.notEmpty»
-					org.eclipse.jface.action.IAction metricsAction = new «getMetricProviderQualifiedClassName(editorGen.diagram)».MetricsAction(page);
+					org.eclipse.jface.action.IAction metricsAction = new «xptMetricProvider.qualifiedClassName(editorGen.diagram)».MetricsAction(page);
 					editMenu.appendToGroup("validationGroup", metricsAction); «nonNLS(1)»
 				«ENDIF»
 			«ENDIF/*hasAudits || hasMetrics */»

@@ -15,22 +15,20 @@ package xpt.editor
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.xtend.annotations.Localization
-import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
 
 class NewDiagramFileWizard {
 	@Inject extension Common;
 
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject DiagramEditorUtil xptDiagramEditorUtil;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+	@Inject DiagramContentInitializer xptDiagramContentInitializer;
 
 	@Inject ModelElementSelectionPage xptModelElementSelectionPage;
 
@@ -84,7 +82,7 @@ class NewDiagramFileWizard {
 				throw new IllegalArgumentException("Unsupported URI: " + domainModelURI); «nonNLS(1)»
 			}
 			myFileCreationPage.setContainerFullPath(filePath);
-			myFileCreationPage.setFileName(«getDiagramEditorUtilQualifiedClassName(it)».getUniqueFileName(
+			myFileCreationPage.setFileName(«xptDiagramEditorUtil.qualifiedClassName(it)».getUniqueFileName(
 					filePath, fileName, "«editorGen.diagramFileExtension»")); «nonNLS(1)»
 	
 			diagramRootElementSelectionPage = new DiagramRootElementSelectionPage(«xptExternalizer.accessorCall(editorGen,
@@ -139,7 +137,7 @@ class NewDiagramFileWizard {
 					diagramResource.getContents().add(diagram.getElement());
 					«ENDIF»
 					«IF !it.synchronized»
-					new «getDiagramContentInitializerQualifiedClassName(it)»().initDiagramContent(diagram);			
+					new «xptDiagramContentInitializer.qualifiedClassName(it)»().initDiagramContent(diagram);			
 					«ENDIF»
 					return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult();
 				}
@@ -148,15 +146,15 @@ class NewDiagramFileWizard {
 				org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(
 					command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 				diagramResource.save(«xptDiagramEditorUtil.callGetSaveOptions(it)»);
-				«getDiagramEditorUtilQualifiedClassName(it)».openDiagram(diagramResource);
+				«xptDiagramEditorUtil.qualifiedClassName(it)».openDiagram(diagramResource);
 			} catch (org.eclipse.core.commands.ExecutionException e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Unable to create model and diagram", e); «nonNLS(1)»
 			} catch (java.io.IOException ex) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Save operation failed for: " + diagramModelURI, ex); «nonNLS(1)»
 			} catch (org.eclipse.ui.PartInitException ex) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError(
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError(
 					"Unable to open editor", ex); «nonNLS(1)»
 			}			
 			return true;

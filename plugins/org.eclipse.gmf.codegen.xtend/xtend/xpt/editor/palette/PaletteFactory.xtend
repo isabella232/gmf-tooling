@@ -28,13 +28,11 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.providers.ElementTypes
-import xpt.QualifiedClassNameProvider
 
 class PaletteFactory {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject ElementTypes xptElementTypes;
 	@Inject Externalizer xptExternalizer;
@@ -207,7 +205,7 @@ class PaletteFactory {
 		«toolVarName».setSmallIcon(«palette.activatorFQN».findImageDescriptor("«smallIconPath»")); «nonNLS(1)»
 	«ELSEIF it.oclIsKindOf(typeof(ToolEntry))»
 		«IF (it as ToolEntry).elements.head != null»
-			«toolVarName».setSmallIcon(«getElementTypesQualifiedClassName(palette.diagram)».getImageDescriptor(«xptElementTypes.accessElementType((it as ToolEntry).elements.head)»));
+			«toolVarName».setSmallIcon(«xptElementTypes.qualifiedClassName(palette.diagram)».getImageDescriptor(«xptElementTypes.accessElementType((it as ToolEntry).elements.head)»));
 		«ENDIF»
 	«ENDIF»
 	'''

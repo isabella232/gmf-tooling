@@ -19,11 +19,9 @@ import plugin.Activator
 import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
 
 class ElementChooser {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject extension ExternalizerUtils_qvto;
 	@Inject Externalizer xptExternalizer;
@@ -198,7 +196,7 @@ class ElementChooser {
 		
 		«generatedMemberComment»
 		private org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider myAdapterFctoryContentProvier = new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(« //
-		getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
+		xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 	'''
 
 	def METCP_getChildren(GenDiagram it) '''
@@ -216,7 +214,7 @@ class ElementChooser {
 					org.eclipse.emf.ecore.resource.Resource modelResource = resourceSet.getResource(org.eclipse.emf.common.util.URI.createPlatformResourceURI(resourcePath.toString(), true), true);
 					return myAdapterFctoryContentProvier.getChildren(modelResource);
 				} catch (org.eclipse.emf.common.util.WrappedException e) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); «nonNLS(
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); «nonNLS(
 			1)»
 				}
 				return java.util.Collections.EMPTY_LIST.toArray();
@@ -306,7 +304,7 @@ class ElementChooser {
 		
 		«generatedMemberComment»
 			private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«
-			getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
+			xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 	'''
 
 	def METLP_getImage(GenDiagram it) '''
