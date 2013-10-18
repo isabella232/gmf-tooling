@@ -16,13 +16,12 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import plugin.Activator
 import xpt.Common
-import xpt.QualifiedClassNameProvider
 
 class OCLExpressionFactory {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject Activator xptActivator;
+	@Inject AbstractExpression xptAbstractExpression;
 	
 	def className(GenExpressionInterpreter it) '''«it.className»'''
 
@@ -42,17 +41,17 @@ class OCLExpressionFactory {
 		«initInterpreterFactory(it)»
 	
 		«generatedMemberComment(it, 'This is factory method, callers are responsible to keep reference to the return value if they want to reuse parsed expression')»
-		public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
+		public static «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
 			return new Expression(body, context, environment);
 		}
 	
 		«generatedMemberComment(it, 'This method will become private in the next release')»«/* FIXME [MG] private or completely remove in the next release. Besides, no real need to pass emptyMap when null would suffice  */»
-		public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
+		public static «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 			return getExpression(body, context, java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>emptyMap());
 		}
 	
 		«generatedMemberComment»
-		private static class Expression extends «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» {
+		private static class Expression extends «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» {
 	
 			«generatedMemberComment»
 			private final org.eclipse.ocl.ecore.OCL oclInstance;
@@ -136,14 +135,14 @@ class OCLExpressionFactory {
 	 */
 	def initInterpreterFactory(GenExpressionInterpreter it) '''
 	«generatedMemberComment»
-	private final «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)»[] expressions; 
+	private final «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)»[] expressions; 
 	
 	«generatedMemberComment»
 	private final String [] expressionBodies;	
 
 	«generatedMemberComment»
 	protected «className»() {
-		this.expressions = new «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)»[«expressions.size»];
+		this.expressions = new «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)»[«expressions.size»];
 		this.expressionBodies = new String[] {
 				«FOR e : expressions»
 				«e.bodyString», «nonNLS(1)»
@@ -174,7 +173,7 @@ class OCLExpressionFactory {
 	 * - DGMT and reuse of gmfgen::ValueExpressions might be related here - if we decide identical body is enough to
 	 * reuse an expression (and change DGMT#bindToProvider accordingly), then the answer to previous point would become obvious (i.e. "body is enough")
 	 */generatedMemberComment»
-	public static «getAbstractExpressionQualifiedClassName(it.container.editorGen.diagram)» getExpression(int index, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
+	public static «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» getExpression(int index, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
 		«className» cached = getInstance();
 		if (index < 0 || index >= cached.expressions.length) {
 			throw new IllegalArgumentException();

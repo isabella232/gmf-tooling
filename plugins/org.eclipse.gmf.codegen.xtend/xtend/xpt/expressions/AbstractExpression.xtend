@@ -15,11 +15,12 @@ package xpt.expressions
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class AbstractExpression {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
+
+	@Inject Activator xptActivator;
 
 	def extendsList(GenDiagram it) ''''''
 
@@ -62,11 +63,11 @@ class AbstractExpression {
 		
 			«generatedMemberComment»
 			protected void setStatus(int severity, String message, Throwable throwable) {		
-				String pluginID = «getActivatorQualifiedClassName(editorGen.plugin)».ID;
+				String pluginID = «xptActivator.qualifiedClassName(editorGen.plugin)».ID;
 				this.status = new org.eclipse.core.runtime.Status(severity, pluginID, -1, (message != null) ? message : "", throwable); «nonNLS(
 			1)»
 				if(!this.status.isOK()) {
-					«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable); «nonNLS(
+					«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Expression problem:" + message + "body:"+ body(), throwable); «nonNLS(
 			1)» «nonNLS(2)»
 				}
 			}
@@ -122,7 +123,7 @@ class AbstractExpression {
 					try {
 						return doEvaluate(context, env);
 					} catch(Exception e) {
-						«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Expression evaluation failure: " + body(), e); «nonNLS(
+						«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Expression evaluation failure: " + body(), e); «nonNLS(
 			1)»
 					}
 				}
