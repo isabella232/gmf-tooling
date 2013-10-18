@@ -21,20 +21,22 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
-import xpt.QualifiedClassNameProvider
 import xpt.diagram.commands.CreateShortcutDecorationsCommand
 import xpt.editor.ShortcutCreationWizard
+import xpt.editor.ElementChooser
+import xpt.editor.DiagramEditorUtil
 
 class CreateShortcutAction {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ExternalizerUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject ShortcutCreationWizard xptShortcutCreationWizard;
 	@Inject Externalizer xptExternalizer;
 	@Inject Activator xptActivator;
 	@Inject CreateShortcutDecorationsCommand xptCreateShortcutDecorationCommand;
+	@Inject ElementChooser xptElementChooser;
+	@Inject DiagramEditorUtil xptDiagramEditorUtil;
 
 	def className(org.eclipse.gmf.codegen.gmfgen.CreateShortcutAction it) '''«lastSegment(qualifiedClassName)»'''
 
@@ -74,7 +76,7 @@ class CreateShortcutAction {
 			org.eclipse.gef.EditPart selectedDiagramPart = (org.eclipse.gef.EditPart) ((org.eclipse.jface.viewers.IStructuredSelection) selection).getFirstElement();
 			final org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) selectedDiagramPart.getModel();
 			«IF null == owner.editorGen.application»
-				«getElementChooserQualifiedClassName(owner.editorGen.diagram)» elementChooser = new «getElementChooserQualifiedClassName(
+				«xptElementChooser.qualifiedClassName(owner.editorGen.diagram)» elementChooser = new «xptElementChooser.qualifiedClassName(
 			owner.editorGen.diagram)»(shell, view);
 				int result = elementChooser.open();
 				if (result != org.eclipse.jface.window.Window.OK) {
@@ -85,7 +87,7 @@ class CreateShortcutAction {
 				try {
 					selectedElement = editingDomain.getResourceSet().getEObject(selectedModelElementURI, true);
 				} catch (org.eclipse.emf.common.util.WrappedException e) {
-					«getActivatorQualifiedClassName(owner.editorGen.plugin)».getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e); «nonNLS(
+					«xptActivator.qualifiedClassName(owner.editorGen.plugin)».getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e); «nonNLS(
 			1)»
 					return null;
 				}
@@ -100,11 +102,11 @@ class CreateShortcutAction {
 				try {
 					org.eclipse.core.commands.operations.OperationHistoryFactory.getOperationHistory().execute(command, new org.eclipse.core.runtime.NullProgressMonitor(), null);
 				} catch (org.eclipse.core.commands.ExecutionException e) {
-					«getActivatorQualifiedClassName(owner.editorGen.plugin)».getInstance().logError("Unable to create shortcut", e); «nonNLS(
+					«xptActivator.qualifiedClassName(owner.editorGen.plugin)».getInstance().logError("Unable to create shortcut", e); «nonNLS(
 			1)»
 				}
 			«ELSE»
-				org.eclipse.emf.ecore.resource.Resource resource = «getDiagramEditorUtilQualifiedClassName(owner.editorGen.diagram)».openModel(shell, «xptExternalizer.
+				org.eclipse.emf.ecore.resource.Resource resource = «xptDiagramEditorUtil.qualifiedClassName(owner.editorGen.diagram)».openModel(shell, «xptExternalizer.
 			accessorCall(owner.editorGen, titleKey(i18nKeyForCreateShortcutOpenModel()))», editingDomain);
 				if (resource == null || resource.getContents().isEmpty()) {
 					return null;
@@ -112,7 +114,7 @@ class CreateShortcutAction {
 				«xptShortcutCreationWizard.qualifiedClassName(owner.editorGen.diagram)» wizard = new «xptShortcutCreationWizard.
 			qualifiedClassName(owner.editorGen.diagram)»((org.eclipse.emf.ecore.EObject) resource.getContents().get(0), view, editingDomain);
 				wizard.setWindowTitle(«xptExternalizer.accessorCall(it.owner.editorGen, titleKey(i18nKeyForCreateShortcutWizard()))»);
-				«getDiagramEditorUtilQualifiedClassName(owner.editorGen.diagram)».runWizard(myShell, wizard, "CreateShortcut"); «nonNLS(
+				«xptDiagramEditorUtil.qualifiedClassName(owner.editorGen.diagram)».runWizard(myShell, wizard, "CreateShortcut"); «nonNLS(
 			1)»
 			«ENDIF»
 			return null;

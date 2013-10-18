@@ -16,11 +16,9 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.providers.ElementTypes
-import xpt.QualifiedClassNameProvider
 
 class GraphicalNodeEditPolicy {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject ElementTypes xptElementTypes;
 
@@ -98,8 +96,8 @@ class GraphicalNodeEditPolicy {
 			(org.eclipse.gmf.runtime.common.core.command.CompositeCommand) c.getICommand();
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain =
 			((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
-			«getReorientConnectionViewCommandQualifiedClassName(getDiagram())» rcvCommand =
-			new «getReorientConnectionViewCommandQualifiedClassName(getDiagram())»(editingDomain, null);
+			«getDiagram().getReorientConnectionViewCommandQualifiedClassName()» rcvCommand =
+			new «getDiagram().getReorientConnectionViewCommandQualifiedClassName()»(editingDomain, null);
 			rcvCommand.setEdgeAdaptor(getViewAdapter());
 			cc.compose(rcvCommand);
 			return c;

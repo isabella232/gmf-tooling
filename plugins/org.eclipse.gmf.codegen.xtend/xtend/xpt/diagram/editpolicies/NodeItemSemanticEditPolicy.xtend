@@ -20,7 +20,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
 
 /**
  *	This template should be called only for non-design nodes (modelFacet != null) 
@@ -31,7 +30,6 @@ class NodeItemSemanticEditPolicy {
 	
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;
@@ -52,7 +50,7 @@ class NodeItemSemanticEditPolicy {
 	package «packageName(it)»;
 	
 	«generatedClassComment(it)»
-	public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(getDiagram())» {
+	public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(getDiagram())» {
 	
 		«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 	
@@ -102,7 +100,7 @@ class NodeItemSemanticEditPolicy {
 				«destroyChildNodes(cn, 'node', it)» 
 			«ENDFOR»
 			«FOR compartment : it.compartments»
-			«caseVisualID(compartment)»
+			«xptVisualIDRegistry.caseVisualID(compartment)»
 				for (java.util.Iterator<?> cit = node.getChildren().iterator(); cit.hasNext();) {
 					org.eclipse.gmf.runtime.notation.Node cnode = (org.eclipse.gmf.runtime.notation.Node) cit.next();
 					switch («xptVisualIDRegistry.getVisualIDMethodCall(it.diagram)»(cnode)) {
@@ -119,7 +117,7 @@ class NodeItemSemanticEditPolicy {
 	'''
 
 	def destroyChildNodes(GenChildNode it, String nodeVar, GenNode genNode) '''
-	«caseVisualID(it)»
+	«xptVisualIDRegistry.caseVisualID(it)»
 		«destroyEdges(nodeVar)»
 		cmd.add(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(getEditingDomain(), «nodeVar».getElement(), false))); // directlyOwned: «it.isDirectlyOwned(genNode)»
 		// don't need explicit deletion of «nodeVar» as parent's view deletion would clean child views as well 

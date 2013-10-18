@@ -202,7 +202,7 @@ def getEditHelperCommand(GenDiagram it) '''
 def getContextElementType(GenDiagram it) '''
 	«generatedMemberComment(it)»
 	private org.eclipse.gmf.runtime.emf.type.core.IElementType getContextElementType(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
-		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «getElementTypesQualifiedClassName(it)».getElementType(getVisualID(request));
+		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «xptElementTypes.qualifiedClassName(it)».getElementType(getVisualID(request));
 		return requestContextElementType != null ? requestContextElementType : myElementType;
 	}
 '''

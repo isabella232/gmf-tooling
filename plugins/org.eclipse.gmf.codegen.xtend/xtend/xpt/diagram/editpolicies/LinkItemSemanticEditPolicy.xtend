@@ -21,13 +21,11 @@ import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.Common
 import xpt.Common_qvto
-import xpt.QualifiedClassNameProvider
 
 class LinkItemSemanticEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension LinkUtils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject BaseItemSemanticEditPolicy xptBaseItemSemanticEditPolicy;
 	@Inject linkCommands xptLinkCommands;
@@ -46,7 +44,7 @@ class LinkItemSemanticEditPolicy {
 		package «packageName(it)»;
 		
 		«generatedClassComment(it)»
-		public class «className(it)» extends «getBaseItemSemanticEditPolicyQualifiedClassName(it.diagram)» {
+		public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(it.diagram)» {
 		
 			«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 		

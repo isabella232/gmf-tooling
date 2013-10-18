@@ -29,14 +29,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
 import xpt.Common
 import xpt.Common_qvto
 import xpt.diagram.Utils_qvto
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class PreferenceInitializer {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 
+	@Inject Activator xptActivator;
 	@Inject CustomPage xptCustomPage;
 	@Inject StandardPage xptStandardPage;
 
@@ -73,7 +73,7 @@ class PreferenceInitializer {
 		
 			«generatedMemberComment»
 			protected org.eclipse.jface.preference.IPreferenceStore getPreferenceStore() {
-				return «getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getPreferenceStore();
+				return «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getPreferenceStore();
 			}
 		} 
 	'''
