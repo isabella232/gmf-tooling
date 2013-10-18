@@ -15,13 +15,14 @@ package xpt.navigator
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class DomainNavigatorLabelProvider {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
-	
+
+	@Inject	Activator xptActivator
 	@Inject NavigatorContentProvider xptNavigatorContentProvider;
+	@Inject DomainNavigatorItem xptDomainNavigatorItem;
 
 	def className(GenNavigator it) '''«it.domainLabelProviderClassName»'''
 
@@ -59,7 +60,7 @@ class DomainNavigatorLabelProvider {
 	def attributes(GenNavigator it) '''
 		«generatedMemberComment()»
 		private org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider(«
-			getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
+			xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 	'''
 
 	def iCommonLabelProvider(GenNavigator it) '''
@@ -122,19 +123,19 @@ class DomainNavigatorLabelProvider {
 	def getImage(GenNavigator it) '''
 		«generatedMemberComment()»
 		public org.eclipse.swt.graphics.Image getImage(Object element) {
-			if (element instanceof «getDomainNavigatorItemQualifiedClassName(it)») {
+			if (element instanceof «xptDomainNavigatorItem.qualifiedClassName(it)») {
 				return myAdapterFactoryLabelProvider.getImage(«getEObject(it)»);
 			}
 			return null;
 		}
 	'''
 
-	def getEObject(GenNavigator it) '''((«getDomainNavigatorItemQualifiedClassName(it)») element).getEObject()'''
+	def getEObject(GenNavigator it) '''((«xptDomainNavigatorItem.qualifiedClassName(it)») element).getEObject()'''
 
 	def getText(GenNavigator it) '''
 		«generatedMemberComment()»
 		public String getText(Object element) {
-			if (element instanceof «getDomainNavigatorItemQualifiedClassName(it)») {
+			if (element instanceof «xptDomainNavigatorItem.qualifiedClassName(it)») {
 				return myAdapterFactoryLabelProvider.getText(«getEObject(it)»);
 			}
 			return null;

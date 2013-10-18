@@ -18,15 +18,18 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
+import xpt.editor.Editor
 
 class NavigatorActionProvider {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
+	@Inject Activator xptActivator;
 	@Inject Externalizer xptExternalizer;  
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject getEditorInput xptGetEditorInput;
+	@Inject NavigatorItem xptNavigatorItem;
+	@Inject Editor xptEditor;
 
 	def className(GenNavigator it) '''«it.actionProviderClassName»'''
 
@@ -161,8 +164,8 @@ class NavigatorActionProvider {
 			myDiagram = null;
 			if (selection.size() == 1) {
 				Object selectedElement = selection.getFirstElement();
-				if (selectedElement instanceof «getNavigatorItemQualifiedClassName(it)») {
-					selectedElement = ((«getNavigatorItemQualifiedClassName(it)») selectedElement).getView();
+				if (selectedElement instanceof «xptNavigatorItem.qualifiedClassName(it)») {
+					selectedElement = ((«xptNavigatorItem.qualifiedClassName(it)») selectedElement).getView();
 				} else if (selectedElement instanceof org.eclipse.core.runtime.IAdaptable) {
 					selectedElement = ((org.eclipse.core.runtime.IAdaptable) selectedElement).getAdapter(org.eclipse.gmf.runtime.notation.View.class);
 				}
@@ -187,9 +190,9 @@ class NavigatorActionProvider {
 			org.eclipse.ui.IEditorInput editorInput = getEditorInput(myDiagram);
 			org.eclipse.ui.IWorkbenchPage page = myViewerSite.getPage();
 		 	try {
-				page.openEditor(editorInput, «getEditorQualifiedClassName(editorGen.editor)».ID);
+				page.openEditor(editorInput, «xptEditor.qualifiedClassName(editorGen.editor)».ID);
 			} catch (org.eclipse.ui.PartInitException e) {
-				«getActivatorQualifiedClassName(editorGen.plugin)».getInstance().logError("Exception while openning diagram", e);  «nonNLS(1)»
+				«xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().logError("Exception while openning diagram", e);  «nonNLS(1)»
 			}
 		}
 	'''

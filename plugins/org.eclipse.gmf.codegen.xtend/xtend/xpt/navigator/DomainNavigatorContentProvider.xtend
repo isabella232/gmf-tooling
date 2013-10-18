@@ -15,13 +15,14 @@ package xpt.navigator
 import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
-import xpt.QualifiedClassNameProvider
+import plugin.Activator
 
 class DomainNavigatorContentProvider {
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 
+	@Inject Activator xptActivator 
 	@Inject NavigatorContentProvider xptNavigatorContentProvider;
+	@Inject DomainNavigatorItem xptDomainNavigatorItem;
 
 	def className(GenNavigator it) '''«it.domainContentProviderClassName»'''
 
@@ -67,7 +68,7 @@ class DomainNavigatorContentProvider {
 		«generatedMemberComment()»
 		public «className(it)»() {
 			myAdapterFctoryContentProvier = new org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider(«
-			getActivatorQualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
+			xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getItemProvidersAdapterFactory());
 			«xptNavigatorContentProvider.initCommonAttributes(it)»
 		}
 	'''
@@ -90,8 +91,8 @@ class DomainNavigatorContentProvider {
 				return wrapEObjects(myAdapterFctoryContentProvier.getChildren(resource), parentElement);
 			}
 			
-			if (parentElement instanceof «getDomainNavigatorItemQualifiedClassName(it)») {
-				return wrapEObjects(myAdapterFctoryContentProvier.getChildren(((«getDomainNavigatorItemQualifiedClassName(it)») parentElement).getEObject()), parentElement);
+			if (parentElement instanceof «xptDomainNavigatorItem.qualifiedClassName(it)») {
+				return wrapEObjects(myAdapterFctoryContentProvier.getChildren(((«xptDomainNavigatorItem.qualifiedClassName(it)») parentElement).getEObject()), parentElement);
 			}
 			«getOtherChildren(it)»
 		}
@@ -107,7 +108,7 @@ class DomainNavigatorContentProvider {
 			java.util.Collection result = new java.util.ArrayList();
 			for (int i = 0; i < objects.length; i++) {
 				if (objects[i] instanceof org.eclipse.emf.ecore.EObject) {
-					result.add(new «getDomainNavigatorItemQualifiedClassName(it)»((org.eclipse.emf.ecore.EObject) objects[i], parentElement, myAdapterFctoryContentProvier));
+					result.add(new «xptDomainNavigatorItem.qualifiedClassName(it)»((org.eclipse.emf.ecore.EObject) objects[i], parentElement, myAdapterFctoryContentProvier));
 				}
 			}
 			return result.toArray();

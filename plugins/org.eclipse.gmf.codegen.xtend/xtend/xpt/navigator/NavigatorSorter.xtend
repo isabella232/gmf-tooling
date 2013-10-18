@@ -16,14 +16,13 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
 
 class NavigatorSorter {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+	@Inject NavigatorItem xptNavigatorItem;
 
 	def className(GenNavigator it) '''«it.sorterClassName»'''
 
@@ -61,8 +60,8 @@ class NavigatorSorter {
 	def category(GenNavigator it) '''
 		«generatedMemberComment()»
 		public int category(Object element) {
-			if (element instanceof «getNavigatorItemQualifiedClassName()») {
-				«getNavigatorItemQualifiedClassName(it)» item = («getNavigatorItemQualifiedClassName(it)») element;
+			if (element instanceof «xptNavigatorItem.qualifiedClassName(it)») {
+				«xptNavigatorItem.qualifiedClassName(it)» item = («xptNavigatorItem.qualifiedClassName(it)») element;
 			«IF editorGen.diagram.generateCreateShortcutAction()»
 				if (item.getView().getEAnnotation("Shortcut") != null) {  «nonNLS(1)»
 					return SHORTCUTS_CATEGORY;
