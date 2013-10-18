@@ -547,7 +547,7 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	 */
 	@Override
 	public GeneratorTextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return getXtendEmitter("xpt::diagram::editpolicies::TextFeedback", "TextNonResizableEditPolicy"); //$NON-NLS-1$ //$NON-NLS-2$
+		return getXtendEmitter("xpt::diagram::editpolicies::TextNonResizableEditPolicy", "TextNonResizableEditPolicy"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -555,7 +555,7 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	 */
 	@Override
 	public GeneratorTextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return getXtendEmitter("xpt::diagram::editpolicies::TextFeedback", "TextSelectionEditPolicy"); //$NON-NLS-1$ //$NON-NLS-2$
+		return getXtendEmitter("xpt::diagram::editpolicies::TextSelectionEditPolicy", "TextSelectionEditPolicy"); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
