@@ -19,16 +19,19 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel
 import xpt.Common
 import xpt.diagram.ViewmapAttributesUtils_qvto
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.editpolicies.TextSelectionEditPolicy
 
 class LinkLabelEditPart {
 	@Inject extension Common;
 	@Inject extension ViewmapAttributesUtils_qvto;
-	@Inject extension diagram.editparts.LinkLabelEditPart
-	@Inject extension QualifiedClassNameProvider
 
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
+	@Inject TextSelectionEditPolicy textSelection;
+
+	def className(GenLinkLabel it) '''«editPartClassName»'''
+
+	def packageName(GenLinkLabel it) '''«getDiagram().editPartsPackageName»'''
 
 	def initializer(GenLinkLabel it) '''
 		«generatedMemberComment»
@@ -47,7 +50,7 @@ class LinkLabelEditPart {
 	def createDefaultEditPoliciesBody(GenLinkLabel it) '''
 		super.createDefaultEditPolicies();
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
-		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getTextSelectionEditPolicyQualifiedClassName(getDiagram())»());
+		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «textSelection.qualifiedClassName(getDiagram())»());
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,	new «linkLabelDragPolicyQualifiedClassName(
 			it.getDiagram())»());
 		«xptEditpartsCommon.behaviour(it)»

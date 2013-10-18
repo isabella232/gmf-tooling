@@ -17,13 +17,34 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 import xpt.editor.VisualIDRegistry
-import xpt.QualifiedClassNameProvider
+import org.eclipse.gmf.codegen.gmfgen.GenNode
+import org.eclipse.gmf.codegen.gmfgen.GenLink
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel
+import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode
+import diagram.editparts.ChildNodeLabelEditPart
+import diagram.editparts.NodeEditPart
+import diagram.editparts.LinkEditPart
+import diagram.editparts.LinkLabelEditPart
+import diagram.editparts.ExternalNodeLabelEditPart
+import diagram.editparts.CompartmentEditPart
+import diagram.editparts.NodeLabelEditPart
+import diagram.editparts.DiagramEditPart
 
 class EditPartFactory {
 
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
-	
+	@Inject ChildNodeLabelEditPart childNodeLabelEditPart;
+	@Inject NodeEditPart nodeEditPart;
+	@Inject LinkEditPart linkEditPart;
+	@Inject LinkLabelEditPart linkLabelEditPart;
+	@Inject ExternalNodeLabelEditPart externalNodeLabelEditPart;
+	@Inject CompartmentEditPart compartmentEditPart;
+	@Inject NodeLabelEditPart nodeLabelEditPart;
+	@Inject DiagramEditPart diagramEditPart;
+
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 
 	def className(GenDiagram it) '''«it.editPartFactoryClassName»'''
@@ -44,7 +65,7 @@ class EditPartFactory {
 			«createEditPartMethod(it)»
 			
 			«createUnrecognizedEditPart(it)»
-			
+
 			«getTextCellEditorLocator(it)»
 			
 			«additions(it)»
@@ -82,7 +103,7 @@ class EditPartFactory {
 
 	private def createEditPart(GenCommonBase it) '''
 		«extraLineBreak»
-		«caseVisualID(it)»
+		«xptVisualIDRegistry.caseVisualID(it)»
 			return new «getEditPartQualifiedClassName(it)»(view);
 	'''
 
@@ -101,6 +122,16 @@ class EditPartFactory {
 			return org.eclipse.gmf.tooling.runtime.directedit.locator.CellEditorLocatorAccess.INSTANCE.getTextCellEditorLocator(source);
 		}
 	'''
+
+	def dispatch getEditPartQualifiedClassName(GenCommonBase it) ''''''
+	def dispatch getEditPartQualifiedClassName(GenNode it) '''«nodeEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenLink it) '''«linkEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenCompartment it) '''«compartmentEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenDiagram it) '''«diagramEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenExternalNodeLabel it) '''«externalNodeLabelEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenNodeLabel it) '''«nodeLabelEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenLinkLabel it) '''«linkLabelEditPart.qualifiedClassName(it)»'''
+	def dispatch getEditPartQualifiedClassName(GenChildLabelNode it) '''«childNodeLabelEditPart.qualifiedClassName(it)»'''
 
 	def additions(GenDiagram it) ''''''
 

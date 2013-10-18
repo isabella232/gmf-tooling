@@ -32,7 +32,9 @@ class CompartmentEditPart {
 	@Inject Externalizer xptExternalizer;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 
-	@Inject extension diagram.editparts.CompartmentEditPart
+	def className(GenCompartment it) '''«editPartClassName»'''
+
+	def packageName(GenCompartment it) '''«getDiagram().editPartsPackageName»'''
 
 	def constructor(GenCompartment it) '''
 		«generatedMemberComment»

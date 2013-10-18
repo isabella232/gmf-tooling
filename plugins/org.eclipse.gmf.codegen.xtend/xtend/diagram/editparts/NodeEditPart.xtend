@@ -26,20 +26,16 @@ class NodeEditPart {
 	@Inject impl.diagram.editparts.NodeEditPart xptNodeEditPartImpl;
 	@Inject xpt.diagram.editparts.Common xptCommon;
 	
-	def className(GenNode it) '''«editPartClassName»'''
-
-	def packageName(GenNode it) '''«getDiagram().editPartsPackageName»'''
-
-	def qualifiedClassName(GenNode it) '''«packageName(it)».«className(it)»'''
+	def qualifiedClassName(GenNode it) '''«xptNodeEditPartImpl.packageName(it)».«xptNodeEditPartImpl.className(it)»'''
 	
 	def fullPath(GenNode it) '''«qualifiedClassName(it)»'''
 	
 	def Main(GenNode it) '''
 	«copyright(diagram.editorGen)»
-	package «packageName(it)»;
+	package «xptNodeEditPartImpl.packageName(it)»;
 	
 	«generatedClassComment»
-	public class «className(it)» «extendsList(it)» «implementsList(it)» {
+	public class «xptNodeEditPartImpl.className(it)» «extendsList(it)» «implementsList(it)» {
 	
 		«attributes(it)»
 		

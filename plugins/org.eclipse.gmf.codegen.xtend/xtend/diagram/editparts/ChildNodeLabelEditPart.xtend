@@ -30,20 +30,16 @@ class ChildNodeLabelEditPart {
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 	@Inject TextAware xptTextAware;
 
-	def className(GenChildLabelNode it) '''«editPartClassName»'''
-
-	def packageName(GenChildLabelNode it) '''«getDiagram().editPartsPackageName»'''
-
-	def qualifiedClassName(GenChildLabelNode it) '''«packageName(it)».«className(it)»'''
+	def qualifiedClassName(GenChildLabelNode it) '''«xptChildNodeLabelEditPart.packageName(it)».«xptChildNodeLabelEditPart.className(it)»'''
 
 	def fullPath(GenChildLabelNode it) '''«qualifiedClassName(it)»'''
 
 	def Main(GenChildLabelNode it) '''
 «copyright(getDiagram().editorGen)»
-package «packageName(it)»;
+package «xptChildNodeLabelEditPart.packageName(it)»;
 
 «generatedClassComment»
-public class «className(it)» «extendsList(it)» «implementsList(it)» {
+public class «xptChildNodeLabelEditPart.className(it)» «extendsList(it)» «implementsList(it)» {
 	
 	«attributes(it)»
 	

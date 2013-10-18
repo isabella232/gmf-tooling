@@ -27,7 +27,8 @@ import parsers.ParserProvider
 import xpt.CodeStyle
 import xpt.Common
 import xpt.diagram.ViewmapAttributesUtils_qvto
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.editparts.EditPartFactory
+import xpt.providers.ElementTypes
 
 class TextAware {
 	@Inject extension Common
@@ -36,10 +37,11 @@ class TextAware {
 	@Inject extension ChoiceUtils_qvto
 	@Inject extension RuntimeLabelsSupport_qvto
 	@Inject extension expression_qvto
-	@Inject extension QualifiedClassNameProvider;
 
 	@Inject modeledViewmapProducer xptModeledViewmapProducer;
 	@Inject ParserProvider xptParserProvider;
+	@Inject EditPartFactory xptEditPartFactory
+	@Inject ElementTypes xptElementTypes;
 
 	def fields(GenCommonBase it) '''
 		«generatedMemberComment(it)»
@@ -313,7 +315,7 @@ class TextAware {
 				if (parserElement == null) {
 					return null;
 				}
-				return «getElementTypesQualifiedClassName(diagram)».getImage(parserElement.eClass());
+				return «xptElementTypes.qualifiedClassName(diagram)».getImage(parserElement.eClass());
 			«ELSE»
 				return null;
 			«ENDIF»
@@ -432,7 +434,7 @@ class TextAware {
 			if (manager == null) {
 				setManager(new «getDirectManagerFQN(modelFacet)»(this,
 					null,
-					«getEditPartFactoryQualifiedClassName(diagram)».getTextCellEditorLocator(this)));
+					«xptEditPartFactory.qualifiedClassName(diagram)».getTextCellEditorLocator(this)));
 			}
 			return manager;
 		}

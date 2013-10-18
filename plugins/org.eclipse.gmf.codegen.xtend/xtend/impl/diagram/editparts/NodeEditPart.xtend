@@ -33,22 +33,29 @@ import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel
 import xpt.providers.ElementTypes
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.editpolicies.GraphicalNodeEditPolicy
+import xpt.diagram.editpolicies.TextSelectionEditPolicy
+import xpt.diagram.editparts.EditPartFactory
 
 class NodeEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ViewmapAttributesUtils_qvto;
-	@Inject extension diagram.editparts.NodeEditPart;
 	@Inject extension xpt.diagram.editparts.Utils_qvto;
 	@Inject extension xpt.diagram.Utils_qvto;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 	@Inject impl.diagram.editparts.viewmaps.modeledViewmapProducer xptModeledViewmapProducer;
 	@Inject TextAware xptTextAware;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
 	@Inject ElementTypes xptElementTypes;
+	@Inject GraphicalNodeEditPolicy graphicalEditPolicy;
+	@Inject TextSelectionEditPolicy textSelection;
+	@Inject EditPartFactory xptEditPartFactory;
+	
+	def className(GenNode it) '''«editPartClassName»'''
+
+	def packageName(GenNode it) '''«getDiagram().editPartsPackageName»'''
 	
 	def dispatch extendsListContents(GenNode it) '''
 	«IF hasBorderItems(it)»org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart«ELSE»org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart«ENDIF»
@@ -83,7 +90,7 @@ class NodeEditPart {
 	
 	def installGraphicalNodeEditPolicy(GenNode it) '''
 		«IF needsGraphicalNodeEditPolicy(it)»
-			installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «graphicalNodeEditPolicyQualifiedClassName(it)»());
+			installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «graphicalEditPolicy.qualifiedClassName(it)»());
 		«ENDIF»
 	'''
 
@@ -142,7 +149,7 @@ class NodeEditPart {
 				«borderItemSelectionEditPolicy(it)»
 				if (child.getEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE) == null) {
 					if (child instanceof org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart) {
-						return new «getTextSelectionEditPolicyQualifiedClassName(getDiagram())»();
+						return new «textSelection.qualifiedClassName(getDiagram())»();
 					}
 				}
 				return super.createChildEditPolicy(child);
@@ -203,13 +210,13 @@ class NodeEditPart {
 	switch («xptVisualIDRegistry.getVisualIDMethodCall(it.diagram)»(childView)) {
 	«IF !getExternalLabels(it).empty»
 	«FOR nextLabel : getExternalLabels(it)»
-		«caseVisualID(nextLabel)»
+		«xptVisualIDRegistry.caseVisualID(nextLabel)»
 	«ENDFOR»
 		return «borderItemSelectionEP(it)»;
 	«ENDIF»
 	«IF !getSideAffixedChildren(it).empty»
 	«FOR nextBorderItem : getSideAffixedChildren(it)»
-		«caseVisualID(nextBorderItem)»
+		«xptVisualIDRegistry.caseVisualID(nextBorderItem)»
 	«ENDFOR»
 		return new org.eclipse.gmf.runtime.diagram.ui.editpolicies.BorderItemSelectionEditPolicy();
 	«ENDIF»
@@ -302,42 +309,42 @@ class NodeEditPart {
 	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
 	«FOR label : getInnerFixedLabels(it)»
 		«var childViewmap = label.viewmap as ParentAssignedViewmap»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(label)») {
-			((«getEditPartQualifiedClassName(label)») childEditPart).«xptTextAware.labelSetterName(childViewmap)»(getPrimaryShape().«childViewmap.getterName»());
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(label)») {
+			((«xptEditPartFactory.getEditPartQualifiedClassName(label)») childEditPart).«xptTextAware.labelSetterName(childViewmap)»(getPrimaryShape().«childViewmap.getterName»());
 			return true;
 		}
 	«ENDFOR»
 	«FOR label : getInnerFixedLabelsWithModeledViewmaps(it)»
 		«var childViewmap = label.viewmap as ModeledViewmap»
 		«var getterName = (childViewmap.figureModel as DiagramLabel).accessor.accessor»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(label)») {
-			((«getEditPartQualifiedClassName(label)») childEditPart).«xptTextAware.labelSetterName(childViewmap)»(getPrimaryShape().«getterName»());
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(label)») {
+			((«xptEditPartFactory.getEditPartQualifiedClassName(label)») childEditPart).«xptTextAware.labelSetterName(childViewmap)»(getPrimaryShape().«getterName»());
 			return true;
 		}
 	«ENDFOR»
 	«FOR compartment : getPinnedCompartments(it)»
 		«var childViewmap = compartment.viewmap as ParentAssignedViewmap»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(compartment)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(compartment)») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
 			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
-			pane.add(((«getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
+			pane.add(((«xptEditPartFactory.getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
 			return true;
 		}	
 	«ENDFOR»
 	«FOR compartment : getPinnedCompartmentsWithModeledViewmaps(it)»
 		«var childViewmap = compartment.viewmap as ModeledViewmap»
 		«var getterName = (childViewmap.figureModel as Compartment).accessor.accessor»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(compartment)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(compartment)») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«getterName»();
 			setupContentPane(pane); // FIXME each comparment should handle his content pane in his own way 
-			pane.add(((«getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
+			pane.add(((«xptEditPartFactory.getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
 			return true;
 		}	
 	«ENDFOR»
 	«FOR child : getSideAffixedChildren(it)»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(child)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(child)») {
 			org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator = new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(), org.eclipse.draw2d.PositionConstants.«child.preferredSideName»);
-			getBorderedFigure().getBorderItemContainer().add(((«getEditPartQualifiedClassName(child)») childEditPart).getFigure(), locator);
+			getBorderedFigure().getBorderItemContainer().add(((«xptEditPartFactory.getEditPartQualifiedClassName(child)») childEditPart).getFigure(), locator);
 			return true;
 		}
 	«ENDFOR»
@@ -349,35 +356,35 @@ class NodeEditPart {
 	«generatedMemberComment»
 	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
 	«FOR label : getInnerFixedLabels(it)»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(label)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(label)») {
 			return true;
 		}
 	«ENDFOR»
 	«FOR label : getInnerFixedLabelsWithModeledViewmaps(it)»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(label)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(label)») {
 			return true;
 		}
 	«ENDFOR»
 	«FOR compartment : getPinnedCompartments(it)»
 	«var childViewmap = compartment.viewmap as ParentAssignedViewmap»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(compartment)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(compartment)») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«childViewmap.getterName»();
-			pane.remove(((«getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
+			pane.remove(((«xptEditPartFactory.getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
 			return true;
 		}	
 	«ENDFOR»
 	«FOR compartment : getPinnedCompartmentsWithModeledViewmaps(it)»
 	«var childViewmap = compartment.viewmap as ModeledViewmap»
 	«var getterName = (childViewmap.figureModel as Compartment).accessor.accessor»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(compartment)») {
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(compartment)») {
 			org.eclipse.draw2d.IFigure pane = getPrimaryShape().«getterName»();
-			pane.remove(((«getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
+			pane.remove(((«xptEditPartFactory.getEditPartQualifiedClassName(compartment)») childEditPart).getFigure());
 			return true;
 		}	
 	«ENDFOR»
 	«FOR child : getSideAffixedChildren(it)»
-		if (childEditPart instanceof «getEditPartQualifiedClassName(child)») {
-			getBorderedFigure().getBorderItemContainer().remove(((«getEditPartQualifiedClassName(child)») childEditPart).getFigure());
+		if (childEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(child)») {
+			getBorderedFigure().getBorderItemContainer().remove(((«xptEditPartFactory.getEditPartQualifiedClassName(child)») childEditPart).getFigure());
 			return true;
 		}
 	«ENDFOR»
@@ -411,14 +418,14 @@ class NodeEditPart {
 			«/* it is unclear what we should return for labels here */
 			FOR compartment : getPinnedCompartments(it)»
 			«var childViewmap = compartment.viewmap as ParentAssignedViewmap»
-			if (editPart instanceof «getEditPartQualifiedClassName(compartment)») {
+			if (editPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(compartment)») {
 				return getPrimaryShape().«childViewmap.getterName»();
 			}	
 			«ENDFOR»
 			«FOR compartment : getPinnedCompartmentsWithModeledViewmaps(it)»
 			«var childViewmap = compartment.viewmap as ModeledViewmap»
 			«var getterName = (childViewmap.figureModel as Compartment).accessor.accessor»
-			if (editPart instanceof «getEditPartQualifiedClassName(compartment)») {
+			if (editPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(compartment)») {
 				return getPrimaryShape().«getterName»();
 			}	
 		«ENDFOR»
@@ -435,7 +442,7 @@ class NodeEditPart {
 	«IF !getExternalLabels(it).empty»
 		«generatedMemberComment»
 		protected void addBorderItem(org.eclipse.draw2d.IFigure borderItemContainer, org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart borderItemEditPart) {
-			if («FOR label : getExternalLabels(it) SEPARATOR ' || '»borderItemEditPart instanceof «getEditPartQualifiedClassName(label)»«ENDFOR») {
+			if («FOR label : getExternalLabels(it) SEPARATOR ' || '»borderItemEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(label)»«ENDFOR») {
 				org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator locator = new org.eclipse.gmf.runtime.diagram.ui.figures.BorderItemLocator(getMainFigure(), org.eclipse.draw2d.PositionConstants.SOUTH);
 				locator.setBorderItemOffset(new org.eclipse.draw2d.geometry.Dimension(-20, -20));
 				borderItemContainer.add(borderItemEditPart.getFigure(), locator);
@@ -623,7 +630,7 @@ class NodeEditPart {
 			«newLinkedListOfElementTypes('types')»();
 			«FOR link : getAssistantOutgoingLinks(it)»
 				«FOR target : selectGenNodes(link.targets)»
-				if (targetEditPart instanceof «getEditPartQualifiedClassName(target)») {
+				if (targetEditPart instanceof «xptEditPartFactory.getEditPartQualifiedClassName(target)») {
 					types.add(«xptElementTypes.accessElementType(link)»);
 				}
 				«ENDFOR»
