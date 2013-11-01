@@ -23,7 +23,6 @@ import org.eclipse.gmf.codegen.gmfgen.ElementType
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType
 import org.eclipse.gmf.codegen.gmfgen.NotationType
-import xpt.QualifiedClassNameProvider
 import parsers.ParserProvider
 import xpt.diagram.edithelpers.EditHelper
 import xpt.diagram.edithelpers.EditHelperAdvice
@@ -45,112 +44,115 @@ class extensions {
 	@Inject EditPartFactory xptEditPartFactory;
 	
 	def extensions(GenDiagram it) '''
-		<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
-			«xmlGeneratedTag»
-			<viewProvider class="«viewProvider.qualifiedClassName(it)»">
-				<Priority name="«notationViewProviderPriority»"/>
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<viewProvider class="«viewProvider.qualifiedClassName(it)»">
+		«tripleSpace(3)»<Priority name="«notationViewProviderPriority»"/>
 				«IF shortcutsProvidedFor.notEmpty/*allow provider activation when another diagram tries to create a node, perhaps ours*/»
-				<object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
-					<method name="getType()" value="«FOR s : shortcutsProvidedFor SEPARATOR ','»«s»«ENDFOR»"/>
-				</object>
-				<context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
+		«tripleSpace(3)»<object id="referencing-diagrams" class="org.eclipse.gmf.runtime.notation.Diagram">
+		«tripleSpace(4)»<method name="getType()" value="«FOR s : shortcutsProvidedFor SEPARATOR ','»«s»«ENDFOR»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<context viewClass="org.eclipse.gmf.runtime.notation.Node" containerViews="referencing-diagrams"/>
 				«ENDIF»
-				<context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
-				<context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«commaSeparatedVisualIDs(allNodes)»"/>
+		«tripleSpace(3)»<context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="«editorGen.modelID»"/>
+		«tripleSpace(3)»<context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="«commaSeparatedVisualIDs(allNodes)»"/>
 				«IF links.notEmpty/*it is unlikely there would be a diagram without a node, but a diagram without links deemed possible */»
-				<context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="«commaSeparatedVisualIDs(links)»"/>
+		«tripleSpace(3)»<context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="«commaSeparatedVisualIDs(links)»"/>
 				«ENDIF»
-			</viewProvider>
-		</extension>
+		«tripleSpace(2)»</viewProvider>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
-			«xmlGeneratedTag»
-			<editpartProvider class="«editPartProvider.qualifiedClassName(it)»">
-				<Priority name="«editPartProviderPriority»"/>
-				<object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
-				         	<method name="getType()" value="«editorGen.modelID»"/>
-				</object>
-				<object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
-				         	<method name="getType()" value="«commaSeparatedVisualIDs(allNodes)»"/>
-				</object>
-				<object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
-				         	<method name="getType()" value="«commaSeparatedVisualIDs(links)»"/>
-				</object>
-				<object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
-				         	<method name="getType()" value="«commaSeparatedVisualIDs(allNodes.map[n|n.labels].flatten)»"/>
-				</object>
-				<object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
-				         	<method name="getType()" value="«commaSeparatedVisualIDs(compartments)»"/>
-				</object>
-				<context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
-				   	</editpartProvider>
-		</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<editpartProvider class="«editPartProvider.qualifiedClassName(it)»">
+		«tripleSpace(3)»<Priority name="«editPartProviderPriority»"/>
+		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+		«tripleSpace(4)»<method name="getType()" value="«editorGen.modelID»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(allNodes)»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(links)»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(allNodes.map[n|n.labels].flatten)»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(compartments)»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+		«tripleSpace(2)»</editpartProvider>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
-			«xmlGeneratedTag»
-			<modelingAssistantProvider class="«modelAssistant.qualifiedClassName(it)»">
-				<Priority name="«modelingAssistantProviderPriority»"/>
-				<object class="«xptEditPartFactory.getEditPartQualifiedClassName(it)»" id="«uniqueIdentifier»"/>
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<modelingAssistantProvider class="«modelAssistant.qualifiedClassName(it)»">
+		«tripleSpace(3)»<Priority name="«modelingAssistantProviderPriority»"/>
+		«tripleSpace(3)»<object class="«xptEditPartFactory.getEditPartQualifiedClassName(it)»" id="«uniqueIdentifier»"/>
 				«FOR n : topLevelNodes»
-				<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
+		«tripleSpace(3)»<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
 				«FOR n : childNodes»
-				<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
+		«tripleSpace(3)»<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
 				«ENDFOR»
-				<context elements="«uniqueIdentifier»,«FOR tn: topLevelNodes SEPARATOR ','»«tn.uniqueIdentifier»«ENDFOR»,«FOR cn: childNodes SEPARATOR ','»«cn.uniqueIdentifier»«ENDFOR»"/>
-			</modelingAssistantProvider>
-		</extension>
+		«tripleSpace(3)»<context elements="«uniqueIdentifier»,«FOR tn: topLevelNodes SEPARATOR ','»«tn.uniqueIdentifier»«ENDFOR»,«FOR cn: childNodes SEPARATOR ','»«cn.uniqueIdentifier»«ENDFOR»"/>
+		«tripleSpace(2)»</modelingAssistantProvider>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
-			«xmlGeneratedTag»
-			<IconProvider class="«iconProvider.qualifiedClassName(it)»">
-				<Priority name="«iconProviderPriority»"/>
-			</IconProvider>
-		</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<IconProvider class="«iconProvider.qualifiedClassName(it)»">
+		«tripleSpace(3)»<Priority name="«iconProviderPriority»"/>
+		«tripleSpace(2)»</IconProvider>
+		«tripleSpace(1)»</extension>
 		«IF editorGen.labelParsers != null && editorGen.labelParsers.extensibleViaService»
-			<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
-				«xmlGeneratedTag»
-				<ParserProvider class="«labelParsers.qualifiedClassName(editorGen.labelParsers)»">
-					<Priority name="«editorGen.labelParsers.providerPriority»"/>
-				</ParserProvider>
-			</extension>
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<ParserProvider class="«labelParsers.qualifiedClassName(editorGen.labelParsers)»">
+		«tripleSpace(3)»<Priority name="«editorGen.labelParsers.providerPriority»"/>
+		«tripleSpace(2)»</ParserProvider>
+		«tripleSpace(1)»</extension>
 		«ENDIF»
 		«IF generateShortcutIcon()»
-			<extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
-				«xmlGeneratedTag»
-				<decoratorProvider class="«shorcutProvider.qualifiedClassName(it)»">
-					<Priority name="«shortcutsDecoratorProviderPriority»"/>
-					<object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
-					         	<method name="getType()" value="«commaSeparatedVisualIDs(topLevelNodes)/*generated code supports shortcuts only to top-level nodes*/»"/>
-					</object>
-					      <context decoratorTargets="generated-top-nodes"/>
-				</decoratorProvider>
-			</extension>
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.diagram.ui.decoratorProviders" id="decorator-provider">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<decoratorProvider class="«shorcutProvider.qualifiedClassName(it)»">
+		«tripleSpace(3)»<Priority name="«shortcutsDecoratorProviderPriority»"/>
+		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
+		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(topLevelNodes)/*generated code supports shortcuts only to top-level nodes*/»"/>
+		«tripleSpace(3)»</object>
+		«tripleSpace(3)»<context decoratorTargets="generated-top-nodes"/>
+		«tripleSpace(2)»</decoratorProvider>
+		«tripleSpace(1)»</extension>
 		«ENDIF»
 		
-		<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
-			«xmlGeneratedTag»
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+		«tripleSpace(2)»«xmlGeneratedTag»
 			«FOR e : getAllTypedElements()»
-				«elementTypeSafe(e.elementType)»
+		«elementTypeSafe(e.elementType)»
 			«ENDFOR»
-		</extension>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
-			«xmlGeneratedTag»
-			<clientContext id="«editorGen.plugin.ID».TypeContext">
-				<enablement>
-					<test
-						property="org.eclipse.gmf.runtime.emf.core.editingDomain"
-						value="«editingDomainID»"/>
-				</enablement>
-			</clientContext> 
-			<binding context="«editorGen.plugin.ID».TypeContext">
+		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<clientContext id="«editorGen.plugin.ID».TypeContext">
+		«tripleSpace(3)»<enablement>
+		«tripleSpace(4)»<test
+		«tripleSpace(5)»property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+		«tripleSpace(5)»value="«editingDomainID»"/>
+		«tripleSpace(3)»</enablement>
+		«tripleSpace(2)»</clientContext> 
+		«tripleSpace(2)»<binding context="«editorGen.plugin.ID».TypeContext">
 				«FOR e : getAllTypedElements()»
-				<elementType ref="«e.elementType.uniqueIdentifier»"/>
+		«tripleSpace(3)»<elementType ref="«e.elementType.uniqueIdentifier»"/>
 				«ENDFOR»
-				<advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
-			</binding>
-		</extension>
+		«tripleSpace(3)»<advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+		«tripleSpace(2)»</binding>
+		«tripleSpace(1)»</extension>
 	'''
 
 	def elementTypeSafe(ElementType it) '''
@@ -162,54 +164,54 @@ class extensions {
 	def dispatch elementType(ElementType it) '''«ERROR('Unknown element type: ' + it)»'''
 
 	def dispatch elementType(MetamodelType it) '''
-		<metamodel nsURI="«getMetaClass().genPackage.ecorePackage.nsURI»">
-			<metamodelType
-				id="«uniqueIdentifier»"
+		«tripleSpace(2)»<metamodel nsURI="«getMetaClass().genPackage.ecorePackage.nsURI»">
+		«tripleSpace(3)»<metamodelType
+		«tripleSpace(5)»id="«uniqueIdentifier»"
 				«IF null != displayName»
-					name="%metatype.name.«diagramElement.uniqueIdentifier»"
+		«tripleSpace(5)»name="%metatype.name.«diagramElement.uniqueIdentifier»"
 				«ENDIF»
-				kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
-				eclass="«getMetaClass().ecoreClass.name»"
-				edithelper="«editHelper.qualifiedClassName(it)»">
-				          	<param name="semanticHint" value="«diagramElement.visualID»"/>
-			</metamodelType>
-		</metamodel>
+		«tripleSpace(5)»kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+		«tripleSpace(5)»eclass="«getMetaClass().ecoreClass.name»"
+		«tripleSpace(5)»edithelper="«editHelper.qualifiedClassName(it)»">
+		«tripleSpace(4)»<param name="semanticHint" value="«diagramElement.visualID»"/>
+		«tripleSpace(3)»</metamodelType>
+		«tripleSpace(2)»</metamodel>
 	'''
 
 	def dispatch elementType(SpecializationType it) '''
 		«IF null == getMetamodelClass()»
 			«specializationType(it)»
 		«ELSE»
-			<metamodel nsURI="«getMetamodelClass().genPackage.ecorePackage.nsURI»">
+			«tripleSpace(2)»<metamodel nsURI="«getMetamodelClass().genPackage.ecorePackage.nsURI»">
 			«specializationType(it)»
-			</metamodel>
+			«tripleSpace(2)»</metamodel>
 		«ENDIF»
 	'''
 
 	def specializationType(SpecializationType it) '''
-		<specializationType
-			id="«uniqueIdentifier»"
+		«tripleSpace(3)»<specializationType
+		«tripleSpace(5)»id="«uniqueIdentifier»"
 			«IF null != displayName»
-				name="%metatype.name.«diagramElement.uniqueIdentifier»"
+		«tripleSpace(5)»name="%metatype.name.«diagramElement.uniqueIdentifier»"
 			«ENDIF»
-			kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"«IF editHelperAdviceClassName != null»
-			edithelperadvice="«editHelperAdvice.qualifiedClassName(it)»"«ENDIF»>
-			<specializes id="«IF (null == metamodelType)»org.eclipse.gmf.runtime.emf.type.core.null«ELSE»«metamodelType.
+		«tripleSpace(5)»kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"«IF editHelperAdviceClassName != null»
+		«tripleSpace(5)»edithelperadvice="«editHelperAdvice.qualifiedClassName(it)»"«ENDIF»>
+		«tripleSpace(4)»<specializes id="«IF (null == metamodelType)»org.eclipse.gmf.runtime.emf.type.core.null«ELSE»«metamodelType.
 				uniqueIdentifier»«ENDIF»"/>
-				<param name="semanticHint" value="«diagramElement.visualID»"/>
-			</specializationType>
+		«tripleSpace(4)»<param name="semanticHint" value="«diagramElement.visualID»"/>
+		«tripleSpace(3)»</specializationType>
 	'''
 
 	def dispatch elementType(NotationType it) '''
-		<specializationType
-			id="«uniqueIdentifier»"
+		«tripleSpace(2)»<specializationType
+		«tripleSpace(4)»id="«uniqueIdentifier»"
 			«IF null != displayName»
-				name="%metatype.name.«diagramElement.uniqueIdentifier»"
+		«tripleSpace(4)»name="%metatype.name.«diagramElement.uniqueIdentifier»"
 			«ENDIF»
-			kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
-			<specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
-				<param name="semanticHint" value="«diagramElement.visualID»"/>
-			</specializationType>
+		«tripleSpace(4)»kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+		«tripleSpace(3)»<specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+		«tripleSpace(3)»<param name="semanticHint" value="«diagramElement.visualID»"/>
+		«tripleSpace(2)»</specializationType>
 	'''
 
 	def commaSeparatedVisualIDs(Iterable<? extends GenCommonBase> list) '''«FOR gcb : list SEPARATOR ','»«gcb.visualID»«ENDFOR»'''

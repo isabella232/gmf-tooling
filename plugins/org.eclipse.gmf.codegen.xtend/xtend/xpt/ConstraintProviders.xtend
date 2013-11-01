@@ -25,36 +25,37 @@ def extensions(GenAuditRoot it)'''
 // Extension point: org.eclipse.emf.validation.constraintProviders
 //
 def extensions_emfv_constraintProviders(GenAuditRoot it)'''
-   <extension point="org.eclipse.emf.validation.constraintProviders">
-      «xmlGeneratedTag»
-      «FOR c : categories»«declareCategory(c)»«ENDFOR»
-      <constraintProvider cache="true">
+   «tripleSpace(1)»<extension point="org.eclipse.emf.validation.constraintProviders">
+   «tripleSpace(2)»«xmlGeneratedTag»
+   «FOR c : categories»«declareCategory(c)»«ENDFOR»
+   «tripleSpace(2)»<constraintProvider cache="true">
 	  «FOR p : getAllTargetedModelPackages(it)»
-         <package namespaceUri="«p.ecorePackage.nsURI»"/>
+         «tripleSpace(3)»<package namespaceUri="«p.ecorePackage.nsURI»"/>
 	  «ENDFOR»
-	  «FOR c : categories»«defineCategory(c)»«ENDFOR»
-      </constraintProvider>
-   </extension>
+   «tripleSpace(1)»«FOR c : categories»«defineCategory(c)»«ENDFOR»
+   «tripleSpace(2)»</constraintProvider>
+   «tripleSpace(1)»</extension>
 '''
 
 //
 // Extension point: org.eclipse.emf.validation.constraintBindings
 //
 def extensions_emfv_constraintBindings(GenAuditRoot it)'''
-   <extension point="org.eclipse.emf.validation.constraintBindings">
-      «xmlGeneratedTag»
+	«extraLineBreak»
+	«tripleSpace(1)»<extension point="org.eclipse.emf.validation.constraintBindings">
+	«tripleSpace(2)»«xmlGeneratedTag»
 	«FOR ctx : clientContexts»
-      <clientContext default="false" id="«getQualifiedIdentity(ctx)»">
-         <selector class="«ctx.getQualifiedClassName()»"/>
-      </clientContext>
-      <binding context="«getQualifiedIdentity(ctx)»">
+      «tripleSpace(2)»<clientContext default="false" id="«getQualifiedIdentity(ctx)»">
+      «tripleSpace(3)»<selector class="«ctx.getQualifiedClassName()»"/>
+      «tripleSpace(2)»</clientContext>
+      «tripleSpace(2)»<binding context="«getQualifiedIdentity(ctx)»">
          «FOR rule : rules.filter(r | r.target != null && r.target.contextSelector == ctx)»
-         <constraint ref="«editorGen.plugin.ID».«escapeXML(rule.id)»"/>
+      		«tripleSpace(6)»<constraint ref="«editorGen.plugin.ID».«escapeXML(rule.id)»"/>
          «ENDFOR»
-      </binding>
+      «tripleSpace(5)»</binding>
 
 	«ENDFOR»
-   </extension>
+	«tripleSpace(1)»</extension>
 '''
 
 //
@@ -62,52 +63,52 @@ def extensions_emfv_constraintBindings(GenAuditRoot it)'''
 //
 def extensions_emfv_uiContexts(GenAuditRoot it)'''
 «IF editorGen.diagram.liveValidationUIFeedback»
-   <extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
-      «xmlGeneratedTag»
+	«tripleSpace(1)»<extension point="org.eclipse.emf.validation.ui.UIRegisteredClientContext">
+	«tripleSpace(2)»«xmlGeneratedTag»
 	«FOR ctx : clientContexts»
-      <clientContext id="«getQualifiedIdentity(ctx)»"/>
+		«tripleSpace(3)»<clientContext id="«getQualifiedIdentity(ctx)»"/>
 	«ENDFOR»
-   </extension>
+	«tripleSpace(2)»</extension>
 «ENDIF»
 '''
 
 def declareCategory(GenAuditContainer it)'''
-      <category id="«pathMap»" mandatory="false" name="«IF name != null»«escapeXML(name)»«ELSE»«pathMap»«ENDIF»">
-         <![CDATA[«IF description != null»«description»«ELSE»«''»«ENDIF»]]>
-      </category>
+      «tripleSpace(4)»<category id="«pathMap»" mandatory="false" name="«IF name != null»«escapeXML(name)»«ELSE»«pathMap»«ENDIF»">
+      «tripleSpace(3)»<![CDATA[«IF description != null»«description»«ELSE»«''»«ENDIF»]]>
+      «tripleSpace(2)»</category>
 '''
 
 	def defineCategory(GenAuditContainer it)'''
-         <constraints categories="«pathMap»">
+         «tripleSpace(4)»<constraints categories="«pathMap»">
          «FOR audit : audits.filter(a | a.target != null && a.target.getTargetClass() != null)»
-         <constraint id="«escapeXML(audit.id)»"
-            «IF audit.requiresConstraintAdapter»lang="Java" class="«audit.getConstraintAdapterQualifiedClassName()»"«ELSE»lang="OCL"«ENDIF»
+         «tripleSpace(6)»<constraint id="«escapeXML(audit.id)»"
+         «tripleSpace(4)»«IF audit.requiresConstraintAdapter»lang="Java" class="«audit.getConstraintAdapterQualifiedClassName()»"«ELSE»lang="OCL"«ENDIF»
             «IF audit.name != null »
-            name="«escapeXML(audit.name)»"
+         		«tripleSpace(4)»name="«escapeXML(audit.name)»"
             «ELSE»
-            name="«escapeXML(audit.id)»"
+         		«tripleSpace(4)»name="«escapeXML(audit.id)»"
             «ENDIF»
-            mode="«IF audit.useInLiveMode»Live«ELSE»Batch«ENDIF»"
-            severity="«audit.severity»" statusCode="200">
+         «tripleSpace(4)»mode="«IF audit.useInLiveMode»Live«ELSE»Batch«ENDIF»"
+         «tripleSpace(4)»severity="«audit.severity»" statusCode="200">
             «IF audit.description != null»
-            «IF !audit.requiresConstraintAdapter»<![CDATA[«IF audit.rule != null»«audit.rule.body»«ELSE»«''»«ENDIF»]]>«ENDIF»
-            <description><![CDATA[«(audit.description)»]]></description>
+			«tripleSpace(4)»«IF !audit.requiresConstraintAdapter»<![CDATA[«IF audit.rule != null»«audit.rule.body»«ELSE»«''»«ENDIF»]]>«ELSE»«extraLineBreak»«ENDIF»
+			«tripleSpace(4)»<description><![CDATA[«(audit.description)»]]></description>
             «ELSE»
-            <description><![CDATA[«('')»]]></description>
+			«tripleSpace(4)»<description><![CDATA[«('')»]]></description>
             «ENDIF»
             «IF audit.message != null»
-            	<message><![CDATA[«audit.message»]]></message>
+				«tripleSpace(4)»<message><![CDATA[«audit.message»]]></message>
             	«ELSE»
             	«IF audit.name != null»
-            	<message><![CDATA[«audit.name» audit violated]]></message>
+				«tripleSpace(4)»<message><![CDATA[«audit.name» audit violated]]></message>
             	«ELSE»
-            	<message><![CDATA[«audit.id» audit violated]]></message>
+				«tripleSpace(4)»<message><![CDATA[«audit.id» audit violated]]></message>
             	«ENDIF»
             «ENDIF»
-            <target class="«audit.target.getTargetClassModelQualifiedName()»"/>
-         </constraint>
+         «tripleSpace(4)»<target class="«audit.target.getTargetClassModelQualifiedName()»"/>
+         «tripleSpace(3)»</constraint>
          «ENDFOR»
-         </constraints>
+         «tripleSpace(6)»</constraints>
 	'''
 	
 	protected def pathMap(GenAuditContainer it) 

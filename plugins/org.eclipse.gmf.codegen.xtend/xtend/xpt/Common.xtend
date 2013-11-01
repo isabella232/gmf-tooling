@@ -113,6 +113,17 @@ import org.eclipse.gmf.internal.common.codegen.Conversions
 	def extraLineBreak() '''
 «/*FIXME: artificially inserting new line break to reduce diff against xpand templates */»
 	'''
-
+	
+	def hackTripleSpace() '''   '''
+	
+	def tripleSpace(int amount) {
+		var b = new StringBuilder;
+		var counter = 0;
+		while(counter < amount) {
+			b.append('   ');
+			counter = counter + 1;
+		}
+		return b.toString;
+	}
 }
 

@@ -40,37 +40,38 @@ class extensions {
 	@Inject PredefinedAction predefinedAction;
 	
 	def Main(GenEditorGenerator it) '''
-		<extension point="org.eclipse.ui.menus" id="context-menus">
-			«xmlGeneratedTag»
-			<!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
-			</menuContribution>
-			<menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
-			</menuContribution -->
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.menus" id="context-menus">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+		«tripleSpace(2)»</menuContribution>
+		«tripleSpace(2)»<menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+		«tripleSpace(2)»</menuContribution -->
 			«FOR cm : contextMenus»
-				«menuContribution(cm)»
+		«menuContribution(cm)»
 			«ENDFOR»
-		</extension>
+		«tripleSpace(1)»</extension>
 		
 		«IF hasCommandsToContribute(it)»
-			<extension point="org.eclipse.ui.commands" id="menu-commands">
-				«xmlGeneratedTag»
-				<category id="«editor.ID»" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+			«tripleSpace(1)»<extension point="org.eclipse.ui.commands" id="menu-commands">
+			«tripleSpace(2)»«xmlGeneratedTag»
+			«tripleSpace(2)»<category id="«editor.ID»" name="%cmdcategory.name" description="%cmdcategory.desc"/>
 				«FOR cm : contextMenus»
-					«commandContribution(cm)»
+			«tripleSpace(2)»«commandContribution(cm)»
 				«ENDFOR»
-			</extension>
+			«tripleSpace(1)»</extension>
 		«ENDIF»
-		
 		«IF hasHandlersToContribute(it)»
-			<extension point="org.eclipse.ui.handlers" id="menu-handlers">
-				«xmlGeneratedTag»
+			«extraLineBreak»
+			«tripleSpace(1)»<extension point="org.eclipse.ui.handlers" id="menu-handlers">
+			«tripleSpace(2)»«xmlGeneratedTag»
 				«FOR cm : contextMenus»
-					«handlerContribution(cm)»
+			«handlerContribution(cm)»
 				«ENDFOR»
-			</extension>
+			«tripleSpace(1)»</extension>
 		«ENDIF»
 		
-		<!-- optionally, specify keybindings -->
+		«tripleSpace(1)»<!-- optionally, specify keybindings -->
 	'''
 
 	def menuContribution(GenContextMenu it) '''
@@ -87,11 +88,11 @@ class extensions {
 		it, contextMenu, 'toolbar:' + it.ID)»'''
 
 	def CharSequence menuContribution3(GenContributionManager it, GenContextMenu contextMenu, String locationURI) '''
-		<menuContribution locationURI="«locationURI»">
+		«tripleSpace(2)»<menuContribution locationURI="«locationURI»">
 		«FOR i : items»
 			«menuEntry(i, contextMenu)»
 		«ENDFOR»
-		</menuContribution>
+		«tripleSpace(2)»</menuContribution>
 		«FOR m : items.filter(typeof(GenContributionManager))»
 			«menuContribution(m, contextMenu)»
 		«ENDFOR»
@@ -120,25 +121,25 @@ class extensions {
 
 	def dispatch CharSequence commandContribution(GenCustomAction it) '''
 		<command id="«commandIdentifier(it)»"
-			name="«name»"
-			categoryId="«owner.editorGen.editor.ID»"/>
+		«tripleSpace(3)»name="«name»"
+		«tripleSpace(3)»categoryId="«owner.editorGen.editor.ID»"/>
 	'''
 
 	def dispatch CharSequence commandContribution(GenAction it) '''
 		<command id="«commandIdentifier(it)»"
-			name="«name/*FIXME: into i18n keys*/»"
-			categoryId="«owner.editorGen.editor.ID»"
-			defaultHandler="«predefinedAction.qualifiedClassName(it)»"/>
+		«tripleSpace(3)»name="«name/*FIXME: into i18n keys*/»"
+		«tripleSpace(3)»categoryId="«owner.editorGen.editor.ID»"
+		«tripleSpace(3)»defaultHandler="«predefinedAction.qualifiedClassName(it)»"/>
 	'''
 
 	def dispatch CharSequence handlerContribution(GenCustomAction it) '''
-		<handler
-			commandId="«commandIdentifier(it)»"
-			class="«qualifiedClassName»">
-			<enabledWhen>
-				<with variable="activePartId"><equals value="«owner.editorGen.editor.ID»"/></with>
-			</enabledWhen>
-		</handler>
+		«tripleSpace(2)»<handler
+		«tripleSpace(4)»commandId="«commandIdentifier(it)»"
+		«tripleSpace(4)»class="«qualifiedClassName»">
+		«tripleSpace(3)»<enabledWhen>
+		«tripleSpace(4)»<with variable="activePartId"><equals value="«owner.editorGen.editor.ID»"/></with>
+		«tripleSpace(3)»</enabledWhen>
+		«tripleSpace(2)»</handler>
 	'''
 
 	def dispatch CharSequence commandIdentifier(GenCustomAction it) '''«owner.editorGen.plugin.ID».«lastSegment(
@@ -157,46 +158,46 @@ class extensions {
 	'''
 
 	def dispatch CharSequence menuEntry(GenCommandAction it, GenContextMenu contextMenu) '''
-		<command commandId="«commandIdentifier»">
-			<visibleWhen>
-				«menuCondition(contextMenu)»
-			</visibleWhen>
-		</command>
+		«tripleSpace(3)»<command commandId="«commandIdentifier»">
+		«tripleSpace(4)»<visibleWhen>
+		«menuCondition(contextMenu)»
+		«tripleSpace(4)»</visibleWhen>
+		«tripleSpace(3)»</command>
 	'''
 
 	def dispatch CharSequence menuEntry(GenCustomAction it, GenContextMenu contextMenu) '''
-		<command commandId="«commandIdentifier(it)»">
-			<visibleWhen>
-				«menuCondition(contextMenu)»
-			</visibleWhen>
-		</command>
+		«tripleSpace(3)»<command commandId="«commandIdentifier(it)»">
+		«tripleSpace(4)»<visibleWhen>
+		«menuCondition(contextMenu)»
+		«tripleSpace(4)»</visibleWhen>
+		«tripleSpace(3)»</command>
 	'''
 
 	def dispatch CharSequence menuEntry(GenAction it, GenContextMenu contextMenu) '''
-		<command commandId="«commandIdentifier(it)»">
-			<visibleWhen>
-				«menuCondition(contextMenu)»
-			</visibleWhen>
-		</command>
+		«tripleSpace(3)»<command commandId="«commandIdentifier(it)»">
+		«tripleSpace(4)»<visibleWhen>
+		«menuCondition(contextMenu)»
+		«tripleSpace(4)»</visibleWhen>
+		«tripleSpace(3)»</command>
 	'''
 
 	def dispatch CharSequence menuEntry(GenMenuManager it, GenContextMenu contextMenu) '''
-		<menu id="«it.ID»" label="«name»">
-			<visibleWhen>
-				«menuCondition(contextMenu)»
-			</visibleWhen>
-		</menu>
+		«tripleSpace(3)»<menu id="«it.ID»" label="«name»">
+		«tripleSpace(4)»<visibleWhen>
+		«menuCondition(contextMenu)»
+		«tripleSpace(4)»</visibleWhen>
+		«tripleSpace(3)»</menu>
 	'''
 
 	def menuCondition(GenContextMenu it) '''
-		<and>
-			<with variable="activePartId"><equals value="«editorGen.editor.ID»"/></with>
-			<with variable="selection"><iterate ifEmpty="false">«IF context.size > 1»<or>«ENDIF» 
+		«tripleSpace(5)»<and>
+		«tripleSpace(6)»<with variable="activePartId"><equals value="«editorGen.editor.ID»"/></with>
+		«tripleSpace(6)»<with variable="selection"><iterate ifEmpty="false">«IF context.size > 1»<or>«ENDIF» 
 			«/* XXX, perhaps, <adapt type="EditPart">? */FOR de : context»
-				<instanceof value="«xptEditPartFactory.getEditPartQualifiedClassName(de)»"/>
+		«tripleSpace(7)»<instanceof value="«xptEditPartFactory.getEditPartQualifiedClassName(de)»"/>
 			«ENDFOR»
-			«IF context.size > 1»</or>«ENDIF»</iterate></with>
-		</and>
+		«tripleSpace(6)»«IF context.size > 1»</or>«ENDIF»</iterate></with>
+		«tripleSpace(5)»</and>
 	'''
 
 	@Localization def i18n(GenEditorGenerator it) '''

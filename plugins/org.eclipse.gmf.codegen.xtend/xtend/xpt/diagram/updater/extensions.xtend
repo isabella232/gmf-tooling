@@ -19,23 +19,29 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater
 	@Inject extension xpt.Common;
 
 	def extensions(GenDiagramUpdater it) '''
-		<extension point="org.eclipse.ui.commands" id="update-cmd">
-		   «xmlGeneratedTag»
-		   <command
-		      categoryId="org.eclipse.ui.category.edit"
-		      defaultHandler="«getUpdateCommandQualifiedClassName()»"
-		      description="%update.diagram.description"
-		      id="«updateCommandID»"
-		      name="%update.diagram.name"/>
-		</extension>
-		
-		<extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
-		   «xmlGeneratedTag»
-		   <key 
-		      commandId="«updateCommandID»"
-		      contextId="«editorGen.editor.contextID»"
-		      schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-		      sequence="F5"/>
-		</extension>
+		«extraLineBreak»
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.commands" id="update-cmd">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<command
+		«tripleSpace(3)»categoryId="org.eclipse.ui.category.edit"
+		«tripleSpace(3)»defaultHandler="«getUpdateCommandQualifiedClassName()»"
+		«tripleSpace(3)»description="%update.diagram.description"
+		«tripleSpace(3)»id="«updateCommandID»"
+		«tripleSpace(3)»name="%update.diagram.name"/>
+		«tripleSpace(1)»</extension>
+		«extraLineBreak»«outTab»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<key 
+		«tripleSpace(3)»commandId="«updateCommandID»"
+		«tripleSpace(3)»contextId="«editorGen.editor.contextID»"
+		«tripleSpace(3)»schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+		«tripleSpace(3)»sequence="F5"/>
+		«tripleSpace(1)»</extension>
 	'''
+	
+	def outTab() {
+		return '	';
+	}
 }

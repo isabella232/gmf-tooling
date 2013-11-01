@@ -35,32 +35,32 @@ import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage
 
 	def extensions(GenDiagram it) '''
 		
-		<extension point="org.eclipse.core.runtime.preferences" id="prefs">
-			«xmlGeneratedTag»
-			<initializer class="«xptPreferenceInitializer.qualifiedClassName(it)»"/>
-		</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.core.runtime.preferences" id="prefs">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<initializer class="«xptPreferenceInitializer.qualifiedClassName(it)»"/>
+		«tripleSpace(1)»</extension>
 		
 		«IF it.preferencePages.notEmpty»
-			<extension point="org.eclipse.ui.preferencePages" id="prefpages">
-				«xmlGeneratedTag»
-				«FOR pref : allPreferencePages(it)»
-					«preferencePage(pref)»
-				«ENDFOR»
-			</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.ui.preferencePages" id="prefpages">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		      «FOR pref : allPreferencePages(it)»
+		«preferencePage(pref)»
+		      «ENDFOR»
+		«tripleSpace(1)»</extension>
 		«ENDIF»
 	'''
 
 	def preferencePage(GenPreferencePage it) '''
-		<page
-			id="«ID»"
-			name="%prefpage.«ID»"
+		«tripleSpace(2)»<page
+		«tripleSpace(4)»id="«ID»"
+		«tripleSpace(4)»name="%prefpage.«ID»"
 			«IF null != parent»
-				category="«parent.ID»"
+		«tripleSpace(4)»category="«parent.ID»"
 			«ELSEIF !parentCategory.nullOrEmpty»
-				category="«parentCategory»"
+		«tripleSpace(4)»category="«parentCategory»"
 			«ENDIF»
-			class="«getQualifiedPageName(it)»">
-		</page>
+		«tripleSpace(4)»class="«getQualifiedPageName(it)»">
+		«tripleSpace(2)»</page>
 	'''
 
 	@Localization def i18n(GenDiagram it) '''

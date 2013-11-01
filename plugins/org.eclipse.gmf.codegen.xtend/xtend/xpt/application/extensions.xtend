@@ -25,80 +25,80 @@ class extensions {
 
 	def extensions(GenApplication it) '''
 	«IF it != null»
-		<extension id="«ID»" point="org.eclipse.core.runtime.applications">
-			«xmlGeneratedTag»
-			<application>
-				<run class="«xptApplication.qualifiedClassName(it)»"/>
-			</application>
-		</extension>
-			<extension point="org.eclipse.ui.perspectives" id="rcp-perspective">
-			«xmlGeneratedTag»
-			<perspective
-				id="«perspectiveId»"
-				name="%perspectiveName"
-				class="«xptPerspective.qualifiedClassName(it)»">
-			</perspective>
-		</extension>
-			<extension point="org.eclipse.ui.commands" id="rcp-menu-commands">
-			«xmlGeneratedTag»
-			<command
-				name="%openURIActionLabel"
-				description="%openURIActionDescription"
-				categoryId="org.eclipse.ui.category.file"
-				id="«editorGen.plugin.ID».OpenURICommand"/>  
-			<command
-				name="%openActionLabel"
-				description="%openActionDescription"
-				categoryId="org.eclipse.ui.category.file"
-				id="«editorGen.plugin.ID».OpenCommand"/>  
-		</extension>
+		«tripleSpace(1)»<extension id="«ID»" point="org.eclipse.core.runtime.applications">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<application>
+		«tripleSpace(3)»<run class="«xptApplication.qualifiedClassName(it)»"/>
+		«tripleSpace(2)»</application>
+		«tripleSpace(1)»</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.ui.perspectives" id="rcp-perspective">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<perspective
+		«tripleSpace(3)»id="«perspectiveId»"
+		«tripleSpace(3)»name="%perspectiveName"
+		«tripleSpace(3)»class="«xptPerspective.qualifiedClassName(it)»">
+		«tripleSpace(2)»</perspective>
+		«tripleSpace(1)»</extension>
+		«tripleSpace(2)»<extension point="org.eclipse.ui.commands" id="rcp-menu-commands">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<command
+		«tripleSpace(3)»name="%openURIActionLabel"
+		«tripleSpace(3)»description="%openURIActionDescription"
+		«tripleSpace(3)»categoryId="org.eclipse.ui.category.file"
+		«tripleSpace(3)»id="«editorGen.plugin.ID».OpenURICommand"/>  
+		«tripleSpace(2)»<command
+		«tripleSpace(3)»name="%openActionLabel"
+		«tripleSpace(3)»description="%openActionDescription"
+		«tripleSpace(3)»categoryId="org.eclipse.ui.category.file"
+		«tripleSpace(3)»id="«editorGen.plugin.ID».OpenCommand"/>  
+		«tripleSpace(1)»</extension>
+		«tripleSpace(1)»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.bindings" id="rcp-command-bindings">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<key
+		«tripleSpace(3)»commandId="«editorGen.plugin.ID».OpenURICommand"
+		«tripleSpace(3)»sequence="M1+U"
+		«tripleSpace(3)»schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+		«tripleSpace(2)»<key
+		«tripleSpace(3)»commandId="«editorGen.plugin.ID».OpenCommand"
+		«tripleSpace(3)»sequence="M1+O"
+		«tripleSpace(3)»schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.ui.bindings" id="rcp-command-bindings">
-			«xmlGeneratedTag»
-			<key
-				commandId="«editorGen.plugin.ID».OpenURICommand"
-				sequence="M1+U"
-				schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
-			<key
-				commandId="«editorGen.plugin.ID».OpenCommand"
-				sequence="M1+O"
-				schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
-		</extension>
-		
-		<extension point="org.eclipse.ui.actionSets" id="rcp-actions">
-			«xmlGeneratedTag»
-			<actionSet
-				label="%applicationActionSetLabel"
-				visible="true"
-				id="«editorGen.plugin.ID».ActionSet">
-				<action
-					label="%newDiagramActionLabel"
-					class="«xptActionBarAdvisor.qualifiedClassName(it)»$NewDiagramAction"
-					menubarPath="file/new/additions"
-					id="«editorGen.plugin.ID».NewDiagramAction">
-				</action>
-				<action
-					label="%aboutActionLabel"
-					class="«xptActionBarAdvisor.qualifiedClassName(it)»$AboutAction"
-					menubarPath="help/additions"
-					id="«editorGen.plugin.ID».AboutAction">
-				</action>
-				<action
-					label="%openURIActionLabel"
-					definitionId="«editorGen.plugin.ID».OpenURICommand"
-					class="«xptActionBarAdvisor.qualifiedClassName(it)»$OpenURIAction"
-					menubarPath="file/additions"
-					id="«editorGen.plugin.ID».OpenURIAction">
-				</action>
-				<action
-					label="%openActionLabel"
-					definitionId="«editorGen.plugin.ID».OpenCommand"
-					class="«xptActionBarAdvisor.qualifiedClassName(it)»$OpenAction"
-					menubarPath="file/additions"
-					id="«editorGen.plugin.ID».OpenAction">
-				</action>
-			</actionSet>
-		</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.ui.actionSets" id="rcp-actions">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<actionSet
+		«tripleSpace(4)»label="%applicationActionSetLabel"
+		«tripleSpace(4)»visible="true"
+		«tripleSpace(4)»id="«editorGen.plugin.ID».ActionSet">
+		«tripleSpace(3)»<action
+		«tripleSpace(5)»label="%newDiagramActionLabel"
+		«tripleSpace(5)»class="«xptActionBarAdvisor.qualifiedClassName(it)»$NewDiagramAction"
+		«tripleSpace(5)»menubarPath="file/new/additions"
+		«tripleSpace(5)»id="«editorGen.plugin.ID».NewDiagramAction">
+		«tripleSpace(3)»</action>
+		«tripleSpace(3)»<action
+		«tripleSpace(5)»label="%aboutActionLabel"
+		«tripleSpace(5)»class="«xptActionBarAdvisor.qualifiedClassName(it)»$AboutAction"
+		«tripleSpace(5)»menubarPath="help/additions"
+		«tripleSpace(5)»id="«editorGen.plugin.ID».AboutAction">
+		«tripleSpace(3)»</action>
+		«tripleSpace(3)»<action
+		«tripleSpace(5)»label="%openURIActionLabel"
+		«tripleSpace(5)»definitionId="«editorGen.plugin.ID».OpenURICommand"
+		«tripleSpace(5)»class="«xptActionBarAdvisor.qualifiedClassName(it)»$OpenURIAction"
+		«tripleSpace(5)»menubarPath="file/additions"
+		«tripleSpace(5)»id="«editorGen.plugin.ID».OpenURIAction">
+		«tripleSpace(3)»</action>
+		«tripleSpace(3)»<action
+		«tripleSpace(5)»label="%openActionLabel"
+		«tripleSpace(5)»definitionId="«editorGen.plugin.ID».OpenCommand"
+		«tripleSpace(5)»class="«xptActionBarAdvisor.qualifiedClassName(it)»$OpenAction"
+		«tripleSpace(5)»menubarPath="file/additions"
+		«tripleSpace(5)»id="«editorGen.plugin.ID».OpenAction">
+		«tripleSpace(3)»</action>
+		«tripleSpace(2)»</actionSet>
+		«tripleSpace(1)»</extension>
 	«ENDIF»
 	'''
 

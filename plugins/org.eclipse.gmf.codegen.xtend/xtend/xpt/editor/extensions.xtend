@@ -18,83 +18,89 @@ import xpt.Common
 
 class extensions {
 	@Inject extension Common;
-	
+
 	@Inject MatchingStrategy xptMatching;
 	@Inject ActionBarContributor xptActionBarContributor;
 	@Inject Editor xptEditor;
 	@Inject CreationWizard xptCreationWizard;
 	@Inject InitDiagramFileAction xptInitDiagramFileAction;
-	
+
 	def extensions(GenEditorGenerator it) '''
-		<extension point="org.eclipse.ui.editors" id="gmf-editor">
-			«xmlGeneratedTag()»
-			<editor
-				id="«editor.ID»"
-				name="%editorName"
-				icon="«editor.iconPathX»"
-				extensions="«diagramFileExtension»"
-				default="true"
-				class="«xptEditor.qualifiedClassName(editor)»"
-				matchingStrategy="«xptMatching.qualifiedClassName(diagram)»"
-				contributorClass="«xptActionBarContributor.qualifiedClassName(editor)»">
-			</editor>
-		</extension>
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.editors" id="gmf-editor">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<editor
+		«tripleSpace(3)»id="«editor.ID»"
+		«tripleSpace(3)»name="%editorName"
+		«tripleSpace(3)»icon="«editor.iconPathX»"
+		«tripleSpace(3)»extensions="«diagramFileExtension»"
+		«tripleSpace(3)»default="true"
+		«tripleSpace(3)»class="«xptEditor.qualifiedClassName(editor)»"
+		«tripleSpace(3)»matchingStrategy="«xptMatching.qualifiedClassName(diagram)»"
+		«tripleSpace(3)»contributorClass="«xptActionBarContributor.qualifiedClassName(editor)»">
+		«tripleSpace(2)»</editor>
+		«tripleSpace(1)»</extension>
+		«extraLineBreak»«outTab»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.contexts" id="ui-context">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<context
+		«tripleSpace(3)»description="%context.description"
+		«tripleSpace(3)»id="«editor.contextID»"
+		«tripleSpace(3)»name="%context.name"
+		«tripleSpace(3)»parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+		«tripleSpace(2)»</context>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.ui.contexts" id="ui-context">
-			«xmlGeneratedTag()»
-			<context
-				description="%context.description"
-				id="«editor.contextID»"
-				name="%context.name"
-				parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
-			</context>
-		</extension>
-		
-		<extension point="org.eclipse.ui.newWizards" id="creation-wizard">
-			«xmlGeneratedTag()»
-			<wizard
-				name="%newWizardName"
-				icon="«diagram.creationWizardIconPathX»"
-				category="«diagram.creationWizardCategoryID»"
-				class="«xptCreationWizard.qualifiedClassName(diagram)»"
-				id="«xptCreationWizard.qualifiedClassName(diagram)»ID">
-				<description>%newWizardDesc</description>  
-			</wizard>
-		</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<wizard
+		«tripleSpace(3)»name="%newWizardName"
+		«tripleSpace(3)»icon="«diagram.creationWizardIconPathX»"
+		«tripleSpace(3)»category="«diagram.creationWizardCategoryID»"
+		«tripleSpace(3)»class="«xptCreationWizard.qualifiedClassName(diagram)»"
+		«tripleSpace(3)»id="«xptCreationWizard.qualifiedClassName(diagram)»ID">
+		«tripleSpace(3)»<description>%newWizardDesc</description>  
+		«tripleSpace(2)»</wizard>
+		«tripleSpace(1)»</extension>
 		
 		«IF diagram.generateInitDiagramAction()»
-			«IF null == application»<extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
-				«xmlGeneratedTag()»
-				<objectContribution
-					id="«plugin.ID».InitDiagram"
-					nameFilter="*.«domainFileExtension»"
-					objectClass="org.eclipse.core.resources.IFile">
-					<action
-						label="%initDiagramActionLabel"
-						class="«xptInitDiagramFileAction.qualifiedClassName(diagram)»"
-						menubarPath="additions"
-						enablesFor="1"
-						id="«plugin.ID».InitDiagramAction">
-					</action>
-				</objectContribution>
-			</extension>
-			«ELSE»
-			<extension point="org.eclipse.ui.actionSets" id="init-diagram-action">
-				«xmlGeneratedTag()»
-				<actionSet
-					label="%initDiagramActionLabel"
-					visible="true"
-					id="«plugin.ID».InitDiagram">
-					<action
-						label="%initDiagramActionLabel"
-						class="«xptInitDiagramFileAction.qualifiedClassName(diagram)»"
-						menubarPath="file/additions"
-						id="«plugin.ID».InitDiagramAction">
-					</action>
-				</actionSet>
-			</extension>
-			«ENDIF»
-		«ENDIF»
-	'''
-	
+			«IF null == application»
+				«tripleSpace(1)»<extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+				«tripleSpace(2)»«xmlGeneratedTag()»
+				«tripleSpace(2)»<objectContribution
+				«tripleSpace(4)»id="«plugin.ID».InitDiagram"
+				«tripleSpace(4)»nameFilter="*.«domainFileExtension»"
+				«tripleSpace(4)»objectClass="org.eclipse.core.resources.IFile">
+				«tripleSpace(3)»<action
+				«tripleSpace(5)»label="%initDiagramActionLabel"
+				«tripleSpace(5)»class="«xptInitDiagramFileAction.qualifiedClassName(diagram)»"
+				«tripleSpace(5)»menubarPath="additions"
+				«tripleSpace(5)»enablesFor="1"
+				«tripleSpace(5)»id="«plugin.ID».InitDiagramAction">
+				«tripleSpace(3)»</action>
+				«tripleSpace(2)»</objectContribution>
+				«tripleSpace(1)»</extension>
+				«ELSE»
+					«tripleSpace(1)»<extension point="org.eclipse.ui.actionSets" id="init-diagram-action">
+					«tripleSpace(2)»«xmlGeneratedTag()»
+					«tripleSpace(2)»<actionSet
+					«tripleSpace(4)»label="%initDiagramActionLabel"
+					«tripleSpace(4)»visible="true"
+					«tripleSpace(4)»id="«plugin.ID».InitDiagram">
+					«tripleSpace(3)»<action
+					«tripleSpace(5)»label="%initDiagramActionLabel"
+					«tripleSpace(5)»class="«xptInitDiagramFileAction.qualifiedClassName(diagram)»"
+					«tripleSpace(5)»menubarPath="file/additions"
+					«tripleSpace(5)»id="«plugin.ID».InitDiagramAction">
+					«tripleSpace(3)»</action>
+					«tripleSpace(2)»</actionSet>
+					«tripleSpace(1)»</extension>
+				«ENDIF»
+			«extraLineBreak» «tripleSpace(1)»
+				«ENDIF»
+			'''
+
+	def outTab() {
+		return '	';
+	}
 }

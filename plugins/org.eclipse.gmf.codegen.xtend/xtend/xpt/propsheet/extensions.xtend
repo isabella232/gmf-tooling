@@ -29,112 +29,112 @@ import xpt.Common_qvto
 	@Inject extension Common_qvto;
 	
 	@Inject LabelProvider labelProvider;
-	def extensions(GenPropertySheet it) 
-	'''
-		<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
-			«xmlGeneratedTag»
-			<propertyContributor
-				contributorId="«editorGen.plugin.ID»"
-				«IF needsCaption»labelProvider="«labelProvider.qualifiedClassName(it)»"«ENDIF»>
-			<propertyCategory category="domain"/>
-			<propertyCategory category="visual"/>
-			<propertyCategory category="extra"/>
-			</propertyContributor>
-		</extension>
+	def extensions(GenPropertySheet it) '''
+		«extraLineBreak»
+		«tripleSpace(1)»<extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+		«tripleSpace(2)»«xmlGeneratedTag»
+		«tripleSpace(2)»<propertyContributor
+		«tripleSpace(4)»contributorId="«editorGen.plugin.ID»"
+		«tripleSpace(4)»«IF needsCaption»labelProvider="«labelProvider.qualifiedClassName(it)»"«ENDIF»>
+		«tripleSpace(3)»<propertyCategory category="domain"/>
+		«tripleSpace(3)»<propertyCategory category="visual"/>
+		«tripleSpace(3)»<propertyCategory category="extra"/>
+		«tripleSpace(2)»</propertyContributor>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
-			«xmlGeneratedTag»   
-			<propertyTabs contributorId="«editorGen.plugin.ID»">
+		«tripleSpace(1)»<extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+		«tripleSpace(2)»«xmlGeneratedTag»   
+		«tripleSpace(2)»<propertyTabs contributorId="«editorGen.plugin.ID»">
 				«FOR t : tabs»
-				«tab(t)»
+		«tab(t)»
 				«ENDFOR»
-			</propertyTabs>
-		</extension>
+		«tripleSpace(2)»</propertyTabs>
+		«tripleSpace(1)»</extension>
 		
-		<extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
-			«xmlGeneratedTag»   
-			<propertySections contributorId="«editorGen.plugin.ID»">
+		«tripleSpace(1)»<extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+		«tripleSpace(2)»«xmlGeneratedTag»   
+		«tripleSpace(2)»<propertySections contributorId="«editorGen.plugin.ID»">
 				«FOR t : tabs»
-				«section(t)»
+		«section(t)»
 				«ENDFOR»
-			</propertySections>
-		</extension>
+		«tripleSpace(2)»</propertySections>
+		«tripleSpace(1)»</extension>
 	'''
 
 	def dispatch tab(GenPropertyTab it) '''«ERROR('Unknown property tab: ' + it)»'''
 
 	def dispatch tab(GenStandardPropertyTab it) '''
 		«IF ID == 'appearance'»
-		<propertyTab
-			category="visual"
-			id="property.tab.AppearancePropertySection"
-			label="%tab.appearance"/>
+		«tripleSpace(3)»<propertyTab
+		«tripleSpace(4)» category="visual"
+		«tripleSpace(4)» id="property.tab.AppearancePropertySection"
+		«tripleSpace(4)» label="%tab.appearance"/>
 		«ELSEIF ID == 'diagram'»
-		<propertyTab
-			category="visual"
-			id="property.tab.DiagramPropertySection"
-			label="%tab.diagram"/>
+		«tripleSpace(3)» <propertyTab
+		«tripleSpace(4)» category="visual"
+		«tripleSpace(4)» id="property.tab.DiagramPropertySection"
+		«tripleSpace(4)» label="%tab.diagram"/>
 		«ELSEIF ID == 'advanced'»
 		<propertyTab
-			category="extra"
-			id="property.tab.AdvancedPropertySection"
-			label="%tab.advanced"/>           
+		«tripleSpace(4)» category="extra"
+		«tripleSpace(4)» id="property.tab.AdvancedPropertySection"
+		«tripleSpace(4)» label="%tab.advanced"/>           
 		«ENDIF»
 	'''
 
 	def dispatch tab(GenCustomPropertyTab it) '''
-		<propertyTab
+		«tripleSpace(3)» <propertyTab
 			«IF ID == 'domain'»
-			category="domain"
+		«tripleSpace(4)» category="domain"
 			«ELSE»
-			category="extra"
+		«tripleSpace(4)» category="extra"
 			«ENDIF»
-			id="property.tab.«ID»"
-			label="%tab.«ID»"/>
+		«tripleSpace(4)» id="property.tab.«ID»"
+		«tripleSpace(4)» label="%tab.«ID»"/>
 	'''
 
 	def dispatch section(GenPropertyTab it) '''«ERROR('Unknown property tab: ' + it)»'''
 
 	def dispatch section(GenStandardPropertyTab it) '''
 		«IF ID == 'appearance'»
-		<propertySection id="property.section.ConnectorAppearancePropertySection" 
-			filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
-			class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
-			tab="property.tab.AppearancePropertySection">
-		</propertySection>
-		<propertySection id="property.section.ShapeColorAndFontPropertySection" 
-			filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
-			class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
-			tab="property.tab.AppearancePropertySection">
-		</propertySection> 
-		<propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
-			filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-			class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
-			tab="property.tab.AppearancePropertySection">
-		</propertySection>     
+		«tripleSpace(3)»<propertySection id="property.section.ConnectorAppearancePropertySection" 
+		«tripleSpace(4)»filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+		«tripleSpace(4)»class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+		«tripleSpace(4)»tab="property.tab.AppearancePropertySection">
+		«tripleSpace(3)»</propertySection>
+		«tripleSpace(3)»<propertySection id="property.section.ShapeColorAndFontPropertySection" 
+		«tripleSpace(4)»filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+		«tripleSpace(4)»class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+		«tripleSpace(4)»tab="property.tab.AppearancePropertySection">
+		«tripleSpace(3)»</propertySection> 
+		«tripleSpace(3)»<propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+		«tripleSpace(4)»filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+		«tripleSpace(4)»class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+		«tripleSpace(4)»tab="property.tab.AppearancePropertySection">
+		«tripleSpace(3)»</propertySection>     
 		«ELSEIF ID == 'diagram'»
-		<propertySection id="property.section.RulerGridPropertySection" 
-			filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
-			class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
-			tab="property.tab.DiagramPropertySection">
-		</propertySection>     
+		«tripleSpace(3)»<propertySection id="property.section.RulerGridPropertySection" 
+		«tripleSpace(4)»filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+		«tripleSpace(4)»class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+		«tripleSpace(4)»tab="property.tab.DiagramPropertySection">
+		«tripleSpace(3)»</propertySection>     
 		«ELSEIF ID == 'advanced'»
-		<propertySection id="property.section.AdvancedPropertySection"
-			class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection"
-			filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.EditPartPropertySectionFilter"
-			tab="property.tab.AdvancedPropertySection">
-		</propertySection>            
+		«tripleSpace(3)»<propertySection id="property.section.AdvancedPropertySection"
+		«tripleSpace(4)»class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.AdvancedPropertySection"
+		«tripleSpace(4)»filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.EditPartPropertySectionFilter"
+		«tripleSpace(4)»tab="property.tab.AdvancedPropertySection">
+		«tripleSpace(3)»</propertySection>            
 		«ENDIF»
 	'''
 
 	def dispatch section(GenCustomPropertyTab it) '''
-		<propertySection
-			id="property.section.«ID»" 
-			tab="property.tab.«ID»"
-			«filter(it.filter)»
-			class="«getQualifiedClassName()»">
-				«input(it.filter)»
-		</propertySection>
+		«tripleSpace(3)»<propertySection
+		«tripleSpace(4)»id="property.section.«ID»" 
+		«tripleSpace(4)»tab="property.tab.«ID»"
+		«tripleSpace(4)»«filter(it.filter)»
+		«tripleSpace(4)»class="«getQualifiedClassName()»">
+		«input(it.filter)»
+		«tripleSpace(3)»</propertySection>
 	'''
 
 	def dispatch filter(GenPropertyTabFilter it) ''''''
@@ -147,7 +147,7 @@ import xpt.Common_qvto
 
 	def dispatch input(TypeTabFilter it) '''
 		«FOR type : getAllTypes()»
-		<input type="«type»"/>
+		«tripleSpace(4)»<input type="«type»"/>
 		«ENDFOR»
 	'''
 

@@ -45,147 +45,147 @@ class extensions {
 		
 		«registerBindings(it)»
 		
-		<extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
-			«xmlGeneratedTag()»
-			<navigatorContent
-					id="«contentExtensionID»" 
-					name="«contentExtensionName»" 
-					priority="«contentExtensionPriority»" 
-					contentProvider="«contentProvider.qualifiedClassName(it)»" 
-					labelProvider="«labelProvider.qualifiedClassName(it)»"
-					icon="«editorGen.editor.iconPathX»"
-					activeByDefault="true">
-			<triggerPoints>
-				<or>
-					<and>
-						<instanceof value="org.eclipse.core.resources.IFile"/>
-						<test property="org.eclipse.core.resources.extension" value="«editorGen.diagramFileExtension»"/>
-					</and>
-					<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
+		«tripleSpace(1)»<extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<navigatorContent
+		«tripleSpace(4)»id="«contentExtensionID»" 
+		«tripleSpace(4)»name="«contentExtensionName»" 
+		«tripleSpace(4)»priority="«contentExtensionPriority»" 
+		«tripleSpace(4)»contentProvider="«contentProvider.qualifiedClassName(it)»" 
+		«tripleSpace(4)»labelProvider="«labelProvider.qualifiedClassName(it)»"
+		«tripleSpace(4)»icon="«editorGen.editor.iconPathX»"
+		«tripleSpace(4)»activeByDefault="true">
+		«tripleSpace(3)»<triggerPoints>
+		«tripleSpace(4)»<or>
+		«tripleSpace(5)»<and>
+		«tripleSpace(6)»<instanceof value="org.eclipse.core.resources.IFile"/>
+		«tripleSpace(6)»<test property="org.eclipse.core.resources.extension" value="«editorGen.diagramFileExtension»"/>
+		«tripleSpace(5)»</and>
+		«tripleSpace(5)»<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 				«IF editorGen.diagram.generateShortcutIcon()»
-					<adapt type="org.eclipse.gmf.runtime.notation.View">
-						<test property="«editorGen.plugin.ID».isShortcut"/>
-					</adapt>
+		«tripleSpace(5)»<adapt type="org.eclipse.gmf.runtime.notation.View">
+		«tripleSpace(6)»<test property="«editorGen.plugin.ID».isShortcut"/>
+		«tripleSpace(5)»</adapt>
 				«ENDIF»
-				</or>
-			</triggerPoints>
-			<possibleChildren>
-				<or>
-					<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
+		«tripleSpace(4)»</or>
+		«tripleSpace(3)»</triggerPoints>
+		«tripleSpace(3)»<possibleChildren>
+		«tripleSpace(4)»<or>
+		«tripleSpace(5)»<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 				«IF editorGen.diagram.generateShortcutIcon()»
-					<adapt type="org.eclipse.gmf.runtime.notation.View">
-						<test property="«editorGen.plugin.ID».isShortcut"/>
-					</adapt>
+		«tripleSpace(5)»<adapt type="org.eclipse.gmf.runtime.notation.View">
+		«tripleSpace(6)»<test property="«editorGen.plugin.ID».isShortcut"/>
+		«tripleSpace(5)»</adapt>
 				«ENDIF»
-				</or>
-			</possibleChildren>
-			<commonSorter 
-				id="«sorterExtensionID»" 
-				class="«getSorterQualifiedClassName()»">
-				<parentExpression>
-					<or>
-						<and>
-							<instanceof value="org.eclipse.core.resources.IFile"/>
-							<test property="org.eclipse.core.resources.extension" value="«editorGen.diagramFileExtension»"/>
-						</and>
-						<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
-					</or>
-				</parentExpression>
-			</commonSorter>
-			</navigatorContent>
+		«tripleSpace(4)»</or>
+		«tripleSpace(3)»</possibleChildren>
+		«tripleSpace(3)»<commonSorter 
+		«tripleSpace(5)»id="«sorterExtensionID»" 
+		«tripleSpace(5)»class="«getSorterQualifiedClassName()»">
+		«tripleSpace(4)»<parentExpression>
+		«tripleSpace(5)»<or>
+		«tripleSpace(6)»<and>
+		«tripleSpace(7)»<instanceof value="org.eclipse.core.resources.IFile"/>
+		«tripleSpace(7)»<test property="org.eclipse.core.resources.extension" value="«editorGen.diagramFileExtension»"/>
+		«tripleSpace(6)»</and>
+		«tripleSpace(6)»<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
+		«tripleSpace(5)»</or>
+		«tripleSpace(4)»</parentExpression>
+		«tripleSpace(3)»</commonSorter>
+		«tripleSpace(2)»</navigatorContent>
 		«IF generateDomainModelNavigator && null != editorGen.domainGenModel»
-			<navigatorContent
-					id="«domainContentExtensionID»" 
-					name="«domainContentExtensionName»" 
-					priority="«domainContentExtensionPriority»" 
-					contentProvider="«domainContentProvider.qualifiedClassName(it)»" 
-					labelProvider="«domainLabelNavigator.qualifiedClassName(it)»"
-					icon="«editorGen.editor.iconPathX»"
-					activeByDefault="true">
-			<triggerPoints>
-				<or>
-				<and>
-					<instanceof value="org.eclipse.core.resources.IFile"/>
-					<test property="org.eclipse.core.resources.extension" value="«editorGen.domainFileExtension»"/>
-					</and>
-					<instanceof value="«xptDomainNavigatorItem.qualifiedClassName(it)»"/>
-				</or>
-			</triggerPoints>
-			<possibleChildren>
-				<instanceof value="«xptDomainNavigatorItem.qualifiedClassName(it)»"/>
-			</possibleChildren>
-			</navigatorContent>
+			«tripleSpace(2)»<navigatorContent
+			«tripleSpace(4)»id="«domainContentExtensionID»" 
+			«tripleSpace(4)»name="«domainContentExtensionName»" 
+			«tripleSpace(4)»priority="«domainContentExtensionPriority»" 
+			«tripleSpace(4)»contentProvider="«domainContentProvider.qualifiedClassName(it)»" 
+			«tripleSpace(4)»labelProvider="«domainLabelNavigator.qualifiedClassName(it)»"
+			«tripleSpace(4)»icon="«editorGen.editor.iconPathX»"
+			«tripleSpace(4)»activeByDefault="true">
+			«tripleSpace(3)»<triggerPoints>
+			«tripleSpace(4)»<or>
+			«tripleSpace(5)»<and>
+			«tripleSpace(6)»<instanceof value="org.eclipse.core.resources.IFile"/>
+			«tripleSpace(6)»<test property="org.eclipse.core.resources.extension" value="«editorGen.domainFileExtension»"/>
+			«tripleSpace(5)»</and>
+			«tripleSpace(5)»<instanceof value="«xptDomainNavigatorItem.qualifiedClassName(it)»"/>
+			«tripleSpace(4)»</or>
+			«tripleSpace(3)»</triggerPoints>
+			«tripleSpace(3)»<possibleChildren>
+			«tripleSpace(4)»<instanceof value="«xptDomainNavigatorItem.qualifiedClassName(it)»"/>
+			«tripleSpace(3)»</possibleChildren>
+			«tripleSpace(2)»</navigatorContent>
 		«ENDIF»
-			<actionProvider
-			id="«actionProviderID»"
-			class="«getActionProviderQualifiedClassName()»">
-			<enablement>
-				<or>
-					<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
+		«tripleSpace(2)»<actionProvider
+		«tripleSpace(4)»id="«actionProviderID»"
+		«tripleSpace(4)»class="«getActionProviderQualifiedClassName()»">
+		«tripleSpace(3)»<enablement>
+		«tripleSpace(4)»<or>
+		«tripleSpace(5)»<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
 				«IF editorGen.diagram.generateShortcutIcon()»
-					<adapt type="org.eclipse.gmf.runtime.notation.View">
-						<test property="«editorGen.plugin.ID».isShortcut"/>
-					</adapt>
+		«tripleSpace(5)»<adapt type="org.eclipse.gmf.runtime.notation.View">
+		«tripleSpace(6)»<test property="«editorGen.plugin.ID».isShortcut"/>
+		«tripleSpace(5)»</adapt>
 				«ENDIF»
-				</or>
-			</enablement>
-			</actionProvider>
-		</extension>
+		«tripleSpace(4)»</or>
+		«tripleSpace(3)»</enablement>
+		«tripleSpace(2)»</actionProvider>
+		«tripleSpace(1)»</extension>
 			
 		«registerLinkHelper(it)»
 	«ENDIF»
 	'''
 
 	def editorInputPropertyTester(GenNavigator it, String property, String type, String testerClass) '''
-		<extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.is«property»">
-			«xmlGeneratedTag()»
-			<propertyTester
-				id="«editorGen.plugin.ID».«property»PropertyTester"
-				type="«type»"
-				namespace="«editorGen.plugin.ID»"
-				properties="is«property»"
-				class="«testerClass»">
-			</propertyTester>
-		</extension>
+			«tripleSpace(1)»<extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.is«property»">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<propertyTester
+		«tripleSpace(4)»id="«editorGen.plugin.ID».«property»PropertyTester"
+		«tripleSpace(4)»type="«type»"
+		«tripleSpace(4)»namespace="«editorGen.plugin.ID»"
+		«tripleSpace(4)»properties="is«property»"
+		«tripleSpace(4)»class="«testerClass»">
+		«tripleSpace(2)»</propertyTester>
+		«tripleSpace(1)»</extension>
 	'''
 
 	def registerBindings(GenNavigator it) '''
-		<extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
-			«xmlGeneratedTag()»
-			<viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
-				<includes>
-					<contentExtension pattern="«contentExtensionID»"/>
-					«IF generateDomainModelNavigator && null != editorGen.domainGenModel»
-						<contentExtension pattern="«domainContentExtensionID»"/>
-					«ENDIF»
-					<contentExtension pattern="«linkHelperExtensionID»"/>
-				</includes>
-			</viewerContentBinding>
-			<viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
-			<includes>
-				<actionExtension pattern="«actionProviderID»"/>
-			</includes>
-			</viewerActionBinding>
-		</extension>
+		«tripleSpace(1)»<extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+		«tripleSpace(3)»<includes>
+		«tripleSpace(4)»<contentExtension pattern="«contentExtensionID»"/>
+		«IF generateDomainModelNavigator && null != editorGen.domainGenModel»
+		«tripleSpace(4)»<contentExtension pattern="«domainContentExtensionID»"/>
+		«ENDIF»
+		«tripleSpace(4)»<contentExtension pattern="«linkHelperExtensionID»"/>
+		«tripleSpace(3)»</includes>
+		«tripleSpace(2)»</viewerContentBinding>
+		«tripleSpace(2)»<viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+		«tripleSpace(3)»<includes>
+		«tripleSpace(4)»<actionExtension pattern="«actionProviderID»"/>
+		«tripleSpace(3)»</includes>
+		«tripleSpace(2)»</viewerActionBinding>
+		«tripleSpace(1)»</extension>
 	'''
 
 	def registerLinkHelper(GenNavigator it) '''
-		<extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
-			«xmlGeneratedTag()»
-			<linkHelper
-				id="«linkHelperExtensionID»"
-				class="«getLinkHelperQualifiedClassName()»">
-			<editorInputEnablement>
-				<and>
-					<instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
-					<test property="«editorGen.plugin.ID».isURIEditorInput"/>
-				</and>
-			</editorInputEnablement>
-			<selectionEnablement>
-				<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
-			</selectionEnablement>
-			</linkHelper>
-		</extension>
+			«tripleSpace(1)»<extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+		«tripleSpace(2)»«xmlGeneratedTag()»
+		«tripleSpace(2)»<linkHelper
+		«tripleSpace(4)»id="«linkHelperExtensionID»"
+		«tripleSpace(4)»class="«getLinkHelperQualifiedClassName()»">
+		«tripleSpace(3)»<editorInputEnablement>
+		«tripleSpace(4)»<and>
+		«tripleSpace(5)»<instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+		«tripleSpace(5)»<test property="«editorGen.plugin.ID».isURIEditorInput"/>
+		«tripleSpace(4)»</and>
+		«tripleSpace(3)»</editorInputEnablement>
+		«tripleSpace(3)»<selectionEnablement>
+		«tripleSpace(4)»<instanceof value="«abstractNavigatorItem.qualifiedClassName(it)»"/>
+		«tripleSpace(3)»</selectionEnablement>
+		«tripleSpace(2)»</linkHelper>
+		«tripleSpace(1)»</extension>
 	'''
 
 }
