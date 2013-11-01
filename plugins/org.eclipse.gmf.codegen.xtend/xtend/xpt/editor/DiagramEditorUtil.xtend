@@ -112,7 +112,7 @@ class DiagramEditorUtil {
 			}
 		«ENDIF»
 		
-			«generatedMemberComment(it, 'Runs the wizard in a dialog.')»
+			«generatedMemberComment(it, 'Runs the wizard in a dialog.\n')»
 			public static void runWizard(org.eclipse.swt.widgets.Shell shell, org.eclipse.jface.wizard.Wizard wizard, String settingsKey) {
 				org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getDialogSettings();
 				org.eclipse.jface.dialogs.IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection(settingsKey);

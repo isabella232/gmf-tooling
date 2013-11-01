@@ -32,9 +32,9 @@ public class EditHelper {
 		«copyright(diagramElement.diagram.editorGen)»
 		package «packageName(it)»;
 		
+		«generatedClassComment»
 		public class «className(it)» extends «xptBaseEditHelper.qualifiedClassName(it.diagramElement.diagram)» {
-			
-			«additions(it)»
+		«additions(it)»
 		}
 	'''
 
