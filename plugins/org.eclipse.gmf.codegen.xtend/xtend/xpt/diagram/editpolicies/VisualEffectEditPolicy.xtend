@@ -92,6 +92,7 @@ public class «className(it)» «extendsList(it)» {
 
 	def setVisualEffectValue(GenVisualEffect it) '''
 		«generatedMemberComment»
+		
 		«overrideAnnotationC(it)»
 		protected void setVisualEffectValue(Object value) {
 			«IF pinKind == 'ColorPin'»  

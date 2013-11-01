@@ -57,6 +57,7 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 			«xptImplParserProvider.provider_getParserMethod(it)»
 			«xptImplParserProvider.provider_providesMethod(it)»
 			«xptImplParserProvider.HintAdapterClass(it)»
+			«extraLineBreak»
 		«ELSE»
 			«xptImplParserProvider.accessorMethod_direct(it)»
 		«ENDIF»

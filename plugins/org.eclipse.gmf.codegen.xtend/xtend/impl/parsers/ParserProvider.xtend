@@ -224,15 +224,13 @@ class ParserProvider {
 		«ENDIF»
 	'''
 
-	def dispatch dispatch_parsers(GenNode it) 
-	''' 
+	def dispatch dispatch_parsers(GenNode it) ''' 
 		«FOR label : it.labels»
 			«dispatch_parser(label.modelFacet.parser, label.modelFacet, label)»
 		«ENDFOR»
 	'''
 	
-	def dispatch dispatch_parsers(GenLink it) 
-	''' 
+	def dispatch dispatch_parsers(GenLink it) '''
 		«FOR label : it.labels»
 			«dispatch_parser(label.modelFacet.parser, label.modelFacet, label)»
 		«ENDFOR»
@@ -292,6 +290,7 @@ class ParserProvider {
 	'''		
 
 	def doPredefinedParser(GenParserImplementation it, FeatureLabelModelFacet modelFacet, GenCommonBase element) '''
+		«extraLineBreak»
 		«generatedMemberComment()»
 		private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
 

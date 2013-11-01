@@ -56,6 +56,7 @@ class PredefinedParser {
 		«parser_getPrintStringMethod(it)»
 		«parser_isAffectingEventMethod(it)»
 		«parser_getCompletionProcessorMethod(it)»
+		«extraLineBreak»
 		«additions(it)»
 	}
 	'''
@@ -73,6 +74,7 @@ class PredefinedParser {
 	private String defaultEditablePattern;
 	«ENDIF»
 	«IF viewMethod == LabelTextAccessMethod::MESSAGE_FORMAT»
+	«extraLineBreak»
 	«generatedMemberComment»
 	private java.text.MessageFormat viewProcessor;
 
@@ -80,6 +82,7 @@ class PredefinedParser {
 	private java.text.MessageFormat editorProcessor;
 	«ENDIF»
 	«IF editMethod == LabelTextAccessMethod::MESSAGE_FORMAT»
+	«extraLineBreak»
 	«generatedMemberComment»
 	private java.text.MessageFormat editProcessor;
 	«ENDIF»

@@ -123,6 +123,7 @@ import gmfgraph.Utils_Statefull_qvto
 	def dispatch color_staticFields(RGBColor it, String variableName) '''
 		«generatedMemberComment»
 		static final org.eclipse.swt.graphics.Color «variableName» = new org.eclipse.swt.graphics.Color(null, «red», «green», «blue»);
+		«extraLineBreak»
 	'''
 	
 	def dispatch font(Font it, String figureVarName) '''

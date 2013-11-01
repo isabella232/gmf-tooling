@@ -47,6 +47,7 @@ import xpt.Common
 	'''
 
 	def body(FigureDescriptor it) '''
+		
 		«FOR acc : accessors.filter[a|!allCustomAccessors(it).map[typedFigure].exists[f|f == a.figure]]»
 			«accessorField(acc)»
 		«ENDFOR»
@@ -55,6 +56,7 @@ import xpt.Common
 		
 		«FOR acc : accessors.filter[a|!allCustomAccessors(it).map[typedFigure].exists[f|f == a.figure]]»
 			«accessorToField(acc)»
+			«extraLineBreak»
 		«ENDFOR»
 		«FOR acc : accessors.filter[a|/*no ! here*/allCustomAccessors(it).map[typedFigure].exists[f|f == a.figure]]»
 			«accessorToCustom(acc, allCustomAccessors(it).filter[fa|fa.typedFigure == acc.figure])»
@@ -93,6 +95,8 @@ import xpt.Common
 			«FOR str : staticStream»
 				«str»
 			«ENDFOR»
+		«ELSE»
+			«extraLineBreak»
 		«ENDIF»
 	'''
 
