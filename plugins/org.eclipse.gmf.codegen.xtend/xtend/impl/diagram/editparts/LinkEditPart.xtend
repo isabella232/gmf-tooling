@@ -136,7 +136,6 @@ class LinkEditPart {
 
 	def createLinkFigure(GenLink it) '''
 		«generatedMemberComment(
-			it,
 			'Creates figure for this edit part.\n' + '\n' +
 				'Body of this method does not depend on settings in generation model\n' +
 				'so you may safely remove <i>generated</i> tag and modify it.\n'

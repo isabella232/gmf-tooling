@@ -139,7 +139,7 @@ import gmfgraph.Utils_Statefull_qvto
 	def dispatch font_staticFields(Font it, String figureVarName) ''''''
 	
 	def dispatch font_staticFields(BasicFont it, String figureVarName) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		static final org.eclipse.swt.graphics.Font «fontVariableName(it, figureVarName)» = new org.eclipse.swt.graphics.Font(org.eclipse.swt.widgets.Display.getCurrent(), «
 			IF it.faceName.nullOrSpaces()»org.eclipse.swt.widgets.Display.getDefault().getSystemFont().getFontData()[0].getName()«ELSE»"«faceName»"«ENDIF», «height», org.eclipse.swt.SWT.«style»);
 	'''

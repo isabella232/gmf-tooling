@@ -34,10 +34,10 @@ import xpt.Common_qvto
 		«copyright(it.owner.editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» extends org.eclipse.core.commands.AbstractHandler {
 		
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 				org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
 				org.eclipse.jface.viewers.ISelection selection = org.eclipse.ui.handlers.HandlerUtil.getCurrentSelectionChecked(event);

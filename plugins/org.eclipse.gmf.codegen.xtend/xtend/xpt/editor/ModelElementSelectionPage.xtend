@@ -42,7 +42,7 @@ class ModelElementSelectionPage {
 		«copyright(editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it, 'Wizard page that allows to select element from model.')»
+		«generatedClassComment('Wizard page that allows to select element from model.')»
 		public class «className(it)» «extendsList(it)» {
 			«attributes(it)»
 		
@@ -72,7 +72,7 @@ class ModelElementSelectionPage {
 	'''
 
 	def getSelectionTitle(GenDiagram it) '''
-		«generatedMemberComment(it, 'Override to provide custom model element description.')»
+		«generatedMemberComment('Override to provide custom model element description.')»
 		protected String getSelectionTitle() {
 			return «xptExternalizer.accessorCall(editorGen, messageKey(i18nKeyForModelElementSelectionPage(it)))»;
 		}

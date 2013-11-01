@@ -494,7 +494,7 @@ class NodeEditPart {
 	'''
 
 	def createFigure(GenNode it) '''
-		«generatedMemberComment(it, 
+		«generatedMemberComment(
 			'Creates figure for this edit part.\n' + 
 			'\n' + 
 			'Body of this method does not depend on settings in generation model\n' + 
@@ -511,7 +511,7 @@ class NodeEditPart {
 	'''
 
 	def setupContentPane(GenNode it) '''
-	«generatedMemberComment(it, 
+	«generatedMemberComment(
 		'Default implementation treats passed figure as content pane.\n' + 
 		'Respects layout one may have set for generated figure.\n' + 
 		'@param nodeShape instance of generated figure class'

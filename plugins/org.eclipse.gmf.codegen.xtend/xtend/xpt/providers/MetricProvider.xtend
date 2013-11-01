@@ -325,7 +325,7 @@ class MetricProvider {
 	 *		semantic elements (if set), and collecting metrics for them.  
 	 */
 	def calcDomainMetricsMethod(GenEditorGenerator it) '''
-		«generatedMemberComment(it,
+		«generatedMemberComment(
 			'NOTE: metrics are being collected for domain elements contained in the semantic element associated with diagram view, actual diagram content (elements present there) is not taken into account.')»
 		static void calculateSemanticElementMetrics(org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart diagramEditPart, java.util.List<ElementMetrics> metricsList) {
 			org.eclipse.gmf.runtime.notation.Diagram diagram = diagramEditPart.getDiagramView();

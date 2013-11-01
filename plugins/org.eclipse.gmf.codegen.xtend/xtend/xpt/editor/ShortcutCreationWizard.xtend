@@ -43,7 +43,7 @@ class ShortcutCreationWizard {
 		«copyright(editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it, 'Allows to select foreign model element and add shortcut to the diagram.')»
+		«generatedClassComment('Allows to select foreign model element and add shortcut to the diagram.')»
 		public class «className(it)» extends org.eclipse.jface.wizard.Wizard {
 		
 			 «generatedMemberComment»

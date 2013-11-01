@@ -41,7 +41,7 @@ import xpt.OclMigrationProblems_qvto
 		«copyright(it.diagram.editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
 		
 			«_constructor(it)»
@@ -59,7 +59,7 @@ import xpt.OclMigrationProblems_qvto
 	'''
 
 	def _constructor(GenNode it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 			super(req.getLabel(), null, req);
 		}
@@ -69,7 +69,7 @@ import xpt.OclMigrationProblems_qvto
 	 * TODO: either use setElementToEdit, or generate downcasted version (which may be troublesome if containment and child features point to a different parent) 
 	 */
 	def getElementToEdit(GenNode it) '''
-			«generatedMemberComment(it, 'FIXME: replace with setElementToEdit()')»
+			«generatedMemberComment('FIXME: replace with setElementToEdit()')»
 		protected org.eclipse.emf.ecore.EObject getElementToEdit() {
 			org.eclipse.emf.ecore.EObject container = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer();
 			if (container instanceof org.eclipse.gmf.runtime.notation.View) {
@@ -80,7 +80,7 @@ import xpt.OclMigrationProblems_qvto
 	'''
 
 	def doExecuteWithResultMethod(GenNode it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 		«IF it.modelFacet.isPhantomElement()»
 			«phantomElementCreation(it.modelFacet, it, 'newElement')»
@@ -106,7 +106,7 @@ import xpt.OclMigrationProblems_qvto
 	 * which ignores any status from wrapped ICommand. Besides, both CommandResult and IStatus seems too much to me.
 	 */
 	def doConfigureMethod(GenNode it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void doConfigure(«xptMetaModel.QualifiedClassName(it.modelFacet.metaClass)» newElement, org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getElementType();
 			org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest configureRequest = new org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest(getEditingDomain(), «xptMetaModel.
@@ -121,7 +121,7 @@ import xpt.OclMigrationProblems_qvto
 	'''
 
 	def canExecuteMethod(GenNode it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public boolean canExecute() {
 		«IF modelFacet.isPhantomElement()»
 			return true;

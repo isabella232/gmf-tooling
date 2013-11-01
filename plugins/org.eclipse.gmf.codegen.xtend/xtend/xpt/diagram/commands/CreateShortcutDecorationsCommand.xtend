@@ -31,14 +31,14 @@ import xpt.Common
 «copyright(it.editorGen)»
 package «packageName(it)»;
 
-«generatedClassComment(it)»
+«generatedClassComment()»
 public class «className(it)»
 		extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private java.util.List myDescriptors;
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public «className(it)»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain,
 			org.eclipse.gmf.runtime.notation.View parentView,
@@ -47,7 +47,7 @@ public class «className(it)»
 		myDescriptors = viewDescriptors;
 	}
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public «className(it)»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain,
 			org.eclipse.gmf.runtime.notation.View parentView,
@@ -55,7 +55,7 @@ public class «className(it)»
 		this(editingDomain, parentView, java.util.Collections.singletonList(viewDescriptor));
 	}
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 			org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 			throws org.eclipse.core.commands.ExecutionException {

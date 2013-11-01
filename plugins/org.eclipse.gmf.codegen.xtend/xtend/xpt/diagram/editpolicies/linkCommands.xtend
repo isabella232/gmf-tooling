@@ -69,7 +69,7 @@ import xpt.editor.VisualIDRegistry
 
 	def createLinkCommands(GenLinkEnd it) '''
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(
 				org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 			org.eclipse.gef.commands.Command command = req.getTarget() == null ?
@@ -77,7 +77,7 @@ import xpt.editor.VisualIDRegistry
 			return command != null ? command : super.getCreateRelationshipCommand(req);
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.commands.Command getStartCreateRelationshipCommand(
 				org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 			«FOR l : getAllPotentialLinks(it)»
@@ -86,7 +86,7 @@ import xpt.editor.VisualIDRegistry
 			return null;
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.commands.Command getCompleteCreateRelationshipCommand(
 				org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 			«FOR l : getAllPotentialLinks(it)»
@@ -131,7 +131,6 @@ import xpt.editor.VisualIDRegistry
 	def reorientTypeLinkCommands(GenLinkEnd it) '''
 		
 		«generatedMemberComment(
-			it,
 			'Returns command to reorient EClass based link. New link target or source\n' +
 				'should be the domain model element associated with this node.\n'
 		)»
@@ -149,7 +148,6 @@ import xpt.editor.VisualIDRegistry
 	def reorientRefLinkCommands(GenLinkEnd it) '''
 		
 		«generatedMemberComment(
-			it,
 			'Returns command to reorient EReference based link. New link target or source\n' +
 				'should be the domain model element associated with this node.\n'
 		)»

@@ -32,7 +32,7 @@ import xpt.Common_qvto
 		«copyright(it.owner.editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			«executeMethod(it)»
 			«additions(it)»
@@ -47,7 +47,7 @@ import xpt.Common_qvto
 	''''''
 
 	def executeMethod(org.eclipse.gmf.codegen.gmfgen.LoadResourceAction it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public Object execute(org.eclipse.core.commands.ExecutionEvent event) throws org.eclipse.core.commands.ExecutionException {
 			return super.execute(event);
 		}

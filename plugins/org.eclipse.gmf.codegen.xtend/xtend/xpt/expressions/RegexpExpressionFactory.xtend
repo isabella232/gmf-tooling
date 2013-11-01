@@ -45,7 +45,7 @@ class RegexpExpressionFactory {
 				return new Expression(body, context, environment);
 			}
 		
-			«generatedMemberComment(it, 'This method will become private in the next release')»/* FIXME [MG] private or completely remove in the next release  */
+			«generatedMemberComment('This method will become private in the next release')»/* FIXME [MG] private or completely remove in the next release  */
 			public static «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 				return getExpression(body, context, java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>emptyMap());
 			}

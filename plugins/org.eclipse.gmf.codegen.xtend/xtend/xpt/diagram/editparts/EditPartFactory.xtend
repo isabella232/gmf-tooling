@@ -73,7 +73,7 @@ class EditPartFactory {
 	'''
 
 	def createEditPartMethod(GenDiagram it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.gef.EditPart createEditPart(org.eclipse.gef.EditPart context, Object model) {
 			if (model instanceof org.eclipse.gmf.runtime.notation.View) {
 				org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) model;

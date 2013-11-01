@@ -65,7 +65,7 @@ class ParserProvider {
 	@Inject Activator xptActivator;
 	
 	def accessorMethod_delegate2providers(GenParsers it) '''
-		«generatedMemberComment(it, "Utility method that consults ParserService")»
+		«generatedMemberComment('Utility method that consults ParserService')»
 		public static org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(org.eclipse.gmf.runtime.emf.type.core.IElementType type, org.eclipse.emf.ecore.EObject object, String parserHint) {
 			return org.eclipse.gmf.runtime.common.ui.services.parser.ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
 		}
@@ -122,7 +122,7 @@ class ParserProvider {
 	'''
 
 	def provider_getParserMethod(GenParsers it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(
 				org.eclipse.core.runtime.IAdaptable hint) {
 			String vid = (String) hint.getAdapter(String.class);
@@ -139,7 +139,7 @@ class ParserProvider {
 	'''
 
 	def provider_providesMethod(GenParsers it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public boolean provides(org.eclipse.gmf.runtime.common.core.service.IOperation operation) {
 			if (operation instanceof org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation) {
 				org.eclipse.core.runtime.IAdaptable hint =
@@ -154,13 +154,13 @@ class ParserProvider {
 	'''
 
 	def HintAdapterClass(GenParsers it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private static class HintAdapter extends org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter {
 	
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			private final org.eclipse.gmf.runtime.emf.type.core.IElementType elementType;
 	
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			public HintAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType type,
 					org.eclipse.emf.ecore.EObject object, String parserHint) {
 				super(object, parserHint);
@@ -168,7 +168,7 @@ class ParserProvider {
 				elementType = type;
 			}
 	
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			public Object getAdapter(Class adapter) {
 				if (org.eclipse.gmf.runtime.emf.type.core.IElementType.class.equals(adapter)) {
 					return elementType;
@@ -179,7 +179,7 @@ class ParserProvider {
 	'''
 
 	def getParserByVisualIdMethod(GenParsers it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(int visualID) {
 			switch (visualID) {
 				«FOR node : editorGen.diagram.topLevelNodes»
@@ -243,10 +243,10 @@ class ParserProvider {
 	def dispatch dispatch_parser(GenParserImplementation it, LabelModelFacet modelFacet, GenCommonBase element) '''«ERROR("Abstract template for " + it + ", element: " + element)»'''
 
 	def dispatch dispatch_parser(CustomParser it, LabelModelFacet modelFacet, GenCommonBase element) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment»
 		private «it.qualifiedName» «parserFieldName(element)»;
 
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		«IF it.holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 			if («parserFieldName(element)» == null) {
 				«parserFieldName(element)» = new «it.qualifiedName»();
@@ -273,15 +273,15 @@ class ParserProvider {
 	 **/
 	def dispatch dispatch_parser(ExpressionLabelParser it, LabelModelFacet modelFacet, GenCommonBase element) '''
 	«IF isParserViewExpressionDefinedAndOcl(it)»
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 			return new «qualifiedClassName(it)»();
 		}
 	«ELSE»
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private «qualifiedClassName(it)» «parserFieldName(element)»;
 
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 			if («parserFieldName(element)» == null) {
 				«parserFieldName(element)» = new «qualifiedClassName(it)»();
@@ -292,10 +292,10 @@ class ParserProvider {
 	'''		
 
 	def doPredefinedParser(GenParserImplementation it, FeatureLabelModelFacet modelFacet, GenCommonBase element) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserFieldName(element)»;
 
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		«IF holder.extensibleViaService»private«ELSE»public«ENDIF» org.eclipse.gmf.runtime.common.ui.services.parser.IParser «parserAccessorName(element)»() {
 			if («parserFieldName(element)» == null) {
 				«dispatch_createPredefinedParser(it, modelFacet, 'parser')»		

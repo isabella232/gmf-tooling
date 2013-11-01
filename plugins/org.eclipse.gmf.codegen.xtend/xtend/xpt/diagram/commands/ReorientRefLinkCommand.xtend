@@ -32,22 +32,22 @@ import xpt.Common
 «copyright(it.diagram.editorGen)»
 package «packageName(it)»;
 
-«generatedClassComment(it)»
+«generatedClassComment()»
 public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private final int reorientDirection;
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private final org.eclipse.emf.ecore.EObject referenceOwner;
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private final org.eclipse.emf.ecore.EObject oldEnd;
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private final org.eclipse.emf.ecore.EObject newEnd;
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest request) {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();

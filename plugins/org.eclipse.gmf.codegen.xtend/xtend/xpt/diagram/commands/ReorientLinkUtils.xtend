@@ -46,7 +46,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	def dispatch linkAccessor(LinkModelFacet xptSelf) ''''''
 
 	def dispatch linkAccessor(TypeLinkModelFacet xptSelf) '''
-		«generatedMemberComment(xptSelf)»
+		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.metaClass)» getLink() {
 			return «xptMetaModel.CastEObject(xptSelf.metaClass, 'getElementToEdit()')»;
 		}
@@ -55,35 +55,35 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	def dispatch oldSourceAccessor(LinkModelFacet xptSelf) ''''''
 
 	def dispatch oldSourceAccessor(TypeLinkModelFacet xptSelf) '''
-		«generatedMemberComment(xptSelf)»
+		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.sourceType)» getOldSource() {
 			return «xptMetaModel.CastEObject(xptSelf.sourceType, 'oldEnd')»;
 		}
 	'''
 
 	def dispatch oldSourceAccessor(FeatureLinkModelFacet xptSelf) '''
-		«generatedMemberComment(xptSelf)»
+		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.sourceType)» getOldSource() {
 			return «xptMetaModel.CastEObject(xptSelf.sourceType, 'referenceOwner')»;
 		}
 	'''
 
 	def newSourceAccessor(LinkModelFacet xptSelf) '''
-		«generatedMemberComment(xptSelf)»
+		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.sourceType)» getNewSource() {
 			return «xptMetaModel.CastEObject(xptSelf.sourceType, 'newEnd')»;
 		}
 	'''
 
 	def oldTargetAccessor(LinkModelFacet xptSelf) '''
-		«generatedMemberComment(xptSelf)»
+		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.targetType)» getOldTarget() {
 		return «xptMetaModel.CastEObject(xptSelf.targetType, 'oldEnd')»; 
 		}
 	'''
 
 	def newTargetAccessor(LinkModelFacet xptSelf) '''
-		«generatedMemberComment(xptSelf)»
+		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.targetType)» getNewTarget() {
 			return «xptMetaModel.CastEObject(xptSelf.targetType, 'newEnd')»;
 		}
@@ -94,7 +94,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	Implementation should perform all static checks that command can be executed.
 	**/
 	def canReorient(LinkModelFacet it, GenLink link) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public boolean canExecute() {
 			«checkLinkValidity(it)»
 			if (reorientDirection == org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest.REORIENT_SOURCE) {
@@ -106,12 +106,12 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 			return false;
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected boolean canReorientSource() {
 			«checkSourceRequestValidity(it, link)»
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected boolean canReorientTarget() {
 			«checkTargetRequestValidity(it, link)»
 		}
@@ -203,7 +203,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 **/
 	def reorient(LinkModelFacet it) '''
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(
 				org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info)
 				throws org.eclipse.core.commands.ExecutionException {
@@ -219,12 +219,12 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 			throw new IllegalStateException();
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult reorientSource() throws org.eclipse.core.commands.ExecutionException {
 			«reorientSource(it)»
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult reorientTarget() throws org.eclipse.core.commands.ExecutionException {
 			«reorientTarget(it)»
 		}

@@ -61,7 +61,7 @@ import xpt.Common
 
 	def transfromSelectionMethod(GenCustomPropertyTab it) '''
 		«IF 'domain' == ID/*perhaps, override setInput should obey same condition?*/»
-			«generatedMemberComment(it, 'Modify/unwrap selection.')»
+			«generatedMemberComment('Modify/unwrap selection.')»
 			«xptCodeStyle.overrideC(it.sheet.editorGen.diagram)»
 			protected Object transformSelection(Object selected) {
 				«transfromSelectionMethodBodyDefault(it)»

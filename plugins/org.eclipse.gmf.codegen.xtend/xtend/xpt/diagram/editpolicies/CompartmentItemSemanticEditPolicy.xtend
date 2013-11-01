@@ -34,7 +34,7 @@ class CompartmentItemSemanticEditPolicy {
 		«copyright(getDiagram().editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(getDiagram())» {
 		
 			«_constructor(it)»
@@ -46,7 +46,7 @@ class CompartmentItemSemanticEditPolicy {
 	'''
 
 	def _constructor(GenCompartment it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public «className(it)»() {
 			«xptBaseItemSemanticEditPolicy.defaultConstructorBody(node)»
 		}

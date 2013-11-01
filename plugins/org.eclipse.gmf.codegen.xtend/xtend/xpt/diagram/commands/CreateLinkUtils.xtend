@@ -34,7 +34,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	*/
 	def canCreate(LinkModelFacet it, GenLink link) ''' 
 		
-			«generatedMemberComment(it)» 
+			«generatedMemberComment()» 
 			public boolean canExecute() {
 				if (source == null && target == null) {
 					return false;
@@ -72,18 +72,18 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	 *	Fields of command that creates link.
 	 */
 	def dispatch fields(LinkModelFacet it) ''' 
-			«generatedMemberComment(it)» 
+			«generatedMemberComment()» 
 			private final org.eclipse.emf.ecore.EObject source;
 		
-			«generatedMemberComment(it)» 
+			«generatedMemberComment()» 
 			private final org.eclipse.emf.ecore.EObject target;
 	'''
 
 	def dispatch fields(TypeLinkModelFacet it) ''' 
-			«generatedMemberComment(it)» 
+			«generatedMemberComment()» 
 			private final org.eclipse.emf.ecore.EObject source;
 		
-			«generatedMemberComment(it)» 
+			«generatedMemberComment()» 
 			private final org.eclipse.emf.ecore.EObject target;
 		«IF hasContainerOtherThanSource(it)»
 			
@@ -96,12 +96,12 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	 *	Field accessors of command that creates link.
 	**/
 	def accessors(LinkModelFacet it) ''' 
-		«generatedMemberComment(it)» 
+		«generatedMemberComment()» 
 		protected «xptMetaModel.QualifiedClassName(it.sourceType)» getSource() {
 			return «xptMetaModel.CastEObject(it.sourceType, 'source')»;
 		}
 		
-		«generatedMemberComment(it)» 
+		«generatedMemberComment()» 
 		protected «xptMetaModel.QualifiedClassName(it.targetType)» getTarget() {
 			return «xptMetaModel.CastEObject(it.targetType, 'target')»;
 		}
@@ -113,13 +113,12 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	def dispatch containerAccessor(TypeLinkModelFacet it) ''' 
 		«IF hasContainerOtherThanSource(it)»
 		
-			«generatedMemberComment(it)» 
+			«generatedMemberComment()» 
 			public «xptMetaModel.QualifiedClassName(it.containmentMetaFeature.genClass)» getContainer() {
 				return container;
 			}
 		
 			«generatedMemberComment(
-				it,
 				'Default approach is to traverse ancestors of the source to find instance of container.\n' +
 					'Modify with appropriate logic.'
 			)»

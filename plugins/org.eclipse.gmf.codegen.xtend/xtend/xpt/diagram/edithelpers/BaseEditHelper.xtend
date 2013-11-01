@@ -36,7 +36,7 @@ import xpt.Common
 		«copyright(editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» «extendsClause(it)» {
 		
 			«attributes(it)»

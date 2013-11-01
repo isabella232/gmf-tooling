@@ -132,7 +132,7 @@ class AbstractExpression {
 	'''
 
 	def performCast(GenDiagram it) '''
-		«generatedMemberComment(it,
+		«generatedMemberComment(
 			'Expression may return number value which is not directly compatible with feature type (e.g. Double when Integer is expected), or EEnumLiteral meta-object when literal instance is expected')»
 		public static Object performCast(Object value, org.eclipse.emf.ecore.EDataType targetType) {
 			if (targetType instanceof org.eclipse.emf.ecore.EEnum) {

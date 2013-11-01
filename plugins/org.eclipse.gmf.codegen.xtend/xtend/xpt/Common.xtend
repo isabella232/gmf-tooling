@@ -44,43 +44,35 @@ import org.eclipse.gmf.internal.common.codegen.Conversions
 	}
 	
 	def generatedClassComment(){
-		doGeneratedComment(null, '', '')
-	}
-
-	def generatedClassComment(Object it){
-		generatedClassComment(it, '')
+		generatedClassComment('')
 	}
 	
-	def generatedClassComment(Object it, String comment) {
-		doGeneratedComment(it, comment, '')
+	def generatedClassComment(String comment) {
+		doGeneratedComment(comment, '')
 	} 
 
 	def generatedMemberComment() {
-		doGeneratedComment(null, '', '')	
+		doGeneratedComment('', '')	
 	}
 
-	def generatedMemberComment(Object it) {
-		doGeneratedComment(it, '', '')	
-	}
-
-	def generatedMemberComment(Object it, String comment) {
-		doGeneratedComment(it, comment, '')
+	def generatedMemberComment(String comment) {
+		doGeneratedComment(comment, '')
 	} 
 
-	def generatedMemberComment(Object it, String comment, String comment2) {
-		doGeneratedComment(it, comment, comment2)
+	def generatedMemberComment(String comment, String comment2) {
+		doGeneratedComment(comment, comment2)
 	}
 
 	/**
 	 * XXX: FIXME: merge all generatedXXXcomment to go here
 	 */ 
-	def doGeneratedComment(Object it, String comment, String comment2) 
+	def doGeneratedComment(String comment, String comment2) 
 	'''
 	/**
-	«IF comment.length > 0»* «comment.replaceAll('\n', '\n * ')»«ENDIF»
-	* @generated
-	«IF comment2.length > 0»* «comment2.replaceAll('\n', '\n * ')»«ENDIF»
-	*/
+	«IF comment.length > 0» * «comment.replaceAll('\n', '\n * ')»«ENDIF»
+	 * @generated
+	«IF comment2.length > 0» * «comment2.replaceAll('\n', '\n * ')»«ENDIF»
+	 */
 	'''
 
 	def xmlGeneratedTag() '''<?gmfgen generated="true"?>'''

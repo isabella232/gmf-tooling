@@ -80,7 +80,7 @@ class DiagramEditorUtil {
 		«getUniqueFileNameMethod(it)»
 		
 		«IF editorGen.application != null»
-			«generatedMemberComment(it, 'Allows user to select file and loads it as a model.')»
+			«generatedMemberComment('Allows user to select file and loads it as a model.')»
 			public static org.eclipse.emf.ecore.resource.Resource openModel(
 					org.eclipse.swt.widgets.Shell shell, String description, org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain) {
 			org.eclipse.swt.widgets.FileDialog fileDialog = new org.eclipse.swt.widgets.FileDialog(shell, org.eclipse.swt.SWT.OPEN);
@@ -112,7 +112,7 @@ class DiagramEditorUtil {
 			}
 		«ENDIF»
 		
-			«generatedMemberComment(it, 'Runs the wizard in a dialog.\n')»
+			«generatedMemberComment('Runs the wizard in a dialog.\n')»
 			public static void runWizard(org.eclipse.swt.widgets.Shell shell, org.eclipse.jface.wizard.Wizard wizard, String settingsKey) {
 				org.eclipse.jface.dialogs.IDialogSettings pluginDialogSettings = «xptActivator.qualifiedClassName(editorGen.plugin)».getInstance().getDialogSettings();
 				org.eclipse.jface.dialogs.IDialogSettings wizardDialogSettings = pluginDialogSettings.getSection(settingsKey);
@@ -196,7 +196,7 @@ class DiagramEditorUtil {
 	'''
 
 	def createDiagramMethod(GenDiagram it) '''
-		«generatedMemberComment(it,
+		«generatedMemberComment(
 			(if(editorGen.application == null) 'This method should be called within a workspace modify operation since it creates resources.' else ''))»
 		public static org.eclipse.emf.ecore.resource.Resource createDiagram(org.eclipse.emf.common.util.URI diagramURI,«IF standaloneDomainModel(
 			it)» org.eclipse.emf.common.util.URI modelURI,«ENDIF» org.eclipse.core.runtime.IProgressMonitor progressMonitor) {
@@ -259,7 +259,7 @@ class DiagramEditorUtil {
 	'''
 
 	def createInitialModelMethod(GenDiagram it) '''
-		«generatedMemberComment(it,
+		«generatedMemberComment(
 			'Create a new instance of domain element associated with canvas.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->')»
 		private static «xptMetaModel.QualifiedClassName(domainDiagramElement)» createInitialModel() {
 			return «xptMetaModel.NewInstance(domainDiagramElement)»;
@@ -267,7 +267,7 @@ class DiagramEditorUtil {
 	'''
 
 	def attachModelMethod(GenDiagram it) '''
-		«generatedMemberComment(it, 'Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->')»
+		«generatedMemberComment('Store model element in the resource.\n<!-- begin-user-doc -->\n<!-- end-user-doc -->')»
 		private static void attachModelToResource(«xptMetaModel.QualifiedClassName(domainDiagramElement)» model, org.eclipse.emf.ecore.resource.Resource resource) {
 			resource.getContents().add(«IF hasDocumentRoot(it)»createDocumentRoot(model)«ELSE»«xptMetaModel.
 			DowncastToEObject(domainDiagramElement, 'model')»«ENDIF»);
@@ -378,7 +378,7 @@ class DiagramEditorUtil {
 			return (view == null) ? diagramEditPart.getDiagramView() : view;
 		}
 		
-		«generatedMemberComment(it,
+		«generatedMemberComment(
 			'XXX This is quite suspicious code (especially editPartTmpHolder) and likely to be removed soon')»
 		public static class LazyElement2ViewMap {
 			«generatedMemberComment»

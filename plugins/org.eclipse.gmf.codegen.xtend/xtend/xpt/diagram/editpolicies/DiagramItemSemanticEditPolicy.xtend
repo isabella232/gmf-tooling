@@ -34,7 +34,7 @@ class DiagramItemSemanticEditPolicy {
 		«copyright(getDiagram().editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(it)» {
 		
 			«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
@@ -50,7 +50,7 @@ class DiagramItemSemanticEditPolicy {
 	'''
 
 	def getDuplicateCommand(GenDiagram it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.commands.Command getDuplicateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain = ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 			return getGEFWrapper(new DuplicateAnythingCommand(editingDomain, req));
@@ -58,7 +58,7 @@ class DiagramItemSemanticEditPolicy {
 	'''
 	
 	def DuplicateAnythingCommand(GenDiagram it) '''
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		private static class DuplicateAnythingCommand extends org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand {
 		
 			«DAC_constructor(it)»
@@ -68,7 +68,7 @@ class DiagramItemSemanticEditPolicy {
 	'''
 
 	def DAC_constructor(GenDiagram it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public DuplicateAnythingCommand(org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain, org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 			super(editingDomain, req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
 		}

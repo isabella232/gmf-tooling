@@ -50,11 +50,11 @@ import xpt.providers.ElementInitializers
 		«copyright(diagram.editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.commands.EditElementCommand {
 			«xptCreateLinkUtils.fields(it.modelFacet)»
 		
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest request, org.eclipse.emf.ecore.EObject source, org.eclipse.emf.ecore.EObject target) {
 				super(request.getLabel(), null, request);
 				«xptCreateLinkUtils.initAndDeduceContainerIfNeeded(it.modelFacet)»
@@ -65,7 +65,7 @@ import xpt.providers.ElementInitializers
 		
 			«doConfigure(it.modelFacet, it)»
 		
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			protected void setElementToEdit(org.eclipse.emf.ecore.EObject element) {
 				throw new UnsupportedOperationException();
 			}
@@ -75,7 +75,7 @@ import xpt.providers.ElementInitializers
 	'''
 
 	def doExecuteWithResultMethod(GenLink it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 			if (!canExecute()) {
 				throw new org.eclipse.core.commands.ExecutionException("Invalid arguments in create link command"); «nonNLS()»
@@ -136,7 +136,7 @@ import xpt.providers.ElementInitializers
 	 * configuration should rather happen from EditPolicy then from within creation command 
 	 */
 	def dispatch doConfigure(TypeLinkModelFacet it, GenLink link) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void doConfigure(«xptMetaModel.QualifiedClassName(it.metaClass)» newElement, org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getElementType();
 			org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest configureRequest = new org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest(getEditingDomain(), «xptMetaModel.

@@ -44,24 +44,24 @@ class TextAware {
 	@Inject ElementTypes xptElementTypes;
 
 	def fields(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gef.tools.DirectEditManager manager;
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gmf.runtime.common.ui.services.parser.IParser parser;
 		
 		«IF isOclChoiceLabel(it) || isViewExpressionDefinedAndOcl(it)»
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator myOclRegistrator;
 		«ELSE»
-			«generatedMemberComment(it)»
+			«generatedMemberComment()»
 			private java.util.List<?> parserElements;
 		«ENDIF»
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private String defaultText;	
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate labelDelegate;
 	'''
 
@@ -157,7 +157,7 @@ class TextAware {
 	def dispatch labelSetterName(ModeledViewmap it) '''setLabel'''
 
 	def getLabelTextHelper(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected String getLabelTextHelper(org.eclipse.draw2d.IFigure figure) {
 			if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 				return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getText();
@@ -172,7 +172,7 @@ class TextAware {
 	'''
 
 	def setLabelTextHelper(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void setLabelTextHelper(org.eclipse.draw2d.IFigure figure, String text) {
 			if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 				((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setText(text);
@@ -187,7 +187,7 @@ class TextAware {
 	'''
 
 	def getLabelIconHelper(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.swt.graphics.Image getLabelIconHelper(org.eclipse.draw2d.IFigure figure) {
 			if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 				return ((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).getIcon();
@@ -203,7 +203,7 @@ class TextAware {
 	'''
 
 	def setLabelIconHelper(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void setLabelIconHelper(org.eclipse.draw2d.IFigure figure, org.eclipse.swt.graphics.Image icon) {
 			if (figure instanceof org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) {
 				((org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel) figure).setIcon(icon);
@@ -221,7 +221,7 @@ class TextAware {
 	'''
 
 	def getLabelDelegate(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate getLabelDelegate(){
 			if (labelDelegate == null){
 				org.eclipse.draw2d.IFigure label = getFigure();
@@ -238,7 +238,7 @@ class TextAware {
 	'''
 
 	def getAdapter(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		«overrideC(it)»
 		public Object getAdapter(Class key) {
 			if (org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate.class.equals(key)){
@@ -249,7 +249,7 @@ class TextAware {
 	'''
 
 	def labelSetter(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public void «labelSetterName(viewmap)»(«labelSetterFigureClassName(viewmap)» figure) {
 			unregisterVisuals();
 			setFigure(figure);
@@ -273,7 +273,7 @@ class TextAware {
 	'''
 
 	def getModelChildren(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		«SuppressWarnings('"rawtypes"')»
 		protected java.util.List getModelChildren() {
 			return java.util.Collections.EMPTY_LIST;
@@ -281,14 +281,14 @@ class TextAware {
 	'''
 
 	def getChildBySemanticHint(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart getChildBySemanticHint(String semanticHint) {
 			return null;
 		}
 	'''
 
 	def getParserElement(GenCommonBase it, LabelModelFacet modelFacet) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.emf.ecore.EObject getParserElement() {
 			«IF modelFacet == null»
 				org.eclipse.emf.ecore.EObject element = resolveSemanticElement();
@@ -308,7 +308,7 @@ class TextAware {
 	'''
 
 	def getLabelIcon(GenCommonBase it, boolean useElementIcon, GenDiagram diagram) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.swt.graphics.Image getLabelIcon() {
 			«IF useElementIcon»
 				org.eclipse.emf.ecore.EObject parserElement = getParserElement();
@@ -323,7 +323,7 @@ class TextAware {
 	'''
 
 	def getLabelText(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected String getLabelText() {
 			String text = null;
 			org.eclipse.emf.ecore.EObject parserElement = getParserElement();
@@ -340,7 +340,7 @@ class TextAware {
 	'''
 
 	def setLabelText(GenCommonBase it, GenDiagram diagram) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public void setLabelText(String text) {
 			setLabelTextHelper(getFigure(), text);
 			refreshSelectionFeedback();
@@ -348,7 +348,7 @@ class TextAware {
 	'''
 
 	def getEditText(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public String getEditText() {
 			if (getParserElement() == null || getParser() == null) {
 				return ""; «nonNLS()»
@@ -360,7 +360,7 @@ class TextAware {
 	'''
 
 	def isEditable(GenCommonBase it, Boolean readOnly) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected boolean isEditable() {
 			«IF readOnly»
 				return false;
@@ -371,7 +371,7 @@ class TextAware {
 	'''
 
 	def getEditTextValidator(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.jface.viewers.ICellEditorValidator getEditTextValidator() {
 			return new org.eclipse.jface.viewers.ICellEditorValidator() {
 		
@@ -402,7 +402,7 @@ class TextAware {
 	'''
 
 	def getCompletionProcessor(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.jface.text.contentassist.IContentAssistProcessor getCompletionProcessor() {
 			if (getParserElement() == null || getParser() == null) {
 				return null;
@@ -412,14 +412,14 @@ class TextAware {
 	'''
 
 	def getParserOptions(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions getParserOptions() {
 			return org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions.NONE;
 		}
 	'''
 
 	def getParser(GenCommonBase it, LabelModelFacet modelFacet, GenDiagram diagram, GenCommonBase host) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser() {
 			if (parser == null) {
 				parser = «xptParserProvider.accessorCall(it, host, modelFacet, 'getParserElement()')»;
@@ -429,7 +429,7 @@ class TextAware {
 	'''
 
 	def getManager(GenCommonBase it, GenDiagram diagram, LabelModelFacet modelFacet) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.tools.DirectEditManager getManager() {
 			if (manager == null) {
 				setManager(new «getDirectManagerFQN(modelFacet)»(this,
@@ -441,21 +441,21 @@ class TextAware {
 	'''
 
 	def setManager(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void setManager(org.eclipse.gef.tools.DirectEditManager manager) {
 			this.manager = manager;
 		}
 	'''
 
 	def performDirectEdit(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void performDirectEdit() {
 			getManager().show();
 		}
 	'''
 
 	def performDirectEditAtPoint(GenCommonBase it, LabelModelFacet modelFacet) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void performDirectEdit(org.eclipse.draw2d.geometry.Point eventLocation) {
 			if (getManager().getClass() == «getDirectManagerFQN(modelFacet)».class) {
 				((«getDirectManagerFQN(modelFacet)») getManager()).show(eventLocation.getSWTPoint());
@@ -464,7 +464,7 @@ class TextAware {
 	'''
 
 	def performDirectEditWithInitialChar(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private void performDirectEdit(char initialCharacter) {
 			if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
 				((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
@@ -479,7 +479,7 @@ class TextAware {
 	'''
 
 	def performDirectEditRequest(GenCommonBase it, LabelModelFacet modelFacet) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void performDirectEditRequest(org.eclipse.gef.Request request) {
 			final org.eclipse.gef.Request theRequest = request;
 			try {
@@ -507,7 +507,7 @@ class TextAware {
 	'''
 
 	def refreshVisuals(GenCommonBase it, Boolean needsRefreshBounds) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void refreshVisuals() {
 			super.refreshVisuals();
 			refreshLabel();
@@ -522,7 +522,7 @@ class TextAware {
 	'''
 
 	def refreshLabel(GenCommonBase it, GenDiagram diagram) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void refreshLabel() {
 			setLabelTextHelper(getFigure(), getLabelText());
 			setLabelIconHelper(getFigure(), getLabelIcon());
@@ -531,7 +531,7 @@ class TextAware {
 	'''
 
 	def refreshUnderline(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void refreshUnderline() {
 			org.eclipse.gmf.runtime.notation.FontStyle style =
 				(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -543,7 +543,7 @@ class TextAware {
 	'''
 
 	def refreshStrikeThrough(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void refreshStrikeThrough() {
 			org.eclipse.gmf.runtime.notation.FontStyle style =
 				(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -555,7 +555,7 @@ class TextAware {
 	'''
 
 	def refreshFont(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void refreshFont() {
 			org.eclipse.gmf.runtime.notation.FontStyle style =
 				(org.eclipse.gmf.runtime.notation.FontStyle) getFontStyleOwnerView().getStyle(
@@ -571,13 +571,13 @@ class TextAware {
 	'''
 
 	def refreshSelectionFeedback(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private void refreshSelectionFeedback() {
 			requestEditPolicyFeedbackRefresh(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE);
 			requestEditPolicyFeedbackRefresh(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE);
 		}
 		
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private void requestEditPolicyFeedbackRefresh(String editPolicyKey) {
 			Object editPolicy = getEditPolicy(editPolicyKey);
 			if (editPolicy instanceof org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy) {
@@ -587,14 +587,14 @@ class TextAware {
 	'''
 
 	def setFontColor(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void setFontColor(org.eclipse.swt.graphics.Color color) {
 			getFigure().setForegroundColor(color);
 		}
 	'''
 
 	def addSemanticListeners(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void addSemanticListeners() {
 		«IF isOclChoiceLabel(it) || isViewExpressionDefinedAndOcl(it)»
 			«IF isOclChoiceLabelWithShowExpr(it) || isViewExpressionDefinedAndOcl(it)»
@@ -622,7 +622,7 @@ class TextAware {
 	'''
 
 	def removeSemanticListeners(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected void removeSemanticListeners() {
 		«IF isOclChoiceLabel(it) || isViewExpressionDefinedAndOcl(it)»			
 			«IF isOclChoiceLabel(it)»
@@ -646,7 +646,7 @@ class TextAware {
 	'''
 
 	def getAccessibleEditPart(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.AccessibleEditPart getAccessibleEditPart() {
 			if (accessibleEP == null) {
 				accessibleEP = new AccessibleGraphicalEditPart() {
@@ -661,7 +661,7 @@ class TextAware {
 	'''
 
 	def getFontStyleOwnerView(GenCommonBase it, Viewmap viewmap) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		 private org.eclipse.gmf.runtime.notation.View getFontStyleOwnerView() {
 		 «IF viewmap.isFixedFont()»
 		 	return (org.eclipse.gmf.runtime.notation.View) getModel();
@@ -672,14 +672,14 @@ class TextAware {
 	'''
 
 	def getOclTracker(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker getTracker() {
 			return ((org.eclipse.gmf.tooling.runtime.ocl.tracker.HasOclTracker) getParser()).getOclTracker();
 		}
 	'''
 
 	def getOclRegistrator(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		private org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator getOclRegistrator() {
 			if (myOclRegistrator == null) {
 				myOclRegistrator = new org.eclipse.gmf.tooling.runtime.ocl.tracker.OclTracker.Registrator() {

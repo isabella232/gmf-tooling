@@ -174,7 +174,7 @@ def getItemImageDescriptor(GenPlugin it)'''
 '''
 
 def getBundleDescriptorImage(GenPlugin it)'''
-	«generatedMemberComment(it,
+	«generatedMemberComment(
 	  'Returns an image descriptor for the image file at the given\n'
 	+ 'plug-in relative path.\n',
 	  '@param path the path\n'
@@ -185,7 +185,7 @@ def getBundleDescriptorImage(GenPlugin it)'''
 '''
 
 def findImageDescriptor(GenPlugin it)'''
-	«generatedMemberComment(it,
+	«generatedMemberComment(
 	  'Respects images residing in any plug-in. If path is relative,\n'
 	+ 'then this bundle is looked up for the image, otherwise, for absolute\n'
 	+ 'path, first segment is taken as id of plug-in with image\n',
@@ -204,7 +204,7 @@ def findImageDescriptor(GenPlugin it)'''
 '''
 
 def getBundleImage(GenPlugin it)'''
-	«generatedMemberComment(it,
+	«generatedMemberComment(
 	  'Returns an image for the image file at the given plugin relative path.\n'
 	+ 'Client do not need to dispose this image. Images will be disposed automatically.\n',
 	  '@param path the path\n'
@@ -220,7 +220,7 @@ def getBundleImage(GenPlugin it)'''
 '''
 
 def getString(GenPlugin it)'''
-	«generatedMemberComment(it, 'Returns string from plug-in\'s resource bundle\n')»
+	«generatedMemberComment('Returns string from plug-in\'s resource bundle\n')»
 	public static String getString(String key) {
 		return org.eclipse.core.runtime.Platform.getResourceString(
 				getInstance().getBundle(), "%" + key); «nonNLS»

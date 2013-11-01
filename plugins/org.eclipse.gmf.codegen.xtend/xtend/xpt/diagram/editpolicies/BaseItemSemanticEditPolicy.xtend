@@ -64,14 +64,14 @@ def BaseItemSemanticEditPolicy(GenDiagram it) '''
 «copyright(editorGen)»
 package «packageName(it)»;
 
-«generatedClassComment(it)»
+«generatedClassComment()»
 public class «className(it)» extends org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy {
 
 	«attributes(it)»
 	
 	«constructor(it)»
 
-	«generatedMemberComment(it, 
+	«generatedMemberComment(
 		'Extended request data key to hold editpart visual id.\n' + 
 		'Add visual id of edited editpart to extended data of the request\n' + 
 		'so command switch can decide what kind of diagram element is being edited.\n' + 
@@ -89,7 +89,7 @@ public class «className(it)» extends org.eclipse.gmf.runtime.diagram.ui.editpo
 		return super.getCommand(request);
 	}
 	
-	«generatedMemberComment(it, 'Returns visual id from request parameters.')»
+	«generatedMemberComment('Returns visual id from request parameters.')»
 	protected int getVisualID(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 		Object id = request.getParameter(VISUAL_ID_KEY);
 		return id instanceof Integer ? ((Integer) id).intValue() : -1;
@@ -97,7 +97,7 @@ public class «className(it)» extends org.eclipse.gmf.runtime.diagram.ui.editpo
 
 	«semanticPart(it)»
 
-	«generatedMemberComment(it, 'Returns editing domain from the host edit part.')»
+	«generatedMemberComment('Returns editing domain from the host edit part.')»
 	protected org.eclipse.emf.transaction.TransactionalEditingDomain getEditingDomain() {
 		return ((org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart) getHost()).getEditingDomain();
 	}
@@ -113,22 +113,22 @@ public class «className(it)» extends org.eclipse.gmf.runtime.diagram.ui.editpo
 '''
 
 def attributes(GenDiagram it) '''
-	«generatedMemberComment(it, 'Extended request data key to hold editpart visual id.')»
+	«generatedMemberComment('Extended request data key to hold editpart visual id.')»
 	public static final String VISUAL_ID_KEY = "visual_id"; «nonNLS()»
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private final org.eclipse.gmf.runtime.emf.type.core.IElementType myElementType;
 '''
 
 def constructor(GenDiagram it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	protected «className(it)»(org.eclipse.gmf.runtime.emf.type.core.IElementType elementType) {
 		myElementType = elementType;
 	}
 '''
 
 def addDestroyShortcutsCommand(GenDiagram it) '''
-	«generatedMemberComment(it, 'Clean all shortcuts to the host element from the same diagram')»
+	«generatedMemberComment('Clean all shortcuts to the host element from the same diagram')»
 	protected void addDestroyShortcutsCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd, org.eclipse.gmf.runtime.notation.View view) {
 		«_assert('view.getEAnnotation(\"Shortcut\") == null')»
 		for (java.util.Iterator it = view.getDiagram().getChildren().iterator(); it.hasNext();) {
@@ -178,7 +178,7 @@ def semanticPart(GenDiagram it) '''
 '''
 
 def getEditHelperCommand(GenDiagram it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private org.eclipse.gef.commands.Command getEditHelperCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request, org.eclipse.gef.commands.Command editPolicyCommand) {
 		if (editPolicyCommand != null) {
 			org.eclipse.gmf.runtime.common.core.command.ICommand command = editPolicyCommand instanceof org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy ? ((org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy) editPolicyCommand).getICommand() : new org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy(editPolicyCommand);
@@ -200,7 +200,7 @@ def getEditHelperCommand(GenDiagram it) '''
 '''
 
 def getContextElementType(GenDiagram it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private org.eclipse.gmf.runtime.emf.type.core.IElementType getContextElementType(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 		org.eclipse.gmf.runtime.emf.type.core.IElementType requestContextElementType = «xptElementTypes.qualifiedClassName(it)».getElementType(getVisualID(request));
 		return requestContextElementType != null ? requestContextElementType : myElementType;
@@ -208,7 +208,7 @@ def getContextElementType(GenDiagram it) '''
 '''
 
 def getSemanticCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest request) {
 	org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest completedRequest = completeRequest(request);
 	org.eclipse.gef.commands.Command semanticCommand = getSemanticCommandSwitch(completedRequest);
@@ -222,7 +222,7 @@ protected org.eclipse.gef.commands.Command getSemanticCommand(org.eclipse.gmf.ru
 '''
 
 def addDeleteViewCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command addDeleteViewCommand(org.eclipse.gef.commands.Command mainCommand, org.eclipse.gmf.runtime.emf.type.core.requests.DestroyRequest completedRequest){
 		org.eclipse.gef.commands.Command deleteViewCommand = getGEFWrapper(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), (org.eclipse.gmf.runtime.notation.View) getHost().getModel()));
 		return mainCommand == null ? deleteViewCommand : mainCommand.chain(deleteViewCommand);
@@ -230,7 +230,7 @@ protected org.eclipse.gef.commands.Command addDeleteViewCommand(org.eclipse.gef.
 '''
 
 def getSemanticCommandSwitch(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getSemanticCommandSwitch(org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest req) {
 	if (req instanceof org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest) {
 		return getCreateRelationshipCommand((org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest) req);
@@ -260,84 +260,84 @@ protected org.eclipse.gef.commands.Command getSemanticCommandSwitch(org.eclipse.
 '''
 
 def getConfigureCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getConfigureCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest req) {
 	return null;
 }
 '''
 
 def getCreateRelationshipCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getCreateRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest req) {
 	return null;
 }
 '''
 
 def getCreateCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 	return null;
 }
 '''
 
 def getSetCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getSetCommand(org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest req) {
 	return null;
 }
 '''
 
 def getEditContextCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getEditContextCommand(org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest req) {
 	return null;
 }
 '''
 
 def getDestroyElementCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 	return null;
 }
 '''
 
 def getDestroyReferenceCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
 	return null;
 }
 '''
 
 def getDuplicateCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getDuplicateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest req) {
 	return null;
 }
 '''
 
 def getMoveCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getMoveCommand(org.eclipse.gmf.runtime.emf.type.core.requests.MoveRequest req) {
 	return null;
 }
 '''
 
 def getReorientReferenceRelationshipCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getReorientReferenceRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelationshipRequest req) {
 	return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 }
 '''
 
 def getReorientRelationshipCommand(GenDiagram it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 protected org.eclipse.gef.commands.Command getReorientRelationshipCommand(org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest req) {
 	return org.eclipse.gef.commands.UnexecutableCommand.INSTANCE;
 }
 '''
 
 def getGEFWrapper(GenDiagram it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	protected final org.eclipse.gef.commands.Command getGEFWrapper(org.eclipse.gmf.runtime.common.core.command.ICommand cmd) {
 		return new org.eclipse.gmf.runtime.diagram.ui.commands.ICommandProxy(cmd);
 	}
@@ -349,7 +349,7 @@ def getGEFWrapper(GenDiagram it) '''
  */
 def linkConstraints(GenDiagram it) '''
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public static «getLinkCreationConstraintsClassName()» getLinkConstraints() {
 		«getLinkCreationConstraintsClassName()» cached = «xptPluginActivator.instanceAccess(it.editorGen)».getLinkConstraints();
 		if (cached == null) {
@@ -358,10 +358,10 @@ def linkConstraints(GenDiagram it) '''
 		return cached;
 	}
 
-«generatedClassComment(it)»
+«generatedClassComment()»
 public static class «getLinkCreationConstraintsClassName()» {
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	«getLinkCreationConstraintsClassName()»() {«/*package-local for the BaseItemSemanticEditPolicy to instantiate. Perhaps, protected is better (i.e. if someone subclasses it?)*/»
 		// use static method #getLinkConstraints() to access instance
 	}
@@ -377,7 +377,7 @@ public static class «getLinkCreationConstraintsClassName()» {
 '''
 
 def canCreate(GenLink it) '''
-«generatedMemberComment(it)»
+«generatedMemberComment()»
 public boolean canCreate«getUniqueIdentifier()»(«canCreateParameters(it.modelFacet)») {
 	«checkEMFConstraints(it.modelFacet)»
 	return canExist«getUniqueIdentifier()»(«canCreateValues(it.modelFacet)»);
@@ -394,7 +394,7 @@ public boolean canCreate«getUniqueIdentifier()»(«canCreateParameters(it.model
  *			to check source and target separately. Otherwize, do it inplace.
 */
 def canExist(GenLink it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public boolean canExist«getUniqueIdentifier()»(«canExistParameters(it.modelFacet)») {
 	«IF creationConstraints != null && creationConstraints.isValid() && it.diagram.editorGen.expressionProviders != null»
 		try {
@@ -551,7 +551,7 @@ def dispatch checkAdditionalConstraint(GenJavaExpressionProvider it, ValueExpres
 	def additions(GenDiagram it) ''''''
 
 	def defaultConstructor(GenCommonBase it) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		public «getItemSemanticEditPolicyClassName(it)»() {
 			«defaultConstructorBody(it)»
 		}

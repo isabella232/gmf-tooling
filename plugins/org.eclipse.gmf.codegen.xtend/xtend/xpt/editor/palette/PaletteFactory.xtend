@@ -83,7 +83,7 @@ class PaletteFactory {
 	'''
 
 	def createGroup(ToolGroup it) '''
-		«generatedMemberComment(it, 'Creates \"' + title + '\" palette tool group')»
+		«generatedMemberComment('Creates \"' + title + '\" palette tool group')»
 		private org.eclipse.gef.palette.PaletteContainer «createMethodName»() {
 			«newContainer(it, 'paletteContainer')»
 			«setIdentity(it, 'paletteContainer')»
@@ -270,7 +270,7 @@ class PaletteFactory {
 	'''
 
 	def cleanStandardToolsHack(Palette it) '''
-		«generatedMemberComment(it, 'Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159289')»
+		«generatedMemberComment('Workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=159289')»
 		private void cleanStandardTools(org.eclipse.gef.palette.PaletteRoot paletteRoot) {
 			for (java.util.Iterator it = paletteRoot.getChildren().iterator(); it.hasNext();) {
 				org.eclipse.gef.palette.PaletteEntry entry = (org.eclipse.gef.palette.PaletteEntry) it.next();

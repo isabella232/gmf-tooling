@@ -142,7 +142,7 @@ class ElementTypes {
 	'''
 
 	def getElement(GenDiagram it) '''
-		«generatedMemberComment(it, 'Returns \'type\' of the ecore object associated with the hint.\n')»
+		«generatedMemberComment('Returns \'type\' of the ecore object associated with the hint.\n')»
 		public static org.eclipse.emf.ecore.ENamedElement getElement(org.eclipse.core.runtime.IAdaptable hint) {
 			Object type = hint.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
 			if (elements == null) {

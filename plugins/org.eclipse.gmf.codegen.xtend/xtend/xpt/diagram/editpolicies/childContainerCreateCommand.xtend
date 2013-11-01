@@ -28,7 +28,7 @@ import xpt.QualifiedClassNameProvider
  	def childContainerCreateCommand(Iterable<? extends GenNode> nodes) '''
 	«IF !nodes.empty»
 
-	«generatedMemberComment(nodes)»
+	«generatedMemberComment()»
 	protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 	«FOR n : nodes»		
 		«childNodeCreateCommand(n)»

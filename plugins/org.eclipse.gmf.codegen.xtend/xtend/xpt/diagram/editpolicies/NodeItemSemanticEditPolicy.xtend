@@ -49,7 +49,7 @@ import xpt.editor.VisualIDRegistry
 	«copyright(getDiagram().editorGen)»
 	package «packageName(it)»;
 	
-	«generatedClassComment(it)»
+	«generatedClassComment()»
 	public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(getDiagram())» {
 	
 		«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
@@ -67,7 +67,7 @@ import xpt.editor.VisualIDRegistry
 	'''
 
 	def getDestroyElementCommand(GenNode it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 		org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand cmd = new org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand(getEditingDomain(), null);
@@ -90,7 +90,7 @@ import xpt.editor.VisualIDRegistry
 	'''
 
 	def addDestroyChildNodesCommand(GenNode it) '''
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private void addDestroyChildNodesCommand(org.eclipse.gmf.runtime.common.core.command.ICompositeCommand cmd) {
 		org.eclipse.gmf.runtime.notation.View view = (org.eclipse.gmf.runtime.notation.View) getHost().getModel();
 		for (java.util.Iterator<?> nit = view.getChildren().iterator(); nit.hasNext();) {

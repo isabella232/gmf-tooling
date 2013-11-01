@@ -43,7 +43,7 @@ class LinkItemSemanticEditPolicy {
 		«copyright(diagram.editorGen)»
 		package «packageName(it)»;
 		
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public class «className(it)» extends «xptBaseItemSemanticEditPolicy.qualifiedClassName(it.diagram)» {
 		
 			«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
@@ -64,14 +64,14 @@ class LinkItemSemanticEditPolicy {
 	'''
 
 	def dispatch getDestroySemanticCommand(FeatureLinkModelFacet it, GenLink genLink) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.commands.Command getDestroyReferenceCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest req) {
 			return getGEFWrapper(«xptDeleteLinkCommand.newDeleteReferenceLinkCommand(it, genLink, 'req')»);
 		}
 	'''
 
 	def dispatch getDestroySemanticCommand(TypeLinkModelFacet it, GenLink genLink) '''
-		«generatedMemberComment(it)»
+		«generatedMemberComment()»
 		protected org.eclipse.gef.commands.Command getDestroyElementCommand(org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest req) {
 			return getGEFWrapper(«xptDeleteLinkCommand.newDeleteLinkWithClassCommand(it, genLink, 'req')»);
 		}

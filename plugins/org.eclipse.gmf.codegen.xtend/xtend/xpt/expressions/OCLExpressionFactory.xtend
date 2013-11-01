@@ -40,12 +40,12 @@ class OCLExpressionFactory {
 	
 		«initInterpreterFactory(it)»
 	
-		«generatedMemberComment(it, 'This is factory method, callers are responsible to keep reference to the return value if they want to reuse parsed expression')»
+		«generatedMemberComment('This is factory method, callers are responsible to keep reference to the return value if they want to reuse parsed expression')»
 		public static «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context, java.util.Map<String, org.eclipse.emf.ecore.EClassifier> environment) {
 			return new Expression(body, context, environment);
 		}
 	
-		«generatedMemberComment(it, 'This method will become private in the next release')»«/* FIXME [MG] private or completely remove in the next release. Besides, no real need to pass emptyMap when null would suffice  */»
+		«generatedMemberComment('This method will become private in the next release')»«/* FIXME [MG] private or completely remove in the next release. Besides, no real need to pass emptyMap when null would suffice  */»
 		public static «xptAbstractExpression.qualifiedClassName(it.container.editorGen.diagram)» getExpression(String body, org.eclipse.emf.ecore.EClassifier context) {
 			return getExpression(body, context, java.util.Collections.<String, org.eclipse.emf.ecore.EClassifier>emptyMap());
 		}

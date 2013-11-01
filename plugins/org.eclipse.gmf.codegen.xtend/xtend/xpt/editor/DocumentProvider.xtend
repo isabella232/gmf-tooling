@@ -164,7 +164,7 @@ class DocumentProvider {
 	'''
 	
 	def setupDocument(GenDiagram it) '''
-		«generatedMemberComment(it, 
+		«generatedMemberComment(
 			'Sets up the given document as it would be provided for the given element. The\n' + 
 			'content of the document is not changed. This default implementation is empty.\n' + 
 			'Subclasses may reimplement.\n' + 

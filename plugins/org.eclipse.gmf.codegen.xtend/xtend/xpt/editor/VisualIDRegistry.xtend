@@ -159,7 +159,7 @@ class VisualIDRegistry {
 	«copyright(getDiagram().editorGen)»
 	package «packageName(it)»;
 
-	«generatedClassComment(it,
+	«generatedClassComment(
 		'This registry is used to determine which type of visual object should be\n' + 
 		'created for the corresponding Diagram, Node, ChildNode or Link represented\n' + 
 		'by a domain model object.\n'	
@@ -380,7 +380,7 @@ class VisualIDRegistry {
 
 	def isDiagram(GenDiagram it) '''
 	«IF null != domainDiagramElement»
-		«generatedMemberComment(it,
+		«generatedMemberComment(
 				'User can change implementation of this method to handle some specific\n' + 
 				'situations not covered by default logic.\n'
 		)»
@@ -497,7 +497,7 @@ class VisualIDRegistry {
 	}
 
 	def runtimeTypedInstance(GenDiagram it) '''
-		«generatedClassComment(it)»
+		«generatedClassComment()»
 		public static final org.eclipse.gmf.tooling.runtime.structure.DiagramStructure «runtimeTypedInstanceName(it)» = new org.eclipse.gmf.tooling.runtime.structure.DiagramStructure() {
 			«generatedMemberComment()»
 			«xptCodeStyle.overrideI(it)»

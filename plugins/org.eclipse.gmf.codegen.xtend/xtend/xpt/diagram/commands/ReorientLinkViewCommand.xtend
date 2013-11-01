@@ -31,20 +31,20 @@ import xpt.Common
 «copyright(editorGen)»
 package «packageName(it)»;
 
-«generatedClassComment(it)»
+«generatedClassComment()»
 public class «className(it)»
 		extends org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand {
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	private org.eclipse.core.runtime.IAdaptable edgeAdaptor;
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public «className(it)»(
 			org.eclipse.emf.transaction.TransactionalEditingDomain editingDomain, String label) {
 		super(editingDomain, label, null);
 	}
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public java.util.List getAffectedFiles() {
 		org.eclipse.gmf.runtime.notation.View view =
 				(org.eclipse.gmf.runtime.notation.View) edgeAdaptor.getAdapter(org.eclipse.gmf.runtime.notation.View.class);
@@ -54,17 +54,17 @@ public class «className(it)»
 		return super.getAffectedFiles();
 	}
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public org.eclipse.core.runtime.IAdaptable getEdgeAdaptor() {
 		return edgeAdaptor;
 	}
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	public void setEdgeAdaptor(org.eclipse.core.runtime.IAdaptable edgeAdaptor) {
 		this.edgeAdaptor = edgeAdaptor;
 	}
 
-	«generatedMemberComment(it)»
+	«generatedMemberComment()»
 	protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor progressMonitor, org.eclipse.core.runtime.IAdaptable info) {
 		«_assert('null != edgeAdaptor : \"Null child in ' + className(it) + '\"')»
 		org.eclipse.gmf.runtime.notation.Edge edge = (org.eclipse.gmf.runtime.notation.Edge) getEdgeAdaptor().getAdapter(org.eclipse.gmf.runtime.notation.Edge.class);
