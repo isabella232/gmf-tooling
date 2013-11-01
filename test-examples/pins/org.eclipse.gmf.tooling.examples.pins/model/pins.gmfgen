@@ -37,8 +37,7 @@
           xsi:type="gmfgen:MetamodelType"
           editHelperClassName="PinsChildEditHelper"/>
       <viewmap
-          xsi:type="gmfgen:ModeledViewmap"
-          layoutType="FLOW_LAYOUT">
+          xsi:type="gmfgen:ModeledViewmap">
         <figureModel
             href="pins.gmfgraph#PinsChild"/>
       </viewmap>
@@ -65,8 +64,7 @@
           xsi:type="gmfgen:SpecializationType"
           metamodelType="//@diagram/@childNodes.0/@elementType"/>
       <viewmap
-          xsi:type="gmfgen:ModeledViewmap"
-          layoutType="FLOW_LAYOUT">
+          xsi:type="gmfgen:ModeledViewmap">
         <figureModel
             href="pins.gmfgraph#PinsChild"/>
       </viewmap>
@@ -93,8 +91,7 @@
           xsi:type="gmfgen:SpecializationType"
           metamodelType="//@diagram/@childNodes.0/@elementType"/>
       <viewmap
-          xsi:type="gmfgen:ModeledViewmap"
-          layoutType="FLOW_LAYOUT">
+          xsi:type="gmfgen:ModeledViewmap">
         <figureModel
             href="pins.gmfgraph#PinsChild"/>
       </viewmap>
@@ -155,8 +152,8 @@
       </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
-          key="pins.diagram.edit.policies.VisiblePinPin2002Policy.KEY"
-          editPolicyQualifiedClassName="pins.diagram.edit.policies.VisiblePinPin2002Policy"
+          key="org.eclipse.gmf.tooling.examples.pins.diagram.edit.policies.VisiblePinPin2002Policy.KEY"
+          editPolicyQualifiedClassName="org.eclipse.gmf.tooling.examples.pins.diagram.edit.policies.VisiblePinPin2002Policy"
           name="VisiblePinPin"
           pinKind="VisiblePin"
           operationName="getFigureVisiblePinWarningLabelFigure().setVisible"
@@ -206,13 +203,16 @@
       <viewmap
           xsi:type="gmfgen:ModeledViewmap"
           layoutType="TOOLBAR_LAYOUT">
+        <attributes
+            xsi:type="gmfgen:StyleAttributes"
+            fixedForeground="true"/>
         <figureModel
             href="pins.gmfgraph#ColorPin"/>
       </viewmap>
       <behaviour
           xsi:type="gmfgen:GenVisualEffect"
-          key="pins.diagram.edit.policies.ColorPinPin2003Policy.KEY"
-          editPolicyQualifiedClassName="pins.diagram.edit.policies.ColorPinPin2003Policy"
+          key="org.eclipse.gmf.tooling.examples.pins.diagram.edit.policies.ColorPinPin2003Policy.KEY"
+          editPolicyQualifiedClassName="org.eclipse.gmf.tooling.examples.pins.diagram.edit.policies.ColorPinPin2003Policy"
           name="ColorPinPin"
           pinKind="ColorPin"
           operationName="setBackgroundColor"
@@ -226,6 +226,105 @@
         <childMetaFeature
             href="pins.genmodel#//pins/Diagram/getPins"/>
       </modelFacet>
+    </topLevelNodes>
+    <topLevelNodes
+        visualID="2004"
+        editPartClassName="ChangeableColorPinEditPart"
+        itemSemanticEditPolicyClassName="ChangeableColorPinItemSemanticEditPolicy"
+        canonicalEditPolicyClassName="ChangeableColorPinCanonicalEditPolicy"
+        graphicalNodeEditPolicyClassName="ChangeableColorPinGraphicalNodeEditPolicy"
+        createCommandClassName="ChangeableColorPinCreateCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType
+          xsi:type="gmfgen:MetamodelType"
+          editHelperClassName="ChangeableColorPinEditHelper"/>
+      <viewmap
+          xsi:type="gmfgen:ModeledViewmap"
+          layoutType="TOOLBAR_LAYOUT">
+        <figureModel
+            href="pins.gmfgraph#ChangeableColorPin"/>
+      </viewmap>
+      <behaviour
+          xsi:type="gmfgen:GenVisualEffect"
+          key="org.eclipse.gmf.tooling.examples.pins.diagram.edit.policies.PinChangeableColor2004Policy.KEY"
+          editPolicyQualifiedClassName="org.eclipse.gmf.tooling.examples.pins.diagram.edit.policies.PinChangeableColor2004Policy"
+          name="PinChangeableColor"
+          pinKind="ColorPin"
+          operationName="setForegroundColor"
+          operationType="Tuple(red:Integer, green:Integer, blue:Integer)"
+          oclExpression="Tuple {red: Integer = self.red, green: Integer = self.green, blue: Integer = self.blue}"/>
+      <modelFacet>
+        <metaClass
+            href="pins.genmodel#//pins/ChangeableColorPin"/>
+        <containmentMetaFeature
+            href="pins.genmodel#//pins/Diagram/getPins"/>
+        <childMetaFeature
+            href="pins.genmodel#//pins/Diagram/getPins"/>
+      </modelFacet>
+      <labels
+          visualID="5002"
+          editPartClassName="ChangeableColorPinRedEditPart"
+          itemSemanticEditPolicyClassName="ChangeableColorPinRedItemSemanticEditPolicy"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="pins.gmfgraph#RedColorValueLabel"/>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0">
+          <metaFeatures
+              href="pins.genmodel#//pins/ChangeableColorPin/red"/>
+          <editableMetaFeatures
+              href="pins.genmodel#//pins/ChangeableColorPin/red"/>
+        </modelFacet>
+      </labels>
+      <labels
+          visualID="5003"
+          editPartClassName="ChangeableColorPinGreenEditPart"
+          itemSemanticEditPolicyClassName="ChangeableColorPinGreenItemSemanticEditPolicy"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="pins.gmfgraph#GreenColorValueLabel"/>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0">
+          <metaFeatures
+              href="pins.genmodel#//pins/ChangeableColorPin/green"/>
+          <editableMetaFeatures
+              href="pins.genmodel#//pins/ChangeableColorPin/green"/>
+        </modelFacet>
+      </labels>
+      <labels
+          visualID="5004"
+          editPartClassName="ChangeableColorPinBlueEditPart"
+          itemSemanticEditPolicyClassName="ChangeableColorPinBlueItemSemanticEditPolicy"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ModeledViewmap">
+          <figureModel
+              href="pins.gmfgraph#BlueColorValueLabel"/>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0">
+          <metaFeatures
+              href="pins.genmodel#//pins/ChangeableColorPin/blue"/>
+          <editableMetaFeatures
+              href="pins.genmodel#//pins/ChangeableColorPin/blue"/>
+        </modelFacet>
+      </labels>
     </topLevelNodes>
     <palette>
       <groups
@@ -250,6 +349,11 @@
             title="PinsChild"
             description="Create new PinsChild"
             genNodes="//@diagram/@childNodes.0 //@diagram/@childNodes.1 //@diagram/@childNodes.2"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="ChangeableColorPin"
+            description="Create new ChangeableColorPin"
+            genNodes="//@diagram/@topLevelNodes.3"/>
       </groups>
     </palette>
     <preferencePages
@@ -304,6 +408,9 @@
     <childReferences
         parent="//@diagram"
         child="//@diagram/@topLevelNodes.2"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@topLevelNodes.3"/>
   </navigator>
   <diagramUpdater/>
   <propertySheet>
@@ -331,7 +438,7 @@
       extensibleViaService="true">
     <implementations
         xsi:type="gmfgen:PredefinedParser"
-        uses="//@diagram/@topLevelNodes.1/@labels.0/@modelFacet"/>
+        uses="//@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.3/@labels.0/@modelFacet //@diagram/@topLevelNodes.3/@labels.1/@modelFacet //@diagram/@topLevelNodes.3/@labels.2/@modelFacet"/>
   </labelParsers>
   <contextMenus
       context="//@diagram">

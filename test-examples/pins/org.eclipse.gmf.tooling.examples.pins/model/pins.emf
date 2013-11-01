@@ -25,3 +25,9 @@ class PinsChild {
   attr String PinsChild;
 }
 
+class ChangeableColorPin extends Pin {
+  attr int red;
+  attr int green;
+  attr int blue;
+}
+

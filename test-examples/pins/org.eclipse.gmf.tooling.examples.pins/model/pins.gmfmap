@@ -87,6 +87,52 @@
       </children>
     </ownedChild>
   </nodes>
+  <nodes>
+    <containmentFeature
+        href="pins.ecore#//Diagram/getPins"/>
+    <ownedChild>
+      <domainMetaElement
+          href="pins.ecore#//ChangeableColorPin"/>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="pins.gmfgraph#RedColorValueLabel"/>
+        <features
+            href="pins.ecore#//ChangeableColorPin/red"/>
+        <editableFeatures
+            href="pins.ecore#//ChangeableColorPin/red"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="pins.gmfgraph#GreenColorValueLabel"/>
+        <features
+            href="pins.ecore#//ChangeableColorPin/green"/>
+        <editableFeatures
+            href="pins.ecore#//ChangeableColorPin/green"/>
+      </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="pins.gmfgraph#BlueColorValueLabel"/>
+        <features
+            href="pins.ecore#//ChangeableColorPin/blue"/>
+        <editableFeatures
+            href="pins.ecore#//ChangeableColorPin/blue"/>
+      </labelMappings>
+      <visualEffects
+          oclExpression="Tuple {red: Integer = self.red, green: Integer = self.green, blue: Integer = self.blue}">
+        <diagramPin
+            xsi:type="gmfgraph:ColorPin"
+            href="pins.gmfgraph#PinChangeableColor"/>
+      </visualEffects>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="pins.gmftool#//@palette/@tools.0/@tools.4"/>
+      <diagramNode
+          href="pins.gmfgraph#ChangeableColorPin"/>
+    </ownedChild>
+  </nodes>
   <diagram>
     <diagramCanvas
         href="pins.gmfgraph#pins"/>

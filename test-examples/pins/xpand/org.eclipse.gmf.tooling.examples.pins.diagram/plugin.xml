@@ -18,14 +18,14 @@
    <extension point="org.eclipse.ui.editors" id="gmf-editor">
       <?gmfgen generated="true"?>
       <editor
-         id="pins.diagram.part.PinsDiagramEditorID"
+         id="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID"
          name="%editorName"
          icon="icons/obj16/PinsDiagramFile.gif"
          extensions="pins_diagram"
          default="true"
-         class="pins.diagram.part.PinsDiagramEditor"
-         matchingStrategy="pins.diagram.part.PinsMatchingStrategy"
-         contributorClass="pins.diagram.part.PinsDiagramActionBarContributor">
+         class="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsMatchingStrategy"
+         contributorClass="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramActionBarContributor">
       </editor>
    </extension>
    
@@ -33,7 +33,7 @@
       <?gmfgen generated="true"?>
       <context
          description="%context.description"
-         id="pins.diagram.ui.diagramContext"
+         id="org.eclipse.gmf.tooling.examples.pins.diagram.ui.diagramContext"
          name="%context.name"
          parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
       </context>
@@ -45,8 +45,8 @@
   	     name="%newWizardName"
   	     icon="icons/obj16/PinsDiagramFile.gif"
   	     category="org.eclipse.ui.Examples"
-  	     class="pins.diagram.part.PinsCreationWizard"
-  	     id="pins.diagram.part.PinsCreationWizardID">
+  	     class="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsCreationWizard"
+  	     id="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsCreationWizardID">
   	  	 <description>%newWizardDesc</description>  
       </wizard>
    </extension>
@@ -59,7 +59,7 @@
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="%initDiagramActionLabel"
-               class="pins.diagram.part.PinsInitDiagramFileAction"
+               class="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
                id="org.eclipse.gmf.tooling.examples.pins.diagram.InitDiagramAction">
@@ -73,7 +73,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="PinsPresentation">
          <Priority name="Lowest"/>
-         <ViewId id="pins.diagram.part.PinsDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
             </ElementType>
@@ -90,7 +90,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="PinsPresentationIDE">
          <Priority name="Lowest"/>
-         <ViewId id="pins.diagram.part.PinsDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
             </ElementType>
@@ -100,7 +100,7 @@
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="PinsRender">
          <Priority name="Lowest"/>
-         <ViewId id="pins.diagram.part.PinsDiagramEditorID">
+         <ViewId id="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
                <GlobalActionId actionId="copy"/>
@@ -113,7 +113,7 @@
 
    <extension point="org.eclipse.core.runtime.preferences" id="prefs">
       <?gmfgen generated="true"?>
-      <initializer class="pins.diagram.preferences.DiagramPreferenceInitializer"/>
+      <initializer class="org.eclipse.gmf.tooling.examples.pins.diagram.preferences.DiagramPreferenceInitializer"/>
    </extension>
 
    <extension point="org.eclipse.ui.preferencePages" id="prefpages">
@@ -121,31 +121,31 @@
       <page
             id="org.eclipse.gmf.tooling.examples.pins.diagram.general"
             name="%prefpage.org.eclipse.gmf.tooling.examples.pins.diagram.general"
-            class="pins.diagram.preferences.DiagramGeneralPreferencePage">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.preferences.DiagramGeneralPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.examples.pins.diagram.appearance"
             name="%prefpage.org.eclipse.gmf.tooling.examples.pins.diagram.appearance"
             category="org.eclipse.gmf.tooling.examples.pins.diagram.general"
-            class="pins.diagram.preferences.DiagramAppearancePreferencePage">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.preferences.DiagramAppearancePreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.examples.pins.diagram.connections"
             name="%prefpage.org.eclipse.gmf.tooling.examples.pins.diagram.connections"
             category="org.eclipse.gmf.tooling.examples.pins.diagram.general"
-            class="pins.diagram.preferences.DiagramConnectionsPreferencePage">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.preferences.DiagramConnectionsPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.examples.pins.diagram.printing"
             name="%prefpage.org.eclipse.gmf.tooling.examples.pins.diagram.printing"
             category="org.eclipse.gmf.tooling.examples.pins.diagram.general"
-            class="pins.diagram.preferences.DiagramPrintingPreferencePage">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.preferences.DiagramPrintingPreferencePage">
       </page>
       <page
             id="org.eclipse.gmf.tooling.examples.pins.diagram.rulersAndGrid"
             name="%prefpage.org.eclipse.gmf.tooling.examples.pins.diagram.rulersAndGrid"
             category="org.eclipse.gmf.tooling.examples.pins.diagram.general"
-            class="pins.diagram.preferences.DiagramRulersAndGridPreferencePage">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.preferences.DiagramRulersAndGridPreferencePage">
       </page>
    </extension>
 
@@ -153,7 +153,7 @@
       <?gmfgen generated="true"?>
       <propertyContributor
             contributorId="org.eclipse.gmf.tooling.examples.pins.diagram"
-            labelProvider="pins.diagram.sheet.PinsSheetLabelProvider">
+            labelProvider="org.eclipse.gmf.tooling.examples.pins.diagram.sheet.PinsSheetLabelProvider">
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -204,38 +204,38 @@
          <propertySection
             id="property.section.domain" 
             tab="property.tab.domain"
-            class="pins.diagram.sheet.PinsPropertySection">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.sheet.PinsPropertySection">
             <input type="org.eclipse.gmf.runtime.notation.View"/>
             <input type="org.eclipse.gef.EditPart"/>
-            <input type="pins.diagram.navigator.PinsAbstractNavigatorItem"/>
+            <input type="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsAbstractNavigatorItem"/>
          </propertySection>
       </propertySections>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
       <?gmfgen generated="true"?>
-      <viewProvider class="pins.diagram.providers.PinsViewProvider">
+      <viewProvider class="org.eclipse.gmf.tooling.examples.pins.diagram.providers.PinsViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Pins"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,3001,3002,3003"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2004,3001,3002,3003"/>
       </viewProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
       <?gmfgen generated="true"?>
-      <editpartProvider class="pins.diagram.providers.PinsEditPartProvider">
+      <editpartProvider class="org.eclipse.gmf.tooling.examples.pins.diagram.providers.PinsEditPartProvider">
          <Priority name="Lowest"/>
          <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
             <method name="getType()" value="Pins"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
-            <method name="getType()" value="2001,2002,2003,3001,3002,3003"/>
+            <method name="getType()" value="2001,2002,2003,2004,3001,3002,3003"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
             <method name="getType()" value=""/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
-            <method name="getType()" value="5001"/>
+            <method name="getType()" value="5001,5002,5003,5004"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
             <method name="getType()" value=""/>
@@ -246,29 +246,30 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="pins.diagram.providers.PinsModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.pins.diagram.providers.PinsModelingAssistantProvider">
          <Priority name="Lowest"/>
-         <object class="pins.diagram.edit.parts.DiagramEditPart" id="Diagram_1000"/>
-         <object class="pins.diagram.edit.parts.CustomPinEditPart" id="CustomPin_2001"/>
-         <object class="pins.diagram.edit.parts.VisiblePinEditPart" id="VisiblePin_2002"/>
-         <object class="pins.diagram.edit.parts.ColorPinEditPart" id="ColorPin_2003"/>
-         <object class="pins.diagram.edit.parts.PinsChildEditPart" id="PinsChild_3001"/>
-         <object class="pins.diagram.edit.parts.PinsChild2EditPart" id="PinsChild_3002"/>
-         <object class="pins.diagram.edit.parts.PinsChild3EditPart" id="PinsChild_3003"/>
-         <context elements="Diagram_1000,CustomPin_2001,VisiblePin_2002,ColorPin_2003,PinsChild_3001,PinsChild_3002,PinsChild_3003"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.DiagramEditPart" id="Diagram_1000"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.CustomPinEditPart" id="CustomPin_2001"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.VisiblePinEditPart" id="VisiblePin_2002"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.ColorPinEditPart" id="ColorPin_2003"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.ChangeableColorPinEditPart" id="ChangeableColorPin_2004"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.PinsChildEditPart" id="PinsChild_3001"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.PinsChild2EditPart" id="PinsChild_3002"/>
+         <object class="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.PinsChild3EditPart" id="PinsChild_3003"/>
+         <context elements="Diagram_1000,CustomPin_2001,VisiblePin_2002,ColorPin_2003,ChangeableColorPin_2004,PinsChild_3001,PinsChild_3002,PinsChild_3003"/>
       </modelingAssistantProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       <?gmfgen generated="true"?>
-      <IconProvider class="pins.diagram.providers.PinsIconProvider">
+      <IconProvider class="org.eclipse.gmf.tooling.examples.pins.diagram.providers.PinsIconProvider">
          <Priority name="Low"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
       <?gmfgen generated="true"?>
-      <ParserProvider class="pins.diagram.providers.PinsParserProvider">
+      <ParserProvider class="org.eclipse.gmf.tooling.examples.pins.diagram.providers.PinsParserProvider">
          <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
@@ -281,7 +282,7 @@
                name="%metatype.name.Diagram_1000"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="Diagram"
-               edithelper="pins.diagram.edit.helpers.DiagramEditHelper">
+               edithelper="org.eclipse.gmf.tooling.examples.pins.diagram.edit.helpers.DiagramEditHelper">
             <param name="semanticHint" value="1000"/>
          </metamodelType>
       </metamodel>
@@ -291,7 +292,7 @@
                name="%metatype.name.CustomPin_2001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="CustomPin"
-               edithelper="pins.diagram.edit.helpers.CustomPinEditHelper">
+               edithelper="org.eclipse.gmf.tooling.examples.pins.diagram.edit.helpers.CustomPinEditHelper">
             <param name="semanticHint" value="2001"/>
          </metamodelType>
       </metamodel>
@@ -301,7 +302,7 @@
                name="%metatype.name.VisiblePin_2002"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="VisiblePin"
-               edithelper="pins.diagram.edit.helpers.VisiblePinEditHelper">
+               edithelper="org.eclipse.gmf.tooling.examples.pins.diagram.edit.helpers.VisiblePinEditHelper">
             <param name="semanticHint" value="2002"/>
          </metamodelType>
       </metamodel>
@@ -311,8 +312,18 @@
                name="%metatype.name.ColorPin_2003"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="ColorPin"
-               edithelper="pins.diagram.edit.helpers.ColorPinEditHelper">
+               edithelper="org.eclipse.gmf.tooling.examples.pins.diagram.edit.helpers.ColorPinEditHelper">
             <param name="semanticHint" value="2003"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://org.eclipse.gmf.tooling.examples.pins">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.pins.diagram.ChangeableColorPin_2004"
+               name="%metatype.name.ChangeableColorPin_2004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ChangeableColorPin"
+               edithelper="org.eclipse.gmf.tooling.examples.pins.diagram.edit.helpers.ChangeableColorPinEditHelper">
+            <param name="semanticHint" value="2004"/>
          </metamodelType>
       </metamodel>
       <metamodel nsURI="http://org.eclipse.gmf.tooling.examples.pins">
@@ -321,7 +332,7 @@
                name="%metatype.name.PinsChild_3001"
                kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
                eclass="PinsChild"
-               edithelper="pins.diagram.edit.helpers.PinsChildEditHelper">
+               edithelper="org.eclipse.gmf.tooling.examples.pins.diagram.edit.helpers.PinsChildEditHelper">
             <param name="semanticHint" value="3001"/>
          </metamodelType>
       </metamodel>
@@ -359,6 +370,7 @@
          <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.CustomPin_2001"/>
          <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.VisiblePin_2002"/>
          <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.ColorPin_2003"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.ChangeableColorPin_2004"/>
          <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.PinsChild_3001"/>
          <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.PinsChild_3002"/>
          <elementType ref="org.eclipse.gmf.tooling.examples.pins.diagram.PinsChild_3003"/>
@@ -372,7 +384,7 @@
            type="org.eclipse.emf.common.ui.URIEditorInput"
            namespace="org.eclipse.gmf.tooling.examples.pins.diagram"
            properties="isURIEditorInput"
-           class="pins.diagram.part.PinsUriEditorInputTester">
+           class="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsUriEditorInputTester">
        </propertyTester>
    </extension>
 
@@ -398,8 +410,8 @@
             id="org.eclipse.gmf.tooling.examples.pins.diagram.resourceContent" 
             name="%navigatorContentName" 
             priority="normal" 
-            contentProvider="pins.diagram.navigator.PinsNavigatorContentProvider" 
-            labelProvider="pins.diagram.navigator.PinsNavigatorLabelProvider"
+            contentProvider="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsNavigatorLabelProvider"
             icon="icons/obj16/PinsDiagramFile.gif"
             activeByDefault="true">
          <triggerPoints>
@@ -408,24 +420,24 @@
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
         	      <test property="org.eclipse.core.resources.extension" value="pins_diagram"/>
                </and>
-               <instanceof value="pins.diagram.navigator.PinsAbstractNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsAbstractNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
             <or>
-         	   <instanceof value="pins.diagram.navigator.PinsAbstractNavigatorItem"/>
+         	   <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsAbstractNavigatorItem"/>
             </or>
          </possibleChildren>
          <commonSorter 
                id="org.eclipse.gmf.tooling.examples.pins.diagram.navigatorSorter" 
-               class="pins.diagram.navigator.PinsNavigatorSorter">
+               class="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsNavigatorSorter">
             <parentExpression>
                <or>
 	              <and>
     	             <instanceof value="org.eclipse.core.resources.IFile"/>
         	         <test property="org.eclipse.core.resources.extension" value="pins_diagram"/>
                   </and>
-                  <instanceof value="pins.diagram.navigator.PinsAbstractNavigatorItem"/>
+                  <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsAbstractNavigatorItem"/>
                </or>
             </parentExpression>
          </commonSorter>
@@ -434,8 +446,8 @@
             id="org.eclipse.gmf.tooling.examples.pins.diagram.domainResourceContent" 
             name="%domainNavigatorContentName" 
             priority="normal" 
-            contentProvider="pins.diagram.navigator.PinsDomainNavigatorContentProvider" 
-            labelProvider="pins.diagram.navigator.PinsDomainNavigatorLabelProvider"
+            contentProvider="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsDomainNavigatorLabelProvider"
             icon="icons/obj16/PinsDiagramFile.gif"
             activeByDefault="true">
          <triggerPoints>
@@ -444,19 +456,19 @@
     	          <instanceof value="org.eclipse.core.resources.IFile"/>
         	      <test property="org.eclipse.core.resources.extension" value="pins"/>
                </and>
-               <instanceof value="pins.diagram.navigator.PinsDomainNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsDomainNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof value="pins.diagram.navigator.PinsDomainNavigatorItem"/>
+            <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsDomainNavigatorItem"/>
          </possibleChildren>
       </navigatorContent>
       <actionProvider
             id="org.eclipse.gmf.tooling.examples.pins.diagram.navigatorActionProvider"
-            class="pins.diagram.navigator.PinsNavigatorActionProvider">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsNavigatorActionProvider">
          <enablement>
             <or>
-               <instanceof value="pins.diagram.navigator.PinsAbstractNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsAbstractNavigatorItem"/>
             </or>
          </enablement>
       </actionProvider>
@@ -466,7 +478,7 @@
       <?gmfgen generated="true"?>
       <linkHelper
             id="org.eclipse.gmf.tooling.examples.pins.diagram.navigatorLinkHelper"
-            class="pins.diagram.navigator.PinsNavigatorLinkHelper">
+            class="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsNavigatorLinkHelper">
          <editorInputEnablement>
             <and>
                <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
@@ -474,7 +486,7 @@
             </and>
          </editorInputEnablement>
          <selectionEnablement>
-            <instanceof value="pins.diagram.navigator.PinsAbstractNavigatorItem"/>
+            <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.navigator.PinsAbstractNavigatorItem"/>
          </selectionEnablement>
       </linkHelper>
    </extension>
@@ -482,17 +494,17 @@
       <?gmfgen generated="true"?>
       <command
          categoryId="org.eclipse.ui.category.edit"
-         defaultHandler="pins.diagram.part.PinsDiagramUpdateCommand"
+         defaultHandler="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramUpdateCommand"
          description="%update.diagram.description"
-         id="pins.diagram.updateDiagram"
+         id="org.eclipse.gmf.tooling.examples.pins.diagram.updateDiagram"
          name="%update.diagram.name"/>
    </extension>
    
    <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
       <?gmfgen generated="true"?>
       <key 
-         commandId="pins.diagram.updateDiagram"
-         contextId="pins.diagram.ui.diagramContext"
+         commandId="org.eclipse.gmf.tooling.examples.pins.diagram.updateDiagram"
+         contextId="org.eclipse.gmf.tooling.examples.pins.diagram.ui.diagramContext"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
          sequence="F5"/>
    </extension>
@@ -507,9 +519,9 @@
          <command commandId="org.eclipse.gmf.tooling.examples.pins.diagram.LoadResourceAction">
             <visibleWhen>
                <and>
-                  <with variable="activePartId"><equals value="pins.diagram.part.PinsDiagramEditorID"/></with>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID"/></with>
                   <with variable="selection"><iterate ifEmpty="false"> 
-                     <instanceof value="pins.diagram.edit.parts.DiagramEditPart"/>
+                     <instanceof value="org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts.DiagramEditPart"/>
                   </iterate></with>
                </and>
             </visibleWhen>
@@ -519,11 +531,11 @@
 
    <extension point="org.eclipse.ui.commands" id="menu-commands">
       <?gmfgen generated="true"?>
-      <category id="pins.diagram.part.PinsDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <category id="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
       <command id="org.eclipse.gmf.tooling.examples.pins.diagram.LoadResourceAction"
          name="Load Resource"
-         categoryId="pins.diagram.part.PinsDiagramEditorID"
-         defaultHandler="pins.diagram.part.LoadResourceAction"/>
+         categoryId="org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.tooling.examples.pins.diagram.part.LoadResourceAction"/>
    </extension>
 
    <extension point="org.eclipse.ui.handlers" id="menu-handlers">

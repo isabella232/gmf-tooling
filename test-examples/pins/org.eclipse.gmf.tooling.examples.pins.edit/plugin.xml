@@ -10,7 +10,7 @@
       <!-- @generated pins -->
       <factory
             uri="http://org.eclipse.gmf.tooling.examples.pins"
-            class="pins.provider.PinsItemProviderAdapterFactory"
+            class="org.eclipse.gmf.tooling.examples.pins.provider.PinsItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

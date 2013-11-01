@@ -45,6 +45,10 @@
         <largeIcon
             xsi:type="gmftool:DefaultImage"/>
       </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="ChangeableColorPin"
+          description="Create new ChangeableColorPin"/>
     </tools>
   </palette>
 </gmftool:ToolRegistry>

@@ -4,12 +4,12 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.examples.pins.diagram; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: pins.diagram.part.PinsDiagramEditorPlugin
+Bundle-Activator: org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: pins.diagram.edit.parts, 
- pins.diagram.part,
- pins.diagram.providers
+Export-Package: org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts,
+ org.eclipse.gmf.tooling.examples.pins.diagram.part,
+ org.eclipse.gmf.tooling.examples.pins.diagram.providers
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.core.expressions,
@@ -32,10 +32,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
  org.eclipse.gmf.tooling.runtime;visibility:=reexport,
-  org.eclipse.ocl;visibility:=reexport,
-  org.eclipse.gmf.tooling.examples.pins;visibility:=reexport,
-  org.eclipse.gmf.tooling.examples.pins.edit;visibility:=reexport,
-  org.eclipse.gmf.tooling.runtime;visibility:=reexport,
-  org.eclipse.gef;visibility:=reexport
+ org.eclipse.ocl;visibility:=reexport,
+ org.eclipse.gmf.tooling.examples.pins;visibility:=reexport,
+ org.eclipse.gmf.tooling.examples.pins.edit;visibility:=reexport,
+ org.eclipse.gef;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -4,7 +4,8 @@
     modelName="Pins" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
     copyrightFields="false">
   <foreignModel>pins.ecore</foreignModel>
-  <genPackages prefix="Pins" disposableProviderFactory="true" ecorePackage="pins.ecore#/">
+  <genPackages prefix="Pins" basePackage="org.eclipse.gmf.tooling.examples" disposableProviderFactory="true"
+      ecorePackage="pins.ecore#/">
     <genClasses ecoreClass="pins.ecore#//Pin"/>
     <genClasses ecoreClass="pins.ecore#//ColorPin">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pins.ecore#//ColorPin/getChildren"/>
@@ -21,6 +22,11 @@
     </genClasses>
     <genClasses ecoreClass="pins.ecore#//PinsChild">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pins.ecore#//PinsChild/PinsChild"/>
+    </genClasses>
+    <genClasses ecoreClass="pins.ecore#//ChangeableColorPin">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pins.ecore#//ChangeableColorPin/red"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pins.ecore#//ChangeableColorPin/green"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pins.ecore#//ChangeableColorPin/blue"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

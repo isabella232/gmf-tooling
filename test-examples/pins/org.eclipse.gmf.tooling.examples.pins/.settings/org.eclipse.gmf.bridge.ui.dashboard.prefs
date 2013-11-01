@@ -1,6 +1,0 @@
-eclipse.preferences.version=1
-gmf_dashboard/domainGenerationModel=platform\:/resource/erg.eclipse.ece2012.gmfdemo.pins/model/pins.genmodel
-gmf_dashboard/domainModel=platform\:/resource/erg.eclipse.ece2012.gmfdemo.pins/model/pins.ecore
-gmf_dashboard/graphicalDefinitionModel=platform\:/resource/erg.eclipse.ece2012.gmfdemo.pins/model/pins.gmfgraph
-gmf_dashboard/mappingModel=platform\:/resource/erg.eclipse.ece2012.gmfdemo.pins/model/pins.gmfmap
-gmf_dashboard/toolingDefinitionModel=platform\:/resource/erg.eclipse.ece2012.gmfdemo.pins/model/pins.gmftool

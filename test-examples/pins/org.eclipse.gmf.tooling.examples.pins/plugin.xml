@@ -10,7 +10,7 @@
       <!-- @generated pins -->
       <package
             uri="http://org.eclipse.gmf.tooling.examples.pins"
-            class="pins.PinsPackage"
+            class="org.eclipse.gmf.tooling.examples.pins.PinsPackage"
             genModel="model/pins.genmodel"/>
    </extension>
 

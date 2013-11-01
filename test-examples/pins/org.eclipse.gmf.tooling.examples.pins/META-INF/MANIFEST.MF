@@ -7,9 +7,9 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: pins,
- pins.impl,
- pins.util
+Export-Package: org.eclipse.gmf.tooling.examples.pins,
+ org.eclipse.gmf.tooling.examples.pins.impl,
+ org.eclipse.gmf.tooling.examples.pins.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy

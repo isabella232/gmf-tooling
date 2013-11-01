@@ -4,12 +4,12 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.examples.pins.diagram; singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: pins.diagram.part.PinsDiagramEditorPlugin
+Bundle-Activator: org.eclipse.gmf.tooling.examples.pins.diagram.part.PinsDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: pins.diagram.edit.parts, 
- pins.diagram.part,
- pins.diagram.providers
+Export-Package: org.eclipse.gmf.tooling.examples.pins.diagram.edit.parts, 
+ org.eclipse.gmf.tooling.examples.pins.diagram.part,
+ org.eclipse.gmf.tooling.examples.pins.diagram.providers
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.core.expressions,
