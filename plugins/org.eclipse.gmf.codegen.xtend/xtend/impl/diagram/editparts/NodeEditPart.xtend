@@ -161,6 +161,7 @@ class NodeEditPart {
 	def createLayoutEditPolicyBody_FLOW_LAYOUT(GenNode it) '''
 		org.eclipse.gmf.runtime.diagram.ui.editpolicies.FlowLayoutEditPolicy lep = new org.eclipse.gmf.runtime.diagram.ui.editpolicies.FlowLayoutEditPolicy() {
 			«IF hasBorderItems(it)»
+		«extraLineBreak»
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
 				«borderItemSelectionEditPolicy()»
 				return super.createChildEditPolicy(child);
@@ -465,6 +466,7 @@ class NodeEditPart {
 	def dispatch setupNodePlate(GenNode it) ''''''
 
 	def dispatch setupNodePlate(GenChildSideAffixedNode it) '''
+	«extraLineBreak»
 	//FIXME: workaround for #154536
 	result.getBounds().setSize(result.getPreferredSize());
 	'''

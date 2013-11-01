@@ -76,6 +76,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	'''
 
 	def oldTargetAccessor(LinkModelFacet xptSelf) '''
+		«extraLineBreak»
 		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.targetType)» getOldTarget() {
 		return «xptMetaModel.CastEObject(xptSelf.targetType, 'oldEnd')»; 
@@ -83,6 +84,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	'''
 
 	def newTargetAccessor(LinkModelFacet xptSelf) '''
+		«extraLineBreak»
 		«generatedMemberComment()»
 		protected «xptMetaModel.QualifiedClassName(xptSelf.targetType)» getNewTarget() {
 			return «xptMetaModel.CastEObject(xptSelf.targetType, 'newEnd')»;

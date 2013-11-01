@@ -55,8 +55,7 @@ public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.com
 	«xptReorientLinkUtils.canReorient(it.modelFacet, it)»
 	«xptReorientLinkUtils.reorient(it.modelFacet)»
 	«xptReorientLinkUtils.accessors(it)»
-	
-	«additions(it)»
+«additions(it)»
 }
 '''
 	

@@ -71,7 +71,8 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	/**
 	 *	Fields of command that creates link.
 	 */
-	def dispatch fields(LinkModelFacet it) ''' 
+	def dispatch fields(LinkModelFacet it) '''
+		«extraLineBreak»
 			«generatedMemberComment()» 
 			private final org.eclipse.emf.ecore.EObject source;
 		
@@ -80,6 +81,7 @@ import xpt.diagram.editpolicies.BaseItemSemanticEditPolicy
 	'''
 
 	def dispatch fields(TypeLinkModelFacet it) ''' 
+		«extraLineBreak»
 			«generatedMemberComment()» 
 			private final org.eclipse.emf.ecore.EObject source;
 		
