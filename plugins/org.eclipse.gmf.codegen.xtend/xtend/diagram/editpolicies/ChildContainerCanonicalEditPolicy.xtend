@@ -41,8 +41,7 @@ import xpt.Common
 			«xptCanonicalUpdate.body(it)»
 			
 			«refreshSemanticMethod(it)»
-			
-			«additions(it)»
+		«additions(it)»
 		}
 	'''
 
