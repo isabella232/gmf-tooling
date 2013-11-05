@@ -53,6 +53,7 @@ class CreateShortcutAction {
 		«generatedClassComment»
 		public class «className(it)» «extendsList(it)» «implementsList(it)» {
 			«executeMethod(it)»
+			«extraLineBreak»
 			«additions(it)»
 		}
 	'''
