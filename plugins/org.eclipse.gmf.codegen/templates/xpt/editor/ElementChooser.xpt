@@ -12,7 +12,6 @@
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
 «EXTENSION xpt::editor::Utils»
-«EXTENSION xpt::ExternalizerUtils»
 
 «DEFINE ElementChooser FOR gmfgen::GenDiagram-»
 «EXPAND xpt::Common::copyright FOR editorGen-»
@@ -113,7 +112,7 @@ public class «elementChooserClassName» «EXPAND extendsList» {
 	«EXPAND xpt::Common::generatedMemberComment»
 	«EXPAND CodeStyle::overrideI»
 	public String getDialogTitle() {
-		return «getExternalizerPackageName(self.editorGen)».«getExternalizerClassName()».ShortcutElementChooserDialog_SelectModelElementTitle;
+		return «EXPAND xpt::Externalizer::accessorCall(titleKey(i18nKeyForSelectModelElement(self))) FOR editorGen»;
 	}
 «ENDDEFINE»
 
