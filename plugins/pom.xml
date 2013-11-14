@@ -43,8 +43,8 @@
 		<module>org.eclipse.gmf.codegen.lite</module>
 		<module>org.eclipse.gmf.codegen.lite.ui</module>
 		<module>org.eclipse.gmf.codegen.ui</module>
-        <module>org.eclipse.gmf.codegen.xtend</module>
-        <module>org.eclipse.gmf.codegen.xtend.ui</module>
+	        <module>org.eclipse.gmf.codegen.xtend</module>
+	        <module>org.eclipse.gmf.codegen.xtend.ui</module>
 		<module>org.eclipse.gmf.common</module>
 		<!-- module>org.eclipse.gmf.formtk</module-->
 		<module>org.eclipse.gmf.runtime.lite</module>
