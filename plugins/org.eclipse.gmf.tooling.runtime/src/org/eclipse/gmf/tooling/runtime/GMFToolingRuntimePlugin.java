@@ -21,10 +21,13 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 
 	private Map<OclTrackerFactory.Type, OclTrackerFactory> myOclTrackerFactories;
 
+	private LogHelper myLogHelper;
+
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		ourInstance = this;
 		myOclTrackerFactories = loadOclTrackerFactories();
+		myLogHelper = new LogHelper(this);
 	}
 
 	public void stop(BundleContext context) throws Exception {
@@ -63,6 +66,13 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 		return result != null ? result : getOclTrackerFactory();
 	}
 
+	/**
+	 * @since 3.2
+	 */
+	public LogHelper getLogHelper() {
+		return myLogHelper;
+	}
+
 	private Map<OclTrackerFactory.Type, OclTrackerFactory> loadOclTrackerFactories() {
 		Map<OclTrackerFactory.Type, OclTrackerFactory> result = new HashMap<OclTrackerFactory.Type, OclTrackerFactory>();
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
@@ -74,7 +84,7 @@ public class GMFToolingRuntimePlugin extends AbstractUIPlugin {
 				try {
 					impl = point.createExecutableExtension("class");
 				} catch (CoreException e) {
-					getLog().log(e.getStatus());
+					myLogHelper.logStatus(e.getStatus());
 					continue;
 				}
 				if (impl instanceof OclTrackerFactory) {
