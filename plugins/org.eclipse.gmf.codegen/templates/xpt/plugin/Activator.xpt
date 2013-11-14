@@ -62,7 +62,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
-		myLogHelper = new org.eclipse.gmf.tooling.runtime.LogHelper(this, ID);
+		myLogHelper = new org.eclipse.gmf.tooling.runtime.LogHelper(this);
 		org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 		adapterFactory = createAdapterFactory();
 	}
