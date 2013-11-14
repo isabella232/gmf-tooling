@@ -57,6 +57,10 @@ public class «className»  extends org.eclipse.gmf.runtime.diagram.ui.resources
 	
 		«EXPAND initializeGraphicalViewer-»
 		
+		«EXPAND controlLastClickPositionProviderService»
+		
+		«EXPAND dispose»
+		
 		«EXPAND DropTargetListener-»
 	«ENDIF-»
 
@@ -70,6 +74,11 @@ public static final String ID = "«iD»"; «EXPAND xpt::Common::nonNLS»
 	
 	«EXPAND xpt::Common::generatedMemberComment»
 public static final String CONTEXT_ID = "«contextID»"; «EXPAND xpt::Common::nonNLS»
+	
+	«IF editorGen.diagram.generateCreateShortcutAction()-»
+	«EXPAND xpt::Common::generatedMemberComment»
+private org.eclipse.gmf.tooling.runtime.part.LastClickPositionProvider myLastClickPositionProvider;
+	«ENDIF-»
 «ENDDEFINE»
 
 «DEFINE _constructor FOR gmfgen::GenEditorView-»
@@ -294,7 +303,36 @@ protected void initializeGraphicalViewer() {
 	super.initializeGraphicalViewer();
 	«EXPAND addDropTargetListener('org.eclipse.jface.util.LocalSelectionTransfer.getTransfer()')-»
 	«EXPAND addDropTargetListener('org.eclipse.emf.edit.ui.dnd.LocalTransfer.getInstance()')-»
+	startupLastClickPositionProvider();
 }
+«ENDDEFINE»
+
+«DEFINE controlLastClickPositionProviderService FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void startupLastClickPositionProvider() {
+		if (myLastClickPositionProvider == null) {
+			myLastClickPositionProvider = new org.eclipse.gmf.tooling.runtime.part.LastClickPositionProvider(this);
+			myLastClickPositionProvider.attachToService();
+		}
+	}
+
+	«EXPAND xpt::Common::generatedMemberComment»
+	protected void shutDownLastClickPositionProvider() {
+		if (myLastClickPositionProvider != null) {
+			myLastClickPositionProvider.detachFromService();
+			myLastClickPositionProvider.dispose();
+			myLastClickPositionProvider = null;
+		}
+	}
+«ENDDEFINE»
+
+«DEFINE dispose FOR gmfgen::GenEditorView-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND CodeStyle::override FOR editorGen.diagram-»
+	public void dispose() {
+		shutDownLastClickPositionProvider();
+		super.dispose();
+	}
 «ENDDEFINE»
 
 «DEFINE addDropTargetListener(transferAccessor : String) FOR gmfgen::GenEditorView-»
