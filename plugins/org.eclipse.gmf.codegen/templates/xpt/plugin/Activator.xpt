@@ -23,6 +23,9 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 	public static final String ID = "«iD»"; //$NON-NLS-1$
 
 	«EXPAND xpt::Common::generatedMemberComment»
+	private org.eclipse.gmf.tooling.runtime.LogHelper myLogHelper;
+
+	«EXPAND xpt::Common::generatedMemberComment»
 	public static final org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint DIAGRAM_PREFERENCES_HINT =
 			new org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint(ID);
 
@@ -59,6 +62,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
+		myLogHelper = new org.eclipse.gmf.tooling.runtime.LogHelper(this, ID);
 		org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 		adapterFactory = createAdapterFactory();
 	}
@@ -221,52 +225,29 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void logError(String error) {
-		logError(error, null);
+		getLogHelper().logError(error, null);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void logError(String error, Throwable throwable) {
-		if (error == null && throwable != null) {
-			error = throwable.getMessage();
-		}
-		getLog().log(new org.eclipse.core.runtime.Status(
-				org.eclipse.core.runtime.IStatus.ERROR,
-				«activatorClassName».ID,
-				org.eclipse.core.runtime.IStatus.OK,
-				error, throwable));
-		debug(error, throwable);
+		getLogHelper().logError(error, throwable);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void logInfo(String message) {
-		logInfo(message, null);
+		getLogHelper().logInfo(message, null);
 	}
 
 	«EXPAND xpt::Common::generatedMemberComment»
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && throwable != null) {
-			message = throwable.getMessage();
-		}
-		getLog().log(new org.eclipse.core.runtime.Status(
-				org.eclipse.core.runtime.IStatus.INFO,
-				«activatorClassName».ID,
-				org.eclipse.core.runtime.IStatus.OK,
-				message, throwable));
-		debug(message, throwable);
+		getLogHelper().logInfo(message, throwable);
+	}
+	
+	«EXPAND xpt::Common::generatedMemberComment»
+	public org.eclipse.gmf.tooling.runtime.LogHelper getLogHelper() {
+		return myLogHelper;
 	}
 
-	«EXPAND xpt::Common::generatedMemberComment»
-	private void debug(String message, Throwable throwable) {
-		if (!isDebugging()) {
-			return;
-		}
-		if (message != null) {
-			System.err.println(message);
-		}
-		if (throwable != null) {
-			throwable.printStackTrace();
-		}
-	}
 	«EXPAND additions-»
 }
 «ENDDEFINE»
