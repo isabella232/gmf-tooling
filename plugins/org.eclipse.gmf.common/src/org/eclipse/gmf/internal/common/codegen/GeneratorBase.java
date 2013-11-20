@@ -534,7 +534,7 @@ public abstract class GeneratorBase implements Runnable {
 		}
 	}
 
-	protected static final class Counter {
+	public static final class Counter {
 		private final HashMap<EClass, Integer> myCounters = new HashMap<EClass, Integer>();
 		private final HashMap<EClass, Integer> myCache = new HashMap<EClass, Integer>();
 		private final Integer CACHE_MISS = new Integer(0);

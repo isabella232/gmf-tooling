@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.examples.svg/src" modelPluginID="org.eclipse.gmf.tooling.examples.svg"
+    modelName="Svg" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>svg.ecore</foreignModel>
+  <genPackages prefix="Svg" basePackage="org.eclipse.gmf.tooling.examples" disposableProviderFactory="true"
+      ecorePackage="svg.ecore#/">
+    <genClasses ecoreClass="svg.ecore#//Playground">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference svg.ecore#//Playground/players"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference svg.ecore#//Playground/goals"/>
+    </genClasses>
+    <genClasses ecoreClass="svg.ecore#//Player"/>
+    <genClasses ecoreClass="svg.ecore#//Goal"/>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,7 @@
+# Tracing options for the org.eclipse.gmf.tooling.examples.border.diagram plug-in
+
+# Common issues
+org.eclipse.gmf.tooling.examples.border.diagram/debug=false
+
+# Visual IDs
+org.eclipse.gmf.tooling.examples.border.diagram/debug/visualID=false
