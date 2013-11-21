@@ -21,7 +21,7 @@ import xpt.Externalizer
 import xpt.Common_qvto
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
-import org.eclipse.gmf.codegen.xtend.annotations.Localization
+import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.providers.ElementTypes
 
 @com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 
 	@Inject Externalizer xptExternalizer;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
+	@Inject ElementTypes xptElementTypes;
 
 	def className(GenCompartment it) '''«editPartClassName»'''
 
@@ -130,6 +131,24 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 				// super.setRatio(ratio); 
 			«ENDIF»
 		}
+	'''
+
+	def getTargetEditPartMethod(GenCompartment it) '''
+	«generatedMemberComment»
+	public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
+			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
+			«IF listCompartmentHasChildren(it)»
+				«FOR childNode : it.childNodes»
+					if (type == «xptElementTypes.accessElementType(childNode)») {
+						return this;
+					}
+				«ENDFOR»
+			«ENDIF»
+		}
+		return getParent().getTargetEditPart(request);
+	}
 	'''
 
 	@Localization def i18nAccessors(GenDiagram it) '''
