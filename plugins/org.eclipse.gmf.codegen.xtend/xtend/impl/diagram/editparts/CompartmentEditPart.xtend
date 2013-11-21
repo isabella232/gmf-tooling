@@ -134,21 +134,25 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.provide
 	'''
 
 	def getTargetEditPartMethod(GenCompartment it) '''
-	«generatedMemberComment»
-	public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
-		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
-			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
-			«IF listCompartmentHasChildren(it)»
+		«generatedMemberComment»
+		public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+			if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
+				org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+				org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
 				«FOR childNode : it.childNodes»
 					if (type == «xptElementTypes.accessElementType(childNode)») {
 						return this;
 					}
 				«ENDFOR»
+			«IF listCompartmentHasChildren(it)»
+			}
+			return getParent().getTargetEditPart(request);
+			«ELSE»
+				return getParent().getTargetEditPart(request);
+			}
+			return super.getTargetEditPart(request);
 			«ENDIF»
 		}
-		return getParent().getTargetEditPart(request);
-	}
 	'''
 
 	@Localization def i18nAccessors(GenDiagram it) '''

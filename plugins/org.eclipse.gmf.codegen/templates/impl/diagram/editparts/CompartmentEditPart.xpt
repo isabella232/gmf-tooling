@@ -117,15 +117,19 @@
 		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
 			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
-	«IF listCompartmentHasChildren(self)-»
 		«FOREACH self.childNodes->asSequence() AS childNode-»
 			if (type == «EXPAND xpt::providers::ElementTypes::accessElementType FOR childNode») {
 				return this;
 			}
 		«ENDFOREACH-»
-	«ENDIF-»
+		«IF listCompartmentHasChildren(self)-»
 		}
 		return getParent().getTargetEditPart(request);
+		«ELSE-»
+			return getParent().getTargetEditPart(request);
+		}
+		return super.getTargetEditPart(request);
+		«ENDIF-»
 	}
 «ENDDEFINE»
 
