@@ -144,14 +144,9 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.provide
 						return this;
 					}
 				«ENDFOR»
-			«IF listCompartmentHasChildren(it)»
+				«IF !listCompartmentHasChildren(it)»return getParent().getTargetEditPart(request);«ENDIF»
 			}
-			return getParent().getTargetEditPart(request);
-			«ELSE»
-				return getParent().getTargetEditPart(request);
-			}
-			return super.getTargetEditPart(request);
-			«ENDIF»
+			return «IF listCompartmentHasChildren(it)»getParent()«ELSE»super«ENDIF».getTargetEditPart(request);
 		}
 	'''
 

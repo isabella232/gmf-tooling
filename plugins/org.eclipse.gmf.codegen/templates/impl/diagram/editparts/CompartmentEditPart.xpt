@@ -122,14 +122,9 @@
 				return this;
 			}
 		«ENDFOREACH-»
-		«IF listCompartmentHasChildren(self)-»
+		«IF not listCompartmentHasChildren(self)»return getParent().getTargetEditPart(request);«ENDIF-»
 		}
-		return getParent().getTargetEditPart(request);
-		«ELSE-»
-			return getParent().getTargetEditPart(request);
-		}
-		return super.getTargetEditPart(request);
-		«ENDIF-»
+		return «IF listCompartmentHasChildren(self)»getParent()«ELSE»super«ENDIF».getTargetEditPart(request);
 	}
 «ENDDEFINE»
 
