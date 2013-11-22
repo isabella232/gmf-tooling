@@ -21,7 +21,7 @@ import xpt.Externalizer
 import xpt.Common_qvto
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
-import org.eclipse.gmf.codegen.xtend.annotations.Localization
+import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.providers.ElementTypes
 
 @com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 
 	@Inject Externalizer xptExternalizer;
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
+	@Inject ElementTypes xptElementTypes;
 
 	def className(GenCompartment it) '''«editPartClassName»'''
 
@@ -132,6 +133,25 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 		}
 	'''
 
+	def getTargetEditPartMethod(GenCompartment it) '''
+		«generatedMemberComment»
+		public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+			if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
+				org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+				org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
+				«FOR childNode : it.childNodes»
+					if (type == «xptElementTypes.accessElementType(childNode)») {
+						return this;
+					}
+				«ENDFOR»
+				«/*XY-compartments send all create and view requests which don't belong to him to parent*/»
+				«IF !listCompartmentHasChildren(it)»return getParent().getTargetEditPart(request);«ENDIF»
+			}
+			«/*List compartments redirects to parent, xy-compartments don't*/»
+			return «IF listCompartmentHasChildren(it)»getParent()«ELSE»super«ENDIF».getTargetEditPart(request);
+		}
+	'''
+
 	@Localization def i18nAccessors(GenDiagram it) '''
 	«FOR compartment : it.compartments»
 		«internal_i18nAccessors(compartment)»
@@ -154,5 +174,6 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 	@Localization def String i18nKeyForCompartmentTitle(GenCompartment compartment) {
 		return className(compartment) + '.title'
 	}
+	
 
 }

@@ -56,6 +56,8 @@ public class «xptCompartmentEditPartImpl.className(it)» «extendsList(it)» «
 	
 	«xptCompartmentEditPartImpl.setRatio(it)»
 	
+	«xptCompartmentEditPartImpl.getTargetEditPartMethod(it)»
+	
 	«additions(it)»
 }
 '''
