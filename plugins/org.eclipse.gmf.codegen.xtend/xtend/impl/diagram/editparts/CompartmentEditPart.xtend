@@ -177,5 +177,6 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.provide
 	@Localization def String i18nKeyForCompartmentTitle(GenCompartment compartment) {
 		return className(compartment) + '.title'
 	}
+	
 
 }
