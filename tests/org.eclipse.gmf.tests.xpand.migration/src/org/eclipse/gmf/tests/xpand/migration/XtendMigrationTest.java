@@ -37,7 +37,7 @@ import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 
 public class XtendMigrationTest extends TestCase {
-	
+
 	private static final String LF = System.getProperty("line.separator");
 
 	private TestsResourceManager testResourceManager;
@@ -74,29 +74,32 @@ public class XtendMigrationTest extends TestCase {
 
 	public void testFeatureCall() throws IOException, MigrationException {
 		String resourceName = "FeatureCall";
-		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)),
+				resourceName);
 	}
 
 	public void testOperationCall() throws IOException, MigrationException {
 		String resourceName = "OperationCall";
-		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, MigrationTestsPackage.eINSTANCE)),
+				resourceName);
 	}
-	
+
 	public void testCollectionOperations() throws IOException, MigrationException {
 		checkMigration("OperationCall_CollectionOperations");
 	}
-	
+
 	public void testCollectionOperationsAdd() throws IOException, MigrationException {
 		checkMigration("OperationCall_CollectionOperations_Add");
 	}
-	
+
 	public void testCollectionOperationsAddAll() throws IOException, MigrationException {
 		checkMigration("OperationCall_CollectionOperations_AddAll");
 	}
-	
+
 	public void testCollectionOperations_ToSet() throws IOException, MigrationException {
 		String resourceName = "OperationCall_CollectionOperations_ToSet";
-		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE,
+				MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
 
 	public void testCollectionExpression() throws IOException, MigrationException {
@@ -150,11 +153,11 @@ public class XtendMigrationTest extends TestCase {
 	public void testRealLiteral() throws IOException, MigrationException {
 		checkMigration("RealLiteral");
 	}
-	
+
 	public void testIteratorVariableUniqueness() throws IOException, MigrationException {
 		checkMigration("IteratorVariableUniqueness");
 	}
-	
+
 	public void testFixedProblems() throws IOException, MigrationException {
 		checkMigration("FixedProblems");
 	}
@@ -167,36 +170,36 @@ public class XtendMigrationTest extends TestCase {
 		String etalon = readStringContent(new InputStreamReader(testResourceManager.loadFile(getResourceName(resourceName), "qvto"), Charset.forName("ISO-8859-1")));
 		assertEquals(etalon, content);
 	}
-	
+
 	public void testStringOperations() throws IOException, MigrationException {
 		checkMigration("OperationCall_StringOperations");
 	}
-	
+
 	public void testOclAnyOperations() throws IOException, MigrationException {
 		String resourceName = "OperationCall_OclAnyOperations";
 		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), true), resourceName);
 	}
-	
+
 	public void testBooleanOperations() throws IOException, MigrationException {
 		checkMigration("OperationCall_BooleanOperations");
 	}
-	
+
 	public void testIntegerOperations() throws IOException, MigrationException {
 		checkMigration("OperationCall_IntegerOperations");
 	}
-	
+
 	public void testDoubleOperations() throws IOException, MigrationException {
 		checkMigration("OperationCall_DoubleOperations");
 	}
-	
+
 	public void testJavaExtensionsContainer() throws IOException, MigrationException {
 		checkMigration("JavaExtensionsContainer");
 	}
-	
+
 	public void testJavaExtensionsCaller() throws IOException, MigrationException {
 		checkMigration("JavaExtensionsCaller");
 	}
-	
+
 	public void testJavaExtensionClassBody() throws MigrationException, IOException {
 		String fileName = "JavaExtensionsContainer";
 		XtendMigrationFacade facade = new XtendMigrationFacade(testResourceManager, getResourceName(fileName));
@@ -218,7 +221,7 @@ public class XtendMigrationTest extends TestCase {
 		classBody = normalize(classBody);
 		assertEquals(etalon, classBody);
 	}
-	
+
 	public void testJavaExtensionXmlDeclaration() throws MigrationException, IOException {
 		String fileName = "JavaExtensionsContainer";
 		XtendMigrationFacade facade = new XtendMigrationFacade(testResourceManager, getResourceName(fileName));
@@ -238,24 +241,25 @@ public class XtendMigrationTest extends TestCase {
 		xmlDeclaration = normalize(xmlDeclaration);
 		assertEquals(etalon, xmlDeclaration);
 	}
-	
+
 	public void testSwitchExpression() throws IOException, MigrationException {
 		checkMigration("SwitchExpression");
 	}
-	
+
 	public void testReturnCollectionTypeTransformation() throws IOException, MigrationException {
 		String resourceName = "ReturnCollectionTypeTransformation";
-		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE, MigrationTestsPackage.eINSTANCE)), resourceName);
+		checkMigration(new XtendMigrationFacade(testResourceManager, getResourceName(resourceName), new MigrationExecutionContextImpl(testResourceManager, GenModelPackage.eINSTANCE,
+				MigrationTestsPackage.eINSTANCE)), resourceName);
 	}
-	
+
 	public void testInfixOperationsPrecenence() throws IOException, MigrationException {
 		checkMigration("InfixOperationsPrecenence");
 	}
-	
+
 	public void testWorkflowSlot() throws IOException, MigrationException {
 		checkMigration("WorkflowSlot");
 	}
-	
+
 	public void testInstanceOf() throws IOException, MigrationException {
 		checkMigration("Instanceof");
 	}
@@ -313,19 +317,22 @@ public class XtendMigrationTest extends TestCase {
 		return content;
 	}
 
-	private void checkQVTCompilation(final String resourceName, final String resourceContent) throws MdaException, UnsupportedEncodingException {		
+	private void checkQVTCompilation(final String resourceName, final String resourceContent) throws MdaException, UnsupportedEncodingException {
 		UnitResolver resolver = new UnitResolver() {
+
 			public UnitProxy resolveUnit(String qualifiedName) {
 				URI uri = URI.createURI("platform:/plugin/foo").appendSegment(resourceName); //$NON-NLS-1$
 				return createUnitProxy(resourceName, uri, resourceContent, this);
 			}
 		};
-		
-		QVTOCompiler qvtCompiler = QVTOCompiler.createCompiler(resolver, EPackage.Registry.INSTANCE);
+
+		QVTOCompiler qvtCompiler = QVTOCompiler.createCompiler(EPackage.Registry.INSTANCE);
 		QvtCompilerOptions options = new QvtCompilerOptions();
 		options.setGenerateCompletionData(false);
 		options.setShowAnnotations(false);
-		CompiledUnit unit = qvtCompiler.compile(resourceName, options, null);
+		UnitProxy unitProxy = resolver.resolveUnit(resourceName);
+		assertNotNull(unitProxy);
+		CompiledUnit unit = qvtCompiler.compile(unitProxy, options, null);
 		assertTrue(unit.getErrors().size() == 0);
 	}
 
@@ -339,30 +346,31 @@ public class XtendMigrationTest extends TestCase {
 	private static String getResourceName(String shortName) {
 		return "org::eclipse::gmf::tests::xpand::migration::" + shortName;
 	}
-	
+
 	// Copy of org.eclipse.m2m.internal.qvt.oml.compiler.ResolverUtil.createUnitProxy
 	// since it has been removed from QVTO during the Indigo release
-	public static UnitProxy  createUnitProxy(String qualifiedName, URI uri, final String contents, final UnitResolver resolver) {
+	public static UnitProxy createUnitProxy(String qualifiedName, URI uri, final String contents, final UnitResolver resolver) {
 		String[] segments = ResolverUtils.getNameSegments(qualifiedName);
 		String namespace = null;
-		if(segments.length > 1) {
+		if (segments.length > 1) {
 			namespace = ResolverUtils.toQualifiedName(segments, 0, segments.length - 2);
 		}
 		String name = segments[segments.length - 1];
 
 		return new UnitProxy(namespace, name, uri) {
+
 			@Override
-			public UnitContents  getContents() throws IOException {
+			public UnitContents getContents() throws IOException {
 				return ResolverUtils.createCSTContents(contents);
 			}
 
 			@Override
-			public int  getContentType() {			
+			public int getContentType() {
 				return TYPE_CST_STREAM;
 			}
 
 			@Override
-			public UnitResolver getResolver() {			
+			public UnitResolver getResolver() {
 				return resolver;
 			}
 		};
