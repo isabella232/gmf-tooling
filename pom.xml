@@ -196,7 +196,6 @@
         </profile>
         <profile>
             <id>kepler</id>
-            <!-- Bug 396054: replace by usage of a .target file -->
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -204,7 +203,6 @@
                 <repository>
                     <id>staging</id>
                     <layout>p2</layout>
-                    <!-- temporarily switched back to Juno repo, see problems with build #450 -->
                     <url>http://download.eclipse.org/releases/kepler/</url>
                 </repository>
                 <repository>
