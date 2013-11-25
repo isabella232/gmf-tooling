@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -31,14 +29,15 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicGenModelAccess;
-import org.eclipse.osgi.baseadaptor.BaseData;
-import org.eclipse.osgi.framework.internal.core.AbstractBundle;
+import org.eclipse.osgi.internal.framework.EquinoxBundle;
+import org.eclipse.osgi.storage.BundleInfo.Generation;
 import org.eclipse.pde.core.target.ITargetDefinition;
 import org.eclipse.pde.core.target.ITargetLocation;
 import org.eclipse.pde.core.target.ITargetPlatformService;
 import org.eclipse.pde.core.target.LoadTargetDefinitionJob;
 import org.eclipse.pde.internal.core.target.TargetPlatformService;
 import org.eclipse.swt.widgets.Display;
+import org.junit.Assert;
 import org.osgi.framework.Bundle;
 
 /**
@@ -95,15 +94,13 @@ public class Utils {
 	}
 
 	public static String createUniquePluginID() {
-		return String.format("sample.t%1$tH-%1$tM-%1$tS.%1$tL",
-				Calendar.getInstance());
+		return String.format("sample.t%1$tH-%1$tM-%1$tS.%1$tL", Calendar.getInstance());
 	}
 
 	/**
 	 * @return false if timeout broke the loop
 	 */
-	public static boolean dispatchDisplayMessages(boolean[] condition,
-			int timeoutSeconds) {
+	public static boolean dispatchDisplayMessages(boolean[] condition, int timeoutSeconds) {
 		assert Display.getCurrent() != null;
 		final long start = System.currentTimeMillis();
 		final long deltaMillis = timeoutSeconds * 1000;
@@ -111,8 +108,7 @@ public class Utils {
 			while (Display.getCurrent().readAndDispatch()) {
 				;
 			}
-		} while (condition[0]
-				&& (System.currentTimeMillis() - start) < deltaMillis);
+		} while (condition[0] && (System.currentTimeMillis() - start) < deltaMillis);
 		return !condition[0];
 	}
 
@@ -132,17 +128,12 @@ public class Utils {
 
 	public static void assertDispatchDisplayMessages(int timeoutSeconts) {
 		boolean queueCleared = dispatchDisplayMessages(3);
-		Assert.assertTrue(
-				"Display message redispatch was not expected to end by timeout",
-				queueCleared);
+		Assert.assertTrue("Display message redispatch was not expected to end by timeout", queueCleared);
 	}
 
-	public static void assertDispatchDisplayMessages(boolean[] condition,
-			int timeoutSeconds) {
-		boolean conditionSatisfied = Utils.dispatchDisplayMessages(condition,
-				10);
-		Assert.assertTrue("Timeout while waiting for jobs to complete",
-				conditionSatisfied);
+	public static void assertDispatchDisplayMessages(boolean[] condition, int timeoutSeconds) {
+		boolean conditionSatisfied = Utils.dispatchDisplayMessages(condition, 10);
+		Assert.assertTrue("Timeout while waiting for jobs to complete", conditionSatisfied);
 	}
 
 	/**
@@ -156,23 +147,20 @@ public class Utils {
 		ITargetPlatformService tpService = TargetPlatformService.getDefault();
 		ITargetDefinition targetDef = tpService.newTarget();
 		targetDef.setName("Tycho platform");
-		Bundle[] bundles = Platform.getBundle("org.eclipse.core.runtime")
-				.getBundleContext().getBundles();
+		Bundle[] bundles = Platform.getBundle("org.eclipse.core.runtime").getBundleContext().getBundles();
 		List<ITargetLocation> bundleContainers = new ArrayList<ITargetLocation>();
 		Set<File> dirs = new HashSet<File>();
 		for (Bundle bundle : bundles) {
-			AbstractBundle aBundle = (AbstractBundle) bundle;
-			final BaseData bundleData = (BaseData) aBundle.getBundleData();
-			File file = bundleData.getBundleFile().getBaseFile();
+			EquinoxBundle bundleImpl = (EquinoxBundle) bundle;
+			Generation generation = (Generation) bundleImpl.getModule().getCurrentRevision().getRevisionInfo();
+			File file = generation.getBundleFile().getBaseFile();
 			File folder = file.getParentFile();
 			if (!dirs.contains(folder)) {
 				dirs.add(folder);
-				bundleContainers.add(tpService.newDirectoryLocation(folder
-						.getAbsolutePath()));
+				bundleContainers.add(tpService.newDirectoryLocation(folder.getAbsolutePath()));
 			}
 		}
-		targetDef.setTargetLocations(bundleContainers
-				.toArray(new ITargetLocation[bundleContainers.size()]));
+		targetDef.setTargetLocations(bundleContainers.toArray(new ITargetLocation[bundleContainers.size()]));
 		targetDef.setArch(Platform.getOSArch());
 		targetDef.setOS(Platform.getOS());
 		targetDef.setWS(Platform.getWS());

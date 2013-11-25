@@ -28,6 +28,7 @@ import org.eclipse.m2m.internal.qvt.oml.common.MdaException;
 import org.eclipse.m2m.internal.qvt.oml.compiler.CompiledUnit;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QVTOCompiler;
 import org.eclipse.m2m.internal.qvt.oml.compiler.QvtCompilerOptions;
+import org.eclipse.m2m.internal.qvt.oml.compiler.UnitProxy;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 
 // FIXME it's not a good idea to parse file on every proposal computation
@@ -69,18 +70,19 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	private QvtResource doLoadQvtResource(String fullyQualifiedName) throws IOException, ParserException {
-			String compilationUnitQName = fullyQualifiedName.replace(TypeNameUtil.NS_DELIM, "."); //$NON-NLS-1$ 
-			CompiledUnit compiledUnit = null;			
-			try {
-				compiledUnit = getQvtCompiler().compile(compilationUnitQName, getQvtCompilerOptions(), null);
-			} catch (MdaException e) {
-				throw new FileNotFoundException(fullyQualifiedName);				
-			}
+		String compilationUnitQName = fullyQualifiedName.replace(TypeNameUtil.NS_DELIM, "."); //$NON-NLS-1$ 
+		CompiledUnit compiledUnit = null;
+		try {
+			UnitProxy unitProxy = getQVTUnitResolver().resolveUnit(fullyQualifiedName);
+			compiledUnit = getQvtCompiler().compile(unitProxy, getQvtCompilerOptions(), null);
+		} catch (MdaException e) {
+			throw new FileNotFoundException(fullyQualifiedName);
+		}
 
-			if (compiledUnit == null) {
-				throw new FileNotFoundException(fullyQualifiedName);
-			}
-			return new QvtFile(compiledUnit, fullyQualifiedName);
+		if (compiledUnit == null) {
+			throw new FileNotFoundException(fullyQualifiedName);
+		}
+		return new QvtFile(compiledUnit, fullyQualifiedName);
 	}
 
 	abstract protected String resolveCFileFullPath(String fullyQualifiedName, String fileExtension);
@@ -94,11 +96,11 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		if (qvtCompiler == null) {
 			// TODO: use different kind of ImportResolver being able to
 			// construct referenced CFiles using ResourceManagerImpl	
-			qvtCompiler = QVTOCompiler.createCompilerWithHistory(getQVTUnitResolver(), getMetamodelResourceSet());
+			qvtCompiler = QVTOCompiler.createCompilerWithHistory(getMetamodelResourceSet());
 		}
 		return qvtCompiler;
 	}
-	
+
 	protected ResourceSet getMetamodelResourceSet() {
 		return Activator.getWorkspaceMetamodelsResourceSet();
 	}
@@ -117,7 +119,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 			return loadXpandThroughCache(fullyQualifiedName);
 		} catch (FileNotFoundException ex) {
 			// Missing resource is an anticipated situation, not a error that should be handled
-			return null; 
+			return null;
 		} catch (IOException ex) {
 			// XXX come up with better handling
 			Activator.logWarn(ex.getMessage());
@@ -246,6 +248,6 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 	}
 
 	protected abstract UnitResolver getQVTUnitResolver();
-	
+
 	private static final String ASPECT_PREFIX = "aspects" + TypeNameUtil.NS_DELIM; //$NON-NLS-1$
 }
