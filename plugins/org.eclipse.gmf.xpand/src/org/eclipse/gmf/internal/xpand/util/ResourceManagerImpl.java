@@ -73,7 +73,7 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		String compilationUnitQName = fullyQualifiedName.replace(TypeNameUtil.NS_DELIM, "."); //$NON-NLS-1$ 
 		CompiledUnit compiledUnit = null;
 		try {
-			UnitProxy unitProxy = getQVTUnitResolver().resolveUnit(fullyQualifiedName);
+			UnitProxy unitProxy = getQVTUnitResolver().resolveUnit(compilationUnitQName);
 			if (unitProxy == null) {
 				throw new FileNotFoundException("Failed to resolve: " + fullyQualifiedName); //$NON-NLS-1$
 			}
