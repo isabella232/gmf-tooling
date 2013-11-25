@@ -74,6 +74,9 @@ public abstract class ResourceManagerImpl implements ResourceManager {
 		CompiledUnit compiledUnit = null;
 		try {
 			UnitProxy unitProxy = getQVTUnitResolver().resolveUnit(fullyQualifiedName);
+			if (unitProxy == null) {
+				throw new FileNotFoundException("Failed to resolve: " + fullyQualifiedName); //$NON-NLS-1$
+			}
 			compiledUnit = getQvtCompiler().compile(unitProxy, getQvtCompilerOptions(), null);
 		} catch (MdaException e) {
 			throw new FileNotFoundException(fullyQualifiedName);
