@@ -41,6 +41,8 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsLis
 	
 	«EXPAND impl::diagram::editparts::CompartmentEditPart::setRatio-»
 	
+	«EXPAND impl::diagram::editparts::CompartmentEditPart::getTargetEditPartMethod-»
+	
 	«EXPAND additions-»
 }
 «ENDDEFINE»
