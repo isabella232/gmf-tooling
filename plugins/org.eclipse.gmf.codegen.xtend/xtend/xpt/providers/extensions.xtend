@@ -26,7 +26,9 @@ import org.eclipse.gmf.codegen.gmfgen.NotationType
 import parsers.ParserProvider
 import xpt.diagram.edithelpers.EditHelper
 import xpt.diagram.edithelpers.EditHelperAdvice
-import xpt.diagram.editparts.EditPartFactory
+import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase
+import org.eclipse.gmf.codegen.gmfgen.GenNode
 
 class extensions {
 	@Inject extension Common;
@@ -36,12 +38,11 @@ class extensions {
 	@Inject ViewProvider viewProvider;
 	@Inject IconProvider iconProvider;
 	@Inject EditPartProvider editPartProvider;
-	@Inject ModelingAssistantProvider modelAssistant;
+	@Inject EditPartModelingAssistantProvider xptEditPartModelingAssistant;
 	@Inject ParserProvider labelParsers;
 	@Inject ShortcutsDecoratorProvider shorcutProvider;
 	@Inject EditHelper editHelper;
 	@Inject EditHelperAdvice editHelperAdvice;
-	@Inject EditPartFactory xptEditPartFactory;
 	
 	def extensions(GenDiagram it) '''
 		«extraLineBreak»
@@ -86,20 +87,7 @@ class extensions {
 		«tripleSpace(2)»</editpartProvider>
 		«tripleSpace(1)»</extension>
 		
-		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
-		«tripleSpace(2)»«xmlGeneratedTag»
-		«tripleSpace(2)»<modelingAssistantProvider class="«modelAssistant.qualifiedClassName(it)»">
-		«tripleSpace(3)»<Priority name="«modelingAssistantProviderPriority»"/>
-		«tripleSpace(3)»<object class="«xptEditPartFactory.getEditPartQualifiedClassName(it)»" id="«uniqueIdentifier»"/>
-				«FOR n : topLevelNodes»
-		«tripleSpace(3)»<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
-				«ENDFOR»
-				«FOR n : childNodes»
-		«tripleSpace(3)»<object class="«xptEditPartFactory.getEditPartQualifiedClassName(n)»" id="«n.uniqueIdentifier»"/>
-				«ENDFOR»
-		«tripleSpace(3)»<context elements="«uniqueIdentifier»,«FOR tn: topLevelNodes SEPARATOR ','»«tn.uniqueIdentifier»«ENDFOR»,«FOR cn: childNodes SEPARATOR ','»«cn.uniqueIdentifier»«ENDFOR»"/>
-		«tripleSpace(2)»</modelingAssistantProvider>
-		«tripleSpace(1)»</extension>
+		«modelingAssistantProvider(it)»
 		
 		«tripleSpace(1)»<extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
 		«tripleSpace(2)»«xmlGeneratedTag»
@@ -213,6 +201,30 @@ class extensions {
 		«tripleSpace(3)»<param name="semanticHint" value="«diagramElement.visualID»"/>
 		«tripleSpace(2)»</specializationType>
 	'''
+	
+	def modelingAssistantProvider(GenDiagram it) '''
+		<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+			«xmlGeneratedTag»
+			<modelingAssistantProvider class="«modelingAssistantProviderQualifiedClassName(it)»">
+				<Priority name="«it.modelingAssistantProviderPriority»"/>
+				<object class="«it.editPartQualifiedClassName»" id="«it.uniqueIdentifier»"/>
+				<context elements="«it.uniqueIdentifier»"/>
+			</modelingAssistantProvider>
+			«FOR n : it.getAllNodes()»
+			<modelingAssistantProvider class="«modelingAssistantProviderQualifiedClassName(n)»">
+				<Priority name="«n.diagram.modelingAssistantProviderPriority»"/>
+				<object class="«n.editPartQualifiedClassName»" id="«n.uniqueIdentifier»"/>
+				<context elements="«n.uniqueIdentifier»"/>
+			</modelingAssistantProvider>
+			«ENDFOR»
+		</extension>
+	'''
+
+	@MetaDef def dispatch modelingAssistantProviderQualifiedClassName(GenContainerBase it)'''«/*NO-OP, all specific subclasses should be handled*/»'''
+	
+	@MetaDef def dispatch modelingAssistantProviderQualifiedClassName(GenDiagram it)'''«xptEditPartModelingAssistant.qualifiedClassName(it)»'''
+	
+	@MetaDef def dispatch modelingAssistantProviderQualifiedClassName(GenNode it)'''«xptEditPartModelingAssistant.qualifiedClassName(it)»'''
 
 	def commaSeparatedVisualIDs(Iterable<? extends GenCommonBase> list) '''«FOR gcb : list SEPARATOR ','»«gcb.visualID»«ENDFOR»'''
 

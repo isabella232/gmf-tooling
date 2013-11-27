@@ -637,6 +637,16 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	public GeneratorTextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
 	}
+	
+	@Override
+	public TextEmitter getNodeEditPartModelingAssistantProviderEmitter() {
+		return getPrimaryXtendEmitter("xpt::providers::EditPartModelingAssistantProvider"); //$NON-NLS-1$
+	}
+	
+	@Override
+	public String getNodeEditPartModelingAssistantProviderClassName(Object input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::providers::EditPartModelingAssistantProvider", input); //$NON-NLS-1$
+	}
 
 	@Override
 	public GeneratorTextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {

@@ -81,20 +81,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
 	
 		«xptNodeEditPartImpl.getPrimaryChildEditPart(it)»
 	
-	«IF !getAssistantOutgoingLinks(it).empty»
-		«xptNodeEditPartImpl.getMARelTypesOnSource(it)»
-	
-		«xptNodeEditPartImpl.getMARelTypesOnSourceAndTarget(it)»
-	
-		«xptNodeEditPartImpl.getMATypesForTarget(it)»
-	«ENDIF»
-	
-	«IF !getAssistantIncomingLinks(it).empty»
-		«xptNodeEditPartImpl.getMARelTypesOnTarget(it)»
-	
-		«xptNodeEditPartImpl.getMATypesForSource(it)»
-	«ENDIF»
-	
 	«IF hasChildrenInListCompartments(it)»
 		«xptNodeEditPartImpl.getTargetEditPartMethod(it)»
 	«ENDIF»

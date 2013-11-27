@@ -53,20 +53,6 @@ public class «xptChildNodeLabelEditPart.className(it)» «extendsList(it)» «i
 
 	«xptEditpartsCommon.notationalListeners(it)»
 
-«IF getAssistantOutgoingLinks(it).notEmpty»
-	«xptNodeEditPart.getMARelTypesOnSource(it)»
-
-	«xptNodeEditPart.getMARelTypesOnSourceAndTarget(it)»
-
-	«xptNodeEditPart.getMATypesForTarget(it)»
-«ENDIF»
-
-«IF getAssistantIncomingLinks(it).notEmpty»
-	«xptNodeEditPart.getMARelTypesOnTarget(it)»
-
-	«xptNodeEditPart.getMATypesForSource(it)»
-«ENDIF»
-
 	«handleNotificationEvent(it)»
 
 	«xptEditpartsCommon.labelFigure(it.viewmap)»
