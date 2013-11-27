@@ -14,16 +14,18 @@
 package impl.diagram.editparts
 
 import com.google.inject.Inject
-import xpt.Common
-import xpt.diagram.editparts.Utils_qvto
+import com.google.inject.Singleton
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment
-import xpt.Externalizer
-import xpt.Common_qvto
-import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
-import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.providers.ElementTypes
+import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
+import org.eclipse.gmf.codegen.xtend.annotations.Localization
+import xpt.Common
+import xpt.Common_qvto
+import xpt.Externalizer
+import xpt.diagram.editparts.Utils_qvto
+import xpt.providers.ElementTypes
 
-@com.google.inject.Singleton class CompartmentEditPart {
+@Singleton class CompartmentEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 
@@ -136,6 +138,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.provide
 	def getTargetEditPartMethod(GenCompartment it) '''
 		«generatedMemberComment»
 		public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+			«IF childNodes.notEmpty»
 			if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
 				org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 				org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
@@ -144,11 +147,10 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localizationimport xpt.provide
 						return this;
 					}
 				«ENDFOR»
-				«/*XY-compartments send all create and view requests which don't belong to him to parent*/»
-				«IF !listCompartmentHasChildren(it)»return getParent().getTargetEditPart(request);«ENDIF»
+				return getParent().getTargetEditPart(request);
 			}
-			«/*List compartments redirects to parent, xy-compartments don't*/»
-			return «IF listCompartmentHasChildren(it)»getParent()«ELSE»super«ENDIF».getTargetEditPart(request);
+			«ENDIF»
+			return super.getTargetEditPart(request);
 		}
 	'''
 
