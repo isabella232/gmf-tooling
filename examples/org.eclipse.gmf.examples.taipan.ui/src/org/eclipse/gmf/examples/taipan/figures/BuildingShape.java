@@ -24,10 +24,10 @@ public class BuildingShape extends Shape {
 
 	protected void outlineShape(Graphics g) {
 		Rectangle r = getBounds();
-		int x = r.x + lineWidth / 2;
-		int y = r.y + lineWidth / 2;
-		int w = r.width - Math.max(1, lineWidth);
-		int h = r.height - Math.max(1, lineWidth);
+		int x = r.x + getLineWidth() / 2;
+		int y = r.y + getLineWidth() / 2;
+		int w = r.width - Math.max(1, getLineWidth());
+		int h = r.height - Math.max(1, getLineWidth());
 		g.drawRectangle(x, y, w, h);
 		int d = w > h ? h / 2 : w / 2;
 		g.drawLine(x, y, x + d, y + d);

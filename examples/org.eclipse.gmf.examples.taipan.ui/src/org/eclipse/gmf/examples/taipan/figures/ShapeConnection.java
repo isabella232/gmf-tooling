@@ -48,7 +48,7 @@ public abstract class ShapeConnection extends Shape implements Connection, Ancho
 	}
 
 	protected Rectangle getShapeBounds() {
-		return getPoints().getBounds().getExpanded(lineWidth / 2, lineWidth / 2);
+		return getPoints().getBounds().getExpanded(getLineWidth() / 2, getLineWidth() / 2);
 	}
 
 	public Rectangle getBounds() {
