@@ -66,8 +66,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		return LayoutType.DEFAULT.equals(layoutType);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Command layoutEditParts(List selectedObjects, IAdaptable layoutHint) {
+	public Command layoutEditParts(@SuppressWarnings("rawtypes") List selectedObjects, IAdaptable layoutHint) {
 		GraphicalEditPart editPart = (GraphicalEditPart) selectedObjects.get(0);
 		GraphicalEditPart containerEditPart = (GraphicalEditPart) editPart.getParent();
 		return layoutEditParts(containerEditPart, layoutHint);
@@ -78,8 +77,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 	}
 
 	protected Command layoutPort(GraphicalEditPart portEditPart) {
-		assert portEditPart instanceof IGraphicalEditPart
-				&& ((IGraphicalEditPart) portEditPart).resolveSemanticElement() instanceof Port;
+		assert portEditPart instanceof IGraphicalEditPart && ((IGraphicalEditPart) portEditPart).resolveSemanticElement() instanceof Port;
 		if (working) {
 			throw new IllegalStateException("Recursive layout invocation"); //$NON-NLS-1$
 		}
@@ -88,8 +86,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 			working = true;
 
 			// separate buildings by streets
-			Map<String, Collection<IGraphicalEditPart>> rows =
-					new TreeMap<String, Collection<IGraphicalEditPart>>(); // street -> [BuildingEditPart]
+			Map<String, Collection<IGraphicalEditPart>> rows = new TreeMap<String, Collection<IGraphicalEditPart>>(); // street -> [BuildingEditPart]
 			for (Iterator<?> it = portEditPart.getChildren().iterator(); it.hasNext();) {
 				IGraphicalEditPart editPart = (IGraphicalEditPart) it.next();
 				EObject model = editPart.resolveSemanticElement();
@@ -119,8 +116,7 @@ public class PortLayoutProvider extends AbstractLayoutEditPartProvider {
 		return cc.isEmpty() ? new Command("Nothing to layout") {} : cc; //$NON-NLS-1$
 	}
 
-	protected void layoutStreet(Collection<IGraphicalEditPart> editParts,
-			int yOffset, int thickness, CompoundCommand cc) {
+	protected void layoutStreet(Collection<IGraphicalEditPart> editParts, int yOffset, int thickness, CompoundCommand cc) {
 		int xOffset = GAP;
 		for (Iterator<IGraphicalEditPart> it = editParts.iterator(); it.hasNext();) {
 			GraphicalEditPart editPart = it.next();

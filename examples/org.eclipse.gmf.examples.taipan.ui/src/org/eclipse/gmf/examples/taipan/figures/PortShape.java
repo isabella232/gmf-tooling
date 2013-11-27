@@ -32,10 +32,10 @@ public class PortShape extends Shape {
 
 	protected void drawPort(Graphics g, boolean fill) {
 		Rectangle r = getBounds();
-		int x = r.x + lineWidth / 2;
-		int y = r.y + lineWidth / 2;
-		int w = r.width - Math.max(1, lineWidth);
-		int h = r.height - Math.max(1, lineWidth);
+		int x = r.x + getLineWidth() / 2;
+		int y = r.y + getLineWidth() / 2;
+		int w = r.width - Math.max(1, getLineWidth());
+		int h = r.height - Math.max(1, getLineWidth());
 
 		// walls
 		PointList walls = new PointList(4);

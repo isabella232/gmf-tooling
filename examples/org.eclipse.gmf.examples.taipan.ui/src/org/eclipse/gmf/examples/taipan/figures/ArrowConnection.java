@@ -75,7 +75,7 @@ public class ArrowConnection extends AnchorableShapeConnection {
 		Rectangle shapeBounds = null;
 		PointList[] segments = getSegments();
 		for (int i = 0; i < segments.length; i++) {
-			Rectangle segmentBounds = segments[i].getBounds().getExpanded(lineWidth / 2, lineWidth / 2);
+			Rectangle segmentBounds = segments[i].getBounds().getExpanded(getLineWidth() / 2, getLineWidth() / 2);
 			if (shapeBounds == null) {
 				shapeBounds = segmentBounds;
 			} else {
