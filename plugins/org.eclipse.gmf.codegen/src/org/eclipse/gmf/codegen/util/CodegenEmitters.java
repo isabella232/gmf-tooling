@@ -60,9 +60,9 @@ public class CodegenEmitters {
 			urls.add(getTemplatesBundle().getEntry("/templates-dynmodel/")); //$NON-NLS-1$
 		}
 		urls.add(getTemplatesBundle().getEntry("/templates/")); //$NON-NLS-1$
-		
+
 		urls.add(Platform.getBundle("org.eclipse.gmf.graphdef.codegen").getEntry("/templates/")); //$NON-NLS-1$ //$NON-NLS-2$
-		
+
 		myLocations = urls.toArray(new URL[urls.size()]);
 		myResourceManager = new BundleResourceManager(myLocations);
 	}
@@ -303,6 +303,20 @@ public class CodegenEmitters {
 
 	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
+	}
+
+	/**
+	 * @since 2.10
+	 */
+	public TextEmitter getNodeEditPartModelingAssistantProviderEmitter() {
+		return getPrimaryEmitter("xpt::providers::EditPartModelingAssistantProvider"); //$NON-NLS-1$
+	}
+
+	/**
+	 * @since 2.10
+	 */
+	public String getNodeEditPartModelingAssistantProviderClassName(Object input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::providers::EditPartModelingAssistantProvider", input); //$NON-NLS-1$
 	}
 
 	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
@@ -642,7 +656,7 @@ public class CodegenEmitters {
 		String definition = templateName + PATH_SEPARATOR + "qualifiedClassName"; //$NON-NLS-1$
 		return newXpandEmitter(definition);
 	}
-	
+
 	/**
 	 * Returns emitter for qualified class name definition for specified <strong>primary template</strong>.
 	 * That is, in contrast to {@link CodegenEmitters#getQualifiedClassNameEmitter(String)} expects the name 
@@ -655,13 +669,31 @@ public class CodegenEmitters {
 	protected TextEmitter getQualifiedClassNameEmitterForPrimaryTemplate(String templateName) throws UnexpectedBehaviourException {
 		String[] parts = templateName.split(PATH_SEPARATOR);
 		StringBuilder withoutLastSegment = new StringBuilder();
-		for (int i = 0; i < parts.length - 1; i++){
-			if (withoutLastSegment.length() > 0){
+		for (int i = 0; i < parts.length - 1; i++) {
+			if (withoutLastSegment.length() > 0) {
 				withoutLastSegment.append(PATH_SEPARATOR);
 			}
 			withoutLastSegment.append(parts[i]);
 		}
 		return getQualifiedClassNameEmitter(withoutLastSegment.toString());
+	}
+
+	/**
+	 * Returns emitter for class name definition in the specified template.
+	 * Definition should be named 'className'.
+	 */
+	private TextEmitter getClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
+		String definition = templateName + PATH_SEPARATOR + "className"; //$NON-NLS-1$
+		return newXpandEmitter(definition);
+	}
+
+	/**
+	 * Returns emitter for package name definition in the specified template.
+	 * Definition should be named 'packageName'.
+	 */
+	private TextEmitter getPackageNameEmitter(String templateName) throws UnexpectedBehaviourException {
+		String definition = templateName + PATH_SEPARATOR + "packageName"; //$NON-NLS-1$
+		return newXpandEmitter(definition);
 	}
 
 	/**
@@ -682,6 +714,22 @@ public class CodegenEmitters {
 	 */
 	private String getQualifiedClassName(String templateName, Object... input) throws UnexpectedBehaviourException {
 		TextEmitter emitter = getQualifiedClassNameEmitter(templateName);
+		return getText(emitter, input);
+	}
+
+	/**
+	 * Returns class name defined in template.
+	 */
+	private String getClassName(String templateName, Object... input) throws UnexpectedBehaviourException {
+		TextEmitter emitter = getClassNameEmitter(templateName);
+		return getText(emitter, input);
+	}
+
+	/**
+	 * Returns package name defined in template.
+	 */
+	private String getPackageName(String templateName, Object... input) throws UnexpectedBehaviourException {
+		TextEmitter emitter = getPackageNameEmitter(templateName);
 		return getText(emitter, input);
 	}
 
@@ -708,4 +756,5 @@ public class CodegenEmitters {
 	protected TextEmitter newXpandEmitter(String definition) {
 		return new XpandTextEmitter(myResourceManager, definition, myGlobals);
 	}
+
 }

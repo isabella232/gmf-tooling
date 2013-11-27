@@ -34,20 +34,6 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsLis
 
 	«EXPAND xpt::diagram::editparts::Common::notationalListeners-»
 
-«IF getAssistantOutgoingLinks(self)->size() > 0-»
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSource-»
-
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnSourceAndTarget-»
-
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForTarget-»
-«ENDIF-»
-
-«IF getAssistantIncomingLinks(self)->size() > 0-»
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMARelTypesOnTarget-»
-
-	«EXPAND impl::diagram::editparts::NodeEditPart::getMATypesForSource-»
-«ENDIF-»
-
 	«EXPAND handleNotificationEvent-»
 
 	«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-»

@@ -45,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenContributionManager;
 import org.eclipse.gmf.codegen.gmfgen.GenCustomAction;
@@ -320,6 +321,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateDiagramItemSemanticEditPolicy();
 		generateEditSupport(myDiagram);
 		generateDiagramEditPart();
+		generateEditPartModelingAssistantProvider(myDiagram);
 	}
 
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
@@ -329,6 +331,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 		generateEditSupport(node);
 		generateNodeEditPart(node);
+		generateEditPartModelingAssistantProvider(node);
 		generateBehaviours(node);
 		if (node.needsCanonicalEditPolicy()) {
 			generateChildContainerCanonicalEditPolicy(node);
@@ -368,6 +371,7 @@ public class Generator extends GeneratorBase implements Runnable {
 		generateEditSupport(child);
 		generateBehaviours(child);
 		generateChildNodeLabelEditPart(child);
+		generateEditPartModelingAssistantProvider(child);
 	}
 
 	// commands
@@ -440,6 +444,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private void generateNodeEditPart(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
 		doGenerateJavaClass(myEmitters.getNodeEditPartEmitter(), node.getEditPartQualifiedClassName(), node);
+	}
+
+	private void generateEditPartModelingAssistantProvider(GenContainerBase container) throws UnexpectedBehaviourException, InterruptedException {
+		doGenerateJavaClass(myEmitters.getNodeEditPartModelingAssistantProviderEmitter(), myEmitters.getNodeEditPartModelingAssistantProviderClassName(container), container);
 	}
 
 	private void generateNodeLabelEditPart(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
@@ -1181,4 +1189,5 @@ public class Generator extends GeneratorBase implements Runnable {
 	private static boolean needsGraphicalNodeEditPolicy(GenNode node) {
 		return node.getModelFacet() != null && !node.getReorientedIncomingLinks().isEmpty();
 	}
+
 }
