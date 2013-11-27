@@ -114,6 +114,7 @@
 «DEFINE getTargetEditPartMethod FOR gmfgen::GenCompartment»
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
+		«IF self.childNodes->size() > 0-»
 		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
 			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
@@ -122,11 +123,10 @@
 				return this;
 			}
 		«ENDFOREACH-»
-		«REM»/*XY-compartments send all create and view requests which don't belong to him to parent*/«ENDREM-»
-		«IF not listCompartmentHasChildren(self)»return getParent().getTargetEditPart(request);«ENDIF-»
+			return getParent().getTargetEditPart(request);
 		}
-		«REM»/*List compartments redirects to parent, xy-compartments don't*/«ENDREM»
-		return «IF listCompartmentHasChildren(self)»getParent()«ELSE»super«ENDIF».getTargetEditPart(request);
+		«ENDIF-»
+		return super.getTargetEditPart(request);
 	}
 «ENDDEFINE»
 
