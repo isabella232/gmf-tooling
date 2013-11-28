@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.examples.compartments/src"
+    modelPluginID="org.eclipse.gmf.tooling.examples.compartments" modelName="Compartments"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>compartments.ecore</foreignModel>
+  <genPackages prefix="Compartments" basePackage="org.eclipse.gmf.tooling.examples"
+      disposableProviderFactory="true" ecorePackage="compartments.ecore#/">
+    <genClasses ecoreClass="compartments.ecore#//Canvas">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//Canvas/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//TopNodeA">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//TopNodeA/childrenC"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//TopNodeA/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//TopNodeA/childrenD"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//TopNodeB">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//TopNodeB/childrenE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//TopNodeB/childrenG"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//TopNodeB/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//TopNodeB/childrenF"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//ChildOfB_E">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//ChildOfB_E/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference compartments.ecore#//ChildOfB_E/cNodeRelation"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//ChildOfB_G">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//ChildOfB_G/number"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference compartments.ecore#//ChildOfB_G/childrenOfAffixed"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//TopNode"/>
+    <genClasses ecoreClass="compartments.ecore#//ChildOfA_C">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//ChildOfA_C/name"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//ChildOfB_F">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//ChildOfB_F/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference compartments.ecore#//ChildOfB_F/dNodeRelation"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//ChildOfAffixed">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//ChildOfAffixed/description"/>
+    </genClasses>
+    <genClasses ecoreClass="compartments.ecore#//ChildOfA_D">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute compartments.ecore#//ChildOfA_D/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
