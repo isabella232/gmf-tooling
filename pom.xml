@@ -24,7 +24,7 @@
     </prerequisites>
 
     <properties>
-        <tycho-version>0.18.0</tycho-version>
+        <tycho-version>0.18.1</tycho-version>
         <jar-signer-version>1.0.4</jar-signer-version>
         <base-composite-path>/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/</base-composite-path>
         <composite-path>${base-composite-path}dev-snapshots/3.2/</composite-path>
