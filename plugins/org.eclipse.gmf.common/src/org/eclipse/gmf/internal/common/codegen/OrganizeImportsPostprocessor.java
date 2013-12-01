@@ -275,8 +275,6 @@ public class OrganizeImportsPostprocessor {
 		for (int i = 0; i < problems.length; i++) {
 			IProblem curr = problems[i];
 			if (curr.isError() && (curr.getID() & IProblem.Syntax) != 0) {
-				System.err.println("borlander: problem found: msg: " + curr.getMessage() + ", " + curr.getSourceLineNumber());
-				System.err.println("borlander:     " + curr);
 				return false;
 			}
 		}
