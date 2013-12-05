@@ -21,7 +21,7 @@ import xpt.editor.VisualIDRegistry
 import plugin.Activator
 import xpt.editor.Editor
 
-class NavigatorActionProvider {
+@com.google.inject.Singleton class NavigatorActionProvider {
 	@Inject extension Common;
 	
 	@Inject Activator xptActivator;

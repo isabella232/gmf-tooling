@@ -46,7 +46,7 @@ import xpt.providers.ElementTypes
 import xpt.providers.ParserUtils_qvto
 import plugin.Activator
 
-class ParserProvider {
+@com.google.inject.Singleton class ParserProvider {
 	@Inject extension Common
 	@Inject extension Common_qvto
 

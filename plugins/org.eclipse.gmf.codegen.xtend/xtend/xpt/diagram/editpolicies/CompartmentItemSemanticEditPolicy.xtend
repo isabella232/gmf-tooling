@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment
 import xpt.Common
 
-class CompartmentItemSemanticEditPolicy {
+@com.google.inject.Singleton class CompartmentItemSemanticEditPolicy {
 	@Inject extension Common;
 
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;

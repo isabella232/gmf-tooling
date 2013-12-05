@@ -21,7 +21,7 @@ import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 
-class ModelingAssistantProvider {
+@com.google.inject.Singleton class ModelingAssistantProvider {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
 

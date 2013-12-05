@@ -13,7 +13,7 @@ import xpt.diagram.editpolicies.NodeItemSemanticEditPolicy
 import xpt.diagram.commands.CreateNodeCommand
 import xpt.diagram.commands.CreateLinkCommand
 
-class QualifiedClassNameProvider {
+@com.google.inject.Singleton class QualifiedClassNameProvider {
 
 	@Inject CompartmentItemSemanticEditPolicy compItemSemantic;
 	@Inject DiagramItemSemanticEditPolicy diagramItemSemantic;

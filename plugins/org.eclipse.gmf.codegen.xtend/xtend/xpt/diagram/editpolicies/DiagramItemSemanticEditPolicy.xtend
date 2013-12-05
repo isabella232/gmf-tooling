@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 
-class DiagramItemSemanticEditPolicy {
+@com.google.inject.Singleton class DiagramItemSemanticEditPolicy {
 	@Inject extension Common;
 	
 	@Inject childContainerCreateCommand xptChildContainerCreateCommand;

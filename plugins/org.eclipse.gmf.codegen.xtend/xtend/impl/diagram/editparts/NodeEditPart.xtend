@@ -37,7 +37,7 @@ import xpt.diagram.editpolicies.GraphicalNodeEditPolicy
 import xpt.diagram.editpolicies.TextSelectionEditPolicy
 import xpt.diagram.editparts.EditPartFactory
 
-class NodeEditPart {
+@com.google.inject.Singleton class NodeEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ViewmapAttributesUtils_qvto;

@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 import xpt.editor.VisualIDRegistry
 
-class NavigatorSorter {
+@com.google.inject.Singleton class NavigatorSorter {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 	

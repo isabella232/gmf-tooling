@@ -36,7 +36,7 @@ import xpt.diagram.editpolicies.LinkUtils_qvto
 import plugin.Activator
 
 //XXX: [MG] decide what to do with @MetaDef methods
-class VisualIDRegistry {
+@com.google.inject.Singleton class VisualIDRegistry {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

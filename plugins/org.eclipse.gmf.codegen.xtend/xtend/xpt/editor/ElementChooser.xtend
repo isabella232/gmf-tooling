@@ -20,7 +20,7 @@ import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 
-class ElementChooser {
+@com.google.inject.Singleton class ElementChooser {
 	@Inject extension Common;
 
 	@Inject extension ExternalizerUtils_qvto;

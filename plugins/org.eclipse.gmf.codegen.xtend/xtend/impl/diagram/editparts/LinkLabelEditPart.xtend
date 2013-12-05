@@ -21,7 +21,7 @@ import xpt.diagram.ViewmapAttributesUtils_qvto
 import xpt.editor.VisualIDRegistry
 import xpt.diagram.editpolicies.TextSelectionEditPolicy
 
-class LinkLabelEditPart {
+@com.google.inject.Singleton class LinkLabelEditPart {
 	@Inject extension Common;
 	@Inject extension ViewmapAttributesUtils_qvto;
 

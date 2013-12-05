@@ -30,7 +30,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 
-class extensions {
+@com.google.inject.Singleton class extensions {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

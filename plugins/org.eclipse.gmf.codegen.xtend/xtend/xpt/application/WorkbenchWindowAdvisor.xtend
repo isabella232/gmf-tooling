@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 
-class WorkbenchWindowAdvisor {
+@com.google.inject.Singleton class WorkbenchWindowAdvisor {
 	@Inject extension Common;
 	
 	@Inject Externalizer xptExternalizer;

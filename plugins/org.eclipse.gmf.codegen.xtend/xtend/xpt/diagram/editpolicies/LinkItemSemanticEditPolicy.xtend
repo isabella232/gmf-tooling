@@ -22,7 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.Common
 import xpt.Common_qvto
 
-class LinkItemSemanticEditPolicy {
+@com.google.inject.Singleton class LinkItemSemanticEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension LinkUtils_qvto;

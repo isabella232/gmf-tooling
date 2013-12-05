@@ -12,6 +12,6 @@
  */
 package xpt.diagram.editpolicies
 
-class TextFeedback {
+@com.google.inject.Singleton class TextFeedback {
 
 }

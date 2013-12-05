@@ -22,7 +22,7 @@ import xpt.Common
 import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 
-class DiagramEditorUtil {
+@com.google.inject.Singleton class DiagramEditorUtil {
 	@Inject extension Common;
 	@Inject extension GenDiagram_qvto;
 	@Inject extension ExternalizerUtils_qvto;

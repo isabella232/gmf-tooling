@@ -19,7 +19,7 @@ import xpt.Common
 import xpt.Externalizer
 import plugin.Activator
 
-class DocumentProvider {
+@com.google.inject.Singleton class DocumentProvider {
 	@Inject extension Common;
 	
 	@Inject Activator xptActivator;

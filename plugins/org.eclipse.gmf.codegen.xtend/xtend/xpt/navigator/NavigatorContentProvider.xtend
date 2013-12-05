@@ -26,7 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorPathSegment
 
-class NavigatorContentProvider {
+@com.google.inject.Singleton class NavigatorContentProvider {
 	@Inject extension xpt.Common;
 	@Inject extension xpt.Common_qvto;
 	@Inject extension xpt.navigator.Utils_qvto;

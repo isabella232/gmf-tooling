@@ -75,7 +75,7 @@ import xpt.Common
 	'''
 
 	/**
-	 * DEFINE's below are not supported anymore (code moved to super@com.google.inject.Singleton class in 3.1). 
+	 * DEFINE's below are not supported anymore (code moved to superclass in 3.1). 
 	 * If your xpt version have them, call it from custom version of additions
 	 * <p>
 	 * def dispatch getPropertySourceMethod(GenCustomPropertyTab it) '''''' 

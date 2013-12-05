@@ -8,7 +8,7 @@ import xpt.CodeStyle
 /** 
  * FIXME: [MG] - reverse the calls? call common code from here and TextelectionEP and not vice versa 
 */
-class TextSelectionEditPolicy {
+@com.google.inject.Singleton class TextSelectionEditPolicy {
 	
 	@Inject extension Common;
 

@@ -29,7 +29,7 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.diagram.editparts.EditPartFactory
 
-class extensions {
+@com.google.inject.Singleton class extensions {
 	@Inject extension Common_qvto;
 	@Inject extension Common;
 	@Inject extension MenuAction_qvto;

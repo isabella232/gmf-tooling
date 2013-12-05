@@ -23,7 +23,7 @@ import xpt.diagram.commands.CreateShortcutDecorationsCommand
 /**
  * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
  */
-class DiagramEditPart {
+@com.google.inject.Singleton class DiagramEditPart {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 	

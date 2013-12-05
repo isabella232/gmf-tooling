@@ -26,7 +26,7 @@ import xpt.editor.ShortcutCreationWizard
 import xpt.editor.ElementChooser
 import xpt.editor.DiagramEditorUtil
 
-class CreateShortcutAction {
+@com.google.inject.Singleton class CreateShortcutAction {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ExternalizerUtils_qvto;

@@ -29,7 +29,7 @@ import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.providers.ElementTypes
 
-class PaletteFactory {
+@com.google.inject.Singleton class PaletteFactory {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

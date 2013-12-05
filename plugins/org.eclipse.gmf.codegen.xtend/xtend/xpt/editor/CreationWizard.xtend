@@ -20,7 +20,7 @@ import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import plugin.Activator
 
-class CreationWizard {
+@com.google.inject.Singleton class CreationWizard {
 	@Inject extension Common;
 	@Inject extension GenDiagram_qvto;
 

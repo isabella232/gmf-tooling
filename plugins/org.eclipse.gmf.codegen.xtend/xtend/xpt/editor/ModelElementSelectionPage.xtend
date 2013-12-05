@@ -21,7 +21,7 @@ import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import plugin.Activator
 
-class ModelElementSelectionPage {
+@com.google.inject.Singleton class ModelElementSelectionPage {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
 

@@ -41,7 +41,7 @@ import org.eclipse.gmf.runtime.notation.LineStyle
 import org.eclipse.gmf.runtime.notation.FillStyle
 import org.eclipse.gmf.runtime.notation.Style
 
-class ViewProvider {
+@com.google.inject.Singleton class ViewProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	

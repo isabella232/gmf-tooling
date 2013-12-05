@@ -25,7 +25,7 @@ import xpt.providers.ValidationProvider
 import xpt.providers.MarkerNavigationProvider
 import xpt.providers.ValidationDecoratorProvider
 
-class ValidateAction {
+@com.google.inject.Singleton class ValidateAction {
 	@Inject extension Common;
 	@Inject extension GenAuditRoot_qvto;
 	@Inject extension ExternalizerUtils_qvto;

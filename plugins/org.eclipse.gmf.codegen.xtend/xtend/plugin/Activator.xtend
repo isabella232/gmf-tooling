@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin
 import com.google.inject.Inject
 import xpt.plugin.ActivatorImpl
 
-class Activator { 
+@com.google.inject.Singleton class Activator { 
 	
 	@Inject ActivatorImpl activatorImpl;
 	

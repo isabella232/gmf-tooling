@@ -20,7 +20,7 @@ import xpt.Common
 import xpt.diagram.editparts.Utils_qvto
 import xpt.diagram.editpolicies.TextSelectionEditPolicy
 
-class NodeLabelEditPart {
+@com.google.inject.Singleton class NodeLabelEditPart {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 

@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator
 import xpt.Common
 import plugin.Activator
 
-class DomainNavigatorContentProvider {
+@com.google.inject.Singleton class DomainNavigatorContentProvider {
 	@Inject extension Common;
 
 	@Inject Activator xptActivator 

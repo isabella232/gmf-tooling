@@ -22,7 +22,7 @@ import xpt.diagram.editpolicies.TextNonResizableEditPolicy
 /**
  * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
  */
-class ChildNodeLabelEditPart {
+@com.google.inject.Singleton class ChildNodeLabelEditPart {
 	@Inject extension Common;
 	@Inject extension QualifiedClassNameProvider
 

@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.Localization
 import xpt.Common
 import xpt.Externalizer
 
-class CreationWizardPage {
+@com.google.inject.Singleton class CreationWizardPage {
 	@Inject extension Common;
 	
 	@Inject Externalizer xptExternalizer;

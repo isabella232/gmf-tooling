@@ -28,7 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet
 import plugin.Activator
 import xpt.editor.VisualIDRegistry
 
-class ElementTypes {
+@com.google.inject.Singleton class ElementTypes {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;

@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType
 import xpt.Common
 
-@com.google.inject.Singleton public class EditHelperAdvice {
+public class EditHelperAdvice {
 	@Inject extension Common;
 
 	def className(SpecializationType it) '''«it.editHelperAdviceClassName»'''

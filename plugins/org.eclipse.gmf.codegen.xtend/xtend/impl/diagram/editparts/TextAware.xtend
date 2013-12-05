@@ -30,7 +30,7 @@ import xpt.diagram.ViewmapAttributesUtils_qvto
 import xpt.diagram.editparts.EditPartFactory
 import xpt.providers.ElementTypes
 
-class TextAware {
+@com.google.inject.Singleton class TextAware {
 	@Inject extension Common
 	@Inject extension CodeStyle
 	@Inject extension ViewmapAttributesUtils_qvto

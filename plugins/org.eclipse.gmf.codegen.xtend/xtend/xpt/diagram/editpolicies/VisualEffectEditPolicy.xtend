@@ -32,7 +32,7 @@ import xpt.Common_qvto
 import xpt.expressions.OclTracker_qvto
 import xpt.diagram.editparts.EditPartFactory
 
-class VisualEffectEditPolicy {
+@com.google.inject.Singleton class VisualEffectEditPolicy {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension OclTracker_qvto;

@@ -24,7 +24,7 @@ import xpt.editor.Editor
  * FIXME: [MG] monolithic template with most of the code "same-generated".
  * Unfortunately, a lot of the logic is based around «IF editorGen.application == null» and we don't have a good ways to deal with taht in GMFT-runtimw
  */
-class ValidationDecoratorProvider {
+@com.google.inject.Singleton class ValidationDecoratorProvider {
 	@Inject extension Common;
 	
 	@Inject Activator xptActivator;

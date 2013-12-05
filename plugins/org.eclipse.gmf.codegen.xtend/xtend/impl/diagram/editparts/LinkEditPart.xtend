@@ -29,7 +29,7 @@ import xpt.Common_qvto
 /**
  * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
  */
-class LinkEditPart {
+@com.google.inject.Singleton class LinkEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	

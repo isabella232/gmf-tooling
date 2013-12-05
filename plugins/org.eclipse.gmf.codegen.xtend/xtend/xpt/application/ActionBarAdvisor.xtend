@@ -31,7 +31,7 @@ import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.editor.CreationWizard
 
-class ActionBarAdvisor {
+@com.google.inject.Singleton class ActionBarAdvisor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension ExternalizerUtils_qvto;

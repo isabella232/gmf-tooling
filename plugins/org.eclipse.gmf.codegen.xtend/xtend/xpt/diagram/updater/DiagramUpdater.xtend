@@ -33,7 +33,7 @@ import xpt.GenModelUtils_qvto
 import xpt.editor.VisualIDRegistry
 import xpt.providers.ElementTypes
 
-class DiagramUpdater {
+@com.google.inject.Singleton class DiagramUpdater {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

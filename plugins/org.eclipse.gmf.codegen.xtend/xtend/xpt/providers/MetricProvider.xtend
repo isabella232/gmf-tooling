@@ -37,7 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer
 import plugin.Activator
 import xpt.editor.DiagramEditorUtil
 
-class MetricProvider {
+@com.google.inject.Singleton class MetricProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Metrics_qvto;

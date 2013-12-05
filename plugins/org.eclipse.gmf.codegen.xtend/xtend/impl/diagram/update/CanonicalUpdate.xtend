@@ -30,7 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagramUpdater
 import xpt.diagram.updater.NodeDescriptor
 import xpt.diagram.updater.LinkDescriptor
 
-class CanonicalUpdate {
+@com.google.inject.Singleton class CanonicalUpdate {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;

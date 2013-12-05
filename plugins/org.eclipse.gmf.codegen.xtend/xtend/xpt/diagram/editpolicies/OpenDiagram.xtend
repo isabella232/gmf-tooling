@@ -24,7 +24,7 @@ import xpt.navigator.getEditorInput
 import xpt.editor.Editor
 import xpt.editor.DiagramEditorUtil
 
-class OpenDiagram {
+@com.google.inject.Singleton class OpenDiagram {
 	@Inject extension Common;
 
 	@Inject Externalizer xptExternalizer;

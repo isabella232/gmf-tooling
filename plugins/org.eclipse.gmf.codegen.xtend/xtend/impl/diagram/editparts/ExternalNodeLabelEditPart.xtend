@@ -19,7 +19,7 @@ import xpt.diagram.editparts.Common
 import xpt.editor.VisualIDRegistry
 import xpt.diagram.editpolicies.TextSelectionEditPolicy
 
-class ExternalNodeLabelEditPart {
+@com.google.inject.Singleton class ExternalNodeLabelEditPart {
 	@Inject extension xpt.Common;
 
 	@Inject Common xptEditpartsCommon;

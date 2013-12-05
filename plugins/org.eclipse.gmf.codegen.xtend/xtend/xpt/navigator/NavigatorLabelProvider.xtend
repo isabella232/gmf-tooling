@@ -43,7 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.DesignLabelModelFacet
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
 import plugin.Activator
 
-class NavigatorLabelProvider {
+@com.google.inject.Singleton class NavigatorLabelProvider {
 	@com.google.inject.Inject extension xpt.Common;
 	@com.google.inject.Inject extension xpt.Common_qvto;
 	@com.google.inject.Inject extension xpt.navigator.Utils_qvto;

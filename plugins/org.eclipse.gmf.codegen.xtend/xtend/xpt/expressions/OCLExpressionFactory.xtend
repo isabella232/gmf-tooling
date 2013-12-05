@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import plugin.Activator
 import xpt.Common
 
-class OCLExpressionFactory {
+@com.google.inject.Singleton class OCLExpressionFactory {
 	@Inject extension Common;
 	
 	@Inject Activator xptActivator;

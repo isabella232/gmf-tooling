@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.providers.ElementTypes
 
-class GraphicalNodeEditPolicy {
+@com.google.inject.Singleton class GraphicalNodeEditPolicy {
 	@Inject extension Common;
 	
 	@Inject ElementTypes xptElementTypes;

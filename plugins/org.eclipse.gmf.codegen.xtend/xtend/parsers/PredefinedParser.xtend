@@ -23,7 +23,7 @@ import xpt.Common
 import xpt.Externalizer
 import plugin.Activator
 
-class PredefinedParser {
+@com.google.inject.Singleton class PredefinedParser {
 	@Inject extension Common;
 
 	@Inject Externalizer xptExternalizer;

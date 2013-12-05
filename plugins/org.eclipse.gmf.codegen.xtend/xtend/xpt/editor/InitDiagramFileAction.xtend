@@ -24,7 +24,7 @@ import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import plugin.Activator
 
-class InitDiagramFileAction {
+@com.google.inject.Singleton class InitDiagramFileAction {
 
 	@Inject extension Common;
 	@Inject extension Common_qvto;

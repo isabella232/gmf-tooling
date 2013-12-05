@@ -21,7 +21,7 @@ import xpt.editor.ShortcutPropertyTester
 /**
  * FIXME: [MG]: xptXXX forfields
  */
-class extensions {
+@com.google.inject.Singleton class extensions {
 	@Inject extension Common;
 	
 	@Inject UriEditorInputTester uriTester;

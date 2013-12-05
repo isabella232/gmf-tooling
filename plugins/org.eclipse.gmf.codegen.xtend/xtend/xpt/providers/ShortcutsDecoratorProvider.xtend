@@ -18,7 +18,7 @@ import xpt.Common
 import xpt.editor.VisualIDRegistry
 import plugin.Activator
 
-class ShortcutsDecoratorProvider {
+@com.google.inject.Singleton class ShortcutsDecoratorProvider {
 
 	@Inject extension Common;
 

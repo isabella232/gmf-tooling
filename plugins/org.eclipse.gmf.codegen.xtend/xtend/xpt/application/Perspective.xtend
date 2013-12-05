@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
 
-class Perspective {
+@com.google.inject.Singleton class Perspective {
 	@Inject extension Common;
 	@Inject WorkbenchAdvisor xptWorkbenchAdvisor;
 	

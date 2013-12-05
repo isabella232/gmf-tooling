@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import xpt.Common
 import plugin.Activator
 
-class AbstractExpression {
+@com.google.inject.Singleton class AbstractExpression {
 	@Inject extension Common;
 
 	@Inject Activator xptActivator;

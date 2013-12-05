@@ -7,7 +7,7 @@ import xpt.Common
 /** 
  * FIXME: [MG] - reverse the calls? call common code from here and TextelectionEP and not vice versa 
 */
-class TextNonResizableEditPolicy {
+@com.google.inject.Singleton class TextNonResizableEditPolicy {
 	
 	@Inject extension Common;
 	

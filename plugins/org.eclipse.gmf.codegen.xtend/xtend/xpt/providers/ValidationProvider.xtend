@@ -34,7 +34,7 @@ import xpt.editor.VisualIDRegistry
 import xpt.expressions.getExpression
 import plugin.Activator
 
-class ValidationProvider {
+@com.google.inject.Singleton class ValidationProvider {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension GenAuditRoot_qvto; 

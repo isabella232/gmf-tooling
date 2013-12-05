@@ -16,7 +16,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenApplication
 import xpt.Common
 
-class WorkbenchAdvisor {
+@com.google.inject.Singleton class WorkbenchAdvisor {
 	
 	@Inject extension Common;
 	@Inject WorkbenchWindowAdvisor xptWorkbenchWindowAdvisor

@@ -18,7 +18,7 @@ import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common
 import plugin.Activator
 
-class DiagramEditorContextMenuProvider {
+@com.google.inject.Singleton class DiagramEditorContextMenuProvider {
 	@Inject extension Common;
 
 	@Inject Activator xptActivator;

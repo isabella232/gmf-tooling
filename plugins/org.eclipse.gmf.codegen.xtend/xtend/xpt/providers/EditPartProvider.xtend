@@ -18,7 +18,7 @@ import xpt.Common
 import xpt.editor.VisualIDRegistry
 import xpt.diagram.editparts.EditPartFactory
 
-class EditPartProvider {
+@com.google.inject.Singleton class EditPartProvider {
 	@Inject extension Common;
 
 	@Inject VisualIDRegistry xptVisualIDRegistry;

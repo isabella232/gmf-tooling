@@ -33,7 +33,7 @@ import diagram.editparts.CompartmentEditPart
 import diagram.editparts.NodeLabelEditPart
 import diagram.editparts.DiagramEditPart
 
-class EditPartFactory {
+@com.google.inject.Singleton class EditPartFactory {
 
 	@Inject extension Common;
 	@Inject ChildNodeLabelEditPart childNodeLabelEditPart;

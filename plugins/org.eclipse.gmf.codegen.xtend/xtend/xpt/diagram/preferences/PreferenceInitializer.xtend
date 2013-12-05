@@ -31,7 +31,7 @@ import xpt.Common_qvto
 import xpt.diagram.Utils_qvto
 import plugin.Activator
 
-class PreferenceInitializer {
+@com.google.inject.Singleton class PreferenceInitializer {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

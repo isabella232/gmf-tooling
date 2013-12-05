@@ -19,7 +19,7 @@ import xpt.Common_qvto
 import xpt.GenEditorGenerator_qvto
 import xpt.providers.MetricProvider
 
-class ActionBarContributor {
+@com.google.inject.Singleton class ActionBarContributor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

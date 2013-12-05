@@ -22,7 +22,7 @@ import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.diagram.commands.CreateShortcutDecorationsCommand
 
-class ShortcutCreationWizard {
+@com.google.inject.Singleton class ShortcutCreationWizard {
 	@Inject extension Common;
 	@Inject extension ExternalizerUtils_qvto;
 	

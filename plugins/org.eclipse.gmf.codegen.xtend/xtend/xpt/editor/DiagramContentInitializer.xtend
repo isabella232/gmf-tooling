@@ -27,7 +27,7 @@ import xpt.diagram.updater.Utils_qvto
 import xpt.diagram.updater.NodeDescriptor
 import xpt.diagram.updater.LinkDescriptor
 
-class DiagramContentInitializer {
+@com.google.inject.Singleton class DiagramContentInitializer {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;

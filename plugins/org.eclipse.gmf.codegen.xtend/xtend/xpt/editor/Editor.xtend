@@ -27,7 +27,7 @@ import xpt.navigator.NavigatorLinkHelper
 import xpt.editor.palette.PaletteFactory
 import xpt.navigator.NavigatorItem
 
-class Editor {
+@com.google.inject.Singleton class Editor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

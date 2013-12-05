@@ -25,7 +25,7 @@ import xpt.Externalizer
 import xpt.diagram.editparts.Utils_qvto
 import xpt.providers.ElementTypes
 
-@Singleton class CompartmentEditPart {
+@com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
 

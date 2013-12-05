@@ -19,7 +19,7 @@ import xpt.navigator.NavigatorGroup
 import xpt.editor.VisualIDRegistry
 import xpt.providers.ElementTypes
 
-class LabelProvider {
+@com.google.inject.Singleton class LabelProvider {
 	@Inject extension Common;
 
 	@Inject ElementTypes xptElementTypes;

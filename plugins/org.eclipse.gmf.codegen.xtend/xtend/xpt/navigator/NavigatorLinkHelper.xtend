@@ -21,7 +21,7 @@ import xpt.Common
 import xpt.editor.VisualIDRegistry
 import plugin.Activator
 
-class NavigatorLinkHelper {
+@com.google.inject.Singleton class NavigatorLinkHelper {
 	@Inject extension Common;
 	@Inject extension Utils_qvto;
 

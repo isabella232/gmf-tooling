@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage
 import xpt.Common
 
-class RegexpExpressionFactory {
+@com.google.inject.Singleton class RegexpExpressionFactory {
 	@Inject extension Common;
 
 	@Inject AbstractExpression xptAbstractExpression
