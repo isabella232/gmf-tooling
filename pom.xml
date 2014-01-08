@@ -230,6 +230,11 @@
                     <layout>p2</layout>
                     <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20131024145017/repository/</url>
                 </repository>
+                <repository>
+                    <id>ObjectTeamsRepository, see bug #350133 for details why we need that</id>
+                    <name>Object Teams Repository</name>
+                    <url>http://download.eclipse.org/objectteams/maven/3/repository</url>
+                </repository>
             </repositories>
         </profile>
         <profile>
