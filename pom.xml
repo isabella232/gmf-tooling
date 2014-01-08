@@ -24,7 +24,7 @@
     </prerequisites>
 
     <properties>
-        <tycho-version>0.18.0</tycho-version>
+        <tycho-version>0.19.0</tycho-version>
         <jar-signer-version>1.0.4</jar-signer-version>
         <base-composite-path>/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/</base-composite-path>
         <composite-path>${base-composite-path}dev-snapshots/3.2/</composite-path>
@@ -87,6 +87,15 @@
                 <artifactId>target-platform-configuration</artifactId>
                 <version>${tycho-version}</version>
                 <configuration>
+                	<dependency-resolution>
+                		<extraRequirements>
+                			<requirement>
+                				<type>p2-installable-unit</type>
+                				<id>org.eclipse.jdt.feature.group</id>
+                				<versionRange>0.0.0</versionRange>
+                			</requirement>
+                		</extraRequirements>
+                	</dependency-resolution>
                     <resolver>p2</resolver>
                     <environments>
                         <environment>
