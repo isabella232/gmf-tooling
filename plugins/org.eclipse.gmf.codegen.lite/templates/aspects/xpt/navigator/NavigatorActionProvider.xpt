@@ -20,7 +20,7 @@ public void run() {
 	}
 	org.eclipse.ui.IWorkbenchPage page = myViewerSite.getPage();
 «IF editorGen.editor.eclipseEditor-»
-	org.eclipse.ui.IEditorInput editorInput = getEditorInput();
+	org.eclipse.ui.IEditorInput editorInput = getEditorInput(myDiagram);
  	try {
 		page.openEditor(editorInput, «editorGen.editor.getQualifiedClassName()».ID);
 	} catch (org.eclipse.ui.PartInitException e) {

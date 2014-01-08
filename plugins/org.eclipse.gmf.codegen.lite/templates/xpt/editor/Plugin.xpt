@@ -58,6 +58,7 @@ public class «activatorClassName» extends org.eclipse.ui.plugin.AbstractUIPlug
 «EXPAND bundleString-»
 «EXPAND logging-»
 «EXPAND debugOptions-»
+«EXPAND linkConstraints-»
 «EXPAND additions-»
 }
 «ENDDEFINE»
@@ -289,6 +290,21 @@ public boolean isStrictFont() {
 
 «DEFINE initStrictFontOption FOR gmfgen::GenPlugin-»
 myIsStrictFont = Boolean.valueOf(org.eclipse.core.runtime.Platform.getDebugOption(STRICT_FONT_OPTION)).booleanValue();
+«ENDDEFINE»
+
+«DEFINE linkConstraints FOR gmfgen::GenPlugin-»
+«EXPAND xpt::Common::generatedMemberComment»
+private LinkConstraints myLinkConstraints;
+
+«EXPAND xpt::Common::generatedMemberComment»
+public LinkConstraints getLinkConstraints() {
+	return myLinkConstraints;
+}
+
+«EXPAND xpt::Common::generatedMemberComment»
+public void setLinkConstraints(LinkConstraints linkConstraints) {
+	this.myLinkConstraints = linkConstraints;
+}
 «ENDDEFINE»
 
 «DEFINE additions FOR gmfgen::GenPlugin-»

@@ -74,11 +74,13 @@ helper genModel_1::GenCommonBase::getPrimaryLabel() : genModel_1::GenLabel {
 }
 
 helper genModel_1::GenNode::getPrimaryLabel() : genModel_1::GenLabel {
-	return self.labels->select(e | not e.readOnly)->first()
+	return if (self.labels->isEmpty()) then null else 
+		self.labels->select(e | not e.readOnly)->first() endif
 }
 
 helper genModel_1::GenLink::getPrimaryLabel() : genModel_1::GenLabel {
-	return self.labels->select(e | not e.readOnly)->first()
+	return if (self.labels->isEmpty()) then null else 
+		self.labels->select(e | not e.readOnly)->first() endif
 }
 
 helper genModel_1::GenChildLabelNode::getPrimaryLabel() : genModel_1::GenLabel {

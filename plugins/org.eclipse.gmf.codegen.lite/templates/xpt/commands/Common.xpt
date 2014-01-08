@@ -34,7 +34,7 @@
 «ENDDEFINE»
 
 «DEFINE featureMultiplicityComparator(ownerVar : String, ownerClass : genmodel::GenClass) FOR genmodel::GenFeature-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) = 1»«EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, false)» != null«ELSE-»
+«IF ecoreFeature.upperBound = 1»«EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, false)» != null«ELSE-»
 «EXPAND MetaModel::MetaFeature».getUpperBound() > 1 && «EXPAND MetaModel::getFeatureValue(ownerVar, ownerClass, true)».size() >= «EXPAND MetaModel::MetaFeature».getUpperBound()«ENDIF-»
 «ENDDEFINE»
 

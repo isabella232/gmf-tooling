@@ -206,7 +206,7 @@ result.append(«EXPAND xpt::commands::Common::plugFeatureCommand('editingDomain'
 «ENDDEFINE»
 
 «DEFINE checkFeature(containerVar : String, containerClass : genmodel::GenClass) FOR genmodel::GenFeature-»
-«IF ecoreFeature.upperBound.oclAsType(Integer) > 0-»
+«IF ecoreFeature.upperBound > 0-»
 if («EXPAND xpt::commands::Common::featureMultiplicityComparator(containerVar, containerClass)») {
 	return false;
 }
