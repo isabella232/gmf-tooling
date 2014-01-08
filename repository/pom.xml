@@ -28,6 +28,23 @@
 			<build>
 				<plugins>
 					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>target-platform-configuration</artifactId>
+						<version>${tycho-version}</version>
+						<configuration>
+						<filters>
+						<filter>
+							<type>eclipse-plugin</type>
+							<id>org.eclipse.jdt.core</id>
+							<restrictTo>
+							<!-- this is the version for Luna M4, have to change for final release release trains/service releases -->
+							<version>3.10.0.v20131212-1600</version>
+							</restrictTo>
+						</filter>
+						</filters>
+						</configuration>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
 						<version>1.7</version>
