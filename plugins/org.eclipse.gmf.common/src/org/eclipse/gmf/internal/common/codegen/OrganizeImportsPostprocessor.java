@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.common.codegen;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.gmf.internal.common.Activator;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -46,6 +48,7 @@ import org.eclipse.text.edits.ReplaceEdit;
 import org.eclipse.text.edits.TextEdit;
 
 public class OrganizeImportsPostprocessor {
+
 	private final boolean myRestoreExistingImports;
 
 	public OrganizeImportsPostprocessor() {
@@ -98,8 +101,9 @@ public class OrganizeImportsPostprocessor {
 	public void organizeImports(ICompilationUnit icu, String[] declaredImportsAsStrings, IProgressMonitor progress) throws CoreException {
 		IDocument document = new Document(icu.getBuffer().getContents());
 
-		ASTParser parser = ASTParser.newParser(AST.JLS3);
+		ASTParser parser = ASTParser.newParser(AST.JLS4);
 		parser.setSource(icu);
+		parser.setCompilerOptions(createCompilerOptions("1.5"));
 		CompilationUnit cu = (CompilationUnit) parser.createAST(progress);
 
 		TextEdit importsEdit = organizeImports(cu, declaredImportsAsStrings, progress);
@@ -278,6 +282,7 @@ public class OrganizeImportsPostprocessor {
 	}
 
 	private class ReferencedTypesAwareImportRewriteContext extends ImportRewrite.ImportRewriteContext {
+
 		private Collection<SimpleName> mySimpleTypesReferenced;
 
 		private ImportRewrite myImportRewrite;
@@ -372,4 +377,14 @@ public class OrganizeImportsPostprocessor {
 	private static boolean isDebug() {
 		return Boolean.parseBoolean(Platform.getDebugOption(Activator.getID() + "/debug/organizeImports"));//$NON-NLS-1$
 	}
+
+	@SuppressWarnings("unchecked")
+	private final static HashMap<String, String> createCompilerOptions(String targetLevel) {
+		HashMap<String, String> result = new HashMap<String, String>(JavaCore.getOptions());
+		result.put(JavaCore.COMPILER_COMPLIANCE, targetLevel);
+		result.put(JavaCore.COMPILER_SOURCE, targetLevel);
+		result.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, targetLevel);
+		return result;
+	}
+
 }

@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -167,6 +168,9 @@ public class Utils {
 		targetDef.setNL(Platform.getNL());
 		// targetDef.setJREContainer()
 		tpService.saveTargetDefinition(targetDef);
-		LoadTargetDefinitionJob.load(targetDef);
+
+		Job job = new LoadTargetDefinitionJob(targetDef);
+		job.schedule();
+		job.join();
 	}
 }
