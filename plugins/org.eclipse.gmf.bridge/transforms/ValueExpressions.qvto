@@ -43,7 +43,7 @@ mapping GMFMAP::ValueExpression::createExpressionProvider(): GenExpressionProvid
 			case (self.language = Language::ocl) { result := object GenExpressionInterpreter { language := self.language() } };
 			case (self.language = Language::regexp) { result := object GenExpressionInterpreter { language := self.language() } };
 			case (self.language = Language::nregexp) { result := object GenExpressionInterpreter { language := self.language() } };
-			case (self.language = GenLanguage::_literal) { result := object GenLiteralExpressionProvider {} };
+			case (self.language = Language::_literal) { result := object GenLiteralExpressionProvider {} };
 			else { result := object GenExpressionInterpreter {}; }
 		};
 	}

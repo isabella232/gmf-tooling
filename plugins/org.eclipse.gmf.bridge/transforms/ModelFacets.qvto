@@ -188,7 +188,11 @@ mapping GMFMAP::FeatureSeqInitializer::structure() : GMFGEN::GenElementInitializ
 --	
 
 query GMFMAP::ValueExpression::selectProvider(mapRoot: GMFMAP::Mapping): GenExpressionProviderBase =
-	mapRoot->resolveone(GMFGEN::GenExpressionProviderContainer).providers->any(e | e.getLanguage() = self.language);
+	mapRoot->resolveone(GMFGEN::GenExpressionProviderContainer).providers->any(e | 
+		e.getLanguage().equals(self.language)
+	);
+
+query GenLanguage::equals(lang: Language) : Boolean = self.repr() = lang.repr();
 
 query GMFMAP::LabelTextAccessMethod::convertLabelTextAccessMethod() : GMFGEN::LabelTextAccessMethod =
 	switch {
