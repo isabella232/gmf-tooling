@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.ElementBasedLinkEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.OneContainmentGroupEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.RootContainerEditPart;
@@ -19,6 +20,7 @@ import org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject3EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject4EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject5EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectEditPart;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectReferenceBasedLinkTargetEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.part.LesscodeDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -97,6 +99,16 @@ public class LesscodeElementTypes {
 	/**
 	* @generated
 	*/
+	public static final IElementType ElementBasedLink_4001 = getElementType("org.eclipse.gmf.examples.lesscode.diagram.ElementBasedLink_4001"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType SubjectReferenceBasedLinkTarget_4002 = getElementType("org.eclipse.gmf.examples.lesscode.diagram.SubjectReferenceBasedLinkTarget_4002"); //$NON-NLS-1$
+
+	/**
+	* @generated
+	*/
 	public static ImageDescriptor getImageDescriptor(ENamedElement element) {
 		return elementTypeImages.getImageDescriptor(element);
 	}
@@ -147,6 +159,10 @@ public class LesscodeElementTypes {
 			elements.put(Subject_3003, LesscodePackage.eINSTANCE.getSubject());
 
 			elements.put(Subject_3004, LesscodePackage.eINSTANCE.getSubject());
+
+			elements.put(ElementBasedLink_4001, LesscodePackage.eINSTANCE.getElementBasedLink());
+
+			elements.put(SubjectReferenceBasedLinkTarget_4002, LesscodePackage.eINSTANCE.getSubject_ReferenceBasedLinkTarget());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -172,6 +188,8 @@ public class LesscodeElementTypes {
 			KNOWN_ELEMENT_TYPES.add(Subject_3002);
 			KNOWN_ELEMENT_TYPES.add(Subject_3003);
 			KNOWN_ELEMENT_TYPES.add(Subject_3004);
+			KNOWN_ELEMENT_TYPES.add(ElementBasedLink_4001);
+			KNOWN_ELEMENT_TYPES.add(SubjectReferenceBasedLinkTarget_4002);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
@@ -197,6 +215,10 @@ public class LesscodeElementTypes {
 			return Subject_3003;
 		case Subject5EditPart.VISUAL_ID:
 			return Subject_3004;
+		case ElementBasedLinkEditPart.VISUAL_ID:
+			return ElementBasedLink_4001;
+		case SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID:
+			return SubjectReferenceBasedLinkTarget_4002;
 		}
 		return null;
 	}

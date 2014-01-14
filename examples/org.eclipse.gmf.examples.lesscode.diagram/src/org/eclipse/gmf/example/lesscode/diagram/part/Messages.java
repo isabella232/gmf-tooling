@@ -283,6 +283,26 @@ public class Messages extends NLS {
 	/**
 	* @generated
 	*/
+	public static String ElementBasedredLink4CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String ElementBasedredLink4CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String RefBasedgreenLink5CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String RefBasedgreenLink5CreationTool_desc;
+
+	/**
+	* @generated
+	*/
 	public static String SubjectInSubjectEditPart_title;
 
 	/**
@@ -319,6 +339,81 @@ public class Messages extends NLS {
 	* @generated
 	*/
 	public static String CommandName_OpenDiagram;
+
+	/**
+	* @generated
+	*/
+	public static String NavigatorGroupName_RootContainer_1000_links;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_2001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_2001_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3001_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3001_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3002_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3002_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3003_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3003_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3004_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Subject_3004_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_ElementBasedLink_4001_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_ElementBasedLink_4001_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_SubjectReferenceBasedLinkTarget_4002_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_SubjectReferenceBasedLinkTarget_4002_source;
 
 	/**
 	* @generated

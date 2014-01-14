@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
 import org.eclipse.gmf.example.lesscode.RootContainer;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.ElementBasedLinkEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupInGroupManyEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupNameEditPart;
@@ -317,6 +318,9 @@ public class LesscodeVisualIDRegistry {
 	public static int getLinkWithClassVisualID(EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
+		}
+		if (LesscodePackage.eINSTANCE.getElementBasedLink().isSuperTypeOf(domainElement.eClass())) {
+			return ElementBasedLinkEditPart.VISUAL_ID;
 		}
 		return -1;
 	}

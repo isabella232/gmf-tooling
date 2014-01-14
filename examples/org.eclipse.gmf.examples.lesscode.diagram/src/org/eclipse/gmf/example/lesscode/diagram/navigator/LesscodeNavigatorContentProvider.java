@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.ElementBasedLinkEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupInGroupManyEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.OneContainmentGroupEditPart;
@@ -28,7 +29,9 @@ import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectInSubject3Edit
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectInSubject4EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectInSubject5EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectInSubjectEditPart;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectReferenceBasedLinkTargetEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry;
+import org.eclipse.gmf.example.lesscode.diagram.part.Messages;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -225,6 +228,7 @@ public class LesscodeNavigatorContentProvider implements ICommonContentProvider 
 		case RootContainerEditPart.VISUAL_ID: {
 			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
 			Diagram sv = (Diagram) view;
+			LesscodeNavigatorGroup links = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_RootContainer_1000_links, "icons/linksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
@@ -232,16 +236,39 @@ public class LesscodeNavigatorContentProvider implements ICommonContentProvider 
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(MultiContainmentGroupEditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			if (!links.isEmpty()) {
+				result.add(links);
+			}
 			return result.toArray();
 		}
 
 		case SubjectEditPart.VISUAL_ID: {
 			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
 			Node sv = (Node) view;
+			LesscodeNavigatorGroup incominglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_2001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup outgoinglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_2001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectInSubjectEditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
 			return result.toArray();
 		}
 
@@ -271,40 +298,174 @@ public class LesscodeNavigatorContentProvider implements ICommonContentProvider 
 		case Subject2EditPart.VISUAL_ID: {
 			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
 			Node sv = (Node) view;
+			LesscodeNavigatorGroup incominglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3001_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup outgoinglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3001_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectInSubject2EditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
 			return result.toArray();
 		}
 
 		case Subject3EditPart.VISUAL_ID: {
 			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
 			Node sv = (Node) view;
+			LesscodeNavigatorGroup incominglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3002_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup outgoinglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3002_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectInSubject3EditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
 			return result.toArray();
 		}
 
 		case Subject4EditPart.VISUAL_ID: {
 			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
 			Node sv = (Node) view;
+			LesscodeNavigatorGroup incominglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3003_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup outgoinglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3003_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectInSubject4EditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
 			return result.toArray();
 		}
 
 		case Subject5EditPart.VISUAL_ID: {
 			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
 			Node sv = (Node) view;
+			LesscodeNavigatorGroup incominglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3004_incominglinks, "icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup outgoinglinks = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_Subject_3004_outgoinglinks, "icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
 			Collection<View> connectedViews;
 			connectedViews = getChildrenByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectInSubject5EditPart.VISUAL_ID));
 			connectedViews = getChildrenByType(connectedViews, LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement, false));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(ElementBasedLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews, incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews, outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
+		case ElementBasedLinkEditPart.VISUAL_ID: {
+			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			LesscodeNavigatorGroup target = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_ElementBasedLink_4001_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup source = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_ElementBasedLink_4001_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject3EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject4EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject5EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject3EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject4EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject5EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID: {
+			LinkedList<LesscodeAbstractNavigatorItem> result = new LinkedList<LesscodeAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			LesscodeNavigatorGroup target = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_SubjectReferenceBasedLinkTarget_4002_target, "icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			LesscodeNavigatorGroup source = new LesscodeNavigatorGroup(Messages.NavigatorGroupName_SubjectReferenceBasedLinkTarget_4002_source, "icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject3EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject4EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject5EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(SubjectEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject2EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject3EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject4EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv), LesscodeVisualIDRegistry.getType(Subject5EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source, true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
 			return result.toArray();
 		}
 		}

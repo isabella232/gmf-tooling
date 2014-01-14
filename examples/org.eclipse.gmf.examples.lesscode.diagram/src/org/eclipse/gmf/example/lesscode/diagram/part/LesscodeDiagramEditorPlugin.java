@@ -14,6 +14,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.gmf.example.lesscode.diagram.edit.policies.LesscodeBaseItemSemanticEditPolicy;
 import org.eclipse.gmf.example.lesscode.diagram.providers.ElementInitializers;
 import org.eclipse.gmf.example.lesscode.provider.LesscodeItemProviderAdapterFactory;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
@@ -55,6 +56,11 @@ public class LesscodeDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	* @generated
 	*/
+	private LesscodeBaseItemSemanticEditPolicy.LinkConstraints linkConstraints;
+
+	/**
+	* @generated
+	*/
 	private ElementInitializers initializers;
 
 	/**
@@ -79,6 +85,7 @@ public class LesscodeDiagramEditorPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
+		linkConstraints = null;
 		initializers = null;
 		instance = null;
 		super.stop(context);
@@ -191,6 +198,20 @@ public class LesscodeDiagramEditorPlugin extends AbstractUIPlugin {
 			documentProvider = new LesscodeDocumentProvider();
 		}
 		return documentProvider;
+	}
+
+	/**
+	* @generated
+	*/
+	public LesscodeBaseItemSemanticEditPolicy.LinkConstraints getLinkConstraints() {
+		return linkConstraints;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setLinkConstraints(LesscodeBaseItemSemanticEditPolicy.LinkConstraints lc) {
+		this.linkConstraints = lc;
 	}
 
 	/**

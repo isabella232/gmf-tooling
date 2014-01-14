@@ -10,6 +10,7 @@ import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gmf.example.lesscode.diagram.providers.LesscodeElementTypes;
+import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
@@ -36,6 +37,8 @@ public class LesscodePaletteFactory {
 		paletteContainer.add(createSubject1CreationTool());
 		paletteContainer.add(createOneGroup2CreationTool());
 		paletteContainer.add(createMultiGroup3CreationTool());
+		paletteContainer.add(createElementBasedredLink4CreationTool());
+		paletteContainer.add(createRefBasedgreenLink5CreationTool());
 		return paletteContainer;
 	}
 
@@ -82,6 +85,30 @@ public class LesscodePaletteFactory {
 	/**
 	* @generated
 	*/
+	private ToolEntry createElementBasedredLink4CreationTool() {
+		LinkToolEntry entry = new LinkToolEntry(Messages.ElementBasedredLink4CreationTool_title, Messages.ElementBasedredLink4CreationTool_desc,
+				Collections.singletonList(LesscodeElementTypes.ElementBasedLink_4001));
+		entry.setId("createElementBasedredLink4CreationTool"); //$NON-NLS-1$
+		entry.setSmallIcon(LesscodeElementTypes.getImageDescriptor(LesscodeElementTypes.ElementBasedLink_4001));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	* @generated
+	*/
+	private ToolEntry createRefBasedgreenLink5CreationTool() {
+		LinkToolEntry entry = new LinkToolEntry(Messages.RefBasedgreenLink5CreationTool_title, Messages.RefBasedgreenLink5CreationTool_desc,
+				Collections.singletonList(LesscodeElementTypes.SubjectReferenceBasedLinkTarget_4002));
+		entry.setId("createRefBasedgreenLink5CreationTool"); //$NON-NLS-1$
+		entry.setSmallIcon(LesscodeElementTypes.getImageDescriptor(LesscodeElementTypes.SubjectReferenceBasedLinkTarget_4002));
+		entry.setLargeIcon(entry.getSmallIcon());
+		return entry;
+	}
+
+	/**
+	* @generated
+	*/
 	private static class NodeToolEntry extends ToolEntry {
 
 		/**
@@ -102,6 +129,34 @@ public class LesscodePaletteFactory {
 		*/
 		public Tool createTool() {
 			Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
+			tool.setProperties(getToolProperties());
+			return tool;
+		}
+	}
+
+	/**
+	* @generated
+	*/
+	private static class LinkToolEntry extends ToolEntry {
+
+		/**
+		 * @generated
+		 */
+		private final List<IElementType> relationshipTypes;
+
+		/**
+		 * @generated
+		 */
+		private LinkToolEntry(String title, String description, List<IElementType> relationshipTypes) {
+			super(title, description, null, null);
+			this.relationshipTypes = relationshipTypes;
+		}
+
+		/**
+		 * @generated
+		 */
+		public Tool createTool() {
+			Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
 			tool.setProperties(getToolProperties());
 			return tool;
 		}

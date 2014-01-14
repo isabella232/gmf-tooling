@@ -218,6 +218,7 @@
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Lesscode"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,3001,3002,3003,3004"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002"/>
       </viewProvider>
    </extension>
 
@@ -232,7 +233,7 @@
             <method name="getType()" value="2001,2002,2003,3001,3002,3003,3004"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
-            <method name="getType()" value=""/>
+            <method name="getType()" value="4001,4002"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
             <method name="getType()" value="5002,5004,5007,5001,5003,5005,5006"/>
@@ -380,6 +381,25 @@
             <param name="semanticHint" value="3004"/>
          </specializationType>
       </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf-tooling/bug403577">
+         <metamodelType
+               id="org.eclipse.gmf.examples.lesscode.diagram.ElementBasedLink_4001"
+               name="%metatype.name.ElementBasedLink_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="ElementBasedLink"
+               edithelper="org.eclipse.gmf.example.lesscode.diagram.edit.helpers.ElementBasedLinkEditHelper">
+            <param name="semanticHint" value="4001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://www.eclipse.org/gmf-tooling/bug403577">
+         <specializationType
+               id="org.eclipse.gmf.examples.lesscode.diagram.SubjectReferenceBasedLinkTarget_4002"
+               name="%metatype.name.SubjectReferenceBasedLinkTarget_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4002"/>
+         </specializationType>
+      </metamodel>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
@@ -400,6 +420,8 @@
          <elementType ref="org.eclipse.gmf.examples.lesscode.diagram.Subject_3002"/>
          <elementType ref="org.eclipse.gmf.examples.lesscode.diagram.Subject_3003"/>
          <elementType ref="org.eclipse.gmf.examples.lesscode.diagram.Subject_3004"/>
+         <elementType ref="org.eclipse.gmf.examples.lesscode.diagram.ElementBasedLink_4001"/>
+         <elementType ref="org.eclipse.gmf.examples.lesscode.diagram.SubjectReferenceBasedLinkTarget_4002"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

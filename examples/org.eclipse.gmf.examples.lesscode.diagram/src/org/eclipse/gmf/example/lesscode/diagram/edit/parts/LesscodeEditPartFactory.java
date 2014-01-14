@@ -86,6 +86,13 @@ public class LesscodeEditPartFactory implements EditPartFactory {
 
 			case SubjectInSubject5EditPart.VISUAL_ID:
 				return new SubjectInSubject5EditPart(view);
+
+			case ElementBasedLinkEditPart.VISUAL_ID:
+				return new ElementBasedLinkEditPart(view);
+
+			case SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID:
+				return new SubjectReferenceBasedLinkTargetEditPart(view);
+
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

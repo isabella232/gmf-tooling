@@ -1,5 +1,7 @@
 package org.eclipse.gmf.example.lesscode.diagram.navigator;
 
+import org.eclipse.gmf.example.lesscode.ElementBasedLink;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.ElementBasedLinkEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupNameEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.OneContainmentGroupEditPart;
@@ -15,6 +17,7 @@ import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectName3EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectName4EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectName5EditPart;
 import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectNameEditPart;
+import org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectReferenceBasedLinkTargetEditPart;
 import org.eclipse.gmf.example.lesscode.diagram.part.LesscodeDiagramEditorPlugin;
 import org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry;
 import org.eclipse.gmf.example.lesscode.diagram.providers.LesscodeElementTypes;
@@ -101,6 +104,10 @@ public class LesscodeNavigatorLabelProvider extends LabelProvider implements ICo
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf-tooling/bug403577?Subject", LesscodeElementTypes.Subject_3003); //$NON-NLS-1$
 		case Subject5EditPart.VISUAL_ID:
 			return getImage("Navigator?Node?http://www.eclipse.org/gmf-tooling/bug403577?Subject", LesscodeElementTypes.Subject_3004); //$NON-NLS-1$
+		case ElementBasedLinkEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf-tooling/bug403577?ElementBasedLink", LesscodeElementTypes.ElementBasedLink_4001); //$NON-NLS-1$
+		case SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID:
+			return getImage("Navigator?Link?http://www.eclipse.org/gmf-tooling/bug403577?Subject?referenceBasedLinkTarget", LesscodeElementTypes.SubjectReferenceBasedLinkTarget_4002); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -167,6 +174,10 @@ public class LesscodeNavigatorLabelProvider extends LabelProvider implements ICo
 			return getSubject_3003Text(view);
 		case Subject5EditPart.VISUAL_ID:
 			return getSubject_3004Text(view);
+		case ElementBasedLinkEditPart.VISUAL_ID:
+			return getElementBasedLink_4001Text(view);
+		case SubjectReferenceBasedLinkTargetEditPart.VISUAL_ID:
+			return getSubjectReferenceBasedLinkTarget_4002Text(view);
 		}
 		return getUnknownElementText(view);
 	}
@@ -274,6 +285,26 @@ public class LesscodeNavigatorLabelProvider extends LabelProvider implements ICo
 			LesscodeDiagramEditorPlugin.getInstance().logError("Parser was not found for label " + 5006); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
+	}
+
+	/**
+	* @generated
+	*/
+	private String getElementBasedLink_4001Text(View view) {
+		ElementBasedLink domainModelElement = (ElementBasedLink) view.getElement();
+		if (domainModelElement != null) {
+			return domainModelElement.getName();
+		} else {
+			LesscodeDiagramEditorPlugin.getInstance().logError("No domain element for view with visualID = " + 4001); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getSubjectReferenceBasedLinkTarget_4002Text(View view) {
+		return ""; //$NON-NLS-1$
 	}
 
 	/**

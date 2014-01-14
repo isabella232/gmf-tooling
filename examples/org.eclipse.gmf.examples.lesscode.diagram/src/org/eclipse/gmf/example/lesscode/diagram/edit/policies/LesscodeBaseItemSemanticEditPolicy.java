@@ -7,6 +7,10 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.requests.ReconnectRequest;
+import org.eclipse.gmf.example.lesscode.ElementBasedLink;
+import org.eclipse.gmf.example.lesscode.RootContainer;
+import org.eclipse.gmf.example.lesscode.Subject;
+import org.eclipse.gmf.example.lesscode.diagram.part.LesscodeDiagramEditorPlugin;
 import org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry;
 import org.eclipse.gmf.example.lesscode.diagram.providers.LesscodeElementTypes;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -272,6 +276,64 @@ public class LesscodeBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				continue;
 			}
 			cmd.add(new DeleteCommand(getEditingDomain(), nextView));
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static LinkConstraints getLinkConstraints() {
+		LinkConstraints cached = LesscodeDiagramEditorPlugin.getInstance().getLinkConstraints();
+		if (cached == null) {
+			LesscodeDiagramEditorPlugin.getInstance().setLinkConstraints(cached = new LinkConstraints());
+		}
+		return cached;
+	}
+
+	/**
+	* @generated
+	*/
+	public static class LinkConstraints {
+
+		/**
+		 * @generated
+		 */
+		LinkConstraints() {
+			// use static method #getLinkConstraints() to access instance
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canCreateElementBasedLink_4001(RootContainer container, Subject source, Subject target) {
+			return canExistElementBasedLink_4001(container, null, source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canCreateSubjectReferenceBasedLinkTarget_4002(Subject source, Subject target) {
+			if (source != null) {
+				if (source.getReferenceBasedLinkTarget().contains(target)) {
+					return false;
+				}
+			}
+
+			return canExistSubjectReferenceBasedLinkTarget_4002(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistElementBasedLink_4001(RootContainer container, ElementBasedLink linkInstance, Subject source, Subject target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistSubjectReferenceBasedLinkTarget_4002(Subject source, Subject target) {
+			return true;
 		}
 	}
 
