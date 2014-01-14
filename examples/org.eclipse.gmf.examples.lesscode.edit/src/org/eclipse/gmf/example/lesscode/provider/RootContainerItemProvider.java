@@ -76,6 +76,7 @@ public class RootContainerItemProvider
 			childrenFeatures.add(LesscodePackage.Literals.ROOT_CONTAINER__ROOT_SUBJECTS);
 			childrenFeatures.add(LesscodePackage.Literals.ROOT_CONTAINER__ONE_CONTAINMENT_GROUPS);
 			childrenFeatures.add(LesscodePackage.Literals.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS);
+			childrenFeatures.add(LesscodePackage.Literals.ROOT_CONTAINER__ELEMENT_BASED_LINKS);
 		}
 		return childrenFeatures;
 	}
@@ -130,6 +131,7 @@ public class RootContainerItemProvider
 			case LesscodePackage.ROOT_CONTAINER__ROOT_SUBJECTS:
 			case LesscodePackage.ROOT_CONTAINER__ONE_CONTAINMENT_GROUPS:
 			case LesscodePackage.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS:
+			case LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -161,6 +163,11 @@ public class RootContainerItemProvider
 			(createChildParameter
 				(LesscodePackage.Literals.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS,
 				 LesscodeFactory.eINSTANCE.createMultiContainmentGroup()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(LesscodePackage.Literals.ROOT_CONTAINER__ELEMENT_BASED_LINKS,
+				 LesscodeFactory.eINSTANCE.createElementBasedLink()));
 	}
 
 	/**

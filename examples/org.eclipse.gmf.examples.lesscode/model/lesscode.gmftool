@@ -32,4 +32,12 @@
     <largeIcon
         xsi:type="gmftool:DefaultImage"/>
   </tools>
+  <tools
+      xsi:type="gmftool:CreationTool"
+      title="ElementBased (red) Link"
+      description="ElementBased (red) Link"/>
+  <tools
+      xsi:type="gmftool:CreationTool"
+      title="RefBased (green) Link"
+      description="RefBased (green) Link"/>
 </gmftool:Palette>

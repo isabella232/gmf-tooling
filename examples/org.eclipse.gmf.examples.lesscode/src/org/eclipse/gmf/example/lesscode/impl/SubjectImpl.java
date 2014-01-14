@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
 import org.eclipse.gmf.example.lesscode.Subject;
@@ -21,6 +22,7 @@ import org.eclipse.gmf.example.lesscode.Subject;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.example.lesscode.impl.SubjectImpl#getRecursiveContainment <em>Recursive Containment</em>}</li>
+ *   <li>{@link org.eclipse.gmf.example.lesscode.impl.SubjectImpl#getReferenceBasedLinkTarget <em>Reference Based Link Target</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,6 +38,16 @@ public class SubjectImpl extends WithSomeAttributesImpl implements Subject {
 	 * @ordered
 	 */
 	protected EList<Subject> recursiveContainment;
+
+	/**
+	 * The cached value of the '{@link #getReferenceBasedLinkTarget() <em>Reference Based Link Target</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReferenceBasedLinkTarget()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Subject> referenceBasedLinkTarget;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -73,6 +85,18 @@ public class SubjectImpl extends WithSomeAttributesImpl implements Subject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Subject> getReferenceBasedLinkTarget() {
+		if (referenceBasedLinkTarget == null) {
+			referenceBasedLinkTarget = new EObjectResolvingEList<Subject>(Subject.class, this, LesscodePackage.SUBJECT__REFERENCE_BASED_LINK_TARGET);
+		}
+		return referenceBasedLinkTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -92,6 +116,8 @@ public class SubjectImpl extends WithSomeAttributesImpl implements Subject {
 		switch (featureID) {
 			case LesscodePackage.SUBJECT__RECURSIVE_CONTAINMENT:
 				return getRecursiveContainment();
+			case LesscodePackage.SUBJECT__REFERENCE_BASED_LINK_TARGET:
+				return getReferenceBasedLinkTarget();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -109,6 +135,10 @@ public class SubjectImpl extends WithSomeAttributesImpl implements Subject {
 				getRecursiveContainment().clear();
 				getRecursiveContainment().addAll((Collection<? extends Subject>)newValue);
 				return;
+			case LesscodePackage.SUBJECT__REFERENCE_BASED_LINK_TARGET:
+				getReferenceBasedLinkTarget().clear();
+				getReferenceBasedLinkTarget().addAll((Collection<? extends Subject>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -124,6 +154,9 @@ public class SubjectImpl extends WithSomeAttributesImpl implements Subject {
 			case LesscodePackage.SUBJECT__RECURSIVE_CONTAINMENT:
 				getRecursiveContainment().clear();
 				return;
+			case LesscodePackage.SUBJECT__REFERENCE_BASED_LINK_TARGET:
+				getReferenceBasedLinkTarget().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -138,6 +171,8 @@ public class SubjectImpl extends WithSomeAttributesImpl implements Subject {
 		switch (featureID) {
 			case LesscodePackage.SUBJECT__RECURSIVE_CONTAINMENT:
 				return recursiveContainment != null && !recursiveContainment.isEmpty();
+			case LesscodePackage.SUBJECT__REFERENCE_BASED_LINK_TARGET:
+				return referenceBasedLinkTarget != null && !referenceBasedLinkTarget.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -93,6 +93,29 @@ public class LesscodeItemProviderAdapterFactory extends LesscodeAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.example.lesscode.ElementBasedLink} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ElementBasedLinkItemProvider elementBasedLinkItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.example.lesscode.ElementBasedLink}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createElementBasedLinkAdapter() {
+		if (elementBasedLinkItemProvider == null) {
+			elementBasedLinkItemProvider = new ElementBasedLinkItemProvider(this);
+		}
+
+		return elementBasedLinkItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.example.lesscode.Subject} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -261,6 +284,7 @@ public class LesscodeItemProviderAdapterFactory extends LesscodeAdapterFactory i
 	 */
 	public void dispose() {
 		if (rootContainerItemProvider != null) rootContainerItemProvider.dispose();
+		if (elementBasedLinkItemProvider != null) elementBasedLinkItemProvider.dispose();
 		if (subjectItemProvider != null) subjectItemProvider.dispose();
 		if (oneContainmentGroupItemProvider != null) oneContainmentGroupItemProvider.dispose();
 		if (multiContainmentGroupItemProvider != null) multiContainmentGroupItemProvider.dispose();

@@ -9,6 +9,12 @@
         eType="#//OneContainmentGroup" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="multiContainmentGroups"
         upperBound="-1" eType="#//MultiContainmentGroup" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elementBasedLinks" upperBound="-1"
+        eType="#//ElementBasedLink" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementBasedLink" eSuperTypes="#//WithSomeAttributes">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linkSource" eType="#//Subject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linkTarget" eType="#//Subject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WithSomeAttributes" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -17,6 +23,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Subject" eSuperTypes="#//WithSomeAttributes">
     <eStructuralFeatures xsi:type="ecore:EReference" name="recursiveContainment" upperBound="-1"
         eType="#//Subject" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceBasedLinkTarget"
+        upperBound="-1" eType="#//Subject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OneContainmentGroup" eSuperTypes="#//WithSomeAttributes">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subjects" upperBound="-1"

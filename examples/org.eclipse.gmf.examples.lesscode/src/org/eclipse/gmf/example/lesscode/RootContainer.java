@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.example.lesscode.RootContainer#getRootSubjects <em>Root Subjects</em>}</li>
  *   <li>{@link org.eclipse.gmf.example.lesscode.RootContainer#getOneContainmentGroups <em>One Containment Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.example.lesscode.RootContainer#getMultiContainmentGroups <em>Multi Containment Groups</em>}</li>
+ *   <li>{@link org.eclipse.gmf.example.lesscode.RootContainer#getElementBasedLinks <em>Element Based Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,5 +72,21 @@ public interface RootContainer extends EObject {
 	 * @generated
 	 */
 	EList<MultiContainmentGroup> getMultiContainmentGroups();
+
+	/**
+	 * Returns the value of the '<em><b>Element Based Links</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.example.lesscode.ElementBasedLink}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Based Links</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Based Links</em>' containment reference list.
+	 * @see org.eclipse.gmf.example.lesscode.LesscodePackage#getRootContainer_ElementBasedLinks()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ElementBasedLink> getElementBasedLinks();
 
 } // RootContainer

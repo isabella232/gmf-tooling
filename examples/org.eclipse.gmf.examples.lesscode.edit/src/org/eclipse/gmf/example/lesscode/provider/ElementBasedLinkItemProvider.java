@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -16,18 +16,17 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.example.lesscode.LesscodeFactory;
+
+import org.eclipse.gmf.example.lesscode.ElementBasedLink;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
-import org.eclipse.gmf.example.lesscode.Subject;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.example.lesscode.Subject} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.example.lesscode.ElementBasedLink} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubjectItemProvider
+public class ElementBasedLinkItemProvider
 	extends WithSomeAttributesItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -41,7 +40,7 @@ public class SubjectItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SubjectItemProvider(AdapterFactory adapterFactory) {
+	public ElementBasedLinkItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -56,25 +55,26 @@ public class SubjectItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReferenceBasedLinkTargetPropertyDescriptor(object);
+			addLinkSourcePropertyDescriptor(object);
+			addLinkTargetPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Reference Based Link Target feature.
+	 * This adds a property descriptor for the Link Source feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReferenceBasedLinkTargetPropertyDescriptor(Object object) {
+	protected void addLinkSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Subject_referenceBasedLinkTarget_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Subject_referenceBasedLinkTarget_feature", "_UI_Subject_type"),
-				 LesscodePackage.Literals.SUBJECT__REFERENCE_BASED_LINK_TARGET,
+				 getString("_UI_ElementBasedLink_linkSource_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ElementBasedLink_linkSource_feature", "_UI_ElementBasedLink_type"),
+				 LesscodePackage.Literals.ELEMENT_BASED_LINK__LINK_SOURCE,
 				 true,
 				 false,
 				 true,
@@ -84,44 +84,36 @@ public class SubjectItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Link Target feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(LesscodePackage.Literals.SUBJECT__RECURSIVE_CONTAINMENT);
-		}
-		return childrenFeatures;
+	protected void addLinkTargetPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ElementBasedLink_linkTarget_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ElementBasedLink_linkTarget_feature", "_UI_ElementBasedLink_type"),
+				 LesscodePackage.Literals.ELEMENT_BASED_LINK__LINK_TARGET,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns Subject.gif.
+	 * This returns ElementBasedLink.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Subject"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ElementBasedLink"));
 	}
 
 	/**
@@ -132,10 +124,10 @@ public class SubjectItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Subject)object).getName();
+		String label = ((ElementBasedLink)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_Subject_type") :
-			getString("_UI_Subject_type") + " " + label;
+			getString("_UI_ElementBasedLink_type") :
+			getString("_UI_ElementBasedLink_type") + " " + label;
 	}
 
 	/**
@@ -148,12 +140,6 @@ public class SubjectItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(Subject.class)) {
-			case LesscodePackage.SUBJECT__RECURSIVE_CONTAINMENT:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -167,11 +153,6 @@ public class SubjectItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(LesscodePackage.Literals.SUBJECT__RECURSIVE_CONTAINMENT,
-				 LesscodeFactory.eINSTANCE.createSubject()));
 	}
 
 }

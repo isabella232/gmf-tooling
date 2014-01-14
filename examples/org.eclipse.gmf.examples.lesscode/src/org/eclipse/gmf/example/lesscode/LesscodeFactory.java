@@ -31,6 +31,15 @@ public interface LesscodeFactory extends EFactory {
 	RootContainer createRootContainer();
 
 	/**
+	 * Returns a new object of class '<em>Element Based Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Element Based Link</em>'.
+	 * @generated
+	 */
+	ElementBasedLink createElementBasedLink();
+
+	/**
 	 * Returns a new object of class '<em>Subject</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

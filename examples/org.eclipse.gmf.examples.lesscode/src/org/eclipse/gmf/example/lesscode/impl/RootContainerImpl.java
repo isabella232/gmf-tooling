@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.example.lesscode.ElementBasedLink;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
 import org.eclipse.gmf.example.lesscode.MultiContainmentGroup;
 import org.eclipse.gmf.example.lesscode.OneContainmentGroup;
@@ -27,6 +28,7 @@ import org.eclipse.gmf.example.lesscode.Subject;
  *   <li>{@link org.eclipse.gmf.example.lesscode.impl.RootContainerImpl#getRootSubjects <em>Root Subjects</em>}</li>
  *   <li>{@link org.eclipse.gmf.example.lesscode.impl.RootContainerImpl#getOneContainmentGroups <em>One Containment Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.example.lesscode.impl.RootContainerImpl#getMultiContainmentGroups <em>Multi Containment Groups</em>}</li>
+ *   <li>{@link org.eclipse.gmf.example.lesscode.impl.RootContainerImpl#getElementBasedLinks <em>Element Based Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +64,16 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 	 * @ordered
 	 */
 	protected EList<MultiContainmentGroup> multiContainmentGroups;
+
+	/**
+	 * The cached value of the '{@link #getElementBasedLinks() <em>Element Based Links</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElementBasedLinks()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ElementBasedLink> elementBasedLinks;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,6 +135,18 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ElementBasedLink> getElementBasedLinks() {
+		if (elementBasedLinks == null) {
+			elementBasedLinks = new EObjectContainmentEList<ElementBasedLink>(ElementBasedLink.class, this, LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS);
+		}
+		return elementBasedLinks;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -132,6 +156,8 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 				return ((InternalEList<?>)getOneContainmentGroups()).basicRemove(otherEnd, msgs);
 			case LesscodePackage.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS:
 				return ((InternalEList<?>)getMultiContainmentGroups()).basicRemove(otherEnd, msgs);
+			case LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS:
+				return ((InternalEList<?>)getElementBasedLinks()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -150,6 +176,8 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 				return getOneContainmentGroups();
 			case LesscodePackage.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS:
 				return getMultiContainmentGroups();
+			case LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS:
+				return getElementBasedLinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -175,6 +203,10 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 				getMultiContainmentGroups().clear();
 				getMultiContainmentGroups().addAll((Collection<? extends MultiContainmentGroup>)newValue);
 				return;
+			case LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS:
+				getElementBasedLinks().clear();
+				getElementBasedLinks().addAll((Collection<? extends ElementBasedLink>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -196,6 +228,9 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 			case LesscodePackage.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS:
 				getMultiContainmentGroups().clear();
 				return;
+			case LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS:
+				getElementBasedLinks().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -214,6 +249,8 @@ public class RootContainerImpl extends EObjectImpl implements RootContainer {
 				return oneContainmentGroups != null && !oneContainmentGroups.isEmpty();
 			case LesscodePackage.ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS:
 				return multiContainmentGroups != null && !multiContainmentGroups.isEmpty();
+			case LesscodePackage.ROOT_CONTAINER__ELEMENT_BASED_LINKS:
+				return elementBasedLinks != null && !elementBasedLinks.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

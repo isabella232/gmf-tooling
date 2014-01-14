@@ -5,6 +5,12 @@ class RootContainer {
 	val Subject[*] rootSubjects;
 	val OneContainmentGroup[*] oneContainmentGroups;
 	val MultiContainmentGroup[*] multiContainmentGroups;
+	val ElementBasedLink[*] elementBasedLinks;
+}
+
+class ElementBasedLink extends WithSomeAttributes {
+   ref Subject linkSource;
+   ref Subject linkTarget;
 }
 
 abstract class WithSomeAttributes {
@@ -14,6 +20,7 @@ abstract class WithSomeAttributes {
 
 class Subject extends WithSomeAttributes {
 	val Subject[*] recursiveContainment;
+	ref Subject[*] referenceBasedLinkTarget;
 }
 
 class OneContainmentGroup extends WithSomeAttributes {

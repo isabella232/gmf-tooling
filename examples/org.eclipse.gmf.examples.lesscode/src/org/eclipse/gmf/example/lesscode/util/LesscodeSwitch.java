@@ -5,6 +5,7 @@ package org.eclipse.gmf.example.lesscode.util;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
+import org.eclipse.gmf.example.lesscode.*;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
 import org.eclipse.gmf.example.lesscode.MultiContainmentGroup;
 import org.eclipse.gmf.example.lesscode.OneContainmentGroup;
@@ -75,6 +76,13 @@ public class LesscodeSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case LesscodePackage.ELEMENT_BASED_LINK: {
+				ElementBasedLink elementBasedLink = (ElementBasedLink)theEObject;
+				T result = caseElementBasedLink(elementBasedLink);
+				if (result == null) result = caseWithSomeAttributes(elementBasedLink);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case LesscodePackage.WITH_SOME_ATTRIBUTES: {
 				WithSomeAttributes withSomeAttributes = (WithSomeAttributes)theEObject;
 				T result = caseWithSomeAttributes(withSomeAttributes);
@@ -118,6 +126,21 @@ public class LesscodeSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseRootContainer(RootContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Element Based Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Element Based Link</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseElementBasedLink(ElementBasedLink object) {
 		return null;
 	}
 

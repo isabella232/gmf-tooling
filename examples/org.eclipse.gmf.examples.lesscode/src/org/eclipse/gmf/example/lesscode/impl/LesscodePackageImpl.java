@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.example.lesscode.ElementBasedLink;
 import org.eclipse.gmf.example.lesscode.LesscodeFactory;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
 import org.eclipse.gmf.example.lesscode.MultiContainmentGroup;
@@ -28,6 +29,13 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 	 * @generated
 	 */
 	private EClass rootContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass elementBasedLinkEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,6 +167,42 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getRootContainer_ElementBasedLinks() {
+		return (EReference)rootContainerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getElementBasedLink() {
+		return elementBasedLinkEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getElementBasedLink_LinkSource() {
+		return (EReference)elementBasedLinkEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getElementBasedLink_LinkTarget() {
+		return (EReference)elementBasedLinkEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getWithSomeAttributes() {
 		return withSomeAttributesEClass;
 	}
@@ -197,6 +241,15 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 	 */
 	public EReference getSubject_RecursiveContainment() {
 		return (EReference)subjectEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSubject_ReferenceBasedLinkTarget() {
+		return (EReference)subjectEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -276,6 +329,11 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 		createEReference(rootContainerEClass, ROOT_CONTAINER__ROOT_SUBJECTS);
 		createEReference(rootContainerEClass, ROOT_CONTAINER__ONE_CONTAINMENT_GROUPS);
 		createEReference(rootContainerEClass, ROOT_CONTAINER__MULTI_CONTAINMENT_GROUPS);
+		createEReference(rootContainerEClass, ROOT_CONTAINER__ELEMENT_BASED_LINKS);
+
+		elementBasedLinkEClass = createEClass(ELEMENT_BASED_LINK);
+		createEReference(elementBasedLinkEClass, ELEMENT_BASED_LINK__LINK_SOURCE);
+		createEReference(elementBasedLinkEClass, ELEMENT_BASED_LINK__LINK_TARGET);
 
 		withSomeAttributesEClass = createEClass(WITH_SOME_ATTRIBUTES);
 		createEAttribute(withSomeAttributesEClass, WITH_SOME_ATTRIBUTES__NAME);
@@ -283,6 +341,7 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 
 		subjectEClass = createEClass(SUBJECT);
 		createEReference(subjectEClass, SUBJECT__RECURSIVE_CONTAINMENT);
+		createEReference(subjectEClass, SUBJECT__REFERENCE_BASED_LINK_TARGET);
 
 		oneContainmentGroupEClass = createEClass(ONE_CONTAINMENT_GROUP);
 		createEReference(oneContainmentGroupEClass, ONE_CONTAINMENT_GROUP__SUBJECTS);
@@ -320,6 +379,7 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		elementBasedLinkEClass.getESuperTypes().add(this.getWithSomeAttributes());
 		subjectEClass.getESuperTypes().add(this.getWithSomeAttributes());
 		oneContainmentGroupEClass.getESuperTypes().add(this.getWithSomeAttributes());
 		multiContainmentGroupEClass.getESuperTypes().add(this.getWithSomeAttributes());
@@ -329,6 +389,11 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 		initEReference(getRootContainer_RootSubjects(), this.getSubject(), null, "rootSubjects", null, 0, -1, RootContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRootContainer_OneContainmentGroups(), this.getOneContainmentGroup(), null, "oneContainmentGroups", null, 0, -1, RootContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRootContainer_MultiContainmentGroups(), this.getMultiContainmentGroup(), null, "multiContainmentGroups", null, 0, -1, RootContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRootContainer_ElementBasedLinks(), this.getElementBasedLink(), null, "elementBasedLinks", null, 0, -1, RootContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(elementBasedLinkEClass, ElementBasedLink.class, "ElementBasedLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getElementBasedLink_LinkSource(), this.getSubject(), null, "linkSource", null, 0, 1, ElementBasedLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getElementBasedLink_LinkTarget(), this.getSubject(), null, "linkTarget", null, 0, 1, ElementBasedLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(withSomeAttributesEClass, WithSomeAttributes.class, "WithSomeAttributes", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getWithSomeAttributes_Name(), ecorePackage.getEString(), "name", null, 0, 1, WithSomeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -336,6 +401,7 @@ public class LesscodePackageImpl extends EPackageImpl implements LesscodePackage
 
 		initEClass(subjectEClass, Subject.class, "Subject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSubject_RecursiveContainment(), this.getSubject(), null, "recursiveContainment", null, 0, -1, Subject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSubject_ReferenceBasedLinkTarget(), this.getSubject(), null, "referenceBasedLinkTarget", null, 0, -1, Subject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(oneContainmentGroupEClass, OneContainmentGroup.class, "OneContainmentGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOneContainmentGroup_Subjects(), this.getSubject(), null, "subjects", null, 0, -1, OneContainmentGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

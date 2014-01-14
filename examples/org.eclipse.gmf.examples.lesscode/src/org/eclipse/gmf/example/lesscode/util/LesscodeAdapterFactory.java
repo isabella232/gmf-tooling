@@ -6,6 +6,7 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.example.lesscode.*;
 import org.eclipse.gmf.example.lesscode.LesscodePackage;
 import org.eclipse.gmf.example.lesscode.MultiContainmentGroup;
 import org.eclipse.gmf.example.lesscode.OneContainmentGroup;
@@ -74,6 +75,10 @@ public class LesscodeAdapterFactory extends AdapterFactoryImpl {
 				return createRootContainerAdapter();
 			}
 			@Override
+			public Adapter caseElementBasedLink(ElementBasedLink object) {
+				return createElementBasedLinkAdapter();
+			}
+			@Override
 			public Adapter caseWithSomeAttributes(WithSomeAttributes object) {
 				return createWithSomeAttributesAdapter();
 			}
@@ -120,6 +125,20 @@ public class LesscodeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRootContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.example.lesscode.ElementBasedLink <em>Element Based Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.example.lesscode.ElementBasedLink
+	 * @generated
+	 */
+	public Adapter createElementBasedLinkAdapter() {
 		return null;
 	}
 
