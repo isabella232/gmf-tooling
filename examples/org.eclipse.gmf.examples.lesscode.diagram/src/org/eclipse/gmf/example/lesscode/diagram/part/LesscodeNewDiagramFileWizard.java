@@ -149,12 +149,12 @@ public class LesscodeNewDiagramFileWizard extends Wizard {
 		* @generated
 		*/
 		protected boolean validatePage() {
-			if (selectedModelElement == null) {
+			if (getModelElement() == null) {
 				setErrorMessage(Messages.LesscodeNewDiagramFileWizard_RootSelectionPageNoSelectionMessage);
 				return false;
 			}
 			boolean result = ViewService.getInstance().provides(
-					new CreateDiagramViewOperation(new EObjectAdapter(selectedModelElement), RootContainerEditPart.MODEL_ID, LesscodeDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+					new CreateDiagramViewOperation(new EObjectAdapter(getModelElement()), RootContainerEditPart.MODEL_ID, LesscodeDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 			setErrorMessage(result ? null : Messages.LesscodeNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage);
 			return result;
 		}

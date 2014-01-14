@@ -41,13 +41,13 @@
 
    <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
       <?gmfgen generated="true"?>
-  	  <wizard
-  	     name="%newWizardName"
-  	     icon="icons/obj16/LesscodeDiagramFile.gif"
-  	     category="org.eclipse.ui.Examples"
-  	     class="org.eclipse.gmf.example.lesscode.diagram.part.LesscodeCreationWizard"
-  	     id="org.eclipse.gmf.example.lesscode.diagram.part.LesscodeCreationWizardID">
-  	  	 <description>%newWizardDesc</description>  
+      <wizard
+         name="%newWizardName"
+         icon="icons/obj16/LesscodeDiagramFile.gif"
+         category="org.eclipse.ui.Examples"
+         class="org.eclipse.gmf.example.lesscode.diagram.part.LesscodeCreationWizard"
+         id="org.eclipse.gmf.example.lesscode.diagram.part.LesscodeCreationWizardID">
+         <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
@@ -245,20 +245,48 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
-      <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.LesscodeModelingAssistantProvider">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.RootContainerEditPart" id="RootContainer_1000"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectEditPart" id="Subject_2001"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.OneContainmentGroupEditPart" id="OneContainmentGroup_2002"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupEditPart" id="MultiContainmentGroup_2003"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject2EditPart" id="Subject_3001"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject3EditPart" id="Subject_3002"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject4EditPart" id="Subject_3003"/>
-         <object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject5EditPart" id="Subject_3004"/>
-         <context elements="RootContainer_1000,Subject_2001,OneContainmentGroup_2002,MultiContainmentGroup_2003,Subject_3001,Subject_3002,Subject_3003,Subject_3004"/>
-      </modelingAssistantProvider>
-   </extension>
+	<?gmfgen generated="true"?>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfRootContainerEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.RootContainerEditPart" id="RootContainer_1000"/>
+		<context elements="RootContainer_1000"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfSubjectEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.SubjectEditPart" id="Subject_2001"/>
+		<context elements="Subject_2001"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfOneContainmentGroupEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.OneContainmentGroupEditPart" id="OneContainmentGroup_2002"/>
+		<context elements="OneContainmentGroup_2002"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfMultiContainmentGroupEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.MultiContainmentGroupEditPart" id="MultiContainmentGroup_2003"/>
+		<context elements="MultiContainmentGroup_2003"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfSubject2EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject2EditPart" id="Subject_3001"/>
+		<context elements="Subject_3001"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfSubject3EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject3EditPart" id="Subject_3002"/>
+		<context elements="Subject_3002"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfSubject4EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject4EditPart" id="Subject_3003"/>
+		<context elements="Subject_3003"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.example.lesscode.diagram.providers.assistants.LesscodeModelingAssistantProviderOfSubject5EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.example.lesscode.diagram.edit.parts.Subject5EditPart" id="Subject_3004"/>
+		<context elements="Subject_3004"/>
+	</modelingAssistantProvider>
+</extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       <?gmfgen generated="true"?>
@@ -377,13 +405,13 @@
    </extension>
 	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
       <?gmfgen generated="true"?>
-       <propertyTester
-           id="org.eclipse.gmf.examples.lesscode.diagram.URIEditorInputPropertyTester"
-           type="org.eclipse.emf.common.ui.URIEditorInput"
-           namespace="org.eclipse.gmf.examples.lesscode.diagram"
-           properties="isURIEditorInput"
-           class="org.eclipse.gmf.example.lesscode.diagram.part.LesscodeUriEditorInputTester">
-       </propertyTester>
+      <propertyTester
+            id="org.eclipse.gmf.examples.lesscode.diagram.URIEditorInputPropertyTester"
+            type="org.eclipse.emf.common.ui.URIEditorInput"
+            namespace="org.eclipse.gmf.examples.lesscode.diagram"
+            properties="isURIEditorInput"
+            class="org.eclipse.gmf.example.lesscode.diagram.part.LesscodeUriEditorInputTester">
+      </propertyTester>
    </extension>
 
 	   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
@@ -391,7 +419,7 @@
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension pattern="org.eclipse.gmf.examples.lesscode.diagram.resourceContent"/>
-			<contentExtension pattern="org.eclipse.gmf.examples.lesscode.diagram.domainResourceContent"/>
+            <contentExtension pattern="org.eclipse.gmf.examples.lesscode.diagram.domainResourceContent"/>
             <contentExtension pattern="org.eclipse.gmf.examples.lesscode.diagram.navigatorLinkHelper"/>
          </includes>
       </viewerContentBinding>
@@ -414,16 +442,16 @@
             activeByDefault="true">
          <triggerPoints>
             <or>
-	           <and>
-    	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="lesscode_diagram"/>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="lesscode_diagram"/>
                </and>
                <instanceof value="org.eclipse.gmf.example.lesscode.diagram.navigator.LesscodeAbstractNavigatorItem"/>
             </or>
          </triggerPoints>
          <possibleChildren>
             <or>
-         	   <instanceof value="org.eclipse.gmf.example.lesscode.diagram.navigator.LesscodeAbstractNavigatorItem"/>
+               <instanceof value="org.eclipse.gmf.example.lesscode.diagram.navigator.LesscodeAbstractNavigatorItem"/>
             </or>
          </possibleChildren>
          <commonSorter 
@@ -431,9 +459,9 @@
                class="org.eclipse.gmf.example.lesscode.diagram.navigator.LesscodeNavigatorSorter">
             <parentExpression>
                <or>
-	              <and>
-    	             <instanceof value="org.eclipse.core.resources.IFile"/>
-        	         <test property="org.eclipse.core.resources.extension" value="lesscode_diagram"/>
+                  <and>
+                     <instanceof value="org.eclipse.core.resources.IFile"/>
+                     <test property="org.eclipse.core.resources.extension" value="lesscode_diagram"/>
                   </and>
                   <instanceof value="org.eclipse.gmf.example.lesscode.diagram.navigator.LesscodeAbstractNavigatorItem"/>
                </or>
@@ -450,9 +478,9 @@
             activeByDefault="true">
          <triggerPoints>
             <or>
-	           <and>
-    	          <instanceof value="org.eclipse.core.resources.IFile"/>
-        	      <test property="org.eclipse.core.resources.extension" value="lesscode"/>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="lesscode"/>
                </and>
                <instanceof value="org.eclipse.gmf.example.lesscode.diagram.navigator.LesscodeDomainNavigatorItem"/>
             </or>

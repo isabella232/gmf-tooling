@@ -500,32 +500,32 @@ public class LesscodeDiagramUpdater {
 	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<LesscodeNodeDescriptor> getSemanticChildren(View view) {
 			return LesscodeDiagramUpdater.getSemanticChildren(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<LesscodeLinkDescriptor> getContainedLinks(View view) {
 			return LesscodeDiagramUpdater.getContainedLinks(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<LesscodeLinkDescriptor> getIncomingLinks(View view) {
 			return LesscodeDiagramUpdater.getIncomingLinks(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<LesscodeLinkDescriptor> getOutgoingLinks(View view) {
 			return LesscodeDiagramUpdater.getOutgoingLinks(view);

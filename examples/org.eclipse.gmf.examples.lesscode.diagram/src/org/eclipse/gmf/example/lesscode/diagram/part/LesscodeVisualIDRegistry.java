@@ -381,48 +381,48 @@ public class LesscodeVisualIDRegistry {
 	public static final DiagramStructure TYPED_INSTANCE = new DiagramStructure() {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public int getVisualID(View view) {
 			return org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry.getVisualID(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public String getModelID(View view) {
 			return org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry.getModelID(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public int getNodeVisualID(View containerView, EObject domainElement) {
 			return org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry.getNodeVisualID(containerView, domainElement);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
 			return org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry.checkNodeVisualID(containerView, domainElement, candidate);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean isCompartmentVisualID(int visualID) {
 			return org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry.isCompartmentVisualID(visualID);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean isSemanticLeafVisualID(int visualID) {
 			return org.eclipse.gmf.example.lesscode.diagram.part.LesscodeVisualIDRegistry.isSemanticLeafVisualID(visualID);
