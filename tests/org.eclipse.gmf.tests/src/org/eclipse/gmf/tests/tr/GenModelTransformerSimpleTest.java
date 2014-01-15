@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.tr;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -48,7 +47,7 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 	public void testNoReuseForTopLevelReference() {
 		GenNode nodeA = getGenNodeA();
 
-		final GenChildNode childA = nodeA.getChildNodes().get(0);
+		final GenNode childA = nodeA.getChildNodes().get(0);
 		// dumb check, although makes me believe DGMT set attributes
 		// of the node that is actually a duplicate of top-level node
 		assertEquals(nodeA.getDomainMetaClass(), childA.getDomainMetaClass());
@@ -60,8 +59,8 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 		GenNode nodeB = getGenNodeB();
 
 		// B1 is child of Btop
-		final GenChildNode bFirstLevelChild = nodeB.getChildNodes().get(0);
-		final GenChildNode bSecondLevelChild = bFirstLevelChild.getChildNodes().get(0);
+		final GenNode bFirstLevelChild = nodeB.getChildNodes().get(0);
+		final GenNode bSecondLevelChild = bFirstLevelChild.getChildNodes().get(0);
 		assertFalse("B2 can't be the same as Btop", bFirstLevelChild == nodeB);
 		assertTrue("Actually, B2 should be the same as B1", bFirstLevelChild == bSecondLevelChild);
 		assertTrue("B1 is child of B2 (and, of course, itself)", bSecondLevelChild.getChildNodes().contains(bFirstLevelChild));
@@ -70,8 +69,8 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 	public void testNoChildReferenceReuseWithDistinctContainments() {
 		GenNode nodeB = getGenNodeB();
 
-		final GenChildNode cFirstLevelChild = nodeB.getChildNodes().get(1); // note '1'
-		final GenChildNode cSecondLevelChild = cFirstLevelChild.getChildNodes().get(0);
+		final GenNode cFirstLevelChild = nodeB.getChildNodes().get(1); // note '1'
+		final GenNode cSecondLevelChild = cFirstLevelChild.getChildNodes().get(0);
 		assertFalse("C2 should not reuse C1 because of different containment", cSecondLevelChild.getChildNodes().contains(cFirstLevelChild));
 		assertTrue("C2 IS a child of itself", cSecondLevelChild.getChildNodes().contains(cSecondLevelChild));
 		
@@ -81,16 +80,16 @@ public class GenModelTransformerSimpleTest extends AbstractMappingTransformerTes
 		GenNode nodeB = getGenNodeB();
 
 		// this one has containment only
-		final GenChildNode c1FirstLevelChild = nodeB.getChildNodes().get(1); // note '1'
+		final GenNode c1FirstLevelChild = nodeB.getChildNodes().get(1); // note '1'
 		assertSame(c1FirstLevelChild.getModelFacet().getContainmentMetaFeature(), c1FirstLevelChild.getModelFacet().getChildMetaFeature());
 
 		// this one has same containment, but different childrenMetaFeature
-		final GenChildNode c2FirstLevelChild = nodeB.getChildNodes().get(2); // note '2'
+		final GenNode c2FirstLevelChild = nodeB.getChildNodes().get(2); // note '2'
 		assertNotSame(c2FirstLevelChild.getModelFacet().getContainmentMetaFeature(), c2FirstLevelChild.getModelFacet().getChildMetaFeature());
 		assertSame(c1FirstLevelChild.getModelFacet().getContainmentMetaFeature(), c2FirstLevelChild.getModelFacet().getContainmentMetaFeature());
 
 		assertFalse("Just [in]sanity check", c1FirstLevelChild == c2FirstLevelChild);
-		final GenChildNode c2SecondLevelChild = c2FirstLevelChild.getChildNodes().get(0);
+		final GenNode c2SecondLevelChild = c2FirstLevelChild.getChildNodes().get(0);
 		assertFalse("Although we referenced c1 mapping, childrenFeature was different, hence distinct child", c2FirstLevelChild.getChildNodes().contains(c1FirstLevelChild));
 		assertTrue("... with its own cycle to itself", c2SecondLevelChild.getChildNodes().contains(c2SecondLevelChild));
 	}
