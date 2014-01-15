@@ -85,7 +85,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 */
 	public GenLink getLink() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK) return null;
-		return (GenLink)eContainer();
+		return (GenLink)eInternalContainer();
 	}
 
 	/**

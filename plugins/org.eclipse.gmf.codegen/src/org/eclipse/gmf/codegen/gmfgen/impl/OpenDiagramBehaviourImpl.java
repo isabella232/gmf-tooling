@@ -141,7 +141,7 @@ public class OpenDiagramBehaviourImpl extends EObjectImpl implements OpenDiagram
 	 */
 	public GenCommonBase getSubject() {
 		if (eContainerFeatureID() != GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR__SUBJECT) return null;
-		return (GenCommonBase)eContainer();
+		return (GenCommonBase)eInternalContainer();
 	}
 
 	/**

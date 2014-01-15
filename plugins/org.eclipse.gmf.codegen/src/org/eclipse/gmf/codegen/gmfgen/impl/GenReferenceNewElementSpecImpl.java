@@ -114,7 +114,7 @@ public class GenReferenceNewElementSpecImpl extends EObjectImpl implements GenRe
 	 */
 	public GenFeatureSeqInitializer getFeatureSeqInitializer() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_REFERENCE_NEW_ELEMENT_SPEC__FEATURE_SEQ_INITIALIZER) return null;
-		return (GenFeatureSeqInitializer)eContainer();
+		return (GenFeatureSeqInitializer)eInternalContainer();
 	}
 
 	/**

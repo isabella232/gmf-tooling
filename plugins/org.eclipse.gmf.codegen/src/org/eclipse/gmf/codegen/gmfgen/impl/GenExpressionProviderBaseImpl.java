@@ -91,7 +91,7 @@ public abstract class GenExpressionProviderBaseImpl extends EObjectImpl implemen
 	 */
 	public GenExpressionProviderContainer getContainer() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_EXPRESSION_PROVIDER_BASE__CONTAINER) return null;
-		return (GenExpressionProviderContainer)eContainer();
+		return (GenExpressionProviderContainer)eInternalContainer();
 	}
 
 	/**

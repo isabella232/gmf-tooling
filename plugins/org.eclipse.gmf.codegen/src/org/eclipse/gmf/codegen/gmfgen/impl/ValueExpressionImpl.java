@@ -121,7 +121,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 */
 	public GenExpressionProviderBase getProvider() {
 		if (eContainerFeatureID() != GMFGenPackage.VALUE_EXPRESSION__PROVIDER) return null;
-		return (GenExpressionProviderBase)eContainer();
+		return (GenExpressionProviderBase)eInternalContainer();
 	}
 
 	/**

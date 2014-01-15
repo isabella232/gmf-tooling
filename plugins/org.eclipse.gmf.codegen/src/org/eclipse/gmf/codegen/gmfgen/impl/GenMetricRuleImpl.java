@@ -249,7 +249,7 @@ public class GenMetricRuleImpl extends GenRuleBaseImpl implements GenMetricRule 
 	 */
 	public GenMetricContainer getContainer() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_METRIC_RULE__CONTAINER) return null;
-		return (GenMetricContainer)eContainer();
+		return (GenMetricContainer)eInternalContainer();
 	}
 
 	/**

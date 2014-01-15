@@ -98,7 +98,7 @@ public class CustomBehaviourImpl extends EObjectImpl implements CustomBehaviour 
 	 */
 	public GenCommonBase getSubject() {
 		if (eContainerFeatureID() != GMFGenPackage.CUSTOM_BEHAVIOUR__SUBJECT) return null;
-		return (GenCommonBase)eContainer();
+		return (GenCommonBase)eInternalContainer();
 	}
 
 	/**

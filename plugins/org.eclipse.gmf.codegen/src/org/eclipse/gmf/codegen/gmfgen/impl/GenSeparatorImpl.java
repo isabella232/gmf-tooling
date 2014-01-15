@@ -80,7 +80,7 @@ public class GenSeparatorImpl extends EObjectImpl implements GenSeparator {
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_SEPARATOR__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

@@ -54,7 +54,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	 */
 	public GenNode getNode() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_NODE_LABEL__NODE) return null;
-		return (GenNode)eContainer();
+		return (GenNode)eInternalContainer();
 	}
 
 	/**

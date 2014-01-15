@@ -79,7 +79,7 @@ public class GenMenuManagerImpl extends GenContributionManagerImpl implements Ge
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_MENU_MANAGER__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

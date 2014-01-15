@@ -74,7 +74,7 @@ public class GenMetricContainerImpl extends EObjectImpl implements GenMetricCont
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_METRIC_CONTAINER__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**
