@@ -599,7 +599,7 @@ import xpt.diagram.editparts.EditPartFactory
 	'''
 	
 	def handleNotificationEventBody(GenTopLevelNode it) '''
-		if (event.getNotifier() == getModel() && org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
+		if (event.getNotifier() == getModel() && org.eclipse.emf.ecore.getEcorePackage.eINSTANCE.getEModelElement_EAnnotations().equals(event.getFeature())) {
 			handleMajorSemanticChange();
 		} else {
 			super.handleNotificationEvent(event);

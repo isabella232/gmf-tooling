@@ -460,7 +460,7 @@ import plugin.Activator
 	
 	def dispatch CharSequence keyFragment(GenLabel it) '''?Label?«keyFragment(it.modelFacet, it)»'''
 	
-	def dispatch CharSequence keyFragment(GenClass it)'''«genPackage.ecorePackage.nsURI»?«ecoreClass.name»'''
+	def dispatch CharSequence keyFragment(GenClass it)'''«genPackage.getEcorePackage.nsURI»?«ecoreClass.name»'''
 	
 	def dispatch CharSequence keyFragment(GenFeature it)'''«keyFragment(genClass)»?«ecoreFeature.name»'''
 	

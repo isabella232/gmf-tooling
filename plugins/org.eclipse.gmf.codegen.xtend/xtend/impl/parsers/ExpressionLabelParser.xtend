@@ -105,7 +105,7 @@ import xpt.expressions.getExpression
 	def dispatch dispatchCheckValidateExpression(GenExpressionProviderBase it, GenConstraint expression) '''/*FIXME: unkwnown expression provider */'''
 
 	def dispatch dispatchCheckValidateExpression(GenExpressionInterpreter it, GenConstraint expression) // 
-	'''«xptGetExpression.getExpression(it, expression, 'org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEString()')».evaluate(editString)»'''
+	'''«xptGetExpression.getExpression(it, expression, 'org.eclipse.emf.ecore.getEcorePackage.eINSTANCE.getEString()')».evaluate(editString)»'''
 
 	def dispatch dispatchCheckValidateExpression(GenJavaExpressionProvider it, GenConstraint expression) // 
 	'''evaluateValidateExpression(editString)'''
