@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="ui">
+  <figures name="Default">
+    <descriptors name="SubjectFigure">
+      <actualFigure xsi:type="gmfgraph:RoundedRectangle" name="SubjectFigure" lineWidth="3" cornerWidth="6" cornerHeight="6">
+        <layoutData xsi:type="gmfgraph:BorderLayoutData"/>
+        <layout xsi:type="gmfgraph:BorderLayout"/>
+        <foregroundColor xsi:type="gmfgraph:RGBColor" red="111" green="142" blue="194"/>
+        <backgroundColor xsi:type="gmfgraph:RGBColor" red="242" green="245" blue="252"/>
+        <minimumSize dx="40" dy="40"/>
+        <insets top="5" left="3" bottom="3" right="3"/>
+        <children xsi:type="gmfgraph:Label" name="SubjectNameFigure" text="&lt;..>">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" alignment="BEGINNING" vertical="true"/>
+          <font xsi:type="gmfgraph:BasicFont" faceName="Verdana" style="BOLD"/>
+        </children>
+        <children xsi:type="gmfgraph:Rectangle" name="SubjectContentPaneFigure">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData"/>
+        </children>
+      </actualFigure>
+      <accessors accessor="getFigureSubjectNameFigure" figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+      <accessors accessor="getFigureSubjectContentPaneFigure" figure="//@figures.0/@descriptors.0/@actualFigure/@children.1"/>
+    </descriptors>
+    <descriptors name="OneContainmentGroupFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="OneContainmentGroupFigure" lineWidth="3">
+        <layout xsi:type="gmfgraph:BorderLayout"/>
+        <foregroundColor xsi:type="gmfgraph:RGBColor" red="111" green="142" blue="194"/>
+        <backgroundColor xsi:type="gmfgraph:RGBColor" red="242" green="245" blue="252"/>
+        <minimumSize dx="160" dy="150"/>
+        <insets top="5" left="3" bottom="3" right="3"/>
+        <children xsi:type="gmfgraph:Label" name="OneContainmentGroupNameFigure" text="&lt;..>">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" alignment="BEGINNING" vertical="true"/>
+          <font xsi:type="gmfgraph:BasicFont" faceName="Verdana" style="BOLD"/>
+        </children>
+        <children xsi:type="gmfgraph:Rectangle" name="OneContainmentGroupContentPaneFigure">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" vertical="true"/>
+        </children>
+      </actualFigure>
+      <accessors accessor="getFigureOneContainmentGroupNameFigure" figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+      <accessors accessor="getFigureOneContainmentGroupContentPaneFigure" figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
+    </descriptors>
+    <descriptors name="MultiContainmentGroupFigure">
+      <actualFigure xsi:type="gmfgraph:RoundedRectangle" name="MultiContainmentGroupFigure" lineWidth="3" cornerWidth="6" cornerHeight="6">
+        <layout xsi:type="gmfgraph:BorderLayout"/>
+        <foregroundColor xsi:type="gmfgraph:RGBColor" red="111" green="142" blue="194"/>
+        <backgroundColor xsi:type="gmfgraph:RGBColor" red="242" green="245" blue="252"/>
+        <minimumSize dx="160" dy="150"/>
+        <insets top="5" left="3" bottom="3" right="3"/>
+        <children xsi:type="gmfgraph:Label" name="MultiContainmentGroupNameFigure" text="&lt;..>">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" alignment="BEGINNING" vertical="true"/>
+          <font xsi:type="gmfgraph:BasicFont" faceName="Verdana" style="BOLD"/>
+        </children>
+        <children xsi:type="gmfgraph:Rectangle" name="MultiContainmentGroupContentPaneFigure">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" vertical="true"/>
+        </children>
+      </actualFigure>
+      <accessors accessor="getFigureMultiContainmentGroupNameFigure" figure="//@figures.0/@descriptors.2/@actualFigure/@children.0"/>
+      <accessors accessor="getFigureMultiContainmentGroupContentPaneFigure" figure="//@figures.0/@descriptors.2/@actualFigure/@children.1"/>
+    </descriptors>
+    <descriptors name="ElementBasedConnection">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="ElementBasedConnection">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="red"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="ReferenceBasedConnection">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="ReferenceBasedConnection">
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="green"/>
+      </actualFigure>
+    </descriptors>
+  </figures>
+  <nodes name="Subject" figure="SubjectFigure"/>
+  <nodes name="OneContainmentGroup" figure="OneContainmentGroupFigure"/>
+  <nodes name="MultiContainmentGroup" figure="MultiContainmentGroupFigure"/>
+  <connections name="ElementBasedLink" figure="ElementBasedConnection"/>
+  <connections name="ReferenceBasedLink" figure="ReferenceBasedConnection"/>
+  <compartments name="inSubject" figure="SubjectFigure" accessor="//@figures.0/@descriptors.0/@accessors.1"/>
+  <compartments name="inGroupOne" figure="OneContainmentGroupFigure" accessor="//@figures.0/@descriptors.1/@accessors.1"/>
+  <compartments name="inGroupMany" figure="MultiContainmentGroupFigure" accessor="//@figures.0/@descriptors.2/@accessors.1"/>
+  <labels name="SubjectName" figure="SubjectFigure" accessor="//@figures.0/@descriptors.0/@accessors.0">
+    <facets xsi:type="gmfgraph:AlignmentFacet" alignment="CENTER"/>
+  </labels>
+  <labels name="OneContainmentGroupName" figure="OneContainmentGroupFigure" accessor="//@figures.0/@descriptors.1/@accessors.0">
+    <facets xsi:type="gmfgraph:AlignmentFacet" alignment="CENTER"/>
+  </labels>
+  <labels name="MultiContainmentGroupName" figure="MultiContainmentGroupFigure" accessor="//@figures.0/@descriptors.2/@accessors.0">
+    <facets xsi:type="gmfgraph:AlignmentFacet" alignment="CENTER"/>
+  </labels>
+</gmfgraph:Canvas>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" xmlns:gmfmap="http://www.eclipse.org/gmf/2008/mappings" xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:simplemap="http://org.msl.simple.gmfmap/simplemappings_1.1">
+  <simplemap:SimpleMapping xmi:id="_D0LZIJDREeK8jMccCJ3LfA">
+    <children xmi:type="simplemap:SimpleTopNode" xmi:id="_GhO1QJDREeK8jMccCJ3LfA">
+      <nodeReference xmi:type="gmfmap:TopNodeReference" href="lesscode.gmfmap#//@nodes.0"/>
+      <children xmi:type="simplemap:SimpleChildReference" xmi:id="_GtJ78JDSEeK9NasXW9rqvA" referencedSimpleNode="_GhO1QJDREeK8jMccCJ3LfA">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="lesscode.gmfmap#//@nodes.0/@ownedChild/@children.0"/>
+      </children>
+    </children>
+    <children xmi:type="simplemap:SimpleTopNode" xmi:id="_SY8qIJDREeK8jMccCJ3LfA">
+      <nodeReference xmi:type="gmfmap:TopNodeReference" href="lesscode.gmfmap#//@nodes.1"/>
+      <children xmi:type="simplemap:SimpleChildReference" xmi:id="_YZ9KUJDREeK8jMccCJ3LfA" referencedSimpleNode="_GhO1QJDREeK8jMccCJ3LfA">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="lesscode.gmfmap#//@nodes.1/@ownedChild/@children.0"/>
+      </children>
+    </children>
+    <children xmi:type="simplemap:SimpleTopNode" xmi:id="_-WQicJDREeK9NasXW9rqvA">
+      <nodeReference xmi:type="gmfmap:TopNodeReference" href="lesscode.gmfmap#//@nodes.2"/>
+      <children xmi:type="simplemap:SimpleChildReference" xmi:id="_AsSlsJDSEeK9NasXW9rqvA" referencedSimpleNode="_GhO1QJDREeK8jMccCJ3LfA">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="lesscode.gmfmap#//@nodes.2/@ownedChild/@children.0"/>
+      </children>
+      <children xmi:type="simplemap:SimpleChildReference" xmi:id="_BFLm0JDSEeK9NasXW9rqvA" referencedSimpleNode="_GhO1QJDREeK8jMccCJ3LfA">
+        <nodeReference xmi:type="gmfmap:ChildReference" href="lesscode.gmfmap#//@nodes.2/@ownedChild/@children.1"/>
+      </children>
+    </children>
+    <canvas xmi:type="gmfgraph:Canvas" href="lesscode.gmfgraph#ui"/>
+    <palette xmi:type="gmftool:Palette" href="lesscode.gmftool#/"/>
+    <mapping xmi:type="gmfmap:Mapping" href="lesscode.gmfmap#/"/>
+  </simplemap:SimpleMapping>
+  <notation:Diagram xmi:id="_D1OiAJDREeK8jMccCJ3LfA" type="Simplemap" element="_D0LZIJDREeK8jMccCJ3LfA" name="lesscode.simplemappings" measurementUnit="Pixel">
+    <children xmi:type="notation:Node" xmi:id="_Ghxn0JDREeK8jMccCJ3LfA" type="1001" element="_GhO1QJDREeK8jMccCJ3LfA">
+      <children xmi:type="notation:DecorationNode" xmi:id="_Gh0rIJDREeK8jMccCJ3LfA" type="4003"/>
+      <children xmi:type="notation:Node" xmi:id="_GtO0cJDSEeK9NasXW9rqvA" type="2004" element="_GtJ78JDSEeK9NasXW9rqvA">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_GtO0cZDSEeK9NasXW9rqvA"/>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_Ghxn0ZDREeK8jMccCJ3LfA"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_Ghxn0pDREeK8jMccCJ3LfA" fontName="Lucida Grande"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ghxn05DREeK8jMccCJ3LfA" x="108" y="36" width="199" height="73"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_SZBioJDREeK8jMccCJ3LfA" type="1001" element="_SY8qIJDREeK8jMccCJ3LfA">
+      <children xmi:type="notation:DecorationNode" xmi:id="_SZBipJDREeK8jMccCJ3LfA" type="4003"/>
+      <children xmi:type="notation:Node" xmi:id="_YaLMwJDREeK8jMccCJ3LfA" type="2004" element="_YZ9KUJDREeK8jMccCJ3LfA">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_YaLMwZDREeK8jMccCJ3LfA"/>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_SZBioZDREeK8jMccCJ3LfA"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_SZBiopDREeK8jMccCJ3LfA" fontName="Lucida Grande"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SZBio5DREeK8jMccCJ3LfA" x="112" y="153" height="82"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_-WsAQJDREeK9NasXW9rqvA" type="1001" element="_-WQicJDREeK9NasXW9rqvA">
+      <children xmi:type="notation:DecorationNode" xmi:id="_-WsARJDREeK9NasXW9rqvA" type="4003"/>
+      <children xmi:type="notation:Node" xmi:id="_AsbIkJDSEeK9NasXW9rqvA" type="2004" element="_AsSlsJDSEeK9NasXW9rqvA">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_AsbIkZDSEeK9NasXW9rqvA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_BFNcAJDSEeK9NasXW9rqvA" type="2004" element="_BFLm0JDSEeK9NasXW9rqvA">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_BFNcAZDSEeK9NasXW9rqvA"/>
+      </children>
+      <styles xmi:type="notation:DescriptionStyle" xmi:id="_-WsAQZDREeK9NasXW9rqvA"/>
+      <styles xmi:type="notation:FontStyle" xmi:id="_-WsAQpDREeK9NasXW9rqvA" fontName="Lucida Grande"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-WsAQ5DREeK9NasXW9rqvA" x="126" y="270" width="325" height="91"/>
+    </children>
+    <styles xmi:type="notation:DiagramStyle" xmi:id="_D1OiAZDREeK8jMccCJ3LfA"/>
+  </notation:Diagram>
+</xmi:XMI>
