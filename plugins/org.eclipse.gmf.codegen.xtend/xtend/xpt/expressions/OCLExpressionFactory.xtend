@@ -125,7 +125,7 @@ import xpt.Common
 	 */ 
 	def initializeEnvironment(GenExpressionInterpreter it, String environmentVar) '''
 	// Use EObject as implicit root class for any object, to allow eContainer() and other EObject operations from OCL expressions
-	org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse.ocl.options.ParsingOptions.implicitRootClass(«environmentVar»), org.eclipse.emf.ecore.EcorePackage.eINSTANCE.getEObject());
+	org.eclipse.ocl.options.ParsingOptions.setOption(«environmentVar», org.eclipse.ocl.options.ParsingOptions.implicitRootClass(«environmentVar»), org.eclipse.emf.ecore.getEcorePackage.eINSTANCE.getEObject());
 	'''
 
 	def additions(GenExpressionInterpreter it) ''''''

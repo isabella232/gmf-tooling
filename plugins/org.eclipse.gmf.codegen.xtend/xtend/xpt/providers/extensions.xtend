@@ -152,7 +152,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 	def dispatch elementType(ElementType it) '''«ERROR('Unknown element type: ' + it)»'''
 
 	def dispatch elementType(MetamodelType it) '''
-		«tripleSpace(2)»<metamodel nsURI="«getMetaClass().genPackage.ecorePackage.nsURI»">
+		«tripleSpace(2)»<metamodel nsURI="«getMetaClass().genPackage.getEcorePackage.nsURI»">
 		«tripleSpace(3)»<metamodelType
 		«tripleSpace(5)»id="«uniqueIdentifier»"
 				«IF null != displayName»
@@ -170,7 +170,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 		«IF null == getMetamodelClass()»
 			«specializationType(it)»
 		«ELSE»
-			«tripleSpace(2)»<metamodel nsURI="«getMetamodelClass().genPackage.ecorePackage.nsURI»">
+			«tripleSpace(2)»<metamodel nsURI="«getMetamodelClass().genPackage.getEcorePackage.nsURI»">
 			«specializationType(it)»
 			«tripleSpace(2)»</metamodel>
 		«ENDIF»

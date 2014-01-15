@@ -30,7 +30,7 @@ def extensions_emfv_constraintProviders(GenAuditRoot it)'''
    «FOR c : categories»«declareCategory(c)»«ENDFOR»
    «tripleSpace(2)»<constraintProvider cache="true">
 	  «FOR p : getAllTargetedModelPackages(it)»
-         «tripleSpace(3)»<package namespaceUri="«p.ecorePackage.nsURI»"/>
+         «tripleSpace(3)»<package namespaceUri="«p.getEcorePackage.nsURI»"/>
 	  «ENDFOR»
    «tripleSpace(1)»«FOR c : categories»«defineCategory(c)»«ENDFOR»
    «tripleSpace(2)»</constraintProvider>
