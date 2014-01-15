@@ -157,7 +157,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PROPERTY_SHEET__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

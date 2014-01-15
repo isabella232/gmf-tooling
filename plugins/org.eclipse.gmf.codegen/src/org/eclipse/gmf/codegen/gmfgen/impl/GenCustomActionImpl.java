@@ -122,7 +122,7 @@ public class GenCustomActionImpl extends EObjectImpl implements GenCustomAction 
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_CUSTOM_ACTION__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

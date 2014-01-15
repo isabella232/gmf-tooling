@@ -79,7 +79,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 */
 	public GenLink getLink() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_LINK_LABEL__LINK) return null;
-		return (GenLink)eContainer();
+		return (GenLink)eInternalContainer();
 	}
 
 	/**

@@ -56,7 +56,7 @@ public class GenToolBarManagerImpl extends GenContributionManagerImpl implements
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_TOOL_BAR_MANAGER__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	@Override

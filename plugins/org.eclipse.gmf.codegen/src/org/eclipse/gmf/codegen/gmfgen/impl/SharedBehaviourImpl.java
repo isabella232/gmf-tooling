@@ -68,7 +68,7 @@ public class SharedBehaviourImpl extends EObjectImpl implements SharedBehaviour 
 	 */
 	public GenCommonBase getSubject() {
 		if (eContainerFeatureID() != GMFGenPackage.SHARED_BEHAVIOUR__SUBJECT) return null;
-		return (GenCommonBase)eContainer();
+		return (GenCommonBase)eInternalContainer();
 	}
 
 	/**

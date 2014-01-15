@@ -215,7 +215,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_EDITOR_VIEW__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

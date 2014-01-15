@@ -98,7 +98,7 @@ public class DynamicModelAccessImpl extends EObjectImpl implements DynamicModelA
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.DYNAMIC_MODEL_ACCESS__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

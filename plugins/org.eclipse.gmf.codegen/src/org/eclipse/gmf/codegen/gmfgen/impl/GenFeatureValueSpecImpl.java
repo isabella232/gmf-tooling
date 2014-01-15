@@ -118,7 +118,7 @@ public class GenFeatureValueSpecImpl extends EObjectImpl implements GenFeatureVa
 	 */
 	public GenFeatureSeqInitializer getFeatureSeqInitializer() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER) return null;
-		return (GenFeatureSeqInitializer)eContainer();
+		return (GenFeatureSeqInitializer)eInternalContainer();
 	}
 
 	/**

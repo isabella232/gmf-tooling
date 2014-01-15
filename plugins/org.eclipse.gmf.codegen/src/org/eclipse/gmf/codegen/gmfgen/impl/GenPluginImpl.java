@@ -214,7 +214,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PLUGIN__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	public String getID() {

@@ -184,7 +184,7 @@ public class GenParsersImpl extends EObjectImpl implements GenParsers {
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PARSERS__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

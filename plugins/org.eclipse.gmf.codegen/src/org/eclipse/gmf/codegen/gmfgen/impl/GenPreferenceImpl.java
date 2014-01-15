@@ -122,7 +122,7 @@ public class GenPreferenceImpl extends EObjectImpl implements GenPreference {
 	 */
 	public GenCustomPreferencePage getPage() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PREFERENCE__PAGE) return null;
-		return (GenCustomPreferencePage)eContainer();
+		return (GenCustomPreferencePage)eInternalContainer();
 	}
 
 	/**

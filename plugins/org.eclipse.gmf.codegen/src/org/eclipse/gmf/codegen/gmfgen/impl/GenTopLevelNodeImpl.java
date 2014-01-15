@@ -53,7 +53,7 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM) return null;
-		return (GenDiagram)eContainer();
+		return (GenDiagram)eInternalContainer();
 	}
 
 	/**

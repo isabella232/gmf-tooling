@@ -71,7 +71,7 @@ public class GenSharedContributionItemImpl extends EObjectImpl implements GenSha
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_SHARED_CONTRIBUTION_ITEM__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

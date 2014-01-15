@@ -319,6 +319,6 @@ public class GenFeatureSeqInitializerImpl extends EObjectImpl implements GenFeat
 	 */
 	public GenReferenceNewElementSpec getCreatingInitializer() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__CREATING_INITIALIZER) return null;
-		return (GenReferenceNewElementSpec)eContainer();
+		return (GenReferenceNewElementSpec)eInternalContainer();
 	}
 } //GenFeatureSeqInitializerImpl

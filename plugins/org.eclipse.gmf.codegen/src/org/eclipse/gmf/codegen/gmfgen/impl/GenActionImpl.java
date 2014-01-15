@@ -101,7 +101,7 @@ public abstract class GenActionImpl extends EObjectImpl implements GenAction {
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_ACTION__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

@@ -161,7 +161,7 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_DIAGRAM_UPDATER__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

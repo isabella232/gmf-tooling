@@ -174,7 +174,7 @@ public class GenNavigatorChildReferenceImpl extends EObjectImpl implements GenNa
 	 */
 	public GenNavigator getNavigator() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_NAVIGATOR_CHILD_REFERENCE__NAVIGATOR) return null;
-		return (GenNavigator)eContainer();
+		return (GenNavigator)eInternalContainer();
 	}
 
 	/**

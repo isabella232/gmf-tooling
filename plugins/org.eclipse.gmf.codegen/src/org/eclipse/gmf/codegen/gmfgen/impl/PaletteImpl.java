@@ -138,7 +138,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID() != GMFGenPackage.PALETTE__DIAGRAM) return null;
-		return (GenDiagram)eContainer();
+		return (GenDiagram)eInternalContainer();
 	}
 
 	/**
