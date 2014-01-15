@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -161,7 +160,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 		GenNode nodeA = getGenNodeA();
 		
 		assertFalse(nodeA.getLabels().isEmpty());
-		GenChildNode childA = nodeA.getChildNodes().get(0);
+		GenNode childA = nodeA.getChildNodes().get(0);
 		assertFalse(childA instanceof GenChildLabelNode);
 		assertFalse(childA.getLabels().isEmpty());
 
@@ -170,7 +169,7 @@ public class LabelMappingTransformTest extends AbstractMappingTransformerTest {
 	public void testSoleLabelNodeOutcome() {
 		GenNode nodeB = getGenNodeB();
 		assertTrue(nodeB.getLabels().isEmpty()); // sanity
-		GenChildNode childB = nodeB.getChildNodes().get(0);
+		GenNode childB = nodeB.getChildNodes().get(0);
 		assertTrue (childB instanceof GenChildLabelNode);
 		assertTrue(childB.getLabels().isEmpty());
 	}
