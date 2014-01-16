@@ -182,6 +182,7 @@
           ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/childNodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/topLevelNodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/multiFacetedNodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/links"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/compartments"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
@@ -507,10 +508,26 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenTopLevelNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenTopLevelNode/diagram"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenChildNodeBase">
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNodeBase/containers"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/diagram"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" propertyCategory="Diagram Element"
-          ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/containers"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenMultiFacetedNode">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/diagram"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/additionalModelFacets"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/allModelFacets"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainer">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainer/container"/>
+      </genOperations>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram/container"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//TypeNodeModelFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//TypeNodeModelFacet/createCommandClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//TypeNodeModelFacet/getCreateCommandQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildSideAffixedNode">
       <genFeatures createChild="false" propertyCategory="Diagram Element" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildSideAffixedNode/preferredSideName"/>

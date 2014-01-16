@@ -79,6 +79,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.OPEN_DIAGRAM_BEHAVIOUR: return createOpenDiagramBehaviour();
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
+			case GMFGenPackage.GEN_MULTI_FACETED_NODE: return createGenMultiFacetedNode();
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET: return createTypeNodeModelFacet();
 			case GMFGenPackage.GEN_CHILD_SIDE_AFFIXED_NODE: return createGenChildSideAffixedNode();
 			case GMFGenPackage.GEN_CHILD_LABEL_NODE: return createGenChildLabelNode();
 			case GMFGenPackage.GEN_COMPARTMENT: return createGenCompartment();
@@ -448,6 +450,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenChildNode createGenChildNode() {
 		GenChildNodeImpl genChildNode = new GenChildNodeImpl();
 		return genChildNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenMultiFacetedNode createGenMultiFacetedNode() {
+		GenMultiFacetedNodeImpl genMultiFacetedNode = new GenMultiFacetedNodeImpl();
+		return genMultiFacetedNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeNodeModelFacet createTypeNodeModelFacet() {
+		TypeNodeModelFacetImpl typeNodeModelFacet = new TypeNodeModelFacetImpl();
+		return typeNodeModelFacet;
 	}
 
 	/**

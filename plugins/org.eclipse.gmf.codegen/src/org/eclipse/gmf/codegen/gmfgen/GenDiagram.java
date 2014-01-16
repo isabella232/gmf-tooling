@@ -25,6 +25,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getTopLevelNodes <em>Top Level Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMultiFacetedNodes <em>Multi Faceted Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
@@ -120,6 +121,24 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @generated
 	 */
 	EList<GenTopLevelNode> getTopLevelNodes();
+
+	/**
+	 * Returns the value of the '<em><b>Multi Faceted Nodes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#getDiagram <em>Diagram</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Multi Faceted Nodes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Multi Faceted Nodes</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_MultiFacetedNodes()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#getDiagram
+	 * @model opposite="diagram" containment="true"
+	 * @generated
+	 */
+	EList<GenMultiFacetedNode> getMultiFacetedNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Links</b></em>' containment reference list.

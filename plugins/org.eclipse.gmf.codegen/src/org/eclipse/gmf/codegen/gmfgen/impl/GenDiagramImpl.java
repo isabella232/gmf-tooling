@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramPreferences;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -129,6 +130,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTopLevelNodes <em>Top Level Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMultiFacetedNodes <em>Multi Faceted Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
@@ -1403,6 +1405,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected EList<GenTopLevelNode> topLevelNodes;
 
 	/**
+	 * The cached value of the '{@link #getMultiFacetedNodes() <em>Multi Faceted Nodes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultiFacetedNodes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenMultiFacetedNode> multiFacetedNodes;
+
+	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1561,6 +1573,18 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			topLevelNodes = new EObjectContainmentWithInverseEList<GenTopLevelNode>(GenTopLevelNode.class, this, GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES, GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM);
 		}
 		return topLevelNodes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<GenMultiFacetedNode> getMultiFacetedNodes() {
+		if (multiFacetedNodes == null) {
+			multiFacetedNodes = new EObjectContainmentWithInverseEList<GenMultiFacetedNode>(GenMultiFacetedNode.class, this, GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES, GMFGenPackage.GEN_MULTI_FACETED_NODE__DIAGRAM);
+		}
+		return multiFacetedNodes;
 	}
 
 	/**
@@ -3644,6 +3668,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getChildNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getTopLevelNodes()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getMultiFacetedNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
@@ -3670,6 +3696,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ((InternalEList<?>)getChildNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				return ((InternalEList<?>)getTopLevelNodes()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
+				return ((InternalEList<?>)getMultiFacetedNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
@@ -3843,6 +3871,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getChildNodes();
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				return getTopLevelNodes();
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
+				return getMultiFacetedNodes();
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return getLinks();
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
@@ -4066,6 +4096,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				getTopLevelNodes().clear();
 				getTopLevelNodes().addAll((Collection<? extends GenTopLevelNode>)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
+				getMultiFacetedNodes().clear();
+				getMultiFacetedNodes().addAll((Collection<? extends GenMultiFacetedNode>)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
@@ -4295,6 +4329,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				getTopLevelNodes().clear();
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
+				getMultiFacetedNodes().clear();
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
 				return;
@@ -4461,6 +4498,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 				return topLevelNodes != null && !topLevelNodes.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
+				return multiFacetedNodes != null && !multiFacetedNodes.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return links != null && !links.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:

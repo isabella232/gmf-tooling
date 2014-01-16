@@ -325,6 +325,11 @@ public class GenNodeItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createTypeNodeModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet(),
 				 GMFGenFactory.eINSTANCE.createTypeLinkModelFacet()));
 
 		newChildDescriptors.add

@@ -6,9 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.util;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
@@ -306,9 +303,21 @@ public class GMFGenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_CHILD_NODE_BASE: {
+				GenChildNodeBase genChildNodeBase = (GenChildNodeBase)theEObject;
+				T result = caseGenChildNodeBase(genChildNodeBase);
+				if (result == null) result = caseGenNode(genChildNodeBase);
+				if (result == null) result = caseGenChildContainer(genChildNodeBase);
+				if (result == null) result = caseGenLinkEnd(genChildNodeBase);
+				if (result == null) result = caseGenContainerBase(genChildNodeBase);
+				if (result == null) result = caseGenCommonBase(genChildNodeBase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_CHILD_NODE: {
 				GenChildNode genChildNode = (GenChildNode)theEObject;
 				T result = caseGenChildNode(genChildNode);
+				if (result == null) result = caseGenChildNodeBase(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenChildContainer(genChildNode);
 				if (result == null) result = caseGenLinkEnd(genChildNode);
@@ -317,10 +326,31 @@ public class GMFGenSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_MULTI_FACETED_NODE: {
+				GenMultiFacetedNode genMultiFacetedNode = (GenMultiFacetedNode)theEObject;
+				T result = caseGenMultiFacetedNode(genMultiFacetedNode);
+				if (result == null) result = caseGenChildNodeBase(genMultiFacetedNode);
+				if (result == null) result = caseGenNode(genMultiFacetedNode);
+				if (result == null) result = caseGenChildContainer(genMultiFacetedNode);
+				if (result == null) result = caseGenLinkEnd(genMultiFacetedNode);
+				if (result == null) result = caseGenContainerBase(genMultiFacetedNode);
+				if (result == null) result = caseGenCommonBase(genMultiFacetedNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET: {
+				TypeNodeModelFacet typeNodeModelFacet = (TypeNodeModelFacet)theEObject;
+				T result = caseTypeNodeModelFacet(typeNodeModelFacet);
+				if (result == null) result = caseTypeModelFacet(typeNodeModelFacet);
+				if (result == null) result = caseModelFacet(typeNodeModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_CHILD_SIDE_AFFIXED_NODE: {
 				GenChildSideAffixedNode genChildSideAffixedNode = (GenChildSideAffixedNode)theEObject;
 				T result = caseGenChildSideAffixedNode(genChildSideAffixedNode);
 				if (result == null) result = caseGenChildNode(genChildSideAffixedNode);
+				if (result == null) result = caseGenChildNodeBase(genChildSideAffixedNode);
 				if (result == null) result = caseGenNode(genChildSideAffixedNode);
 				if (result == null) result = caseGenChildContainer(genChildSideAffixedNode);
 				if (result == null) result = caseGenLinkEnd(genChildSideAffixedNode);
@@ -333,6 +363,7 @@ public class GMFGenSwitch<T> extends Switch<T> {
 				GenChildLabelNode genChildLabelNode = (GenChildLabelNode)theEObject;
 				T result = caseGenChildLabelNode(genChildLabelNode);
 				if (result == null) result = caseGenChildNode(genChildLabelNode);
+				if (result == null) result = caseGenChildNodeBase(genChildLabelNode);
 				if (result == null) result = caseGenNode(genChildLabelNode);
 				if (result == null) result = caseGenChildContainer(genChildLabelNode);
 				if (result == null) result = caseGenLinkEnd(genChildLabelNode);
@@ -1672,6 +1703,22 @@ public class GMFGenSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Child Node Base</em>'.
+	 * <!-- begin-user-doc -->
+	 * @since 2.111
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Child Node Base</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenChildNodeBase(GenChildNodeBase object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Gen Child Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1683,6 +1730,38 @@ public class GMFGenSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseGenChildNode(GenChildNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Gen Multi Faceted Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * @since 2.111
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Gen Multi Faceted Node</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseGenMultiFacetedNode(GenMultiFacetedNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Node Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * @since 2.111
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Node Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeNodeModelFacet(TypeNodeModelFacet object) {
 		return null;
 	}
 

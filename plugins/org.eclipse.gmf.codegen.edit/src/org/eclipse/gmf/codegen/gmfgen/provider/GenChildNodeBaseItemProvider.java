@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package org.eclipse.gmf.codegen.gmfgen.provider;
 
@@ -12,28 +8,32 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenChildNode} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase} object.
  * <!-- begin-user-doc -->
+ * @since 2.110
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenChildNodeItemProvider
-	extends 
-GenChildNodeBaseItemProvider
-	implements	
-		IEditingDomainItemProvider,	
-		IStructuredItemContentProvider,	
-		ITreeItemContentProvider,	
-		IItemLabelProvider,	
+public class GenChildNodeBaseItemProvider
+	extends GenNodeItemProvider
+	implements
+		IEditingDomainItemProvider,
+		IStructuredItemContentProvider,
+		ITreeItemContentProvider,
+		IItemLabelProvider,
 		IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -41,7 +41,7 @@ GenChildNodeBaseItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenChildNodeItemProvider(AdapterFactory adapterFactory) {
+	public GenChildNodeBaseItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -56,19 +56,42 @@ GenChildNodeBaseItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addContainersPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This returns GenChildNode.gif.
+	 * This adds a property descriptor for the Containers feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContainersPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenChildNodeBase_containers_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildNodeBase_containers_feature", "_UI_GenChildNodeBase_type"),
+				 GMFGenPackage.eINSTANCE.getGenChildNodeBase_Containers(),
+				 false,
+				 false,
+				 false,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns GenChildNodeBase.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenChildNode"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenChildNodeBase"));
 	}
 
 	/**
@@ -89,10 +112,10 @@ GenChildNodeBaseItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((GenChildNode)object).getEditPartClassName();
+		String label = ((GenChildNodeBase)object).getEditPartClassName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_GenChildNode_type") :
-			getString("_UI_GenChildNode_type") + " " + label;
+			getString("_UI_GenChildNodeBase_type") :
+			getString("_UI_GenChildNodeBase_type") + " " + label;
 	}
 
 	/**

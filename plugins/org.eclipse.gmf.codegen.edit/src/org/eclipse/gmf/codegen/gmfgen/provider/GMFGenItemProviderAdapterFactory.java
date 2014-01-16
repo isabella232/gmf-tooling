@@ -526,6 +526,54 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode} instances.
+	 * <!-- begin-user-doc -->
+	 * @since 2.110
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenMultiFacetedNodeItemProvider genMultiFacetedNodeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createGenMultiFacetedNodeAdapter() {
+		if (genMultiFacetedNodeItemProvider == null) {
+			genMultiFacetedNodeItemProvider = new GenMultiFacetedNodeItemProvider(this);
+		}
+
+		return genMultiFacetedNodeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * @since 2.110
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeNodeModelFacetItemProvider typeNodeModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createTypeNodeModelFacetAdapter() {
+		if (typeNodeModelFacetItemProvider == null) {
+			typeNodeModelFacetItemProvider = new TypeNodeModelFacetItemProvider(this);
+		}
+
+		return typeNodeModelFacetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2648,6 +2696,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (openDiagramBehaviourItemProvider != null) openDiagramBehaviourItemProvider.dispose();
 		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
+		if (genMultiFacetedNodeItemProvider != null) genMultiFacetedNodeItemProvider.dispose();
+		if (typeNodeModelFacetItemProvider != null) typeNodeModelFacetItemProvider.dispose();
 		if (genChildSideAffixedNodeItemProvider != null) genChildSideAffixedNodeItemProvider.dispose();
 		if (genChildLabelNodeItemProvider != null) genChildLabelNodeItemProvider.dispose();
 		if (genCompartmentItemProvider != null) genCompartmentItemProvider.dispose();

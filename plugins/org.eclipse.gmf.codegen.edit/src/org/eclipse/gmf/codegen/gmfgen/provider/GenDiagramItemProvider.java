@@ -1551,6 +1551,7 @@ public class GenDiagramItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_MultiFacetedNodes());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Links());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Compartments());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Palette());
@@ -1688,6 +1689,7 @@ public class GenDiagramItemProvider
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+			case GMFGenPackage.GEN_DIAGRAM__MULTI_FACETED_NODES:
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
@@ -1729,6 +1731,11 @@ public class GenDiagramItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes(),
 				 GMFGenFactory.eINSTANCE.createGenTopLevelNode()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_MultiFacetedNodes(),
+				 GMFGenFactory.eINSTANCE.createGenMultiFacetedNode()));
 
 		newChildDescriptors.add
 			(createChildParameter

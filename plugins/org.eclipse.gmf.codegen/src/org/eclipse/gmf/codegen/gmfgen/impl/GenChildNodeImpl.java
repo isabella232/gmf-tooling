@@ -7,13 +7,9 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 
@@ -25,23 +21,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getContainers <em>Containers</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
-	/**
-	 * The cached value of the '{@link #getContainers() <em>Containers</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainers()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<GenChildContainer> containers;
-
+public class GenChildNodeImpl extends 
+GenChildNodeBaseImpl implements GenChildNode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,18 +62,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<GenChildContainer> getContainers() {
-		if (containers == null) {
-			containers = new EObjectWithInverseResolvingEList.ManyInverse<GenChildContainer>(GenChildContainer.class, this, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES);
-		}
-		return containers;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@SuppressWarnings("unchecked")
 		@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -96,8 +70,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getContainers()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -112,8 +84,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
-				return ((InternalEList<?>)getContainers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -142,8 +112,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return getDiagram();
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
-				return getContainers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -158,8 +126,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 		switch (featureID) {
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return getDiagram() != null;
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
-				return containers != null && !containers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
 /**
@@ -67,7 +67,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<GenChildNode> childNodes;
+	protected EList<GenChildNodeBase> childNodes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -94,7 +94,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @generated NOT
 	 */
 	public EList<GenNode> getContainedNodes() {
-		List<GenChildNode> childNodes = getChildNodes();
+		List<? extends GenNode> childNodes = getChildNodes();
 		return new EcoreEList.UnmodifiableEList<GenNode>(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), childNodes.size(), childNodes.toArray());
 	}
 
@@ -103,9 +103,9 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<GenChildNode> getChildNodes() {
+	public EList<GenChildNodeBase> getChildNodes() {
 		if (childNodes == null) {
-			childNodes = new EObjectWithInverseResolvingEList.ManyInverse<GenChildNode>(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS);
+			childNodes = new EObjectWithInverseResolvingEList.ManyInverse<GenChildNodeBase>(GenChildNodeBase.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE_BASE__CONTAINERS);
 		}
 		return childNodes;
 	}
@@ -229,7 +229,7 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				getChildNodes().clear();
-				getChildNodes().addAll((Collection<? extends GenChildNode>)newValue);
+				getChildNodes().addAll((Collection<? extends GenChildNodeBase>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

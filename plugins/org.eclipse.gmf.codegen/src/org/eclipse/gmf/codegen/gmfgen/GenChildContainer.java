@@ -32,8 +32,8 @@ import org.eclipse.emf.common.util.EList;
 public interface GenChildContainer extends GenContainerBase {
 	/**
 	 * Returns the value of the '<em><b>Child Nodes</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildNode}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainers <em>Containers</em>}'.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase#getContainers <em>Containers</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Child Nodes</em>' containment reference list isn't clear,
@@ -42,10 +42,10 @@ public interface GenChildContainer extends GenContainerBase {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Child Nodes</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildContainer_ChildNodes()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainers
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase#getContainers
 	 * @model opposite="containers"
 	 * @generated
 	 */
-	EList<GenChildNode> getChildNodes();
+	EList<GenChildNodeBase> getChildNodes();
 
 } // GenChildContainer

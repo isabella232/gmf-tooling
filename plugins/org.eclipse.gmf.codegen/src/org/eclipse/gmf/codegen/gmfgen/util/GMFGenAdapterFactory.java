@@ -205,8 +205,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 				return createGenTopLevelNodeAdapter();
 			}
 			@Override
+			public Adapter caseGenChildNodeBase(GenChildNodeBase object) {
+				return createGenChildNodeBaseAdapter();
+			}
+			@Override
 			public Adapter caseGenChildNode(GenChildNode object) {
 				return createGenChildNodeAdapter();
+			}
+			@Override
+			public Adapter caseGenMultiFacetedNode(GenMultiFacetedNode object) {
+				return createGenMultiFacetedNodeAdapter();
+			}
+			@Override
+			public Adapter caseTypeNodeModelFacet(TypeNodeModelFacet object) {
+				return createTypeNodeModelFacetAdapter();
 			}
 			@Override
 			public Adapter caseGenChildSideAffixedNode(GenChildSideAffixedNode object) {
@@ -1195,6 +1207,21 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase <em>Gen Child Node Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * @since 2.111
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase
+	 * @generated
+	 */
+	public Adapter createGenChildNodeBaseAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode <em>Gen Child Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1205,6 +1232,36 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenChildNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode <em>Gen Multi Faceted Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * @since 2.111
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode
+	 * @generated
+	 */
+	public Adapter createGenMultiFacetedNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet <em>Type Node Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * @since 2.111
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet
+	 * @generated
+	 */
+	public Adapter createTypeNodeModelFacetAdapter() {
 		return null;
 	}
 
