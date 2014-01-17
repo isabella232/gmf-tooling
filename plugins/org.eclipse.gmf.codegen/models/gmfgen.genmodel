@@ -516,7 +516,6 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenMultiFacetedNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/diagram"/>
-      <genFeatures property="None" createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMultiFacetedNode/designWhenTopLevel"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/additionalModelFacets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/allModelFacets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainer">

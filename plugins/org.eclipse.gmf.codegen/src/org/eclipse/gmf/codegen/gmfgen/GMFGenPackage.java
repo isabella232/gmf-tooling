@@ -4574,15 +4574,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_MULTI_FACETED_NODE__DIAGRAM = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Design When Top Level</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Additional Model Facets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * @since 2.111
@@ -4590,7 +4581,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 2;
+	int GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Gen Multi Faceted Node</em>' class.
@@ -4600,7 +4591,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_MULTI_FACETED_NODE_FEATURE_COUNT = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 3;
+	int GEN_MULTI_FACETED_NODE_FEATURE_COUNT = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildSideAffixedNodeImpl <em>Gen Child Side Affixed Node</em>}' class.
@@ -14856,17 +14847,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenMultiFacetedNode_Diagram();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#isDesignWhenTopLevel <em>Design When Top Level</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Design When Top Level</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#isDesignWhenTopLevel()
-	 * @see #getGenMultiFacetedNode()
-	 * @generated
-	 */
-	EAttribute getGenMultiFacetedNode_DesignWhenTopLevel();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#getAdditionalModelFacets <em>Additional Model Facets</em>}'.

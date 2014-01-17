@@ -6,6 +6,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -28,7 +29,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMultiFacetedNodeImpl#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMultiFacetedNodeImpl#isDesignWhenTopLevel <em>Design When Top Level</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMultiFacetedNodeImpl#getAdditionalModelFacets <em>Additional Model Facets</em>}</li>
  * </ul>
  * </p>
@@ -37,24 +37,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
  */
 public class GenMultiFacetedNodeImpl extends 
 GenChildNodeBaseImpl implements GenMultiFacetedNode {
-	/**
-	 * The default value of the '{@link #isDesignWhenTopLevel() <em>Design When Top Level</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isDesignWhenTopLevel()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean DESIGN_WHEN_TOP_LEVEL_EDEFAULT = false;
-	/**
-	 * The cached value of the '{@link #isDesignWhenTopLevel() <em>Design When Top Level</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isDesignWhenTopLevel()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean designWhenTopLevel = DESIGN_WHEN_TOP_LEVEL_EDEFAULT;
 	/**
 	 * The cached value of the '{@link #getAdditionalModelFacets() <em>Additional Model Facets</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -99,27 +81,6 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isDesignWhenTopLevel() {
-		return designWhenTopLevel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDesignWhenTopLevel(boolean newDesignWhenTopLevel) {
-		boolean oldDesignWhenTopLevel = designWhenTopLevel;
-		designWhenTopLevel = newDesignWhenTopLevel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL, oldDesignWhenTopLevel, designWhenTopLevel));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<TypeNodeModelFacet> getAdditionalModelFacets() {
 		if (additionalModelFacets == null) {
 			additionalModelFacets = new EObjectContainmentWithInverseEList<TypeNodeModelFacet>(TypeNodeModelFacet.class, this, GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS, GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE);
@@ -130,12 +91,15 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<TypeModelFacet> allModelFacets() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		BasicEList<TypeModelFacet> result = new BasicEList<TypeModelFacet>();
+		if (getModelFacet() != null) {
+			result.add(getModelFacet());
+		}
+		result.addAll(getAdditionalModelFacets());
+		return new BasicEList.UnmodifiableEList<TypeModelFacet>(result.size(), result.toArray());
 	}
 
 	/**
@@ -219,8 +183,6 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 		switch (featureID) {
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DIAGRAM:
 				return getDiagram();
-			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL:
-				return isDesignWhenTopLevel();
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS:
 				return getAdditionalModelFacets();
 		}
@@ -236,9 +198,6 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL:
-				setDesignWhenTopLevel((Boolean)newValue);
-				return;
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS:
 				getAdditionalModelFacets().clear();
 				getAdditionalModelFacets().addAll((Collection<? extends TypeNodeModelFacet>)newValue);
@@ -255,9 +214,6 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL:
-				setDesignWhenTopLevel(DESIGN_WHEN_TOP_LEVEL_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS:
 				getAdditionalModelFacets().clear();
 				return;
@@ -275,28 +231,10 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 		switch (featureID) {
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DIAGRAM:
 				return getDiagram() != null;
-			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL:
-				return designWhenTopLevel != DESIGN_WHEN_TOP_LEVEL_EDEFAULT;
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS:
 				return additionalModelFacets != null && !additionalModelFacets.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (designWhenTopLevel: ");
-		result.append(designWhenTopLevel);
-		result.append(')');
-		return result.toString();
 	}
 
 } //GenMultiFacetedNodeImpl

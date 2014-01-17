@@ -900,12 +900,6 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/multiFacetedNodes"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="designWhenTopLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="main modelFacet comes from GenNode and is associated with top-level mode. &#xA;&#x9;&#x9;This attribute allows to distinuish cases when top-level mode is present, but design-only, so without model facet"/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="additionalModelFacets"
         upperBound="-1" eType="#//TypeNodeModelFacet" containment="true" eOpposite="#//TypeNodeModelFacet/multiFacetedNode"/>
   </eClassifiers>

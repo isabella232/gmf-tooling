@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#isDesignWhenTopLevel <em>Design When Top Level</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#getAdditionalModelFacets <em>Additional Model Facets</em>}</li>
  * </ul>
  * </p>
@@ -47,33 +46,6 @@ public interface GenMultiFacetedNode extends GenChildNodeBase {
 	 * @generated
 	 */
 	GenDiagram getDiagram();
-
-	/**
-	 * Returns the value of the '<em><b>Design When Top Level</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * main modelFacet comes from GenNode and is associated with top-level mode. 
-	 * 		This attribute allows to distinuish cases when top-level mode is present, but design-only, so without model facet
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Design When Top Level</em>' attribute.
-	 * @see #setDesignWhenTopLevel(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenMultiFacetedNode_DesignWhenTopLevel()
-	 * @model default="false"
-	 * @generated
-	 */
-	boolean isDesignWhenTopLevel();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#isDesignWhenTopLevel <em>Design When Top Level</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Design When Top Level</em>' attribute.
-	 * @see #isDesignWhenTopLevel()
-	 * @generated
-	 */
-	void setDesignWhenTopLevel(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Additional Model Facets</b></em>' containment reference list.
