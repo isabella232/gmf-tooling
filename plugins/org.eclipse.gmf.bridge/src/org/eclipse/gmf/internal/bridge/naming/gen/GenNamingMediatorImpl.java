@@ -212,19 +212,13 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 	public void traverse(GenEditorGenerator gen) {
 		GenDiagram diagram = gen.getDiagram();
 		feed(diagram);
-		for (GenNode node : diagram.getTopLevelNodes()) {
+		for (GenNode node : diagram.getNodesForTopLevel()) {
 			feed(node);
 			for (GenLabel label : node.getLabels()) {
 				feed(label);
 			}
 		}
-		for (GenNode node : diagram.getChildNodes()) {
-			feed(node);
-			for (GenLabel label : node.getLabels()) {
-				feed(label);
-			}
-		}
-		for (GenNode node : diagram.getMultiFacetedNodes()) {
+		for (GenNode node : diagram.getNodesForInnerLevel()) {
 			feed(node);
 			for (GenLabel label : node.getLabels()) {
 				feed(label);

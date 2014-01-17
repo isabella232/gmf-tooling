@@ -39,7 +39,7 @@ import xpt.Common
 		
 			«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 		
-			«xptChildContainerCreateCommand.childContainerCreateCommand(it.topLevelNodes)»
+			«xptChildContainerCreateCommand.childContainerCreateCommand(it.nodesForTopLevel)»
 			
 			«getDuplicateCommand(it)»
 			

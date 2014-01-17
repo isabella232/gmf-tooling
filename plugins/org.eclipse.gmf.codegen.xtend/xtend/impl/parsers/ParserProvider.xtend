@@ -182,10 +182,10 @@ import plugin.Activator
 		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.ui.services.parser.IParser getParser(int visualID) {
 			switch (visualID) {
-				«FOR node : editorGen.diagram.topLevelNodes»
+				«FOR node : editorGen.diagram.nodesForTopLevel»
 					«dispatch_getParsers(node)»
 				«ENDFOR»
-				«FOR node : editorGen.diagram.childNodes»
+				«FOR node : editorGen.diagram.nodesForInnerLevel»
 					«dispatch_getParsers(node)»
 				«ENDFOR»
 				«FOR link : editorGen.diagram.links»

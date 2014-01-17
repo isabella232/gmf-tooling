@@ -111,7 +111,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 		«tripleSpace(2)»<decoratorProvider class="«shorcutProvider.qualifiedClassName(it)»">
 		«tripleSpace(3)»<Priority name="«shortcutsDecoratorProviderPriority»"/>
 		«tripleSpace(3)»<object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="generated-top-nodes">
-		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(topLevelNodes)/*generated code supports shortcuts only to top-level nodes*/»"/>
+		«tripleSpace(4)»<method name="getType()" value="«commaSeparatedVisualIDs(it.nodesForTopLevel)/*generated code supports shortcuts only to top-level nodes*/»"/>
 		«tripleSpace(3)»</object>
 		«tripleSpace(3)»<context decoratorTargets="generated-top-nodes"/>
 		«tripleSpace(2)»</decoratorProvider>

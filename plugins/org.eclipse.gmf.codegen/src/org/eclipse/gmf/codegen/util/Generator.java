@@ -43,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
@@ -147,13 +148,10 @@ public class Generator extends GeneratorBase implements Runnable {
 
 		//
 		// Nodes
-		for (GenTopLevelNode node : myDiagram.getTopLevelNodes()) {
+		for (GenNode node : myDiagram.getNodesForTopLevel()) {
 			generateNode(node);
 		}
-		for (GenMultiFacetedNode node : myDiagram.getMultiFacetedNodes()) {
-			generateNode(node);
-		}
-		for (GenChildNode node : myDiagram.getChildNodes()) {
+		for (GenChildNodeBase node : myDiagram.getNodesForInnerLevel()) {
 			if (node instanceof GenChildLabelNode) {
 				generateChildLabelNode((GenChildLabelNode) node);
 			} else {

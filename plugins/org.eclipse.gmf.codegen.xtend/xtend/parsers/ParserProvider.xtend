@@ -41,10 +41,10 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
 		
 		«generatedClassComment»
 		public class «className(it)»«extendsList(it)»«implementsList(it)» {
-			«FOR node : it.editorGen.diagram.topLevelNodes»
+			«FOR node : it.editorGen.diagram.nodesForTopLevel»
 				«xptImplParserProvider.dispatch_parsers(node)»
 			«ENDFOR»
-			«FOR node : it.editorGen.diagram.childNodes»
+			«FOR node : it.editorGen.diagram.nodesForInnerLevel»
 				«xptImplParserProvider.dispatch_parsers(node)»
 			«ENDFOR»
 			«FOR link : it.editorGen.diagram.links»
