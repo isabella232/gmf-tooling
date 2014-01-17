@@ -92,4 +92,12 @@ public interface GenMultiFacetedNode extends GenChildNodeBase {
 	 */
 	TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean mayServeAsTopLevel();
+
 } // GenMultiFacetedNode

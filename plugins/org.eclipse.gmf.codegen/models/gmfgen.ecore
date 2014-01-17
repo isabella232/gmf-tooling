@@ -112,6 +112,16 @@
         <details key="documentation" value="Handy operation to get top and child nodes"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getNodesForTopLevel" upperBound="-1" eType="#//GenNode">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="All top nodes and those multifaceted nodes that may be placed top-level"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getNodesForInnerLevel" upperBound="-1" eType="#//GenChildNodeBase">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="All child nodes and those multifaceted nodes that may be only placed as children"/>
+      </eAnnotations>
+    </eOperations>
     <eOperations name="getAllChildContainers" upperBound="-1" eType="#//GenChildContainer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="All nodes (top and child) and compartments"/>
@@ -898,6 +908,7 @@
     <eOperations name="findFacetForContainerOrDiagram" eType="#//TypeModelFacet">
       <eParameters name="container" eType="#//GenContainerBase"/>
     </eOperations>
+    <eOperations name="mayServeAsTopLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" resolveProxies="false" eOpposite="#//GenDiagram/multiFacetedNodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="additionalModelFacets"

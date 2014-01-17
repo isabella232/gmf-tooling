@@ -64,6 +64,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenFixedInputsTemplateInvocation;
 import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -147,6 +148,9 @@ public class Generator extends GeneratorBase implements Runnable {
 		//
 		// Nodes
 		for (GenTopLevelNode node : myDiagram.getTopLevelNodes()) {
+			generateNode(node);
+		}
+		for (GenMultiFacetedNode node : myDiagram.getMultiFacetedNodes()) {
 			generateNode(node);
 		}
 		for (GenChildNode node : myDiagram.getChildNodes()) {

@@ -190,6 +190,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/preferences"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/preferencePages"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getNodesForTopLevel"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getNodesForInnerLevel"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersClassName"/>
@@ -524,6 +526,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram">
         <genParameters ecoreParameter="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram/container"/>
       </genOperations>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/mayServeAsTopLevel"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//TypeNodeModelFacet">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeNodeModelFacet/multiFacetedNode"/>

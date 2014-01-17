@@ -288,6 +288,28 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
+	 * All top nodes and those multifaceted nodes that may be placed top-level
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<GenNode> getNodesForTopLevel();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * All child nodes and those multifaceted nodes that may be only placed as children
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<GenChildNodeBase> getNodesForInnerLevel();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
 	 * All nodes (top and child) and compartments
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"

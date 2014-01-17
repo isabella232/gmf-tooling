@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
@@ -3479,9 +3480,41 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public EList<GenNode> getAllNodes() {
 		BasicEList<GenNode> result = new BasicEList<GenNode>();
-		result.addAll(getTopLevelNodes());
-		result.addAll(getChildNodes());
+		result.addAll(getNodesForTopLevel());
+		result.addAll(getNodesForInnerLevel());
 		return new BasicEList.UnmodifiableEList<GenNode>(result.size(), result.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenNode> getNodesForTopLevel() {
+		BasicEList<GenNode> result = new BasicEList<GenNode>();
+		result.addAll(getTopLevelNodes());
+		for (GenMultiFacetedNode nextBothLevels : getMultiFacetedNodes()) {
+			if (nextBothLevels.mayServeAsTopLevel()) {
+				result.add(nextBothLevels);
+			}
+		}
+		return new BasicEList.UnmodifiableEList<GenNode>(result.size(), result.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList<GenChildNodeBase> getNodesForInnerLevel() {
+		BasicEList<GenChildNodeBase> result = new BasicEList<GenChildNodeBase>();
+		result.addAll(getChildNodes());
+		for (GenMultiFacetedNode nextBothLevels : getMultiFacetedNodes()) {
+			if (!nextBothLevels.mayServeAsTopLevel()) {
+				result.add(nextBothLevels);
+			}
+		}
+		return new BasicEList.UnmodifiableEList<GenChildNodeBase>(result.size(), result.toArray());
 	}
 
 	/**

@@ -79,6 +79,11 @@ class GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, Lin
 	attr boolean synchronized = true;
 	@genmodel(documentation="Handy operation to get top and child nodes")
 	op GenNode[*] getAllNodes();
+	@genmodel(documentation="All top nodes and those multifaceted nodes that may be placed top-level")
+	op GenNode[*] getNodesForTopLevel();
+	@genmodel(documentation="All child nodes and those multifaceted nodes that may be only placed as children")
+	op GenChildNodeBase[*] getNodesForInnerLevel();
+
 	@genmodel(documentation="All nodes (top and child) and compartments")
 	op GenChildContainer[*] getAllChildContainers();
 	@genmodel(documentation="All nodes, compartments and diagram itself")
@@ -642,6 +647,8 @@ class GenMultiFacetedNode extends GenChildNodeBase {
 	
 	op TypeNodeModelFacet findFacetForContainer(GenChildContainer container);
 	op TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container);
+	
+	op boolean mayServeAsTopLevel();
 }  
 
 @genmodel(documentation="@since 2.111 
