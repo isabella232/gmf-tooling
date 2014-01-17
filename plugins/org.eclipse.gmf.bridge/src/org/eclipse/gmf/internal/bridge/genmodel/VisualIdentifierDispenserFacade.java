@@ -29,60 +29,69 @@ import org.eclipse.m2m.qvt.oml.blackbox.java.Operation.Kind;
  *
  */
 public class VisualIdentifierDispenserFacade {
-		
-	public VisualIdentifierDispenserFacade() {}
-	
+
+	public VisualIdentifierDispenserFacade() {
+	}
+
 	@Operation(contextual = true, kind = Kind.QUERY)
 	public int getVisualID(Object self) {
 		VisualIdentifierDispenser dispenser = Provider.getDisenser();
 		assert dispenser != null;
-		
+
+		if (self instanceof GenDiagram) {
+			return dispenser.getForDiagram((GenDiagram) self);
+		}
+
+		if (self instanceof GenTopLevelNode) {
+			return dispenser.getForTopNode((GenTopLevelNode) self);
+		}
+
+		if (self instanceof GenChildNode) {
+			return dispenser.getForChildNode((GenChildNode) self);
+		}
+
+		if (self instanceof GenCompartment) {
+			return dispenser.getForCompartment((GenCompartment) self);
+		}
+
+		if (self instanceof GenNodeLabel) {
+			return dispenser.getForNodeLabel((GenNodeLabel) self);
+		}
+
+		if (self instanceof GenLink) {
+			return dispenser.getForLink((GenLink) self);
+		}
+
+		if (self instanceof GenLinkLabel) {
+			return dispenser.getForLinkLabel((GenLinkLabel) self);
+		}
+
+		if (self instanceof ToolGroup) {
+			return dispenser.getForToolGroup((ToolGroup) self);
+		}
+
 		int visualID = -1;
-		
-		if (self instanceof GenDiagram)
-			visualID = dispenser.get((GenDiagram) self);
-		
-		else if (self instanceof GenTopLevelNode)
-			visualID = dispenser.get((GenTopLevelNode) self);
-		
-		else if (self instanceof GenChildNode)
-			visualID = dispenser.get((GenChildNode) self);
-		
-		else if (self instanceof GenCompartment)
-			visualID = dispenser.get((GenCompartment) self);
-		
-		else if (self instanceof GenNodeLabel)
-			visualID = dispenser.get((GenNodeLabel) self);
-		
-		else if (self instanceof GenLink)
-			visualID = dispenser.get((GenLink) self);
-		
-		else if (self instanceof GenLinkLabel)
-			visualID = dispenser.get((GenLinkLabel) self);
-		
-		else if (self instanceof ToolGroup)
-			visualID = dispenser.get((ToolGroup) self);
-		
+
 		return visualID;
 	}
-	
+
 	/**
 	 * {@link Provider} is a singleton holding the current visual identifier dispenser. 
 	 */
 	public static final class Provider {
-		
+
 		private static VisualIdentifierDispenser dispenser;
-		
+
 		public static VisualIdentifierDispenser getDisenser() {
 			if (dispenser == null) {
 				dispenser = new NaiveIdentifierDispenser();
 			}
 			return dispenser;
 		}
-		
+
 		public static void setDispenser(VisualIdentifierDispenser dispenser) {
 			Provider.dispenser = dispenser;
 		}
-		
+
 	}
 }

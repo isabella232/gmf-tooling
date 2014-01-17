@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006, 2010 Borland Software Corporation and others
+ * Copyright (c) 2006, 2010, 2013 Borland Software Corporation and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Montages) - #403577, [optionally] avoid GenTopLevelNode / GenChildNode separation
  */
 package org.eclipse.gmf.internal.bridge.genmodel.navigator;
 
@@ -15,7 +16,7 @@ import java.util.Collection;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -25,7 +26,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNavigator;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorChildReference;
 import org.eclipse.gmf.codegen.gmfgen.GenNavigatorReferenceType;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 
 public class NavigatorHandler {
 
@@ -40,7 +40,7 @@ public class NavigatorHandler {
 	private boolean myShowLinkSources;
 
 	private boolean myShowIncomingLinks;
-	
+
 	public NavigatorHandler() {
 		myShowIncomingLinks = true;
 		myShowOutgoingLinks = true;
@@ -58,11 +58,11 @@ public class NavigatorHandler {
 		createChildReference(diagram, null, GenNavigatorReferenceType.CHILDREN_LITERAL);
 	}
 
-	public void process(GenTopLevelNode topLevelNode) {
+	public void processTopNode(GenNode topLevelNode) {
 		createChildNodeReference(topLevelNode, myDiagram);
 	}
 
-	public void process(GenChildNode childNode, GenChildContainer container) {
+	public void processChildNode(GenChildNodeBase childNode, GenChildContainer container) {
 		GenNode parent = null;
 		if (container instanceof GenCompartment) {
 			parent = ((GenCompartment) container).getNode();
@@ -73,11 +73,10 @@ public class NavigatorHandler {
 		createChildNodeReference(childNode, parent);
 	}
 
-	public void process(GenLink link) {
+	public void processLink(GenLink link) {
 		GenNavigatorChildReference childReference = createChildReference(link, myDiagram, GenNavigatorReferenceType.CHILDREN_LITERAL);
 		childReference.setGroupName("links");
 		childReference.setGroupIcon("icons/linksNavigatorGroup.gif");
-
 
 		for (GenLinkEnd linkEnd : getTargetGenNodes(link)) {
 			if (myShowLinkTargets) {
@@ -85,7 +84,7 @@ public class NavigatorHandler {
 				reference.setGroupName("target");
 				reference.setGroupIcon("icons/linkTargetNavigatorGroup.gif");
 			}
-			
+
 			if (myShowIncomingLinks) {
 				GenNavigatorChildReference reference = createChildReference(link, linkEnd, GenNavigatorReferenceType.IN_SOURCE_LITERAL);
 				reference.setGroupName("incoming links");
@@ -99,7 +98,7 @@ public class NavigatorHandler {
 				reference.setGroupName("source");
 				reference.setGroupIcon("icons/linkSourceNavigatorGroup.gif");
 			}
-			
+
 			if (myShowOutgoingLinks) {
 				GenNavigatorChildReference reference = createChildReference(link, linkEnd, GenNavigatorReferenceType.OUT_TARGET_LITERAL);
 				reference.setGroupName("outgoing links");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2010 Borland Software Corporation and others
+ * Copyright (c) 2005, 2010, 2013 Borland Software Corporation, Montages AG 
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Michael Golubev (Montages) - #403577, [optionally] avoid GenTopLevelNode / GenChildNode separation
  */
 package org.eclipse.gmf.internal.bridge.genmodel;
 
@@ -53,7 +54,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -96,7 +97,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenToolBarManager;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenVisualEffect;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LabelOffsetAttributes;
@@ -129,7 +129,8 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Pin;
 import org.eclipse.gmf.gmfgraph.RealFigure;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
-import org.eclipse.gmf.internal.bridge.History;
+import org.eclipse.gmf.internal.bridge.BridgeFactoryGate;
+import org.eclipse.gmf.internal.bridge.DistinctTopLevelNodesFactoryGate;
 import org.eclipse.gmf.internal.bridge.Knowledge;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
@@ -190,7 +191,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private final boolean rcp;
 
-	private final History myHistory;
+	private final BridgeFactoryGate myFactoryGate;
 
 	private final Map<GenClass, ElementType> myProcessedTypes = new IdentityHashMap<GenClass, ElementType>(); // GenClass -> MetamodelType
 
@@ -248,7 +249,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myViewmaps = viewmaps;
 		myVisualIDs = visualIdD;
 		this.rcp = rcp;
-		myHistory = new History();
+		myFactoryGate = new DistinctTopLevelNodesFactoryGate();
 		myPaletteProcessor = new PaletteHandler();
 		myNavigatorProcessor = new NavigatorHandler();
 		myPropertySheetProcessor = new PropertySheetHandler();
@@ -273,8 +274,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return getGenEssence();
 	}
 
-	public History getTrace() {
-		return myHistory;
+	public BridgeFactoryGate getTrace() {
+		return myFactoryGate;
 	}
 
 	private GenEditorGenerator getGenEssence() {
@@ -354,7 +355,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (myGenModelMatch == null && mapping.getDomainModel() != null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
 		}
-		myHistory.purge();
+		myFactoryGate.prepare(mapping);
 		if (mapping.getPalette() != null) {
 			myPaletteProcessor.initialize(getGenPalette());
 			myPaletteProcessor.process(mapping.getPalette());
@@ -366,7 +367,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
-		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
+		getGenDiagram().setVisualID(myVisualIDs.getForDiagram(getGenDiagram()));
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 		getGenDiagram().setIconProviderPriority(ProviderPriority.LOW_LITERAL); // override ElementTypeIconProvider
 		getGenDiagram().setValidationProviderPriority(ProviderPriority.LOW_LITERAL); // otherwise it's not available
@@ -405,20 +406,19 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assert nme != null;
 		assertNodeMapping(nme);
 
-		GenTopLevelNode genNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
-		getGenDiagram().getTopLevelNodes().add(genNode);
+		GenNode genNode = myFactoryGate.findOrCreateTopNode(nme, getGenDiagram());
+
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(topNode));
-		genNode.setVisualID(myVisualIDs.get(genNode));
+		genNode.setVisualID(myVisualIDs.getForTopNode(genNode));
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		setupElementType(genNode);
 		myPaletteProcessor.process(nme, genNode);
 
 		processAbstractNode(nme, genNode);
-		myHistory.log(nme, genNode);
 
 		if (!rcp) {
-			myNavigatorProcessor.process(genNode);
+			myNavigatorProcessor.processTopNode(genNode);
 		}
 	}
 
@@ -443,69 +443,28 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assert childNodeMapping != null;
 		assertNodeMapping(childNodeMapping);
 
-		GenChildNode childNode;
-		if (!myHistory.isKnownChildNode(childNodeMapping)) {
+		GenChildNodeBase childNode = myFactoryGate.findCompatibleChildNode(childNodeMapping, childNodeRef);
+		if (childNode == null) {
 			childNode = createGenChildNode(childNodeRef);
-		} else {
-			GenChildNode[] alreadyKnownChildren = myHistory.findChildNodes(childNodeMapping);
-
-			childNode = null;
-			for (int i = 0; i < alreadyKnownChildren.length; i++) {
-				if (matchChildReferenceFeatures(childNodeRef, alreadyKnownChildren[i])) {
-					childNode = alreadyKnownChildren[i];
-					break;
-				}
-			}
-			if (childNode == null) { // no match
-				childNode = createGenChildNode(childNodeRef);
-			}
 		}
+
 		if (container instanceof GenCompartment && childNodeMapping.getChildren().size() > 0) {
 			// TODO just layout from childNodeMapping.getDiagramNode()
 			((GenCompartment) container).setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
 		if (!rcp) {
-			myNavigatorProcessor.process(childNode, container);
+			myNavigatorProcessor.processChildNode(childNode, container);
 		}
 	}
 
-	/**
-	 * Handle case when second-level ChildReference references existing
-	 * nodemapping, but with different containment/children reference.
-	 * 
-	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=129552
-	 */
-	private static boolean matchChildReferenceFeatures(ChildReference childNodeRef, GenChildNode childNode) {
-		final boolean containmentFeatureMatch;
-		final boolean childrenFeatureMatch;
-		if (childNode.getModelFacet() == null || childNode.getModelFacet().getContainmentMetaFeature() == null) {
-			containmentFeatureMatch = (null == childNodeRef.getContainmentFeature());
-		} else {
-			// seems legal to use '==' because features should came from the same model
-			containmentFeatureMatch = childNodeRef.getContainmentFeature() == childNode.getModelFacet().getContainmentMetaFeature().getEcoreFeature();
-		}
-		if (childNode.getModelFacet() == null || childNode.getModelFacet().getChildMetaFeature() == null) {
-			childrenFeatureMatch = (null == childNodeRef.getChildrenFeature());
-		} else {
-			if (childNodeRef.getChildrenFeature() == null) {
-				// likely, childMetaFeature in model facet was derived from containment feature 
-				childrenFeatureMatch = childNode.getModelFacet().getChildMetaFeature() == childNode.getModelFacet().getContainmentMetaFeature();
-			} else {
-				// honest check
-				childrenFeatureMatch = childNode.getModelFacet().getChildMetaFeature().getEcoreFeature() == childNodeRef.getChildrenFeature();
-			}
-		}
-		return containmentFeatureMatch && childrenFeatureMatch;
-	}
-
-	private GenChildNode createGenChildNode(ChildReference childNodeRef) {
+	private GenChildNodeBase createGenChildNode(ChildReference childNodeRef) {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
-		final GenChildNode childNode;
+		final GenChildNodeBase childNode;
 		final boolean needCompartmentChildrenLabelProcessing;
 		if (Knowledge.isPureLabelNode(childNodeMapping)) {
 			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
-			GenChildLabelNode childLabelNode = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
+			GenChildLabelNode childLabelNode = myFactoryGate.createChildLabelNode(childNodeMapping, getGenDiagram());
 			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
 			childLabelNode.setLabelModelFacet(createLabelModelFacet(soleLabel));
 			childLabelNode.setLabelReadOnly(soleLabel.isReadOnly());
@@ -513,24 +472,22 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
 		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL) {
-			GenChildSideAffixedNode sideAffixedNode = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode();
+			GenChildSideAffixedNode sideAffixedNode = myFactoryGate.createSideAffixedNode(childNodeMapping, getGenDiagram());
 			sideAffixedNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 			String positionConstantName = getAffixedSideAsPositionConstantsName(childNodeMapping.getDiagramNode());
 			sideAffixedNode.setPreferredSideName(positionConstantName);
 			childNode = sideAffixedNode;
 			needCompartmentChildrenLabelProcessing = true;
 		} else {
-			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+			childNode = myFactoryGate.createChildNode(childNodeMapping, getGenDiagram());
 			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 			needCompartmentChildrenLabelProcessing = true;
 		}
-		myHistory.log(childNodeMapping, childNode);
-		getGenDiagram().getChildNodes().add(childNode);
 
 		childNode.setModelFacet(createModelFacet(childNodeRef));
 
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
-		childNode.setVisualID(myVisualIDs.get(childNode));
+		childNode.setVisualID(myVisualIDs.getForChildNode(childNode));
 		setupElementType(childNode);
 
 		myPaletteProcessor.process(childNodeMapping, childNode);
@@ -569,7 +526,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 
 		for (ChildReference childNodeRef : mapping.getChildren()) {
-			// Currently childNodeMapping should has compartment but we plan to make this reference optional
 			CompartmentMapping compartmentMapping = childNodeRef.getCompartment();
 			GenChildContainer genChildContainer;
 			if (compartmentMapping != null && compartments2GenCompartmentsMap.containsKey(compartmentMapping)) {
@@ -582,6 +538,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		for (LabelMapping labelMapping : mapping.getLabelMappings()) {
 			createNodeLabel(genNode, labelMapping);
 		}
+
 		for (CanvasMapping nextRelatedCanvas : mapping.getRelatedDiagrams()) {
 			OpenDiagramBehaviour openDiagramPolicy = GMFGenFactory.eINSTANCE.createOpenDiagramBehaviour();
 			// ugly check that nodeMapping is related to owning canvasMapping, iow mapping.getCanvasMapping() == nextRelatedCanvas
@@ -608,7 +565,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		getGenDiagram().getCompartments().add(childCompartment);
 		genNode.getCompartments().add(childCompartment);
-		childCompartment.setVisualID(myVisualIDs.get(childCompartment));
+		childCompartment.setVisualID(myVisualIDs.getForCompartment(childCompartment));
 		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
 		childCompartment.setViewmap(myViewmaps.create(mapping.getCompartment()));
 		childCompartment.setCanCollapse(compartment.isCollapsible());
@@ -620,10 +577,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	protected void process(LinkMapping lme) {
 		assertLinkMapping(lme);
-		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
-		getGenDiagram().getLinks().add(gl);
+
+		GenLink gl = myFactoryGate.findOrCreateLink(lme, getGenDiagram());
+
 		gl.setModelFacet(createModelFacet(lme));
-		gl.setVisualID(myVisualIDs.get(gl));
+		gl.setVisualID(myVisualIDs.getForLink(gl));
 		myPaletteProcessor.process(lme, gl);
 		for (LabelMapping labelMapping : lme.getLabelMappings()) {
 			createLinkLabel(gl, labelMapping);
@@ -638,9 +596,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
 		}
 
-		myHistory.log(lme, gl);
 		if (!rcp) {
-			myNavigatorProcessor.process(gl);
+			myNavigatorProcessor.processLink(gl);
 		}
 
 		createVisualEffects(lme, gl, lme.getDiagramLink());
@@ -669,7 +626,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 		}
 		node.getLabels().add(label);
-		label.setVisualID(myVisualIDs.get(label));
+		label.setVisualID(myVisualIDs.getForNodeLabel(label));
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
@@ -724,7 +681,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenLinkLabel createLinkLabel(GenLink link, LabelMapping mapping) {
 		GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 		link.getLabels().add(label);
-		label.setVisualID(myVisualIDs.get(label));
+		label.setVisualID(myVisualIDs.getForLinkLabel(label));
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
@@ -1217,33 +1174,25 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		} else if (ruleTarget instanceof DiagramElementTarget) {
 			GenDiagramElementTarget diagramTarget = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
 			MappingEntry mappingEntry = ((DiagramElementTarget) ruleTarget).getElement();
-			if (mappingEntry != null) {
-				LinkMapping lm = mappingEntry instanceof LinkMapping ? (LinkMapping) mappingEntry : null;
-				GenCommonBase genBase = null;
-				if (lm != null) {
-					genBase = myHistory.find(lm);
-					assert genBase != null;
-					boolean isGenBaseNull = genBase == null;
-					if (!isGenBaseNull) {
-						diagramTarget.getElement().add(genBase);
-					}
-				} else {
-					NodeMapping nm = mappingEntry instanceof NodeMapping ? (NodeMapping) mappingEntry : null;
-					// There may be few GenChildNodes corresponding to same mapping entry.					
-					// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=136701					
-					genBase = myHistory.findTopNode(nm);
-					if (genBase != null) {
-						diagramTarget.getElement().add(genBase);
-					}
-					diagramTarget.getElement().addAll(Arrays.asList(myHistory.findChildNodes(nm)));
+			if (mappingEntry instanceof LinkMapping) {
+				LinkMapping lm = (LinkMapping) mappingEntry;
+				GenLink genLink = myFactoryGate.findLink(lm);
+				assert genLink != null;
+				if (genLink != null) {
+					diagramTarget.getElement().add(genLink);
 				}
+			} else if (mappingEntry instanceof NodeMapping) {
+				NodeMapping nm = (NodeMapping) mappingEntry;
+				// There may be few GenChildNodes corresponding to same mapping entry.					
+				// @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=136701					
+				diagramTarget.getElement().addAll(Arrays.asList(myFactoryGate.findAllNodesFor(nm)));
 			}
 			return diagramTarget;
 		} else if (ruleTarget instanceof AuditedMetricTarget) {
 			GenAuditedMetricTarget genMetricTarget = GMFGenFactory.eINSTANCE.createGenAuditedMetricTarget();
 			AuditedMetricTarget metricTarget = (AuditedMetricTarget) ruleTarget;
 			if (metricTarget.getMetric() != null) {
-				genMetricTarget.setMetric(myHistory.find(metricTarget.getMetric()));
+				genMetricTarget.setMetric(myFactoryGate.findMetricRule(metricTarget.getMetric()));
 			}
 			GenClassifier resultClassifier = myEcoreGenModelMatch.findGenClassifier(EcorePackage.eINSTANCE.getEDoubleObject());
 			assert resultClassifier instanceof GenDataType;
@@ -1284,7 +1233,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				genMetric.setTarget((GenMeasurable) genTarget);
 			}
 		}
-		myHistory.log(metric, genMetric);
+		myFactoryGate.logMetricRule(metric, genMetric);
 		return genMetric;
 	}
 
@@ -1526,14 +1475,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return getOrCreatePredefinedParser(flMapping);
 		}
 	}
-	
+
 	private boolean isEnumLabelMapping(FeatureLabelMapping flMapping) {
 		EList<EAttribute> features = flMapping.getFeatures();
 		EList<EAttribute> editFeatures = flMapping.getEditableFeatures();
-		if (features.size() != 1){
+		if (features.size() != 1) {
 			return false;
 		}
-		if (editFeatures.size() > features.size()){
+		if (editFeatures.size() > features.size()) {
 			return false;
 		}
 		if (!editFeatures.isEmpty() && editFeatures.get(0) != features.get(0)) {

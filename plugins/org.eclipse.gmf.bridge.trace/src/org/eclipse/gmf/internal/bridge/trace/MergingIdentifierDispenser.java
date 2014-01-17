@@ -1,5 +1,5 @@
-/**
- * Copyright (c) 2006 Borland Software Corp.
+/*
+ * Copyright (c) 2006, 2013 Borland Software Corp. and others
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  *
  * Contributors:
  *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Michael Golubev (Montages) - #403577, [optionally] avoid GenTopLevelNode / GenChildNode separation
  */
 package org.eclipse.gmf.internal.bridge.trace;
 
@@ -22,42 +23,57 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.internal.bridge.StatefulVisualIdentifierDispencer;
 import org.eclipse.ocl.ParserException;
 
 public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispencer {
-	
+
 	private static final int CANVAS_COUNT_BASE = 1000;
+
 	private static final int TOP_NODE_COUNT_BASE = 2000;
+
 	private static final int CHILD_NODE_COUNT_BASE = 3000;
+
 	private static final int LINK_COUNT_BASE = 4000;
+
 	private static final int NODE_LABEL_COUNT_BASE = 5000;
+
 	private static final int LINK_LABEL_COUNT_BASE = 6000;
+
 	private static final int COMPARTMENT_COUNT_BASE = 7000;
+
 	private static final int OVERFLOW_COUNT_BASE = 8000;
-	
+
 	private static final int TOOL_GROUP_COUNT_BASE = 0;
-	
+
 	private int myTopNodeCount = TOP_NODE_COUNT_BASE;
+
 	private int myChildNodeCount = CHILD_NODE_COUNT_BASE;
+
 	private int myLinkCount = LINK_COUNT_BASE;
+
 	private int myNodeLabelCount = NODE_LABEL_COUNT_BASE;
+
 	private int myLinkLabelCount = LINK_LABEL_COUNT_BASE;
+
 	private int myCompartmentCount = COMPARTMENT_COUNT_BASE;
+
 	private int myToolGroupCount = TOOL_GROUP_COUNT_BASE;
+
 	private int myOverflowCount = OVERFLOW_COUNT_BASE;
-	
+
 	private TraceModel myTraceModel;
+
 	private Map<String, String> mySavingOptions;
-	
+
 	public void loadState(URI genModelFileURI) {
 		loadTraceModel(genModelFileURI);
 		initCounters();
@@ -72,7 +88,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		myTraceModel = null;
 	}
-	
+
 	private Map<?, ?> getSavingOptions() {
 		if (mySavingOptions == null) {
 			mySavingOptions = new HashMap<String, String>();
@@ -81,7 +97,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return mySavingOptions;
 	}
-	
+
 	private void loadTraceModel(URI genModelFileURI) {
 		URI traceModelURI = genModelFileURI.trimFileExtension().appendFileExtension("trace");
 		ResourceSet resSet = new ResourceSetImpl();
@@ -104,24 +120,24 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		myTopNodeCount = Math.max(myTopNodeCount, getMaxVid(myTraceModel.getNodeTraces()));
 		myChildNodeCount = Math.max(myChildNodeCount, getMaxVid(myTraceModel.getChildNodeTraces()));
 		myLinkCount = Math.max(myLinkCount, getMaxVid(myTraceModel.getLinkTraces()));
-		
+
 		initNodeChildrenCounters(myTraceModel.getNodeTraces());
 		initNodeChildrenCounters(myTraceModel.getChildNodeTraces());
 
 		for (GenLinkTrace trace : myTraceModel.getLinkTraces()) {
 			myLinkLabelCount = Math.max(myLinkLabelCount, getMaxVid(trace.getLinkLabelTraces()));
 		}
-		
+
 		myToolGroupCount = Math.max(myToolGroupCount, getMaxVid(myTraceModel.getToolGroupTraces()));
 	}
-	
+
 	private void initNodeChildrenCounters(Collection<? extends GenNodeTrace> nodeTraces) {
 		for (GenNodeTrace trace : nodeTraces) {
 			myNodeLabelCount = Math.max(myNodeLabelCount, getMaxVid(trace.getNodeLabelTraces()));
 			myCompartmentCount = Math.max(myCompartmentCount, getMaxVid(trace.getCompartmentTraces()));
 		}
 	}
-	
+
 	private int getMaxVid(Collection<? extends AbstractTrace> abstractTraces) {
 		int id = -1;
 		for (AbstractTrace trace : abstractTraces) {
@@ -131,16 +147,18 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return id;
 	}
 
-	public int get(GenDiagram diagram) {
+	@Override
+	public int getForDiagram(GenDiagram diagram) {
 		return CANVAS_COUNT_BASE;
 	}
 
-	public int get(GenTopLevelNode node) {
+	@Override
+	public int getForTopNode(GenNode node) {
 		int visualID = getMatchingVID(node, myTraceModel.getNodeTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextTopNodeVID();
 		GenNodeTrace nodeTrace = TraceFactory.eINSTANCE.createGenNodeTrace();
 		nodeTrace.setVisualID(visualID);
@@ -150,13 +168,14 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	public int get(GenNodeLabel nodeLabel) {
+	@Override
+	public int getForNodeLabel(GenNodeLabel nodeLabel) {
 		GenNodeTrace nodeTrace = myTraceModel.getNodeTrace(nodeLabel.getNode().getVisualID());
 		int visualID = getMatchingVID(nodeLabel, nodeTrace.getNodeLabelTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextNodeLabelVID();
 		GenNodeLabelTrace nodeLabelTrace = TraceFactory.eINSTANCE.createGenNodeLabelTrace();
 		nodeLabelTrace.setVisualID(visualID);
@@ -166,12 +185,13 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	public int get(GenLink link) {
+	@Override
+	public int getForLink(GenLink link) {
 		int visualID = getMatchingVID(link, myTraceModel.getLinkTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextLinkVID();
 		GenLinkTrace nodeLabelTrace = TraceFactory.eINSTANCE.createGenLinkTrace();
 		nodeLabelTrace.setVisualID(visualID);
@@ -181,12 +201,13 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	public int get(GenChildNode childNode) {
+	@Override
+	public int getForChildNode(GenChildNodeBase childNode) {
 		int visualID = getMatchingVID(childNode, myTraceModel.getChildNodeTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextChildNodeVID();
 		GenChildNodeTrace childNodeTrace = TraceFactory.eINSTANCE.createGenChildNodeTrace();
 		childNodeTrace.setVisualID(visualID);
@@ -196,13 +217,14 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	public int get(GenCompartment compartment) {
+	@Override
+	public int getForCompartment(GenCompartment compartment) {
 		GenNodeTrace nodeTrace = myTraceModel.getNodeTrace(compartment.getNode().getVisualID());
 		int visualID = getMatchingVID(compartment, nodeTrace.getCompartmentTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextCompartmentVID();
 		GenCompartmentTrace compartmentTrace = TraceFactory.eINSTANCE.createGenCompartmentTrace();
 		compartmentTrace.setVisualID(visualID);
@@ -212,13 +234,14 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	public int get(GenLinkLabel label) {
+	@Override
+	public int getForLinkLabel(GenLinkLabel label) {
 		GenLinkTrace linkTrace = myTraceModel.getLinkTrace(label.getLink().getVisualID());
 		int visualID = getMatchingVID(label, linkTrace.getLinkLabelTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextLinkLabelVID();
 		GenLinkLabelTrace linkLabelTrace = TraceFactory.eINSTANCE.createGenLinkLabelTrace();
 		linkLabelTrace.setVisualID(visualID);
@@ -228,12 +251,13 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		return visualID;
 	}
 
-	public int get(ToolGroup toolGroup) {
+	@Override
+	public int getForToolGroup(ToolGroup toolGroup) {
 		int visualID = getMatchingVID(toolGroup, myTraceModel.getToolGroupTraces());
 		if (visualID > -1) {
 			return visualID;
 		}
-		
+
 		visualID = getNextToolVID();
 		ToolGroupTrace toolGroupTrace = TraceFactory.eINSTANCE.createToolGroupTrace();
 		toolGroupTrace.setVisualID(visualID);
@@ -268,7 +292,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return ++myOverflowCount;
 	}
-	
+
 	private int getNextTopNodeVID() {
 		if (++myTopNodeCount < CHILD_NODE_COUNT_BASE) {
 			GmfTracePlugin.getInstance().logDebugInfo("New top node visualID issued: " + myTopNodeCount);
@@ -276,7 +300,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return ++myOverflowCount;
 	}
-	
+
 	private int getNextChildNodeVID() {
 		if (++myChildNodeCount < LINK_COUNT_BASE) {
 			GmfTracePlugin.getInstance().logDebugInfo("New child node visualID issued: " + myChildNodeCount);
@@ -284,7 +308,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return ++myOverflowCount;
 	}
-	
+
 	private int getNextLinkVID() {
 		if (++myLinkCount < NODE_LABEL_COUNT_BASE) {
 			GmfTracePlugin.getInstance().logDebugInfo("New link visualID issued: " + myLinkCount);
@@ -292,7 +316,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return ++myOverflowCount;
 	}
-	
+
 	private int getNextNodeLabelVID() {
 		if (++myNodeLabelCount < LINK_LABEL_COUNT_BASE) {
 			GmfTracePlugin.getInstance().logDebugInfo("New node label visualID issued: " + myNodeLabelCount);
@@ -300,7 +324,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return ++myOverflowCount;
 	}
-	
+
 	private int getNextLinkLabelVID() {
 		if (++myLinkLabelCount < COMPARTMENT_COUNT_BASE) {
 			GmfTracePlugin.getInstance().logDebugInfo("New link label visualID issued: " + myLinkLabelCount);
@@ -308,7 +332,7 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 		}
 		return ++myOverflowCount;
 	}
-	
+
 	private int getNextCompartmentVID() {
 		if (++myCompartmentCount < OVERFLOW_COUNT_BASE) {
 			GmfTracePlugin.getInstance().logDebugInfo("New compartment visualID issued: " + myCompartmentCount);
@@ -318,4 +342,3 @@ public class MergingIdentifierDispenser implements StatefulVisualIdentifierDispe
 	}
 
 }
-

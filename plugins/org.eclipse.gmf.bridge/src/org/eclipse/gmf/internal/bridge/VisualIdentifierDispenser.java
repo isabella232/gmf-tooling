@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 Borland Software Corporation
+ * Copyright (c) 2006 Borland Software Corporation, 2013 Montages AG
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,16 +8,17 @@
  *
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
+ *    Michael Golubev (Montages) - #403577, [optionally] avoid GenTopLevelNode / GenChildNode separation
  */
 package org.eclipse.gmf.internal.bridge;
 
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 
 /**
@@ -25,12 +26,19 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  */
 public interface VisualIdentifierDispenser {
 
-	int get(GenDiagram diagram);
-	int get(GenTopLevelNode node);
-	int get(GenNodeLabel nodeLabel);
-	int get(GenLink link);
-	int get(GenChildNode childNode);
-	int get(GenCompartment compartment);
-	int get(GenLinkLabel label);
-	int get(ToolGroup toolGroup);
+	int getForDiagram(GenDiagram diagram);
+
+	int getForTopNode(GenNode node);
+
+	int getForNodeLabel(GenNodeLabel nodeLabel);
+
+	int getForLink(GenLink link);
+
+	int getForChildNode(GenChildNodeBase childNode);
+
+	int getForCompartment(GenCompartment compartment);
+
+	int getForLinkLabel(GenLinkLabel label);
+
+	int getForToolGroup(ToolGroup toolGroup);
 }
