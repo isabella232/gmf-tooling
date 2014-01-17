@@ -456,6 +456,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	public GeneratorTextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
 		return getPrimaryXtendEmitter("xpt::diagram::commands::CreateNodeCommand"); //$NON-NLS-1$
 	}
+	
+	@Override
+	public String getCreateNodeCommandClassName(Object input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::commands::CreateNodeCommand", input); //$NON-NLS-1$
+	}
 
 	@Override
 	public GeneratorTextEmitter getCustomActionEmitter() {
