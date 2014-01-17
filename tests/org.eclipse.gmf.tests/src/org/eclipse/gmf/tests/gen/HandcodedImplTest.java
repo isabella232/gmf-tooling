@@ -30,9 +30,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicEList.UnmodifiableEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.BasicEList.UnmodifiableEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -1063,6 +1063,12 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				checkClassName(state, "GenLink:CreateCommand", genLink.getCreateCommandClassName(), genLink.getCreateCommandQualifiedClassName());
 				checkClassName(state, "GenLink:ReorientCommand", genLink.getReorientCommandClassName(), genLink.getReorientCommandQualifiedClassName());
 			}
+			if (nextEntity instanceof GenMultiFacetedNode) {
+				GenMultiFacetedNode genNode = (GenMultiFacetedNode) nextEntity;
+				for (TypeNodeModelFacet facet : genNode.getAdditionalModelFacets()) {
+					checkClassName(state, "TypeNodeModelFacet:CreateCommand", facet.getCreateCommandClassName(), facet.getCreateCommandQualifiedClassName());
+				}
+			}
 			for (Behaviour nextB : nextEntity.getBehaviour()) {
 				String epClassName = CodeGenUtil.getSimpleClassName(nextB.getEditPolicyQualifiedClassName()); // just for checkClassName to be happy
 				checkClassName(state, "Behaviour:EditPolicy", epClassName, nextB.getEditPolicyQualifiedClassName());
@@ -1093,6 +1099,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("SpecializationType:EditHelperAdvice");
 		state.add("Behaviour:EditPolicy");
 		state.add("OpenDiagramBehaviour:EditPolicy");
+		state.add("TypeNodeModelFacet:CreateCommand");
 
 		// disable explicitly
 		state.add("ElementType:EditHelper");

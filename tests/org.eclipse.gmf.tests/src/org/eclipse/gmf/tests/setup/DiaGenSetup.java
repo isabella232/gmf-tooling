@@ -18,7 +18,30 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRoot;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionInterpreter;
+import org.eclipse.gmf.codegen.gmfgen.GenExpressionProviderContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenLanguage;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
@@ -27,6 +50,7 @@ import org.eclipse.gmf.internal.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.internal.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.internal.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenNamingMediatorImpl;
+import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
@@ -164,10 +188,11 @@ public class DiaGenSetup implements DiaGenSource {
 		t.transform(mapSource.getMapping());
 		new GenNamingMediatorImpl().traverse(t.getResult());
 		myGenDiagram = t.getResult().getDiagram();
-		myNodeA = t.getTrace().findTopNode(mapSource.getNodeA());
-		myNodeB = mapSource.getNodeB() == null ? null : t.getTrace().findTopNode(mapSource.getNodeB());
-		myLinkC = t.getTrace().find(mapSource.getClassLink());
-		myLinkD = t.getTrace().find(mapSource.getReferenceLink());
+		
+		myNodeA = findTheOnlyTopLevelNodeFor(t, mapSource.getNodeA());
+		myNodeB = mapSource.getNodeB() == null ? null : findTheOnlyTopLevelNodeFor(t, mapSource.getNodeB());
+		myLinkC = t.getTrace().findLink(mapSource.getClassLink());
+		myLinkD = t.getTrace().findLink(mapSource.getReferenceLink());
 		if (mapSource instanceof MapSetup) {
 			initSpecific((MapSetup) mapSource);
 		}
@@ -302,4 +327,15 @@ public class DiaGenSetup implements DiaGenSource {
 //		rv.getGroups().add(tg); // to satisfy [+] restriction
 //		return rv;
 	}
+	
+	private static GenTopLevelNode findTheOnlyTopLevelNodeFor(DiagramGenModelTransformer t, NodeMapping nodeMapping) {
+		GenNode[] all = t.getTrace().findAllNodesFor(nodeMapping);
+		for (int i = 0; i < all.length; i++) {
+			if (all[i] instanceof GenTopLevelNode) {
+				return (GenTopLevelNode) all[i];
+			}
+		}
+		return null;
+	}
+
 }

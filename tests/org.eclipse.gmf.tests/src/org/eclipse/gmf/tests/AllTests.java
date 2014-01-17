@@ -66,7 +66,7 @@ import org.eclipse.gmf.tests.tr.EcoreGenModelMatcherTest;
 import org.eclipse.gmf.tests.tr.GenModelGraphAnalyzerTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerSimpleTest;
-import org.eclipse.gmf.tests.tr.HistoryTest;
+import org.eclipse.gmf.tests.tr.BridgeFactoryGateTest;
 import org.eclipse.gmf.tests.tr.LabelMappingTransformTest;
 import org.eclipse.gmf.tests.tr.ManifestMergeTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
@@ -146,7 +146,7 @@ public class AllTests {
 		suite.addTestSuite(LabelMappingTransformTest.class);
 		suite.addTestSuite(PaletteTransformationTest.class);
 		suite.addTestSuite(AuditRootTest.class);
-		suite.addTestSuite(HistoryTest.class);
+		suite.addTestSuite(BridgeFactoryGateTest.class);
 		suite.addTestSuite(XmlTextMergerTest.class);
 		suite.addTestSuite(TestDefaultMergeService.class);
 		suite.addTestSuite(PluginXMLTextMergerTest.class);
