@@ -2,6 +2,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -18,6 +20,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getMultiFacetedNode <em>Multi Faceted Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getContainers <em>Containers</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +71,22 @@ public interface TypeNodeModelFacet extends TypeModelFacet {
 	 * @generated
 	 */
 	void setCreateCommandClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Containers</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Containers</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Containers</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeNodeModelFacet_Containers()
+	 * @model
+	 * @generated
+	 */
+	EList<GenChildContainer> getContainers();
 
 	/**
 	 * <!-- begin-user-doc -->

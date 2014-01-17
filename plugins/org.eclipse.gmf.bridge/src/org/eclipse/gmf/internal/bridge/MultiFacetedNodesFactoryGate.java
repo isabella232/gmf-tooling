@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
@@ -68,7 +69,15 @@ public class MultiFacetedNodesFactoryGate extends BridgeFactoryGateBase {
 	}
 
 	@Override
-	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef) {
+	public GenChildNodeBase useCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef, GenChildContainer container) {
+		GenChildNodeBase result = findOrMakeCompatible(nodeMap, modelFacet, childRef, container);
+		if (result != null) {
+			container.getChildNodes().add(result);
+		}
+		return result;
+	}
+
+	private GenChildNodeBase findOrMakeCompatible(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef, GenChildContainer container) {
 		//design nodes (modelFacet == null) are always created the old-way
 		if (modelFacet == null) {
 			GenChildNode known = myDesignChildNodes.get(nodeMap);
@@ -86,41 +95,44 @@ public class MultiFacetedNodesFactoryGate extends BridgeFactoryGateBase {
 		}
 
 		GenMultiFacetedNode result = myMultiFacetNodes.get(nodeMap);
-		if (result != null && !hasMatchingModelFacet(result, childRef)) {
-			result.getAdditionalModelFacets().add(wrapModelFacet(modelFacet));
+		if (result == null) {
+			return null;
 		}
-		return result;
-	}
-
-	private boolean hasMatchingModelFacet(GenMultiFacetedNode node, ChildReference childRef) {
-		for (TypeModelFacet next : node.allModelFacets()) {
+		boolean found = false;
+		for (TypeModelFacet next : result.allModelFacets()) {
 			if (matchFeaturesWithModelFacet(childRef, next)) {
-				return true;
+				if (next instanceof TypeNodeModelFacet) {
+					((TypeNodeModelFacet) next).getContainers().add(container);
+				}
 			}
 		}
-		return false;
-	}
-
-	@Override
-	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram) {
-		if (modelFacet == null) {
-			return createChildNode(nodeMap, diagram, GMFGenPackage.eINSTANCE.getGenChildNode(), true);
+		if (!found) {
+			result.getAdditionalModelFacets().add(wrapModelFacet(modelFacet, container));
 		}
-		GenMultiFacetedNode result = createMultiFacetedNode(nodeMap, diagram);
-		result.getAdditionalModelFacets().add(wrapModelFacet(modelFacet));
 		return result;
 	}
 
 	@Override
-	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
-		GenChildLabelNode result = (GenChildLabelNode) createChildNode(nodeMap, diagram, GMFGenPackage.eINSTANCE.getGenChildLabelNode(), facet == null);
+	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenChildContainer container) {
+		if (modelFacet == null) {
+			return createChildNode(nodeMap, container, GMFGenPackage.eINSTANCE.getGenChildNode(), true);
+		}
+		GenMultiFacetedNode result = createMultiFacetedNode(nodeMap, container.getDiagram());
+		result.getAdditionalModelFacets().add(wrapModelFacet(modelFacet, container));
+		container.getChildNodes().add(result);
+		return result;
+	}
+
+	@Override
+	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet facet, GenChildContainer container) {
+		GenChildLabelNode result = (GenChildLabelNode) createChildNode(nodeMap, container, GMFGenPackage.eINSTANCE.getGenChildLabelNode(), facet == null);
 		result.setModelFacet(facet);
 		return result;
 	}
 
 	@Override
-	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
-		GenChildSideAffixedNode result = (GenChildSideAffixedNode) createChildNode(nodeMap, diagram, GMFGenPackage.eINSTANCE.getGenChildSideAffixedNode(), facet == null);
+	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet facet, GenChildContainer container) {
+		GenChildSideAffixedNode result = (GenChildSideAffixedNode) createChildNode(nodeMap, container, GMFGenPackage.eINSTANCE.getGenChildSideAffixedNode(), facet == null);
 		result.setModelFacet(facet);
 		return result;
 	}
@@ -151,8 +163,9 @@ public class MultiFacetedNodesFactoryGate extends BridgeFactoryGateBase {
 		return (GenNode[]) result.toArray(new GenNode[result.size()]);
 	}
 
-	private TypeNodeModelFacet wrapModelFacet(TypeModelFacet modelFacet) {
+	private TypeNodeModelFacet wrapModelFacet(TypeModelFacet modelFacet, GenChildContainer container) {
 		TypeNodeModelFacet result = GMFGenFactory.eINSTANCE.createTypeNodeModelFacet();
+		result.getContainers().add(container);
 		for (EStructuralFeature feature : GMFGenPackage.eINSTANCE.getTypeModelFacet().getEAllStructuralFeatures()) {
 			if (feature.isDerived() || !feature.isChangeable()) {
 				continue;
@@ -176,10 +189,11 @@ public class MultiFacetedNodesFactoryGate extends BridgeFactoryGateBase {
 		return result;
 	}
 
-	private GenChildNode createChildNode(NodeMapping nodeMap, GenDiagram diagram, EClass eClass, boolean design) {
+	private GenChildNode createChildNode(NodeMapping nodeMap, GenChildContainer container, EClass eClass, boolean design) {
 		assert nodeMap != null;
 		GenChildNode result = (GenChildNode) eClass.getEPackage().getEFactoryInstance().create(eClass);
-		diagram.getChildNodes().add(result);
+		container.getDiagram().getChildNodes().add(result);
+		container.getChildNodes().add(result);
 		if (design) {
 			myDesignChildNodes.put(nodeMap, result);
 		} else {

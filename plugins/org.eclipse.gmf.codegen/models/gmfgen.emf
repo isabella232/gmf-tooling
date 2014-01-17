@@ -650,6 +650,7 @@ class TypeNodeModelFacet extends TypeModelFacet {
 	readonly !resolve ref GenMultiFacetedNode[1]#additionalModelFacets multiFacetedNode;
 	attr String createCommandClassName;
 	op String getCreateCommandQualifiedClassName();
+	ref GenChildContainer[*] containers;
 } 
 
 class GenChildSideAffixedNode extends GenChildNode {

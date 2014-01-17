@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.bridge;
 
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
@@ -35,13 +36,13 @@ public interface BridgeFactoryGate {
 
 	public GenNode findOrCreateTopNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 
-	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef);
+	public GenChildNodeBase useCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef, GenChildContainer container);
 
-	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
+	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenChildContainer container);
 
-	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
+	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenChildContainer container);
 
-	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
+	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenChildContainer container);
 
 	public void logMetricRule(MetricRule metric, GenMetricRule genMetric);
 

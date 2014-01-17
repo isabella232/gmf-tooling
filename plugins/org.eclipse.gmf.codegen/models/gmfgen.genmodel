@@ -528,6 +528,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//TypeNodeModelFacet">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeNodeModelFacet/multiFacetedNode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//TypeNodeModelFacet/createCommandClassName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeNodeModelFacet/containers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//TypeNodeModelFacet/getCreateCommandQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildSideAffixedNode">

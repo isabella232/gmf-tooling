@@ -4857,6 +4857,15 @@ public interface GMFGenPackage extends EPackage {
 	int TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME = TYPE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Containers</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_NODE_MODEL_FACET__CONTAINERS = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Type Node Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * @since 2.111
@@ -4864,7 +4873,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_NODE_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
+	int TYPE_NODE_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -14893,6 +14902,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTypeNodeModelFacet_CreateCommandClassName();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getContainers <em>Containers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Containers</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getContainers()
+	 * @see #getTypeNodeModelFacet()
+	 * @generated
+	 */
+	EReference getTypeNodeModelFacet_Containers();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode <em>Gen Child Side Affixed Node</em>}'.

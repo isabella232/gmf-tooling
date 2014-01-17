@@ -912,6 +912,8 @@
         eType="#//GenMultiFacetedNode" changeable="false" resolveProxies="false" eOpposite="#//GenMultiFacetedNode/additionalModelFacets"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="createCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
+        eType="#//GenChildContainer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenChildSideAffixedNode" eSuperTypes="#//GenChildNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="preferredSideName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"

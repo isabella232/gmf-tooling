@@ -2,15 +2,19 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
 
@@ -23,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeNodeModelFacetImpl#getMultiFacetedNode <em>Multi Faceted Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeNodeModelFacetImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeNodeModelFacetImpl#getContainers <em>Containers</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,6 +53,16 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 	 * @ordered
 	 */
 	protected String createCommandClassName = CREATE_COMMAND_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getContainers() <em>Containers</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContainers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<GenChildContainer> containers;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,6 +112,18 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 		createCommandClassName = newCreateCommandClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME, oldCreateCommandClassName, createCommandClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<GenChildContainer> getContainers() {
+		if (containers == null) {
+			containers = new EObjectResolvingEList<GenChildContainer>(GenChildContainer.class, this, GMFGenPackage.TYPE_NODE_MODEL_FACET__CONTAINERS);
+		}
+		return containers;
 	}
 
 	/**
@@ -166,6 +193,8 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 				return getMultiFacetedNode();
 			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
 				return getCreateCommandClassName();
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CONTAINERS:
+				return getContainers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -175,11 +204,16 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
 				setCreateCommandClassName((String)newValue);
+				return;
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CONTAINERS:
+				getContainers().clear();
+				getContainers().addAll((Collection<? extends GenChildContainer>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,6 +229,9 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 		switch (featureID) {
 			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
 				setCreateCommandClassName(CREATE_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CONTAINERS:
+				getContainers().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -212,6 +249,8 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 				return getMultiFacetedNode() != null;
 			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
 				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CONTAINERS:
+				return containers != null && !containers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

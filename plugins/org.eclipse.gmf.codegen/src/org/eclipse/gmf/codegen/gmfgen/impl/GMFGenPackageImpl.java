@@ -3687,6 +3687,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTypeNodeModelFacet_Containers() {
+        return (EReference)getTypeNodeModelFacet().getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenChildSideAffixedNode() {
 		if (genChildSideAffixedNodeEClass == null) {
 			genChildSideAffixedNodeEClass = (EClass)EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI).getEClassifiers().get(46);

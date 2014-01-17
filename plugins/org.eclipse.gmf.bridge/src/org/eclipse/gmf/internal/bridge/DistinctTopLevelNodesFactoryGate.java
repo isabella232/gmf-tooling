@@ -17,7 +17,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
@@ -61,29 +64,31 @@ public class DistinctTopLevelNodesFactoryGate extends BridgeFactoryGateBase {
 	}
 
 	@Override
-	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
-		GenChildLabelNode result = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
-		diagram.getChildNodes().add(result);
-		result.setModelFacet(facet);
+	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet facet, GenChildContainer container) {
+		GenChildLabelNode result = (GenChildLabelNode) doCreateChildNode(container, facet, GMFGenPackage.eINSTANCE.getGenChildLabelNode());
 		logChildNode(nodeMap, result);
 		return result;
 	}
 
 	@Override
-	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
-		GenChildSideAffixedNode result = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode();
-		diagram.getChildNodes().add(result);
-		result.setModelFacet(facet);
+	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet facet, GenChildContainer container) {
+		GenChildSideAffixedNode result = (GenChildSideAffixedNode) doCreateChildNode(container, facet, GMFGenPackage.eINSTANCE.getGenChildSideAffixedNode());
 		logChildNode(nodeMap, result);
 		return result;
 	}
 
 	@Override
-	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
-		GenChildNode result = GMFGenFactory.eINSTANCE.createGenChildNode();
-		diagram.getChildNodes().add(result);
-		result.setModelFacet(facet);
+	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet facet, GenChildContainer container) {
+		GenChildNode result = doCreateChildNode(container, facet, GMFGenPackage.eINSTANCE.getGenChildNode());
 		logChildNode(nodeMap, result);
+		return result;
+	}
+
+	private GenChildNode doCreateChildNode(GenChildContainer container, TypeModelFacet facet, EClass eClass) {
+		GenChildNode result = (GenChildNode) eClass.getEPackage().getEFactoryInstance().create(eClass);
+		container.getChildNodes().add(result);
+		container.getDiagram().getChildNodes().add(result);
+		result.setModelFacet(facet);
 		return result;
 	}
 
@@ -96,9 +101,10 @@ public class DistinctTopLevelNodesFactoryGate extends BridgeFactoryGateBase {
 	}
 
 	@Override
-	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef) {
+	public GenChildNodeBase useCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef, GenChildContainer container) {
 		for (GenChildNode next : findChildNodesFor(nodeMap)) {
 			if (matchFeaturesWithModelFacet(childRef, next.getModelFacet())) {
+				container.getChildNodes().add(next);
 				return next;
 			}
 		}
