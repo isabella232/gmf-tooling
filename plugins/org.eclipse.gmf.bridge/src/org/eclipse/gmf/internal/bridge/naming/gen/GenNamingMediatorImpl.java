@@ -22,9 +22,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
+import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
 import org.eclipse.gmf.internal.bridge.naming.ClassGenNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DefaultGenNamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.DesignGenNamingStrategy;
@@ -145,6 +147,14 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 		feedContainer(element);
 		feedName(element, M.getGenNode_GraphicalNodeEditPolicyClassName(), getNodeGraphicalPolicy());
 		feedName(element, M.getGenNode_CreateCommandClassName(), getNodeCreateCommand());
+		
+		if (element instanceof GenMultiFacetedNode) {
+			GenMultiFacetedNode node = (GenMultiFacetedNode)element;
+			for (TypeNodeModelFacet facetsWithCommands : node.getAdditionalModelFacets()) {
+				feedName(facetsWithCommands, M.getTypeNodeModelFacet_CreateCommandClassName(), getNodeCreateCommand());
+			}
+			
+		}
 	}
 
 	public void feed(GenCompartment element) {
@@ -193,6 +203,8 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 			return strategy.get((GenLink) element);
 		} else if (element instanceof GenLabel) {
 			return strategy.get((GenLabel) element);
+		} else if (element instanceof TypeNodeModelFacet) {
+			return strategy.get(((TypeNodeModelFacet) element).getMultiFacetedNode());
 		}
 		throw new IllegalArgumentException();
 	}
@@ -207,6 +219,12 @@ public class GenNamingMediatorImpl implements GenNamingMediator {
 			}
 		}
 		for (GenNode node : diagram.getChildNodes()) {
+			feed(node);
+			for (GenLabel label : node.getLabels()) {
+				feed(label);
+			}
+		}
+		for (GenNode node : diagram.getMultiFacetedNodes()) {
 			feed(node);
 			for (GenLabel label : node.getLabels()) {
 				feed(label);
