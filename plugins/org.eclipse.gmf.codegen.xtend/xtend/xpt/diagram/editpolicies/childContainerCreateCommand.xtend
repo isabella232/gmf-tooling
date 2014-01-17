@@ -13,19 +13,20 @@
 package xpt.diagram.editpolicies
 
 import com.google.inject.Inject
+import com.google.inject.Singleton
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
+import xpt.diagram.commands.CreateNodeCommand
 import xpt.providers.ElementTypes
-import xpt.QualifiedClassNameProvider
 
-@com.google.inject.Singleton class childContainerCreateCommand {
+@Singleton class childContainerCreateCommand {
 	
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
 	
 	@Inject ElementTypes xptElementTypes;
+	@Inject CreateNodeCommand xptCreateNodeCommand;
  
- 	def childContainerCreateCommand(Iterable<? extends GenNode> nodes) '''
+ 	def CharSequence childContainerCreateCommand(Iterable<? extends GenNode> nodes) '''
 	«IF !nodes.empty»
 
 	«generatedMemberComment()»
@@ -41,7 +42,7 @@ import xpt.QualifiedClassNameProvider
 
 	def childNodeCreateCommand(GenNode node) '''
 	if («xptElementTypes.accessElementType(node)» == req.getElementType()) {
-		return getGEFWrapper(new «getCreateCommandQualifiedClassName(node)»(req));
+		return getGEFWrapper(new «xptCreateNodeCommand.qualifiedClassName(node.modelFacet)»(req));
 	}
 	'''
 

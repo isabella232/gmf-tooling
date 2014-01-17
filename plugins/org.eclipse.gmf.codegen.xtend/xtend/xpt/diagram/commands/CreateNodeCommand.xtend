@@ -20,6 +20,7 @@ import xpt.Common
 import xpt.diagram.Utils_qvto
 import xpt.providers.ElementInitializers
 import xpt.OclMigrationProblems_qvto
+import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet
 
 @com.google.inject.Singleton class CreateNodeCommand {
 	@Inject extension Common;
@@ -29,16 +30,20 @@ import xpt.OclMigrationProblems_qvto
 	@Inject MetaModel xptMetaModel;
 	@Inject ElementInitializers xptElementInitializers;
 
-	def className(GenNode it) '''«it.createCommandClassName»'''
+	def className(TypeModelFacet it) '''«dispatchClassName(it)»'''
+	
+	def dispatch dispatchClassName(TypeModelFacet it) '''«ownerGenNode(it).createCommandClassName»'''
+	
+	def dispatch dispatchClassName(TypeNodeModelFacet it) '''«it.createCommandClassName»'''
+	
+	def packageName(TypeModelFacet it) '''«ownerGenNode(it).getDiagram().editCommandsPackageName»'''
 
-	def packageName(GenNode it) '''«it.getDiagram().editCommandsPackageName»'''
+	def qualifiedClassName(TypeModelFacet it) '''«packageName(it)».«className(it)»'''
 
-	def qualifiedClassName(GenNode it) '''«packageName(it)».«className(it)»'''
+	def fullPath(TypeModelFacet it) '''«qualifiedClassName(it)»'''
 
-	def fullPath(GenNode it) '''«qualifiedClassName(it)»'''
-
-	def CreateNodeCommand(GenNode it) '''
-		«copyright(it.diagram.editorGen)»
+	def CreateNodeCommand(TypeModelFacet it) '''
+		«copyright(ownerGenNode(it).diagram.editorGen)»
 		package «packageName(it)»;
 		
 		«generatedClassComment()»
@@ -58,7 +63,7 @@ import xpt.OclMigrationProblems_qvto
 		}
 	'''
 
-	def _constructor(GenNode it) '''
+	def _constructor(TypeModelFacet it) '''
 		«generatedMemberComment()»
 		public «className(it)»(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 			super(req.getLabel(), null, req);
@@ -68,7 +73,7 @@ import xpt.OclMigrationProblems_qvto
 	/**
 	 * TODO: either use setElementToEdit, or generate downcasted version (which may be troublesome if containment and child features point to a different parent) 
 	 */
-	def getElementToEdit(GenNode it) '''
+	def getElementToEdit(TypeModelFacet it) '''
 			«generatedMemberComment('FIXME: replace with setElementToEdit()')»
 		protected org.eclipse.emf.ecore.EObject getElementToEdit() {
 			org.eclipse.emf.ecore.EObject container = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getContainer();
@@ -79,23 +84,23 @@ import xpt.OclMigrationProblems_qvto
 		}
 	'''
 
-	def doExecuteWithResultMethod(GenNode it) '''
+	def doExecuteWithResultMethod(TypeModelFacet it) '''
 		«generatedMemberComment()»
 		protected org.eclipse.gmf.runtime.common.core.command.CommandResult doExecuteWithResult(org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
-		«IF it.modelFacet.isPhantomElement()»
-			«phantomElementCreation(it.modelFacet, it, 'newElement')»
+		«IF it.isPhantomElement()»
+			«phantomElementCreation(it, ownerGenNode(it), 'newElement')»
 		«ELSE»
-			«normalElementCreation(it.modelFacet, it, 'newElement')»
+			«normalElementCreation(it, ownerGenNode(it), 'newElement')»
 		«ENDIF»
 		«extraLineBreak»
-		«initialize(it.modelFacet, it, 'newElement')»
+		«initialize(it, ownerGenNode(it), 'newElement')»
 		«IF true/*FIXME boolean needsExternalConfiguration*/»
 			«extraLineBreak»
 			doConfigure(newElement, monitor, info);
 			«extraLineBreak»
 		«ENDIF»
 			((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).setNewElement(«xptMetaModel.
-			DowncastToEObject(it.modelFacet.metaClass, 'newElement')»);
+			DowncastToEObject(it.metaClass, 'newElement')»);
 			return org.eclipse.gmf.runtime.common.core.command.CommandResult.newOKCommandResult(newElement);
 		}
 	'''
@@ -105,12 +110,12 @@ import xpt.OclMigrationProblems_qvto
 	 * nor allow status setting from doDefaultCreation. The reason is ICommandProxy#execute implementation,
 	 * which ignores any status from wrapped ICommand. Besides, both CommandResult and IStatus seems too much to me.
 	 */
-	def doConfigureMethod(GenNode it) '''
+	def doConfigureMethod(TypeModelFacet it) '''
 		«generatedMemberComment()»
-		protected void doConfigure(«xptMetaModel.QualifiedClassName(it.modelFacet.metaClass)» newElement, org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
+		protected void doConfigure(«xptMetaModel.QualifiedClassName(it.metaClass)» newElement, org.eclipse.core.runtime.IProgressMonitor monitor, org.eclipse.core.runtime.IAdaptable info) throws org.eclipse.core.commands.ExecutionException {
 			org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = ((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getElementType();
 			org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest configureRequest = new org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest(getEditingDomain(), «xptMetaModel.
-			DowncastToEObject(it.modelFacet.metaClass, 'newElement')», elementType);
+			DowncastToEObject(it.metaClass, 'newElement')», elementType);
 			configureRequest.setClientContext(((org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest) getRequest()).getClientContext());
 			configureRequest.addParameters(getRequest().getParameters());
 			org.eclipse.gmf.runtime.common.core.command.ICommand configureCommand = elementType.getEditCommand(configureRequest);
@@ -120,13 +125,13 @@ import xpt.OclMigrationProblems_qvto
 		}
 	'''
 
-	def canExecuteMethod(GenNode it) '''
+	def canExecuteMethod(TypeModelFacet it) '''
 		«generatedMemberComment()»
 		public boolean canExecute() {
-		«IF modelFacet.isPhantomElement()»
+		«IF it.isPhantomElement()»
 			return true;
 		«ELSE»
-			«canExecute_Normal(it.modelFacet)»
+			«canExecute_Normal(it)»
 			«extraLineBreak»
 		«ENDIF»
 		}
@@ -192,6 +197,14 @@ import xpt.OclMigrationProblems_qvto
 	def initialize(TypeModelFacet it, GenNode node, String newElementVar) // 
 		'''«xptElementInitializers.initMethodCall(node, it, newElementVar)»'''
 
-	def additions(GenNode it) ''''''
+	protected dispatch def GenNode ownerGenNode(TypeModelFacet it) {
+		return (it.eContainer as GenNode)
+	}
+
+	protected dispatch def GenNode ownerGenNode(TypeNodeModelFacet it) {
+		return it.multiFacetedNode
+	}
+
+	def additions(TypeModelFacet it) ''''''
 
 }

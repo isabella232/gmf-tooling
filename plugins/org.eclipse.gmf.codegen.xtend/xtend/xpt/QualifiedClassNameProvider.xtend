@@ -20,8 +20,8 @@ import xpt.diagram.commands.CreateLinkCommand
 	@Inject LinkItemSemanticEditPolicy linkItemSemantic;
 	@Inject NodeItemSemanticEditPolicy nodeItemSemantic;
 	
-	@Inject CreateLinkCommand linkCommand
-	@Inject CreateNodeCommand nodeCommand
+//	@Inject CreateLinkCommand linkCommand
+//	@Inject CreateNodeCommand nodeCommand
 	
 	def dispatch getItemSemanticEditPolicyQualifiedClassName(GenCommonBase it) ''''''
 	def dispatch getItemSemanticEditPolicyQualifiedClassName(GenDiagram it) '''«diagramItemSemantic.qualifiedClassName(it)»'''
@@ -35,7 +35,7 @@ import xpt.diagram.commands.CreateLinkCommand
 	def dispatch getItemSemanticEditPolicyClassName(GenLink it) '''«linkItemSemantic.className(it)»'''
 	def dispatch getItemSemanticEditPolicyClassName(GenNode it) '''«nodeItemSemantic.className(it)»'''
 	
-	def dispatch getCreateCommandQualifiedClassName(GenCommonBase it) ''''''
-	def dispatch getCreateCommandQualifiedClassName(GenNode it) '''«nodeCommand.qualifiedClassName(it)»'''
-	def dispatch getCreateCommandQualifiedClassName(GenLink it) '''«linkCommand.qualifiedClassName(it)»'''
+//	def dispatch getCreateCommandQualifiedClassName(GenCommonBase it) ''''''
+//	def dispatch getCreateCommandQualifiedClassName(GenNode it) '''«nodeCommand.qualifiedClassName(it)»'''
+//	def dispatch getCreateCommandQualifiedClassName(GenLink it) '''«linkCommand.qualifiedClassName(it)»'''
 }

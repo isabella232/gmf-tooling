@@ -16,7 +16,7 @@ package xpt.diagram.editpolicies
 import com.google.inject.Inject
 import impl.diagram.commands.DeleteLinkCommand
 import java.util.List
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.editor.VisualIDRegistry
@@ -75,7 +75,7 @@ import xpt.editor.VisualIDRegistry
 		«destroyEdges(it, 'view')»
 		org.eclipse.emf.ecore.EAnnotation annotation = view.getEAnnotation("Shortcut"); «nonNLS()»
 		if (annotation == null) {
-			// there are indirectly referenced children, need extra commands: «it.childNodes.union(compartments.map(c | c.childNodes).flatten).exists[GenChildNode gcn | !isDirectlyOwned(gcn, it)]»
+			// there are indirectly referenced children, need extra commands: «it.childNodes.union(compartments.map(c | c.childNodes).flatten).exists[GenChildNodeBase gcn | !isDirectlyOwned(gcn, it)]»
 	«IF hasChildrenOrCompartments(it)»
 			addDestroyChildNodesCommand(cmd);
 	«ENDIF»
@@ -116,9 +116,9 @@ import xpt.editor.VisualIDRegistry
 	}
 	'''
 
-	def destroyChildNodes(GenChildNode it, String nodeVar, GenNode genNode) '''
+	def destroyChildNodes(GenChildNodeBase it, String nodeVar, GenNode genNode) '''
 	«xptVisualIDRegistry.caseVisualID(it)»
-		«destroyEdges(nodeVar)»
+		«destroyEdges(it, nodeVar)»
 		cmd.add(new org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand(new org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest(getEditingDomain(), «nodeVar».getElement(), false))); // directlyOwned: «it.isDirectlyOwned(genNode)»
 		// don't need explicit deletion of «nodeVar» as parent's view deletion would clean child views as well 
 		// cmd.add(new org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand(getEditingDomain(), «nodeVar»));

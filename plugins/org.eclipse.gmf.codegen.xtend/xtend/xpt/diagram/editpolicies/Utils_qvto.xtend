@@ -14,7 +14,8 @@
 package xpt.diagram.editpolicies
 
 import com.google.inject.Inject
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode
+import com.google.inject.Singleton
+import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints
@@ -23,7 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
 import xpt.GenModelUtils_qvto
 
-@com.google.inject.Singleton class Utils_qvto {
+@Singleton class Utils_qvto {
 	@Inject extension LinkUtils_qvto;
 	@Inject extension GenModelUtils_qvto;
 
@@ -119,7 +120,7 @@ import xpt.GenModelUtils_qvto
 	/**
 	 * if child's containment feature comes from the node, assume deletion of the parent would delete the child.
 	 */
-	def boolean isDirectlyOwned(GenChildNode child, GenNode genNode) {
+	def boolean isDirectlyOwned(GenChildNodeBase child, GenNode genNode) {
 		if(child.modelFacet == null || genNode.modelFacet == null) return false;
 		return child.modelFacet.containmentMetaFeature.genClass.isSuperTypeOf(genNode.modelFacet.metaClass)
 	}

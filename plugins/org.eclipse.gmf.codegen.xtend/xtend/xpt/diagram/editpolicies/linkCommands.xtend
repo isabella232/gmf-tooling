@@ -15,13 +15,14 @@
 package xpt.diagram.editpolicies
 
 import com.google.inject.Inject
+import com.google.inject.Singleton
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd
 import xpt.Common
-import xpt.providers.ElementTypes
-import xpt.QualifiedClassNameProvider
+import xpt.diagram.commands.CreateLinkCommand
 import xpt.diagram.commands.ReorientLinkCommand
 import xpt.editor.VisualIDRegistry
+import xpt.providers.ElementTypes
 
 /**
  * Start  		start of link creation. 
@@ -44,18 +45,18 @@ import xpt.editor.VisualIDRegistry
  *              because RefLinks don't have underlying semantic identity   
  *
 */
-@com.google.inject.Singleton class linkCommands {
+@Singleton class linkCommands {
 	@Inject extension Utils_qvto;
 	@Inject extension Common;
-	@Inject extension QualifiedClassNameProvider;
-	
+
 	@Inject ElementTypes xptElementTypes;
 	@Inject ReorientLinkCommand xptReorientLinkCommand;
 	@Inject VisualIDRegistry xptVisualIDRegistry;
-	
+	@Inject CreateLinkCommand xptCreateLinkCommand;
+
 	def aaa() '''aaa'''
 
-	def linkCommands(GenLinkEnd it) '''
+	def CharSequence linkCommands(GenLinkEnd it) '''
 		«IF getAllPotentialLinks(it).size > 0»
 			«createLinkCommands(it)»
 		«ENDIF»
@@ -99,7 +100,7 @@ import xpt.editor.VisualIDRegistry
 	def startLinkCommands(GenLink it, GenLinkEnd linkEnd) '''
 		if («xptElementTypes.accessElementType(it)» == req.getElementType()) {
 			«IF createStartLinkCommand(it, linkEnd)»
-				return getGEFWrapper(new «getCreateCommandQualifiedClassName(it)»(req,
+				return getGEFWrapper(new «xptCreateLinkCommand.qualifiedClassName(it)»(req,
 					«IF createStartIncomingLinkCommand(it, linkEnd)»
 						req.getTarget(), req.getSource()
 					«ELSE»
@@ -115,7 +116,7 @@ import xpt.editor.VisualIDRegistry
 	def completeLinkCommands(GenLink it, GenLinkEnd linkEnd) '''
 		if («xptElementTypes.accessElementType(it)» == req.getElementType()) {
 			«IF createCompleteLinkCommand(it, linkEnd)»
-				return getGEFWrapper(new «getCreateCommandQualifiedClassName(it)»(req,
+				return getGEFWrapper(new «xptCreateLinkCommand.qualifiedClassName(it)»(req,
 					«IF createCompleteOutgoingLinkCommand(it, linkEnd)»
 						req.getTarget(), req.getSource()
 					«ELSE»
