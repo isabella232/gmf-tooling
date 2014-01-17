@@ -13,6 +13,7 @@
 package xpt.diagram.updater
 
 import com.google.inject.Inject
+import com.google.inject.Singleton
 import java.util.Set
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature
@@ -23,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenContainerBase
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.GenLink
 import org.eclipse.gmf.codegen.gmfgen.GenLinkEnd
+import org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode
 import org.eclipse.gmf.codegen.gmfgen.GenNode
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet
@@ -35,7 +37,7 @@ enum UpdaterLinkType {
 	OUTGOING
 }
 
-@com.google.inject.Singleton class Utils_qvto {
+@Singleton class Utils_qvto {
 	@Inject extension Common_qvto;
 	@Inject extension LinkUtils_qvto;
 
@@ -114,6 +116,14 @@ enum UpdaterLinkType {
 		return if (some.modelFacet == null) null else some.modelFacet.metaClass
 	}
 
+	def dispatch GenClass getMetaClass(GenMultiFacetedNode some) {
+		if (some.modelFacet != null) {
+			return some.modelFacet.metaClass;
+		}
+		var firstGoodChildFacet = some.additionalModelFacets.findFirst[f | f.metaClass != null]
+		return if (firstGoodChildFacet == null) null else firstGoodChildFacet.metaClass
+	}
+
 	def dispatch GenClass getMetaClass(GenLink some) {
 		return if(some.modelFacet == null) null else getMetaClass(some.modelFacet)
 	}
@@ -148,23 +158,23 @@ enum UpdaterLinkType {
 
 	def Set<GenFeature> getSemanticChildrenChildFeatures(GenContainerBase containerBase) {
 		var result = <GenFeature>newLinkedHashSet()
-		result.addAll(getNonPhantomSemanticChildren(containerBase).map[node|node.modelFacet.childMetaFeature])
+		result.addAll(getNonPhantomSemanticChildren(containerBase).map[node|node.findFacetForContainerOrDiagram(containerBase).childMetaFeature])
 		return result
 	}
 
 	def Set<GenFeature> getSemanticChildrenContainmentFeatures(GenContainerBase containerBase) {
 		var result = <GenFeature>newLinkedHashSet()
-		result.addAll(getNonPhantomSemanticChildren(containerBase).map[node|node.modelFacet.containmentMetaFeature])
+		result.addAll(getNonPhantomSemanticChildren(containerBase).map[node|node.findFacetForContainerOrDiagram(containerBase).containmentMetaFeature])
 		return result
 	}
 
 	def Iterable<GenNode> getSemanticChildren(GenContainerBase containerBase, GenFeature childMetaFeature) {
 		return getNonPhantomSemanticChildren(containerBase).filter[node|
-			node.modelFacet.childMetaFeature == childMetaFeature]
+			node.findFacetForContainerOrDiagram(containerBase).childMetaFeature == childMetaFeature]
 	}
 
 	def Iterable<GenNode> getNonPhantomSemanticChildren(GenContainerBase containerBase) {
-		return getSemanticChildren(containerBase).filter[node|!node.modelFacet.isPhantomElement()]
+		return getSemanticChildren(containerBase).filter[node|!node.findFacetForContainerOrDiagram(containerBase).isPhantomElement()]
 	}
 
 	def dispatch Iterable<GenNode> getPhantomNodes(GenContainerBase it) {
@@ -172,20 +182,18 @@ enum UpdaterLinkType {
 	}
 
 	def dispatch Iterable<GenNode> getPhantomNodes(GenNode it) {
-		return getSemanticChildren(it).filter[node|node.modelFacet.isPhantomElement()]
+		return getSemanticChildren(it).filter[node|node.findFacetForContainerOrDiagram(it).isPhantomElement()]
 	}
 
 	def Iterable<GenNode> getSemanticChildren(GenContainerBase containerBase) {
-		return containerBase.containedNodes.filter[node|node.modelFacet != null]
+		return containerBase.containedNodes.filter[node|node.findFacetForContainerOrDiagram(containerBase) != null]
 	}
 
 	/**
 	 * @return true when children share same metaclass
 	 */
 	def boolean hasConformableSemanticChildren(GenContainerBase containerBase) {
-
-		//return let childMetaClasses = getSemanticChildren(containerBase)->collect(node | node.modelFacet.metaClass) in not childMetaClasses->forAll(mc | childMetaClasses->select(mc2 | mc = mc2)->size() = 1)
-		var childMetaClasses = getSemanticChildren(containerBase).map[child|child.modelFacet.metaClass];
+		var childMetaClasses = getSemanticChildren(containerBase).map[child|child.findFacetForContainerOrDiagram(containerBase).metaClass];
 		return childMetaClasses.size != childMetaClasses.toSet.size
 	}
 

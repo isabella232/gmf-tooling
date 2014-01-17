@@ -45,4 +45,12 @@ public interface GenChildNodeBase extends GenNode {
 	 */
 	EList<GenChildContainer> getContainers();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	TypeModelFacet findFacetForContainer(GenChildContainer container);
+
 } // GenChildNodeBase

@@ -3,18 +3,16 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -70,6 +68,26 @@ public abstract class GenChildNodeBaseImpl extends GenNodeImpl implements GenChi
 		}
 		return containers;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public TypeModelFacet findFacetForContainer(GenChildContainer container) {
+		return getContainers().contains(container) ? getModelFacet() : null;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container) {
+		return (container instanceof GenChildContainer) ? findFacetForContainer((GenChildContainer)container) : null;
+	}
+
 
 	/**
 	 * <!-- begin-user-doc -->

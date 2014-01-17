@@ -1510,7 +1510,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public EList<GenNode> getContainedNodes() {
-		List<GenTopLevelNode> topLevelNodes = getTopLevelNodes();
+		List<GenNode> topLevelNodes = getNodesForTopLevel();
 		return new EcoreEList.UnmodifiableEList<GenNode>(this, GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(), topLevelNodes.size(), topLevelNodes.toArray());
 	}
 

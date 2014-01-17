@@ -622,6 +622,8 @@ class GenTopLevelNode extends GenNode {
 abstract class GenChildNodeBase extends GenNode {
    	@constraints(ocl="let cmps:OrderedSet(GenChildContainer)=containers->select(oclIsKindOf(GenCompartment)) in cmps->exists(oclAsType(GenCompartment).listLayout) implies not cmps->exists(not oclAsType(GenCompartment).listLayout)", description="Node is referenced from multiple containers with different 'List Layout' value")
 	readonly ref GenChildContainer[*]#childNodes containers;
+	
+	op TypeModelFacet findFacetForContainer(GenChildContainer container);
 }
 
 @constraints(ocl="not modelFacet.oclIsUndefined() implies not modelFacet.containmentMetaFeature.oclIsUndefined()", description="Child node must specify 'Containment Meta Feature'")
@@ -645,7 +647,6 @@ class GenMultiFacetedNode extends GenChildNodeBase {
 	@genmodel(documentation="All model facets, for toplevel- and child- modes")
 	op TypeModelFacet[*] allModelFacets();
 	
-	op TypeNodeModelFacet findFacetForContainer(GenChildContainer container);
 	op TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container);
 	
 	op boolean mayServeAsTopLevel();

@@ -512,6 +512,9 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNodeBase">
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNodeBase/containers"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenChildNodeBase/findFacetForContainer">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenChildNodeBase/findFacetForContainer/container"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/diagram"/>
@@ -520,9 +523,6 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/additionalModelFacets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/allModelFacets"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainer">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainer/container"/>
-      </genOperations>
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram">
         <genParameters ecoreParameter="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram/container"/>
       </genOperations>

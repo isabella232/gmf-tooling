@@ -103,23 +103,35 @@ GenChildNodeBaseImpl implements GenMultiFacetedNode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
+	@Override
 	public TypeNodeModelFacet findFacetForContainer(GenChildContainer container) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		for (TypeNodeModelFacet next : getAdditionalModelFacets()) {
+			if (next.getContainers().contains(container)) {
+				return next;
+			}
+		}
+		if (getContainers().contains(container)) {
+			throw new IllegalStateException("Node: " + this + " has container: " + container + ", but can't find additional facet for it");
+		}
+		return null;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
+	@Override
 	public TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (container instanceof GenDiagram) {
+			return getModelFacet();
+		}
+		if (container instanceof GenChildContainer) {
+			return findFacetForContainer((GenChildContainer) container);	
+		}
+		throw new IllegalArgumentException("Called for container: " + container);
 	}
 
 	/**

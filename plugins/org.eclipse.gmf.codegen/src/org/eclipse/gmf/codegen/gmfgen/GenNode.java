@@ -75,6 +75,14 @@ public interface GenNode extends GenChildContainer, GenLinkEnd {
 	String getCreateCommandQualifiedClassName();
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container);
+
+	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel}.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel#getNode <em>Node</em>}'.
