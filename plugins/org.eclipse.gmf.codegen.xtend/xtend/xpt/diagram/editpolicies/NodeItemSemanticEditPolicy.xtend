@@ -54,7 +54,7 @@ import xpt.editor.VisualIDRegistry
 	
 		«xptBaseItemSemanticEditPolicy.defaultConstructor(it)»
 	
-		«xptChildContainerCreateCommand.childContainerCreateCommand(it.childNodes)»
+		«xptChildContainerCreateCommand.childContainerCreateCommand(it, it.childNodes)»
 	
 		«getDestroyElementCommand(it)»
 		«IF hasChildrenOrCompartments(it)»

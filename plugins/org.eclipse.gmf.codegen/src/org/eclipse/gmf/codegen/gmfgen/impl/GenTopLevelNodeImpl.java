@@ -10,8 +10,10 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -127,5 +129,16 @@ public class GenTopLevelNodeImpl extends GenNodeImpl implements GenTopLevelNode 
 		}
 		return super.eIsSet(featureID);
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container) {
+		return (container instanceof GenDiagram) ? getModelFacet() : null;
+	}
+
 
 } //GenTopLevelNodeImpl

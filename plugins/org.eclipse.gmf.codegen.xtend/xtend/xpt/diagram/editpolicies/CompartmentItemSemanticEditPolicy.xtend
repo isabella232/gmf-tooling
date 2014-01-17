@@ -39,7 +39,7 @@ import xpt.Common
 		
 			«_constructor(it)»
 		
-			«xptChildContainerCreateCommand.childContainerCreateCommand(it.childNodes)»
+			«xptChildContainerCreateCommand.childContainerCreateCommand(it, it.childNodes)»
 			
 			«additions(it)»
 		}

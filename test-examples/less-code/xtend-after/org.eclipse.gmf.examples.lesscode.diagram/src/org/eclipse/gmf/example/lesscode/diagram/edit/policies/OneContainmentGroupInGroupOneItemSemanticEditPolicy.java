@@ -1,6 +1,7 @@
 package org.eclipse.gmf.example.lesscode.diagram.edit.policies;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.example.lesscode.diagram.edit.commands.Subject3CreateCommand;
 import org.eclipse.gmf.example.lesscode.diagram.edit.commands.SubjectCreateCommand;
 import org.eclipse.gmf.example.lesscode.diagram.providers.LesscodeElementTypes;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
@@ -22,7 +23,7 @@ public class OneContainmentGroupInGroupOneItemSemanticEditPolicy extends Lesscod
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (LesscodeElementTypes.Subject_2001 == req.getElementType()) {
-			return getGEFWrapper(new SubjectCreateCommand(req));
+			return getGEFWrapper(new Subject3CreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

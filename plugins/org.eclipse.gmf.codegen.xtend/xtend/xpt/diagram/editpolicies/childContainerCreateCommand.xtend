@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode
 import xpt.Common
 import xpt.diagram.commands.CreateNodeCommand
 import xpt.providers.ElementTypes
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase
 
 @Singleton class childContainerCreateCommand {
 	
@@ -26,13 +27,13 @@ import xpt.providers.ElementTypes
 	@Inject ElementTypes xptElementTypes;
 	@Inject CreateNodeCommand xptCreateNodeCommand;
  
- 	def CharSequence childContainerCreateCommand(Iterable<? extends GenNode> nodes) '''
+ 	def CharSequence childContainerCreateCommand(GenContainerBase container, Iterable<? extends GenNode> nodes) '''
 	«IF !nodes.empty»
 
 	«generatedMemberComment()»
 	protected org.eclipse.gef.commands.Command getCreateCommand(org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest req) {
 	«FOR n : nodes»		
-		«childNodeCreateCommand(n)»
+		«childNodeCreateCommand(container, n)»
 	«ENDFOR»
 		return super.getCreateCommand(req);
 	}
@@ -40,9 +41,9 @@ import xpt.providers.ElementTypes
 	'''
 
 
-	def childNodeCreateCommand(GenNode node) '''
-	if («xptElementTypes.accessElementType(node)» == req.getElementType()) {
-		return getGEFWrapper(new «xptCreateNodeCommand.qualifiedClassName(node.modelFacet)»(req));
+	def childNodeCreateCommand(GenContainerBase container, GenNode childNode) '''
+	if («xptElementTypes.accessElementType(childNode)» == req.getElementType()) {
+		return getGEFWrapper(new «xptCreateNodeCommand.qualifiedClassName(childNode.findFacetForContainerOrDiagram(container))»(req));
 	}
 	'''
 
