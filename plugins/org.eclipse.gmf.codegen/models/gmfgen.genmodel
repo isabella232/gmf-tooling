@@ -506,6 +506,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getDomainMetaClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getCreateCommandQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNode/findFacetForContainerOrDiagram">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenNode/findFacetForContainerOrDiagram/container"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenTopLevelNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenTopLevelNode/diagram"/>
@@ -523,9 +526,6 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMultiFacetedNode/additionalModelFacets"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/allModelFacets"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenMultiFacetedNode/findFacetForContainerOrDiagram/container"/>
-      </genOperations>
       <genOperations ecoreOperation="gmfgen.ecore#//GenMultiFacetedNode/mayServeAsTopLevel"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//TypeNodeModelFacet">

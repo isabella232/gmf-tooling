@@ -605,6 +605,8 @@ abstract class GenNode extends GenChildContainer, GenLinkEnd {
 	op String getCreateCommandQualifiedClassName();
 	attr String createCommandClassName;
 	readonly transient derived volatile ref GenLink[*] reorientedIncomingLinks;
+	
+	op TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container);
 }
 
 
@@ -646,8 +648,6 @@ class GenMultiFacetedNode extends GenChildNodeBase {
 	
 	@genmodel(documentation="All model facets, for toplevel- and child- modes")
 	op TypeModelFacet[*] allModelFacets();
-	
-	op TypeModelFacet findFacetForContainerOrDiagram(GenContainerBase container);
 	
 	op boolean mayServeAsTopLevel();
 }  
