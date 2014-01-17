@@ -113,6 +113,14 @@ public class CodegenEmitters {
 		return getPrimaryEmitter("xpt::diagram::commands::CreateNodeCommand"); //$NON-NLS-1$
 	}
 
+	/**
+	 * @since 2.111
+	 */
+	public String getCreateNodeCommandClassName(Object input) throws UnexpectedBehaviourException {
+		return getQualifiedClassName("xpt::diagram::commands::CreateNodeCommand", input); //$NON-NLS-1$
+	}
+
+
 	public TextEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
 		return newXpandEmitter("xpt::diagram::commands::CreateLinkCommand::Main"); //$NON-NLS-1$
 	}

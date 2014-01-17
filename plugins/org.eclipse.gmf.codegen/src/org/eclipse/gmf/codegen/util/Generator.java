@@ -42,7 +42,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenAction;
 import org.eclipse.gmf.codegen.gmfgen.GenApplication;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNodeBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -76,7 +75,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenSharedContributionItem;
 import org.eclipse.gmf.codegen.gmfgen.GenStandardPreferencePage;
 import org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocation;
 import org.eclipse.gmf.codegen.gmfgen.GenTemplateInvocationBase;
-import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenVisualEffect;
 import org.eclipse.gmf.codegen.gmfgen.InitDiagramAction;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
@@ -86,6 +84,8 @@ import org.eclipse.gmf.codegen.gmfgen.PredefinedParser;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
@@ -329,7 +329,12 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateNode(GenNode node) throws UnexpectedBehaviourException, InterruptedException {
 		generateNodeItemSemanticEditPolicy(node);
 		if (node.getModelFacet() != null) {
-			generateCreateNodeCommand(node);
+			generateCreateNodeCommand(node.getModelFacet());
+		}
+		if (node instanceof GenMultiFacetedNode) {
+			for (TypeNodeModelFacet nextAdditionalFacet : ((GenMultiFacetedNode) node).getAdditionalModelFacets()) {
+				generateCreateNodeCommand(nextAdditionalFacet);
+			}
 		}
 		generateEditSupport(node);
 		generateNodeEditPart(node);
@@ -368,7 +373,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	private void generateChildLabelNode(GenChildLabelNode child) throws UnexpectedBehaviourException, InterruptedException {
 		generateNodeItemSemanticEditPolicy(child);
 		if (child.getModelFacet() != null) {
-			generateCreateNodeCommand(child);
+			generateCreateNodeCommand(child.getModelFacet());
 		}
 		generateEditSupport(child);
 		generateBehaviours(child);
@@ -389,8 +394,8 @@ public class Generator extends GeneratorBase implements Runnable {
 		}
 	}
 
-	private void generateCreateNodeCommand(GenNode node) throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), node.getCreateCommandQualifiedClassName(), node);
+	private void generateCreateNodeCommand(TypeModelFacet facet) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(myEmitters.getCreateNodeCommandEmitter(), myEmitters.getCreateNodeCommandClassName(facet), facet);
 	}
 
 	private void generateCreateLinkCommand(GenLink link) throws UnexpectedBehaviourException, InterruptedException {
