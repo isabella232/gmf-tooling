@@ -18,6 +18,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -32,20 +33,20 @@ public interface BridgeFactoryGate {
 
 	public GenLink findLink(LinkMapping lm);
 
-	public GenNode findOrCreateTopNode(NodeMapping nodeMap, GenDiagram diagram);
+	public GenNode findOrCreateTopNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 
 	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, ChildReference childRef);
 
-	public GenChildNodeBase createChildNode(NodeMapping nodeMap, GenDiagram diagram);
+	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 
-	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, GenDiagram diagram);
+	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 
-	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, GenDiagram diagram);
+	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 
 	public void logMetricRule(MetricRule metric, GenMetricRule genMetric);
 
 	public GenMetricRule findMetricRule(MetricRule metric);
 
 	public GenNode[] findAllNodesFor(NodeMapping nm);
-	
+
 }

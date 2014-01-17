@@ -3648,8 +3648,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenMultiFacetedNode_DesignWhenTopLevel() {
+        return (EAttribute)getGenMultiFacetedNode().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getGenMultiFacetedNode_AdditionalModelFacets() {
-        return (EReference)getGenMultiFacetedNode().getEStructuralFeatures().get(1);
+        return (EReference)getGenMultiFacetedNode().getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3669,8 +3678,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTypeNodeModelFacet_MultiFacetedNode() {
+        return (EReference)getTypeNodeModelFacet().getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getTypeNodeModelFacet_CreateCommandClassName() {
-        return (EAttribute)getTypeNodeModelFacet().getEStructuralFeatures().get(0);
+        return (EAttribute)getTypeNodeModelFacet().getEStructuralFeatures().get(1);
 	}
 
 	/**

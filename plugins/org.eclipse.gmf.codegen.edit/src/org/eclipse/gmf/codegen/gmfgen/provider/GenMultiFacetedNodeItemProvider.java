@@ -138,6 +138,9 @@ GenChildNodeBaseItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenMultiFacetedNode.class)) {
+			case GMFGenPackage.GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

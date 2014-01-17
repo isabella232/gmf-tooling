@@ -22,6 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.internal.bridge.DistinctTopLevelNodesFactoryGate;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -35,6 +36,10 @@ public class BridgeFactoryGateTest extends TestCase {
 	private NodeMapping myNodeMapping;
 
 	private LinkMapping myLinkMapping;
+
+	private TypeModelFacet myModelFacetA;
+
+	private TypeModelFacet myModelFacetB;
 
 	private GenDiagram myDiagram;
 
@@ -50,6 +55,8 @@ public class BridgeFactoryGateTest extends TestCase {
 		myNodeMapping = GMFMapFactory.eINSTANCE.createNodeMapping();
 		myLinkMapping = GMFMapFactory.eINSTANCE.createLinkMapping();
 		myDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		myModelFacetA = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		myModelFacetB = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 	}
 
 	public void testFindLink() throws Exception {
@@ -66,10 +73,11 @@ public class BridgeFactoryGateTest extends TestCase {
 
 	public void testFindChildNode() throws Exception {
 		assertTrue(myDistinctGate.findAllNodesFor(myNodeMapping).length == 0);
-		GenChildNodeBase childNode = myDistinctGate.createChildNode(myNodeMapping, myDiagram);
+		GenChildNodeBase childNode = myDistinctGate.createChildNode(myNodeMapping, myModelFacetA, myDiagram);
 		assertTrue(childNode instanceof GenChildNode);
 		assertSame(childNode, myDistinctGate.findAllNodesFor(myNodeMapping)[0]);
 		assertNotNull(childNode);
+		assertSame(myModelFacetA, childNode.getModelFacet());
 
 		purgeHistory();
 		assertTrue(myDistinctGate.findAllNodesFor(myNodeMapping).length == 0);
@@ -78,15 +86,17 @@ public class BridgeFactoryGateTest extends TestCase {
 	public void testFindMultipleChildNodes() throws Exception {
 		assertEquals(0, myDistinctGate.findAllNodesFor(myNodeMapping).length);
 
-		GenChildNodeBase first = myDistinctGate.createChildNode(myNodeMapping, myDiagram);
-		GenChildNodeBase second = myDistinctGate.createChildNode(myNodeMapping, myDiagram);
+		GenChildNodeBase first = myDistinctGate.createChildNode(myNodeMapping, myModelFacetA, myDiagram);
+		GenChildNodeBase second = myDistinctGate.createChildNode(myNodeMapping, myModelFacetB, myDiagram);
 
 		assertNotNull(first);
 		assertNotNull(second);
 		assertTrue(first instanceof GenChildNode);
 		assertTrue(second instanceof GenChildNode);
-
 		assertNotSame(first, second);
+
+		assertSame(myModelFacetA, first.getModelFacet());
+		assertSame(myModelFacetB, second.getModelFacet());
 
 		final List<GenNode> all = Arrays.asList(myDistinctGate.findAllNodesFor(myNodeMapping));
 		assertTrue(all.contains(first));
@@ -100,19 +110,19 @@ public class BridgeFactoryGateTest extends TestCase {
 	public void testFindTopNode() throws Exception {
 		assertEquals(0, myDistinctGate.findAllNodesFor(myNodeMapping).length);
 
-		GenNode topNode = myDistinctGate.findOrCreateTopNode(myNodeMapping, myDiagram);
+		GenNode topNode = myDistinctGate.findOrCreateTopNode(myNodeMapping, myModelFacetA, myDiagram);
 		assertNotNull(topNode);
-		assertSame(topNode, myDistinctGate.findOrCreateTopNode(myNodeMapping, myDiagram));
+		assertSame(topNode, myDistinctGate.findOrCreateTopNode(myNodeMapping, myModelFacetA, myDiagram));
 		assertEquals(1, myDistinctGate.findAllNodesFor(myNodeMapping).length);
 		assertSame(topNode, myDistinctGate.findAllNodesFor(myNodeMapping)[0]);
 
 		purgeHistory();
 		myDistinctGate.findAllNodesFor(myNodeMapping);
 	}
-
+	
 	public void testMultipleElements() throws Exception {
-		GenNode topNode = myDistinctGate.findOrCreateTopNode(myNodeMapping, myDiagram);
-		GenChildNodeBase childNode = myDistinctGate.createChildNode(myNodeMapping, myDiagram);
+		GenNode topNode = myDistinctGate.findOrCreateTopNode(myNodeMapping, myModelFacetA, myDiagram);
+		GenChildNodeBase childNode = myDistinctGate.createChildNode(myNodeMapping, myModelFacetB, myDiagram);
 		assertNotSame(topNode, childNode);
 		assertEquals(2, myDistinctGate.findAllNodesFor(myNodeMapping).length);
 		final List<GenNode> all = Arrays.asList(myDistinctGate.findAllNodesFor(myNodeMapping));

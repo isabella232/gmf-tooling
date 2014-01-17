@@ -4,11 +4,14 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
 
 /**
@@ -18,6 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeNodeModelFacetImpl#getMultiFacetedNode <em>Multi Faceted Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeNodeModelFacetImpl#getCreateCommandClassName <em>Create Command Class Name</em>}</li>
  * </ul>
  * </p>
@@ -69,6 +73,16 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenMultiFacetedNode getMultiFacetedNode() {
+		if (eContainerFeatureID() != GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE) return null;
+		return (GenMultiFacetedNode)eInternalContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getCreateCommandClassName() {
 		return createCommandClassName;
 	}
@@ -102,8 +116,54 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE:
+				return eBasicSetContainer(null, GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS, GenMultiFacetedNode.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE:
+				return getMultiFacetedNode();
 			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
 				return getCreateCommandClassName();
 		}
@@ -148,6 +208,8 @@ public class TypeNodeModelFacetImpl extends TypeModelFacetImpl implements TypeNo
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE:
+				return getMultiFacetedNode() != null;
 			case GMFGenPackage.TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME:
 				return CREATE_COMMAND_CLASS_NAME_EDEFAULT == null ? createCommandClassName != null : !CREATE_COMMAND_CLASS_NAME_EDEFAULT.equals(createCommandClassName);
 		}

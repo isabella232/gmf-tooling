@@ -406,10 +406,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assert nme != null;
 		assertNodeMapping(nme);
 
-		GenNode genNode = myFactoryGate.findOrCreateTopNode(nme, getGenDiagram());
+		TypeModelFacet facet = createModelFacet(topNode);
+
+		GenNode genNode = myFactoryGate.findOrCreateTopNode(nme, facet, getGenDiagram());
 
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
-		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.getForTopNode(genNode));
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		setupElementType(genNode);
@@ -462,9 +463,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
 		final GenChildNodeBase childNode;
 		final boolean needCompartmentChildrenLabelProcessing;
+
+		TypeModelFacet modelFacet = createModelFacet(childNodeRef);
 		if (Knowledge.isPureLabelNode(childNodeMapping)) {
 			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
-			GenChildLabelNode childLabelNode = myFactoryGate.createChildLabelNode(childNodeMapping, getGenDiagram());
+			GenChildLabelNode childLabelNode = myFactoryGate.createChildLabelNode(childNodeMapping, modelFacet, getGenDiagram());
 			childLabelNode.setViewmap(myViewmaps.create(soleLabel.getDiagramLabel()));
 			childLabelNode.setLabelModelFacet(createLabelModelFacet(soleLabel));
 			childLabelNode.setLabelReadOnly(soleLabel.isReadOnly());
@@ -472,19 +475,17 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			childNode = childLabelNode;
 			needCompartmentChildrenLabelProcessing = false;
 		} else if (childNodeMapping.getDiagramNode().getAffixedParentSide() != Direction.NONE_LITERAL) {
-			GenChildSideAffixedNode sideAffixedNode = myFactoryGate.createSideAffixedNode(childNodeMapping, getGenDiagram());
+			GenChildSideAffixedNode sideAffixedNode = myFactoryGate.createSideAffixedNode(childNodeMapping, modelFacet, getGenDiagram());
 			sideAffixedNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 			String positionConstantName = getAffixedSideAsPositionConstantsName(childNodeMapping.getDiagramNode());
 			sideAffixedNode.setPreferredSideName(positionConstantName);
 			childNode = sideAffixedNode;
 			needCompartmentChildrenLabelProcessing = true;
 		} else {
-			childNode = myFactoryGate.createChildNode(childNodeMapping, getGenDiagram());
+			childNode = myFactoryGate.createChildNode(childNodeMapping, modelFacet, getGenDiagram());
 			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 			needCompartmentChildrenLabelProcessing = true;
 		}
-
-		childNode.setModelFacet(createModelFacet(childNodeRef));
 
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setVisualID(myVisualIDs.getForChildNode(childNode));

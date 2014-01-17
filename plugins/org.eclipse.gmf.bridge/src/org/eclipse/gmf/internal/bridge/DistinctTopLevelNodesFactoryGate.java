@@ -26,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildSideAffixedNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -46,37 +47,43 @@ public class DistinctTopLevelNodesFactoryGate extends BridgeFactoryGateBase {
 	}
 
 	@Override
-	public GenNode findOrCreateTopNode(NodeMapping nodeMap, GenDiagram diagram) {
+	public GenNode findOrCreateTopNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
 		if (myTopNodeMap.containsKey(nodeMap)) {
-			return myTopNodeMap.get(nodeMap);
+			GenTopLevelNode existing = myTopNodeMap.get(nodeMap);
+			assert existing.getModelFacet() == facet;
+			return existing;
 		}
 		//
 		GenTopLevelNode result = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		diagram.getTopLevelNodes().add(result);
+		result.setModelFacet(facet);
 		logTopNode(nodeMap, result);
 		return result;
 	}
 
 	@Override
-	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, GenDiagram diagram) {
+	public GenChildLabelNode createChildLabelNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
 		GenChildLabelNode result = GMFGenFactory.eINSTANCE.createGenChildLabelNode();
 		diagram.getChildNodes().add(result);
+		result.setModelFacet(facet);
 		logChildNode(nodeMap, result);
 		return result;
 	}
 
 	@Override
-	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, GenDiagram diagram) {
+	public GenChildSideAffixedNode createSideAffixedNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
 		GenChildSideAffixedNode result = GMFGenFactory.eINSTANCE.createGenChildSideAffixedNode();
 		diagram.getChildNodes().add(result);
+		result.setModelFacet(facet);
 		logChildNode(nodeMap, result);
 		return result;
 	}
 
 	@Override
-	public GenChildNodeBase createChildNode(NodeMapping nodeMap, GenDiagram diagram) {
+	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet facet, GenDiagram diagram) {
 		GenChildNode result = GMFGenFactory.eINSTANCE.createGenChildNode();
 		diagram.getChildNodes().add(result);
+		result.setModelFacet(facet);
 		logChildNode(nodeMap, result);
 		return result;
 	}

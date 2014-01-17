@@ -4574,6 +4574,15 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_MULTI_FACETED_NODE__DIAGRAM = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Design When Top Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MULTI_FACETED_NODE__DESIGN_WHEN_TOP_LEVEL = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 1;
+
+	/**
 	 * The feature id for the '<em><b>Additional Model Facets</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * @since 2.111
@@ -4581,7 +4590,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 1;
+	int GEN_MULTI_FACETED_NODE__ADDITIONAL_MODEL_FACETS = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Gen Multi Faceted Node</em>' class.
@@ -4591,7 +4600,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_MULTI_FACETED_NODE_FEATURE_COUNT = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 2;
+	int GEN_MULTI_FACETED_NODE_FEATURE_COUNT = GEN_CHILD_NODE_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildSideAffixedNodeImpl <em>Gen Child Side Affixed Node</em>}' class.
@@ -4838,6 +4847,15 @@ public interface GMFGenPackage extends EPackage {
 	int TYPE_NODE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER = TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER;
 
 	/**
+	 * The feature id for the '<em><b>Multi Faceted Node</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_NODE_MODEL_FACET__MULTI_FACETED_NODE = TYPE_MODEL_FACET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Create Command Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * @since 2.111
@@ -4845,7 +4863,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME = TYPE_MODEL_FACET_FEATURE_COUNT + 0;
+	int TYPE_NODE_MODEL_FACET__CREATE_COMMAND_CLASS_NAME = TYPE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Type Node Model Facet</em>' class.
@@ -4855,7 +4873,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_NODE_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 1;
+	int TYPE_NODE_MODEL_FACET_FEATURE_COUNT = TYPE_MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -14840,6 +14858,17 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenMultiFacetedNode_Diagram();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#isDesignWhenTopLevel <em>Design When Top Level</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Design When Top Level</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#isDesignWhenTopLevel()
+	 * @see #getGenMultiFacetedNode()
+	 * @generated
+	 */
+	EAttribute getGenMultiFacetedNode_DesignWhenTopLevel();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenMultiFacetedNode#getAdditionalModelFacets <em>Additional Model Facets</em>}'.
 	 * <!-- begin-user-doc -->
 	 * @since 2.111
@@ -14861,6 +14890,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getTypeNodeModelFacet();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getMultiFacetedNode <em>Multi Faceted Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Multi Faceted Node</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getMultiFacetedNode()
+	 * @see #getTypeNodeModelFacet()
+	 * @generated
+	 */
+	EReference getTypeNodeModelFacet_MultiFacetedNode();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.TypeNodeModelFacet#getCreateCommandClassName <em>Create Command Class Name</em>}'.

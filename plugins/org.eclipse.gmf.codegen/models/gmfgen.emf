@@ -633,8 +633,11 @@ class GenMultiFacetedNode extends GenChildNodeBase {
 	readonly !resolve ref GenDiagram[1]#multiFacetedNodes diagram;
 
 	//"main" modelFacet comes from GenNode and is for top-level mode
+	@genmodel(documentation="main modelFacet comes from GenNode and is associated with top-level mode. 
+		This attribute allows to distinuish cases when top-level mode is present, but design-only, so without model facet")
+	attr boolean designWhenTopLevel = false;
 	//"additional" modelFacet's are for "child-mode" cases
-	val TypeNodeModelFacet[*] additionalModelFacets;
+	val TypeNodeModelFacet[*]#multiFacetedNode additionalModelFacets;
 	
 	@genmodel(documentation="All model facets, for toplevel- and child- modes")
 	op TypeModelFacet[*] allModelFacets();
@@ -646,6 +649,7 @@ class GenMultiFacetedNode extends GenChildNodeBase {
 @genmodel(documentation="@since 2.111 
 	Node model facet, specific for GenMultiFacetedNode's. Every such facet holds its own knwoledge about creation commands.")
 class TypeNodeModelFacet extends TypeModelFacet {
+	readonly !resolve ref GenMultiFacetedNode[1]#additionalModelFacets multiFacetedNode;
 	attr String createCommandClassName;
 	op String getCreateCommandQualifiedClassName();
 } 
