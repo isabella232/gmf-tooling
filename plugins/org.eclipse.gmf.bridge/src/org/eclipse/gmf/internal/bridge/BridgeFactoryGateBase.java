@@ -21,6 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MetricRule;
 
@@ -82,7 +83,10 @@ public abstract class BridgeFactoryGateBase implements BridgeFactoryGate {
 	 * 
 	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=129552
 	 */
-	public static boolean matchFeaturesWithModelFacet(EReference containmentERef, EReference childrenERef, TypeModelFacet modelFacet) {
+	public static boolean matchFeaturesWithModelFacet(ChildReference childRef, TypeModelFacet modelFacet) {
+		EReference containmentERef = childRef.getContainmentFeature();
+		EReference childrenERef = childRef.getChildrenFeature();
+
 		final boolean containmentFeatureMatch;
 		final boolean childrenFeatureMatch;
 		if (modelFacet == null || modelFacet.getContainmentMetaFeature() == null) {

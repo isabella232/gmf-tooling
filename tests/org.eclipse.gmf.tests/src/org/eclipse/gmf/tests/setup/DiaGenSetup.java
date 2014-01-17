@@ -42,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.internal.bridge.DistinctTopLevelNodesFactoryGate;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
@@ -182,7 +183,11 @@ public class DiaGenSetup implements DiaGenSource {
 	}
 
 	public DiaGenSetup init(MapDefSource mapSource) {
-		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(new BasicDiagramRunTimeModelHelper(), myViewmapProducer, new NaiveIdentifierDispenser(), false);
+		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(
+				new BasicDiagramRunTimeModelHelper(), // 
+				myViewmapProducer, //
+				new DistinctTopLevelNodesFactoryGate(), //
+				new NaiveIdentifierDispenser(), false);
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 		t.setEMFGenModel(initGenModel(mapSource.getMapping().getDiagram().getDomainModel()));
 		t.transform(mapSource.getMapping());

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.internal.bridge.DistinctTopLevelNodesFactoryGate;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
@@ -98,7 +99,7 @@ public class TransformationTestSupport {
 		ViewmapProducer viewmapProducer = useModeledViewmap ? new ModeledViewmapProducer() :  new InnerClassViewmapProducer("full", mmStrategy, null);
 
 		final DiagramRunTimeModelHelper drtModelHelper = new BasicDiagramRunTimeModelHelper();
-		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, idDespenser.get(), false);
+		DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, new DistinctTopLevelNodesFactoryGate(), idDespenser.get(), false);
 		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 		
 		t.setEMFGenModel(genModel);

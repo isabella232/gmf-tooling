@@ -20,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.internal.bridge.DistinctTopLevelNodesFactoryGate;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
@@ -56,7 +57,11 @@ public class GenASetup extends AbstractASetup implements DiaGenSource {
 
 	public GenDiagram getGenDiagram() {
 		if (gen == null) {
-			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(new BasicDiagramRunTimeModelHelper(), viewmapProducer, new NaiveIdentifierDispenser(), rcp);
+			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters( //
+					new BasicDiagramRunTimeModelHelper(), //
+					viewmapProducer, //
+					new DistinctTopLevelNodesFactoryGate(), //
+					new NaiveIdentifierDispenser(), rcp);
 			DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 			EPackage ePackage = mapping.getDiagram().getDomainModel();
 			if (ePackage != null) {

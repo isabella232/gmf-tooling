@@ -42,6 +42,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil.ExternalCrossReferencer;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
+import org.eclipse.gmf.internal.bridge.BridgeFactoryGate;
+import org.eclipse.gmf.internal.bridge.DistinctTopLevelNodesFactoryGate;
+import org.eclipse.gmf.internal.bridge.MultiFacetedNodesFactoryGate;
 import org.eclipse.gmf.internal.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.internal.bridge.genmodel.DiagramRunTimeModelHelper;
@@ -377,6 +380,11 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 	private DiagramRunTimeModelHelper detectRunTimeModel() {
 		return new BasicDiagramRunTimeModelHelper();
 	}
+	
+	private BridgeFactoryGate detectLessCodeOptions() {
+		boolean lessCode = getOptions().getUseMultiFacetedNodes();
+		return lessCode ? new MultiFacetedNodesFactoryGate() : new DistinctTopLevelNodesFactoryGate();
+	}
 
 	private ViewmapProducer detectTransformationOptions() {
 		boolean useModeledViewmaps = !getOptions().getUseInTransformationCodeGen();
@@ -429,7 +437,8 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 		} else {
 			final DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel();
 			final ViewmapProducer viewmapProducer = detectTransformationOptions();
-			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, idDespenser.get(), getOptions().getGenerateRCP());
+			final BridgeFactoryGate lessCodeStrategy = detectLessCodeOptions();
+			DiagramGenModelTransformer.Parameters opts = new DiagramGenModelTransformer.Parameters(drtModelHelper, viewmapProducer, lessCodeStrategy, idDespenser.get(), getOptions().getGenerateRCP());
 			final DiagramGenModelTransformer t = new DiagramGenModelTransformer(opts);
 			if (getGenModel() != null) {
 				t.setEMFGenModel(getGenModel());

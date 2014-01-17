@@ -35,7 +35,7 @@ public interface BridgeFactoryGate {
 
 	public GenNode findOrCreateTopNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 
-	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, ChildReference childRef);
+	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef);
 
 	public GenChildNodeBase createChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, GenDiagram diagram);
 

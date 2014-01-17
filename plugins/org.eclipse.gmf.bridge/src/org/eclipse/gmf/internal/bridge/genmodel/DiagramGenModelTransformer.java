@@ -223,10 +223,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		public final boolean rcp;
 
-		public Parameters(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, VisualIdentifierDispenser vidDispenser, boolean rcp) {
+		public final BridgeFactoryGate factoryGate;
+
+		public Parameters(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, BridgeFactoryGate factoryGate, VisualIdentifierDispenser vidDispenser, boolean rcp) {
 			diagramModelHelper = drtHelper;
 			this.viewmaps = viewmaps;
 			this.vidDispenser = vidDispenser;
+			this.factoryGate = factoryGate;
 			this.rcp = rcp;
 		}
 	}
@@ -236,20 +239,20 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper) {
-		this(new Parameters(drtHelper, new InnerClassViewmapProducer(), new NaiveIdentifierDispenser(), false));
+		this(new Parameters(drtHelper, new InnerClassViewmapProducer(), new DistinctTopLevelNodesFactoryGate(), new NaiveIdentifierDispenser(), false));
 	}
 
 	public DiagramGenModelTransformer(Parameters opts) {
-		this(opts.diagramModelHelper, opts.viewmaps, opts.vidDispenser, opts.rcp);
+		this(opts.diagramModelHelper, opts.viewmaps, opts.factoryGate, opts.vidDispenser, opts.rcp);
 	}
 
-	private DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, VisualIdentifierDispenser visualIdD, boolean rcp) {
+	private DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, ViewmapProducer viewmaps, BridgeFactoryGate factoryGate, VisualIdentifierDispenser visualIdD, boolean rcp) {
 		assert drtHelper != null && viewmaps != null;
 		myDRTHelper = drtHelper;
 		myViewmaps = viewmaps;
 		myVisualIDs = visualIdD;
 		this.rcp = rcp;
-		myFactoryGate = new DistinctTopLevelNodesFactoryGate();
+		myFactoryGate = factoryGate;
 		myPaletteProcessor = new PaletteHandler();
 		myNavigatorProcessor = new NavigatorHandler();
 		myPropertySheetProcessor = new PropertySheetHandler();
@@ -444,9 +447,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assert childNodeMapping != null;
 		assertNodeMapping(childNodeMapping);
 
-		GenChildNodeBase childNode = myFactoryGate.findCompatibleChildNode(childNodeMapping, childNodeRef);
+		TypeModelFacet modelFacet = createModelFacet(childNodeRef);
+		GenChildNodeBase childNode = myFactoryGate.findCompatibleChildNode(childNodeMapping, modelFacet, childNodeRef);
 		if (childNode == null) {
-			childNode = createGenChildNode(childNodeRef);
+			childNode = createGenChildNode(childNodeRef, modelFacet);
 		}
 
 		if (container instanceof GenCompartment && childNodeMapping.getChildren().size() > 0) {
@@ -459,12 +463,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-	private GenChildNodeBase createGenChildNode(ChildReference childNodeRef) {
+	private GenChildNodeBase createGenChildNode(ChildReference childNodeRef, TypeModelFacet modelFacet) {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
 		final GenChildNodeBase childNode;
 		final boolean needCompartmentChildrenLabelProcessing;
 
-		TypeModelFacet modelFacet = createModelFacet(childNodeRef);
 		if (Knowledge.isPureLabelNode(childNodeMapping)) {
 			LabelMapping soleLabel = childNodeMapping.getLabelMappings().get(0);
 			GenChildLabelNode childLabelNode = myFactoryGate.createChildLabelNode(childNodeMapping, modelFacet, getGenDiagram());

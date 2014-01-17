@@ -38,6 +38,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	private static final String PREF_MAIN_TRANSFORM = "main-qvto"; //$NON-NLS-1$
 	private static final String PREF_PRE_RECONCILE_TRANSFORM = "pre-reconcile-qvto"; //$NON-NLS-1$
 	private static final String PREF_POST_RECONCILE_TRANSFORM = "post-reconcile-qvto"; //$NON-NLS-1$
+	private static final String PREF_MULTI_FACETED_NODES = "multi-faceted-nodes"; //$NON-NLS-1$
 	
 	private static String[] PROP_NAMES = new String[] {
 		PREF_GENERATE_RCP, 
@@ -50,6 +51,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		PREF_MAIN_TRANSFORM,
 		PREF_PRE_RECONCILE_TRANSFORM,
 		PREF_POST_RECONCILE_TRANSFORM,
+		PREF_MULTI_FACETED_NODES,
 		};
 
 	private Preferences myContextPrefs; // may be null
@@ -142,6 +144,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public URL getPostReconcileTransform() {
 		return getURL(PREF_POST_RECONCILE_TRANSFORM);
 	}
+	
+	public boolean getUseMultiFacetedNodes() {
+		return getBoolean(PREF_MULTI_FACETED_NODES);
+	}
 
 	//
 	//
@@ -170,6 +176,10 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public void setInTransformationCodeGen(boolean value) {
 		myInMemPrefs.put(PREF_USE_IN_TRANSFORMATION_CODE_GEN, Boolean.toString(value));
 	}
+	
+	public void setUseMultiFacetedNodes(boolean value) {
+		myInMemPrefs.put(PREF_MULTI_FACETED_NODES, Boolean.toString(value));
+	}
 
 	public void setFigureTemplatesPath(URL path) {
 		myInMemPrefs.put(PREF_FIGURE_TEMPLATES, path == null ? myNoValueToken : path.toString());
@@ -186,7 +196,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 	public void setPostReconcileTransform(URL path) {
 		myInMemPrefs.put(PREF_POST_RECONCILE_TRANSFORM, path == null ? myNoValueToken : path.toString());
 	}
-
+	
 	@Override
 	public void initializeDefaultPreferences() {
 		Preferences node = getDefaultPrefs();
@@ -196,6 +206,7 @@ public class TransformOptions extends AbstractPreferenceInitializer {
 		node.putBoolean(PREF_IGNORE_MAPMODEL_VALIDATION, false);
 		node.putBoolean(PREF_IGNORE_GMFGEN_VALIDATION, false);
 		node.putBoolean(PREF_USE_IN_TRANSFORMATION_CODE_GEN, true);
+		node.putBoolean(PREF_MULTI_FACETED_NODES, false);
 	}
 	
 	static boolean checkLiteOptionPresent() {

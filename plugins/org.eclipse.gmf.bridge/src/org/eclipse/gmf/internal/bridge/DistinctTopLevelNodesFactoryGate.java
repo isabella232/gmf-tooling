@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -97,11 +96,9 @@ public class DistinctTopLevelNodesFactoryGate extends BridgeFactoryGateBase {
 	}
 
 	@Override
-	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, ChildReference childRef) {
-		EReference containmentERef = childRef.getContainmentFeature();
-		EReference childrenERef = childRef.getChildrenFeature();
+	public GenChildNodeBase findCompatibleChildNode(NodeMapping nodeMap, TypeModelFacet modelFacet, ChildReference childRef) {
 		for (GenChildNode next : findChildNodesFor(nodeMap)) {
-			if (matchFeaturesWithModelFacet(containmentERef, childrenERef, next.getModelFacet())) {
+			if (matchFeaturesWithModelFacet(childRef, next.getModelFacet())) {
 				return next;
 			}
 		}
