@@ -115,16 +115,30 @@
 	«EXPAND xpt::Common::generatedMemberComment»
 	public org.eclipse.gef.EditPart getTargetEditPart(org.eclipse.gef.Request request) {
 		«IF self.childNodes->size() > 0-»
-		if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
-			org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
-			org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
-		«FOREACH self.childNodes->asSequence() AS childNode-»
-			if (type == «EXPAND xpt::providers::ElementTypes::accessElementType FOR childNode») {
-				return this;
+			if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) {
+				org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter adapter = ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+				org.eclipse.gmf.runtime.emf.type.core.IElementType type = (org.eclipse.gmf.runtime.emf.type.core.IElementType) adapter.getAdapter(org.eclipse.gmf.runtime.emf.type.core.IElementType.class);
+			«FOREACH self.childNodes->asSequence() AS childNode-»
+				if (type == «EXPAND xpt::providers::ElementTypes::accessElementType FOR childNode») {
+					return this;
+				}
+			«ENDFOREACH-»
+				return getParent().getTargetEditPart(request);
 			}
-		«ENDFOREACH-»
-			return getParent().getTargetEditPart(request);
-		}
+			if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest) {
+				«IF haveOneOfChildNodesIncomimgLinks(self)-»
+				if (org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_CONNECTION_END.equals(request.getType())) {
+					for (Object type : ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest) request).getElementTypes()) {
+						if (type instanceof org.eclipse.gmf.runtime.emf.type.core.IElementType) {
+							org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = (org.eclipse.gmf.runtime.emf.type.core.IElementType) type;
+							if («FOREACH collectIncomingLinks(self) AS link SEPARATOR ' || '»elementType.equals(«EXPAND xpt::providers::ElementTypes::accessElementType FOR link»)«ENDFOREACH»)
+								return super.getTargetEditPart(request);
+						}
+					}
+				}
+				«ENDIF-»
+				return getParent().getTargetEditPart(request);
+			}
 		«ENDIF-»
 		return super.getTargetEditPart(request);
 	}

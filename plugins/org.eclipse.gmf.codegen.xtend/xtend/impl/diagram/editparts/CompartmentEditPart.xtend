@@ -14,7 +14,6 @@
 package impl.diagram.editparts
 
 import com.google.inject.Inject
-import com.google.inject.Singleton
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram
 import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
@@ -23,7 +22,9 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.diagram.editparts.Utils_qvto
-import xpt.providers.ElementTypes
+import xpt.providers.ElementTypesimport org.eclipse.gmf.codegen.gmfgen.GenLinkimport java.util.Set
+import java.util.HashSet
+import java.util.List
 
 @com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
@@ -149,10 +150,38 @@ import xpt.providers.ElementTypes
 				«ENDFOR»
 				return getParent().getTargetEditPart(request);
 			}
+			if (request instanceof org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest) {
+				«IF haveOneOfChildNodesIncomimgLinks(it)»
+				if (org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants.REQ_CONNECTION_END.equals(request.getType())) {
+					for (Object type : ((org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest) request).getElementTypes()) {
+						if (type instanceof org.eclipse.gmf.runtime.emf.type.core.IElementType) {
+							org.eclipse.gmf.runtime.emf.type.core.IElementType elementType = (org.eclipse.gmf.runtime.emf.type.core.IElementType) type;
+							if («FOR GenLink link : collectIncomingLinks(it) SEPARATOR " || "»elementType.equals(«xptElementTypes.accessElementType(link)»)«ENDFOR»)
+								return super.getTargetEditPart(request);
+						}
+					}
+				}
+				«ENDIF»
+				return getParent().getTargetEditPart(request);
+			}
 			«ENDIF»
 			return super.getTargetEditPart(request);
 		}
 	'''
+
+	def boolean haveOneOfChildNodesIncomimgLinks(GenCompartment it) {
+		return it.childNodes.exists[n| n.assistantIncomingLinks.notEmpty];
+	}
+
+	def List<GenLink> collectIncomingLinks(GenCompartment it) {
+		var Set<GenLink> incomingLinks = new HashSet<GenLink>();
+		for (childNode : it.childNodes) {
+			if (childNode.assistantIncomingLinks.notEmpty) {
+				incomingLinks.addAll(childNode.assistantIncomingLinks);
+			}
+		}
+		return incomingLinks.sortBy(l|l.visualID);
+	}
 
 	@Localization def i18nAccessors(GenDiagram it) '''
 	«FOR compartment : it.compartments»
