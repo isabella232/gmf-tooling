@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel">
+  <diagram visualID="1000" editPartClassName="RootEditPart" itemSemanticEditPolicyClassName="RootItemSemanticEditPolicy" canonicalEditPolicyClassName="RootCanonicalEditPolicy" iconProviderPriority="Low" validationProviderPriority="Low">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+    <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="RootEditHelper"/>
+    <viewmap xsi:type="gmfgen:ModeledViewmap">
+      <figureModel href="links.gmfgraph#links"/>
+    </viewmap>
+    <domainDiagramElement href="links.genmodel#//links/Root"/>
+    <childNodes visualID="3001" editPartClassName="ChildNodeBEditPart" itemSemanticEditPolicyClassName="ChildNodeBItemSemanticEditPolicy" canonicalEditPolicyClassName="ChildNodeBCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ChildNodeBGraphicalNodeEditPolicy" createCommandClassName="ChildNodeBCreateCommand" containers="//@diagram/@compartments.0">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="ChildNodeBEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#ChildNodeB"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="links.genmodel#//links/ChildNodeB"/>
+        <containmentMetaFeature href="links.genmodel#//links/RootNodeB/ChildrenB"/>
+        <childMetaFeature href="links.genmodel#//links/RootNodeB/ChildrenB"/>
+      </modelFacet>
+    </childNodes>
+    <childNodes visualID="3002" editPartClassName="ChildNodeAEditPart" itemSemanticEditPolicyClassName="ChildNodeAItemSemanticEditPolicy" canonicalEditPolicyClassName="ChildNodeACanonicalEditPolicy" graphicalNodeEditPolicyClassName="ChildNodeAGraphicalNodeEditPolicy" createCommandClassName="ChildNodeACreateCommand" containers="//@diagram/@compartments.1">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="ChildNodeAEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#ChildNodeA"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="links.genmodel#//links/ChildNodeA"/>
+        <containmentMetaFeature href="links.genmodel#//links/RootNodeA/ChildrenNodeA"/>
+        <childMetaFeature href="links.genmodel#//links/RootNodeA/ChildrenNodeA"/>
+      </modelFacet>
+    </childNodes>
+    <topLevelNodes visualID="2007" editPartClassName="RootNodeBEditPart" itemSemanticEditPolicyClassName="RootNodeBItemSemanticEditPolicy" canonicalEditPolicyClassName="RootNodeBCanonicalEditPolicy" compartments="//@diagram/@compartments.0" graphicalNodeEditPolicyClassName="RootNodeBGraphicalNodeEditPolicy" createCommandClassName="RootNodeBCreateCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="RootNodeBEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap" layoutType="TOOLBAR_LAYOUT">
+        <figureModel href="links.gmfgraph#RootNodeB"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="links.genmodel#//links/RootNodeB"/>
+        <containmentMetaFeature href="links.genmodel#//links/Root/rootNodeBs"/>
+        <childMetaFeature href="links.genmodel#//links/Root/rootNodeBs"/>
+      </modelFacet>
+    </topLevelNodes>
+    <topLevelNodes visualID="2008" editPartClassName="RootNodeAEditPart" itemSemanticEditPolicyClassName="RootNodeAItemSemanticEditPolicy" canonicalEditPolicyClassName="RootNodeACanonicalEditPolicy" compartments="//@diagram/@compartments.1" graphicalNodeEditPolicyClassName="RootNodeAGraphicalNodeEditPolicy" createCommandClassName="RootNodeACreateCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="RootNodeAEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap" layoutType="TOOLBAR_LAYOUT">
+        <figureModel href="links.gmfgraph#RootNodeA"/>
+      </viewmap>
+      <modelFacet>
+        <metaClass href="links.genmodel#//links/RootNodeA"/>
+        <containmentMetaFeature href="links.genmodel#//links/Root/rootNodeAs"/>
+        <childMetaFeature href="links.genmodel#//links/Root/rootNodeAs"/>
+      </modelFacet>
+    </topLevelNodes>
+    <links visualID="4005" editPartClassName="Child_AB_Element_LinkEditPart" itemSemanticEditPolicyClassName="Child_AB_Element_LinkItemSemanticEditPolicy" createCommandClassName="Child_AB_Element_LinkCreateCommand" reorientCommandClassName="Child_AB_Element_LinkReorientCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="Child_AB_Element_LinkEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#Child_AB_Element_Link"/>
+      </viewmap>
+      <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
+        <metaClass href="links.genmodel#//links/Child_AB_Element_Link"/>
+        <containmentMetaFeature href="links.genmodel#//links/Root/childABElementLinks"/>
+        <childMetaFeature href="links.genmodel#//links/Root/childABElementLinks"/>
+        <sourceMetaFeature href="links.genmodel#//links/Child_AB_Element_Link/source_A"/>
+        <targetMetaFeature href="links.genmodel#//links/Child_AB_Element_Link/target_B"/>
+      </modelFacet>
+    </links>
+    <links visualID="4006" editPartClassName="Root_BA_Element_LinkEditPart" itemSemanticEditPolicyClassName="Root_BA_Element_LinkItemSemanticEditPolicy" createCommandClassName="Root_BA_Element_LinkCreateCommand" reorientCommandClassName="Root_BA_Element_LinkReorientCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="Root_BA_Element_LinkEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#Root_BA_Element_Link"/>
+      </viewmap>
+      <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
+        <metaClass href="links.genmodel#//links/Root_BA_Element_Link"/>
+        <containmentMetaFeature href="links.genmodel#//links/Root/rootBALinks"/>
+        <childMetaFeature href="links.genmodel#//links/Root/rootBALinks"/>
+        <sourceMetaFeature href="links.genmodel#//links/Root_BA_Element_Link/b"/>
+        <targetMetaFeature href="links.genmodel#//links/Root_BA_Element_Link/a"/>
+      </modelFacet>
+    </links>
+    <links visualID="4007" editPartClassName="ChildNodeAChild_AB_Feature_LinkEditPart" itemSemanticEditPolicyClassName="ChildNodeAChild_AB_Feature_LinkItemSemanticEditPolicy" createCommandClassName="ChildNodeAChild_AB_Feature_LinkCreateCommand" reorientCommandClassName="ChildNodeAChild_AB_Feature_LinkReorientCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType xsi:type="gmfgen:SpecializationType"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#Child_AB_Feature_Link"/>
+      </viewmap>
+      <modelFacet xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature href="links.genmodel#//links/ChildNodeA/Child_AB_Feature_Link"/>
+      </modelFacet>
+    </links>
+    <links visualID="4008" editPartClassName="RootNodeBRoot_BA_Feature_LinkEditPart" itemSemanticEditPolicyClassName="RootNodeBRoot_BA_Feature_LinkItemSemanticEditPolicy" createCommandClassName="RootNodeBRoot_BA_Feature_LinkCreateCommand" reorientCommandClassName="RootNodeBRoot_BA_Feature_LinkReorientCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType xsi:type="gmfgen:SpecializationType"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#Root_BA_Feature_Link"/>
+      </viewmap>
+      <modelFacet xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature href="links.genmodel#//links/RootNodeB/Root_BA_Feature_Link"/>
+      </modelFacet>
+    </links>
+    <compartments visualID="7003" editPartClassName="RootNodeBChildNodeBCompartmentEditPart" itemSemanticEditPolicyClassName="RootNodeBChildNodeBCompartmentItemSemanticEditPolicy" canonicalEditPolicyClassName="RootNodeBChildNodeBCompartmentCanonicalEditPolicy" childNodes="//@diagram/@childNodes.0" title="ChildNodeBCompartment" canCollapse="false" needsTitle="false" node="//@diagram/@topLevelNodes.0" listLayout="false">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#ChildNodeBCompartment"/>
+      </viewmap>
+    </compartments>
+    <compartments visualID="7004" editPartClassName="RootNodeAChildNodeACompartmentEditPart" itemSemanticEditPolicyClassName="RootNodeAChildNodeACompartmentItemSemanticEditPolicy" canonicalEditPolicyClassName="RootNodeAChildNodeACompartmentCanonicalEditPolicy" childNodes="//@diagram/@childNodes.1" title="ChildNodeACompartment" canCollapse="false" needsTitle="false" node="//@diagram/@topLevelNodes.1" listLayout="false">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="links.gmfgraph#ChildNodeACompartment"/>
+      </viewmap>
+    </compartments>
+    <palette>
+      <groups title="links">
+        <entries xsi:type="gmfgen:ToolEntry" title="RootNodeA" description="Create new RootNodeA" genNodes="//@diagram/@topLevelNodes.1"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="RootNodeB" description="Create new RootNodeB" genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Root_BA_Feature_Link" description="Create new Root_BA_Feature_Link" genLinks="//@diagram/@links.3"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="ChildNodeA" description="Create new ChildNodeA" genNodes="//@diagram/@childNodes.1"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Child_AB_Feature_Link" description="Create new Child_AB_Feature_Link" genLinks="//@diagram/@links.2"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="ChildNodeB" description="Create new ChildNodeB" genNodes="//@diagram/@childNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Child_AB_Element_Link" description="Create new Child_AB_Element_Link" genLinks="//@diagram/@links.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="Root_BA_Element_Link" description="Create new Root_BA_Element_Link" genLinks="//@diagram/@links.1"/>
+      </groups>
+    </palette>
+    <preferencePages xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.links.diagram.general" name="Links Diagram">
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.links.diagram.appearance" name="Appearance" kind="Appearance"/>
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.links.diagram.connections" name="Connections" kind="Connections"/>
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.links.diagram.printing" name="Printing" kind="Printing"/>
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.links.diagram.rulersAndGrid" name="Rulers And Grid" kind="RulersAndGrid"/>
+    </preferencePages>
+  </diagram>
+  <plugin>
+    <requiredPlugins>org.eclipse.gmf.tooling.runtime</requiredPlugins>
+  </plugin>
+  <editor/>
+  <navigator>
+    <childReferences child="//@diagram"/>
+    <childReferences parent="//@diagram/@topLevelNodes.0" child="//@diagram/@childNodes.0"/>
+    <childReferences parent="//@diagram" child="//@diagram/@topLevelNodes.0"/>
+    <childReferences parent="//@diagram/@topLevelNodes.1" child="//@diagram/@childNodes.1"/>
+    <childReferences parent="//@diagram" child="//@diagram/@topLevelNodes.1"/>
+    <childReferences parent="//@diagram" child="//@diagram/@links.0" groupName="links" groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.0" child="//@diagram/@childNodes.0" referenceType="out_target" groupName="target" groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@childNodes.0" child="//@diagram/@links.0" referenceType="in_source" groupName="incoming links" groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.0" child="//@diagram/@childNodes.1" referenceType="in_source" groupName="source" groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@childNodes.1" child="//@diagram/@links.0" referenceType="out_target" groupName="outgoing links" groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram" child="//@diagram/@links.1" groupName="links" groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.1" child="//@diagram/@topLevelNodes.1" referenceType="out_target" groupName="target" groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@topLevelNodes.1" child="//@diagram/@links.1" referenceType="in_source" groupName="incoming links" groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.1" child="//@diagram/@topLevelNodes.0" referenceType="in_source" groupName="source" groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@topLevelNodes.0" child="//@diagram/@links.1" referenceType="out_target" groupName="outgoing links" groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram" child="//@diagram/@links.2" groupName="links" groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.2" child="//@diagram/@childNodes.0" referenceType="out_target" groupName="target" groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@childNodes.0" child="//@diagram/@links.2" referenceType="in_source" groupName="incoming links" groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.2" child="//@diagram/@childNodes.1" referenceType="in_source" groupName="source" groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@childNodes.1" child="//@diagram/@links.2" referenceType="out_target" groupName="outgoing links" groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram" child="//@diagram/@links.3" groupName="links" groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.3" child="//@diagram/@topLevelNodes.1" referenceType="out_target" groupName="target" groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@topLevelNodes.1" child="//@diagram/@links.3" referenceType="in_source" groupName="incoming links" groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@links.3" child="//@diagram/@topLevelNodes.0" referenceType="in_source" groupName="source" groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences parent="//@diagram/@topLevelNodes.0" child="//@diagram/@links.3" referenceType="out_target" groupName="outgoing links" groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+  </navigator>
+  <diagramUpdater/>
+  <propertySheet>
+    <tabs xsi:type="gmfgen:GenStandardPropertyTab" iD="appearance"/>
+    <tabs xsi:type="gmfgen:GenStandardPropertyTab" iD="diagram"/>
+    <tabs xsi:type="gmfgen:GenCustomPropertyTab" iD="domain" label="Core">
+      <filter xsi:type="gmfgen:TypeTabFilter">
+        <types>org.eclipse.gmf.runtime.notation.View</types>
+        <types>org.eclipse.gef.EditPart</types>
+        <generatedTypes>abstractNavigatorItem</generatedTypes>
+      </filter>
+    </tabs>
+  </propertySheet>
+  <domainGenModel href="links.genmodel#/"/>
+  <contextMenus context="//@diagram">
+    <items xsi:type="gmfgen:LoadResourceAction"/>
+  </contextMenus>
+</gmfgen:GenEditorGenerator>
