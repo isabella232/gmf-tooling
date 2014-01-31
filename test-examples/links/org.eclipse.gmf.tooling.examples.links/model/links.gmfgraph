@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="links">
+  <figures name="Default">
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="Root_BA_Feature_LinkTargetDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="Child_AB_Feature_LinkTargetDecoration"/>
+    <descriptors name="RootNodeAFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="RootNodeAFigure">
+        <layout xsi:type="gmfgraph:FlowLayout" vertical="true" matchMinorSize="true" forceSingleLine="true"/>
+        <insets top="5" left="5" bottom="5" right="5"/>
+        <children xsi:type="gmfgraph:Label" name="RootNodeALabel" text="Root Node A"/>
+        <children xsi:type="gmfgraph:Rectangle" name="ChildNodeACompartment"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1"/>
+    </descriptors>
+    <descriptors name="RootNodeBFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="RootNodeBFigure">
+        <layout xsi:type="gmfgraph:FlowLayout" vertical="true" matchMinorSize="true" forceSingleLine="true"/>
+        <insets top="5" left="5" bottom="5" right="5"/>
+        <children xsi:type="gmfgraph:Label" name="RootNodeBLabel" text="Root Node B"/>
+        <children xsi:type="gmfgraph:Rectangle" name="ChildNodeBCompartment"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
+    </descriptors>
+    <descriptors name="Root_BA_Feature_LinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="RootNodeBRoot_BA_Feature_LinkFigure" targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
+    <descriptors name="ChildNodeAFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="ChildNodeAFigure"/>
+    </descriptors>
+    <descriptors name="Child_AB_Feature_LinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="ChildNodeAChild_BA_Feature_LinkFigure" targetDecoration="//@figures.0/@figures.1"/>
+    </descriptors>
+    <descriptors name="ChildNodeBFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="ChildNodeBFigure"/>
+    </descriptors>
+    <descriptors name="Child_AB_Element_LinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="Child_AB_Element_LinkFigure"/>
+    </descriptors>
+    <descriptors name="Root_BA_Element_LinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="Root_BA_Element_LinkFigure"/>
+    </descriptors>
+  </figures>
+  <nodes name="RootNodeA" figure="RootNodeAFigure"/>
+  <nodes name="RootNodeB" figure="RootNodeBFigure"/>
+  <nodes name="ChildNodeA" figure="ChildNodeAFigure"/>
+  <nodes name="ChildNodeB" figure="ChildNodeBFigure"/>
+  <connections name="Root_BA_Feature_Link" figure="Root_BA_Feature_LinkFigure"/>
+  <connections name="Child_AB_Feature_Link" figure="Child_AB_Feature_LinkFigure"/>
+  <connections name="Child_AB_Element_Link" figure="Child_AB_Element_LinkFigure"/>
+  <connections name="Root_BA_Element_Link" figure="Root_BA_Element_LinkFigure"/>
+  <compartments name="ChildNodeACompartment" figure="RootNodeAFigure" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <compartments name="ChildNodeBCompartment" figure="RootNodeBFigure" accessor="//@figures.0/@descriptors.1/@accessors.0"/>
+</gmfgraph:Canvas>
