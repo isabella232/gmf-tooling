@@ -20,7 +20,7 @@ import xpt.Common
 	@Inject extension Common;
 	@Inject WorkbenchAdvisor xptWorkbenchAdvisor
 
-	def className(GenApplication it) '''«it.actionBarAdvisorClassName»'''
+	def className(GenApplication it) '''«it.className»'''
 
 	def packageName(GenApplication it) '''«it.packageName»'''
 
