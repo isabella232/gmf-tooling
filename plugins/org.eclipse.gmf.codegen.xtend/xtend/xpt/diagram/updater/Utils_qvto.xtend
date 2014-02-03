@@ -202,7 +202,7 @@ enum UpdaterLinkType {
 	}
 
 	def dispatch GenClass getLinkEndType(TypeLinkModelFacet facet, UpdaterLinkType type) {
-		if(type == UpdaterLinkType::INCOMING) return facet.sourceType;
+		if(type == UpdaterLinkType::INCOMING) return facet.targetType;
 		if(type == UpdaterLinkType::OUTGOING && facet.sourceMetaFeature != null) return facet.sourceType;
 		if(facet.containmentMetaFeature == null) return null;
 		return facet.containmentMetaFeature.genClass;
