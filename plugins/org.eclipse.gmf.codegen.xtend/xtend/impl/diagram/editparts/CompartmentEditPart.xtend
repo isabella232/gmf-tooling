@@ -22,10 +22,7 @@ import xpt.Common
 import xpt.Common_qvto
 import xpt.Externalizer
 import xpt.diagram.editparts.Utils_qvto
-import xpt.providers.ElementTypesimport org.eclipse.gmf.codegen.gmfgen.GenLinkimport java.util.Set
-import java.util.HashSet
-import java.util.List
-
+import xpt.providers.ElementTypesimport org.eclipse.gmf.codegen.gmfgen.GenLink
 @com.google.inject.Singleton class CompartmentEditPart {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
@@ -168,20 +165,6 @@ import java.util.List
 			return super.getTargetEditPart(request);
 		}
 	'''
-
-	def boolean haveOneOfChildNodesIncomimgLinks(GenCompartment it) {
-		return it.childNodes.exists[n| n.assistantIncomingLinks.notEmpty];
-	}
-
-	def List<GenLink> collectIncomingLinks(GenCompartment it) {
-		var Set<GenLink> incomingLinks = new HashSet<GenLink>();
-		for (childNode : it.childNodes) {
-			if (childNode.assistantIncomingLinks.notEmpty) {
-				incomingLinks.addAll(childNode.assistantIncomingLinks);
-			}
-		}
-		return incomingLinks.sortBy(l|l.visualID);
-	}
 
 	@Localization def i18nAccessors(GenDiagram it) '''
 	«FOR compartment : it.compartments»

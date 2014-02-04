@@ -28,7 +28,9 @@ import org.eclipse.gmf.codegen.gmfgen.ViewmapLayoutType
 import org.eclipse.gmf.gmfgraph.Compartment
 import org.eclipse.gmf.gmfgraph.DiagramElement
 import org.eclipse.gmf.gmfgraph.DiagramLabel
-import xpt.Common_qvto
+import xpt.Common_qvtoimport java.util.List
+import java.util.Set
+import java.util.HashSet
 
 @com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto
@@ -133,4 +135,17 @@ import xpt.Common_qvto
 		return ends.filter(typeof(GenNode))
 	}
 
+	def boolean haveOneOfChildNodesIncomimgLinks(GenCompartment it) {
+		return it.childNodes.exists[n| n.assistantIncomingLinks.notEmpty];
+	}
+
+	def List<GenLink> collectIncomingLinks(GenCompartment it) {
+		var Set<GenLink> incomingLinks = new HashSet<GenLink>();
+		for (childNode : it.childNodes) {
+			if (childNode.assistantIncomingLinks.notEmpty) {
+				incomingLinks.addAll(childNode.assistantIncomingLinks);
+			}
+		}
+		return incomingLinks.sortBy(l|l.visualID);
+	}
 }
