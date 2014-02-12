@@ -13,7 +13,7 @@ package org.eclipse.gmf.tests.setup.figures;
 
 import java.util.Arrays;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.gmfgraph.Alignment;

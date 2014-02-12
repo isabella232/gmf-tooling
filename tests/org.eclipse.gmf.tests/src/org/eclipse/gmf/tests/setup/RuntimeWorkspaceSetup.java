@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;

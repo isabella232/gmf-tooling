@@ -11,7 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup.figures;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.CustomFigure;

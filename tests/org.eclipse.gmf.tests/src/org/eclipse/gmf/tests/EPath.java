@@ -11,7 +11,7 @@
  */
 package org.eclipse.gmf.tests;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;

@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.core.commands.contexts.Context;
 import org.eclipse.core.resources.IProject;

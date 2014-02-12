@@ -13,7 +13,7 @@ package org.eclipse.gmf.tests.rt;
 
 import java.util.Iterator;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;

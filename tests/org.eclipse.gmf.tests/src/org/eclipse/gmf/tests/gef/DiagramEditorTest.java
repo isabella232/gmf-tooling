@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;

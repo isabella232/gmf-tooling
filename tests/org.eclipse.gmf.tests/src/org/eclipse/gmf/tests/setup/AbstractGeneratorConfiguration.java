@@ -13,7 +13,7 @@ package org.eclipse.gmf.tests.setup;
 
 import java.lang.reflect.Field;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
