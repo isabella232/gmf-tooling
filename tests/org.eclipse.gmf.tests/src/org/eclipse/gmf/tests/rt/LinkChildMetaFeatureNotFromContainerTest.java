@@ -207,7 +207,12 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 	};
 
 	public LinkChildMetaFeatureNotFromContainerTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
+	}
+	
+	
+	public LinkChildMetaFeatureNotFromContainerTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
 	}
 	
 	public void testCreateLink() {

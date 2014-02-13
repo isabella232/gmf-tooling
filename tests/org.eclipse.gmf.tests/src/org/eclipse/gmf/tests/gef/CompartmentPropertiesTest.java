@@ -41,13 +41,16 @@ import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
  * .gmfgraph -> .gmfgen (ViewMap properties) transformation is checked as a
  * separate test.
  */
-public final class CompartmentPropertiesTest extends GeneratedCanvasTest {
+public class CompartmentPropertiesTest extends GeneratedCanvasTest {
 	private static final NotationPackage NOTATION = NotationPackage.eINSTANCE; 
 	
 	public CompartmentPropertiesTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
 	}
 	
+	public CompartmentPropertiesTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
+	}
 	/**
 	 * Simplified version of testCompartmentTitles() 
 	 * Checks GEF properties for notation elements explictly created via RTSource.

@@ -94,6 +94,10 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		super(name, new RuntimeBasedGeneratorConfiguration());
 	}
 
+	public EditHelpersTest(String name, RuntimeBasedGeneratorConfiguration config) {
+		super(name, config);
+	}
+	
 	public void testSingleEditHelperAdviceNode() {
 		assertTrue(getSetup().getGenModel().getNodeA().getElementType() instanceof MetamodelType);
 		Command command = getSetNewTopLeveNodeNameCommand(getSetup().getGenModel().getNodeA(), getSetup().getDomainModel().getNodeA().getNameAttr().getName());

@@ -35,6 +35,7 @@
 							<goal>compile</goal>
 						</goals>
 						<configuration>
+							<encoding>UTF-8</encoding>
 							<outputDirectory>xtend-gen</outputDirectory>
 						</configuration>
 					</execution>

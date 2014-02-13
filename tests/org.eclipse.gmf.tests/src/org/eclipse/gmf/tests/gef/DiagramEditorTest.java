@@ -64,9 +64,13 @@ import org.eclipse.ui.IEditorPart;
 public class DiagramEditorTest extends AbstractDiagramEditorTest {
 
 	public DiagramEditorTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
 	}
 
+	public DiagramEditorTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
+	}
+	
 	public void testSaveDiagramChanges() {
 		IEditorPart editorPart = getEditor();
 		assertFalse("Created Editor is dirty", editorPart.isDirty());

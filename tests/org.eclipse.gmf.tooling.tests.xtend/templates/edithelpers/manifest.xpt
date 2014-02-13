@@ -1,0 +1,30 @@
+﻿/*
+ * Copyright (c) 2006, 2007 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Alexander Shatalin (Borland) - initial API and implementation
+ */
+
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
+
+«DEFINE _main FOR String-»
+Manifest-Version: 1.0 
+Bundle-ManifestVersion: 2
+Bundle-Name: editHelpers
+Bundle-SymbolicName: «self»;singleton:=true 
+Bundle-Version: 1.0.0
+Bundle-ClassPath: ., bin/
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.gmf.runtime.emf.type.core,
+ org.eclipse.gmf.runtime.common.core,
+ org.eclipse.gmf.runtime.emf.type.core,
+ org.eclipse.core.runtime
+Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
+«ENDDEFINE»

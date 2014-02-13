@@ -79,9 +79,13 @@ public class AuditRulesTest extends GeneratedCanvasTest {
 	private List<GenPackage> targetedPackages;
 
 	public AuditRulesTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
 	}
-
+	
+	public AuditRulesTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
+	}
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		MapDefSource mapSource = getSetup().getMapModel();

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgen:TypeLinkModelFacet xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel"
+    createCommandClassName="CreateCommandClassName"/> 
+    <modelElementSelector body="GenConstraintBody">
+    </modelElementSelector>
+</gmfgen:TypeLinkModelFacet>

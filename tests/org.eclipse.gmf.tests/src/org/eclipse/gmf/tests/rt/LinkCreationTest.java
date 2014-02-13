@@ -33,9 +33,14 @@ public class LinkCreationTest extends GeneratedCanvasTest {
 	private Node myNodeB;
 
 	public LinkCreationTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
 	}
 
+	
+	public LinkCreationTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
+	}
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		myNodeA = getNotation(getNodeEditPartA());
