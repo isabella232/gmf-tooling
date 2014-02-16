@@ -29,6 +29,6 @@ public class SessionSetupXtend extends SessionSetup {
 		if (factoryClosed) {
 			return null;
 		}
-		return new SessionSetupXtend(new RuntimeBasedGeneratorConfiguration());
+		return new SessionSetupXtend(new RuntimeBasedGeneratorConfigurationXtend());
 	}
 }

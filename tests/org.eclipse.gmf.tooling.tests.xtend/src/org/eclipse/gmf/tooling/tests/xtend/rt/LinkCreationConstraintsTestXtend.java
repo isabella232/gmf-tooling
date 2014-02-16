@@ -12,12 +12,12 @@ package org.eclipse.gmf.tooling.tests.xtend.rt;
 
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.ViewerConfiguration;
-import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 
 public class LinkCreationConstraintsTestXtend extends LinkCreationConstraintsTest {
 
 	public LinkCreationConstraintsTestXtend(String name) {
-		this(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfigurationXtend());
 	}
 	
 	protected LinkCreationConstraintsTestXtend(String name, ViewerConfiguration.Factory viewerConfigFactory) {

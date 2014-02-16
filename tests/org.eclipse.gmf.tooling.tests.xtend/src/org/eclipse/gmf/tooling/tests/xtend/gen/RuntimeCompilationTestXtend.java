@@ -7,16 +7,16 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Alexander Shatalin (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
+ *    Artem Tikhomirov (Borland) - tests for Ant build
  */
-package org.eclipse.gmf.tooling.tests.xtend.rt;
+package org.eclipse.gmf.tooling.tests.xtend.gen;
 
-import org.eclipse.gmf.tests.rt.LinkCreationTest;
 import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 
-public class LinkCreationTestXtend extends LinkCreationTest {
+public class RuntimeCompilationTestXtend extends org.eclipse.gmf.tests.gen.RuntimeCompilationTest {
 
-	public LinkCreationTestXtend(String name) {
+	public RuntimeCompilationTestXtend(String name) {
 		super(name, new RuntimeBasedGeneratorConfigurationXtend());
 	}
 

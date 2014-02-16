@@ -66,7 +66,7 @@ import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSource;
-import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 import org.osgi.framework.BundleException;
 
 import com.google.inject.Guice;
@@ -88,7 +88,7 @@ public class EditHelpersTestXtend extends EditHelpersTest {
 	private final static Injector injector = Guice.createInjector(new Module[]{new GMFGeneratorModule(null)});;
 	
 	public EditHelpersTestXtend(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		super(name, new RuntimeBasedGeneratorConfigurationXtend());
 	}
 
 	public void testSingleEditHelperAdviceNode() {
@@ -124,7 +124,7 @@ public class EditHelpersTestXtend extends EditHelpersTest {
 
 	@Override
 	protected Diagram createDiagramView(EObject domainElement, GeneratedDiagramPlugin genPlugin) {
-		return RuntimeBasedGeneratorConfiguration.createDiagram(domainElement, genPlugin);
+		return RuntimeBasedGeneratorConfigurationXtend.createDiagram(domainElement, genPlugin);
 	}
 
 	private boolean hasCommand(Collection<IUndoableOperation> beforeCommands, int visualID) {
@@ -225,7 +225,7 @@ public class EditHelpersTestXtend extends EditHelpersTest {
 	public static final class EditHelpersSessionSetup extends SessionSetup {
 
 		public EditHelpersSessionSetup() {
-			super(new RuntimeBasedGeneratorConfiguration());
+			super(new RuntimeBasedGeneratorConfigurationXtend());
 		}
 
 		@Override

@@ -38,7 +38,7 @@ import org.eclipse.gmf.tests.setup.GenProjectSetup;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
-import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 
@@ -51,7 +51,7 @@ public class BundleActivationTestXtend extends ConfiguredTestCase {
 	private final PreferencesHint prefHint = new PreferencesHint("a.b.c");
 	public final static class CustomSetup extends SessionSetup {
 		public CustomSetup() {
-			super(new RuntimeBasedGeneratorConfiguration());
+			super(new RuntimeBasedGeneratorConfigurationXtend());
 		}
 		@Override
 		protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {

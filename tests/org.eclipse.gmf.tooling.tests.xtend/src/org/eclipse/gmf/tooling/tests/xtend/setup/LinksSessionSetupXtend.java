@@ -30,7 +30,7 @@ public class LinksSessionSetupXtend extends LinksSessionSetup {
 		if (factoryClosed) {
 			return null;
 		}
-		return new LinksSessionSetupXtend(new RuntimeBasedGeneratorConfiguration());
+		return new LinksSessionSetupXtend(new RuntimeBasedGeneratorConfigurationXtend());
 	}
 	
 }

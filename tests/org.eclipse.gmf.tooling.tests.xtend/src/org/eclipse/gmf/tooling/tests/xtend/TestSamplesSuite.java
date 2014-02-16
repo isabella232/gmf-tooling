@@ -11,7 +11,7 @@ import org.eclipse.gmf.tooling.tests.xtend.sapmles.SVGSampleTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.sapmles.ShourtcutSampleTestXtend;
 
 
-public class TestSamples {
+public class TestSamplesSuite {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.tooling.gmf samples");
 		suite.addTestSuite(PinsSampleTestXtend.class);

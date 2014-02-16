@@ -17,7 +17,7 @@ import org.eclipse.gmf.codegen.xtend.ui.handlers.CodegenEmittersWithXtend2;
 import org.eclipse.gmf.codegen.xtend.ui.handlers.GeneratorWithXtend2;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 
-public class RuntimeBasedGeneratorConfiguration extends org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration {
+public class RuntimeBasedGeneratorConfigurationXtend extends org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration {
 
 	public GeneratorBase createGenerator(GenDiagram diagram) {
 		final GenEditorGenerator editorGen = diagram.getEditorGen();

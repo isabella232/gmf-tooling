@@ -37,7 +37,7 @@ import org.eclipse.gmf.tests.setup.annotated.GenASetup;
 import org.eclipse.gmf.tests.setup.annotated.GraphDefASetup;
 import org.eclipse.gmf.tests.setup.annotated.MapDefASetup;
 import org.eclipse.gmf.tests.setup.annotated.ToolDefASetup;
-import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 
 /**
  * @author artem
@@ -46,7 +46,7 @@ public class LinkEcoreConstraintsTestXtend extends LinkEcoreConstraintsTest {
 	
 	public final static class CustomSetup extends SessionSetup {
 		public CustomSetup() {
-			super(new RuntimeBasedGeneratorConfiguration());
+			super(new RuntimeBasedGeneratorConfigurationXtend());
 		}
 
 		private DiaGenSource myGenModel;
@@ -96,6 +96,6 @@ public class LinkEcoreConstraintsTestXtend extends LinkEcoreConstraintsTest {
 	};
 
 	public LinkEcoreConstraintsTestXtend(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		super(name, new RuntimeBasedGeneratorConfigurationXtend());
 	}
 }

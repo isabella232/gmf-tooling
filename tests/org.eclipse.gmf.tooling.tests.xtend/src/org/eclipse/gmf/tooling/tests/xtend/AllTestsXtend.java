@@ -24,6 +24,7 @@ import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
+import org.eclipse.gmf.tests.gef.ParsersTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CodegenReconcileTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
@@ -39,7 +40,6 @@ import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.ModelLoadHelperTest;
 import org.eclipse.gmf.tests.gen.OrganizeImportsPostprocessorTest;
 import org.eclipse.gmf.tests.gen.RTFigureTest;
-import org.eclipse.gmf.tests.gen.RuntimeCompilationTest;
 import org.eclipse.gmf.tests.gen.ShapePropertiesTest;
 import org.eclipse.gmf.tests.gen.StandaloneMapModeTest;
 import org.eclipse.gmf.tests.gen.StandalonePluginConverterTest;
@@ -55,6 +55,8 @@ import org.eclipse.gmf.tests.rt.MetricRulesTest;
 import org.eclipse.gmf.tests.rt.PaletteTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.gmf.tests.setup.TestAllDerivedFeatures;
+import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.setup.figures.FigureCodegenSetup;
 import org.eclipse.gmf.tests.setup.figures.FigureLayoutSetup;
 import org.eclipse.gmf.tests.setup.figures.LabelSupportSetup;
@@ -71,26 +73,18 @@ import org.eclipse.gmf.tests.tr.ManifestMergeTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.PaletteTransformationTest;
 import org.eclipse.gmf.tests.tr.PluginXMLTextMergerTest;
-import org.eclipse.gmf.tests.tr.QvtGenModelTransformerBasicRTTest;
-import org.eclipse.gmf.tests.tr.QvtGenModelTransformerSimpleTest;
-import org.eclipse.gmf.tests.tr.QvtGenModelTransformerVisualIDWithTraceTest;
-import org.eclipse.gmf.tests.tr.QvtLabelMappingTransformTest;
-import org.eclipse.gmf.tests.tr.QvtPaletteTransformationTest;
-import org.eclipse.gmf.tests.tr.QvtTransformModeledViewmapTest;
 import org.eclipse.gmf.tests.tr.TestDefaultMergeService;
 import org.eclipse.gmf.tests.tr.TransformToGenModelOperationTest;
 import org.eclipse.gmf.tests.tr.XmlTextMergerTest;
 import org.eclipse.gmf.tests.validate.AllValidateTests;
-import org.eclipse.gmf.tooling.tests.xtend.gef.ParsersTest;
-import org.eclipse.gmf.tooling.tests.xtend.gef.ParsersTest.ParsersSetup;
+import org.eclipse.gmf.tooling.tests.xtend.gen.RuntimeCompilationTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.rt.BundleActivationTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.rt.EditHelpersTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.rt.LinkChildMetaFeatureNotFromContainerTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.rt.LinkEcoreConstraintsTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.setup.LinksSessionSetupXtend;
+import org.eclipse.gmf.tooling.tests.xtend.setup.ParsersSetupXtend;
 import org.eclipse.gmf.tooling.tests.xtend.setup.SessionSetupXtend;
-import org.eclipse.gmf.tooling.tests.xtend.setup.TestAllDerivedFeatures;
-import org.eclipse.gmf.tooling.tests.xtend.setup.TestSetupTest;
 import org.eclipse.jdt.core.JavaCore;
 
 public class AllTestsXtend {
@@ -145,13 +139,7 @@ public class AllTestsXtend {
 		Plugin.getConfig().register(AuditHandcodedTest.class, sessionSetup);
 		Plugin.getConfig().register(CodegenReconcileTest.class, sessionSetup);
 		
-		Plugin.getConfig().register(QvtGenModelTransformerSimpleTest.class, sessionSetup);
-		Plugin.getConfig().register(QvtGenModelTransformerBasicRTTest.class, sessionSetup);
-		Plugin.getConfig().register(QvtLabelMappingTransformTest.class, sessionSetup);
-		Plugin.getConfig().register(QvtPaletteTransformationTest.class, sessionSetup);
 		Plugin.getConfig().register(CompareTransformationEngineTest.class, sessionSetup);
-		Plugin.getConfig().register(QvtTransformModeledViewmapTest.class, sessionSetup);
-		Plugin.getConfig().register(QvtGenModelTransformerVisualIDWithTraceTest.class, sessionSetup);
 		
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		Plugin.getConfig().register(TestAllDerivedFeatures.class, sessionSetup);
@@ -159,7 +147,7 @@ public class AllTestsXtend {
 		Plugin.getConfig().register(NamingStrategyTest.class, sessionSetup);
 		Plugin.getConfig().register(GenModelTransformerBasicRTTest.class, sessionSetup);
 		Plugin.getConfig().register(LinkCreationTest.class, sessionSetup);
-//		// LinksSessionSetup
+		// LinksSessionSetup
 		Plugin.getConfig().register(AuditRulesTest.class, sessionSetup2);
 		Plugin.getConfig().register(ElementInitializerTest.class, sessionSetup2);
 		Plugin.getConfig().register(LinkCreationConstraintsTest.class, sessionSetup2);
@@ -171,7 +159,7 @@ public class AllTestsXtend {
 		Plugin.getConfig().register(FigureLayoutTest.class, new FigureLayoutSetup());
 		//
 		// Default configuration, ParsersTest also runs for ParsersSetup(false)
-		Plugin.getConfig().register(ParsersTest.class, new ParsersSetup(true));
+		Plugin.getConfig().register(ParsersTest.class, new ParsersSetupXtend(true));
 		//
 		Plugin.getConfig().register(LinkEcoreConstraintsTestXtend.class, new LinkEcoreConstraintsTestXtend.CustomSetup());
 		Plugin.getConfig().register(LinkChildMetaFeatureNotFromContainerTestXtend.class, new LinkChildMetaFeatureNotFromContainerTestXtend.CustomSetup());
@@ -198,12 +186,6 @@ public class AllTestsXtend {
 		suite.addTestSuite(ManifestMergeTest.class);
 		suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
 
-        suite.addTestSuite(QvtGenModelTransformerSimpleTest.class);
-        suite.addTestSuite(QvtGenModelTransformerBasicRTTest.class);
-        suite.addTestSuite(QvtLabelMappingTransformTest.class);
-        suite.addTestSuite(QvtPaletteTransformationTest.class);
-        suite.addTestSuite(QvtGenModelTransformerVisualIDWithTraceTest.class);
-        suite.addTestSuite(QvtTransformModeledViewmapTest.class);
         suite.addTestSuite(CompareTransformationEngineTest.class);
         
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
@@ -245,11 +227,11 @@ public class AllTestsXtend {
 		suite.addTestSuite(GenFeatureSeqInitializerTest.class);
 		suite.addTestSuite(GenModelGraphAnalyzerTest.class);
 		suite.addTest(feed(EditHelpersTestXtend.class, setupEditHelpersTest, "-editHelpersSetup"));
-		suite.addTest(feed(ParsersTest.class, new ParsersSetup(false), "-direct"));
-		suite.addTest(feed(ParsersTest.class, new ParsersSetup(true), "-provider"));
-//
-//		// slowest test goes last
-		suite.addTestSuite(RuntimeCompilationTest.class);
+		suite.addTest(feed(ParsersTest.class, new ParsersSetupXtend(false), "-direct"));
+		suite.addTest(feed(ParsersTest.class, new ParsersSetupXtend(true), "-provider"));
+
+		// slowest test goes last
+		suite.addTestSuite(RuntimeCompilationTestXtend.class);
 //
 //		suite.addTest(TestSamples.suite());
 		

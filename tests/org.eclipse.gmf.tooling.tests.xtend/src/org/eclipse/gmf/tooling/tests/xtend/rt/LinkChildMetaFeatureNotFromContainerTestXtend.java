@@ -41,7 +41,7 @@ import org.eclipse.gmf.tests.rt.LinkChildMetaFeatureNotFromContainerTest;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GeneratedDiagramPlugin;
 import org.eclipse.gmf.tests.setup.SessionSetup;
-import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 
 /**
  * @see https://bugs.eclipse.org/226882
@@ -197,7 +197,7 @@ public class LinkChildMetaFeatureNotFromContainerTestXtend extends LinkChildMeta
 
 	public static final class CustomSetup extends SessionSetup {
 		public CustomSetup() {
-			super(new RuntimeBasedGeneratorConfiguration());
+			super(new RuntimeBasedGeneratorConfigurationXtend());
 		}
 
 		@Override
@@ -207,6 +207,6 @@ public class LinkChildMetaFeatureNotFromContainerTestXtend extends LinkChildMeta
 	};
 
 	public LinkChildMetaFeatureNotFromContainerTestXtend(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		super(name, new RuntimeBasedGeneratorConfigurationXtend());
 	}
 }

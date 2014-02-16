@@ -19,13 +19,13 @@ import org.eclipse.gmf.runtime.emf.type.core.internal.EMFTypePlugin;
 import org.eclipse.gmf.tests.Configurator;
 import org.osgi.framework.BundleContext;
 
-public class PluginXtend extends org.eclipse.core.runtime.Plugin {
+public class XtendsTestPluginActivator extends org.eclipse.core.runtime.Plugin {
 
-	private static PluginXtend ourInstance;
+	private static XtendsTestPluginActivator ourInstance;
 	private BundleContext myContext;
 	private Configurator myConfiguration;
 
-	public PluginXtend() {
+	public XtendsTestPluginActivator() {
 		super();
 	}
 
@@ -51,7 +51,7 @@ public class PluginXtend extends org.eclipse.core.runtime.Plugin {
 		return URI.createURI("platform:/plugin/" + getPluginID() + bundledFileName);
 	}
 
-	public static PluginXtend getInstance() {
+	public static XtendsTestPluginActivator getInstance() {
 		return ourInstance;
 	}
 
