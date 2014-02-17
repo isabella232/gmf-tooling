@@ -212,7 +212,7 @@ public class AllTests {
 		// slowest test goes last
 		suite.addTestSuite(RuntimeCompilationTest.class);
 
-//		suite.addTest(TestSamples.suite());
+		suite.addTest(TestSamples.suite());
 		
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {

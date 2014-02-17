@@ -5,7 +5,7 @@ import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 public class CompartmentsSampleTest extends BaseSampleTest {
 
-	public static final String GIT_GMFGEN_PATH = "test-examples/compartments/org.eclipse.gmf.tooling.examples.compartments/model/compartments.gmfgen"; 
+	public static final String GIT_GMFGEN_PATH = "platform:/plugin/org.eclipse.gmf.tooling.examples.compartments/model/compartments.gmfgen";
 	
 	public CompartmentsSampleTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());

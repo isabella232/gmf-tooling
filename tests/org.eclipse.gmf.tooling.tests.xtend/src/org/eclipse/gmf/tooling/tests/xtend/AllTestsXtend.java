@@ -20,6 +20,7 @@ import org.eclipse.gmf.tests.CleanupTest;
 import org.eclipse.gmf.tests.Configurator;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.TestConfiguration;
+import org.eclipse.gmf.tests.TestSamples;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
@@ -138,9 +139,9 @@ public class AllTestsXtend {
 		Plugin.getConfig().register(PaletteTransformationTest.class, sessionSetup);
 		Plugin.getConfig().register(AuditHandcodedTest.class, sessionSetup);
 		Plugin.getConfig().register(CodegenReconcileTest.class, sessionSetup);
-		
+
 		Plugin.getConfig().register(CompareTransformationEngineTest.class, sessionSetup);
-		
+
 		// Default configuration, TestAllDerivedFeatures also runs for LinksSessionSetup 
 		Plugin.getConfig().register(TestAllDerivedFeatures.class, sessionSetup);
 		Plugin.getConfig().register(DiagramNodeTest.class, sessionSetup);
@@ -165,7 +166,7 @@ public class AllTestsXtend {
 		Plugin.getConfig().register(LinkChildMetaFeatureNotFromContainerTestXtend.class, new LinkChildMetaFeatureNotFromContainerTestXtend.CustomSetup());
 		Plugin.getConfig().register(EditHelpersTestXtend.class, new EditHelpersTestXtend.EditHelpersSessionSetup());
 		Plugin.getConfig().register(BundleActivationTestXtend.class, new BundleActivationTestXtend.CustomSetup());
-		
+
 		//$JUnit-BEGIN$
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for the rest of the tests
 		suite.addTestSuite(HandcodedImplTest.class); // then, check handcoded implementations are in place
@@ -186,8 +187,8 @@ public class AllTestsXtend {
 		suite.addTestSuite(ManifestMergeTest.class);
 		suite.addTestSuite(OrganizeImportsPostprocessorTest.class);
 
-        suite.addTestSuite(CompareTransformationEngineTest.class);
-        
+		suite.addTestSuite(CompareTransformationEngineTest.class);
+
 		suite.addTestSuite(EcoreGenModelMatcherTest.class);
 		suite.addTestSuite(ModelLoadHelperTest.class);
 		suite.addTest(AllValidateTests.suite());
@@ -216,7 +217,7 @@ public class AllTestsXtend {
 		suite.addTestSuite(GenModelTransformerBasicRTTest.class);
 		suite.addTestSuite(DiagramEditorTest.class);
 		suite.addTest(feed(LinkChildMetaFeatureNotFromContainerTest.class, setupLinkChildMetaFeatureNotFromContainerTest, "-LinkChildMetaFeatureNotFromContainerSessionSetup"));
-		suite.addTest(feed(LinkEcoreConstraintsTest.class,setupLinkEcoreConstraintsTest, "-LinkEcoreSessionSetup"));
+		suite.addTest(feed(LinkEcoreConstraintsTest.class, setupLinkEcoreConstraintsTest, "-LinkEcoreSessionSetup"));
 		suite.addTestSuite(PaletteTest.class);
 
 		suite.addTestSuite(BundleActivationTestXtend.class);
@@ -232,9 +233,9 @@ public class AllTestsXtend {
 
 		// slowest test goes last
 		suite.addTestSuite(RuntimeCompilationTestXtend.class);
-//
-//		suite.addTest(TestSamples.suite());
-		
+		//
+		suite.addTest(TestSamplesSuite.suite());
+
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {
 

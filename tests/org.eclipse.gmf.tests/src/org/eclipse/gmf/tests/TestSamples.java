@@ -1,9 +1,15 @@
 package org.eclipse.gmf.tests;
 
-import org.eclipse.gmf.tests.sapmles.*;
-
 import junit.framework.Test;
 import junit.framework.TestSuite;
+
+import org.eclipse.gmf.tests.sapmles.AffixedSampleTest;
+import org.eclipse.gmf.tests.sapmles.BorderSampleTest;
+import org.eclipse.gmf.tests.sapmles.CompartmentsSampleTest;
+import org.eclipse.gmf.tests.sapmles.LinksSampleTest;
+import org.eclipse.gmf.tests.sapmles.PinsSampleTest;
+import org.eclipse.gmf.tests.sapmles.SVGSampleTest;
+import org.eclipse.gmf.tests.sapmles.ShourtcutSampleTest;
 
 
 public class TestSamples {
@@ -16,6 +22,7 @@ public class TestSamples {
 		suite.addTestSuite(SVGSampleTest.class);
 		suite.addTestSuite(ShourtcutSampleTest.class);
 		suite.addTestSuite(AffixedSampleTest.class);
+		suite.addTestSuite(BorderSampleTest.class);
 		return suite;
 	}
 	

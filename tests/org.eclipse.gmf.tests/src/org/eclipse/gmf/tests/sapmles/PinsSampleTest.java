@@ -5,7 +5,7 @@ import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 public class PinsSampleTest extends BaseSampleTest {
 
-	public static final String GIT_GMFGEN_PATH = "test-examples/pins/org.eclipse.gmf.tooling.examples.pins/model/pins.gmfgen"; 
+	public static final String GIT_GMFGEN_PATH = "platform:/plugin/org.eclipse.gmf.tooling.examples.pins/model/pins.gmfgen";
 	
 	public PinsSampleTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());

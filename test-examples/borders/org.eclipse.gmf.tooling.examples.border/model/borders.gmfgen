@@ -1,228 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgen:GenEditorGenerator
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel">
-  <diagram
-      visualID="1000"
-      editPartClassName="DiagramEditPart"
-      itemSemanticEditPolicyClassName="DiagramItemSemanticEditPolicy"
-      canonicalEditPolicyClassName="DiagramCanonicalEditPolicy"
-      iconProviderPriority="Low"
-      validationProviderPriority="Low">
-    <diagramRunTimeClass
-        href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
-    <elementType
-        xsi:type="gmfgen:MetamodelType"
-        editHelperClassName="DiagramEditHelper"/>
-    <viewmap
-        xsi:type="gmfgen:ModeledViewmap">
-      <figureModel
-          href="borders.gmfgraph#borders"/>
+<gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel">
+  <diagram visualID="1000" editPartClassName="DiagramEditPart" itemSemanticEditPolicyClassName="DiagramItemSemanticEditPolicy" canonicalEditPolicyClassName="DiagramCanonicalEditPolicy" iconProviderPriority="Low" validationProviderPriority="Low">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+    <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="DiagramEditHelper"/>
+    <viewmap xsi:type="gmfgen:ModeledViewmap">
+      <figureModel href="borders.gmfgraph#borders"/>
     </viewmap>
-    <domainDiagramElement
-        href="borders.genmodel#//borders/Diagram"/>
-    <topLevelNodes
-        visualID="2001"
-        editPartClassName="MarginBorderEditPart"
-        itemSemanticEditPolicyClassName="MarginBorderItemSemanticEditPolicy"
-        canonicalEditPolicyClassName="MarginBorderCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="MarginBorderGraphicalNodeEditPolicy"
-        createCommandClassName="MarginBorderCreateCommand">
-      <diagramRunTimeClass
-          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="MarginBorderEditHelper"/>
-      <viewmap
-          xsi:type="gmfgen:ModeledViewmap">
-        <figureModel
-            href="borders.gmfgraph#MarginBorder"/>
+    <domainDiagramElement href="borders.genmodel#//borders/Diagram"/>
+    <topLevelNodes visualID="2001" editPartClassName="MarginBorderEditPart" itemSemanticEditPolicyClassName="MarginBorderItemSemanticEditPolicy" canonicalEditPolicyClassName="MarginBorderCanonicalEditPolicy" graphicalNodeEditPolicyClassName="MarginBorderGraphicalNodeEditPolicy" createCommandClassName="MarginBorderCreateCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="MarginBorderEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="borders.gmfgraph#MarginBorder"/>
       </viewmap>
       <modelFacet>
-        <metaClass
-            href="borders.genmodel#//borders/MarginBorder"/>
-        <containmentMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
-        <childMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
+        <metaClass href="borders.genmodel#//borders/MarginBorder"/>
+        <containmentMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
+        <childMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
       </modelFacet>
     </topLevelNodes>
-    <topLevelNodes
-        visualID="2002"
-        editPartClassName="CustomBorderEditPart"
-        itemSemanticEditPolicyClassName="CustomBorderItemSemanticEditPolicy"
-        canonicalEditPolicyClassName="CustomBorderCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="CustomBorderGraphicalNodeEditPolicy"
-        createCommandClassName="CustomBorderCreateCommand">
-      <diagramRunTimeClass
-          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="CustomBorderEditHelper"/>
-      <viewmap
-          xsi:type="gmfgen:ModeledViewmap">
-        <figureModel
-            href="borders.gmfgraph#CustomBorder"/>
+    <topLevelNodes visualID="2002" editPartClassName="CustomBorderEditPart" itemSemanticEditPolicyClassName="CustomBorderItemSemanticEditPolicy" canonicalEditPolicyClassName="CustomBorderCanonicalEditPolicy" graphicalNodeEditPolicyClassName="CustomBorderGraphicalNodeEditPolicy" createCommandClassName="CustomBorderCreateCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="CustomBorderEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="borders.gmfgraph#CustomBorder"/>
       </viewmap>
       <modelFacet>
-        <metaClass
-            href="borders.genmodel#//borders/CustomBorder"/>
-        <containmentMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
-        <childMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
+        <metaClass href="borders.genmodel#//borders/CustomBorder"/>
+        <containmentMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
+        <childMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
       </modelFacet>
     </topLevelNodes>
-    <topLevelNodes
-        visualID="2003"
-        editPartClassName="CompoundBorderEditPart"
-        itemSemanticEditPolicyClassName="CompoundBorderItemSemanticEditPolicy"
-        canonicalEditPolicyClassName="CompoundBorderCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="CompoundBorderGraphicalNodeEditPolicy"
-        createCommandClassName="CompoundBorderCreateCommand">
-      <diagramRunTimeClass
-          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="CompoundBorderEditHelper"/>
-      <viewmap
-          xsi:type="gmfgen:ModeledViewmap">
-        <figureModel
-            href="borders.gmfgraph#CompoundBorder"/>
+    <topLevelNodes visualID="2003" editPartClassName="CompoundBorderEditPart" itemSemanticEditPolicyClassName="CompoundBorderItemSemanticEditPolicy" canonicalEditPolicyClassName="CompoundBorderCanonicalEditPolicy" graphicalNodeEditPolicyClassName="CompoundBorderGraphicalNodeEditPolicy" createCommandClassName="CompoundBorderCreateCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="CompoundBorderEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="borders.gmfgraph#CompoundBorder"/>
       </viewmap>
       <modelFacet>
-        <metaClass
-            href="borders.genmodel#//borders/CompoundBorder"/>
-        <containmentMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
-        <childMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
+        <metaClass href="borders.genmodel#//borders/CompoundBorder"/>
+        <containmentMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
+        <childMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
       </modelFacet>
     </topLevelNodes>
-    <topLevelNodes
-        visualID="2004"
-        editPartClassName="LineBorderEditPart"
-        itemSemanticEditPolicyClassName="LineBorderItemSemanticEditPolicy"
-        canonicalEditPolicyClassName="LineBorderCanonicalEditPolicy"
-        graphicalNodeEditPolicyClassName="LineBorderGraphicalNodeEditPolicy"
-        createCommandClassName="LineBorderCreateCommand">
-      <diagramRunTimeClass
-          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <elementType
-          xsi:type="gmfgen:MetamodelType"
-          editHelperClassName="LineBorderEditHelper"/>
-      <viewmap
-          xsi:type="gmfgen:ModeledViewmap">
-        <figureModel
-            href="borders.gmfgraph#LineBorder"/>
+    <topLevelNodes visualID="2004" editPartClassName="LineBorderEditPart" itemSemanticEditPolicyClassName="LineBorderItemSemanticEditPolicy" canonicalEditPolicyClassName="LineBorderCanonicalEditPolicy" graphicalNodeEditPolicyClassName="LineBorderGraphicalNodeEditPolicy" createCommandClassName="LineBorderCreateCommand">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <elementType xsi:type="gmfgen:MetamodelType" editHelperClassName="LineBorderEditHelper"/>
+      <viewmap xsi:type="gmfgen:ModeledViewmap">
+        <figureModel href="borders.gmfgraph#LineBorder"/>
       </viewmap>
       <modelFacet>
-        <metaClass
-            href="borders.genmodel#//borders/LineBorder"/>
-        <containmentMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
-        <childMetaFeature
-            href="borders.genmodel#//borders/Diagram/borders"/>
+        <metaClass href="borders.genmodel#//borders/LineBorder"/>
+        <containmentMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
+        <childMetaFeature href="borders.genmodel#//borders/Diagram/borders"/>
       </modelFacet>
     </topLevelNodes>
     <palette>
-      <groups
-          title="borders">
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="LineBorder"
-            description="Create new Line Border"
-            genNodes="//@diagram/@topLevelNodes.3"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="MarginBorder"
-            description="Create new Margin Border"
-            genNodes="//@diagram/@topLevelNodes.0"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="CompoundBorder"
-            description="Create new Compound Border"
-            genNodes="//@diagram/@topLevelNodes.2"/>
-        <entries
-            xsi:type="gmfgen:ToolEntry"
-            title="CustomBorder"
-            description="Create new Custom Border"
-            genNodes="//@diagram/@topLevelNodes.1"/>
+      <groups title="borders">
+        <entries xsi:type="gmfgen:ToolEntry" title="LineBorder" description="Create new Line Border" genNodes="//@diagram/@topLevelNodes.3"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="MarginBorder" description="Create new Margin Border" genNodes="//@diagram/@topLevelNodes.0"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="CompoundBorder" description="Create new Compound Border" genNodes="//@diagram/@topLevelNodes.2"/>
+        <entries xsi:type="gmfgen:ToolEntry" title="CustomBorder" description="Create new Custom Border" genNodes="//@diagram/@topLevelNodes.1"/>
       </groups>
     </palette>
-    <preferencePages
-        xsi:type="gmfgen:GenStandardPreferencePage"
-        iD="org.eclipse.gmf.tooling.examples.border.diagram.general"
-        name="Borders Diagram">
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.tooling.examples.border.diagram.appearance"
-          name="Appearance"
-          kind="Appearance"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.tooling.examples.border.diagram.connections"
-          name="Connections"
-          kind="Connections"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.tooling.examples.border.diagram.printing"
-          name="Printing"
-          kind="Printing"/>
-      <children
-          xsi:type="gmfgen:GenStandardPreferencePage"
-          iD="org.eclipse.gmf.tooling.examples.border.diagram.rulersAndGrid"
-          name="Rulers And Grid"
-          kind="RulersAndGrid"/>
+    <preferencePages xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.border.diagram.general" name="Borders Diagram">
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.border.diagram.appearance" name="Appearance" kind="Appearance"/>
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.border.diagram.connections" name="Connections" kind="Connections"/>
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.border.diagram.printing" name="Printing" kind="Printing"/>
+      <children xsi:type="gmfgen:GenStandardPreferencePage" iD="org.eclipse.gmf.tooling.examples.border.diagram.rulersAndGrid" name="Rulers And Grid" kind="RulersAndGrid"/>
     </preferencePages>
   </diagram>
   <plugin>
     <requiredPlugins>org.eclipse.gmf.tooling.runtime</requiredPlugins>
+    <requiredPlugins>org.eclipse.gmf.tooling.examples.border.custom</requiredPlugins>
   </plugin>
   <editor/>
   <navigator>
-    <childReferences
-        child="//@diagram"/>
-    <childReferences
-        parent="//@diagram"
-        child="//@diagram/@topLevelNodes.0"/>
-    <childReferences
-        parent="//@diagram"
-        child="//@diagram/@topLevelNodes.1"/>
-    <childReferences
-        parent="//@diagram"
-        child="//@diagram/@topLevelNodes.2"/>
-    <childReferences
-        parent="//@diagram"
-        child="//@diagram/@topLevelNodes.3"/>
+    <childReferences child="//@diagram"/>
+    <childReferences parent="//@diagram" child="//@diagram/@topLevelNodes.0"/>
+    <childReferences parent="//@diagram" child="//@diagram/@topLevelNodes.1"/>
+    <childReferences parent="//@diagram" child="//@diagram/@topLevelNodes.2"/>
+    <childReferences parent="//@diagram" child="//@diagram/@topLevelNodes.3"/>
   </navigator>
   <diagramUpdater/>
   <propertySheet>
-    <tabs
-        xsi:type="gmfgen:GenStandardPropertyTab"
-        iD="appearance"/>
-    <tabs
-        xsi:type="gmfgen:GenStandardPropertyTab"
-        iD="diagram"/>
-    <tabs
-        xsi:type="gmfgen:GenCustomPropertyTab"
-        iD="domain"
-        label="Core">
-      <filter
-          xsi:type="gmfgen:TypeTabFilter">
+    <tabs xsi:type="gmfgen:GenStandardPropertyTab" iD="appearance"/>
+    <tabs xsi:type="gmfgen:GenStandardPropertyTab" iD="diagram"/>
+    <tabs xsi:type="gmfgen:GenCustomPropertyTab" iD="domain" label="Core">
+      <filter xsi:type="gmfgen:TypeTabFilter">
         <types>org.eclipse.gmf.runtime.notation.View</types>
         <types>org.eclipse.gef.EditPart</types>
         <generatedTypes>abstractNavigatorItem</generatedTypes>
       </filter>
     </tabs>
   </propertySheet>
-  <domainGenModel
-      href="borders.genmodel#/"/>
-  <contextMenus
-      context="//@diagram">
-    <items
-        xsi:type="gmfgen:LoadResourceAction"/>
+  <domainGenModel href="borders.genmodel#/"/>
+  <contextMenus context="//@diagram">
+    <items xsi:type="gmfgen:LoadResourceAction"/>
   </contextMenus>
 </gmfgen:GenEditorGenerator>

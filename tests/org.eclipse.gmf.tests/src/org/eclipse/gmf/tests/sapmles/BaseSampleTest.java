@@ -31,14 +31,14 @@ public abstract class BaseSampleTest extends TestCase {
 	
 	public void genAndCompile(String relativePath, RuntimeBasedGeneratorConfiguration genConfig) throws Exception {
 		GenEditorGenerator editorGen = loadGMFGENModel(relativePath);
-		new GenProjectBaseSetup(genConfig).generateAndCompile(editorGen, null);
+		new GenProjectBaseSetup(genConfig).generateAndCompile(editorGen);
 	}
 	
 	protected GenEditorGenerator loadGMFGENModel(String relativePath) throws Exception {
-		return loadEditirGen(BASE_PATH + relativePath);
+		return loadEditorGen(URI.createURI(getRelativeGMFGENPath())); //$NON-NLS-1$);
 	}
 	
-	private GenEditorGenerator loadEditirGen(String path) throws URISyntaxException, IOException {
+	private GenEditorGenerator loadEditorGen(String path) throws URISyntaxException, IOException {
 		GenEditorGenerator result = null;
 		File file = new File(path);
 		if (file.exists()) {

@@ -5,9 +5,7 @@ import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 public class ShourtcutSampleTest extends BaseSampleTest {
 
-	public static final String GIT_GMFGEN_PATH = "test-examples/shortcut/org.eclipse.gmf.tooling.examples.shortcut/model/shortcut.gmfgen"; 
-	
-	public static final String GIT_EMF_PROJECT_PATH = "test-examples/shortcut/org.eclipse.gmf.tooling.examples.shortcut"; 
+	public static final String GIT_GMFGEN_PATH = "platform:/plugin/org.eclipse.gmf.tooling.examples.shortcut/model/shortcut.gmfgen"; 
 	
 	public ShourtcutSampleTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());

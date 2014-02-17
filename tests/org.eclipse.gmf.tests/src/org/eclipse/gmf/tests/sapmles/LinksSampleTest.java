@@ -5,7 +5,7 @@ import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 public class LinksSampleTest extends BaseSampleTest {
 
-	public static final String GIT_GMFGEN_PATH = "test-examples/links/org.eclipse.gmf.tooling.examples.links/model/links.gmfgen"; 
+	public static final String GIT_GMFGEN_PATH = "platform:/plugin/org.eclipse.gmf.tooling.examples.links/model/links.gmfgen";
 	
 	public LinksSampleTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());

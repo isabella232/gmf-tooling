@@ -4,7 +4,7 @@ import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 public class BorderSampleTest extends BaseSampleTest {
 
-	public static final String GIT_PROJECT_PATH = "test-examples/borders/org.eclipse.gmf.tooling.examples.border/model/borders.gmfgen"; 
+	public static final String GIT_PROJECT_PATH = "platform:/plugin/org.eclipse.gmf.tooling.examples.border/model/borders.gmfgen"; 
 	
 	public BorderSampleTest(String name) {
 		this(name, new RuntimeBasedGeneratorConfiguration());
