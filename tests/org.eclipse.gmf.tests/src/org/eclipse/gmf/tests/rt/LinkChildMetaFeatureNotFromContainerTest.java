@@ -48,7 +48,7 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
  * @author artem
  */
 public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEditorTest {
-	private static final class DiaGenSourceImpl implements DiaGenSource {
+	protected static final class DiaGenSourceImpl implements DiaGenSource {
 
 		private final GenDiagram myDiagram;
 
@@ -62,7 +62,7 @@ public class LinkChildMetaFeatureNotFromContainerTest extends AbstractDiagramEdi
 		 * such as A has outgoing EReference to L, B knows nothing
 		 * about L, while L does (it got an EReference to B)  
 		 */
-		DiaGenSourceImpl() {
+		public DiaGenSourceImpl() {
 			EcoreFactory f = EcoreFactory.eINSTANCE;
 			EClass a = f.createEClass();
 			EClass b = f.createEClass();
