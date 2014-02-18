@@ -3,15 +3,15 @@ package org.eclipse.gmf.tooling.tests.xtend;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.gmf.tooling.tests.xtend.sapmles.AffixedSampleTestXtend;
-import org.eclipse.gmf.tooling.tests.xtend.sapmles.CompartmentsSampleTestXtend;
-import org.eclipse.gmf.tooling.tests.xtend.sapmles.LinksSampleTestXtend;
-import org.eclipse.gmf.tooling.tests.xtend.sapmles.PinsSampleTestXtend;
-import org.eclipse.gmf.tooling.tests.xtend.sapmles.SVGSampleTestXtend;
-import org.eclipse.gmf.tooling.tests.xtend.sapmles.ShourtcutSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.AffixedSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.CompartmentsSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.LinksSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.PinsSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.SVGSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.ShourtcutSampleTestXtend;
 
 
-public class TestSamplesSuite {
+public class TestSamplesSuiteXtend {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.tooling.gmf samples");
 		suite.addTestSuite(PinsSampleTestXtend.class);

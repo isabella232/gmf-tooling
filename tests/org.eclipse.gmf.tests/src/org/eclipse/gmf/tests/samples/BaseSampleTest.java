@@ -1,4 +1,4 @@
-package org.eclipse.gmf.tests.sapmles;
+package org.eclipse.gmf.tests.samples;
 
 import java.io.File;
 import java.io.IOException;

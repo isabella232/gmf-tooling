@@ -1,6 +1,6 @@
-package org.eclipse.gmf.tooling.tests.xtend.sapmles;
+package org.eclipse.gmf.tooling.tests.xtend.samples;
 
-import org.eclipse.gmf.tests.sapmles.LinksSampleTest;
+import org.eclipse.gmf.tests.samples.LinksSampleTest;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 
 

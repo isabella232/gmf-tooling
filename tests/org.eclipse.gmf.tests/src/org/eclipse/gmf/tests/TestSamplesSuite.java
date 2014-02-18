@@ -3,16 +3,16 @@ package org.eclipse.gmf.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.gmf.tests.sapmles.AffixedSampleTest;
-import org.eclipse.gmf.tests.sapmles.BorderSampleTest;
-import org.eclipse.gmf.tests.sapmles.CompartmentsSampleTest;
-import org.eclipse.gmf.tests.sapmles.LinksSampleTest;
-import org.eclipse.gmf.tests.sapmles.PinsSampleTest;
-import org.eclipse.gmf.tests.sapmles.SVGSampleTest;
-import org.eclipse.gmf.tests.sapmles.ShourtcutSampleTest;
+import org.eclipse.gmf.tests.samples.AffixedSampleTest;
+import org.eclipse.gmf.tests.samples.BorderSampleTest;
+import org.eclipse.gmf.tests.samples.CompartmentsSampleTest;
+import org.eclipse.gmf.tests.samples.LinksSampleTest;
+import org.eclipse.gmf.tests.samples.PinsSampleTest;
+import org.eclipse.gmf.tests.samples.SVGSampleTest;
+import org.eclipse.gmf.tests.samples.ShourtcutSampleTest;
 
 
-public class TestSamples {
+public class TestSamplesSuite {
 	
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf samples");

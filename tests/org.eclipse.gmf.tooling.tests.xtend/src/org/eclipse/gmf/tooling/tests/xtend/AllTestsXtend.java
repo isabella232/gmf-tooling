@@ -20,7 +20,6 @@ import org.eclipse.gmf.tests.CleanupTest;
 import org.eclipse.gmf.tests.Configurator;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.TestConfiguration;
-import org.eclipse.gmf.tests.TestSamples;
 import org.eclipse.gmf.tests.Utils;
 import org.eclipse.gmf.tests.gef.CompartmentPropertiesTest;
 import org.eclipse.gmf.tests.gef.DiagramEditorTest;
@@ -101,7 +100,7 @@ public class AllTestsXtend {
 		final SessionSetup sessionSetup = SessionSetupXtend.newInstance();
 		final LinksSessionSetup sessionSetup2 = LinksSessionSetupXtend.newInstance();
 		final SessionSetup setupLinkEcoreConstraintsTest = new LinkEcoreConstraintsTestXtend.CustomSetup();
-		final SessionSetup setupLinkChildMetaFeatureNotFromContainerTest = new LinkChildMetaFeatureNotFromContainerTestXtend.CustomSetup();
+		final SessionSetup setupLinkChildMetaFeatureNotFromContainerTest = new LinkChildMetaFeatureNotFromContainerTestXtend.CustomSetupXtend();
 		final SessionSetup setupEditHelpersTest = new EditHelpersTestXtend.EditHelpersSessionSetup();
 		final SessionSetup setupBundleActivationTest = new BundleActivationTestXtend.CustomSetup();
 
@@ -163,7 +162,7 @@ public class AllTestsXtend {
 		Plugin.getConfig().register(ParsersTest.class, new ParsersSetupXtend(true));
 		//
 		Plugin.getConfig().register(LinkEcoreConstraintsTestXtend.class, new LinkEcoreConstraintsTestXtend.CustomSetup());
-		Plugin.getConfig().register(LinkChildMetaFeatureNotFromContainerTestXtend.class, new LinkChildMetaFeatureNotFromContainerTestXtend.CustomSetup());
+		Plugin.getConfig().register(LinkChildMetaFeatureNotFromContainerTestXtend.class, new LinkChildMetaFeatureNotFromContainerTestXtend.CustomSetupXtend());
 		Plugin.getConfig().register(EditHelpersTestXtend.class, new EditHelpersTestXtend.EditHelpersSessionSetup());
 		Plugin.getConfig().register(BundleActivationTestXtend.class, new BundleActivationTestXtend.CustomSetup());
 
@@ -234,7 +233,7 @@ public class AllTestsXtend {
 		// slowest test goes last
 		suite.addTestSuite(RuntimeCompilationTestXtend.class);
 		//
-		suite.addTest(TestSamplesSuite.suite());
+		suite.addTest(TestSamplesSuiteXtend.suite());
 
 		//$JUnit-END$
 		suite.addTest(new CleanupTest("testCleanup") {

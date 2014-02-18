@@ -1,6 +1,6 @@
-package org.eclipse.gmf.tooling.tests.xtend.sapmles;
+package org.eclipse.gmf.tooling.tests.xtend.samples;
 
-import org.eclipse.gmf.tests.sapmles.SVGSampleTest;
+import org.eclipse.gmf.tests.samples.SVGSampleTest;
 import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 
 

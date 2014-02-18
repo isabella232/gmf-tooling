@@ -44,15 +44,15 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.3.0,4.0.0)",
  org.eclipse.gmf.tooling.examples.border.custom
 Bundle-Activator: org.eclipse.gmf.tests.Plugin
 Bundle-ActivationPolicy: lazy
-Export-Package: org.eclipse.gmf.tests;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.gef;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.gen;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.gen.swtbot;x-friends:="org.eclipse.gmf.tooling.tests.xtend, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.rt;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.setup;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
+Export-Package: org.eclipse.gmf.tests;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.gef;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.gen;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.gen.swtbot;x-friends:="org.eclipse.gmf.tooling.tests.xtend,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.rt;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.samples;x-friends:="org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.setup;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
  org.eclipse.gmf.tests.setup.annotated;x-friends:="org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.setup.figures;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.tr;x-friends:="org.eclipse.gmf.tests.lite, org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.validate;x-friends:="org.eclipse.gmf.tooling.tests.xtend",
- org.eclipse.gmf.tests.sapmles;x-friends:="org.eclipse.gmf.tooling.tests.xtend"
+ org.eclipse.gmf.tests.setup.figures;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.tr;x-friends:="org.eclipse.gmf.tests.lite,org.eclipse.gmf.tooling.tests.xtend",
+ org.eclipse.gmf.tests.validate;x-friends:="org.eclipse.gmf.tooling.tests.xtend"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

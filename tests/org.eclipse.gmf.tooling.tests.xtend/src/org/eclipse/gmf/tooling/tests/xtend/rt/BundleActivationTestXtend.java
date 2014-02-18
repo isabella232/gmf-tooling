@@ -34,10 +34,10 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
 import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 import org.eclipse.gmf.tests.setup.SessionSetup;
-import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tooling.tests.xtend.setup.RuntimeBasedGeneratorConfigurationXtend;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
@@ -46,16 +46,20 @@ import org.osgi.framework.BundleException;
  * Check meta-information for GMF RT providers prevents bundle from activation
  * @author artem
  */
-@SuppressWarnings("restriction")
 public class BundleActivationTestXtend extends ConfiguredTestCase {
+
 	private final PreferencesHint prefHint = new PreferencesHint("a.b.c");
+
 	public final static class CustomSetup extends SessionSetup {
+
 		public CustomSetup() {
 			super(new RuntimeBasedGeneratorConfigurationXtend());
 		}
+
 		@Override
 		protected GenProjectSetup createGenProject(GeneratorConfiguration generatorConfiguration) throws BundleException {
 			return new GenProjectSetup(generatorConfiguration) {
+
 				@Override
 				public GenProjectSetup init(GenEditorGenerator genEditor) throws BundleException {
 					try {
@@ -88,7 +92,6 @@ public class BundleActivationTestXtend extends ConfiguredTestCase {
 		}
 	};
 
-
 	public BundleActivationTestXtend(String name) {
 		super(name);
 	}
@@ -96,7 +99,7 @@ public class BundleActivationTestXtend extends ConfiguredTestCase {
 	private boolean isBundleStarted() throws Exception {
 		return getSetup().getGeneratedPlugin().getState() == Bundle.ACTIVE;
 	}
-	
+
 	private void assertBundleNotStarted(String msg) throws Exception {
 		assertFalse(msg, isBundleStarted());
 	}
@@ -139,7 +142,8 @@ public class BundleActivationTestXtend extends ConfiguredTestCase {
 			assertTrue("[sanity]", getSetup().getGenModel().getGenDiagram().generateShortcutIcon());
 			assertBundleNotStarted("[sanity]");
 			DecorationEditPolicy decorationEditPolicy = new DecorationEditPolicy();
-			decorationEditPolicy.setHost(new ShapeEditPart(null) {});
+			decorationEditPolicy.setHost(new ShapeEditPart(null) {
+			});
 			DecoratorTarget dt = decorationEditPolicy.new DecoratorTarget();
 			IDecoratorProvider dp = DecoratorService.getInstance();
 			dp.createDecorators(dt);
