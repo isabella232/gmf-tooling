@@ -28,6 +28,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableCompartmentEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -105,6 +106,9 @@ public class ShipSmallCargoEditPart extends ListCompartmentEditPart {
 			if (type == TaiPanElementTypes.SmallItems_3001) {
 				return this;
 			}
+			return getParent().getTargetEditPart(request);
+		}
+		if (request instanceof CreateUnspecifiedTypeConnectionRequest) {
 			return getParent().getTargetEditPart(request);
 		}
 		return super.getTargetEditPart(request);

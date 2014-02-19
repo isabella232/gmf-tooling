@@ -256,12 +256,17 @@ Contributors:
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.TaiPanModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.assistants.TaiPanModelingAssistantProviderOfPortEditPart">
          <Priority name="Lowest"/>
          <object class="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.PortEditPart" id="Port_1000"/>
-         <object class="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart" id="Building_2001"/>
-         <context elements="Port_1000,Building_2001,"/>
+         <context elements="Port_1000"/>
       </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.port.diagram.providers.assistants.TaiPanModelingAssistantProviderOfBuildingEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.taipan.port.diagram.edit.parts.BuildingEditPart" id="Building_2001"/>
+         <context elements="Building_2001"/>
+      </modelingAssistantProvider>
+      
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
