@@ -9,6 +9,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.handlers.HandlerUtil;
 
 
 public class ExecuteTemplatesWithXtend2Handler extends AbstractHandler {
@@ -32,11 +34,10 @@ public class ExecuteTemplatesWithXtend2Handler extends AbstractHandler {
 		} catch(NotDefinedException e) {
 			throw new RuntimeException("Undefined command",e);
 		}
-		org.eclipse.ui.IEditorPart diagramEditor = org.eclipse.ui.handlers.HandlerUtil.getActiveEditorChecked(event);
-		org.eclipse.swt.widgets.Shell shell = diagramEditor.getEditorSite().getShell();
+		Shell shell = HandlerUtil.getActiveShell(event);
 		op.setShell(shell);
-		if (org.eclipse.ui.handlers.HandlerUtil.getCurrentSelectionChecked(event) instanceof TreeSelection) {
-			TreeSelection selection = (TreeSelection)org.eclipse.ui.handlers.HandlerUtil.getCurrentSelectionChecked(event);
+		if (HandlerUtil.getCurrentSelectionChecked(event) instanceof TreeSelection) {
+			TreeSelection selection = (TreeSelection)HandlerUtil.getCurrentSelectionChecked(event);
 			if (selection.size() == 1) {
 				if (selection.getFirstElement() instanceof GenEditorGenerator) {
 					op.setGenModelURI(((XMIResource)selection.getPaths()[0].getFirstSegment()).getURI());
