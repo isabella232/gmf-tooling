@@ -269,31 +269,6 @@ public class ProjectEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnTarget() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
-		types.add(TOEElementTypes.ManagerLeads_4002);
-		types.add(TOEElementTypes.Contribution_4003);
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMATypesForSource(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == TOEElementTypes.ManagerLeads_4002) {
-			types.add(TOEElementTypes.Manager_2004);
-		} else if (relationshipType == TOEElementTypes.Contribution_4003) {
-			types.add(TOEElementTypes.Employee_2001);
-			types.add(TOEElementTypes.Manager_2004);
-			types.add(TOEElementTypes.Employee_3001);
-		}
-		return types;
-	}
-
-	/**
 	 * @generated
 	 */
 	public class ProjectFigure extends RoundedRectangle {

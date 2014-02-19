@@ -235,37 +235,6 @@ public class Employee2EditPart extends AbstractBorderedShapeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnSource() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(TOEElementTypes.Contribution_4003);
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (targetEditPart instanceof ProjectEditPart) {
-			types.add(TOEElementTypes.Contribution_4003);
-		}
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == TOEElementTypes.Contribution_4003) {
-			types.add(TOEElementTypes.Project_2003);
-		}
-		return types;
-	}
-
-	/**
 	 * @generated
 	 */
 	public class EmployeeFigure extends RoundedRectangle {

@@ -283,26 +283,6 @@ public class DepartmentEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnTarget() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(TOEElementTypes.ManagerManagedDepartment_4001);
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMATypesForSource(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == TOEElementTypes.ManagerManagedDepartment_4001) {
-			types.add(TOEElementTypes.Manager_2004);
-		}
-		return types;
-	}
-
-	/**
 	 * @generated
 	 */
 	public class DepartmentFigure extends RectangleFigure {

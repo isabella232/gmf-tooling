@@ -229,53 +229,6 @@ public class ManagerEditPart extends AbstractBorderedShapeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnSource() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(3);
-		types.add(TOEElementTypes.ManagerManagedDepartment_4001);
-		types.add(TOEElementTypes.ManagerLeads_4002);
-		types.add(TOEElementTypes.Contribution_4003);
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (targetEditPart instanceof DepartmentEditPart) {
-			types.add(TOEElementTypes.ManagerManagedDepartment_4001);
-		}
-		if (targetEditPart instanceof Department2EditPart) {
-			types.add(TOEElementTypes.ManagerManagedDepartment_4001);
-		}
-		if (targetEditPart instanceof ProjectEditPart) {
-			types.add(TOEElementTypes.ManagerLeads_4002);
-		}
-		if (targetEditPart instanceof ProjectEditPart) {
-			types.add(TOEElementTypes.Contribution_4003);
-		}
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == TOEElementTypes.ManagerManagedDepartment_4001) {
-			types.add(TOEElementTypes.Department_2002);
-			types.add(TOEElementTypes.Department_3002);
-		} else if (relationshipType == TOEElementTypes.ManagerLeads_4002) {
-			types.add(TOEElementTypes.Project_2003);
-		} else if (relationshipType == TOEElementTypes.Contribution_4003) {
-			types.add(TOEElementTypes.Project_2003);
-		}
-		return types;
-	}
-
-	/**
 	 * @generated
 	 */
 	public class ManagerFigure extends StickManWithNumber {

@@ -247,17 +247,42 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.TOEModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfAllHolderEditPart">
          <Priority name="Lowest"/>
          <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.AllHolderEditPart" id="AllHolder_1000"/>
-         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.EmployeeEditPart" id="Employee_2001"/>
-         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.DepartmentEditPart" id="Department_2002"/>
-         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ProjectEditPart" id="Project_2003"/>
-         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ManagerEditPart" id="Manager_2004"/>
-         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.Employee2EditPart" id="Employee_3001"/>
-         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.Department2EditPart" id="Department_3002"/>
-         <context elements="AllHolder_1000,Employee_2001,Department_2002,Project_2003,Manager_2004,Employee_3001,Department_3002"/>
+         <context elements="AllHolder_1000"/>
       </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfEmployeeEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.EmployeeEditPart" id="Employee_2001"/>
+         <context elements="Employee_2001"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfDepartmentEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.DepartmentEditPart" id="Department_2002"/>
+         <context elements="Department_2002"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfProjectEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ProjectEditPart" id="Project_2003"/>
+         <context elements="Project_2003"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfManagerEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.ManagerEditPart" id="Manager_2004"/>
+         <context elements="Manager_2004"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfEmployee2EditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.Employee2EditPart" id="Employee_3001"/>
+         <context elements="Employee_3001"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.examples.ocldriven.toe.diagram.providers.assistants.TOEModelingAssistantProviderOfDepartment2EditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.examples.ocldriven.toe.diagram.edit.parts.Department2EditPart" id="Department_3002"/>
+         <context elements="Department_3002"/>
+      </modelingAssistantProvider>
+      
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
