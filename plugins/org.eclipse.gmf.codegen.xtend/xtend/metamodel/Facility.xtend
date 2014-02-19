@@ -135,9 +135,9 @@ def getMethod(GenPackage it, DynamicModelAccess dma)'''
 	«generatedMemberComment('@throws IllegalStateException if no EPackage with given URI is registered.')»
 	public static «className(dma)» get«getNameToken(it)»() {
 		if («fieldName(it)» == null) {
-			org.eclipse.emf.ecore.EPackage pkg = getRegistry().getEPackage("«ecorePackage.nsURI»");
+			org.eclipse.emf.ecore.EPackage pkg = getRegistry().getEPackage("«getEcorePackage().nsURI»");
 			if (pkg == null) {
-				throw new IllegalStateException("Package «ecorePackage.name»(«ecorePackage.nsURI») not found");
+				throw new IllegalStateException("Package «getEcorePackage().name»(«getEcorePackage().nsURI») not found");
 			}
 			«fieldName(it)» = new «className(dma)»(pkg);
 			«fieldName(it)».init«getNameToken(it)»();
