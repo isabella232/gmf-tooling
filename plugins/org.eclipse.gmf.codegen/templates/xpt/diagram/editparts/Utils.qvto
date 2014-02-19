@@ -95,3 +95,10 @@ helper getAssistantIncomingLinks(node : gmfgen::GenNode) : Sequence(gmfgen::GenL
 helper selectGenNodes(ends : OrderedSet(gmfgen::GenLinkEnd)) : Sequence(gmfgen::GenLinkEnd) {
 	return ends->asSequence()[gmfgen::GenNode]
 }
+helper haveOneOfChildNodesIncomimgLinks(it : gmfgen::GenCompartment) : Boolean {
+	return it.childNodes->exists(n | getAssistantIncomingLinks(n)->notEmpty())
+}
+
+helper collectIncomingLinks(it : gmfgen::GenCompartment) : Sequence(gmfgen::GenLink) {
+	return it.childNodes->collect(n | getAssistantIncomingLinks(n))->flatten()->asSet()->asSequence()->sortedBy(n | n.visualID)
+}
