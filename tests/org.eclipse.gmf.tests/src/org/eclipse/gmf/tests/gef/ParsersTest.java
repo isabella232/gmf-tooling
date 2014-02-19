@@ -381,20 +381,27 @@ public class ParsersTest extends TestCase {
 		public ParsersGenModel genModel;
 		public GenProjectSetup project;
 		private int uses = 0;
+		private final RuntimeBasedGeneratorConfiguration myGeneratorConfiguration;
 
-		public ParsersSetup(boolean parsersAsProvider) {
+		public ParsersSetup(boolean parsersAsProvider, RuntimeBasedGeneratorConfiguration genConfig) {
 			domainModel = new ParsersDomainModel();
 			genModel = new ParsersGenModel(domainModel);
 			final GenEditorGenerator editorGen = genModel.diagramkin.getEditorGen();
 			editorGen.getLabelParsers().setExtensibleViaService(parsersAsProvider);
 			String pid = editorGen.getPlugin().getID();
 			editorGen.getPlugin().setID(pid + (parsersAsProvider ? ".provider" : ".direct"));
+			myGeneratorConfiguration = genConfig;
+		}
+
+		
+		public ParsersSetup(boolean parsersAsProvider) {
+			this(parsersAsProvider, new RuntimeBasedGeneratorConfiguration());
 		}
 
 		public void init() throws Exception {
 			uses++;
 			if (project == null) {
-				project = new GenProjectSetup(new RuntimeBasedGeneratorConfiguration()) {
+				project = new GenProjectSetup(myGeneratorConfiguration) {
 					@Override
 					protected void hookExtraCodeGeneration(GenEditorGenerator genEditor, IProject project) throws Exception {
 						// need an extra class for custom parser

@@ -94,7 +94,11 @@ public class LinkEcoreConstraintsTest extends GeneratedCanvasTest {
 	};
 
 	public LinkEcoreConstraintsTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
+	}
+
+	public LinkEcoreConstraintsTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
 	}
 
 	@Override

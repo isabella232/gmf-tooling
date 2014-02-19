@@ -16,28 +16,31 @@ import java.io.ByteArrayOutputStream;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-
-import junit.framework.Assert;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.ecore.genmodel.generator.GenBaseGeneratorAdapter;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -50,6 +53,7 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.junit.Assert;
 import org.osgi.framework.Constants;
 
 /**
@@ -57,11 +61,14 @@ import org.osgi.framework.Constants;
  * @author artem
  */
 public class GenProjectBaseSetup {
-	protected final Set<String> projectsToInit = new LinkedHashSet<String>(); 
+
+	protected final Set<String> projectsToInit = new LinkedHashSet<String>();
+
 	private CompileUtil compileUtil;
+
 	private GeneratorConfiguration myGeneratorFactory;
-	
-	private static final String INTERFACE_TEMPLATE = "{0} public interface {1} '{ }'";
+
+	private static final String INTERFACE_TEMPLATE = "{0} public interface {1} {2} '{ }'";
 
 	public GenProjectBaseSetup(GeneratorConfiguration generatorFactory) {
 		myGeneratorFactory = generatorFactory;
@@ -71,16 +78,16 @@ public class GenProjectBaseSetup {
 	public void generateAndCompile(DiaGenSource diaGenSource) throws Exception {
 		generateAndCompile(diaGenSource.getGenDiagram().getEditorGen());
 	}
-	
+
 	public void generateAndCompile(GenEditorGenerator genEditor, GenDiagramMutator... mutators) throws Exception {
-		projectsToInit.clear();	//just in case
+		projectsToInit.clear(); //just in case
 		compileUtil = new CompileUtil();
 		final GenDiagram d = genEditor.getDiagram();
 		generateDiagramPrerequisites(d);
 		if (mutators == null || mutators.length == 0) {
 			generateDiagramPlugin(d);
 		} else {
-			for(GenDiagramMutator next : mutators) {
+			for (GenDiagramMutator next : mutators) {
 				next.doMutate(genEditor);
 				try {
 					generateDiagramPlugin(d);
@@ -117,6 +124,7 @@ public class GenProjectBaseSetup {
 		projectsToInit.add(gmfEditorId);
 		hookJDTStatus(project);
 	}
+
 	/**
 	 * no-op by default, subclasses may provide custom code generation in this method
 	 * XXX think about more oo way to inject extra codegen artifacts, or even special GMFGen model entities?
@@ -127,10 +135,10 @@ public class GenProjectBaseSetup {
 	private void generateEMFCode(GenModel domainGenModel) {
 		domainGenModel.setCanGenerate(true);
 		org.eclipse.emf.codegen.ecore.generator.Generator gen = new org.eclipse.emf.codegen.ecore.generator.Generator();
-        gen.setInput(domainGenModel);
-        gen.generate(domainGenModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, new BasicMonitor());
-        gen.generate(domainGenModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor());
-        
+		gen.setInput(domainGenModel);
+		gen.generate(domainGenModel, GenBaseGeneratorAdapter.MODEL_PROJECT_TYPE, new BasicMonitor());
+		gen.generate(domainGenModel, GenBaseGeneratorAdapter.EDIT_PROJECT_TYPE, new BasicMonitor());
+
 		fixInstanceClasses(domainGenModel);
 		RuntimeWorkspaceSetup.get().getReadyToStartAsBundle(ResourcesPlugin.getWorkspace().getRoot().getProject(domainGenModel.getModelPluginID()));
 		if (!domainGenModel.getModelPluginID().equals(domainGenModel.getEditPluginID())) {
@@ -139,11 +147,24 @@ public class GenProjectBaseSetup {
 	}
 
 	private void fixInstanceClasses(GenModel domainGenModel) {
-		final Set<String> allInstanceClassNames = new HashSet<String>();
+		@SuppressWarnings("serial")
+		class MultiMap<K, V> extends HashMap<K, LinkedList<V>> {
+
+			public void putOne(K key, V value) {
+				LinkedList<V> allForKey = get(key);
+				if (allForKey == null) {
+					allForKey = new LinkedList<V>();
+					put(key, allForKey);
+				}
+				allForKey.add(value);
+			}
+		}
+		final MultiMap<String, GenClassifier> allInstanceClassNames = new MultiMap<String, GenClassifier>();
 		for (GenPackage nextPackage : domainGenModel.getGenPackages()) {
 			for (GenClassifier nextGenClassifier : nextPackage.getGenClassifiers()) {
 				if (nextGenClassifier.getEcoreClassifier().eIsSet(EcorePackage.Literals.ECLASSIFIER__INSTANCE_CLASS_NAME)) {
-					allInstanceClassNames.add(nextGenClassifier.getEcoreClassifier().getInstanceClassName());
+					EClassifier ecoreClassifier = nextGenClassifier.getEcoreClassifier();
+					allInstanceClassNames.putOne(ecoreClassifier.getInstanceClassName(), nextGenClassifier);
 				}
 			}
 		}
@@ -164,7 +185,7 @@ public class GenProjectBaseSetup {
 					theRoot = roots[i];
 				}
 			}
-			
+
 			manifestFile = pluginProject.getFile(JarFile.MANIFEST_NAME);
 			Assert.assertNotNull("Writable project root not found in the generated project", theRoot);
 			Assert.assertTrue("Manifest was not generated", manifestFile != null && manifestFile.exists());
@@ -174,8 +195,10 @@ public class GenProjectBaseSetup {
 			Attributes attributes = manifest.getMainAttributes();
 			StringBuffer exportedPackages = new StringBuffer(attributes.getValue(Constants.EXPORT_PACKAGE));
 
-			for (String instanceClassName : allInstanceClassNames) {
-				generateUserInterface(instanceClassName, theRoot, exportedPackages);
+			for (String instanceClassName : allInstanceClassNames.keySet()) {
+				List<GenClassifier> eClassifiers = allInstanceClassNames.get(instanceClassName);
+				Assert.assertFalse(eClassifiers.isEmpty());
+				generateUserInterface(instanceClassName, eClassifiers, theRoot, exportedPackages);
 			}
 
 			attributes.putValue(Constants.EXPORT_PACKAGE, exportedPackages.toString());
@@ -188,7 +211,9 @@ public class GenProjectBaseSetup {
 		}
 	}
 
-	private void generateUserInterface(String fqClassName, IPackageFragmentRoot projectRoot, StringBuffer exportedPackages) {
+	private void generateUserInterface(String fqClassName, List<GenClassifier> realizations, IPackageFragmentRoot projectRoot, StringBuffer exportedPackages) {
+		String extendsList = buildExtendsListForUserInterface(realizations);
+
 		String className = CodeGenUtil.getSimpleClassName(fqClassName);
 		String packageName = CodeGenUtil.getPackageName(fqClassName);
 		if (packageName == null) {
@@ -200,7 +225,8 @@ public class GenProjectBaseSetup {
 			if (packagePrefix.length() > 0) {
 				packagePrefix = "package " + packagePrefix + ";";
 			}
-			pkgFragment.createCompilationUnit(className + ".java", MessageFormat.format(INTERFACE_TEMPLATE, new Object[] {packagePrefix, className}), true, new NullProgressMonitor());
+			pkgFragment.createCompilationUnit(className + ".java", MessageFormat.format(INTERFACE_TEMPLATE, new Object[] { packagePrefix, className, extendsList.toString() }), true,
+					new NullProgressMonitor());
 		} catch (JavaModelException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -208,6 +234,38 @@ public class GenProjectBaseSetup {
 			exportedPackages.append(",");
 			exportedPackages.append(packageName);
 		}
+	}
+
+	/**
+	 * @see https://bugs.eclipse.org/bugs/show_bug.cgi?id=416943, instance interfaces must (since Kepler) extend interfaces for respected EMF superclasses
+	 */
+	private String buildExtendsListForUserInterface(List<GenClassifier> realisations) {
+		if (realisations.size() == 1 && realisations.get(0) instanceof GenClass) {
+			GenClass theOnly = (GenClass) realisations.get(0);
+			return theOnly.getInterfaceExtends();
+		}
+		SortedSet<GenClass> supers = new TreeSet<GenClass>(new Comparator<GenClass>() {
+
+			@Override
+			public int compare(GenClass o1, GenClass o2) {
+				return o1.getName().compareTo(o2.getName());
+			}
+		});
+		for (GenClassifier next : realisations) {
+			if (next instanceof GenClass) {
+				supers.addAll(((GenClass) next).getExtendedGenClasses());
+			}
+		}
+		StringBuffer result = new StringBuffer();
+		result.append("org.eclipse.emf.ecore.EObject");
+		for (GenClass next : supers) {
+			if (result.length() > 0) {
+				result.append(", ");
+			}
+			result.append(next.getQualifiedInterfaceName());
+		}
+
+		return "extends " + result.toString();
 	}
 
 	public List<String> getGeneratedProjectNames() {
@@ -222,14 +280,14 @@ public class GenProjectBaseSetup {
 				s.getException().printStackTrace(System.err);
 			} else {
 				System.err.println("hookProjectBuild failed without exception:" + s);
-				LinkedList<IStatus> ch = new LinkedList<IStatus>(Arrays.asList(s.getChildren())); 
+				LinkedList<IStatus> ch = new LinkedList<IStatus>(Arrays.asList(s.getChildren()));
 				while (!ch.isEmpty()) {
 					IStatus f = ch.removeFirst();
 					if (f.getException() != null) {
 						System.err.println("============> Nested exception in the status:");
 						f.getException().printStackTrace(System.err);
 					}
-					ch.addAll(Arrays.asList(f.getChildren())); 
+					ch.addAll(Arrays.asList(f.getChildren()));
 				}
 			}
 			Assert.fail(s.getMessage());
@@ -238,12 +296,12 @@ public class GenProjectBaseSetup {
 
 	// FIXME turn verification back once figure templates are ok
 	protected void hookJDTStatus(IProject p) throws Exception {
-//		JDTUtil jdtUtil = new JDTUtil(p);
-//		IStatus jdtStatus = jdtUtil.collectProblems();
-//		if (!jdtStatus.isOK()) {
-//			Plugin.logError(jdtStatus.getMessage());
-//			Assert.fail(jdtStatus.getMessage());
-//		}
+		//		JDTUtil jdtUtil = new JDTUtil(p);
+		//		IStatus jdtStatus = jdtUtil.collectProblems();
+		//		if (!jdtStatus.isOK()) {
+		//			Plugin.logError(jdtStatus.getMessage());
+		//			Assert.fail(jdtStatus.getMessage());
+		//		}
 	}
 
 	protected void hookGeneratorStatus(IStatus generatorStatus) {

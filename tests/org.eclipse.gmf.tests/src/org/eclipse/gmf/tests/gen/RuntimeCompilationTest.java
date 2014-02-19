@@ -86,7 +86,12 @@ import org.xml.sax.InputSource;
 public class RuntimeCompilationTest extends CompilationTest {
 
 	public RuntimeCompilationTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration(), new InnerClassViewmapProducer());
+		this(name, new RuntimeBasedGeneratorConfiguration());
+	}
+
+	
+	public RuntimeCompilationTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig, new InnerClassViewmapProducer());
 	}
 
 	/**
@@ -119,11 +124,6 @@ public class RuntimeCompilationTest extends CompilationTest {
 		});
 	}
 	
-	@Override
-	public void testCompileInstanceClassNames() throws Exception {
-		//temporary disabled to have a build 
-	}
-
 	public void testPreferencePages() throws Exception {
 		DiaGenSource s = createLibraryGen(false);
 		final GenDiagram gd = s.getGenDiagram();

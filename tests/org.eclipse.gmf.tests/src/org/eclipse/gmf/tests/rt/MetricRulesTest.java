@@ -31,7 +31,11 @@ public class MetricRulesTest extends GeneratedCanvasTest {
 	private GenMetricContainer genMetricContainer;
 	
 	public MetricRulesTest(String name) {
-		super(name, new RuntimeBasedGeneratorConfiguration());
+		this(name, new RuntimeBasedGeneratorConfiguration());
+	}
+	
+	public MetricRulesTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+		super(name, genConfig);
 	}
 
 	protected void setUp() throws Exception {

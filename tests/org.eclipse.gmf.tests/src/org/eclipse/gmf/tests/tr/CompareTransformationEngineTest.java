@@ -552,8 +552,8 @@ public class CompareTransformationEngineTest extends ConfiguredTestCase {
 			assertEquals(exp.getStyles().size(), act.getStyles().size());
 			assertEquals(exp.getChildNodes().size(), act.getChildNodes().size());
 			for (int j=0; j<exp.getChildNodes().size(); j++) {
-				GenChildNode expNode = exp.getChildNodes().get(j);
-				GenChildNode actNode = act.getChildNodes().get(j);
+				GenNode expNode = exp.getChildNodes().get(j);
+				GenNode actNode = act.getChildNodes().get(j);
 				
 				assertEquals(expNode.getVisualID(), actNode.getVisualID());
 			}
