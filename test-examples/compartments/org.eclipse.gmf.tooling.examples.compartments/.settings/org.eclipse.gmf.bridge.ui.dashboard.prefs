@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/org.eclipse.gmf.tooling.examples.acs/model/acs.genmodel
+gmf_dashboard/domainModel=platform\:/resource/org.eclipse.gmf.tooling.examples.acs/model/acs.ecore
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/org.eclipse.gmf.tooling.examples.acs/model/acs.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/org.eclipse.gmf.tooling.examples.acs/model/acs.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/org.eclipse.gmf.tooling.examples.acs/model/acs.gmftool

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfmap:Mapping
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmfmap="http://www.eclipse.org/gmf/2008/mappings"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <nodes>
+    <containmentFeature
+        href="svg.ecore#//Playground/goals"/>
+    <ownedChild>
+      <domainMetaElement
+          href="svg.ecore#//Goal"/>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="svg.gmftool#//@palette/@tools.0/@tools.1"/>
+      <diagramNode
+          href="svg.gmfgraph#Goal"/>
+    </ownedChild>
+  </nodes>
+  <nodes>
+    <containmentFeature
+        href="svg.ecore#//Playground/players"/>
+    <ownedChild>
+      <domainMetaElement
+          href="svg.ecore#//Player"/>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="svg.gmftool#//@palette/@tools.0/@tools.0"/>
+      <diagramNode
+          href="svg.gmfgraph#Player"/>
+    </ownedChild>
+  </nodes>
+  <diagram>
+    <diagramCanvas
+        href="svg.gmfgraph#svg"/>
+    <domainModel
+        href="svg.ecore#/"/>
+    <domainMetaElement
+        href="svg.ecore#//Playground"/>
+    <palette
+        href="svg.gmftool#//@palette"/>
+  </diagram>
+</gmfmap:Mapping>

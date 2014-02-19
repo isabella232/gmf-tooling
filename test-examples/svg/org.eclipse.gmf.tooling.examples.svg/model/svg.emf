@@ -1,0 +1,14 @@
+@namespace(uri="http://org.eclipse.gmf.tooling.examples.svg", prefix="org.eclipse.gmf.tooling.examples.svg")
+package svg;
+
+class Playground {
+  val Player[0..12] players;
+  val Goal[0..2] goals;
+}
+
+class Player {
+}
+
+class Goal {
+}
+

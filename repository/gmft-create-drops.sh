@@ -71,13 +71,11 @@ zip -rq gmf-tooling-sdk-experimental-$outputFilesLabel.zip\
     eclipse/plugins/org.eclipse.gmf.codegen.lite.ui.source_*\
     eclipse/plugins/org.eclipse.gmf.graphdef.editor.source_*\
     eclipse/plugins/org.eclipse.gmf.runtime.lite.source_*\
-    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg.source_*\
     eclipse/plugins/org.eclipse.gmf.map.editor.source_*\
     eclipse/plugins/org.eclipse.gmf.codegen.lite_*\
     eclipse/plugins/org.eclipse.gmf.codegen.lite.ui_*\
     eclipse/plugins/org.eclipse.gmf.graphdef.editor_*\
     eclipse/plugins/org.eclipse.gmf.runtime.lite_*\
-    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg_*\
     eclipse/plugins/org.eclipse.gmf.map.editor_*
 
 #writing gmf-tooling-sdk-experimental package root files
@@ -103,7 +101,6 @@ zip -rq gmf-tooling-sdk-$outputFilesLabel.zip\
     eclipse/plugins/org.eclipse.gmf.doc_*\
     eclipse/plugins/org.eclipse.gmf.doc.ui_*\
     eclipse/plugins/org.eclipse.gmf.sdk_*\
-    eclipse/plugins/org.eclipse.gmf.common.source_*\
     eclipse/plugins/org.eclipse.gmf.common.source_*\
     eclipse/plugins/org.eclipse.gmf.codegen.source_*\
     eclipse/plugins/org.eclipse.gmf.codegen.edit.source_*\
@@ -165,7 +162,8 @@ echo "Created gmf-tooling-sdk-$outputFilesLabel.zip"
 #TOOLING-RUNTIME
 zip -rq gmf-tooling-runtime-$outputFilesLabel.zip\
     eclipse/features/org.eclipse.gmf.tooling.runtime_*\
-    eclipse/plugins/org.eclipse.gmf.tooling.runtime_*
+    eclipse/plugins/org.eclipse.gmf.tooling.runtime_*\
+    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg_*
 
 #writing gmf-tooling-runtime package root files
 cd $TEMP_DIR
@@ -182,7 +180,8 @@ echo "Created gmf-tooling-runtime-$outputFilesLabel.zip"
 #TOOLING-RUNTIME-SOURCE
 zip -rq gmf-tooling-runtime-source-$outputFilesLabel.zip\
     eclipse/features/org.eclipse.gmf.tooling.runtime.source_*\
-    eclipse/plugins/org.eclipse.gmf.tooling.runtime.source_*
+    eclipse/plugins/org.eclipse.gmf.tooling.runtime.source_*\
+    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg.source_*
 
 #writing gmf-tooling-runtime-source package root files
 cd $TEMP_DIR
@@ -192,9 +191,35 @@ zip -rgq drops/gmf-tooling-runtime-source-$outputFilesLabel.zip eclipse
 rm -rf "eclipse"
 cd $TEMP_DIR/drops
 
-#calculating gmf-tooling-runtime package checksum
+#calculating gmf-tooling-runtime-source package checksum
 md5sum gmf-tooling-runtime-source-$outputFilesLabel.zip > gmf-tooling-runtime-source-$outputFilesLabel.zip.md5
 echo "Created gmf-tooling-runtime-source-$outputFilesLabel.zip"
+
+#TOOLING-SIMPLEMAP
+zip -rq gmf-tooling-simplemap-$outputFilesLabel.zip\
+    eclipse/features/org.eclipse.gmf.tooling.simplemap_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.bridge.ui_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.diagram_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.diagram.properties_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.gmf_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.migrate.ui_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.model_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.model.delegates_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.model.edit_*\
+	eclipse/plugins/org.eclipse.gmf.tooling.simplemap.model.edit.properties_*\
+    eclipse/plugins/org.eclipse.gmf.tooling.simplemap.model.triggers_*
+
+#writing gmf-tooling-simplemap package root files
+cd $TEMP_DIR
+mkdir -p "eclipse"
+unzip -oq drops/eclipse/binary/org.eclipse.gmf.tooling.simplemap_root_* -d eclipse
+zip -rgq drops/gmf-tooling-simplemap-$outputFilesLabel.zip eclipse
+rm -rf "eclipse"
+cd $TEMP_DIR/drops
+
+#calculating gmf-tooling-simplemap package checksum
+md5sum gmf-tooling-simplemap-$outputFilesLabel.zip > gmf-tooling-simplemap-$outputFilesLabel.zip.md5
+echo "Created gmf-tooling-simplemap-$outputFilesLabel.zip"
 
 #copy result files to output dir
 echo "Copying result to $OUTPUT_PATH"

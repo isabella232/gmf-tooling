@@ -1,0 +1,33 @@
+@namespace(uri="http://org.eclipse.gmf.tooling.examples.pins", prefix="pins")
+package pins;
+
+class Pin {
+}
+
+class ColorPin extends Pin {
+  val PinsChild[*] getChildren;
+}
+
+class CustomPin extends Pin {
+  val PinsChild[*] getChildren;
+}
+
+class VisiblePin extends Pin {
+  attr String WarningLabel = "Need more children";
+  val PinsChild[*] getChildren;
+}
+
+class Diagram {
+  val Pin[*] getPins;
+}
+
+class PinsChild {
+  attr String PinsChild;
+}
+
+class ChangeableColorPin extends Pin {
+  attr int red;
+  attr int green;
+  attr int blue;
+}
+
