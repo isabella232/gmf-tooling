@@ -12,6 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
 import java.util.ArrayList;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
@@ -46,38 +47,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipLargeCargoEd
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipNameEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipSmallCargoEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.BesiegePortOrderViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EmptyBoxViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.EscortShipsOrderViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemArticleViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.LargeItemWeightViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortLocationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortRegisterViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ReliableRouteDescViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ReliableRouteRelbViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ReliableRouteViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipDestinationMarkerViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipDestinationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipLargeCargoViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipNameViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipRouteViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipSmallCargoViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.SmallItemsViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.UnreliableRouteDescViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.UnreliableRouteRelbViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.UnreliableRouteViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipLargeCargoViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipNameViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipSmallCargoViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.WarshipViewFactory;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.diagram.core.providers.IViewProvider;
 import org.eclipse.gmf.runtime.diagram.core.services.view.CreateDiagramViewOperation;
 import org.eclipse.gmf.runtime.diagram.core.services.view.CreateEdgeViewOperation;
@@ -140,11 +112,11 @@ public class TaiPanViewProvider extends AbstractProvider implements IViewProvide
 	 */
 	protected boolean provides(CreateViewForKindOperation op) {
 		/*
-		 if (op.getViewKind() == Node.class)
-		 return getNodeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
-		 if (op.getViewKind() == Edge.class)
-		 return getEdgeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
-		 */
+		    if (op.getViewKind() == Node.class)
+		      return getNodeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
+		    if (op.getViewKind() == Edge.class)
+		      return getEdgeViewClass(op.getSemanticAdapter(), op.getContainerView(), op.getSemanticHint()) != null;
+		*/
 		return true;
 	}
 

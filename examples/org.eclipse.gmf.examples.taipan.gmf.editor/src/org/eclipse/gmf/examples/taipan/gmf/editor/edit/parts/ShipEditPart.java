@@ -270,60 +270,6 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public List<IElementType> getMARelTypesOnSource() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(TaiPanElementTypes.ShipDestination_4001);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (targetEditPart instanceof PortEditPart) {
-			types.add(TaiPanElementTypes.ShipDestination_4001);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == TaiPanElementTypes.ShipDestination_4001) {
-			types.add(TaiPanElementTypes.Port_2001);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnTarget() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(2);
-		types.add(TaiPanElementTypes.EscortShipsOrder_4006);
-		types.add(TaiPanElementTypes.PortRegister_4007);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMATypesForSource(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == TaiPanElementTypes.EscortShipsOrder_4006) {
-			types.add(TaiPanElementTypes.Warship_2003);
-		} else if (relationshipType == TaiPanElementTypes.PortRegister_4007) {
-			types.add(TaiPanElementTypes.Port_2001);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
 	public EditPart getTargetEditPart(Request request) {
 		if (request instanceof CreateViewAndElementRequest) {
 			CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
