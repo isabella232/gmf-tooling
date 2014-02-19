@@ -189,7 +189,7 @@ public abstract class GenPreferencePageImpl extends EObjectImpl implements GenPr
 	 */
 	public GenPreferencePage getParent() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PREFERENCE_PAGE__PARENT) return null;
-		return (GenPreferencePage)eContainer();
+		return (GenPreferencePage)eInternalContainer();
 	}
 
 	/**

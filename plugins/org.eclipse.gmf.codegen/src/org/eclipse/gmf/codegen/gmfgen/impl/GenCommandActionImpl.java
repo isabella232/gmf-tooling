@@ -101,7 +101,7 @@ public class GenCommandActionImpl extends EObjectImpl implements GenCommandActio
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_COMMAND_ACTION__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

@@ -128,7 +128,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public ToolGroup getGroup() {
 		if (eContainerFeatureID() != GMFGenPackage.TOOL_GROUP__GROUP) return null;
-		return (ToolGroup)eContainer();
+		return (ToolGroup)eInternalContainer();
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public Palette getPaletteGen() {
 		if (eContainerFeatureID() != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
-		return (Palette)eContainer();
+		return (Palette)eInternalContainer();
 	}
 
 	public Palette getPalette() {

@@ -77,7 +77,7 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 	 */
 	public GenCustomPropertyTab getTab() {
 		if (eContainerFeatureID() != GMFGenPackage.CUSTOM_TAB_FILTER__TAB) return null;
-		return (GenCustomPropertyTab)eContainer();
+		return (GenCustomPropertyTab)eInternalContainer();
 	}
 
 	/**

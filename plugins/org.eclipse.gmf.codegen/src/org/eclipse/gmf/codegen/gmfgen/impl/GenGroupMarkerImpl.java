@@ -80,7 +80,7 @@ public class GenGroupMarkerImpl extends EObjectImpl implements GenGroupMarker {
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_GROUP_MARKER__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

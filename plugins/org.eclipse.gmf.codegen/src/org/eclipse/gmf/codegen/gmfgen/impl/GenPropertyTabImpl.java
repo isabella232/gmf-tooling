@@ -99,7 +99,7 @@ public abstract class GenPropertyTabImpl extends EObjectImpl implements GenPrope
 	 */
 	public GenPropertySheet getSheet() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PROPERTY_TAB__SHEET) return null;
-		return (GenPropertySheet)eContainer();
+		return (GenPropertySheet)eInternalContainer();
 	}
 
 	/**

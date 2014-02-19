@@ -76,7 +76,7 @@ public abstract class GenParserImplementationImpl extends EObjectImpl implements
 	 */
 	public GenParsers getHolder() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_PARSER_IMPLEMENTATION__HOLDER) return null;
-		return (GenParsers)eContainer();
+		return (GenParsers)eInternalContainer();
 	}
 
 	/**

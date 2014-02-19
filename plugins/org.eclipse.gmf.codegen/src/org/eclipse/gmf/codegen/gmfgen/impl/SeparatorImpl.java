@@ -54,7 +54,7 @@ public class SeparatorImpl extends EObjectImpl implements Separator {
 	 */
 	public ToolGroup getGroup() {
 		if (eContainerFeatureID() != GMFGenPackage.SEPARATOR__GROUP) return null;
-		return (ToolGroup)eContainer();
+		return (ToolGroup)eInternalContainer();
 	}
 
 	/**

@@ -68,7 +68,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_CHILD_NODE__DIAGRAM) return null;
-		return (GenDiagram)eContainer();
+		return (GenDiagram)eInternalContainer();
 	}
 
 	/**

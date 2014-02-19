@@ -79,7 +79,7 @@ public class GenNavigatorPathSegmentImpl extends EObjectImpl implements GenNavig
 	 */
 	public GenNavigatorPath getPath() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_NAVIGATOR_PATH_SEGMENT__PATH) return null;
-		return (GenNavigatorPath)eContainer();
+		return (GenNavigatorPath)eInternalContainer();
 	}
 
 	/**

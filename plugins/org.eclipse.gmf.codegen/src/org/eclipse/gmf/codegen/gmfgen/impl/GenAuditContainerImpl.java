@@ -148,7 +148,7 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 */
 	public GenAuditRoot getRoot() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_CONTAINER__ROOT) return null;
-		return (GenAuditRoot)eContainer();
+		return (GenAuditRoot)eInternalContainer();
 	}
 
 	/**

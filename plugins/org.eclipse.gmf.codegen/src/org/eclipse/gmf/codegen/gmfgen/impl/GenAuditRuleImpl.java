@@ -190,7 +190,7 @@ public class GenAuditRuleImpl extends GenRuleBaseImpl implements GenAuditRule {
 	 */
 	public GenAuditRoot getRoot() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_RULE__ROOT) return null;
-		return (GenAuditRoot)eContainer();
+		return (GenAuditRoot)eInternalContainer();
 	}
 
 	/**

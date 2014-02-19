@@ -97,7 +97,7 @@ public abstract class GenTemplateInvocationBaseImpl extends EObjectImpl implemen
 	 */
 	public GenCustomGeneratorExtension getExtension() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_TEMPLATE_INVOCATION_BASE__EXTENSION) return null;
-		return (GenCustomGeneratorExtension)eContainer();
+		return (GenCustomGeneratorExtension)eInternalContainer();
 	}
 
 	/**

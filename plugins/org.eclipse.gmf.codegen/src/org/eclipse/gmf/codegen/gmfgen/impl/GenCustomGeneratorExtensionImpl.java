@@ -170,7 +170,7 @@ public class GenCustomGeneratorExtensionImpl extends EObjectImpl implements GenC
 	 */
 	public GenEditorGenerator getGenerator() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_CUSTOM_GENERATOR_EXTENSION__GENERATOR) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

@@ -98,7 +98,7 @@ public class GenAuditRootImpl extends EObjectImpl implements GenAuditRoot {
 	 */
 	public GenEditorGenerator getEditorGen() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_AUDIT_ROOT__EDITOR_GEN) return null;
-		return (GenEditorGenerator)eContainer();
+		return (GenEditorGenerator)eInternalContainer();
 	}
 
 	/**

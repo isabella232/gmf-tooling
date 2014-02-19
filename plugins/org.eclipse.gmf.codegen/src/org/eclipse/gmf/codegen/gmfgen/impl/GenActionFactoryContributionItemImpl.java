@@ -80,7 +80,7 @@ public class GenActionFactoryContributionItemImpl extends EObjectImpl implements
 	 */
 	public GenContributionManager getOwner() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_ACTION_FACTORY_CONTRIBUTION_ITEM__OWNER) return null;
-		return (GenContributionManager)eContainer();
+		return (GenContributionManager)eInternalContainer();
 	}
 
 	/**

@@ -115,7 +115,7 @@ public abstract class AbstractToolEntryImpl extends EntryBaseImpl implements Abs
 	 */
 	public ToolGroup getGroup() {
 		if (eContainerFeatureID() != GMFGenPackage.ABSTRACT_TOOL_ENTRY__GROUP) return null;
-		return (ToolGroup)eContainer();
+		return (ToolGroup)eInternalContainer();
 	}
 
 	/**

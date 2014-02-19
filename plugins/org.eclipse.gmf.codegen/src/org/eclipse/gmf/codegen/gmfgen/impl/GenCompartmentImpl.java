@@ -258,7 +258,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_COMPARTMENT__DIAGRAM) return null;
-		return (GenDiagram)eContainer();
+		return (GenDiagram)eInternalContainer();
 	}
 
 	/**

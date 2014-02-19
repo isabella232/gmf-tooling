@@ -129,7 +129,7 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 	 */
 	public GenCommonBase getDiagramElement() {
 		if (eContainerFeatureID() != GMFGenPackage.ELEMENT_TYPE__DIAGRAM_ELEMENT) return null;
-		return (GenCommonBase)eContainer();
+		return (GenCommonBase)eInternalContainer();
 	}
 
 	/**

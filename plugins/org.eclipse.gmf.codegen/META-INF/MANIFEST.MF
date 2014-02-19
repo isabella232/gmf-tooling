@@ -2,20 +2,22 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.codegen; singleton:=true
-Bundle-Version: 2.9.0.qualifier
+Bundle-Version: 2.9.1.qualifier
+Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.eclipse.gmf.codegen.gmfgen,
- org.eclipse.gmf.codegen.gmfgen.impl;x-friends:="org.eclipse.gmf.codegen.lite",
+ org.eclipse.gmf.codegen.gmfgen.impl;x-friends:=org.eclipse.gmf.codegen.lite,
  org.eclipse.gmf.codegen.gmfgen.util,
  org.eclipse.gmf.codegen.util,
  org.eclipse.gmf.internal.codegen.util;x-friends:="org.eclipse.gmf.bridge.ui,org.eclipse.gmf.codegen.ui,org.eclipse.gmf.tests,org.eclipse.gmf.bridge"
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.emf.ecore;bundle-version="[2.4.0,3.0.0)";visibility:=reexport,
- org.eclipse.emf.codegen.ecore;bundle-version="[2.4.0,3.0.0)";visibility:=reexport,
+ org.eclipse.emf.ecore;visibility:=reexport;bundle-version="[2.4.0,3.0.0)",
+ org.eclipse.emf.ecore.xmi;visibility:=reexport,
+ org.eclipse.emf.codegen.ecore;visibility:=reexport;bundle-version="[2.4.0,3.0.0)",
  org.eclipse.draw2d;bundle-version="[3.2.0,4.0.0)",
- org.eclipse.gmf.common;bundle-version="[1.2.0,2.0.0)";visibility:=reexport,
+ org.eclipse.gmf.common;visibility:=reexport;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.gmf.validate;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.gmf.xpand;bundle-version="[2.1.0,3.0.0)",
  org.eclipse.m2m.qvt.oml;bundle-version="[3.0.0,4.0.0)"

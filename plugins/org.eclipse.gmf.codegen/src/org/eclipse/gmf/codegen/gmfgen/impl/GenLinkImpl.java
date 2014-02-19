@@ -303,7 +303,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID() != GMFGenPackage.GEN_LINK__DIAGRAM) return null;
-		return (GenDiagram)eContainer();
+		return (GenDiagram)eInternalContainer();
 	}
 
 	/**
