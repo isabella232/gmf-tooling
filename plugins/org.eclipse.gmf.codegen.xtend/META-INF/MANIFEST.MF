@@ -56,3 +56,4 @@ Export-Package: diagram.editparts,
  xpt.navigator,
  xpt.propsheet,
  xpt.providers
+Bundle-Localization: plugin
