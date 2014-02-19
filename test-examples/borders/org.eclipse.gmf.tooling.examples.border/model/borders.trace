@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<trace:TraceModel
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:trace="http://www.eclipse.org/gmf/2006/Trace">
+  <nodeTraces
+      visualID="2001"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'MarginBorder') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'Diagram') and _containmentMF_.name = 'borders')"/>
+  <nodeTraces
+      visualID="2002"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'CustomBorder') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'Diagram') and _containmentMF_.name = 'borders')"/>
+  <nodeTraces
+      visualID="2003"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'CompoundBorder') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'Diagram') and _containmentMF_.name = 'borders')"/>
+  <nodeTraces
+      visualID="2004"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'LineBorder') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://org.eclipse.gmf.tooling.examples.borders' and _eClass_.name = 'Diagram') and _containmentMF_.name = 'borders')"/>
+</trace:TraceModel>
