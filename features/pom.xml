@@ -35,6 +35,8 @@
 		<module>org.eclipse.gmf.tooling.runtime.source-feature</module>
 		<module>org.eclipse.gmf.tooling.runtime-feature</module>
 		<module>org.eclipse.gmf.tooling.simplemap-feature</module>
+		<module>org.eclipse.gmf.tooling.codegen.xtend2-feature</module>
+		
 		<!-- module>org.eclipse.gmf.xpand-feature</module -->
 		<module>org.eclipse.gmf.examples-feature</module>
 		<module>org.eclipse.gmf.examples.pde-feature</module>

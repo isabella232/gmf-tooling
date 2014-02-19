@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="org.eclipse.ui.menus">
+    <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+        <command
+            commandId="org.eclipse.gmf.codegen.xtend.ui.handler.GenerationCommand"
+            style="push">
+            <visibleWhen
+                  checkEnabled="false">
+                  <iterate>
+       <adapt type="org.eclipse.core.resources.IResource">
+          <test property="org.eclipse.core.resources.name" 
+                value="*.gmfgen"/>
+       </adapt>
+    </iterate>
+            </visibleWhen>
+        </command>
+    </menuContribution>
+    </extension>
+    
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="gmf.codegen.xtend.ui.executeTemplatesWithXtend2"
+            nameFilter="*.gmfgen"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Generate Diagram Code (Xtend2)"
+               class="org.eclipse.gmf.codegen.xtend.ui.handlers.ExecuteTemplatesActionWithXtend2"
+               menubarPath="additions"
+               enablesFor="1"
+               id="gmf.codegen.xtend.ui.executeTemplatesActionWithXtend2">
+         </action>
+      </objectContribution>
+    </extension>
+    
+</plugin>
