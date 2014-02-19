@@ -25,3 +25,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.gmf.codegen.xtend.ui,
  org.eclipse.gmf.codegen.xtend.ui.handlers
+Bundle-Localization: plugin
