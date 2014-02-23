@@ -1,0 +1,15 @@
+«IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+
+«DEFINE qualifiedClassName FOR gmfgen::GenEditorGenerator»«EXPAND packageName».«EXPAND className»«ENDDEFINE»
+«DEFINE className FOR gmfgen::GenEditorGenerator»CustomClass«ENDDEFINE»
+«DEFINE packageName FOR gmfgen::GenEditorGenerator»custom«ENDDEFINE»
+«DEFINE CustomTemplate FOR gmfgen::GenEditorGenerator»
+	package «EXPAND packageName»;
+		
+	public class «EXPAND className» {
+			
+		private static String SOME_VAR = "TEST_PLUGIN_NAME = «self.plugin.name»";
+			
+		public void customClassMethod() {}
+	}
+«ENDDEFINE»
