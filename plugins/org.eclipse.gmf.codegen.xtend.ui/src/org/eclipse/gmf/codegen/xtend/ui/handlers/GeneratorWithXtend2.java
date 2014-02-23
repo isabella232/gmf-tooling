@@ -18,8 +18,11 @@ public class GeneratorWithXtend2 extends Generator {
 	}
 
 	protected void customRun() throws InterruptedException, UnexpectedBehaviourException {
-		super.customRun();
-		hookGenerationCompleted();
+		try {
+			super.customRun();
+		} finally {
+			hookGenerationCompleted();
+		}
 	}
 
 	protected CodegenEmittersWithXtend2 getEmitters() {
@@ -27,7 +30,7 @@ public class GeneratorWithXtend2 extends Generator {
 	}
 
 	protected void hookGenerationCompleted() {
-		//dispose emitters if needed 
+		myEmitters.disposeEmitters();
 	}
 
 }

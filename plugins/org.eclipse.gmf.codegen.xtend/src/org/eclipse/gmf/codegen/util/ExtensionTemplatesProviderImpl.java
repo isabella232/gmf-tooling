@@ -2,15 +2,13 @@ package org.eclipse.gmf.codegen.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.wiring.FrameworkWiring;
@@ -27,8 +25,6 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 
 	private final String myCustomTemplatePath;
 
-	private final IProject myProject;
-
 	private List<Class<?>> myDinamicClasses;
 
 	private List<Class<?>> myCustomClasses;
@@ -37,21 +33,45 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 
 	private final Bundle myBundle;
 
-	public ExtensionTemplatesProviderImpl(String customPath) {
-		if (customPath.startsWith(SLASH)) {
-			customPath = customPath.substring(1, customPath.length() - 1);
+	private final boolean myAspectsNeed;
+
+	private final boolean myUsePluginNotProject;
+
+	public ExtensionTemplatesProviderImpl(String customPath, boolean aspectsNeed) {
+		myUsePluginNotProject = customPath.startsWith("platform:/plugin/");
+		if (!myUsePluginNotProject) {
+			if (customPath.startsWith(SLASH)) {
+				customPath = customPath.substring(1, customPath.length() - 1);
+			}
+			String[] parts = customPath.split(SLASH);
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(parts[0]);
+			myCustomTemplatePath = getTemplateEntryFromURL(customPath, 1);
+			ManifestUtil.createOrFillManifest(project);
+			try {
+				myBundle = loadBundle(project);
+			} catch (MalformedURLException e) {
+				throw new RuntimeException("Cannot create correct URL for Bundle.", e);
+			} catch (BundleException e) {
+				throw new RuntimeException("Error. Bundle was not load.", e);
+			}
+		} else {
+			myCustomTemplatePath = getTemplateEntryFromURL(customPath, 3);
+			myBundle = Platform.getBundle(getBundleNameFromURL(customPath));
 		}
-		String[] parts = customPath.split(SLASH);
-		myProject = ResourcesPlugin.getWorkspace().getRoot().getProject(parts[0]);
-		myCustomTemplatePath = concatWithoutFirst(parts);
-		ManifestUtil.createOrFillManifest(myProject);
-		try {
-			myBundle = loadBundle(myProject);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException("Cannot create correct URL for Bundle.", e);
-		} catch (BundleException e) {
-			throw new RuntimeException("Error. Bundle was not load.", e);
+		myAspectsNeed = aspectsNeed;
+	}
+
+	private static String getBundleNameFromURL(String url) {
+		return url.split(SLASH)[2];
+	}
+
+	private static String getTemplateEntryFromURL(String url, int part) {
+		StringBuilder result = new StringBuilder();
+		String[] parts = url.split(SLASH);
+		for (int i = part; i < parts.length; i++) {
+			result.append(parts[i]).append(SLASH);
 		}
+		return result.toString();
 	}
 
 	private static Bundle loadBundle(IProject project) throws MalformedURLException, BundleException {
@@ -59,19 +79,11 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		return CodegenXtendPlugin.getInstance().getContext().installBundle(url);
 	}
 
-	private static String concatWithoutFirst(String[] parts) {
-		StringBuilder builder = new StringBuilder();
-		for (int i = 1; i < parts.length; i++) {
-			builder.append(SLASH).append(parts[i]);
-		}
-		return builder.toString();
-	}
-
 	@Override
 	public List<Class<?>> getCustomTemplateClasses() {
 		if (myCustomClasses == null) {
 			myCustomClasses = new LinkedList<Class<?>>();
-			myCustomClasses.addAll(loadCustomClasses(EMPLTY_STRING, false));
+			myCustomClasses.addAll(loadClassesFromBundle(false));
 		}
 		return myCustomClasses;
 	}
@@ -80,7 +92,9 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 	public List<Class<?>> getDynamicTemplateClasses() {
 		if (myDinamicClasses == null) {
 			myDinamicClasses = new LinkedList<Class<?>>();
-			myDinamicClasses.addAll(loadCustomClasses(DEFAULT_DYNAMIC_TEMPLATES_FOLDER, true));
+			if (myAspectsNeed) {
+				myDinamicClasses.addAll(loadClassesFromBundle(true));
+			}
 		}
 		return myDinamicClasses;
 	}
@@ -90,86 +104,46 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		return _class.getSuperclass();
 	}
 
-	private List<Class<?>> loadCustomClasses(String pathSuffix, boolean aspectNotCustom) {
-		return loadFolder(myProject.getFolder(myCustomTemplatePath + pathSuffix), aspectNotCustom ? "aspects" : "");
-	}
-
-	private List<Class<?>> loadFolder(IFolder parentFolder, String relativPath) {
-		List<Class<?>> result = new LinkedList<Class<?>>();
-		IFile[] files = null;
-		IFolder[] folders = null;
-		try {
-			files = (IFile[]) getSubResources(parentFolder, true);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
-		if (files != null && files.length > 0) {
-			for (IFile fileToLoad : files) {
-				try {
-					result.add(loadClass(fileToLoad, relativPath));
-				} catch (ClassNotFoundException e) {
-					throw new RuntimeException("Error. Did not load " + fileToLoad.getName() + ". Class not found.", e);
-				} catch (IOException e) {
-					throw new RuntimeException("Error has occurred when try to load " + fileToLoad.getName(), e);
-				}
-			}
-		}
-		try {
-			folders = (IFolder[]) getSubResources(parentFolder, false);
-			if (folders != null && folders.length > 0) {
-				for (IFolder folderToLoad : folders) {
-					result.addAll(loadFolder(folderToLoad, createRelativPath(relativPath, folderToLoad.getName())));
-				}
-			}
-		} catch (CoreException e) {
-			throw new RuntimeException("Error.  Cannot load folder/package " + parentFolder.getName(), e);
-		}
-		return result;
-	}
-
-	private String createRelativPath(String relativePath, String child) {
-		return relativePath.length() > 0 ? relativePath + "." + child : child;
-	}
-
-	private IResource[] getSubResources(IFolder parentFolder, boolean filesNotFolders) throws CoreException {
-		List<IResource> result = new LinkedList<IResource>();
-		for (IResource res : parentFolder.members()) {
-			if (filesNotFolders) {
-				if (res instanceof IFile) {
-					IFile xtendFile = (IFile) res;
-					if (TEMPLATE_FILE_EXTENSIION.equals(xtendFile.getFileExtension())) {
-						result.add(xtendFile);
-					}
-				}
-			} else {
-				if (res instanceof IFolder) {
-					result.add((IFolder) res);
-				}
-			}
-		}
-		if (result.size() > 0) {
-			if (filesNotFolders) {
-				return result.toArray(new IFile[result.size()]);
-			}
-			return result.toArray(new IFolder[result.size()]);
-		}
-		return null;
-	}
-
-	private Class<?> loadClass(IFile classFile, String relativePath) throws ClassNotFoundException, IOException {
-		String className = createRelativPath(relativePath, classFile.getName().replace(POINT_SEPARATOR + TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING));
+	private Class<?> loadClass(String className) throws ClassNotFoundException, IOException {
 		return myBundle.loadClass(className);
 	}
 
 	@Override
 	public void dispose() {
-		try {
-			Bundle systemBundle = CodegenXtendPlugin.getInstance().getContext().getBundle(0);
-			myBundle.uninstall();
-			FrameworkWiring frameworkWiring = systemBundle.adapt(FrameworkWiring.class);
-			frameworkWiring.refreshBundles(frameworkWiring.getRemovalPendingBundles());
-		} catch (BundleException e) {
-			throw new RuntimeException("Error while unloading bundle.", e);
+		if (!myUsePluginNotProject) {
+			try {
+				Bundle systemBundle = CodegenXtendPlugin.getInstance().getContext().getBundle(0);
+				myBundle.uninstall();
+				FrameworkWiring frameworkWiring = systemBundle.adapt(FrameworkWiring.class);
+				frameworkWiring.refreshBundles(frameworkWiring.getRemovalPendingBundles());
+			} catch (BundleException e) {
+				throw new RuntimeException("Error while unloading bundle.", e);
+			}
 		}
+	}
+
+	private List<Class<?>> loadClassesFromBundle(boolean aspectNotCustom) {
+		List<Class<?>> result = new LinkedList<Class<?>>();
+		Enumeration<java.net.URL> classsesURL = myBundle.findEntries(myCustomTemplatePath, "*.xtend", true);
+		while (classsesURL.hasMoreElements()) {
+			String classPath = classsesURL.nextElement().toString().trim();
+			classPath = classPath.substring(classPath.indexOf(myCustomTemplatePath), classPath.length()).replace(myCustomTemplatePath, EMPLTY_STRING).replace(POINT_SEPARATOR + TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING);
+			try {
+				if (aspectNotCustom && classPath.startsWith("aspects")) {
+					result.add(loadClass(getFQCN(classPath)));
+				} else if (!aspectNotCustom && !classPath.startsWith("aspects")) {
+					result.add(loadClass(getFQCN(classPath)));
+				}
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Error. Did not load " + classPath + ". Class not found.", e);
+			} catch (IOException e) {
+				throw new RuntimeException("Error has occurred when try to load " + classPath, e);
+			}
+		}
+		return result;
+	}
+
+	private String getFQCN(String entryPath) {
+		return entryPath.replace(SLASH, POINT_SEPARATOR);
 	}
 }
