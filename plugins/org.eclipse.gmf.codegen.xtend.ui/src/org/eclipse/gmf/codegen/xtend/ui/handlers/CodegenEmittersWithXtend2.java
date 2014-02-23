@@ -104,8 +104,8 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 
 	public CodegenEmittersWithXtend2(boolean useBaseTemplatesOnly, String templateDirectory, boolean includeDynamicModelTemplates) {
 		super(useBaseTemplatesOnly, templateDirectory, includeDynamicModelTemplates);
-		if (!useBaseTemplatesOnly) {
-			myExtensionTemplateProvider = new ExtensionTemplatesProviderImpl(templateDirectory);
+		if (templateDirectory != null && !templateDirectory.isEmpty()) {
+			myExtensionTemplateProvider = new ExtensionTemplatesProviderImpl(templateDirectory,!useBaseTemplatesOnly);
 		}
 		myInjector = Guice.createInjector(new GMFGeneratorModule(myExtensionTemplateProvider));
 	}
@@ -746,18 +746,19 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	@Override
 	protected TextEmitter newXpandEmitter(String definition) {
 		String[] parts = definition.split(PATH_SEPARATOR);
-		String templateFQN = createXpandPath(parts);
+		String templateFQN = getXtendClassFQN(parts);
 		return getXtendEmitter(templateFQN, parts[parts.length-1]);
 	}
 	
 	@Override
 	protected TextEmitter getQualifiedClassNameEmitterForPrimaryTemplate(String templateName) throws UnexpectedBehaviourException {
-		return getQualifiedClassNameEmitter(createXpandPath(templateName.split(PATH_SEPARATOR)));
+		return getQualifiedClassNameEmitter(getXtendClassFQN(templateName.split(PATH_SEPARATOR)));
 	}
 	
-	private String createXpandPath(String[] parts) {
+	private String getXtendClassFQN(String[] parts) {
+		int PARTS_FOR_METHOD_CALL = 1;
 		StringBuilder builder = new StringBuilder(parts[0]);
-		for( int i = 1 ; i < parts.length-2 ; i++ ) {
+		for( int i = 1 ; i < parts.length-PARTS_FOR_METHOD_CALL ; i++ ) {
 			builder.append(PATH_SEPARATOR);
 			builder.append(parts[i]);
 		}

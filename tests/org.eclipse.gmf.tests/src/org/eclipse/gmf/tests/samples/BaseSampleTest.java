@@ -1,9 +1,5 @@
 package org.eclipse.gmf.tests.samples;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
@@ -13,24 +9,27 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.GenProjectBaseSetup;
-import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
+import org.eclipse.gmf.tests.setup.GeneratorConfiguration;
 
 
 public abstract class BaseSampleTest extends TestCase {
 	
 	public final static String BASE_PATH = Plugin.getBundleContext().getBundle().getLocation().replaceFirst("reference:file:", "").replaceFirst("tests/org.eclipse.gmf.tests/", "");
 	
-	private final RuntimeBasedGeneratorConfiguration myGenConfiguration;
+	private final GeneratorConfiguration myGenConfiguration;
 	
-	public BaseSampleTest(String name, RuntimeBasedGeneratorConfiguration genConfig) {
+	public BaseSampleTest(String name, GeneratorConfiguration genConfig) {
 		super(name);
 		myGenConfiguration = genConfig;
 	}
 
 	protected abstract String getRelativeGMFGENPath();
 	
-	public void genAndCompile(String relativePath, RuntimeBasedGeneratorConfiguration genConfig) throws Exception {
-		GenEditorGenerator editorGen = loadGMFGENModel(relativePath);
+	public void genAndCompile(String relativePath, GeneratorConfiguration genConfig) throws Exception {
+		genAndCompile(loadGMFGENModel(relativePath), genConfig);
+	}
+	
+	public void genAndCompile(GenEditorGenerator editorGen, GeneratorConfiguration genConfig) throws Exception {
 		new GenProjectBaseSetup(genConfig).generateAndCompile(editorGen);
 	}
 	
@@ -38,16 +37,8 @@ public abstract class BaseSampleTest extends TestCase {
 		return loadEditorGen(URI.createURI(getRelativeGMFGENPath())); //$NON-NLS-1$);
 	}
 	
-	private GenEditorGenerator loadEditorGen(String path) throws URISyntaxException, IOException {
-		GenEditorGenerator result = null;
-		File file = new File(path);
-		if (file.exists()) {
-			URI uriEditorGen = URI.createFileURI(file.getAbsolutePath());
-			if (uriEditorGen != null) {
-				result = loadEditorGen(uriEditorGen);
-			}
-		}
-		return result;
+	protected GeneratorConfiguration getGenerationConfiguration() {
+		return myGenConfiguration;
 	}
 	
 	private GenEditorGenerator loadEditorGen(URI u) {
