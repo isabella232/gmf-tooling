@@ -11,14 +11,12 @@
  */
 package org.eclipse.gmf.codegen.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.merge.java.JControlModel;
@@ -27,8 +25,10 @@ import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.DefaultTextMerger;
+import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
+import org.eclipse.gmf.internal.common.codegen.XpandClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.XpandTextEmitter;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
@@ -105,154 +105,154 @@ public class CodegenEmitters {
 
 	// commands
 
-	public TextEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::CreateNodeCommand"); //$NON-NLS-1$
+	public JavaClassEmitter getCreateNodeCommandEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::commands::CreateNodeCommand"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::commands::CreateLinkCommand::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getCreateLinkCommandEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("xpt::diagram::commands::CreateLinkCommand", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getReorientLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::ReorientLinkCommand"); //$NON-NLS-1$
+	public JavaClassEmitter getReorientLinkCommandEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::commands::ReorientLinkCommand"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getReorientRefLinkCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::ReorientRefLinkCommand"); //$NON-NLS-1$
+	public JavaClassEmitter getReorientRefLinkCommandEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::commands::ReorientRefLinkCommand"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getReorientLinkViewCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::ReorientLinkViewCommand"); //$NON-NLS-1$
+	public JavaClassEmitter getReorientLinkViewCommandEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::commands::ReorientLinkViewCommand"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCreateShortcutDecorationsCommandEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::commands::CreateShortcutDecorationsCommand"); //$NON-NLS-1$
+	public JavaClassEmitter getCreateShortcutDecorationsCommandEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::commands::CreateShortcutDecorationsCommand"); //$NON-NLS-1$
 	}
 
 	// helpers
 
-	public TextEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::edithelpers::BaseEditHelper"); //$NON-NLS-1$
+	public JavaClassEmitter getBaseEditHelperEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::edithelpers::BaseEditHelper"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getEditHelperEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::edithelpers::EditHelper"); //$NON-NLS-1$
+	public JavaClassEmitter getEditHelperEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::edithelpers::EditHelper"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getEditHelperAdviceEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::edithelpers::EditHelperAdvice"); //$NON-NLS-1$
+	public JavaClassEmitter getEditHelperAdviceEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::edithelpers::EditHelperAdvice"); //$NON-NLS-1$
 	}
 
 	// parts
 
-	public TextEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getDiagramEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::DiagramEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getNodeEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::NodeEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::NodeLabelEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getExternalNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::ExternalNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getChildNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getChildNodeLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::ChildNodeLabelEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getCompartmentEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::CompartmentEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getLinkEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::LinkEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
+	public JavaClassEmitter getLinkLabelEditPartEmitter() throws UnexpectedBehaviourException {
 		return getMainEmitter("diagram::editparts::LinkLabelEditPart"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::editparts::EditPartFactory"); //$NON-NLS-1$
+	public JavaClassEmitter getEditPartFactoryEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editparts::EditPartFactory"); //$NON-NLS-1$
 	}
 
 	// policies
 
-	public TextEmitter getBaseItemSemanticEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getBaseItemSemanticEditPolicyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::BaseItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::OpenDiagram"); //$NON-NLS-1$
+	public JavaClassEmitter getOpenDiagramEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::OpenDiagram"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramCanonicalEditPolicyEmitter() {
-		return newXpandEmitter("diagram::editpolicies::DiagramCanonicalEditPolicy::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getDiagramCanonicalEditPolicyEmitter() {
+		return createJavaClassEmitter("diagram::editpolicies::DiagramCanonicalEditPolicy","Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getChildContainerCanonicalEditPolicyEmitter() {
-		return newXpandEmitter("diagram::editpolicies::ChildContainerCanonicalEditPolicy::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getChildContainerCanonicalEditPolicyEmitter() {
+		return createJavaClassEmitter("diagram::editpolicies::ChildContainerCanonicalEditPolicy", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramItemSemanticEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::DiagramItemSemanticEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getDiagramItemSemanticEditPolicyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::DiagramItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCompartmentItemSemanticEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getCompartmentItemSemanticEditPolicyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::CompartmentItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::GraphicalNodeEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getGraphicalNodeEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::GraphicalNodeEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNodeItemSemanticEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getNodeItemSemanticEditPolicyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::NodeItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getLinkItemSemanticEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::LinkItemSemanticEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getLinkItemSemanticEditPolicyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::LinkItemSemanticEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextSelectionEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getTextSelectionEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("xpt::diagram::editpolicies::TextFeedback", "TextSelectionEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::diagram::editpolicies::TextFeedback::TextNonResizableEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getTextNonResizableEditPolicyEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("xpt::diagram::editpolicies::TextFeedback", "TextNonResizableEditPolicy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getVisualEffectEditPolicyEmitter() {
-		return getPrimaryEmitter("xpt::diagram::editpolicies::VisualEffectEditPolicy"); //$NON-NLS-1$
+	public JavaClassEmitter getVisualEffectEditPolicyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::editpolicies::VisualEffectEditPolicy"); //$NON-NLS-1$
 	}
 
 	// updater
 
-	public TextEmitter getDiagramUpdaterEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::DiagramUpdater"); //$NON-NLS-1$
+	public JavaClassEmitter getDiagramUpdaterEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::updater::DiagramUpdater"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getUpdateCommandEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::UpdateCommand"); //$NON-NLS-1$
+	public JavaClassEmitter getUpdateCommandEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::updater::UpdateCommand"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNodeDescriptorEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::NodeDescriptor"); //$NON-NLS-1$
+	public JavaClassEmitter getNodeDescriptorEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::updater::NodeDescriptor"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getLinkDescriptorEmitter() {
-		return getPrimaryEmitter("xpt::diagram::updater::LinkDescriptor"); //$NON-NLS-1$
+	public JavaClassEmitter getLinkDescriptorEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::diagram::updater::LinkDescriptor"); //$NON-NLS-1$
 	}
 
 	// parsers
 
-	public TextEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("impl::parsers::AbstractParser::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getAbstractParserEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("impl::parsers::AbstractParser", "Main"); //$NON-NLS-1$
 	}
 
 	/**
@@ -260,465 +260,356 @@ public class CodegenEmitters {
 	 * @see comments in template impl::parsers::AbstractParser for details 
 	 */
 	public String getAbstractParserName(Object... input) throws UnexpectedBehaviourException {
-		return getText(newXpandEmitter("impl::parsers::AbstractParser::deprecatedQualifiedClassName"), input); //$NON-NLS-1$
+		return createPrimaryJavaClassEmitter("impl::parsers::AbstractParser").getQualifiedClassName("deprecatedQualifiedClassName", input); //$NON-NLS-1$
 	}
 
-	public TextEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("parsers::PredefinedParser::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getPredefinedParserEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("parsers::PredefinedParser", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCustomParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("parsers::CustomParser::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getCustomParserEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("parsers::CustomParser", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getExpressionLabelParserEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("parsers::ExpressionLabelParser::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getExpressionLabelParserEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("parsers::ExpressionLabelParser", "Main"); //$NON-NLS-1$
 	}
 
 	// providers
 
-	public TextEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("parsers::ParserProvider::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getParserProviderEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("parsers::ParserProvider", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ElementInitializers"); //$NON-NLS-1$
+	public JavaClassEmitter getElementInitializersEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::ElementInitializers"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ElementTypes"); //$NON-NLS-1$
+	public JavaClassEmitter getElementTypesEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::ElementTypes"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getViewProviderEmitter() {
-		return getPrimaryEmitter("xpt::providers::ViewProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getViewProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::providers::ViewProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::EditPartProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getEditPartProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::EditPartProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
-	}
-
-	/**
-	 * @since 2.11
-	 */
-	public TextEmitter getNodeEditPartModelingAssistantProviderEmitter() {
-		return getPrimaryEmitter("xpt::providers::EditPartModelingAssistantProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getModelingAssistantProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::ModelingAssistantProvider"); //$NON-NLS-1$
 	}
 
 	/**
 	 * @since 2.11
 	 */
-	public String getNodeEditPartModelingAssistantProviderClassName(Object input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::providers::EditPartModelingAssistantProvider", input); //$NON-NLS-1$
+	public JavaClassEmitter getNodeEditPartModelingAssistantProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::providers::EditPartModelingAssistantProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::IconProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getIconProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::IconProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::MarkerNavigationProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getMarkerNavigationProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::MarkerNavigationProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ValidationProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getValidationProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::ValidationProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::ValidationDecoratorProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getValidationDecoratorProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::ValidationDecoratorProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getShortcutsDecoratorProviderEmitter() {
-		return getPrimaryEmitter("xpt::providers::ShortcutsDecoratorProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getShortcutsDecoratorProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::providers::ShortcutsDecoratorProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::providers::MetricProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getMetricProviderEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::providers::MetricProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::expressions::AbstractExpression"); //$NON-NLS-1$
+	public JavaClassEmitter getAbstractExpressionEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::expressions::AbstractExpression"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::expressions::OCLExpressionFactory"); //$NON-NLS-1$
+	public JavaClassEmitter getOCLExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::expressions::OCLExpressionFactory"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::expressions::RegexpExpressionFactory"); //$NON-NLS-1$
+	public JavaClassEmitter getRegexpExpressionFactoryEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::expressions::RegexpExpressionFactory"); //$NON-NLS-1$
 	}
 
 	// property sheet
 
-	public TextEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::propsheet::LabelProvider::Class"); //$NON-NLS-1$
+	public JavaClassEmitter getPropertySheetLabelProviderEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("xpt::propsheet::LabelProvider", "Class"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::propsheet::PropertySection::Class"); //$NON-NLS-1$
+	public JavaClassEmitter getPropertySectionEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("xpt::propsheet::PropertySection", "Class"); //$NON-NLS-1$
 	}
 
 	// editor
 
-	public TextEmitter getValidateActionEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::ValidateAction"); //$NON-NLS-1$
+	public JavaClassEmitter getValidateActionEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::ValidateAction"); //$NON-NLS-1$
 	}
 
-	public String getValidateActionName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::ValidateAction", input); //$NON-NLS-1$
+	public JavaClassEmitter getValidationMarkerEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::ValidationMarker"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getValidationMarkerEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::ValidationMarker"); //$NON-NLS-1$
+	public JavaClassEmitter getDiagramContentInitializerEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$
 	}
 
-	public String getValidationMarkerName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::ValidationMarker", input); //$NON-NLS-1$
+	public JavaClassEmitter getShortcutPropertyTesterEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::ShortcutPropertyTester"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramContentInitializerEmitter() {
-		return getPrimaryEmitter("xpt::editor::DiagramContentInitializer"); //$NON-NLS-1$
+	public JavaClassEmitter getShortcutCreationWizardEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::ShortcutCreationWizard"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getShortcutPropertyTesterEmitter() {
-		return getPrimaryEmitter("xpt::editor::ShortcutPropertyTester"); //$NON-NLS-1$
+	public JavaClassEmitter getModelElementSelectionPageEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::ModelElementSelectionPage"); //$NON-NLS-1$
 	}
 
-	public String getShortcutCreationWizardName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::ShortcutCreationWizard", input); //$NON-NLS-1$
+	public JavaClassEmitter getNewDiagramFileWizardEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::NewDiagramFileWizard"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getShortcutCreationWizardEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::ShortcutCreationWizard"); //$NON-NLS-1$
+	public JavaClassEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("xpt::editor::palette::PaletteFactory", "Factory"); //$NON-NLS-1$
 	}
 
-	public String getModelElementSelectionPageName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::ModelElementSelectionPage", input); //$NON-NLS-1$
+	public JavaClassEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::DiagramEditorUtil"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getModelElementSelectionPageEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::ModelElementSelectionPage"); //$NON-NLS-1$
+	public JavaClassEmitter getVisualIDRegistryEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::VisualIDRegistry"); //$NON-NLS-1$
 	}
 
-	public String getNewDiagramFileWizardName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::NewDiagramFileWizard", input); //$NON-NLS-1$
+	public JavaClassEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::CreationWizard"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNewDiagramFileWizardEmitter() {
-		return getPrimaryEmitter("xpt::editor::NewDiagramFileWizard"); //$NON-NLS-1$
+	public JavaClassEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::CreationWizardPage"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getPaletteEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("xpt::editor::palette::PaletteFactory::Factory"); //$NON-NLS-1$
+	public JavaClassEmitter getDeleteElementActionEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::DeleteElementAction"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramEditorUtilEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::DiagramEditorUtil"); //$NON-NLS-1$
+	public JavaClassEmitter getDiagramEditorContextMenuProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::DiagramEditorContextMenuProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getVisualIDRegistryEmitter() {
-		return getPrimaryEmitter("xpt::editor::VisualIDRegistry"); //$NON-NLS-1$
+	public JavaClassEmitter getEditorEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::Editor"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCreationWizardEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::CreationWizard"); //$NON-NLS-1$
+	public JavaClassEmitter getElementChooserEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::ElementChooser"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getCreationWizardPageEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::CreationWizardPage"); //$NON-NLS-1$
+	public JavaClassEmitter getDocumentProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::DocumentProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDeleteElementActionEmitter() {
-		return getPrimaryEmitter("xpt::editor::DeleteElementAction"); //$NON-NLS-1$
+	public JavaClassEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::editor::ActionBarContributor"); //$NON-NLS-1$
 	}
 
-	public String getDeleteElementActionName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::DeleteElementAction", input); //$NON-NLS-1$
+	public JavaClassEmitter getMatchingStrategyEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::MatchingStrategy"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDiagramEditorContextMenuProviderEmitter() {
-		return getPrimaryEmitter("xpt::editor::DiagramEditorContextMenuProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getURIEditorInputTesterEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
 	}
 
-	public String getDiagramEditorContextMenuProviderName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::editor::DiagramEditorContextMenuProvider", input); //$NON-NLS-1$
-	}
-
-	public TextEmitter getEditorEmitter() {
-		return getPrimaryEmitter("xpt::editor::Editor"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getElementChooserEmitter() {
-		return getPrimaryEmitter("xpt::editor::ElementChooser"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getDocumentProviderEmitter() {
-		return getPrimaryEmitter("xpt::editor::DocumentProvider"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getActionBarContributorEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::editor::ActionBarContributor"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getMatchingStrategyEmitter() {
-		return getPrimaryEmitter("xpt::editor::MatchingStrategy"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getURIEditorInputTesterEmitter() {
-		return getPrimaryEmitter("xpt::editor::UriEditorInputTester"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getModelAccessFacilityEmitter() {
-		return newXpandEmitter("Facility::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getModelAccessFacilityEmitter() {
+		return createJavaClassEmitter("Facility", "Main"); //$NON-NLS-1$
 	}
 
 	// navigator
 
-	public TextEmitter getNavigatorContentProviderEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorContentProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorContentProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorContentProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDomainNavigatorContentProviderEmitter() {
-		return getPrimaryEmitter("xpt::navigator::DomainNavigatorContentProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getDomainNavigatorContentProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::DomainNavigatorContentProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDomainNavigatorLabelProviderEmitter() {
-		return getPrimaryEmitter("xpt::navigator::DomainNavigatorLabelProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getDomainNavigatorLabelProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::DomainNavigatorLabelProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getDomainNavigatorItemEmitter() {
-		return getPrimaryEmitter("xpt::navigator::DomainNavigatorItem"); //$NON-NLS-1$
+	public JavaClassEmitter getDomainNavigatorItemEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::DomainNavigatorItem"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorLabelProviderEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorLabelProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorLabelProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorLabelProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorLinkHelperEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorLinkHelper"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorLinkHelperEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorLinkHelper"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorSorterEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorSorter"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorSorterEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorSorter"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorActionProviderEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorActionProvider"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorActionProviderEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorActionProvider"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getAbstractNavigatorItemEmitter() {
-		return getPrimaryEmitter("xpt::navigator::AbstractNavigatorItem"); //$NON-NLS-1$
+	public JavaClassEmitter getAbstractNavigatorItemEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::AbstractNavigatorItem"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorGroupEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorGroup"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorGroupEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorGroup"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getNavigatorItemEmitter() {
-		return getPrimaryEmitter("xpt::navigator::NavigatorItem"); //$NON-NLS-1$
+	public JavaClassEmitter getNavigatorItemEmitter() {
+		return createPrimaryJavaClassEmitter("xpt::navigator::NavigatorItem"); //$NON-NLS-1$
 	}
 
 	// preferences
 
-	public TextEmitter getPreferenceInitializerEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::diagram::preferences::PreferenceInitializer"); //$NON-NLS-1$
+	public JavaClassEmitter getPreferenceInitializerEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::diagram::preferences::PreferenceInitializer"); //$NON-NLS-1$
 	}
 
-	public String getPreferenceInitializerName(Object... input) throws UnexpectedBehaviourException {
-		return getQualifiedClassName("xpt::diagram::preferences::PreferenceInitializer", input); //$NON-NLS-1$
+	public JavaClassEmitter getStandardPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("impl::preferences::StandardPage", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getStandardPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("impl::preferences::StandardPage::Main"); //$NON-NLS-1$
-	}
-
-	public TextEmitter getCustomPreferencePageEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("impl::preferences::CustomPage::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getCustomPreferencePageEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("impl::preferences::CustomPage", "Main"); //$NON-NLS-1$
 	}
 
 	// plugin
 
-	public TextEmitter getActivatorEmitter() throws UnexpectedBehaviourException {
-		return newXpandEmitter("plugin::Activator::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getActivatorEmitter() throws UnexpectedBehaviourException {
+		return createJavaClassEmitter("plugin::Activator", "Main"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getBundleManifestEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::manifest"); //$NON-NLS-1$
+		return createTextEmitter("xpt::plugin::manifest", "manifest"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginXmlEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::plugin"); //$NON-NLS-1$
+		return createTextEmitter("xpt::plugin::plugin", "plugin"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::properties"); //$NON-NLS-1$
+		return createTextEmitter("xpt::plugin::properties", "properties"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::build"); //$NON-NLS-1$
+		return createTextEmitter("xpt::plugin::build", "build"); //$NON-NLS-1$
 	}
 
 	public TextEmitter getOptionsFileEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::plugin::options"); //$NON-NLS-1$
+		return createTextEmitter("xpt::plugin::options", "options"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getExternalizeEmitter() {
-		return newXpandEmitter("xpt::Externalizer::Access"); //$NON-NLS-1$
+	public JavaClassEmitter getExternalizeEmitter() {
+		return createJavaClassEmitter("xpt::Externalizer","Access"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getMessagesEmitter() {
-		return newXpandEmitter("xpt::Externalizer::Values"); //$NON-NLS-1$
+	public JavaClassEmitter getMessagesEmitter() {
+		return createJavaClassEmitter("xpt::Externalizer", "Values"); //$NON-NLS-1$
 	}
 
 	// application
 
-	public TextEmitter getApplicationEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::application::Application"); //$NON-NLS-1$
+	public JavaClassEmitter getApplicationEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::application::Application"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::application::ActionBarAdvisor"); //$NON-NLS-1$
+	public JavaClassEmitter getActionBarAdvisorEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::application::ActionBarAdvisor"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getPerspectiveEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::application::Perspective"); //$NON-NLS-1$
+	public JavaClassEmitter getPerspectiveEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::application::Perspective"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getWorkbenchAdvisorEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::application::WorkbenchAdvisor"); //$NON-NLS-1$
+	public JavaClassEmitter getWorkbenchAdvisorEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::application::WorkbenchAdvisor"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::application::WorkbenchWindowAdvisor"); //$NON-NLS-1$
+	public JavaClassEmitter getWorkbenchWindowAdvisorEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::application::WorkbenchWindowAdvisor"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
-		return getPrimaryEmitter("xpt::application::WizardNewFileCreationPage"); //$NON-NLS-1$
+	public JavaClassEmitter getWizardNewFileCreationPageEmitter() throws UnexpectedBehaviourException {
+		return createPrimaryJavaClassEmitter("xpt::application::WizardNewFileCreationPage"); //$NON-NLS-1$
 	}
 
 	// actions
 
-	public TextEmitter getCustomActionEmitter() {
-		return newXpandEmitter("impl::actions::CustomAction::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getCustomActionEmitter() {
+		return createJavaClassEmitter("impl::actions::CustomAction", "Main"); //$NON-NLS-1$
 	}
 
-	public TextEmitter getPredefinedActionEmitter() {
-		return newXpandEmitter("impl::actions::PredefinedAction::Main"); //$NON-NLS-1$
+	public JavaClassEmitter getPredefinedActionEmitter() {
+		return createJavaClassEmitter("impl::actions::PredefinedAction", "Main"); //$NON-NLS-1$
 	}
 
 	// util
 
-	/**
-	 * Returns emitter for the primary definition in the specified template.
-	 * Primary definition has the same name as template file.
-	 */
-	private TextEmitter getPrimaryEmitter(String templateName) {
-		String[] parts = templateName.split(PATH_SEPARATOR);
-		String definition = templateName + PATH_SEPARATOR + parts[parts.length - 1];
-		return newXpandEmitter(definition);
+	protected JavaClassEmitter createJavaClassEmitter(String templateName, String mainMethod) {
+		return createJavaClassEmitter(templateName, mainMethod);
 	}
 
+	public TextEmitter getQualifiedClassNameEmitterForPrimaryTemplate(String templateFQN) {
+		return createJavaClassEmitter(getTemplateFQNWithoutLastSegment(templateFQN), "qualifiedClassName");
+	}
+	
+	/**
+	 * Use when tamplate name equals main method
+	 * @param templateName
+	 * @return
+	 */
+	protected JavaClassEmitter createPrimaryJavaClassEmitter(String templateName) {
+		String parts[] = templateName.split(PATH_SEPARATOR);
+		return createJavaClassEmitter(templateName, parts[parts.length-1]);
+	}
+	
+	public JavaClassEmitter createFullTemplateInvocation(String templateFQN) {
+		String[] parts = templateFQN.split(PATH_SEPARATOR);
+		return createJavaClassEmitter(getTemplateFQNWithoutLastSegment(templateFQN), parts[parts.length - 1]);
+	}
+	
+	private TextEmitter createTextEmitter(String templateName, String mainMethod) {
+		return createJavaClassEmitter(templateName, mainMethod); 
+	}
+	
+	private String getTemplateFQNWithoutLastSegment(String templateFQN) {
+		String[] parts = templateFQN.split(PATH_SEPARATOR);
+		int methodNamePartLength = parts[parts.length-1].length() + PATH_SEPARATOR.length();
+		return templateFQN.substring(0, templateFQN.length() - methodNamePartLength);
+	}
+	
 	/**
 	 * Returns "Main" emitter for the specified template file.
 	 */
-	private TextEmitter getMainEmitter(String templateFilePath) {
-		return newXpandEmitter(templateFilePath + PATH_SEPARATOR + "Main"); //$NON-NLS-1$
-	}
-
-	/**
-	 * Returns emitter for qualified class name definition in the specified template.
-	 * Definition should be named 'qualifiedClassName'.
-	 * @since 2.11
-	 */
-	protected TextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
-		String definition = templateName + PATH_SEPARATOR + "qualifiedClassName"; //$NON-NLS-1$
-		return newXpandEmitter(definition);
-	}
-
-	/**
-	 * Returns emitter for qualified class name definition for specified <strong>primary template</strong>.
-	 * That is, in contrast to {@link CodegenEmitters#getQualifiedClassNameEmitter(String)} expects the name 
-	 * of invocable template 'xpt::diagram::editparts::TemplateName::PrimaryName' as an input
-	 * <p>
-	 * Definition should be named 'qualifiedClassName'.
-	 * @return
-	 * 		for 'xpt::diagram::editparts::TemplateName::PrimaryName' returns template 'xpt::diagram::editparts::TemplateName::qualifiedClassName'
-	 */
-	protected TextEmitter getQualifiedClassNameEmitterForPrimaryTemplate(String templateName) throws UnexpectedBehaviourException {
-		String[] parts = templateName.split(PATH_SEPARATOR);
-		StringBuilder withoutLastSegment = new StringBuilder();
-		for (int i = 0; i < parts.length - 1; i++) {
-			if (withoutLastSegment.length() > 0) {
-				withoutLastSegment.append(PATH_SEPARATOR);
-			}
-			withoutLastSegment.append(parts[i]);
-		}
-		return getQualifiedClassNameEmitter(withoutLastSegment.toString());
-	}
-
-	/**
-	 * Returns emitter for class name definition in the specified template.
-	 * Definition should be named 'className'.
-	 */
-	private TextEmitter getClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
-		String definition = templateName + PATH_SEPARATOR + "className"; //$NON-NLS-1$
-		return newXpandEmitter(definition);
-	}
-
-	/**
-	 * Returns emitter for package name definition in the specified template.
-	 * Definition should be named 'packageName'.
-	 */
-	private TextEmitter getPackageNameEmitter(String templateName) throws UnexpectedBehaviourException {
-		String definition = templateName + PATH_SEPARATOR + "packageName"; //$NON-NLS-1$
-		return newXpandEmitter(definition);
-	}
-
-	/**
-	 * Returns text generated by emitter.
-	 * @since 2.11
-	 */
-	protected String getText(TextEmitter emitter, Object... input) throws UnexpectedBehaviourException {
-		try {
-			return emitter.generate(new NullProgressMonitor(), input).trim();
-		} catch (InterruptedException ie) {
-			return null;
-		} catch (InvocationTargetException ite) {
-			throw new UnexpectedBehaviourException(ite.getCause());
-		}
-	}
-
-	/**
-	 * Returns qualified class name defined in template.
-	 * @since 2.11
-	 */
-	protected String getQualifiedClassName(String templateName, Object... input) throws UnexpectedBehaviourException {
-		TextEmitter emitter = getQualifiedClassNameEmitter(templateName);
-		return getText(emitter, input);
-	}
-
-	/**
-	 * Returns class name defined in template.
-	 */
-	private String getClassName(String templateName, Object... input) throws UnexpectedBehaviourException {
-		TextEmitter emitter = getClassNameEmitter(templateName);
-		return getText(emitter, input);
-	}
-
-	/**
-	 * Returns package name defined in template.
-	 */
-	private String getPackageName(String templateName, Object... input) throws UnexpectedBehaviourException {
-		TextEmitter emitter = getPackageNameEmitter(templateName);
-		return getText(emitter, input);
-	}
-
-
-	protected TextEmitter newXpandEmitter(String definition) {
-		return new XpandTextEmitter(myResourceManager, definition, myGlobals);
+	private JavaClassEmitter getMainEmitter(String templateFilePath) {
+		return createJavaClassEmitter(templateFilePath, "Main"); //$NON-NLS-1$
 	}
 
 }

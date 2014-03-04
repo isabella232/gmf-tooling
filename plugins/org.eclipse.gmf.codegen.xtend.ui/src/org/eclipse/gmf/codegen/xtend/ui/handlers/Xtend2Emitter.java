@@ -8,10 +8,11 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
+import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 import com.google.inject.Injector;
 
-public class Xtend2Emitter implements GeneratorTextEmitter {
+public class Xtend2Emitter implements TextEmitter {
 
 	private final Class<?> myXtendGenerator;
 
@@ -27,6 +28,10 @@ public class Xtend2Emitter implements GeneratorTextEmitter {
 
 	@Override
 	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
+		return generate(monitor, myMethodName, arguments);
+	}
+	
+	protected String generate(IProgressMonitor monitor, String methodName, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
 		if (monitor != null && monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -49,7 +54,7 @@ public class Xtend2Emitter implements GeneratorTextEmitter {
 			arguments = fixedArgs.toArray();
 		}
 		Object generator = instantiateGenerator();
-		Method method = getGeneratorMethod(arguments.length);
+		Method method = getGeneratorMethod(arguments.length, methodName);
 		Object result;
 		try {
 			result = method.invoke(generator, arguments);
@@ -73,7 +78,7 @@ public class Xtend2Emitter implements GeneratorTextEmitter {
 		return instance;
 	}
 
-	private Method getGeneratorMethod(int paramsCount) throws UnexpectedBehaviourException {
+	private Method getGeneratorMethod(int paramsCount, String methodName) throws UnexpectedBehaviourException {
 		Method[] allMethods;
 		try {
 			allMethods = myXtendGenerator.getDeclaredMethods();
@@ -82,7 +87,7 @@ public class Xtend2Emitter implements GeneratorTextEmitter {
 		}
 		Method candidate = null;
 		for (Method next : allMethods) {
-			if (myMethodName.equals(next.getName()) && next.getParameterTypes().length == paramsCount) {
+			if (methodName.equals(next.getName()) && next.getParameterTypes().length == paramsCount) {
 				if (candidate != null) {
 					throw new UnexpectedBehaviourException("More than 1 method found for " + this + ", " + candidate + " vs " + next);
 				}
@@ -103,6 +108,14 @@ public class Xtend2Emitter implements GeneratorTextEmitter {
 	protected Object extractTarget(Object[] arguments) {
 		assert arguments != null && arguments.length > 0;
 		return arguments[0];
+	}
+	
+	protected Injector getInjector() {
+		return myInjector;
+	}
+	
+	protected Class<?> getTemplateClass() {
+		return myXtendGenerator;
 	}
 
 }

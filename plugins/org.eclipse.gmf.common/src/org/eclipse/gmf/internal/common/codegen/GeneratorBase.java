@@ -330,6 +330,11 @@ public abstract class GeneratorBase implements Runnable {
 		return new ImportUtil(packageName, className, myDestRoot);
 	}
 
+	
+	protected final void doGenerate(JavaClassEmitter emitter, Object... input) throws InterruptedException, UnexpectedBehaviourException {
+		doGenerateJavaClass(emitter, emitter.getQualifiedClassName(input), input);
+	}
+	
 	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object... input) throws InterruptedException {
 		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
 	}

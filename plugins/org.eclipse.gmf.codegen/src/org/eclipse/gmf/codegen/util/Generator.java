@@ -27,7 +27,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -86,11 +85,9 @@ import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
-import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
-import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
+import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 import org.eclipse.ocl.ecore.OCL;
@@ -114,13 +111,17 @@ public class Generator extends GeneratorBase implements Runnable {
 	private final BinaryEmitters myBinaryEmmiters;
 	
 	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters) {
+		this(genModel, emitters, new BinaryEmitters());
+	}
+
+	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters, BinaryEmitters binaryEmitters) { 
 		assert genModel != null && emitters != null;
 		myEditorGen = genModel;
 		myDiagram = genModel.getDiagram();
 		myEmitters = emitters;
-		myBinaryEmmiters = new BinaryEmitters();
+		myBinaryEmmiters = binaryEmitters;
 	}
-
+	
 	@Override
 	protected TextMerger createMergeService() {
 		TextMerger service = myEmitters.createMergeService();
@@ -454,7 +455,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditPartModelingAssistantProvider(GenContainerBase container) throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getNodeEditPartModelingAssistantProviderEmitter(), myEmitters.getNodeEditPartModelingAssistantProviderClassName(container), container);
+		JavaClassEmitter emitter = myEmitters.getNodeEditPartModelingAssistantProviderEmitter();
+		doGenerate(emitter, container);
 	}
 
 	private void generateNodeLabelEditPart(GenNodeLabel label) throws UnexpectedBehaviourException, InterruptedException {
@@ -570,7 +572,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	// preferences
 
 	private void generatePreferenceInitializer() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getPreferenceInitializerEmitter(), myEmitters.getPreferenceInitializerName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getPreferenceInitializerEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generatePreferencePages(List<GenPreferencePage> pages) throws UnexpectedBehaviourException, InterruptedException {
@@ -608,7 +611,8 @@ public class Generator extends GeneratorBase implements Runnable {
 			}
 		}
 		if (needsAbstractParser) {
-			doGenerateJavaClass(myEmitters.getAbstractParserEmitter(), myEmitters.getAbstractParserName(myEditorGen.getLabelParsers()), myEditorGen.getLabelParsers());
+			JavaClassEmitter emitter = myEmitters.getAbstractParserEmitter();
+			doGenerateJavaClass(emitter, myEmitters.getAbstractParserName(myEditorGen.getLabelParsers()), myEditorGen.getLabelParsers());
 		}
 	}
 
@@ -684,22 +688,26 @@ public class Generator extends GeneratorBase implements Runnable {
 	// editor
 
 	private void generateValidateAction() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getValidateActionEmitter(), myEmitters.getValidateActionName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getValidateActionEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generateValidationMarker() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getValidationMarkerEmitter(), myEmitters.getValidationMarkerName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getValidationMarkerEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generateModelElementSelectionPage() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getModelElementSelectionPageEmitter(), myEmitters.getModelElementSelectionPageName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getModelElementSelectionPageEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generateNewDiagramFileWizard() throws UnexpectedBehaviourException, InterruptedException {
 		if (!myDiagram.isSynchronized()) {
 			doGenerateJavaClass(myEmitters.getDiagramContentInitializerEmitter(), myDiagram.getDiagramContentInitializerQualifiedClassName(), myDiagram);
 		}
-		doGenerateJavaClass(myEmitters.getNewDiagramFileWizardEmitter(), myEmitters.getNewDiagramFileWizardName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getNewDiagramFileWizardEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generatePalette() throws UnexpectedBehaviourException, InterruptedException {
@@ -726,11 +734,13 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDeleteElementAction() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getDeleteElementActionEmitter(), myEmitters.getDeleteElementActionName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getDeleteElementActionEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generateDiagramEditorContextMenuProvider() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getDiagramEditorContextMenuProviderEmitter(), myEmitters.getDiagramEditorContextMenuProviderName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getDiagramEditorContextMenuProviderEmitter();
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generateEditor() throws InterruptedException {
@@ -743,7 +753,8 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateShortcutCreationWizard() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateJavaClass(myEmitters.getShortcutCreationWizardEmitter(), myEmitters.getShortcutCreationWizardName(myDiagram), myDiagram);
+		JavaClassEmitter emitter = myEmitters.getShortcutCreationWizardEmitter(); 
+		doGenerate(emitter, myDiagram);
 	}
 
 	private void generateDocumentProvider() throws InterruptedException {
@@ -1031,7 +1042,7 @@ public class Generator extends GeneratorBase implements Runnable {
 			return;
 		}
 
-		TextEmitter primaryEmitter = myEmitters.newXpandEmitter(primaryTemplateFQN);
+		JavaClassEmitter primaryEmitter = myEmitters.createFullTemplateInvocation(primaryTemplateFQN);
 		TextEmitter fqnEmitter = myEmitters.getQualifiedClassNameEmitterForPrimaryTemplate(primaryTemplateFQN);
 
 		Object[] templateInputs;

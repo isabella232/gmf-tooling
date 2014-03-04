@@ -33,5 +33,34 @@
                 <message_argument value="getWizardBannerImageEmitter()"/>
             </message_arguments>
         </filter>
+        <filter id="643842064">
+            <message_arguments>
+                <message_argument value="JavaClassEmitter"/>
+                <message_argument value="CodegenEmitters"/>
+                <message_argument value="createFullTemplateInvocation(String)"/>
+            </message_arguments>
+        </filter>
+        <filter id="643842064">
+            <message_arguments>
+                <message_argument value="JavaClassEmitter"/>
+                <message_argument value="CodegenEmitters"/>
+                <message_argument value="createPrimaryJavaClassEmitter(String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/gmf/codegen/util/Generator.java" type="org.eclipse.gmf.codegen.util.Generator">
+        <filter id="576720909">
+            <message_arguments>
+                <message_argument value="GeneratorBase"/>
+                <message_argument value="Generator"/>
+            </message_arguments>
+        </filter>
+        <filter id="643842064">
+            <message_arguments>
+                <message_argument value="TextMerger"/>
+                <message_argument value="Generator"/>
+                <message_argument value="createMergeService()"/>
+            </message_arguments>
+        </filter>
     </resource>
 </component>

@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.internal.xpand.BufferOutput;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
@@ -32,18 +33,22 @@ import org.eclipse.gmf.internal.xpand.model.Variable;
  * @author artem
  */
 public class XpandTextEmitter implements TextEmitter {
+	public final String PATH_SEPARATOR = "::";
+	
 	private final ResourceManager myResourceManager;
 	private final String myTemplateFQN;
+	private final String myMethod;
 	private final List<Variable> myGlobals;
 
-	public XpandTextEmitter(ResourceManager manager, String templateFQN) {
-		this(manager, templateFQN, null);
+	public XpandTextEmitter(ResourceManager manager, String templateFQN, String method) {
+		this(manager, templateFQN, method, null);
 	}
 
-	public XpandTextEmitter(ResourceManager manager, String templateFQN, Map<String, Object> globals) {
+	public XpandTextEmitter(ResourceManager manager, String templateFQN, String method,Map<String, Object> globals) {
 		assert manager != null && templateFQN != null;
 		myResourceManager = manager;
 		myTemplateFQN = templateFQN;
+		myMethod = method;
 		if (globals != null && globals.size() > 0) {
 			myGlobals = new ArrayList<Variable>(globals.size());
 			for (Map.Entry<String, Object> e : globals.entrySet()) {
@@ -55,13 +60,18 @@ public class XpandTextEmitter implements TextEmitter {
 		}
 	}
 
-	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException {
+	@Override
+	public String generate(IProgressMonitor monitor, Object[] arguments) throws InterruptedException, InvocationTargetException, UnexpectedBehaviourException {
+		return generate(monitor, myMethod, arguments);
+	}
+	
+	protected String generate(IProgressMonitor monitor, String method, Object[] arguments) throws InterruptedException, InvocationTargetException {
 		if (monitor != null && monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
 		try {
 			StringBuilder result = new StringBuilder();
-			new XpandFacade(createContext(result)).evaluate(myTemplateFQN, extractTarget(arguments), extractArguments(arguments));
+			new XpandFacade(createContext(result)).evaluate(myTemplateFQN + PATH_SEPARATOR + method, extractTarget(arguments), extractArguments(arguments));
 			return result.toString();
 		} catch (EvaluationException ex) {
 			throw new InvocationTargetException(ex);
@@ -70,11 +80,19 @@ public class XpandTextEmitter implements TextEmitter {
 		}
 	}
 
+	public ResourceManager getResourceManager() {
+		return myResourceManager;
+	}
+	
 	protected Object extractTarget(Object[] arguments) {
 		assert arguments != null && arguments.length > 0;
 		return arguments[0];
 	}
 
+	protected String getTemplateFQN() {
+		return myTemplateFQN;
+	}
+	
 	protected Object[] extractArguments(Object[] arguments) {
 		assert arguments != null && arguments.length > 0;
 		ArrayList<Object> res = new ArrayList<Object>(arguments.length);
@@ -91,4 +109,5 @@ public class XpandTextEmitter implements TextEmitter {
 	private Scope createContext(StringBuilder result) {
 		return new Scope(myResourceManager, myGlobals, new BufferOutput(result));
 	}
+	
 }
