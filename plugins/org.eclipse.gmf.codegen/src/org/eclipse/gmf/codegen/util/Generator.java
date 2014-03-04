@@ -27,6 +27,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -85,8 +86,11 @@ import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
+import org.eclipse.gmf.internal.common.codegen.GIFEmitter;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.ImportUtil;
+import org.eclipse.gmf.internal.common.codegen.JETGIFEmitterAdapter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 import org.eclipse.ocl.ecore.OCL;
@@ -107,11 +111,14 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	private final CodegenEmitters myEmitters;
 
+	private final BinaryEmitters myBinaryEmmiters;
+	
 	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters) {
 		assert genModel != null && emitters != null;
 		myEditorGen = genModel;
 		myDiagram = genModel.getDiagram();
 		myEmitters = emitters;
+		myBinaryEmmiters = new BinaryEmitters();
 	}
 
 	@Override
@@ -873,25 +880,25 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateShortcutIcon() throws UnexpectedBehaviourException, InterruptedException {
-		doGenerateBinaryFile(myEmitters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null); //$NON-NLS-1$
+		doGenerateBinaryFile(myBinaryEmmiters.getShortcutImageEmitter(), new Path("icons/shortcut.gif"), null); //$NON-NLS-1$
 	}
 
 	private void generateGroupIcon(Path groupIconPath) throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateBinaryFile(myEmitters.getGroupIconEmitter(), groupIconPath, null);
+		doGenerateBinaryFile(myBinaryEmmiters.getGroupIconEmitter(), groupIconPath, null);
 	}
 
 	private void generateDiagramIcon(String path) throws UnexpectedBehaviourException, InterruptedException {
 		// use genModel.prefix if available to match colors of model icons and diagram icons
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelGIFEmitter 
 		Object[] args = new Object[] { myDiagram.getDomainDiagramElement() == null ? myEditorGen.getDiagramFileExtension() : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix() };
-		doGenerateBinaryFile(myEmitters.getDiagramIconEmitter(), new Path(path), args);
+		doGenerateBinaryFile(myBinaryEmmiters.getDiagramIconEmitter(), new Path(path), args);
 	}
 
 	private void generateWizardBanner() throws UnexpectedBehaviourException, InterruptedException {
 		String stem = myDiagram.getDomainDiagramElement() == null ? "" : myDiagram.getDomainDiagramElement().getGenPackage().getPrefix(); //$NON-NLS-1$
 		// @see GenPackageImpl#generateEditor - it passes prefix to ModelWizardGIFEmitter
 		Object[] args = new Object[] { stem.length() == 0 ? myEditorGen.getDiagramFileExtension() : stem };
-		doGenerateBinaryFile(myEmitters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
+		doGenerateBinaryFile(myBinaryEmmiters.getWizardBannerImageEmitter(), new Path("icons/wizban/New" + stem + "Wizard.gif"), args); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	private void generateExternalizationSupport() throws UnexpectedBehaviourException, InterruptedException {

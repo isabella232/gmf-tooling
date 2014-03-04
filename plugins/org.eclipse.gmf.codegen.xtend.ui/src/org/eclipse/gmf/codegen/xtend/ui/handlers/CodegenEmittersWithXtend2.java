@@ -1,16 +1,13 @@
 package org.eclipse.gmf.codegen.xtend.ui.handlers;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.CodegenEmitters;
 import org.eclipse.gmf.codegen.util.ExtensionTemplatesProviderImpl;
 import org.eclipse.gmf.codegen.util.GMFGeneratorModule;
 import org.eclipse.gmf.codegen.util.IExtensionTemplatesProvider;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.internal.common.codegen.BinaryEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 import com.google.inject.Guice;
@@ -22,30 +19,6 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 	private final Injector myInjector;
 
 	private IExtensionTemplatesProvider myExtensionTemplateProvider = null;
-	
-	@Override
-	public BinaryEmitter getShortcutImageEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getShortcutImageEmitter();
-	}
-
-	@Override
-	public BinaryEmitter getDiagramIconEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getDiagramIconEmitter();
-	}
-
-	@Override
-	public BinaryEmitter getWizardBannerImageEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getWizardBannerImageEmitter();
-	}
-
-	@Override
-	public BinaryEmitter getGroupIconEmitter() throws UnexpectedBehaviourException {
-		// TODO Auto-generated method stub
-		return super.getGroupIconEmitter();
-	}
 
 	@Override
 	public GeneratorTextEmitter getModelAccessFacilityEmitter() {
@@ -697,45 +670,10 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return new Xtend2Emitter(myInjector, clazz, mainMethod);
 	}
 
-	/**
-	 * @deprecated copy pasted, make protected in super-class
-	 */
-	@Deprecated
-	private String getQualifiedClassName(String templateName, Object... input) throws UnexpectedBehaviourException {
-		TextEmitter emitter = getQualifiedClassNameEmitter(templateName);
-		return getText(emitter, input);
-	}
-
-	/**
-	 * @deprecated make protected in super-class and override
-	 */
-	@Deprecated
-	private GeneratorTextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
+	@Override
+	protected GeneratorTextEmitter getQualifiedClassNameEmitter(String templateName) throws UnexpectedBehaviourException {
 		return getXtendEmitter(templateName, "qualifiedClassName");
 	}
-
-	/**
-	 * @deprecated copy pasted, make protected in super-class
-	 */
-	@Deprecated
-	private String getText(TextEmitter emitter, Object... input) throws UnexpectedBehaviourException {
-		try {
-			return emitter.generate(new NullProgressMonitor(), input).trim();
-		} catch (InterruptedException ie) {
-			return null;
-		} catch (InvocationTargetException ite) {
-			throw new UnexpectedBehaviourException(ite.getCause());
-		}
-	}
-	
-	/**
-	 * @deprecated FIXME [MG] bad name, call disposeEmitters instead
-	 */
-	@Deprecated
-	public void hookEmitters() {
-		disposeEmitters();
-	}
-	
 
 	public void disposeEmitters() {
 		if (myExtensionTemplateProvider != null) {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.gmf.codegen" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter id="923795461">
+            <message_arguments>
+                <message_argument value="2.11.0"/>
+                <message_argument value="2.9.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/gmf/codegen/util/CodegenEmitters.java" type="org.eclipse.gmf.codegen.util.CodegenEmitters">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.codegen.util.CodegenEmitters"/>
+                <message_argument value="getDiagramIconEmitter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.codegen.util.CodegenEmitters"/>
+                <message_argument value="getGroupIconEmitter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.codegen.util.CodegenEmitters"/>
+                <message_argument value="getShortcutImageEmitter()"/>
+            </message_arguments>
+        </filter>
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.codegen.util.CodegenEmitters"/>
+                <message_argument value="getWizardBannerImageEmitter()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
