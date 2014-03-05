@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
-import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 import com.google.inject.Injector;
 

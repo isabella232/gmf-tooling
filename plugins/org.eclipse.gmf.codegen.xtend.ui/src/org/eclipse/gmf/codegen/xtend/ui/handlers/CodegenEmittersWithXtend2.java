@@ -13,7 +13,6 @@ import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-@SuppressWarnings("restriction")
 public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 
 	private final Injector myInjector;

@@ -10,18 +10,12 @@ import org.eclipse.gmf.internal.xpand.ResourceManager;
 
 public class XpandClassEmitter extends XpandTextEmitter implements JavaClassEmitter {
 
-	private final Map<String, Object> myGlobals;
-	
-	private final String templateName;
-	
 	public XpandClassEmitter(ResourceManager manager, String templateFQN, String methodToInvoke) {
 		this(manager, templateFQN, methodToInvoke, null);
 	}
 
 	public XpandClassEmitter(ResourceManager manager, String templateFQN, String methodToInvoke, Map<String, Object> globals) {
 		super(manager, templateFQN, methodToInvoke, globals);
-		myGlobals = globals;
-		templateName = templateFQN;
 	}
 
 	public String getQualifiedClassName(Object... input) throws UnexpectedBehaviourException {

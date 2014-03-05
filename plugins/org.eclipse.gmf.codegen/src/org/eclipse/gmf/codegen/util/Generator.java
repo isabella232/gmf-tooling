@@ -86,7 +86,6 @@ import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
-import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
@@ -1168,8 +1167,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	 * Passes initialized ImportManager as second template argument
 	 */
 	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
-		ImportUtil importUtil = new ImportUtil(packageName, className);
-		doGenerateJavaClass(emitter, packageName, className, argument, importUtil);
+		doGenerateJavaClass(emitter, packageName, className, argument);
 	}
 
 	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedName, Object argument) throws InterruptedException {

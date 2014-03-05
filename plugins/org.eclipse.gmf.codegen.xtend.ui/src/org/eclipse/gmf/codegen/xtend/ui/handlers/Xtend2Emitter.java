@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.internal.common.codegen.ImportUtil;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 
 import com.google.inject.Injector;
@@ -39,16 +38,6 @@ public class Xtend2Emitter implements TextEmitter {
 			List<Object> fixedArgs = new LinkedList<Object>();
 			fixedArgs.add(arguments[0]);
 			for (int i = 1; i < arguments.length; i++) {
-				/**
-				 * FIXME: [MG] HACK: the XPT templates just ignores the additional argument, 
-				 * so the fact that 5 invocations are still sending ImportUtil had been missed.
-				 * However, there are also some more legitimate cases of parameters, e.g for 
-				 * PredefinedAction.xtend: def Main(InitDiagramAction it, GenEditorGenerator editorGen)    
-				 */
-				if (arguments[i] instanceof ImportUtil) {
-					System.err.println("Template: " + this + " received additional argument: " + arguments[i] + ", which had been rejected: ");
-					continue;
-				}
 				fixedArgs.add(arguments[i]);
 			}
 			arguments = fixedArgs.toArray();

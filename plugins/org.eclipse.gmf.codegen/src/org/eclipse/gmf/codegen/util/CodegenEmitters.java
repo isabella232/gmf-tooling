@@ -29,7 +29,6 @@ import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextMerger;
 import org.eclipse.gmf.internal.common.codegen.XpandClassEmitter;
-import org.eclipse.gmf.internal.common.codegen.XpandTextEmitter;
 import org.eclipse.gmf.internal.xpand.ResourceManager;
 import org.eclipse.gmf.internal.xpand.util.BundleResourceManager;
 import org.osgi.framework.Bundle;
@@ -573,7 +572,7 @@ public class CodegenEmitters {
 	// util
 
 	protected JavaClassEmitter createJavaClassEmitter(String templateName, String mainMethod) {
-		return createJavaClassEmitter(templateName, mainMethod);
+		return new XpandClassEmitter(myResourceManager, templateName, mainMethod, myGlobals);
 	}
 
 	public TextEmitter getQualifiedClassNameEmitterForPrimaryTemplate(String templateFQN) {
@@ -581,7 +580,7 @@ public class CodegenEmitters {
 	}
 	
 	/**
-	 * Use when tamplate name equals main method
+	 * Use when template name equals main method
 	 * @param templateName
 	 * @return
 	 */
