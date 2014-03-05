@@ -22,4 +22,4 @@ Export-Package: org.eclipse.gmf.internal.xpand.codeassist;x-friends:="org.eclips
  org.eclipse.gmf.internal.xpand.editor;x-friends:="org.eclipse.gmf.tests.xpand",
  org.eclipse.gmf.internal.xpand.expression.codeassist;x-friends:="org.eclipse.gmf.tests.xpand"
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

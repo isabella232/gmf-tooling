@@ -15,4 +15,4 @@ Export-Package: org.eclipse.gmf.internal.validate;x-friends:="org.eclipse.gmf.te
  org.eclipse.gmf.validate
 Bundle-Vendor: %providerName
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

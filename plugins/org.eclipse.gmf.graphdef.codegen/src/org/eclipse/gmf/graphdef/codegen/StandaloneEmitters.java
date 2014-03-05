@@ -33,11 +33,11 @@ class StandaloneEmitters {
 	}
 	
 	public TextEmitter getBuildPropertiesEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "plugin::BuildProperties::Init");
+		return new XpandTextEmitter(myResourceManager, "plugin::BuildProperties", "Init");
 	}
 	
 	public TextEmitter getPluginPropertiesEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "plugin::PluginProperties::Init") {
+		return new XpandTextEmitter(myResourceManager, "plugin::PluginProperties", "Init") {
 			@Override
 			protected Object[] extractArguments(Object[] arguments) {
 				assert arguments != null && arguments.length > 0 && arguments[0] instanceof Config;
@@ -51,7 +51,7 @@ class StandaloneEmitters {
 	}
 	
 	public TextEmitter getManifestMFEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "plugin::Manifest::Init") {
+		return new XpandTextEmitter(myResourceManager, "plugin::Manifest", "Init") {
 			@Override
 			protected Object[] extractArguments(Object[] arguments) {
 				assert arguments != null && arguments.length > 1 && arguments[0] instanceof Config && arguments[1] instanceof String[];
@@ -69,7 +69,7 @@ class StandaloneEmitters {
 	}
 	
 	public TextEmitter getPluginActivatorEmitter() throws UnexpectedBehaviourException {
-		return new XpandTextEmitter(myResourceManager, "plugin::Activator::Init") {
+		return new XpandTextEmitter(myResourceManager, "plugin::Activator", "Init") {
 			@Override
 			protected Object extractTarget(Object[] arguments) {
 				assert arguments != null && arguments.length >= 2;
