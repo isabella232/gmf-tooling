@@ -44,7 +44,8 @@ import org.osgi.framework.Bundle;
  */
 public class CodegenEmitters {
 	private static final String CODEGEN_PLUGIN_ID = "org.eclipse.gmf.codegen";	//$NON-NLS-1$
-
+	private static final String PATH_SEPARATOR = "::";
+	
 	private final String[] myTemplatePath;
 	private final ResourceManager myResourceManager;
 
@@ -565,6 +566,11 @@ public class CodegenEmitters {
     }
 
 	private TextEmitter retrieveXpand(String templateFQN) {
-		return new XpandTextEmitter(myResourceManager, templateFQN);
+		String[] parts = templateFQN.split(PATH_SEPARATOR);
+		StringBuilder templateName = new StringBuilder(parts[0]);
+		for(int i = 1; i < parts.length - 2; i ++) {
+			templateName.append(PATH_SEPARATOR).append(parts[i]);
+		}
+		return new XpandTextEmitter(myResourceManager, templateName.toString(), parts[parts.length - 1]);
 	}
 }

@@ -13,4 +13,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.3.0,4.0.0)",
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: org.eclipse.gmf.internal.codegen.lite.Activator
 Export-Package: org.eclipse.gmf.internal.codegen.lite;x-friends:="org.eclipse.gmf.codegen.lite.ui,org.eclipse.gmf.tests.lite"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
