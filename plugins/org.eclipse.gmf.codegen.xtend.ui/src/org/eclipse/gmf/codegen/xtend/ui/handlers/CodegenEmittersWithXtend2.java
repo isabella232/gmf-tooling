@@ -59,6 +59,11 @@ public class CodegenEmittersWithXtend2 extends CodegenEmitters {
 		return  getXtendEmitter("xpt::propsheet::PropertySection", "PropertySection"); //$NON-NLS-1$
 	}
 	
+	@Override
+	public JavaClassEmitter getModelAccessFacilityEmitter() {
+		return getXtendEmitter("metamodel::Facility", "Main");
+	}
+	
 	private JavaClassEmitter getXtendEmitter(String templateFqn, String mainMethod) {
 		String classFqn = templateFqn.replace("::", ".");
 		Class<?> clazz = null;

@@ -317,7 +317,7 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 		}
 
 		public void createManifestMF() {
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "manifest::_main", null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "manifest", "_main", null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/META-INF/MANIFEST.MF"), myBundleName);
 		}
 
@@ -340,12 +340,12 @@ public class EditHelpersTest extends AbstractDiagramEditorTest {
 			} else {
 				return;
 			}
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "edithelper::_main", null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "edithelper", "_main", null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/src/" + className + ".java"), elementType);
 		}
 
 		public void createPluginXML(GenDiagram d) {
-			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "plugin::_main", null);
+			XpandTextEmitter emiter = new XpandTextEmitter(myResourceManager, "plugin", "_main", null);
 			doGenerateFile(emiter, new Path("/" + myBundleName + "/plugin.xml"), d);
 		}
 
