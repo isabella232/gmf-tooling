@@ -26,6 +26,7 @@
 		<module>borders</module>
 		<module>compartments</module>
 		<module>links</module>
+		<module>labels</module>
 		<module>pins</module>
 		<module>shortcut</module>
 		<module>svg</module>

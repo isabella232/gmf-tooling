@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.examples.labels/src" editDirectory="/org.eclipse.gmf.tooling.examples.labels.edit/src"
+    editorDirectory="/org.eclipse.gmf.tooling.examples.labels.editor/src" modelPluginID="org.eclipse.gmf.tooling.examples.labels"
+    modelName="Label" testsDirectory="/org.eclipse.gmf.tooling.tests.labels.tests/src"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    editPluginID="org.eclipse.gmf.tooling.examples.labels.edit" editorPluginID="org.eclipse.gmf.tooling.examples.labels.editor"
+    interfaceNamePattern="">
+  <foreignModel>labels.ecore</foreignModel>
+  <genPackages prefix="Labels" basePackage="org.eclipse.gmf.tooling.examples" disposableProviderFactory="true"
+      ecorePackage="labels.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="labels.ecore#//Side">
+      <genEnumLiterals ecoreEnumLiteral="labels.ecore#//Side/LEFT"/>
+      <genEnumLiterals ecoreEnumLiteral="labels.ecore#//Side/RIGHT"/>
+    </genEnums>
+    <genClasses ecoreClass="labels.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="labels.ecore#//AllLabelsType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/bigDecimal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/bigInteger"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/boolean"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/booleanObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/byte"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/byteArray"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/byteObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/char"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/characterObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/date"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/double"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/doubleObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/float"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/floatObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/int"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/integerObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/long"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/longObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/short"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/shortObject"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/string"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/side"/>
+    </genClasses>
+    <genClasses ecoreClass="labels.ecore#//ChildLabelNodeContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labels.ecore#//ChildLabelNodeContainer/getChildren"/>
+    </genClasses>
+    <genClasses ecoreClass="labels.ecore#//ChildLabelNode"/>
+    <genClasses ecoreClass="labels.ecore#//GenLabelNode"/>
+    <genClasses ecoreClass="labels.ecore#//VerticalLabel"/>
+    <genClasses ecoreClass="labels.ecore#//Diagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference labels.ecore#//Diagram/getLabels"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

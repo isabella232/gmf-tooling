@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://labels/labels/0.1"
+            class="org.eclipse.gmf.tooling.examples.labels.LabelsPackage"
+            genModel="model/labels.genmodel"/>
+   </extension>
+
+null
+</plugin>
