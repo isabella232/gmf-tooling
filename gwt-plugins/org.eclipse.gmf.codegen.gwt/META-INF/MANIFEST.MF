@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.gmf.codegen.gwt
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.9.0",
+ org.eclipse.xtend.lib,
+ com.google.inject;bundle-version="3.0.0",
+ com.google.guava,
+ org.eclipse.gmf.codegen;bundle-version="2.9.0",
+ org.eclipse.gmf.tooldef;bundle-version="2.3.0",
+ org.eclipse.gmf.graphdef;bundle-version="2.9.0",
+ org.eclipse.gmf.map;bundle-version="2.9.0",
+ org.eclipse.jdt.core;bundle-version="3.9.0"
+Export-Package: commands,
+ common,
+ diagram,
+ diagram.parts,
+ diagram.policies,
+ gwt,
+ org.eclipse.gmf.codegen.gwt,
+ org.eclipse.gmf.codegen.gwt.impl,
+ org.eclipse.gmf.codegen.gwt.module,
+ palette,
+ providers,
+ viewfactories
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+ 
+
