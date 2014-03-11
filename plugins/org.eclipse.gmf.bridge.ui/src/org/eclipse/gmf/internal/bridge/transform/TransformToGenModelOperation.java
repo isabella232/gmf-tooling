@@ -420,7 +420,11 @@ public class TransformToGenModelOperation implements ITransformToGenModelOperati
 							List<EObject> outObjects = output.getContents();
 							return outObjects.get(0) instanceof GenEditorGenerator ? (GenEditorGenerator) outObjects.get(0) : null;
 						}
-						throw new CoreException(new Status(IStatus.ERROR, Plugin.getPluginID(), "Transformation has no out parameter of GenEditorGenerator type"));
+						String errorMessage = result.getMessage();
+						if (errorMessage == null || errorMessage.isEmpty()) {
+							errorMessage = "Transformation has no out parameter of GenEditorGenerator type";
+						}
+						throw new CoreException(new Status(IStatus.ERROR, Plugin.getPluginID(), errorMessage));
 					} finally {
 						progress.done();
 					}
