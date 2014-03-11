@@ -146,7 +146,6 @@ import xpt.Common_qvto
 	def dispatch createLinkFigure(Viewmap it, GenLink link) '''«ERROR('Unknown viewmap: ' + it + ", for link: " + link)»'''
 
 	def dispatch createLinkFigure(ModeledViewmap it, GenLink link) '''
-		«generatedMemberComment»
 		protected org.eclipse.draw2d.Connection createConnectionFigure() {
 			return new «modeledViewmapFigureFQN(it)»();
 		}

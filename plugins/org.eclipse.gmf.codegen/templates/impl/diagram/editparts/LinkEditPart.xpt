@@ -114,7 +114,6 @@
 «ENDDEFINE»
 
 «DEFINE createLinkFigure(link : gmfgen::GenLink) FOR gmfgen::ModeledViewmap-»
-		«EXPAND xpt::Common::generatedMemberComment»
 		protected org.eclipse.draw2d.Connection createConnectionFigure() {
 			return new «EXPAND _modeledViewmapFigureFQN»();
 		}
