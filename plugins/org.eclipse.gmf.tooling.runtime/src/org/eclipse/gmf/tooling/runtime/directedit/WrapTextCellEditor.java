@@ -21,6 +21,9 @@ import org.eclipse.swt.widgets.Composite;
  * <p>
  * This class may be instantiated; it is not intended to be subclassed.
  * </p>
+ * 
+ * @deprecated
+ * @see org.eclipse.gmf.runtime.gef.ui.internal.parts.WrapTextCellEditor
  */
 public class WrapTextCellEditor extends TextCellEditorEx {
 

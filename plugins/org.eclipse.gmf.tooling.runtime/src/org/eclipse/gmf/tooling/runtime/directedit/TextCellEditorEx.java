@@ -20,6 +20,9 @@ import org.eclipse.swt.widgets.Composite;
  * that will permitting the set of the value and doing the necessary
  * process to update the state of the cell editor and also notify
  * all listeners listening on changes in the cell editor value.
+ * 
+ * @deprecated
+ * @see org.eclipse.gmf.runtime.gef.ui.internal.parts.TextCellEditorEx
  */
 /*public*/ class TextCellEditorEx extends TextCellEditor implements CellEditorEx {
 

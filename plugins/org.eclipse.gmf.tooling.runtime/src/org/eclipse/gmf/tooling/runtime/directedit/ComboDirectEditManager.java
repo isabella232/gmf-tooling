@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Control;
 /**
  * @since 1.6
  */
-public class ComboDirectEditManager extends DirectEditManagerBase {
+public class ComboDirectEditManager extends org.eclipse.gmf.runtime.diagram.ui.tools.DirectEditManagerBase {
 
 	/**
 	 * constructor

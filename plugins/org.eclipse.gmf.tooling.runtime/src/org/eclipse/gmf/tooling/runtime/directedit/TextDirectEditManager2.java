@@ -19,6 +19,7 @@ import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gmf.runtime.common.ui.contentassist.ContentAssistantHelper;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate;
+import org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -35,6 +36,8 @@ import org.eclipse.ui.part.CellEditorActionHandler;
 
 /**
  * @author melaasar
+ * @deprecated
+ * @see org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager
  */
 public class TextDirectEditManager2 extends DirectEditManagerBase {
 

@@ -13,6 +13,8 @@ package org.eclipse.gmf.tooling.runtime.directedit;
 
 /**
  * @since 1.6
+ * @deprecated
+ * @see org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorEx
  */
 public interface CellEditorEx {
 

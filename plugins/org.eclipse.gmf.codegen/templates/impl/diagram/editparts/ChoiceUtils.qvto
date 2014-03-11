@@ -38,7 +38,6 @@ helper getDirectManagerFQN(modelFacet : gmfgen::LabelModelFacet) : String {
 		-- 'org.eclipse.gmf.runtime.diagram.ui.tools.ComboDirectEditManager'
 		'org.eclipse.gmf.tooling.runtime.directedit.ComboDirectEditManager'
 	  else
-		-- 'org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager'
-		'org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2'
+		'org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager'
 	  endif);
 }

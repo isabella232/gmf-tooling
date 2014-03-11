@@ -50,7 +50,7 @@ import xpt.Common_qvto
 		return if (isChoiceLabel(modelFacet)) {
 			"org.eclipse.gmf.tooling.runtime.directedit.ComboDirectEditManager"
 		} else {
-			"org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2"
+			"org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager"
 		}
 	}
 

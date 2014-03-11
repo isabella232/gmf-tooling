@@ -61,6 +61,8 @@ import org.eclipse.swt.widgets.Table;
 /**
  * @author melaasar
  * @since 1.6
+ * @deprecated
+ * @see org.eclipse.gmf.runtime.diagram.ui.tools.DirectEditManagerBase
  */
 public abstract class DirectEditManagerBase extends DirectEditManager {
 

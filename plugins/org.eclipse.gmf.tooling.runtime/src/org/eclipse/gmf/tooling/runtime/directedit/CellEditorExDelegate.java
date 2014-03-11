@@ -16,6 +16,8 @@ import org.eclipse.jface.viewers.CellEditor;
 
 /**
  * @since 1.6
+ * @deprecated
+ * @see org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorExDelegate
  */
 /*public */class CellEditorExDelegate {
 

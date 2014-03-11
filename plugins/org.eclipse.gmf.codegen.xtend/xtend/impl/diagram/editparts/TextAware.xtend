@@ -469,8 +469,8 @@ import xpt.providers.ElementTypes
 			if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
 				((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
 			} else // 
-			if (getManager() instanceof org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2) {
-				((org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2) getManager()).show(initialCharacter);
+			if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
+				((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
 			} else //
 			{
 				performDirectEdit();
