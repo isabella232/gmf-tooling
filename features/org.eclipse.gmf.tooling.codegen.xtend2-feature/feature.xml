@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.gmf.tooling.codegen.xtend2"
       label="%featureName"
-      version="3.1.0.qualifier"
+      version="3.2.0.qualifier"
       provider-name="%providerName">
 
    <description url="http://eclipse.org/gmf-tooling/">
@@ -26,22 +26,36 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jdt.ui"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.emf.codegen.ecore"/>
-      <import plugin="org.eclipse.emf.importer"/>
-      <import plugin="org.eclipse.draw2d"/>
-      <import plugin="org.eclipse.xtext"/>
-      <import plugin="org.eclipse.xtext.ui"/>
-      <import plugin="org.eclipse.xtext.builder"/>
-      <import plugin="org.eclipse.xtext.xbase.lib"/>
+      <import plugin="org.eclipse.core.runtime" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.4.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.codegen.ecore" version="2.4.0" match="compatible"/>
+      <import plugin="org.eclipse.draw2d" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.runtime.notation"/>
+      <import plugin="org.eclipse.gmf.common" version="1.2.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.validate" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.graphdef" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.xtext" version="2.3.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.builder" version="2.3.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtend.lib"/>
       <import plugin="org.eclipse.ocl.ecore"/>
       <import plugin="com.google.guava"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.xtext.ui" version="2.3.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.gmf.codegen.ui"/>
+      <import plugin="org.eclipse.gmf.bridge" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.bridge.ui.dashboard" version="2.0.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.codegen.edit" version="2.9.0"/>
+      <import plugin="org.eclipse.gmf.graphdef.codegen.ui" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.importer" version="2.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.bridge.ui" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.core" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.jdt.ui" version="3.3.0" match="compatible"/>
+      <import plugin="org.eclipse.gmf.xpand" version="2.1.0" match="compatible"/>
+      <import feature="org.eclipse.gmf.tooling" version="3.2.0" match="compatible"/>
+      <import feature="org.eclipse.gmf.tooling.runtime" version="3.2.0" match="compatible"/>
    </requires>
 
    <plugin
