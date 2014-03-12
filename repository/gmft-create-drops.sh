@@ -103,12 +103,13 @@ cd $TEMP_DIR/drops
 
 ##########################################################
 #UPDATE SITE
-zip -rq gmf-tooling-update-$outputFilesLabel.zip\
+cd eclipse
+zip -rq ../gmf-tooling-update-$outputFilesLabel.zip\
     *
 #calculating gmf-tooling-update package checksum
 md5sum gmf-tooling-update-$outputFilesLabel.zip > gmf-tooling-update-$outputFilesLabel.zip.md5
 echo "Created gmf-tooling-update-$outputFilesLabel.zip"
-
+cd ..
 
 ##########################################################
 #SDK
