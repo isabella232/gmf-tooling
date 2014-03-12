@@ -102,6 +102,15 @@ cd $TEMP_DIR/drops
 ##########################################################
 
 ##########################################################
+#UPDATE SITE
+zip -rq gmf-tooling-update-$outputFilesLabel.zip\
+    *
+#calculating gmf-tooling-update package checksum
+md5sum gmf-tooling-update-$outputFilesLabel.zip > gmf-tooling-update-$outputFilesLabel.zip.md5
+echo "Created gmf-tooling-update-$outputFilesLabel.zip"
+
+
+##########################################################
 #SDK
 #REMOVE#
 #eclipse/plugins/org.eclipse.gmf.bridge.trace.source_*\
@@ -162,6 +171,7 @@ zip -rq gmf-tooling-sdk-$outputFilesLabel.zip\
     eclipse/plugins/org.eclipse.gmf.bridge.trace_*\
     eclipse/plugins/org.eclipse.gmf.tooling.runtime_*\
     eclipse/plugins/org.eclipse.gmf.runtime.lite.svg_*\
+	eclipse/plugins/org.eclipse.gmf.runtime.lite.svg.source_*\
     eclipse/plugins/org.eclipse.gmf.tooling.runtime.source_*
 
 #writing gmf-sdk package root files
@@ -183,7 +193,8 @@ zip -rq gmf-tooling-runtime-$outputFilesLabel.zip\
     eclipse/features/org.eclipse.gmf.tooling.runtime.source_*\
     eclipse/plugins/org.eclipse.gmf.tooling.runtime_*\
     eclipse/plugins/org.eclipse.gmf.tooling.runtime.source_*\
-    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg_*
+    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg_*\
+    eclipse/plugins/org.eclipse.gmf.runtime.lite.svg.source_*
 
 #writing gmf-tooling-runtime package root files
 cd $TEMP_DIR
