@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
 /**
- * @since 1.6
+ * @since 3.2
  */
 public class ComboDirectEditManager extends org.eclipse.gmf.runtime.diagram.ui.tools.DirectEditManagerBase {
 
@@ -49,7 +49,7 @@ public class ComboDirectEditManager extends org.eclipse.gmf.runtime.diagram.ui.t
 	 * @param editorType
 	 * @param locator
 	 */
-	public ComboDirectEditManager(GraphicalEditPart source, Class editorType, CellEditorLocator locator) {
+	public ComboDirectEditManager(GraphicalEditPart source, Class<?> editorType, CellEditorLocator locator) {
 		super(source, editorType, locator);
 	}
 

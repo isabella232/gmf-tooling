@@ -13,18 +13,16 @@ package org.eclipse.gmf.tooling.runtime.directedit;
 
 import java.util.Arrays;
 
+import org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorExDelegate;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-/**
- * @since 1.5
- */
-/* public */class ComboCellEditorEx extends ComboBoxCellEditor implements CellEditorEx {
+/* public */class ComboCellEditorEx extends ComboBoxCellEditor implements org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorEx {
 
 	private static final int ourStyle = SWT.READ_ONLY;
 
-	private CellEditorExDelegate myExDelegate;
+	private org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorExDelegate myExDelegate;
 
 	public ComboCellEditorEx() {
 		setStyle(ourStyle);

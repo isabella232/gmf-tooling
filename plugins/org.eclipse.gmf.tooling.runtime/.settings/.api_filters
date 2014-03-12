@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.gmf.tooling.runtime" version="2">
+    <resource path="src/org/eclipse/gmf/tooling/runtime/directedit/CellEditorEx.java" type="org.eclipse.gmf.tooling.runtime.directedit.CellEditorEx">
+        <filter comment="Not actually removed, API check mistakenly does not look at the superinterface" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.tooling.runtime.directedit.CellEditorEx"/>
+                <message_argument value="hasValueChanged()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Not actually removed, API check mistakenly does not look at the superinterface" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.tooling.runtime.directedit.CellEditorEx"/>
+                <message_argument value="isDeactivationLocked()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Not actually removed, API check mistakenly does not look at the superinterface" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.tooling.runtime.directedit.CellEditorEx"/>
+                <message_argument value="setDeactivationLock(boolean)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Not actually removed, API check mistakenly does not look at the superinterface" id="405901410">
+            <message_arguments>
+                <message_argument value="org.eclipse.gmf.tooling.runtime.directedit.CellEditorEx"/>
+                <message_argument value="setValueAndProcessEditOccured(Object)"/>
+            </message_arguments>
+        </filter>
+        <filter id="576720909">
+            <message_arguments>
+                <message_argument value="CellEditorEx"/>
+                <message_argument value="CellEditorEx"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/gmf/tooling/runtime/directedit/ComboCellEditorEx.java" type="org.eclipse.gmf.tooling.runtime.directedit.ComboCellEditorEx">
+        <filter id="571473929">
+            <message_arguments>
+                <message_argument value="ComboBoxCellEditor"/>
+                <message_argument value="ComboCellEditorEx"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/gmf/tooling/runtime/directedit/WrapTextCellEditor.java" type="org.eclipse.gmf.tooling.runtime.directedit.WrapTextCellEditor">
+        <filter id="576720909">
+            <message_arguments>
+                <message_argument value="WrapTextCellEditor"/>
+                <message_argument value="WrapTextCellEditor"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

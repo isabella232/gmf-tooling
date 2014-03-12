@@ -12,17 +12,11 @@
 package org.eclipse.gmf.tooling.runtime.directedit;
 
 /**
- * @since 1.6
- * @deprecated
+ * @since 3.2
+ * @deprecated This interface is left for backward compatibility only and will be removed soon.
  * @see org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorEx
  */
-public interface CellEditorEx {
-
-	public void setValueAndProcessEditOccured(Object value);
-
-	public boolean hasValueChanged();
-
-	public boolean isDeactivationLocked();
-
-	public void setDeactivationLock(boolean deactivationLock);
+@Deprecated
+public interface CellEditorEx extends org.eclipse.gmf.runtime.gef.ui.internal.parts.CellEditorEx {
+	//
 }
