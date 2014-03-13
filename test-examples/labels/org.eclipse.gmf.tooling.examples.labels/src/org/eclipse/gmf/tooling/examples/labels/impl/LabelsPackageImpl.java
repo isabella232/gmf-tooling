@@ -222,7 +222,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_ByteArray() {
+	public EAttribute getAllLabelsType_ByteObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -231,7 +231,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_ByteObject() {
+	public EAttribute getAllLabelsType_Char() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -240,7 +240,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Char() {
+	public EAttribute getAllLabelsType_CharacterObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -249,7 +249,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_CharacterObject() {
+	public EAttribute getAllLabelsType_Date() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -258,7 +258,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Date() {
+	public EAttribute getAllLabelsType_Double() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -267,7 +267,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Double() {
+	public EAttribute getAllLabelsType_DoubleObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -276,7 +276,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_DoubleObject() {
+	public EAttribute getAllLabelsType_Float() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -285,7 +285,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Float() {
+	public EAttribute getAllLabelsType_FloatObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -294,7 +294,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_FloatObject() {
+	public EAttribute getAllLabelsType_Int() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -303,7 +303,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Int() {
+	public EAttribute getAllLabelsType_IntegerObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -312,7 +312,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_IntegerObject() {
+	public EAttribute getAllLabelsType_Long() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -321,7 +321,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Long() {
+	public EAttribute getAllLabelsType_LongObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -330,7 +330,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_LongObject() {
+	public EAttribute getAllLabelsType_Short() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -339,7 +339,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_Short() {
+	public EAttribute getAllLabelsType_ShortObject() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -348,7 +348,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_ShortObject() {
+	public EAttribute getAllLabelsType_String() {
 		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -357,17 +357,8 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAllLabelsType_String() {
-		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(20);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getAllLabelsType_Side() {
-		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(21);
+		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -479,7 +470,6 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__BOOLEAN);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__BOOLEAN_OBJECT);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__BYTE);
-		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__BYTE_ARRAY);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__BYTE_OBJECT);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__CHAR);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__CHARACTER_OBJECT);
@@ -553,26 +543,25 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 
 		initEClass(allLabelsTypeEClass, AllLabelsType.class, "AllLabelsType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAllLabelsType_BigDecimal(), ecorePackage.getEBigDecimal(), "bigDecimal", "0", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_BigInteger(), ecorePackage.getEBigInteger(), "bigInteger", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_BigInteger(), ecorePackage.getEBigInteger(), "bigInteger", "311", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_Boolean(), ecorePackage.getEBoolean(), "boolean", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_BooleanObject(), ecorePackage.getEBooleanObject(), "booleanObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Byte(), ecorePackage.getEByte(), "byte", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_ByteArray(), ecorePackage.getEByteArray(), "byteArray", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_ByteObject(), ecorePackage.getEByteObject(), "byteObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Char(), ecorePackage.getEChar(), "char", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_CharacterObject(), ecorePackage.getECharacterObject(), "characterObject", "null", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_BooleanObject(), ecorePackage.getEBooleanObject(), "booleanObject", "true", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Byte(), ecorePackage.getEByte(), "byte", "1", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_ByteObject(), ecorePackage.getEByteObject(), "byteObject", "42", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Char(), ecorePackage.getEChar(), "char", "{", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_CharacterObject(), ecorePackage.getECharacterObject(), "characterObject", "}", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_Date(), ecorePackage.getEDate(), "date", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Double(), ecorePackage.getEDouble(), "double", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_DoubleObject(), ecorePackage.getEDoubleObject(), "doubleObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Float(), ecorePackage.getEFloat(), "float", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Double(), ecorePackage.getEDouble(), "double", "42.42", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_DoubleObject(), ecorePackage.getEDoubleObject(), "doubleObject", "42.42", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Float(), ecorePackage.getEFloat(), "float", "24.24", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_FloatObject(), ecorePackage.getEFloatObject(), "floatObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Int(), ecorePackage.getEInt(), "int", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Int(), ecorePackage.getEInt(), "int", "36535", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_IntegerObject(), ecorePackage.getEIntegerObject(), "integerObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Long(), ecorePackage.getELong(), "long", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Long(), ecorePackage.getELong(), "long", "424242", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_LongObject(), ecorePackage.getELongObject(), "longObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_Short(), ecorePackage.getEShort(), "short", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_ShortObject(), ecorePackage.getEShortObject(), "shortObject", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAllLabelsType_String(), ecorePackage.getEString(), "string", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_Short(), ecorePackage.getEShort(), "short", "13", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_ShortObject(), ecorePackage.getEShortObject(), "shortObject", "42", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_String(), ecorePackage.getEString(), "string", "Hello!", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_Side(), this.getSide(), "side", "LEFT", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childLabelNodeContainerEClass, ChildLabelNodeContainer.class, "ChildLabelNodeContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

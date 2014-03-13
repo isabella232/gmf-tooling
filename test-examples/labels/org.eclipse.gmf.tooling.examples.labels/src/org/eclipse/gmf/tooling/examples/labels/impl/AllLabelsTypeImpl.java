@@ -29,7 +29,6 @@ import org.eclipse.gmf.tooling.examples.labels.Side;
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#isBoolean <em>Boolean</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getBooleanObject <em>Boolean Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getByte <em>Byte</em>}</li>
- *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getByteArray <em>Byte Array</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getByteObject <em>Byte Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getChar <em>Char</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getCharacterObject <em>Character Object</em>}</li>
@@ -80,7 +79,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final BigInteger BIG_INTEGER_EDEFAULT = null;
+	protected static final BigInteger BIG_INTEGER_EDEFAULT = new BigInteger("311");
 
 	/**
 	 * The cached value of the '{@link #getBigInteger() <em>Big Integer</em>}' attribute.
@@ -120,7 +119,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Boolean BOOLEAN_OBJECT_EDEFAULT = null;
+	protected static final Boolean BOOLEAN_OBJECT_EDEFAULT = Boolean.TRUE;
 
 	/**
 	 * The cached value of the '{@link #getBooleanObject() <em>Boolean Object</em>}' attribute.
@@ -140,7 +139,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final byte BYTE_EDEFAULT = 0x00;
+	protected static final byte BYTE_EDEFAULT = 0x01;
 
 	/**
 	 * The cached value of the '{@link #getByte() <em>Byte</em>}' attribute.
@@ -153,26 +152,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	protected byte byte_ = BYTE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getByteArray() <em>Byte Array</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getByteArray()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final byte[] BYTE_ARRAY_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getByteArray() <em>Byte Array</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getByteArray()
-	 * @generated
-	 * @ordered
-	 */
-	protected byte[] byteArray = BYTE_ARRAY_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getByteObject() <em>Byte Object</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -180,7 +159,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Byte BYTE_OBJECT_EDEFAULT = null;
+	protected static final Byte BYTE_OBJECT_EDEFAULT = new Byte((byte)0x2a);
 
 	/**
 	 * The cached value of the '{@link #getByteObject() <em>Byte Object</em>}' attribute.
@@ -200,7 +179,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final char CHAR_EDEFAULT = '\u0000';
+	protected static final char CHAR_EDEFAULT = '{';
 
 	/**
 	 * The cached value of the '{@link #getChar() <em>Char</em>}' attribute.
@@ -220,7 +199,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Character CHARACTER_OBJECT_EDEFAULT = new Character('n');
+	protected static final Character CHARACTER_OBJECT_EDEFAULT = new Character('}');
 
 	/**
 	 * The cached value of the '{@link #getCharacterObject() <em>Character Object</em>}' attribute.
@@ -260,7 +239,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final double DOUBLE_EDEFAULT = 0.0;
+	protected static final double DOUBLE_EDEFAULT = 42.42;
 
 	/**
 	 * The cached value of the '{@link #getDouble() <em>Double</em>}' attribute.
@@ -280,7 +259,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Double DOUBLE_OBJECT_EDEFAULT = null;
+	protected static final Double DOUBLE_OBJECT_EDEFAULT = new Double(42.42);
 
 	/**
 	 * The cached value of the '{@link #getDoubleObject() <em>Double Object</em>}' attribute.
@@ -300,7 +279,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final float FLOAT_EDEFAULT = 0.0F;
+	protected static final float FLOAT_EDEFAULT = 24.24F;
 
 	/**
 	 * The cached value of the '{@link #getFloat() <em>Float</em>}' attribute.
@@ -340,7 +319,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int INT_EDEFAULT = 0;
+	protected static final int INT_EDEFAULT = 36535;
 
 	/**
 	 * The cached value of the '{@link #getInt() <em>Int</em>}' attribute.
@@ -380,7 +359,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final long LONG_EDEFAULT = 0L;
+	protected static final long LONG_EDEFAULT = 424242L;
 
 	/**
 	 * The cached value of the '{@link #getLong() <em>Long</em>}' attribute.
@@ -420,7 +399,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final short SHORT_EDEFAULT = 0;
+	protected static final short SHORT_EDEFAULT = 13;
 
 	/**
 	 * The cached value of the '{@link #getShort() <em>Short</em>}' attribute.
@@ -440,7 +419,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Short SHORT_OBJECT_EDEFAULT = null;
+	protected static final Short SHORT_OBJECT_EDEFAULT = new Short((short)42);
 
 	/**
 	 * The cached value of the '{@link #getShortObject() <em>Short Object</em>}' attribute.
@@ -460,7 +439,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String STRING_EDEFAULT = null;
+	protected static final String STRING_EDEFAULT = "Hello!";
 
 	/**
 	 * The cached value of the '{@link #getString() <em>String</em>}' attribute.
@@ -614,27 +593,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 		byte_ = newByte;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, LabelsPackage.ALL_LABELS_TYPE__BYTE, oldByte, byte_));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public byte[] getByteArray() {
-		return byteArray;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setByteArray(byte[] newByteArray) {
-		byte[] oldByteArray = byteArray;
-		byteArray = newByteArray;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, LabelsPackage.ALL_LABELS_TYPE__BYTE_ARRAY, oldByteArray, byteArray));
 	}
 
 	/**
@@ -991,8 +949,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return getBooleanObject();
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE:
 				return getByte();
-			case LabelsPackage.ALL_LABELS_TYPE__BYTE_ARRAY:
-				return getByteArray();
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE_OBJECT:
 				return getByteObject();
 			case LabelsPackage.ALL_LABELS_TYPE__CHAR:
@@ -1051,9 +1007,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return;
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE:
 				setByte((Byte)newValue);
-				return;
-			case LabelsPackage.ALL_LABELS_TYPE__BYTE_ARRAY:
-				setByteArray((byte[])newValue);
 				return;
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE_OBJECT:
 				setByteObject((Byte)newValue);
@@ -1130,9 +1083,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE:
 				setByte(BYTE_EDEFAULT);
 				return;
-			case LabelsPackage.ALL_LABELS_TYPE__BYTE_ARRAY:
-				setByteArray(BYTE_ARRAY_EDEFAULT);
-				return;
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE_OBJECT:
 				setByteObject(BYTE_OBJECT_EDEFAULT);
 				return;
@@ -1203,8 +1153,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return BOOLEAN_OBJECT_EDEFAULT == null ? booleanObject != null : !BOOLEAN_OBJECT_EDEFAULT.equals(booleanObject);
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE:
 				return byte_ != BYTE_EDEFAULT;
-			case LabelsPackage.ALL_LABELS_TYPE__BYTE_ARRAY:
-				return BYTE_ARRAY_EDEFAULT == null ? byteArray != null : !BYTE_ARRAY_EDEFAULT.equals(byteArray);
 			case LabelsPackage.ALL_LABELS_TYPE__BYTE_OBJECT:
 				return BYTE_OBJECT_EDEFAULT == null ? byteObject != null : !BYTE_OBJECT_EDEFAULT.equals(byteObject);
 			case LabelsPackage.ALL_LABELS_TYPE__CHAR:
@@ -1261,8 +1209,6 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 		result.append(booleanObject);
 		result.append(", byte: ");
 		result.append(byte_);
-		result.append(", byteArray: ");
-		result.append(byteArray);
 		result.append(", byteObject: ");
 		result.append(byteObject);
 		result.append(", char: ");

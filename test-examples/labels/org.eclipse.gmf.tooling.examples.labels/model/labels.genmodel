@@ -22,7 +22,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/boolean"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/booleanObject"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/byte"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/byteArray"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/byteObject"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/char"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/characterObject"/>

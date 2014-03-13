@@ -20,7 +20,6 @@ import java.util.Date;
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#isBoolean <em>Boolean</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getBooleanObject <em>Boolean Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByte <em>Byte</em>}</li>
- *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByteArray <em>Byte Array</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByteObject <em>Byte Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getChar <em>Char</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getCharacterObject <em>Character Object</em>}</li>
@@ -74,6 +73,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Big Integer</b></em>' attribute.
+	 * The default value is <code>"311"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Big Integer</em>' attribute isn't clear,
@@ -83,7 +83,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Big Integer</em>' attribute.
 	 * @see #setBigInteger(BigInteger)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_BigInteger()
-	 * @model
+	 * @model default="311"
 	 * @generated
 	 */
 	BigInteger getBigInteger();
@@ -126,6 +126,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Boolean Object</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Boolean Object</em>' attribute isn't clear,
@@ -135,7 +136,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Boolean Object</em>' attribute.
 	 * @see #setBooleanObject(Boolean)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_BooleanObject()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	Boolean getBooleanObject();
@@ -152,6 +153,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Byte</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Byte</em>' attribute isn't clear,
@@ -161,7 +163,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Byte</em>' attribute.
 	 * @see #setByte(byte)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Byte()
-	 * @model
+	 * @model default="1"
 	 * @generated
 	 */
 	byte getByte();
@@ -177,33 +179,8 @@ public interface AllLabelsType extends NamedElement {
 	void setByte(byte value);
 
 	/**
-	 * Returns the value of the '<em><b>Byte Array</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Byte Array</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Byte Array</em>' attribute.
-	 * @see #setByteArray(byte[])
-	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_ByteArray()
-	 * @model
-	 * @generated
-	 */
-	byte[] getByteArray();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByteArray <em>Byte Array</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Byte Array</em>' attribute.
-	 * @see #getByteArray()
-	 * @generated
-	 */
-	void setByteArray(byte[] value);
-
-	/**
 	 * Returns the value of the '<em><b>Byte Object</b></em>' attribute.
+	 * The default value is <code>"42"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Byte Object</em>' attribute isn't clear,
@@ -213,7 +190,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Byte Object</em>' attribute.
 	 * @see #setByteObject(Byte)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_ByteObject()
-	 * @model
+	 * @model default="42"
 	 * @generated
 	 */
 	Byte getByteObject();
@@ -230,6 +207,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Char</b></em>' attribute.
+	 * The default value is <code>"{"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Char</em>' attribute isn't clear,
@@ -239,7 +217,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Char</em>' attribute.
 	 * @see #setChar(char)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Char()
-	 * @model
+	 * @model default="{"
 	 * @generated
 	 */
 	char getChar();
@@ -256,7 +234,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Character Object</b></em>' attribute.
-	 * The default value is <code>"null"</code>.
+	 * The default value is <code>"}"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Character Object</em>' attribute isn't clear,
@@ -266,7 +244,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Character Object</em>' attribute.
 	 * @see #setCharacterObject(Character)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_CharacterObject()
-	 * @model default="null"
+	 * @model default="}"
 	 * @generated
 	 */
 	Character getCharacterObject();
@@ -309,6 +287,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Double</b></em>' attribute.
+	 * The default value is <code>"42.42"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Double</em>' attribute isn't clear,
@@ -318,7 +297,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Double</em>' attribute.
 	 * @see #setDouble(double)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Double()
-	 * @model
+	 * @model default="42.42"
 	 * @generated
 	 */
 	double getDouble();
@@ -335,6 +314,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Double Object</b></em>' attribute.
+	 * The default value is <code>"42.42"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Double Object</em>' attribute isn't clear,
@@ -344,7 +324,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Double Object</em>' attribute.
 	 * @see #setDoubleObject(Double)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_DoubleObject()
-	 * @model
+	 * @model default="42.42"
 	 * @generated
 	 */
 	Double getDoubleObject();
@@ -361,6 +341,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Float</b></em>' attribute.
+	 * The default value is <code>"24.24"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Float</em>' attribute isn't clear,
@@ -370,7 +351,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Float</em>' attribute.
 	 * @see #setFloat(float)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Float()
-	 * @model
+	 * @model default="24.24"
 	 * @generated
 	 */
 	float getFloat();
@@ -413,6 +394,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Int</b></em>' attribute.
+	 * The default value is <code>"36535"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Int</em>' attribute isn't clear,
@@ -422,7 +404,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Int</em>' attribute.
 	 * @see #setInt(int)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Int()
-	 * @model
+	 * @model default="36535"
 	 * @generated
 	 */
 	int getInt();
@@ -465,6 +447,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Long</b></em>' attribute.
+	 * The default value is <code>"424242"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Long</em>' attribute isn't clear,
@@ -474,7 +457,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Long</em>' attribute.
 	 * @see #setLong(long)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Long()
-	 * @model
+	 * @model default="424242"
 	 * @generated
 	 */
 	long getLong();
@@ -517,6 +500,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Short</b></em>' attribute.
+	 * The default value is <code>"13"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Short</em>' attribute isn't clear,
@@ -526,7 +510,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Short</em>' attribute.
 	 * @see #setShort(short)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_Short()
-	 * @model
+	 * @model default="13"
 	 * @generated
 	 */
 	short getShort();
@@ -543,6 +527,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>Short Object</b></em>' attribute.
+	 * The default value is <code>"42"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Short Object</em>' attribute isn't clear,
@@ -552,7 +537,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>Short Object</em>' attribute.
 	 * @see #setShortObject(Short)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_ShortObject()
-	 * @model
+	 * @model default="42"
 	 * @generated
 	 */
 	Short getShortObject();
@@ -569,6 +554,7 @@ public interface AllLabelsType extends NamedElement {
 
 	/**
 	 * Returns the value of the '<em><b>String</b></em>' attribute.
+	 * The default value is <code>"Hello!"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>String</em>' attribute isn't clear,
@@ -578,7 +564,7 @@ public interface AllLabelsType extends NamedElement {
 	 * @return the value of the '<em>String</em>' attribute.
 	 * @see #setString(String)
 	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_String()
-	 * @model
+	 * @model default="Hello!"
 	 * @generated
 	 */
 	String getString();

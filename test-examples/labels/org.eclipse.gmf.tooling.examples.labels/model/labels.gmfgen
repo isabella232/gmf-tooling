@@ -28,6 +28,7 @@
         visualID="3001"
         editPartClassName="ChildLabelNodeEditPart"
         itemSemanticEditPolicyClassName="ChildLabelNodeItemSemanticEditPolicy"
+        notationViewFactoryClassName="ChildLabelNodeViewFactory"
         canonicalEditPolicyClassName="ChildLabelNodeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="ChildLabelNodeGraphicalNodeEditPolicy"
         createCommandClassName="ChildLabelNodeCreateCommand"
@@ -62,6 +63,7 @@
         visualID="2001"
         editPartClassName="GenLabelNodeEditPart"
         itemSemanticEditPolicyClassName="GenLabelNodeItemSemanticEditPolicy"
+        notationViewFactoryClassName="GenLabelNodeViewFactory"
         canonicalEditPolicyClassName="GenLabelNodeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="GenLabelNodeGraphicalNodeEditPolicy"
         createCommandClassName="GenLabelNodeCreateCommand">
@@ -88,6 +90,7 @@
           visualID="5001"
           editPartClassName="GenLabelNodeNameEditPart"
           itemSemanticEditPolicyClassName="GenLabelNodeNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="GenLabelNodeNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -108,6 +111,7 @@
         visualID="2002"
         editPartClassName="AllLabelsTypeEditPart"
         itemSemanticEditPolicyClassName="AllLabelsTypeItemSemanticEditPolicy"
+        notationViewFactoryClassName="AllLabelsTypeViewFactory"
         canonicalEditPolicyClassName="AllLabelsTypeCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="AllLabelsTypeGraphicalNodeEditPolicy"
         createCommandClassName="AllLabelsTypeCreateCommand">
@@ -118,7 +122,7 @@
           editHelperClassName="AllLabelsTypeEditHelper"/>
       <viewmap
           xsi:type="gmfgen:ModeledViewmap"
-          layoutType="TOOLBAR_LAYOUT">
+          layoutType="FLOW_LAYOUT">
         <attributes
             xsi:type="gmfgen:StyleAttributes"
             fixedForeground="true"
@@ -133,11 +137,39 @@
             href="labels.genmodel#//labels/Diagram/getLabels"/>
         <childMetaFeature
             href="labels.genmodel#//labels/Diagram/getLabels"/>
+        <modelElementInitializer
+            xsi:type="gmfgen:GenFeatureSeqInitializer">
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              value="//@expressionProviders/@providers.0/@expressions.0">
+            <feature
+                href="labels.genmodel#//labels/AllLabelsType/floatObject"/>
+          </initializers>
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              value="//@expressionProviders/@providers.0/@expressions.1">
+            <feature
+                href="labels.genmodel#//labels/AllLabelsType/integerObject"/>
+          </initializers>
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              value="//@expressionProviders/@providers.0/@expressions.2">
+            <feature
+                href="labels.genmodel#//labels/AllLabelsType/longObject"/>
+          </initializers>
+          <initializers
+              xsi:type="gmfgen:GenFeatureValueSpec"
+              value="//@expressionProviders/@providers.0/@expressions.3">
+            <feature
+                href="labels.genmodel#//labels/AllLabelsType/short"/>
+          </initializers>
+        </modelElementInitializer>
       </modelFacet>
       <labels
           visualID="5002"
           editPartClassName="AllLabelsTypeNameEditPart"
           itemSemanticEditPolicyClassName="AllLabelsTypeNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -161,6 +193,7 @@
           visualID="5003"
           editPartClassName="AllLabelsTypeBigDecimalEditPart"
           itemSemanticEditPolicyClassName="AllLabelsTypeBigDecimalItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeBigDecimalViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -184,6 +217,7 @@
           visualID="5004"
           editPartClassName="AllLabelsTypeBigIntegerEditPart"
           itemSemanticEditPolicyClassName="AllLabelsTypeBigIntegerItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeBigIntegerViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -207,6 +241,7 @@
           visualID="5005"
           editPartClassName="AllLabelsTypeBooleanEditPart"
           itemSemanticEditPolicyClassName="AllLabelsTypeBooleanItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeBooleanViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -230,6 +265,7 @@
           visualID="5006"
           editPartClassName="AllLabelsTypeBooleanObjectEditPart"
           itemSemanticEditPolicyClassName="AllLabelsTypeBooleanObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeBooleanObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -276,29 +312,7 @@
           visualID="5008"
           editPartClassName="AllLabelsTypeByteArrayEditPart"
           itemSemanticEditPolicyClassName="AllLabelsTypeByteArrayItemSemanticEditPolicy"
-          elementIcon="true">
-        <diagramRunTimeClass
-            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap
-            xsi:type="gmfgen:ModeledViewmap">
-          <attributes
-              xsi:type="gmfgen:StyleAttributes"
-              fixedForeground="true"
-              fixedBackground="true"/>
-          <figureModel
-              href="labels.gmfgraph#AllLabelsTypeByteArray"/>
-        </viewmap>
-        <modelFacet
-            xsi:type="gmfgen:FeatureLabelModelFacet"
-            parser="//@labelParsers/@implementations.0">
-          <metaFeatures
-              href="labels.genmodel#//labels/AllLabelsType/byteArray"/>
-        </modelFacet>
-      </labels>
-      <labels
-          visualID="5009"
-          editPartClassName="AllLabelsTypeByteObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeByteObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeByteArrayViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -319,9 +333,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5010"
-          editPartClassName="AllLabelsTypeCharEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeCharItemSemanticEditPolicy"
+          visualID="5009"
+          editPartClassName="AllLabelsTypeByteObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeByteObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeByteObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -342,9 +357,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5011"
-          editPartClassName="AllLabelsTypeCharacterObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeCharacterObjectItemSemanticEditPolicy"
+          visualID="5010"
+          editPartClassName="AllLabelsTypeCharEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeCharItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeCharViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -365,9 +381,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5012"
-          editPartClassName="AllLabelsTypeDateEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeDateItemSemanticEditPolicy"
+          visualID="5011"
+          editPartClassName="AllLabelsTypeCharacterObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeCharacterObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeCharacterObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -388,9 +405,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5013"
-          editPartClassName="AllLabelsTypeDoubleEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeDoubleItemSemanticEditPolicy"
+          visualID="5012"
+          editPartClassName="AllLabelsTypeDateEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeDateItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeDateViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -411,9 +429,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5014"
-          editPartClassName="AllLabelsTypeDoubleObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeDoubleObjectItemSemanticEditPolicy"
+          visualID="5013"
+          editPartClassName="AllLabelsTypeDoubleEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeDoubleItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeDoubleViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -434,9 +453,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5015"
-          editPartClassName="AllLabelsTypeFloatEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeFloatItemSemanticEditPolicy"
+          visualID="5014"
+          editPartClassName="AllLabelsTypeDoubleObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeDoubleObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeDoubleObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -457,9 +477,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5016"
-          editPartClassName="AllLabelsTypeFloatObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeFloatObjectItemSemanticEditPolicy"
+          visualID="5015"
+          editPartClassName="AllLabelsTypeFloatEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeFloatItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeFloatViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -480,9 +501,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5017"
-          editPartClassName="AllLabelsTypeIntEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeIntItemSemanticEditPolicy"
+          visualID="5016"
+          editPartClassName="AllLabelsTypeFloatObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeFloatObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeFloatObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -503,9 +525,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5018"
-          editPartClassName="AllLabelsTypeIntegerObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeIntegerObjectItemSemanticEditPolicy"
+          visualID="5017"
+          editPartClassName="AllLabelsTypeIntEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeIntItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeIntViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -526,9 +549,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5019"
-          editPartClassName="AllLabelsTypeLongEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeLongItemSemanticEditPolicy"
+          visualID="5018"
+          editPartClassName="AllLabelsTypeIntegerObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeIntegerObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeIntegerObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -549,9 +573,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5020"
-          editPartClassName="AllLabelsTypeLongObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeLongObjectItemSemanticEditPolicy"
+          visualID="5019"
+          editPartClassName="AllLabelsTypeLongEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeLongItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeLongViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -572,9 +597,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5021"
-          editPartClassName="AllLabelsTypeShortEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeShortItemSemanticEditPolicy"
+          visualID="5020"
+          editPartClassName="AllLabelsTypeLongObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeLongObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeLongObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -595,9 +621,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5022"
-          editPartClassName="AllLabelsTypeShortObjectEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeShortObjectItemSemanticEditPolicy"
+          visualID="5021"
+          editPartClassName="AllLabelsTypeShortEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeShortItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeShortViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -618,9 +645,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5023"
-          editPartClassName="AllLabelsTypeStringEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeStringItemSemanticEditPolicy"
+          visualID="5022"
+          editPartClassName="AllLabelsTypeShortObjectEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeShortObjectItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeShortObjectViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -641,9 +669,10 @@
         </modelFacet>
       </labels>
       <labels
-          visualID="5027"
-          editPartClassName="AllLabelsTypeSideEditPart"
-          itemSemanticEditPolicyClassName="AllLabelsTypeSideItemSemanticEditPolicy"
+          visualID="5023"
+          editPartClassName="AllLabelsTypeStringEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeStringItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeStringViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -668,6 +697,7 @@
         visualID="2003"
         editPartClassName="ChildLabelNodeContainerEditPart"
         itemSemanticEditPolicyClassName="ChildLabelNodeContainerItemSemanticEditPolicy"
+        notationViewFactoryClassName="ChildLabelNodeContainerViewFactory"
         canonicalEditPolicyClassName="ChildLabelNodeContainerCanonicalEditPolicy"
         compartments="//@diagram/@compartments.0"
         graphicalNodeEditPolicyClassName="ChildLabelNodeContainerGraphicalNodeEditPolicy"
@@ -698,6 +728,7 @@
           visualID="5025"
           editPartClassName="ChildLabelNodeContainerNameEditPart"
           itemSemanticEditPolicyClassName="ChildLabelNodeContainerNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="ChildLabelNodeContainerNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -721,6 +752,7 @@
         visualID="2004"
         editPartClassName="VerticalLabelEditPart"
         itemSemanticEditPolicyClassName="VerticalLabelItemSemanticEditPolicy"
+        notationViewFactoryClassName="VerticalLabelViewFactory"
         canonicalEditPolicyClassName="VerticalLabelCanonicalEditPolicy"
         graphicalNodeEditPolicyClassName="VerticalLabelGraphicalNodeEditPolicy"
         createCommandClassName="VerticalLabelCreateCommand">
@@ -751,6 +783,7 @@
           visualID="5026"
           editPartClassName="VerticalLabelNameEditPart"
           itemSemanticEditPolicyClassName="VerticalLabelNameItemSemanticEditPolicy"
+          notationViewFactoryClassName="VerticalLabelNameViewFactory"
           elementIcon="true">
         <diagramRunTimeClass
             href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
@@ -775,6 +808,7 @@
         visualID="7001"
         editPartClassName="ChildLabelNodeContainerLabelContainerEditPart"
         itemSemanticEditPolicyClassName="ChildLabelNodeContainerLabelContainerItemSemanticEditPolicy"
+        notationViewFactoryClassName="ChildLabelNodeContainerLabelContainerViewFactory"
         canonicalEditPolicyClassName="ChildLabelNodeContainerLabelContainerCanonicalEditPolicy"
         childNodes="//@diagram/@childNodes.0"
         title="LabelContainer"
@@ -891,14 +925,27 @@
   </propertySheet>
   <domainGenModel
       href="labels.genmodel#/"/>
+  <expressionProviders>
+    <providers
+        xsi:type="gmfgen:GenExpressionInterpreter">
+      <expressions
+          body="42.42"/>
+      <expressions
+          body="42"/>
+      <expressions
+          body="42424242"/>
+      <expressions
+          body="42"/>
+    </providers>
+  </expressionProviders>
   <labelParsers
       extensibleViaService="true">
     <implementations
         xsi:type="gmfgen:PredefinedParser"
-        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.1/@modelFacet //@diagram/@topLevelNodes.1/@labels.2/@modelFacet //@diagram/@topLevelNodes.1/@labels.3/@modelFacet //@diagram/@topLevelNodes.1/@labels.4/@modelFacet //@diagram/@topLevelNodes.1/@labels.5/@modelFacet //@diagram/@topLevelNodes.1/@labels.6/@modelFacet //@diagram/@topLevelNodes.1/@labels.7/@modelFacet //@diagram/@topLevelNodes.1/@labels.8/@modelFacet //@diagram/@topLevelNodes.1/@labels.9/@modelFacet //@diagram/@topLevelNodes.1/@labels.10/@modelFacet //@diagram/@topLevelNodes.1/@labels.11/@modelFacet //@diagram/@topLevelNodes.1/@labels.12/@modelFacet //@diagram/@topLevelNodes.1/@labels.13/@modelFacet //@diagram/@topLevelNodes.1/@labels.14/@modelFacet //@diagram/@topLevelNodes.1/@labels.15/@modelFacet //@diagram/@topLevelNodes.1/@labels.16/@modelFacet //@diagram/@topLevelNodes.1/@labels.17/@modelFacet //@diagram/@topLevelNodes.1/@labels.18/@modelFacet //@diagram/@topLevelNodes.1/@labels.19/@modelFacet //@diagram/@topLevelNodes.1/@labels.20/@modelFacet //@diagram/@topLevelNodes.1/@labels.21/@modelFacet //@diagram/@childNodes.0/@labelModelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet //@diagram/@topLevelNodes.3/@labels.0/@modelFacet"/>
+        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.1/@modelFacet //@diagram/@topLevelNodes.1/@labels.2/@modelFacet //@diagram/@topLevelNodes.1/@labels.3/@modelFacet //@diagram/@topLevelNodes.1/@labels.4/@modelFacet //@diagram/@topLevelNodes.1/@labels.5/@modelFacet //@diagram/@topLevelNodes.1/@labels.6/@modelFacet //@diagram/@topLevelNodes.1/@labels.7/@modelFacet //@diagram/@topLevelNodes.1/@labels.8/@modelFacet //@diagram/@topLevelNodes.1/@labels.9/@modelFacet //@diagram/@topLevelNodes.1/@labels.10/@modelFacet //@diagram/@topLevelNodes.1/@labels.11/@modelFacet //@diagram/@topLevelNodes.1/@labels.12/@modelFacet //@diagram/@topLevelNodes.1/@labels.13/@modelFacet //@diagram/@topLevelNodes.1/@labels.14/@modelFacet //@diagram/@topLevelNodes.1/@labels.15/@modelFacet //@diagram/@topLevelNodes.1/@labels.16/@modelFacet //@diagram/@topLevelNodes.1/@labels.17/@modelFacet //@diagram/@topLevelNodes.1/@labels.18/@modelFacet //@diagram/@topLevelNodes.1/@labels.19/@modelFacet //@diagram/@topLevelNodes.1/@labels.20/@modelFacet //@diagram/@childNodes.0/@labelModelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet //@diagram/@topLevelNodes.3/@labels.0/@modelFacet"/>
     <implementations
         xsi:type="gmfgen:PredefinedEnumParser"
-        uses="//@diagram/@topLevelNodes.1/@labels.22/@modelFacet"/>
+        uses="//@diagram/@topLevelNodes.1/@labels.21/@modelFacet"/>
   </labelParsers>
   <contextMenus
       context="//@diagram">

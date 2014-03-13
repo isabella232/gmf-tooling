@@ -149,22 +149,13 @@ public interface LabelsPackage extends EPackage {
 	int ALL_LABELS_TYPE__BYTE = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Byte Array</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ALL_LABELS_TYPE__BYTE_ARRAY = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
 	 * The feature id for the '<em><b>Byte Object</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__BYTE_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int ALL_LABELS_TYPE__BYTE_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Char</b></em>' attribute.
@@ -173,7 +164,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__CHAR = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int ALL_LABELS_TYPE__CHAR = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Character Object</b></em>' attribute.
@@ -182,7 +173,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__CHARACTER_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 8;
+	int ALL_LABELS_TYPE__CHARACTER_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Date</b></em>' attribute.
@@ -191,7 +182,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__DATE = NAMED_ELEMENT_FEATURE_COUNT + 9;
+	int ALL_LABELS_TYPE__DATE = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Double</b></em>' attribute.
@@ -200,7 +191,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__DOUBLE = NAMED_ELEMENT_FEATURE_COUNT + 10;
+	int ALL_LABELS_TYPE__DOUBLE = NAMED_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Double Object</b></em>' attribute.
@@ -209,7 +200,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__DOUBLE_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 11;
+	int ALL_LABELS_TYPE__DOUBLE_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Float</b></em>' attribute.
@@ -218,7 +209,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__FLOAT = NAMED_ELEMENT_FEATURE_COUNT + 12;
+	int ALL_LABELS_TYPE__FLOAT = NAMED_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Float Object</b></em>' attribute.
@@ -227,7 +218,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__FLOAT_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 13;
+	int ALL_LABELS_TYPE__FLOAT_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Int</b></em>' attribute.
@@ -236,7 +227,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__INT = NAMED_ELEMENT_FEATURE_COUNT + 14;
+	int ALL_LABELS_TYPE__INT = NAMED_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Integer Object</b></em>' attribute.
@@ -245,7 +236,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__INTEGER_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 15;
+	int ALL_LABELS_TYPE__INTEGER_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Long</b></em>' attribute.
@@ -254,7 +245,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__LONG = NAMED_ELEMENT_FEATURE_COUNT + 16;
+	int ALL_LABELS_TYPE__LONG = NAMED_ELEMENT_FEATURE_COUNT + 15;
 
 	/**
 	 * The feature id for the '<em><b>Long Object</b></em>' attribute.
@@ -263,7 +254,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__LONG_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 17;
+	int ALL_LABELS_TYPE__LONG_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Short</b></em>' attribute.
@@ -272,7 +263,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__SHORT = NAMED_ELEMENT_FEATURE_COUNT + 18;
+	int ALL_LABELS_TYPE__SHORT = NAMED_ELEMENT_FEATURE_COUNT + 17;
 
 	/**
 	 * The feature id for the '<em><b>Short Object</b></em>' attribute.
@@ -281,7 +272,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__SHORT_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 19;
+	int ALL_LABELS_TYPE__SHORT_OBJECT = NAMED_ELEMENT_FEATURE_COUNT + 18;
 
 	/**
 	 * The feature id for the '<em><b>String</b></em>' attribute.
@@ -290,7 +281,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__STRING = NAMED_ELEMENT_FEATURE_COUNT + 20;
+	int ALL_LABELS_TYPE__STRING = NAMED_ELEMENT_FEATURE_COUNT + 19;
 
 	/**
 	 * The feature id for the '<em><b>Side</b></em>' attribute.
@@ -299,7 +290,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__SIDE = NAMED_ELEMENT_FEATURE_COUNT + 21;
+	int ALL_LABELS_TYPE__SIDE = NAMED_ELEMENT_FEATURE_COUNT + 20;
 
 	/**
 	 * The number of structural features of the '<em>All Labels Type</em>' class.
@@ -308,7 +299,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 22;
+	int ALL_LABELS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tooling.examples.labels.impl.ChildLabelNodeContainerImpl <em>Child Label Node Container</em>}' class.
@@ -555,17 +546,6 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAllLabelsType_Byte();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByteArray <em>Byte Array</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Byte Array</em>'.
-	 * @see org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByteArray()
-	 * @see #getAllLabelsType()
-	 * @generated
-	 */
-	EAttribute getAllLabelsType_ByteArray();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getByteObject <em>Byte Object</em>}'.
@@ -914,14 +894,6 @@ public interface LabelsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ALL_LABELS_TYPE__BYTE = eINSTANCE.getAllLabelsType_Byte();
-
-		/**
-		 * The meta object literal for the '<em><b>Byte Array</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ALL_LABELS_TYPE__BYTE_ARRAY = eINSTANCE.getAllLabelsType_ByteArray();
 
 		/**
 		 * The meta object literal for the '<em><b>Byte Object</b></em>' attribute feature.
