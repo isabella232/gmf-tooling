@@ -24,7 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.ParentAssignedViewmap
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap
 import org.eclipse.gmf.codegen.gmfgen.Viewmap
 import xpt.Common
-import xpt.Common_qvto
+import xpt.Common_qvtoimport org.eclipse.gmf.gmfgraph.DiagramLabel
 
 /**
  * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
@@ -80,10 +80,18 @@ import xpt.Common_qvto
 	def dispatch addLabel(Viewmap it, GenLinkLabel label) ''''''
 
 	def dispatch addLabel(ParentAssignedViewmap it, GenLinkLabel label) '''
-		if (childEditPart instanceof «linkLabelEditPart.qualifiedClassName(label)») {
-			((«linkLabelEditPart.qualifiedClassName(label)») childEditPart).«xptTextAware.labelSetterName(it)»(
+		«it.commonAddLabel(getterName,label)»
+	'''
+
+	def dispatch addLabel(ModeledViewmap it, GenLinkLabel label) '''
+		«var getterName = (figureModel as DiagramLabel).accessor.accessor»
+		«it.commonAddLabel(getterName,label)»
+	'''
+
+	def commonAddLabel(Viewmap it, String getterName, GenLinkLabel label) '''
+		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+			((«label.getEditPartQualifiedClassName()») childEditPart).«xptTextAware.labelSetterName(it)»(
 					getPrimaryShape().«getterName»());
-			return true;
 		}
 	'''
 
@@ -103,12 +111,18 @@ import xpt.Common_qvto
 	def dispatch removeLabel(Viewmap it, GenLinkLabel label) ''''''
 
 	def dispatch removeLabel(ParentAssignedViewmap it, GenLinkLabel label) '''
-		if (childEditPart instanceof «linkLabelEditPart.qualifiedClassName(label)») {
+		«it.commonRemoveLabel(label)»
+	'''
+
+	def dispatch removeLabel(ModeledViewmap it, GenLinkLabel label) '''
+		«it.commonRemoveLabel(label)»
+	'''
+
+	def commonRemoveLabel(Viewmap it, GenLinkLabel label) '''
+		if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
 			return true;
 		}
 	'''
-
-	
 
 	def addChildVisual(GenLink it) '''
 	«IF it.hasFixedLabels»
@@ -198,6 +212,6 @@ import xpt.Common_qvto
 	 * FIXME: [MG] and add the dispatch for modeled viewmaps then 
 	 */
 	def boolean hasFixedLabels(GenLink it){
-		labels.notEmpty && labels.filter(typeof(ParentAssignedViewmap)).notEmpty
+		labels.notEmpty && (labels.filter(l | l.viewmap.oclIsKindOf(typeof(ParentAssignedViewmap))).notEmpty || labels.filter(l | l.viewmap.oclIsKindOf(typeof(ModeledViewmap))).notEmpty)
 	}
 }

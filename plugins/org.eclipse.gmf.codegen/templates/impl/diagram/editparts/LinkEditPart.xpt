@@ -12,6 +12,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2009/GenModel'»
+«IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
 
 «DEFINE _constructor FOR gmfgen::GenLink-»
 	«EXPAND xpt::Common::generatedMemberComment»
@@ -34,7 +35,8 @@
 «ENDDEFINE»
 
 «DEFINE addFixedChild FOR gmfgen::GenLink-»
-«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) -»
+«IF labels->notEmpty() and (labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) 
+	or labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ModeledViewmap))) -»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean addFixedChild(org.eclipse.gef.EditPart childEditPart) {
 		«FOREACH labels AS label-»
@@ -48,15 +50,26 @@
 // Note, condition in addFixedChild template above should be changed if addLabel support added for Viewmaps other than ParentAssignedViewmap
 «DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap»«ENDDEFINE»
 «DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ParentAssignedViewmap-»
-	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-		((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName»(
-				getPrimaryShape().«getterName»());
-		return true;
-	}
+	«EXPAND addLabelCommonCode(getterName, label)-»
+«ENDDEFINE»
+
+«DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ModeledViewmap-»
+	«LET figureModel.oclAsType(gmfgraph::DiagramLabel).accessor.accessor AS getterName-»
+		«EXPAND addLabelCommonCode(getterName, label)-»
+	«ENDLET-»
+«ENDDEFINE»
+
+«DEFINE addLabelCommonCode(getterName : String, label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap-»
+ 	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
+ 		((«label.getEditPartQualifiedClassName()») childEditPart).«EXPAND impl::diagram::editparts::TextAware::labelSetterName»(
+ 				getPrimaryShape().«getterName»());
+ 				return true;
+ 	}
 «ENDDEFINE»
 
 «DEFINE removeFixedChild FOR gmfgen::GenLink-»
-«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap))-»
+«IF labels->notEmpty() and (labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) 
+	or labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ModeledViewmap))) -»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected boolean removeFixedChild(org.eclipse.gef.EditPart childEditPart) {
 		«FOREACH labels AS label-»
@@ -70,13 +83,22 @@
 // Note, condition in removeFixedChild template above should be changed if removeLabel support added for Viewmaps other than ParentAssignedViewmap
 «DEFINE removeLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::Viewmap»«ENDDEFINE»
 «DEFINE removeLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ParentAssignedViewmap-»
-	if (childEditPart instanceof «label.getEditPartQualifiedClassName()») {
-		return true;
-	}
+	«EXPAND removeLabelCommonCode FOR label-»
+«ENDDEFINE»
+
+«DEFINE removeLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ModeledViewmap-»
+	«EXPAND removeLabelCommonCode FOR label-»
+«ENDDEFINE»
+
+«DEFINE removeLabelCommonCode FOR gmfgen::GenLinkLabel-»
+	if (childEditPart instanceof «getEditPartQualifiedClassName()») {
+ 		return true;
+ 	}
 «ENDDEFINE»
 
 «DEFINE addChildVisual FOR gmfgen::GenLink-»
-«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) -»
+«IF labels->notEmpty() and (labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap))
+	or labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ModeledViewmap)))-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void addChildVisual(org.eclipse.gef.EditPart childEditPart, int index) {
 		if (addFixedChild(childEditPart)) {
@@ -88,7 +110,8 @@
 «ENDDEFINE»
 
 «DEFINE removeChildVisual FOR gmfgen::GenLink-»
-«IF labels->notEmpty() and labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap)) -»
+«IF labels->notEmpty() and (labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ParentAssignedViewmap))
+	or labels->exists(l | l.viewmap.oclIsKindOf(gmfgen::ModeledViewmap)))-»
 	«EXPAND xpt::Common::generatedMemberComment»
 	protected void removeChildVisual(org.eclipse.gef.EditPart childEditPart) {
 		if (removeFixedChild(childEditPart)) {

@@ -64,6 +64,7 @@ public class LabelsFactoryImpl extends EFactoryImpl implements LabelsFactory {
 			case LabelsPackage.GEN_LABEL_NODE: return createGenLabelNode();
 			case LabelsPackage.VERTICAL_LABEL: return createVerticalLabel();
 			case LabelsPackage.DIAGRAM: return createDiagram();
+			case LabelsPackage.LINK_WITH_LABEL: return createLinkWithLabel();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -167,6 +168,16 @@ public class LabelsFactoryImpl extends EFactoryImpl implements LabelsFactory {
 	public Diagram createDiagram() {
 		DiagramImpl diagram = new DiagramImpl();
 		return diagram;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LinkWithLabel createLinkWithLabel() {
+		LinkWithLabelImpl linkWithLabel = new LinkWithLabelImpl();
+		return linkWithLabel;
 	}
 
 	/**

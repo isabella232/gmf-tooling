@@ -96,6 +96,10 @@ public class LabelsAdapterFactory extends AdapterFactoryImpl {
 				return createDiagramAdapter();
 			}
 			@Override
+			public Adapter caseLinkWithLabel(LinkWithLabel object) {
+				return createLinkWithLabelAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -210,6 +214,20 @@ public class LabelsAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDiagramAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.tooling.examples.labels.LinkWithLabel <em>Link With Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.tooling.examples.labels.LinkWithLabel
+	 * @generated
+	 */
+	public Adapter createLinkWithLabelAdapter() {
 		return null;
 	}
 

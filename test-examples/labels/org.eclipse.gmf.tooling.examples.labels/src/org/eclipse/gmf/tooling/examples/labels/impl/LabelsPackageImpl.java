@@ -17,6 +17,7 @@ import org.eclipse.gmf.tooling.examples.labels.Diagram;
 import org.eclipse.gmf.tooling.examples.labels.GenLabelNode;
 import org.eclipse.gmf.tooling.examples.labels.LabelsFactory;
 import org.eclipse.gmf.tooling.examples.labels.LabelsPackage;
+import org.eclipse.gmf.tooling.examples.labels.LinkWithLabel;
 import org.eclipse.gmf.tooling.examples.labels.NamedElement;
 import org.eclipse.gmf.tooling.examples.labels.Side;
 import org.eclipse.gmf.tooling.examples.labels.VerticalLabel;
@@ -76,6 +77,13 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * @generated
 	 */
 	private EClass diagramEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass linkWithLabelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -429,6 +437,33 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLinkWithLabel() {
+		return linkWithLabelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkWithLabel_Target() {
+		return (EReference)linkWithLabelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkWithLabel_Source() {
+		return (EReference)linkWithLabelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getSide() {
 		return sideEEnum;
 	}
@@ -499,6 +534,10 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		diagramEClass = createEClass(DIAGRAM);
 		createEReference(diagramEClass, DIAGRAM__GET_LABELS);
 
+		linkWithLabelEClass = createEClass(LINK_WITH_LABEL);
+		createEReference(linkWithLabelEClass, LINK_WITH_LABEL__TARGET);
+		createEReference(linkWithLabelEClass, LINK_WITH_LABEL__SOURCE);
+
 		// Create enums
 		sideEEnum = createEEnum(SIDE);
 	}
@@ -536,6 +575,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		childLabelNodeEClass.getESuperTypes().add(this.getNamedElement());
 		genLabelNodeEClass.getESuperTypes().add(this.getNamedElement());
 		verticalLabelEClass.getESuperTypes().add(this.getNamedElement());
+		linkWithLabelEClass.getESuperTypes().add(this.getNamedElement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -575,6 +615,10 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 
 		initEClass(diagramEClass, Diagram.class, "Diagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDiagram_GetLabels(), this.getNamedElement(), null, "getLabels", null, 0, -1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(linkWithLabelEClass, LinkWithLabel.class, "LinkWithLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLinkWithLabel_Target(), this.getGenLabelNode(), null, "target", null, 0, 1, LinkWithLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLinkWithLabel_Source(), this.getVerticalLabel(), null, "source", null, 0, 1, LinkWithLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(sideEEnum, Side.class, "Side");

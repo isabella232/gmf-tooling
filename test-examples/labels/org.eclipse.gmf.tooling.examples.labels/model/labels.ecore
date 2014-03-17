@@ -57,4 +57,8 @@
     <eLiterals name="LEFT"/>
     <eLiterals name="RIGHT" value="1"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkWithLabel" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//GenLabelNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//VerticalLabel"/>
+  </eClassifiers>
 </ecore:EPackage>

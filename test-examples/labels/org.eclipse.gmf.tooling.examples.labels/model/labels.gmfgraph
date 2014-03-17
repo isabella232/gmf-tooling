@@ -116,11 +116,18 @@
       </actualFigure>
       <accessors figure="//@figures.0/@descriptors.5/@actualFigure/@children.0"/>
     </descriptors>
+    <descriptors name="VericalLabel_GenLabel_ConnectionFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="ConnectionFigure">
+        <children xsi:type="gmfgraph:Label" name="LinkLabel"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.6/@actualFigure/@children.0"/>
+    </descriptors>
   </figures>
   <nodes name="AllLabelsType" figure="AllLabelsTypeFigure"/>
   <nodes name="ChildLabelNodeContainer" figure="ChildLabelNodeContainerFigure"/>
   <nodes name="GenLabelNode" figure="GenLabelNodeFigure"/>
   <nodes name="VerticalLabel" figure="VerticalLabelFigure"/>
+  <connections name="VericalLabel_GenLabel_Connection" figure="VericalLabel_GenLabel_ConnectionFigure"/>
   <compartments name="LabelContainer" figure="ChildLabelNodeContainerFigure" collapsible="true" needsTitle="true" accessor="//@figures.0/@descriptors.1/@accessors.1"/>
   <labels name="AllLabelsTypeName" figure="AllLabelsTypeFigure" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
   <labels name="AllLabelsTypeBigDecimal" figure="AllLabelsTypeFigure" accessor="//@figures.0/@descriptors.0/@accessors.1"/>
@@ -149,4 +156,5 @@
   <labels name="VerticalLabelName" figure="VerticalLabelFigure" accessor="//@figures.0/@descriptors.4/@accessors.0"/>
   <labels name="LabelName" figure="LabelFigure" accessor="//@figures.0/@descriptors.5/@accessors.0"/>
   <labels name="LabelSide" figure="AllLabelsTypeFigure" accessor="//@figures.0/@descriptors.0/@accessors.21"/>
+  <labels name="LinkLabel" figure="LabelFigure" accessor="//@figures.0/@descriptors.6/@accessors.0"/>
 </gmfgraph:Canvas>

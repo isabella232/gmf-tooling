@@ -451,6 +451,52 @@ public interface LabelsPackage extends EPackage {
 	int DIAGRAM_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.tooling.examples.labels.impl.LinkWithLabelImpl <em>Link With Label</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.tooling.examples.labels.impl.LinkWithLabelImpl
+	 * @see org.eclipse.gmf.tooling.examples.labels.impl.LabelsPackageImpl#getLinkWithLabel()
+	 * @generated
+	 */
+	int LINK_WITH_LABEL = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_WITH_LABEL__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_WITH_LABEL__TARGET = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_WITH_LABEL__SOURCE = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Link With Label</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_WITH_LABEL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tooling.examples.labels.Side <em>Side</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -458,7 +504,7 @@ public interface LabelsPackage extends EPackage {
 	 * @see org.eclipse.gmf.tooling.examples.labels.impl.LabelsPackageImpl#getSide()
 	 * @generated
 	 */
-	int SIDE = 7;
+	int SIDE = 8;
 
 
 	/**
@@ -796,6 +842,38 @@ public interface LabelsPackage extends EPackage {
 	EReference getDiagram_GetLabels();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.tooling.examples.labels.LinkWithLabel <em>Link With Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Link With Label</em>'.
+	 * @see org.eclipse.gmf.tooling.examples.labels.LinkWithLabel
+	 * @generated
+	 */
+	EClass getLinkWithLabel();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.tooling.examples.labels.LinkWithLabel#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.tooling.examples.labels.LinkWithLabel#getTarget()
+	 * @see #getLinkWithLabel()
+	 * @generated
+	 */
+	EReference getLinkWithLabel_Target();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.tooling.examples.labels.LinkWithLabel#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see org.eclipse.gmf.tooling.examples.labels.LinkWithLabel#getSource()
+	 * @see #getLinkWithLabel()
+	 * @generated
+	 */
+	EReference getLinkWithLabel_Source();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.tooling.examples.labels.Side <em>Side</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1088,6 +1166,32 @@ public interface LabelsPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DIAGRAM__GET_LABELS = eINSTANCE.getDiagram_GetLabels();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.tooling.examples.labels.impl.LinkWithLabelImpl <em>Link With Label</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.tooling.examples.labels.impl.LinkWithLabelImpl
+		 * @see org.eclipse.gmf.tooling.examples.labels.impl.LabelsPackageImpl#getLinkWithLabel()
+		 * @generated
+		 */
+		EClass LINK_WITH_LABEL = eINSTANCE.getLinkWithLabel();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINK_WITH_LABEL__TARGET = eINSTANCE.getLinkWithLabel_Target();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINK_WITH_LABEL__SOURCE = eINSTANCE.getLinkWithLabel_Source();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.tooling.examples.labels.Side <em>Side</em>}' enum.

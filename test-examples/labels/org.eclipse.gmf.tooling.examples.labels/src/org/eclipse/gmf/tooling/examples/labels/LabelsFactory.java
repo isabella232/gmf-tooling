@@ -85,6 +85,15 @@ public interface LabelsFactory extends EFactory {
 	Diagram createDiagram();
 
 	/**
+	 * Returns a new object of class '<em>Link With Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Link With Label</em>'.
+	 * @generated
+	 */
+	LinkWithLabel createLinkWithLabel();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

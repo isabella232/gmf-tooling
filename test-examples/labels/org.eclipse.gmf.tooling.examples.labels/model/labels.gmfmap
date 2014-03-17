@@ -294,6 +294,30 @@
           href="labels.gmfgraph#VerticalLabel"/>
     </ownedChild>
   </nodes>
+  <links>
+    <domainMetaElement
+        href="labels.ecore#//LinkWithLabel"/>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
+      <diagramLabel
+          href="labels.gmfgraph#LinkLabel"/>
+      <features
+          href="labels.ecore#//NamedElement/name"/>
+    </labelMappings>
+    <containmentFeature
+        href="labels.ecore#//Diagram/getLabels"/>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="labels.gmftool#//@palette/@tools.0/@tools.5"/>
+    <diagramLink
+        href="labels.gmfgraph#VericalLabel_GenLabel_Connection"/>
+    <sourceMetaFeature
+        xsi:type="ecore:EReference"
+        href="labels.ecore#//LinkWithLabel/source"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="labels.ecore#//LinkWithLabel/target"/>
+  </links>
   <diagram>
     <diagramCanvas
         href="labels.gmfgraph#labels"/>
