@@ -38,6 +38,8 @@ public class «editPartClassName» «EXPAND extendsList» «EXPAND implementsLis
 
 	«EXPAND xpt::diagram::editparts::Common::labelFigure FOR viewmap-»
 	
+	«EXPAND impl::diagram::editparts::ChildNodeLabelEditPart::isSelectable-»
+	
 	«EXPAND additions-»
 }
 «ENDDEFINE»

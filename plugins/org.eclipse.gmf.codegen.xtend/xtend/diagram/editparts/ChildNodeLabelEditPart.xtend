@@ -57,6 +57,8 @@ public class «xptChildNodeLabelEditPart.className(it)» «extendsList(it)» «i
 
 	«xptEditpartsCommon.labelFigure(it.viewmap)»
 	
+	«xptChildNodeLabelEditPart.isSelectable(it)»
+	
 	«additions(it)»
 }
 '''

@@ -41,3 +41,11 @@
 	«EXPAND xpt::diagram::editparts::Common::handleText FOR self-»
 	super.handleNotificationEvent(event);
 «ENDDEFINE»
+
+«DEFINE isSelectable FOR gmfgen::GenChildLabelNode-»
+	«EXPAND xpt::Common::generatedMemberComment»
+	«EXPAND CodeStyle::override-»
+	public boolean isSelectable() {
+		return getFigure().isShowing();
+	}
+«ENDDEFINE»

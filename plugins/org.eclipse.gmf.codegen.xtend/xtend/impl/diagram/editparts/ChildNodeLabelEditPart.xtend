@@ -17,7 +17,7 @@ import com.google.inject.Inject
 import org.eclipse.gmf.codegen.gmfgen.GenChildLabelNode
 import xpt.Common
 import xpt.QualifiedClassNameProvider
-import xpt.diagram.editpolicies.TextNonResizableEditPolicy
+import xpt.diagram.editpolicies.TextNonResizableEditPolicyimport xpt.CodeStyle
 
 /**
  * Revisit: [MG]: @Inject extension same-named-api-class -> template extends api-class?
@@ -25,6 +25,7 @@ import xpt.diagram.editpolicies.TextNonResizableEditPolicy
 @com.google.inject.Singleton class ChildNodeLabelEditPart {
 	@Inject extension Common;
 	@Inject extension QualifiedClassNameProvider
+	@Inject extension CodeStyle
 
 	@Inject xpt.diagram.editparts.Common xptEditpartsCommon;
 	@Inject TextNonResizableEditPolicy xptTextNonResizable;
@@ -62,4 +63,11 @@ import xpt.diagram.editpolicies.TextNonResizableEditPolicy
 		super.handleNotificationEvent(event);
 	'''
 
+	def isSelectable(GenChildLabelNode it) '''
+		«generatedMemberComment»
+		«overrideC»
+		public boolean isSelectable() {
+			return getFigure().isShowing();
+		}
+	'''
 }
