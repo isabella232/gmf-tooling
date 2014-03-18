@@ -65,15 +65,22 @@ import org.eclipse.text.edits.TextEdit;
 public abstract class GeneratorBase implements Runnable {
 
 	private CodeFormatter myCodeFormatter;
-    private OrganizeImportsPostprocessor myImportsPostprocessor;
+
+	private OrganizeImportsPostprocessor myImportsPostprocessor;
+
 	private IProgressMonitor myProgress = new NullProgressMonitor();
 
 	// myDestRoot.getJavaProject().getElementName() == myDestProject.getName()
 	private IPackageFragmentRoot myDestRoot;
+
 	private IProject myDestProject;
+
 	private final List<IStatus> myExceptions;
+
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
+
 	private TextMerger myMerger;
+
 	private final boolean isToRestoreExistingImports = true;
 
 	protected abstract void customRun() throws InterruptedException, UnexpectedBehaviourException;
@@ -186,7 +193,7 @@ public abstract class GeneratorBase implements Runnable {
 	 * @see #initializeEditorProject(String, IPath, List)
 	 */
 	protected final void initializeEditorProject(String pluginId, IPath projectLocation) throws UnexpectedBehaviourException, InterruptedException {
-		initializeEditorProject(pluginId, projectLocation, Collections.<IProject>emptyList());
+		initializeEditorProject(pluginId, projectLocation, Collections.<IProject> emptyList());
 	}
 
 	/**
@@ -240,7 +247,7 @@ public abstract class GeneratorBase implements Runnable {
 			throw new UnexpectedBehaviourException("no source root can be found");
 		}
 	}
-	
+
 	/**
 	 * Generate ordinary file.
 	 * @param emitter template to use
@@ -330,17 +337,16 @@ public abstract class GeneratorBase implements Runnable {
 		return new ImportUtil(packageName, className, myDestRoot);
 	}
 
-	
 	protected final void doGenerate(JavaClassEmitter emitter, Object... input) throws InterruptedException, UnexpectedBehaviourException {
 		if (emitter != null) {
 			doGenerateJavaClass(emitter, emitter.getQualifiedClassName(input), input);
 		}
 	}
-	
+
 	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object... input) throws InterruptedException {
 		if (emitter != null) {
 			doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
-		}	
+		}
 	}
 
 	/**
@@ -349,64 +355,66 @@ public abstract class GeneratorBase implements Runnable {
 	 * return qualified class names.  
 	 */
 	protected final void doGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object... input) throws InterruptedException {
-		if (emitter != null) {
-			IProgressMonitor pm = getNextStepMonitor();
-			try {
-				setProgressTaskName(className);
-				pm.beginTask(null, 7);
-				String genText = emitter.generate(new SubProgressMonitor(pm, 2), input);
-				IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
-				ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-				if (cu.exists()) {
-					ICompilationUnit workingCopy = null;
+		IProgressMonitor pm = getNextStepMonitor();
+		setProgressTaskName(className);
+		pm.beginTask(null, 7);
+		if (emitter == null) {
+			pm.done();
+			return;
+		}
+		try {
+			String genText = emitter.generate(new SubProgressMonitor(pm, 2), input);
+			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
+			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
+			if (cu.exists()) {
+				ICompilationUnit workingCopy = null;
+				try {
+					workingCopy = cu.getWorkingCopy(new SubProgressMonitor(pm, 1));
+					final String oldContents = workingCopy.getSource();
+					IImportDeclaration[] declaredImports = workingCopy.getImports();
+					workingCopy.getBuffer().setContents(genText);
+					workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
 					try {
-						workingCopy = cu.getWorkingCopy(new SubProgressMonitor(pm, 1));
-						final String oldContents = workingCopy.getSource();
-		                IImportDeclaration[] declaredImports = workingCopy.getImports();
-		                workingCopy.getBuffer().setContents(genText);
-		                workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
-						try {
-		                    //Since we do organizeImports prior to merge, we must ensure imports added manually are known to OrganizeImportsProcessor
-		                    String[] declaredImportsAsStrings = new String[declaredImports.length];
-		                    for (int i=0; i<declaredImports.length; i++) {
-		                        declaredImportsAsStrings[i] = declaredImports[i].getElementName();
-		                    }
-							getImportsPostrocessor().organizeImports(workingCopy, declaredImportsAsStrings, new SubProgressMonitor(pm, 1));
-						} catch (CoreException e) {
-							workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1)); // save to investigate contents
-							throw e;
+						//Since we do organizeImports prior to merge, we must ensure imports added manually are known to OrganizeImportsProcessor
+						String[] declaredImportsAsStrings = new String[declaredImports.length];
+						for (int i = 0; i < declaredImports.length; i++) {
+							declaredImportsAsStrings[i] = declaredImports[i].getElementName();
 						}
-						genText = mergeJavaCode(oldContents, workingCopy.getSource(), new SubProgressMonitor(pm, 1));
-						genText = formatCode(genText);
-						if (!genText.equals(oldContents)) {
-							workingCopy.getBuffer().setContents(genText);
-							workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
-							workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1));
-						} else {
-							// discard changes - would happen in finally, nothing else to do
-							pm.worked(1);
-						}
-					} finally {
-						workingCopy.discardWorkingCopy();
+						getImportsPostrocessor().organizeImports(workingCopy, declaredImportsAsStrings, new SubProgressMonitor(pm, 1));
+					} catch (CoreException e) {
+						workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1)); // save to investigate contents
+						throw e;
 					}
-				} else {
-					cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
-					getImportsPostrocessor().organizeImports(cu, null, new SubProgressMonitor(pm, 1));
-					String newContents = formatCode(cu.getSource());
-					cu.getBuffer().setContents(newContents);
-					cu.save(new SubProgressMonitor(pm, 2), true);
+					genText = mergeJavaCode(oldContents, workingCopy.getSource(), new SubProgressMonitor(pm, 1));
+					genText = formatCode(genText);
+					if (!genText.equals(oldContents)) {
+						workingCopy.getBuffer().setContents(genText);
+						workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+						workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1));
+					} else {
+						// discard changes - would happen in finally, nothing else to do
+						pm.worked(1);
+					}
+				} finally {
+					workingCopy.discardWorkingCopy();
 				}
-			} catch (NullPointerException ex) {
-				handleException(ex);
-			} catch (InvocationTargetException ex) {
-				handleException(ex.getCause());
-			} catch (UnexpectedBehaviourException ex) {
-				handleUnexpected(ex);
-			} catch (CoreException ex) {
-				handleException(ex);
-			} finally {
-				pm.done();
+			} else {
+				cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
+				getImportsPostrocessor().organizeImports(cu, null, new SubProgressMonitor(pm, 1));
+				String newContents = formatCode(cu.getSource());
+				cu.getBuffer().setContents(newContents);
+				cu.save(new SubProgressMonitor(pm, 2), true);
 			}
+		} catch (NullPointerException ex) {
+			handleException(ex);
+		} catch (InvocationTargetException ex) {
+			handleException(ex.getCause());
+		} catch (UnexpectedBehaviourException ex) {
+			handleUnexpected(ex);
+		} catch (CoreException ex) {
+			handleException(ex);
+		} finally {
+			pm.done();
 		}
 	}
 
@@ -492,6 +500,7 @@ public abstract class GeneratorBase implements Runnable {
 		try {
 			setupProgressMonitor();
 			ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
+
 				public void run(IProgressMonitor monitor) throws CoreException {
 					try {
 						customRun();
@@ -503,7 +512,7 @@ public abstract class GeneratorBase implements Runnable {
 					} catch (UnexpectedBehaviourException ex) {
 						myRunStatus = new Status(Status.ERROR, Activator.getID(), 0, Messages.unexpected, ex);
 					} catch (InterruptedException ex) {
-						myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, Messages.interrupted, ex); 
+						myRunStatus = new Status(IStatus.CANCEL, Activator.getID(), 0, Messages.interrupted, ex);
 					}
 				}
 			}, null);
@@ -532,7 +541,7 @@ public abstract class GeneratorBase implements Runnable {
 		return myImportsPostprocessor;
 	}
 
-	private final void clearExceptionsList(){
+	private final void clearExceptionsList() {
 		myExceptions.clear();
 	}
 
@@ -546,8 +555,11 @@ public abstract class GeneratorBase implements Runnable {
 	}
 
 	public static final class Counter {
+
 		private final HashMap<EClass, Integer> myCounters = new HashMap<EClass, Integer>();
+
 		private final HashMap<EClass, Integer> myCache = new HashMap<EClass, Integer>();
+
 		private final Integer CACHE_MISS = new Integer(0);
 
 		public Counter() {

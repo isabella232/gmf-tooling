@@ -649,7 +649,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateEditPartProvider() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(myEmitters.getEditPartProviderEmitter(), myDiagram.getProvidersPackageName(), myDiagram.getEditPartProviderClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getEditPartProviderEmitter(), myDiagram.getProvidersPackageName(), myDiagram.getEditPartProviderClassName(), myDiagram);
 	}
 
 	private void generateModelingAssistantProvider() throws UnexpectedBehaviourException, InterruptedException {
@@ -717,7 +717,7 @@ public class Generator extends GeneratorBase implements Runnable {
 	}
 
 	private void generateDiagramEditorUtil() throws UnexpectedBehaviourException, InterruptedException {
-		internalGenerateJavaClass(myEmitters.getDiagramEditorUtilEmitter(), myEditorGen.getEditor().getPackageName(), myDiagram.getDiagramEditorUtilClassName(), myDiagram);
+		doGenerateJavaClass(myEmitters.getDiagramEditorUtilEmitter(), myEditorGen.getEditor().getPackageName(), myDiagram.getDiagramEditorUtilClassName(), myDiagram);
 	}
 
 	private void generateVisualIDRegistry() throws InterruptedException {
@@ -1163,15 +1163,8 @@ public class Generator extends GeneratorBase implements Runnable {
 
 	// util
 
-	/**
-	 * Passes initialized ImportManager as second template argument
-	 */
-	private void internalGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object argument) throws InterruptedException {
-		doGenerateJavaClass(emitter, packageName, className, argument);
-	}
-
-	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedName, Object argument) throws InterruptedException {
-		internalGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedName), CodeGenUtil.getSimpleClassName(qualifiedName), argument);
+	private void internalGenerateJavaClass(TextEmitter emitter, String qualifiedName, EObject input) throws InterruptedException {
+		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedName), CodeGenUtil.getSimpleClassName(qualifiedName), input);
 	}
 
 	private IPath guessProjectLocation(String projectName) {
