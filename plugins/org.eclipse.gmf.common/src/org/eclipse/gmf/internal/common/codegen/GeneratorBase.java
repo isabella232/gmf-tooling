@@ -332,11 +332,15 @@ public abstract class GeneratorBase implements Runnable {
 
 	
 	protected final void doGenerate(JavaClassEmitter emitter, Object... input) throws InterruptedException, UnexpectedBehaviourException {
-		doGenerateJavaClass(emitter, emitter.getQualifiedClassName(input), input);
+		if (emitter != null) {
+			doGenerateJavaClass(emitter, emitter.getQualifiedClassName(input), input);
+		}
 	}
 	
 	protected final void doGenerateJavaClass(TextEmitter emitter, String qualifiedClassName, Object... input) throws InterruptedException {
-		doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
+		if (emitter != null) {
+			doGenerateJavaClass(emitter, CodeGenUtil.getPackageName(qualifiedClassName), CodeGenUtil.getSimpleClassName(qualifiedClassName), input);
+		}	
 	}
 
 	/**
@@ -345,62 +349,64 @@ public abstract class GeneratorBase implements Runnable {
 	 * return qualified class names.  
 	 */
 	protected final void doGenerateJavaClass(TextEmitter emitter, String packageName, String className, Object... input) throws InterruptedException {
-		IProgressMonitor pm = getNextStepMonitor();
-		try {
-			setProgressTaskName(className);
-			pm.beginTask(null, 7);
-			String genText = emitter.generate(new SubProgressMonitor(pm, 2), input);
-			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
-			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-			if (cu.exists()) {
-				ICompilationUnit workingCopy = null;
-				try {
-					workingCopy = cu.getWorkingCopy(new SubProgressMonitor(pm, 1));
-					final String oldContents = workingCopy.getSource();
-	                IImportDeclaration[] declaredImports = workingCopy.getImports();
-	                workingCopy.getBuffer().setContents(genText);
-	                workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+		if (emitter != null) {
+			IProgressMonitor pm = getNextStepMonitor();
+			try {
+				setProgressTaskName(className);
+				pm.beginTask(null, 7);
+				String genText = emitter.generate(new SubProgressMonitor(pm, 2), input);
+				IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
+				ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
+				if (cu.exists()) {
+					ICompilationUnit workingCopy = null;
 					try {
-	                    //Since we do organizeImports prior to merge, we must ensure imports added manually are known to OrganizeImportsProcessor
-	                    String[] declaredImportsAsStrings = new String[declaredImports.length];
-	                    for (int i=0; i<declaredImports.length; i++) {
-	                        declaredImportsAsStrings[i] = declaredImports[i].getElementName();
-	                    }
-						getImportsPostrocessor().organizeImports(workingCopy, declaredImportsAsStrings, new SubProgressMonitor(pm, 1));
-					} catch (CoreException e) {
-						workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1)); // save to investigate contents
-						throw e;
+						workingCopy = cu.getWorkingCopy(new SubProgressMonitor(pm, 1));
+						final String oldContents = workingCopy.getSource();
+		                IImportDeclaration[] declaredImports = workingCopy.getImports();
+		                workingCopy.getBuffer().setContents(genText);
+		                workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+						try {
+		                    //Since we do organizeImports prior to merge, we must ensure imports added manually are known to OrganizeImportsProcessor
+		                    String[] declaredImportsAsStrings = new String[declaredImports.length];
+		                    for (int i=0; i<declaredImports.length; i++) {
+		                        declaredImportsAsStrings[i] = declaredImports[i].getElementName();
+		                    }
+							getImportsPostrocessor().organizeImports(workingCopy, declaredImportsAsStrings, new SubProgressMonitor(pm, 1));
+						} catch (CoreException e) {
+							workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1)); // save to investigate contents
+							throw e;
+						}
+						genText = mergeJavaCode(oldContents, workingCopy.getSource(), new SubProgressMonitor(pm, 1));
+						genText = formatCode(genText);
+						if (!genText.equals(oldContents)) {
+							workingCopy.getBuffer().setContents(genText);
+							workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
+							workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1));
+						} else {
+							// discard changes - would happen in finally, nothing else to do
+							pm.worked(1);
+						}
+					} finally {
+						workingCopy.discardWorkingCopy();
 					}
-					genText = mergeJavaCode(oldContents, workingCopy.getSource(), new SubProgressMonitor(pm, 1));
-					genText = formatCode(genText);
-					if (!genText.equals(oldContents)) {
-						workingCopy.getBuffer().setContents(genText);
-						workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
-						workingCopy.commitWorkingCopy(true, new SubProgressMonitor(pm, 1));
-					} else {
-						// discard changes - would happen in finally, nothing else to do
-						pm.worked(1);
-					}
-				} finally {
-					workingCopy.discardWorkingCopy();
+				} else {
+					cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
+					getImportsPostrocessor().organizeImports(cu, null, new SubProgressMonitor(pm, 1));
+					String newContents = formatCode(cu.getSource());
+					cu.getBuffer().setContents(newContents);
+					cu.save(new SubProgressMonitor(pm, 2), true);
 				}
-			} else {
-				cu = pf.createCompilationUnit(cu.getElementName(), genText, true, new SubProgressMonitor(pm, 1));
-				getImportsPostrocessor().organizeImports(cu, null, new SubProgressMonitor(pm, 1));
-				String newContents = formatCode(cu.getSource());
-				cu.getBuffer().setContents(newContents);
-				cu.save(new SubProgressMonitor(pm, 2), true);
+			} catch (NullPointerException ex) {
+				handleException(ex);
+			} catch (InvocationTargetException ex) {
+				handleException(ex.getCause());
+			} catch (UnexpectedBehaviourException ex) {
+				handleUnexpected(ex);
+			} catch (CoreException ex) {
+				handleException(ex);
+			} finally {
+				pm.done();
 			}
-		} catch (NullPointerException ex) {
-			handleException(ex);
-		} catch (InvocationTargetException ex) {
-			handleException(ex.getCause());
-		} catch (UnexpectedBehaviourException ex) {
-			handleUnexpected(ex);
-		} catch (CoreException ex) {
-			handleException(ex);
-		} finally {
-			pm.done();
 		}
 	}
 
