@@ -84,8 +84,10 @@ import xpt.Common_qvtoimport org.eclipse.gmf.gmfgraph.DiagramLabel
 	'''
 
 	def dispatch addLabel(ModeledViewmap it, GenLinkLabel label) '''
-		«var getterName = (figureModel as DiagramLabel).accessor.accessor»
-		«it.commonAddLabel(getterName,label)»
+		«var labelAccessor = (figureModel as DiagramLabel).accessor»
+		«IF labelAccessor != null && labelAccessor.accessor != null»
+			«it.commonAddLabel(labelAccessor.accessor,label)»
+		«ENDIF»
 	'''
 
 	def commonAddLabel(Viewmap it, String getterName, GenLinkLabel label) '''

@@ -374,6 +374,15 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getAllLabelsType_FeatureVerticalLabelLinks() {
+		return (EReference)allLabelsTypeEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getChildLabelNodeContainer() {
 		return childLabelNodeContainerEClass;
 	}
@@ -521,6 +530,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__SHORT_OBJECT);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__STRING);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__SIDE);
+		createEReference(allLabelsTypeEClass, ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS);
 
 		childLabelNodeContainerEClass = createEClass(CHILD_LABEL_NODE_CONTAINER);
 		createEReference(childLabelNodeContainerEClass, CHILD_LABEL_NODE_CONTAINER__GET_CHILDREN);
@@ -603,6 +613,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		initEAttribute(getAllLabelsType_ShortObject(), ecorePackage.getEShortObject(), "shortObject", "42", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_String(), ecorePackage.getEString(), "string", "Hello!", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_Side(), this.getSide(), "side", "LEFT", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAllLabelsType_FeatureVerticalLabelLinks(), this.getVerticalLabel(), null, "featureVerticalLabelLinks", null, 0, -1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childLabelNodeContainerEClass, ChildLabelNodeContainer.class, "ChildLabelNodeContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getChildLabelNodeContainer_GetChildren(), this.getChildLabelNode(), null, "getChildren", null, 1, 4, ChildLabelNodeContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

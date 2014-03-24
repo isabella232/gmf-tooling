@@ -293,13 +293,22 @@ public interface LabelsPackage extends EPackage {
 	int ALL_LABELS_TYPE__SIDE = NAMED_ELEMENT_FEATURE_COUNT + 20;
 
 	/**
+	 * The feature id for the '<em><b>Feature Vertical Label Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS = NAMED_ELEMENT_FEATURE_COUNT + 21;
+
+	/**
 	 * The number of structural features of the '<em>All Labels Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 21;
+	int ALL_LABELS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 22;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tooling.examples.labels.impl.ChildLabelNodeContainerImpl <em>Child Label Node Container</em>}' class.
@@ -770,6 +779,17 @@ public interface LabelsPackage extends EPackage {
 	EAttribute getAllLabelsType_Side();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getFeatureVerticalLabelLinks <em>Feature Vertical Label Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Feature Vertical Label Links</em>'.
+	 * @see org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getFeatureVerticalLabelLinks()
+	 * @see #getAllLabelsType()
+	 * @generated
+	 */
+	EReference getAllLabelsType_FeatureVerticalLabelLinks();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.tooling.examples.labels.ChildLabelNodeContainer <em>Child Label Node Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1100,6 +1120,14 @@ public interface LabelsPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ALL_LABELS_TYPE__SIDE = eINSTANCE.getAllLabelsType_Side();
+
+		/**
+		 * The meta object literal for the '<em><b>Feature Vertical Label Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS = eINSTANCE.getAllLabelsType_FeatureVerticalLabelLinks();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gmf.tooling.examples.labels.impl.ChildLabelNodeContainerImpl <em>Child Label Node Container</em>}' class.

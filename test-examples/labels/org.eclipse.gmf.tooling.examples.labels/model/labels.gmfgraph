@@ -122,12 +122,18 @@
       </actualFigure>
       <accessors figure="//@figures.0/@descriptors.6/@actualFigure/@children.0"/>
     </descriptors>
+    <descriptors name="AllLabelsType_LinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection">
+        <children xsi:type="gmfgraph:Label" name="FeatureLinkLabel" text="FeatureLinkLabel"/>
+      </actualFigure>
+    </descriptors>
   </figures>
   <nodes name="AllLabelsType" figure="AllLabelsTypeFigure"/>
   <nodes name="ChildLabelNodeContainer" figure="ChildLabelNodeContainerFigure"/>
   <nodes name="GenLabelNode" figure="GenLabelNodeFigure"/>
   <nodes name="VerticalLabel" figure="VerticalLabelFigure"/>
   <connections name="VericalLabel_GenLabel_Connection" figure="VericalLabel_GenLabel_ConnectionFigure"/>
+  <connections name="AllLabelsType_VerticalLabel_Connection" figure="AllLabelsType_LinkFigure"/>
   <compartments name="LabelContainer" figure="ChildLabelNodeContainerFigure" collapsible="true" needsTitle="true" accessor="//@figures.0/@descriptors.1/@accessors.1"/>
   <labels name="AllLabelsTypeName" figure="AllLabelsTypeFigure" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
   <labels name="AllLabelsTypeBigDecimal" figure="AllLabelsTypeFigure" accessor="//@figures.0/@descriptors.0/@accessors.1"/>

@@ -5,17 +5,21 @@ package org.eclipse.gmf.tooling.examples.labels.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.tooling.examples.labels.AllLabelsType;
 import org.eclipse.gmf.tooling.examples.labels.LabelsPackage;
 import org.eclipse.gmf.tooling.examples.labels.Side;
+import org.eclipse.gmf.tooling.examples.labels.VerticalLabel;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,6 +49,7 @@ import org.eclipse.gmf.tooling.examples.labels.Side;
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getShortObject <em>Short Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getString <em>String</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getSide <em>Side</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getFeatureVerticalLabelLinks <em>Feature Vertical Label Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -470,6 +475,16 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @ordered
 	 */
 	protected Side side = SIDE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getFeatureVerticalLabelLinks() <em>Feature Vertical Label Links</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getFeatureVerticalLabelLinks()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<VerticalLabel> featureVerticalLabelLinks;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -936,6 +951,18 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<VerticalLabel> getFeatureVerticalLabelLinks() {
+		if (featureVerticalLabelLinks == null) {
+			featureVerticalLabelLinks = new EObjectResolvingEList<VerticalLabel>(VerticalLabel.class, this, LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS);
+		}
+		return featureVerticalLabelLinks;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -981,6 +1008,8 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return getString();
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				return getSide();
+			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
+				return getFeatureVerticalLabelLinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -990,6 +1019,7 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -1055,6 +1085,10 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return;
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				setSide((Side)newValue);
+				return;
+			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
+				getFeatureVerticalLabelLinks().clear();
+				getFeatureVerticalLabelLinks().addAll((Collection<? extends VerticalLabel>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -1131,6 +1165,9 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				setSide(SIDE_EDEFAULT);
 				return;
+			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
+				getFeatureVerticalLabelLinks().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1185,6 +1222,8 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return STRING_EDEFAULT == null ? string != null : !STRING_EDEFAULT.equals(string);
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				return side != SIDE_EDEFAULT;
+			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
+				return featureVerticalLabelLinks != null && !featureVerticalLabelLinks.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

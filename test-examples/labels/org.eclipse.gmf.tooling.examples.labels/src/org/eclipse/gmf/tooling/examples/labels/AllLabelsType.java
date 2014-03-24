@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import java.util.Date;
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,6 +37,7 @@ import java.util.Date;
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getShortObject <em>Short Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getString <em>String</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getSide <em>Side</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getFeatureVerticalLabelLinks <em>Feature Vertical Label Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -608,5 +610,21 @@ public interface AllLabelsType extends NamedElement {
 	 * @generated
 	 */
 	void setSide(Side value);
+
+	/**
+	 * Returns the value of the '<em><b>Feature Vertical Label Links</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.tooling.examples.labels.VerticalLabel}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Feature Vertical Label Links</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Feature Vertical Label Links</em>' reference list.
+	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_FeatureVerticalLabelLinks()
+	 * @model
+	 * @generated
+	 */
+	EList<VerticalLabel> getFeatureVerticalLabelLinks();
 
 } // AllLabelsType

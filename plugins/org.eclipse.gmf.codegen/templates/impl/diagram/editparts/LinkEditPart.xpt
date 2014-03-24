@@ -54,8 +54,10 @@
 «ENDDEFINE»
 
 «DEFINE addLabel(label : gmfgen::GenLinkLabel) FOR gmfgen::ModeledViewmap-»
-	«LET figureModel.oclAsType(gmfgraph::DiagramLabel).accessor.accessor AS getterName-»
-		«EXPAND addLabelCommonCode(getterName, label)-»
+	«LET figureModel.oclAsType(gmfgraph::DiagramLabel).accessor AS labelAccessor-»
+		«IF not labelAccessor.oclIsUndefined() and not labelAccessor.accessor.oclIsUndefined()-»
+			«EXPAND addLabelCommonCode(labelAccessor.accessor, label)-»
+		«ENDIF-»
 	«ENDLET-»
 «ENDDEFINE»
 

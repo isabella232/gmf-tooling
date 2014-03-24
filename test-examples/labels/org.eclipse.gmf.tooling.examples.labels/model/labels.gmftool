@@ -63,6 +63,10 @@
         <largeIcon
             xsi:type="gmftool:DefaultImage"/>
       </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="AllLabelTypes_VerticalLabel_Link"
+          description="Create new AllLabelTypes_VerticalLabel_Link"/>
     </tools>
   </palette>
 </gmftool:ToolRegistry>

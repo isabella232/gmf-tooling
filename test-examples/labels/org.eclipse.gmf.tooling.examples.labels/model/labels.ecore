@@ -41,6 +41,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="Hello!"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="side" eType="#//Side" defaultValueLiteral="LEFT"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureVerticalLabelLinks"
+        upperBound="-1" eType="#//VerticalLabel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChildLabelNodeContainer" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="getChildren" lowerBound="1"
