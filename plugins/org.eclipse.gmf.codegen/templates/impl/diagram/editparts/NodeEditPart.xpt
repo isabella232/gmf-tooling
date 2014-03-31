@@ -34,7 +34,7 @@
 «ENDDEFINE»
 
 «DEFINE createDefaultEditPoliciesBody FOR gmfgen::GenNode-»
-	«EXPAND installCreationRolePolicy-»
+«EXPAND installCreationRolePolicy-»
 	super.createDefaultEditPolicies();
 	«EXPAND installPrimaryDragEditPolicy-»
 	«EXPAND xpt::diagram::editparts::Common::installSemanticEditPolicy-»
@@ -47,7 +47,10 @@
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
 	// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 	// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+	«EXPAND additionalEditPolicies-»
 «ENDDEFINE»
+
+«DEFINE additionalEditPolicies FOR gmfgen::GenNode»«ENDDEFINE»
 
 «DEFINE installGraphicalNodeEditPolicy FOR gmfgen::GenNode-»
 	«IF needsGraphicalNodeEditPolicy(self)-»

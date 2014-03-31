@@ -33,8 +33,10 @@
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «getDiagram().getTextNonResizableEditPolicyQualifiedClassName()»());
 	installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy());
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
-	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	«EXPAND additionalEditPolicies-»
 «ENDDEFINE»
+	
+«DEFINE additionalEditPolicies FOR gmfgen::GenChildLabelNode»«ENDDEFINE»
 
 «DEFINE handleNotificationEventBody FOR gmfgen::GenChildLabelNode-»
 	Object feature = event.getFeature();

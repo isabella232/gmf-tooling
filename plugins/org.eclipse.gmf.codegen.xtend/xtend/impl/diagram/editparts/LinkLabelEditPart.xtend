@@ -54,7 +54,11 @@ import xpt.diagram.editpolicies.TextSelectionEditPolicy
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,	new «linkLabelDragPolicyQualifiedClassName(
 			it.getDiagram())»());
 		«xptEditpartsCommon.behaviour(it)»
+		«additionalEditPolicies(it)»
 	'''
+
+
+	def additionalEditPolicies(GenLinkLabel it) ''''''
 
 	def getKeyPoint(GenLinkLabel it) '''
 		«generatedMemberComment»

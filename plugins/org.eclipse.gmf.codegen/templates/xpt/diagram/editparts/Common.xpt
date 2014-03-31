@@ -36,7 +36,7 @@
 
 «DEFINE behaviour FOR gmfgen::OpenDiagramBehaviour-»
 	installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.OPEN_ROLE,
-		new «getEditPolicyQualifiedClassName()»());
+		new «getEditPolicyQualifiedClassName()»());«-»
 «ENDDEFINE»
 
 «DEFINE labelFigure FOR gmfgen::ParentAssignedViewmap-»

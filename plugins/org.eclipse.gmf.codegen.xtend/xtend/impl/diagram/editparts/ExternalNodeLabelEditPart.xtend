@@ -49,7 +49,10 @@ import xpt.diagram.editpolicies.TextSelectionEditPolicy
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 		installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «textSelestion.qualifiedClassName(getDiagram())»());
 		«xptEditpartsCommon.behaviour(it)»
+		«additionalEditPolicies(it)»
 	'''
+
+	def additionalEditPolicies(GenExternalNodeLabel it) ''''''
 
 	def getBorderItemLocator(GenExternalNodeLabel it) '''
 		«generatedMemberComment»

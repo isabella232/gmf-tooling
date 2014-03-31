@@ -35,7 +35,10 @@
 	installEditPolicy(org.eclipse.gef.EditPolicy.SELECTION_FEEDBACK_ROLE, new «getDiagram().getTextSelectionEditPolicyQualifiedClassName()»());
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE,	new «EXPAND linkLabelDragPolicyQualifiedClassName FOR self.getDiagram()»());
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	«EXPAND additionalEditPolicies-»
 «ENDDEFINE»
+
+«DEFINE additionalEditPolicies FOR gmfgen::GenLinkLabel»«ENDDEFINE»
 
 «DEFINE getKeyPoint FOR gmfgen::GenLinkLabel-»
 	«EXPAND xpt::Common::generatedMemberComment»

@@ -83,7 +83,10 @@ import xpt.providers.ElementTypesimport org.eclipse.gmf.codegen.gmfgen.GenLink
 		«ENDIF»
 		«xptEditpartsCommon.installCanonicalEditPolicy(it)»
 		«xptEditpartsCommon.behaviour(it)»
+		«additionalEditPolicies(it)»
 	'''
+
+	def additionalEditPolicies(GenCompartment it) ''''''
 
 	def refreshVisuals(GenCompartment it) '''
 		«IF isStoringChildPositions(node)»

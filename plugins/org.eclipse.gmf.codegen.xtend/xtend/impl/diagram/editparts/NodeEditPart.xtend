@@ -86,8 +86,11 @@ import xpt.diagram.editparts.EditPartFactory
 		«xptEditpartsCommon.behaviour(it)»
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		«additionalEditPolicies(it)»
 	'''
 	
+	def additionalEditPolicies(GenNode it) ''''''
+
 	def installGraphicalNodeEditPolicy(GenNode it) '''
 		«IF needsGraphicalNodeEditPolicy(it)»
 			installEditPolicy(org.eclipse.gef.EditPolicy.GRAPHICAL_NODE_ROLE, new «graphicalEditPolicy.qualifiedClassName(it)»());

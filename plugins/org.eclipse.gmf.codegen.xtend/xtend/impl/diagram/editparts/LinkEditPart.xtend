@@ -57,9 +57,12 @@ import xpt.Common_qvtoimport org.eclipse.gmf.gmfgraph.DiagramLabel
 		«xptEditpartsCommon.installSemanticEditPolicy(it)»
 		«installGraphicalNodeEditPolicy(it)»
 		«xptEditpartsCommon.behaviour(it)»
+		«additionalEditPolicies(it)»
 	'''
 	
 	def installGraphicalNodeEditPolicy(GenLink it) ''''''
+
+	def additionalEditPolicies(GenLink it) ''''''
 
 	/**
 	 * FIXME: [MG] check counterpart for ModeledViewmap, 
