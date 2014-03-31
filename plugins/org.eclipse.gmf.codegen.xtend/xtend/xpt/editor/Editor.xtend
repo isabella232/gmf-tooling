@@ -25,12 +25,12 @@ import xpt.Externalizer
 import xpt.ExternalizerUtils_qvto
 import xpt.navigator.NavigatorLinkHelper
 import xpt.editor.palette.PaletteFactory
-import xpt.navigator.NavigatorItem
+import xpt.navigator.NavigatorItemimport xpt.CodeStyle
 
 @com.google.inject.Singleton class Editor {
 	@Inject extension Common;
 	@Inject extension Common_qvto;
-
+	@Inject extension CodeStyle;
 	@Inject extension ExternalizerUtils_qvto;
 
 	@Inject Externalizer xptExternalizer;
@@ -105,6 +105,10 @@ import xpt.navigator.NavigatorItem
 				
 					«initializeGraphicalViewer(it)»
 					
+					«controlLastClickPositionProviderService»
+					
+					«dispose»
+					
 					«DropTargetListener(it)»
 			«ENDIF»
 		
@@ -118,6 +122,11 @@ import xpt.navigator.NavigatorItem
 			
 		«generatedMemberComment»
 		public static final String CONTEXT_ID = "«contextID»"; «nonNLS(1)»
+		
+		«IF editorGen.diagram.generateCreateShortcutAction()»
+			«generatedMemberComment»
+			private org.eclipse.gmf.tooling.runtime.part.LastClickPositionProvider myLastClickPositionProvider;
+		«ENDIF»
 	'''
 
 	def constructor(GenEditorView it) '''
@@ -346,6 +355,35 @@ import xpt.navigator.NavigatorItem
 			super.initializeGraphicalViewer();
 			«addDropTargetListener('org.eclipse.jface.util.LocalSelectionTransfer.getTransfer()')»
 			«addDropTargetListener('org.eclipse.emf.edit.ui.dnd.LocalTransfer.getInstance()')»
+			startupLastClickPositionProvider();
+		}
+	'''
+
+	def controlLastClickPositionProviderService(GenEditorView it)'''
+		«generatedMemberComment»
+		protected void startupLastClickPositionProvider() {
+			if (myLastClickPositionProvider == null) {
+				myLastClickPositionProvider = new org.eclipse.gmf.tooling.runtime.part.LastClickPositionProvider(this);
+				myLastClickPositionProvider.attachToService();
+			}
+		}
+
+		«generatedMemberComment»
+		protected void shutDownLastClickPositionProvider() {
+			if (myLastClickPositionProvider != null) {
+				myLastClickPositionProvider.detachFromService();
+				myLastClickPositionProvider.dispose();
+				myLastClickPositionProvider = null;
+			}
+		}
+	'''
+
+	def dispose(GenEditorView it)'''
+		«generatedMemberComment»
+		«overrideC(editorGen.diagram)»
+		public void dispose() {
+			shutDownLastClickPositionProvider();
+			super.dispose();
 		}
 	'''
 

@@ -48,7 +48,7 @@ import xpt.providers.ElementInitializers
 		«providersAccessMethods»
 		«logError»
 		«logInfo»
-		«debug»
+		«getLogError(it)»
 		«additions»
 	}
 '''
@@ -56,6 +56,9 @@ import xpt.providers.ElementInitializers
 def attrs(GenPlugin it)'''
 	«generatedMemberComment»
 	public static final String ID = "«ID»"; //$NON-NLS-1$
+
+	«generatedMemberComment»
+	private org.eclipse.gmf.tooling.runtime.LogHelper myLogHelper;
 
 	«generatedMemberComment»
 	public static final org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint DIAGRAM_PREFERENCES_HINT =
@@ -97,6 +100,7 @@ def start(GenPlugin it)'''
 	public void start(org.osgi.framework.BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
+		myLogHelper = new org.eclipse.gmf.tooling.runtime.LogHelper(this);
 		org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 		adapterFactory = createAdapterFactory();
 	}
@@ -300,55 +304,31 @@ def providerSetter(GenExpressionInterpreter it)'''
 def logError(GenPlugin it)'''
 	«generatedMemberComment»
 	public void logError(String error) {
-		logError(error, null);
+		getLogHelper().logError(error, null);
 	}
 	
 	«generatedMemberComment»
 	public void logError(String error, Throwable throwable) {
-		if (error == null && throwable != null) {
-			error = throwable.getMessage();
-		}
-		getLog().log(new org.eclipse.core.runtime.Status(
-				org.eclipse.core.runtime.IStatus.ERROR,
-				«xptActivator.className(it)».ID,
-				org.eclipse.core.runtime.IStatus.OK,
-				error, throwable));
-		debug(error, throwable);
+		getLogHelper().logError(error, throwable);
 	}
 '''
 
 def logInfo(GenPlugin it)'''
 	«generatedMemberComment»
 	public void logInfo(String message) {
-		logInfo(message, null);
+		getLogHelper().logInfo(message, null);
 	}
 
 	«generatedMemberComment»
 	public void logInfo(String message, Throwable throwable) {
-		if (message == null && throwable != null) {
-			message = throwable.getMessage();
-		}
-		getLog().log(new org.eclipse.core.runtime.Status(
-				org.eclipse.core.runtime.IStatus.INFO,
-				«xptActivator.className(it)».ID,
-				org.eclipse.core.runtime.IStatus.OK,
-				message, throwable));
-		debug(message, throwable);
+		getLogHelper().logInfo(message, throwable);
 	}
 '''
 
-def debug(GenPlugin it)'''
+def getLogError(GenPlugin it) '''
 	«generatedMemberComment»
-	private void debug(String message, Throwable throwable) {
-		if (!isDebugging()) {
-			return;
-		}
-		if (message != null) {
-			System.err.println(message);
-		}
-		if (throwable != null) {
-			throwable.printStackTrace();
-		}
+	public org.eclipse.gmf.tooling.runtime.LogHelper getLogHelper() {
+		return myLogHelper;
 	}
 '''
 
