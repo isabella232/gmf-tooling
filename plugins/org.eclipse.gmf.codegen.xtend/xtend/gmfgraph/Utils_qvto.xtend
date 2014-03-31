@@ -37,7 +37,7 @@ import org.eclipse.gmf.gmfgraph.SVGPropertyType
 import org.eclipse.gmf.gmfgraph.Shape
 import org.eclipse.gmf.codegen.xtend.annotations.MetaDef
 import xpt.Common_qvto
-import com.google.inject.Inject
+import com.google.inject.Injectimport java.util.LinkedList
 
 @com.google.inject.Singleton class Utils_qvto {
 	@Inject extension Common_qvto;
@@ -81,8 +81,12 @@ import com.google.inject.Inject
 		return null != figure.targetDecoration
 	}
 
-	def boolean needsField(RealFigure figure) {
+	def dispatch boolean needsField(RealFigure figure) {
 		return figure.descriptor != null && figure.descriptor.accessors.exists[a|a.figure == figure]
+	}
+
+	def dispatch boolean needsField(CustomFigure figure) {
+		return figure.descriptor != null && !figure.customChildren.empty;
 	}
 
 	def String figureVariableName(RealFigure figure, int count) {
@@ -139,15 +143,19 @@ import com.google.inject.Inject
 		return 'conn'
 	}
 
-	def String figureFieldName(RealFigure xptSelf) {
+	def dispatch String figureFieldName(RealFigure xptSelf) {
 		return figureFieldName(xptSelf.descriptor.accessors.filter[a|xptSelf == a.figure])
 	}
 
-	def String figureFieldName(ChildAccess xptSelf) {
+	def dispatch String figureFieldName(ChildAccess xptSelf) {
 		return 'f' + xptSelf.accessor.trimPrefixIfAny('get')
 	}
 
-	def String figureFieldName(Iterable<ChildAccess> accesses) {
+	def dispatch String figureFieldName(CustomFigure xptSelf) {
+			return 'my' + xptSelf.name.toFirstUpper;
+	}
+
+	def dispatch String figureFieldName(Iterable<ChildAccess> accesses) {
 		return accesses.map[x|x.figureFieldName()].head
 	}
 
@@ -173,6 +181,19 @@ import com.google.inject.Inject
 		if(figures.empty) return;
 		acc.addAll(figures.filter(typeof(CustomFigure)));
 		deepCollectCustom(figures.filter(typeof(RealFigure)).map[rf|rf.children].flatten, acc)
+		deepCollectCustom(figures.filter(typeof(CustomFigure)).map[rf|rf.customChildren].flatten.map[cc | cc.typedFigure].filter(typeof(Figure)), acc)
+	}
+	
+	def LinkedList<FigureAccessor> getCustomFigureChainFigureAccess(ChildAccess it) {
+		val result = <FigureAccessor>newLinkedList();
+		if (oclIsKindOf(it.figure, CustomFigure)) {
+			var cf = it.figure as CustomFigure;
+			while (oclIsKindOf(cf.eContainer, FigureAccessor)) {
+				result.push(cf.eContainer as FigureAccessor)
+				cf = cf.eContainer.eContainer as CustomFigure;
+			}
+		}
+		return result;
 	}
 
 	def String svgPropertyType(SVGProperty p) {

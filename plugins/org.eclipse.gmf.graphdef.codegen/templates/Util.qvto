@@ -14,6 +14,7 @@ import xpt.StreamOperations;
 import xpt.StringOperations;
 
 modeltype gmfgraph uses "http://www.eclipse.org/gmf/2006/GraphicalDefinition";
+modeltype ECORE uses ecore('http://www.eclipse.org/emf/2002/Ecore');
 
 library Util;
 
@@ -72,6 +73,10 @@ return xpandGetStringGlobalVar('runtimeToken')
 
 helper needsField(figure : gmfgraph::RealFigure) : Boolean {
 	return figure.descriptor <> null and figure.descriptor.accessors.figure->includes(figure)
+}
+
+helper needsField(figure : gmfgraph::CustomFigure) : Boolean {
+	return figure.descriptor <> null and not figure.customChildren->isEmpty()
 }
 
 helper figureVariableName(figure : gmfgraph::RealFigure, count : Integer) : String {
@@ -134,6 +139,10 @@ helper figureFieldName(aaa : Sequence(gmfgraph::ChildAccess)) : String {
 	return aaa->collect(x | x.figureFieldName())->first()
 }
 
+helper figureFieldName(xptSelf : CustomFigure) : String {
+	return 'my' + xptSelf.name.firstToUpper();
+}
+
 helper gmfgraph::ChildAccess::figureFieldName() : String {
 	return 'f' + (if self.accessor.startsWith('get') and self.accessor.size() > 3 then self.accessor.substringAfter('get') else self.accessor endif)
 }
@@ -146,10 +155,35 @@ helper allCustomAccessors(fd : gmfgraph::FigureDescriptor) : Sequence(gmfgraph::
 	return filterCustom(Sequence { fd.actualFigure }).customChildren
 }
 
-helper filterCustom(figures : Sequence(gmfgraph::Figure)) : Sequence(gmfgraph::CustomFigure) {
-	return (if figures->isEmpty() then Sequence {  } else (figures)[gmfgraph::CustomFigure]->union(filterCustom((figures)[gmfgraph::RealFigure].children))->asOrderedSet()->asSequence() endif)->collect(it | it)->asSequence()
+helper filterCustom(fd : gmfgraph::FigureDescriptor) : Sequence(gmfgraph::CustomFigure) {
+	return filterCustom(Sequence { fd.actualFigure });
 }
 
+helper filterCustom(figures : Sequence(gmfgraph::Figure)) : Sequence(gmfgraph::CustomFigure) {
+	return (if figures->isEmpty() then Sequence { } else
+		(figures)[gmfgraph::CustomFigure]->
+			union(filterCustom((figures)[gmfgraph::RealFigure].children))->
+			union(filterCustom((figures)[gmfgraph::CustomFigure].customChildren.
+				typedFigure)) endif)->collect(it | it)->asSequence()
+}
+
+helper getCustomFigureChainFigureAccess(xptSelf : gmfgraph::ChildAccess) : Sequence(gmfgraph::FigureAccessor) {
+	var res : Sequence(FigureAccessor) = Sequence { } ;
+	var cf = xptSelf.figure;
+	if cf <> null and cf.oclAsType(EObject).eContainer().oclIsKindOf(gmfgraph::FigureAccessor) then
+		return getChainFigureAccessors(cf.oclAsType(EObject).eContainer().oclAsType(gmfgraph::FigureAccessor))
+	endif;
+	return null;
+}
+
+helper getChainFigureAccessors(accessor : gmfgraph::FigureAccessor) : Sequence(gmfgraph::FigureAccessor){
+	var res : Sequence(FigureAccessor) = Sequence { } ;
+	var figure = accessor.oclAsType(ECORE::EObject).eContainer();
+	if figure.oclIsKindOf(gmfgraph::CustomFigure) and figure.eContainer().oclIsKindOf(gmfgraph::FigureAccessor) then {
+		res := getChainFigureAccessors(figure.eContainer().oclAsType(gmfgraph::FigureAccessor));
+	} endif;
+	return res->append(accessor);
+}
 
 helper svgPropertyType(p : gmfgraph::SVGProperty) : String {
 	return switch { case (p.type = gmfgraph::SVGPropertyType::COLOR) 'org.eclipse.swt.graphics.Color'; case (p.type = gmfgraph::SVGPropertyType::FLOAT) 'float'; else 'String'; }

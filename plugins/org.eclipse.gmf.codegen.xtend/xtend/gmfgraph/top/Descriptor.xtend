@@ -19,10 +19,12 @@ import gmfgraph.Utils_qvto
 import org.eclipse.gmf.gmfgraph.ChildAccess
 import org.eclipse.gmf.gmfgraph.FigureAccessor
 import org.eclipse.gmf.gmfgraph.FigureDescriptor
-import xpt.Common
+import xpt.Commonimport xpt.Common_qvto
+import org.eclipse.gmf.gmfgraph.CustomFigure
 
 @com.google.inject.Singleton class Descriptor {
 	@Inject extension Common;
+	@Inject extension Common_qvto;
 	@Inject extension Utils_qvto;
 	@Inject extension Utils_Statefull_qvto;
 
@@ -52,6 +54,10 @@ import xpt.Common
 			«accessorField(acc)»
 		«ENDFOR»
 		
+		«FOR custom : filterCustom(newLinkedList(it.actualFigure))»
+			«IF needsField(custom)»«accessorCustomField(custom)»«ENDIF»
+		«ENDFOR»
+		
 		«xptFigure.ClassBody(it.actualFigure, compilationUnitName(it))»
 		
 		«FOR acc : accessors.filter[a|!allCustomAccessors(it).map[typedFigure].exists[f|f == a.figure]]»
@@ -66,6 +72,11 @@ import xpt.Common
 	def accessorField(ChildAccess it) '''
 		«generatedMemberComment»
 		private «xptRuntime.fqn(it.figure)» «it.figureFieldName()»; 
+	'''
+
+	def accessorCustomField(CustomFigure it) '''
+		«generatedMemberComment»
+		private «xptRuntime.fqn(it)» «figureFieldName(it)»;
 	'''
 
 	/**
@@ -86,7 +97,11 @@ import xpt.Common
 	def accessorToCustom(ChildAccess it, Iterable<FigureAccessor> fa) '''
 		«generatedMemberComment»
 		public «xptRuntime.fqn(it.figure)» «it.accessor»() {
-			return «fa.filter[accessor != null].head.accessor»;
+			«val chain = it.customFigureChainFigureAccess»
+			return «(chain.first.eContainer as CustomFigure).figureFieldName»
+				«FOR figureAccess : chain»
+					«IF figureAccess.accessor !=null && !figureAccess.accessor.empty».«figureAccess.accessor»()«ELSE»«ERROR('Invalide figure accessor ' + figureAccess.toString)»«ENDIF»
+				«ENDFOR»;
 		}
 	'''
 

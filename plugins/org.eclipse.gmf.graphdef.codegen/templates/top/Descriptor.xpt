@@ -11,6 +11,7 @@
  */
 
 «IMPORT 'http://www.eclipse.org/gmf/2006/GraphicalDefinition'»
+«IMPORT 'http://www.eclipse.org/emf/2002/Ecore'»
 
 «EXTENSION Util»
 
@@ -43,11 +44,13 @@ public class «compilationUnitName(self)» extends «EXPAND Runtime::fqn FOR act
 
 «EXPAND accessorField FOREACH accessors->select(a | not (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))»
 
+«FOREACH filterCustom(Sequence {self.actualFigure}) AS custom»«IF needsField(custom)»«EXPAND accessorCustomField FOR custom»«ENDIF»«ENDFOREACH»
+
 «EXPAND Figure::ClassBody(compilationUnitName(self)) FOR actualFigure»
 
 «EXPAND accessorToField FOREACH accessors->select(a | not (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))»
 «FOREACH accessors->select(a | (allCustomAccessors(self).typedFigure)[gmfgraph::Figure]->includes(a.figure))->asSequence() AS a-»
-«EXPAND accessorToCustom(allCustomAccessors(self)->select(fa | fa.typedFigure = a.figure)) FOR a»
+«EXPAND accessorToCustom(getCustomFigureChainFigureAccess(a)) FOR a»
 «ENDFOREACH-»
 «ENDDEFINE»
 
@@ -57,6 +60,13 @@ public class «compilationUnitName(self)» extends «EXPAND Runtime::fqn FOR act
 	 * @generated
 	 */
 	private «EXPAND Runtime::fqn FOR figure» «self.figureFieldName()»; 
+«ENDDEFINE»
+
+«DEFINE accessorCustomField FOR gmfgraph::CustomFigure-»
+	/**
+	 * @generated
+	 */
+	private «EXPAND Runtime::fqn FOR self» «figureFieldName(self)»;
 «ENDDEFINE»
 
 «REM»ChildAccess points to figure we've generated, there's a field for it«ENDREM»
@@ -78,6 +88,8 @@ FigureAccessor.accessor
 	 * @generated
 	 */
 	public «EXPAND Runtime::fqn FOR figure» «accessor»() {
-		return «fa.accessor->first()»;
+		return «figureFieldName(fa->first().oclAsType(ecore::EObject).eContainer().oclAsType(CustomFigure))-»
+			«FOREACH fa AS figureAccessor»«IF figureAccessor.accessor <> null and not figureAccessor.accessor->isEmpty()».«figureAccessor.accessor»()«ELSE-»
+				«ERROR 'Invalide figure accessor' + figureAccessor.repr()»«ENDIF»«ENDFOREACH»;
 	}
 «ENDDEFINE»
