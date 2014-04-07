@@ -27,6 +27,17 @@
 	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
 	«EXPAND xpt::diagram::editparts::Common::installCreationEditPolicy-»
 	«IF generateCreateShortcutAction() and null = editorGen.application-»
+		«EXPAND dragDropEditPolicy-»
+	«ENDIF-»
+	«IF shouldGenerateDiagramViewmap(self)-»
+		«EXPAND layotEditPolicy-»
+	«ENDIF-»
+	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
+	«EXPAND additionalEditPolicies-»
+«ENDDEFINE»
+
+	«DEFINE dragDropEditPolicy FOR gmfgen::GenDiagram-»
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {
 			public org.eclipse.gef.commands.Command getDropObjectsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
 				«EXPAND CodeStyle::newGenericInstance('viewDescriptors', 'java.util.ArrayList', 'org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor')»();
@@ -48,8 +59,9 @@
 				return null;
 			}
 		});
-	«ENDIF-»
-	«IF shouldGenerateDiagramViewmap(self)-»
+	«ENDDEFINE»
+	
+	«DEFINE layotEditPolicy FOR gmfgen::GenDiagram-»
 		// diagram figure does layout; need to install child editpolicy to show selection feedback
 		installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
@@ -64,10 +76,9 @@
 				return null;
 			}
 		});
-	«ENDIF-»
-	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
-	// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
-«ENDDEFINE»
+	«ENDDEFINE»
+
+	«DEFINE additionalEditPolicies FOR gmfgen::GenDiagram»«ENDDEFINE»
 
 «DEFINE createFigure FOR gmfgen::GenDiagram-»
 	«IF shouldGenerateDiagramViewmap(self)-»

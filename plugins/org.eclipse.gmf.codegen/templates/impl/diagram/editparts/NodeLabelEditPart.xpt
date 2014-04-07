@@ -27,7 +27,10 @@
 	installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 	installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «EXPAND nodeLabelDragPolicyQualifiedClassName FOR self.getDiagram()»());
 	«EXPAND xpt::diagram::editparts::Common::behaviour FOR self-»
+	«EXPAND additionalEditPolicies-»
 «ENDDEFINE»
+
+«DEFINE additionalEditPolicies FOR gmfgen::GenNodeLabel»«ENDDEFINE»
 
 «DEFINE refreshBounds FOR gmfgen::GenNodeLabel-»
 	«IF isStoringChildPositions(node)-»

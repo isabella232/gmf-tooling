@@ -42,11 +42,22 @@ import xpt.diagram.commands.CreateShortcutDecorationsCommand
 	'''
 
 	def createDefaultEditPoliciesBody(GenDiagram it) '''
-	super.createDefaultEditPolicies();
-	«xptEditpartsCommon.installSemanticEditPolicy(it)»
-	«xptEditpartsCommon.installCanonicalEditPolicy(it)»
-	«xptEditpartsCommon.installCreationEditPolicy(it)»
-	«IF generateCreateShortcutAction() && null == editorGen.application»
+		super.createDefaultEditPolicies();
+		«xptEditpartsCommon.installSemanticEditPolicy(it)»
+		«xptEditpartsCommon.installCanonicalEditPolicy(it)»
+		«xptEditpartsCommon.installCreationEditPolicy(it)»
+		«IF generateCreateShortcutAction() && null == editorGen.application»
+			«dragDropEditPolicy(it)»
+		«ENDIF»
+		«IF shouldGenerateDiagramViewmap(it)»
+			«layotEditPolicy(it)»
+		«ENDIF»
+		«xptEditpartsCommon.behaviour(it)»
+		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
+		«additionalEditPolicies(it)»
+	'''
+
+	def dragDropEditPolicy(GenDiagram it) '''
 		installEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.DRAG_DROP_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.DiagramDragDropEditPolicy() {
 			public org.eclipse.gef.commands.Command getDropObjectsCommand(org.eclipse.gmf.runtime.diagram.ui.requests.DropObjectsRequest dropRequest) {
 				java.util.ArrayList<org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor> viewDescriptors = new java.util.ArrayList<org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest.ViewDescriptor>();
@@ -68,8 +79,9 @@ import xpt.diagram.commands.CreateShortcutDecorationsCommand
 				return null;
 			}
 		});
-	«ENDIF»
-	«IF shouldGenerateDiagramViewmap(it)»
+	'''
+	
+	def layotEditPolicy(GenDiagram it) '''
 		// diagram figure does layout; need to install child editpolicy to show selection feedback
 		installEditPolicy(org.eclipse.gef.EditPolicy.LAYOUT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LayoutEditPolicy() {
 			protected org.eclipse.gef.EditPolicy createChildEditPolicy(org.eclipse.gef.EditPart child) {
@@ -84,10 +96,9 @@ import xpt.diagram.commands.CreateShortcutDecorationsCommand
 				return null;
 			}
 		});
-	«ENDIF»
-	«xptEditpartsCommon.behaviour(it)»
-	// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.POPUPBAR_ROLE);
-'''
+	'''
+
+	def additionalEditPolicies(GenDiagram it) ''''''
 
 	def createFigure(GenDiagram it) '''
 		«IF shouldGenerateDiagramViewmap(it)»

@@ -61,7 +61,11 @@
 	«ENDIF-»
 	«EXPAND xpt::diagram::editparts::Common::installCanonicalEditPolicy-»
 	«EXPAND xpt::diagram::editparts::Common::behaviour-»
+	«EXPAND additionalEditPolicies-»
 «ENDDEFINE»
+
+
+«DEFINE additionalEditPolicies FOR gmfgen::GenCompartment»«ENDDEFINE»
 
 «DEFINE refreshVisuals FOR gmfgen::GenCompartment-»
 	«IF isStoringChildPositions(node)-»

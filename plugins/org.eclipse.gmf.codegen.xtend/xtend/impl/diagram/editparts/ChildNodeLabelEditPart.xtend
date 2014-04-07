@@ -55,7 +55,10 @@ import xpt.diagram.editpolicies.TextNonResizableEditPolicyimport xpt.CodeStyle
 		installEditPolicy(org.eclipse.gef.EditPolicy.COMPONENT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.ListItemComponentEditPolicy());
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 		«xptEditpartsCommon.behaviour(it)»
+		«additionalEditPolicies(it)»
 	'''
+
+	def additionalEditPolicies(GenChildLabelNode it) ''''''
 
 	def handleNotificationEventBody(GenChildLabelNode it) '''
 		Object feature = event.getFeature();

@@ -45,7 +45,11 @@ import xpt.diagram.editpolicies.TextSelectionEditPolicy
 		installEditPolicy(org.eclipse.gef.EditPolicy.DIRECT_EDIT_ROLE, new org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy());
 		installEditPolicy(org.eclipse.gef.EditPolicy.PRIMARY_DRAG_ROLE, new «nodeLabelDragPolicyQualifiedClassName(it.diagram)»());
 		«xptEditpartsCommon.behaviour(it)»
+		«additionalEditPolicies(it)»
 	'''
+
+
+	def additionalEditPolicies(GenNodeLabel it) ''''''
 
 	def refreshBounds(GenNodeLabel it) '''
 		«IF isStoringChildPositions(it.node)»
