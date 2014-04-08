@@ -22,6 +22,7 @@ import org.eclipse.gmf.tooling.examples.links.Root_BA_Element_Link;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.tooling.examples.links.impl.Root_BA_Element_LinkImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.links.impl.Root_BA_Element_LinkImpl#getB <em>B</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.links.impl.Root_BA_Element_LinkImpl#getA <em>A</em>}</li>
  * </ul>
@@ -30,6 +31,26 @@ import org.eclipse.gmf.tooling.examples.links.Root_BA_Element_Link;
  * @generated
  */
 public class Root_BA_Element_LinkImpl extends MinimalEObjectImpl.Container implements Root_BA_Element_Link {
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getB() <em>B</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -67,6 +88,27 @@ public class Root_BA_Element_LinkImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	protected EClass eStaticClass() {
 		return LinksPackage.Literals.ROOT_BA_ELEMENT_LINK;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LinksPackage.ROOT_BA_ELEMENT_LINK__NAME, oldName, name));
 	}
 
 	/**
@@ -153,6 +195,8 @@ public class Root_BA_Element_LinkImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case LinksPackage.ROOT_BA_ELEMENT_LINK__NAME:
+				return getName();
 			case LinksPackage.ROOT_BA_ELEMENT_LINK__B:
 				if (resolve) return getB();
 				return basicGetB();
@@ -171,6 +215,9 @@ public class Root_BA_Element_LinkImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case LinksPackage.ROOT_BA_ELEMENT_LINK__NAME:
+				setName((String)newValue);
+				return;
 			case LinksPackage.ROOT_BA_ELEMENT_LINK__B:
 				setB((RootNodeB)newValue);
 				return;
@@ -189,6 +236,9 @@ public class Root_BA_Element_LinkImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case LinksPackage.ROOT_BA_ELEMENT_LINK__NAME:
+				setName(NAME_EDEFAULT);
+				return;
 			case LinksPackage.ROOT_BA_ELEMENT_LINK__B:
 				setB((RootNodeB)null);
 				return;
@@ -207,12 +257,30 @@ public class Root_BA_Element_LinkImpl extends MinimalEObjectImpl.Container imple
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case LinksPackage.ROOT_BA_ELEMENT_LINK__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case LinksPackage.ROOT_BA_ELEMENT_LINK__B:
 				return b != null;
 			case LinksPackage.ROOT_BA_ELEMENT_LINK__A:
 				return a != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //Root_BA_Element_LinkImpl

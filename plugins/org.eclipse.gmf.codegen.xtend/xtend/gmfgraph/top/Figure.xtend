@@ -13,6 +13,7 @@
 package gmfgraph.top
 
 import com.google.inject.Inject
+import com.google.inject.Singleton
 import gmfgraph.Attrs
 import gmfgraph.Border
 import gmfgraph.Children
@@ -20,14 +21,16 @@ import gmfgraph.Decoration
 import gmfgraph.Extras
 import gmfgraph.Layout
 import gmfgraph.Utils_Statefull_qvto
+import java.util.ArrayList
+import java.util.List
+import org.eclipse.gmf.gmfgraph.DecorationFigure
 import org.eclipse.gmf.gmfgraph.FigureRef
-import org.eclipse.gmf.gmfgraph.Label
 import org.eclipse.gmf.gmfgraph.PolylineConnection
 import org.eclipse.gmf.gmfgraph.RealFigure
 import xpt.Common
 import xpt.Common_qvto
 
-@com.google.inject.Singleton class Figure {
+@Singleton class Figure {
 	@Inject extension Common_qvto;
 	@Inject extension Common;
 	@Inject extension Utils_Statefull_qvto;
@@ -70,22 +73,26 @@ import xpt.Common_qvto
 		«additions(it)»
 	'''
 	
-	def boolean hasChildLabels(PolylineConnection it) {
-		!it.childLabels().isEmpty
-	}
-	
-	def Iterable<Label>childLabels(PolylineConnection it) {
-		it.children.filter(typeof(Label))
-	}
-	
-	
+	def Iterable<org.eclipse.gmf.gmfgraph.Figure> safeExcluding(List<org.eclipse.gmf.gmfgraph.Figure> children, DecorationFigure sourceDecorator, DecorationFigure targetDecorator)  {
+		var ArrayList<org.eclipse.gmf.gmfgraph.Figure> res = new ArrayList<org.eclipse.gmf.gmfgraph.Figure>(); 
+		res.addAll(children);
+		if (sourceDecorator != null && res.contains(sourceDecorator)) {
+			res.remove(sourceDecorator);
+		}
+		if (targetDecorator != null && res.contains(targetDecorator)) {
+			res.remove(targetDecorator);
+		}
+		return res;
+	}	
+
 	def dispatch ClassBody(PolylineConnection it, String cuName, FigureRef figureRef) '''
+		«val childrenWithoutDecorators = safeExcluding(it.children, sourceDecoration, targetDecoration)»
 		«generatedMemberComment»
 		public «cuName»() {
 			«clearState()»
 			«xptAttrs.Init(it, 'this')»
 			«extraLineBreak»
-			«IF it.hasChildLabels»
+			«IF childrenWithoutDecorators.isEmpty()»
 					createContents();
 			«ENDIF»
 			«IF it.sourceDecoration != null»
@@ -101,10 +108,10 @@ import xpt.Common_qvto
 		  * 	Though this is workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=193180, I'm not sure
 	      * what's the right approach with e.g. decoration as child of a link.
 		  */
-		IF it.hasChildLabels»
+		IF childrenWithoutDecorators.isEmpty()»
 		«generatedMemberComment»
 		private void createContents(){
-			«FOR l : it.childLabels»
+			«FOR l : childrenWithoutDecorators»
 				«xptChildren.instantiate(l, 0, it, 'this')»
 			«ENDFOR»
 			«extraLineBreak»

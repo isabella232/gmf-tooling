@@ -2,6 +2,7 @@
  */
 package org.eclipse.gmf.tooling.examples.links;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -324,13 +325,22 @@ public interface LinksPackage extends EPackage {
 	int ROOT_BA_ELEMENT_LINK = 6;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROOT_BA_ELEMENT_LINK__NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>B</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT_BA_ELEMENT_LINK__B = 0;
+	int ROOT_BA_ELEMENT_LINK__B = 1;
 
 	/**
 	 * The feature id for the '<em><b>A</b></em>' reference.
@@ -339,7 +349,7 @@ public interface LinksPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT_BA_ELEMENT_LINK__A = 1;
+	int ROOT_BA_ELEMENT_LINK__A = 2;
 
 	/**
 	 * The number of structural features of the '<em>Root BA Element Link</em>' class.
@@ -348,7 +358,7 @@ public interface LinksPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ROOT_BA_ELEMENT_LINK_FEATURE_COUNT = 2;
+	int ROOT_BA_ELEMENT_LINK_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Root BA Element Link</em>' class.
@@ -539,6 +549,17 @@ public interface LinksPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getRoot_BA_Element_Link();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tooling.examples.links.Root_BA_Element_Link#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.tooling.examples.links.Root_BA_Element_Link#getName()
+	 * @see #getRoot_BA_Element_Link()
+	 * @generated
+	 */
+	EAttribute getRoot_BA_Element_Link_Name();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.tooling.examples.links.Root_BA_Element_Link#getB <em>B</em>}'.
@@ -734,6 +755,14 @@ public interface LinksPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ROOT_BA_ELEMENT_LINK = eINSTANCE.getRoot_BA_Element_Link();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROOT_BA_ELEMENT_LINK__NAME = eINSTANCE.getRoot_BA_Element_Link_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>B</b></em>' reference feature.

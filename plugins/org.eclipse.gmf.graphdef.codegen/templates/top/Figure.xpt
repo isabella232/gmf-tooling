@@ -56,7 +56,8 @@
 	 */
 	public «cuName»() {
 		«EXPAND Attrs::Init('this')»
-«IF not (children)[gmfgraph::Label]->isEmpty()-»
+«LET safeExcluding(children, sourceDecoration, targetDecoration) AS childrenWithoutDecorators-»
+«IF not childrenWithoutDecorators->isEmpty()-»
 		createContents();
 «ENDIF-»
 «IF hasSourceDecoration(self)-»
@@ -66,7 +67,7 @@
 		setTargetDecoration(createTargetDecoration());
 «ENDIF-»
 	}
-«IF not (children)[gmfgraph::Label]->isEmpty()»
+«IF not childrenWithoutDecorators->isEmpty()»
 «REM»
 	Copy of Children::CreateChildren with temp workaround to generate child figures for labels only.
 	Though this is temp workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=193180, I'm not sure
@@ -76,7 +77,7 @@
 	 * @generated
 	 */
 	private void createContents(){
-«EXPAND Children::instantiate(0, self, 'this') FOREACH (children)[gmfgraph::Label]»
+«EXPAND Children::instantiate(0, self, 'this') FOREACH childrenWithoutDecorators»
 	}
 «ENDIF-»
 «IF hasSourceDecoration(self)»
@@ -97,6 +98,7 @@
 		return df;
 	}
 «ENDIF-»
+«ENDLET-»
 «EXPAND additions-»
 «ENDDEFINE»
 

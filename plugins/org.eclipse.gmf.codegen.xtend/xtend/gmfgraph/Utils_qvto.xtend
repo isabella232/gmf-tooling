@@ -82,11 +82,23 @@ import com.google.inject.Injectimport java.util.LinkedList
 	}
 
 	def dispatch boolean needsField(RealFigure figure) {
-		return figure.descriptor != null && figure.descriptor.accessors.exists[a|a.figure == figure]
+		return realFigureNeedsField(figure);
 	}
 
 	def dispatch boolean needsField(CustomFigure figure) {
-		return figure.descriptor != null && !figure.customChildren.empty;
+		return customFigureNeedsField(figure) || realFigureNeedsField(figure);
+	}
+
+	def boolean customFigureNeedsField(CustomFigure figure) {
+		hasDescriptor(figure) && !figure.customChildren.empty
+	}
+
+	def boolean realFigureNeedsField(RealFigure figure) {
+		hasDescriptor(figure) && figure.descriptor.accessors.exists[a|a.figure == figure]
+	}
+
+	def boolean hasDescriptor(RealFigure figure) {
+		figure.descriptor != null 
 	}
 
 	def String figureVariableName(RealFigure figure, int count) {
