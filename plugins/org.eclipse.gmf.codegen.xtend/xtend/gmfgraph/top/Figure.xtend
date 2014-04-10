@@ -28,7 +28,8 @@ import org.eclipse.gmf.gmfgraph.FigureRef
 import org.eclipse.gmf.gmfgraph.PolylineConnection
 import org.eclipse.gmf.gmfgraph.RealFigure
 import xpt.Common
-import xpt.Common_qvto
+import xpt.Common_qvtoimport java.lang.reflect.Array
+import java.util.Arrays
 
 @Singleton class Figure {
 	@Inject extension Common_qvto;
@@ -73,17 +74,13 @@ import xpt.Common_qvto
 		«additions(it)»
 	'''
 	
-	def Iterable<org.eclipse.gmf.gmfgraph.Figure> safeExcluding(List<org.eclipse.gmf.gmfgraph.Figure> children, DecorationFigure sourceDecorator, DecorationFigure targetDecorator)  {
-		var ArrayList<org.eclipse.gmf.gmfgraph.Figure> res = new ArrayList<org.eclipse.gmf.gmfgraph.Figure>(); 
-		res.addAll(children);
-		if (sourceDecorator != null && res.contains(sourceDecorator)) {
-			res.remove(sourceDecorator);
-		}
-		if (targetDecorator != null && res.contains(targetDecorator)) {
-			res.remove(targetDecorator);
-		}
-		return res;
+	def Iterable<org.eclipse.gmf.gmfgraph.Figure> safeExcluding(List<org.eclipse.gmf.gmfgraph.Figure> children, DecorationFigure... d)  {
+		return safeExcluding(children, Arrays.asList(d));
 	}	
+
+	def Iterable<org.eclipse.gmf.gmfgraph.Figure> safeExcluding(List<org.eclipse.gmf.gmfgraph.Figure> children, List<DecorationFigure> d)  {
+		children.filter[f| !d.contains(f)];
+	}
 
 	def dispatch ClassBody(PolylineConnection it, String cuName, FigureRef figureRef) '''
 		«val childrenWithoutDecorators = safeExcluding(it.children, sourceDecoration, targetDecoration)»

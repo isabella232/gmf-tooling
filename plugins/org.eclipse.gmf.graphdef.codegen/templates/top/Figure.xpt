@@ -56,7 +56,7 @@
 	 */
 	public «cuName»() {
 		«EXPAND Attrs::Init('this')»
-«LET safeExcluding(children, sourceDecoration, targetDecoration) AS childrenWithoutDecorators-»
+«LET childrenWithoutDecoration(self) AS childrenWithoutDecorators-»
 «IF not childrenWithoutDecorators->isEmpty()-»
 		createContents();
 «ENDIF-»

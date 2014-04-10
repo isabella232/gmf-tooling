@@ -91,15 +91,16 @@ helper customFigureNeedsField(figure : gmfgraph::CustomFigure) : Boolean {
 	return hasDescriptor(figure) and not figure.customChildren->isEmpty()
 }
 
-helper safeExcluding(children : OrderedSet(gmfgraph::Figure), sourceDecorator : gmfgraph::DecorationFigure, targetDecorator : gmfgraph::DecorationFigure) : Sequence(gmfgraph::Figure) {
-	var res = children->asSequence();
-	if (sourceDecorator <> null and res->excludes(sourceDecorator)) then {
-		children = res->excluding(sourceDecorator);
-	} endif;
-	if (targetDecorator <> null and res->excludes(targetDecorator)) then {
-		children = res->excluding(targetDecorator);
-	} endif;
-	return res;
+helper childrenWithoutDecoration(connection : gmfgraph::PolylineConnection) : Sequence(gmfgraph::Figure) {
+ return safeExcluding2(connection.children->asSequence(), connection.sourceDecoration, connection.targetDecoration) 
+}
+
+helper safeExcluding2(list : Sequence(gmfgraph::Figure), exclusionA: gmfgraph::Figure, exclusionB: gmfgraph::Figure) : Sequence(gmfgraph::Figure) {
+ return safeExcluding(safeExcluding(list, exclusionA), exclusionB)
+}
+
+helper safeExcluding(list : Sequence(gmfgraph::Figure), exclusion: gmfgraph::Figure) : Sequence(gmfgraph::Figure) {
+ return if null <> exclusion then list->excluding(exclusion) else list endif
 }
 
 helper figureVariableName(figure : gmfgraph::RealFigure, count : Integer) : String {
