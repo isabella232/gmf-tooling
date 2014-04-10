@@ -2,6 +2,7 @@
  */
 package org.eclipse.gmf.tooling.examples.links.impl;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -293,8 +294,17 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRoot_BA_Element_Link_Name() {
+		return (EAttribute)root_BA_Element_LinkEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getRoot_BA_Element_Link_B() {
-		return (EReference)root_BA_Element_LinkEClass.getEStructuralFeatures().get(0);
+		return (EReference)root_BA_Element_LinkEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -303,7 +313,7 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 	 * @generated
 	 */
 	public EReference getRoot_BA_Element_Link_A() {
-		return (EReference)root_BA_Element_LinkEClass.getEStructuralFeatures().get(1);
+		return (EReference)root_BA_Element_LinkEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -357,6 +367,7 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 		createEReference(child_AB_Element_LinkEClass, CHILD_AB_ELEMENT_LINK__TARGET_B);
 
 		root_BA_Element_LinkEClass = createEClass(ROOT_BA_ELEMENT_LINK);
+		createEAttribute(root_BA_Element_LinkEClass, ROOT_BA_ELEMENT_LINK__NAME);
 		createEReference(root_BA_Element_LinkEClass, ROOT_BA_ELEMENT_LINK__B);
 		createEReference(root_BA_Element_LinkEClass, ROOT_BA_ELEMENT_LINK__A);
 	}
@@ -414,6 +425,7 @@ public class LinksPackageImpl extends EPackageImpl implements LinksPackage {
 		initEReference(getChild_AB_Element_Link_Target_B(), this.getChildNodeB(), null, "target_B", null, 0, 1, Child_AB_Element_Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(root_BA_Element_LinkEClass, Root_BA_Element_Link.class, "Root_BA_Element_Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRoot_BA_Element_Link_Name(), ecorePackage.getEString(), "name", null, 0, 1, Root_BA_Element_Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRoot_BA_Element_Link_B(), this.getRootNodeB(), null, "b", null, 0, 1, Root_BA_Element_Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRoot_BA_Element_Link_A(), this.getRootNodeA(), null, "a", null, 0, 1, Root_BA_Element_Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

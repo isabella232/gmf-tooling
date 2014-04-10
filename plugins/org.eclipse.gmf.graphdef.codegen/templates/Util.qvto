@@ -72,11 +72,34 @@ return xpandGetStringGlobalVar('runtimeToken')
 }
 
 helper needsField(figure : gmfgraph::RealFigure) : Boolean {
-	return figure.descriptor <> null and figure.descriptor.accessors.figure->includes(figure)
+	return realFigureNeedsField(figure)
+}
+
+helper realFigureNeedsField(figure : gmfgraph::RealFigure) : Boolean {
+	return hasDescriptor(figure) and figure.descriptor.accessors.figure->includes(figure)
+}
+
+helper hasDescriptor(figure : gmfgraph::RealFigure) : Boolean {
+	return figure.descriptor <> null
 }
 
 helper needsField(figure : gmfgraph::CustomFigure) : Boolean {
-	return figure.descriptor <> null and not figure.customChildren->isEmpty()
+	return realFigureNeedsField(figure) or customFigureNeedsField(figure)
+}
+
+helper customFigureNeedsField(figure : gmfgraph::CustomFigure) : Boolean {
+	return hasDescriptor(figure) and not figure.customChildren->isEmpty()
+}
+
+helper safeExcluding(children : OrderedSet(gmfgraph::Figure), sourceDecorator : gmfgraph::DecorationFigure, targetDecorator : gmfgraph::DecorationFigure) : Sequence(gmfgraph::Figure) {
+	var res = children->asSequence();
+	if (sourceDecorator <> null and res->excludes(sourceDecorator)) then {
+		children = res->excluding(sourceDecorator);
+	} endif;
+	if (targetDecorator <> null and res->excludes(targetDecorator)) then {
+		children = res->excluding(targetDecorator);
+	} endif;
+	return res;
 }
 
 helper figureVariableName(figure : gmfgraph::RealFigure, count : Integer) : String {
@@ -139,8 +162,8 @@ helper figureFieldName(aaa : Sequence(gmfgraph::ChildAccess)) : String {
 	return aaa->collect(x | x.figureFieldName())->first()
 }
 
-helper figureFieldName(xptSelf : CustomFigure) : String {
-	return 'my' + xptSelf.name.firstToUpper();
+helper gmfgraph::CustomFigure::figureFieldName() : String {
+	return 'my' + self.name.firstToUpper();
 }
 
 helper gmfgraph::ChildAccess::figureFieldName() : String {

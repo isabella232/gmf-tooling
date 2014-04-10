@@ -90,6 +90,13 @@
   <links>
     <domainMetaElement
         href="links.ecore#//Root_BA_Element_Link"/>
+    <labelMappings
+        xsi:type="gmfmap:FeatureLabelMapping">
+      <diagramLabel
+          href="links.gmfgraph#//@labels.0"/>
+      <features
+          href="links.ecore#//Root_BA_Element_Link/name"/>
+    </labelMappings>
     <containmentFeature
         href="links.ecore#//Root/rootBALinks"/>
     <tool

@@ -37,7 +37,10 @@
       <actualFigure xsi:type="gmfgraph:PolylineConnection" name="Child_AB_Element_LinkFigure"/>
     </descriptors>
     <descriptors name="Root_BA_Element_LinkFigure">
-      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="Root_BA_Element_LinkFigure"/>
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="Root_BA_Element_LinkFigure">
+        <children xsi:type="gmfgraph:CustomFigure" name="CustomLabel" qualifiedClassName="custom.MultilineWrappingLabel"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
     </descriptors>
   </figures>
   <nodes name="RootNodeA" figure="RootNodeAFigure"/>
@@ -50,4 +53,5 @@
   <connections name="Root_BA_Element_Link" figure="Root_BA_Element_LinkFigure"/>
   <compartments name="ChildNodeACompartment" figure="RootNodeAFigure" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
   <compartments name="ChildNodeBCompartment" figure="RootNodeBFigure" accessor="//@figures.0/@descriptors.1/@accessors.0"/>
+  <labels figure="Root_BA_Element_LinkFigure" accessor="//@figures.0/@descriptors.7/@accessors.0"/>
 </gmfgraph:Canvas>
