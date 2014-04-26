@@ -47,11 +47,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	public static final String ID = "org.eclipse.gmf.examples.taipan.gmf.editor"; //$NON-NLS-1$
 
 	/**
-	* @generated
-	*/
-	private LogHelper myLogHelper;
-
-	/**
 	 * @generated
 	 */
 	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(ID);
@@ -98,7 +93,6 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
-		myLogHelper = new LogHelper(this);
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 		adapterFactory = createAdapterFactory();
 	}
@@ -271,34 +265,50 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	 * @generated
 	 */
 	public void logError(String error) {
-		getLogHelper().logError(error, null);
+		logError(error, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public void logError(String error, Throwable throwable) {
-		getLogHelper().logError(error, throwable);
+		if (error == null && throwable != null) {
+			error = throwable.getMessage();
+		}
+		getLog().log(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IStatus.OK, error, throwable));
+		debug(error, throwable);
 	}
 
 	/**
 	 * @generated
 	 */
 	public void logInfo(String message) {
-		getLogHelper().logInfo(message, null);
+		logInfo(message, null);
 	}
 
 	/**
 	 * @generated
 	 */
 	public void logInfo(String message, Throwable throwable) {
-		getLogHelper().logInfo(message, throwable);
+		if (message == null && throwable != null) {
+			message = throwable.getMessage();
+		}
+		getLog().log(new Status(IStatus.INFO, TaiPanDiagramEditorPlugin.ID, IStatus.OK, message, throwable));
+		debug(message, throwable);
 	}
 
 	/**
 	* @generated
 	*/
-	public LogHelper getLogHelper() {
-		return myLogHelper;
+	private void debug(String message, Throwable throwable) {
+		if (!isDebugging()) {
+			return;
+		}
+		if (message != null) {
+			System.err.println(message);
+		}
+		if (throwable != null) {
+			throwable.printStackTrace();
+		}
 	}
 }

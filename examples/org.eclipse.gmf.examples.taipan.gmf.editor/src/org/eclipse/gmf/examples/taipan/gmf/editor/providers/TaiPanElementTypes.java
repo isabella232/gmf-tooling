@@ -280,24 +280,24 @@ public class TaiPanElementTypes {
 	public static final DiagramElementTypes TYPED_INSTANCE = new DiagramElementTypes(elementTypeImages) {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean isKnownElementType(IElementType elementType) {
 			return org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes.isKnownElementType(elementType);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public IElementType getElementTypeForVisualId(int visualID) {
 			return org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes.getElementType(visualID);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public ENamedElement getDefiningNamedElement(IAdaptable elementTypeAdapter) {
 			return org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes.getElement(elementTypeAdapter);

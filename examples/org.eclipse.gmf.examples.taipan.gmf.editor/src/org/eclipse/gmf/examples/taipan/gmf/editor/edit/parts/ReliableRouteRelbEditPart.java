@@ -323,7 +323,7 @@ public class ReliableRouteRelbEditPart extends LabelEditPart implements ITextAwa
 	*/
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager2(this, null, TaiPanEditPartFactory.getTextCellEditorLocator(this)));
+			setManager(new TextDirectEditManager(this, null, TaiPanEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -346,8 +346,8 @@ public class ReliableRouteRelbEditPart extends LabelEditPart implements ITextAwa
 	* @generated
 	*/
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == TextDirectEditManager2.class) {
-			((TextDirectEditManager2) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -358,8 +358,8 @@ public class ReliableRouteRelbEditPart extends LabelEditPart implements ITextAwa
 		if (getManager() instanceof TextDirectEditManager) {
 			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else // 
-		if (getManager() instanceof TextDirectEditManager2) {
-			((TextDirectEditManager2) getManager()).show(initialCharacter);
+		if (getManager() instanceof TextDirectEditManager) {
+			((TextDirectEditManager) getManager()).show(initialCharacter);
 		} else //
 		{
 			performDirectEdit();

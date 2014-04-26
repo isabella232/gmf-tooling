@@ -922,32 +922,32 @@ public class TaiPanDiagramUpdater {
 	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 
 		public List<TaiPanNodeDescriptor> getSemanticChildren(View view) {
 			return TaiPanDiagramUpdater.getSemanticChildren(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 
 		public List<TaiPanLinkDescriptor> getContainedLinks(View view) {
 			return TaiPanDiagramUpdater.getContainedLinks(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 
 		public List<TaiPanLinkDescriptor> getIncomingLinks(View view) {
 			return TaiPanDiagramUpdater.getIncomingLinks(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 
 		public List<TaiPanLinkDescriptor> getOutgoingLinks(View view) {
 			return TaiPanDiagramUpdater.getOutgoingLinks(view);

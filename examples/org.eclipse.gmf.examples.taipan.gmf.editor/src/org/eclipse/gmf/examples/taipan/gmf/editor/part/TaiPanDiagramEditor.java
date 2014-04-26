@@ -81,11 +81,6 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 	public static final String CONTEXT_ID = "org.eclipse.gmf.examples.taipan.gmf.editor.ui.diagramContext"; //$NON-NLS-1$
 
 	/**
-	* @generated
-	*/
-	private LastClickPositionProvider myLastClickPositionProvider;
-
-	/**
 	 * @generated
 	 */
 	public TaiPanDiagramEditor() {
@@ -279,37 +274,6 @@ public class TaiPanDiagramEditor extends DiagramDocumentEditor implements IGotoM
 			}
 
 		});
-		startupLastClickPositionProvider();
-	}
-
-	/**
-	* @generated
-	*/
-	protected void startupLastClickPositionProvider() {
-		if (myLastClickPositionProvider == null) {
-			myLastClickPositionProvider = new LastClickPositionProvider(this);
-			myLastClickPositionProvider.attachToService();
-		}
-	}
-
-	/**
-	* @generated
-	*/
-	protected void shutDownLastClickPositionProvider() {
-		if (myLastClickPositionProvider != null) {
-			myLastClickPositionProvider.detachFromService();
-			myLastClickPositionProvider.dispose();
-			myLastClickPositionProvider = null;
-		}
-	}
-
-	/**
-	* @generated
-	*/
-	@Override
-	public void dispose() {
-		shutDownLastClickPositionProvider();
-		super.dispose();
 	}
 
 	/**

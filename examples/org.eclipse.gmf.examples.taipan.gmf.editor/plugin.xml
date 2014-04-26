@@ -52,13 +52,13 @@ Contributors:
 
    <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
       <?gmfgen generated="true"?>
-  	  <wizard
-  	     name="%newWizardName"
-  	     icon="icons/obj16/TaiPanDiagramFile.gif"
-  	     category="org.eclipse.ui.Examples"
-  	     class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
-  	     id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">
-  	  	 <description>%newWizardDesc</description>  
+      <wizard
+         name="%newWizardName"
+         icon="icons/obj16/TaiPanDiagramFile.gif"
+         category="org.eclipse.ui.Examples"
+         class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
+         id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">
+         <description>%newWizardDesc</description>  
       </wizard>
    </extension>
 
@@ -148,9 +148,9 @@ Contributors:
 
    <extension id="metrics-view" point="org.eclipse.ui.views">
       <?gmfgen generated="true"?>
-   	  <view class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider$ResultView"
-			id="org.eclipse.gmf.examples.taipan.gmf.editor.metricView"
-			name="TaiPan Diagram Metrics"/>
+      <view class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetricProvider$ResultView"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.metricView"
+            name="TaiPan Diagram Metrics"/>
    </extension>
 
    <extension point="org.eclipse.core.runtime.preferences" id="prefs">
@@ -291,44 +291,43 @@ Contributors:
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
-      <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfAquatoryEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart" id="Aquatory_1000"/>
-         <context elements="Aquatory_1000"/>
-      </modelingAssistantProvider>
-            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfPortEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart" id="Port_2001"/>
-         <context elements="Port_2001"/>
-      </modelingAssistantProvider>
-            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfShipEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart" id="Ship_2002"/>
-         <context elements="Ship_2002"/>
-      </modelingAssistantProvider>
-            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfWarshipEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart" id="Warship_2003"/>
-         <context elements="Warship_2003"/>
-      </modelingAssistantProvider>
-            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfSmallItemsEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart" id="SmallItems_3001"/>
-         <context elements="SmallItems_3001"/>
-      </modelingAssistantProvider>
-            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfLargeItemEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart" id="LargeItem_3002"/>
-         <context elements="LargeItem_3002"/>
-      </modelingAssistantProvider>
-            <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfEmptyBoxEditPart">
-         <Priority name="Lowest"/>
-         <object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart" id="EmptyBox_3003"/>
-         <context elements="EmptyBox_3003"/>
-      </modelingAssistantProvider>
-      
-   </extension>
+	<?gmfgen generated="true"?>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfAquatoryEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart" id="Aquatory_1000"/>
+		<context elements="Aquatory_1000"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfPortEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart" id="Port_2001"/>
+		<context elements="Port_2001"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfShipEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart" id="Ship_2002"/>
+		<context elements="Ship_2002"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfWarshipEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.WarshipEditPart" id="Warship_2003"/>
+		<context elements="Warship_2003"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfSmallItemsEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.SmallItemsEditPart" id="SmallItems_3001"/>
+		<context elements="SmallItems_3001"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfLargeItemEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.LargeItemEditPart" id="LargeItem_3002"/>
+		<context elements="LargeItem_3002"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.assistants.TaiPanModelingAssistantProviderOfEmptyBoxEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.EmptyBoxEditPart" id="EmptyBox_3003"/>
+		<context elements="EmptyBox_3003"/>
+	</modelingAssistantProvider>
+</extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
       <?gmfgen generated="true"?>
