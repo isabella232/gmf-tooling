@@ -693,6 +693,30 @@
               href="labels.genmodel#//labels/AllLabelsType/side"/>
         </modelFacet>
       </labels>
+      <labels
+          visualID="5024"
+          editPartClassName="AllLabelsTypeDataTypedEditPart"
+          itemSemanticEditPolicyClassName="AllLabelsTypeDataTypedItemSemanticEditPolicy"
+          notationViewFactoryClassName="AllLabelsTypeDataTypedViewFactory"
+          elementIcon="true">
+        <diagramRunTimeClass
+            href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap
+            xsi:type="gmfgen:ModeledViewmap">
+          <attributes
+              xsi:type="gmfgen:StyleAttributes"
+              fixedForeground="true"
+              fixedBackground="true"/>
+          <figureModel
+              href="labels.gmfgraph#AllLabelsTypeCustomDataType"/>
+        </viewmap>
+        <modelFacet
+            xsi:type="gmfgen:FeatureLabelModelFacet"
+            parser="//@labelParsers/@implementations.0">
+          <metaFeatures
+              href="labels.genmodel#//labels/AllLabelsType/dataTyped"/>
+        </modelFacet>
+      </labels>
     </topLevelNodes>
     <topLevelNodes
         visualID="2003"
@@ -726,7 +750,7 @@
             href="labels.genmodel#//labels/Diagram/getLabels"/>
       </modelFacet>
       <labels
-          visualID="5024"
+          visualID="5025"
           editPartClassName="ChildLabelNodeContainerNameEditPart"
           itemSemanticEditPolicyClassName="ChildLabelNodeContainerNameItemSemanticEditPolicy"
           notationViewFactoryClassName="ChildLabelNodeContainerNameViewFactory"
@@ -781,7 +805,7 @@
             href="labels.genmodel#//labels/Diagram/getLabels"/>
       </modelFacet>
       <labels
-          visualID="5025"
+          visualID="5026"
           editPartClassName="VerticalLabelNameEditPart"
           itemSemanticEditPolicyClassName="VerticalLabelNameItemSemanticEditPolicy"
           notationViewFactoryClassName="VerticalLabelNameViewFactory"
@@ -859,28 +883,6 @@
         </modelFacet>
       </labels>
     </links>
-    <links
-        visualID="4002"
-        editPartClassName="AllLabelsTypeFeatureVerticalLabelLinksEditPart"
-        itemSemanticEditPolicyClassName="AllLabelsTypeFeatureVerticalLabelLinksItemSemanticEditPolicy"
-        notationViewFactoryClassName="AllLabelsTypeFeatureVerticalLabelLinksViewFactory"
-        createCommandClassName="AllLabelsTypeFeatureVerticalLabelLinksCreateCommand"
-        reorientCommandClassName="AllLabelsTypeFeatureVerticalLabelLinksReorientCommand">
-      <diagramRunTimeClass
-          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
-      <elementType
-          xsi:type="gmfgen:SpecializationType"/>
-      <viewmap
-          xsi:type="gmfgen:ModeledViewmap">
-        <figureModel
-            href="labels.gmfgraph#AllLabelsType_VerticalLabel_Connection"/>
-      </viewmap>
-      <modelFacet
-          xsi:type="gmfgen:FeatureLinkModelFacet">
-        <metaFeature
-            href="labels.genmodel#//labels/AllLabelsType/featureVerticalLabelLinks"/>
-      </modelFacet>
-    </links>
     <compartments
         visualID="7001"
         editPartClassName="ChildLabelNodeContainerLabelContainerEditPart"
@@ -937,8 +939,7 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="AllLabelTypes_VerticalLabel_Link"
-            description="Create new AllLabelTypes_VerticalLabel_Link"
-            genLinks="//@diagram/@links.1"/>
+            description="Create new AllLabelTypes_VerticalLabel_Link"/>
       </groups>
     </palette>
     <preferencePages
@@ -1018,35 +1019,6 @@
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram"
-        child="//@diagram/@links.1"
-        groupName="links"
-        groupIcon="icons/linksNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@links.1"
-        child="//@diagram/@topLevelNodes.3"
-        referenceType="out_target"
-        groupName="target"
-        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@topLevelNodes.3"
-        child="//@diagram/@links.1"
-        referenceType="in_source"
-        groupName="incoming links"
-        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@links.1"
-        child="//@diagram/@topLevelNodes.1"
-        referenceType="in_source"
-        groupName="source"
-        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
-    <childReferences
-        parent="//@diagram/@topLevelNodes.1"
-        child="//@diagram/@links.1"
-        referenceType="out_target"
-        groupName="outgoing links"
-        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
   </navigator>
   <diagramUpdater/>
   <propertySheet>
@@ -1087,7 +1059,7 @@
       extensibleViaService="true">
     <implementations
         xsi:type="gmfgen:PredefinedParser"
-        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.1/@modelFacet //@diagram/@topLevelNodes.1/@labels.2/@modelFacet //@diagram/@topLevelNodes.1/@labels.3/@modelFacet //@diagram/@topLevelNodes.1/@labels.4/@modelFacet //@diagram/@topLevelNodes.1/@labels.5/@modelFacet //@diagram/@topLevelNodes.1/@labels.6/@modelFacet //@diagram/@topLevelNodes.1/@labels.7/@modelFacet //@diagram/@topLevelNodes.1/@labels.8/@modelFacet //@diagram/@topLevelNodes.1/@labels.9/@modelFacet //@diagram/@topLevelNodes.1/@labels.10/@modelFacet //@diagram/@topLevelNodes.1/@labels.11/@modelFacet //@diagram/@topLevelNodes.1/@labels.12/@modelFacet //@diagram/@topLevelNodes.1/@labels.13/@modelFacet //@diagram/@topLevelNodes.1/@labels.14/@modelFacet //@diagram/@topLevelNodes.1/@labels.15/@modelFacet //@diagram/@topLevelNodes.1/@labels.16/@modelFacet //@diagram/@topLevelNodes.1/@labels.17/@modelFacet //@diagram/@topLevelNodes.1/@labels.18/@modelFacet //@diagram/@topLevelNodes.1/@labels.19/@modelFacet //@diagram/@topLevelNodes.1/@labels.20/@modelFacet //@diagram/@childNodes.0/@labelModelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet //@diagram/@topLevelNodes.3/@labels.0/@modelFacet //@diagram/@links.0/@labels.0/@modelFacet"/>
+        uses="//@diagram/@topLevelNodes.0/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.0/@modelFacet //@diagram/@topLevelNodes.1/@labels.1/@modelFacet //@diagram/@topLevelNodes.1/@labels.2/@modelFacet //@diagram/@topLevelNodes.1/@labels.3/@modelFacet //@diagram/@topLevelNodes.1/@labels.4/@modelFacet //@diagram/@topLevelNodes.1/@labels.5/@modelFacet //@diagram/@topLevelNodes.1/@labels.6/@modelFacet //@diagram/@topLevelNodes.1/@labels.7/@modelFacet //@diagram/@topLevelNodes.1/@labels.8/@modelFacet //@diagram/@topLevelNodes.1/@labels.9/@modelFacet //@diagram/@topLevelNodes.1/@labels.10/@modelFacet //@diagram/@topLevelNodes.1/@labels.11/@modelFacet //@diagram/@topLevelNodes.1/@labels.12/@modelFacet //@diagram/@topLevelNodes.1/@labels.13/@modelFacet //@diagram/@topLevelNodes.1/@labels.14/@modelFacet //@diagram/@topLevelNodes.1/@labels.15/@modelFacet //@diagram/@topLevelNodes.1/@labels.16/@modelFacet //@diagram/@topLevelNodes.1/@labels.17/@modelFacet //@diagram/@topLevelNodes.1/@labels.18/@modelFacet //@diagram/@topLevelNodes.1/@labels.19/@modelFacet //@diagram/@topLevelNodes.1/@labels.20/@modelFacet //@diagram/@topLevelNodes.1/@labels.22/@modelFacet //@diagram/@childNodes.0/@labelModelFacet //@diagram/@topLevelNodes.2/@labels.0/@modelFacet //@diagram/@topLevelNodes.3/@labels.0/@modelFacet //@diagram/@links.0/@labels.0/@modelFacet"/>
     <implementations
         xsi:type="gmfgen:PredefinedEnumParser"
         uses="//@diagram/@topLevelNodes.1/@labels.21/@modelFacet"/>

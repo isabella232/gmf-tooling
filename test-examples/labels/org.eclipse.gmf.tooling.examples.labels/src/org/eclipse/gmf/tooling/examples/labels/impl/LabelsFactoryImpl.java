@@ -80,6 +80,8 @@ public class LabelsFactoryImpl extends EFactoryImpl implements LabelsFactory {
 		switch (eDataType.getClassifierID()) {
 			case LabelsPackage.SIDE:
 				return createSideFromString(eDataType, initialValue);
+			case LabelsPackage.MY_STRING:
+				return createMyStringFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -95,6 +97,8 @@ public class LabelsFactoryImpl extends EFactoryImpl implements LabelsFactory {
 		switch (eDataType.getClassifierID()) {
 			case LabelsPackage.SIDE:
 				return convertSideToString(eDataType, instanceValue);
+			case LabelsPackage.MY_STRING:
+				return convertMyStringToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -198,6 +202,24 @@ public class LabelsFactoryImpl extends EFactoryImpl implements LabelsFactory {
 	 */
 	public String convertSideToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object createMyStringFromString(EDataType eDataType, String initialValue) {
+		return (Object)super.createFromString(eDataType, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertMyStringToString(EDataType eDataType, Object instanceValue) {
+		return super.convertToString(eDataType, instanceValue);
 	}
 
 	/**

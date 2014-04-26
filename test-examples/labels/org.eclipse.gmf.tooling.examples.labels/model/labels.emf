@@ -1,0 +1,62 @@
+@namespace(uri="http://labels/labels/0.1", prefix="org.eclipse.gmf.tooling.tests.labels")
+package labels;
+
+datatype MyString : String;
+
+class NamedElement {
+  attr String name;
+}
+
+class AllLabelsType extends NamedElement {
+  attr EBigDecimal bigDecimal = "0";
+  attr EBigInteger bigInteger = "311";
+  attr boolean boolean;
+  attr Boolean booleanObject = "true";
+  attr byte byte = "1";
+  attr Byte byteObject = "42";
+  attr char char = '{';
+  attr Character characterObject = "}";
+  attr EDate date;
+  attr double double = "42.42";
+  attr Double doubleObject = "42.42";
+  attr float float = "24.24";
+  attr Float floatObject;
+  attr int int = 36535;
+  attr Integer integerObject;
+  attr long long = "424242";
+  attr Long longObject;
+  attr short short = "13";
+  attr Short shortObject = "42";
+  attr String string = "Hello!";
+  attr Side side = "LEFT";
+  attr MyString dataTyped;
+  ref VerticalLabel[*] featureVerticalLabelLinks;
+}
+
+class ChildLabelNodeContainer extends NamedElement {
+  val ChildLabelNode[1..4] getChildren;
+}
+
+class ChildLabelNode extends NamedElement {
+}
+
+class GenLabelNode extends NamedElement {
+}
+
+class VerticalLabel extends NamedElement {
+}
+
+class Diagram {
+  val NamedElement[*] getLabels;
+}
+
+enum Side {
+  LEFT = 0;
+  RIGHT = 1;
+}
+
+class LinkWithLabel extends NamedElement {
+  ref GenLabelNode target;
+  ref VerticalLabel source;
+}
+

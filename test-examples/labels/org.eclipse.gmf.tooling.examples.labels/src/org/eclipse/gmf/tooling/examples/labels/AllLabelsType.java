@@ -37,6 +37,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getShortObject <em>Short Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getString <em>String</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getSide <em>Side</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getDataTyped <em>Data Typed</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getFeatureVerticalLabelLinks <em>Feature Vertical Label Links</em>}</li>
  * </ul>
  * </p>
@@ -610,6 +611,32 @@ public interface AllLabelsType extends NamedElement {
 	 * @generated
 	 */
 	void setSide(Side value);
+
+	/**
+	 * Returns the value of the '<em><b>Data Typed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Typed</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Typed</em>' attribute.
+	 * @see #setDataTyped(String)
+	 * @see org.eclipse.gmf.tooling.examples.labels.LabelsPackage#getAllLabelsType_DataTyped()
+	 * @model dataType="org.eclipse.gmf.tooling.examples.labels.MyString"
+	 * @generated
+	 */
+	Object getDataTyped();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getDataTyped <em>Data Typed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Typed</em>' attribute.
+	 * @see #getDataTyped()
+	 * @generated
+	 */
+	void setDataTyped(Object value);
 
 	/**
 	 * Returns the value of the '<em><b>Feature Vertical Label Links</b></em>' reference list.

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="labels" nsURI="http://labels/labels/0.1" nsPrefix="org.eclipse.gmf.tooling.tests.labels">
+  <eClassifiers xsi:type="ecore:EDataType" name="MyString" instanceClassName="String"/>
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -41,6 +42,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="Hello!"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="side" eType="#//Side" defaultValueLiteral="LEFT"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataTyped" eType="#//MyString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureVerticalLabelLinks"
         upperBound="-1" eType="#//VerticalLabel"/>
   </eClassifiers>

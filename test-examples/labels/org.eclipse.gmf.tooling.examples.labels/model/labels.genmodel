@@ -13,6 +13,7 @@
       <genEnumLiterals ecoreEnumLiteral="labels.ecore#//Side/LEFT"/>
       <genEnumLiterals ecoreEnumLiteral="labels.ecore#//Side/RIGHT"/>
     </genEnums>
+    <genDataTypes ecoreDataType="labels.ecore#//MyString"/>
     <genClasses ecoreClass="labels.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//NamedElement/name"/>
     </genClasses>
@@ -38,6 +39,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/shortObject"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/string"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/side"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute labels.ecore#//AllLabelsType/dataTyped"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference labels.ecore#//AllLabelsType/featureVerticalLabelLinks"/>
     </genClasses>
     <genClasses ecoreClass="labels.ecore#//ChildLabelNodeContainer">

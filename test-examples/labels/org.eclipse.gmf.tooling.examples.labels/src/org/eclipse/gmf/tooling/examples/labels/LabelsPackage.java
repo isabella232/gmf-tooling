@@ -4,6 +4,7 @@ package org.eclipse.gmf.tooling.examples.labels;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -293,13 +294,22 @@ public interface LabelsPackage extends EPackage {
 	int ALL_LABELS_TYPE__SIDE = NAMED_ELEMENT_FEATURE_COUNT + 20;
 
 	/**
+	 * The feature id for the '<em><b>Data Typed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ALL_LABELS_TYPE__DATA_TYPED = NAMED_ELEMENT_FEATURE_COUNT + 21;
+
+	/**
 	 * The feature id for the '<em><b>Feature Vertical Label Links</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS = NAMED_ELEMENT_FEATURE_COUNT + 21;
+	int ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS = NAMED_ELEMENT_FEATURE_COUNT + 22;
 
 	/**
 	 * The number of structural features of the '<em>All Labels Type</em>' class.
@@ -308,7 +318,7 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ALL_LABELS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 22;
+	int ALL_LABELS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.tooling.examples.labels.impl.ChildLabelNodeContainerImpl <em>Child Label Node Container</em>}' class.
@@ -514,6 +524,17 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 */
 	int SIDE = 8;
+
+
+	/**
+	 * The meta object id for the '<em>My String</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see String
+	 * @see org.eclipse.gmf.tooling.examples.labels.impl.LabelsPackageImpl#getMyString()
+	 * @generated
+	 */
+	int MY_STRING = 9;
 
 
 	/**
@@ -779,6 +800,17 @@ public interface LabelsPackage extends EPackage {
 	EAttribute getAllLabelsType_Side();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getDataTyped <em>Data Typed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Typed</em>'.
+	 * @see org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getDataTyped()
+	 * @see #getAllLabelsType()
+	 * @generated
+	 */
+	EAttribute getAllLabelsType_DataTyped();
+
+	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.tooling.examples.labels.AllLabelsType#getFeatureVerticalLabelLinks <em>Feature Vertical Label Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -902,6 +934,17 @@ public interface LabelsPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getSide();
+
+	/**
+	 * Returns the meta object for data type '{@link String <em>My String</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>My String</em>'.
+	 * @see String
+	 * @model instanceClass="java.lang.Object"
+	 * @generated
+	 */
+	EDataType getMyString();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1122,6 +1165,14 @@ public interface LabelsPackage extends EPackage {
 		EAttribute ALL_LABELS_TYPE__SIDE = eINSTANCE.getAllLabelsType_Side();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Typed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ALL_LABELS_TYPE__DATA_TYPED = eINSTANCE.getAllLabelsType_DataTyped();
+
+		/**
 		 * The meta object literal for the '<em><b>Feature Vertical Label Links</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1230,6 +1281,16 @@ public interface LabelsPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum SIDE = eINSTANCE.getSide();
+
+		/**
+		 * The meta object literal for the '<em>My String</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see String
+		 * @see org.eclipse.gmf.tooling.examples.labels.impl.LabelsPackageImpl#getMyString()
+		 * @generated
+		 */
+		EDataType MY_STRING = eINSTANCE.getMyString();
 
 	}
 

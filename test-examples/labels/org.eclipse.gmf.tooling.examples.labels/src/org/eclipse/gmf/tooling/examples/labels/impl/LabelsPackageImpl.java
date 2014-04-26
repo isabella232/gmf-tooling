@@ -4,6 +4,7 @@ package org.eclipse.gmf.tooling.examples.labels.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -91,6 +92,13 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * @generated
 	 */
 	private EEnum sideEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType myStringEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -374,8 +382,17 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getAllLabelsType_DataTyped() {
+		return (EAttribute)allLabelsTypeEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getAllLabelsType_FeatureVerticalLabelLinks() {
-		return (EReference)allLabelsTypeEClass.getEStructuralFeatures().get(21);
+		return (EReference)allLabelsTypeEClass.getEStructuralFeatures().get(22);
 	}
 
 	/**
@@ -482,6 +499,15 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getMyString() {
+		return myStringEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LabelsFactory getLabelsFactory() {
 		return (LabelsFactory)getEFactoryInstance();
 	}
@@ -530,6 +556,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__SHORT_OBJECT);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__STRING);
 		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__SIDE);
+		createEAttribute(allLabelsTypeEClass, ALL_LABELS_TYPE__DATA_TYPED);
 		createEReference(allLabelsTypeEClass, ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS);
 
 		childLabelNodeContainerEClass = createEClass(CHILD_LABEL_NODE_CONTAINER);
@@ -550,6 +577,9 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 
 		// Create enums
 		sideEEnum = createEEnum(SIDE);
+
+		// Create data types
+		myStringEDataType = createEDataType(MY_STRING);
 	}
 
 	/**
@@ -613,6 +643,7 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		initEAttribute(getAllLabelsType_ShortObject(), ecorePackage.getEShortObject(), "shortObject", "42", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_String(), ecorePackage.getEString(), "string", "Hello!", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAllLabelsType_Side(), this.getSide(), "side", "LEFT", 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAllLabelsType_DataTyped(), this.getMyString(), "dataTyped", null, 0, 1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAllLabelsType_FeatureVerticalLabelLinks(), this.getVerticalLabel(), null, "featureVerticalLabelLinks", null, 0, -1, AllLabelsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childLabelNodeContainerEClass, ChildLabelNodeContainer.class, "ChildLabelNodeContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -635,6 +666,9 @@ public class LabelsPackageImpl extends EPackageImpl implements LabelsPackage {
 		initEEnum(sideEEnum, Side.class, "Side");
 		addEEnumLiteral(sideEEnum, Side.LEFT);
 		addEEnumLiteral(sideEEnum, Side.RIGHT);
+
+		// Initialize data types
+		initEDataType(myStringEDataType, String.class, "MyString", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

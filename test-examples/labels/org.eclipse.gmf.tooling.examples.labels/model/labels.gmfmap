@@ -221,6 +221,13 @@
         <features
             href="labels.ecore#//AllLabelsType/side"/>
       </labelMappings>
+      <labelMappings
+          xsi:type="gmfmap:FeatureLabelMapping">
+        <diagramLabel
+            href="labels.gmfgraph#AllLabelsTypeCustomDataType"/>
+        <features
+            href="labels.ecore#//AllLabelsType/dataTyped"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="labels.gmftool#//@palette/@tools.0/@tools.0"/>

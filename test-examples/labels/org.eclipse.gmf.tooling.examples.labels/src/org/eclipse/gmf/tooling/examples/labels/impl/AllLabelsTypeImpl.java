@@ -49,6 +49,7 @@ import org.eclipse.gmf.tooling.examples.labels.VerticalLabel;
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getShortObject <em>Short Object</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getString <em>String</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getSide <em>Side</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getDataTyped <em>Data Typed</em>}</li>
  *   <li>{@link org.eclipse.gmf.tooling.examples.labels.impl.AllLabelsTypeImpl#getFeatureVerticalLabelLinks <em>Feature Vertical Label Links</em>}</li>
  * </ul>
  * </p>
@@ -475,6 +476,26 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * @ordered
 	 */
 	protected Side side = SIDE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDataTyped() <em>Data Typed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataTyped()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Object DATA_TYPED_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDataTyped() <em>Data Typed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataTyped()
+	 * @generated
+	 * @ordered
+	 */
+	protected Object dataTyped = DATA_TYPED_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getFeatureVerticalLabelLinks() <em>Feature Vertical Label Links</em>}' reference list.
@@ -951,6 +972,27 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Object getDataTyped() {
+		return dataTyped;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataTyped(Object newDataTyped) {
+		Object oldDataTyped = dataTyped;
+		dataTyped = newDataTyped;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, LabelsPackage.ALL_LABELS_TYPE__DATA_TYPED, oldDataTyped, dataTyped));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<VerticalLabel> getFeatureVerticalLabelLinks() {
 		if (featureVerticalLabelLinks == null) {
 			featureVerticalLabelLinks = new EObjectResolvingEList<VerticalLabel>(VerticalLabel.class, this, LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS);
@@ -1008,6 +1050,8 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return getString();
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				return getSide();
+			case LabelsPackage.ALL_LABELS_TYPE__DATA_TYPED:
+				return getDataTyped();
 			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
 				return getFeatureVerticalLabelLinks();
 		}
@@ -1085,6 +1129,9 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return;
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				setSide((Side)newValue);
+				return;
+			case LabelsPackage.ALL_LABELS_TYPE__DATA_TYPED:
+				setDataTyped((Object)newValue);
 				return;
 			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
 				getFeatureVerticalLabelLinks().clear();
@@ -1165,6 +1212,9 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				setSide(SIDE_EDEFAULT);
 				return;
+			case LabelsPackage.ALL_LABELS_TYPE__DATA_TYPED:
+				setDataTyped(DATA_TYPED_EDEFAULT);
+				return;
 			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
 				getFeatureVerticalLabelLinks().clear();
 				return;
@@ -1222,6 +1272,8 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 				return STRING_EDEFAULT == null ? string != null : !STRING_EDEFAULT.equals(string);
 			case LabelsPackage.ALL_LABELS_TYPE__SIDE:
 				return side != SIDE_EDEFAULT;
+			case LabelsPackage.ALL_LABELS_TYPE__DATA_TYPED:
+				return DATA_TYPED_EDEFAULT == null ? dataTyped != null : !DATA_TYPED_EDEFAULT.equals(dataTyped);
 			case LabelsPackage.ALL_LABELS_TYPE__FEATURE_VERTICAL_LABEL_LINKS:
 				return featureVerticalLabelLinks != null && !featureVerticalLabelLinks.isEmpty();
 		}
@@ -1280,6 +1332,8 @@ public class AllLabelsTypeImpl extends NamedElementImpl implements AllLabelsType
 		result.append(string);
 		result.append(", side: ");
 		result.append(side);
+		result.append(", dataTyped: ");
+		result.append(dataTyped);
 		result.append(')');
 		return result.toString();
 	}
