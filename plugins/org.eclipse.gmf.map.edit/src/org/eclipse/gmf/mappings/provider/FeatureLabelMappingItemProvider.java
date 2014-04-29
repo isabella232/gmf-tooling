@@ -12,6 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -247,14 +250,40 @@ public class FeatureLabelMappingItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
+		StringBuilder result = new StringBuilder(getString("_UI_FeatureLabelMapping_type"));
 		FeatureLabelMapping featureLabelMapping = (FeatureLabelMapping)object;
-		return getString("_UI_FeatureLabelMapping_type") + " " + featureLabelMapping.isReadOnly();
+		EList<EAttribute> features = featureLabelMapping.getFeatures();
+		result.append(':');
+		result.append('[');
+		if (!features.isEmpty()) {
+			appendFeatureName(result, features.get(0));
+		}
+		for (int i = 1; i < features.size(); i++) {
+			result.append(',');
+			appendFeatureName(result, features.get(i));
+		}
+		result.append(']');
+		appendReadOnly(result, featureLabelMapping);
+		return result.toString();
 	}
 
+	private void appendReadOnly(StringBuilder labelText, FeatureLabelMapping feature) {
+		if (feature.isReadOnly()) {
+			labelText.append(" Read Only");
+		}
+	}
+	
+	private void appendFeatureName(StringBuilder labelText, EAttribute attr) {
+		labelText.append(attr.getEContainingClass().getName());
+		labelText.append("." + attr.getName());
+		labelText.append(":" + attr.getEType().getName());
+	}
+	
+	
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
