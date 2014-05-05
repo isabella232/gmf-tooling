@@ -46,7 +46,7 @@ import xpt.providers.ElementInitializers
 		«initializerGetter(editorGen.diagram)»
 		«initializerSetter(editorGen.diagram)»
 		«providersAccessMethods»
-		«logError»
+		«logError(it)»
 		«logInfo»
 		«getLogError(it)»
 		«additions»
