@@ -13,6 +13,7 @@ package org.eclipse.gmf.internal.bridge.genmodel;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -106,7 +107,7 @@ public class QVTDiagramGenModelTransformer {
 		for (URI extension: extensions) {
 			final InternalTransformationExecutor exec = myRegistry == null ? 
 					new InternalTransformationExecutor(extension) : new InternalTransformationExecutor(extension, myRegistry);
-			exec.loadTransformation();
+			exec.loadTransformation(new NullProgressMonitor());
 
 			if (1 == exec.getTransformation().getModelParameter().size()) {
 				result = exec.execute(context, output);
