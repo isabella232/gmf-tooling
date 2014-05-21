@@ -232,6 +232,11 @@
             </activation>
             <repositories>
                 <repository>
+                    <id>QVTo-I-Builds</id>
+                    <name>QVTo I-Builds repository</name>
+                    <url>http://download.eclipse.org/mmt/qvto/updates/interim/3.4.0/</url>
+                </repository>
+                <repository>
                     <id>staging</id>
                     <layout>p2</layout>
                     <url>http://download.eclipse.org/releases/luna/</url>
