@@ -468,9 +468,6 @@ import xpt.providers.ElementTypes
 		private void performDirectEdit(char initialCharacter) {
 			if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
 				((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
-			} else // 
-			if (getManager() instanceof org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) {
-				((org.eclipse.gmf.runtime.diagram.ui.tools.TextDirectEditManager) getManager()).show(initialCharacter);
 			} else //
 			{
 				performDirectEdit();
