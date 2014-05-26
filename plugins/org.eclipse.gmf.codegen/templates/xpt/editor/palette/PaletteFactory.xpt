@@ -35,10 +35,19 @@ public class «factoryClassName» {
 «EXPAND createGroup FOREACH collectGroups(self)»
 «EXPAND createEntry FOREACH collectTools(self)»
 
-«IF needsNodeToolEntryClass(self)»«EXPAND nodeToolEntry»«ENDIF-»
-«IF needsLinkToolEntryClass(self)»«EXPAND linkToolEntry»«ENDIF-»
+«EXPAND generateToolEntryClasses»
 }
 «ENDDEFINE»
+
+«REM»Override this method with «EXPAND generateToolEntryClasses(true)» if you need to generate ToolEntry classes
+     override also «DEFINE newEntry(toolVarName : String) FOR gmfgen::Palette»«ENDREM»
+«DEFINE generateToolEntryClasses FOR gmfgen::Palette»«EXPAND generateToolEntryClasses(false)»«ENDDEFINE»
+
+«DEFINE generateToolEntryClasses(shouldGenerateEntryClasses : Boolean) FOR gmfgen::Palette-»
+	«IF needsNodeToolEntryClass(self) and shouldGenerateEntryClasses»«EXPAND nodeToolEntry»«ENDIF-»
+	«IF needsLinkToolEntryClass(self) and shouldGenerateEntryClasses»«EXPAND linkToolEntry»«ENDIF-»
+«ENDDEFINE»
+
 
 «DEFINE createGroup FOR gmfgen::ToolGroup-»
 	«EXPAND xpt::Common::generatedMemberComment('Creates \"' + title + '\" palette tool group')»
@@ -103,11 +112,17 @@ public class «factoryClassName» {
 «ERROR 'abstract newEntry(AbstractToolEntry,String) template'»
 «ENDDEFINE»
 
-«DEFINE newEntry(toolVarName : String) FOR gmfgen::ToolEntry-»
+«REM»Override this method with «EXPAND newEntry(toolVarName, false)» if you need to generate ToolEntry classes
+     override also «EXPAND generateToolEntryClasses(shouldGenerateEntryClasses : Boolean)» FOR gmfgen::Palette»«ENDREM»
+«DEFINE newEntry(toolVarName : String) FOR gmfgen::ToolEntry»«EXPAND newEntry(toolVarName, false)»«ENDDEFINE»
+«DEFINE newEntry(toolVarName : String, shouldGenerateEntryClasses : Boolean) FOR gmfgen::ToolEntry-»
 «IF elements->isEmpty()-»
 org.eclipse.gef.palette.ToolEntry «toolVarName» = new org.eclipse.gef.palette.ToolEntry(«EXPAND i18nTitle», «EXPAND i18nDesc», null, null) {};
 «ELSE-»
-«LET (if genNodes->isEmpty() then 'LinkToolEntry' else 'NodeToolEntry' endif) AS toolEntryClass-»
+«LET (if genNodes->isEmpty() 
+	then (if shouldGenerateEntryClasses then 'LinkToolEntry' else 'org.eclipse.gmf.tooling.runtime.part.DefaultLinkToolEntry' endif) 
+	else (if shouldGenerateEntryClasses then 'NodeToolEntry' else 'org.eclipse.gmf.tooling.runtime.part.DefaultNodeToolEntry' endif) endif) 
+	AS toolEntryClass-»
 «IF elements->size() > 1-»
 «EXPAND CodeStyle::newGenericInstance('types', 'java.util.ArrayList', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR elements->any(true)»(«elements->size()»);
 «FOREACH elements->asSequence() AS e-»
@@ -239,44 +254,23 @@ FIXME
 
 «DEFINE nodeToolEntry FOR gmfgen::Palette»
 	«EXPAND xpt::Common::generatedClassComment»
-	private static class NodeToolEntry extends org.eclipse.gef.palette.ToolEntry {
+	private static class NodeToolEntry extends org.eclipse.gmf.tooling.runtime.part.DefaultNodeToolEntry {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private final «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» elementTypes;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private NodeToolEntry(String title, String description, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» elementTypes) {
-			super(title, description, null, null);
-			this.elementTypes = elementTypes;
+		private NodeToolEntry(String title, String description, java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> elementTypes) {
+			super(title, description, elementTypes);
 		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public org.eclipse.gef.Tool createTool() {
-			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool(elementTypes);
-			tool.setProperties(getToolProperties());
-			return tool;
-		}
+		
 	}
 «ENDDEFINE»
 
 «DEFINE linkToolEntry FOR gmfgen::Palette»
 	«EXPAND xpt::Common::generatedClassComment»
-	private static class LinkToolEntry extends org.eclipse.gef.palette.ToolEntry {
+	private static class LinkToolEntry extends org.eclipse.gmf.tooling.runtime.part.DefaultLinkToolEntry {
 
 		«EXPAND xpt::Common::generatedMemberComment»
-		private final «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» relationshipTypes;
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		private LinkToolEntry(String title, String description, «EXPAND CodeStyle::G('java.util.List', 'org.eclipse.gmf.runtime.emf.type.core.IElementType') FOR diagram» relationshipTypes) {
-			super(title, description, null, null);
-			this.relationshipTypes = relationshipTypes;
-		}
-
-		«EXPAND xpt::Common::generatedMemberComment»
-		public org.eclipse.gef.Tool createTool() {
-			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool(relationshipTypes);
-			tool.setProperties(getToolProperties());
-			return tool;
+		private LinkToolEntry(String title, String description, java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> elementTypes) {
+			super(title, description, elementTypes);
 		}
 	}
 «ENDDEFINE»

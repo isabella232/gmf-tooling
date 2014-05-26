@@ -76,8 +76,8 @@ import xpt.providers.ElementTypes
 			«createEntry(tool)»
 		«ENDFOR»
 		
-		«IF needsNodeToolEntryClass(it)»«nodeToolEntry(it)»«ENDIF»
-		«IF needsLinkToolEntryClass(it)»«linkToolEntry(it)»«ENDIF»
+		«IF needsNodeToolEntryClass(it) && shouldGenerateToolEntryClasses()»«nodeToolEntry(it)»«ENDIF»
+		«IF needsLinkToolEntryClass(it) && shouldGenerateToolEntryClasses()»«linkToolEntry(it)»«ENDIF»
 		«additions(it)»
 		}
 	'''
@@ -148,7 +148,37 @@ import xpt.providers.ElementTypes
 	'''
 
 	protected def String toolEntryClass(ToolEntry entry) {
-		return if(entry.genNodes.empty) 'LinkToolEntry' else 'NodeToolEntry'
+		return if(entry.genNodes.empty) linkToolEntryClassName() else nodeToolEntryClassName();
+	}
+
+	protected def getLinkToolEntryGeneratedClassName() {
+		return 'LinkToolEntry';
+	}
+
+	protected def getNodeToolEntryGeneratedClassName() {
+		return 'NodeToolEntry';
+	}
+
+	protected def getDefaultLinkToolEntryClassName() {
+		return 'org.eclipse.gmf.tooling.runtime.part.DefaultLinkToolEntry';
+	}
+
+	protected def getDefaultNodeToolEntryClassName() {
+		return 'org.eclipse.gmf.tooling.runtime.part.DefaultNodeToolEntry';
+	}
+
+	private def linkToolEntryClassName() {
+		return if (shouldGenerateToolEntryClasses())
+			getLinkToolEntryGeneratedClassName()
+		else
+			getDefaultLinkToolEntryClassName()
+	}
+
+	private def nodeToolEntryClassName() {
+		return if (shouldGenerateToolEntryClasses())
+			getNodeToolEntryGeneratedClassName()
+		else
+			getDefaultNodeToolEntryClassName()
 	}
 
 	def dispatch newEntry(AbstractToolEntry it, String toolVarName) '''
@@ -296,47 +326,31 @@ import xpt.providers.ElementTypes
 
 	def nodeToolEntry(Palette it) '''
 		«generatedClassComment»
-		private static class NodeToolEntry extends org.eclipse.gef.palette.ToolEntry {
-		
-			«generatedMemberComment»
-			private final java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> elementTypes;
-		
-			«generatedMemberComment»
+		private static class «getNodeToolEntryGeneratedClassName()» extends «getDefaultNodeToolEntryClassName()» {
+			
+			«generatedClassComment»
 			private NodeToolEntry(String title, String description, java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> elementTypes) {
-			super(title, description, null, null);
-			this.elementTypes = elementTypes;
+				super(title, description, elementTypes);
 			}
-		
-			«generatedMemberComment»
-			public org.eclipse.gef.Tool createTool() {
-			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool(elementTypes);
-			tool.setProperties(getToolProperties());
-			return tool;
-			}
+			
 		}
 	'''
 
 	def linkToolEntry(Palette it) '''
 		«generatedClassComment»
-		private static class LinkToolEntry extends org.eclipse.gef.palette.ToolEntry {
-		
-			«generatedMemberComment»
-			private final java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> relationshipTypes;
-		
-			«generatedMemberComment»
-			private LinkToolEntry(String title, String description, java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> relationshipTypes) {
-			super(title, description, null, null);
-			this.relationshipTypes = relationshipTypes;
+		private static class «getLinkToolEntryGeneratedClassName()» extends «getDefaultLinkToolEntryClassName()» {
+			
+			«generatedClassComment»
+			private LinkToolEntry(String title, String description, java.util.List<org.eclipse.gmf.runtime.emf.type.core.IElementType> elementTypes) {
+				super(title, description, elementTypes);
 			}
-		
-			«generatedMemberComment»
-			public org.eclipse.gef.Tool createTool() {
-			org.eclipse.gef.Tool tool = new org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool(relationshipTypes);
-			tool.setProperties(getToolProperties());
-			return tool;
-			}
+			
 		}
 	'''
+
+	def shouldGenerateToolEntryClasses() {
+		return false;
+	}
 
 	def setIdentity(EntryBase it, String toolVarName) '''
 	«IF !it.id.nullOrEmpty»
