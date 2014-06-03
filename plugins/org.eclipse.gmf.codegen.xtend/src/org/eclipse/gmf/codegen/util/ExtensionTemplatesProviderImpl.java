@@ -125,7 +125,7 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 	private List<Class<?>> loadClassesFromBundle(boolean aspectNotCustom) {
 		List<Class<?>> result = new LinkedList<Class<?>>();
 		Enumeration<java.net.URL> classsesURL = myBundle.findEntries(myCustomTemplatePath, "*.xtend", true);
-		while (classsesURL.hasMoreElements()) {
+		while (classsesURL != null && classsesURL.hasMoreElements()) {
 			String classPath = classsesURL.nextElement().toString().trim();
 			classPath = classPath.substring(classPath.indexOf(myCustomTemplatePath), classPath.length()).replace(myCustomTemplatePath, EMPLTY_STRING).replace(POINT_SEPARATOR + TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING);
 			try {
