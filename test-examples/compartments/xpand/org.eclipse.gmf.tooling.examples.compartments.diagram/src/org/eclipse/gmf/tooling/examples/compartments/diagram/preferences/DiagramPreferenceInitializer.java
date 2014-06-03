@@ -10,8 +10,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = getPreferenceStore();
 		DiagramGeneralPreferencePage.initDefaults(store);
@@ -23,8 +23,8 @@ public class DiagramPreferenceInitializer extends AbstractPreferenceInitializer 
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IPreferenceStore getPreferenceStore() {
 		return CompartmentsDiagramEditorPlugin.getInstance().getPreferenceStore();
 	}

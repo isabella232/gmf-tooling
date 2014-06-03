@@ -32,8 +32,8 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVi
 public class TopNodeBNodeECompartmentCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void refreshOnActivate() {
 		// Need to activate editpart children before invoking the canonical refresh for EditParts to add event listeners
 		List<?> c = getHost().getChildren();
@@ -44,15 +44,15 @@ public class TopNodeBNodeECompartmentCanonicalEditPolicy extends CanonicalEditPo
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected EStructuralFeature getFeatureToSynchronize() {
 		return CompartmentsPackage.eINSTANCE.getTopNodeB_ChildrenE();
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	@SuppressWarnings("rawtypes")
 	protected List getSemanticChildrenList() {
 		View viewObject = (View) getHost().getModel();
@@ -65,22 +65,22 @@ public class TopNodeBNodeECompartmentCanonicalEditPolicy extends CanonicalEditPo
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean isOrphaned(Collection<EObject> semanticChildren, final View view) {
 		return isMyDiagramElement(view) && !semanticChildren.contains(view.getElement());
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private boolean isMyDiagramElement(View view) {
 		return ChildOfB_EEditPart.VISUAL_ID == CompartmentsVisualIDRegistry.getVisualID(view);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void refreshSemantic() {
 		if (resolveSemanticElement() == null) {
 			return;

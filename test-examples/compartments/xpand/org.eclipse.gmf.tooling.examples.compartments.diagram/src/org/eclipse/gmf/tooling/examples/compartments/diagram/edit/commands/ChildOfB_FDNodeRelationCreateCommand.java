@@ -17,18 +17,18 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.Compa
 public class ChildOfB_FDNodeRelationCreateCommand extends EditElementCommand {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private final EObject source;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private final EObject target;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfB_FDNodeRelationCreateCommand(CreateRelationshipRequest request, EObject source, EObject target) {
 		super(request.getLabel(), null, request);
 		this.source = source;
@@ -36,8 +36,8 @@ public class ChildOfB_FDNodeRelationCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public boolean canExecute() {
 		if (source == null && target == null) {
 			return false;
@@ -56,8 +56,8 @@ public class ChildOfB_FDNodeRelationCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in create link command"); //$NON-NLS-1$
@@ -71,22 +71,22 @@ public class ChildOfB_FDNodeRelationCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setElementToEdit(EObject element) {
 		throw new UnsupportedOperationException();
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ChildOfB_F getSource() {
 		return (ChildOfB_F) source;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ChildOfA_D getTarget() {
 		return (ChildOfA_D) target;
 	}

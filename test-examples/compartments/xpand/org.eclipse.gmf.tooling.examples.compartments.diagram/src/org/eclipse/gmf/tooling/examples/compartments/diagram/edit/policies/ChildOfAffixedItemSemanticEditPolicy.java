@@ -15,15 +15,15 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.Compartme
 public class ChildOfAffixedItemSemanticEditPolicy extends CompartmentsBaseItemSemanticEditPolicy {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfAffixedItemSemanticEditPolicy() {
 		super(CompartmentsElementTypes.ChildOfAffixed_3005);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
 		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);

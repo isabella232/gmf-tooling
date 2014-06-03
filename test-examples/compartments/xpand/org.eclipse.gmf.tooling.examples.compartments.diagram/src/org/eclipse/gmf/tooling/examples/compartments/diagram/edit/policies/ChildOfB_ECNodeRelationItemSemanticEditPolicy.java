@@ -11,15 +11,15 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.Compartme
 public class ChildOfB_ECNodeRelationItemSemanticEditPolicy extends CompartmentsBaseItemSemanticEditPolicy {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfB_ECNodeRelationItemSemanticEditPolicy() {
 		super(CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
 		return getGEFWrapper(new DestroyReferenceCommand(req));
 	}

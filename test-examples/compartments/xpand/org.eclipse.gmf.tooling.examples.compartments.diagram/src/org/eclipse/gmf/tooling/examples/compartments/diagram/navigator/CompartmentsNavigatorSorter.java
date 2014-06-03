@@ -4,18 +4,18 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVi
 import org.eclipse.jface.viewers.ViewerSorter;
 
 /**
-* @generated
-*/
+ * @generated
+ */
 public class CompartmentsNavigatorSorter extends ViewerSorter {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private static final int GROUP_CATEGORY = 7007;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public int category(Object element) {
 		if (element instanceof CompartmentsNavigatorItem) {
 			CompartmentsNavigatorItem item = (CompartmentsNavigatorItem) element;

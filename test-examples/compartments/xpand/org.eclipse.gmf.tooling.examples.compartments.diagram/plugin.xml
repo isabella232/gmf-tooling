@@ -247,19 +247,52 @@
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
       <?gmfgen generated="true"?>
-      <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.CompartmentsModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfCanvasEditPart">
          <Priority name="Lowest"/>
          <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.CanvasEditPart" id="Canvas_1000"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.TopNodeAEditPart" id="TopNodeA_2001"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.TopNodeBEditPart" id="TopNodeB_2002"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfA_CEditPart" id="ChildOfA_C_3001"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfA_DEditPart" id="ChildOfA_D_3002"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfB_EEditPart" id="ChildOfB_E_3003"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfB_GEditPart" id="ChildOfB_G_3004"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfAffixedEditPart" id="ChildOfAffixed_3005"/>
-         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfB_FEditPart" id="ChildOfB_F_3006"/>
-         <context elements="Canvas_1000,TopNodeA_2001,TopNodeB_2002,ChildOfA_C_3001,ChildOfA_D_3002,ChildOfB_E_3003,ChildOfB_G_3004,ChildOfAffixed_3005,ChildOfB_F_3006"/>
+         <context elements="Canvas_1000"/>
       </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfTopNodeAEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.TopNodeAEditPart" id="TopNodeA_2001"/>
+         <context elements="TopNodeA_2001"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfTopNodeBEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.TopNodeBEditPart" id="TopNodeB_2002"/>
+         <context elements="TopNodeB_2002"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfChildOfA_CEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfA_CEditPart" id="ChildOfA_C_3001"/>
+         <context elements="ChildOfA_C_3001"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfChildOfA_DEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfA_DEditPart" id="ChildOfA_D_3002"/>
+         <context elements="ChildOfA_D_3002"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfChildOfB_EEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfB_EEditPart" id="ChildOfB_E_3003"/>
+         <context elements="ChildOfB_E_3003"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfChildOfB_GEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfB_GEditPart" id="ChildOfB_G_3004"/>
+         <context elements="ChildOfB_G_3004"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfChildOfAffixedEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfAffixedEditPart" id="ChildOfAffixed_3005"/>
+         <context elements="ChildOfAffixed_3005"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.compartments.diagram.providers.assistants.CompartmentsModelingAssistantProviderOfChildOfB_FEditPart">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.ChildOfB_FEditPart" id="ChildOfB_F_3006"/>
+         <context elements="ChildOfB_F_3006"/>
+      </modelingAssistantProvider>
+      
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">

@@ -37,30 +37,30 @@ import org.eclipse.swt.graphics.Color;
 public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final int VISUAL_ID = 3004;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure contentPane;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure primaryShape;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfB_GEditPart(View view) {
 		super(view);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void createDefaultEditPolicies() {
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicyWithCustomReparent(CompartmentsVisualIDRegistry.TYPED_INSTANCE));
 		super.createDefaultEditPolicies();
@@ -72,8 +72,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 
 		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
@@ -91,22 +91,22 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure createNodeShape() {
 		return primaryShape = new NodeGFigure();
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public NodeGFigure getPrimaryShape() {
 		return (NodeGFigure) primaryShape;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof ChildOfB_GNumberEditPart) {
 			((ChildOfB_GNumberEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNodeGNumber());
@@ -122,8 +122,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof ChildOfB_GNumberEditPart) {
 			return true;
@@ -137,8 +137,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (addFixedChild(childEditPart)) {
 			return;
@@ -147,8 +147,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void removeChildVisual(EditPart childEditPart) {
 		if (removeFixedChild(childEditPart)) {
 			return;
@@ -157,8 +157,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 		if (editPart instanceof ChildOfB_GAffixedChildrenCompartmentEditPart) {
 			return getPrimaryShape().getFigureAffixedChildrenCompartmentFigure();
@@ -167,8 +167,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
 
@@ -178,13 +178,13 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* Creates figure for this edit part.
-	* 
-	* Body of this method does not depend on settings in generation model
-	* so you may safely remove <i>generated</i> tag and modify it.
-	* 
-	* @generated
-	*/
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
 	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
@@ -195,11 +195,11 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* Default implementation treats passed figure as content pane.
-	* Respects layout one may have set for generated figure.
-	* @param nodeShape instance of generated figure class
-	* @generated
-	*/
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
+	 * @generated
+	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
 			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
@@ -210,8 +210,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public IFigure getContentPane() {
 		if (contentPane != null) {
 			return contentPane;
@@ -220,8 +220,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setForegroundColor(Color color) {
 		if (primaryShape != null) {
 			primaryShape.setForegroundColor(color);
@@ -229,8 +229,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setBackgroundColor(Color color) {
 		if (primaryShape != null) {
 			primaryShape.setBackgroundColor(color);
@@ -238,8 +238,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setLineWidth(int width) {
 		if (primaryShape instanceof Shape) {
 			((Shape) primaryShape).setLineWidth(width);
@@ -247,8 +247,8 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setLineType(int style) {
 		if (primaryShape instanceof Shape) {
 			((Shape) primaryShape).setLineStyle(style);
@@ -256,15 +256,15 @@ public class ChildOfB_GEditPart extends AbstractBorderItemEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(CompartmentsVisualIDRegistry.getType(ChildOfB_GNumberEditPart.VISUAL_ID));
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public EditPart getTargetEditPart(Request request) {
 		if (request instanceof CreateViewAndElementRequest) {
 			CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();

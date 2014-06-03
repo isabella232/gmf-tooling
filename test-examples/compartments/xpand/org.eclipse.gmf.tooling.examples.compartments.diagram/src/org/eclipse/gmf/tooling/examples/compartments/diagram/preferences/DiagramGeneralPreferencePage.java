@@ -9,8 +9,8 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsDi
 public class DiagramGeneralPreferencePage extends DiagramsPreferencePage {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public DiagramGeneralPreferencePage() {
 		setPreferenceStore(CompartmentsDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}

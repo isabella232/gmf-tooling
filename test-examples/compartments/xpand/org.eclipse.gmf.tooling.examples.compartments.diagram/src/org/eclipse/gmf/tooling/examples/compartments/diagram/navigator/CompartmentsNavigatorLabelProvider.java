@@ -44,16 +44,16 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 public class CompartmentsNavigatorLabelProvider extends LabelProvider implements ICommonLabelProvider, ITreePathLabelProvider {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	static {
 		CompartmentsDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?UnknownElement", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
 		CompartmentsDiagramEditorPlugin.getInstance().getImageRegistry().put("Navigator?ImageNotFound", ImageDescriptor.getMissingImageDescriptor()); //$NON-NLS-1$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void updateLabel(ViewerLabel label, TreePath elementPath) {
 		Object element = elementPath.getLastSegment();
 		if (element instanceof CompartmentsNavigatorItem && !isOwnView(((CompartmentsNavigatorItem) element).getView())) {
@@ -64,8 +64,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Image getImage(Object element) {
 		if (element instanceof CompartmentsNavigatorGroup) {
 			CompartmentsNavigatorGroup group = (CompartmentsNavigatorGroup) element;
@@ -84,8 +84,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Image getImage(View view) {
 		switch (CompartmentsVisualIDRegistry.getVisualID(view)) {
 		case CanvasEditPart.VISUAL_ID:
@@ -115,8 +115,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private Image getImage(String key, IElementType elementType) {
 		ImageRegistry imageRegistry = CompartmentsDiagramEditorPlugin.getInstance().getImageRegistry();
 		Image image = imageRegistry.get(key);
@@ -133,8 +133,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public String getText(Object element) {
 		if (element instanceof CompartmentsNavigatorGroup) {
 			CompartmentsNavigatorGroup group = (CompartmentsNavigatorGroup) element;
@@ -153,8 +153,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public String getText(View view) {
 		if (view.getElement() != null && view.getElement().eIsProxy()) {
 			return getUnresolvedDomainElementProxyText(view);
@@ -187,15 +187,15 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getCanvas_1000Text(View view) {
 		return ""; //$NON-NLS-1$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getTopNodeA_2001Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.TopNodeA_2001, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(TopNodeANameEditPart.VISUAL_ID));
@@ -208,8 +208,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getTopNodeB_2002Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.TopNodeB_2002, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(TopNodeBNameEditPart.VISUAL_ID));
@@ -222,8 +222,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfA_C_3001Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.ChildOfA_C_3001, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(ChildOfA_CNameEditPart.VISUAL_ID));
@@ -236,8 +236,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfA_D_3002Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.ChildOfA_D_3002, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(ChildOfA_DNameEditPart.VISUAL_ID));
@@ -250,8 +250,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfB_E_3003Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.ChildOfB_E_3003, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(ChildOfB_ENameEditPart.VISUAL_ID));
@@ -264,8 +264,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfB_G_3004Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.ChildOfB_G_3004, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(ChildOfB_GNumberEditPart.VISUAL_ID));
@@ -278,8 +278,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfAffixed_3005Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.ChildOfAffixed_3005, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(ChildOfAffixedEditPart.VISUAL_ID));
@@ -292,8 +292,8 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfB_F_3006Text(View view) {
 		IParser parser = CompartmentsParserProvider.getParser(CompartmentsElementTypes.ChildOfB_F_3006, view.getElement() != null ? view.getElement() : view,
 				CompartmentsVisualIDRegistry.getType(ChildOfB_FNameEditPart.VISUAL_ID));
@@ -306,61 +306,61 @@ public class CompartmentsNavigatorLabelProvider extends LabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfB_ECNodeRelation_4001Text(View view) {
 		return ""; //$NON-NLS-1$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getChildOfB_FDNodeRelation_4002Text(View view) {
 		return ""; //$NON-NLS-1$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getUnknownElementText(View view) {
 		return "<UnknownElement Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$  //$NON-NLS-2$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private String getUnresolvedDomainElementProxyText(View view) {
 		return "<Unresolved domain element Visual_ID = " + view.getType() + ">"; //$NON-NLS-1$  //$NON-NLS-2$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void init(ICommonContentExtensionSite aConfig) {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void restoreState(IMemento aMemento) {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void saveState(IMemento aMemento) {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public String getDescription(Object anElement) {
 		return null;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private boolean isOwnView(View view) {
 		return CanvasEditPart.MODEL_ID.equals(CompartmentsVisualIDRegistry.getModelID(view));
 	}

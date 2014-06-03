@@ -21,16 +21,16 @@ import org.eclipse.gmf.tooling.examples.compartments.TopNodeA;
 public class ChildOfA_CCreateCommand extends EditElementCommand {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfA_CCreateCommand(CreateElementRequest req) {
 		super(req.getLabel(), null, req);
 	}
 
 	/**
-	* FIXME: replace with setElementToEdit()
-	* @generated
-	*/
+	 * FIXME: replace with setElementToEdit()
+	 * @generated
+	 */
 	protected EObject getElementToEdit() {
 		EObject container = ((CreateElementRequest) getRequest()).getContainer();
 		if (container instanceof View) {
@@ -40,16 +40,16 @@ public class ChildOfA_CCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public boolean canExecute() {
 		return true;
 
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		ChildOfA_C newElement = CompartmentsFactory.eINSTANCE.createChildOfA_C();
 
@@ -63,8 +63,8 @@ public class ChildOfA_CCreateCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void doConfigure(ChildOfA_C newElement, IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		IElementType elementType = ((CreateElementRequest) getRequest()).getElementType();
 		ConfigureRequest configureRequest = new ConfigureRequest(getEditingDomain(), newElement, elementType);

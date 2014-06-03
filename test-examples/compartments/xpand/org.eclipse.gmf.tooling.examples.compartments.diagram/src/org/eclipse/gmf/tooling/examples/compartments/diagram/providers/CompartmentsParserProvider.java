@@ -30,13 +30,13 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVi
 public class CompartmentsParserProvider extends AbstractProvider implements IParserProvider {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser topNodeAName_5003Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getTopNodeAName_5003Parser() {
 		if (topNodeAName_5003Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getTopNodeA_Name() };
@@ -47,13 +47,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser topNodeBName_5007Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getTopNodeBName_5007Parser() {
 		if (topNodeBName_5007Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getTopNodeB_Name() };
@@ -64,13 +64,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser childOfA_CName_5001Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getChildOfA_CName_5001Parser() {
 		if (childOfA_CName_5001Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getChildOfA_C_Name() };
@@ -81,13 +81,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser childOfA_DName_5002Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getChildOfA_DName_5002Parser() {
 		if (childOfA_DName_5002Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getChildOfA_D_Name() };
@@ -98,13 +98,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser childOfB_EName_5004Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getChildOfB_EName_5004Parser() {
 		if (childOfB_EName_5004Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getChildOfB_E_Name() };
@@ -115,13 +115,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser childOfB_GNumber_5005Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getChildOfB_GNumber_5005Parser() {
 		if (childOfB_GNumber_5005Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getChildOfB_G_Number() };
@@ -133,13 +133,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser childOfAffixed_3005Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getChildOfAffixed_3005Parser() {
 		if (childOfAffixed_3005Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getChildOfAffixed_Description() };
@@ -150,13 +150,13 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser childOfB_FName_5006Parser;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IParser getChildOfB_FName_5006Parser() {
 		if (childOfB_FName_5006Parser == null) {
 			EAttribute[] features = new EAttribute[] { CompartmentsPackage.eINSTANCE.getChildOfB_F_Name() };
@@ -167,8 +167,8 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IParser getParser(int visualID) {
 		switch (visualID) {
 		case TopNodeANameEditPart.VISUAL_ID:
@@ -192,16 +192,16 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* Utility method that consults ParserService
-	* @generated
-	*/
+	 * Utility method that consults ParserService
+	 * @generated
+	 */
 	public static IParser getParser(IElementType type, EObject object, String parserHint) {
 		return ParserService.getInstance().getParser(new HintAdapter(type, object, parserHint));
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public IParser getParser(IAdaptable hint) {
 		String vid = (String) hint.getAdapter(String.class);
 		if (vid != null) {
@@ -215,8 +215,8 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
 			IAdaptable hint = ((GetParserOperation) operation).getHint();
@@ -229,18 +229,18 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private static class HintAdapter extends ParserHintAdapter {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		private final IElementType elementType;
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		public HintAdapter(IElementType type, EObject object, String parserHint) {
 			super(object, parserHint);
 			assert type != null;
@@ -248,8 +248,8 @@ public class CompartmentsParserProvider extends AbstractProvider implements IPar
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		public Object getAdapter(Class adapter) {
 			if (IElementType.class.equals(adapter)) {
 				return elementType;

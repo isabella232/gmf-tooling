@@ -6,20 +6,20 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.commands.Child
 import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.CompartmentsElementTypes;
 
 /**
-* @generated
-*/
+ * @generated
+ */
 public class TopNodeANodeCCompartmentItemSemanticEditPolicy extends CompartmentsBaseItemSemanticEditPolicy {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public TopNodeANodeCCompartmentItemSemanticEditPolicy() {
 		super(CompartmentsElementTypes.TopNodeA_2001);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
 		if (CompartmentsElementTypes.ChildOfA_C_3001 == req.getElementType()) {
 			return getGEFWrapper(new ChildOfA_CCreateCommand(req));

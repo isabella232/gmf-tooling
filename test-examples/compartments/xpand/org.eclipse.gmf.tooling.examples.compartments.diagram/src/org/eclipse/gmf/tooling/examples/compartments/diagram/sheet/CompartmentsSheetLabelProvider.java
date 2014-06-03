@@ -17,8 +17,8 @@ import org.eclipse.swt.graphics.Image;
 public class CompartmentsSheetLabelProvider extends BaseLabelProvider implements ILabelProvider {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public String getText(Object element) {
 		element = unwrap(element);
 		if (element instanceof CompartmentsNavigatorGroup) {
@@ -29,16 +29,16 @@ public class CompartmentsSheetLabelProvider extends BaseLabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Image getImage(Object element) {
 		IElementType etype = getElementType(getView(unwrap(element)));
 		return etype == null ? null : CompartmentsElementTypes.getImage(etype);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private Object unwrap(Object element) {
 		if (element instanceof IStructuredSelection) {
 			return ((IStructuredSelection) element).getFirstElement();
@@ -47,8 +47,8 @@ public class CompartmentsSheetLabelProvider extends BaseLabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private View getView(Object element) {
 		if (element instanceof View) {
 			return (View) element;
@@ -60,8 +60,8 @@ public class CompartmentsSheetLabelProvider extends BaseLabelProvider implements
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private IElementType getElementType(View view) {
 		// For intermediate views climb up the containment hierarchy to find the one associated with an element type.
 		while (view != null) {

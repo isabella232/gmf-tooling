@@ -42,13 +42,13 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.Compartme
 import org.eclipse.gmf.tooling.runtime.update.DiagramUpdater;
 
 /**
-* @generated
-*/
+ * @generated
+ */
 public class CompartmentsDiagramUpdater {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getSemanticChildren(View view) {
 		switch (CompartmentsVisualIDRegistry.getVisualID(view)) {
 		case CanvasEditPart.VISUAL_ID:
@@ -70,8 +70,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getCanvas_1000SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
@@ -94,8 +94,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getTopNodeB_2002SemanticChildren(View view) {
 		if (!view.isSetElement()) {
 			return Collections.emptyList();
@@ -114,8 +114,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getTopNodeANodeCCompartment_7001SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -138,8 +138,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getTopNodeANodeDCompartment_7002SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -162,8 +162,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getTopNodeBNodeECompartment_7003SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -186,8 +186,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getTopNodeBNodeFCompartment_7004SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -210,8 +210,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsNodeDescriptor> getChildOfB_GAffixedChildrenCompartment_7005SemanticChildren(View view) {
 		if (false == view.eContainer() instanceof View) {
 			return Collections.emptyList();
@@ -234,8 +234,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsLinkDescriptor> getContainedLinks(View view) {
 		switch (CompartmentsVisualIDRegistry.getVisualID(view)) {
 		case CanvasEditPart.VISUAL_ID:
@@ -261,8 +261,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsLinkDescriptor> getIncomingLinks(View view) {
 		switch (CompartmentsVisualIDRegistry.getVisualID(view)) {
 		case TopNodeAEditPart.VISUAL_ID:
@@ -286,8 +286,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static List<CompartmentsLinkDescriptor> getOutgoingLinks(View view) {
 		switch (CompartmentsVisualIDRegistry.getVisualID(view)) {
 		case TopNodeAEditPart.VISUAL_ID:
@@ -536,8 +536,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private static Collection<CompartmentsLinkDescriptor> getOutgoingFeatureModelFacetLinks_ChildOfB_E_CNodeRelation_4001(ChildOfB_E source) {
 		LinkedList<CompartmentsLinkDescriptor> result = new LinkedList<CompartmentsLinkDescriptor>();
 		ChildOfA_C destination = source.getCNodeRelation();
@@ -549,8 +549,8 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private static Collection<CompartmentsLinkDescriptor> getOutgoingFeatureModelFacetLinks_ChildOfB_F_DNodeRelation_4002(ChildOfB_F source) {
 		LinkedList<CompartmentsLinkDescriptor> result = new LinkedList<CompartmentsLinkDescriptor>();
 		ChildOfA_D destination = source.getDNodeRelation();
@@ -562,37 +562,37 @@ public class CompartmentsDiagramUpdater {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final DiagramUpdater TYPED_INSTANCE = new DiagramUpdater() {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<CompartmentsNodeDescriptor> getSemanticChildren(View view) {
 			return CompartmentsDiagramUpdater.getSemanticChildren(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<CompartmentsLinkDescriptor> getContainedLinks(View view) {
 			return CompartmentsDiagramUpdater.getContainedLinks(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<CompartmentsLinkDescriptor> getIncomingLinks(View view) {
 			return CompartmentsDiagramUpdater.getIncomingLinks(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public List<CompartmentsLinkDescriptor> getOutgoingLinks(View view) {
 			return CompartmentsDiagramUpdater.getOutgoingLinks(view);

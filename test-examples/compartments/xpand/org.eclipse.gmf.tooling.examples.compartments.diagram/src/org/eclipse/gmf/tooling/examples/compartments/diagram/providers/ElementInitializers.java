@@ -12,8 +12,8 @@ public class ElementInitializers {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static ElementInitializers getInstance() {
 		ElementInitializers cached = CompartmentsDiagramEditorPlugin.getInstance().getElementInitializers();
 		if (cached == null) {

@@ -14,43 +14,43 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.Child
 public class ChildOfB_FDNodeRelationEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final int VISUAL_ID = 4002;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfB_FDNodeRelationEditPart(View view) {
 		super(view);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ChildOfB_FDNodeRelationItemSemanticEditPolicy());
 	}
 
 	/**
-	* Creates figure for this edit part.
-	* 
-	* Body of this method does not depend on settings in generation model
-	* so you may safely remove <i>generated</i> tag and modify it.
-	* 
-	* @generated
-	*/
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected Connection createConnectionFigure() {
 		return new PolylineConnectionEx();
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public PolylineConnectionEx getPrimaryShape() {
 		return (PolylineConnectionEx) getFigure();
 	}

@@ -6,13 +6,13 @@ import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 
 /**
-* @generated
-*/
+ * @generated
+ */
 public abstract class CompartmentsAbstractNavigatorItem extends PlatformObject {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	static {
 		final Class[] supportedTypes = new Class[] { ITabbedPropertySheetPageContributor.class };
 		final ITabbedPropertySheetPageContributor propertySheetPageContributor = new ITabbedPropertySheetPageContributor() {
@@ -38,20 +38,20 @@ public abstract class CompartmentsAbstractNavigatorItem extends PlatformObject {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private Object myParent;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected CompartmentsAbstractNavigatorItem(Object parent) {
 		myParent = parent;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Object getParent() {
 		return myParent;
 	}

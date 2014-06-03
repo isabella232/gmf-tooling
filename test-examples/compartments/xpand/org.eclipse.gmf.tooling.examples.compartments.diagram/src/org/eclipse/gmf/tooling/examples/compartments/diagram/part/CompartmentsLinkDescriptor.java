@@ -5,20 +5,20 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.tooling.runtime.update.UpdaterLinkDescriptor;
 
 /**
-* @generated
-*/
+ * @generated
+ */
 public class CompartmentsLinkDescriptor extends UpdaterLinkDescriptor {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsLinkDescriptor(EObject source, EObject destination, IElementType elementType, int linkVID) {
 		super(source, destination, elementType, linkVID);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsLinkDescriptor(EObject source, EObject destination, EObject linkElement, IElementType elementType, int linkVID) {
 		super(source, destination, linkElement, elementType, linkVID);
 	}

@@ -38,129 +38,22 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 public class CompartmentsModelingAssistantProvider extends ModelingAssistantProvider {
 
 	/**
-	* @generated
-	*/
-	public List getTypesForPopupBar(IAdaptable host) {
-		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
-		if (editPart instanceof CanvasEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(2);
-			types.add(CompartmentsElementTypes.TopNodeA_2001);
-			types.add(CompartmentsElementTypes.TopNodeB_2002);
-			return types;
-		}
-		if (editPart instanceof TopNodeAEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-			types.add(CompartmentsElementTypes.ChildOfA_D_3002);
-			return types;
-		}
-		if (editPart instanceof TopNodeBEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(3);
-			types.add(CompartmentsElementTypes.ChildOfB_G_3004);
-			types.add(CompartmentsElementTypes.ChildOfB_E_3003);
-			types.add(CompartmentsElementTypes.ChildOfB_F_3006);
-			return types;
-		}
-		if (editPart instanceof ChildOfB_GEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-			types.add(CompartmentsElementTypes.ChildOfAffixed_3005);
-			return types;
-		}
-		if (editPart instanceof TopNodeANodeCCompartmentEditPart) {
-			ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-			types.add(CompartmentsElementTypes.ChildOfA_C_3001);
-			return types;
-		}
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	* @generated
-	*/
-	public List getRelTypesOnSource(IAdaptable source) {
-		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof ChildOfB_EEditPart) {
-			return ((ChildOfB_EEditPart) sourceEditPart).getMARelTypesOnSource();
-		}
-		if (sourceEditPart instanceof ChildOfB_FEditPart) {
-			return ((ChildOfB_FEditPart) sourceEditPart).getMARelTypesOnSource();
-		}
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	* @generated
-	*/
-	public List getRelTypesOnTarget(IAdaptable target) {
-		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
-		if (targetEditPart instanceof ChildOfA_CEditPart) {
-			return ((ChildOfA_CEditPart) targetEditPart).getMARelTypesOnTarget();
-		}
-		if (targetEditPart instanceof ChildOfA_DEditPart) {
-			return ((ChildOfA_DEditPart) targetEditPart).getMARelTypesOnTarget();
-		}
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	* @generated
-	*/
-	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
-		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof ChildOfB_EEditPart) {
-			return ((ChildOfB_EEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
-		}
-		if (sourceEditPart instanceof ChildOfB_FEditPart) {
-			return ((ChildOfB_FEditPart) sourceEditPart).getMARelTypesOnSourceAndTarget(targetEditPart);
-		}
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	* @generated
-	*/
-	public List getTypesForSource(IAdaptable target, IElementType relationshipType) {
-		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
-		if (targetEditPart instanceof ChildOfA_CEditPart) {
-			return ((ChildOfA_CEditPart) targetEditPart).getMATypesForSource(relationshipType);
-		}
-		if (targetEditPart instanceof ChildOfA_DEditPart) {
-			return ((ChildOfA_DEditPart) targetEditPart).getMATypesForSource(relationshipType);
-		}
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	* @generated
-	*/
-	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
-		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof ChildOfB_EEditPart) {
-			return ((ChildOfB_EEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
-		}
-		if (sourceEditPart instanceof ChildOfB_FEditPart) {
-			return ((ChildOfB_FEditPart) sourceEditPart).getMATypesForTarget(relationshipType);
-		}
-		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public EObject selectExistingElementForSource(IAdaptable target, IElementType relationshipType) {
 		return selectExistingElement(target, getTypesForSource(target, relationshipType));
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public EObject selectExistingElementForTarget(IAdaptable source, IElementType relationshipType) {
 		return selectExistingElement(source, getTypesForTarget(source, relationshipType));
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected EObject selectExistingElement(IAdaptable host, Collection types) {
 		if (types.isEmpty()) {
 			return null;
@@ -184,16 +77,16 @@ public class CompartmentsModelingAssistantProvider extends ModelingAssistantProv
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean isApplicableElement(EObject element, Collection types) {
 		IElementType type = ElementTypeRegistry.getInstance().getElementType(element);
 		return types.contains(type);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected EObject selectElement(EObject[] elements) {
 		Shell shell = Display.getCurrent().getActiveShell();
 		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(CompartmentsDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());

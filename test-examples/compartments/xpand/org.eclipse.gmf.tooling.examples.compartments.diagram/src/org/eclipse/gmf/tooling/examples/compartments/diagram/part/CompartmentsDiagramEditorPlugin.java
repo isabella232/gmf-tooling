@@ -28,54 +28,54 @@ import org.osgi.framework.BundleContext;
 public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final String ID = "org.eclipse.gmf.tooling.examples.compartments.diagram"; //$NON-NLS-1$
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private LogHelper myLogHelper;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(ID);
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private static CompartmentsDiagramEditorPlugin instance;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private ComposedAdapterFactory adapterFactory;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private CompartmentsDocumentProvider documentProvider;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private CompartmentsBaseItemSemanticEditPolicy.LinkConstraints linkConstraints;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private ElementInitializers initializers;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsDiagramEditorPlugin() {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
@@ -85,8 +85,8 @@ public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void stop(BundleContext context) throws Exception {
 		adapterFactory.dispose();
 		adapterFactory = null;
@@ -97,15 +97,15 @@ public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static CompartmentsDiagramEditorPlugin getInstance() {
 		return instance;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ComposedAdapterFactory createAdapterFactory() {
 		ArrayList<AdapterFactory> factories = new ArrayList<AdapterFactory>();
 		fillItemProviderFactories(factories);
@@ -113,8 +113,8 @@ public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void fillItemProviderFactories(List<AdapterFactory> factories) {
 		factories.add(new CompartmentsItemProviderAdapterFactory());
 		factories.add(new ResourceItemProviderAdapterFactory());
@@ -122,15 +122,15 @@ public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public AdapterFactory getItemProvidersAdapterFactory() {
 		return adapterFactory;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ImageDescriptor getItemImageDescriptor(Object item) {
 		IItemLabelProvider labelProvider = (IItemLabelProvider) adapterFactory.adapt(item, IItemLabelProvider.class);
 		if (labelProvider != null) {
@@ -196,8 +196,8 @@ public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsDocumentProvider getDocumentProvider() {
 		if (documentProvider == null) {
 			documentProvider = new CompartmentsDocumentProvider();
@@ -206,64 +206,64 @@ public class CompartmentsDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsBaseItemSemanticEditPolicy.LinkConstraints getLinkConstraints() {
 		return linkConstraints;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void setLinkConstraints(CompartmentsBaseItemSemanticEditPolicy.LinkConstraints lc) {
 		this.linkConstraints = lc;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ElementInitializers getElementInitializers() {
 		return initializers;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void setElementInitializers(ElementInitializers i) {
 		this.initializers = i;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void logError(String error) {
 		getLogHelper().logError(error, null);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void logError(String error, Throwable throwable) {
 		getLogHelper().logError(error, throwable);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void logInfo(String message) {
 		getLogHelper().logInfo(message, null);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void logInfo(String message, Throwable throwable) {
 		getLogHelper().logInfo(message, throwable);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public LogHelper getLogHelper() {
 		return myLogHelper;
 	}

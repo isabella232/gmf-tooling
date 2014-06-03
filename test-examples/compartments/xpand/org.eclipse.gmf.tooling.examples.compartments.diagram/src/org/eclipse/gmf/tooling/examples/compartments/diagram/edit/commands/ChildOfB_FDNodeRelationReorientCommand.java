@@ -18,28 +18,28 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.Compa
 public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private final int reorientDirection;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private final EObject referenceOwner;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private final EObject oldEnd;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private final EObject newEnd;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfB_FDNodeRelationReorientCommand(ReorientReferenceRelationshipRequest request) {
 		super(request.getLabel(), null, request);
 		reorientDirection = request.getDirection();
@@ -49,8 +49,8 @@ public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public boolean canExecute() {
 		if (false == referenceOwner instanceof ChildOfB_F) {
 			return false;
@@ -65,8 +65,8 @@ public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean canReorientSource() {
 		if (!(oldEnd instanceof ChildOfA_D && newEnd instanceof ChildOfB_F)) {
 			return false;
@@ -75,8 +75,8 @@ public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean canReorientTarget() {
 		if (!(oldEnd instanceof ChildOfA_D && newEnd instanceof ChildOfA_D)) {
 			return false;
@@ -85,8 +85,8 @@ public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (!canExecute()) {
 			throw new ExecutionException("Invalid arguments in reorient link command"); //$NON-NLS-1$
@@ -101,8 +101,8 @@ public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected CommandResult reorientSource() throws ExecutionException {
 		getOldSource().setDNodeRelation(null);
 		getNewSource().setDNodeRelation(getOldTarget());
@@ -110,37 +110,37 @@ public class ChildOfB_FDNodeRelationReorientCommand extends EditElementCommand {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected CommandResult reorientTarget() throws ExecutionException {
 		getOldSource().setDNodeRelation(getNewTarget());
 		return CommandResult.newOKCommandResult(referenceOwner);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ChildOfB_F getOldSource() {
 		return (ChildOfB_F) referenceOwner;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ChildOfB_F getNewSource() {
 		return (ChildOfB_F) newEnd;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ChildOfA_D getOldTarget() {
 		return (ChildOfA_D) oldEnd;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected ChildOfA_D getNewTarget() {
 		return (ChildOfA_D) newEnd;
 	}

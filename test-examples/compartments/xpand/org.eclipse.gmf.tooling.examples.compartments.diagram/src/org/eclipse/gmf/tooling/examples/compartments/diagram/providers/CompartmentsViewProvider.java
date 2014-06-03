@@ -72,8 +72,8 @@ import org.eclipse.swt.graphics.FontData;
 public class CompartmentsViewProvider extends AbstractProvider implements IViewProvider {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public final boolean provides(IOperation operation) {
 		if (operation instanceof CreateViewForKindOperation) {
 			return provides((CreateViewForKindOperation) operation);
@@ -90,8 +90,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean provides(CreateViewForKindOperation op) {
 		/*
 		 if (op.getViewKind() == Node.class)
@@ -103,15 +103,15 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean provides(CreateDiagramViewOperation op) {
 		return CanvasEditPart.MODEL_ID.equals(op.getSemanticHint()) && CompartmentsVisualIDRegistry.getDiagramVisualID(getSemanticElement(op.getSemanticAdapter())) != -1;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean provides(CreateNodeViewOperation op) {
 		if (op.getContainerView() == null) {
 			return false;
@@ -167,8 +167,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean provides(CreateEdgeViewOperation op) {
 		IElementType elementType = getSemanticElementType(op.getSemanticAdapter());
 		if (!CompartmentsElementTypes.isKnownElementType(elementType) || (!(elementType instanceof IHintedType))) {
@@ -187,8 +187,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Diagram createDiagram(IAdaptable semanticAdapter, String diagramKind, PreferencesHint preferencesHint) {
 		Diagram diagram = NotationFactory.eINSTANCE.createDiagram();
 		diagram.getStyles().add(NotationFactory.eINSTANCE.createDiagramStyle());
@@ -199,8 +199,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createNode(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
 		final EObject domainElement = getSemanticElement(semanticAdapter);
 		final int visualID;
@@ -232,8 +232,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Edge createEdge(IAdaptable semanticAdapter, View containerView, String semanticHint, int index, boolean persisted, PreferencesHint preferencesHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
 		String elementTypeHint = ((IHintedType) elementType).getSemanticHint();
@@ -248,8 +248,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createTopNodeA_2001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
@@ -281,8 +281,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createTopNodeB_2002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
@@ -314,8 +314,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createChildOfA_C_3001(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
@@ -344,8 +344,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createChildOfA_D_3002(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
@@ -374,8 +374,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createChildOfB_E_3003(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.getStyles().add(NotationFactory.eINSTANCE.createDescriptionStyle());
@@ -404,8 +404,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createChildOfB_G_3004(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
@@ -435,8 +435,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createChildOfAffixed_3005(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Node node = NotationFactory.eINSTANCE.createNode();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createLocation());
@@ -447,8 +447,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Node createChildOfB_F_3006(EObject domainElement, View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Shape node = NotationFactory.eINSTANCE.createShape();
 		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
@@ -477,8 +477,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Edge createChildOfB_ECNodeRelation_4001(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
@@ -514,8 +514,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public Edge createChildOfB_FDNodeRelation_4002(View containerView, int index, boolean persisted, PreferencesHint preferencesHint) {
 		Connector edge = NotationFactory.eINSTANCE.createConnector();
 		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
@@ -551,8 +551,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private void stampShortcut(View containerView, Node target) {
 		if (!CanvasEditPart.MODEL_ID.equals(CompartmentsVisualIDRegistry.getModelID(containerView))) {
 			EAnnotation shortcutAnnotation = EcoreFactory.eINSTANCE.createEAnnotation();
@@ -563,8 +563,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private Node createLabel(View owner, String hint) {
 		DecorationNode rv = NotationFactory.eINSTANCE.createDecorationNode();
 		rv.setType(hint);
@@ -573,8 +573,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private Node createCompartment(View owner, String hint, boolean canCollapse, boolean hasTitle, boolean canSort, boolean canFilter) {
 		//SemanticListCompartment rv = NotationFactory.eINSTANCE.createSemanticListCompartment();
 		//rv.setShowTitle(showTitle);
@@ -602,8 +602,8 @@ public class CompartmentsViewProvider extends AbstractProvider implements IViewP
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private EObject getSemanticElement(IAdaptable semanticAdapter) {
 		if (semanticAdapter == null) {
 			return null;

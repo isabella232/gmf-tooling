@@ -12,22 +12,22 @@ import org.eclipse.ui.IWorkbenchPage;
 public class CompartmentsDiagramActionBarContributor extends DiagramActionBarContributor {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected Class getEditorClass() {
 		return CompartmentsDiagramEditor.class;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected String getEditorId() {
 		return CompartmentsDiagramEditor.ID;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public void init(IActionBars bars, IWorkbenchPage page) {
 		super.init(bars, page);
 		// print preview

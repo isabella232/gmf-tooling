@@ -11,8 +11,8 @@ import org.eclipse.gmf.tooling.runtime.providers.DefaultEditPartProvider;
 public class CompartmentsEditPartProvider extends DefaultEditPartProvider {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsEditPartProvider() {
 		super(new CompartmentsEditPartFactory(), CompartmentsVisualIDRegistry.TYPED_INSTANCE, CanvasEditPart.MODEL_ID);
 	}

@@ -9,8 +9,8 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsDi
 public class DiagramRulersAndGridPreferencePage extends RulerGridPreferencePage {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public DiagramRulersAndGridPreferencePage() {
 		setPreferenceStore(CompartmentsDiagramEditorPlugin.getInstance().getPreferenceStore());
 	}

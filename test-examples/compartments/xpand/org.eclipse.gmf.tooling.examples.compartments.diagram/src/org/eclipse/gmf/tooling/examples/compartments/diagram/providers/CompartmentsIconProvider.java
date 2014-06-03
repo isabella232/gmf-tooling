@@ -9,8 +9,8 @@ import org.eclipse.gmf.tooling.runtime.providers.DefaultElementTypeIconProvider;
 public class CompartmentsIconProvider extends DefaultElementTypeIconProvider implements IIconProvider {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CompartmentsIconProvider() {
 		super(CompartmentsElementTypes.TYPED_INSTANCE);
 	}

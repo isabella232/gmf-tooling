@@ -29,15 +29,15 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.Compartme
 public class TopNodeAItemSemanticEditPolicy extends CompartmentsBaseItemSemanticEditPolicy {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public TopNodeAItemSemanticEditPolicy() {
 		super(CompartmentsElementTypes.TopNodeA_2001);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		View view = (View) getHost().getModel();
 		CompositeTransactionalCommand cmd = new CompositeTransactionalCommand(getEditingDomain(), null);
@@ -56,8 +56,8 @@ public class TopNodeAItemSemanticEditPolicy extends CompartmentsBaseItemSemantic
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private void addDestroyChildNodesCommand(ICompositeCommand cmd) {
 		View view = (View) getHost().getModel();
 		for (Iterator<?> nit = view.getChildren().iterator(); nit.hasNext();) {

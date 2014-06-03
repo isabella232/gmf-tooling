@@ -8,436 +8,436 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	static {
 		NLS.initializeMessages("messages", Messages.class); //$NON-NLS-1$
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private Messages() {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizardTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizard_DiagramModelFilePageTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizard_DiagramModelFilePageDescription;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizard_DomainModelFilePageTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizard_DomainModelFilePageDescription;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizardOpenEditorError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizardCreationError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsCreationWizardPageExtensionError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditorUtil_OpenModelResourceErrorDialogTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditorUtil_OpenModelResourceErrorDialogMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditorUtil_CreateDiagramProgressTask;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditorUtil_CreateDiagramCommandLabel;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_isModifiable;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_handleElementContentChanged;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_IncorrectInputError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_NoDiagramInResourceError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_DiagramLoadingError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_UnsynchronizedFileSaveError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_SaveDiagramTask;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_SaveNextResourceTask;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDocumentProvider_SaveAsOperation;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String InitDiagramFile_ResourceErrorDialogTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String InitDiagramFile_ResourceErrorDialogMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String InitDiagramFile_WizardTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String InitDiagramFile_OpenModelFileDialogTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_CreationPageName;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_CreationPageTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_CreationPageDescription;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_RootSelectionPageName;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_RootSelectionPageTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_RootSelectionPageDescription;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_RootSelectionPageSelectionTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_RootSelectionPageNoSelectionMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_RootSelectionPageInvalidSelectionMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_InitDiagramCommand;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsNewDiagramFileWizard_IncorrectRootError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditor_SavingDeletedFile;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditor_SaveAsErrorTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditor_SaveAsErrorMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditor_SaveErrorTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsDiagramEditor_SaveErrorMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsElementChooserDialog_SelectModelElementTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ModelElementSelectionPageMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ValidateActionMessage;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String Acs1Group_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeA1CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeA1CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeB2CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeB2CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeB_E3CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeB_E3CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeA_C4CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeA_C4CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeB_G5CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeB_G5CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String LinkEtoC6CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String LinkEtoC6CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeB_F7CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeB_F7CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String LinkFtoD8CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String LinkFtoD8CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeA_D9CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildNodeA_D9CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildOfAffixedNode10CreationTool_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildOfAffixedNode10CreationTool_desc;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeANodeCCompartmentEditPart_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeANodeDCompartmentEditPart_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeBNodeECompartmentEditPart_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String TopNodeBNodeFCompartmentEditPart_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String ChildOfB_GAffixedChildrenCompartmentEditPart_title;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CommandName_OpenDiagram;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_Canvas_1000_links;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfA_C_3001_incominglinks;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfA_D_3002_incominglinks;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfB_E_3003_outgoinglinks;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfB_F_3006_outgoinglinks;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfB_ECNodeRelation_4001_target;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfB_ECNodeRelation_4001_source;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfB_FDNodeRelation_4002_target;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorGroupName_ChildOfB_FDNodeRelation_4002_source;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String NavigatorActionProvider_OpenDiagramActionName;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String MessageFormatParser_InvalidInputError;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsModelingAssistantProviderTitle;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String CompartmentsModelingAssistantProviderMessage;
 
 	//TODO: put accessor fields manually	

@@ -31,22 +31,22 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts.TopNodeB
 import org.eclipse.gmf.tooling.runtime.structure.DiagramStructure;
 
 /**
-* This registry is used to determine which type of visual object should be
-* created for the corresponding Diagram, Node, ChildNode or Link represented
-* by a domain model object.
-* 
-* @generated
-*/
+ * This registry is used to determine which type of visual object should be
+ * created for the corresponding Diagram, Node, ChildNode or Link represented
+ * by a domain model object.
+ * 
+ * @generated
+ */
 public class CompartmentsVisualIDRegistry {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	private static final String DEBUG_KEY = "org.eclipse.gmf.tooling.examples.compartments.diagram/debug/visualID"; //$NON-NLS-1$
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static int getVisualID(View view) {
 		if (view instanceof Diagram) {
 			if (CanvasEditPart.MODEL_ID.equals(view.getType())) {
@@ -59,8 +59,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String getModelID(View view) {
 		View diagram = view.getDiagram();
 		while (view != diagram) {
@@ -74,8 +74,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static int getVisualID(String type) {
 		try {
 			return Integer.parseInt(type);
@@ -88,15 +88,15 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static String getType(int visualID) {
 		return Integer.toString(visualID);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static int getDiagramVisualID(EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
@@ -108,8 +108,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static int getNodeVisualID(View containerView, EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
@@ -172,8 +172,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static boolean canCreateNode(View containerView, int nodeVisualID) {
 		String containerModelID = org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.getModelID(containerView);
 		if (!CanvasEditPart.MODEL_ID.equals(containerModelID)) {
@@ -281,8 +281,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static int getLinkWithClassVisualID(EObject domainElement) {
 		if (domainElement == null) {
 			return -1;
@@ -291,18 +291,18 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* User can change implementation of this method to handle some specific
-	* situations not covered by default logic.
-	* 
-	* @generated
-	*/
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 * 
+	 * @generated
+	 */
 	private static boolean isDiagram(Canvas element) {
 		return true;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
 		if (candidate == -1) {
 			//unrecognized id is always bad
@@ -313,8 +313,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static boolean isCompartmentVisualID(int visualID) {
 		switch (visualID) {
 		case TopNodeANodeCCompartmentEditPart.VISUAL_ID:
@@ -330,8 +330,8 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static boolean isSemanticLeafVisualID(int visualID) {
 		switch (visualID) {
 		case CanvasEditPart.VISUAL_ID:
@@ -349,53 +349,53 @@ public class CompartmentsVisualIDRegistry {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final DiagramStructure TYPED_INSTANCE = new DiagramStructure() {
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public int getVisualID(View view) {
 			return org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.getVisualID(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public String getModelID(View view) {
 			return org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.getModelID(view);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public int getNodeVisualID(View containerView, EObject domainElement) {
 			return org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.getNodeVisualID(containerView, domainElement);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean checkNodeVisualID(View containerView, EObject domainElement, int candidate) {
 			return org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.checkNodeVisualID(containerView, domainElement, candidate);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean isCompartmentVisualID(int visualID) {
 			return org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.isCompartmentVisualID(visualID);
 		}
 
 		/**
-		* @generated
-		*/
+		 * @generated
+		 */
 		@Override
 		public boolean isSemanticLeafVisualID(int visualID) {
 			return org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry.isSemanticLeafVisualID(visualID);

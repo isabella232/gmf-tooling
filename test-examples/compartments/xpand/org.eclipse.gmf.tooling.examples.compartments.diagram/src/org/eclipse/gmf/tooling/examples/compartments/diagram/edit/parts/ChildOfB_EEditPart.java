@@ -37,30 +37,30 @@ import org.eclipse.swt.graphics.Color;
 public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final int VISUAL_ID = 3003;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure contentPane;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure primaryShape;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public ChildOfB_EEditPart(View view) {
 		super(view);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ChildOfB_EItemSemanticEditPolicy());
@@ -70,8 +70,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected LayoutEditPolicy createLayoutEditPolicy() {
 
 		ConstrainedToolbarLayoutEditPolicy lep = new ConstrainedToolbarLayoutEditPolicy() {
@@ -89,22 +89,22 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure createNodeShape() {
 		return primaryShape = new NodeEFigure();
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public NodeEFigure getPrimaryShape() {
 		return (NodeEFigure) primaryShape;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean addFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof ChildOfB_ENameEditPart) {
 			((ChildOfB_ENameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureNodeEFigure());
@@ -114,8 +114,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean removeFixedChild(EditPart childEditPart) {
 		if (childEditPart instanceof ChildOfB_ENameEditPart) {
 			return true;
@@ -124,8 +124,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void addChildVisual(EditPart childEditPart, int index) {
 		if (addFixedChild(childEditPart)) {
 			return;
@@ -134,8 +134,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void removeChildVisual(EditPart childEditPart) {
 		if (removeFixedChild(childEditPart)) {
 			return;
@@ -144,28 +144,28 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected IFigure getContentPaneFor(IGraphicalEditPart editPart) {
 		return getContentPane();
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected NodeFigure createNodePlate() {
 		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
 		return result;
 	}
 
 	/**
-	* Creates figure for this edit part.
-	* 
-	* Body of this method does not depend on settings in generation model
-	* so you may safely remove <i>generated</i> tag and modify it.
-	* 
-	* @generated
-	*/
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
 	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
 		figure.setLayoutManager(new StackLayout());
@@ -176,11 +176,11 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* Default implementation treats passed figure as content pane.
-	* Respects layout one may have set for generated figure.
-	* @param nodeShape instance of generated figure class
-	* @generated
-	*/
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
+	 * @generated
+	 */
 	protected IFigure setupContentPane(IFigure nodeShape) {
 		if (nodeShape.getLayoutManager() == null) {
 			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
@@ -191,8 +191,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public IFigure getContentPane() {
 		if (contentPane != null) {
 			return contentPane;
@@ -201,8 +201,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setForegroundColor(Color color) {
 		if (primaryShape != null) {
 			primaryShape.setForegroundColor(color);
@@ -210,8 +210,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setBackgroundColor(Color color) {
 		if (primaryShape != null) {
 			primaryShape.setBackgroundColor(color);
@@ -219,8 +219,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setLineWidth(int width) {
 		if (primaryShape instanceof Shape) {
 			((Shape) primaryShape).setLineWidth(width);
@@ -228,8 +228,8 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setLineType(int style) {
 		if (primaryShape instanceof Shape) {
 			((Shape) primaryShape).setLineStyle(style);
@@ -237,41 +237,10 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(CompartmentsVisualIDRegistry.getType(ChildOfB_ENameEditPart.VISUAL_ID));
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnSource() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001);
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (targetEditPart instanceof ChildOfA_CEditPart) {
-			types.add(CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001);
-		}
-		return types;
-	}
-
-	/**
-	* @generated
-	*/
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001) {
-			types.add(CompartmentsElementTypes.ChildOfA_C_3001);
-		}
-		return types;
 	}
 
 	/**

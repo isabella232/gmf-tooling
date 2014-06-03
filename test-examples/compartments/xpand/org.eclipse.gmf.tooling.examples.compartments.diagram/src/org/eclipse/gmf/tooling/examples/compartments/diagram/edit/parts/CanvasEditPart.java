@@ -14,25 +14,25 @@ import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicy
 public class CanvasEditPart extends DiagramEditPart {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public final static String MODEL_ID = "Compartments"; //$NON-NLS-1$
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final int VISUAL_ID = 1000;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public CanvasEditPart(View view) {
 		super(view);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new CanvasItemSemanticEditPolicy());

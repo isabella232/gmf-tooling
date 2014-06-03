@@ -7,6 +7,7 @@ import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdap
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.View;
@@ -23,34 +24,34 @@ import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicy
 public class TopNodeBNodeFCompartmentEditPart extends ListCompartmentEditPart {
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public static final int VISUAL_ID = 7004;
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public TopNodeBNodeFCompartmentEditPart(View view) {
 		super(view);
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected boolean hasModelChildrenChanged(Notification evt) {
 		return false;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public String getCompartmentName() {
 		return Messages.TopNodeBNodeFCompartmentEditPart_title;
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new TopNodeBNodeFCompartmentItemSemanticEditPolicy());
@@ -60,16 +61,16 @@ public class TopNodeBNodeFCompartmentEditPart extends ListCompartmentEditPart {
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	protected void setRatio(Double ratio) {
 		// nothing to do -- parent layout does not accept Double constraints as ratio
 		// super.setRatio(ratio); 
 	}
 
 	/**
-	* @generated
-	*/
+	 * @generated
+	 */
 	public EditPart getTargetEditPart(Request request) {
 		if (request instanceof CreateViewAndElementRequest) {
 			CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
@@ -77,6 +78,9 @@ public class TopNodeBNodeFCompartmentEditPart extends ListCompartmentEditPart {
 			if (type == CompartmentsElementTypes.ChildOfB_F_3006) {
 				return this;
 			}
+			return getParent().getTargetEditPart(request);
+		}
+		if (request instanceof CreateUnspecifiedTypeConnectionRequest) {
 			return getParent().getTargetEditPart(request);
 		}
 		return super.getTargetEditPart(request);
