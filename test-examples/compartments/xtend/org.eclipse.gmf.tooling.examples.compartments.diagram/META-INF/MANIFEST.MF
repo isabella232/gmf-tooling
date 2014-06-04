@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsDiagramEditorPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts,
+Export-Package: org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts, 
  org.eclipse.gmf.tooling.examples.compartments.diagram.part,
  org.eclipse.gmf.tooling.examples.compartments.diagram.providers
 Require-Bundle: org.eclipse.core.runtime,

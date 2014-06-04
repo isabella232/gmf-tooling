@@ -37,7 +37,6 @@ import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.Compa
 import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry;
 import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.CompartmentsElementTypes;
 import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.CompartmentsParserProvider;
-import org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2;
 import org.eclipse.gmf.tooling.runtime.draw2d.labels.SimpleLabelDelegate;
 import org.eclipse.gmf.tooling.runtime.edit.policies.DefaultNodeLabelDragPolicy;
 import org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy;
@@ -301,7 +300,7 @@ public class TopNodeANameEditPart extends CompartmentEditPart implements ITextAw
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager2(this, null, CompartmentsEditPartFactory.getTextCellEditorLocator(this)));
+			setManager(new TextDirectEditManager(this, null, CompartmentsEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -324,8 +323,8 @@ public class TopNodeANameEditPart extends CompartmentEditPart implements ITextAw
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == TextDirectEditManager2.class) {
-			((TextDirectEditManager2) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -335,9 +334,6 @@ public class TopNodeANameEditPart extends CompartmentEditPart implements ITextAw
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof TextDirectEditManager) {
 			((TextDirectEditManager) getManager()).show(initialCharacter);
-		} else // 
-		if (getManager() instanceof TextDirectEditManager2) {
-			((TextDirectEditManager2) getManager()).show(initialCharacter);
 		} else //
 		{
 			performDirectEdit();

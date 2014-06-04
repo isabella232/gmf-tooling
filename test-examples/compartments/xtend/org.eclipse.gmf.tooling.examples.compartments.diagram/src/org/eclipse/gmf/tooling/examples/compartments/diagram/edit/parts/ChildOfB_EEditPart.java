@@ -1,9 +1,5 @@
 package org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
@@ -21,14 +17,12 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.ConstrainedToolbarLayoutE
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.ChildOfB_EItemSemanticEditPolicy;
 import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.CompartmentsTextSelectionEditPolicy;
 import org.eclipse.gmf.tooling.examples.compartments.diagram.part.CompartmentsVisualIDRegistry;
-import org.eclipse.gmf.tooling.examples.compartments.diagram.providers.CompartmentsElementTypes;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -241,37 +235,6 @@ public class ChildOfB_EEditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(CompartmentsVisualIDRegistry.getType(ChildOfB_ENameEditPart.VISUAL_ID));
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnSource() {
-		ArrayList<IElementType> types = new ArrayList<IElementType>(1);
-		types.add(CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001);
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMARelTypesOnSourceAndTarget(IGraphicalEditPart targetEditPart) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (targetEditPart instanceof ChildOfA_CEditPart) {
-			types.add(CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001);
-		}
-		return types;
-	}
-
-	/**
-	 * @generated
-	 */
-	public List<IElementType> getMATypesForTarget(IElementType relationshipType) {
-		LinkedList<IElementType> types = new LinkedList<IElementType>();
-		if (relationshipType == CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001) {
-			types.add(CompartmentsElementTypes.ChildOfA_C_3001);
-		}
-		return types;
 	}
 
 	/**

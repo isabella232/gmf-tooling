@@ -1,14 +1,14 @@
 package org.eclipse.gmf.tooling.examples.compartments.diagram.edit.parts;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateUnspecifiedTypeConnectionRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
+import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.compartments.diagram.edit.policies.TopNodeANodeCCompartmentCanonicalEditPolicy;
@@ -70,6 +70,18 @@ public class TopNodeANodeCCompartmentEditPart extends ShapeCompartmentEditPart {
 			IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
 			if (type == CompartmentsElementTypes.ChildOfA_C_3001) {
 				return this;
+			}
+			return getParent().getTargetEditPart(request);
+		}
+		if (request instanceof CreateUnspecifiedTypeConnectionRequest) {
+			if (RequestConstants.REQ_CONNECTION_END.equals(request.getType())) {
+				for (Object type : ((CreateUnspecifiedTypeConnectionRequest) request).getElementTypes()) {
+					if (type instanceof IElementType) {
+						IElementType elementType = (IElementType) type;
+						if (elementType.equals(CompartmentsElementTypes.ChildOfB_ECNodeRelation_4001))
+							return super.getTargetEditPart(request);
+					}
+				}
 			}
 			return getParent().getTargetEditPart(request);
 		}

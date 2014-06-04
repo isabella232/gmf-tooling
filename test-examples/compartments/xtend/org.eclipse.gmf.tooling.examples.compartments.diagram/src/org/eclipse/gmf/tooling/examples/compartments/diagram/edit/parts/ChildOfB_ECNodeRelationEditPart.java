@@ -41,9 +41,6 @@ public class ChildOfB_ECNodeRelationEditPart extends ConnectionNodeEditPart impl
 	 * 
 	 * @generated
 	 */
-	/**
-	 * @generated
-	 */
 	protected Connection createConnectionFigure() {
 		return new PolylineConnectionEx();
 	}
