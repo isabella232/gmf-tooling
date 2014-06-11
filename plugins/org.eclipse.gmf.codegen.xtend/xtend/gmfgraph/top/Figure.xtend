@@ -89,7 +89,7 @@ import java.util.Arrays
 			«clearState()»
 			«xptAttrs.Init(it, 'this')»
 			«extraLineBreak»
-			«IF childrenWithoutDecorators.isEmpty()»
+			«IF !childrenWithoutDecorators.isEmpty()»
 					createContents();
 			«ENDIF»
 			«IF it.sourceDecoration != null»
@@ -105,7 +105,7 @@ import java.util.Arrays
 		  * 	Though this is workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=193180, I'm not sure
 	      * what's the right approach with e.g. decoration as child of a link.
 		  */
-		IF childrenWithoutDecorators.isEmpty()»
+		IF !childrenWithoutDecorators.isEmpty()»
 		«generatedMemberComment»
 		private void createContents(){
 			«FOR l : childrenWithoutDecorators»
