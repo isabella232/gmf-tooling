@@ -24,7 +24,7 @@ def main(GenDiagram it)'''
 '''
 
 def registerHelperAdvice(GenTopLevelNode it) '''
-		<metamodel nsURI="«modelFacet.metaClass.genPackage.ecorePackage.nsURI»">
+		<metamodel nsURI="«modelFacet.metaClass.genPackage.getEcorePackage().nsURI»">
 			<adviceBinding
 				class="«helper.className(elementType)»"
 				id="«id(elementType)»"

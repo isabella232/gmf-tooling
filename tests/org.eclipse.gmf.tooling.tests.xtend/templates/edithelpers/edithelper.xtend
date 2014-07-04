@@ -37,11 +37,11 @@ public class «className(it)» extends org.eclipse.gmf.runtime.emf.type.core.edi
 }
 '''
 
-def dispatch className(ElementType it) {
+def dispatch CharSequence className(ElementType it) {
 	throw new IllegalStateException('Should never be called')
 }
 
-def dispatch className(MetamodelType it)'''«editHelperClassName»ExternalAdvice'''
+def dispatch CharSequence className(MetamodelType it)'''«editHelperClassName»ExternalAdvice'''
 
-def dispatch className(SpecializationType it)'''«IF editHelperAdviceClassName == null || editHelperAdviceClassName.length == 0»«diagramElement.getUniqueIdentifier()»«ELSE»«editHelperAdviceClassName»«ENDIF»ExternalAdvice'''
+def dispatch CharSequence className(SpecializationType it)'''«IF editHelperAdviceClassName == null || editHelperAdviceClassName.length == 0»«diagramElement.getUniqueIdentifier()»«ELSE»«editHelperAdviceClassName»«ENDIF»ExternalAdvice'''
 }
