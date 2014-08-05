@@ -30,6 +30,7 @@
 		<module>pins</module>
 		<module>shortcut</module>
 		<module>svg</module>
+		<module>link_labels</module>
 	</modules>
 	
 </project>

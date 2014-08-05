@@ -6,6 +6,7 @@ import junit.framework.TestSuite;
 import org.eclipse.gmf.tooling.tests.xtend.samples.AffixedSampleTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.samples.CompartmentsSampleTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.samples.LabelsSampleTestXtend;
+import org.eclipse.gmf.tooling.tests.xtend.samples.LinkLabelsTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.samples.LinksSampleTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.samples.PinsSampleTestXtend;
 import org.eclipse.gmf.tooling.tests.xtend.samples.SVGSampleTestXtend;
@@ -22,6 +23,7 @@ public class TestSamplesSuiteXtend {
 		suite.addTestSuite(ShourtcutSampleTestXtend.class);
 		suite.addTestSuite(AffixedSampleTestXtend.class);
 		suite.addTestSuite(LabelsSampleTestXtend.class);
+		suite.addTestSuite(LinkLabelsTestXtend.class);
 		return suite;
 	}
 }

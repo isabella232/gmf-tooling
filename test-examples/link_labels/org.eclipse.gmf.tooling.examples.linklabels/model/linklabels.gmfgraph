@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="linklabels">
+  <figures name="Default">
+    <descriptors name="NodeFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="NodeFigure"/>
+    </descriptors>
+    <descriptors name="LabeledLinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="LabeledLinkFigure">
+        <children xsi:type="gmfgraph:Label" name="LabeledLinkSemanticLabelFigure" text="Target"/>
+        <children xsi:type="gmfgraph:Label" name="LabeledLinkFixedLabelFigure" text="&lt;...>"/>
+        <children xsi:type="gmfgraph:Label" name="LabeledLinkOclLabelFigure" text="&lt;...>"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.1/@actualFigure/@children.0"/>
+      <accessors figure="//@figures.0/@descriptors.1/@actualFigure/@children.1"/>
+      <accessors figure="//@figures.0/@descriptors.1/@actualFigure/@children.2"/>
+    </descriptors>
+  </figures>
+  <nodes name="Node" figure="NodeFigure"/>
+  <connections name="LabeledLink" figure="LabeledLinkFigure"/>
+  <labels name="LabeledLinkSemanticLabel" figure="LabeledLinkFigure" accessor="//@figures.0/@descriptors.1/@accessors.0">
+    <facets xsi:type="gmfgraph:AlignmentFacet"/>
+  </labels>
+  <labels name="LabeledLinkFixedLabel" figure="LabeledLinkFigure" accessor="//@figures.0/@descriptors.1/@accessors.1"/>
+  <labels name="LabeledLinkOclLabel" figure="LabeledLinkFigure" accessor="//@figures.0/@descriptors.1/@accessors.2">
+    <facets xsi:type="gmfgraph:AlignmentFacet" alignment="END"/>
+  </labels>
+</gmfgraph:Canvas>

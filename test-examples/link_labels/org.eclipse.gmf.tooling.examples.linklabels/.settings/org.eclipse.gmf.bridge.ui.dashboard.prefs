@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/org.eclipse.gmf.tooling.examples.linklabels/model/linklabels.genmodel
+gmf_dashboard/domainModel=platform\:/resource/org.eclipse.gmf.tooling.examples.linklabels/model/linklabels.ecore
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/org.eclipse.gmf.tooling.examples.linklabels/model/linklabels.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/org.eclipse.gmf.tooling.examples.linklabels/model/linklabels.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/org.eclipse.gmf.tooling.examples.linklabels/model/linklabels.gmftool

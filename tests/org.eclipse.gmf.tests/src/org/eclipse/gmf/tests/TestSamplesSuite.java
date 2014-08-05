@@ -6,6 +6,7 @@ import junit.framework.TestSuite;
 import org.eclipse.gmf.tests.samples.AffixedSampleTest;
 import org.eclipse.gmf.tests.samples.CompartmentsSampleTest;
 import org.eclipse.gmf.tests.samples.LabelsSampleTest;
+import org.eclipse.gmf.tests.samples.LinkLabelsTest;
 import org.eclipse.gmf.tests.samples.LinksSampleTest;
 import org.eclipse.gmf.tests.samples.PinsSampleTest;
 import org.eclipse.gmf.tests.samples.SVGSampleTest;
@@ -23,6 +24,7 @@ public class TestSamplesSuite {
 		suite.addTestSuite(AffixedSampleTest.class);
 		suite.addTestSuite(LabelsSampleTest.class);
 		//suite.addTestSuite(BorderSampleTest.class);
+		suite.addTestSuite(LinkLabelsTest.class);
 		return suite;
 	}
 
