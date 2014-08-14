@@ -19,6 +19,7 @@ public class TestSamplesSuiteXtend {
 		suite.addTestSuite(PinsSampleTestXtend.class);
 		suite.addTestSuite(CompartmentsSampleTestXtend.class);
 		suite.addTestSuite(LinksSampleTestXtend.class);
+		suite.addTestSuite(LinksSampleTestXtend.class);
 		suite.addTestSuite(SVGSampleTestXtend.class);
 		suite.addTestSuite(ShourtcutSampleTestXtend.class);
 		suite.addTestSuite(AffixedSampleTestXtend.class);

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated linklf -->
+      <package
+            uri="http://linklf.gmf.eclipse.org"
+            class="org.eclipse.gmf.tooling.examples.linklf.LinklfPackage"
+            genModel="model/linklf.genmodel"/>
+   </extension>
+
+</plugin>

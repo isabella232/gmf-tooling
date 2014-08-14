@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="linklf">
+  <figures name="Default">
+    <descriptors name="ContainerFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="ContainerFigure">
+        <layout xsi:type="gmfgraph:BorderLayout"/>
+        <children xsi:type="gmfgraph:Label" name="ContainerNameFigure" text="&lt;...>">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" alignment="BEGINNING" vertical="true"/>
+        </children>
+        <children xsi:type="gmfgraph:Rectangle" name="ContainerCompartmentFigure">
+          <layoutData xsi:type="gmfgraph:BorderLayoutData" vertical="true"/>
+        </children>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.1"/>
+      <accessors figure="//@figures.0/@descriptors.0/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors name="RectangleFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="RectangleFigure" lineWidth="2">
+        <layout xsi:type="gmfgraph:StackLayout"/>
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="darkGreen"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="CircleFigure">
+      <actualFigure xsi:type="gmfgraph:Ellipse" name="CircleFigure" lineWidth="2">
+        <layout xsi:type="gmfgraph:StackLayout"/>
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="lightBlue"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="RhombusFigure">
+      <actualFigure xsi:type="gmfgraph:ScalablePolygon" name="RhombusFigure" lineWidth="2">
+        <layout xsi:type="gmfgraph:StackLayout"/>
+        <foregroundColor xsi:type="gmfgraph:ConstantColor" value="yellow"/>
+        <template x="20" y="40"/>
+        <template x="40" y="20"/>
+        <template x="20"/>
+        <template y="20"/>
+        <template x="20" y="40"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="LinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="LinkFigure"/>
+    </descriptors>
+    <descriptors name="LabeledLinkFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="LabelLinkConnectionFigure">
+        <children xsi:type="gmfgraph:Label" name="LinkName" text="LabeldLink"/>
+        <children xsi:type="gmfgraph:Label" name="SourceNameFIgure" text="Source"/>
+        <children xsi:type="gmfgraph:Label" name="TargetNameFigure" text="Target"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.5/@actualFigure/@children.1"/>
+      <accessors figure="//@figures.0/@descriptors.5/@actualFigure/@children.2"/>
+      <accessors figure="//@figures.0/@descriptors.5/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors name="PortFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle"/>
+    </descriptors>
+  </figures>
+  <nodes name="Container" figure="ContainerFigure"/>
+  <nodes name="Rectangle" figure="RectangleFigure"/>
+  <nodes name="Circle" figure="CircleFigure"/>
+  <nodes name="Rhombus" figure="RhombusFigure"/>
+  <nodes name="Port" figure="PortFigure" affixedParentSide="NSEW"/>
+  <connections name="Link" figure="LinkFigure"/>
+  <connections name="LabeledLinkConnection" figure="LabeledLinkFigure"/>
+  <compartments name="ContainerCompartment" figure="ContainerFigure" accessor="//@figures.0/@descriptors.0/@accessors.0"/>
+  <labels name="ContainerName" figure="ContainerFigure" accessor="//@figures.0/@descriptors.0/@accessors.1"/>
+  <labels name="SourceName" figure="LabeledLinkFigure" accessor="//@figures.0/@descriptors.5/@accessors.0">
+    <facets xsi:type="gmfgraph:AlignmentFacet" alignment="END"/>
+  </labels>
+  <labels name="TargetName" figure="LabeledLinkFigure" accessor="//@figures.0/@descriptors.5/@accessors.1">
+    <facets xsi:type="gmfgraph:AlignmentFacet"/>
+  </labels>
+  <labels name="LabeledLinkName" figure="LabeledLinkFigure" accessor="//@figures.0/@descriptors.5/@accessors.2"/>
+</gmfgraph:Canvas>

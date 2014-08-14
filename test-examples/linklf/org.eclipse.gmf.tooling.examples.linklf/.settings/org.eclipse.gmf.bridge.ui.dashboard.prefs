@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+gmf_dashboard/domainGenerationModel=platform\:/resource/org.eclipse.gmft.papyrus.test.recursivecontainer/model/recursivecontainer.genmodel
+gmf_dashboard/domainModel=platform\:/resource/org.eclipse.gmft.papyrus.test.recursivecontainer/model/recursivecontainer.ecore
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/org.eclipse.gmft.papyrus.test.recursivecontainer/model/recursivecontainer.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/org.eclipse.gmft.papyrus.test.recursivecontainer/model/recursivecontainer.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/org.eclipse.gmft.papyrus.test.recursivecontainer/model/recursivecontainer.gmftool
