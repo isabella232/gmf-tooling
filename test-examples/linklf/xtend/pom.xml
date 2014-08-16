@@ -9,21 +9,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.eclipse.gmf-tooling</groupId>
-  <artifactId>linklf</artifactId>
+  <artifactId>xtend</artifactId>
   <packaging>pom</packaging>
   <version>1.0.0-SNAPSHOT</version>
 
   
   <parent>
   	<groupId>org.eclipse.gmf-tooling</groupId>
-	<artifactId>test-examples</artifactId>
+	<artifactId>linklf</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<relativePath>../</relativePath>
   </parent>
   
   <modules>
-		<module>org.eclipse.gmf.tooling.examples.linklf</module>
-		<module>org.eclipse.gmf.tooling.examples.linklf.edit</module>
-		<module>xtend</module>
+		<module>org.eclipse.gmf.tooling.examples.linklf.diagram</module>
   </modules>
 </project>
