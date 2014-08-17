@@ -1,7 +1,7 @@
 package org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
@@ -12,7 +12,7 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LabeledLink
 /**
  * @generated
  */
-public class LabeledLinkEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
+public class LabeledLinkEditPart extends LinksLFConnectionEditPart implements ITreeBranchEditPart {
 
 	/**
 	 * @generated
@@ -35,14 +35,63 @@ public class LabeledLinkEditPart extends ConnectionNodeEditPart implements ITree
 	}
 
 	/**
+	 * @generated
+	 */
+	protected boolean addFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof LabeledLinkSourceNameEditPart) {
+			((LabeledLinkSourceNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureSourceNameFIgure());
+		}
+		if (childEditPart instanceof LabeledLinkTargetNameEditPart) {
+			((LabeledLinkTargetNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureTargetNameFigure());
+		}
+		if (childEditPart instanceof LabeledLinkLinkNameEditPart) {
+			((LabeledLinkLinkNameEditPart) childEditPart).setLabel(getPrimaryShape().getFigureLinkName());
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (addFixedChild(childEditPart)) {
+			return;
+		}
+		super.addChildVisual(childEditPart, index);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean removeFixedChild(EditPart childEditPart) {
+		if (childEditPart instanceof LabeledLinkSourceNameEditPart) {
+			return true;
+		}
+		if (childEditPart instanceof LabeledLinkTargetNameEditPart) {
+			return true;
+		}
+		if (childEditPart instanceof LabeledLinkLinkNameEditPart) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (removeFixedChild(childEditPart)) {
+			return;
+		}
+		super.removeChildVisual(childEditPart);
+	}
+
+	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
 	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
-	 * @generated
-	 */
-	/**
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {

@@ -1,7 +1,6 @@
 package org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
@@ -11,7 +10,7 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LinkItemSem
 /**
  * @generated
  */
-public class LinkEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
+public class LinkEditPart extends LinksLFConnectionEditPart implements ITreeBranchEditPart {
 
 	/**
 	 * @generated
@@ -39,9 +38,6 @@ public class LinkEditPart extends ConnectionNodeEditPart implements ITreeBranchE
 	 * Body of this method does not depend on settings in generation model
 	 * so you may safely remove <i>generated</i> tag and modify it.
 	 * 
-	 * @generated
-	 */
-	/**
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {

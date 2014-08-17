@@ -1,6 +1,7 @@
 package org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Shape;
@@ -18,6 +19,10 @@ import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.Circle2ItemSemanticEditPolicy;
+import org.eclipse.gmf.tooling.runtime.linklf.LinksLFNodeFigure;
+import org.eclipse.gmf.tooling.runtime.linklf.ShapeNodeAnchorDelegate;
+import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.AdjustImplicitlyMovedLinksEditPolicy;
+import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.LinksLFGraphicalNodeEditPolicy;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -56,6 +61,9 @@ public class Circle2EditPart extends ShapeNodeEditPart {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutEditPolicy());
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
+		
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new LinksLFGraphicalNodeEditPolicy());
+		installEditPolicy(AdjustImplicitlyMovedLinksEditPolicy.ROLE, new AdjustImplicitlyMovedLinksEditPolicy());
 	}
 
 	/**
@@ -98,10 +106,10 @@ public class Circle2EditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
+		DefaultSizeNodeFigure result = new LinksLFNodeFigure(this, 40, 40);
 		return result;
 	}
 
@@ -179,8 +187,8 @@ public class Circle2EditPart extends ShapeNodeEditPart {
 	}
 
 	/**
-	 * @generated
-	 */
+	* @generated
+	*/
 	public class CircleFigure extends Ellipse {
 
 		/**
@@ -192,6 +200,37 @@ public class Circle2EditPart extends ShapeNodeEditPart {
 			this.setForegroundColor(ColorConstants.lightBlue);
 		}
 
+	}
+
+	/**
+	 * @not-generated
+	 */
+	private ShapeNodeAnchorDelegate myShapeNodeAnchorDelegate;
+
+	/**
+	 * @not-generated
+	 */
+	private ShapeNodeAnchorDelegate getShapeNodeAnchorDelegate() {
+		if (myShapeNodeAnchorDelegate == null) {
+			myShapeNodeAnchorDelegate = new ShapeNodeAnchorDelegate(getNodeFigure());
+		}
+		return myShapeNodeAnchorDelegate;
+	}
+
+	/**
+	 * @not-generated
+	 */
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+		return getShapeNodeAnchorDelegate().getSourceConnectionAnchor(request);
+	}
+
+	/**
+	 * @not-generated
+	 */
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+		return getShapeNodeAnchorDelegate().getTargetConnectionAnchor(request);
 	}
 
 }
