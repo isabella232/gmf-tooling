@@ -54,9 +54,6 @@ public class AdjustImplicitlyMovedLinksEditPolicy extends AdjustAbsoluteBendpoin
 	 * from the host edit part to one of the edit parts being moved. This way all affected links will be modified only once.
 	 */
 	protected Command getAdjustImplicitlyMovedLinksCommand(ChangeBoundsRequest req) {
-		if (req.getEditParts().size() < 2) {
-			return null;
-		}
 		final Point moveDelta = req.getMoveDelta();
 		if (moveDelta.x == 0 && moveDelta.y == 0) {
 			return null;
