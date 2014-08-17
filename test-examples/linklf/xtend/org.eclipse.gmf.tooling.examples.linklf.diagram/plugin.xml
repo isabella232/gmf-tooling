@@ -245,7 +245,7 @@
       </editpartProvider>
    </extension>
 
-<extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
 	<?gmfgen generated="true"?>
 	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfCanvasEditPart">
 		<Priority name="Lowest"/>
@@ -627,4 +627,22 @@
    </extension>
 
    <!-- optionally, specify keybindings -->
+   
+   <extension
+         id="diagramUIRenderEditPartProvider.linksLF"
+         name="Custom DiagramRootEditPartProvider for LinksLF diagram"
+         point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider
+            class="org.eclipse.gmf.tooling.runtime.linklf.router.provider.CustomRoutersDiagramRootEditPartProvider">
+         <Priority
+               name="Medium">
+         </Priority>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram-root">
+            <method name="getType()" value="linklf"/>
+         </object>
+         <context providesRootEditPart="true" views="generated-diagram-root"/>
+         <applicable-diagram type="linklf"/>
+      </editpartProvider>
+   </extension>
+   
 </plugin>
