@@ -21,7 +21,6 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserOptions;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.LabelDirectEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramColorRegistry;
 import org.eclipse.gmf.runtime.diagram.ui.label.ILabelDelegate;
@@ -38,10 +37,10 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LinklfTextS
 import org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfVisualIDRegistry;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfElementTypes;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfParserProvider;
-import org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2;
 import org.eclipse.gmf.tooling.runtime.draw2d.labels.SimpleLabelDelegate;
 import org.eclipse.gmf.tooling.runtime.edit.policies.DefaultLinkLabelDragPolicy;
 import org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy;
+import org.eclipse.gmf.tooling.runtime.linklf.labels.LinksLFLabelEditPart;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.viewers.ICellEditorValidator;
 import org.eclipse.swt.SWT;
@@ -53,7 +52,7 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class LabeledLinkTargetNameEditPart extends LabelEditPart implements ITextAwareEditPart {
+public class LabeledLinkTargetNameEditPart extends LinksLFLabelEditPart implements ITextAwareEditPart {
 
 	/**
 	 * @generated
@@ -316,7 +315,7 @@ public class LabeledLinkTargetNameEditPart extends LabelEditPart implements ITex
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager2(this, null, LinklfEditPartFactory.getTextCellEditorLocator(this)));
+			setManager(new TextDirectEditManager(this, null, LinklfEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -339,8 +338,8 @@ public class LabeledLinkTargetNameEditPart extends LabelEditPart implements ITex
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == TextDirectEditManager2.class) {
-			((TextDirectEditManager2) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -350,9 +349,6 @@ public class LabeledLinkTargetNameEditPart extends LabelEditPart implements ITex
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof TextDirectEditManager) {
 			((TextDirectEditManager) getManager()).show(initialCharacter);
-		} else // 
-		if (getManager() instanceof TextDirectEditManager2) {
-			((TextDirectEditManager2) getManager()).show(initialCharacter);
 		} else //
 		{
 			performDirectEdit();

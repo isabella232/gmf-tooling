@@ -38,7 +38,6 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LinklfTextS
 import org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfVisualIDRegistry;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfElementTypes;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfParserProvider;
-import org.eclipse.gmf.tooling.runtime.directedit.TextDirectEditManager2;
 import org.eclipse.gmf.tooling.runtime.draw2d.labels.SimpleLabelDelegate;
 import org.eclipse.gmf.tooling.runtime.edit.policies.DefaultLinkLabelDragPolicy;
 import org.eclipse.gmf.tooling.runtime.edit.policies.labels.IRefreshableFeedbackEditPolicy;
@@ -316,7 +315,7 @@ public class LabeledLinkLinkNameEditPart extends LabelEditPart implements ITextA
 	 */
 	protected DirectEditManager getManager() {
 		if (manager == null) {
-			setManager(new TextDirectEditManager2(this, null, LinklfEditPartFactory.getTextCellEditorLocator(this)));
+			setManager(new TextDirectEditManager(this, null, LinklfEditPartFactory.getTextCellEditorLocator(this)));
 		}
 		return manager;
 	}
@@ -339,8 +338,8 @@ public class LabeledLinkLinkNameEditPart extends LabelEditPart implements ITextA
 	 * @generated
 	 */
 	protected void performDirectEdit(Point eventLocation) {
-		if (getManager().getClass() == TextDirectEditManager2.class) {
-			((TextDirectEditManager2) getManager()).show(eventLocation.getSWTPoint());
+		if (getManager().getClass() == TextDirectEditManager.class) {
+			((TextDirectEditManager) getManager()).show(eventLocation.getSWTPoint());
 		}
 	}
 
@@ -350,9 +349,6 @@ public class LabeledLinkLinkNameEditPart extends LabelEditPart implements ITextA
 	private void performDirectEdit(char initialCharacter) {
 		if (getManager() instanceof TextDirectEditManager) {
 			((TextDirectEditManager) getManager()).show(initialCharacter);
-		} else // 
-		if (getManager() instanceof TextDirectEditManager2) {
-			((TextDirectEditManager2) getManager()).show(initialCharacter);
 		} else //
 		{
 			performDirectEdit();
