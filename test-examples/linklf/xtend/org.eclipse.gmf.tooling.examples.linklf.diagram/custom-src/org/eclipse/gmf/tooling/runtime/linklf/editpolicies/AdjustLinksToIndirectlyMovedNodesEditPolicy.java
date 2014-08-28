@@ -12,13 +12,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
@@ -28,11 +30,11 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.geometry.PointListUtilities;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.OrthogonalRouter;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.OrthogonalRouterUtilities;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.RectilinearRouter;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.tooling.runtime.linklf.AbsoluteBendpointsConvention;
-import org.eclipse.gmf.tooling.runtime.linklf.router.RectilinearRouter2;
+import org.eclipse.gmf.tooling.runtime.linklf.DiagramGridSpec;
+import org.eclipse.gmf.tooling.runtime.linklf.router.SnapToGridRectilinearRouter;
 
 public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteBendpointsEditPolicyBase {
 
@@ -245,7 +247,7 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteB
 		throw new IllegalStateException();
 	}
 
-	protected static class PreserveGatesRequest {
+	protected static class PreserveGatesRequest extends Request {
 
 		private final ConnectionEditPart myLink;
 
@@ -322,6 +324,11 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteB
 
 		public Point getMoveDelta() {
 			return myHostRequest.getMoveDelta();
+		}
+
+		public SnapToGrid getSnapToGrid() {
+			PrecisionRectangle gridSpec = DiagramGridSpec.getAbsoluteGridSpec(getLink().getViewer());
+			return gridSpec == null ? null : new SnapToGrid(getLink());
 		}
 	}
 
@@ -403,7 +410,8 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteB
 			middlePart.addPoint(routeEnd);
 
 			if (!OrthogonalRouterUtilities.isRectilinear(middlePart)) {
-				PreserveGatesUtil.insertPointsProducingNotAlignedRectilinearSegments(middlePart, offSourceDirection, offTargetDirection);
+				SnapToGrid snapper = myRequest.getSnapToGrid();
+				PreserveGatesUtil.insertPointsProducingNotAlignedRectilinearSegments(middlePart, offSourceDirection, offTargetDirection, snapper);
 				OrthogonalRouterUtilities.transformToOrthogonalPointList(middlePart, //
 						PreserveGatesUtil.asVerticalOrHorizontal(offSourceDirection), //
 						PreserveGatesUtil.asVerticalOrHorizontal(offTargetDirection));
@@ -439,7 +447,7 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteB
 
 	}
 
-	private static class PreserveGatesUtil extends RectilinearRouter2 {
+	private static class PreserveGatesUtil extends SnapToGridRectilinearRouter {
 
 		public static int getOppositeDirection(int direction) {
 			int result = 0;
@@ -473,32 +481,6 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteB
 				return start.x < end.x ? PositionConstants.EAST : PositionConstants.WEST;
 			}
 			return getOutisePointOffRectanglePosition2(start, new Rectangle(end.x, end.y, 0, 0));
-		}
-
-		public static int asVerticalOrHorizontal(int direction) {
-			return getOffShapeDirection2(direction);
-		}
-
-		public static void removeRedundantPoints(PointList line) {
-			removeRedundantPoints2(line);
-		}
-
-		/**
-		 * We need to find two points offset from the source and target anchors outside the shapes
-		 * such that when the polyline is converted to rectilinear from oblique we won't have
-		 * rectilinear line segments alligned with source or target shapes edges.
-		 * <p/>
-		 * Copy-pasted from {@link RectilinearRouter} lines 416.  
-		 */
-		@Deprecated
-		public static void insertPointsProducingNotAlignedRectilinearSegments(PointList line, int sourceAnchorRelativeLocation, int targetAnchorRelativeLocation) {
-			Point offStart = line.getFirstPoint();
-			Point offEnd = line.getLastPoint();
-			Dimension offsetDim = offStart.getDifference(offEnd).scale(0.5);
-			offStart.translate(getTranslationValue2(sourceAnchorRelativeLocation, Math.abs(offsetDim.width), Math.abs(offsetDim.height)));
-			offEnd.translate(getTranslationValue2(targetAnchorRelativeLocation, Math.abs(offsetDim.width), Math.abs(offsetDim.height)));
-			line.insertPoint(offStart, 1);
-			line.insertPoint(offEnd, 2);
 		}
 
 	}

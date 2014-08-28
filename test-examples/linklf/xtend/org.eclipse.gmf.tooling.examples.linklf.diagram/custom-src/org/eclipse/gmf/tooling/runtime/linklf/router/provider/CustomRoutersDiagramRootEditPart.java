@@ -10,6 +10,8 @@ import org.eclipse.gmf.runtime.notation.MeasurementUnit;
 
 public class CustomRoutersDiagramRootEditPart extends RenderedDiagramRootEditPart {
 
+	private CustomRoutersConnectionLayer myConnectionLayer;
+
 	public CustomRoutersDiagramRootEditPart(MeasurementUnit mUnit) {
 		super(mUnit);
 	}
@@ -30,7 +32,21 @@ public class CustomRoutersDiagramRootEditPart extends RenderedDiagramRootEditPar
 	}
 
 	protected ConnectionLayerEx createConnectionLayer() {
-		return new CustomRoutersConnectionLayer();
+		myConnectionLayer = new CustomRoutersConnectionLayer();
+		return myConnectionLayer;
+	}
+
+	@Override
+	protected void register() {
+		super.register();
+		myConnectionLayer.setEditPartViewer(getViewer());
+
+	}
+
+	@Override
+	protected void unregister() {
+		myConnectionLayer.setEditPartViewer(null);
+		super.unregister();
 	}
 
 }

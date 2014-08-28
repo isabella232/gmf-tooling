@@ -5,14 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.eclipse.draw2d.geometry.PrecisionRectangle;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.SlidableAnchor;
@@ -231,40 +228,7 @@ public class SlidableSnapToGridAnchor extends SlidableAnchor {
 	 * @return <code>null</code> if no active grid or grid provider had not been set up. 
 	 */
 	protected Rectangle getAbsoluteGridSpec() {
-		return myGridProvider == null ? null : getAbsoluteGridSpec(myGridProvider);
-	}
-
-	/**
-	 * Computes actual grid specification (origin + single cell width and height). Translates result into the absolute coordinates.
-	 * @param viewer
-	 * @return <code>null</code> if grid is not enabled or absolute grid specification
-	 */
-	protected static PrecisionRectangle getAbsoluteGridSpec(EditPartViewer viewer) {
-		Boolean enabled = (Boolean) viewer.getProperty(SnapToGrid.PROPERTY_GRID_ENABLED);
-		if (enabled == null || !enabled) {
-			return null;
-		}
-		double gridX = 0;
-		double gridY = 0;
-		Dimension spacing = (Dimension) viewer.getProperty(SnapToGrid.PROPERTY_GRID_SPACING);
-		if (spacing != null) {
-			gridX = spacing.preciseWidth();
-			gridY = spacing.preciseHeight();
-		}
-		if (gridX <= 0) {
-			gridX = SnapToGrid.DEFAULT_GRID_SIZE;
-		}
-		if (gridY <= 0) {
-			gridY = SnapToGrid.DEFAULT_GRID_SIZE;
-		}
-		Point origin = (Point) viewer.getProperty(SnapToGrid.PROPERTY_GRID_ORIGIN);
-		PrecisionRectangle result = new PrecisionRectangle(//
-				origin == null ? 0 : origin.preciseX(), origin == null ? 0 : origin.preciseY(), gridX, gridY);
-
-		GraphicalEditPart diagramEP = (GraphicalEditPart) viewer.getContents();
-		diagramEP.getContentPane().translateToAbsolute(result);
-
-		return result;
+		return myGridProvider == null ? null : DiagramGridSpec.getAbsoluteGridSpec(myGridProvider);
 	}
 
 	private static Point pickClosestPointToSet(Point source, Collection<? extends Point> set1, Collection<? extends Point> set2) {
