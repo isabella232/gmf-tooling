@@ -174,7 +174,7 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends AdjustAbsoluteB
 		if (edge == null) {
 			return false;
 		}
-		return AbsoluteBendpointsConvention.hasAbsoluteStoredAsRelativeBendpoints(edge) && // 
+		return AbsoluteBendpointsConvention.getInstance().hasAbsoluteStoredAsRelativeBendpoints(edge) && // 
 				conn.getConnectionRouter() instanceof OrthogonalRouter;
 	}
 

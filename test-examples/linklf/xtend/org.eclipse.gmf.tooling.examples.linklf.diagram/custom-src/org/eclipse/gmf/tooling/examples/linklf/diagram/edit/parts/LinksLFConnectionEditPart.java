@@ -48,7 +48,8 @@ public abstract class LinksLFConnectionEditPart extends ConnectionNodeEditPart {
 			} else {
 				weight = i / ((float) modelConstraint.size() - 1);
 			}
-			Bendpoint bp = AbsoluteBendpointsConvention.d2dBendpoint(wbp, getConnectionFigure(), weight);
+			Bendpoint bp = AbsoluteBendpointsConvention.getInstance().
+					d2dBendpoint(wbp, getConnectionFigure(), weight);
 			figureConstraint.add(bp);
 		}
 		getConnectionFigure().setRoutingConstraint(figureConstraint);

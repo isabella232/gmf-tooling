@@ -26,7 +26,7 @@ import org.eclipse.gmf.runtime.notation.RelativeBendpoints;
 import org.eclipse.gmf.tooling.runtime.linklf.AbsoluteBendpointsConvention;
 
 /**
- * This edit policy adjusts bendpoints for links between the nodes moved at the same time. 
+ * This edit policy adjusts bendpoints for links between the nodes moved at the same time.
  * Only absolute bendpoints (also possibly stored as relative, see {@link AbsoluteBendpointsConvention}) require adjustment.
  */
 public class AdjustImplicitlyMovedLinksEditPolicy extends AdjustAbsoluteBendpointsEditPolicyBase {
@@ -34,8 +34,7 @@ public class AdjustImplicitlyMovedLinksEditPolicy extends AdjustAbsoluteBendpoin
 	/**
 	 * Default role for registering this edit policy.
 	 * <p/>
-	 * The value is prefixed by class FQN in order to avoid conflicts, 
-	 * but the literal should NOT be used anywhere.
+	 * The value is prefixed by class FQN in order to avoid conflicts, but the literal should NOT be used anywhere.
 	 */
 	public static final String ROLE = AdjustImplicitlyMovedLinksEditPolicy.class.getName() + ":Role";
 
@@ -46,27 +45,27 @@ public class AdjustImplicitlyMovedLinksEditPolicy extends AdjustAbsoluteBendpoin
 
 	/**
 	 * Link is implicitly moved when its source and target are both moved (directly or indirectly).
-	 * In this case, {@link RelativeBendpoints} should not be adjusted. 
-	 * But when the link has effectively absolute bendpoints (see {@link AbsoluteBendpointsConvention}) 
+	 * In this case, {@link RelativeBendpoints} should not be adjusted.
+	 * But when the link has effectively absolute bendpoints (see {@link AbsoluteBendpointsConvention})
 	 * all of them must be also moved to the same {@link ChangeBoundsRequest#getMoveDelta()}
 	 * <p/>
-	 * Default implementation of this method will only affect the <strong>outgoing</strong> links 
-	 * from the host edit part to one of the edit parts being moved. This way all affected links will be modified only once.
+	 * Default implementation of this method will only affect the <strong>outgoing</strong> links from the host edit part to one of the edit parts
+	 * being moved. This way all affected links will be modified only once.
 	 */
 	protected Command getAdjustImplicitlyMovedLinksCommand(ChangeBoundsRequest req) {
 		final Point moveDelta = req.getMoveDelta();
-		if (moveDelta.x == 0 && moveDelta.y == 0) {
+		if(moveDelta.x == 0 && moveDelta.y == 0) {
 			return null;
 		}
 
 		CachedEditPartsSet allMoved = getMovedEditPartsSet(req);
 		ICommand result = null;
-		for (Object next : getHost().getSourceConnections()) {
-			if (next instanceof ConnectionEditPart) {
-				ConnectionEditPart nextLinkEP = (ConnectionEditPart) next;
+		for(Object next : getHost().getSourceConnections()) {
+			if(next instanceof ConnectionEditPart) {
+				ConnectionEditPart nextLinkEP = (ConnectionEditPart)next;
 				EditPart target = nextLinkEP.getTarget();
 				MovedNodeKind move = allMoved.isMoved(target);
-				if (move == MovedNodeKind.DIRECTLY || move == MovedNodeKind.INDIRECTLY) {
+				if(move == MovedNodeKind.DIRECTLY || move == MovedNodeKind.INDIRECTLY) {
 					ICommand nextAdjustment = getAdjustOneLinkCommand(nextLinkEP, req);
 					result = compose(result, nextAdjustment);
 				}
@@ -77,9 +76,9 @@ public class AdjustImplicitlyMovedLinksEditPolicy extends AdjustAbsoluteBendpoin
 
 	private ICommand getAdjustOneLinkCommand(ConnectionEditPart linkEP, ChangeBoundsRequest req) {
 		SetAbsoluteBendpointsCommand result = null;
-		Edge edge = (Edge) linkEP.getNotationView();
-		if (AbsoluteBendpointsConvention.hasAbsoluteStoredAsRelativeBendpoints(edge)) {
-			PointList newPoints = AbsoluteBendpointsConvention.getAbsoluteRelativeBendpointsList(edge);
+		Edge edge = (Edge)linkEP.getNotationView();
+		if(AbsoluteBendpointsConvention.getInstance().hasAbsoluteStoredAsRelativeBendpoints(edge)) {
+			PointList newPoints = AbsoluteBendpointsConvention.getInstance().getPointList(edge, linkEP.getConnectionFigure().getRoutingConstraint());
 			newPoints.translate(req.getMoveDelta());
 
 			result = new SetAbsoluteBendpointsCommand(getDomain());

@@ -47,7 +47,7 @@ public class SetAbsoluteBendpointsCommand extends SetConnectionBendpointsCommand
 		Assert.isNotNull(getSourceRefPoint());
 		Assert.isNotNull(getTargetRefPoint());
 
-		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
+		Edge edge = (Edge)getEdgeAdaptor().getAdapter(Edge.class);
 		Assert.isNotNull(edge);
 
 		setAbsoluteBendpoints(edge, getNewPointList());
@@ -58,17 +58,17 @@ public class SetAbsoluteBendpointsCommand extends SetConnectionBendpointsCommand
 	public static void setAbsoluteBendpoints(Edge edge, PointList newPointList) {
 		List<RelativeBendpoint> newBendpoints = new ArrayList<RelativeBendpoint>();
 		int numOfPoints = newPointList.size();
-		for (short i = 0; i < numOfPoints; i++) {
+		for(short i = 0; i < numOfPoints; i++) {
 			//Dimension s = getNewPointList().getPoint(i).getDifference(getSourceRefPoint());
 			//Dimension t = getNewPointList().getPoint(i).getDifference(getTargetRefPoint());
 			//newBendpoints.add(new RelativeBendpoint(s.width, s.height, t.width, t.height));
-			newBendpoints.add(AbsoluteBendpointsConvention.createAbsoluteBendpointStoredAsRelative(newPointList.getPoint(i)));
+			newBendpoints.add(AbsoluteBendpointsConvention.getInstance().createAbsoluteBendpointStoredAsRelative(newPointList.getPoint(i)));
 		}
 
 		StringBuffer toString = new StringBuffer();
 		boolean atLeastOne = false;
-		for (RelativeBendpoint next : newBendpoints) {
-			if (atLeastOne) {
+		for(RelativeBendpoint next : newBendpoints) {
+			if(atLeastOne) {
 				toString.append(" - ");
 			}
 			toString.append(next.convertToString());
@@ -76,7 +76,7 @@ public class SetAbsoluteBendpointsCommand extends SetConnectionBendpointsCommand
 		}
 		System.err.println("SetAbsBendpoints: " + toString);
 
-		RelativeBendpoints points = (RelativeBendpoints) edge.getBendpoints();
+		RelativeBendpoints points = (RelativeBendpoints)edge.getBendpoints();
 		points.setPoints(newBendpoints);
 	}
 
