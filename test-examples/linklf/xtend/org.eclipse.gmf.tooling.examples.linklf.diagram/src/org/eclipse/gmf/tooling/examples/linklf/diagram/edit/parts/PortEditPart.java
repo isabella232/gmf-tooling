@@ -20,6 +20,7 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.PortItemSemanticEditPolicy;
 import org.eclipse.gmf.tooling.runtime.linklf.LinksLFNodeFigure;
 import org.eclipse.gmf.tooling.runtime.linklf.ShapeNodeAnchorDelegate;
+import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.AdjustBorderItemAnchorsEditPolicy;
 import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.AdjustImplicitlyMovedLinksEditPolicy;
 import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.LinksLFGraphicalNodeEditPolicy;
 import org.eclipse.swt.graphics.Color;
@@ -64,6 +65,7 @@ public class PortEditPart extends AbstractBorderItemEditPart {
 		
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new LinksLFGraphicalNodeEditPolicy());
 		installEditPolicy(AdjustImplicitlyMovedLinksEditPolicy.ROLE, new AdjustImplicitlyMovedLinksEditPolicy());
+		installEditPolicy(AdjustBorderItemAnchorsEditPolicy.ROLE, new AdjustBorderItemAnchorsEditPolicy());
 	}
 
 	/**
