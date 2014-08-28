@@ -12,9 +12,13 @@
  */
 package org.eclipse.gmf.tooling.runtime.linklf.editpolicies;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -54,30 +58,40 @@ public class AdjustImplicitlyMovedLinksEditPolicy extends AdjustAbsoluteBendpoin
 	 */
 	protected Command getAdjustImplicitlyMovedLinksCommand(ChangeBoundsRequest req) {
 		final Point moveDelta = req.getMoveDelta();
-		if(moveDelta.x == 0 && moveDelta.y == 0) {
+		if (moveDelta.x == 0 && moveDelta.y == 0) {
 			return null;
 		}
 
 		CachedEditPartsSet allMoved = getMovedEditPartsSet(req);
 		ICommand result = null;
-		for(Object next : getHost().getSourceConnections()) {
-			if(next instanceof ConnectionEditPart) {
-				ConnectionEditPart nextLinkEP = (ConnectionEditPart)next;
-				EditPart target = nextLinkEP.getTarget();
-				MovedNodeKind move = allMoved.isMoved(target);
-				if(move == MovedNodeKind.DIRECTLY || move == MovedNodeKind.INDIRECTLY) {
-					ICommand nextAdjustment = getAdjustOneLinkCommand(nextLinkEP, req);
-					result = compose(result, nextAdjustment);
+		LinkedList<GraphicalEditPart> queue = new LinkedList<GraphicalEditPart>();
+		queue.add(getHost());
+
+		while (!queue.isEmpty()) {
+			GraphicalEditPart cur = queue.removeFirst();
+			for (Object nextLink : cur.getSourceConnections()) {
+				if (nextLink instanceof ConnectionEditPart) {
+					ConnectionEditPart nextLinkEP = (ConnectionEditPart) nextLink;
+					EditPart target = nextLinkEP.getTarget();
+					MovedNodeKind move = allMoved.isMoved(target);
+					if (move == MovedNodeKind.DIRECTLY || move == MovedNodeKind.INDIRECTLY) {
+						ICommand nextAdjustment = getAdjustOneLinkCommand(nextLinkEP, req);
+						result = compose(result, nextAdjustment);
+					}
 				}
 			}
+
+			@SuppressWarnings("unchecked")
+			Collection<GraphicalEditPart> children = cur.getChildren();
+			queue.addAll(children);
 		}
 		return result == null ? null : new ICommandProxy(result.reduce());
 	}
 
 	private ICommand getAdjustOneLinkCommand(ConnectionEditPart linkEP, ChangeBoundsRequest req) {
 		SetAbsoluteBendpointsCommand result = null;
-		Edge edge = (Edge)linkEP.getNotationView();
-		if(AbsoluteBendpointsConvention.getInstance().hasAbsoluteStoredAsRelativeBendpoints(edge)) {
+		Edge edge = (Edge) linkEP.getNotationView();
+		if (AbsoluteBendpointsConvention.getInstance().hasAbsoluteStoredAsRelativeBendpoints(edge)) {
 			PointList newPoints = AbsoluteBendpointsConvention.getInstance().getPointList(edge, linkEP.getConnectionFigure().getRoutingConstraint());
 			newPoints.translate(req.getMoveDelta());
 

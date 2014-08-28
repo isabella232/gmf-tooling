@@ -28,6 +28,7 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.Container2I
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LinklfTextSelectionEditPolicy;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfVisualIDRegistry;
 import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
+import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.AdjustImplicitlyMovedLinksEditPolicy;
 import org.eclipse.gmf.tooling.runtime.linklf.editpolicies.AdjustLinksToIndirectlyMovedNodesEditPolicy;
 import org.eclipse.swt.graphics.Color;
 
@@ -71,6 +72,7 @@ public class Container2EditPart extends AbstractBorderedShapeEditPart {
 		// XXX need an SCR to runtime to have another abstract superclass that would let children add reasonable editpolicies
 		// removeEditPolicy(org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles.CONNECTION_HANDLES_ROLE);
 		installEditPolicy(AdjustLinksToIndirectlyMovedNodesEditPolicy.ROLE, new AdjustLinksToIndirectlyMovedNodesEditPolicy());
+		installEditPolicy(AdjustImplicitlyMovedLinksEditPolicy.ROLE, new AdjustImplicitlyMovedLinksEditPolicy());
 	}
 
 	/**
