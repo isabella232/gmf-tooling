@@ -2,30 +2,34 @@ package org.eclipse.gmf.codegen.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.wiring.FrameworkWiring;
 
 public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvider {
 
-	public static String DEFAULT_DYNAMIC_TEMPLATES_FOLDER = "/aspects";
+	private static final String PLATFORM_PLUGIN_PREFIX = "platform:/plugin/";
 
-	public static String POINT_SEPARATOR = ".";
+	public static final String DEFAULT_DYNAMIC_TEMPLATES_FOLDER = "aspects";
 
-	public static String EMPLTY_STRING = "";
+	public static final String POINT_SEPARATOR = ".";
 
-	public static String TEMPLATE_FILE_EXTENSIION = "xtend";
+	public static final String EMPLTY_STRING = "";
+
+	public static final String TEMPLATE_FILE_EXTENSIION = "xtend";
 
 	private final String myCustomTemplatePath;
 
-	private List<Class<?>> myDinamicClasses;
+	private List<Class<?>> myDynamicClasses;
 
 	private List<Class<?>> myCustomClasses;
 
@@ -33,70 +37,71 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 
 	private final Bundle myBundle;
 
-	private final boolean myAspectsNeed;
+	private final boolean myNeedAspects;
 
 	private final boolean myUsePluginNotProject;
 
-	public ExtensionTemplatesProviderImpl(String customPath, boolean aspectsNeed) {
-		myUsePluginNotProject = customPath.startsWith("platform:/plugin/");
-		if (!myUsePluginNotProject) {
-			if (customPath.startsWith(SLASH)) {
-				customPath = customPath.substring(1, customPath.length() - 1);
-			}
-			String[] parts = customPath.split(SLASH);
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(parts[0]);
-			myCustomTemplatePath = getTemplateEntryFromURL(customPath, 1);
-			ManifestUtil.createOrFillManifest(project);
-			try {
-				myBundle = loadBundle(project);
-			} catch (MalformedURLException e) {
-				throw new RuntimeException("Cannot create correct URL for Bundle.", e);
-			} catch (BundleException e) {
-				throw new RuntimeException("Error. Bundle was not load.", e);
-			}
+	public ExtensionTemplatesProviderImpl(String customPath, boolean needAspects) {
+		boolean usePluginNotProject = customPath.startsWith(PLATFORM_PLUGIN_PREFIX);
+		customPath = cutPrefix(customPath, PLATFORM_PLUGIN_PREFIX);
+		customPath = cutPrefix(customPath, SLASH);
+
+		String bundleName = customPath.split(SLASH)[0];
+
+		myCustomTemplatePath = cutPrefix(cutPrefix(customPath, bundleName), SLASH);
+
+		Bundle platformBundle = Platform.getBundle(bundleName);
+
+		if (usePluginNotProject) {
+			myBundle = platformBundle;
 		} else {
-			myCustomTemplatePath = getTemplateEntryFromURL(customPath, 3);
-			myBundle = Platform.getBundle(getBundleNameFromURL(customPath));
+			if (platformBundle != null) {
+				// TODO: could be test-specific
+				usePluginNotProject = true;
+				System.err.println("Bundle presents in platform: " + bundleName);
+				myBundle = platformBundle;
+			} else {
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(bundleName);
+
+				ManifestUtil.createOrFillManifest(project);
+				try {
+					myBundle = loadBundle(project);
+				} catch (MalformedURLException e) {
+					throw new RuntimeException("Cannot create correct URL for Bundle.", e);
+				} catch (BundleException e) {
+					throw new RuntimeException("Error. Bundle was not load.", e);
+				}
+			}
 		}
-		myAspectsNeed = aspectsNeed;
+
+		myUsePluginNotProject = usePluginNotProject;
+		myNeedAspects = needAspects;
 	}
 
-	private static String getBundleNameFromURL(String url) {
-		return url.split(SLASH)[2];
-	}
-
-	private static String getTemplateEntryFromURL(String url, int part) {
-		StringBuilder result = new StringBuilder();
-		String[] parts = url.split(SLASH);
-		for (int i = part; i < parts.length; i++) {
-			result.append(parts[i]).append(SLASH);
+	private static String cutPrefix(String text, String prefix) {
+		if (text.startsWith(prefix)) {
+			return text.substring(prefix.length());
+		} else {
+			return text;
 		}
-		return result.toString();
 	}
 
 	private static Bundle loadBundle(IProject project) throws MalformedURLException, BundleException {
 		String url = project.getLocation().toFile().toURI().toURL().toExternalForm();
-		return CodegenXtendPlugin.getInstance().getContext().installBundle(url);
+		BundleContext bundleContext = CodegenXtendPlugin.getInstance().getContext();
+		return bundleContext.installBundle(url);
 	}
 
 	@Override
 	public List<Class<?>> getCustomTemplateClasses() {
-		if (myCustomClasses == null) {
-			myCustomClasses = new LinkedList<Class<?>>();
-			myCustomClasses.addAll(loadClassesFromBundle(false));
-		}
+		loadClassesFromBundle();
 		return myCustomClasses;
 	}
 
 	@Override
 	public List<Class<?>> getDynamicTemplateClasses() {
-		if (myDinamicClasses == null) {
-			myDinamicClasses = new LinkedList<Class<?>>();
-			if (myAspectsNeed) {
-				myDinamicClasses.addAll(loadClassesFromBundle(true));
-			}
-		}
-		return myDinamicClasses;
+		loadClassesFromBundle();
+		return myDynamicClasses;
 	}
 
 	@Override
@@ -122,17 +127,28 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 		}
 	}
 
-	private List<Class<?>> loadClassesFromBundle(boolean aspectNotCustom) {
-		List<Class<?>> result = new LinkedList<Class<?>>();
-		Enumeration<java.net.URL> classsesURL = myBundle.findEntries(myCustomTemplatePath, "*.xtend", true);
-		while (classsesURL != null && classsesURL.hasMoreElements()) {
-			String classPath = classsesURL.nextElement().toString().trim();
-			classPath = classPath.substring(classPath.indexOf(myCustomTemplatePath), classPath.length()).replace(myCustomTemplatePath, EMPLTY_STRING).replace(POINT_SEPARATOR + TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING);
+	private void loadClassesFromBundle() {
+		if (myDynamicClasses != null && myCustomClasses != null) {
+			return;
+		}
+		myDynamicClasses = new ArrayList<Class<?>>();
+		myCustomClasses = new ArrayList<Class<?>>();
+
+		Enumeration<java.net.URL> classURLs = myBundle.findEntries(myCustomTemplatePath, "*." + TEMPLATE_FILE_EXTENSIION, true);
+
+		while (classURLs != null && classURLs.hasMoreElements()) {
+			String classPath = classURLs.nextElement().toString().trim();
+			classPath = classPath.substring(classPath.indexOf(myCustomTemplatePath), classPath.length()).replace(myCustomTemplatePath, EMPLTY_STRING)
+					.replace(POINT_SEPARATOR + TEMPLATE_FILE_EXTENSIION, EMPLTY_STRING);
+
 			try {
-				if (aspectNotCustom && classPath.startsWith("aspects")) {
-					result.add(loadClass(getFQCN(classPath)));
-				} else if (!aspectNotCustom && !classPath.startsWith("aspects")) {
-					result.add(loadClass(getFQCN(classPath)));
+				Class<?> templateClass = loadClass(getFQCN(classPath));
+				if (classPath.startsWith(DEFAULT_DYNAMIC_TEMPLATES_FOLDER) && isAspectClass(templateClass)) {
+					if (myNeedAspects) {
+						myDynamicClasses.add(templateClass);
+					}
+				} else {
+					myCustomClasses.add(templateClass);
 				}
 			} catch (ClassNotFoundException e) {
 				throw new RuntimeException("Error. Did not load " + classPath + ". Class not found.", e);
@@ -140,7 +156,19 @@ public class ExtensionTemplatesProviderImpl implements IExtensionTemplatesProvid
 				throw new RuntimeException("Error has occurred when try to load " + classPath, e);
 			}
 		}
-		return result;
+	}
+
+	private boolean isAspectClass(Class<?> customClass) {
+		Class<?> superClass = customClass.getSuperclass();
+		if (superClass == null) {
+			return false;
+		}
+
+		String superTemplateResourceName = superClass.getName().replace(POINT_SEPARATOR, SLASH) + "." + TEMPLATE_FILE_EXTENSIION;
+
+		URL codegenEntry = CodegenXtendPlugin.getInstance().getBundle().getResource(superTemplateResourceName);
+
+		return codegenEntry != null;
 	}
 
 	private String getFQCN(String entryPath) {

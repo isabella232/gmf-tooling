@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -72,9 +73,9 @@ public class ManifestUtil {
 		while ((line = manifestStream.readLine()) != null) {
 			result.append(line);
 			if (!foundClassPath && line.startsWith("Bundle-ClassPath:")) {
-				if (line.indexOf("bin/") == -1) {
-					result.append(", bin/");
-				}
+					if (!Arrays.asList(line.split(",\\s*")).contains("bin/")) {
+						result.append(", bin/");	
+					}				
 				foundClassPath = true;
 			}
 			if (!foundActivator && line.contains("Bundle-Activator:")) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.examples.links.tests/src"
-    modelPluginID="org.eclipse.gmf.tooling.examples.links.tests" modelName="Links"
-    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" operationReflection="true" importOrganizing="true">
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.examples.links/src" modelPluginID="org.eclipse.gmf.tooling.examples.links"
+    modelName="Links" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
   <foreignModel>links.ecore</foreignModel>
   <genPackages prefix="Links" basePackage="org.eclipse.gmf.tooling.examples" disposableProviderFactory="true"
       ecorePackage="links.ecore#/">

@@ -20,8 +20,7 @@ public class TestSamplesSuiteXtend {
     TestSuite suite = new TestSuite("Tests for org.eclipse.tooling.gmf samples");
     suite.addTestSuite(PinsSampleTestXtend.class);
     suite.addTestSuite(CompartmentsSampleTestXtend.class);
-    suite.addTestSuite(LinksSampleTestXtend.class);
-    suite.addTestSuite(LinksSampleTestXtend.class);
+    suite.addTest(TestLinksSamplesSuiteXtend.suite());
     suite.addTestSuite(SVGSampleTestXtend.class);
     suite.addTestSuite(ShourtcutSampleTestXtend.class);
     suite.addTestSuite(AffixedSampleTestXtend.class);

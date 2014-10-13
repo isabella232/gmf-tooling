@@ -38,7 +38,7 @@
     </descriptors>
     <descriptors name="Root_BA_Element_LinkFigure">
       <actualFigure xsi:type="gmfgraph:PolylineConnection" name="Root_BA_Element_LinkFigure">
-        <children xsi:type="gmfgraph:CustomFigure" name="CustomLabel" qualifiedClassName="custom.MultilineWrappingLabel"/>
+        <children xsi:type="gmfgraph:CustomFigure" name="CustomLabel" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.WrappingLabel"/>
       </actualFigure>
       <accessors figure="//@figures.0/@descriptors.7/@actualFigure/@children.0"/>
     </descriptors>
