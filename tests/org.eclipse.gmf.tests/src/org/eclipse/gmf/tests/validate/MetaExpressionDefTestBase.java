@@ -114,7 +114,7 @@ public abstract class MetaExpressionDefTestBase extends TestCase {
 		assertEquals(AnnotationUtil.getChildDiagnostic(status).getCode(), StatusCodes.INVALID_CONSTRAINT_EXPRESSION);		
 	}
 		
-	public void testWrongContextTypeDef() throws Exception {
+	public void _testWrongContextTypeDef() throws Exception {
 		ctxClassRef.setEType(containerClass);
 
 		EObject constraintInstance = EcoreUtil.create(constraintMetaClass);		
