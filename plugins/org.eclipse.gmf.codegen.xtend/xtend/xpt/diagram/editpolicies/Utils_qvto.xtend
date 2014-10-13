@@ -120,8 +120,10 @@ import xpt.GenModelUtils_qvto
 	 * if child's containment feature comes from the node, assume deletion of the parent would delete the child.
 	 */
 	def boolean isDirectlyOwned(GenChildNode child, GenNode genNode) {
-		if(child.modelFacet == null || genNode.modelFacet == null) return false;
-		return child.modelFacet.containmentMetaFeature.genClass.isSuperTypeOf(genNode.modelFacet.metaClass)
+		var childFacet = child.modelFacet;
+		if (childFacet == null || genNode.modelFacet == null) return false;
+		if (childFacet.containmentMetaFeature == null) return false;
+		return childFacet.containmentMetaFeature.genClass.isSuperTypeOf(genNode.modelFacet.metaClass)
 	}
 
 }

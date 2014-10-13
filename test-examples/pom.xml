@@ -32,6 +32,7 @@
 		<module>svg</module>
 		<module>link_labels</module>
 		<module>linklf</module>
+		<module>phantoms</module>
 	</modules>
 	
 </project>

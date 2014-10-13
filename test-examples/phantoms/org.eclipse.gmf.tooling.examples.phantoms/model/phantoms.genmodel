@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.tooling.examples.phantoms/src"
+    editDirectory="/org.eclipse.gmf.tooling.examples.phantoms.edit/src" editorDirectory="/org.eclipse.gmf.tooling.examples.phantoms.editor/src"
+    modelPluginID="org.eclipse.gmf.tooling.examples.phantoms" modelName="Phantoms"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="org.eclipse.gmf.tooling.examples.phantoms.edit"
+    editorPluginID="org.eclipse.gmf.tooling.examples.phantoms.editor" operationReflection="true"
+    importOrganizing="true">
+  <foreignModel>phantoms.ecore</foreignModel>
+  <genPackages prefix="Phantoms" basePackage="org.eclipse.gmf.tooling.examples" disposableProviderFactory="true"
+      ecorePackage="phantoms.ecore#/">
+    <genClasses ecoreClass="phantoms.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference phantoms.ecore#//Root/children"/>
+    </genClasses>
+    <genClasses ecoreClass="phantoms.ecore#//RootChild"/>
+    <genClasses ecoreClass="phantoms.ecore#//TopParent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference phantoms.ecore#//TopParent/children"/>
+    </genClasses>
+    <genClasses ecoreClass="phantoms.ecore#//Medium">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference phantoms.ecore#//Medium/children"/>
+    </genClasses>
+    <genClasses ecoreClass="phantoms.ecore#//TopChild">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute phantoms.ecore#//TopChild/name"/>
+    </genClasses>
+    <genClasses ecoreClass="phantoms.ecore#//MediumParent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference phantoms.ecore#//MediumParent/children"/>
+    </genClasses>
+    <genClasses ecoreClass="phantoms.ecore#//MediumChild">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute phantoms.ecore#//MediumChild/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

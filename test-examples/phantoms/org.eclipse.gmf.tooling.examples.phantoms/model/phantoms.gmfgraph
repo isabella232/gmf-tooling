@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2006/GraphicalDefinition" name="phantoms">
+  <figures name="Default">
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="TopParentChildrenTargetDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="MediumParentChildrenTargetDecoration"/>
+    <descriptors name="TopParentFigure">
+      <actualFigure xsi:type="gmfgraph:Ellipse"/>
+    </descriptors>
+    <descriptors name="TopParentChildrenFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="TopParentChildrenFigure" targetDecoration="//@figures.0/@figures.0"/>
+    </descriptors>
+    <descriptors name="MediumFigure">
+      <actualFigure xsi:type="gmfgraph:RoundedRectangle">
+        <layout xsi:type="gmfgraph:XYLayout"/>
+      </actualFigure>
+    </descriptors>
+    <descriptors name="TopChildFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="TopChildFigure">
+        <layout xsi:type="gmfgraph:FlowLayout"/>
+        <children xsi:type="gmfgraph:Label" name="TopChildNameFigure" text="&lt;...>"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.3/@actualFigure/@children.0"/>
+    </descriptors>
+    <descriptors name="MediumParentFigure">
+      <actualFigure xsi:type="gmfgraph:Ellipse"/>
+    </descriptors>
+    <descriptors name="MediumParentChildrenFigure">
+      <actualFigure xsi:type="gmfgraph:PolylineConnection" name="MediumParentChildrenFigure" targetDecoration="//@figures.0/@figures.1"/>
+    </descriptors>
+    <descriptors name="MediumChildFigure">
+      <actualFigure xsi:type="gmfgraph:Rectangle" name="MediumChildFigure">
+        <layout xsi:type="gmfgraph:FlowLayout"/>
+        <children xsi:type="gmfgraph:Label" name="MediumChildNameFigure" text="&lt;...>"/>
+      </actualFigure>
+      <accessors figure="//@figures.0/@descriptors.6/@actualFigure/@children.0"/>
+    </descriptors>
+  </figures>
+  <nodes name="TopParent" figure="TopParentFigure"/>
+  <nodes name="Medium" figure="MediumFigure"/>
+  <nodes name="TopChild" figure="TopChildFigure"/>
+  <nodes name="MediumParent" figure="MediumParentFigure"/>
+  <nodes name="MediumChild" figure="MediumChildFigure"/>
+  <connections name="TopParentChildren" figure="TopParentChildrenFigure"/>
+  <connections name="MediumParentChildren" figure="MediumParentChildrenFigure"/>
+  <labels name="TopChildName" figure="TopChildFigure" accessor="//@figures.0/@descriptors.3/@accessors.0"/>
+  <labels name="MediumChildName" figure="MediumChildFigure" accessor="//@figures.0/@descriptors.6/@accessors.0"/>
+</gmfgraph:Canvas>

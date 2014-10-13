@@ -191,7 +191,7 @@ import xpt.providers.ElementTypes
 			«ENDFOR»
 			«IF it.getPhantomNodes.notEmpty»
 				org.eclipse.emf.ecore.resource.Resource resource = modelElement.eResource();
-				for (java.util.Iterator<org.eclipse.emf.ecore.EObject> it = getPhantomNodesIterator(resource)) {
+				for (java.util.Iterator<org.eclipse.emf.ecore.EObject> it = getPhantomNodesIterator(resource); it.hasNext();) {
 					org.eclipse.emf.ecore.EObject childElement = it.next();
 					if (childElement == modelElement) {
 						continue;
@@ -249,7 +249,7 @@ import xpt.providers.ElementTypes
 
 
 	def getPhantomNodesIterator(GenDiagramUpdater it) '''
-	«IF editorGen.diagram.phantomNodes.notEmpty»
+	«IF editorGen.diagram.hasPhantomNodes»
 	
 	«generatedMemberComment»
 	private static java.util.Iterator<org.eclipse.emf.ecore.EObject> getPhantomNodesIterator(org.eclipse.emf.ecore.resource.Resource resource) {

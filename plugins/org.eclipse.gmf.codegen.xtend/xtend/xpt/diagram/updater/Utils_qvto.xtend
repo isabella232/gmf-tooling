@@ -167,12 +167,30 @@ enum UpdaterLinkType {
 		return getSemanticChildren(containerBase).filter[node|!node.modelFacet.isPhantomElement()]
 	}
 
+	def boolean hasPhantomNodes(GenDiagram it) {
+		if (it.phantomNodes.notEmpty) return true; 
+		for (GenNode node: it.allNodes) {
+			if (node.phantomNodes.notEmpty) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	def dispatch Iterable<GenNode> getPhantomNodes(GenContainerBase it) {
 		return <GenNode>newLinkedList()
 	}
 
 	def dispatch Iterable<GenNode> getPhantomNodes(GenNode it) {
-		return getSemanticChildren(it).filter[node|node.modelFacet.isPhantomElement()]
+		return getPhantomNodesForContainers(it)
+	}
+
+	def dispatch Iterable<GenNode> getPhantomNodes(GenDiagram it) {
+		return getPhantomNodesForContainers(it)
+	}
+
+	def Iterable<GenNode> getPhantomNodesForContainers(GenContainerBase it) {
+		getSemanticChildren(it).filter[node|node.modelFacet.isPhantomElement()]
 	}
 
 	def Iterable<GenNode> getSemanticChildren(GenContainerBase containerBase) {
