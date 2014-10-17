@@ -178,9 +178,9 @@ public abstract class AbstractAttributeParser extends AbstractFeatureParser {
 		this.editPattern = editPattern;
 	}
 
-	private static interface NumberCaster<T extends Number> {
+	private static abstract class NumberCaster<T extends Number> {
 
-		public T castNumber(Number number);
+		public abstract T castNumber(Number number);
 
 	}
 
