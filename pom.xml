@@ -243,9 +243,9 @@
                     <url>http://download.eclipse.org/releases/luna/</url>
                 </repository>
                 <repository>
-                    <id>orbit for Luna M3</id>
+                    <id>orbit for Mars M3</id>
                     <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20131024145017/repository/</url>
+                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20141023165154/repository/</url>
                 </repository>
                 <repository>
                     <id>ObjectTeamsRepository, see bug #350133 for details why we need that</id>
