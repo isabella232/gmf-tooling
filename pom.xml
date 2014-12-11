@@ -34,7 +34,7 @@
 
     <modules>
         <module>plugins</module>
-        <module>gwt-plugins</module>
+        <!-- <module>gwt-plugins</module> -->
         <module>examples</module>
         <module>doc</module>
         <module>features</module>
