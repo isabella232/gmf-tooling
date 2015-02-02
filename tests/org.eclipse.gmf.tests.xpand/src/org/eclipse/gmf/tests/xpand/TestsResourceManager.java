@@ -18,11 +18,11 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 
 import org.eclipse.gmf.internal.xpand.ResourceManager;
+import org.eclipse.gmf.internal.xpand.util.BundleUnitResolver;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
-import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
 
 /**
  * @author artem

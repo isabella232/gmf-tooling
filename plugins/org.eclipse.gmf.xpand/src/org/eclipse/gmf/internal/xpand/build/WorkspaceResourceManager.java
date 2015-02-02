@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -31,13 +31,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.internal.xpand.inactive.StreamDecoder;
 import org.eclipse.gmf.internal.xpand.model.XpandResource;
+import org.eclipse.gmf.internal.xpand.util.BundleUnitResolver;
 import org.eclipse.gmf.internal.xpand.util.ParserException;
 import org.eclipse.gmf.internal.xpand.util.ResourceManagerImpl;
 import org.eclipse.gmf.internal.xpand.util.StreamConverter;
 import org.eclipse.gmf.internal.xpand.util.TypeNameUtil;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
 import org.eclipse.m2m.internal.qvt.oml.project.builder.WorkspaceUnitResolver;
-import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
 import org.osgi.framework.Bundle;
 
 // FIXME package-local?, refactor Activator.getResourceManager uses
@@ -214,12 +214,8 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 		}
 		
 		final UnitResolver bundleDelegate = BundleUnitResolver.createResolver(bundleRootURLs, true);
-		WorkspaceUnitResolver resolver = new WorkspaceUnitResolver(Collections.<IContainer>emptyList()) {
-			@Override
-			protected UnitResolver getParent() {
-				return bundleDelegate;
-			}
-		};
+		
+		List<IContainer> resolverPaths = new LinkedList<IContainer>();
 		for (IPath rootPath : myConfiguredRoots) {
 			if(!rootPath.isAbsolute()) {
 				rootPath = contextProject.getFullPath().append(rootPath);
@@ -229,10 +225,15 @@ public class WorkspaceResourceManager extends ResourceManagerImpl {
 			if (member != null && (member instanceof IContainer)) {
 				IContainer container = (IContainer) member;
 				if (container.exists()) {
-					resolver.addSourceContainer(container);
+					resolverPaths.add(container);
 				}
 			}
 		}
-		return resolver;
+		return new WorkspaceUnitResolver(resolverPaths) {
+			@Override
+			protected UnitResolver getParent() {
+				return bundleDelegate;
+			}
+		};
 	}
 }

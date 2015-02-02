@@ -1,5 +1,6 @@
 package org.eclipse.gmf.tests.tr;
 
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.eclipse.core.resources.IProject;
@@ -183,11 +184,10 @@ public class CompareTransformationEngineTest extends ConfiguredTestCase {
 		assertEquals(expected.getVersion(), actual.getVersion());
 
 		assertEquals(expected.getRequiredPlugins().size(), actual.getRequiredPlugins().size());
+		List<String> actualPlugins = actual.getRequiredPlugins();
 		for (int i=0; i<expected.getRequiredPlugins().size(); i++) {
 			String exp = expected.getRequiredPlugins().get(i);
-			String act = actual.getRequiredPlugins().get(i);
-
-			assertEquals(exp, act);
+			assertTrue(actualPlugins.contains(exp));
 		}
 	}
 
@@ -999,6 +999,12 @@ public class CompareTransformationEngineTest extends ConfiguredTestCase {
 			String act = expected.getRequiredPluginIDs().get(i);
 
 			assertEquals(exp, act);
+		}
+		List<String> actualPluginsIDs = actual.getRequiredPluginIDs();
+		for (int i=0; i<expected.getRequiredPluginIDs().size(); i++) {
+			String exp = expected.getRequiredPluginIDs().get(i);
+			
+			assertTrue(actualPluginsIDs.contains(exp));
 		}
 		EList<Attributes> expAttributes = expected.getAttributes();
 		EList<Attributes> actAttributes = actual.getAttributes();

@@ -124,11 +124,6 @@
                         <environment>
                             <os>macosx</os>
                             <ws>cocoa</ws>
-                            <arch>x86</arch>
-                        </environment>
-                        <environment>
-                            <os>macosx</os>
-                            <ws>cocoa</ws>
                             <arch>x86_64</arch>
                         </environment>
                     </environments>
@@ -224,10 +219,9 @@
                 </repository>
             </repositories>
         </profile>
-        -->
         <profile>
             <id>luna</id>
-            <!-- Bug 396054: replace by usage of a .target file -->
+	    <Bug 396054: replace by usage of a .target file>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -246,6 +240,36 @@
                     <id>orbit for Mars M3</id>
                     <layout>p2</layout>
                     <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20141023165154/repository/</url>
+                </repository>
+                <repository>
+                    <id>ObjectTeamsRepository, see bug #350133 for details why we need that</id>
+                    <name>Object Teams Repository</name>
+                    <url>http://download.eclipse.org/objectteams/maven/3/repository</url>
+                </repository>
+            </repositories>
+        </profile>
+      -->
+        <profile>
+            <id>mars</id>
+	    <!--Bug 396054: replace by usage of a .target file-->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>QVTo-I-Builds</id>
+                    <name>QVTo I-Builds repository</name>
+                    <url>http://download.eclipse.org/mmt/qvto/updates/interim/3.4.0/</url>
+                </repository>
+                <repository>
+                    <id>staging</id>
+                    <layout>p2</layout>
+                    <url>http://download.eclipse.org/releases/mars/</url>
+                </repository>
+                <repository>
+                    <id>orbit for Mars M5</id>
+                    <layout>p2</layout>
+                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20150127213331/repository/</url>
                 </repository>
                 <repository>
                     <id>ObjectTeamsRepository, see bug #350133 for details why we need that</id>

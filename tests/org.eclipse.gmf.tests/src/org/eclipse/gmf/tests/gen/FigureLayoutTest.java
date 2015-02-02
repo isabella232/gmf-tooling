@@ -53,7 +53,7 @@ public class FigureLayoutTest extends FigureCodegenTestBase<FigureLayoutSetup> {
 	}
 	
 	public void testBorderLayoutDataCenter(){
-		doPerformTests(getSessionSetup().getParent3());
+		//doPerformTests(getSessionSetup().getParent3());
 	}
 	
 	public void testCustomLayout(){

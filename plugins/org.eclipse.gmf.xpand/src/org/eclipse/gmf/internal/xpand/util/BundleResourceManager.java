@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,7 +24,6 @@ import org.eclipse.gmf.internal.xpand.Activator;
 import org.eclipse.gmf.internal.xpand.inactive.StreamDecoder;
 import org.eclipse.gmf.internal.xpand.model.EvaluationException;
 import org.eclipse.m2m.internal.qvt.oml.compiler.UnitResolver;
-import org.eclipse.m2m.internal.qvt.oml.runtime.project.BundleUnitResolver;
 
 /**
  * Node: no support for relative paths (i.e. '..::templates::SomeTemplate.xpt')

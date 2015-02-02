@@ -9,6 +9,7 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration;
 import org.eclipse.gmf.tooling.examples.labels.LabelsFactory;
+import org.eclipse.gmf.tooling.examples.labels.LabelsPackage;
 import org.eclipse.gmf.tooling.examples.labels.Side;
 import org.eclipse.gmf.tooling.runtime.parsers.AbstractAttributeParser;
 
@@ -34,6 +35,7 @@ public class LabelsSampleTest extends BaseSampleTest {
 	}
 
 	public void testBooleanAttibuteParser() {
+		LabelsPackage.eINSTANCE.getLabelsFactory();
 		EAttribute attr = LabelsFactory.eINSTANCE.getLabelsPackage().getAllLabelsType_BooleanObject();
 		MockAttributeParser parser = createParser(attr);
 
@@ -49,6 +51,7 @@ public class LabelsSampleTest extends BaseSampleTest {
 	}
 
 	public void testBigDecimalAttibuteParser() {
+		LabelsPackage.eINSTANCE.getLabelsFactory();
 		EAttribute attr = LabelsFactory.eINSTANCE.getLabelsPackage().getAllLabelsType_BigDecimal();
 		MockAttributeParser parser = createParser(attr);
 
@@ -60,6 +63,7 @@ public class LabelsSampleTest extends BaseSampleTest {
 	}
 
 	public void testDoubleObjectAttibuteParser() {
+		LabelsPackage.eINSTANCE.getLabelsFactory();
 		EAttribute attr = LabelsFactory.eINSTANCE.getLabelsPackage().getAllLabelsType_DoubleObject();
 		MockAttributeParser parser = createParser(attr);
 
@@ -71,6 +75,7 @@ public class LabelsSampleTest extends BaseSampleTest {
 	}
 
 	public void testIntAttibuteParser() {
+		LabelsPackage.eINSTANCE.getLabelsFactory();
 		EAttribute attr = LabelsFactory.eINSTANCE.getLabelsPackage().getAllLabelsType_Int();
 		MockAttributeParser parser = createParser(attr);
 
@@ -83,6 +88,7 @@ public class LabelsSampleTest extends BaseSampleTest {
 	}
 
 	public void testDateAttibuteParser() {
+		LabelsPackage.eINSTANCE.getLabelsFactory();
 		EAttribute attr = LabelsFactory.eINSTANCE.getLabelsPackage().getAllLabelsType_Date();
 		MockAttributeParser parser = createParser(attr);
 
@@ -94,6 +100,7 @@ public class LabelsSampleTest extends BaseSampleTest {
 	}
 
 	public void testEnumAttibuteParser() {
+		LabelsPackage.eINSTANCE.getLabelsFactory();
 		EAttribute attr = LabelsFactory.eINSTANCE.getLabelsPackage().getAllLabelsType_Side();
 		MockAttributeParser parser = createParser(attr);
 
