@@ -131,150 +131,24 @@
             </plugin>
         </plugins>
     </build>
-
+    
     <profiles>
-        <!--
-        <profile>
-            <id>helios</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>Helios</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/helios</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>indigo</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>Indigo</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/indigo</url>
-                </repository>
-                <repository>
-                    <id>Orbit for Indigo</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>juno</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>staging</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/juno/</url>
-                </repository>
-                <repository>
-                    <id>orbit for Juno</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20120526062928/repository/</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>kepler</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>staging</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/juno/</url>
-                </repository>
-                <repository>
-                    <id>orbit for Juno</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>kepler</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>staging</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/kepler/</url>
-                </repository>
-                <repository>
-                    <id>orbit for Kepler</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/R20130517111416/repository/</url>
-                </repository>
-            </repositories>
-        </profile>
-        <profile>
-            <id>luna</id>
-	    <Bug 396054: replace by usage of a .target file>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <repositories>
-                <repository>
-                    <id>QVTo-I-Builds</id>
-                    <name>QVTo I-Builds repository</name>
-                    <url>http://download.eclipse.org/mmt/qvto/updates/interim/3.4.0/</url>
-                </repository>
-                <repository>
-                    <id>staging</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/luna/</url>
-                </repository>
-                <repository>
-                    <id>orbit for Mars M3</id>
-                    <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20141023165154/repository/</url>
-                </repository>
-                <repository>
-                    <id>ObjectTeamsRepository, see bug #350133 for details why we need that</id>
-                    <name>Object Teams Repository</name>
-                    <url>http://download.eclipse.org/objectteams/maven/3/repository</url>
-                </repository>
-            </repositories>
-        </profile>
-      -->
         <profile>
             <id>mars</id>
-	    <!--Bug 396054: replace by usage of a .target file-->
+	    	<!--Bug 396054: replace by usage of a .target file-->
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <repositories>
                 <repository>
-                    <id>QVTo-I-Builds</id>
-                    <name>QVTo I-Builds repository</name>
-                    <url>http://download.eclipse.org/mmt/qvto/updates/interim/3.4.0/</url>
-                </repository>
-                <repository>
                     <id>staging</id>
                     <layout>p2</layout>
-                    <url>http://download.eclipse.org/releases/mars/</url>
+                    <url>http://download.eclipse.org/releases/staging</url>
                 </repository>
                 <repository>
                     <id>orbit for Mars M5</id>
                     <layout>p2</layout>
                     <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20150127213331/repository/</url>
-                </repository>
-                <repository>
-                    <id>ObjectTeamsRepository, see bug #350133 for details why we need that</id>
-                    <name>Object Teams Repository</name>
-                    <url>http://download.eclipse.org/objectteams/maven/3/repository</url>
                 </repository>
             </repositories>
         </profile>
