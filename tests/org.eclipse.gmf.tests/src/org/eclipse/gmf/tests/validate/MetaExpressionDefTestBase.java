@@ -114,13 +114,14 @@ public abstract class MetaExpressionDefTestBase extends TestCase {
 		assertEquals(AnnotationUtil.getChildDiagnostic(status).getCode(), StatusCodes.INVALID_CONSTRAINT_EXPRESSION);		
 	}
 		
-	public void _testWrongContextTypeDef() throws Exception {
-		ctxClassRef.setEType(containerClass);
+	public void testWrongContextTypeDef() throws Exception {
 
 		EObject constraintInstance = EcoreUtil.create(constraintMetaClass);		
 		constraintInstance.eSet(languageAttr, Annotations.OCL_KEY);
 		constraintInstance.eSet(bodyAttr, "true"); //$NON-NLS-1$
-		EObject owner = bindToNewContextInstance(constraintInstance);		
+		EObject owner = bindToNewContextInstance(constraintInstance);
+		
+		ctxClassRef.setEType(containerClass);
 
 		Diagnostic status = GMFValidator.validate(owner);
 		assertEquals(Diagnostic.ERROR, status.getSeverity());
