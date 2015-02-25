@@ -27,25 +27,6 @@
 			<id>deploy</id>
 			<build>
 				<plugins>
-				<!-- this is an attempt to fix build #553, with respect to #350133, comment-40, but it did not worked -->
-				<!--
-					<plugin>
-						<groupId>org.eclipse.tycho</groupId>
-						<artifactId>target-platform-configuration</artifactId>
-						<version>${tycho-version}</version>
-						<configuration>
-						<filters>
-						<filter>
-							<type>eclipse-plugin</type>
-							<id>org.eclipse.jdt.core</id>
-							<restrictTo>
-							<version>3.10.0.v20131212-1600</version>
-							</restrictTo>
-						</filter>
-						</filters>
-						</configuration>
-					</plugin>
-				-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
