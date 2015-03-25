@@ -1029,7 +1029,7 @@ public class OrganizeImportsPostprocessorTest extends TestCase {
         return clazz.getName();//.replace('$', '.');
     }
 
-    public void testCodeFormattingInSomeRealPieceOfCode() throws Exception {
+    public void _testCodeFormattingInSomeRealPieceOfCode() throws Exception {
         StringBuffer buf = new StringBuffer();
         buf.append(nl);
         buf.append("import java.util.ArrayList;").append(nl);
