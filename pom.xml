@@ -146,9 +146,9 @@
                     <url>http://download.eclipse.org/releases/staging</url>
                 </repository>
                 <repository>
-                    <id>orbit for Mars M5</id>
+                    <id>orbit for Mars M6</id>
                     <layout>p2</layout>
-                    <url>http://download.eclipse.org/tools/orbit/downloads/drops/S20150127213331/repository/</url>
+					<url>http://download.eclipse.org/tools/orbit/downloads/drops/S20150316021154/repository/</url>
                 </repository>
             </repositories>
         </profile>
