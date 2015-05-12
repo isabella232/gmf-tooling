@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.tooling.runtime;singleton:=true
-Bundle-Version: 3.2.0.qualifier
+Bundle-Version: 3.3.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.diagram.ui.properties,
  org.eclipse.ocl,
  org.eclipse.ocl.ecore,
- org.eclipse.gmf.runtime.notation
+ org.eclipse.gmf.runtime.notation,
+ org.eclipse.gmf.runtime.diagram.ui.render
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Activator: org.eclipse.gmf.tooling.runtime.GMFToolingRuntimePlugin
@@ -34,11 +35,15 @@ Export-Package: org.eclipse.gmf.tooling.runtime,
  org.eclipse.gmf.tooling.runtime.edit.policies.effect,
  org.eclipse.gmf.tooling.runtime.edit.policies.labels,
  org.eclipse.gmf.tooling.runtime.edit.policies.reparent,
+ org.eclipse.gmf.tooling.runtime.linklf,
+ org.eclipse.gmf.tooling.runtime.linklf.labels,
+ org.eclipse.gmf.tooling.runtime.linklf.policies,
+ org.eclipse.gmf.tooling.runtime.linklf.router,
  org.eclipse.gmf.tooling.runtime.ocl.tracker,
  org.eclipse.gmf.tooling.runtime.parsers,
  org.eclipse.gmf.tooling.runtime.part,
  org.eclipse.gmf.tooling.runtime.providers,
+ org.eclipse.gmf.tooling.runtime.providers.router,
  org.eclipse.gmf.tooling.runtime.sheet,
  org.eclipse.gmf.tooling.runtime.structure,
  org.eclipse.gmf.tooling.runtime.update
-
