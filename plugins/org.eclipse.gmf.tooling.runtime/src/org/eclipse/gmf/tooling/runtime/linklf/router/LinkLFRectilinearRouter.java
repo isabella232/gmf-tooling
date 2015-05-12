@@ -216,7 +216,7 @@ public class LinkLFRectilinearRouter extends RectilinearRouter2 implements
 		 */
 		OrthogonalRouterUtilities.transformToOrthogonalPointList(line,
 				offSourceDirection, offTargetDirection);
-		removeRedundantPoints(line);
+		removeRedundantPoints2(line);
 	}
 
 	/**

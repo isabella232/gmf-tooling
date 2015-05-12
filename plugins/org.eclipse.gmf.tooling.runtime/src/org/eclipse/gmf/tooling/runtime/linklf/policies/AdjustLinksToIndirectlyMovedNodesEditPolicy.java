@@ -543,7 +543,7 @@ public class AdjustLinksToIndirectlyMovedNodesEditPolicy extends
 		 * @see RectilinearRouter
 		 */
 		public static boolean doRemoveRedundantPoints(PointList line) {
-			return INSTANCE.removeRedundantPoints(line);
+			return INSTANCE.removeRedundantPoints2(line);
 		}
 
 		public static int getOppositeDirection(int direction) {
