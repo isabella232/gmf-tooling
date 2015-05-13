@@ -38,11 +38,13 @@ import org.eclipse.gmf.tooling.runtime.linklf.router.HintedOrthogonalRouter.EndR
 /**
  * @since 3.3
  */
-public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEditPolicy3 {
+public class LinksLFConnectionBendpointEditPolicy extends
+		ConnectionBendpointEditPolicy3 {
 	/**
 	 * @see #getBendpointsChangedCommand(BendpointRequest)
 	 */
-	private static final String PARAM_CACHED_COMMAND_BASED_ON_FEEDBACK = LinksLFConnectionBendpointEditPolicy.class.getName() + ":CachedCommand";
+	private static final String PARAM_CACHED_COMMAND_BASED_ON_FEEDBACK = LinksLFConnectionBendpointEditPolicy.class
+			.getName() + ":CachedCommand";
 
 	/**
 	 * @see #getBendpointsChangedCommand(BendpointRequest)
@@ -58,68 +60,91 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 	}
 
 	/**
-	 * This method is overridden in order to workaround the bug #445681 for special rerouting of rectilinear links.
-	 * There the routing is changed correctly when user moves (in some specific way) the single bendpoint, but does not
-	 * work when user operates on the corresponding link segment.
+	 * This method is overridden in order to workaround the bug #445681 for
+	 * special rerouting of rectilinear links. There the routing is changed
+	 * correctly when user moves (in some specific way) the single bendpoint,
+	 * but does not work when user operates on the corresponding link segment.
 	 * <p/>
-	 * The difference is that the {@link ConnectionBendpointTrackerEx} (case of single bendpoint) and {@link SelectConnectionEditPartTracker} (case of segment) behave differently when the user wants to actually fire the change.
+	 * The difference is that the {@link ConnectionBendpointTrackerEx} (case of
+	 * single bendpoint) and {@link SelectConnectionEditPartTracker} (case of
+	 * segment) behave differently when the user wants to actually fire the
+	 * change.
 	 * <p/>
-	 * The former computes the command when the connection feedback is shown, and then on buttonUp just executes the cached command. The latter (@see {@link SelectConnectionEditPartTracker#handleButtonUp(int)}) first erases the feedback and then asks the
-	 * editpart to prepare the command.
+	 * The former computes the command when the connection feedback is shown,
+	 * and then on buttonUp just executes the cached command. The latter (@see
+	 * {@link SelectConnectionEditPartTracker#handleButtonUp(int)}) first erases
+	 * the feedback and then asks the editpart to prepare the command.
 	 * <p/>
-	 * It breaks the idea of computing the command based on the feedback connection routing which is central for approach of this class and its super-classes. It ultilmately leads to the bug #445681, because at the time when the final command is computed, the
-	 * feedback connection is gone and routing is wrong.
+	 * It breaks the idea of computing the command based on the feedback
+	 * connection routing which is central for approach of this class and its
+	 * super-classes. It ultilmately leads to the bug #445681, because at the
+	 * time when the final command is computed, the feedback connection is gone
+	 * and routing is wrong.
 	 * <p/>
-	 * To workaround this, we will cache the previously computed command and will use it as a one time replacement for the first call immediately after the erasing the feedback.
+	 * To workaround this, we will cache the previously computed command and
+	 * will use it as a one time replacement for the first call immediately
+	 * after the erasing the feedback.
 	 */
 	@Override
 	protected Command getBendpointsChangedCommand(BendpointRequest request) {
 		// note: it is **removed** from cache below:
-		Command cachedPreviousCommand = (Command) request.getExtendedData().remove(PARAM_CACHED_COMMAND_BASED_ON_FEEDBACK);
+		Command cachedPreviousCommand = (Command) request.getExtendedData()
+				.remove(PARAM_CACHED_COMMAND_BASED_ON_FEEDBACK);
 		if (cachedPreviousCommand != null && !myIsShowingFeedback) {
-			// one time, immediately after erasing the feedback we are going to use the old command
+			// one time, immediately after erasing the feedback we are going to
+			// use the old command
 			// which is based on the routing of the just erased feedback
-			// to avoid breaking other things, we will remove it from cache and won't use it beyond this one time
+			// to avoid breaking other things, we will remove it from cache and
+			// won't use it beyond this one time
 			return cachedPreviousCommand;
 		}
 
 		Command result = super.getBendpointsChangedCommand(request);
 		if (myIsShowingFeedback) {
 			// still showing feedback, cache the new result for later use
-			request.getExtendedData().put(PARAM_CACHED_COMMAND_BASED_ON_FEEDBACK, result);
+			request.getExtendedData().put(
+					PARAM_CACHED_COMMAND_BASED_ON_FEEDBACK, result);
 		}
 		return result;
 	}
 
 	/**
-	 * Method getBendpointsChangedCommand
-	 * Different signature method that allows a command to constructed for changing the bendpoints
-	 * without requiring the original Request.
+	 * Method getBendpointsChangedCommand Different signature method that allows
+	 * a command to constructed for changing the bendpoints without requiring
+	 * the original Request.
 	 * 
 	 * @param connection
 	 *            Connection to generate the bendpoints changed command from
 	 * @param edge
 	 *            notation element that the command will operate on.
-	 * @return Command SetBendpointsCommand that contains the point changes for the connection.
+	 * @return Command SetBendpointsCommand that contains the point changes for
+	 *         the connection.
 	 */
-	protected Command getBendpointsChangedCommand(Connection connection, Edge edge) {
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+	protected Command getBendpointsChangedCommand(Connection connection,
+			Edge edge) {
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
+				.getEditingDomain();
 
 		Point ptRef1 = connection.getSourceAnchor().getReferencePoint();
 		getConnection().translateToRelative(ptRef1);
 		SetConnectionAnchorsCommand srcAnchorUpdate = null;
 
-		if (getHost().getSource() instanceof INodeEditPart && connection.getPoints().size() > 1) {
+		if (getHost().getSource() instanceof INodeEditPart
+				&& connection.getPoints().size() > 1) {
 			ptRef1 = connection.getPoints().getFirstPoint();
 			INodeEditPart sourceEP = (INodeEditPart) getHost().getSource();
-			ReconnectRequest reconnectSource = new ReconnectRequest(RequestConstants.REQ_RECONNECT_SOURCE);
+			ReconnectRequest reconnectSource = new ReconnectRequest(
+					RequestConstants.REQ_RECONNECT_SOURCE);
 			Point ptAbs1 = ptRef1.getCopy();
 			getConnection().translateToAbsolute(ptAbs1);
 			reconnectSource.setLocation(ptAbs1);
 			reconnectSource.setConnectionEditPart(getHost());
-			ConnectionAnchor newAnchor = sourceEP.getSourceConnectionAnchor(reconnectSource);
-			String newTerminal = sourceEP.mapConnectionAnchorToTerminal(newAnchor);
-			srcAnchorUpdate = new SetConnectionAnchorsCommand(editingDomain, "Updating source anchor");
+			ConnectionAnchor newAnchor = sourceEP
+					.getSourceConnectionAnchor(reconnectSource);
+			String newTerminal = sourceEP
+					.mapConnectionAnchorToTerminal(newAnchor);
+			srcAnchorUpdate = new SetConnectionAnchorsCommand(editingDomain,
+					"Updating source anchor");
 			srcAnchorUpdate.setEdgeAdaptor(new EObjectAdapter(edge));
 			srcAnchorUpdate.setNewSourceTerminal(newTerminal);
 		}
@@ -128,22 +153,28 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 		getConnection().translateToRelative(ptRef2);
 		SetConnectionAnchorsCommand trgAnchorUpdate = null;
 
-		if (getHost().getTarget() instanceof INodeEditPart && connection.getPoints().size() > 1) {
+		if (getHost().getTarget() instanceof INodeEditPart
+				&& connection.getPoints().size() > 1) {
 			ptRef2 = connection.getPoints().getLastPoint();
 			INodeEditPart targetEP = (INodeEditPart) getHost().getTarget();
-			ReconnectRequest reconnectTarget = new ReconnectRequest(RequestConstants.REQ_RECONNECT_TARGET);
+			ReconnectRequest reconnectTarget = new ReconnectRequest(
+					RequestConstants.REQ_RECONNECT_TARGET);
 			Point ptAbs2 = ptRef2.getCopy();
 			getConnection().translateToAbsolute(ptAbs2);
 			reconnectTarget.setLocation(ptAbs2);
 			reconnectTarget.setConnectionEditPart(getHost());
-			ConnectionAnchor newTargetAnchor = targetEP.getTargetConnectionAnchor(reconnectTarget);
-			String newTerminal = targetEP.mapConnectionAnchorToTerminal(newTargetAnchor);
-			trgAnchorUpdate = new SetConnectionAnchorsCommand(editingDomain, "Updating target anchor");
+			ConnectionAnchor newTargetAnchor = targetEP
+					.getTargetConnectionAnchor(reconnectTarget);
+			String newTerminal = targetEP
+					.mapConnectionAnchorToTerminal(newTargetAnchor);
+			trgAnchorUpdate = new SetConnectionAnchorsCommand(editingDomain,
+					"Updating target anchor");
 			trgAnchorUpdate.setEdgeAdaptor(new EObjectAdapter(edge));
 			trgAnchorUpdate.setNewTargetTerminal(newTerminal);
 		}
 
-		SetAbsoluteBendpointsCommand sbbCommand = new SetAbsoluteBendpointsCommand(editingDomain);
+		SetAbsoluteBendpointsCommand sbbCommand = new SetAbsoluteBendpointsCommand(
+				editingDomain);
 		sbbCommand.setEdgeAdapter(new EObjectAdapter(edge));
 		sbbCommand.setNewPointList(connection.getPoints());
 
@@ -159,30 +190,41 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 	}
 
 	/**
-	 * Method getSetBendpointCommand.
-	 * This method returns a command that executes the REQ_SET_ALL_BENDPOINT request
+	 * Method getSetBendpointCommand. This method returns a command that
+	 * executes the REQ_SET_ALL_BENDPOINT request
 	 * 
 	 * @param request
-	 *            SetAllBendpointRequest that stores the points to be set by the command.
+	 *            SetAllBendpointRequest that stores the points to be set by the
+	 *            command.
 	 * @return Command to be executed.
 	 */
 	protected Command getSetBendpointCommand(SetAllBendpointRequest request) {
 		Connection connection = getConnection();
 		PointList newPoints = request.getPoints();
 
-		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
-		SetAbsoluteBendpointsCommand sbbCommand = new SetAbsoluteBendpointsCommand(editingDomain);
-		sbbCommand.setEdgeAdapter(new EObjectAdapter((Edge) getHost().getModel()));
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost())
+				.getEditingDomain();
+		SetAbsoluteBendpointsCommand sbbCommand = new SetAbsoluteBendpointsCommand(
+				editingDomain);
+		sbbCommand.setEdgeAdapter(new EObjectAdapter((Edge) getHost()
+				.getModel()));
 
-		// with SetAbsoluteBendpointsCommand we can use setNewPointList(PointList) here
-		// but I left warnings here to revisit what are request.getSource/TargetReference() is
+		// with SetAbsoluteBendpointsCommand we can use
+		// setNewPointList(PointList) here
+		// but I left warnings here to revisit what are
+		// request.getSource/TargetReference() is
 		// and how it is expected to affect the result here
-		if (request.getSourceReference() != null && request.getTargetReference() != null) {
-			sbbCommand.setNewPointList(//
-					newPoints, request.getSourceReference(), request.getTargetReference());
+		if (request.getSourceReference() != null
+				&& request.getTargetReference() != null) {
+			sbbCommand.setNewPointList(
+					//
+					newPoints, request.getSourceReference(),
+					request.getTargetReference());
 		} else {
-			sbbCommand.setNewPointList(//
-					newPoints, connection.getSourceAnchor(), connection.getTargetAnchor());
+			sbbCommand.setNewPointList(
+					//
+					newPoints, connection.getSourceAnchor(),
+					connection.getTargetAnchor());
 		}
 
 		return new ICommandProxy(sbbCommand);
@@ -199,17 +241,21 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 	}
 
 	/**
-	 * Overrides default behavior by additional snapping of the added point with grid when grid is active
+	 * Overrides default behavior by additional snapping of the added point with
+	 * grid when grid is active
 	 */
 	@Override
-	protected void showOutsideSourceFeedback(LineSeg newLine, LineSeg moveLine, List constraint) {
+	protected void showOutsideSourceFeedback(LineSeg newLine, LineSeg moveLine,
+			List constraint) {
 		Connection conn = (Connection) getHostFigure();
 		ConnectionAnchor anchor = conn.getSourceAnchor();
 
-		PrecisionRectangle bounds = new PrecisionRectangle(anchor.getOwner().getBounds());
+		PrecisionRectangle bounds = new PrecisionRectangle(anchor.getOwner()
+				.getBounds());
 		anchor.getOwner().translateToAbsolute(bounds);
 
-		PrecisionPoint startPoint = new PrecisionPoint(anchor.getOwner().getBounds().getCenter());
+		PrecisionPoint startPoint = new PrecisionPoint(anchor.getOwner()
+				.getBounds().getCenter());
 		anchor.getOwner().translateToAbsolute(startPoint);
 
 		snapToGrid(startPoint, moveLine.isHorizontal(), bounds);
@@ -227,15 +273,19 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 	}
 
 	/**
-	 * Overrides default behavior by additional snapping of the added point with grid when grid is active
+	 * Overrides default behavior by additional snapping of the added point with
+	 * grid when grid is active
 	 */
 	@Override
-	protected void showOutsideTargetFeedback(LineSeg newLine, LineSeg moveLine, List constraint) {
+	protected void showOutsideTargetFeedback(LineSeg newLine, LineSeg moveLine,
+			List constraint) {
 		Connection conn = (Connection) getHostFigure();
 		ConnectionAnchor anchor = conn.getTargetAnchor();
-		PrecisionRectangle bounds = new PrecisionRectangle(anchor.getOwner().getBounds());
+		PrecisionRectangle bounds = new PrecisionRectangle(anchor.getOwner()
+				.getBounds());
 		anchor.getOwner().translateToAbsolute(bounds);
-		PrecisionPoint endPoint = new PrecisionPoint(anchor.getOwner().getBounds().getCenter());
+		PrecisionPoint endPoint = new PrecisionPoint(anchor.getOwner()
+				.getBounds().getCenter());
 		anchor.getOwner().translateToAbsolute(endPoint);
 
 		snapToGrid(endPoint, moveLine.isHorizontal(), bounds);
@@ -252,14 +302,18 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 		constraint.add(new AbsoluteBendpoint(endPoint));
 	}
 
-	protected void snapToGrid(PrecisionPoint point, boolean horizontally, PrecisionRectangle limitingBounds) {
-		SnapToHelper snapper = (SnapToHelper) getHost().getAdapter(SnapToHelper.class);
+	protected void snapToGrid(PrecisionPoint point, boolean horizontally,
+			PrecisionRectangle limitingBounds) {
+		SnapToHelper snapper = (SnapToHelper) getHost().getAdapter(
+				SnapToHelper.class);
 		if (snapper == null) {
 			return;
 		}
 
 		PrecisionPoint snapped = point.getPreciseCopy();
-		snapper.snapPoint(new LocationRequest(REQ_MOVE_BENDPOINT), horizontally ? PositionConstants.HORIZONTAL : PositionConstants.VERTICAL, point, snapped);
+		snapper.snapPoint(new LocationRequest(REQ_MOVE_BENDPOINT),
+				horizontally ? PositionConstants.HORIZONTAL
+						: PositionConstants.VERTICAL, point, snapped);
 		point.setLocation(snapped);
 	}
 
@@ -268,7 +322,8 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 		ConnectionRouter router = getConnection().getConnectionRouter();
 		if (router instanceof HintedOrthogonalRouter) {
 			HintedOrthogonalRouter routerImpl = (HintedOrthogonalRouter) router;
-			EndRoutingHint hint = request instanceof BendpointRequest ? EndRoutingHint.FixBendpointMoveAnchor : EndRoutingHint.FixAnchorMoveBendpoint;
+			EndRoutingHint hint = request instanceof BendpointRequest ? EndRoutingHint.FixBendpointMoveAnchor
+					: EndRoutingHint.FixAnchorMoveBendpoint;
 			routerImpl.setEndRoutingHint(getConnection(), hint);
 		}
 		super.showSourceFeedback(request);
@@ -278,7 +333,8 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 	public void eraseSourceFeedback(Request request) {
 		ConnectionRouter router = getConnection().getConnectionRouter();
 		if (router instanceof HintedOrthogonalRouter) {
-			((HintedOrthogonalRouter) router).setEndRoutingHint(getConnection(), null);
+			((HintedOrthogonalRouter) router).setEndRoutingHint(
+					getConnection(), null);
 		}
 		super.eraseSourceFeedback(request);
 	}
@@ -287,7 +343,8 @@ public class LinksLFConnectionBendpointEditPolicy extends ConnectionBendpointEdi
 	 * @see #getBendpointsChangedCommand(BendpointRequest)
 	 */
 	@Override
-	protected void eraseConnectionFeedback(BendpointRequest request, boolean removeFeedbackFigure) {
+	protected void eraseConnectionFeedback(BendpointRequest request,
+			boolean removeFeedbackFigure) {
 		myIsShowingFeedback = false;
 		super.eraseConnectionFeedback(request, removeFeedbackFigure);
 	}

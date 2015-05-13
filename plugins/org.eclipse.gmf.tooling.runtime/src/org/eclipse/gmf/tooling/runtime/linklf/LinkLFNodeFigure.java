@@ -32,6 +32,7 @@ import org.eclipse.gmf.runtime.gef.ui.figures.SlidableAnchor;
  * Extends {@link DefaultSizeNodeFigure} with ability to create custom
  * {@link SlidableAnchor} which are snapped to grid.
  * <p/>
+ * 
  * @since 3.3
  */
 public class LinkLFNodeFigure extends DefaultSizeNodeFigure {

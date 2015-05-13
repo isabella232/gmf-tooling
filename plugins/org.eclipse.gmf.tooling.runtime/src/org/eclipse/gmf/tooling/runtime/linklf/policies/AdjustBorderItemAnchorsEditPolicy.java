@@ -22,24 +22,30 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.IBorderItemLocator;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 /**
- * This edit policy adjusts anchors for links from and to host {@link IBorderItemEditPart}.
- * Adjustment ensures that the anchors are always located on the side which is parallel to the actual side
- * of the parent this border item is affixed to.
+ * This edit policy adjusts anchors for links from and to host
+ * {@link IBorderItemEditPart}. Adjustment ensures that the anchors are always
+ * located on the side which is parallel to the actual side of the parent this
+ * border item is affixed to.
  * <p/>
+ * 
  * @since 3.3
  */
-public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsEditPolicyBase {
+public class AdjustBorderItemAnchorsEditPolicy extends
+		AdjustAbsoluteBendpointsEditPolicyBase {
 
 	/**
 	 * Default role for registering this edit policy.
 	 * <p/>
-	 * The value is prefixed by class FQN in order to avoid conflicts, but the literal should NOT be used anywhere.
+	 * The value is prefixed by class FQN in order to avoid conflicts, but the
+	 * literal should NOT be used anywhere.
 	 */
-	public static final String ROLE = AdjustBorderItemAnchorsEditPolicy.class.getName() + ":Role";
+	public static final String ROLE = AdjustBorderItemAnchorsEditPolicy.class
+			.getName() + ":Role";
 
 	@Override
 	protected Command getAdjustLinksCommand(ChangeBoundsRequest req) {
-		if (getHost() instanceof IBorderItemEditPart && getHost() instanceof INodeEditPart) {
+		if (getHost() instanceof IBorderItemEditPart
+				&& getHost() instanceof INodeEditPart) {
 			return getAdjustAnchorsCommand(req);
 		}
 		return null;
@@ -64,9 +70,12 @@ public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsE
 		rect.resize(req.getSizeDelta());
 
 		getHostFigure().translateToRelative(rect);
-		Rectangle realLocation = locator.getValidLocation(rect.getCopy(), host.getFigure());
+		Rectangle realLocation = locator.getValidLocation(rect.getCopy(),
+				host.getFigure());
 
-		int projectedSide = BorderItemLocator.findClosestSideOfParent(realLocation, ((GraphicalEditPart) host.getParent()).getFigure().getBounds());
+		int projectedSide = BorderItemLocator.findClosestSideOfParent(
+				realLocation, ((GraphicalEditPart) host.getParent())
+						.getFigure().getBounds());
 		int currentSide = locator.getCurrentSideOfParent();
 
 		int curIndex = getIndexForSide(currentSide);
@@ -81,7 +90,7 @@ public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsE
 			rotation += 4;
 		}
 		if (rotation == 0) {
-			//weird
+			// weird
 			return null;
 		}
 
@@ -90,36 +99,46 @@ public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsE
 		for (Object next : getHost().getSourceConnections()) {
 			if (next instanceof ConnectionEditPart) {
 				ConnectionEditPart nextLink = (ConnectionEditPart) next;
-				ConnectionAnchor anchor = nextLink.getConnectionFigure().getSourceAnchor();
+				ConnectionAnchor anchor = nextLink.getConnectionFigure()
+						.getSourceAnchor();
 				if (anchor == null) {
 					continue;
 				}
-				PrecisionPoint newRefPoint = rotateAnchorLocation(anchor, rotation);
+				PrecisionPoint newRefPoint = rotateAnchorLocation(anchor,
+						rotation);
 				String newTerminal = composeTerminalString(newRefPoint);
 
-				SetConnectionAnchorsCommand nextCommand = new SetConnectionAnchorsCommand(domain, "Adjusting source anchors");
-				nextCommand.setEdgeAdaptor(new EObjectAdapter(nextLink.getNotationView()));
+				SetConnectionAnchorsCommand nextCommand = new SetConnectionAnchorsCommand(
+						domain, "Adjusting source anchors");
+				nextCommand.setEdgeAdaptor(new EObjectAdapter(nextLink
+						.getNotationView()));
 				nextCommand.setNewSourceTerminal(newTerminal);
 
-				result = result == null ? nextCommand : result.compose(nextCommand);
+				result = result == null ? nextCommand : result
+						.compose(nextCommand);
 			}
 		}
 
 		for (Object next : getHost().getTargetConnections()) {
 			if (next instanceof ConnectionEditPart) {
 				ConnectionEditPart nextLink = (ConnectionEditPart) next;
-				ConnectionAnchor anchor = nextLink.getConnectionFigure().getTargetAnchor();
+				ConnectionAnchor anchor = nextLink.getConnectionFigure()
+						.getTargetAnchor();
 				if (anchor == null) {
 					continue;
 				}
-				PrecisionPoint newRefPoint = rotateAnchorLocation(anchor, rotation);
+				PrecisionPoint newRefPoint = rotateAnchorLocation(anchor,
+						rotation);
 				String newTerminal = composeTerminalString(newRefPoint);
 
-				SetConnectionAnchorsCommand nextCommand = new SetConnectionAnchorsCommand(domain, "Adjusting target anchors");
-				nextCommand.setEdgeAdaptor(new EObjectAdapter(nextLink.getNotationView()));
+				SetConnectionAnchorsCommand nextCommand = new SetConnectionAnchorsCommand(
+						domain, "Adjusting target anchors");
+				nextCommand.setEdgeAdaptor(new EObjectAdapter(nextLink
+						.getNotationView()));
 				nextCommand.setNewTargetTerminal(newTerminal);
 
-				result = result == null ? nextCommand : result.compose(nextCommand);
+				result = result == null ? nextCommand : result
+						.compose(nextCommand);
 			}
 		}
 
@@ -167,9 +186,11 @@ public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsE
 		return ((value & mask) != 0);
 	}
 
-	protected PrecisionPoint rotateAnchorLocation(ConnectionAnchor anchor, int quarters) {
+	protected PrecisionPoint rotateAnchorLocation(ConnectionAnchor anchor,
+			int quarters) {
 		String terminal = ((BaseSlidableAnchor) anchor).getTerminal();
-		PrecisionPoint result = BaseSlidableAnchor.parseTerminalString(terminal);
+		PrecisionPoint result = BaseSlidableAnchor
+				.parseTerminalString(terminal);
 		for (int i = 0; i < quarters; i++) {
 			double newX = 1. - result.preciseY();
 			double newY = result.preciseX();
@@ -181,11 +202,14 @@ public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsE
 	/**
 	 * [GMFRT] make protected in {@link BaseSlidableAnchor}
 	 * <p/>
-	 * Creates a terminal string for any reference point passed in the format understandable by slidable anchors
+	 * Creates a terminal string for any reference point passed in the format
+	 * understandable by slidable anchors
 	 * 
 	 * @param p
-	 *        - a <Code>PrecisionPoint</Code> that must be represented as a unique <Code>String</Code>, namely as "(preciseX,preciseY)"
-	 * @return <code>String</code> terminal composed from specified <code>PrecisionPoint</code>
+	 *            - a <Code>PrecisionPoint</Code> that must be represented as a
+	 *            unique <Code>String</Code>, namely as "(preciseX,preciseY)"
+	 * @return <code>String</code> terminal composed from specified
+	 *         <code>PrecisionPoint</code>
 	 * @deprecated copy pasted from {@link BaseSlidableAnchor}
 	 */
 	@Deprecated
@@ -196,7 +220,8 @@ public class AdjustBorderItemAnchorsEditPolicy extends AdjustAbsoluteBendpointsE
 		s.append(','); // 1 char
 		s.append(p.preciseY()); // 10 chars
 		s.append(')'); // 1 char
-		return s.toString(); // 24 chars max (+1 for safety, i.e. for string termination)
+		return s.toString(); // 24 chars max (+1 for safety, i.e. for string
+								// termination)
 	}
 
 }

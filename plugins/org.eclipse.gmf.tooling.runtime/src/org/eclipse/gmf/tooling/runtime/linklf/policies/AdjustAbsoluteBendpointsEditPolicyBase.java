@@ -22,30 +22,39 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.tooling.runtime.linklf.AbsoluteBendpointsConvention;
 
 /**
- * Diagrams that use {@link AbsoluteBendpointsConvention} are facing the need 
- * to adjust now-absolute bendpoints on different move's. This class provides boilerplate 
- * for edit policies that handles different aspects of this adjustment.
+ * Diagrams that use {@link AbsoluteBendpointsConvention} are facing the need to
+ * adjust now-absolute bendpoints on different move's. This class provides
+ * boilerplate for edit policies that handles different aspects of this
+ * adjustment.
  * <p/>
+ * 
  * @since 3.3
  */
-public abstract class AdjustAbsoluteBendpointsEditPolicyBase extends GraphicalEditPolicy {
+public abstract class AdjustAbsoluteBendpointsEditPolicyBase extends
+		GraphicalEditPolicy {
 
 	/**
-	 * The same {@link ChangeBoundsRequest} is sent to all moved edit parts, 
-	 * so we can cache the info about them in request potentially improving o(N^2) performance.
+	 * The same {@link ChangeBoundsRequest} is sent to all moved edit parts, so
+	 * we can cache the info about them in request potentially improving o(N^2)
+	 * performance.
 	 */
-	private static final String PARAM_CACHED_EDIT_PARTS_SET = AdjustAbsoluteBendpointsEditPolicyBase.class.getName() + ":CachedMovedEPs";
+	private static final String PARAM_CACHED_EDIT_PARTS_SET = AdjustAbsoluteBendpointsEditPolicyBase.class
+			.getName() + ":CachedMovedEPs";
 
 	/**
-	 * Tries to find the cached instance of {@link CachedEditPartsSet} in the request extended data map. 
-	 * If not found, initializes the new instance and caches it in request for other edit-policy instances.
+	 * Tries to find the cached instance of {@link CachedEditPartsSet} in the
+	 * request extended data map. If not found, initializes the new instance and
+	 * caches it in request for other edit-policy instances.
+	 * 
 	 * @param req
 	 * @return never returns <code>null</code>
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected static CachedEditPartsSet getMovedEditPartsSet(ChangeBoundsRequest req) {
+	protected static CachedEditPartsSet getMovedEditPartsSet(
+			ChangeBoundsRequest req) {
 		Map extData = req.getExtendedData();
-		CachedEditPartsSet set = (CachedEditPartsSet) extData.get(PARAM_CACHED_EDIT_PARTS_SET);
+		CachedEditPartsSet set = (CachedEditPartsSet) extData
+				.get(PARAM_CACHED_EDIT_PARTS_SET);
 		if (set == null) {
 			set = new CachedEditPartsSet(req.getEditParts());
 			extData.put(PARAM_CACHED_EDIT_PARTS_SET, set);
@@ -57,7 +66,8 @@ public abstract class AdjustAbsoluteBendpointsEditPolicyBase extends GraphicalEd
 
 	@Override
 	public boolean understandsRequest(Request req) {
-		return req instanceof ChangeBoundsRequest && REQ_MOVE.equals(req.getType());
+		return req instanceof ChangeBoundsRequest
+				&& REQ_MOVE.equals(req.getType());
 	}
 
 	@Override
@@ -87,8 +97,10 @@ public abstract class AdjustAbsoluteBendpointsEditPolicyBase extends GraphicalEd
 
 		public CachedEditPartsSet(List<EditPart> directlyMoved) {
 			myDirectlyMoved = new HashSet<EditPart>(directlyMoved);
-			myKnownIndirectlyNo = new HashSet<EditPart>(directlyMoved.size() * 5 + 1);
-			myKnownIndirectlyYes = new HashSet<EditPart>(directlyMoved.size() * 5 + 1);
+			myKnownIndirectlyNo = new HashSet<EditPart>(
+					directlyMoved.size() * 5 + 1);
+			myKnownIndirectlyYes = new HashSet<EditPart>(
+					directlyMoved.size() * 5 + 1);
 		}
 
 		public MovedNodeKind isMoved(EditPart ep) {
