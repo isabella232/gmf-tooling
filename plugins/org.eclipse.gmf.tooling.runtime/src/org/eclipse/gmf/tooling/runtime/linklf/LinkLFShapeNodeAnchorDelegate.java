@@ -1,6 +1,7 @@
 package org.eclipse.gmf.tooling.runtime.linklf;
 
 import java.util.Arrays;
+import java.util.Map;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -16,6 +17,7 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.INodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.routers.OrthogonalRouter;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+import org.eclipse.gmf.tooling.runtime.linklf.editparts.LinkLFAnchorsDelegatingEditPart.ConnectionAnchorDelegate;
 
 /**
  * Shared delegate for creation of the {@link SlidableSnapToGridAnchor} for host
@@ -28,7 +30,7 @@ import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
  * 
  * @since 3.3
  */
-public class LinkLFShapeNodeAnchorDelegate {
+public class LinkLFShapeNodeAnchorDelegate implements ConnectionAnchorDelegate {
 
 	/**
 	 * The {@link LinkLFShapeNodeAnchorDelegate} performs additional routing to
@@ -57,6 +59,7 @@ public class LinkLFShapeNodeAnchorDelegate {
 		return myNodeFigure;
 	}
 
+	@Override
 	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		Point fromRequest = safeGetPointFromLinkRequest(request);
 		ConnectionAnchor result = getNodeFigure().getSourceConnectionAnchorAt(
@@ -80,8 +83,9 @@ public class LinkLFShapeNodeAnchorDelegate {
 					pointsBefore.toIntArray())) {
 				conn.setPoints(pointsBefore);
 				if (router instanceof OrthogonalRouter) {
-					request.getExtendedData().put(KEY_ROUTED_LINK_POINTS,
-							pointsAfter);
+					@SuppressWarnings("unchecked")
+					Map<String, Object> extData = request.getExtendedData();
+					extData.put(KEY_ROUTED_LINK_POINTS, pointsAfter);
 				}
 			}
 			conn.setSourceAnchor(oldSourceAnchor);
@@ -89,6 +93,7 @@ public class LinkLFShapeNodeAnchorDelegate {
 		return result;
 	}
 
+	@Override
 	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		Point fromRequestAbs = safeGetPointFromLinkRequest(request);
 		ConnectionAnchor result = getNodeFigure().getTargetConnectionAnchorAt(
@@ -111,8 +116,9 @@ public class LinkLFShapeNodeAnchorDelegate {
 					pointsBefore.toIntArray())) {
 				conn.setPoints(pointsBefore);
 				if (router instanceof OrthogonalRouter) {
-					request.getExtendedData().put(KEY_ROUTED_LINK_POINTS,
-							pointsAfter);
+					@SuppressWarnings("unchecked")
+					Map<String, Object> extData = request.getExtendedData();
+					extData.put(KEY_ROUTED_LINK_POINTS, pointsAfter);
 				}
 			}
 			conn.setTargetAnchor(oldTargetAnchor);
