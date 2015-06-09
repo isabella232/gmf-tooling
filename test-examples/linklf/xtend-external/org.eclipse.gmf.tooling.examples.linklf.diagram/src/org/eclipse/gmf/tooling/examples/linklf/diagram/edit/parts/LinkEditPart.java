@@ -1,17 +1,17 @@
 package org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITreeBranchEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LinkItemSemanticEditPolicy;
+import org.eclipse.gmf.tooling.runtime.linklf.editparts.LinkLFConnectionNodeEditPart;
 
 /**
 	 * @generated
 	 */
-public class LinkEditPart extends ConnectionNodeEditPart implements ITreeBranchEditPart {
+public class LinkEditPart extends LinkLFConnectionNodeEditPart implements ITreeBranchEditPart {
 
 	/**
 	 * @generated

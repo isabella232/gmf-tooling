@@ -4,7 +4,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.diagram.ui.figures.ResizableCompartmentFigure;
@@ -19,11 +18,12 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfVisualIDRegist
 import org.eclipse.gmf.tooling.examples.linklf.diagram.part.Messages;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfElementTypes;
 import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
+import org.eclipse.gmf.tooling.runtime.linklf.LinkLFShapeCompartmentEditPart;
 
 /**
  * @generated
  */
-public class ContainerContainerCompartmentEditPart extends ShapeCompartmentEditPart {
+public class ContainerContainerCompartmentEditPart extends LinkLFShapeCompartmentEditPart {
 
 	/**
 	 * @generated

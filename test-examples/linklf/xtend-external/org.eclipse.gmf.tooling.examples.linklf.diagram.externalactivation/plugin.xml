@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension
+			id="diagramUIRenderEditPartProvider.LinkLFDiagram"
+			name="Custom DiagramRootEditPartProvider for LinkLFDiagram diagram"
+			point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+		<editpartProvider
+				class="org.eclipse.gmf.tooling.runtime.linklf.router.LinkLFDiagramRootEditPartProvider">
+			<Priority name="Medium"/>
+			<context providesRootEditPart="true"/>
+			<applicable-diagram type="linklf"/>
+		</editpartProvider>
+	</extension>
+	
+	<extension
+			point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+		<editpolicyProvider
+				class="org.eclipse.gmf.tooling.examples.linklf.diagram.externalactivation.LinkLFEnablerEditPolicyProvider">
+			<Priority name="Low"/>
+			<object class="org.eclipse.gmf.runtime.notation.Node(org.eclipse.gmf.runtime.notation)" id="nodes444">
+				<method 
+					name="getType()" 
+					value="2001,2002,2003,2004,3001,3002,3003,3004,3005"/>
+			</object>
+			<object class="org.eclipse.gmf.runtime.notation.Edge(org.eclipse.gmf.runtime.notation)" id="links444">
+				<method 
+					name="getType()" 
+					value="4001,4002"/>
+			</object>
+			<!--
+			<object class="org.eclipse.gmf.runtime.notation.Node" id="link-labels">
+				<method 
+					name="getType()" 
+					value="??????"/>
+			</object>
+			-->
+			<context editparts="nodes444,links444"/>
+		</editpolicyProvider>
+	</extension>
+	<extension
+			point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+		<editpolicyProvider
+				class="org.eclipse.gmf.tooling.examples.linklf.diagram.externalactivation.LinkLFXYLayoutEditPolicyProvider">
+			<Priority name="Low"/>
+			<object class="org.eclipse.gmf.runtime.notation.Diagram(org.eclipse.gmf.runtime.notation)" id="diagram">
+				<method 
+					name="getType()" 
+					value="linklf"/>
+			</object>
+			<object class="org.eclipse.gmf.runtime.notation.Compartment(org.eclipse.gmf.runtime.notation)" id="xy-compartments">
+				<method 
+					name="getType()" 
+					value="7001,7002"/>
+			</object>
+			<context editparts="diagram,xy-compartments"/>
+		</editpolicyProvider>
+	</extension>
+
+</plugin>

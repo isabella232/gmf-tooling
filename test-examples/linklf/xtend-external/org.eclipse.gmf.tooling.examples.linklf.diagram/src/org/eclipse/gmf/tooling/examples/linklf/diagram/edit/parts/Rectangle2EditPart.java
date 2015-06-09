@@ -11,18 +11,19 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
 import org.eclipse.gef.editpolicies.NonResizableEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.Rectangle2ItemSemanticEditPolicy;
+import org.eclipse.gmf.tooling.runtime.linklf.LinkLFNodeFigure;
+import org.eclipse.gmf.tooling.runtime.linklf.editparts.LinkLFShapeNodeEditPart;
 import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
  */
-public class Rectangle2EditPart extends ShapeNodeEditPart {
+public class Rectangle2EditPart extends LinkLFShapeNodeEditPart {
 
 	/**
 	 * @generated
@@ -100,7 +101,7 @@ public class Rectangle2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
+		DefaultSizeNodeFigure result = new LinkLFNodeFigure(this, 40, 40);
 		return result;
 	}
 

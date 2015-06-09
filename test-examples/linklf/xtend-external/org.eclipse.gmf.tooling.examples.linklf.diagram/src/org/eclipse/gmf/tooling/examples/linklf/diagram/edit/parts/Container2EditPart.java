@@ -9,7 +9,6 @@ import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editpolicies.LayoutEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.AbstractBorderedShapeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IBorderItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ITextAwareEditPart;
@@ -28,12 +27,14 @@ import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.Container2I
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.LinklfTextSelectionEditPolicy;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfVisualIDRegistry;
 import org.eclipse.gmf.tooling.runtime.edit.policies.reparent.CreationEditPolicyWithCustomReparent;
+import org.eclipse.gmf.tooling.runtime.linklf.LinkLFNodeFigure;
+import org.eclipse.gmf.tooling.runtime.linklf.editparts.LinkLFBorderedShapeEditPart;
 import org.eclipse.swt.graphics.Color;
 
 /**
  * @generated
  */
-public class Container2EditPart extends AbstractBorderedShapeEditPart {
+public class Container2EditPart extends LinkLFBorderedShapeEditPart {
 
 	/**
 	 * @generated
@@ -187,7 +188,7 @@ public class Container2EditPart extends AbstractBorderedShapeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
+		DefaultSizeNodeFigure result = new LinkLFNodeFigure(this, 40, 40);
 		return result;
 	}
 

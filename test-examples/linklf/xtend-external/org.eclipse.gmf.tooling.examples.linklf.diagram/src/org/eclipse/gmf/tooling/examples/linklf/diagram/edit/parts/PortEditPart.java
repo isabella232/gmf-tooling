@@ -17,6 +17,7 @@ import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.tooling.examples.linklf.diagram.edit.policies.PortItemSemanticEditPolicy;
+import org.eclipse.gmf.tooling.runtime.linklf.LinkLFNodeFigure;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -101,7 +102,7 @@ public class PortEditPart extends AbstractBorderItemEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodePlate() {
-		DefaultSizeNodeFigure result = new DefaultSizeNodeFigure(40, 40);
+		DefaultSizeNodeFigure result = new LinkLFNodeFigure(this, 40, 40);
 
 		//FIXME: workaround for #154536
 		result.getBounds().setSize(result.getPreferredSize());
