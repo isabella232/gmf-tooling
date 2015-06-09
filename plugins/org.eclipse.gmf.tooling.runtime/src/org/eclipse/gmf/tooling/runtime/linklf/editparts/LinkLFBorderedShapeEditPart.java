@@ -58,12 +58,12 @@ public abstract class LinkLFBorderedShapeEditPart extends
 	}
 
 	@Override
-	public final ConnectionAnchor getSourceConnectionAnchor(Request request) {
+	public ConnectionAnchor getSourceConnectionAnchor(Request request) {
 		return myAnchorDelegate.getSourceConnectionAnchor(request);
 	}
 
 	@Override
-	public final ConnectionAnchor getTargetConnectionAnchor(Request request) {
+	public ConnectionAnchor getTargetConnectionAnchor(Request request) {
 		return myAnchorDelegate.getTargetConnectionAnchor(request);
 	}
 
