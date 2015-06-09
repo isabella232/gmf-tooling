@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.team.core.fileTypes" id="repo-ftype">
+      <?gmfgen generated="true"?>
+      <fileTypes type="text" extension="linklf_diagram"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser" id="resource-factory">
+      <?gmfgen generated="true"?>
+      <parser
+         type="linklf_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors" id="gmf-editor">
+      <?gmfgen generated="true"?>
+      <editor
+         id="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID"
+         name="%editorName"
+         icon="icons/obj16/LinklfDiagramFile.gif"
+         extensions="linklf_diagram"
+         default="true"
+         class="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditor"
+         matchingStrategy="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfMatchingStrategy"
+         contributorClass="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramActionBarContributor">
+      </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.contexts" id="ui-context">
+      <?gmfgen generated="true"?>
+      <context
+         description="%context.description"
+         id="org.eclipse.gmf.tooling.examples.linklf.diagram.ui.diagramContext"
+         name="%context.name"
+         parentId="org.eclipse.gmf.runtime.diagram.ui.diagramContext">
+      </context>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards" id="creation-wizard">
+      <?gmfgen generated="true"?>
+      <wizard
+         name="%newWizardName"
+         icon="icons/obj16/LinklfDiagramFile.gif"
+         category="org.eclipse.ui.Examples"
+         class="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfCreationWizard"
+         id="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfCreationWizardID">
+         <description>%newWizardDesc</description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus" id="init-diagram-action">
+      <?gmfgen generated="true"?>
+      <objectContribution
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.InitDiagram"
+            nameFilter="*.linklf"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="%initDiagramActionLabel"
+               class="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.InitDiagramAction">
+         </action>
+      </objectContribution>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders" id="global-actions">
+      <?gmfgen generated="true"?>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="linklfPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="save">
+               </GlobalActionId>
+            </ElementType>        
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="linklfPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="linklfRender">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+
+   <extension point="org.eclipse.core.runtime.preferences" id="prefs">
+      <?gmfgen generated="true"?>
+      <initializer class="org.eclipse.gmf.tooling.examples.linklf.diagram.preferences.DiagramPreferenceInitializer"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.preferencePages" id="prefpages">
+      <?gmfgen generated="true"?>
+      <page
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.general"
+            name="%prefpage.org.eclipse.gmf.tooling.examples.linklf.diagram.general"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.preferences.DiagramGeneralPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.appearance"
+            name="%prefpage.org.eclipse.gmf.tooling.examples.linklf.diagram.appearance"
+            category="org.eclipse.gmf.tooling.examples.linklf.diagram.general"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.preferences.DiagramAppearancePreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.connections"
+            name="%prefpage.org.eclipse.gmf.tooling.examples.linklf.diagram.connections"
+            category="org.eclipse.gmf.tooling.examples.linklf.diagram.general"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.preferences.DiagramConnectionsPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.printing"
+            name="%prefpage.org.eclipse.gmf.tooling.examples.linklf.diagram.printing"
+            category="org.eclipse.gmf.tooling.examples.linklf.diagram.general"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.preferences.DiagramPrintingPreferencePage">
+      </page>
+      <page
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.rulersAndGrid"
+            name="%prefpage.org.eclipse.gmf.tooling.examples.linklf.diagram.rulersAndGrid"
+            category="org.eclipse.gmf.tooling.examples.linklf.diagram.general"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.preferences.DiagramRulersAndGridPreferencePage">
+      </page>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
+      <?gmfgen generated="true"?>
+      <propertyContributor
+            contributorId="org.eclipse.gmf.tooling.examples.linklf.diagram"
+            labelProvider="org.eclipse.gmf.tooling.examples.linklf.diagram.sheet.LinklfSheetLabelProvider">
+         <propertyCategory category="domain"/>
+         <propertyCategory category="visual"/>
+         <propertyCategory category="extra"/>
+      </propertyContributor>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs" id="proptabs">
+      <?gmfgen generated="true"?>   
+      <propertyTabs contributorId="org.eclipse.gmf.tooling.examples.linklf.diagram">
+         <propertyTab
+             category="visual"
+             id="property.tab.AppearancePropertySection"
+             label="%tab.appearance"/>
+          <propertyTab
+             category="visual"
+             id="property.tab.DiagramPropertySection"
+             label="%tab.diagram"/>
+          <propertyTab
+             category="domain"
+             id="property.tab.domain"
+             label="%tab.domain"/>
+      </propertyTabs>
+   </extension>
+
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections" id="propsections">
+      <?gmfgen generated="true"?>   
+      <propertySections contributorId="org.eclipse.gmf.tooling.examples.linklf.diagram">
+         <propertySection id="property.section.ConnectorAppearancePropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ConnectionEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ConnectionAppearancePropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>
+         <propertySection id="property.section.ShapeColorAndFontPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.ShapeEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.ShapeColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection> 
+         <propertySection id="property.section.DiagramColorsAndFontsPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.appearance.DiagramColorsAndFontsPropertySection" 
+            tab="property.tab.AppearancePropertySection">
+         </propertySection>     
+         <propertySection id="property.section.RulerGridPropertySection" 
+            filter="org.eclipse.gmf.runtime.diagram.ui.properties.filters.DiagramEditPartPropertySectionFilter" 
+            class="org.eclipse.gmf.runtime.diagram.ui.properties.sections.grid.RulerGridPropertySection" 
+            tab="property.tab.DiagramPropertySection">
+         </propertySection>     
+         <propertySection
+            id="property.section.domain" 
+            tab="property.tab.domain"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.sheet.LinklfPropertySection">
+            <input type="org.eclipse.gmf.runtime.notation.View"/>
+            <input type="org.eclipse.gef.EditPart"/>
+            <input type="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfAbstractNavigatorItem"/>
+         </propertySection>
+      </propertySections>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders" id="view-provider">
+      <?gmfgen generated="true"?>
+      <viewProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="linklf"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2004,3001,3002,3003,3004,3005"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4001,4002"/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders" id="ep-provider">
+      <?gmfgen generated="true"?>
+      <editpartProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfEditPartProvider">
+         <Priority name="Lowest"/>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram">
+            <method name="getType()" value="linklf"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
+            <method name="getType()" value="2001,2002,2003,2004,3001,3002,3003,3004,3005"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
+            <method name="getType()" value="4001,4002"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
+            <method name="getType()" value="5002,5001"/>
+         </object>
+         <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
+            <method name="getType()" value="7001,7002"/>
+         </object>
+         <context views="generated-diagram,generated-nodes,generated-links,generated-labels,generated-compartments"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" id="modelassist-provider">
+	<?gmfgen generated="true"?>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfCanvasEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.CanvasEditPart" id="Canvas_1000"/>
+		<context elements="Canvas_1000"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfCircleEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.CircleEditPart" id="Circle_2001"/>
+		<context elements="Circle_2001"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfRectangleEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.RectangleEditPart" id="Rectangle_2002"/>
+		<context elements="Rectangle_2002"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfContainerEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.ContainerEditPart" id="Container_2003"/>
+		<context elements="Container_2003"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfRhombusEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.RhombusEditPart" id="Rhombus_2004"/>
+		<context elements="Rhombus_2004"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfCircle2EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.Circle2EditPart" id="Circle_3001"/>
+		<context elements="Circle_3001"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfContainer2EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.Container2EditPart" id="Container_3002"/>
+		<context elements="Container_3002"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfRectangle2EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.Rectangle2EditPart" id="Rectangle_3003"/>
+		<context elements="Rectangle_3003"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfRhombus2EditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.Rhombus2EditPart" id="Rhombus_3004"/>
+		<context elements="Rhombus_3004"/>
+	</modelingAssistantProvider>
+	<modelingAssistantProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.assistants.LinklfModelingAssistantProviderOfPortEditPart">
+		<Priority name="Lowest"/>
+		<object class="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.PortEditPart" id="Port_3005"/>
+		<context elements="Port_3005"/>
+	</modelingAssistantProvider>
+</extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders" id="icon-provider">
+      <?gmfgen generated="true"?>
+      <IconProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfIconProvider">
+         <Priority name="Low"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders" id="parser-provider">
+      <?gmfgen generated="true"?>
+      <ParserProvider class="org.eclipse.gmf.tooling.examples.linklf.diagram.providers.LinklfParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes" id="element-types">
+      <?gmfgen generated="true"?>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Canvas_1000"
+               name="%metatype.name.Canvas_1000"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Canvas"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.CanvasEditHelper">
+            <param name="semanticHint" value="1000"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Circle_2001"
+               name="%metatype.name.Circle_2001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Circle"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.CircleEditHelper">
+            <param name="semanticHint" value="2001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Rectangle_2002"
+               name="%metatype.name.Rectangle_2002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Rectangle"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.RectangleEditHelper">
+            <param name="semanticHint" value="2002"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Container_2003"
+               name="%metatype.name.Container_2003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Container"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.ContainerEditHelper">
+            <param name="semanticHint" value="2003"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <specializationType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Rhombus_2004"
+               name="%metatype.name.Rhombus_2004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.tooling.examples.linklf.diagram.Rhombus_3004"/>
+            <param name="semanticHint" value="2004"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <specializationType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Circle_3001"
+               name="%metatype.name.Circle_3001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.tooling.examples.linklf.diagram.Circle_2001"/>
+            <param name="semanticHint" value="3001"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <specializationType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Container_3002"
+               name="%metatype.name.Container_3002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.tooling.examples.linklf.diagram.Container_2003"/>
+            <param name="semanticHint" value="3002"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <specializationType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Rectangle_3003"
+               name="%metatype.name.Rectangle_3003"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.tooling.examples.linklf.diagram.Rectangle_2002"/>
+            <param name="semanticHint" value="3003"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Rhombus_3004"
+               name="%metatype.name.Rhombus_3004"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Rhombus"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.RhombusEditHelper">
+            <param name="semanticHint" value="3004"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Port_3005"
+               name="%metatype.name.Port_3005"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Port"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.PortEditHelper">
+            <param name="semanticHint" value="3005"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.Link_4001"
+               name="%metatype.name.Link_4001"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Link"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.LinkEditHelper">
+            <param name="semanticHint" value="4001"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://linklf.gmf.eclipse.org">
+         <metamodelType
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.LabeledLink_4002"
+               name="%metatype.name.LabeledLink_4002"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="LabeledLink"
+               edithelper="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.helpers.LabeledLinkEditHelper">
+            <param name="semanticHint" value="4002"/>
+         </metamodelType>
+      </metamodel>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
+      <?gmfgen generated="true"?>
+      <clientContext id="org.eclipse.gmf.tooling.examples.linklf.diagram.TypeContext">
+         <enablement>
+            <test
+               property="org.eclipse.gmf.runtime.emf.core.editingDomain"
+               value="org.eclipse.gmf.tooling.examples.linklf.diagram.EditingDomain"/>
+         </enablement>
+      </clientContext> 
+      <binding context="org.eclipse.gmf.tooling.examples.linklf.diagram.TypeContext">
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Canvas_1000"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Circle_2001"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Rectangle_2002"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Container_2003"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Rhombus_2004"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Circle_3001"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Container_3002"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Rectangle_3003"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Rhombus_3004"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Port_3005"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.Link_4001"/>
+         <elementType ref="org.eclipse.gmf.tooling.examples.linklf.diagram.LabeledLink_4002"/>
+         <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
+      </binding>
+   </extension>
+	   <extension point="org.eclipse.core.expressions.propertyTesters" id="navigator-proptest.isURIEditorInput">
+      <?gmfgen generated="true"?>
+      <propertyTester
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.URIEditorInputPropertyTester"
+            type="org.eclipse.emf.common.ui.URIEditorInput"
+            namespace="org.eclipse.gmf.tooling.examples.linklf.diagram"
+            properties="isURIEditorInput"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfUriEditorInputTester">
+      </propertyTester>
+   </extension>
+
+
+   <extension point="org.eclipse.ui.navigator.viewer" id="navigator-viewbinding">
+      <?gmfgen generated="true"?>
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.eclipse.gmf.tooling.examples.linklf.diagram.resourceContent"/>
+            <contentExtension pattern="org.eclipse.gmf.tooling.examples.linklf.diagram.domainResourceContent"/>
+            <contentExtension pattern="org.eclipse.gmf.tooling.examples.linklf.diagram.navigatorLinkHelper"/>
+         </includes>
+      </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.eclipse.gmf.tooling.examples.linklf.diagram.navigatorActionProvider"/>
+         </includes>
+      </viewerActionBinding>
+   </extension>
+
+   <extension point="org.eclipse.ui.navigator.navigatorContent" id="navigator-content">
+      <?gmfgen generated="true"?>
+      <navigatorContent
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.resourceContent" 
+            name="%navigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfNavigatorLabelProvider"
+            icon="icons/obj16/LinklfDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="linklf_diagram"/>
+               </and>
+               <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfAbstractNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfAbstractNavigatorItem"/>
+            </or>
+         </possibleChildren>
+         <commonSorter 
+               id="org.eclipse.gmf.tooling.examples.linklf.diagram.navigatorSorter" 
+               class="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfNavigatorSorter">
+            <parentExpression>
+               <or>
+                  <and>
+                     <instanceof value="org.eclipse.core.resources.IFile"/>
+                     <test property="org.eclipse.core.resources.extension" value="linklf_diagram"/>
+                  </and>
+                  <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfAbstractNavigatorItem"/>
+               </or>
+            </parentExpression>
+         </commonSorter>
+      </navigatorContent>
+      <navigatorContent
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.domainResourceContent" 
+            name="%domainNavigatorContentName" 
+            priority="normal" 
+            contentProvider="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfDomainNavigatorContentProvider" 
+            labelProvider="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfDomainNavigatorLabelProvider"
+            icon="icons/obj16/LinklfDiagramFile.gif"
+            activeByDefault="true">
+         <triggerPoints>
+            <or>
+               <and>
+                  <instanceof value="org.eclipse.core.resources.IFile"/>
+                  <test property="org.eclipse.core.resources.extension" value="linklf"/>
+               </and>
+               <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfDomainNavigatorItem"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfDomainNavigatorItem"/>
+         </possibleChildren>
+      </navigatorContent>
+      <actionProvider
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.navigatorActionProvider"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfNavigatorActionProvider">
+         <enablement>
+            <or>
+               <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfAbstractNavigatorItem"/>
+            </or>
+         </enablement>
+      </actionProvider>
+   </extension>
+	
+	   <extension point="org.eclipse.ui.navigator.linkHelper" id="navigator-linkhelper">
+      <?gmfgen generated="true"?>
+      <linkHelper
+            id="org.eclipse.gmf.tooling.examples.linklf.diagram.navigatorLinkHelper"
+            class="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfNavigatorLinkHelper">
+         <editorInputEnablement>
+            <and>
+               <instanceof value="org.eclipse.emf.common.ui.URIEditorInput"/>
+               <test property="org.eclipse.gmf.tooling.examples.linklf.diagram.isURIEditorInput"/>
+            </and>
+         </editorInputEnablement>
+         <selectionEnablement>
+            <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.navigator.LinklfAbstractNavigatorItem"/>
+         </selectionEnablement>
+      </linkHelper>
+   </extension>
+
+
+   <extension point="org.eclipse.ui.commands" id="update-cmd">
+      <?gmfgen generated="true"?>
+      <command
+         categoryId="org.eclipse.ui.category.edit"
+         defaultHandler="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramUpdateCommand"
+         description="%update.diagram.description"
+         id="org.eclipse.gmf.tooling.examples.linklf.diagram.updateDiagram"
+         name="%update.diagram.name"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings" id="update-cmd-binding">
+      <?gmfgen generated="true"?>
+      <key 
+         commandId="org.eclipse.gmf.tooling.examples.linklf.diagram.updateDiagram"
+         contextId="org.eclipse.gmf.tooling.examples.linklf.diagram.ui.diagramContext"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+         sequence="F5"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.menus" id="context-menus">
+      <?gmfgen generated="true"?>
+      <!-- menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=">
+      </menuContribution>
+      <menuContribution locationURI="toolbar:org.eclipse.ui.main.toolbar?after=">
+      </menuContribution -->
+      <menuContribution locationURI="popup:org.eclipse.gmf.runtime.diagram.ui.DiagramEditorContextMenu">
+         <command commandId="org.eclipse.gmf.tooling.examples.linklf.diagram.LoadResourceAction">
+            <visibleWhen>
+               <and>
+                  <with variable="activePartId"><equals value="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID"/></with>
+                  <with variable="selection"><iterate ifEmpty="false"> 
+                     <instanceof value="org.eclipse.gmf.tooling.examples.linklf.diagram.edit.parts.CanvasEditPart"/>
+                  </iterate></with>
+               </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands" id="menu-commands">
+      <?gmfgen generated="true"?>
+      <category id="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID" name="%cmdcategory.name" description="%cmdcategory.desc"/>
+      <command id="org.eclipse.gmf.tooling.examples.linklf.diagram.LoadResourceAction"
+         name="Load Resource"
+         categoryId="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LinklfDiagramEditorID"
+         defaultHandler="org.eclipse.gmf.tooling.examples.linklf.diagram.part.LoadResourceAction"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.handlers" id="menu-handlers">
+      <?gmfgen generated="true"?>
+   </extension>
+
+   <!-- optionally, specify keybindings -->
+   
+   <extension
+         id="diagramUIRenderEditPartProvider.linksLF"
+         name="Custom DiagramRootEditPartProvider for LinksLF diagram"
+         point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider
+            class="org.eclipse.gmf.tooling.runtime.linklf.router.provider.CustomRoutersDiagramRootEditPartProvider">
+         <Priority
+               name="Medium">
+         </Priority>
+         <object class="org.eclipse.gmf.runtime.notation.Diagram" id="generated-diagram-root">
+            <method name="getType()" value="linklf"/>
+         </object>
+         <context providesRootEditPart="true" views="generated-diagram-root"/>
+         <applicable-diagram type="linklf"/>
+      </editpartProvider>
+   </extension>
+   
+</plugin>
