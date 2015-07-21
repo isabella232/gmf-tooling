@@ -96,8 +96,8 @@ public class LinkLFRectilinearRouter extends RectilinearRouter2 implements
 	public void routeLine(Connection conn, int nestedRoutingDepth,
 			PointList newLine) {
 		if (nestedRoutingDepth == 0 && newLine.size() >= 2) {
-			Point sourceLoc = conn.getSourceAnchor().getReferencePoint();
-			Point targetLoc = conn.getTargetAnchor().getReferencePoint();
+			Point sourceLoc = conn.getSourceAnchor().getReferencePoint().getCopy();
+			Point targetLoc = conn.getTargetAnchor().getReferencePoint().getCopy();
 
 			conn.translateToRelative(sourceLoc);
 			conn.translateToRelative(targetLoc);
