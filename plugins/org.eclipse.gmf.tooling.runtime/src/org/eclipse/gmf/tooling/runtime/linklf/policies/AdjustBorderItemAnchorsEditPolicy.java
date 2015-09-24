@@ -189,8 +189,13 @@ public class AdjustBorderItemAnchorsEditPolicy extends
 	protected PrecisionPoint rotateAnchorLocation(ConnectionAnchor anchor,
 			int quarters) {
 		String terminal = ((BaseSlidableAnchor) anchor).getTerminal();
-		PrecisionPoint result = BaseSlidableAnchor
+		PrecisionPoint result;
+		if (terminal.length() == 0) {
+			result = new PrecisionPoint(0.5, 0.5);
+		} else {
+			result = BaseSlidableAnchor
 				.parseTerminalString(terminal);
+		}
 		for (int i = 0; i < quarters; i++) {
 			double newX = 1. - result.preciseY();
 			double newY = result.preciseX();
