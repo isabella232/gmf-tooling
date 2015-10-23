@@ -114,6 +114,11 @@ public class GenCustomPropertyTabImpl extends GenPropertyTabImpl implements GenC
 
 	public String getClassName() {
 		String rv = getClassNameGen();
+		
+		//Fix for 480502
+		if(getSheet() == null || getSheet().getEditorGen() == null)
+			return rv;
+		
 		if (rv == null || rv.trim().length() == 0) {
 			return ((GenEditorGeneratorImpl) getSheet().getEditorGen()).getDomainModelCapName() + "PropertySection";
 		}
