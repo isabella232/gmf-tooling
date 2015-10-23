@@ -174,6 +174,12 @@ public abstract class ElementTypeImpl extends EObjectImpl implements ElementType
 
 	public String getUniqueIdentifier() {
 		String value = getUniqueIdentifierGen();
+		
+		if(getDiagramElement() == null || getDiagramElement().getDiagram() == null
+				|| getDiagramElement().getDiagram().getEditorGen() == null
+				|| getDiagramElement().getDiagram().getEditorGen().getPlugin() == null)
+			return value;
+		
 		if (GenCommonBaseImpl.isEmpty(value)) {
 			value = getDiagramElement().getDiagram().getEditorGen().getPlugin().getID() + '.' + getDiagramElement().getUniqueIdentifier();
 		}

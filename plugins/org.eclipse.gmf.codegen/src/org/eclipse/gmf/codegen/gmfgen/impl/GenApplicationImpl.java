@@ -281,7 +281,8 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 
 	public String getID() {
 		String value = getIDGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
+		
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getModelID().replace(" ", "") + "Application"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return value;
@@ -310,7 +311,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 
 	public String getTitle() {
 		String value = getTitleGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getModelID() + " Application";
 		}
 		return value;
@@ -339,7 +340,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 
 	public String getPackageName() {
 		String value = getPackageNameGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".application"; //$NON-NLS-1$
 		}
 		return value;
@@ -433,7 +434,7 @@ public class GenApplicationImpl extends EObjectImpl implements GenApplication {
 
 	public String getPerspectiveId() {
 		String value = getPerspectiveIdGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + '.' + getEditorGen().getModelID() + "Perspective"; //$NON-NLS-1$
 		}
 		return value;

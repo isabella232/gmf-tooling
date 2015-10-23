@@ -183,7 +183,7 @@ public class GenPropertySheetImpl extends EObjectImpl implements GenPropertyShee
 
 	public String getPackageName() {
 		String name = getPackageNameGen();
-		if (name == null || name.trim().length() == 0) {
+		if (name == null || name.trim().length() == 0 && getEditorGen() != null) {
 			return getEditorGen().getPackageNamePrefix() + ".sheet";
 		}
 		return name;

@@ -124,7 +124,7 @@ public class GenExpressionProviderContainerImpl extends EObjectImpl implements G
 	 */
 	public String getExpressionsPackageName() {
 		String value = getExpressionsPackageNameGen();
-		if(GenCommonBaseImpl.isEmpty(value)) {
+		if(GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".expressions"; //$NON-NLS-1$
 		}
 		return value;

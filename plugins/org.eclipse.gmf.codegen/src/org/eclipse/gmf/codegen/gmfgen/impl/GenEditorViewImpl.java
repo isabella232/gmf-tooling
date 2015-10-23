@@ -229,7 +229,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 
 	public String getPackageName() {
 		String value = getPackageNameGen();
-		if (value == null) {
+		if (value == null && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".part";
 		}
 		return value;
@@ -318,7 +318,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	public String getIconPath() {
 		String value = getIconPathGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
-			if (getEditorGen().getDiagram() != null) {
+			if (getEditorGen() != null && getEditorGen().getDiagram() != null) {
 				return getEditorGen().getDiagram().getCreationWizardIconPath();
 			} else {
 				return createDefaultIconPath();
@@ -418,7 +418,7 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	
 	public String getContextID() {
 		String value = getContextIDGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".ui.diagramContext"; //$NON-NLS-1$
 		}
 		return value;

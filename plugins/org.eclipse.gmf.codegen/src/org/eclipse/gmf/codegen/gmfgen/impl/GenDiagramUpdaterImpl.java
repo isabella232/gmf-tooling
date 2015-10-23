@@ -291,7 +291,7 @@ public class GenDiagramUpdaterImpl extends EObjectImpl implements GenDiagramUpda
 	
 	public String getUpdateCommandID() {
 		String value = getUpdateCommandIDGen();
-		if (GenCommonBaseImpl.isEmpty(value)) {
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".updateDiagram"; //$NON-NLS-1$
 		}
 		return value;

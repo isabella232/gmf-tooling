@@ -221,7 +221,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		String value = getIDGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
 			String prefix = "design"; //$NON-NLS-1$
-			if (getEditorGen().getDomainGenModel() != null) {
+			if (getEditorGen() != null && getEditorGen().getDomainGenModel() != null) {
 				prefix = getEditorGen().getDomainGenModel().getModelPluginID();
 			}
 			if (prefix == null) {
@@ -443,7 +443,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	}
 
 	private Set<String> getExpressionsRequiredPluginIDs() {
-		if(getEditorGen().getExpressionProviders() != null) {
+		if(getEditorGen() != null && getEditorGen().getExpressionProviders() != null) {
 			for (GenExpressionProviderBase nextProvider : getEditorGen().getExpressionProviders().getProviders()) {
 				if (nextProvider.getLanguage() == GenLanguage.OCL_LITERAL);
 				return Collections.singleton("org.eclipse.ocl.ecore"); //$NON-NLS-1$
@@ -475,7 +475,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 			HashSet<String> pluginIDs = new HashSet<String>();			
 			pluginIDs.add("org.eclipse.emf.validation"); //$NON-NLS-1$
 
-			if(getEditorGen().getAudits() != null) {
+			if(getEditorGen() != null && getEditorGen().getAudits() != null) {
 				// OCL constraint parser is part of separate feature/plugin: org.eclipse.emf.validation.ocl, need to refer to it explicitly 
 				for (GenAuditRule ar : getEditorGen().getAudits().getRules()) {
 					GenConstraint constraint = ar.getRule();
@@ -494,7 +494,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	}
 	
 	private Set<String> getMetricsRequiredPluginIDs() {
-		if(getEditorGen().getMetrics() != null) {
+		if(getEditorGen() != null && getEditorGen().getMetrics() != null) {
 			HashSet<String> pluginIDs = new HashSet<String>();
 			collectGenPackagesRequiredPluginIDs(getEditorGen().getMetrics().getAllTargetedModelPackages(), pluginIDs);
 			return pluginIDs;

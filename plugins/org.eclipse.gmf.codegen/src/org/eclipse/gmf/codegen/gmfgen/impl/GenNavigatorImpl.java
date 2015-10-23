@@ -591,7 +591,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 
 	public String getContentExtensionID() {
 		String value = getContentExtensionIDGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPlugin().getID() + ".resourceContent";
 		}
 		return value;
@@ -679,7 +679,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 
 	public String getLinkHelperExtensionID() {
 		String value = getLinkHelperExtensionIDGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPlugin().getID() + ".navigatorLinkHelper";
 		}
 		return value;
@@ -709,7 +709,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 
 	public String getSorterExtensionID() {
 		String value = getSorterExtensionIDGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPlugin().getID() + ".navigatorSorter";
 		}
 		return value;
@@ -738,7 +738,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 
 	public String getActionProviderID() {
 		String value = getActionProviderIDGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPlugin().getID() + ".navigatorActionProvider";
 		}
 		return value;
@@ -1028,7 +1028,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 
 	public String getPackageName() {
 		String value = getPackageNameGen();
-		if (value == null) {
+		if (value == null && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".navigator";
 		}
 		return value;
@@ -1078,7 +1078,7 @@ public class GenNavigatorImpl extends EObjectImpl implements GenNavigator {
 	
 	public String getDomainContentExtensionID() {
 		String value = getDomainContentExtensionIDGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPlugin().getID() + ".domainResourceContent";
 		}
 		return value;

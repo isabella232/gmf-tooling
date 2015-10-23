@@ -111,6 +111,12 @@ public class CustomTabFilterImpl extends EObjectImpl implements CustomTabFilter 
 		if (s != null && s.indexOf('.') != -1) {
 			return s;
 		}
+		
+		if (getTab() == null || getTab().getSheet() == null 
+				|| getTab().getSheet().getEditorGen() == null
+				|| getTab().getSheet().getEditorGen().getEditor() == null)
+			return s;
+		
 		return getTab().getSheet().getEditorGen().getEditor().getPackageName() + '.' + s;
 	}
 

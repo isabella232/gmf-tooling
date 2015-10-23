@@ -121,7 +121,8 @@ public class TypeTabFilterImpl extends EObjectImpl implements TypeTabFilter {
 		result.addAll(getTypes());
 		if (getGeneratedTypes().size() > 0) {
 			for (GeneratedType nextGeneratedType : getGeneratedTypes()) {
-				if (nextGeneratedType == GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL) {
+				if (getTab() != null && getTab().getSheet() != null && getTab().getSheet().getEditorGen() != null 
+						&& nextGeneratedType == GeneratedType.ABSTRACT_NAVIGATOR_ITEM_LITERAL) {
 					GenNavigator navigator = getTab().getSheet().getEditorGen().getNavigator();
 					if (navigator != null) {
 						result.add(navigator.getAbstractNavigatorItemQualifiedClassName());	

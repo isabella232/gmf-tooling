@@ -1717,7 +1717,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditCommandsPackageName() {
 		String value = getEditCommandsPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".edit.commands";
 		}
 		return value;
@@ -1746,7 +1746,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditHelpersPackageName() {
 		String value = getEditHelpersPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".edit.helpers";
 		}
 		return value;
@@ -1775,7 +1775,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditPartsPackageName() {
 		String value = getEditPartsPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".edit.parts";
 		}
 		return value;
@@ -1804,7 +1804,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditPoliciesPackageName() {
 		String value = getEditPoliciesPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".edit.policies";
 		}
 		return value;
@@ -1833,7 +1833,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getPreferencesPackageName() {
 		String value = getPreferencesPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".preferences";
 		}
 		return value;
@@ -2051,7 +2051,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditingDomainID() {
 		String value = getEditingDomainIDGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPlugin().getID() + ".EditingDomain"; //$NON-NLS-1$
 		}
 		return value;
@@ -2472,7 +2472,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getProvidersPackageName() {
 		String value = getProvidersPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".providers";
 		}
 		return value;
@@ -2501,7 +2501,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getParsersPackageName() {
 		String value = getParsersPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".parsers";
 		}
 		return value;
@@ -2530,7 +2530,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getNotationViewFactoriesPackageName() {
 		String value = getNotationViewFactoriesPackageNameGen();
-		if (isEmpty(value)) {
+		if (isEmpty(value) && getEditorGen() != null) {
 			value = getEditorGen().getPackageNamePrefix() + ".view.factories";
 		}
 		return value;
@@ -3083,7 +3083,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (!REUSE_ICON_VALUE.equalsIgnoreCase(value)) {
 			return value;
 		}
-		if (getDomainDiagramElement() != null) {
+		if (getDomainDiagramElement() != null && getEditorGen() != null) {
 			GenPackage domainMetaModel = getDomainDiagramElement().getGenPackage();
 			return "../" + getEditorGen().getDomainGenModel().getEditorPluginID() + "/icons/full/obj16/" + domainMetaModel.getPrefix() + "ModelFile.gif";
 		} else {
