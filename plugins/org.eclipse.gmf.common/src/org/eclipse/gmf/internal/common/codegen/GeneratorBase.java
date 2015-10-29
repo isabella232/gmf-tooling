@@ -52,7 +52,6 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
@@ -65,6 +64,8 @@ import org.eclipse.text.edits.TextEdit;
 public abstract class GeneratorBase implements Runnable {
 
 	private CodeFormatter myCodeFormatter;
+
+	private final CodeFormatterFactory myCodeFormatterFactory;
 
 	private OrganizeImportsPostprocessor myImportsPostprocessor;
 
@@ -88,6 +89,11 @@ public abstract class GeneratorBase implements Runnable {
 	protected abstract void setupProgressMonitor();
 
 	public GeneratorBase() {
+		this(CodeFormatterFactory.DEFAULT);
+	}
+
+	public GeneratorBase(CodeFormatterFactory codeFormatterFactory) {
+		myCodeFormatterFactory = codeFormatterFactory;
 		myExceptions = new LinkedList<IStatus>();
 	}
 
@@ -529,7 +535,7 @@ public abstract class GeneratorBase implements Runnable {
 
 	private CodeFormatter getCodeFormatter() {
 		if (myCodeFormatter == null) {
-			myCodeFormatter = ToolFactory.createCodeFormatter(null);
+			myCodeFormatter = myCodeFormatterFactory.createCodeFormatter();
 		}
 		return myCodeFormatter;
 	}

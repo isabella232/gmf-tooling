@@ -3,6 +3,7 @@ package org.eclipse.gmf.codegen.xtend.ui.handlers;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.common.codegen.CodeFormatterFactory;
 
 public class GeneratorWithXtend2 extends Generator {
 
@@ -13,7 +14,11 @@ public class GeneratorWithXtend2 extends Generator {
 	}
 
 	public GeneratorWithXtend2(GenEditorGenerator genModel, CodegenEmittersWithXtend2 codegenEmitters) {
-		super(genModel, codegenEmitters);
+		this(genModel, codegenEmitters, CodeFormatterFactory.DEFAULT);
+	}
+
+	public GeneratorWithXtend2(GenEditorGenerator genModel, CodegenEmittersWithXtend2 codegenEmitters, CodeFormatterFactory codeFormatterFactory) {
+		super(genModel, codegenEmitters, codeFormatterFactory);
 		myEmitters = codegenEmitters;
 	}
 

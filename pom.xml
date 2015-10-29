@@ -240,4 +240,12 @@
         </pluginRepository>
     </pluginRepositories>
 
+	<repositories>
+				<repository>
+			<id>tmf-xtext</id>
+			<layout>p2</layout>
+			<!-- updateFrom("Xtext, Xtend",0) -->
+			<url>http://download.eclipse.org/modeling/tmf/xtext/updates/milestones/head/I201509281643/</url>
+		</repository>
+	</repositories>
 </project>

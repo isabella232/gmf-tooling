@@ -85,6 +85,7 @@ import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.gmfgen.StandardPreferencePages;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.internal.common.codegen.CodeFormatterFactory;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 import org.eclipse.gmf.internal.common.codegen.JavaClassEmitter;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
@@ -113,14 +114,23 @@ public class Generator extends GeneratorBase implements Runnable {
 		this(genModel, emitters, new BinaryEmitters());
 	}
 
+	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters, CodeFormatterFactory codeFormatterFactory) {
+		this(genModel, emitters, new BinaryEmitters(), codeFormatterFactory);
+	}
+
 	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters, BinaryEmitters binaryEmitters) { 
+		this(genModel, emitters, binaryEmitters, CodeFormatterFactory.DEFAULT);
+	}
+
+	public Generator(GenEditorGenerator genModel, CodegenEmitters emitters, BinaryEmitters binaryEmitters, CodeFormatterFactory codeFormatterFactory) {
+		super(codeFormatterFactory);
 		assert genModel != null && emitters != null;
 		myEditorGen = genModel;
 		myDiagram = genModel.getDiagram();
 		myEmitters = emitters;
 		myBinaryEmmiters = binaryEmitters;
 	}
-	
+
 	@Override
 	protected TextMerger createMergeService() {
 		TextMerger service = myEmitters.createMergeService();

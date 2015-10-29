@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.gmf.tooling.codegen.launcher;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-Activator: org.eclipse.gmf.tooling.codegen.launcher.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui.workbench,
+ org.eclipse.pde.launching,
+ org.eclipse.debug.core,
+ org.eclipse.gmf.common,
+ org.eclipse.gmf.codegen,
+ org.eclipse.jdt.core,
+ org.eclipse.gmf.codegen.xtend.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin
+

@@ -60,6 +60,7 @@
 		<module>org.eclipse.gmf.xpand.migration</module>
 		<module>org.eclipse.gmf.xpand.qvtlibrary</module>
 
+		<module>org.eclipse.gmf.tooling.codegen.launcher</module>
 		<module>org.eclipse.gmf.tooling.runtime</module>
 		
 		<module>org.eclipse.gmf.tooling.simplemap.bridge.ui</module>
