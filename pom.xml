@@ -24,9 +24,9 @@
     </prerequisites>
 
     <properties>
-        <tycho-version>0.19.0</tycho-version>
+        <tycho-version>0.23.1</tycho-version>
         <jar-signer-version>1.0.4</jar-signer-version>
-        <xtend-version>2.5.0</xtend-version>
+        <xtend-version>2.7.3</xtend-version>
         <base-composite-path>/home/data/httpd/download.eclipse.org/modeling/gmp/gmf-tooling/updates/</base-composite-path>
         <composite-path>${base-composite-path}dev-snapshots/3.3/</composite-path>
         <publish-path>${composite-path}${buildQualifier}</publish-path>
@@ -149,6 +149,11 @@
                     <id>orbit for Mars R</id>
                     <layout>p2</layout>
 					<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20150519210750/repository/</url>
+                </repository>
+                <repository>
+                    <id>xtext</id>
+                    <layout>p2</layout>
+                    <url>http://download.eclipse.org/modeling/tmf/xtext/updates/composite/milestones/</url>
                 </repository>
             </repositories>
         </profile>

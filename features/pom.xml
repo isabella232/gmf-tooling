@@ -26,9 +26,9 @@
 		<!-- features -->
 		<module>org.eclipse.gmf.doc-feature</module>
 		<!-- module>org.eclipse.gmf.europa-feature</module> 
-		<module>org.eclipse.gmf.platform-feature</module-->
+		<module>org.eclipse.gmf.platform-feature</module>
 		<module>org.eclipse.gmf.sdk.experimental.source-feature</module>
-		<module>org.eclipse.gmf.sdk.experimental-feature</module>
+		<module>org.eclipse.gmf.sdk.experimental-feature</module-->
 		<module>org.eclipse.gmf.sdk-feature</module>
 		<module>org.eclipse.gmf.tooling.source-feature</module>
 		<module>org.eclipse.gmf.tooling-feature</module>

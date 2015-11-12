@@ -36,8 +36,8 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.validate" version="1.1.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.codegen" version="2.0.0" match="compatible"/>
       <import plugin="org.eclipse.gmf.graphdef" version="2.0.0" match="compatible"/>
-      <import plugin="org.eclipse.xtext" version="2.3.1" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.builder" version="2.3.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext" version="2.9.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.builder" version="2.9.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtend.lib"/>
       <import plugin="org.eclipse.ocl.ecore"/>
       <import plugin="com.google.guava"/>

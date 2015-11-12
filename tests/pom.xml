@@ -25,9 +25,9 @@
 	<modules>
 		<module>org.eclipse.gmf.tests</module>
 		<module>org.eclipse.gmf.tooling.tests.xtend</module>
-		<module>org.eclipse.gmf.tests.lite</module>
+		<!--module>org.eclipse.gmf.tests.lite</module>
 		<module>org.eclipse.gmf.tests.xpand</module>
-		<module>org.eclipse.gmf.tests.xpand.migration</module>
+		<module>org.eclipse.gmf.tests.xpand.migration</module-->
 	</modules>
 	
 	<profiles>
