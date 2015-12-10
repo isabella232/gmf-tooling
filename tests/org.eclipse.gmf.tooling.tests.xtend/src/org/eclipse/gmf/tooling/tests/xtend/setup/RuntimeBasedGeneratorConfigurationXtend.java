@@ -13,8 +13,8 @@ package org.eclipse.gmf.tooling.tests.xtend.setup;
 
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.xtend.ui.handlers.CodegenEmittersWithXtend2;
-import org.eclipse.gmf.codegen.xtend.ui.handlers.GeneratorWithXtend2;
+import org.eclipse.gmf.codegen.util.CodegenEmittersWithXtend2;
+import org.eclipse.gmf.codegen.util.GeneratorWithXtend2;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 
 public class RuntimeBasedGeneratorConfigurationXtend extends org.eclipse.gmf.tests.setup.RuntimeBasedGeneratorConfiguration {

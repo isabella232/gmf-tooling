@@ -6,13 +6,12 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
 Bundle-Activator: org.eclipse.gmf.tooling.codegen.launcher.Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui.workbench,
  org.eclipse.pde.launching,
  org.eclipse.debug.core,
  org.eclipse.gmf.common,
  org.eclipse.gmf.codegen,
  org.eclipse.jdt.core,
- org.eclipse.gmf.codegen.xtend.ui
+ org.eclipse.gmf.codegen.xtend
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin

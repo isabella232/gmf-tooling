@@ -20,11 +20,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.gmf.internal.common.Activator;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -38,7 +41,6 @@ import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.rewrite.ImportRewrite;
-import org.eclipse.jdt.ui.PreferenceConstants;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
@@ -387,4 +389,32 @@ public class OrganizeImportsPostprocessor {
 		return result;
 	}
 
+	/**
+	 * org.eclipse.gmf.common should not depend on org.eclipse.jdt.ui
+	 */
+	private static class PreferenceConstants {
+
+		public static final String JDT_UI = "org.eclipse.jdt.ui"; //$NON-NLS-1$
+
+		public static final String ORGIMPORTS_IMPORTORDER= "org.eclipse.jdt.ui.importorder"; //$NON-NLS-1$
+
+		public static final String ORGIMPORTS_ONDEMANDTHRESHOLD= "org.eclipse.jdt.ui.ondemandthreshold"; //$NON-NLS-1$
+
+		public static final String ORGIMPORTS_STATIC_ONDEMANDTHRESHOLD= "org.eclipse.jdt.ui.staticondemandthreshold"; //$NON-NLS-1$
+
+		public static String getPreference(String key, IJavaProject project) {
+			String val;
+			if (project != null) {
+				val= new ProjectScope(project.getProject()).getNode(JDT_UI).get(key, null);
+				if (val != null) {
+					return val;
+				}
+			}
+			val= InstanceScope.INSTANCE.getNode(JDT_UI).get(key, null);
+			if (val != null) {
+				return val;
+			}
+			return DefaultScope.INSTANCE.getNode(JDT_UI).get(key, null);
+		}
+	}
 }

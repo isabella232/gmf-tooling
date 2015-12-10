@@ -1,7 +1,8 @@
 package org.eclipse.gmf.codegen.xtend.ui;
 
-import org.eclipse.xtext.service.AbstractGenericModule;
-
-public class GMFGeneratorUIModule extends AbstractGenericModule {
+/**
+ * Use {@link org.eclipse.gmf.codegen.util.GMFGeneratorUIModule}
+ */
+public class GMFGeneratorUIModule extends org.eclipse.gmf.codegen.util.GMFGeneratorUIModule {
 
 }

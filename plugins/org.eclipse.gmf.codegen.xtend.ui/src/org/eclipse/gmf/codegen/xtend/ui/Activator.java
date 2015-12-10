@@ -1,6 +1,7 @@
 package org.eclipse.gmf.codegen.xtend.ui;
 
 import org.eclipse.gmf.codegen.util.GMFGeneratorModule;
+import org.eclipse.gmf.codegen.util.GMFGeneratorUIModule;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.util.Modules2;
 import org.osgi.framework.BundleContext;

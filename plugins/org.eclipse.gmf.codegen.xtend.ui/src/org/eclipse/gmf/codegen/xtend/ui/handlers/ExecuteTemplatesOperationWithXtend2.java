@@ -1,5 +1,6 @@
 package org.eclipse.gmf.codegen.xtend.ui.handlers;
 
+import org.eclipse.gmf.codegen.util.GeneratorWithXtend2;
 import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesOperation;
 import org.eclipse.gmf.internal.common.codegen.GeneratorBase;
 

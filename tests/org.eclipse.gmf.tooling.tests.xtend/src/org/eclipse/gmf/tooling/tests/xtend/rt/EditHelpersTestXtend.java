@@ -40,7 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.MetamodelType;
 import org.eclipse.gmf.codegen.gmfgen.SpecializationType;
 import org.eclipse.gmf.codegen.util.GMFGeneratorModule;
-import org.eclipse.gmf.codegen.xtend.ui.handlers.Xtend2Emitter;
+import org.eclipse.gmf.codegen.util.Xtend2Emitter;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.internal.common.codegen.TextEmitter;
 import org.eclipse.gmf.mappings.Constraint;
