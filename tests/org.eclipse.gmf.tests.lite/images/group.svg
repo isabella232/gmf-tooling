@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg
-		version="1.0"
-		xmlns="http://www.w3.org/2000/svg"
-		xmlns:xlink="http://www.w3.org/1999/xlink"
-		contentScriptType="text/ecmascript"
-		contentStyleType="text/css"
-		width="60px"
-		height="60px"
-		zoomAndPan="magnify"
-		preserveAspectRatio="xMidYMid meet">
-    <circle cx="29" cy="29" r="29" stroke="red" fill="none"/>
-    <rect x="20" y="20" width="19" height="19" stroke="blue" fill="red"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="60" contentScriptType="text/ecmascript" contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" version="1.0" zoomAndPan="magnify"><circle cx="29" cy="29" r="29" fill="none" stroke="red"/><rect width="19" height="19" x="20" y="20" fill="red" stroke="#00f"/></svg>
